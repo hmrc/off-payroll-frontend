@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .*
 
 !.gitignore
@@ -33,3 +34,26 @@ test-result
 tmp
 .idea_modules
 bin
+=======
+
+logs
+project/project
+project/target
+target
+lib_managed
+tmp
+.history
+dist
+/.idea
+/*.iml
+/*.ipr
+/out
+/.idea_modules
+/.classpath
+/.project
+/RUNNING_PID
+/.settings
+*.iws
+
+    
+>>>>>>> f37434aa8b3c8e034c2e51a4dc2a463e1fd035ed
