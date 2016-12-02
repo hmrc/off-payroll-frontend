@@ -1,3 +1,4 @@
 # microservice specific routes
 
 GET        /hello-world             uk.gov.hmrc.offpayroll.controllers.HelloWorld.helloWorld
+POST    /hello-world                uk.gov.hmrc.offpayroll.controllers.HelloWorld.helloWorldSubmit
