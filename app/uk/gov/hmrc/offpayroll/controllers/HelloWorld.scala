@@ -32,10 +32,11 @@ object HelloWorld extends HelloWorld
 trait HelloWorld extends FrontendController {
 
 
-  val begin = Action.async { implicit request =>
+  def begin(clusterID: Int) = Action.async { implicit request =>
     //get the first question page from the webflow
 
-    val element = OffPayrollWebflow.clusters(0).clusterElements(0)
+    // @TODO need to deal with zero indexing
+    val element = OffPayrollWebflow.clusters(clusterID).clusterElements(0)
 
     val userForm = Form (
       single(
@@ -43,47 +44,54 @@ trait HelloWorld extends FrontendController {
       )
     )
 
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(userForm,element.questionTag)))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(userForm,element)))
   }
+
+  def getElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
+    //get the first question page from the webflow
+
+    val element = OffPayrollWebflow.clusters(clusterID).clusterElements(elementID)
+
+    val userForm = Form (
+      single(
+        element.questionTag -> boolean
+      )
+    )
+
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(userForm,element)))
+  }
+
+  def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
+    //get the first question page from the webflow
+
+    val element = OffPayrollWebflow.clusters(clusterID).clusterElements(elementID)
+
+    val userForm = Form (
+      single(
+        element.questionTag -> boolean
+      )
+    )
+
+    Future.successful(userForm.bindFromRequest.fold(
+      formWithErrors => {
+        // binding failure, you retrieve the form containing errors:
+        BadRequest(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(formWithErrors, element))
+      },
+      value => {
+        /* Hardcode of the next element here this will be dynamic */
+        Redirect(uk.gov.hmrc.offpayroll.controllers.routes.HelloWorld.getElement(clusterID, elementID +1))
+          .flashing(request.flash + (element.questionTag -> String.valueOf(value)))
+          .withSession(request.session + (element.questionTag -> String.valueOf(value)))
+
+      }
+    ))
+  }
+
+
 
   val stepSuccess = Action.async { implicit request =>
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))
   }
 
-  val helloWorld = Action.async { implicit request =>
-    val userForm = Form(
-      single(
-        "personalService.workerSentActualSubstitiute" -> boolean
 
-      )
-    )
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.hello_world(userForm)))
-  }
-
-  val helloWorldSubmit = Action.async { implicit request =>
-    val userForm = Form(
-      single(
-        "personalService.workerSentActualSubstitiute" -> boolean
-
-      )
-    )
-    Future.successful(userForm.bindFromRequest.fold(
-      formWithErrors => {
-        // binding failure, you retrieve the form containing errors:
-        BadRequest(uk.gov.hmrc.offpayroll.views.html.helloworld.hello_world(formWithErrors))
-      },
-      value => {
-        /* binding success, you get the actual value. */
-        Redirect(uk.gov.hmrc.offpayroll.controllers.routes.HelloWorld.stepSuccess())
-          .flashing(request.flash + ("personalService.workerSentActualSubstitiute" -> String.valueOf(value)))
-          .withSession(request.session + (""-> String.valueOf(value)))
-
-
-
-//        Ok("value: " + value).flashing(
-//          request.flash + ("personalService.workerSentActualSubstitiute" -> String.valueOf(value)))
-      }
-    ))
-
-  }
 }

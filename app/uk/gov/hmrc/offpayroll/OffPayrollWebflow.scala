@@ -23,9 +23,15 @@ package uk.gov.hmrc.offpayroll
   *
   */
 
-abstract class Cluster extends QuestionTypes{
+
+object ElementType extends Enumeration {
+  val RADIO = Value("radio")
+}
+
+abstract class Cluster {
 
   def clusterElements: List[Element]
+  def clusterID: Int
 
 }
 
@@ -37,27 +43,34 @@ object OffPayrollWebflow extends OffPayrollWebflow {
 
 
   object PersonalService extends Cluster {
+
+    override def clusterID: Int = 0
+
     override def clusterElements =
       List(
-        Element("personalService.workerSentActualSubstitiute", RADIO, 1),
-        Element("personalService.contractrualObligationForSubstitute", RADIO, 2),
-        Element("personalService.possibleSubstituteRejection", RADIO, 3),
-        Element("personalService.contractualRightForSubstitute", RADIO, 4),
-        Element("personalService.workerPayActualHelper", RADIO, 5),
-        Element("personalService.engagerArrangeWorker", RADIO, 6),
-        Element("personalService.contractTermsWorkerPaysSubstitute", RADIO, 7),
-        Element("personalService.workerSentActualHelper", RADIO, 8),
-        Element("personalService.possibleHelper", RADIO, 9)
+        Element("personalService.workerSentActualSubstitiute", ElementType.RADIO, 1, this),
+        Element("personalService.contractrualObligationForSubstitute", ElementType.RADIO, 2, this),
+        Element("personalService.possibleSubstituteRejection", ElementType.RADIO, 3, this),
+        Element("personalService.contractualRightForSubstitute", ElementType.RADIO, 4, this),
+        Element("personalService.workerPayActualHelper", ElementType.RADIO, 5, this),
+        Element("personalService.engagerArrangeWorker", ElementType.RADIO, 6, this),
+        Element("personalService.contractTermsWorkerPaysSubstitute", ElementType.RADIO, 7, this),
+        Element("personalService.workerSentActualHelper", ElementType.RADIO, 8, this),
+        Element("personalService.possibleHelper", ElementType.RADIO, 9, this)
     )
+
   }
 
 }
 
-case class Element(questionTag: String, _type: String, order: Int)
+
+case class Element(questionTag: String, elementType: _root_.uk.gov.hmrc.offpayroll.ElementType.Value, order: Int, clusterParent: Cluster) {
+
+}
 
 
 sealed trait QuestionTypes {
-  val RADIO: String = "radio"
+
 }
 
 

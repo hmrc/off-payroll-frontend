@@ -1,23 +1,28 @@
 
 @import uk.gov.hmrc.play.views.html.helpers
+@import uk.gov.hmrc.offpayroll.Element
+@import uk.gov.hmrc.offpayroll.ElementType
 
 
-@(f:Form[_], tag:String)(implicit request: Request[_], messages: Messages, flash: Flash)
+@(f:Form[_], element:Element)(implicit request: Request[_], messages: Messages, flash: Flash)
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Hello from off-payroll-frontend", bodyClasses = None) {
-    <h1>@Messages(tag)</h1>
+    <h1>@Messages(element.questionTag)</h1>
 
+    @* The value of the current Cluster and Element is hard coded here needs to be passed from the controller *@
+    @helpers.form(routes.HelloWorld.processElement(element.clusterParent.clusterID, element.order)) {
 
-    @helpers.form(routes.HelloWorld.helloWorldSubmit()) {
-
+        @if(element.elementType == ElementType.RADIO ) {
         <label>
-            <input type="radio" name="personalService.workerSentActualSubstitiute" value="true" />
+            <input type="radio" name="@element.questionTag" value="true" />
             Yes
         </label>
         <label>
-            <input type="radio" name="personalService.workerSentActualSubstitiute" value="false" />
+            <input type="radio" name="@element.questionTag" value="false" />
             No
         </label>
+
+        }
         <button>submit</button>
 
 
