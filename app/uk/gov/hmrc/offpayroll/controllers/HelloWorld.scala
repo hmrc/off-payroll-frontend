@@ -24,12 +24,27 @@ import play.api.Play.current
 import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
+import uk.gov.hmrc.offpayroll.OffPayrollWebflow
 
 
 object HelloWorld extends HelloWorld
 
 trait HelloWorld extends FrontendController {
 
+
+  val begin = Action.async { implicit request =>
+    //get the first question page from the webflow
+
+    val element = OffPayrollWebflow.clusters(0).clusterElements(0)
+
+    val userForm = Form (
+      single(
+        element.questionTag -> boolean
+      )
+    )
+
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(userForm,element.questionTag)))
+  }
 
   val stepSuccess = Action.async { implicit request =>
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))

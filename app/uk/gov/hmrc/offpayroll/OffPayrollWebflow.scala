@@ -1,3 +1,19 @@
+/*
+ * Copyright 2016 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package uk.gov.hmrc.offpayroll
 
 
@@ -7,7 +23,11 @@ package uk.gov.hmrc.offpayroll
   *
   */
 
-abstract class Cluster extends QuestionTypes
+abstract class Cluster extends QuestionTypes{
+
+  def clusterElements: List[Element]
+
+}
 
 abstract class OffPayrollWebflow
 
@@ -17,23 +37,23 @@ object OffPayrollWebflow extends OffPayrollWebflow {
 
 
   object PersonalService extends Cluster {
-    val clusterElements: List[Question] = List(
-      Question("personalService.workerSentActualSubstitiute", RADIO, 1),
-      Question("personalService.contractrualObligationForSubstitute", RADIO, 2),
-      Question("personalService.possibleSubstituteRejection", RADIO, 3),
-      Question("personalService.contractualRightForSubstitute", RADIO, 4),
-      Question("personalService.workerPayActualHelper", RADIO, 5),
-      Question("personalService.engagerArrangeWorker", RADIO, 6),
-      Question("personalService.contractTermsWorkerPaysSubstitute", RADIO, 7),
-      Question("personalService.workerSentActualHelper", RADIO, 8),
-      Question("personalService.possibleHelper", RADIO, 9)
+    override def clusterElements =
+      List(
+        Element("personalService.workerSentActualSubstitiute", RADIO, 1),
+        Element("personalService.contractrualObligationForSubstitute", RADIO, 2),
+        Element("personalService.possibleSubstituteRejection", RADIO, 3),
+        Element("personalService.contractualRightForSubstitute", RADIO, 4),
+        Element("personalService.workerPayActualHelper", RADIO, 5),
+        Element("personalService.engagerArrangeWorker", RADIO, 6),
+        Element("personalService.contractTermsWorkerPaysSubstitute", RADIO, 7),
+        Element("personalService.workerSentActualHelper", RADIO, 8),
+        Element("personalService.possibleHelper", RADIO, 9)
     )
   }
 
 }
 
-
-case class Question(questionTag: String, _type: String, order: Int)
+case class Element(questionTag: String, _type: String, order: Int)
 
 
 sealed trait QuestionTypes {

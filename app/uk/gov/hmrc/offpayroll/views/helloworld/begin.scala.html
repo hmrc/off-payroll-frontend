@@ -1,0 +1,27 @@
+
+@import uk.gov.hmrc.play.views.html.helpers
+
+
+@(f:Form[_], tag:String)(implicit request: Request[_], messages: Messages, flash: Flash)
+@import uk.gov.hmrc.offpayroll.controllers.routes
+@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Hello from off-payroll-frontend", bodyClasses = None) {
+    <h1>@Messages(tag)</h1>
+
+
+    @helpers.form(routes.HelloWorld.helloWorldSubmit()) {
+
+        <label>
+            <input type="radio" name="personalService.workerSentActualSubstitiute" value="true" />
+            Yes
+        </label>
+        <label>
+            <input type="radio" name="personalService.workerSentActualSubstitiute" value="false" />
+            No
+        </label>
+        <button>submit</button>
+
+
+
+    }
+
+}
