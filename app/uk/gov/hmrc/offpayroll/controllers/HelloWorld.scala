@@ -30,6 +30,11 @@ object HelloWorld extends HelloWorld
 
 trait HelloWorld extends FrontendController {
 
+
+  val stepSuccess = Action.async { implicit request =>
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))
+  }
+
   val helloWorld = Action.async { implicit request =>
     val userForm = Form(
       single(
@@ -54,7 +59,14 @@ trait HelloWorld extends FrontendController {
       },
       value => {
         /* binding success, you get the actual value. */
-        Ok("value: " + value)
+        Redirect(uk.gov.hmrc.offpayroll.controllers.routes.HelloWorld.stepSuccess())
+          .flashing(request.flash + ("personalService.workerSentActualSubstitiute" -> String.valueOf(value)))
+          .withSession(request.session + (""-> String.valueOf(value)))
+
+
+
+//        Ok("value: " + value).flashing(
+//          request.flash + ("personalService.workerSentActualSubstitiute" -> String.valueOf(value)))
       }
     ))
 

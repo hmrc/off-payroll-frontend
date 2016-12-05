@@ -2,11 +2,10 @@
 @import uk.gov.hmrc.play.views.html.helpers
 
 
-@(f:Form[_])(implicit request: Request[_], messages: Messages)
+@(f:Form[_])(implicit request: Request[_], messages: Messages, flash: Flash)
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Hello from off-payroll-frontend", bodyClasses = None) {
     <h1>Hello from off-payroll-frontend!</h1>
-
 
 
     @helpers.form(routes.HelloWorld.helloWorldSubmit()) {
