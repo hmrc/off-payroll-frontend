@@ -13,38 +13,22 @@ import uk.gov.hmrc.play.test.{WithFakeApplication, UnitSpec}
 
 class HelloWorldControllerSpec extends UnitSpec with WithFakeApplication{
 
-  val fakeRequest = FakeRequest("GET", "/")
+  val fakeRequest = FakeRequest("GET", "/cluster/0")
 
 
-  "GET /" should {
-    "return 200" in {
-      val result = HelloWorld.helloWorld(fakeRequest)
-      status(result) shouldBe Status.OK
-    }
-
-    "return HTML" in {
-      val result = HelloWorld.helloWorld(fakeRequest)
-      contentType(result) shouldBe Some("text/html")
-      charset(result) shouldBe Some("utf-8")
-    }
-
-  }
-
-  "GET /hello-world/" should {
-    "return 200" in {
-      val result = HelloWorld.helloWorld(FakeRequest("GET", "/hello-world"))
-      status(result) shouldBe Status.OK
-    }
-
-    "return HTML" in {
-      val result = HelloWorld.helloWorld(FakeRequest("GET", "/hello-world"))
-      contentType(result) shouldBe Some("text/html")
-      charset(result) shouldBe Some("utf-8")
-    }
-
-  }
-
-
+//  "GET /" should {
+//    "return 200" in {
+//      val result = InterviewController.begin(fakeRequest)
+//      status(result) shouldBe Status.OK
+//    }
+//
+//    "return HTML" in {
+//      val result = InterviewController.getElement(fakeRequest)
+//      contentType(result) shouldBe Some("text/html")
+//      charset(result) shouldBe Some("utf-8")
+//    }
+//
+//  }
 
 
 }

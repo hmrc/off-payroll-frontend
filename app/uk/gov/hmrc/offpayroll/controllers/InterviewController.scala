@@ -27,9 +27,9 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll.OffPayrollWebflow
 
 
-object HelloWorld extends HelloWorld
+object InterviewController extends InterviewController
 
-trait HelloWorld extends FrontendController {
+trait InterviewController extends FrontendController {
 
 
   def begin(clusterID: Int) = Action.async { implicit request =>
@@ -44,7 +44,7 @@ trait HelloWorld extends FrontendController {
       )
     )
 
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(userForm,element)))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.element(userForm,element)))
   }
 
   def getElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
@@ -58,7 +58,7 @@ trait HelloWorld extends FrontendController {
       )
     )
 
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(userForm,element)))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.element(userForm,element)))
   }
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
@@ -75,11 +75,11 @@ trait HelloWorld extends FrontendController {
     Future.successful(userForm.bindFromRequest.fold(
       formWithErrors => {
         // binding failure, you retrieve the form containing errors:
-        BadRequest(uk.gov.hmrc.offpayroll.views.html.helloworld.begin(formWithErrors, element))
+        BadRequest(uk.gov.hmrc.offpayroll.views.html.helloworld.element(formWithErrors, element))
       },
       value => {
         /* Hardcode of the next element here this will be dynamic */
-        Redirect(uk.gov.hmrc.offpayroll.controllers.routes.HelloWorld.getElement(clusterID, elementID +1))
+        Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.getElement(clusterID, elementID +1))
           .flashing(request.flash + (element.questionTag -> String.valueOf(value)))
           .withSession(request.session + (element.questionTag -> String.valueOf(value)))
 
