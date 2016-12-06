@@ -43,8 +43,8 @@ trait InterviewController extends FrontendController {
         element.questionTag -> boolean
       )
     )
-
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.element(userForm,element)))
+    implicit val session: Map[String, String] = request.session.data
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm,element)))
   }
 
   def getElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
@@ -58,7 +58,9 @@ trait InterviewController extends FrontendController {
       )
     )
 
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.element(userForm,element)))
+    implicit val session: Map[String, String] = request.session.data
+
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm,element)))
   }
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
@@ -72,15 +74,16 @@ trait InterviewController extends FrontendController {
       )
     )
 
+    implicit val session: Map[String, String] = request.session.data
     Future.successful(userForm.bindFromRequest.fold(
       formWithErrors => {
         // binding failure, you retrieve the form containing errors:
-        BadRequest(uk.gov.hmrc.offpayroll.views.html.helloworld.element(formWithErrors, element))
+        BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))
       },
       value => {
         /* Hardcode of the next element here this will be dynamic */
         Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.getElement(clusterID, elementID +1))
-          .flashing(request.flash + (element.questionTag -> String.valueOf(value)))
+//          .flashing(request.flash + (element.questionTag -> String.valueOf(value)))
           .withSession(request.session + (element.questionTag -> String.valueOf(value)))
 
       }
@@ -89,9 +92,9 @@ trait InterviewController extends FrontendController {
 
 
 
-  val stepSuccess = Action.async { implicit request =>
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))
-  }
+//  val stepSuccess = Action.async { implicit request =>
+//    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))
+//  }
 
 
 }
