@@ -25,6 +25,7 @@ import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll.OffPayrollWebflow
+import play.api.Logger
 
 
 object InterviewController extends InterviewController
@@ -32,8 +33,10 @@ object InterviewController extends InterviewController
 trait InterviewController extends FrontendController {
 
 
+
   def begin(clusterID: Int) = Action.async { implicit request =>
     //get the first question page from the webflow
+
 
     // @TODO need to deal with zero indexing
     val element = OffPayrollWebflow.clusters(clusterID).clusterElements(0)
@@ -64,30 +67,39 @@ trait InterviewController extends FrontendController {
   }
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
-    //get the first question page from the webflow
 
     val element = OffPayrollWebflow.clusters(clusterID).clusterElements(elementID)
+    val tag: String = element.questionTag
 
-    val userForm = Form (
-      single(
-        element.questionTag -> boolean
+    // @TODO must validate expected tags are populated
+    val singleForm = Form (
+      single (
+        tag -> boolean
       )
     )
 
+    Logger.debug(" ************ Request *****************:  " + request.body)
+    Logger.debug(" ************ tag *****************:  " + tag )
+
     implicit val session: Map[String, String] = request.session.data
-    Future.successful(userForm.bindFromRequest.fold(
+
+    Future.successful(
+      singleForm.bindFromRequest.fold(
       formWithErrors => {
+        Logger.debug("  *********** Bad Request  *********** ")
         // binding failure, you retrieve the form containing errors:
         BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))
       },
       value => {
+        Logger.debug(" *********** Value **************: " + value)
         /* Hardcode of the next element here this will be dynamic */
         Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.getElement(clusterID, elementID +1))
-//          .flashing(request.flash + (element.questionTag -> String.valueOf(value)))
-          .withSession(request.session + (element.questionTag -> String.valueOf(value)))
+          .withSession(request.session + (tag -> String.valueOf(value)))
 
       }
-    ))
+    )
+
+    )
   }
 
 

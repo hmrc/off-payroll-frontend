@@ -33,6 +33,10 @@ abstract class Cluster {
   def clusterElements(id: Int): Element
   def clusterID: Int
 
+  override def toString: String = {
+    " Cluster ID: " + clusterID
+  }
+
 }
 
 abstract class OffPayrollWebflow
@@ -51,15 +55,15 @@ object OffPayrollWebflow extends OffPayrollWebflow {
       else throw new IndexOutOfBoundsException
     }
     private val elements = List(
-        Element("personalService.workerSentActualSubstitiute", ElementType.RADIO, 1, this),
-        Element("personalService.contractrualObligationForSubstitute", ElementType.RADIO, 2, this),
-        Element("personalService.possibleSubstituteRejection", ElementType.RADIO, 3, this),
-        Element("personalService.contractualRightForSubstitute", ElementType.RADIO, 4, this),
-        Element("personalService.workerPayActualHelper", ElementType.RADIO, 5, this),
-        Element("personalService.engagerArrangeWorker", ElementType.RADIO, 6, this),
-        Element("personalService.contractTermsWorkerPaysSubstitute", ElementType.RADIO, 7, this),
-        Element("personalService.workerSentActualHelper", ElementType.RADIO, 8, this),
-        Element("personalService.possibleHelper", ElementType.RADIO, 9, this)
+        Element("personalService.workerSentActualSubstitiute", ElementType.RADIO, 0, this),
+        Element("personalService.contractrualObligationForSubstitute", ElementType.RADIO, 1, this),
+        Element("personalService.possibleSubstituteRejection", ElementType.RADIO, 2, this),
+        Element("personalService.contractualRightForSubstitute", ElementType.RADIO, 3, this),
+        Element("personalService.workerPayActualHelper", ElementType.RADIO, 4, this),
+        Element("personalService.engagerArrangeWorker", ElementType.RADIO, 5, this),
+        Element("personalService.contractTermsWorkerPaysSubstitute", ElementType.RADIO, 6, this),
+        Element("personalService.workerSentActualHelper", ElementType.RADIO, 7, this),
+        Element("personalService.possibleHelper", ElementType.RADIO, 8, this)
     )
 
   }
@@ -68,7 +72,9 @@ object OffPayrollWebflow extends OffPayrollWebflow {
 
 
 case class Element(questionTag: String, elementType: _root_.uk.gov.hmrc.offpayroll.ElementType.Value, order: Int, clusterParent: Cluster) {
-
+  override def toString: String = {
+    "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
+  }
 }
 
 

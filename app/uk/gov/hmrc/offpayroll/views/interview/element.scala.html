@@ -16,7 +16,7 @@
 
         @if(element.elementType == ElementType.RADIO ) {
         <label>
-            <input type="radio" name="@element.questionTag" value="true" />
+            <input type="radio" name="@element.questionTag" value="true" selected />
             Yes
         </label>
         <label>
@@ -24,6 +24,7 @@
             No
         </label>
 
+            <input type="hidden" value="foo" name="hidden_form_field_debug">
         }
         <button>submit</button>
 
@@ -33,7 +34,6 @@
                 <li>@session.toString()</li>
                 <li>Current element @element.toString</li>
             </ul>
-
         }
 
 
