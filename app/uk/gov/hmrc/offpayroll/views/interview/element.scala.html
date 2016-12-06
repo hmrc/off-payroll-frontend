@@ -15,16 +15,26 @@
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order)) {
 
         @if(element.elementType == ElementType.RADIO ) {
-        <label>
-            <input type="radio" name="@element.questionTag" value="true" selected />
-            Yes
-        </label>
-        <label>
-            <input type="radio" name="@element.questionTag" value="false" />
-            No
-        </label>
 
-            <input type="hidden" value="foo" name="hidden_form_field_debug">
+
+        <div class="form-group">
+          <fieldset>
+          <div class="form-field--inline">
+            <label for="radio-yes" class="block-label">
+              <input id="radio-yes" type="radio" nname="@element.questionTag" value="true" />
+              Yes
+            </label>
+          </div>
+          <div class="form-field--inline">
+            <label for="radio-no" class="block-label">
+              <input id="radio-no" type="radio" name="@element.questionTag" value="false" />
+              No
+            </label>
+          </div>
+          
+      </fieldset>
+    </div>
+
         }
         <button>submit</button>
 
