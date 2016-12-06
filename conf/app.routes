@@ -1,9 +1,6 @@
 # microservice specific routes
 
-# GET        /hello-world             uk.gov.hmrc.offpayroll.controllers.HelloWorld.helloWorld
-# POST    /hello-world                uk.gov.hmrc.offpayroll.controllers.HelloWorld.helloWorldSubmit
 
-
-GET     /cluster/:clusterID/element/:elementID uk.gov.hmrc.offpayroll.controllers.HelloWorld.getElement(clusterID: Int, elementID: Int)
-POST    /cluster/:clusterID/element/:elementID uk.gov.hmrc.offpayroll.controllers.HelloWorld.processElement(clusterID: Int, elementID: Int)
-GET     /cluster/:clusterID                    uk.gov.hmrc.offpayroll.controllers.HelloWorld.begin(clusterID: Int)
+GET     /cluster/:clusterID/element/:elementID uk.gov.hmrc.offpayroll.controllers.InterviewController.getElement(clusterID: Int, elementID: Int)
+POST    /cluster/:clusterID/element/:elementID uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
+GET     /cluster/:clusterID                    uk.gov.hmrc.offpayroll.controllers.InterviewController.begin(clusterID: Int)

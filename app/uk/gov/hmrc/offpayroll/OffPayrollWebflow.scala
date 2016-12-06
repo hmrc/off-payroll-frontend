@@ -30,7 +30,7 @@ object ElementType extends Enumeration {
 
 abstract class Cluster {
 
-  def clusterElements: List[Element]
+  def clusterElements(id: Int): Element
   def clusterID: Int
 
 }
@@ -46,8 +46,11 @@ object OffPayrollWebflow extends OffPayrollWebflow {
 
     override def clusterID: Int = 0
 
-    override def clusterElements =
-      List(
+    override def clusterElements(id: Int) = {
+      if(id < elements.size ) elements(id)
+      else throw new IndexOutOfBoundsException
+    }
+    private val elements = List(
         Element("personalService.workerSentActualSubstitiute", ElementType.RADIO, 1, this),
         Element("personalService.contractrualObligationForSubstitute", ElementType.RADIO, 2, this),
         Element("personalService.possibleSubstituteRejection", ElementType.RADIO, 3, this),
