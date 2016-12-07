@@ -24,46 +24,55 @@ import play.api.Play.current
 import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
-import uk.gov.hmrc.offpayroll.OffPayrollWebflow
+import uk.gov.hmrc.offpayroll.{OffPayrollWebflow, Webflow, Element}
 import play.api.Logger
+import uk.gov.hmrc.offpayroll.views.html.interview.element
 
 
 object InterviewController extends InterviewController
 
 trait InterviewController extends FrontendController {
 
+  val webflow: Webflow = OffPayrollWebflow
 
 
   def begin(clusterID: Int) = Action.async { implicit request =>
     //get the first question page from the webflow
 
+    val element = webflow.getStart()
 
-    // @TODO need to deal with zero indexing
-    val element = OffPayrollWebflow.clusters(clusterID).clusterElements(0)
-
-    val userForm = Form (
+    val userForm = Form(
       single(
         element.questionTag -> boolean
       )
     )
     implicit val session: Map[String, String] = request.session.data
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm,element)))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element)))
+  }
+
+  def displayDecision = Action.async {
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision))
   }
 
   def getElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
     //get the first question page from the webflow
 
-    val element = OffPayrollWebflow.clusters(clusterID).clusterElements(elementID)
+    val element: Option[Element] = webflow.getEelmentById(clusterID, elementID)
 
-    val userForm = Form (
-      single(
-        element.questionTag -> boolean
+    if (element.nonEmpty) {
+      val tag = element.head.questionTag
+      val userForm = Form(
+        single(
+          tag -> boolean
+        )
       )
-    )
 
-    implicit val session: Map[String, String] = request.session.data
+      implicit val session: Map[String, String] = request.session.data
 
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm,element)))
+      Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element.head)))
+    }
+    else
+      Future.successful(Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.displayDecision))
   }
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
@@ -72,41 +81,40 @@ trait InterviewController extends FrontendController {
     val tag: String = element.questionTag
 
     // @TODO must validate expected tags are populated
-    val singleForm = Form (
-      single (
+    val singleForm = Form(
+      single(
         tag -> boolean
       )
     )
 
     Logger.debug(" ************ Request *****************:  " + request.body)
-    Logger.debug(" ************ tag *****************:  " + tag )
+    Logger.debug(" ************ tag *****************:  " + tag)
 
     implicit val session: Map[String, String] = request.session.data
 
     Future.successful(
       singleForm.bindFromRequest.fold(
-      formWithErrors => {
-        Logger.debug("  *********** Bad Request  *********** ")
-        // binding failure, you retrieve the form containing errors:
-        BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))
-      },
-      value => {
-        Logger.debug(" *********** Value **************: " + value)
-        /* Hardcode of the next element here this will be dynamic */
-        Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.getElement(clusterID, elementID +1))
-          .withSession(request.session + (tag -> String.valueOf(value)))
+        formWithErrors => {
+          Logger.debug("  *********** Bad Request  *********** ")
+          // binding failure, you retrieve the form containing errors:
+          BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))
+        },
+        value => {
+          Logger.debug(" *********** Value **************: " + value)
+          /* Hardcode of the next element here this will be dynamic */
+          Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.getElement(clusterID, elementID + 1))
+            .withSession(request.session + (tag -> String.valueOf(value)))
 
-      }
-    )
+        }
+      )
 
     )
   }
 
 
-
-//  val stepSuccess = Action.async { implicit request =>
-//    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))
-//  }
+  //  val stepSuccess = Action.async { implicit request =>
+  //    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))
+  //  }
 
 
 }

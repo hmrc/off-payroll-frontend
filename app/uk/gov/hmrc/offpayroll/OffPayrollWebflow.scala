@@ -28,9 +28,12 @@ object ElementType extends Enumeration {
   val RADIO = Value("radio")
 }
 
+/**
+  * Represents a Cluster which is a part of an Interview in Offpayroll
+  */
 abstract class Cluster {
 
-  def clusterElements(id: Int): Element
+  def clusterElements: List[Element]
   def clusterID: Int
 
   override def toString: String = {
@@ -39,9 +42,44 @@ abstract class Cluster {
 
 }
 
-abstract class OffPayrollWebflow
+abstract class Webflow {
 
-object OffPayrollWebflow extends OffPayrollWebflow {
+  def getNext(element: Element):Option[Element]
+
+  def getStart():Element
+
+  def getEelmentById(clusterId: Int, elementId: Int): Option[Element]
+}
+
+object OffPayrollWebflow extends Webflow {
+
+
+  override def getNext(element: Element):Option[Element] = {
+
+    val clusterId = element.clusterParent.clusterID
+    val cluster = clusters(clusterId)
+
+    if(cluster.clusterElements.size > element.order + 1)
+      Option(cluster.clusterElements(element.order + 1))
+    else
+      Option.empty[Element]
+
+  }
+
+
+  override def getStart():Element = clusters.head.clusterElements.head
+
+  override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
+
+    if (clusters.size > clusterId && clusters(clusterId).clusterElements.size > elementId) {
+      Option(clusters(clusterId).clusterElements(elementId))
+    }
+    else
+      Option.empty[Element]
+
+  }
+
+
 
   val clusters: List[Cluster] = List(PersonalService)
 
@@ -50,11 +88,7 @@ object OffPayrollWebflow extends OffPayrollWebflow {
 
     override def clusterID: Int = 0
 
-    override def clusterElements(id: Int) = {
-      if(id < elements.size ) elements(id)
-      else throw new IndexOutOfBoundsException
-    }
-    private val elements = List(
+    val clusterElements = List(
         Element("personalService.workerSentActualSubstitiute", ElementType.RADIO, 0, this),
         Element("personalService.contractrualObligationForSubstitute", ElementType.RADIO, 1, this),
         Element("personalService.possibleSubstituteRejection", ElementType.RADIO, 2, this),
@@ -65,8 +99,8 @@ object OffPayrollWebflow extends OffPayrollWebflow {
         Element("personalService.workerSentActualHelper", ElementType.RADIO, 7, this),
         Element("personalService.possibleHelper", ElementType.RADIO, 8, this)
     )
-
   }
+
 
 }
 
@@ -77,17 +111,3 @@ case class Element(questionTag: String, elementType: _root_.uk.gov.hmrc.offpayro
   }
 }
 
-
-sealed trait QuestionTypes {
-
-}
-
-
-//    private val contractrualObligationForSubstitute = Question("personalService.contractrualObligationForSubstitute", RADIO, 2)
-//    private val possibleSubstituteRejection = Question("personalService.possibleSubstituteRejection", RADIO, 3)
-//    private val contractualRightForSubstitute = Question("personalService.contractualRightForSubstitute", RADIO, 4)
-//    private  val workerPayActualHelper = Question("personalService.workerPayActualHelper", RADIO, 5)
-//    private val engagerArrangeWorker = Question("personalService.engagerArrangeWorker", RADIO, 6)
-//    private val contractTermsWorkerPaysSubstitute = Question("personalService.contractTermsWorkerPaysSubstitute", RADIO, 7)
-//    private val workerSentActualHelper = Question("personalService.workerSentActualHelper", RADIO, 8)
-//    private val possibleHelper = Question("personalService.possibleHelper", RADIO, 9)
