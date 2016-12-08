@@ -4,3 +4,4 @@
 GET     /cluster/:clusterID/element/:elementID uk.gov.hmrc.offpayroll.controllers.InterviewController.getElement(clusterID: Int, elementID: Int)
 POST    /cluster/:clusterID/element/:elementID uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
 GET     /cluster/:clusterID                    uk.gov.hmrc.offpayroll.controllers.InterviewController.begin(clusterID: Int)
+#GET     /decision/  uk.gov.hmrc.offpayroll.controllers.InterviewController.displayDecision(_)

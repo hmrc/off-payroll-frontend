@@ -24,9 +24,6 @@ package uk.gov.hmrc.offpayroll
   */
 
 
-object ElementType extends Enumeration {
-  val RADIO = Value("radio")
-}
 
 /**
   * Represents a Cluster which is a part of an Interview in Offpayroll
@@ -105,9 +102,25 @@ object OffPayrollWebflow extends Webflow {
 }
 
 
-case class Element(questionTag: String, elementType: _root_.uk.gov.hmrc.offpayroll.ElementType.Value, order: Int, clusterParent: Cluster) {
+case class Element(questionTag: String, elementType: ElementType.Value, order: Int, clusterParent: Cluster) {
   override def toString: String = {
     "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
   }
 }
 
+
+class ElementType extends Enumeration {
+  val RADIO = Value("radio")
+}
+
+object ElementType extends ElementType
+
+class DecisionType extends scala.Enumeration {
+  val IN = Value("decision.in.ir35")
+  val OUT = Value("decision.out.ir35")
+  val UNKNOWN = Value("decision.unknown")
+}
+
+object DecisionType extends DecisionType
+
+case class Decision(qa: Map[String, String], decision: DecisionType.Value)

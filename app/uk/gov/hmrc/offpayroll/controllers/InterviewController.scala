@@ -24,7 +24,7 @@ import play.api.Play.current
 import play.api.data._
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
-import uk.gov.hmrc.offpayroll.{OffPayrollWebflow, Webflow, Element}
+import uk.gov.hmrc.offpayroll._
 import play.api.Logger
 import uk.gov.hmrc.offpayroll.views.html.interview.element
 
@@ -50,12 +50,15 @@ trait InterviewController extends FrontendController {
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element)))
   }
 
-  def displayDecision = Action.async {
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision))
+  def displayDecision(decsion: Decision) = Action.async { implicit request =>
+    implicit val session: Map[String, String] = request.session.data
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decsion)))
   }
 
   def getElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
     //get the first question page from the webflow
+
+    implicit val session: Map[String, String] = request.session.data
 
     val element: Option[Element] = webflow.getEelmentById(clusterID, elementID)
 
@@ -67,12 +70,14 @@ trait InterviewController extends FrontendController {
         )
       )
 
-      implicit val session: Map[String, String] = request.session.data
-
       Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element.head)))
     }
-    else
-      Future.successful(Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.displayDecision))
+    else {
+
+      val mockDecision = Decision(session, DecisionType.IN)
+      Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(mockDecision)))
+    }
+
   }
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
