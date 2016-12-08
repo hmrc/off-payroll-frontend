@@ -21,11 +21,13 @@
         
       </div>
 			<h1 class="heading-large"></h1>
-      
+
       <h2 class="heading-medium">Your answers</h2>
 			<ol id="answers">
-				<li>What's your role?  <div class="theAnswer"><b>Worker</b><br>I do the work. / My company or partnership does the work.</div></li>
-			</ol>
+                @for((key,value) <- decision.qa){
+                <li>@messages(key) = @value</li>
+                }
+            </ol>
 		</div>
     <div class="column-one-third">
       <ul>
