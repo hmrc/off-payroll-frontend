@@ -46,81 +46,99 @@ abstract class Webflow {
   def getStart():Element
 
   def getEelmentById(clusterId: Int, elementId: Int): Option[Element]
+
+  def getElementByTag(tag: String): Option[Element]
+
+  def clusters(): List[Cluster]
 }
 
 object OffPayrollWebflow extends Webflow {
 
 
+  def clusters: List[Cluster] = List(PersonalService)
+
   override def getNext(element: Element):Option[Element] = {
 
     val clusterId = element.clusterParent.clusterID
-    val cluster = clusters(clusterId)
+    val cluster = clusters()(clusterId)
 
     if(cluster.clusterElements.size > element.order + 1)
-      Option(cluster.clusterElements(element.order + 1))
+    Option(cluster.clusterElements(element.order + 1))
     else
-      Option.empty[Element]
+    Option.empty[Element]
 
   }
-
 
   override def getStart():Element = clusters.head.clusterElements.head
 
-  override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
+  override def getElementByTag(tag: String): Option[Element] = {
 
-    if (clusters.size > clusterId && clusters(clusterId).clusterElements.size > elementId) {
-      Option(clusters(clusterId).clusterElements(elementId))
+    def loop(cluster: List[Cluster]): Option[Element] = {
+      if(cluster.isEmpty) Option.empty[Element]
+      else {
+        cluster.head.clusterElements.foldRight(Option.empty[Element])((element, option) => {
+          if(element.questionTag == tag) Option(element)
+          else option
+        })
+      }
     }
-    else
-      Option.empty[Element]
-
+    loop(clusters())
   }
 
 
+  override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
 
-  val clusters: List[Cluster] = List(PersonalService)
-
+    if (clusters.size > clusterId && clusters()(clusterId).clusterElements.size > elementId) {
+      Option(clusters()(clusterId).clusterElements(elementId))
+    }
+    else
+    Option.empty[Element]
+  }
 
   object PersonalService extends Cluster {
 
     override def clusterID: Int = 0
 
     val clusterElements = List(
-        Element("personalService.workerSentActualSubstitiute", ElementType.RADIO, 0, this),
-        Element("personalService.contractrualObligationForSubstitute", ElementType.RADIO, 1, this),
-        Element("personalService.possibleSubstituteRejection", ElementType.RADIO, 2, this),
-        Element("personalService.contractualRightForSubstitute", ElementType.RADIO, 3, this),
-        Element("personalService.workerPayActualHelper", ElementType.RADIO, 4, this),
-        Element("personalService.engagerArrangeWorker", ElementType.RADIO, 5, this),
-        Element("personalService.contractTermsWorkerPaysSubstitute", ElementType.RADIO, 6, this),
-        Element("personalService.workerSentActualHelper", ElementType.RADIO, 7, this),
-        Element("personalService.possibleHelper", ElementType.RADIO, 8, this)
+    Element("personalService.workerSentActualSubstitiute", RADIO, 0, this),
+    Element("personalService.contractrualObligationForSubstitute", RADIO, 1, this),
+    Element("personalService.possibleSubstituteRejection", RADIO, 2, this),
+    Element("personalService.contractualRightForSubstitute", RADIO, 3, this),
+    Element("personalService.workerPayActualHelper", RADIO, 4, this),
+    Element("personalService.engagerArrangeWorker", RADIO, 5, this),
+    Element("personalService.contractTermsWorkerPaysSubstitute", RADIO, 6, this),
+    Element("personalService.workerSentActualHelper", RADIO, 7, this),
+    Element("personalService.possibleHelper", RADIO, 8, this)
     )
   }
-
 
 }
 
 
-case class Element(questionTag: String, elementType: ElementType.Value, order: Int, clusterParent: Cluster) {
+case class Element(questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster) {
   override def toString: String = {
     "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
   }
 }
 
-
-class ElementType extends Enumeration {
-  val RADIO = Value("radio")
-}
+trait ElementType
+case object RADIO extends ElementType
 
 object ElementType extends ElementType
 
-class DecisionType extends scala.Enumeration {
-  val IN = Value("decision.in.ir35")
-  val OUT = Value("decision.out.ir35")
-  val UNKNOWN = Value("decision.unknown")
+
+trait DecisionType {
+  val value: String
+}
+case object IN extends DecisionType {
+  override val value: String = "decision.in.ir35"
 }
 
-object DecisionType extends DecisionType
+case object OUT extends DecisionType {
+  override val value: String = "decision.out.ir35"
+}
+case object UNKNOWN extends DecisionType {
+  override val value: String = "decision.unknown"
+}
 
-case class Decision(qa: Map[String, String], decision: DecisionType.Value)
+case class Decision(qa: Map[String, String], decision: DecisionType)

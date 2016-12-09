@@ -16,58 +16,56 @@
 
 package uk.gov.hmrc.offpayroll
 
-import uk.gov.hmrc.play.test.{UnitSpec}
+import org.scalatest.{FlatSpec, Matchers}
 
 /**
   * Created by peter on 05/12/2016.
   */
-class WebflowTest extends UnitSpec {
+class WebflowTest extends FlatSpec with Matchers {
 
-  private val webflow = OffPayrollWebflow
+  private val webflow: Webflow = OffPayrollWebflow
 
-  private val firstElement: Element = webflow.PersonalService.clusterElements(0)
-  private val lastElement = webflow.PersonalService.clusterElements(8)
+  private val firstElement: Element = webflow.getStart()
+  private val lastElement = webflow.clusters()(0).clusterElements(8)
 
 
-  "The Personal Service Section " should {
-    "exist" in {
-      assert(webflow.PersonalService != null, "Check we can get the main Personal Service Cluster")
-    }
+  "An OffPayrollWebflow " should " have a Personal Service Section with 9 elements" in {
+  //  webflow.getStart().clusterParent.getClass.getName should be ("PersonalService")
   }
 
+  it should "have a single cluster" in {
+    webflow.clusters.size should be (1)
+  }
 
-  "Get start element" should {
-    "return the start element " in {
-      assert(webflow.getStart() === firstElement)
-    }
+  it should " be able to get the start element as the start point for the Interview" in {
+    webflow.getStart() should equal(firstElement)
+  }
 
-    "Get next element based on the current element" should {
-      "return the next valid object" in {
-        val next = webflow.getNext(firstElement)
-        assert(next.nonEmpty)
-        assert(next.head == webflow.PersonalService.clusterElements(1))
-      }
-    }
+  it should "be able to get the next element based on the current element" in {
+    val next = webflow.getNext(firstElement)
 
-    "Get next element should be empty as it is out of bounds" should {
-      "return the next valid object" in {
-        assert(webflow.getNext(lastElement).isEmpty)
-      }
-    }
+    next should not be(next.isEmpty)
+    next.head should equal(webflow.clusters()(0).clusterElements(1))
+  }
 
-    "Get element by Id" should {
-      "return empty option" in {
-        assert(webflow.getEelmentById(1, 0).isEmpty)
-        assert(webflow.getEelmentById(0, lastElement.order + 1).isEmpty)
-      }
-    }
+  it should " give an empty option element when we try and get an element that is out of bound" in {
+    webflow.getNext(lastElement).isEmpty should be (true)
+  }
 
-    "Get element by Id" should {
-      "return a populated option" in {
-        assert(webflow.getEelmentById(0, 0).nonEmpty)
-        assert(webflow.getEelmentById(0, lastElement.order).nonEmpty)
-      }
-    }
+  it should "be able to get an element by id that is valid" in {
+    webflow.getEelmentById(0, lastElement.order).nonEmpty should be (true)
+    webflow.getEelmentById(0, 0).nonEmpty should be (true)
+  }
+
+  it should "return an empty Option if we try and get an element by Id that does not exist" in {
+    webflow.getEelmentById(1, 0).isEmpty should be (true)
+    webflow.getEelmentById(0, lastElement.order + 1).isEmpty should be (true)
+  }
+
+  it should " be able to return an Element by its tag " in {
+    val workerPayActualHelper: Element = webflow.getEelmentById(0, 4).head
+
+    webflow.getElementByTag("personalService.workerPayActualHelper") should equal (workerPayActualHelper)
   }
 
 }

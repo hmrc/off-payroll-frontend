@@ -74,7 +74,7 @@ trait InterviewController extends FrontendController {
     }
     else {
 
-      val mockDecision = Decision(session, DecisionType.IN)
+      val mockDecision = Decision(session, IN)
       Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(mockDecision)))
     }
 
@@ -82,8 +82,8 @@ trait InterviewController extends FrontendController {
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
-    val element = OffPayrollWebflow.clusters(clusterID).clusterElements(elementID)
-    val tag: String = element.questionTag
+    val element: Option[Element] = webflow.getEelmentById(clusterID, elementID)
+    val tag: String = element.head.questionTag
 
     // @TODO must validate expected tags are populated
     val singleForm = Form(
@@ -102,7 +102,7 @@ trait InterviewController extends FrontendController {
         formWithErrors => {
           Logger.debug("  *********** Bad Request  *********** ")
           // binding failure, you retrieve the form containing errors:
-          BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))
+          BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element.head))
         },
         value => {
           Logger.debug(" *********** Value **************: " + value)

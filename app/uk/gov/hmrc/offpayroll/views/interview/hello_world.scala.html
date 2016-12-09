@@ -1,7 +1,7 @@
 
 @import uk.gov.hmrc.play.views.html.helpers
 @import uk.gov.hmrc.offpayroll.Element
-@import uk.gov.hmrc.offpayroll.ElementType
+@import uk.gov.hmrc.offpayroll.RADIO
 
 @(f:Form[_], element: Element)(implicit request: Request[_], messages: Messages, flash: Flash)
 @import uk.gov.hmrc.offpayroll.controllers.routes
@@ -12,7 +12,7 @@
     @* The value of the current Cluster and Element is hard coded here needs to be passed from the controller *@
     @helpers.form(routes.InterviewController.processElement(0, 1)) {
 
-        @if(element.elementType == ElementType.RADIO ) {
+        @if(element.elementType == RADIO ) {
             <label>
                 <input type="radio" name="@element.questionTag" value="true" />
                 Yes

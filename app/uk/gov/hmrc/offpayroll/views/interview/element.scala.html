@@ -1,7 +1,7 @@
 
 @import uk.gov.hmrc.play.views.html.helpers
-@import uk.gov.hmrc.offpayroll.Element
-@import uk.gov.hmrc.offpayroll.ElementType
+@import uk.gov.hmrc.offpayroll.{Element, RADIO}
+
 
 
 @(f:Form[_], element:Element)(implicit request: Request[_], messages: Messages, session: Map[String, String])
@@ -14,7 +14,7 @@
 
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order)) {
 
-        @if(element.elementType == ElementType.RADIO ) {
+        @if(element.elementType == RADIO ) {
 
 
         <div class="form-group">
