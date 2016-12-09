@@ -15,17 +15,19 @@
     <div class="grid-row">
 		<div class="column-two-thirds">
       <div class="transaction-banner--complete">
-        <h1 class="transaction-banner__heading">@decision.decision</h1>
+        <h1 class="transaction-banner__heading">@Messages("" + decision.decision)</h1>
         
-          <p>Because you are an office holder</p>
+          <!--<p>Because you are an office holder</p>-->
         
       </div>
 			<h1 class="heading-large"></h1>
 
       <h2 class="heading-medium">Your answers</h2>
-			<ol id="answers">
+			<ol>
                 @for((key,value) <- decision.qa){
-                <li>@messages(key) = @value</li>
+                <li class="panel-indent section divider--bottom"><h2>@messages(key)</h2>
+                    <div>@value</div>
+                </li>
                 }
             </ol>
 		</div>
