@@ -51,6 +51,10 @@ class FlowServiceSpec extends FlatSpec with Matchers {
     assert(result.decision.head.decision === OUT, "Expecting this to give out for now!" )
   }
 
+  it should " be able to get the current element" in {
+    assert(flowservice.getCurrent(0,1).questionTag == "personalService.contractrualObligationForSubstitute")
+  }
+
 
 
 

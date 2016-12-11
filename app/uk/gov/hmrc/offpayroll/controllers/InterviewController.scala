@@ -26,19 +26,18 @@ import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll._
 import play.api.Logger
-import uk.gov.hmrc.offpayroll.views.html.interview.element
+import uk.gov.hmrc.offpayroll.service.IR35FlowService
 
 
 object InterviewController extends InterviewController
 
 trait InterviewController extends FrontendController {
 
-  val webflow: Webflow = OffPayrollWebflow
+  val flowService = IR35FlowService
 
   def begin(clusterID: Int) = Action.async { implicit request =>
-    //get the first question page from the webflow
 
-    val element = webflow.getStart()
+    val element = flowService.getStart()
 
     val userForm = Form(
       single(
@@ -54,45 +53,17 @@ trait InterviewController extends FrontendController {
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decsion)))
   }
 
-  def getElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
-    //get the first question page from the webflow
-
-    implicit val session: Map[String, String] = request.session.data
-
-    val element: Option[Element] = webflow.getEelmentById(clusterID, elementID)
-
-    if (element.nonEmpty) {
-      val tag = element.head.questionTag
-      val userForm = Form(
-        single(
-          tag -> boolean
-        )
-      )
-
-      Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element.head)))
-    }
-    else {
-
-      val mockDecision = Decision(session, IN)
-      Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(mockDecision)))
-    }
-
-  }
-
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
-    val element: Option[Element] = webflow.getEelmentById(clusterID, elementID)
-    val tag: String = element.head.questionTag
+    val element = flowService.getCurrent(clusterID, elementID)
+    val tag: String = element.questionTag
 
-    // @TODO must validate expected tags are populated
     val singleForm = Form(
-      single(
+      single( // @TODO must validate expected tags are populated
         tag -> boolean
       )
     )
-
-    Logger.debug(" ************ Request *****************:  " + request.body)
-    Logger.debug(" ************ tag *****************:  " + tag)
+    Logger.debug(" *** Request + tag ***:  " + request.body + " " + tag)
 
     implicit val session: Map[String, String] = request.session.data
 
@@ -100,25 +71,25 @@ trait InterviewController extends FrontendController {
       singleForm.bindFromRequest.fold(
         formWithErrors => {
           Logger.debug("  *********** Bad Request  *********** ")
-          // binding failure, you retrieve the form containing errors:
-          BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element.head))
+          BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))
         },
         value => {
           Logger.debug(" *********** Value **************: " + value)
-          /* Hardcode of the next element here this will be dynamic */
-          Redirect(uk.gov.hmrc.offpayroll.controllers.routes.InterviewController.getElement(clusterID, elementID + 1))
-            .withSession(request.session + (tag -> String.valueOf(value)))
+          implicit val session: Map[String, String] =  request.session.data + (tag -> String.valueOf(value))
 
+          val result = flowService.evaluateInterview(session, (tag, String.valueOf(value)))
+
+          if(result.continueWithQuestions) {
+            Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, result.element.head))
+              .withSession(request.session + (tag -> String.valueOf(value)))
+          } else {
+            Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(result.decision.head))
+          }
         }
       )
 
     )
   }
-
-
-  //  val stepSuccess = Action.async { implicit request =>
-  //    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.helloworld.step_success()))
-  //  }
 
 
 }

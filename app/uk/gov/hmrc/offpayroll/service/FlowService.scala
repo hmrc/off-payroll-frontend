@@ -32,6 +32,8 @@ abstract class FlowService {
 
   def getStart():Element
 
+  def getCurrent(clusterId: Int, elementId: Int): Element
+
 }
 
 
@@ -65,6 +67,12 @@ object IR35FlowService extends FlowService {
     } else {
       throw new IllegalArgumentException("Trying to continue with flow but no next Element found")
     }
+  }
+
+  override def getCurrent(clusterId: Int, elementId: Int): Element = {
+    val currentElement = weblow.getEelmentById(clusterId, elementId)
+    if(currentElement.nonEmpty) currentElement.head
+    else throw new NoSuchElementException("No Element founf matching: " + clusterId + "/" + elementId)
   }
 }
 
