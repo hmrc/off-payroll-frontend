@@ -18,12 +18,10 @@ package uk.gov.hmrc.offpayroll
 
 import java.util.Properties
 
-import org.scalatest.{FlatSpec, Matchers}
-
 /**
   * Created by peter on 11/12/2016.
   */
-class PersonalServiceSpec extends FlatSpec with Matchers {
+object PropertyFileLoader {
 
   def getMessagesFileAsMap: Map[String, String] = {
     import scala.collection.JavaConverters._
@@ -37,26 +35,14 @@ class PersonalServiceSpec extends FlatSpec with Matchers {
     props.asScala.toMap
   }
 
-  private val personalServiceCluster = PersonalService
-  private val partialAnswers = List(("personalService.workerSentActualSubstitiute", "false"))
+  def getMessagesForACluster(clusterName: String): Map[String, String] =
+    this.getMessagesFileAsMap.filterKeys(k => k.startsWith(clusterName))
 
+  def convertMapToAListOfAnswers(map: Map[String, String]) =
+    map.foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, "true") :: currentList})
 
-  private val propsFilteredByCluster =   getMessagesFileAsMap.
-      filterKeys(k => k.startsWith("personalService"))
-  private val allAnswers = propsFilteredByCluster.
-      foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, "true") :: currentList})
-
-  println(allAnswers)
-
-  "The Personal Service Cluster " should
-  "say continue if not all questions have been aswered" in {
-    assert(personalServiceCluster.shouldAskForDecision(partialAnswers) === false, "Need more answers")
+  def transformMapFromQuestionTextToAnswers(clusterName: String):Map[String, String] = {
+    this.getMessagesForACluster(clusterName).map(properties => (properties._1, "true"))
   }
-  
-  it should "say complete when all the questions are present" in {
-    assert(personalServiceCluster.shouldAskForDecision(allAnswers) === true, "We can ask for a decision")
-  }
-
-
 
 }

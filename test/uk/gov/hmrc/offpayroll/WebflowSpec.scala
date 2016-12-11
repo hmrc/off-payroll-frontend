@@ -29,12 +29,21 @@ class WebflowSpec extends FlatSpec with Matchers {
   private val lastElement = webflow.clusters()(0).clusterElements(8)
 
 
-  "An OffPayrollWebflow " should " have a Personal Service Section with Element" in {
-    webflow.getStart().clusterParent.name should be ("personalService")
+  private val personalservice = "personalService"
+
+  "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element" in {
+    val startElement = webflow.getStart()
+    startElement.clusterParent.name should be (personalservice)
+    startElement.questionTag should be (personalservice + ".workerSentActualSubstitiute")
   }
 
   it should "have a single cluster" in {
     webflow.clusters.size should be (1)
+  }
+
+  it should " be able to get a Cluster by its name " in {
+    val cluster: Cluster = webflow.getClusterByName(personalservice)
+    cluster.name should be (personalservice)
   }
 
   it should " be able to get the start element as the start point for the Interview" in {
@@ -65,7 +74,7 @@ class WebflowSpec extends FlatSpec with Matchers {
   it should " be able to return an Element by its tag " in {
     val workerPayActualHelper: Element = webflow.getEelmentById(0, 4).head
 
-    webflow.getElementByTag("personalService.workerPayActualHelper").head.questionTag should equal (workerPayActualHelper.questionTag)
+    webflow.getElementByTag(personalservice + ".workerPayActualHelper").head.questionTag should equal (workerPayActualHelper.questionTag)
   }
 
 }

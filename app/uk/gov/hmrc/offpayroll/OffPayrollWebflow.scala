@@ -60,6 +60,11 @@ abstract class Cluster {
     */
   def shouldAskForDecision(clusterAnswers: List[(String, String)]):Boolean
 
+  def shouldAskForDecision(clusterAnswers: Map[String, String]):Boolean = {
+    shouldAskForDecision(
+      clusterAnswers.foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, prop._2) :: currentList}))
+  }
+
   override def toString: String = {
     " Cluster ID: " + clusterID
   }
@@ -77,11 +82,13 @@ abstract class Webflow {
   def getElementByTag(tag: String): Option[Element]
 
   def clusters(): List[Cluster]
+
+  def getClusterByName(name: String): Cluster
 }
 
 object OffPayrollWebflow extends Webflow {
 
-  def clusters: List[Cluster] = List(PersonalService)
+  def clusters: List[Cluster] = List(PersonalServiceCluster)
 
   override def getNext(element: Element):Option[Element] = {
 
@@ -120,9 +127,17 @@ object OffPayrollWebflow extends Webflow {
     Option.empty[Element]
   }
 
+  override def getClusterByName(name: String): Cluster = {
+    if(clusters.exists(cluster => cluster.name == name)){
+      clusters.filter(cluster => cluster.name == name).head
+    } else {
+      throw new IllegalArgumentException("no such Cluster: " + name)
+    }
+  }
 }
 
-object PersonalService extends Cluster {
+//Call this a
+object PersonalServiceCluster extends Cluster {
 
   /**
     * Use this value to informatively name the cluster and use as a key to tags

@@ -24,6 +24,9 @@ import uk.gov.hmrc.offpayroll.service.{FlowService, IR35FlowService}
   */
 class FlowServiceSpec extends FlatSpec with Matchers {
 
+  private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
+
+  //@TODO inject a Mock Webflow into the flow service so we can test it independently
   val flowservice: FlowService = IR35FlowService
 
   "A Flow Service " should " be able to get the start of an Interview" in {
@@ -31,12 +34,23 @@ class FlowServiceSpec extends FlatSpec with Matchers {
   }
 
   val interview: Map[String, String] = Map("personalService.workerSentActualSubstitiute" -> "true")
-  val currentElement: (String, String) = ("personalService.workerSentActualSubstitiute" -> "true")
+  val currentElement: (String, String) = "personalService.workerSentActualSubstitiute" -> "true"
 
-  it should "accept an interview and the current element the result should indicate continue or return a decision" in {
+  it should "Process a partial interview and expect it to return Continue" in {
 
-    flowservice.evaluateInterview(interview, currentElement)
+    val result = flowservice.evaluateInterview(interview, currentElement)
+    assert(result.continueWithQuestions === true, "Only a partial interview so we need to continue")
+    assert(result.element.head.questionTag === "personalService.contractrualObligationForSubstitute") //next tag
   }
+
+  it should "Process a full Interview and  Give a decision" in {
+
+    val result = flowservice.evaluateInterview(personalService, currentElement)
+    assert(!result.continueWithQuestions, "A full interview so we can stop")
+    assert(result.element.isEmpty, "There is no next tag we have a decision" )
+    assert(result.decision.head.decision === OUT, "Expecting this to give out for now!" )
+  }
+
 
 
 

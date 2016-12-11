@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.service
 
-import uk.gov.hmrc.offpayroll.{Decision, Element, OffPayrollWebflow, Webflow}
+import uk.gov.hmrc.offpayroll._
 
 /**
   * Created by peter on 09/12/2016.
@@ -41,29 +41,31 @@ object IR35FlowService extends FlowService {
 
   override def getStart(): Element = weblow.getStart()
 
-  /**
-    *
-    * @param interview
-    * @return
-    */
+
   override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Result = {
-    // make an ordered List of (String, String) based on the question order in the elementClusters
 
-    // have we asked enough questions to ask for a decision
+    val currentTag = currentQnA._1
+    val currentCluster = weblow.getClusterByName(currentTag.takeWhile(c => c != '.'))
 
-    // yes call the decision service
-
-      // Decision Service gives a decision - e.g. NOT UNKNOWN
-
-      // Descision Service returns UNKNOWN
-
-    // no return
-    // get the next question based on the interview so far
-    // continueWithQuestions == true
-
-    return null
+    if(currentCluster.shouldAskForDecision(interview)) {
+      // call the Decision Service here
+      dummyResult(interview)
+    } else {
+      continueWithNextQuestion(currentTag)
+    }
   }
 
+  private def dummyResult(interview: Map[String, String]):Result =
+    new Result(Option.empty[Element], Option.apply(new Decision(interview, OUT)), false)
+
+  private def continueWithNextQuestion(currentTag: String): Result = {
+    val optionalTag = weblow.getElementByTag(currentTag)
+    if(optionalTag.nonEmpty) {
+      new Result(weblow.getNext(optionalTag.head), Option.empty[Decision], true)
+    } else {
+      throw new IllegalArgumentException("Trying to continue with flow but no next Element found")
+    }
+  }
 }
 
 case class Result(element: Option[Element], decision: Option[Decision], continueWithQuestions: Boolean) {
