@@ -35,7 +35,6 @@ trait InterviewController extends FrontendController {
 
   val webflow: Webflow = OffPayrollWebflow
 
-
   def begin(clusterID: Int) = Action.async { implicit request =>
     //get the first question page from the webflow
 

@@ -21,7 +21,7 @@ import org.scalatest.{FlatSpec, Matchers}
 /**
   * Created by peter on 05/12/2016.
   */
-class WebflowTest extends FlatSpec with Matchers {
+class WebflowSpec extends FlatSpec with Matchers {
 
   private val webflow: Webflow = OffPayrollWebflow
 
@@ -29,8 +29,8 @@ class WebflowTest extends FlatSpec with Matchers {
   private val lastElement = webflow.clusters()(0).clusterElements(8)
 
 
-  "An OffPayrollWebflow " should " have a Personal Service Section with 9 elements" in {
-  //  webflow.getStart().clusterParent.getClass.getName should be ("PersonalService")
+  "An OffPayrollWebflow " should " have a Personal Service Section with Element" in {
+    webflow.getStart().clusterParent.name should be ("personalService")
   }
 
   it should "have a single cluster" in {
@@ -65,7 +65,7 @@ class WebflowTest extends FlatSpec with Matchers {
   it should " be able to return an Element by its tag " in {
     val workerPayActualHelper: Element = webflow.getEelmentById(0, 4).head
 
-    webflow.getElementByTag("personalService.workerPayActualHelper") should equal (workerPayActualHelper)
+    webflow.getElementByTag("personalService.workerPayActualHelper").head.questionTag should equal (workerPayActualHelper.questionTag)
   }
 
 }

@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll
 
+import uk.gov.hmrc.offpayroll.views.html.interview.element
+
 
 /**
   * Created by peter on 02/12/2016.
@@ -30,8 +32,33 @@ package uk.gov.hmrc.offpayroll
   */
 abstract class Cluster {
 
+  /**
+    * Use this value to informatively name the cluster and use as a key to tags
+    */
+  def name:String
+
+  /**
+    * All the Elements that make up this cluster
+    *
+    * @return
+    */
   def clusterElements: List[Element]
+
+  /**
+    * Helps order a Cluster in an Interview
+    * @return
+    */
   def clusterID: Int
+
+  /**
+    *
+    * Based on what has been answered for this cluster should we ask
+    * for a Decision
+    *
+    * @param clusterAnswers
+    * @return
+    */
+  def shouldAskForDecision(clusterAnswers: List[(String, String)]):Boolean
 
   override def toString: String = {
     " Cluster ID: " + clusterID
@@ -53,7 +80,6 @@ abstract class Webflow {
 }
 
 object OffPayrollWebflow extends Webflow {
-
 
   def clusters: List[Cluster] = List(PersonalService)
 
@@ -85,7 +111,6 @@ object OffPayrollWebflow extends Webflow {
     loop(clusters())
   }
 
-
   override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
 
     if (clusters.size > clusterId && clusters()(clusterId).clusterElements.size > elementId) {
@@ -95,21 +120,30 @@ object OffPayrollWebflow extends Webflow {
     Option.empty[Element]
   }
 
-  object PersonalService extends Cluster {
+}
 
-    override def clusterID: Int = 0
+object PersonalService extends Cluster {
 
-    val clusterElements = List(
-    Element("personalService.workerSentActualSubstitiute", RADIO, 0, this),
-    Element("personalService.contractrualObligationForSubstitute", RADIO, 1, this),
-    Element("personalService.possibleSubstituteRejection", RADIO, 2, this),
-    Element("personalService.contractualRightForSubstitute", RADIO, 3, this),
-    Element("personalService.workerPayActualHelper", RADIO, 4, this),
-    Element("personalService.engagerArrangeWorker", RADIO, 5, this),
-    Element("personalService.contractTermsWorkerPaysSubstitute", RADIO, 6, this),
-    Element("personalService.workerSentActualHelper", RADIO, 7, this),
-    Element("personalService.possibleHelper", RADIO, 8, this)
-    )
+  /**
+    * Use this value to informatively name the cluster and use as a key to tags
+    */
+  override def name: String = "personalService"
+  override def clusterID: Int = 0
+
+  val clusterElements: List[Element] = List(
+  Element("personalService.workerSentActualSubstitiute", RADIO, 0, this),
+  Element("personalService.contractrualObligationForSubstitute", RADIO, 1, this),
+  Element("personalService.possibleSubstituteRejection", RADIO, 2, this),
+  Element("personalService.contractualRightForSubstitute", RADIO, 3, this),
+  Element("personalService.workerPayActualHelper", RADIO, 4, this),
+  Element("personalService.engagerArrangeWorker", RADIO, 5, this),
+  Element("personalService.contractTermsWorkerPaysSubstitute", RADIO, 6, this),
+  Element("personalService.workerSentActualHelper", RADIO, 7, this),
+  Element("personalService.possibleHelper", RADIO, 8, this)
+  )
+
+  override def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean = {
+    clusterElements.foldLeft[Boolean](false)((c,element) => clusterAnswers.exists(a => a._1 == element.questionTag))
   }
 
 }
