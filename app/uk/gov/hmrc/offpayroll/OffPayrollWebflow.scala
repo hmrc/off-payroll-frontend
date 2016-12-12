@@ -136,7 +136,7 @@ object OffPayrollWebflow extends Webflow {
   }
 }
 
-//Call this a
+
 object PersonalServiceCluster extends Cluster {
 
   /**
@@ -158,7 +158,7 @@ object PersonalServiceCluster extends Cluster {
   )
 
   override def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean = {
-    clusterElements.foldLeft[Boolean](false)((c,element) => clusterAnswers.exists(a => a._1 == element.questionTag))
+    clusterElements.forall((element) => clusterAnswers.exists(a => a._1 == element.questionTag))
   }
 
 }

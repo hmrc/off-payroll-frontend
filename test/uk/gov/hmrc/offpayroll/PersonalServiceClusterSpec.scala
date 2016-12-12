@@ -32,13 +32,19 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers {
 
   private val allAnswers = PropertyFileLoader.convertMapToAListOfAnswers(propsFilteredByCluster)
 
+  private val skipOneAnswer = PropertyFileLoader.convertMapToAListOfAnswers(propsFilteredByCluster - "personalService.engagerArrangeWorker")
+
   "The Personal Service Cluster " should
   "say continue if not all questions have been aswered" in {
-    assert(personalServiceCluster.shouldAskForDecision(partialAnswers) === false, "Need more answers")
+    personalServiceCluster.shouldAskForDecision(partialAnswers) should be (false)
   }
   
   it should "say complete when all the questions are present" in {
-    assert(personalServiceCluster.shouldAskForDecision(allAnswers) === true, "We can ask for a decision")
+    personalServiceCluster.shouldAskForDecision(allAnswers) should be (true)
+  }
+
+  it should "say continue if a question hgas been skipped" in {
+    personalServiceCluster.shouldAskForDecision(skipOneAnswer) should be (false)
   }
 
 }
