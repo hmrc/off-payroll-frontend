@@ -72,7 +72,7 @@ object IR35FlowService extends FlowService {
   override def getCurrent(clusterId: Int, elementId: Int): Element = {
     val currentElement = weblow.getEelmentById(clusterId, elementId)
     if(currentElement.nonEmpty) currentElement.head
-    else throw new NoSuchElementException("No Element founf matching: " + clusterId + "/" + elementId)
+    else throw new NoSuchElementException("No Element found matching: " + clusterId + "/" + elementId)
   }
 }
 
