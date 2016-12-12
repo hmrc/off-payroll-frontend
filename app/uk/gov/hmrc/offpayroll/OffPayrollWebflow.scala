@@ -146,15 +146,15 @@ object PersonalServiceCluster extends Cluster {
   override def clusterID: Int = 0
 
   val clusterElements: List[Element] = List(
-  Element("personalService.workerSentActualSubstitiute", RADIO, 0, this),
-  Element("personalService.contractrualObligationForSubstitute", RADIO, 1, this),
-  Element("personalService.possibleSubstituteRejection", RADIO, 2, this),
-  Element("personalService.contractualRightForSubstitute", RADIO, 3, this),
-  Element("personalService.workerPayActualHelper", RADIO, 4, this),
-  Element("personalService.engagerArrangeWorker", RADIO, 5, this),
-  Element("personalService.contractTermsWorkerPaysSubstitute", RADIO, 6, this),
-  Element("personalService.workerSentActualHelper", RADIO, 7, this),
-  Element("personalService.possibleHelper", RADIO, 8, this)
+  Element("workerSentActualSubstitiute", RADIO, 0, this),
+  Element("contractrualObligationForSubstitute", RADIO, 1, this),
+  Element("possibleSubstituteRejection", RADIO, 2, this),
+  Element("contractualRightForSubstitute", RADIO, 3, this),
+  Element("workerPayActualHelper", RADIO, 4, this),
+  Element("engagerArrangeWorker", RADIO, 5, this),
+  Element("contractTermsWorkerPaysSubstitute", RADIO, 6, this),
+  Element("workerSentActualHelper", RADIO, 7, this),
+  Element("possibleHelper", RADIO, 8, this)
   )
 
   override def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean = {
@@ -164,7 +164,9 @@ object PersonalServiceCluster extends Cluster {
 }
 
 
-case class Element(questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster) {
+case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster) {
+
+  def questionTag: String = clusterParent.name + "." + _questionTag
   override def toString: String = {
     "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
   }
