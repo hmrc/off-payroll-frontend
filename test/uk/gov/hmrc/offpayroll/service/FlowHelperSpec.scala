@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.connectors
+package uk.gov.hmrc.offpayroll.service
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecideResponse}
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
-
-import uk.gov.hmrc.offpayroll.modelsFormat._
-
-import scala.concurrent.Future
+import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.models.FlowHelper
 
 /**
-  * Created by peter on 12/12/2016.
+  * Created by peter on 13/12/2016.
   */
-trait DecisionConnector {
+class FlowHelperSpec  extends FlatSpec with Matchers  {
 
-
-  val decisionURL: String
-  val serviceURL: String
-  val http: HttpPost
-
-  def decide(decideRequest: DecisionRequest)(implicit hc: HeaderCarrier): Future[DecideResponse] = {
-    http.POST[DecisionRequest, DecideResponse](s"$decisionURL/$serviceURL/", decideRequest)
+  "A FlowHelper" should "get the cluster name from a tag" in {
+    FlowHelper.getClusterNameFromTag("clusterName.SomeQuestionName") shouldBe ("clusterName")
   }
-
 }

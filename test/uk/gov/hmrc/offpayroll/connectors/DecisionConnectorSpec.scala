@@ -20,7 +20,7 @@ import org.scalatest.mock.MockitoSugar
 import org.mockito.Matchers._
 import org.mockito.Mockito._
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.offpayroll.models.{DecideRequest, DecideResponse}
+import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecideResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
 import uk.gov.hmrc.play.http.ws.WSHttp
@@ -39,7 +39,7 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
   implicit val hc = HeaderCarrier()
 
   val decisionResponseString = "{\n  \"version\": \"0.0.1-alpha\",\n  \"correlationID\": " +
-    "\"12345\",\n  \"carryOnWithQuestions\": true,\n  \"score\": {\n    \"personalService\": \"HIGH\",\n    \"miscellaneous\": \"LOW\"\n  },\n  \"result\": \"Unknown\"\n}"
+    "\"12345\",\n  \"carryOnWithQuestions\": true,\n  \"score\": {\n \"personalService\": \"HIGH\",\n    \"miscellaneous\": \"LOW\"\n  },\n  \"result\": \"Unknown\"\n}"
 
   val decisionRequestString = "{\"version\":\"0.0.1-alpha\",\"correlationID\":\"123456\",\"interview\":" +
     "{\"personalService\":{\"personalService.workerSentActualSubstitiute\":\"false\"}}}"
@@ -54,10 +54,12 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
   "Calling /off-payroll-decision/decide" should {
     "return a decision" in {
 
-      val decisionRequest = Json.fromJson[DecideRequest](Json.parse(decisionRequestString)).get
+      println(decisionResponseString)
+
+      val decisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestString)).get
       val jsonResponse = Json.fromJson[DecideResponse](Json.parse(decisionResponseString)).get
 
-      when(testConnector.http.POST[DecideRequest, DecideResponse](any(), any(), any())(any(), any(), any()))
+      when(testConnector.http.POST[DecisionRequest, DecideResponse](any(), any(), any())(any(), any(), any()))
         .thenReturn(Future(jsonResponse))
 
       val result = await(testConnector.decide(decisionRequest))
@@ -66,7 +68,7 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
       result.correlationID shouldBe ("12345")
       result.score.size shouldBe (2)
       result.result shouldBe ("Unknown")
-
+      result.carryOnWithQuestions shouldBe (true)
 
     }
 //    "return an illegible response" in {

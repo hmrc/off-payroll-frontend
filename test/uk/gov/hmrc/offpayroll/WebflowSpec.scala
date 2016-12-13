@@ -17,6 +17,7 @@
 package uk.gov.hmrc.offpayroll
 
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.models.{Cluster, Element, OffPayrollWebflow, Webflow}
 
 /**
   * Created by peter on 05/12/2016.

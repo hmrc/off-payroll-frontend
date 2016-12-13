@@ -26,6 +26,7 @@ import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll._
 import play.api.Logger
+import uk.gov.hmrc.offpayroll.models.Decision
 import uk.gov.hmrc.offpayroll.service.IR35FlowService
 
 
@@ -67,28 +68,30 @@ trait InterviewController extends FrontendController {
 
     implicit val session: Map[String, String] = request.session.data
 
-    Future.successful(
-      singleForm.bindFromRequest.fold(
-        formWithErrors => {
-          Logger.debug("  *********** Bad Request  *********** ")
-          BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))
-        },
+
+      singleForm.bindFromRequest.fold (
+        formWithErrors =>
+          Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element)))
+        ,
+
         value => {
           Logger.debug(" *********** Value **************: " + value)
-          implicit val session: Map[String, String] =  request.session.data + (tag -> String.valueOf(value))
+          implicit val session: Map[String, String] = request.session.data + (tag -> String.valueOf(value))
 
           val result = flowService.evaluateInterview(session, (tag, String.valueOf(value)))
 
-          if(result.continueWithQuestions) {
-            Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, result.element.head))
-              .withSession(request.session + (tag -> String.valueOf(value)))
-          } else {
-            Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(result.decision.head))
-          }
+          result.map(
+            decision => {
+              if (decision.continueWithQuestions) {
+                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, decision.element.head))
+                  .withSession(request.session + (tag -> String.valueOf(value)))
+              } else {
+                Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
+              }
+            }
+          )
         }
       )
-
-    )
   }
 
 

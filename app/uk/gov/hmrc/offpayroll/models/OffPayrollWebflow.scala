@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll
-
-import uk.gov.hmrc.offpayroll.views.html.interview.element
+package uk.gov.hmrc.offpayroll.models
 
 
 /**
@@ -73,6 +71,8 @@ abstract class Cluster {
 
 abstract class Webflow {
 
+  def version: String
+
   def getNext(element: Element):Option[Element]
 
   def getStart():Element
@@ -87,6 +87,8 @@ abstract class Webflow {
 }
 
 object OffPayrollWebflow extends Webflow {
+
+  val version: String= "0.0.1-alpha"
 
   def clusters: List[Cluster] = List(PersonalServiceCluster)
 
@@ -149,7 +151,7 @@ object PersonalServiceCluster extends Cluster {
   Element("workerSentActualSubstitiute", RADIO, 0, this),
   Element("contractrualObligationForSubstitute", RADIO, 1, this),
   Element("possibleSubstituteRejection", RADIO, 2, this),
-  Element("contractualRightForSubstitute", RADIO, 3, this),
+  Element("contractualObligationInPractise", RADIO, 3, this),
   Element("workerPayActualHelper", RADIO, 4, this),
   Element("engagerArrangeWorker", RADIO, 5, this),
   Element("contractTermsWorkerPaysSubstitute", RADIO, 6, this),
@@ -190,6 +192,28 @@ case object OUT extends DecisionType {
 }
 case object UNKNOWN extends DecisionType {
   override val value: String = "decision.unknown"
+}
+
+
+object DecisionBuilder {
+
+  val correlationID: String = "12345"
+
+
+
+  def buildDecisionRequest(interview: Map[String, String]):DecisionRequest = {
+
+    val interviewFilteredByCluster = interview.filter(qa => {
+      OffPayrollWebflow.clusters.exists(cluster => cluster.name == FlowHelper.getClusterNameFromTag(qa._1))
+    }).map(key => (key._1.replace("personalService.", ""), key._2 ))
+
+    //@Fixme @Todo hard code
+    DecisionRequest(OffPayrollWebflow.version, correlationID, Map("personalService" -> interviewFilteredByCluster))
+  }
+}
+
+object FlowHelper {
+  def getClusterNameFromTag(tag: String) = tag.takeWhile(c => c != '.')
 }
 
 case class Decision(qa: Map[String, String], decision: DecisionType)

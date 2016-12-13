@@ -1,10 +1,11 @@
 
 @import uk.gov.hmrc.play.views.html.helpers
-@import uk.gov.hmrc.offpayroll.Element
-@import uk.gov.hmrc.offpayroll.ElementType
+@import uk.gov.hmrc.offpayroll.models.ElementType
 @import uk.gov.hmrc.offpayroll.controllers.routes
-@import uk.gov.hmrc.offpayroll.Decision
+@import uk.gov.hmrc.offpayroll.models.Decision
+@import uk.gov.hmrc.offpayroll.models.Element
 
+@import uk.gov.hmrc.offpayroll.models.Decision
 @(decision: Decision)(implicit request: Request[_], messages: Messages, session: Map[String, String])
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None) {
 <main id="content" role="main" class="result">

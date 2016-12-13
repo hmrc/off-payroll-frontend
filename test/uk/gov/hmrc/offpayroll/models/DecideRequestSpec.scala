@@ -17,24 +17,27 @@
 package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
+import play.api.Logger
 import play.api.libs.json.{Format, Json, Writes}
 
 /**
   * Created by peter on 12/12/2016.
   *
-  * (implicit decideRequestFormatter: Format[DecideRequest])
+  * (implicit decideRequestFormatter: Format[DecisionRequest])
   *
   */
 class DecideRequestSpec extends FlatSpec with Matchers  {
 
-  val decideRequestFormatter: Format[DecideRequest] = Json.format[DecideRequest]
-  val decideRequest: DecideRequest = DecideRequest("0.0.1-alpha", "123456",
+  val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
+
+  val decideRequest: DecisionRequest = DecisionRequest("0.0.1-alpha", "123456",
     Map("personalService" -> Map("personalService.workerSentActualSubstitiute" -> "false")))
+
   val expectedJsonDecideRequest = "{\"version\":\"0.0.1-alpha\",\"correlationID\":\"123456\",\"interview\":" +
     "{\"personalService\":{\"personalService.workerSentActualSubstitiute\":\"false\"}}}"
 
-  "A DecideRequest " should " serialize " in {
-      println(decideRequestFormatter.writes(decideRequest))
+  "A DecisionRequest " should " serialize " in {
+    //Logger.info(decideRequestFormatter.writes(decideRequest).toString())
     decideRequestFormatter.writes(decideRequest).toString() should === (expectedJsonDecideRequest)
   }
 

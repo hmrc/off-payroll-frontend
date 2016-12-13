@@ -19,6 +19,7 @@ package uk.gov.hmrc.offpayroll
 import java.util.Properties
 
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.models.PersonalServiceCluster
 
 /**
   * Created by peter on 11/12/2016.

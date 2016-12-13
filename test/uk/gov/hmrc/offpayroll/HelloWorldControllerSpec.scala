@@ -26,9 +26,10 @@ import uk.gov.hmrc.play.test.UnitSpec
 import uk.gov.hmrc.play.test.{WithFakeApplication, UnitSpec}
 
 
-class HelloWorldControllerSpec extends UnitSpec with WithFakeApplication{
+class HelloWorldControllerSpec extends UnitSpec with WithFakeApplication
+{
 
-  val fakeRequest = FakeRequest("GET", "/cluster/0")
+//  val fakeRequest = FakeRequest("GET", "/cluster/0")
 
 
 //  "GET /" should {

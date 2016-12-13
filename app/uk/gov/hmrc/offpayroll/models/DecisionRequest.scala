@@ -19,6 +19,6 @@ package uk.gov.hmrc.offpayroll.models
 /**
   * Created by peter on 12/12/2016.
   */
-case class DecideRequest(version: String, correlationID: String, interview: Map[String, Map[String, String]] ) {
+case class DecisionRequest(version: String, correlationID: String, interview: Map[String, Map[String, String]] ) {
 
 }

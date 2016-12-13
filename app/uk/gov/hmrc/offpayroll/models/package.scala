@@ -17,14 +17,14 @@
 package uk.gov.hmrc.offpayroll
 
 import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecideRequest, DecideResponse}
+import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecideResponse}
 
 /**
   * Created by peter on 12/12/2016.
   */
 package object modelsFormat {
 
-  implicit val decideRequestFormatter: Format[DecideRequest] = Json.format[DecideRequest]
+  implicit val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
   implicit val decideResponseFormatter: Format[DecideResponse] = Json.format[DecideResponse]
 
 }
