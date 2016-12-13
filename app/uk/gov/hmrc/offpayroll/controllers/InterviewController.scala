@@ -54,6 +54,9 @@ trait InterviewController extends FrontendController {
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decsion)))
   }
 
+  private def yesNo(value: Boolean): String =
+    if(value) "Yes" else "No"
+
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
     val element = flowService.getCurrent(clusterID, elementID)
@@ -68,23 +71,21 @@ trait InterviewController extends FrontendController {
 
     implicit val session: Map[String, String] = request.session.data
 
-
       singleForm.bindFromRequest.fold (
         formWithErrors =>
-          Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element)))
-        ,
+          Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))),
 
         value => {
           Logger.debug(" *********** Value **************: " + value)
-          implicit val session: Map[String, String] = request.session.data + (tag -> String.valueOf(value))
+          implicit val session: Map[String, String] = request.session.data + (tag -> yesNo(value))
 
-          val result = flowService.evaluateInterview(session, (tag, String.valueOf(value)))
+          val result = flowService.evaluateInterview(session, (tag, yesNo(value)))
 
           result.map(
             decision => {
               if (decision.continueWithQuestions) {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, decision.element.head))
-                  .withSession(request.session + (tag -> String.valueOf(value)))
+                  .withSession(request.session + (tag -> yesNo(value)))
               } else {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
               }

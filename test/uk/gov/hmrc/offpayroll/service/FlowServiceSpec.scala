@@ -29,6 +29,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class FlowServiceSpec extends UnitSpec with WithFakeApplication {
 
   private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
+  private val csrf = "csrf"
+  private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
 
   //@TODO inject a Mock Webflow into the flow service so we can test it independently
   val flowservice: FlowService = IR35FlowService
@@ -54,15 +56,18 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
   val lastElement: (String, String) = "personalService.possibleHelper" -> "false"
 
   it should {
-    "Process a full Interview and  Give a decision" in {
+    "Process a full Interview and give a decision" in {
 
-      val result = await(flowservice.evaluateInterview(personalService, lastElement))
-      println ("Result returned in integration test was: " + result)
-      assert(!result.continueWithQuestions, "A full personalService so we can stop")
-      assert(result.element.isEmpty, "There is no next tag we have a decision")
-      assert(result.decision.head.decision === UNKNOWN, "Expecting this to give Unknown for now!")
+      val result = await(flowservice.evaluateInterview(fullPlusJunk, lastElement))
+
+      result.continueWithQuestions should not be (true)
+      result.element.isEmpty should be (true)
+      result.decision.get.decision should be (OUT)
+      result.decision.get.qa.forall(value => !value._1.contains(csrf)) should be (true)
+
     }
   }
+
 
   it should {
     " be able to get the current element" in {

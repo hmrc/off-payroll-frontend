@@ -46,6 +46,8 @@ abstract class FlowService {
 
 object IR35FlowService extends FlowService {
 
+  implicit val hc = HeaderCarrier()
+
   private val weblow: Webflow = OffPayrollWebflow
 
   lazy val decisionConnector: DecisionConnector = DecisionConnector
@@ -67,22 +69,23 @@ object IR35FlowService extends FlowService {
 
   override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvalResult] = {
 
-    implicit val hc = HeaderCarrier()
+    val cleanInterview = interview.filter(qa => weblow.clusters().exists(clsrt => qa._1.startsWith(clsrt.name)))
+
     val currentTag = currentQnA._1
     lazy val currentElement: Element = guardValidEelement(currentTag)
     val currentCluster = weblow.getClusterByName(currentTag.takeWhile(c => c != '.'))
 
-    if (currentCluster.shouldAskForDecision(interview)) {
-      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(interview)).map[InterviewEvalResult](
+    if (currentCluster.shouldAskForDecision(cleanInterview)) {
+      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview)).map[InterviewEvalResult](
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
               if (weblow.getNext(currentElement).isEmpty)
-                InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(interview, UNKNOWN)), false)
+                InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(cleanInterview, UNKNOWN)), false)
               else
                 InterviewEvalResult(weblow.getNext(currentElement), Option.empty[Decision], true)
             } else {
-              InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(interview, getStatus(decision))), false)
+              InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(cleanInterview, getStatus(decision))), false)
             }
           }
           )

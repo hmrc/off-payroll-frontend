@@ -9,4 +9,4 @@ personalService.workerSentActualHelper=Has this ever happened in practice?
 personalService.possibleHelper=Could the worker bring in someone to help with this work if necessary and pay them out of their own money? 
 decision.in.ir35=You are inside IR35
 decision.out.ir35=You are outside IR35
-decision.unknown=¯\_(ツ)_/¯
+decision.unknown=Undecided

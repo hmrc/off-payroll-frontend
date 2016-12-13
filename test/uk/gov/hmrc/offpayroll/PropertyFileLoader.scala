@@ -39,10 +39,10 @@ object PropertyFileLoader {
     this.getMessagesFileAsMap.filterKeys(k => k.startsWith(clusterName))
 
   def convertMapToAListOfAnswers(map: Map[String, String]) =
-    map.foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, "true") :: currentList})
+    map.foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, "Yes") :: currentList})
 
   def transformMapFromQuestionTextToAnswers(clusterName: String):Map[String, String] = {
-    this.getMessagesForACluster(clusterName).map(properties => (properties._1, "true"))
+    this.getMessagesForACluster(clusterName).map(properties => (properties._1, "Yes"))
   }
 
 }
