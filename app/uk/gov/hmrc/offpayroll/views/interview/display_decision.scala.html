@@ -1,0 +1,44 @@
+
+@import uk.gov.hmrc.play.views.html.helpers
+@import uk.gov.hmrc.offpayroll.models.ElementType
+@import uk.gov.hmrc.offpayroll.controllers.routes
+@import uk.gov.hmrc.offpayroll.models.Decision
+@import uk.gov.hmrc.offpayroll.models.Element
+
+@import uk.gov.hmrc.offpayroll.models.Decision
+@(decision: Decision)(implicit request: Request[_], messages: Messages, session: Map[String, String])
+@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None) {
+<main id="content" role="main" class="result">
+	 <div class="grid-row" id="resultPreHeader">
+      <div class="column-two-thirds">Reference number ESFTPZZ9ZA</div>
+      <div class="column-one-third">07/12/2016</div>
+    </div>
+    <div class="grid-row">
+		<div class="column-two-thirds">
+      <div class="transaction-banner--complete">
+        <h1 class="transaction-banner__heading">@Messages("" + decision.decision.value)</h1>
+        
+          <!--<p>Because you are an office holder</p>-->
+        
+      </div>
+			<h1 class="heading-large"></h1>
+
+      <h2 class="heading-medium">Your answers</h2>
+			<ol>
+                @for((key,value) <- decision.qa){
+                <li class="panel-indent section divider--bottom"><h2>@messages(key)</h2>
+                    <div>@value</div>
+                </li>
+                }
+            </ol>
+		</div>
+    <div class="column-one-third">
+      <ul>
+      <li><a href="/customise-pdf">Download PDF</a></li>
+      <li><a href="#">Print this page</a></li>
+      </ul>
+    </div>
+	</div>
+  
+	</main>
+}
