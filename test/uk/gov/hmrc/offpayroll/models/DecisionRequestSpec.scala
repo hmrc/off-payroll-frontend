@@ -26,7 +26,7 @@ import play.api.libs.json.{Format, Json, Writes}
   * (implicit decideRequestFormatter: Format[DecisionRequest])
   *
   */
-class DecideRequestSpec extends FlatSpec with Matchers  {
+class DecisionRequestSpec extends FlatSpec with Matchers  {
 
   val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
 
