@@ -16,107 +16,43 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-
 /**
   * Created by peter on 02/12/2016.
   *
   *
   */
-
-
-
-/**
-  * Represents a Cluster which is a part of an Interview in Offpayroll
-  */
-abstract class Cluster {
-
-  /**
-    * Use this value to informatively name the cluster and use as a key to tags
-    */
-  def name:String
-
-  /**
-    * All the Elements that make up this cluster
-    *
-    * @return
-    */
-  def clusterElements: List[Element]
-
-  /**
-    * Helps order a Cluster in an Interview
-    * @return
-    */
-  def clusterID: Int
-
-  /**
-    *
-    * Based on what has been answered for this cluster should we ask
-    * for a Decision
-    *
-    * @param clusterAnswers
-    * @return
-    */
-  def shouldAskForDecision(clusterAnswers: List[(String, String)]):Boolean
-
-  def shouldAskForDecision(clusterAnswers: Map[String, String]):Boolean = {
-    shouldAskForDecision(
-      clusterAnswers.foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, prop._2) :: currentList}))
-  }
-
-  override def toString: String = {
-    " Cluster ID: " + clusterID
-  }
-
-}
-
-abstract class Webflow {
-
-  def version: String
-
-  def getNext(element: Element):Option[Element]
-
-  def getStart():Element
-
-  def getEelmentById(clusterId: Int, elementId: Int): Option[Element]
-
-  def getElementByTag(tag: String): Option[Element]
-
-  def clusters(): List[Cluster]
-
-  def getClusterByName(name: String): Cluster
-}
-
 object OffPayrollWebflow extends Webflow {
 
-  val version: String= "0.0.1-alpha"
+  val version: String = "0.0.1-alpha"
 
-  def clusters: List[Cluster] = List(PersonalServiceCluster)
+  def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster)
 
-  override def getNext(element: Element):Option[Element] = {
+  override def getNext(element: Element): Option[Element] = {
 
     val clusterId = element.clusterParent.clusterID
     val cluster = clusters()(clusterId)
 
-    if(cluster.clusterElements.size > element.order + 1)
-    Option(cluster.clusterElements(element.order + 1))
+    if (cluster.clusterElements.size > element.order + 1)
+      Option(cluster.clusterElements(element.order + 1))
     else
-    Option.empty[Element]
+      Option.empty[Element]
 
   }
 
-  override def getStart():Element = clusters.head.clusterElements.head
+  override def getStart(): Element = clusters.head.clusterElements.head
 
   override def getElementByTag(tag: String): Option[Element] = {
 
     def loop(cluster: List[Cluster]): Option[Element] = {
-      if(cluster.isEmpty) Option.empty[Element]
+      if (cluster.isEmpty) Option.empty[Element]
       else {
         cluster.head.clusterElements.foldRight(Option.empty[Element])((element, option) => {
-          if(element.questionTag == tag) Option(element)
+          if (element.questionTag == tag) Option(element)
           else option
         })
       }
     }
+
     loop(clusters())
   }
 
@@ -126,11 +62,11 @@ object OffPayrollWebflow extends Webflow {
       Option(clusters()(clusterId).clusterElements(elementId))
     }
     else
-    Option.empty[Element]
+      Option.empty[Element]
   }
 
   override def getClusterByName(name: String): Cluster = {
-    if(clusters.exists(cluster => cluster.name == name)){
+    if (clusters.exists(cluster => cluster.name == name)) {
       clusters.filter(cluster => cluster.name == name).head
     } else {
       throw new IllegalArgumentException("no such Cluster: " + name)
@@ -138,82 +74,47 @@ object OffPayrollWebflow extends Webflow {
   }
 }
 
-
-object PersonalServiceCluster extends Cluster {
-
-  /**
-    * Use this value to informatively name the cluster and use as a key to tags
-    */
-  override def name: String = "personalService"
-  override def clusterID: Int = 0
-
-  val clusterElements: List[Element] = List(
-  Element("workerSentActualSubstitiute", RADIO, 0, this),
-  Element("contractrualObligationForSubstitute", RADIO, 1, this),
-  Element("possibleSubstituteRejection", RADIO, 2, this),
-  Element("contractualObligationInPractise", RADIO, 3, this),
-  Element("workerPayActualHelper", RADIO, 4, this),
-  Element("engagerArrangeWorker", RADIO, 5, this),
-  Element("contractTermsWorkerPaysSubstitute", RADIO, 6, this),
-  Element("workerSentActualHelper", RADIO, 7, this),
-  Element("possibleHelper", RADIO, 8, this)
-  )
-
-  override def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean = {
-    clusterElements.forall((element) => clusterAnswers.exists(a => a._1 == element.questionTag))
-  }
-
-}
-
-
-case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster) {
-
-  def questionTag: String = clusterParent.name + "." + _questionTag
-  override def toString: String = {
-    "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
-  }
-}
-
-trait ElementType
-case object RADIO extends ElementType
-
-object ElementType extends ElementType
-
-
-trait DecisionType {
-  val value: String
-}
-case object IN extends DecisionType {
-  override val value: String = "decision.in.ir35"
-}
-
-case object OUT extends DecisionType {
-  override val value: String = "decision.out.ir35"
-}
-case object UNKNOWN extends DecisionType {
-  override val value: String = "decision.unknown"
-}
-
-
 object DecisionBuilder {
 
+//  import FlowHelper._
+
+  //  @Todo get this value from the
   val correlationID: String = "12345"
 
+  type Interview = Map[String, String]
 
+  def buildDecisionRequest(interview: Interview): DecisionRequest = {
 
-  def buildDecisionRequest(interview: Map[String, String]):DecisionRequest = {
+    val listOfTripple = interview.toList
+      .map{
+        case(n,a) =>
+          n match {
+            case ClusterAndQuestion(c,q) => (c,(q,a))
+            case _ => (n,(n,a))
+          }
+      }
 
-    val interviewFilteredByCluster = interview.filter(qa => {
-      OffPayrollWebflow.clusters.exists(cluster => cluster.name == FlowHelper.getClusterNameFromTag(qa._1))
-    }).map(key => (key._1.replace("personalService.", ""), key._2 ))
+    val fliteredByValidClusters = listOfTripple
+      .filter{ case (c,n) => OffPayrollWebflow.clusters.exists(cluster => c == cluster.name)}
 
-    //@Fixme @Todo hard code
-    DecisionRequest(OffPayrollWebflow.version, correlationID, Map("personalService" -> interviewFilteredByCluster))
+    val groupByCluster = fliteredByValidClusters.groupBy {
+      case (cl, p) => cl
+    }
+
+    val mappedToResult = groupByCluster
+      .map { case (cl, t3) => (cl, t3.map { case (t1, t2) => t2 }.toMap) }
+
+    DecisionRequest(OffPayrollWebflow.version, correlationID, mappedToResult)
   }
+
 }
 
-object FlowHelper {
-  def getClusterNameFromTag(tag: String) = tag.takeWhile(c => c != '.')
+object ClusterAndQuestion {
+
+  def unapply(tag:String):Option[(String,String)] = {
+    if (tag.split('.').length > 1) Some(tag.split('.')(0),tag.split('.')(1))
+    else None
+  }
 }
 
 case class Decision(qa: Map[String, String], decision: DecisionType)

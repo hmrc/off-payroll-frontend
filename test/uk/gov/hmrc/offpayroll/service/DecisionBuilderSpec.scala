@@ -30,23 +30,49 @@ import scala.concurrent.ExecutionContext.Implicits.global
   */
 class DecisionBuilderSpec  extends FlatSpec with Matchers {
 
-  val interview = Map("personalService.workerSentActualSubstitiute" -> "false")
+  val interview = Map("personalService.workerSentActualSubstitiute" -> "false", "personalService.contractrualRight" -> "true",
+    "control.hasMoreThan50Percent" -> "false")
 
-//  val expectedDecisionRequest = DecisionRequest(OffPayrollWebflow.version,
-//    DecisionBuilder.correlationID, Map("interview" -> personalService))
 
-  val decisionRequestString = "{\"version\":\"0.0.1-alpha\",\"correlationID\":\"12345\",\"interview\":" +
-    "{\"personalService\":{\"workerSentActualSubstitiute\":\"false\"}}}"
+  val decisionRequestStringPlusControl =
+    """
+      |{
+      |  "version": "0.0.1-alpha",
+      |  "correlationID": "12345",
+      |  "interview": {
+      |    "personalService": {
+      |      "workerSentActualSubstitiute": "false",
+      |      "contractrualRight": "true"
+      |    },
+      |    "control": {
+      |      "hasMoreThan50Percent": "false"
+      |    }
+      |  }
+      |}
+    """.stripMargin
 
-  val expectedDecisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestString)).get
+  val decisionRequestString =
+    """
+      |{
+      |  "version": "0.0.1-alpha",
+      |  "correlationID": "12345",
+      |  "interview": {
+      |    "personalService": {
+      |      "workerSentActualSubstitiute": "false"
+      |    }
+      |  }
+      |}
+    """.stripMargin
+
+  val expectedDecisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestStringPlusControl)).get
 
   "A DecisionBuilder " should "build a DecisionRequest from the current Interview in the Sesssion" in {
     val decisionRequest: DecisionRequest = DecisionBuilder.buildDecisionRequest(interview)
 
-    println(decisionRequest)
     decisionRequest shouldBe (expectedDecisionRequest)
 
   }
+
 
 
 }

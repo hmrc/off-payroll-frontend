@@ -1,0 +1,52 @@
+/*
+ * Copyright 2016 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package uk.gov.hmrc.offpayroll.models
+
+/**
+  * Created by peter on 15/12/2016.
+  */
+case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster) {
+
+  def questionTag: String = clusterParent.name + "." + _questionTag
+
+  override def toString: String = {
+    "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
+  }
+}
+
+trait ElementType
+
+case object RADIO extends ElementType
+
+object ElementType extends ElementType
+
+
+trait DecisionType {
+  val value: String
+}
+
+case object IN extends DecisionType {
+  override val value: String = "decision.in.ir35"
+}
+
+case object OUT extends DecisionType {
+  override val value: String = "decision.out.ir35"
+}
+
+case object UNKNOWN extends DecisionType {
+  override val value: String = "decision.unknown"
+}

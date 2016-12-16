@@ -38,8 +38,8 @@ class WebflowSpec extends FlatSpec with Matchers {
     startElement.questionTag should be (personalservice + ".workerSentActualSubstitiute")
   }
 
-  it should "have a single cluster" in {
-    webflow.clusters.size should be (1)
+  it should "have a two clusters" in {
+    webflow.clusters.size should be (2)
   }
 
   it should " be able to get a Cluster by its name " in {
@@ -68,7 +68,7 @@ class WebflowSpec extends FlatSpec with Matchers {
   }
 
   it should "return an empty Option if we try and get an element by Id that does not exist" in {
-    webflow.getEelmentById(1, 0).isEmpty should be (true)
+    webflow.getEelmentById(2, 0).isEmpty should be (true)
     webflow.getEelmentById(0, lastElement.order + 1).isEmpty should be (true)
   }
 
