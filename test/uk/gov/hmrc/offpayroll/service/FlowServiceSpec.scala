@@ -53,22 +53,6 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
     }
   }
 
-  val lastElement: (String, String) = "personalService.possibleHelper" -> "false"
-
-  it should {
-    "Process a full Interview and give a decision" in {
-
-      val result = await(flowservice.evaluateInterview(fullPlusJunk, lastElement))
-
-      result.continueWithQuestions should not be (true)
-      result.element.isEmpty should be (true)
-      result.decision.get.decision should be (OUT)
-      result.decision.get.qa.forall(value => !value._1.contains(csrf)) should be (true)
-
-    }
-  }
-
-
   it should {
     " be able to get the current element" in {
       assert(flowservice.getCurrent(0, 1).questionTag == "personalService.contractrualObligationForSubstitute")
