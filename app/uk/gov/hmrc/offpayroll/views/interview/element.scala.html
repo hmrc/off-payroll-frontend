@@ -1,6 +1,6 @@
 
 @import uk.gov.hmrc.play.views.html.helpers
-@import uk.gov.hmrc.offpayroll.models.RADIO
+@import uk.gov.hmrc.offpayroll.models.{RADIO, MULTI}
 
 @import uk.gov.hmrc.offpayroll.models.Element
 @import uk.gov.hmrc.offpayroll.models.RADIO
@@ -36,6 +36,13 @@
     </div>
 
         }
+        @if(element.elementType == MULTI ) {
+
+
+            <p>Type is multi</p>
+
+        }
+
         <button>submit</button>
 
         @if(true) {
