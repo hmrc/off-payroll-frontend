@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 /**
   * Created by peter on 09/12/2016.
   */
-class FlowServiceSpec extends UnitSpec with WithFakeApplication {
+class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication {
 
   private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
   private val csrf = "csrf"

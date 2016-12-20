@@ -1,9 +1,8 @@
 
 @import uk.gov.hmrc.play.views.html.helpers
 @import uk.gov.hmrc.offpayroll.models.{RADIO, MULTI}
-
 @import uk.gov.hmrc.offpayroll.models.Element
-@import uk.gov.hmrc.offpayroll.models.RADIO
+
 @(f:Form[_], element:Element)(implicit request: Request[_], messages: Messages, session: Map[String, String])
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Hello from off-payroll-frontend", bodyClasses = None) {

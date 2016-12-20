@@ -22,7 +22,7 @@ import uk.gov.hmrc.offpayroll.models.{Cluster, Element, OffPayrollWebflow, Webfl
 /**
   * Created by peter on 05/12/2016.
   */
-class WebflowSpec extends FlatSpec with Matchers {
+class OffpayrollWebflowSpec extends FlatSpec with Matchers {
 
   private val webflow: Webflow = OffPayrollWebflow
 
