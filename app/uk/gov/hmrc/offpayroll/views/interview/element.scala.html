@@ -13,7 +13,6 @@
 
 
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order)) {
-
         @if(element.elementType == RADIO ) {
 
 
@@ -35,11 +34,18 @@
       </fieldset>
     </div>
 
+
         }
         @if(element.elementType == MULTI ) {
 
-
-            <p>Type is multi</p>
+            @for( child <- element.children ){
+                <div class="form-field">
+                    <label for="@child.questionTag" class="block-label">
+                        <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@child.questionTag" value="true" />
+                        @Messages(child.questionTag)
+                    </label>
+                </div>
+            }
 
         }
 
