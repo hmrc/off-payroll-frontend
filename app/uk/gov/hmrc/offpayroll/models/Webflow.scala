@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+
 /**
   * Created by peter on 15/12/2016.
   */
@@ -24,6 +26,8 @@ abstract class Webflow {
   def version: String
 
   def getNext(currentElement: Element): Option[Element]
+
+  def getNext(currentElement: Element, interview: Interview): Option[Element]
 
   def getStart(): Element
 

@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.service
+package uk.gov.hmrc.offpayroll.util
 
-import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
+import uk.gov.hmrc.offpayroll.models.Element
 
 /**
-  * Created by peter on 13/12/2016.
+  * Created by peter on 21/12/2016.
   */
-class ClusterAndQuestionSpec  extends FlatSpec with Matchers  {
+object ClusterAndQuestion {
 
-  "ClusterAndQuestion " should "get the cluster name  and the Question Name from a tag" in {
-    ClusterAndQuestion.unapply("someCluster.SomeQuestion") shouldBe (Some(("someCluster", "SomeQuestion")))
+  def unapply(tag:String):Option[(String,String)] = {
+    if (tag.split('.').length > 1) Some(tag.split('.')(0),tag.split('.')(1))
+    else None
   }
 
-  it should "return the tag if the cluster name is not dot delimited " in {
-    ClusterAndQuestion.unapply("someClusterSomeQuestion") shouldBe None
+  def unapply(element: Element):Option[(String,String)] = element match {
+    case null => throw new IllegalArgumentException("Element cannot be null")
+    case _ => this.unapply(element.questionTag)
   }
 
 }

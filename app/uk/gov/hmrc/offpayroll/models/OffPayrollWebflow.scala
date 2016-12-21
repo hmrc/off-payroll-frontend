@@ -16,6 +16,9 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
+
 /**
   * Created by peter on 02/12/2016.
   *
@@ -56,13 +59,18 @@ object OffPayrollWebflow extends Webflow {
     loop(clusters())
   }
 
+  override def getNext(currentElement: Element, interview: Interview): Option[Element] = {
+    val currentClusterName: String = ClusterAndQuestion.unapply(currentElement).get._1
+    getClusterByName(currentClusterName).getNextElement(interview)
+  }
+
   override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
 
     if (clusters.size > clusterId && clusters()(clusterId).clusterElements.size > elementId) {
       Option(clusters()(clusterId).clusterElements(elementId))
     }
     else
-      Option.empty[Element]
+    Option.empty[Element]
   }
 
   override def getClusterByName(name: String): Cluster = {
@@ -72,6 +80,7 @@ object OffPayrollWebflow extends Webflow {
       throw new IllegalArgumentException("no such Cluster: " + name)
     }
   }
+
 }
 
 object DecisionBuilder {
@@ -109,12 +118,6 @@ object DecisionBuilder {
 
 }
 
-object ClusterAndQuestion {
 
-  def unapply(tag:String):Option[(String,String)] = {
-    if (tag.split('.').length > 1) Some(tag.split('.')(0),tag.split('.')(1))
-    else None
-  }
-}
 
 case class Decision(qa: Map[String, String], decision: DecisionType)

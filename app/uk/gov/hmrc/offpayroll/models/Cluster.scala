@@ -16,10 +16,23 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+
 /**
   * Represents a Cluster which is a part of an Interview in Offpayroll
   */
 abstract class Cluster {
+
+
+  /**
+    *
+    * Conditional Element based on flow logic of the Cluster
+    *
+    * @param interview
+    * @return
+    */
+  def getNextElement(interview: Interview): Option[Element]
+
 
   /**
     * Use this value to informatively name the cluster and use as a key to tags

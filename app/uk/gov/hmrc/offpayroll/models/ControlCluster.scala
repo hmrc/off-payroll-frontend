@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+
 /**
   * Created by peter on 15/12/2016.
   */
@@ -48,4 +50,13 @@ object ControlCluster extends Cluster {
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean = ???
+
+  /**
+    *
+    * Conditional Element based on flow logic of the Cluster
+    *
+    * @param interview
+    * @return
+    */
+  override def getNextElement(interview: Interview): Option[Element] = ???
 }
