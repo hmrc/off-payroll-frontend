@@ -39,7 +39,7 @@ abstract class FlowService {
 
   def getStart(): Element
 
-  def getCurrent(clusterId: Int, elementId: Int): Element
+  def getAbsoluteElement(clusterId: Int, elementId: Int): Element
 
 }
 
@@ -103,7 +103,7 @@ object IR35FlowService extends FlowService {
     else new InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(Map("unknown" -> "false"), UNKNOWN)), false) //error case
   }
 
-  override def getCurrent(clusterId: Int, elementId: Int): Element = {
+  override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = {
     val currentElement = weblow.getEelmentById(clusterId, elementId)
     if (currentElement.nonEmpty) currentElement.head
     else throw new NoSuchElementException("No Element found matching: " + clusterId + "/" + elementId)

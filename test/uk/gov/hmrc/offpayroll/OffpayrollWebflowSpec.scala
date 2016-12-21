@@ -32,10 +32,10 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers {
 
   private val personalservice = "personalService"
 
-  "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element" in {
+  "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element contractualObligationForSubstitute" in {
     val startElement = webflow.getStart()
     startElement.clusterParent.name should be (personalservice)
-    startElement.questionTag should be (personalservice + ".workerSentActualSubstitiute")
+    startElement.questionTag should be (personalservice + ".contractualObligationForSubstitute")
   }
 
   it should "have a two clusters" in {
@@ -47,27 +47,27 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers {
     cluster.name should be (personalservice)
   }
 
-  it should " be able to get the start element as the start point for the Interview" in {
+  it should " be able to get the start currentElement as the start point for the Interview" in {
     webflow.getStart() should equal(firstElement)
   }
 
-  it should "be able to get the next element based on the current element" in {
+  it should "be able to get the next currentElement based on the current currentElement" in {
     val next = webflow.getNext(firstElement)
 
     next should not be(next.isEmpty)
     next.head should equal(webflow.clusters()(0).clusterElements(1))
   }
 
-  it should " give an empty option element when we try and get an element that is out of bound" in {
+  it should " give an empty option currentElement when we try and get an currentElement that is out of bound" in {
     webflow.getNext(lastElement).isEmpty should be (true)
   }
 
-  it should "be able to get an element by id that is valid" in {
+  it should "be able to get an currentElement by id that is valid" in {
     webflow.getEelmentById(0, lastElement.order).nonEmpty should be (true)
     webflow.getEelmentById(0, 0).nonEmpty should be (true)
   }
 
-  it should "return an empty Option if we try and get an element by Id that does not exist" in {
+  it should "return an empty Option if we try and get an currentElement by Id that does not exist" in {
     webflow.getEelmentById(2, 0).isEmpty should be (true)
     webflow.getEelmentById(0, lastElement.order + 1).isEmpty should be (true)
   }

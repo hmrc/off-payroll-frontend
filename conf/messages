@@ -1,5 +1,6 @@
-personalService.workerSentActualSubstitiute=Has the worker sent an actual substitute?
-personalService.contractrualObligationForSubstitute=Is there a contractual obligation for the worker to provide a substitute?
+personalService.contractualObligationForSubstitute=If the worker can't or doesn't want to do the work does the contract state that they have to send someone else?
+
+personalService.contractualObligationInPractise=If the worker can't or doesn't want to do the work do they have to send someone else?
 personalService.possibleSubstituteRejection=Can the engager reject a suitably qualified substitute of the worker’s own choosing?
 personalService.contractualObligationInPractise=Is there a contractual right for the worker to send a substitute?
 personalService.workerPayActualHelper=Has the worker ever brought in someone to help with the work they were engaged to do in practice and paid them out of their own money?

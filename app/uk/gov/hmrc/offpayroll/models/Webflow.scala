@@ -23,7 +23,7 @@ abstract class Webflow {
 
   def version: String
 
-  def getNext(element: Element): Option[Element]
+  def getNext(currentElement: Element): Option[Element]
 
   def getStart(): Element
 
