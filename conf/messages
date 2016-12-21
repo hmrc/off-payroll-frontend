@@ -1,3 +1,25 @@
+# Global Content
+
+global.button.continue=Continue
+
+
+# Set up cluster
+
+setUp.endUserRole=Why do you want to use this tool?
+setUp.endUserRole_01=Person doing the work, I want to find out whether I'm working in a way that means I should pay tax like an employee
+setUp.endUserRole_02=End client who needs the services, I want to find out whether a person providing services to my organisation is working in a way that means they should pay tax like an employee
+setUp.endUserRole_03=Agency placing the person, I want to find out whether a person I'm placing is working in a way that means they should pay tax like an employee.
+setUp.hasContractStarted=Has the worker already started doing the work for this contract?
+setup.provideServices=How do they provide their services for this contract?
+setup.provideServices_01=Through a limited company
+setup.provideServices_02=Through a partnership
+setup.provideServices_03=I work through an intermediary who is an individual.
+setup.provideServices_04=As a sole trader
+setUp.ownMoreThan51Percent=Do you, or you and your spouse / civil partner work through an intermediary and own more than 51% of the shares?
+
+
+# Personal Service cluster
+
 personalService.contractualObligationForSubstitute=If the worker can't or doesn't want to do the work, Does the contract state that they're allowed to send someone else?
 personalService.contractualObligationInPractice=If the worker can't or doesn't want to do the work, Do they have to send someone else?
 personalService.contractrualRightForSubstitute=If the worker can't or doesn't want to do the work, Does the contract state that they're allowed to send someone else?
@@ -12,7 +34,9 @@ personalService.possibleHelper=Is the worker allowed to get someone to help them
 personalService.wouldWorkerPayHelper=Do they have to pay the helper?
 personalService.workerSentActualHelper=Has someone helped the worker do the work for this contract?
 personalService.workerPayActualHelper=Did they pay the helper?
-formElements.buttonText=Continue
+
+# Decision
+
 decision.in.ir35=You are inside IR35
 decision.out.ir35=You are outside IR35
 decision.unknown=Undecided
