@@ -25,7 +25,7 @@ import  uk.gov.hmrc.offpayroll.models.PersonalServiceCluster
 class PersonalServiceClusterSpec extends FlatSpec with Matchers {
 
   private val personalServiceCluster = PersonalServiceCluster
-  private val currentQnA = ("personalService.contractualObligationForSubstitute", "false")
+  private val currentQnA = ("personalService.contractualObligationForSubstitute", "No")
   private val partialAnswers = List(currentQnA)
 
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("personalService")
