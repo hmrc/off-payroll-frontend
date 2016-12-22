@@ -60,6 +60,43 @@ personalService.wouldWorkerPayHelper=Do they have to pay the helper?
 personalService.workerSentActualHelper=Has someone helped the worker do the work for this contract?
 personalService.workerPayActualHelper=Did they pay the helper?
 
+#### Control Cluster
+
+control.toldWhatToDo=Does the worker get to decide which tasks they do each day for this contract?
+control.engagerMovingWorker=Can the end client tell the worker to move from job to job during this contract?
+
+control.workerDecidingHowWorkIsDone=Can the end client tell the worker how to do the work for this contract?
+control.workerDecidingHowWorkIsDone.workingSetInstructions=- They follow a set process or set of instructions.
+control.workerDecidingHowWorkIsDone.WorkerCanGetInstructed=- The end client can give them written or spoken instructions.
+control.workerDecidingHowWorkIsDone.WorkerDecidesToClientSatisfaction=- They decide how they do the work, as long as the end client is satisfied.
+control.workerDecidingHowWorkIsDone.WorkerFullyDecides=- They're skilled to the level that it's not appropriate for the end client to tell them how to do the work.
+
+control.whenWorkHasToBeDone=When does the worker have to do the work for this contract?
+control.whenWorkHasToBeDone.workingPatternStipulated=They have to work a pattern decided by the end client.
+control.whenWorkHasToBeDone.workingPatternAgreed=They have to work a pattern they've agreed with the end client.
+control.whenWorkHasToBeDone.noDefinedWorkingPattern=They're free to do the work whenever they want, as long as it gets done.
+control.whenWorkHasToBeDone.workinPatternAgreedDeadlines=They work to an agreed deadline or series of deadlines.
+control.whenWorkHasToBeDone.workinPatternRegularHoursToAgreedDeadlines=They work regular hours, and to an agreed deadline or series of deadlines.
+
+control.workerDecideWhere=Can the worker choose where to work during this contract?
+control.workerDecideWhere.couldFixWorkerLocation=The worker can choose where to work.
+control.workerDecideWhere.cannotFixWorkerLocation=The worker can't choose where to work.
+control.workerDecideWhere.workerLocationFixed=The work can only be done in a specific location.
+
+#### Financial Risk Cluster A
+
+financialRiskA.workerPaidInclusive=Is the worker paid an all-inclusive rate which must cover the cost of all materials needed for the contract?
+financialRiskA.workerneedConsumablesMaterials=Does the worker need materials that become part of the work for this contract?
+financialRiskA.workerProvideConsumablesMaterials=Do they have to provide them?
+financialRiskA.engagerPayExpense=Do they get the money back?
+financialRiskA.workerNeedEquipment=Does the worker need major items of equipment without which they can't do the work for this contract?
+financialRiskA.workerProvideEquipment=Do they have to provide them?
+financialRiskA.engagerPayExpense=Do they get the money back?
+
+
+
+
+
 # Decision
 
 decision.in.ir35=You are inside IR35
