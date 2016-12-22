@@ -16,11 +16,11 @@
 
 package uk.gov.hmrc.offpayroll.connectors
 
-import org.scalatest.mock.MockitoSugar
+import org.scalatest.mockito.MockitoSugar
 import org.mockito.Matchers._
 import org.mockito.Mockito._
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecideResponse}
+import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
 import uk.gov.hmrc.play.http.ws.WSHttp
@@ -38,11 +38,53 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
 
   implicit val hc = HeaderCarrier()
 
-  val decisionResponseString = "{\n  \"version\": \"0.0.1-alpha\",\n  \"correlationID\": " +
-    "\"12345\",\n  \"carryOnWithQuestions\": true,\n  \"score\": {\n \"personalService\": \"HIGH\",\n    \"miscellaneous\": \"LOW\"\n  },\n  \"result\": \"Unknown\"\n}"
+  private val version = "1.0.0-beta"
+  private val correlationId = "12345"
+  private val result = "Unknown"
+  private val decisionResponseString =
+    """
+      |{
+      |  "version": "1.0.0-beta",
+      |  "correlationID": "12345",
+      |  "score": {
+      |    "personalService": "HIGH",
+      |    "control": "LOW",
+      |    "financialRiskA": "LOW",
+      |    "financialRiskB": "LOW",
+      |    "partAndParcel": "LOW",
+      |    "businessStructure": "LOW"
+      |  },
+      |  "result": "Unknown"
+      |}
+    """.stripMargin
 
-  val decisionRequestString = "{\"version\":\"0.0.1-alpha\",\"correlationID\":\"123456\",\"interview\":" +
-    "{\"personalService\":{\"personalService.workerSentActualSubstitiute\":\"false\"}}}"
+  private val decisionRequestString =
+    """
+      |{
+      |  "version": "1.0.0-beta",
+      |  "correlationID": "12345",
+      |  "interview": {
+      |    "personalService": {
+      |      "contractualObligationForSubstitute": "No"
+      |    },
+      |    "control": {
+      |      "toldWhatToDo": "Sometimes"
+      |    },
+      |    "financialRiskA": {
+      |      "workerPaidInclusive": "No"
+      |    },
+      |    "financialRiskB": {
+      |      "workerProvideConsumablesMaterials": "No"
+      |    },
+      |    "partAndParcel": {
+      |      "workerReceivesBenefits": "Yes"
+      |    },
+      |    "businessStructure": {
+      |      "workerVAT": "No"
+      |    }
+      |  }
+      |}
+    """.stripMargin
 
   object testConnector extends DecisionConnector {
     override val decisionURL: String = "off-payroll-decision"
@@ -54,33 +96,25 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
   "Calling /off-payroll-decision/decide" should {
     "return a decision" in {
 
-      println(decisionResponseString)
-
       val decisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestString)).get
-      val jsonResponse = Json.fromJson[DecideResponse](Json.parse(decisionResponseString)).get
+      val jsonResponse = Json.fromJson[DecisionResponse](Json.parse(decisionResponseString)).get
 
-      when(testConnector.http.POST[DecisionRequest, DecideResponse](any(), any(), any())(any(), any(), any()))
+      when(testConnector.http.POST[DecisionRequest, DecisionResponse](any(), any(), any())(any(), any(), any()))
         .thenReturn(Future(jsonResponse))
 
-      val result = await(testConnector.decide(decisionRequest))
+      val decideResponse = await(testConnector.decide(decisionRequest))
 
-      result.version shouldBe ("0.0.1-alpha")
-      result.correlationID shouldBe ("12345")
-      result.score.size shouldBe (2)
-      result.result shouldBe ("Unknown")
-      result.carryOnWithQuestions shouldBe (true)
+      decideResponse.version shouldBe version
+      decideResponse.correlationID shouldBe correlationId
+      decideResponse.score.size shouldBe 6
+
+      for (score <- List("personalService", "control", "financialRiskA", "financialRiskB","partAndParcel", "businessStructure" )){
+        decideResponse.score.contains(score) shouldBe true
+      }
+
+      decideResponse.result shouldBe result
 
     }
-//    "return an illegible response" in {
-//      val jsonResponse = Json.fromJson[EligibilityStatus](checkEligibilityFalseResponse).get
-//
-//      when(testConnector.http.POST[SelfAssessment, EligibilityStatus](any(), any(), any())(any(), any(), any()))
-//        .thenReturn(Future(jsonResponse))
-//
-//      val result = await(testConnector.checkEligibility(checkEligibilityFalseRequest))
-//
-//      result.eligible shouldBe false
-//      result.reasons.contains("TotalDebtIsTooHigh") shouldBe true
-//    }
+
   }
 }

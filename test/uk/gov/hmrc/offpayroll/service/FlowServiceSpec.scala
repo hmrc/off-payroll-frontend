@@ -47,10 +47,13 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
   it should {
     "Process a partial personalService and expect it to return Continue" in {
 
-      val result = await(flowservice.evaluateInterview(interview, currentElement))
-      assert(result.continueWithQuestions === true, "Only a partial personalService so we need to continue")
+      val intervieEvalResult = await(flowservice.evaluateInterview(interview, currentElement))
+
+      assert(intervieEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
+
       val nextValidTag = "personalService.contractualObligationInPractise"
-      assert(result.element.head.questionTag === nextValidTag) //next tag
+
+      assert(intervieEvalResult.element.head.questionTag === nextValidTag) //next tag
     }
   }
 

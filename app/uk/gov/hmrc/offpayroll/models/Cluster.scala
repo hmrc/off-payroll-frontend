@@ -61,14 +61,8 @@ abstract class Cluster {
     * @param clusterAnswers
     * @return
     */
-  def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean
+  def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element]
 
-  def shouldAskForDecision(clusterAnswers: Map[String, String]): Boolean = {
-    shouldAskForDecision(
-      clusterAnswers.foldLeft[List[(String, String)]](Nil)((currentList, prop) => {
-        (prop._1, prop._2) :: currentList
-      }))
-  }
 
   override def toString: String = {
     "{Cluster ID: " + clusterID + " Name: " + name + "}"

@@ -29,7 +29,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   val mockClusters = mock[List[Cluster]]
 
   private val webflow = OffPayrollWebflow
-  
+
 
   private val firstElement: Element = webflow.getStart()
   private val lastElement = webflow.clusters()(0).clusterElements(8)

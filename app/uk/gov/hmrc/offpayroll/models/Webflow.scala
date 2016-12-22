@@ -39,4 +39,6 @@ abstract class Webflow {
 
   def getClusterByName(name: String): Cluster
 
+  def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element]
+
 }

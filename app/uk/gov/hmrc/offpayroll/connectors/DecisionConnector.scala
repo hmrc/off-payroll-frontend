@@ -17,7 +17,7 @@
 package uk.gov.hmrc.offpayroll.connectors
 
 import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecideResponse}
+import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
 
 import uk.gov.hmrc.offpayroll.modelsFormat._
@@ -34,8 +34,8 @@ trait DecisionConnector {
   val serviceURL: String
   val http: HttpPost
 
-  def decide(decideRequest: DecisionRequest)(implicit hc: HeaderCarrier): Future[DecideResponse] = {
-    http.POST[DecisionRequest, DecideResponse](s"$decisionURL/$serviceURL/", decideRequest)
+  def decide(decideRequest: DecisionRequest)(implicit hc: HeaderCarrier): Future[DecisionResponse] = {
+    http.POST[DecisionRequest, DecisionResponse](s"$decisionURL/$serviceURL/", decideRequest)
   }
 
 }

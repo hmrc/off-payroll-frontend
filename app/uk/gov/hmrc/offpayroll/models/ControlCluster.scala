@@ -49,7 +49,7 @@ object ControlCluster extends Cluster {
     * @param clusterAnswers
     * @return
     */
-  override def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean = ???
+  override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String,String)): Option[Element] = ???
 
   /**
     *

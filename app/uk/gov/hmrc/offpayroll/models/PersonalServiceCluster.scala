@@ -42,8 +42,18 @@ object PersonalServiceCluster extends Cluster {
     Element("possibleHelper", RADIO, 8, this)
   )
 
-  override def shouldAskForDecision(clusterAnswers: List[(String, String)]): Boolean = {
-    clusterElements.forall((element) => clusterAnswers.exists(a => a._1 == element.questionTag))
+  /**
+    * Returns the next element in the cluster or empty if we should ask for a decision
+    * @param clusterAnswers
+    * @return
+    */
+  override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+    if(clusterElements.forall((element) => clusterAnswers.exists(a => a._1 == element.questionTag))) {
+      Option.empty
+    } else {
+      val currentElement = clusterElements.filter(element => element.questionTag == currentQnA._1).head
+      clusterElements.find(element => element.order == currentElement.order +1)
+    }
   }
 
   /**

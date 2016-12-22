@@ -27,7 +27,8 @@ import  uk.gov.hmrc.offpayroll.models.PersonalServiceCluster
 class PersonalServiceClusterSpec extends FlatSpec with Matchers {
 
   private val personalServiceCluster = PersonalServiceCluster
-  private val partialAnswers = List(("personalService.workerSentActualSubstitiute", "false"))
+  private val currentQnA = ("personalService.contractualObligationForSubstitute", "false")
+  private val partialAnswers = List(currentQnA)
 
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("personalService")
 
@@ -37,7 +38,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers {
 
   "The Personal Service Cluster " should
   " say ask for decision if a hard exit is identified " in {
-    personalServiceCluster.shouldAskForDecision(partialAnswers) should be (false)
+    personalServiceCluster.shouldAskForDecision(partialAnswers, currentQnA).nonEmpty shouldBe true
 
   }
   
@@ -47,7 +48,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers {
   }
 
   it should "say continue if a question hgas been skipped" in {
-    personalServiceCluster.shouldAskForDecision(skipOneAnswer) should be (false)
+    personalServiceCluster.shouldAskForDecision(skipOneAnswer, currentQnA).nonEmpty shouldBe true
   }
 
 }

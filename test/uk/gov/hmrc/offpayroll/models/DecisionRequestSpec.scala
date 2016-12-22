@@ -30,10 +30,10 @@ class DecisionRequestSpec extends FlatSpec with Matchers  {
 
   val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
 
-  val decideRequest: DecisionRequest = DecisionRequest("0.0.1-alpha", "123456",
+  val decideRequest: DecisionRequest = DecisionRequest("1.0.1-beta", "123456",
     Map("personalService" -> Map("personalService.workerSentActualSubstitiute" -> "false")))
 
-  val expectedJsonDecideRequest = "{\"version\":\"0.0.1-alpha\",\"correlationID\":\"123456\",\"interview\":" +
+  val expectedJsonDecideRequest = "{\"version\":\"1.0.1-beta\",\"correlationID\":\"123456\",\"interview\":" +
     "{\"personalService\":{\"personalService.workerSentActualSubstitiute\":\"false\"}}}"
 
   "A DecisionRequest " should " serialize " in {
