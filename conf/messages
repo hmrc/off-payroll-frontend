@@ -93,6 +93,30 @@ financialRiskA.workerNeedEquipment=Does the worker need major items of equipment
 financialRiskA.workerProvideEquipment=Do they have to provide them?
 financialRiskA.engagerPayExpense=Do they get the money back?
 
+#### Financial Risk Cluster B
+
+financialRiskB.provideVehicle=Is the worker paid an all-inclusive rate, inclusive of substantial materials or supplies?
+financialRiskB.engagerPayVehicleExpense=Do they get the money back?
+financialRiskB.workerIncurExpense=Does the worker have to pay for anything else out of their own pocket while working on this contract?
+financialRiskB.engagerPayOtherExpense=Do they get the money back?
+
+financialRiskB.workerMainIncome=How does the end client pay the worker for this contract?
+financialRiskB.workerMainIncome.incomeCalendarPeriods=
+financialRiskB.workerMainIncome.incomePieceRate=
+financialRiskB.workerMainIncome.incomeCommission=
+financialRiskB.workerMainIncome.incomeFixed=
+financialRiskB.workerMainIncome.incomeProfitOrLosses=
+financialRiskB.workerMainIncome.incomeRateByInvoice=
+
+financialRiskB.WorkerSufferedLatePayment=Has the worker ever been paid late, or not at all, on submission of an invoice?
+financialRiskB.workerProvideAtTheirExpense=If the work isn't up to the end client's expectations for this contract, Does the worker have to put it right?
+financialRiskB.workerFixAtTheirOwnTime=Do they have to do it on their own time?
+financialRiskB.workerPayForMaterialsSubstandardWorker=Do they have to pay for the materials used to put the work right?
+financialRiskB.paidForSubstandardWork=If the work isn't up to the end client's expectations for this contract, Is the end client allowed to pay the worker late, or not at all?  
+financialRiskB.actualEngagerWithholdPayment=Has it happened during this contract?
+
+
+
 
 
 
