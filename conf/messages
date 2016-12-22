@@ -6,9 +6,9 @@ global.button.continue=Continue
 #### Set up cluster
 
 setUp.endUserRole=Why do you want to use this tool?
-setUp.endUserRole_01=Person doing the work, I want to find out whether I'm working in a way that means I should pay tax like an employee
+setUp.endUserRole_01=Person doing the work, I want to find out whether I''m working in a way that means I should pay tax like an employee
 setUp.endUserRole_02=End client who needs the services, I want to find out whether a person providing services to my organisation is working in a way that means they should pay tax like an employee
-setUp.endUserRole_03=Agency placing the person, I want to find out whether a person I'm placing is working in a way that means they should pay tax like an employee.
+setUp.endUserRole_03=Agency placing the person, I want to find out whether a person I''m placing is working in a way that means they should pay tax like an employee.
 setUp.hasContractStarted=Has the worker already started doing the work for this contract?
 setup.provideServices=How do they provide their services for this contract?
 setup.provideServices_01=Through a limited company
@@ -24,19 +24,19 @@ exit.officeHolder=Is the worker an office holder of the client or performs the d
 
 # Ltd company liability
 exit.conditionsLiabilityLtd1=Can the worker control more than 5% of the ordinary share capital?
-exit.conditionsLiabilityLtd2=All together, can the worker's family control more than 5% of the ordinary share capital?
+exit.conditionsLiabilityLtd2=All together, can the worker''s family control more than 5% of the ordinary share capital?
 exit.conditionsLiabilityLtd3=Can the worker take more than 5% of any dividends?
-exit.conditionsLiabilityLtd4=All together, can the worker's family take more than 5% of any dividends?
+exit.conditionsLiabilityLtd4=All together, can the worker''s family take more than 5% of any dividends?
 exit.conditionsLiabilityLtd5=Is the limited company controlled by five or fewer people?
 exit.conditionsLiabilityLtd6=Are all of the people who control the limited company also directors of the company?
 exit.conditionsLiabilityLtd7=If the company was wound up, Would the worker get more than 5% of the assets that could be shared out?
-exit.conditionsLiabilityLtd8=If the company was wound up today, All together, would the worker's family or an associate of the worker get more than 5% of the assets that could be shared out?
+exit.conditionsLiabilityLtd8=If the company was wound up today, All together, would the worker''s family or an associate of the worker get more than 5% of the assets that could be shared out?
 
 # Partnership Liability
-exit.conditionsLiabilityPartnership1=Can the worker take 60% or more of the partnership's profits?
-exit.conditionsLiabilityPartnership2=All together, can the worker's family take 60% or more of the profits?
-exit.conditionsLiabilityPartnership3=Do more than 50% of the partnership's profits come from a single client?.
-exit.conditionsLiabilityPartnership4=Does the worker get a share of the profits that's based on payments the partnership gets for their work?
+exit.conditionsLiabilityPartnership1=Can the worker take 60% or more of the partnership''s profits?
+exit.conditionsLiabilityPartnership2=All together, can the worker''s family take 60% or more of the profits?
+exit.conditionsLiabilityPartnership3=Do more than 50% of the partnership''s profits come from a single client?.
+exit.conditionsLiabilityPartnership4=Does the worker get a share of the profits that''s based on payments the partnership gets for their work?
 
 # Individual Liability
 exit.conditionsLiabilityIndividualIntermediary=Does the middleman give the worker money or other benefits in return for the work?
@@ -45,15 +45,15 @@ exit.conditionsLiabilityIndividualIntermediary=Does the middleman give the worke
 
 #### Personal Service cluster
 
-personalService.contractualObligationForSubstitute=If the worker can't or doesn't want to do the work, Does the contract state that they're allowed to send someone else?
-personalService.contractualObligationInPractice=If the worker can't or doesn't want to do the work, Do they have to send someone else?
-personalService.contractrualRightForSubstitute=If the worker can't or doesn't want to do the work, Does the contract state that they're allowed to send someone else?
-personalService.actualRightToSendSubstitute=If the worker can't or doesn't want to do the work, Are they allowed to send someone else?
+personalService.contractualObligationForSubstitute=If the worker can''t or doesn''t want to do the work, Does the contract state that they''re allowed to send someone else?
+personalService.contractualObligationInPractice=If the worker can''t or doesn''t want to do the work, Do they have to send someone else?
+personalService.contractualRightForSubstitute=If the worker can''t or doesn''t want to do the work, Does the contract state that they''re allowed to send someone else?
+personalService.actualRightToSendSubstitute=If the worker can''t or doesn''t want to do the work, Are they allowed to send someone else?
 personalService.contractualRightReflectInPractice=
-personalService.engagerArrangeIfWorkerIsUnwillingOrUnable=If the worker can't or doesn't want to do the work, Does the end client get someone else to do it?
-personalService.possibleSubstituteRejection=If the worker decided to send someone else to do the work today, Could the end client turn away the other person, even if they're qualified to do the work?
+personalService.engagerArrangeIfWorkerIsUnwillingOrUnable=If the worker can''t or doesn''t want to do the work, Does the end client get someone else to do it?
+personalService.possibleSubstituteRejection=If the worker decided to send someone else to do the work today, Could the end client turn away the other person, even if they''re qualified to do the work?
 personalService.contractTermsWorkerPaysSubstitute=Does the contract state that the worker has to pay the other person who they bring in to do the work?
-personalService.workerSentActualSubstitute=If they couldn't or didn't want to do the work, Has the worker ever sent someone else to do the work instead?
+personalService.workerSentActualSubstitute=If they couldn''t or didn''t want to do the work, Has the worker ever sent someone else to do the work instead?
 personalService.actualSubstituteRejection=Did the end client turn the other person away?
 personalService.possibleHelper=Is the worker allowed to get someone to help them do the work for this contract?
 personalService.wouldWorkerPayHelper=Do they have to pay the helper?
@@ -69,18 +69,18 @@ control.workerDecidingHowWorkIsDone=Can the end client tell the worker how to do
 control.workerDecidingHowWorkIsDone.workingSetInstructions=- They follow a set process or set of instructions.
 control.workerDecidingHowWorkIsDone.WorkerCanGetInstructed=- The end client can give them written or spoken instructions.
 control.workerDecidingHowWorkIsDone.WorkerDecidesToClientSatisfaction=- They decide how they do the work, as long as the end client is satisfied.
-control.workerDecidingHowWorkIsDone.WorkerFullyDecides=- They're skilled to the level that it's not appropriate for the end client to tell them how to do the work.
+control.workerDecidingHowWorkIsDone.WorkerFullyDecides=- They''re skilled to the level that it''s not appropriate for the end client to tell them how to do the work.
 
 control.whenWorkHasToBeDone=When does the worker have to do the work for this contract?
 control.whenWorkHasToBeDone.workingPatternStipulated=They have to work a pattern decided by the end client.
-control.whenWorkHasToBeDone.workingPatternAgreed=They have to work a pattern they've agreed with the end client.
-control.whenWorkHasToBeDone.noDefinedWorkingPattern=They're free to do the work whenever they want, as long as it gets done.
+control.whenWorkHasToBeDone.workingPatternAgreed=They have to work a pattern they''ve agreed with the end client.
+control.whenWorkHasToBeDone.noDefinedWorkingPattern=They''re free to do the work whenever they want, as long as it gets done.
 control.whenWorkHasToBeDone.workinPatternAgreedDeadlines=They work to an agreed deadline or series of deadlines.
 control.whenWorkHasToBeDone.workinPatternRegularHoursToAgreedDeadlines=They work regular hours, and to an agreed deadline or series of deadlines.
 
 control.workerDecideWhere=Can the worker choose where to work during this contract?
 control.workerDecideWhere.couldFixWorkerLocation=The worker can choose where to work.
-control.workerDecideWhere.cannotFixWorkerLocation=The worker can't choose where to work.
+control.workerDecideWhere.cannotFixWorkerLocation=The worker can''t choose where to work.
 control.workerDecideWhere.workerLocationFixed=The work can only be done in a specific location.
 
 #### Financial Risk Cluster A
@@ -89,7 +89,7 @@ financialRiskA.workerPaidInclusive=Is the worker paid an all-inclusive rate whic
 financialRiskA.workerneedConsumablesMaterials=Does the worker need materials that become part of the work for this contract?
 financialRiskA.workerProvideConsumablesMaterials=Do they have to provide them?
 financialRiskA.engagerPayExpense=Do they get the money back?
-financialRiskA.workerNeedEquipment=Does the worker need major items of equipment without which they can't do the work for this contract?
+financialRiskA.workerNeedEquipment=Does the worker need major items of equipment without which they can''t do the work for this contract?
 financialRiskA.workerProvideEquipment=Do they have to provide them?
 financialRiskA.engagerPayExpense=Do they get the money back?
 
@@ -101,24 +101,41 @@ financialRiskB.workerIncurExpense=Does the worker have to pay for anything else 
 financialRiskB.engagerPayOtherExpense=Do they get the money back?
 
 financialRiskB.workerMainIncome=How does the end client pay the worker for this contract?
-financialRiskB.workerMainIncome.incomeCalendarPeriods=
-financialRiskB.workerMainIncome.incomePieceRate=
-financialRiskB.workerMainIncome.incomeCommission=
-financialRiskB.workerMainIncome.incomeFixed=
-financialRiskB.workerMainIncome.incomeProfitOrLosses=
-financialRiskB.workerMainIncome.incomeRateByInvoice=
+financialRiskB.workerMainIncome.incomeCalendarPeriods=An hourly, daily or weekly rate
+financialRiskB.workerMainIncome.incomePieceRate=A percentage of the savings the worker makes
+financialRiskB.workerMainIncome.incomeCommission=An amount based on the sales the worker makes
+financialRiskB.workerMainIncome.incomeFixed=A fixed, all-inclusive price
+financialRiskB.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits
+financialRiskB.workerMainIncome.incomeRateByInvoice=An amount based on how much work is completed
 
 financialRiskB.WorkerSufferedLatePayment=Has the worker ever been paid late, or not at all, on submission of an invoice?
-financialRiskB.workerProvideAtTheirExpense=If the work isn't up to the end client's expectations for this contract, Does the worker have to put it right?
+financialRiskB.workerProvideAtTheirExpense=If the work isn''t up to the end client''s expectations for this contract, Does the worker have to put it right?
 financialRiskB.workerFixAtTheirOwnTime=Do they have to do it on their own time?
 financialRiskB.workerPayForMaterialsSubstandardWorker=Do they have to pay for the materials used to put the work right?
-financialRiskB.paidForSubstandardWork=If the work isn't up to the end client's expectations for this contract, Is the end client allowed to pay the worker late, or not at all?  
+financialRiskB.paidForSubstandardWork=If the work isn''t up to the end client''s expectations for this contract, Is the end client allowed to pay the worker late, or not at all?  
 financialRiskB.actualEngagerWithholdPayment=Has it happened during this contract?
 
+#### Part & Parcel Cluster
+
+# First question needs attention - copy implies it''s multi part but it''s a single question in the schema
+partParcel.workerReceivesBenefits=Does the worker get benefits as part of the contract? Select all that apply. Sick pay Holiday pay Workplace pension Maternity / paternity pay
+partParcel.workerAsLineManager=Does the worker have line management responsibilities for anyone else working for the end client during this contract?
+partParcel.contactWithEngagerCustomer=Does the worker come into direct contact with the end client''s customers, clients or service users as part of this contract?
+partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a member of the end client''s staff for this contract?
 
 
+#### Business Structure Cluster
 
-
+businessStructure.similarWork=How many other engagers has the worker done similar work for during the last 12 months?
+#may need two tags or some other way to switch the following question
+businessStructure.workerVAT=Is the worker registered for Value Added Tax (VAT)? (If IR35 replace worker with PSC)
+businessStructure.businesAccount=Does the worker operate a business bank account?
+businessStructure.advertiseForWork=Does the worker advertise for work (including social media)?
+#may need two tags or some other way to switch the following question
+businessStructure.businessWebsite=Does the worker have a business website? (If IR35 replace worker with PSC)
+businessStructure.workerPayForTraining=Does the worker pay for work-related training (including induction)?
+businessStructure.workerExpenseRunningBusinessPremises=Does the worker have the expense of running business premises?
+businessStructure.workerPaysForInsurance=Does the engager require the worker to have Public Liability Insurance, or Professional Indemnity Insurance at the worker’s expense?
 
 
 # Decision
