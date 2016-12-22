@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.offpayroll
 
-import java.util.Properties
-
 import org.scalatest.{FlatSpec, Matchers}
 import  uk.gov.hmrc.offpayroll.models.PersonalServiceCluster
 
@@ -34,7 +32,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers {
 
   private val allAnswers = PropertyFileLoader.convertMapToAListOfAnswers(propsFilteredByCluster)
 
-  private val skipOneAnswer = PropertyFileLoader.convertMapToAListOfAnswers(propsFilteredByCluster - "personalService.engagerArrangeWorker")
+  private val skipOneAnswer = PropertyFileLoader.convertMapToAListOfAnswers(propsFilteredByCluster - "personalService.possibleSubstituteRejection")
 
   "The Personal Service Cluster " should
   " say ask for decision if a hard exit is identified " in {
@@ -43,8 +41,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers {
   }
   
   it should "say complete when all the questions are present" in {
-    //@todo refactor this it is no longer true
-    //personalServiceCluster.shouldAskForDecision(allAnswers) should be (true)
+    personalServiceCluster.shouldAskForDecision(allAnswers, currentQnA).nonEmpty shouldBe false
   }
 
   it should "say continue if a question hgas been skipped" in {

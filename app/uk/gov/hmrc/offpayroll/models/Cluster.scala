@@ -23,17 +23,6 @@ import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
   */
 abstract class Cluster {
 
-
-  /**
-    *
-    * Conditional Element based on flow logic of the Cluster
-    *
-    * @param interview
-    * @return
-    */
-  def getNextElement(interview: Interview): Option[Element]
-
-
   /**
     * Use this value to informatively name the cluster and use as a key to tags
     */

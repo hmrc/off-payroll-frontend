@@ -51,12 +51,4 @@ object ControlCluster extends Cluster {
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String,String)): Option[Element] = ???
 
-  /**
-    *
-    * Conditional Element based on flow logic of the Cluster
-    *
-    * @param interview
-    * @return
-    */
-  override def getNextElement(interview: Interview): Option[Element] = ???
 }

@@ -51,7 +51,7 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
 
       assert(intervieEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
 
-      val nextValidTag = "personalService.contractualObligationInPractise"
+      val nextValidTag = "personalService.contractualObligationInPractice"
 
       assert(intervieEvalResult.element.head.questionTag === nextValidTag) //next tag
     }
@@ -59,7 +59,7 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
 
   it should {
     " be able to get the current currentElement" in {
-      assert(flowservice.getAbsoluteElement(0, 1).questionTag == "personalService.contractualObligationInPractise")
+      assert(flowservice.getAbsoluteElement(0, 1).questionTag == "personalService.contractualObligationInPractice")
     }
   }
 

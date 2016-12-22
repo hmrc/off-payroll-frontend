@@ -58,11 +58,6 @@ object OffPayrollWebflow extends Webflow {
     loop(clusters())
   }
 
-  override def getNext(currentElement: Element, interview: Interview): Option[Element] = {
-    val currentClusterName: String = ClusterAndQuestion.unapply(currentElement).get._1
-    getClusterByName(currentClusterName).getNextElement(interview)
-  }
-
   override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
 
     if (clusters.size > clusterId && clusters()(clusterId).clusterElements.size > elementId) {

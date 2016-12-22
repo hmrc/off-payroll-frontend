@@ -32,7 +32,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   private val firstElement: Element = webflow.getStart()
-  private val lastElement = webflow.clusters()(0).clusterElements(8)
+  private val lastElement = webflow.clusters()(0).clusterElements(13)
 
 
   private val personalservice = "personalService"
@@ -59,12 +59,6 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
   val interview: Interview = Map(firstQuestionTag -> "No")
 
-  it should "be able to get the next currentElement based on the current currentElement and the current interview" in {
-    val next = webflow.getNext(firstElement, interview)
-
-    next should not be(next.isEmpty)
-//    next.head should equal(webflow.clusters()(0).clusterElements(1))
-  }
 
   it should " give an empty option currentElement when we try and get an currentElement that is out of bound" in {
     webflow.getNext(lastElement).isEmpty should be (true)
@@ -81,9 +75,9 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should " be able to return an Element by its tag " in {
-    val workerPayActualHelper: Element = webflow.getEelmentById(0, 4).head
+    val contractualRightReflectInPractice: Element = webflow.getEelmentById(0, 4).head
 
-    webflow.getElementByTag(personalservice + ".workerPayActualHelper").head.questionTag should equal (workerPayActualHelper.questionTag)
+    webflow.getElementByTag(personalservice + ".contractualRightReflectInPractice").head.questionTag should equal (contractualRightReflectInPractice.questionTag)
   }
 
 }
