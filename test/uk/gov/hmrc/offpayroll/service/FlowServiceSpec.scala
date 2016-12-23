@@ -41,21 +41,25 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
     }
   }
 
-  val interview: Map[String, String] = Map("personalService.workerSentActualSubstitiute" -> "true")
-  val currentElement: (String, String) = "personalService.workerSentActualSubstitiute" -> "true"
+  val interview: Map[String, String] = Map("personalService.contractualObligationForSubstitute" -> "true")
+  val currentElement: (String, String) = "personalService.contractualObligationForSubstitute" -> "true"
 
   it should {
     "Process a partial personalService and expect it to return Continue" in {
 
-      val result = await(flowservice.evaluateInterview(interview, currentElement))
-      assert(result.continueWithQuestions === true, "Only a partial personalService so we need to continue")
-      assert(result.element.head.questionTag === "personalService.contractrualObligationForSubstitute") //next tag
+      val intervieEvalResult = await(flowservice.evaluateInterview(interview, currentElement))
+
+      assert(intervieEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
+
+      val nextValidTag = "personalService.contractualObligationInPractice"
+
+      assert(intervieEvalResult.element.head.questionTag === nextValidTag) //next tag
     }
   }
 
   it should {
-    " be able to get the current element" in {
-      assert(flowservice.getCurrent(0, 1).questionTag == "personalService.contractrualObligationForSubstitute")
+    " be able to get the current currentElement" in {
+      assert(flowservice.getAbsoluteElement(0, 1).questionTag == "personalService.contractualObligationInPractice")
     }
   }
 

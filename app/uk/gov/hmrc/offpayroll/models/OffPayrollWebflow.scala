@@ -16,6 +16,9 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
+
 /**
   * Created by peter on 02/12/2016.
   *
@@ -23,7 +26,7 @@ package uk.gov.hmrc.offpayroll.models
   */
 object OffPayrollWebflow extends Webflow {
 
-  val version: String = "0.0.1-alpha"
+  val version: String = "1.0.1-beta"
 
   def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster)
 
@@ -36,7 +39,6 @@ object OffPayrollWebflow extends Webflow {
       Option(cluster.clusterElements(element.order + 1))
     else
       Option.empty[Element]
-
   }
 
   override def getStart(): Element = clusters.head.clusterElements.head
@@ -62,7 +64,7 @@ object OffPayrollWebflow extends Webflow {
       Option(clusters()(clusterId).clusterElements(elementId))
     }
     else
-      Option.empty[Element]
+    Option.empty[Element]
   }
 
   override def getClusterByName(name: String): Cluster = {
@@ -72,13 +74,16 @@ object OffPayrollWebflow extends Webflow {
       throw new IllegalArgumentException("no such Cluster: " + name)
     }
   }
+
+  override def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element] = {
+    val currentCluster = getClusterByName(currentQnA._1.takeWhile(c => c != '.'))
+    currentCluster.shouldAskForDecision(interview.toList, currentQnA)
+  }
 }
 
 object DecisionBuilder {
 
-//  import FlowHelper._
-
-  //  @Todo get this value from the
+  //  @Todo get this value from the UI
   val correlationID: String = "12345"
 
   type Interview = Map[String, String]
@@ -109,12 +114,6 @@ object DecisionBuilder {
 
 }
 
-object ClusterAndQuestion {
 
-  def unapply(tag:String):Option[(String,String)] = {
-    if (tag.split('.').length > 1) Some(tag.split('.')(0),tag.split('.')(1))
-    else None
-  }
-}
 
 case class Decision(qa: Map[String, String], decision: DecisionType)

@@ -14,28 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.connectors
+package uk.gov.hmrc.offpayroll.util
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
-
-import uk.gov.hmrc.offpayroll.modelsFormat._
-
-import scala.concurrent.Future
+import uk.gov.hmrc.offpayroll.models.Element
 
 /**
-  * Created by peter on 12/12/2016.
+  * Created by peter on 21/12/2016.
   */
-trait DecisionConnector {
+object ClusterAndQuestion {
 
+  def unapply(tag:String):Option[(String,String)] = {
+    if (tag.split('.').length > 1) Some(tag.split('.')(0),tag.split('.')(1))
+    else None
+  }
 
-  val decisionURL: String
-  val serviceURL: String
-  val http: HttpPost
-
-  def decide(decideRequest: DecisionRequest)(implicit hc: HeaderCarrier): Future[DecisionResponse] = {
-    http.POST[DecisionRequest, DecisionResponse](s"$decisionURL/$serviceURL/", decideRequest)
+  def unapply(element: Element):Option[(String,String)] = element match {
+    case null => throw new IllegalArgumentException("Element cannot be null")
+    case _ => this.unapply(element.questionTag)
   }
 
 }

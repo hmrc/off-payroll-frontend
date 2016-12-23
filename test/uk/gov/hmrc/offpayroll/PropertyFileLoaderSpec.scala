@@ -14,22 +14,31 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.service
+package uk.gov.hmrc.offpayroll
 
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
 
 /**
-  * Created by peter on 13/12/2016.
+  * Created by peter on 22/12/2016.
   */
-class ClusterAndQuestionSpec  extends FlatSpec with Matchers  {
+class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
 
-  "ClusterAndQuestion " should "get the cluster name  and the Question Name from a tag" in {
-    ClusterAndQuestion.unapply("someCluster.SomeQuestion") shouldBe (Some(("someCluster", "SomeQuestion")))
+  val personalServiceKey = "personalService.contractualObligationForSubstitute"
+
+  "A Property File Loader " should " get the messages file as a Map[String, String]" in {
+    val messagesMap = PropertyFileLoader.getMessagesFileAsMap
+
+    messagesMap.contains(personalServiceKey) shouldBe true
+
   }
 
-  it should "return the tag if the cluster name is not dot delimited " in {
-    ClusterAndQuestion.unapply("someClusterSomeQuestion") shouldBe None
+  it should "Filter the messages to the ones for a give n cluster" in {
+    val cluster = PropertyFileLoader.getMessagesForACluster("personalService")
+
+    cluster.contains(personalServiceKey) shouldBe true
+    cluster.size shouldBe 14
+
+
   }
 
 }

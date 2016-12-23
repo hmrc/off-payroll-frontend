@@ -19,5 +19,4 @@ package uk.gov.hmrc.offpayroll.models
 /**
   * Created by peter on 12/12/2016.
   */
-case class DecideResponse(version: String, correlationID: String, carryOnWithQuestions: Boolean,
-                          score: Map[String, String], result: String)
+case class DecisionResponse(version: String, correlationID: String, score: Map[String, String], result: String)

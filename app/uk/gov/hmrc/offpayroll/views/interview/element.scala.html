@@ -1,9 +1,8 @@
 
 @import uk.gov.hmrc.play.views.html.helpers
-@import uk.gov.hmrc.offpayroll.models.RADIO
-
+@import uk.gov.hmrc.offpayroll.models.{RADIO, MULTI}
 @import uk.gov.hmrc.offpayroll.models.Element
-@import uk.gov.hmrc.offpayroll.models.RADIO
+
 @(f:Form[_], element:Element)(implicit request: Request[_], messages: Messages, session: Map[String, String])
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Hello from off-payroll-frontend", bodyClasses = None) {
@@ -13,7 +12,6 @@
 
 
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order)) {
-
         @if(element.elementType == RADIO ) {
 
 
@@ -35,14 +33,28 @@
       </fieldset>
     </div>
 
+
         }
-        <button>submit</button>
+        @if(element.elementType == MULTI ) {
+
+            @for( child <- element.children ){
+                <div class="form-field">
+                    <label for="@child.questionTag" class="block-label">
+                        <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@child.questionTag" value="true" />
+                        @Messages(child.questionTag)
+                    </label>
+                </div>
+            }
+
+        }
+
+        <button>@Messages("global.button.continue")</button>
 
         @if(true) {
             <p>Debug is on!</p>
             <ul>
                 <li>@session.toString()</li>
-                <li>Current element @element.toString</li>
+                <li>Current currentElement @element.toString</li>
             </ul>
         }
 

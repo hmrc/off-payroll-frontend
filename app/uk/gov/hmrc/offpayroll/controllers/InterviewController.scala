@@ -59,7 +59,7 @@ trait InterviewController extends FrontendController {
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
-    val element = flowService.getCurrent(clusterID, elementID)
+    val element = flowService.getAbsoluteElement(clusterID, elementID)
     val tag: String = element.questionTag
 
     val singleForm = Form(

@@ -19,7 +19,18 @@ package uk.gov.hmrc.offpayroll.models
 /**
   * Created by peter on 15/12/2016.
   */
-case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster) {
+case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster,
+                   children: List[Element] = List()) {
+
+  require(f(elementType, children), "Children only valid fot MULTI types. There were "
+    + children.size + " children and the Element Type was " + elementType)
+
+  private def f(elementType: ElementType, children: List[Element]): Boolean = elementType match {
+    case MULTI => children.nonEmpty
+    case RADIO => children.isEmpty
+    case CHECKBOX => children.isEmpty
+    case _ => false
+  }
 
   def questionTag: String = clusterParent.name + "." + _questionTag
 
@@ -28,9 +39,14 @@ case class Element(_questionTag: String, elementType: ElementType, order: Int, c
   }
 }
 
+
 trait ElementType
 
 case object RADIO extends ElementType
+
+case object MULTI extends ElementType
+
+case object CHECKBOX extends ElementType
 
 object ElementType extends ElementType
 

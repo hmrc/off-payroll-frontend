@@ -17,10 +17,10 @@
 package uk.gov.hmrc.offpayroll.service
 
 import play.api.Logger
-import uk.gov.hmrc.offpayroll._
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.{UNKNOWN, _}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.offpayroll.DecisionConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -35,17 +35,19 @@ abstract class FlowService {
     * @param interview
     * @return
     */
-  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvalResult]
+  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvaluation]
 
   def getStart(): Element
 
-  def getCurrent(clusterId: Int, elementId: Int): Element
+  def getAbsoluteElement(clusterId: Int, elementId: Int): Element
 
 }
 
 
 object IR35FlowService extends FlowService {
 
+  private val STOP = false
+  private val CONTINUE = true
   implicit val hc = HeaderCarrier()
 
   private val weblow: Webflow = OffPayrollWebflow
@@ -60,50 +62,42 @@ object IR35FlowService extends FlowService {
     else tag.get
   }
 
-  private def getStatus(decision: DecideResponse):DecisionType = decision.result match {
+  private def getStatus(decision: DecisionResponse):DecisionType = decision.result match {
     case "Outside IR35" => OUT
     case "Inside IR35" => IN
     case "Unknown" => UNKNOWN
     case _ => UNKNOWN
   }
 
-  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvalResult] = {
+  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvaluation] = {
 
     val cleanInterview = interview.filter(qa => weblow.clusters().exists(clsrt => qa._1.startsWith(clsrt.name)))
-
     val currentTag = currentQnA._1
-    lazy val currentElement: Element = guardValidEelement(currentTag)
-    val currentCluster = weblow.getClusterByName(currentTag.takeWhile(c => c != '.'))
+    val currentElement: Element = guardValidEelement(currentTag)
+    val optionalNextElement = weblow.shouldAskForDecision(interview, currentQnA)
 
-    if (currentCluster.shouldAskForDecision(cleanInterview)) {
-      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview)).map[InterviewEvalResult](
+    if (optionalNextElement.isEmpty) {
+      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview)).map[InterviewEvaluation](
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
-              if (weblow.getNext(currentElement).isEmpty)
-                InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(cleanInterview, UNKNOWN)), false)
+              if (weblow.getNext(currentElement).isEmpty) {
+                InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN)), STOP)
+              }
               else
-                InterviewEvalResult(weblow.getNext(currentElement), Option.empty[Decision], true)
+                InterviewEvaluation(weblow.getNext(currentElement), Option.empty[Decision], CONTINUE)
             } else {
-              InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(cleanInterview, getStatus(decision))), false)
+                InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision))), STOP)
             }
           }
           )
     } else {
-      continueWithNextQuestion(currentElement)
+      Future[InterviewEvaluation](InterviewEvaluation(optionalNextElement, Option.empty[Decision], CONTINUE))
     }
   }
 
-  private def dummyResult(interview: Map[String, String]): InterviewEvalResult =
-    new InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(interview, OUT)), false)
 
-  private def continueWithNextQuestion(currentElement: Element): Future[InterviewEvalResult] = scala.concurrent.Future[InterviewEvalResult] {
-    val nextElement = weblow.getNext(currentElement)
-    if(nextElement.nonEmpty) new InterviewEvalResult(nextElement, Option.empty[Decision], true)
-    else new InterviewEvalResult(Option.empty[Element], Option.apply(new Decision(Map("unknown" -> "false"), UNKNOWN)), false) //error case
-  }
-
-  override def getCurrent(clusterId: Int, elementId: Int): Element = {
+  override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = {
     val currentElement = weblow.getEelmentById(clusterId, elementId)
     if (currentElement.nonEmpty) currentElement.head
     else throw new NoSuchElementException("No Element found matching: " + clusterId + "/" + elementId)
@@ -111,5 +105,6 @@ object IR35FlowService extends FlowService {
 
 }
 
-case class InterviewEvalResult(element: Option[Element], decision: Option[Decision], continueWithQuestions: Boolean) {
+case class InterviewEvaluation(element: Option[Element], decision: Option[Decision], continueWithQuestions: Boolean) {
+
 }

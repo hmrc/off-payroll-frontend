@@ -17,14 +17,14 @@ package uk.gov.hmrc.offpayroll.service
  */
 
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
-import uk.gov.hmrc.offpayroll.models.OUT
+import uk.gov.hmrc.offpayroll.models.{OUT, UNKNOWN}
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 
 /**
   * Created by peter on 09/12/2016.
   */
-class FlowServiceSpec extends UnitSpec with WithFakeApplication {
+class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication {
 
   private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
   private val csrf = "csrf"
@@ -32,7 +32,7 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
 
   val flowservice: FlowService = IR35FlowService
 
-  val lastElement: (String, String) = "personalService.possibleHelper" -> "false"
+  val lastElement: (String, String) = "personalService.workerPayActualHelper" -> "Yes"
 
     "A flow Service" should {
     "Process a full Interview and give a decision" in {
@@ -41,7 +41,7 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
 
       result.continueWithQuestions should not be (true)
       result.element.isEmpty should be (true)
-      result.decision.get.decision should be (OUT)
+      result.decision.get.decision should be (UNKNOWN)
       result.decision.get.qa.forall(value => !value._1.contains(csrf)) should be (true)
 
     }
