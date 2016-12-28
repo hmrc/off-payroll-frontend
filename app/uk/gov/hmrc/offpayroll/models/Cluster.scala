@@ -35,6 +35,11 @@ abstract class Cluster {
     */
   def clusterElements: List[Element]
 
+
+   def makeMapFromClusterElements: Map[String, Element] = {
+    Map() ++ (clusterElements map { element => (element.questionTag, element) })
+  }
+
   /**
     * Helps order a Cluster in an Interview
     *

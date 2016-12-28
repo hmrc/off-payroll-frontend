@@ -16,12 +16,16 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import play.Logger
 import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
 
 /**
   * Created by peter on 15/12/2016.
   */
 object PersonalServiceCluster extends Cluster {
+
+  private val INVALID = Element("invalid", RADIO, 0, this)
+
 
   /**
     * Use this value to informatively name the cluster and use as a key to tags
@@ -47,6 +51,20 @@ object PersonalServiceCluster extends Cluster {
     Element("workerPayActualHelper", RADIO, 13, this)
   )
 
+  private val flow: Map[String, Map[String, String]] = Map(
+    "personalService.contractualObligationForSubstitute" -> Map(
+      "YES" -> "personalService.contractualObligationInPractice",
+      "NO" -> "personalService.contractualRightForSubstitute"),
+
+    "personalService.contractualObligationInPractice" -> Map(
+      "YES" -> "personalService.contractTermsWorkerPaysSubstitute"
+    ),
+
+    "personalService.contractualRightForSubstitute" -> Map(
+      "YES" -> "personalService.contractualRightReflectInPractice"
+    )
+  )
+
   /**
     * Returns the next element in the cluster or empty if we should ask for a decision
     *
@@ -54,12 +72,17 @@ object PersonalServiceCluster extends Cluster {
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (clusterElements.forall((element) => clusterAnswers.exists(a => a._1 == element.questionTag))) {
-      Option.empty
-    } else {
-      val currentElement = clusterElements.filter(element => element.questionTag == currentQnA._1).head
-      clusterElements.find(element => element.order == currentElement.order + 1)
+
+    def findFromFlow(): String = {
+      val flowKeyOption = flow.get(currentQnA._1)
+      if (flowKeyOption.nonEmpty)
+        flowKeyOption.get(currentQnA._2.toUpperCase)
+      else
+        "None"
     }
+
+    makeMapFromClusterElements.get(findFromFlow())
+
   }
 
 }
