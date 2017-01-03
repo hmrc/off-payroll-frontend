@@ -63,6 +63,10 @@ personalService.workerPayActualHelper=Did they pay the helper?
 #### Control Cluster
 
 control.toldWhatToDo=Does the worker get to decide which tasks they do each day for this contract?
+control.toldWhatToDo.yes=Yes, they get to decide.
+control.toldWhatToDo.no=No, the end client decides.
+control.toldWhatToDo.sometimes=Sometimes they get to decide and sometimes the end client decides.
+
 control.engagerMovingWorker=Can the end client tell the worker to move from job to job during this contract?
 
 control.workerDecidingHowWorkIsDone=Can the end client tell the worker how to do the work for this contract?
