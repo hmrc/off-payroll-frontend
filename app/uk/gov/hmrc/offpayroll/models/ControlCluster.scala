@@ -17,6 +17,7 @@
 package uk.gov.hmrc.offpayroll.models
 
 import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import uk.gov.hmrc.offpayroll.views.html.interview.element
 
 /**
   * Created by peter on 15/12/2016.
@@ -32,14 +33,64 @@ object ControlCluster extends Cluster {
     *
     * @return
     */
-  override def clusterElements: List[Element] = ???
+  override def clusterElements: List[Element] = {
+    List(
+      Element("toldWhatToDo", MULTI, 0, this,
+        List(
+          Element("toldWhatToDo.yes", RADIO, 0, this),
+          Element("toldWhatToDo.no", RADIO, 1, this),
+          Element("toldWhatToDo.sometimes", RADIO, 2, this)
+        )
+      ),
+      Element("engagerMovingWorker", RADIO, 1, this),
+      Element("workerDecidingHowWorkIsDone", MULTI, 2, this,
+        List(
+          Element("workerDecidingHowWorkIsDone.workingSetInstructions", RADIO, 0, this),
+          Element("workerDecidingHowWorkIsDone.workerCanGetInstructed", RADIO, 1, this),
+          Element("workerDecidingHowWorkIsDone.workerDecidesToClientSatisfaction", RADIO, 2, this),
+          Element("workerDecidingHowWorkIsDone.workerFullyDecides", RADIO, 3, this)
+        )
+      ),
+      Element("whenWorkHasToBeDone", MULTI, 3, this,
+        List(
+          Element("whenWorkHasToBeDone.workingPatternStipulated", RADIO, 0, this),
+          Element("whenWorkHasToBeDone.workingPatternAgreed", RADIO, 1, this),
+          Element("whenWorkHasToBeDone.noDefinedWorkingPattern", RADIO, 2, this),
+          Element("whenWorkHasToBeDone.workinPatternAgreedDeadlines", RADIO, 3, this),
+          Element("whenWorkHasToBeDone.workinPatternRegularHoursToAgreedDeadlines", RADIO, 4, this)
+        )
+      ),
+      Element("workerDecideWhere", MULTI, 4, this,
+        List(
+          Element("workerDecideWhere.couldFixWorkerLocation", RADIO, 0, this),
+          Element("workerDecideWhere.cannotFixWorkerLocation", RADIO, 1, this),
+          Element("workerDecideWhere.workerLocationFixed", RADIO, 2, this)
+        )
+      )
+    )
+
+  }
 
   /**
     * Helps order a Cluster in an Interview
     *
     * @return
     */
-  override def clusterID: Int = ???
+  override def clusterID: Int = 1
+
+
+  def controlQuestionsAnswered(clusterAnswers: List[(String, String)]):Boolean = {
+
+    clusterElements.forall(element => {
+      clusterAnswers.exists{
+        case (question, answer) => {
+          if(element.children != Nil) {
+            element.children.exists(e => e.questionTag == question)
+          } else element.questionTag == question
+        }
+      }
+    })
+  }
 
   /**
     *
@@ -49,6 +100,23 @@ object ControlCluster extends Cluster {
     * @param clusterAnswers
     * @return
     */
-  override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String,String)): Option[Element] = ???
+  override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+
+    def findNextQuestion(currentQnA: (String, String)):Option[Element] = currentQnA match {
+      case (element, answer) => {
+        val currentElement = clusterElements.find(e => {
+          if(e.children == Nil) e.questionTag == element
+          else e.children.exists(e2 => e2.questionTag == element)
+        })
+        if(currentElement.nonEmpty) {
+          clusterElements.find(e => e.order == currentElement.get.order + 1)
+        }
+        else Option.empty
+      }
+    }
+
+    if(controlQuestionsAnswered(clusterAnswers)) Option.empty
+    else findNextQuestion(currentQnA)
+  }
 
 }

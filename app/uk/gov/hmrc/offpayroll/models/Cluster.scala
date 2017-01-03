@@ -40,6 +40,10 @@ abstract class Cluster {
     Map() ++ (clusterElements map { element => (element.questionTag, element) })
   }
 
+  def allQuestionsAreAnswered(interview: List[(String, String)]):Boolean = {
+    clusterElements.forall((element) => interview.exists(a => a._1 == element.questionTag))
+  }
+
   /**
     * Helps order a Cluster in an Interview
     *

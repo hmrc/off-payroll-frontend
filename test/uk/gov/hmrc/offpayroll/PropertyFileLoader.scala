@@ -38,11 +38,26 @@ object PropertyFileLoader {
   def getMessagesForACluster(clusterName: String): Map[String, String] =
     this.getMessagesFileAsMap.filterKeys(k => k.startsWith(clusterName))
 
-  def convertMapToAListOfAnswers(map: Map[String, String]) =
+  def transformMapToAListOfAnswers(map: Map[String, String]) =
     map.foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, "Yes") :: currentList})
 
   def transformMapFromQuestionTextToAnswers(clusterName: String):Map[String, String] = {
     this.getMessagesForACluster(clusterName).map(properties => (properties._1, "Yes"))
   }
+
+  def transformMapFromQuestionTextToAnswersDropChildren(clusterName: String):Map[String, String] = {
+
+    this.getMessagesForACluster(clusterName).map{
+      case (question, answer) => (question.split('.'), answer)
+    }.map{
+      case (questionArray, answer) => {
+        if(questionArray.size > 1) (questionArray(0) + "." + questionArray(1), answer)
+        else if(questionArray.size == 1) (questionArray(0), answer)
+        else ("", answer)
+      }
+    }.toSet.toMap
+  }
+
+
 
 }
