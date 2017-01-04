@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,12 +32,18 @@ class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
 
   }
 
-  it should "Filter the messages to the ones for a give n cluster" in {
+  it should "Filter the messages to the ones for a given cluster" in {
     val cluster = PropertyFileLoader.getMessagesForACluster("personalService")
 
     cluster.contains(personalServiceKey) shouldBe true
     cluster.size shouldBe 14
 
+
+  }
+
+  it should "Drop Children style tags" in {
+    val noChildren = PropertyFileLoader.transformMapFromQuestionTextToAnswersDropChildren("control")
+    val answers = PropertyFileLoader.transformMapToAListOfAnswers(noChildren)
 
   }
 

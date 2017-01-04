@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,11 +38,26 @@ object PropertyFileLoader {
   def getMessagesForACluster(clusterName: String): Map[String, String] =
     this.getMessagesFileAsMap.filterKeys(k => k.startsWith(clusterName))
 
-  def convertMapToAListOfAnswers(map: Map[String, String]) =
+  def transformMapToAListOfAnswers(map: Map[String, String]) =
     map.foldLeft[List[(String, String)]](Nil)((currentList,prop) => {(prop._1, "Yes") :: currentList})
 
   def transformMapFromQuestionTextToAnswers(clusterName: String):Map[String, String] = {
     this.getMessagesForACluster(clusterName).map(properties => (properties._1, "Yes"))
   }
+
+  def transformMapFromQuestionTextToAnswersDropChildren(clusterName: String):Map[String, String] = {
+
+    this.getMessagesForACluster(clusterName).map{
+      case (question, answer) => (question.split('.'), answer)
+    }.map{
+      case (questionArray, answer) => {
+        if(questionArray.size > 1) (questionArray(0) + "." + questionArray(1), answer)
+        else if(questionArray.size == 1) (questionArray(0), answer)
+        else ("", answer)
+      }
+    }.toSet.toMap
+  }
+
+
 
 }

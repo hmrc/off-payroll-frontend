@@ -14,28 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.connectors
+package uk.gov.hmrc.offpayroll.models
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
-
-import uk.gov.hmrc.offpayroll.modelsFormat._
-
-import scala.concurrent.Future
+import org.scalatest.{FlatSpec, Matchers}
 
 /**
-  * Created by peter on 12/12/2016.
+  * Created by peter on 03/01/2017.
   */
-trait DecisionConnector {
+class ClusterSpec extends FlatSpec with Matchers {
 
+  "An abstract Cluster should " should " provide a method to check all interview questions have been answered " in {
 
-  val decisionURL: String
-  val serviceURL: String
-  val http: HttpPost
-
-  def decide(decideRequest: DecisionRequest)(implicit hc: HeaderCarrier): Future[DecisionResponse] = {
-    http.POST[DecisionRequest, DecisionResponse](s"$decisionURL/$serviceURL/", decideRequest)
   }
 
 }

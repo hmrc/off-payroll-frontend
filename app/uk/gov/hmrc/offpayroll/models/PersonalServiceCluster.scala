@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,12 +16,16 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import play.Logger
 import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
 
 /**
   * Created by peter on 15/12/2016.
   */
 object PersonalServiceCluster extends Cluster {
+
+  private val INVALID = Element("invalid", RADIO, 0, this)
+
 
   /**
     * Use this value to informatively name the cluster and use as a key to tags
@@ -47,19 +51,34 @@ object PersonalServiceCluster extends Cluster {
     Element("workerPayActualHelper", RADIO, 13, this)
   )
 
+  private val flow: Map[String, Map[String, String]] = Map(
+    "personalService.contractualObligationForSubstitute" -> Map(
+      "YES" -> "personalService.contractualObligationInPractice",
+      "NO" -> "personalService.contractualRightForSubstitute"),
+
+    "personalService.contractualObligationInPractice" -> Map(
+      "YES" -> "personalService.contractTermsWorkerPaysSubstitute"
+    ),
+
+    "personalService.contractualRightForSubstitute" -> Map(
+      "YES" -> "personalService.contractualRightReflectInPractice"
+    )
+  )
+
   /**
-    * Returns the next element in the cluster or empty if we should ask for a decision
+    * Returns the next element in the cluster or Option.empty if we should ask for a decision
     *
     * @param clusterAnswers
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (clusterElements.forall((element) => clusterAnswers.exists(a => a._1 == element.questionTag))) {
-      Option.empty
-    } else {
-      val currentElement = clusterElements.filter(element => element.questionTag == currentQnA._1).head
-      clusterElements.find(element => element.order == currentElement.order + 1)
+
+    def findFromFlow(currentQnA: (String, String)): String = currentQnA match {
+      case (question, answer) =>
+        flow.getOrElse[Map[String, String]](question, Map("None" -> "None")).getOrElse(answer.toUpperCase, "None")
     }
+
+    makeMapFromClusterElements.get(findFromFlow(currentQnA))
   }
 
 }

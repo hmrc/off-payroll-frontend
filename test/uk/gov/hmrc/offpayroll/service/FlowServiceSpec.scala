@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,8 +41,8 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
     }
   }
 
-  val interview: Map[String, String] = Map("personalService.contractualObligationForSubstitute" -> "true")
-  val currentElement: (String, String) = "personalService.contractualObligationForSubstitute" -> "true"
+  val interview: Map[String, String] = Map("personalService.contractualObligationForSubstitute" -> "Yes")
+  val currentElement: (String, String) = "personalService.contractualObligationForSubstitute" -> "Yes"
 
   it should {
     "Process a partial personalService and expect it to return Continue" in {
@@ -62,6 +62,8 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
       assert(flowservice.getAbsoluteElement(0, 1).questionTag == "personalService.contractualObligationInPractice")
     }
   }
+
+
 
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -84,6 +84,7 @@ trait InterviewController extends FrontendController {
           result.map(
             decision => {
               if (decision.continueWithQuestions) {
+                Logger.debug("continuing with current tag " + tag)
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, decision.element.head))
                   .withSession(request.session + (tag -> yesNo(value)))
               } else {

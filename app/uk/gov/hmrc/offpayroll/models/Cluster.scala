@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,15 @@ abstract class Cluster {
     * @return
     */
   def clusterElements: List[Element]
+
+
+   def makeMapFromClusterElements: Map[String, Element] = {
+    Map() ++ (clusterElements map { element => (element.questionTag, element) })
+  }
+
+  def allQuestionsAreAnswered(interview: List[(String, String)]):Boolean = {
+    clusterElements.forall((element) => interview.exists(a => a._1 == element.questionTag))
+  }
 
   /**
     * Helps order a Cluster in an Interview
