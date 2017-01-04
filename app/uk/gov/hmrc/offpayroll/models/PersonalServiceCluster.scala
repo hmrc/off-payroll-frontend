@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,23 +66,19 @@ object PersonalServiceCluster extends Cluster {
   )
 
   /**
-    * Returns the next element in the cluster or empty if we should ask for a decision
+    * Returns the next element in the cluster or Option.empty if we should ask for a decision
     *
     * @param clusterAnswers
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
 
-    def findFromFlow(): String = {
-      val flowKeyOption = flow.get(currentQnA._1)
-      if (flowKeyOption.nonEmpty)
-        flowKeyOption.get(currentQnA._2.toUpperCase)
-      else
-        "None"
+    def findFromFlow(currentQnA: (String, String)): String = currentQnA match {
+      case (question, answer) =>
+        flow.getOrElse[Map[String, String]](question, Map("None" -> "None")).getOrElse(answer.toUpperCase, "None")
     }
 
-    makeMapFromClusterElements.get(findFromFlow())
-
+    makeMapFromClusterElements.get(findFromFlow(currentQnA))
   }
 
 }

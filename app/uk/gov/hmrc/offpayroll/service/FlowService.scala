@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,14 +50,14 @@ object IR35FlowService extends FlowService {
   private val CONTINUE = true
   implicit val hc = HeaderCarrier()
 
-  private val weblow: Webflow = OffPayrollWebflow
+  private val webflow: Webflow = OffPayrollWebflow
 
   lazy val decisionConnector: DecisionConnector = DecisionConnector
 
-  override def getStart(): Element = weblow.getStart()
+  override def getStart(): Element = webflow.getStart()
 
   private def guardValidEelement(currentTag: String): Element = {
-    val tag = weblow.getElementByTag(currentTag)
+    val tag = webflow.getElementByTag(currentTag)
     if (tag.isEmpty) throw new IllegalAccessException("No Such Element: " + currentTag)
     else tag.get
   }
@@ -71,21 +71,21 @@ object IR35FlowService extends FlowService {
 
   override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvaluation] = {
 
-    val cleanInterview = interview.filter(qa => weblow.clusters().exists(clsrt => qa._1.startsWith(clsrt.name)))
+    val cleanInterview = interview.filter(qa => webflow.clusters().exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
     val currentElement: Element = guardValidEelement(currentTag)
-    val optionalNextElement = weblow.shouldAskForDecision(interview, currentQnA)
+    val optionalNextElement = webflow.shouldAskForDecision(interview, currentQnA)
 
     if (optionalNextElement.isEmpty) {
       decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview)).map[InterviewEvaluation](
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
-              if (weblow.getNext(currentElement).isEmpty) {
+              if (webflow.getNext(currentElement).isEmpty) {
                 InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN)), STOP)
               }
               else
-                InterviewEvaluation(weblow.getNext(currentElement), Option.empty[Decision], CONTINUE)
+                InterviewEvaluation(webflow.getNext(currentElement), Option.empty[Decision], CONTINUE)
             } else {
                 InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision))), STOP)
             }
@@ -98,7 +98,7 @@ object IR35FlowService extends FlowService {
 
 
   override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = {
-    val currentElement = weblow.getEelmentById(clusterId, elementId)
+    val currentElement = webflow.getEelmentById(clusterId, elementId)
     if (currentElement.nonEmpty) currentElement.head
     else throw new NoSuchElementException("No Element found matching: " + clusterId + "/" + elementId)
   }

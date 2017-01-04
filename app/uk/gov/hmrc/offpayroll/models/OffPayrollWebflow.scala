@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,32 +30,45 @@ object OffPayrollWebflow extends Webflow {
 
   def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster)
 
+
   override def getNext(element: Element): Option[Element] = {
 
     val clusterId = element.clusterParent.clusterID
     val cluster = clusters()(clusterId)
 
-    if (cluster.clusterElements.size > element.order + 1)
+    def flowHasMoreClusters: Boolean = {
+      clusters().size > clusterId + 1
+    }
+
+    def clusterHasMoreElements: Boolean  = {
+      cluster.clusterElements.size > element.order + 1
+    }
+
+    if (clusterHasMoreElements)
       Option(cluster.clusterElements(element.order + 1))
-    else
-      Option.empty[Element]
+    else if (flowHasMoreClusters) {
+      Option(clusters()(clusterId +1).clusterElements(0))
+    } else Option.empty
+
   }
 
   override def getStart(): Element = clusters.head.clusterElements.head
 
   override def getElementByTag(tag: String): Option[Element] = {
 
-    def loop(cluster: List[Cluster]): Option[Element] = {
-      if (cluster.isEmpty) Option.empty[Element]
-      else {
-        cluster.head.clusterElements.foldRight(Option.empty[Element])((element, option) => {
-          if (element.questionTag == tag) Option(element)
-          else option
-        })
-      }
-    }
+    val tagArray = tag.split('.')
 
-    loop(clusters())
+    val cleanTag = if(tagArray.size > 1) tagArray(0) + "." + tagArray(1) else tag
+    println("tag " + tag + " cleanTag " + cleanTag)
+
+    val foundElement = for{
+      cluster <- clusters
+      element <- cluster.clusterElements
+      if(element.questionTag == cleanTag)
+    } yield element
+
+    // @fixme this doesn't prevent duplicates it will just return the last element found
+    foundElement.headOption
   }
 
   override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 HM Revenue & Customs
+ * Copyright 2017 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   private val firstElement: Element = webflow.getStart()
-  private val lastElement = webflow.clusters()(0).clusterElements(13)
+  private val lastElement = webflow.clusters()(1).clusterElements(4)
 
 
   private val personalservice = "personalService"
@@ -70,14 +70,21 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should "return an empty Option if we try and get an currentElement by Id that does not exist" in {
-    webflow.getEelmentById(2, 0).isEmpty should be (true)
-    webflow.getEelmentById(0, lastElement.order + 1).isEmpty should be (true)
+    webflow.getEelmentById(3, 0).isEmpty should be (true)
+    webflow.getEelmentById(1, lastElement.order + 1).isEmpty should be (true)
   }
 
   it should " be able to return an Element by its tag " in {
     val contractualRightReflectInPractice: Element = webflow.getEelmentById(0, 4).head
+    val controlToldWhatToDo = webflow.getEelmentById(1,0).head
 
-    webflow.getElementByTag(personalservice + ".contractualRightReflectInPractice").head.questionTag should equal (contractualRightReflectInPractice.questionTag)
+    webflow.getElementByTag(personalservice + ".contractualRightReflectInPractice")
+      .head.questionTag should equal (contractualRightReflectInPractice.questionTag)
+
+    webflow.getElementByTag("control.toldWhatToDo.yes")
+      .head.questionTag should equal (controlToldWhatToDo.questionTag)
+
+
   }
 
 }
