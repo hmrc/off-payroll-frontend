@@ -72,5 +72,3 @@ object PartAndParcelCluster extends Cluster {
       relevantFlowElement.head.nextQuestion
   }
 }
-
-case class FlowElement(currentQuestion:String, answers:Map[String, String], nextQuestion:Option[String])
