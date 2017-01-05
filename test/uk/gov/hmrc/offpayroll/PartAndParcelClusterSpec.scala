@@ -38,7 +38,7 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers {
 
   it should " ask for a decision when all questions have been asked " in {
     val currentQnA = ("partParcel.workerRepresentsEngagerBusiness", "Yes")
-    val allAnswers = PropertyFileLoader.convertMapToAListOfAnswers(propsFilteredByCluster)
+    val allAnswers = PropertyFileLoader.transformMapToAListOfAnswers(propsFilteredByCluster)
 
     partAndParcelCluster.shouldAskForDecision(allAnswers, currentQnA).isEmpty shouldBe true
   }
