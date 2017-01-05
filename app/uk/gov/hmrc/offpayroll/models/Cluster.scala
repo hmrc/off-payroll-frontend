@@ -67,3 +67,5 @@ abstract class Cluster {
   }
 
 }
+
+case class FlowElement(currentQuestion:String, answers:Map[String, String], nextQuestion:Option[String])
