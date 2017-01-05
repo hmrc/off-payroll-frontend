@@ -46,7 +46,7 @@ trait InterviewController extends FrontendController {
       )
     )
     implicit val session: Map[String, String] = request.session.data
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element)))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element, uk.gov.hmrc.offpayroll.views.html.myStaticPage())))
   }
 
   def displayDecision(decsion: Decision) = Action.async { implicit request =>
@@ -73,7 +73,9 @@ trait InterviewController extends FrontendController {
 
       singleForm.bindFromRequest.fold (
         formWithErrors =>
-          Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))),
+          Future.successful(BadRequest(
+            uk.gov.hmrc.offpayroll.views.html.interview.element(
+              formWithErrors, element, uk.gov.hmrc.offpayroll.views.html.myStaticPage()))),
 
         value => {
           Logger.debug(" *********** Value **************: " + value)
@@ -84,8 +86,8 @@ trait InterviewController extends FrontendController {
           result.map(
             decision => {
               if (decision.continueWithQuestions) {
-                Logger.debug("continuing with current tag " + tag)
-                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, decision.element.head))
+                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(
+                  singleForm, decision.element.head, uk.gov.hmrc.offpayroll.views.html.myStaticPage()))
                   .withSession(request.session + (tag -> yesNo(value)))
               } else {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
