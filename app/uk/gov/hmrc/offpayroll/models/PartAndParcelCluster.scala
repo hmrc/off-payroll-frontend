@@ -51,24 +51,21 @@ object PartAndParcelCluster extends Cluster {
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (clusterElements.forall((element) => clusterAnswers.exists(a => a._1 == element.questionTag))) {
+    if (clusterElements.forall((element) => clusterAnswers.exists{
+      case(question, answer) => question == element.questionTag})) {
       Option.empty
-    } else {
-      val maybeString = getNextQuestionTag(clusterAnswers, currentQnA)
-      if(maybeString.isEmpty){
-        Option.empty
-      }else
-      clusterElements.find(element => element.questionTag.equalsIgnoreCase(maybeString.get))
-    }
+    } else
+      getNextQuestionTag(clusterAnswers, currentQnA)
 
   }
 
-  def getNextQuestionTag(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[String] = {
+  def getNextQuestionTag(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
     val relevantFlowElement = currentQuestionFlowElements.filter(_.answers.toList.equals(clusterAnswers))
-    if(relevantFlowElement.size == 0){
+    if(relevantFlowElement.isEmpty){
       Option.empty
-    }else
-      relevantFlowElement.head.nextQuestion
+    } else
+      clusterElements.find(element => element.questionTag.equalsIgnoreCase(
+        relevantFlowElement.head.nextQuestion.getOrElse("")))
   }
 }
