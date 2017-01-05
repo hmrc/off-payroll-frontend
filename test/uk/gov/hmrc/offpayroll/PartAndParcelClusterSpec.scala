@@ -43,14 +43,14 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers {
     partAndParcelCluster.shouldAskForDecision(allAnswers, currentQnA).isEmpty shouldBe true
   }
 
-  it should " ask the correct next question when there is some flow logic and there are no more questions " in {
+  it should " ask for a decision there is some flow logic and there are no more questions " in {
     val currentQnA = ("partParcel.workerReceivesBenefits", "Yes")
     val partialAnswers = List(currentQnA)
 
     partAndParcelCluster.shouldAskForDecision(partialAnswers, currentQnA).isEmpty shouldBe true
   }
 
-  it should " ask the correct next question when there is some flow logic and there are no more questions - another flavour " in {
+  it should " ask for a decision there is some flow logic and there are no more questions - another flavour " in {
     val currentQnA = ("partParcel.contactWithEngagerCustomer", "No")
     val partialAnswers = List(("partParcel.workerReceivesBenefits", "No"),("partParcel.workerAsLineManager", "No"),currentQnA)
 

@@ -36,12 +36,26 @@ object PartAndParcelCluster extends Cluster {
   )
 
   private val flows = List(
-    FlowElement("partParcel.workerReceivesBenefits", Map("partParcel.workerReceivesBenefits" -> "No"), Option("partParcel.workerAsLineManager")),
-    FlowElement("partParcel.workerReceivesBenefits", Map("partParcel.workerReceivesBenefits" -> "Yes"), Option.empty),
-    FlowElement("partParcel.workerAsLineManager", Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "Yes"), Option.empty),
-    FlowElement("partParcel.workerAsLineManager", Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No"), Option("partParcel.contactWithEngagerCustomer")),
-    FlowElement("partParcel.contactWithEngagerCustomer", Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No", "partParcel.contactWithEngagerCustomer" -> "Yes"), Option("partParcel.workerRepresentsEngagerBusiness")),
-    FlowElement("partParcel.contactWithEngagerCustomer", Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No", "partParcel.contactWithEngagerCustomer" -> "No"), Option.empty)
+    FlowElement("partParcel.workerReceivesBenefits",
+      Map("partParcel.workerReceivesBenefits" -> "No"),
+      Option("partParcel.workerAsLineManager")),
+    FlowElement("partParcel.workerReceivesBenefits",
+      Map("partParcel.workerReceivesBenefits" -> "Yes"),
+      Option.empty),
+    FlowElement("partParcel.workerAsLineManager",
+      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "Yes"),
+      Option.empty),
+    FlowElement("partParcel.workerAsLineManager",
+      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No"),
+      Option("partParcel.contactWithEngagerCustomer")),
+    FlowElement("partParcel.contactWithEngagerCustomer",
+      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No",
+        "partParcel.contactWithEngagerCustomer" -> "Yes"),
+      Option("partParcel.workerRepresentsEngagerBusiness")),
+    FlowElement("partParcel.contactWithEngagerCustomer",
+      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No",
+        "partParcel.contactWithEngagerCustomer" -> "No"),
+      Option.empty)
   )
 
   /**
