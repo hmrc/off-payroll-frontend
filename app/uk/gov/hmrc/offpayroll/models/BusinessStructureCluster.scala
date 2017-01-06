@@ -16,9 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-/**
-  * Created by peter on 15/12/2016.
-  */
 object BusinessStructureCluster extends Cluster {
 
   /**
@@ -26,7 +23,7 @@ object BusinessStructureCluster extends Cluster {
     */
   override def name: String = "businessStructure"
 
-  override def clusterID: Int = 0
+  override def clusterID: Int = 5
 
   val clusterElements: List[Element] = List(
     Element("similarWork", RADIO, 0, this),

@@ -16,9 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-/**
-  * Created by peter on 15/12/2016.
-  */
 object PartAndParcelCluster extends Cluster {
 
   /**
@@ -26,7 +23,7 @@ object PartAndParcelCluster extends Cluster {
     */
   override def name: String = "partParcel"
 
-  override def clusterID: Int = 0
+  override def clusterID: Int = 4
 
   val clusterElements: List[Element] = List(
     Element("workerReceivesBenefits", RADIO, 0, this),
