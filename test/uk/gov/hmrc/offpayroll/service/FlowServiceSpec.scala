@@ -33,7 +33,7 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
   private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
 
   //@TODO work out how to stub the decision service when not running in Integration test mode
-  val flowservice: FlowService = IR35FlowService
+  val flowservice: FlowService = IR35FlowService()
 
   "A Flow Service " should {
     " be able to get the start of an Interview" in {

@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import javax.inject.Inject
+
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import play.api.mvc._
 
@@ -27,14 +29,18 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll._
 import play.api.Logger
 import uk.gov.hmrc.offpayroll.models.Decision
-import uk.gov.hmrc.offpayroll.service.IR35FlowService
+import uk.gov.hmrc.offpayroll.service.{FlowService, IR35FlowService}
 
 
-object InterviewController extends InterviewController
+object InterviewController {
 
-trait InterviewController extends FrontendController {
+  def apply() = {
+    new InterviewController(IR35FlowService())
+  }
+}
 
-  val flowService = IR35FlowService
+class InterviewController @Inject()(val flowService: FlowService) extends FrontendController {
+
 
   def begin(clusterID: Int) = Action.async { implicit request =>
 

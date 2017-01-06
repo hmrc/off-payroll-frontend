@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.service
 
+import com.google.inject.ImplementedBy
 import play.api.Logger
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.{UNKNOWN, _}
@@ -28,6 +29,7 @@ import scala.concurrent.Future
 /**
   * Created by peter on 09/12/2016.
   */
+@ImplementedBy(classOf[IR35FlowService])
 abstract class FlowService {
 
   /**
@@ -43,8 +45,13 @@ abstract class FlowService {
 
 }
 
+object IR35FlowService {
+  def apply() = new IR35FlowService
+}
 
-object IR35FlowService extends FlowService {
+
+
+class IR35FlowService extends FlowService {
 
   private val STOP = false
   private val CONTINUE = true

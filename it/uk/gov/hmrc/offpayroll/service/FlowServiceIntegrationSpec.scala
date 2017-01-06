@@ -30,7 +30,7 @@ class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication {
   private val csrf = "csrf"
   private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
 
-  val flowservice: FlowService = IR35FlowService
+  val flowservice: FlowService = IR35FlowService()
 
   val lastElement: (String, String) = "personalService.workerPayActualHelper" -> "Yes"
 

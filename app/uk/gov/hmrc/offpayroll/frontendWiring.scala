@@ -27,7 +27,7 @@ import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 
 trait ServiceRegistry extends ServicesConfig {
   lazy val decisionConnector: DecisionConnector = DecisionConnector
-  lazy val flowservice: FlowService = IR35FlowService
+  lazy val flowservice: FlowService = IR35FlowService()
 }
 
 object FrontendAuditConnector extends Auditing with AppName {

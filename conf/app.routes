@@ -1,4 +1,4 @@
 # microservice specific routes
 
-POST    /cluster/:clusterID/element/:elementID uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
-GET     /cluster/:clusterID                    uk.gov.hmrc.offpayroll.controllers.InterviewController.begin(clusterID: Int)
+POST    /cluster/:clusterID/element/:elementID @uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
+GET     /cluster/:clusterID                    @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin(clusterID: Int)
