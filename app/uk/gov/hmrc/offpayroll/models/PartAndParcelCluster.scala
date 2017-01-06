@@ -83,7 +83,4 @@ object PartAndParcelCluster extends Cluster {
       clusterElements.find(element => element.questionTag.equalsIgnoreCase(
         relevantFlowElement.head.nextQuestion.getOrElse("")))
   }
-
-//  def compareAnswerToFlow
-
 }
