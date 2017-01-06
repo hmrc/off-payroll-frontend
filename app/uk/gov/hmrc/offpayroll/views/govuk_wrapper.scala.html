@@ -48,12 +48,13 @@
 @footerTop = {}
 @footerLinks = {}
 
-@betaBanner = {
-    @layouts.betaBanner(true, "https://google.com", "", true, true)
-}
 
-@serviceInfoContent = {
-@layouts.serviceInfo(betaBanner, true, Option.empty, true )
+
+@serviceInfo = {
+@uiLayouts.serviceInfo(
+    betaBanner = HtmlFormat.empty,
+    includeGridWrapper = false,
+    serviceInfoContent = Some(serviceInfoContent))
 }
 
 @mainContentHeader = {
