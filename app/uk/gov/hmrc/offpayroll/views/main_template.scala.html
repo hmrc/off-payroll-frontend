@@ -6,16 +6,22 @@
   scriptElem: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
+@import uk.gov.hmrc.offpayroll.views.html.govuk_wrapper
 
 
-@serviceInfoContent = {}
+@betaBanner = {
+    @layouts.betaBanner(false, "", "", false, true)
+}
+
+@serviceInfoContent = {
+    @layouts.serviceInfo(betaBanner, false, Option.empty, true )
+}
 
 @sidebar = {
     @if(sidebarLinks.isDefined) {
         @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
     }
 }
-
 
 @govuk_wrapper(appConfig = uk.gov.hmrc.offpayroll.FrontendAppConfig,
                title = title,
