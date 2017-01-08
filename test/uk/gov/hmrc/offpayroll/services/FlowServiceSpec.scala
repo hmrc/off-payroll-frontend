@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.service
+package uk.gov.hmrc.offpayroll.services
 
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 import uk.gov.hmrc.offpayroll.models.{OUT, UNKNOWN}
@@ -32,7 +32,7 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
   private val csrf = "csrf"
   private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
 
-  //@TODO work out how to stub the decision service when not running in Integration test mode
+  //@TODO work out how to stub the decision services when not running in Integration test mode
   val flowservice: FlowService = IR35FlowService()
 
   "A Flow Service " should {

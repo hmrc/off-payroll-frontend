@@ -1,4 +1,4 @@
-package uk.gov.hmrc.offpayroll.service
+package uk.gov.hmrc.offpayroll.services
 
 /*
  * Copyright 2016 HM Revenue & Customs

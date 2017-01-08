@@ -29,7 +29,7 @@ import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll._
 import play.api.Logger
 import uk.gov.hmrc.offpayroll.models.Decision
-import uk.gov.hmrc.offpayroll.service.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 
 
 object InterviewController {
@@ -73,7 +73,6 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
         tag -> boolean
       )
     )
-    Logger.debug(" *** Request + tag ***:  " + request.body + " " + tag)
 
     implicit val session: Map[String, String] = request.session.data
 
@@ -82,7 +81,6 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
           Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))),
 
         value => {
-          Logger.debug(" *********** Value **************: " + value)
           implicit val session: Map[String, String] = request.session.data + (tag -> yesNo(value))
 
           val result = flowService.evaluateInterview(session, (tag, yesNo(value)))
