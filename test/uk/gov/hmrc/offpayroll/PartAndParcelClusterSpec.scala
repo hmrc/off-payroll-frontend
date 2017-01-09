@@ -19,9 +19,6 @@ package uk.gov.hmrc.offpayroll
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.models.PartAndParcelCluster
 
-/**
-  * Created by peter on 11/12/2016.
-  */
 class PartAndParcelClusterSpec extends FlatSpec with Matchers {
 
   private val partAndParcelCluster = PartAndParcelCluster
