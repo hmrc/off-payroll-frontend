@@ -62,10 +62,8 @@ object PartAndParcelCluster extends Cluster {
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (clusterElements.forall((element) => clusterAnswers.exists{
-      case(question, answer) => question == element.questionTag})) {
-      Option.empty
-    } else
+    if (allQuestionsAnswered(clusterAnswers))Option.empty
+    else
       getNextQuestionTag(clusterAnswers, currentQnA)
 
   }
@@ -73,14 +71,8 @@ object PartAndParcelCluster extends Cluster {
   def getNextQuestionTag(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
     val relevantFlowElement = currentQuestionFlowElements.filter(_.answers.toList.equals(clusterAnswers))
-    if(relevantFlowElement.isEmpty){
-      val currentQuestionElement = clusterElements.find(
-        element => element.questionTag.equalsIgnoreCase(currentQnA._1)
-      )
-      clusterElements.find(element => element.order == currentQuestionElement.get.order+1)
-
-    } else
-      clusterElements.find(element => element.questionTag.equalsIgnoreCase(
-        relevantFlowElement.head.nextQuestion.getOrElse("")))
+    if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
+    else
+      getElementForQuestionTag(relevantFlowElement.head.nextQuestion.getOrElse(""))
   }
 }
