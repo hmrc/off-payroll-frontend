@@ -48,7 +48,7 @@ class ExitClusterSpec  extends FlatSpec with Matchers {
   }
 
   it should "have 4 questions " in {
-    exitcluster.clusterElements.size shouldBe 4
+    exitcluster.clusterElements.size shouldBe 14
   }
 
   it should "allways ask for a decision if the officeHolder Question is yes " in {
@@ -61,7 +61,7 @@ class ExitClusterSpec  extends FlatSpec with Matchers {
   "limited co question answered yes in Setup Questions and current QnA is Office Holder No" in {
     val maybeElement = exitcluster.shouldAskForDecision(List(setupLtdCompany, officeHolderNo), officeHolderNo)
     maybeElement.isEmpty shouldBe false
-    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityLtd"
+    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityLtd1"
   }
 
 
@@ -69,7 +69,7 @@ class ExitClusterSpec  extends FlatSpec with Matchers {
     "Partnership question answered yes in Setup Questions and current QnA is Office Holder No" in {
     val maybeElement = exitcluster.shouldAskForDecision(List(setupPartnership, officeHolderNo), officeHolderNo)
     maybeElement.isEmpty shouldBe false
-    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityPartnership"
+    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityPartnership1"
   }
 
   it should "ask Intermediary questions if office holder is no and " +

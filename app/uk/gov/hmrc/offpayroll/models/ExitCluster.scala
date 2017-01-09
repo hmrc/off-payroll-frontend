@@ -20,6 +20,12 @@ package uk.gov.hmrc.offpayroll.models
   * Created by peter on 08/01/2017.
   */
 object ExitCluster extends Cluster {
+
+
+  private val LTD_QUESTION_1 = clusterElements(1)
+  private val PARTNERSHIP_QUESTION_1 = clusterElements(9)
+  private val INTERMEDIARY_QUESTION = clusterElements(13)
+
   /**
     * Use this value to informatively name the cluster and use as a key to tags
     */
@@ -33,25 +39,19 @@ object ExitCluster extends Cluster {
   override def clusterElements: List[Element] =
     List(
       Element("officeHolder", RADIO, 0, this),
-      Element("conditionsLiabilityLtd", MULTI, 1, this,
-        List(
-          Element("conditionsLiabilityLtd.moreThanFivePercent", RADIO, 0, this),
-          Element("conditionsLiabilityLtd.familyMoreThanFivePercent", RADIO, 1, this),
-          Element("conditionsLiabilityLtd.dividendsMoreThanFivePerent", RADIO, 2, this),
-          Element("conditionsLiabilityLtd.familyDividendsMoreThanFivePerent", RADIO, 3, this),
-          Element("conditionsLiabilityLtd.controlledLessThanFive", RADIO, 4, this),
-          Element("conditionsLiabilityLtd.controlAllDirectors", RADIO, 5, this),
-          Element("conditionsLiabilityLtd.woundUpMoreThanFivePercent", RADIO, 6, this),
-          Element("conditionsLiabilityLtd.familyWoundUpMoreThanFivePercent", RADIO, 7, this)
-        )),
-      Element("conditionsLiabilityPartnership", MULTI, 2, this,
-        List(
-          Element("conditionsLiabilityPartnership.moreThanSixtyPercent", RADIO, 0, this),
-          Element("conditionsLiabilityPartnership.familyMoreThanSixtyPercent", RADIO, 0, this),
-          Element("conditionsLiabilityPartnership.singleClientMorThanFiftyPercent", RADIO, 0, this),
-          Element("conditionsLiabilityPartnership.shareBasedOnProfits", RADIO, 0, this)
-        )),
-      Element("conditionsLiabilityIndividualIntermediary", RADIO, 3, this)
+      Element("conditionsLiabilityLtd1", RADIO, 1, this),
+      Element("conditionsLiabilityLtd2", RADIO, 2, this),
+      Element("conditionsLiabilityLtd3", RADIO, 3, this),
+      Element("conditionsLiabilityLtd4", RADIO, 4, this),
+      Element("conditionsLiabilityLtd5", RADIO, 5, this),
+      Element("conditionsLiabilityLtd6", RADIO, 6, this),
+      Element("conditionsLiabilityLtd7", RADIO, 7, this),
+      Element("conditionsLiabilityLtd8", RADIO, 8, this),
+      Element("conditionsLiabilityPartnership1", RADIO, 9, this),
+      Element("conditionsLiabilityPartnership2", RADIO, 10, this),
+      Element("conditionsLiabilityPartnership3", RADIO, 11, this),
+      Element("conditionsLiabilityPartnership4", RADIO, 12, this),
+      Element("conditionsLiabilityIndividualIntermediary", RADIO, 13, this)
     )
 
   /**
@@ -69,10 +69,10 @@ object ExitCluster extends Cluster {
       }
     }
 
-    if(checkForAnswerInInterview(name + ".officeHolder", "YES")) Option.empty
-    else if(checkForAnswerInInterview("setup.provideServices.limitedCompany", "YES")) Option(clusterElements(1))
-    else if(checkForAnswerInInterview("setup.provideServices.partnership", "YES")) Option(clusterElements(2))
-    else if(checkForAnswerInInterview("setup.provideServices.intermediary", "YES")) Option(clusterElements(3))
+    if (checkForAnswerInInterview(name + ".officeHolder", "YES")) Option.empty
+    else if (checkForAnswerInInterview("setup.provideServices.limitedCompany", "YES")) Option(LTD_QUESTION_1)
+    else if (checkForAnswerInInterview("setup.provideServices.partnership", "YES")) Option(PARTNERSHIP_QUESTION_1)
+    else if (checkForAnswerInInterview("setup.provideServices.intermediary", "YES")) Option(INTERMEDIARY_QUESTION)
     else Option.empty
 
   }
