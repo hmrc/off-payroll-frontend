@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import javax.inject.Inject
+
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import play.api.mvc._
 
@@ -28,14 +30,17 @@ import uk.gov.hmrc.offpayroll._
 import play.api.Logger
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.Decision
-import uk.gov.hmrc.offpayroll.service.{FragmentService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.services.{FragmentService,FlowService, IR35FlowService}
 
+object InterviewController {
 
-object InterviewController extends InterviewController
+  def apply() = {
+    new InterviewController(IR35FlowService())
+  }
+}
 
-trait InterviewController extends FrontendController {
+class InterviewController @Inject()(val flowService: FlowService) extends FrontendController {
 
-  val flowService = IR35FlowService
 
   val fragmentService = FragmentService("/guidance/")
 
@@ -71,7 +76,6 @@ trait InterviewController extends FrontendController {
         tag -> boolean
       )
     )
-    Logger.debug(" *** Request + tag ***:  " + request.body + " " + tag)
 
     implicit val session: Map[String, String] = request.session.data
 
@@ -82,7 +86,6 @@ trait InterviewController extends FrontendController {
               formWithErrors, element, Html.apply("")))),
 
         value => {
-          Logger.debug(" *********** Value **************: " + value)
           implicit val session: Map[String, String] = request.session.data + (tag -> yesNo(value))
 
           val result = flowService.evaluateInterview(session, (tag, yesNo(value)))

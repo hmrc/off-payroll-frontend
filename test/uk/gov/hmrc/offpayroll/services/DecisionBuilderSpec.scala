@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.service
+package uk.gov.hmrc.offpayroll.services
 
 import org.scalatest.{FlatSpec, Matchers}
 import play.api.libs.json.Json
