@@ -71,9 +71,9 @@ control.engagerMovingWorker=Can the end client tell the worker to move from job 
 
 control.workerDecidingHowWorkIsDone=Can the end client tell the worker how to do the work for this contract?
 control.workerDecidingHowWorkIsDone.workingSetInstructions=They follow a set process or set of instructions.
-control.workerDecidingHowWorkIsDone.WorkerCanGetInstructed=The end client can give them written or spoken instructions.
-control.workerDecidingHowWorkIsDone.WorkerDecidesToClientSatisfaction=-They decide how they do the work, as long as the end client is satisfied.
-control.workerDecidingHowWorkIsDone.WorkerFullyDecides=hey''re skilled to the level that it''s not appropriate for the end client to tell them how to do the work.
+control.workerDecidingHowWorkIsDone.workerCanGetInstructed=The end client can give them written or spoken instructions.
+control.workerDecidingHowWorkIsDone.workerDecidesToClientSatisfaction=They decide how they do the work, as long as the end client is satisfied.
+control.workerDecidingHowWorkIsDone.workerFullyDecides=They''re skilled to the level that it''s not appropriate for the end client to tell them how to do the work.
 
 control.whenWorkHasToBeDone=When does the worker have to do the work for this contract?
 control.whenWorkHasToBeDone.workingPatternStipulated=They have to work a pattern decided by the end client.
