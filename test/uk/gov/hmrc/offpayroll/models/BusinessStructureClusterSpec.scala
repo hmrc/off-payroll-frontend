@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll
+package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.models.{BusinessStructureCluster}
+import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
 /**
   * Created by peter on 11/12/2016.

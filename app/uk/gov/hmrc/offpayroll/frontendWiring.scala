@@ -17,7 +17,7 @@
 package uk.gov.hmrc.offpayroll
 
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
-import uk.gov.hmrc.offpayroll.service.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector => Auditing}
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
@@ -27,7 +27,7 @@ import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 
 trait ServiceRegistry extends ServicesConfig {
   lazy val decisionConnector: DecisionConnector = DecisionConnector
-  lazy val flowservice: FlowService = IR35FlowService
+  lazy val flowservice: FlowService = IR35FlowService()
 }
 
 object FrontendAuditConnector extends Auditing with AppName {

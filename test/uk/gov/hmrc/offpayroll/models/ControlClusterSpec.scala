@@ -48,7 +48,7 @@ class ControlClusterSpec extends FlatSpec with Matchers {
   }
 
   it should "work out if all questions have been answered" in {
-    controlCluster.controlQuestionsAnswered(fullInterview) shouldBe true
+    controlCluster.allQuestionsAnswered(fullInterview) shouldBe true
   }
 
 

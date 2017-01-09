@@ -74,7 +74,11 @@ object PartAndParcelCluster extends Cluster {
     val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
     val relevantFlowElement = currentQuestionFlowElements.filter(_.answers.toList.equals(clusterAnswers))
     if(relevantFlowElement.isEmpty){
-      Option.empty
+      val currentQuestionElement = clusterElements.find(
+        element => element.questionTag.equalsIgnoreCase(currentQnA._1)
+      )
+      clusterElements.find(element => element.order == currentQuestionElement.get.order+1)
+
     } else
       clusterElements.find(element => element.questionTag.equalsIgnoreCase(
         relevantFlowElement.head.nextQuestion.getOrElse("")))

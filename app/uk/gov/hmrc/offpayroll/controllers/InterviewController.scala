@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import javax.inject.Inject
+
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import play.api.mvc._
 
@@ -26,15 +28,21 @@ import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll._
 import play.api.Logger
+import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.Decision
-import uk.gov.hmrc.offpayroll.service.IR35FlowService
+import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
+
+object InterviewController {
+
+  def apply() = {
+    new InterviewController(IR35FlowService())
+  }
+}
+
+class InterviewController @Inject()(val flowService: FlowService) extends FrontendController {
 
 
-object InterviewController extends InterviewController
-
-trait InterviewController extends FrontendController {
-
-  val flowService = IR35FlowService
+  val fragmentService = FragmentService("/guidance/")
 
   def begin(clusterID: Int) = Action.async { implicit request =>
 
@@ -46,7 +54,8 @@ trait InterviewController extends FrontendController {
       )
     )
     implicit val session: Map[String, String] = request.session.data
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element)))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element,
+      fragmentService.getFragmentByName(element.questionTag))))
   }
 
   def start() = Action.async { implicit request =>
@@ -71,16 +80,16 @@ trait InterviewController extends FrontendController {
         tag -> boolean
       )
     )
-    Logger.debug(" *** Request + tag ***:  " + request.body + " " + tag)
 
     implicit val session: Map[String, String] = request.session.data
 
       singleForm.bindFromRequest.fold (
         formWithErrors =>
-          Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))),
+          Future.successful(BadRequest(
+            uk.gov.hmrc.offpayroll.views.html.interview.element(
+              formWithErrors, element, Html.apply("")))),
 
         value => {
-          Logger.debug(" *********** Value **************: " + value)
           implicit val session: Map[String, String] = request.session.data + (tag -> yesNo(value))
 
           val result = flowService.evaluateInterview(session, (tag, yesNo(value)))
@@ -88,8 +97,8 @@ trait InterviewController extends FrontendController {
           result.map(
             decision => {
               if (decision.continueWithQuestions) {
-                Logger.debug("continuing with current tag " + tag)
-                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, decision.element.head))
+                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(
+                  singleForm, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
                   .withSession(request.session + (tag -> yesNo(value)))
               } else {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
