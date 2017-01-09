@@ -30,7 +30,7 @@ import uk.gov.hmrc.offpayroll._
 import play.api.Logger
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.Decision
-import uk.gov.hmrc.offpayroll.services.{FragmentService,FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
 
 object InterviewController {
 

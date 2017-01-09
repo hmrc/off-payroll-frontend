@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.service
+package uk.gov.hmrc.offpayroll.services
 
 import play.Logger
 import play.twirl.api.Html
