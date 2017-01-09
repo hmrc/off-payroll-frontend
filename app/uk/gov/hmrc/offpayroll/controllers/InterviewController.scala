@@ -49,6 +49,10 @@ trait InterviewController extends FrontendController {
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element)))
   }
 
+  def start() = Action.async { implicit request =>
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()))
+  }
+
   def displayDecision(decsion: Decision) = Action.async { implicit request =>
     implicit val session: Map[String, String] = request.session.data
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decsion)))

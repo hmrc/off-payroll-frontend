@@ -1,0 +1,60 @@
+
+@import uk.gov.hmrc.play.views.html.helpers
+@import uk.gov.hmrc.offpayroll.models.ElementType
+@import uk.gov.hmrc.offpayroll.controllers.routes
+@import uk.gov.hmrc.offpayroll.models.Decision
+@import uk.gov.hmrc.offpayroll.models.Element
+
+@import uk.gov.hmrc.offpayroll.models.Decision
+@()(implicit request: Request[_], messages: Messages)
+@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Start", bodyClasses = None,
+    mainClass = Option("full-width") ) {
+
+        <div class="grid-layout">
+            <div class="grid-layout__column--2-3">
+
+                <h1 class="heading-xlarge">
+                    Service name goes here
+                </h1>
+
+                <p>Use this service to:</p>
+
+                <ul class="list list-bullet">
+                    <li>do something</li>
+                    <li>update your name, address or other details</li>
+                    <li>you need to do this in order to do something else</li>
+                </ul>
+
+                <p>Registering takes around 5 minutes.</p>
+
+                <p>
+                    <a class="button button--get-started" href="cluster/0" role="button">Start now</a>
+                </p>
+
+                <h2 class="heading-medium">Before you start</h2>
+
+                <p>You can also <a href="#">register by post.</a></p>
+
+                <p>The online service is also available in <a href="#">Welsh (Cymraeg).</a></p>
+
+                <p>You can’t register for this service if you’re in the UK illegally.</p>
+
+            </div>
+            <div class="grid-layout__column--1-3">
+
+                <aside class="govuk-related-items side-nav" role="complementary">
+                    <h2 class="heading-medium" id="subsection-title">Subsection</h2>
+                    <nav role="navigation" aria-labelledby="subsection-title">
+                        <ul class="side-nav__component">
+                            <li class="side-nav__list"><a class="side-nav__link" href="#">Related link</a></li>
+                            <li class="side-nav__list"><a class="side-nav__link" href="#">Related link</a></li>
+                            <li class="side-nav__list"><a class="side-nav__link" href="#">Related link</a></li>
+                        </ul>
+                    </nav>
+                </aside>
+
+            </div>
+        </div>
+
+
+}
