@@ -28,9 +28,9 @@ import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import uk.gov.hmrc.offpayroll._
 import play.api.Logger
+import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.Decision
-import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
-
+import uk.gov.hmrc.offpayroll.services.{FragmentService,FlowService, IR35FlowService}
 
 object InterviewController {
 
@@ -42,6 +42,8 @@ object InterviewController {
 class InterviewController @Inject()(val flowService: FlowService) extends FrontendController {
 
 
+  val fragmentService = FragmentService("/guidance/")
+
   def begin(clusterID: Int) = Action.async { implicit request =>
 
     val element = flowService.getStart()
@@ -52,7 +54,8 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
       )
     )
     implicit val session: Map[String, String] = request.session.data
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element)))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element,
+      fragmentService.getFragmentByName(element.questionTag))))
   }
 
   def displayDecision(decsion: Decision) = Action.async { implicit request =>
@@ -78,7 +81,9 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
 
       singleForm.bindFromRequest.fold (
         formWithErrors =>
-          Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.element(formWithErrors, element))),
+          Future.successful(BadRequest(
+            uk.gov.hmrc.offpayroll.views.html.interview.element(
+              formWithErrors, element, Html.apply("")))),
 
         value => {
           implicit val session: Map[String, String] = request.session.data + (tag -> yesNo(value))
@@ -88,8 +93,8 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
           result.map(
             decision => {
               if (decision.continueWithQuestions) {
-                Logger.debug("continuing with current tag " + tag)
-                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(singleForm, decision.element.head))
+                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(
+                  singleForm, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
                   .withSession(request.session + (tag -> yesNo(value)))
               } else {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
