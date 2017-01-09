@@ -39,4 +39,5 @@ abstract class Webflow {
 
   def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element]
 
+
 }

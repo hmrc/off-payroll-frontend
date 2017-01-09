@@ -16,24 +16,34 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import org.scalatest.concurrent.ScalaFutures
+import play.Logger
 import play.api.http.Status
 import play.api.test.FakeRequest
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
+/**
+  * Created by peter on 09/01/2017.
+  */
+class SetupControllerSpec  extends UnitSpec with WithFakeApplication with ScalaFutures {
 
-class InterviewControllerSpec extends UnitSpec with WithFakeApplication
-{
+  val fakeRequest = FakeRequest("GET", "/setup/")
 
-  implicit val fakeRequest = FakeRequest("GET", "/cluster/0")
-
-
-  "GET /cluster/0" should {
-    "return 200" in {
-      val result = await(InterviewController().begin(1).apply(fakeRequest))
+  "GET /setup/" should {
+    "return 200 and the first page" in {
+      val result = await(SetupController.apply.begin().apply(fakeRequest))
       status(result) shouldBe Status.OK
+
+      //@todo workout how to pass an implicit akka Materializer to this method so we can assert on the Body content
+//      val bodyText: String = bodyOf(result)
+
     }
+  }
 
+  "POST /setup/elementID" should {
+    "return 200 and the " in {
 
+    }
   }
 
 

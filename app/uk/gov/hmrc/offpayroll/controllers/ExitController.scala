@@ -16,25 +16,21 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
-import play.api.http.Status
-import play.api.test.FakeRequest
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import javax.inject.Inject
+
+import uk.gov.hmrc.play.frontend.controller.FrontendController
+
+/**
+  * Created by peter on 09/01/2017.
+  */
 
 
-class InterviewControllerSpec extends UnitSpec with WithFakeApplication
-{
+object ExitController {
+  def apply = new ExitController
+}
 
-  implicit val fakeRequest = FakeRequest("GET", "/cluster/0")
+class ExitController  @Inject() extends FrontendController  with OffPayrollControllerHelper {
 
-
-  "GET /cluster/0" should {
-    "return 200" in {
-      val result = await(InterviewController().begin(1).apply(fakeRequest))
-      status(result) shouldBe Status.OK
-    }
-
-
-  }
-
+  def begin() = play.mvc.Results.TODO
 
 }
