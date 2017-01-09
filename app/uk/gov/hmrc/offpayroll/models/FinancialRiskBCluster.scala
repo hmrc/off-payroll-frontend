@@ -80,27 +80,20 @@ object FinancialRiskBCluster extends Cluster {
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (clusterElements.forall((element) => clusterAnswers.exists{
-      case(question, answer) => question == element.questionTag})) {
-      Option.empty
-    } else
-      getNextQuestionTag(clusterAnswers, currentQnA)
+    if (allQuestionsAnswered(clusterAnswers))Option.empty
+    else
+      getNextQuestionElement(clusterAnswers, currentQnA)
 
   }
 
-  def getNextQuestionTag(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+  def getNextQuestionElement(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
     val relevantFlowElement = currentQuestionFlowElements.filter{
       element => element.answers.forall(clusterAnswers.contains(_))
     }
-    if(relevantFlowElement.isEmpty){
-      val currentQuestionElement = clusterElements.find(
-        element => element.questionTag.equalsIgnoreCase(currentQnA._1)
-      )
-      clusterElements.find(element => element.order == currentQuestionElement.get.order+1)
-    } else
-      clusterElements.find(element => element.questionTag.equalsIgnoreCase(
-        relevantFlowElement.head.nextQuestion.getOrElse("")))
+    if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
+    else
+      getElementForQuestionTag(relevantFlowElement.head.nextQuestion.getOrElse(""))
   }
 
 }

@@ -28,9 +28,21 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers {
   "The Part and Parcel Cluster "
   it should " not ask for a decision when there is no flow logic and there are more questions " in {
     val currentQnA = ("partParcel.workerReceivesBenefits", "No")
-    val partialAnswers = List(("partParcel.workerReceivesBenefits", "No"))
+    val partialAnswers = List(currentQnA)
 
-    partAndParcelCluster.shouldAskForDecision(partialAnswers, currentQnA).nonEmpty shouldBe true
+    val maybeElement = partAndParcelCluster.shouldAskForDecision(partialAnswers, currentQnA)
+    maybeElement.nonEmpty shouldBe true
+    maybeElement.get.questionTag shouldBe "partParcel.workerAsLineManager"
+  }
+  it should " ask 'partParcel.contactWithEngagerCustomer' after asking 'partParcel.workerAsLineManager' " in {
+    val currentQnA = ("partParcel.workerAsLineManager", "No")
+    val partialAnswers = List(
+      ("partParcel.workerReceivesBenefits", "No"),
+      currentQnA)
+
+    val maybeElement = partAndParcelCluster.shouldAskForDecision(partialAnswers, currentQnA)
+    maybeElement.nonEmpty shouldBe true
+    maybeElement.get.questionTag shouldBe "partParcel.contactWithEngagerCustomer"
   }
 
   it should " ask for a decision when all questions have been asked " in {
@@ -49,7 +61,10 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers {
 
   it should " ask for a decision there is some flow logic and there are no more questions - another flavour " in {
     val currentQnA = ("partParcel.contactWithEngagerCustomer", "No")
-    val partialAnswers = List(("partParcel.workerReceivesBenefits", "No"),("partParcel.workerAsLineManager", "No"),currentQnA)
+    val partialAnswers = List(
+      ("partParcel.workerReceivesBenefits", "No"),
+      ("partParcel.workerAsLineManager", "No"),
+      currentQnA)
 
     partAndParcelCluster.shouldAskForDecision(partialAnswers, currentQnA).isEmpty shouldBe true
   }
