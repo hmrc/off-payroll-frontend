@@ -26,6 +26,15 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers {
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("partParcel")
 
   "The Part and Parcel Cluster "
+  it should " have the correct name " in {
+    partAndParcelCluster.name shouldBe "partParcel"
+  }
+  it should " have the correct clusterId " in {
+    partAndParcelCluster.clusterID shouldBe 4
+  }
+  it should " have the correct amount of question tags " in {
+    partAndParcelCluster.clusterElements.size shouldBe 4
+  }
   it should " not ask for a decision when there is no flow logic and there are more questions " in {
     val currentQnA = ("partParcel.workerReceivesBenefits", "No")
     val partialAnswers = List(currentQnA)

@@ -26,6 +26,15 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers {
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("financialRiskB")
 
   "The Financial Risk B Cluster "
+  it should " have the correct name " in {
+    financialRiskBCluster.name shouldBe "financialRiskB"
+  }
+  it should " have the correct clusterId " in {
+    financialRiskBCluster.clusterID shouldBe 3
+  }
+  it should " have the correct amount of question tags " in {
+    financialRiskBCluster.clusterElements.size shouldBe 11
+  }
   it should " ask the correct next question when No is the answer to financialRiskB.provideVehicle" in {
     val currentQnA = ("financialRiskB.provideVehicle", "No")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"))

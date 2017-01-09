@@ -29,6 +29,15 @@ class BusinessStructureClusterSpec extends FlatSpec with Matchers {
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("businessStructure")
 
   "The Business Structure Cluster "
+  it should " have the correct name " in {
+    businessStructureCluster.name shouldBe "businessStructure"
+  }
+  it should " have the correct clusterId " in {
+    businessStructureCluster.clusterID shouldBe 5
+  }
+  it should " have the correct amount of question tags " in {
+    businessStructureCluster.clusterElements.size shouldBe 8
+  }
   it should " ask for a decision when similarWork is 0-3 " in {
     val currentQnA = ("businessStructure.similarWork", "0-3")
     val partialAnswers = List(("businessStructure.similarWork", "0-3"))
