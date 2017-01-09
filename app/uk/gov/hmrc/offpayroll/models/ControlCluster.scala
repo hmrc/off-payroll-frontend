@@ -78,20 +78,6 @@ object ControlCluster extends Cluster {
     */
   override def clusterID: Int = 1
 
-
-  def controlQuestionsAnswered(clusterAnswers: List[(String, String)]):Boolean = {
-
-    clusterElements.forall(element => {
-      clusterAnswers.exists{
-        case (question, answer) => {
-          if(element.children != Nil) {
-            element.children.exists(e => e.questionTag == question)
-          } else element.questionTag == question
-        }
-      }
-    })
-  }
-
   /**
     *
     * Based on what has been answered for this cluster should we ask
@@ -101,21 +87,7 @@ object ControlCluster extends Cluster {
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-
-    def findNextQuestion(currentQnA: (String, String)):Option[Element] = currentQnA match {
-      case (element, answer) => {
-        val currentElement = clusterElements.find(e => {
-          if(e.children == Nil) e.questionTag == element
-          else e.children.exists(e2 => e2.questionTag == element)
-        })
-        if(currentElement.nonEmpty) {
-          clusterElements.find(e => e.order == currentElement.get.order + 1)
-        }
-        else Option.empty
-      }
-    }
-
-    if(controlQuestionsAnswered(clusterAnswers)) Option.empty
+    if(allQuestionsAnswered(clusterAnswers)) Option.empty
     else findNextQuestion(currentQnA)
   }
 

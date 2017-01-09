@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll
+package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.models.FinancialRiskBCluster
+import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
 class FinancialRiskBClusterSpec extends FlatSpec with Matchers {
 
