@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.ControlCluster.findNextQuestion
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
 
 /**
   * Represents a Cluster which is a part of an Interview in Offpayroll
@@ -44,7 +42,8 @@ abstract class Cluster {
   def findNextQuestion(currentQnA: (String, String)):Option[Element] = currentQnA match {
     case (element, answer) => {
       val currentElement = clusterElements.find(e => {
-        if(e.children == Nil) e.questionTag == element
+        if(e.questionTag == element) e.questionTag == element
+        else if(e.children == Nil) e.questionTag == element
         else e.children.exists(e2 => e2.questionTag == element)
       })
       if(currentElement.nonEmpty) {
@@ -65,6 +64,10 @@ abstract class Cluster {
         }
       }
     })
+  }
+
+  def getElementForQuestionTag(questionTag : String):Option[Element] ={
+    clusterElements.find(element => element.questionTag.equalsIgnoreCase(questionTag))
   }
 
   /**

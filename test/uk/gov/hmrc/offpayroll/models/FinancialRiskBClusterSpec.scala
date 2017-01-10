@@ -19,13 +19,22 @@ package uk.gov.hmrc.offpayroll.models
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
-class FinancialRiskBClusterSpec extends FlatSpec with Matchers {
+class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
 
   private val financialRiskBCluster = FinancialRiskBCluster
 
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("financialRiskB")
 
   "The Financial Risk B Cluster "
+  it should " have the correct name " in {
+    financialRiskBCluster.name shouldBe "financialRiskB"
+  }
+  it should " have the correct clusterId " in {
+    financialRiskBCluster.clusterID shouldBe 3
+  }
+  it should " have the correct amount of question tags " in {
+    financialRiskBCluster.clusterElements.size shouldBe 11
+  }
   it should " ask the correct next question when No is the answer to financialRiskB.provideVehicle" in {
     val currentQnA = ("financialRiskB.provideVehicle", "No")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"))
@@ -121,5 +130,9 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers {
     val allAnswers = PropertyFileLoader.transformMapToAListOfAnswers(propsFilteredByCluster)
 
     financialRiskBCluster.shouldAskForDecision(allAnswers, currentQnA).isEmpty shouldBe true
+  }
+
+  it should " have the correct set of questions" in {
+    assertAllElementsPresentForCluster(financialRiskBCluster) shouldBe true
   }
 }

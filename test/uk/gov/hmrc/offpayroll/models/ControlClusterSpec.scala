@@ -22,7 +22,7 @@ import uk.gov.hmrc.offpayroll.PropertyFileLoader
 /**
   * Created by peter on 03/01/2017.
   */
-class ControlClusterSpec extends FlatSpec with Matchers {
+class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
 
   private val controlCluster = ControlCluster
 
@@ -51,9 +51,12 @@ class ControlClusterSpec extends FlatSpec with Matchers {
     controlCluster.allQuestionsAnswered(fullInterview) shouldBe true
   }
 
-
   it should "give the next question to be asked when interview is not complete" in {
     controlCluster.shouldAskForDecision(List(toldWhatToDoYes), toldWhatToDoYes).isEmpty shouldBe false
+  }
+
+  it should " have the correct set of questions\"" in {
+    assertAllElementsPresentForCluster(controlCluster) shouldBe true
   }
 
 }
