@@ -58,11 +58,6 @@ object PropertyFileLoader {
     }.toSet.toMap
   }
 
-  def getQuestionTagsForClusterName(clusterName : String) : List[String] = {
-    val messagesForACluster = PropertyFileLoader.getMessagesForACluster(clusterName)
-    messagesForACluster.map(_._1).toList.filter(_.count(_ == '.') == 1)
-  }
-
 
 
 }

@@ -30,7 +30,16 @@ object FinancialRiskBCluster extends Cluster {
     Element("engagerPayVehicleExpense", RADIO, 1, this),
     Element("workerIncurExpense", RADIO, 2, this),
     Element("engagerPayOtherExpense", RADIO, 3, this),
-    Element("workerMainIncome", RADIO, 4, this),
+    Element("workerMainIncome", MULTI, 4, this,
+      List(
+        Element("workerMainIncome.incomeCalendarPeriods", RADIO, 0, this),
+        Element("workerMainIncome.incomePieceRate", RADIO, 1, this),
+        Element("workerMainIncome.incomeCommission", RADIO, 2, this),
+        Element("workerMainIncome.incomeFixed", RADIO, 3, this),
+        Element("workerMainIncome.incomeProfitOrLosses", RADIO, 4, this),
+        Element("workerMainIncome.incomeRateByInvoice", RADIO, 5, this)
+      )
+    ),
     Element("workerSufferedLatePayment", RADIO, 5, this),
     Element("workerProvideAtTheirExpense", RADIO, 6, this),
     Element("workerFixAtTheirOwnTime", RADIO, 7, this),

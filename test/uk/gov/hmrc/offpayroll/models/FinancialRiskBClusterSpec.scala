@@ -19,7 +19,7 @@ package uk.gov.hmrc.offpayroll.models
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
-class FinancialRiskBClusterSpec extends FlatSpec with Matchers {
+class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
 
   private val financialRiskBCluster = FinancialRiskBCluster
 
@@ -130,5 +130,9 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers {
     val allAnswers = PropertyFileLoader.transformMapToAListOfAnswers(propsFilteredByCluster)
 
     financialRiskBCluster.shouldAskForDecision(allAnswers, currentQnA).isEmpty shouldBe true
+  }
+
+  it should " have the correct set of questions" in {
+    assertAllElementsPresentForCluster(financialRiskBCluster) shouldBe true
   }
 }

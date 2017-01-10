@@ -43,7 +43,8 @@ abstract class Cluster {
   def findNextQuestion(currentQnA: (String, String)):Option[Element] = currentQnA match {
     case (element, answer) => {
       val currentElement = clusterElements.find(e => {
-        if(e.children == Nil) e.questionTag == element
+        if(e.questionTag == element) e.questionTag == element
+        else if(e.children == Nil) e.questionTag == element
         else e.children.exists(e2 => e2.questionTag == element)
       })
       if(currentElement.nonEmpty) {

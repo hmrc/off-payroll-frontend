@@ -19,7 +19,7 @@ package uk.gov.hmrc.offpayroll.models
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
-class PartAndParcelClusterSpec extends FlatSpec with Matchers {
+class PartAndParcelClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
 
   private val partAndParcelCluster = PartAndParcelCluster
 
@@ -76,5 +76,9 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers {
       currentQnA)
 
     partAndParcelCluster.shouldAskForDecision(partialAnswers, currentQnA).isEmpty shouldBe true
+  }
+
+  it should " have the correct set of questions" in {
+    assertAllElementsPresentForCluster(partAndParcelCluster) shouldBe true
   }
 }

@@ -19,10 +19,7 @@ package uk.gov.hmrc.offpayroll.models
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
-/**
-  * Created by peter on 11/12/2016.
-  */
-class BusinessStructureClusterSpec extends FlatSpec with Matchers {
+class BusinessStructureClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
 
   private val businessStructureCluster = BusinessStructureCluster
 
@@ -71,11 +68,7 @@ class BusinessStructureClusterSpec extends FlatSpec with Matchers {
 
     businessStructureCluster.shouldAskForDecision(allAnswers, currentQnA).isEmpty shouldBe true
   }
-
-//  it should " have the correct set of questions" in {
-//    val tagsForClusterName = PropertyFileLoader.getQuestionTagsForClusterName(businessStructureCluster.name)
-//    for(q <- tagsForClusterName){
-//      businessStructureCluster.getElementForQuestionTag(q).nonEmpty shouldBe true
-//    }
-//  }
+  it should " have the correct set of questions" in {
+    assertAllElementsPresentForCluster(businessStructureCluster) shouldBe true
+  }
 }
