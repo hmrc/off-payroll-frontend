@@ -36,7 +36,7 @@ object SetupFlow extends Webflow {
 
   override def getStart(): Element = setupCluster.clusterElements(0)
 
-  override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
+  override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
     if(clusterId == 0 && elementId < setupCluster.clusterElements.size) Option(setupCluster.clusterElements(elementId))
     else Option.empty
   }

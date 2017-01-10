@@ -105,7 +105,7 @@ class IR35FlowService extends FlowService {
 
 
   override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = {
-    val currentElement = webflow.getEelmentById(clusterId, elementId)
+    val currentElement = webflow.getElementById(clusterId, elementId)
     if (currentElement.nonEmpty) currentElement.head
     else throw new NoSuchElementException("No Element found matching: " + clusterId + "/" + elementId)
   }

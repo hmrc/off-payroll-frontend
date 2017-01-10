@@ -39,9 +39,9 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
   }
 
   it should "get an element by id only when the cluster is Zero and the element is in range " in {
-    setupFlow.getEelmentById(0,1).nonEmpty shouldBe true
-    setupFlow.getEelmentById(0,10).nonEmpty shouldBe false
-    setupFlow.getEelmentById(1,1).nonEmpty shouldBe false
+    setupFlow.getElementById(0,1).nonEmpty shouldBe true
+    setupFlow.getElementById(0,10).nonEmpty shouldBe false
+    setupFlow.getElementById(1,1).nonEmpty shouldBe false
   }
 
   it should "get the next element relative the element passed in or empty if there are no more"  in {

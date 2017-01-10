@@ -63,7 +63,7 @@ class SetupController @Inject() extends FrontendController  with OffPayrollContr
 
   def processElement(elementID: Int) = Action.async { implicit request =>
 
-    val element = flow.getEelmentById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart())
+    val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart())
     val (fieldName, form) = createForm(element, request.body.asFormUrlEncoded)
 
     implicit val session: Map[String, String] = request.session.data
