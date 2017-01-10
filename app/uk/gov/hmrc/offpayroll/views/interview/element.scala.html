@@ -30,7 +30,7 @@
         @for(child <- element.children) {
             <div class="form-field">
                 <label for="@child.questionTag" class="block-label">
-                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@child.questionTag" value="true" />
+                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
                     @Messages(child.questionTag)
                 </label>
             </div>
