@@ -16,9 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
-import uk.gov.hmrc.offpayroll.views.html.interview.element
-
 /**
   * Created by peter on 15/12/2016.
   */

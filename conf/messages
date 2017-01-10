@@ -15,8 +15,6 @@ setup.provideServices.limitedCompany=Through a limited company
 setup.provideServices.partnership=Through a partnership
 setup.provideServices.intermediary=I work through an intermediary who is an individual.
 setup.provideServices.soleTrader=As a sole trader
-setup.ownMoreThan51Percent=Do you, or you and your spouse / civil partner work through an intermediary and own more than 51% of the shares?
-
 
 #### Exit Questions
 

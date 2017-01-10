@@ -18,19 +18,68 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import play.api.Logger
+import play.api.Play.current
+import play.api.data.Forms._
+import play.api.data._
+import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
+import play.twirl.api.Html
+import uk.gov.hmrc.offpayroll.models.{Decision, Element, MULTI}
+import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
+import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
-import play.api.Play.current
-import play.api.data._
-import play.api.data.Forms._
-import play.api.i18n.Messages.Implicits._
-import uk.gov.hmrc.offpayroll._
-import play.api.Logger
-import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.Decision
-import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
+
+
+trait OffPayrollControllerHelper {
+  //@Todo write tests
+
+  /**
+    * Create a Form based on an Element
+    * @param element
+    * @return
+    */
+  def createForm(element: Element): Form[Boolean] = {
+    createForm(element.questionTag)
+  }
+
+  /**
+    * Convience overload to alow form creation by the string name of the element
+    * @param element
+    * @return
+    */
+  def createForm(element: String): Form[Boolean] ={
+    Form(
+      single(
+        element -> boolean
+      )
+    )
+  }
+
+  /**
+    * Creates a Form for a ChildElement when we don't know until Runtime which of the children will be passed
+    * @param element
+    * @param requestBody
+    * @return
+    */
+  def createForm(element: Element, requestBody: Option[Map[String, Seq[String]]]): (String, Form[Boolean]) = {
+
+    if(element.elementType == MULTI) {
+      if (requestBody.nonEmpty) {
+       val fieldName =  requestBody.get.find{
+          case(name,value) => element.children.exists(e => e.questionTag == name)
+        }.get
+        (fieldName._1, createForm(fieldName._1))
+      } else throw new IllegalArgumentException("Form body was empty")
+    } else (element.questionTag, createForm(element))
+  }
+
+  def yesNo(value: Boolean): String =
+    if(value) "Yes" else "No"
+
+}
+
 
 object InterviewController {
 
@@ -39,8 +88,7 @@ object InterviewController {
   }
 }
 
-class InterviewController @Inject()(val flowService: FlowService) extends FrontendController {
-
+class InterviewController @Inject()(val flowService: FlowService) extends FrontendController with OffPayrollControllerHelper {
 
   val fragmentService = FragmentService("/guidance/")
 
@@ -48,13 +96,10 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
 
     val element = flowService.getStart()
 
-    val userForm = Form(
-      single(
-        element.questionTag -> boolean
-      )
-    )
+    val form: Form[Boolean] = createForm(element)
+
     implicit val session: Map[String, String] = request.session.data
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(userForm, element,
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
@@ -62,31 +107,24 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()))
   }
 
+
   def displayDecision(decsion: Decision) = Action.async { implicit request =>
     implicit val session: Map[String, String] = request.session.data
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decsion)))
   }
 
-  private def yesNo(value: Boolean): String =
-    if(value) "Yes" else "No"
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
-    val tag: String = element.questionTag
-
-    val singleForm = Form(
-      single( // @TODO must validate expected tags are populated
-        tag -> boolean
-      )
-    )
+    val (tag,form) = createForm(element, request.body.asFormUrlEncoded)
 
     implicit val session: Map[String, String] = request.session.data
 
-      singleForm.bindFromRequest.fold (
+      form.bindFromRequest.fold (
         formWithErrors =>
           Future.successful(BadRequest(
-            uk.gov.hmrc.offpayroll.views.html.interview.element(
+            uk.gov.hmrc.offpayroll.views.html.interview.interview(
               formWithErrors, element, Html.apply("")))),
 
         value => {
@@ -97,8 +135,8 @@ class InterviewController @Inject()(val flowService: FlowService) extends Fronte
           result.map(
             decision => {
               if (decision.continueWithQuestions) {
-                Ok(uk.gov.hmrc.offpayroll.views.html.interview.element(
-                  singleForm, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
+                Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
+                  form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
                   .withSession(request.session + (tag -> yesNo(value)))
               } else {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))

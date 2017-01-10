@@ -29,7 +29,7 @@ abstract class Webflow {
 
   def getStart(): Element
 
-  def getEelmentById(clusterId: Int, elementId: Int): Option[Element]
+  def getElementById(clusterId: Int, elementId: Int): Option[Element]
 
   def getElementByTag(tag: String): Option[Element]
 
@@ -38,5 +38,6 @@ abstract class Webflow {
   def getClusterByName(name: String): Cluster
 
   def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element]
+
 
 }

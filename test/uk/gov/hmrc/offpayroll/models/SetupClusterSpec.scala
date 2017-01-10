@@ -22,7 +22,7 @@ import uk.gov.hmrc.offpayroll.PropertyFileLoader
 /**
   * Created by peter on 06/01/2017.
   */
-class SetupClusterSpec extends FlatSpec with Matchers {
+class SetupClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
 
   private val setupCluster = SetupCluster
 
@@ -30,12 +30,11 @@ class SetupClusterSpec extends FlatSpec with Matchers {
   private val listOfAnswers = PropertyFileLoader.transformMapToAListOfAnswers(interview)
 
   private val personDoingWork = "setup.endUserRole.personDoingWork" -> "Yes"
-  private val lastQuestion = "setup.ownMoreThan51Percent" -> "Yes"
+  private val lastQuestion = "setup.provideServices.limitedCompany" -> "Yes"
 
   val fullInterview = List(
     personDoingWork,
     "setup.hasContractStarted" -> "No",
-    "setup.provideServices.limitedCompany" -> "Yes",
     lastQuestion
   )
 
@@ -47,8 +46,8 @@ class SetupClusterSpec extends FlatSpec with Matchers {
     setupCluster.clusterID shouldBe 0
   }
 
-  it should "have a collection of 14 cluster elements " in {
-    setupCluster.clusterElements.size shouldBe 4
+  it should "have a collection of 3 cluster elements " in {
+    setupCluster.clusterElements.size shouldBe 3
   }
 
   it should "ask the next question if not all questions have been answered " in {
@@ -56,7 +55,11 @@ class SetupClusterSpec extends FlatSpec with Matchers {
   }
 
   it should "return an empty option of all questions answered" in {
-    setupCluster.shouldAskForDecision(listOfAnswers, lastQuestion).isEmpty shouldBe true
+    setupCluster.shouldAskForDecision(listOfAnswers, lastQuestion).nonEmpty shouldBe false
+  }
+
+  it should "have all the questions present in the messages for setup" in {
+    assertAllElementsPresentForCluster(setupCluster) shouldBe true
   }
 
 }

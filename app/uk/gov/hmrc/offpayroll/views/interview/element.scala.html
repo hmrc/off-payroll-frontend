@@ -1,63 +1,39 @@
-
-@import uk.gov.hmrc.play.views.html.helpers
-@import uk.gov.hmrc.offpayroll.models.{RADIO, MULTI}
+@import uk.gov.hmrc.offpayroll.models._
 @import uk.gov.hmrc.offpayroll.models.Element
 
-@(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages, session: Map[String, String])
-@import uk.gov.hmrc.offpayroll.controllers.routes
-@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Hello from off-payroll-frontend", bodyClasses = None) {
-    <h1>@Messages(element.questionTag)</h1>
-
-    @guidance
-
-    @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order)) {
-        @if(element.elementType == RADIO ) {
-
+@import uk.gov.hmrc.offpayroll.models.RADIO
+@(element: Element)(implicit request: Request[_], messages: Messages)
+    @if(element.elementType == RADIO) {
 
         <div class="form-group">
-          <fieldset>
-          <div class="form-field--inline">
-            <label for="radio-yes" class="block-label">
-              <input id="radio-yes" type="radio" name="@element.questionTag" value="true" />
-              Yes
-            </label>
-          </div>
-          <div class="form-field--inline">
-            <label for="radio-no" class="block-label">
-              <input id="radio-no" type="radio" name="@element.questionTag" value="false" />
-              No
-            </label>
-          </div>
-          
-      </fieldset>
-    </div>
-
-
-        }
-        @if(element.elementType == MULTI ) {
-
-            @for( child <- element.children ){
-                <div class="form-field">
-                    <label for="@child.questionTag" class="block-label">
-                        <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@child.questionTag" value="true" />
-                        @Messages(child.questionTag)
+            <fieldset>
+                <div class="form-field--inline">
+                    <label for="radio-yes" class="block-label">
+                        <input id="radio-yes" type="radio" name="@element.questionTag" value="true" />
+                        Yes
                     </label>
                 </div>
-            }
+                <div class="form-field--inline">
+                    <label for="radio-no" class="block-label">
+                        <input id="radio-no" type="radio" name="@element.questionTag" value="false" />
+                        No
+                    </label>
+                </div>
 
-        }
-
-        <button>@Messages("global.button.continue")</button>
-
-        @if(true) {
-            <p>Debug is on!</p>
-            <ul>
-                <li>@session.toString()</li>
-                <li>Current currentElement @element.toString</li>
-            </ul>
-        }
+            </fieldset>
+        </div>
 
 
     }
+    @if(element.elementType == MULTI) {
 
-}
+        @for(child <- element.children) {
+            <div class="form-field">
+                <label for="@child.questionTag" class="block-label">
+                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@child.questionTag" value="true" />
+                    @Messages(child.questionTag)
+                </label>
+            </div>
+        }
+
+    }

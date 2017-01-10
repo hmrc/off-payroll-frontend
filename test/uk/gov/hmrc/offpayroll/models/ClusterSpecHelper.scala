@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.controllers
+package uk.gov.hmrc.offpayroll.models
 
-import play.api.http.Status
-import play.api.test.FakeRequest
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import org.scalatest
+import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
+/**
+  * Created by peter on 10/01/2017.
+  */
+trait ClusterSpecHelper {
+  def assertAllElementsPresentForCluster(cluster: Cluster): Boolean = {
+    val properties = PropertyFileLoader.getMessagesForACluster(cluster.name)
 
-class InterviewControllerSpec extends UnitSpec with WithFakeApplication
-{
-
-  implicit val fakeRequest = FakeRequest("GET", "/cluster/0")
-
-
-  "GET /cluster/0" should {
-    "return 200" in {
-      val result = await(InterviewController().begin(1).apply(fakeRequest))
-      status(result) shouldBe Status.OK
+    properties.forall {
+      case (question, value) => {
+        cluster.clusterElements.exists(element => {
+          question == element.questionTag || element.children.exists(child => question == child.questionTag)
+        })
+      }
     }
-
-
   }
-
-
 }
