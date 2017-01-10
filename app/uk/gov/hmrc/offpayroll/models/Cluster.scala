@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import scala.annotation.tailrec
 
 /**
   * Represents a Cluster which is a part of an Interview in Offpayroll
@@ -67,22 +66,9 @@ abstract class Cluster {
     })
   }
 
-  def getElementForQuestionTag(questionTag : String):Option[Element] = {
-    clusterElements.find(element => element.questionTag.equalsIgnoreCase(questionTag))
-  }
-
   /**
     * Helps order a Cluster in an Interview
     *
-    for(element <- elements){
-      if(element.questionTag.equals(questionTag)){
-        return Option(element)
-      }
-      else if(!element.children.isEmpty){
-        return getElementForQuestionTag(element.children, questionTag)
-      }
-    }
-    Option.empty
     * @return
     */
   def clusterID: Int
