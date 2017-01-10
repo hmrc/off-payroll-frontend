@@ -66,6 +66,10 @@ abstract class Cluster {
     })
   }
 
+  def getElementForQuestionTag(questionTag : String):Option[Element] ={
+    clusterElements.find(element => element.questionTag.equalsIgnoreCase(questionTag))
+  }
+
   /**
     * Helps order a Cluster in an Interview
     *
