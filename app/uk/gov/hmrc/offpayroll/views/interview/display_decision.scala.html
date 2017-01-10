@@ -7,7 +7,7 @@
 
 @import uk.gov.hmrc.offpayroll.models.Decision
 @(decision: Decision)(implicit request: Request[_], messages: Messages, session: Map[String, String])
-@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None) {
+@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
 <main id="content" role="main" class="result">
 	 <div class="grid-row" id="resultPreHeader">
       <div class="column-two-thirds">Reference number ESFTPZZ9ZA</div>
@@ -16,17 +16,16 @@
     <div class="grid-row">
 		<div class="column-two-thirds">
       <div class="transaction-banner--complete">
-        <h1 class="transaction-banner__heading">@Messages("" + decision.decision.value)</h1>
+        <h1 class="transaction-banner__heading" id="decision-banner">@Messages("" + decision.decision.value)</h1>
         
           <!--<p>Because you are an office holder</p>-->
         
       </div>
-			<h1 class="heading-large"></h1>
 
       <h2 class="heading-medium">Your answers</h2>
-			<ol>
+			<ol id="yourAnswers">
                 @for((key,value) <- decision.qa){
-                <li class="panel-indent section divider--bottom"><h2>@messages(key)</h2>
+                <li class="panel-indent section divider--bottom" id="answer.@key"><h2>@messages(key)</h2>
                     <div>@value</div>
                 </li>
                 }
