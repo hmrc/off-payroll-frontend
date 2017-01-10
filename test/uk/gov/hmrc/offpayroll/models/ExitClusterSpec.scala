@@ -16,13 +16,14 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import org.scalatest
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
 /**
   * Created by peter on 08/01/2017.
   */
-class ExitClusterSpec  extends FlatSpec with Matchers {
+class ExitClusterSpec  extends FlatSpec with Matchers with ClusterSpecHelper {
   val exitcluster = ExitCluster
 
   private val officeHolderProperty = "exit.officeHolder"
@@ -53,15 +54,9 @@ class ExitClusterSpec  extends FlatSpec with Matchers {
   }
 
   it should "have all the questions present in the messages for exit" in {
-    val allExitProperties = PropertyFileLoader.getMessagesForACluster("exit")
 
-    allExitProperties.forall{
-      case(question, value) => {
-        exitcluster.clusterElements.exists( element => element.questionTag == question
 
-          )
-      }
-    } shouldBe true
+    assertAllElementsPresentForCluster(exitcluster) shouldBe true
   }
 
   it should "allways ask for a decision if the officeHolder Question is yes " in {

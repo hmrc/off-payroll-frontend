@@ -34,7 +34,7 @@ object SetupCluster extends Cluster {
     Element("endUserRole", MULTI, 0, this, List(
       Element("endUserRole.personDoingWork", RADIO, 0, this),
       Element("endUserRole.endClient", RADIO, 1, this),
-      Element("endUserRole.personDoingWork", RADIO, 2, this)
+      Element("endUserRole.placingAgency", RADIO, 2, this)
     )),
     Element("hasContractStarted", RADIO, 1, this),
     Element("provideServices", MULTI, 2, this, List(
@@ -42,12 +42,8 @@ object SetupCluster extends Cluster {
       Element("provideServices.partnership", RADIO, 1, this),
       Element("provideServices.intermediary", RADIO, 2, this),
       Element("provideServices.soleTrader", RADIO, 3, this)
-    )),
-    Element("ownMoreThan51Percent", RADIO, 3, this)
+    ))
   )
-
-
-
 
   /**
     * Helps order a Cluster in an Interview
