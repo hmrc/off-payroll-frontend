@@ -35,11 +35,24 @@ class ExitClusterSpec  extends FlatSpec with Matchers with ClusterSpecHelper {
   private val setupLtdCompanyProperty = "setup.provideServices.limitedCompany"
   private val setupLtdCompany = setupLtdCompanyProperty -> YES
 
+  private val exit_conditionsLiabilityLtd1 = "exit.conditionsLiabilityLtd1"
+  private val exit_conditionsLiabilityLtd1Yes = exit_conditionsLiabilityLtd1 -> YES
+
+  private val exit_conditionsLiabilityLtd2 = "exit.conditionsLiabilityLtd2"
+  private val exit_conditionsLiabilityLtd2Yes = exit_conditionsLiabilityLtd2 -> YES
+
+  private val exit_conditionsLiabilityLtd7 = "exit.conditionsLiabilityLtd7"
+  private val exit_conditionsLiabilityLtd7Yes = exit_conditionsLiabilityLtd7 -> YES
+
+  val exit_conditionsLiabilityLtd8 =  "exit.conditionsLiabilityLtd8"
+
   val setupPartnershipProperty = "setup.provideServices.partnership"
   val setupPartnership = setupPartnershipProperty -> YES
 
   val setupIntermediaryProperty = "setup.provideServices.intermediary"
   val setupIntermediary = setupIntermediaryProperty -> YES
+
+
 
   "An Exit Cluster " should " be named exit" in {
    exitcluster.name shouldBe "exit"
@@ -64,27 +77,28 @@ class ExitClusterSpec  extends FlatSpec with Matchers with ClusterSpecHelper {
     List(officeHolderYes), officeHolderYes).isEmpty shouldBe true
 
   }
-
-  it should "ask Limited Co questions if office holder is no and " +
+  
+  it should "ask 1st Limited Co question if office holder is no and " +
   "limited co question answered yes in Setup Questions and current QnA is Office Holder No" in {
     val maybeElement = exitcluster.shouldAskForDecision(List(setupLtdCompany, officeHolderNo), officeHolderNo)
     maybeElement.isEmpty shouldBe false
-    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityLtd1"
+    maybeElement.get.questionTag shouldBe exit_conditionsLiabilityLtd1
   }
 
-
-  it should "ask Partnership questions if office holder is no and " +
-    "Partnership question answered yes in Setup Questions and current QnA is Office Holder No" in {
-    val maybeElement = exitcluster.shouldAskForDecision(List(setupPartnership, officeHolderNo), officeHolderNo)
+  it should "ask 2nd Limited Co question if office holder is no and " +
+    "limited co question answered yes in Setup Questions and current QnA is: " + exit_conditionsLiabilityLtd1 in {
+    val maybeElement = exitcluster.shouldAskForDecision(List(setupLtdCompany,
+      officeHolderNo, exit_conditionsLiabilityLtd1Yes), exit_conditionsLiabilityLtd1Yes)
     maybeElement.isEmpty shouldBe false
-    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityPartnership1"
+    maybeElement.get.questionTag shouldBe exit_conditionsLiabilityLtd2
   }
 
-  it should "ask Intermediary questions if office holder is no and " +
-    "Intermediary question answered yes in Setup Questions and current QnA is Office Holder No" in {
-    val maybeElement = exitcluster.shouldAskForDecision(List(setupIntermediary, officeHolderNo), officeHolderNo)
+  it should "ask 8th Limited Co question if office holder is no and " +
+    "limited co question answered yes in Setup Questions and current QnA is: " + exit_conditionsLiabilityLtd7 in {
+    val maybeElement = exitcluster.shouldAskForDecision(List(setupLtdCompany,
+      officeHolderNo, exit_conditionsLiabilityLtd1Yes, exit_conditionsLiabilityLtd2Yes), exit_conditionsLiabilityLtd7Yes)
     maybeElement.isEmpty shouldBe false
-    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityIndividualIntermediary"
+    maybeElement.get.questionTag shouldBe exit_conditionsLiabilityLtd8
   }
 
 }

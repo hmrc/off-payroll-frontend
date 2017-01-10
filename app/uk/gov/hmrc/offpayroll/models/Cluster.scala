@@ -41,14 +41,18 @@ abstract class Cluster {
     Map() ++ (clusterElements map { element => (element.questionTag, element) })
   }
 
-  def findNextQuestion(currentQnA: (String, String)):Option[Element] = currentQnA match {
+  def findNextQuestion(currentQnA: (String, String)):Option[Element] = {
+    this.findNextQuestion(currentQnA, clusterElements)
+  }
+
+  def findNextQuestion(currentQnA: (String, String), elements: List[Element]):Option[Element] = currentQnA match {
     case (element, answer) => {
-      val currentElement = clusterElements.find(e => {
+      val currentElement = elements.find(e => {
         if(e.children == Nil) e.questionTag == element
         else e.children.exists(e2 => e2.questionTag == element)
       })
       if(currentElement.nonEmpty) {
-        clusterElements.find(e => e.order == currentElement.get.order + 1)
+        elements.find(e => e.order == currentElement.get.order + 1)
       }
       else Option.empty
     }

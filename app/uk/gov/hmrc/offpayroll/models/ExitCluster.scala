@@ -21,10 +21,10 @@ package uk.gov.hmrc.offpayroll.models
   */
 object ExitCluster extends Cluster {
 
-
-  private val LTD_QUESTION_1 = clusterElements(1)
-  private val PARTNERSHIP_QUESTION_1 = clusterElements(9)
-  private val INTERMEDIARY_QUESTION = clusterElements(13)
+  private val conditionsliabilityltd = "conditionsLiabilityLtd"
+  private val officeholder = "officeHolder"
+  private val conditionsliabilitypartnership = "conditionsLiabilityPartnership"
+  private val conditionsliabilityindividualintermediary = "conditionsLiabilityIndividualIntermediary"
 
   /**
     * Use this value to informatively name the cluster and use as a key to tags
@@ -38,20 +38,20 @@ object ExitCluster extends Cluster {
     */
   override def clusterElements: List[Element] =
     List(
-      Element("officeHolder", RADIO, 0, this),
-      Element("conditionsLiabilityLtd1", RADIO, 1, this),
-      Element("conditionsLiabilityLtd2", RADIO, 2, this),
-      Element("conditionsLiabilityLtd3", RADIO, 3, this),
-      Element("conditionsLiabilityLtd4", RADIO, 4, this),
-      Element("conditionsLiabilityLtd5", RADIO, 5, this),
-      Element("conditionsLiabilityLtd6", RADIO, 6, this),
-      Element("conditionsLiabilityLtd7", RADIO, 7, this),
-      Element("conditionsLiabilityLtd8", RADIO, 8, this),
-      Element("conditionsLiabilityPartnership1", RADIO, 9, this),
-      Element("conditionsLiabilityPartnership2", RADIO, 10, this),
-      Element("conditionsLiabilityPartnership3", RADIO, 11, this),
-      Element("conditionsLiabilityPartnership4", RADIO, 12, this),
-      Element("conditionsLiabilityIndividualIntermediary", RADIO, 13, this)
+      Element(officeholder, RADIO, 0, this),
+      Element(conditionsliabilityltd + "1", RADIO, 1, this),
+      Element(conditionsliabilityltd + "2", RADIO, 2, this),
+      Element(conditionsliabilityltd + "3", RADIO, 3, this),
+      Element(conditionsliabilityltd + "4", RADIO, 4, this),
+      Element(conditionsliabilityltd + "5", RADIO, 5, this),
+      Element(conditionsliabilityltd + "6", RADIO, 6, this),
+      Element(conditionsliabilityltd + "7", RADIO, 7, this),
+      Element(conditionsliabilityltd + "8", RADIO, 8, this),
+      Element(conditionsliabilitypartnership + "1", RADIO, 9, this),
+      Element(conditionsliabilitypartnership + "2", RADIO, 10, this),
+      Element(conditionsliabilitypartnership + "3", RADIO, 11, this),
+      Element(conditionsliabilitypartnership + "4", RADIO, 12, this),
+      Element(conditionsliabilityindividualintermediary, RADIO, 13, this)
     )
 
   /**
@@ -69,11 +69,35 @@ object ExitCluster extends Cluster {
       }
     }
 
-    if (checkForAnswerInInterview(name + ".officeHolder", "YES")) Option.empty
-    else if (checkForAnswerInInterview("setup.provideServices.limitedCompany", "YES")) Option(LTD_QUESTION_1)
-    else if (checkForAnswerInInterview("setup.provideServices.partnership", "YES")) Option(PARTNERSHIP_QUESTION_1)
-    else if (checkForAnswerInInterview("setup.provideServices.intermediary", "YES")) Option(INTERMEDIARY_QUESTION)
-    else Option.empty
+    def startsWith(element: Element, prefix: String) = {
+      element._questionTag.startsWith(prefix)
+    }
+
+    def isOfficeHolder(element: Element) = {
+      element._questionTag == officeholder
+    }
+
+    def filterClusterElementsAndReOrder(tagPrefix: String) = {
+      clusterElements.filter(e => startsWith(e, conditionsliabilityltd) || isOfficeHolder(e))
+        .foldLeft[List[Element]](
+        List()) {
+        case (list, element) => list ::: List(Element(element._questionTag, element.elementType, list.size, element.clusterParent))
+      }
+    }
+
+    lazy val elements: List[Element] =
+      if (checkForAnswerInInterview("setup.provideServices.limitedCompany", "YES")) {
+        filterClusterElementsAndReOrder(conditionsliabilityltd)
+      } else if (checkForAnswerInInterview("setup.provideServices.partnership", "YES")) {
+        filterClusterElementsAndReOrder(conditionsliabilitypartnership)
+      } else if (checkForAnswerInInterview("setup.provideServices.intermediary", "YES")) {
+        filterClusterElementsAndReOrder(conditionsliabilityindividualintermediary)
+      } else List()
+
+    val officeHolder: Boolean = checkForAnswerInInterview(name + "." + officeholder, "YES")
+
+    if(officeHolder) Option.empty
+    else findNextQuestion(currentQnA, elements)
 
   }
 
