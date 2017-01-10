@@ -16,7 +16,6 @@ setup.provideServices.partnership=Through a partnership
 setup.provideServices.intermediary=I work through an intermediary who is an individual.
 setup.provideServices.soleTrader=As a sole trader
 
-
 #### Exit Questions
 
 exit.officeHolder=Is the worker an office holder of the client or performs the duties of an office holder?

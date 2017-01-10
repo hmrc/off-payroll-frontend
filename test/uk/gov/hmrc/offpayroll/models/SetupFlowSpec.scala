@@ -26,7 +26,6 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
   private val setupFlow = SetupFlow
   private val firstElement = setupFlow.getStart()
   private val SETUP = "setup"
-  private val setup_ownMoreThan51Percent = SETUP + ".ownMoreThan51Percent"
   private val setup_endUserRole = SETUP + ".endUserRole"
   private val YES = "Yes"
 
@@ -49,8 +48,8 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
     setupFlow.getNext(firstElement).nonEmpty shouldBe true
   }
 
-  it should "get an element by its tag e.g. " + setup_ownMoreThan51Percent in {
-    setupFlow.getElementByTag(setup_ownMoreThan51Percent).nonEmpty shouldBe true
+  it should "get an element by its tag e.g. " + setup_endUserRole in {
+    setupFlow.getElementByTag(setup_endUserRole).nonEmpty shouldBe true
   }
 
   it should "get a cluster by its name if the name is " + SETUP in {
