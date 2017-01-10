@@ -71,4 +71,11 @@ class BusinessStructureClusterSpec extends FlatSpec with Matchers {
 
     businessStructureCluster.shouldAskForDecision(allAnswers, currentQnA).isEmpty shouldBe true
   }
+
+//  it should " have the correct set of questions" in {
+//    val tagsForClusterName = PropertyFileLoader.getQuestionTagsForClusterName(businessStructureCluster.name)
+//    for(q <- tagsForClusterName){
+//      businessStructureCluster.getElementForQuestionTag(q).nonEmpty shouldBe true
+//    }
+//  }
 }

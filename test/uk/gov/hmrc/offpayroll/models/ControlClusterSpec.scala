@@ -51,9 +51,14 @@ class ControlClusterSpec extends FlatSpec with Matchers {
     controlCluster.allQuestionsAnswered(fullInterview) shouldBe true
   }
 
-
   it should "give the next question to be asked when interview is not complete" in {
     controlCluster.shouldAskForDecision(List(toldWhatToDoYes), toldWhatToDoYes).isEmpty shouldBe false
+  }
+
+  it should " have the correct set of questions" in {
+    for(q <- PropertyFileLoader.getQuestionTagsForClusterName(controlCluster.name)){
+      controlCluster.getElementForQuestionTag(q).nonEmpty shouldBe true
+    }
   }
 
 }
