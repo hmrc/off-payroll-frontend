@@ -88,12 +88,12 @@ control.workerDecideWhere.workerLocationFixed=The work can only be done in a spe
 #### Financial Risk Cluster A
 
 financialRiskA.workerPaidInclusive=Is the worker paid an all-inclusive rate which must cover the cost of all materials needed for the contract?
-financialRiskA.workerneedConsumablesMaterials=Does the worker need materials that become part of the work for this contract?
+financialRiskA.workerNeedConsumablesMaterials=Does the worker need materials that become part of the work for this contract?
 financialRiskA.workerProvideConsumablesMaterials=Do they have to provide them?
-financialRiskA.engagerPayExpense=Do they get the money back?
+financialRiskA.engagerPayConsumables=Do they get the money back?
 financialRiskA.workerNeedEquipment=Does the worker need major items of equipment without which they can''t do the work for this contract?
 financialRiskA.workerProvideEquipment=Do they have to provide them?
-financialRiskA.engagerPayExpense=Do they get the money back?
+financialRiskA.engagerPayEquipment=Do they get the money back?
 
 #### Financial Risk Cluster B
 
@@ -110,7 +110,7 @@ financialRiskB.workerMainIncome.incomeFixed=A fixed, all-inclusive price
 financialRiskB.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits
 financialRiskB.workerMainIncome.incomeRateByInvoice=An amount based on how much work is completed
 
-financialRiskB.WorkerSufferedLatePayment=Has the worker ever been paid late, or not at all, on submission of an invoice?
+financialRiskB.workerSufferedLatePayment=Has the worker ever been paid late, or not at all, on submission of an invoice?
 financialRiskB.workerProvideAtTheirExpense=If the work isn''t up to the end client''s expectations for this contract, Does the worker have to put it right?
 financialRiskB.workerFixAtTheirOwnTime=Do they have to do it on their own time?
 financialRiskB.workerPayForMaterialsSubstandardWorker=Do they have to pay for the materials used to put the work right?
@@ -131,7 +131,7 @@ partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a 
 businessStructure.similarWork=How many other engagers has the worker done similar work for during the last 12 months?
 #may need two tags or some other way to switch the following question
 businessStructure.workerVAT=Is the worker registered for Value Added Tax (VAT)? (If IR35 replace worker with PSC)
-businessStructure.businesAccount=Does the worker operate a business bank account?
+businessStructure.businessAccount=Does the worker operate a business bank account?
 businessStructure.advertiseForWork=Does the worker advertise for work (including social media)?
 #may need two tags or some other way to switch the following question
 businessStructure.businessWebsite=Does the worker have a business website? (If IR35 replace worker with PSC)
