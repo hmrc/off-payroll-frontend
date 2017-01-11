@@ -6,7 +6,8 @@ POST    /cluster/:clusterID/element/:elementID @uk.gov.hmrc.offpayroll.controlle
 GET     /setup                                  @uk.gov.hmrc.offpayroll.controllers.SetupController.begin()
 POST    /setup/element/:elementID               @uk.gov.hmrc.offpayroll.controllers.SetupController.processElement(elementID: Int)
 
-GET     /exit                                      @uk.gov.hmrc.offpayroll.controllers.ExitController.begin()
+GET     /exit                                   @uk.gov.hmrc.offpayroll.controllers.ExitController.begin()
+GET     /exit/element/:elementID                @uk.gov.hmrc.offpayroll.controllers.ExitController.processElement(elementID: Int)
 
 GET     /cluster/:clusterID                    @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin(clusterID: Int)
 GET     /start                                 @uk.gov.hmrc.offpayroll.controllers.InterviewController.start()

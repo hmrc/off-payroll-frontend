@@ -18,16 +18,11 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.api.Logger
 import play.api.Play.current
-import play.api.data.Forms._
-import play.api.data._
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{Decision, Element, ExitFlow, MULTI}
-import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import uk.gov.hmrc.offpayroll.models.ExitFlow
 
 import scala.concurrent.Future
 
@@ -40,12 +35,13 @@ object ExitController {
   def apply = new ExitController
 }
 
-class ExitController  @Inject() extends FrontendController  with OffPayrollControllerHelper {
+class ExitController  @Inject() extends OffPayrollController {
 
-  val fragmentService = FragmentService("/guidance/")
   val flow = ExitFlow
+  val EXIT_CLUSTER_ID: Int = 0
 
-  def begin = Action.async { implicit request =>
+
+  def begin() = Action.async { implicit request =>
 
     val element = flow.getStart()
 
@@ -53,8 +49,41 @@ class ExitController  @Inject() extends FrontendController  with OffPayrollContr
 
     implicit val session: Map[String, String] = request.session.data
 
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm,element,
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm,element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
+
+
+  def processElement(elementID: Int) = Action.async { implicit request =>
+
+    val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).getOrElse(flow.getStart())
+    val fieldName = element.questionTag
+    val form = createForm(element)
+
+    implicit val session: Map[String, String] = request.session.data
+
+    form.bindFromRequest.fold (
+      formWithErrors =>
+        Future.successful(BadRequest(
+          uk.gov.hmrc.offpayroll.views.html.interview.setup(
+            formWithErrors, element, Html.apply("")))),
+
+      value => {
+        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
+
+        val maybeElement = flow.getNext(element)
+        if(maybeElement.nonEmpty) { // continue setup
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(form, maybeElement.get,
+            fragmentService.getFragmentByName(maybeElement.get.questionTag)))
+            .withSession(request.session + (fieldName -> value))
+          )
+
+        } else { // Interview Begins
+          Future.successful(Redirect(routes.InterviewController.begin(0))
+            .withSession(request.session + (fieldName -> value)))
+        }
+      }
+    )
+  }
 }
