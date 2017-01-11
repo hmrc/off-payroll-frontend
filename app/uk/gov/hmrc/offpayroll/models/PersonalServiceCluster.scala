@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import play.Logger
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
 
 /**
   * Created by peter on 15/12/2016.
