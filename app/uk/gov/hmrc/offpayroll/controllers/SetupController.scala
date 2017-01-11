@@ -64,7 +64,8 @@ class SetupController @Inject() extends FrontendController  with OffPayrollContr
   def processElement(elementID: Int) = Action.async { implicit request =>
 
     val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart())
-    val (fieldName, form) = createForm(element, request.body.asFormUrlEncoded)
+    val fieldName = element.questionTag
+    val form = createForm(element)
 
     implicit val session: Map[String, String] = request.session.data
 
@@ -75,18 +76,18 @@ class SetupController @Inject() extends FrontendController  with OffPayrollContr
             formWithErrors, element, Html.apply("")))),
 
       value => {
-        implicit val session: Map[String, String] = request.session.data + (fieldName -> yesNo(value))
+        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
 
-        val maybeElement = flow.shouldAskForNext(session, (fieldName, yesNo(value)))
+        val maybeElement = flow.shouldAskForNext(session, (fieldName, value))
         if(maybeElement.nonEmpty) { // continue setup
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, maybeElement.get,
             fragmentService.getFragmentByName(maybeElement.get.questionTag)))
-            .withSession(request.session + (fieldName -> yesNo(value)))
+            .withSession(request.session + (fieldName -> value))
           )
 
         } else { // ExitQuestions
           Future.successful(Redirect(routes.ExitController.begin())
-            .withSession(request.session + (fieldName -> yesNo(value))))
+            .withSession(request.session + (fieldName -> value)))
         }
       }
     )

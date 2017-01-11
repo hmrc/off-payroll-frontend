@@ -58,7 +58,7 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
   }
 
   it should "shouldAskForNext " + setup_endUserRole in {
-    setupFlow.shouldAskForNext(Map(setup_endUserRole -> YES), setup_endUserRole -> YES)
+    setupFlow.shouldAskForNext(Map(setup_endUserRole -> YES), setup_endUserRole -> YES).nonEmpty shouldBe true
   }
 
 }

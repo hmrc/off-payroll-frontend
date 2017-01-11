@@ -42,9 +42,7 @@ abstract class Cluster {
   def findNextQuestion(currentQnA: (String, String)):Option[Element] = currentQnA match {
     case (element, answer) => {
       val currentElement = clusterElements.find(e => {
-        if(e.questionTag == element) e.questionTag == element
-        else if(e.children == Nil) e.questionTag == element
-        else e.children.exists(e2 => e2.questionTag == element)
+        e.questionTag == element
       })
       if(currentElement.nonEmpty) {
         clusterElements.find(e => e.order == currentElement.get.order + 1)
@@ -54,16 +52,14 @@ abstract class Cluster {
   }
 
   def allQuestionsAnswered(clusterAnswers: List[(String, String)]):Boolean = {
-
-    clusterElements.forall(element => {
+    clusterElements.forall(clusterElement => {
       clusterAnswers.exists{
-        case (question, answer) => {
-          if(element.children != Nil) {
-            element.children.exists(e => e.questionTag == question)
-          } else element.questionTag == question
+        case (questionFromInterview, answer) => {
+          clusterElement.questionTag == questionFromInterview
         }
       }
     })
+
   }
 
   def getElementForQuestionTag(questionTag : String):Option[Element] ={

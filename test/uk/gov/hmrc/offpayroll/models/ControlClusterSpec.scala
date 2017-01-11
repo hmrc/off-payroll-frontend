@@ -22,17 +22,19 @@ import uk.gov.hmrc.offpayroll.PropertyFileLoader
 /**
   * Created by peter on 03/01/2017.
   */
-class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
+
+class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
+
 
   private val controlCluster = ControlCluster
 
-  private val toldWhatToDoYes = "control.toldWhatToDo.yes" -> "Yes"
+  private val toldWhatToDoYes = "control.toldWhatToDo" -> "control.toldWhatToDo.yes\""
   val fullInterview = List(
     toldWhatToDoYes,
     "control.engagerMovingWorker" -> "Yes",
-    "control.workerDecidingHowWorkIsDone.workerCanGetInstructed" -> "Yes",
-    "control.whenWorkHasToBeDone.noDefinedWorkingPattern" -> "Yes",
-    "control.workerDecideWhere.workerLocationFixed" -> "Yes"
+    "control.workerDecidingHowWorkIsDone" -> "control.workerDecidingHowWorkIsDone.workerCanGetInstructed",
+    "control.whenWorkHasToBeDone" -> "control.whenWorkHasToBeDone.noDefinedWorkingPattern",
+    "control.workerDecideWhere" -> "control.workerDecideWhere.workerLocationFixed"
   )
 
   "A Control Cluster" should " be called control" in {
@@ -47,6 +49,10 @@ class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
     controlCluster.clusterID shouldBe 1
   }
 
+  it should "have all elements in a cluster compared to messages " in {
+    assertAllElementsPresentForCluster(controlCluster)
+  }
+
   it should "work out if all questions have been answered" in {
     controlCluster.allQuestionsAnswered(fullInterview) shouldBe true
   }
@@ -55,7 +61,7 @@ class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
     controlCluster.shouldAskForDecision(List(toldWhatToDoYes), toldWhatToDoYes).isEmpty shouldBe false
   }
 
-  it should " have the correct set of questions\"" in {
+  it should " have the correct set of questions" in {
     assertAllElementsPresentForCluster(controlCluster) shouldBe true
   }
 
