@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll
+package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
-import uk.gov.hmrc.offpayroll.models.{Cluster, Element, OffPayrollWebflow, Webflow}
 
 /**
   * Created by peter on 05/12/2016.
@@ -65,18 +64,18 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should "be able to get an currentElement by id that is valid" in {
-    webflow.getEelmentById(0, lastElement.order).nonEmpty should be (true)
-    webflow.getEelmentById(0, 0).nonEmpty should be (true)
+    webflow.getElementById(0, lastElement.order).nonEmpty should be (true)
+    webflow.getElementById(0, 0).nonEmpty should be (true)
   }
 
   it should "return an empty Option if we try and get an currentElement by Id that does not exist" in {
-    webflow.getEelmentById(3, 0).isEmpty should be (true)
-    webflow.getEelmentById(1, lastElement.order + 1).isEmpty should be (true)
+    webflow.getElementById(3, 0).isEmpty should be (true)
+    webflow.getElementById(1, lastElement.order + 1).isEmpty should be (true)
   }
 
   it should " be able to return an Element by its tag " in {
-    val contractualRightReflectInPractice: Element = webflow.getEelmentById(0, 4).head
-    val controlToldWhatToDo = webflow.getEelmentById(1,0).head
+    val contractualRightReflectInPractice: Element = webflow.getElementById(0, 4).head
+    val controlToldWhatToDo = webflow.getElementById(1,0).head
 
     webflow.getElementByTag(personalservice + ".contractualRightReflectInPractice")
       .head.questionTag should equal (contractualRightReflectInPractice.questionTag)

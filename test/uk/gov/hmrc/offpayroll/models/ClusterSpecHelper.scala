@@ -16,28 +16,22 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import org.scalatest
+import uk.gov.hmrc.offpayroll.PropertyFileLoader
 
 /**
-  * Created by peter on 15/12/2016.
+  * Created by peter on 10/01/2017.
   */
-abstract class Webflow {
+trait ClusterSpecHelper {
+  def assertAllElementsPresentForCluster(cluster: Cluster): Boolean = {
+    val properties = PropertyFileLoader.getMessagesForACluster(cluster.name)
 
-  def version: String
-
-  def getNext(currentElement: Element): Option[Element]
-
-  def getStart(): Element
-
-  def getElementById(clusterId: Int, elementId: Int): Option[Element]
-
-  def getElementByTag(tag: String): Option[Element]
-
-  def clusters(): List[Cluster]
-
-  def getClusterByName(name: String): Cluster
-
-  def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element]
-
-
+    properties.forall {
+      case (question, value) => {
+        cluster.clusterElements.exists(element => {
+          question == element.questionTag || element.children.exists(child => question == child.questionTag)
+        })
+      }
+    }
+  }
 }

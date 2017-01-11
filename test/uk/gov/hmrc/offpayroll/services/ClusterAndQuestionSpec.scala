@@ -14,30 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.models
+package uk.gov.hmrc.offpayroll.services
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
 
 /**
-  * Created by peter on 15/12/2016.
+  * Created by peter on 13/12/2016.
   */
-abstract class Webflow {
+class ClusterAndQuestionSpec  extends FlatSpec with Matchers  {
 
-  def version: String
+  "ClusterAndQuestion " should "get the cluster name  and the Question Name from a tag" in {
+    ClusterAndQuestion.unapply("someCluster.SomeQuestion") shouldBe (Some(("someCluster", "SomeQuestion")))
+  }
 
-  def getNext(currentElement: Element): Option[Element]
-
-  def getStart(): Element
-
-  def getElementById(clusterId: Int, elementId: Int): Option[Element]
-
-  def getElementByTag(tag: String): Option[Element]
-
-  def clusters(): List[Cluster]
-
-  def getClusterByName(name: String): Cluster
-
-  def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element]
-
+  it should "return the tag if the cluster name is not dot delimited " in {
+    ClusterAndQuestion.unapply("someClusterSomeQuestion") shouldBe None
+  }
 
 }

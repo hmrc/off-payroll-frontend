@@ -12,6 +12,7 @@
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
 @import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
+@import uk.gov.hmrc.play.views.html.layouts
 
 @head = {
     @uiLayouts.head(
@@ -47,11 +48,13 @@
 @footerTop = {}
 @footerLinks = {}
 
+
+
 @serviceInfo = {
-    @uiLayouts.serviceInfo(
-      betaBanner = HtmlFormat.empty,
-      includeGridWrapper = false,
-      serviceInfoContent = Some(serviceInfoContent))
+@uiLayouts.serviceInfo(
+    betaBanner = HtmlFormat.empty,
+    includeGridWrapper = false,
+    serviceInfoContent = Some(serviceInfoContent))
 }
 
 @mainContentHeader = {
@@ -68,7 +71,7 @@
       mainClass = mainClass,
       mainDataAttributes = mainDataAttributes,
       mainContentHeader = mainContentHeader,
-      serviceInfo = serviceInfo,
+      serviceInfo = serviceInfoContent,
       getHelpForm = getHelpForm,
       sidebar = sidebar)
 }

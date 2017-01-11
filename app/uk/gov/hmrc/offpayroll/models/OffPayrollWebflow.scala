@@ -71,7 +71,7 @@ object OffPayrollWebflow extends Webflow {
     foundElement.headOption
   }
 
-  override def getEelmentById(clusterId: Int, elementId: Int): Option[Element] = {
+  override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
 
     if (clusters.size > clusterId && clusters()(clusterId).clusterElements.size > elementId) {
       Option(clusters()(clusterId).clusterElements(elementId))

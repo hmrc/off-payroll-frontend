@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
 
 /**
   * Represents a Cluster which is a part of an Interview in Offpayroll
@@ -36,12 +35,35 @@ abstract class Cluster {
   def clusterElements: List[Element]
 
 
-   def makeMapFromClusterElements: Map[String, Element] = {
+  def makeMapFromClusterElements: Map[String, Element] = {
     Map() ++ (clusterElements map { element => (element.questionTag, element) })
   }
 
-  def allQuestionsAreAnswered(interview: List[(String, String)]):Boolean = {
-    clusterElements.forall((element) => interview.exists(a => a._1 == element.questionTag))
+  def findNextQuestion(currentQnA: (String, String)):Option[Element] = currentQnA match {
+    case (element, answer) => {
+      val currentElement = clusterElements.find(e => {
+        e.questionTag == element
+      })
+      if(currentElement.nonEmpty) {
+        clusterElements.find(e => e.order == currentElement.get.order + 1)
+      }
+      else Option.empty
+    }
+  }
+
+  def allQuestionsAnswered(clusterAnswers: List[(String, String)]):Boolean = {
+    clusterElements.forall(clusterElement => {
+      clusterAnswers.exists{
+        case (questionFromInterview, answer) => {
+          clusterElement.questionTag == questionFromInterview
+        }
+      }
+    })
+
+  }
+
+  def getElementForQuestionTag(questionTag : String):Option[Element] ={
+    clusterElements.find(element => element.questionTag.equalsIgnoreCase(questionTag))
   }
 
   /**
@@ -59,7 +81,10 @@ abstract class Cluster {
     * @param clusterAnswers
     * @return
     */
-  def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element]
+  def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+    if(allQuestionsAnswered(clusterAnswers)) Option.empty
+    else findNextQuestion(currentQnA)
+  }
 
 
   override def toString: String = {
@@ -67,3 +92,5 @@ abstract class Cluster {
   }
 
 }
+
+case class FlowElement(currentQuestion: String, answers: Map[String, String], nextQuestion: Option[String])

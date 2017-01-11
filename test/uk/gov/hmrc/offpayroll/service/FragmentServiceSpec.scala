@@ -18,6 +18,7 @@ package uk.gov.hmrc.offpayroll.service
 
 import org.scalatest.{FlatSpec, Matchers}
 import play.twirl.api.Html
+import uk.gov.hmrc.offpayroll.services.FragmentService
 
 /**
   * Created by peter on 05/01/2017.
