@@ -29,8 +29,8 @@ class SetupClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
   private val interview = PropertyFileLoader.transformMapFromQuestionTextToAnswers("setup")
   private val listOfAnswers = PropertyFileLoader.transformMapToAListOfAnswers(interview)
 
-  private val personDoingWork = "setup.endUserRole.personDoingWork" -> "Yes"
-  private val lastQuestion = "setup.provideServices.limitedCompany" -> "Yes"
+  private val personDoingWork = "setup.endUserRole" -> "setup.endUserRole.personDoingWork"
+  private val lastQuestion = "setup.provideServices" -> "setup.provideServices.limitedCompany"
 
   val fullInterview = List(
     personDoingWork,
