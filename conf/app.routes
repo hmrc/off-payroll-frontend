@@ -11,4 +11,3 @@ GET     /exit/element/:elementID                @uk.gov.hmrc.offpayroll.controll
 
 GET     /cluster/:clusterID                    @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin(clusterID: Int)
 GET     /start                                 @uk.gov.hmrc.offpayroll.controllers.InterviewController.start()
-

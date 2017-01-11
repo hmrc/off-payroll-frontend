@@ -26,8 +26,8 @@ class SetupClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
 
   private val setupCluster = SetupCluster
 
-  private val interview = PropertyFileLoader.transformMapFromQuestionTextToAnswers("setup")
-  private val listOfAnswers = PropertyFileLoader.transformMapToAListOfAnswers(interview)
+  private val setupInterview = PropertyFileLoader.transformMapFromQuestionTextToAnswers("setup")
+  private val setupInterviewWithAnswers = PropertyFileLoader.transformMapToAListOfAnswers(setupInterview)
 
   private val personDoingWork = "setup.endUserRole" -> "setup.endUserRole.personDoingWork"
   private val lastQuestion = "setup.provideServices" -> "setup.provideServices.limitedCompany"
@@ -55,7 +55,7 @@ class SetupClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
   }
 
   it should "return an empty option of all questions answered" in {
-    setupCluster.shouldAskForDecision(listOfAnswers, lastQuestion).nonEmpty shouldBe false
+    setupCluster.shouldAskForDecision(setupInterviewWithAnswers, lastQuestion).nonEmpty shouldBe false
   }
 
   it should "have all the questions present in the messages for setup" in {

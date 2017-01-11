@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.typeDefs.Interview
+
 /**
   * Created by peter on 11/01/2017.
   */
@@ -25,10 +27,10 @@ object ExitFlow extends Webflow {
 
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, clusters(0))
 
-  override def getStart(): Element = getElementById(0,0).get
+  override def getStart(): Element = getElementById(0, 0).get
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
-    if(clusterId == 0 && elementId < clusters(0).clusterElements.size)
+    if (clusterId == 0 && elementId < clusters(0).clusterElements.size)
       Option(clusters(0).clusterElements(elementId))
     else
       Option.empty
@@ -43,4 +45,41 @@ object ExitFlow extends Webflow {
   override def getClusterByName(name: String): Cluster =
     clusters.find(cluster => cluster.name == name).get
 
+
+  def shouldAskForNext(interview: Interview, currentQnA: (String, String)): ExitResult = {
+    val maybeElement = ExitCluster.shouldAskForDecision(interview.toList, currentQnA)
+
+    def isOfficeHolder: Boolean = {
+      interview.exists {
+        case (question, answer) => question == "exit.officeHolder" && answer.toUpperCase == "YES"
+      }
+    }
+
+    def checkForAllNo(questionTag: String) = {
+      interview.filter {
+        case (question, answer) => {
+          question.startsWith(questionTag)
+        }
+      }.forall{
+        case (question, answer) => {
+          answer.toUpperCase == "NO"
+        }
+      }
+    }
+
+    if (isOfficeHolder) ExitResult(maybeElement, inIr35 =  true)
+    else if (maybeElement.isEmpty) {
+      if (checkForAllNo("conditionsLiabilityLtd")
+        || checkForAllNo("conditionsLiabilityPartnership")
+        || checkForAllNo("conditionsLiabilityIndividualIntermediary")) ExitResult(maybeElement, exitTool = true )
+      else ExitResult(maybeElement, continueToMainInterview = true)
+    } else {
+      ExitResult(maybeElement)
+    }
+  }
+
 }
+
+
+case class ExitResult(element: Option[Element], continueToMainInterview: Boolean = false,
+                      exitTool: Boolean = false , inIr35: Boolean = false)

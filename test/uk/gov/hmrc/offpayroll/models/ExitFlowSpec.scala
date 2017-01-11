@@ -17,6 +17,7 @@
 package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.resources._
 
 /**
   * Created by peter on 11/01/2017.
@@ -42,6 +43,15 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
 
   it should "get the next element" in {
     ExitFlow.getNext(ExitFlow.getStart()).nonEmpty shouldBe true
+  }
+
+  it should "indicate that office holder was yes and an in IR35 Decision has been reached " in {
+    val result = ExitFlow.shouldAskForNext(Map(officeHolderYes), officeHolderYes)
+
+    result.inIr35 shouldBe true
+    result.continueToMainInterview shouldBe false
+    result.element.isEmpty shouldBe true
+    result.exitTool shouldBe false
   }
 
 }

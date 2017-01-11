@@ -18,39 +18,13 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.PropertyFileLoader
+import uk.gov.hmrc.offpayroll.resources._
 
 /**
   * Created by peter on 08/01/2017.
   */
 class ExitClusterSpec  extends FlatSpec with Matchers with ClusterSpecHelper {
   val exitcluster = ExitCluster
-
-  private val officeHolderProperty = "exit.officeHolder"
-  private val YES = "Yes"
-  private val officeHolderYes = officeHolderProperty -> YES
-  private val NO = "No"
-  private val officeHolderNo = officeHolderProperty -> NO
-
-  private val setup_provideServices = "setup.provideServices"
-  private val setupLtdCompany = setup_provideServices -> "setup.provideServices.limitedCompany"
-
-  private val exit_conditionsLiabilityLtd1 = "exit.conditionsLiabilityLtd1"
-  private val exit_conditionsLiabilityLtd1Yes = exit_conditionsLiabilityLtd1 -> YES
-
-  private val exit_conditionsLiabilityLtd2 = "exit.conditionsLiabilityLtd2"
-  private val exit_conditionsLiabilityLtd2Yes = exit_conditionsLiabilityLtd2 -> YES
-
-  private val exit_conditionsLiabilityLtd7 = "exit.conditionsLiabilityLtd7"
-  private val exit_conditionsLiabilityLtd7Yes = exit_conditionsLiabilityLtd7 -> YES
-
-  val exit_conditionsLiabilityLtd8 =  "exit.conditionsLiabilityLtd8"
-
-  val setupPartnership = setup_provideServices -> "setup.provideServices.partnership"
-
-  val setupIntermediary = setup_provideServices -> "setup.provideServices.intermediary"
-
-
 
   "An Exit Cluster " should " be named exit" in {
    exitcluster.name shouldBe "exit"
