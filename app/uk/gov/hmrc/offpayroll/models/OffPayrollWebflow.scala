@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import uk.gov.hmrc.offpayroll.typeDefs.Interview
 import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
 
 /**
@@ -24,7 +24,7 @@ import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
   *
   *
   */
-object OffPayrollWebflow extends Webflow {
+object OffPayrollWebflow extends Webflow with withDecision {
 
   val version: String = "1.0.1-beta"
 
@@ -34,10 +34,10 @@ object OffPayrollWebflow extends Webflow {
   override def getNext(element: Element): Option[Element] = {
 
     val clusterId = element.clusterParent.clusterID
-    val cluster = clusters()(clusterId)
+    val cluster = clusters(clusterId)
 
     def flowHasMoreClusters: Boolean = {
-      clusters().size > clusterId + 1
+      clusters.size > clusterId + 1
     }
 
     def clusterHasMoreElements: Boolean  = {
@@ -47,7 +47,7 @@ object OffPayrollWebflow extends Webflow {
     if (clusterHasMoreElements)
       Option(cluster.clusterElements(element.order + 1))
     else if (flowHasMoreClusters) {
-      Option(clusters()(clusterId +1).clusterElements(0))
+      Option(clusters(clusterId +1).clusterElements(0))
     } else Option.empty
 
   }
@@ -73,8 +73,8 @@ object OffPayrollWebflow extends Webflow {
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
 
-    if (clusters.size > clusterId && clusters()(clusterId).clusterElements.size > elementId) {
-      Option(clusters()(clusterId).clusterElements(elementId))
+    if (clusters.size > clusterId && clusters(clusterId).clusterElements.size > elementId) {
+      Option(clusters(clusterId).clusterElements(elementId))
     }
     else
     Option.empty[Element]
@@ -94,38 +94,7 @@ object OffPayrollWebflow extends Webflow {
   }
 }
 
-object DecisionBuilder {
 
-  //  @Todo get this value from the UI
-  val correlationID: String = "12345"
-
-  type Interview = Map[String, String]
-
-  def buildDecisionRequest(interview: Interview): DecisionRequest = {
-
-    val listOfTripple = interview.toList
-      .map{
-        case(n,a) =>
-          n match {
-            case ClusterAndQuestion(c,q) => (c,(q,a))
-            case _ => (n,(n,a))
-          }
-      }
-
-    val fliteredByValidClusters = listOfTripple
-      .filter{ case (c,n) => OffPayrollWebflow.clusters.exists(cluster => c == cluster.name)}
-
-    val groupByCluster = fliteredByValidClusters.groupBy {
-      case (cl, p) => cl
-    }
-
-    val mappedToResult = groupByCluster
-      .map { case (cl, t3) => (cl, t3.map { case (t1, t2) => t2 }.toMap) }
-
-    DecisionRequest(OffPayrollWebflow.version, correlationID, mappedToResult)
-  }
-
-}
 
 
 

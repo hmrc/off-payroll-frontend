@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
 
 /**
   * Created by peter on 15/12/2016.
@@ -33,11 +32,16 @@ abstract class Webflow {
 
   def getElementByTag(tag: String): Option[Element]
 
-  def clusters(): List[Cluster]
+  def clusters: List[Cluster]
 
   def getClusterByName(name: String): Cluster
 
-  def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element]
+  def getNext(currentElement: Element, cluster: Cluster): Option[Element] = {
+    val elementNumberToFind = currentElement.order + 1
+    if (elementNumberToFind < cluster.clusterElements.size)
+      Option(cluster.clusterElements(elementNumberToFind))
+    else Option.empty
+  }
 
 
 }

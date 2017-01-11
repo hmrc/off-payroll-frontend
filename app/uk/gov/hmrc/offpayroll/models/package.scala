@@ -27,4 +27,12 @@ package object modelsFormat {
   implicit val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
   implicit val decideResponseFormatter: Format[DecisionResponse] = Json.format[DecisionResponse]
 
+
+}
+
+
+package object typeDefs {
+
+  type Interview = Map[String, String]
+
 }

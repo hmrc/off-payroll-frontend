@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import uk.gov.hmrc.offpayroll.typeDefs.Interview
 
 /**
   * Created by peter on 09/01/2017.
@@ -27,12 +27,7 @@ object SetupFlow extends Webflow {
 
   override def version: String = "1.0.1-beta"
 
-  override def getNext(currentElement: Element): Option[Element] = {
-    val elementNumberToFind = currentElement.order + 1
-    if (elementNumberToFind < setupCluster.clusterElements.size)
-      Option(setupCluster.clusterElements(elementNumberToFind))
-    else Option.empty
-  }
+  override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, setupCluster)
 
   override def getStart(): Element = setupCluster.clusterElements(0)
 
@@ -50,9 +45,6 @@ object SetupFlow extends Webflow {
     if(name == setupCluster.name) setupCluster
     else throw new NoSuchElementException("Named cluster " + name + " does not exist in the SetupFlow")
 
-  override def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element] = {
-    throw new NotImplementedError("Use SetupFlow.shouldAskForNext")
-  }
 
   def shouldAskForNext(interview: Interview, currentQnA: (String, String)): Option[Element] = {
     setupCluster.shouldAskForDecision(interview.toList, currentQnA)
