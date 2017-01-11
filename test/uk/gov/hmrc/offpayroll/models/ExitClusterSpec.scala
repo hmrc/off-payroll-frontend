@@ -32,8 +32,8 @@ class ExitClusterSpec  extends FlatSpec with Matchers with ClusterSpecHelper {
   private val NO = "No"
   private val officeHolderNo = officeHolderProperty -> NO
 
-  private val setupLtdCompanyProperty = "setup.provideServices.limitedCompany"
-  private val setupLtdCompany = setupLtdCompanyProperty -> YES
+  private val setup_provideServices = "setup.provideServices"
+  private val setupLtdCompany = setup_provideServices -> "setup.provideServices.limitedCompany"
 
   private val exit_conditionsLiabilityLtd1 = "exit.conditionsLiabilityLtd1"
   private val exit_conditionsLiabilityLtd1Yes = exit_conditionsLiabilityLtd1 -> YES
@@ -46,11 +46,9 @@ class ExitClusterSpec  extends FlatSpec with Matchers with ClusterSpecHelper {
 
   val exit_conditionsLiabilityLtd8 =  "exit.conditionsLiabilityLtd8"
 
-  val setupPartnershipProperty = "setup.provideServices.partnership"
-  val setupPartnership = setupPartnershipProperty -> YES
+  val setupPartnership = setup_provideServices -> "setup.provideServices.partnership"
 
-  val setupIntermediaryProperty = "setup.provideServices.intermediary"
-  val setupIntermediary = setupIntermediaryProperty -> YES
+  val setupIntermediary = setup_provideServices -> "setup.provideServices.intermediary"
 
 
 
@@ -99,6 +97,26 @@ class ExitClusterSpec  extends FlatSpec with Matchers with ClusterSpecHelper {
       officeHolderNo, exit_conditionsLiabilityLtd1Yes, exit_conditionsLiabilityLtd2Yes), exit_conditionsLiabilityLtd7Yes)
     maybeElement.isEmpty shouldBe false
     maybeElement.get.questionTag shouldBe exit_conditionsLiabilityLtd8
+  }
+
+  it should "ask only the partnership questions if setup.provideServices -> setup.provideServices.partnership" in {
+    val maybeElement = exitcluster.shouldAskForDecision(List(setupPartnership, officeHolderNo), officeHolderNo)
+    maybeElement.isEmpty shouldBe false
+    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityPartnership" + "1"
+  }
+
+  it should "ask the 2nd partnership questions if setup.provideServices -> setup.provideServices.partnership" +
+    "and the first partnership question is asked" in {
+    val maybeElement = exitcluster.shouldAskForDecision(List(setupPartnership, officeHolderNo,
+      "exit.conditionsLiabilityPartnership" + "1" -> "YES"), "exit.conditionsLiabilityPartnership1" -> "YES")
+    maybeElement.isEmpty shouldBe false
+    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityPartnership" + "2"
+  }
+
+  it should "ask only the intermediary question if setup.provideServices -> setup.provideServices.intermediary" in {
+    val maybeElement = exitcluster.shouldAskForDecision(List(setupIntermediary, officeHolderNo), officeHolderNo)
+    maybeElement.isEmpty shouldBe false
+    maybeElement.get.questionTag shouldBe "exit.conditionsLiabilityIndividualIntermediary"
   }
 
 }

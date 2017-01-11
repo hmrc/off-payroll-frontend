@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import play.Logger
+
 /**
   * Created by peter on 08/01/2017.
   */
@@ -25,6 +27,7 @@ object ExitCluster extends Cluster {
   private val officeholder = "officeHolder"
   private val conditionsliabilitypartnership = "conditionsLiabilityPartnership"
   private val conditionsliabilityindividualintermediary = "conditionsLiabilityIndividualIntermediary"
+  private val setup_provideServices = "setup.provideServices"
 
   /**
     * Use this value to informatively name the cluster and use as a key to tags
@@ -62,10 +65,9 @@ object ExitCluster extends Cluster {
   override def clusterID: Int = 1
 
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-
     def checkForAnswerInInterview(question: String, answer: String) = {
       clusterAnswers.exists {
-        case (q, a) => q == question && a.toUpperCase == answer
+        case (q, a) => q == question && a.toUpperCase == answer.toUpperCase
       }
     }
 
@@ -78,21 +80,23 @@ object ExitCluster extends Cluster {
     }
 
     def filterClusterElementsAndReOrder(tagPrefix: String) = {
-      clusterElements.filter(e => startsWith(e, conditionsliabilityltd) || isOfficeHolder(e))
+      clusterElements.filter(e => startsWith(e, tagPrefix) || isOfficeHolder(e))
         .foldLeft[List[Element]](
         List()) {
         case (list, element) => list ::: List(Element(element._questionTag, element.elementType, list.size, element.clusterParent))
       }
     }
 
+
     lazy val elements: List[Element] =
-      if (checkForAnswerInInterview("setup.provideServices.limitedCompany", "YES")) {
+      if (checkForAnswerInInterview(setup_provideServices, setup_provideServices + ".limitedCompany")) {
         filterClusterElementsAndReOrder(conditionsliabilityltd)
-      } else if (checkForAnswerInInterview("setup.provideServices.partnership", "YES")) {
+      } else if (checkForAnswerInInterview(setup_provideServices, setup_provideServices + ".partnership")) {
         filterClusterElementsAndReOrder(conditionsliabilitypartnership)
-      } else if (checkForAnswerInInterview("setup.provideServices.intermediary", "YES")) {
+      } else if (checkForAnswerInInterview(setup_provideServices, setup_provideServices + ".intermediary")) {
         filterClusterElementsAndReOrder(conditionsliabilityindividualintermediary)
       } else List()
+
 
     val officeHolder: Boolean = checkForAnswerInInterview(name + "." + officeholder, "YES")
 
