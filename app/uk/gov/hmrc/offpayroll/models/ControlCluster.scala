@@ -75,17 +75,4 @@ object ControlCluster extends Cluster {
     */
   override def clusterID: Int = 1
 
-  /**
-    *
-    * Based on what has been answered for this cluster should we ask
-    * for a Decision
-    *
-    * @param clusterAnswers
-    * @return
-    */
-  override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if(allQuestionsAnswered(clusterAnswers)) Option.empty
-    else findNextQuestion(currentQnA)
-  }
-
 }
