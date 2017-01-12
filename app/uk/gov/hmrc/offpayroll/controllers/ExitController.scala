@@ -61,7 +61,6 @@ class ExitController  @Inject() extends OffPayrollController {
     val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
     val fieldName = element.questionTag
     val form = createForm(element)
-    Logger.debug("******************prcoessElement " + element.questionTag)
     implicit val session: Map[String, String] = request.session.data
 
     form.bindFromRequest.fold (
@@ -72,11 +71,9 @@ class ExitController  @Inject() extends OffPayrollController {
 
       value => {
         implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
-        Logger.debug("****************** asking the flow what to do  " + session + " fieldName, value " + fieldName + "->" + value)
         val exitResult = flow.shouldAskForNext(session, (fieldName, value))
 
         if(exitResult.element.nonEmpty) { // continue with questions
-          Logger.debug("******************Continuing with questions in the Exit Cluster tag " + exitResult.element.get + " value " + value)
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(form, exitResult.element.get,
             fragmentService.getFragmentByName(exitResult.element.get.questionTag)))
             .withSession(request.session + (fieldName -> value))
@@ -87,7 +84,6 @@ class ExitController  @Inject() extends OffPayrollController {
         } else if(exitResult.exitTool) { // exit the tool
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool()))
         } else if(exitResult.continueToMainInterview) {
-          Logger.debug("******************Continuing to main interview " + exitResult.element.get + " value " + value)
           Future.successful(Redirect(routes.InterviewController.begin(0))
             .withSession(request.session + (fieldName -> value)))
         } else { // bad
