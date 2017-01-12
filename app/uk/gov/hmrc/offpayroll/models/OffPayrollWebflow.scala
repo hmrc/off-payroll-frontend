@@ -24,7 +24,7 @@ import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
   *
   *
   */
-object OffPayrollWebflow extends Webflow with withDecision {
+object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
   val version: String = "1.0.1-beta"
 

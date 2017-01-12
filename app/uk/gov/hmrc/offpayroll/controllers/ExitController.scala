@@ -87,7 +87,7 @@ class ExitController  @Inject() extends OffPayrollController {
           Future.successful(Redirect(routes.InterviewController.begin(0))
             .withSession(request.session + (fieldName -> value)))
         } else { // bad
-          throw new IllegalArgumentException("Bad Request")
+          Future.successful(InternalServerError("Unknown result from the ExitFlow"))
         }
       }
     )
