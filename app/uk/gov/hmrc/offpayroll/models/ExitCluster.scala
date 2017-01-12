@@ -29,6 +29,10 @@ object ExitCluster extends Cluster {
   private val conditionsliabilityindividualintermediary = "conditionsLiabilityIndividualIntermediary"
   private val setup_provideServices = "setup.provideServices"
 
+  val YES = "YES"
+
+  val DUMMY = Element("", RADIO, 0, this)
+
   /**
     * Use this value to informatively name the cluster and use as a key to tags
     */
@@ -64,6 +68,7 @@ object ExitCluster extends Cluster {
     */
   override def clusterID: Int = 1
 
+
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     def checkForAnswerInInterview(question: String, answer: String) = {
       clusterAnswers.exists {
@@ -81,12 +86,23 @@ object ExitCluster extends Cluster {
 
     def filterClusterElementsAndReOrder(tagPrefix: String) = {
       clusterElements.filter(e => startsWith(e, tagPrefix) || isOfficeHolder(e))
-        .foldLeft[List[Element]](
-        List()) {
-        case (list, element) => list ::: List(Element(element._questionTag, element.elementType, list.size, element.clusterParent))
+    }
+
+
+    def anyAnswersYes: Boolean = {
+      elements.exists{
+        case (element) => clusterAnswers.exists{
+          case (question, answer) => element.questionTag == question && answer.toUpperCase == YES
+        }
       }
     }
 
+    def findNextQuestionBasedOnListOrder: Option[Element] = {
+      val indexOfElement: Int = elements.indexOf(
+        elements.find(element => element.questionTag == currentQnA._1).getOrElse(DUMMY))
+      if(indexOfElement + 1 < elements.size) Option(elements(indexOfElement +1))
+      else Option.empty
+    }
 
     lazy val elements: List[Element] =
       if (checkForAnswerInInterview(setup_provideServices, setup_provideServices + ".limitedCompany")) {
@@ -98,10 +114,10 @@ object ExitCluster extends Cluster {
       } else List()
 
 
-    val officeHolder: Boolean = checkForAnswerInInterview(name + "." + officeholder, "YES")
+    val officeHolder: Boolean = checkForAnswerInInterview(name + "." + officeholder, YES)
 
-    if(officeHolder) Option.empty
-    else findNextQuestion(currentQnA, elements)
+    if(officeHolder || anyAnswersYes) Option.empty
+    else findNextQuestionBasedOnListOrder
 
   }
 

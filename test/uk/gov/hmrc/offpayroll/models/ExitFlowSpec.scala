@@ -17,12 +17,16 @@
 package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.PropertyFileLoader
 import uk.gov.hmrc.offpayroll.resources._
 
 /**
   * Created by peter on 11/01/2017.
   */
 class ExitFlowSpec  extends FlatSpec with Matchers {
+
+  val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
+  def answersAll(text: String) = answers.map { case (question, answer) => (question, text) }
 
   "An ExitFlow " should "get the start Element from the ExitCluster " in {
 
@@ -54,4 +58,61 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
     result.exitTool shouldBe false
   }
 
+  it should "indicate that the tool should be exitied if the conditionsLiabilityLtd  questions were all No" in {
+
+    val ltdQuestions = answersAll("NO")
+      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityPartnership.*") }
+      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityIndividualIntermediary") }
+
+    val result = ExitFlow.shouldAskForNext(ltdQuestions, "conditionsLiabilityLtd8" -> "NO")
+
+    checkExitTool(result)
+
+  }
+
+  it should "indicate that the tool should be exitied if the conditionsLiabilityPartnership questions were all No" in {
+
+    val partnershipQuestions = answersAll("NO")
+      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityLtd.*") }
+      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityIndividualIntermediary") }
+
+    val result = ExitFlow.shouldAskForNext(partnershipQuestions, "conditionsLiabilityPartnership4" -> "NO")
+
+    checkExitTool(result)
+
+  }
+
+  it should "indicate that the tool should be exitied if the conditionsLiabilityIndividualIntermediary questions were all No" in {
+
+    val conditionsLiabilityPartnership = answersAll("NO")
+      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityLtd.*") }
+      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityPartnership.*") }
+
+    println(conditionsLiabilityPartnership)
+    val result = ExitFlow.shouldAskForNext(conditionsLiabilityPartnership, "conditionsLiabilityPartnership4" -> "NO")
+
+    checkExitTool(result)
+
+  }
+
+  it should "indicate that the tool should be continued to the interview if the conditionsLiabilityIndividualIntermediary questions was Yes" in {
+
+    val conditionsLiabilityPartnership = Map(setupIntermediary, "exit.conditionsLiabilityIndividualIntermediary" -> "YES", officeHolderNo)
+
+    val result = ExitFlow.shouldAskForNext(conditionsLiabilityPartnership, "exit.conditionsLiabilityIndividualIntermediary" -> "YES")
+
+    result.inIr35 shouldBe false
+    result.continueToMainInterview shouldBe true
+    result.element.isEmpty shouldBe true
+    result.exitTool shouldBe false
+
+  }
+
+
+  private def checkExitTool(result: ExitResult) = {
+    result.inIr35 shouldBe false
+    result.continueToMainInterview shouldBe false
+    result.element.isEmpty shouldBe true
+    result.exitTool shouldBe true
+  }
 }

@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.models
 import uk.gov.hmrc.offpayroll.typeDefs.Interview
 
 /**
@@ -47,7 +48,12 @@ object ExitFlow extends Webflow {
 
 
   def shouldAskForNext(interview: Interview, currentQnA: (String, String)): ExitResult = {
+
+    println("interview " + interview + " currentQnA " + currentQnA)
+
     val maybeElement = ExitCluster.shouldAskForDecision(interview.toList, currentQnA)
+
+    println("maybeElement " + maybeElement)
 
     def isOfficeHolder: Boolean = {
       interview.exists {
@@ -55,31 +61,51 @@ object ExitFlow extends Webflow {
       }
     }
 
-    def checkForAllNo(questionTag: String) = {
-      interview.filter {
-        case (question, answer) => {
-          question.startsWith(questionTag)
-        }
-      }.forall{
-        case (question, answer) => {
-          answer.toUpperCase == "NO"
+    def checkForNo(questionTag: String) = {
+      if (!interview.exists { case (question, answer) => question.startsWith(questionTag) })
+        false
+      else {
+        println("Checking Interview for " + questionTag + " all values as NO")
+        interview.filter {
+          case (question, answer) => {
+            question.startsWith(questionTag)
+          }
+        }.forall {
+          case (question, answer) => {
+            answer.toUpperCase == "NO"
+          }
         }
       }
     }
 
-    if (isOfficeHolder) ExitResult(maybeElement, inIr35 =  true)
-    else if (maybeElement.isEmpty) {
-      if (checkForAllNo("conditionsLiabilityLtd")
-        || checkForAllNo("conditionsLiabilityPartnership")
-        || checkForAllNo("conditionsLiabilityIndividualIntermediary")) ExitResult(maybeElement, exitTool = true )
-      else ExitResult(maybeElement, continueToMainInterview = true)
-    } else {
+    def checkAllForNo: Boolean = {
+      (checkForNo("exit.conditionsLiabilityLtd")
+        || checkForNo("exit.conditionsLiabilityPartnership")
+        || checkForNo("exit.conditionsLiabilityIndividualIntermediary"))
+    }
+
+    def thereAreMoreQuestionsToBeAsked = {
+      maybeElement.nonEmpty
+    }
+
+    if (thereAreMoreQuestionsToBeAsked) {
       ExitResult(maybeElement)
+    } else {
+      println("checking conditions ")
+      if (isOfficeHolder) {
+        println("in IR35 "); ExitResult(inIr35 = true)
+      }
+      else if (checkAllForNo) {
+        println("All answers no for a section"); ExitResult(exitTool = true)
+      }
+      else {
+        println("continue with main interview "); ExitResult(continueToMainInterview = true)
+      }
     }
   }
 
 }
 
 
-case class ExitResult(element: Option[Element], continueToMainInterview: Boolean = false,
-                      exitTool: Boolean = false , inIr35: Boolean = false)
+case class ExitResult(element: Option[Element] = Option.empty, continueToMainInterview: Boolean = false,
+                      exitTool: Boolean = false, inIr35: Boolean = false)

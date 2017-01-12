@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
-import play.api.mvc.{Action, AnyContent}
 import uk.gov.hmrc.offpayroll.services.FragmentService
 import uk.gov.hmrc.play.frontend.controller.FrontendController
+import play.Logger
 
 /**
   * Created by peter on 11/01/2017.

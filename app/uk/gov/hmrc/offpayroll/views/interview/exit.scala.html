@@ -18,7 +18,9 @@
         @if(true) {
             <p>Debug is on!</p>
             <ul>
-                <li>@session.toString()</li>
+                @for((key,value) <- session){
+                    <li>@key -> @value</li>
+                }
                 <li>Current currentElement @element.toString</li>
             </ul>
         }
