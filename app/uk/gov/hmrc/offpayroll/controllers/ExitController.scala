@@ -18,7 +18,14 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import play.Logger
+import play.api.Play.current
+import play.api.i18n.Messages.Implicits._
+import play.api.mvc._
+import play.twirl.api.Html
+import uk.gov.hmrc.offpayroll.models.ExitFlow
+
+import scala.concurrent.Future
 
 /**
   * Created by peter on 09/01/2017.
@@ -29,8 +36,60 @@ object ExitController {
   def apply = new ExitController
 }
 
-class ExitController  @Inject() extends FrontendController  with OffPayrollControllerHelper {
+class ExitController  @Inject() extends OffPayrollController {
 
-  def begin() = play.mvc.Results.TODO
+  val flow = ExitFlow
+  val EXIT_CLUSTER_ID: Int = 0
 
+
+  def begin() = Action.async { implicit request =>
+
+    val element = flow.getStart()
+
+    val questionForm = createForm(element)
+
+    implicit val session: Map[String, String] = request.session.data
+
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm,element,
+      fragmentService.getFragmentByName(element.questionTag))))
+  }
+
+
+
+  def processElement(elementID: Int) = Action.async { implicit request =>
+
+    val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
+    val fieldName = element.questionTag
+    val form = createForm(element)
+    implicit val session: Map[String, String] = request.session.data
+
+    form.bindFromRequest.fold (
+      formWithErrors =>
+        Future.successful(BadRequest(
+          uk.gov.hmrc.offpayroll.views.html.interview.setup(
+            formWithErrors, element, Html.apply("")))),
+
+      value => {
+        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
+        val exitResult = flow.shouldAskForNext(session, (fieldName, value))
+
+        if(exitResult.element.nonEmpty) { // continue with questions
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(form, exitResult.element.get,
+            fragmentService.getFragmentByName(exitResult.element.get.questionTag)))
+            .withSession(request.session + (fieldName -> value))
+          )
+
+        } else if(exitResult.inIr35) { // in IR35
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.hardDecision()))
+        } else if(exitResult.exitTool) { // exit the tool
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool()))
+        } else if(exitResult.continueToMainInterview) {
+          Future.successful(Redirect(routes.InterviewController.begin(0))
+            .withSession(request.session + (fieldName -> value)))
+        } else { // bad
+          Future.successful(InternalServerError("Unknown result from the ExitFlow"))
+        }
+      }
+    )
+  }
 }

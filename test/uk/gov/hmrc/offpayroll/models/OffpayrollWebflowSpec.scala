@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder.Interview
+import uk.gov.hmrc.offpayroll.typeDefs.Interview
 
 /**
   * Created by peter on 05/12/2016.
@@ -31,7 +31,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   private val firstElement: Element = webflow.getStart()
-  private val lastElement = webflow.clusters()(1).clusterElements(4)
+  private val lastElement = webflow.clusters(1).clusterElements(4)
 
 
   private val personalservice = "personalService"
