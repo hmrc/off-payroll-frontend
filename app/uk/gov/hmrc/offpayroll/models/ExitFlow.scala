@@ -49,11 +49,7 @@ object ExitFlow extends Webflow {
 
   def shouldAskForNext(interview: Interview, currentQnA: (String, String)): ExitResult = {
 
-    println("interview " + interview + " currentQnA " + currentQnA)
-
     val maybeElement = ExitCluster.shouldAskForDecision(interview.toList, currentQnA)
-
-    println("maybeElement " + maybeElement)
 
     def isOfficeHolder: Boolean = {
       interview.exists {
@@ -65,7 +61,6 @@ object ExitFlow extends Webflow {
       if (!interview.exists { case (question, answer) => question.startsWith(questionTag) })
         false
       else {
-        println("Checking Interview for " + questionTag + " all values as NO")
         interview.filter {
           case (question, answer) => {
             question.startsWith(questionTag)
@@ -88,19 +83,11 @@ object ExitFlow extends Webflow {
       maybeElement.nonEmpty
     }
 
-    if (thereAreMoreQuestionsToBeAsked) {
-      ExitResult(maybeElement)
-    } else {
-      println("checking conditions ")
-      if (isOfficeHolder) {
-        println("in IR35 "); ExitResult(inIr35 = true)
-      }
-      else if (checkAllForNo) {
-        println("All answers no for a section"); ExitResult(exitTool = true)
-      }
-      else {
-        println("continue with main interview "); ExitResult(continueToMainInterview = true)
-      }
+    if (thereAreMoreQuestionsToBeAsked) ExitResult(maybeElement)
+    else {
+      if (isOfficeHolder) ExitResult(inIr35 = true)
+      else if (checkAllForNo) ExitResult(exitTool = true)
+      else ExitResult(continueToMainInterview = true)
     }
   }
 

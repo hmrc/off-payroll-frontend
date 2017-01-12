@@ -88,7 +88,6 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
       .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityLtd.*") }
       .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityPartnership.*") }
 
-    println(conditionsLiabilityPartnership)
     val result = ExitFlow.shouldAskForNext(conditionsLiabilityPartnership, "conditionsLiabilityPartnership4" -> "NO")
 
     checkExitTool(result)

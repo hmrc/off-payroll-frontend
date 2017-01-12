@@ -34,17 +34,6 @@ class SetupControllerSpec  extends UnitSpec with WithFakeApplication with ScalaF
       val result = await(SetupController.apply.begin().apply(fakeRequest))
       status(result) shouldBe Status.OK
 
-      //@todo workout how to pass an implicit akka Materializer to this method so we can assert on the Body content
-//      val bodyText: String = bodyOf(result)
-
     }
   }
-
-  "POST /setup/elementID" should {
-    "return 200 and the " in {
-
-    }
-  }
-
-
 }

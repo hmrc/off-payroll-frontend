@@ -59,7 +59,6 @@ object OffPayrollWebflow extends Webflow with withDecision {
     val tagArray = tag.split('.')
 
     val cleanTag = if(tagArray.size > 1) tagArray(0) + "." + tagArray(1) else tag
-    println("tag " + tag + " cleanTag " + cleanTag)
 
     val foundElement = for{
       cluster <- clusters

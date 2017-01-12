@@ -32,9 +32,5 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication
       val result = await(InterviewController().begin(1).apply(fakeRequest))
       status(result) shouldBe Status.OK
     }
-
-
   }
-
-
 }
