@@ -31,7 +31,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   private val firstElement: Element = webflow.getStart()
-  private val lastElement = webflow.clusters(1).clusterElements(4)
+  private val lastElement = webflow.clusters(5).clusterElements(7)
 
 
   private val personalservice = "personalService"
@@ -44,7 +44,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should "have a two clusters" in {
-    webflow.clusters.size should be (2)
+    webflow.clusters.size should be (6)
   }
 
   it should " be able to get a Cluster by its name " in {
@@ -69,8 +69,8 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should "return an empty Option if we try and get an currentElement by Id that does not exist" in {
-    webflow.getElementById(3, 0).isEmpty should be (true)
-    webflow.getElementById(1, lastElement.order + 1).isEmpty should be (true)
+    webflow.getElementById(6, 0).isEmpty should be (true)
+    webflow.getElementById(6, lastElement.order + 1).isEmpty should be (true)
   }
 
   it should " be able to return an Element by its tag " in {
