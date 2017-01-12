@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll
+package uk.gov.hmrc.offpayroll.controllers
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
+import uk.gov.hmrc.offpayroll.services.FragmentService
+import uk.gov.hmrc.play.frontend.controller.FrontendController
+import play.Logger
 
 /**
-  * Created by peter on 12/12/2016.
+  * Created by peter on 11/01/2017.
   */
-package object modelsFormat {
+abstract class OffPayrollController extends FrontendController  with OffPayrollControllerHelper {
 
-  implicit val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
-  implicit val decideResponseFormatter: Format[DecisionResponse] = Json.format[DecisionResponse]
-
-
-}
-
-
-package object typeDefs {
-
-  type Interview = Map[String, String]
+  val fragmentService = FragmentService("/guidance/")
 
 }

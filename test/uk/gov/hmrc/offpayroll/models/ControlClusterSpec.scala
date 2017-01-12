@@ -28,7 +28,7 @@ class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
 
   private val controlCluster = ControlCluster
 
-  private val toldWhatToDoYes = "control.toldWhatToDo" -> "control.toldWhatToDo.yes\""
+  private val toldWhatToDoYes = "control.toldWhatToDo" -> "control.toldWhatToDo.yes"
   val fullInterview = List(
     toldWhatToDoYes,
     "control.engagerMovingWorker" -> "Yes",
