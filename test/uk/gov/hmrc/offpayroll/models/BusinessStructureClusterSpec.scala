@@ -54,7 +54,7 @@ class BusinessStructureClusterSpec extends FlatSpec with Matchers with ClusterSp
     val currentQnA = ("businessStructure.similarWork", businessTsructure_fourToNine)
     val partialAnswers = List(("businessStructure.similarWork", businessTsructure_fourToNine))
 
-    businessStructureCluster.shouldAskForDecision(partialAnswers, currentQnA).nonEmpty shouldBe true
+    businessStructureCluster.shouldAskForDecision(partialAnswers, currentQnA).isEmpty shouldBe false
   }
   it should " ask the correct next question for a given question" in {
     val currentQnA = ("businessStructure.businessAccount", "Y")
