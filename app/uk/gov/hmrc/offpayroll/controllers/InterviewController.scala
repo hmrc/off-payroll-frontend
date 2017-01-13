@@ -89,12 +89,9 @@ object InterviewController {
   }
 }
 
-class InterviewController @Inject()(val flowService: FlowService) extends FrontendController with OffPayrollControllerHelper {
+class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
 
-  val fragmentService = FragmentService("/guidance/")
-
-
-  def begin(clusterID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def begin(clusterID: Int): Action[AnyContent] = Action.async { implicit request =>
 
     val element = flowService.getStart()
 

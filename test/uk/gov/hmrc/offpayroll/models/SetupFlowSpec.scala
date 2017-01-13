@@ -54,7 +54,6 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
 
   it should "get a cluster by its name if the name is " + SETUP in {
     setupFlow.getClusterByName(SETUP).name shouldBe SETUP
-    //@todo test the Exception is thrown when not setup this should have been an Option[Cluster]
   }
 
   it should "shouldAskForNext " + setup_endUserRole in {

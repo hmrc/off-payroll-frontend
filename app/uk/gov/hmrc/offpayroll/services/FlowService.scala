@@ -19,7 +19,7 @@ package uk.gov.hmrc.offpayroll.services
 import com.google.inject.ImplementedBy
 import play.api.Logger
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
-import uk.gov.hmrc.offpayroll.models.{UNKNOWN, _}
+import uk.gov.hmrc.offpayroll.models.{OffPayrollWebflow, UNKNOWN, _}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.offpayroll.DecisionConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
@@ -57,7 +57,7 @@ class IR35FlowService extends FlowService {
   private val CONTINUE = true
   implicit val hc = HeaderCarrier()
 
-  private val webflow: Webflow = OffPayrollWebflow
+  private val webflow = OffPayrollWebflow
 
   lazy val decisionConnector: DecisionConnector = DecisionConnector
 
@@ -78,7 +78,7 @@ class IR35FlowService extends FlowService {
 
   override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvaluation] = {
 
-    val cleanInterview = interview.filter(qa => webflow.clusters().exists(clsrt => qa._1.startsWith(clsrt.name)))
+    val cleanInterview = interview.filter(qa => webflow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
     val currentElement: Element = guardValidEelement(currentTag)
     val optionalNextElement = webflow.shouldAskForDecision(interview, currentQnA)

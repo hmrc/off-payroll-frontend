@@ -1,0 +1,24 @@
+
+@import uk.gov.hmrc.play.views.html.helpers
+@import uk.gov.hmrc.offpayroll.models.ElementType
+@import uk.gov.hmrc.offpayroll.controllers.routes
+@import uk.gov.hmrc.offpayroll.models.Decision
+@import uk.gov.hmrc.offpayroll.models.Element
+
+@import uk.gov.hmrc.offpayroll.models.Decision
+@()(implicit request: Request[_], messages: Messages)
+@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None,
+    mainClass = Option("full-width") ) {
+
+        <div class="grid-layout">
+            <div class="grid-layout__column--2-3">
+
+                <h1 class="heading-xlarge">
+                    You answered No to all the questions in the Exit Cluster on how you provide your services
+                </h1>
+
+            </div>
+        </div>
+
+
+}

@@ -40,14 +40,13 @@ object SetupController {
 /**
   * Created by peter on 09/01/2017.
   */
-class SetupController @Inject() extends FrontendController  with OffPayrollControllerHelper {
+class SetupController @Inject() extends OffPayrollController{
 
-  val fragmentService = FragmentService("/guidance/")
   val flow = SetupFlow
   val SETUP_CLUSTER_ID = 0
 
 
-  def begin = Action.async { implicit request =>
+  def begin(clusterId: Int = 0) = Action.async { implicit request =>
 
     val element = flow.getStart()
 
@@ -92,6 +91,5 @@ class SetupController @Inject() extends FrontendController  with OffPayrollContr
       }
     )
   }
-
 
 }
