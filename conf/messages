@@ -1,6 +1,10 @@
 #### Global Content
 
 global.button.continue=Continue
+yes=yes
+no=no
+Yes=Yes
+No=No
 
 
 #### Set up cluster
