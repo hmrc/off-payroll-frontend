@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.resources.{exit_conditionsLiabilityLtd7Yes, _}
+import uk.gov.hmrc.offpayroll.resources._
 
 /**
   * Created by peter on 08/01/2017.

@@ -75,4 +75,18 @@ package object resources {
   val exit_conditionsLiabilityPartnership4 = "exit.conditionsLiabilityPartnership4"
   val exit_conditionsLiabilityPartnership4No = exit_conditionsLiabilityPartnership4 -> NO
 
+  //PERSONAL SERVICE
+
+
+  val personalService_contractualObligationInPractise = "personalService.contractualObligationInPractise"
+
+  val personalService_contractualObligationInPractiseYes = personalService_contractualObligationInPractise -> "Yes"
+
+  val personalService_contractualRightForSubstitute = "personalService.contractualRightForSubstitute"
+
+  val personalService_workerpayactualhelper = "personalService.workerPayActualHelper"
+
+  val personalService_contractualObligationForSubstitute = "personalService.contractualObligationForSubstitute"
+  val personalService_contractualObligationForSubstituteYes = personalService_contractualObligationForSubstitute -> YES
+
 }

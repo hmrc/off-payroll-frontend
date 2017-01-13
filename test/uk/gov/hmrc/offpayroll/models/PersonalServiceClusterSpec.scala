@@ -17,6 +17,10 @@
 package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.PropertyFileLoader
+import uk.gov.hmrc.offpayroll.resources._
+
+
 
 /**
   * Created by peter on 11/12/2016.
@@ -25,8 +29,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   private val personalServiceCluster = PersonalServiceCluster
 
-  "The Personal Service Cluster"
-  it should " have the correct name " in {
+  "The Personal Service Cluster" should " have the correct name " in {
     personalServiceCluster.name shouldBe "personalService"
   }
 
@@ -42,43 +45,27 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
     assertAllElementsPresentForCluster(personalServiceCluster) shouldBe true
   }
 
-  it should " the correct next question when 'Yes' is the answer to personalService.contractualObligationInPractice " in {
+  it should "ask the next question if not all questions have been asked" in {
 
-    val currentQnA = ("personalService.contractualObligationInPractice" -> "Yes")
-    val partialAnswers = List(
-      "personalService.contractualObligationForSubstitute" -> "Yes",
-      currentQnA)
+    val currentQnA = "personalService.workerSentActualHelper" -> "Yes"
+    val partialAnswers = PropertyFileLoader.transformMapToAListOfAnswers(
+      PropertyFileLoader.getMessagesForACluster("personalService")).tail
 
+    partialAnswers.size shouldBe 13
 
     val decision = personalServiceCluster.shouldAskForDecision(partialAnswers, currentQnA)
 
     decision.nonEmpty shouldBe true
-    decision.get.questionTag shouldBe "personalService.contractualRightForSubstitute"
   }
+
 
   it should " not ask anymore questions when all questions have been asked" in {
 
-    val currentQnA = ("personalService.workerPayActualHelper" -> "Yes")
-    val partialAnswers = List(
-      "personalService.contractualObligationForSubstitute" -> "Yes",
-      "personalService.contractualObligationInPractice" -> "Yes",
-      "personalService.contractualRightForSubstitute" -> "Yes",
-      "personalService.actualRightToSendSubstitute" -> "Yes",
-      "personalService.contractualRightReflectInPractice" -> "Yes",
-      "personalService.engagerArrangeIfWorkerIsUnwillingOrUnable" -> "Yes",
-      "personalService.possibleSubstituteRejection" -> "Yes",
-      "personalService.contractTermsWorkerPaysSubstitute" -> "Yes",
-      "personalService.workerSentActualSubstitute" -> "Yes",
-      "personalService.actualSubstituteRejection" -> "Yes",
-      "personalService.possibleHelper" -> "Yes",
-      "personalService.wouldWorkerPayHelper" -> "Yes",
-      "personalService.workerSentActualHelper" -> "Yes",
-      currentQnA)
+    val currentQnA = personalService_workerpayactualhelper -> "Yes"
+    val fullanswers = PropertyFileLoader.transformMapToAListOfAnswers(PropertyFileLoader.getMessagesForACluster("personalService"))
+    val decision = personalServiceCluster.shouldAskForDecision(fullanswers, currentQnA)
 
-
-    val decision = personalServiceCluster.shouldAskForDecision(partialAnswers, currentQnA)
-
-    decision.isEmpty shouldBe true
+    decision.nonEmpty shouldBe false
   }
 
 }
