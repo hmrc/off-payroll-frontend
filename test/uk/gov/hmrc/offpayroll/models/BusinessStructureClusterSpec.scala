@@ -24,9 +24,11 @@ class BusinessStructureClusterSpec extends FlatSpec with Matchers with ClusterSp
   private val businessStructureCluster = BusinessStructureCluster
 
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("businessStructure")
+  val businessTsructure_zeroToThree: String = "businessStructure.similarWork.zeroToThree"
+  val businessTsructure_fourToNine: String = "businessStructure.similarWork.fourToNine"
+  val businessTsructure_tenPlus: String = "businessStructure.similarWork.tenPlus"
 
-  "The Business Structure Cluster "
-  it should " have the correct name " in {
+  "The Business Structure Cluster " should " have the correct name " in {
     businessStructureCluster.name shouldBe "businessStructure"
   }
   it should " have the correct clusterId " in {
@@ -35,27 +37,28 @@ class BusinessStructureClusterSpec extends FlatSpec with Matchers with ClusterSp
   it should " have the correct amount of question tags " in {
     businessStructureCluster.clusterElements.size shouldBe 8
   }
-  it should " ask for a decision when similarWork is 0-3 " in {
-    val currentQnA = ("businessStructure.similarWork", "0-3")
-    val partialAnswers = List(("businessStructure.similarWork", "0-3"))
+  it should " ask for a decision when similarWork is zero to three " in {
+
+    val currentQnA = ("businessStructure.similarWork", businessTsructure_zeroToThree)
+    val partialAnswers = List(("businessStructure.similarWork", businessTsructure_zeroToThree))
 
     businessStructureCluster.shouldAskForDecision(partialAnswers, currentQnA).isEmpty shouldBe true
   }
-  it should " ask for a decision when similarWork is 10+ " in {
-    val currentQnA = ("businessStructure.similarWork", "10+")
-    val partialAnswers = List(("businessStructure.similarWork", "10+"))
+  it should " ask for a decision when similarWork is ten plus " in {
+    val currentQnA = ("businessStructure.similarWork", businessTsructure_tenPlus)
+    val partialAnswers = List(("businessStructure.similarWork", businessTsructure_tenPlus))
 
     businessStructureCluster.shouldAskForDecision(partialAnswers, currentQnA).isEmpty shouldBe true
   }
-  it should " not ask for a decision when similarWork is 4-9 " in {
-    val currentQnA = ("businessStructure.similarWork", "4-9")
-    val partialAnswers = List(("businessStructure.similarWork", "4-9"))
+  it should " not ask for a decision when similarWork is four to nine " in {
+    val currentQnA = ("businessStructure.similarWork", businessTsructure_fourToNine)
+    val partialAnswers = List(("businessStructure.similarWork", businessTsructure_fourToNine))
 
     businessStructureCluster.shouldAskForDecision(partialAnswers, currentQnA).nonEmpty shouldBe true
   }
   it should " ask the correct next question for a given question" in {
     val currentQnA = ("businessStructure.businessAccount", "Y")
-    val partialAnswers = List(("businessStructure.similarWork", "4-9"),("businessStructure.workerVAT", "Y"),
+    val partialAnswers = List(("businessStructure.similarWork", businessTsructure_fourToNine),("businessStructure.workerVAT", "Y"),
       ("businessStructure.businessAccount", "Y"))
 
     val maybeElement = businessStructureCluster.shouldAskForDecision(partialAnswers, currentQnA)
