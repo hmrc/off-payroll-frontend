@@ -29,8 +29,13 @@ object DecisionBuilder {
   //  @Todo get this value from the UI
   val correlationID: String = "12345"
 
+
+
   def buildDecisionRequest(interview: Interview): DecisionRequest = {
 
+    def normalizeAnswer(answer: String) = {
+      answer.split('.').last
+    }
     val listOfTripple = interview.toList
       .map{
         case(n,a) =>
@@ -43,7 +48,11 @@ object DecisionBuilder {
     val fliteredByValidClusters = listOfTripple
       .filter{ case (c,n) => OffPayrollWebflow.clusters.exists(cluster => c == cluster.name)}
 
-    val groupByCluster = fliteredByValidClusters.groupBy {
+    val normalizeChildren = fliteredByValidClusters.map{
+      case (cluster,(question,answer)) => (cluster,(question,normalizeAnswer(answer)))
+    }
+
+    val groupByCluster = normalizeChildren.groupBy {
       case (cl, p) => cl
     }
 
