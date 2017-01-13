@@ -27,6 +27,7 @@ private object AppDependencies {
   private val scalaTestVersion = "3.0.1"
   private val pegdownVersion = "1.6.0"
   private val jacksonVersion = "2.7.4"
+  private val passcodeVerificationVersion = "4.0.0"
 
   val compile = Seq(
     ws,
@@ -41,7 +42,8 @@ private object AppDependencies {
     "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
+    "uk.gov.hmrc" %% "passcode-verification" % passcodeVerificationVersion
   )
 
   trait TestDependencies {
