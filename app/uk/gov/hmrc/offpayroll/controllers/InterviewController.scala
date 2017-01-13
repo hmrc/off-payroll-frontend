@@ -19,21 +19,27 @@ package uk.gov.hmrc.offpayroll.controllers
 import javax.inject.Inject
 
 import play.api.Logger
-import play.api.Play.current
+import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
 import play.api.i18n.Messages.Implicits._
-import play.api.mvc._
+import play.api.mvc.{AnyContent, _}
+import play.mvc.BodyParser.AnyContent
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Decision, Element, MULTI}
 import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
+import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 
 
-trait OffPayrollControllerHelper {
+trait OffPayrollControllerHelper extends PasscodeAuthentication  {
   //@Todo write tests
+
+
+  override def config = new PasscodeVerificationConfig(configuration)
+  override def passcodeAuthenticationProvider = new PasscodeAuthenticationProvider(config)
 
   /**
     * Create a Form based on an Element
@@ -67,12 +73,13 @@ object InterviewController {
 
   def apply() = {
     new InterviewController(IR35FlowService())
+
   }
 }
 
 class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
 
-  def begin(clusterID: Int): Action[AnyContent] = Action.async { implicit request =>
+  def begin(clusterID: Int) = Action.async { implicit request =>
 
     val element = flowService.getStart()
 
@@ -83,7 +90,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  def start() = Action.async { implicit request =>
+  def start() = PasscodeAuthenticatedActionAsync{ implicit request =>
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()))
   }
 
