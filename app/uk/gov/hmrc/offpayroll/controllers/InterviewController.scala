@@ -91,7 +91,7 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
 
-  def begin(clusterID: Int): Action[AnyContent] = Action.async { implicit request =>
+  def begin(clusterID: Int) = Action.async { implicit request =>
 
     val element = flowService.getStart()
 
