@@ -52,7 +52,7 @@ trait OffPayrollControllerHelper {
   def createForm(element: String): Form[String] ={
     Form(
       single(
-        element -> text
+        element -> nonEmptyText
       )
     )
   }
@@ -106,7 +106,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
         formWithErrors =>
           Future.successful(BadRequest(
             uk.gov.hmrc.offpayroll.views.html.interview.interview(
-              formWithErrors, element, Html.apply("")))),
+              formWithErrors, element, Html.apply(element.questionTag)))),
 
         value => {
           implicit val session: Map[String, String] = request.session.data + (tag -> value)
