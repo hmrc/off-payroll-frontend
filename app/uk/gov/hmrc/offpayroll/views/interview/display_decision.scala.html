@@ -25,8 +25,8 @@
       <h2 class="heading-medium">Your answers</h2>
 			<ol id="yourAnswers">
                 @for((key,value) <- decision.qa){
-                <li class="panel-indent section divider--bottom" id="answer.@key"><h2>@messages(key)</h2>
-                    <div>@messages(value)</div>
+                <li class="panel-indent section divider--bottom"><h2>@messages(key)</h2>
+                    <div id="answer.@key">@messages(value)</div>
                 </li>
                 }
             </ol>
