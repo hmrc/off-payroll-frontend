@@ -46,8 +46,15 @@ object SetupFlow extends Webflow {
     else throw new NoSuchElementException("Named cluster " + name + " does not exist in the SetupFlow")
 
 
-  def shouldAskForNext(interview: Interview, currentQnA: (String, String)): Option[Element] = {
-    setupCluster.shouldAskForDecision(interview.toList, currentQnA)
+  def shouldAskForNext(interview: Interview, currentQnA: (String, String)): SetupResult = {
+
+    def soleTrader = interview.exists{ case(qestion, answer) =>
+      qestion == "setup.provideServices" && answer == "setup.provideServices.soleTrader"}
+
+    if(soleTrader) SetupResult(exitTool = true)
+    else SetupResult(setupCluster.shouldAskForDecision(interview.toList, currentQnA))
   }
 
 }
+
+case class SetupResult(maybeElement: Option[Element] = Option.empty, exitTool: Boolean = false)

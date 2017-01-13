@@ -18,6 +18,8 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
 
+import uk.gov.hmrc.offpayroll.resources._
+
 /**
   * Created by peter on 09/01/2017.
   */
@@ -25,9 +27,7 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
 
   private val setupFlow = SetupFlow
   private val firstElement = setupFlow.getStart()
-  private val SETUP = "setup"
-  private val setup_endUserRole = SETUP + ".endUserRole"
-  private val YES = "Yes"
+
 
   "A SetupFlow " should " be at version 1.0.1-beta " in {
     setupFlow.version shouldBe "1.0.1-beta"
@@ -57,7 +57,12 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
   }
 
   it should "shouldAskForNext " + setup_endUserRole in {
-    setupFlow.shouldAskForNext(Map(setup_endUserRole -> YES), setup_endUserRole -> YES).nonEmpty shouldBe true
+    setupFlow.shouldAskForNext(Map(setup_endUserRolePersonDoingWork), setup_endUserRolePersonDoingWork).maybeElement.nonEmpty shouldBe true
   }
+
+  it should "should indicate exit the tool if the we are a Sole Trader trying to use the tool " in {
+    setupFlow.shouldAskForNext(Map(setup_endUserRolePersonDoingWork, setup_SoleTrader), setup_SoleTrader).exitTool shouldBe true
+  }
+
 
 }
