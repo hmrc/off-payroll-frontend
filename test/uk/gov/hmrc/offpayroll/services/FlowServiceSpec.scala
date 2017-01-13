@@ -17,10 +17,11 @@
 package uk.gov.hmrc.offpayroll.services
 
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
-import uk.gov.hmrc.offpayroll.models.{OUT, UNKNOWN}
+import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 import scala.concurrent.ExecutionContext.Implicits.global
+
 
 
 /**
@@ -41,8 +42,9 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
     }
   }
 
-  val interview: Map[String, String] = Map("personalService.contractualObligationForSubstitute" -> "Yes")
-  val currentElement: (String, String) = "personalService.contractualObligationForSubstitute" -> "Yes"
+
+  val interview: Map[String, String] = Map(personalService_contractualObligationForSubstituteYes)
+  val currentElement: (String, String) = personalService_contractualObligationForSubstituteYes
 
   it should {
     "Process a partial personalService and expect it to return Continue" in {
@@ -50,16 +52,13 @@ class FlowServiceSpec extends UnitSpec with WithFakeApplication {
       val intervieEvalResult = await(flowservice.evaluateInterview(interview, currentElement))
 
       assert(intervieEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
-
-      val nextValidTag = "personalService.contractualObligationInPractice"
-
-      assert(intervieEvalResult.element.head.questionTag === nextValidTag) //next tag
+      assert(intervieEvalResult.element.head.questionTag === personalService_contractualObligationInPractise) //next tag
     }
   }
 
   it should {
     " be able to get the current currentElement" in {
-      assert(flowservice.getAbsoluteElement(0, 1).questionTag == "personalService.contractualObligationInPractice")
+      assert(flowservice.getAbsoluteElement(0, 1).questionTag == personalService_contractualObligationInPractise)
     }
   }
 

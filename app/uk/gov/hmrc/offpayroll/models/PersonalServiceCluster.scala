@@ -31,10 +31,10 @@ object PersonalServiceCluster extends Cluster {
 
   val clusterElements: List[Element] = List(
     Element("contractualObligationForSubstitute", RADIO, 0, this),
-    Element("contractualObligationInPractice", RADIO, 1, this),
+    Element("contractualObligationInPractise", RADIO, 1, this),
     Element("contractualRightForSubstitute", RADIO, 2, this),
     Element("actualRightToSendSubstitute", RADIO, 3, this),
-    Element("contractualRightReflectInPractice", RADIO, 4, this),
+    Element("contractualRightReflectInPractise", RADIO, 4, this),
     Element("engagerArrangeIfWorkerIsUnwillingOrUnable", RADIO, 5, this),
     Element("possibleSubstituteRejection", RADIO, 6, this),
     Element("contractTermsWorkerPaysSubstitute", RADIO, 7, this),

@@ -77,7 +77,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     val contractualRightReflectInPractice: Element = webflow.getElementById(0, 4).head
     val controlToldWhatToDo = webflow.getElementById(1,0).head
 
-    webflow.getElementByTag(personalservice + ".contractualRightReflectInPractice")
+    webflow.getElementByTag(personalservice + ".contractualRightReflectInPractise")
       .head.questionTag should equal (contractualRightReflectInPractice.questionTag)
 
     webflow.getElementByTag("control.toldWhatToDo.yes")

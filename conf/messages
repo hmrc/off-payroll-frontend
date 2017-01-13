@@ -48,10 +48,10 @@ exit.conditionsLiabilityIndividualIntermediary=Does the middleman give the worke
 #### Personal Service cluster
 
 personalService.contractualObligationForSubstitute=If the worker can''t or doesn''t want to do the work, Does the contract state that they''re allowed to send someone else?
-personalService.contractualObligationInPractice=If the worker can''t or doesn''t want to do the work, Do they have to send someone else?
+personalService.contractualObligationInPractise=If the worker can''t or doesn''t want to do the work, Do they have to send someone else?
 personalService.contractualRightForSubstitute=If the worker can''t or doesn''t want to do the work, Does the contract state that they''re allowed to send someone else?
 personalService.actualRightToSendSubstitute=If the worker can''t or doesn''t want to do the work, Are they allowed to send someone else?
-personalService.contractualRightReflectInPractice=Missing question text for personalService.contractualRightReflectInPractice please update messages
+personalService.contractualRightReflectInPractise=Missing question text for personalService.contractualRightReflectInPractice please update messages
 personalService.engagerArrangeIfWorkerIsUnwillingOrUnable=If the worker can''t or doesn''t want to do the work, Does the end client get someone else to do it?
 personalService.possibleSubstituteRejection=If the worker decided to send someone else to do the work today, Could the end client turn away the other person, even if they''re qualified to do the work?
 personalService.contractTermsWorkerPaysSubstitute=Does the contract state that the worker has to pay the other person who they bring in to do the work?
