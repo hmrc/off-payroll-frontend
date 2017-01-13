@@ -31,10 +31,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class DecisionBuilderSpec  extends FlatSpec with Matchers {
 
   val interview = Map("personalService.workerSentActualSubstitiute" -> "false", "personalService.contractrualRight" -> "true",
-    "control.hasMoreThan50Percent" -> "false")
+    "control.hasMoreThan50Percent" -> "false", "control.toldWhatToDo" -> "control.toldWhatToDo.sometimes")
 
 
-  val decisionRequestStringPlusControl =
+  private val decisionRequestStringPlusControl =
     """
       |{
       |  "version": "1.0.1-beta",
@@ -45,24 +45,13 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers {
       |      "contractrualRight": "true"
       |    },
       |    "control": {
-      |      "hasMoreThan50Percent": "false"
+      |      "hasMoreThan50Percent": "false",
+      |      "toldWhatToDo": "sometimes"
       |    }
       |  }
       |}
     """.stripMargin
 
-  val decisionRequestString =
-    """
-      |{
-      |  "version": "1.0.1-beta",
-      |  "correlationID": "12345",
-      |  "interview": {
-      |    "personalService": {
-      |      "workerSentActualSubstitiute": "false"
-      |    }
-      |  }
-      |}
-    """.stripMargin
 
   val expectedDecisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestStringPlusControl)).get
 
