@@ -57,18 +57,6 @@ trait OffPayrollControllerHelper {
     )
   }
 
-//  def createForm(element: Element, requestBody: Option[Map[String, Seq[String]]]): (String, Form[Boolean]) = {
-//
-//    if(element.elementType == MULTI) {
-//      if (requestBody.nonEmpty) {
-//       val fieldName =  requestBody.get.find{
-//          case(name,value) => element.children.exists(e => e.questionTag == name)
-//        }.get
-//        (fieldName._1, createForm(fieldName._1))
-//      } else throw new IllegalArgumentException("Form body was empty")
-//    } else (element.questionTag, createForm(element))
-//  }
-
   def yesNo(value: Boolean): String =
     if(value) "Yes" else "No"
 
