@@ -6,7 +6,6 @@ no=no
 Yes=Yes
 No=No
 
-
 #### Set up cluster
 
 setup.endUserRole=Why do you want to use this tool?
@@ -101,7 +100,7 @@ financialRiskA.engagerPayEquipment=Do they get the money back?
 
 #### Financial Risk Cluster B
 
-financialRiskB.provideVehicle=Is the worker paid an all-inclusive rate, inclusive of substantial materials or supplies?
+financialRiskB.provideVehicle=Does the worker have to use their own vehicle for this contract?
 financialRiskB.engagerPayVehicleExpense=Do they get the money back?
 financialRiskB.workerIncurExpense=Does the worker have to pay for anything else out of their own pocket while working on this contract?
 financialRiskB.engagerPayOtherExpense=Do they get the money back?
