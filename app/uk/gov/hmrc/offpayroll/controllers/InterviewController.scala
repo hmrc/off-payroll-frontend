@@ -79,28 +79,16 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
 
-  def begin(clusterID: Int) = Action.async { implicit request =>
+  def begin = Action.async { implicit request =>
 
     val element = flowService.getStart()
-
     val form = createForm(element)
 
     implicit val session: Map[String, String] = request.session.data
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
-
-  def start() = PasscodeAuthenticatedActionAsync{ implicit request =>
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()))
-  }
-
-
-  def displayDecision(decsion: Decision) = Action.async { implicit request =>
-    implicit val session: Map[String, String] = request.session.data
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decsion)))
-  }
-
-
+  
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)

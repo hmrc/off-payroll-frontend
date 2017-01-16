@@ -85,7 +85,7 @@ class ExitController  @Inject() extends OffPayrollController {
           val exitReason = ExitReason("exitTool.serviceProvision.heading","exitTool.serviceProvision.reason","exitTool.serviceProvision.explanation")
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason)))
         } else if(exitResult.continueToMainInterview) {
-          Future.successful(Redirect(routes.InterviewController.begin(0))
+          Future.successful(Redirect(routes.InterviewController.begin)
             .withSession(request.session + (fieldName -> value)))
         } else { // bad
           Future.successful(InternalServerError("Unknown result from the ExitFlow"))

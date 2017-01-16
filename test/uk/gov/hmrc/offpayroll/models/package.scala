@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll
 
+import uk.gov.hmrc.offpayroll.controllers.SetupController
+
 /**
   * Created by peter on 11/01/2017.
   */
@@ -30,6 +32,8 @@ package object resources {
   val setup_endUserRole = SETUP + ".endUserRole"
   val setup_endUserRolePersonDoingWork = setup_endUserRole -> "setup.endUserRole.personDoingWork"
 
+  val setup_hasContractStarted = "setup.hasContractStarted"
+
   val officeHolderProperty = "exit.officeHolder"
 
   val officeHolderYes = officeHolderProperty -> YES
@@ -39,6 +43,13 @@ package object resources {
   val setupLtdCompany = setup_provideServices -> "setup.provideServices.limitedCompany"
 
   val setup_SoleTrader = setup_provideServices -> "setup.provideServices.soleTrader"
+
+
+
+  //EXIT
+  val THE_ROUTE_EXIT_PATH = "/exit/"
+
+  val exit_officeHolder = "exit.officeHolder"
 
   val exit_conditionsLiabilityLtd1 = "exit.conditionsLiabilityLtd1"
   val exit_conditionsLiabilityLtd1Yes = exit_conditionsLiabilityLtd1 -> YES
@@ -87,16 +98,16 @@ package object resources {
 
   //PERSONAL SERVICE
 
+  val personalService_contractualObligationForSubstitute = "personalService.contractualObligationForSubstitute"
+  val personalService_contractualObligationForSubstituteYes = personalService_contractualObligationForSubstitute -> YES
 
   val personalService_contractualObligationInPractise = "personalService.contractualObligationInPractise"
-
   val personalService_contractualObligationInPractiseYes = personalService_contractualObligationInPractise -> "Yes"
 
   val personalService_contractualRightForSubstitute = "personalService.contractualRightForSubstitute"
 
   val personalService_workerpayactualhelper = "personalService.workerPayActualHelper"
 
-  val personalService_contractualObligationForSubstitute = "personalService.contractualObligationForSubstitute"
-  val personalService_contractualObligationForSubstituteYes = personalService_contractualObligationForSubstitute -> YES
+
 
 }

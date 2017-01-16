@@ -63,7 +63,8 @@ private object AppDependencies {
         "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
         "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
         "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
-        "org.mockito" % "mockito-core" % "1.8.5"
+        "org.mockito" % "mockito-core" % "1.8.5",
+        "org.scalatestplus" % "play_2.11" % "1.2.0" % scope
 
 
       )
