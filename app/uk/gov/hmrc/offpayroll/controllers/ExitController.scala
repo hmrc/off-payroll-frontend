@@ -23,7 +23,7 @@ import play.api.Play.current
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.ExitFlow
+import uk.gov.hmrc.offpayroll.models.{ExitFlow, ExitReason}
 
 import scala.concurrent.Future
 
@@ -82,7 +82,8 @@ class ExitController  @Inject() extends OffPayrollController {
         } else if(exitResult.inIr35) { // in IR35
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.hardDecision()))
         } else if(exitResult.exitTool) { // exit the tool
-          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool()))
+          val exitReason = ExitReason("exitTool.serviceProvision.heading","exitTool.serviceProvision.reason","exitTool.serviceProvision.explanation")
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason)))
         } else if(exitResult.continueToMainInterview) {
           Future.successful(Redirect(routes.InterviewController.begin(0))
             .withSession(request.session + (fieldName -> value)))
