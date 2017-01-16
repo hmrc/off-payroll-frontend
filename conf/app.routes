@@ -1,6 +1,6 @@
 # microservice specific routes
 
-GET     /cluster/:clusterID                     @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin(clusterID: Int)
+GET     /cluster/                               @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin()
 POST    /cluster/:clusterID/element/:elementID  @uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
 
 GET     /setup                                  @uk.gov.hmrc.offpayroll.controllers.SetupController.begin()
@@ -8,5 +8,3 @@ POST    /setup/element/:elementID               @uk.gov.hmrc.offpayroll.controll
 
 GET     /exit                                   @uk.gov.hmrc.offpayroll.controllers.ExitController.begin()
 POST    /exit/element/:elementID                @uk.gov.hmrc.offpayroll.controllers.ExitController.processElement(elementID: Int)
-
-GET     /start                                  @uk.gov.hmrc.offpayroll.controllers.InterviewController.start()

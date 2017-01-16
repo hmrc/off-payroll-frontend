@@ -23,29 +23,21 @@ import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
+/**
+  * Created by peter on 16/01/2017.
+  */
+class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
-class InterviewControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
-  "GET /cluster/" should {
-    "return 200" in {
-      val result = await(InterviewController().begin.apply(FakeRequest("GET", "/cluster/")))
+
+  "GET " + THE_ROUTE_EXIT_PATH should {
+    "return 200 and the first page in Setup" in {
+      val result = await(ExitController.apply.begin().apply(FakeRequest("GET", THE_ROUTE_EXIT_PATH)))
       status(result) shouldBe Status.OK
-      contentAsString(result) should include(personalService_contractualObligationForSubstitute)
+      contentAsString(result) should include(exit_officeHolder)
     }
   }
 
-  "POST /cluster/0/element/0" should {
-    "return 200" in {
 
-      val request = FakeRequest().withFormUrlEncodedBody(
-        personalService_contractualObligationForSubstituteYes
-      )
 
-      val result = InterviewController().processElement(0,0)(request).futureValue
-
-      status(result) shouldBe Status.OK
-      contentAsString(result) should include(personalService_contractualObligationInPractise)
-
-    }
-  }
 }
