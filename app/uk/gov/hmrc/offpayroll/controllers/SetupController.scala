@@ -25,7 +25,7 @@ import play.api.data.Forms.{single, _}
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc.Action
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{Element, SetupCluster, SetupFlow}
+import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupCluster, SetupFlow}
 import uk.gov.hmrc.offpayroll.services.FragmentService
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
@@ -84,7 +84,8 @@ class SetupController @Inject() extends OffPayrollController{
             .withSession(request.session + (fieldName -> value))
           )
         } else if(setupResult.exitTool) {
-          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool()))
+          val exitReason = ExitReason("exitTool.soleTrader.heading","exitTool.soleTrader.reason","exitTool.soleTrader.explanation")
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason)))
         }
         else { // ExitCluster
           Future.successful(Redirect(routes.ExitController.begin())

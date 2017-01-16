@@ -158,7 +158,10 @@ hardExit.heading=You are inside the off-payroll rules
 hardExit.reason=Because you are an office holder
 hardExit.explanation=Blah blah blah
 
-exitTool.heading=You are outside the off-payroll rules
-exitTool.reason=Because you answered No to all the questions in the Exit Cluster on how you provide your services
-exitTool.explanation=Blah blah blah
+exitTool.serviceProvision.heading=You are outside the off-payroll rules
+exitTool.serviceProvision.reason=Because you answered No to all the questions in the Exit Cluster on how you provide your services
+exitTool.serviceProvision.explanation=Blah blah blah
 
+exitTool.soleTrader.heading=You are outside the off-payroll rules
+exitTool.soleTrader.reason=Because you are a sole trader
+exitTool.soleTrader.explanation=Blah blah blah
