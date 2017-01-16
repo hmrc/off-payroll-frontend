@@ -6,7 +6,6 @@ no=no
 Yes=Yes
 No=No
 
-
 #### Set up cluster
 
 setup.endUserRole=Why do you want to use this tool?
