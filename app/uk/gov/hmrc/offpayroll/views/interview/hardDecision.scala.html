@@ -10,15 +10,23 @@
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None,
     mainClass = Option("full-width") ) {
 
-        <div class="grid-layout">
-            <div class="grid-layout__column--2-3">
-
-                <h1 class="heading-xlarge">
-                    You are an Office Holder and in IR35
-                </h1>
+    <main id="content" role="main" class="result">
+        <div class="grid-row" id="resultPreHeader">
+            <div class="column-two-thirds">Reference number ESFTPZZ9ZA</div>
+            <div class="column-one-third">07/12/2016</div>
+        </div>
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading" id="decision-banner">@messages("hardExit.heading")</h1>
+                    <p>@messages("hardExit.reason")</p>
+                </div>
+                <p>@messages("hardExit.explanation")</p>
 
             </div>
         </div>
+
+    </main>
 
 
 }

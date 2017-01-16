@@ -10,15 +10,22 @@
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None,
     mainClass = Option("full-width") ) {
 
-        <div class="grid-layout">
-            <div class="grid-layout__column--2-3">
-
-                <h1 class="heading-xlarge">
-                    You answered No to all the questions in the Exit Cluster on how you provide your services
-                </h1>
+    <main id="content" role="main" class="result">
+        <div class="grid-row" id="resultPreHeader">
+            <div class="column-two-thirds">Reference number ESFTPZZ9ZA</div>
+            <div class="column-one-third">07/12/2016</div>
+        </div>
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading" id="decision-banner">@messages("exitTool.heading")</h1>
+                    <p>@messages("exitTool.reason")</p>
+                </div>
+                <p>@messages("exitTool.explanation")</p>
 
             </div>
         </div>
 
+    </main>
 
 }

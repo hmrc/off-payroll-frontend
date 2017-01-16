@@ -149,3 +149,13 @@ businessStructure.workerPaysForInsurance=Does the engager require the worker to 
 decision.in.ir35=You are inside IR35
 decision.out.ir35=You are outside IR35
 decision.unknown=Undecided
+
+
+hardExit.heading=You are inside the off-payroll rules
+hardExit.reason=Because you are an office holder
+hardExit.explanation=Blah blah blah
+
+exitTool.heading=You are outside the off-payroll rules
+exitTool.reason=Because you answered No to all the questions in the Exit Cluster on how you provide your services
+exitTool.explanation=Blah blah blah
+
