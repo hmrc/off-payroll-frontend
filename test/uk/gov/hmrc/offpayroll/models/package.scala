@@ -21,14 +21,24 @@ package uk.gov.hmrc.offpayroll
   */
 package object resources {
 
-  val officeHolderProperty = "exit.officeHolder"
   val YES = "Yes"
-  val officeHolderYes = officeHolderProperty -> YES
   val NO = "No"
+
+  //SETUP
+
+  val SETUP = "setup"
+  val setup_endUserRole = SETUP + ".endUserRole"
+  val setup_endUserRolePersonDoingWork = setup_endUserRole -> "setup.endUserRole.personDoingWork"
+
+  val officeHolderProperty = "exit.officeHolder"
+
+  val officeHolderYes = officeHolderProperty -> YES
   val officeHolderNo = officeHolderProperty -> NO
 
   val setup_provideServices = "setup.provideServices"
   val setupLtdCompany = setup_provideServices -> "setup.provideServices.limitedCompany"
+
+  val setup_SoleTrader = setup_provideServices -> "setup.provideServices.soleTrader"
 
   val exit_conditionsLiabilityLtd1 = "exit.conditionsLiabilityLtd1"
   val exit_conditionsLiabilityLtd1Yes = exit_conditionsLiabilityLtd1 -> YES

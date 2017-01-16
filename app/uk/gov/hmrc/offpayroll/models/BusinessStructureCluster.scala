@@ -26,7 +26,13 @@ object BusinessStructureCluster extends Cluster {
   override def clusterID: Int = 5
 
   val clusterElements: List[Element] = List(
-    Element("similarWork", RADIO, 0, this),
+    Element("similarWork", MULTI, 0, this,
+      List(
+        Element("similarWork.zeroToThree", RADIO, 0, this),
+        Element("similarWork.fourToNine", RADIO, 1, this),
+        Element("similarWork.tenPlus", RADIO, 2, this)
+      )
+    ),
     Element("workerVAT", RADIO, 1, this),
     Element("businessAccount", RADIO, 2, this),
     Element("advertiseForWork", RADIO, 3, this),
@@ -38,10 +44,10 @@ object BusinessStructureCluster extends Cluster {
 
   private val flows = List(
     FlowElement("businessStructure.similarWork",
-      Map("businessStructure.similarWork" -> "0-3"),
+      Map("businessStructure.similarWork" -> "businessStructure.similarWork.zeroToThree"),
       Option.empty),
     FlowElement("businessStructure.similarWork",
-      Map("businessStructure.similarWork" -> "10+"),
+      Map("businessStructure.similarWork" -> "businessStructure.similarWork.tenPlus"),
       Option.empty)
   )
 

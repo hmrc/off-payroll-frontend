@@ -77,14 +77,16 @@ class SetupController @Inject() extends OffPayrollController{
       value => {
         implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
 
-        val maybeElement = flow.shouldAskForNext(session, (fieldName, value))
-        if(maybeElement.nonEmpty) { // continue setup
-          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, maybeElement.get,
-            fragmentService.getFragmentByName(maybeElement.get.questionTag)))
+        val setupResult = flow.shouldAskForNext(session, (fieldName, value))
+        if(setupResult.maybeElement.nonEmpty) { // continue setup
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, setupResult.maybeElement.get,
+            fragmentService.getFragmentByName(setupResult.maybeElement.get.questionTag)))
             .withSession(request.session + (fieldName -> value))
           )
-
-        } else { // ExitQuestions
+        } else if(setupResult.exitTool) {
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool()))
+        }
+        else { // ExitCluster
           Future.successful(Redirect(routes.ExitController.begin())
             .withSession(request.session + (fieldName -> value)))
         }

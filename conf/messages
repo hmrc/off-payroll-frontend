@@ -133,6 +133,9 @@ partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a 
 #### Business Structure Cluster
 
 businessStructure.similarWork=How many other engagers has the worker done similar work for during the last 12 months?
+businessStructure.similarWork.zeroToThree=0-3
+businessStructure.similarWork.fourToNine=4-9
+businessStructure.similarWork.tenPlus=10+
 #may need two tags or some other way to switch the following question
 businessStructure.workerVAT=Is the worker registered for Value Added Tax (VAT)? (If IR35 replace worker with PSC)
 businessStructure.businessAccount=Does the worker operate a business bank account?
