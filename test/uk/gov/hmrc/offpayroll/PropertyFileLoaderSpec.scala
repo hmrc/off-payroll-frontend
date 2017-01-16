@@ -34,10 +34,18 @@ class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
 
   it should "Filter the messages to the ones for a given cluster" in {
     val cluster = PropertyFileLoader.getMessagesForACluster("personalService")
-
+    
     cluster.contains(personalServiceKey) shouldBe true
     cluster.size shouldBe 14
 
+
+  }
+
+  it should "Filter the messages in the Exit Cluster" in {
+    val cluster = PropertyFileLoader.getMessagesForACluster("exit")
+
+    cluster.contains("exit.officeHolder") shouldBe true
+    cluster.size shouldBe 14
 
   }
 
