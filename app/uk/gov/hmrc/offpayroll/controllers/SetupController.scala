@@ -40,7 +40,7 @@ object SetupController {
 /**
   * Created by peter on 09/01/2017.
   */
-class SetupController @Inject() extends OffPayrollController{
+class SetupController @Inject() extends OffPayrollController {
 
   val flow = SetupFlow
   val SETUP_CLUSTER_ID = 0
@@ -54,10 +54,14 @@ class SetupController @Inject() extends OffPayrollController{
 
     implicit val session: Map[String, String] = request.session.data
 
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm,element,
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
+  def start() = PasscodeAuthenticatedActionAsync {
+    implicit request =>
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()))
+  }
 
 
   def processElement(elementID: Int) = Action.async { implicit request =>
@@ -68,7 +72,7 @@ class SetupController @Inject() extends OffPayrollController{
 
     implicit val session: Map[String, String] = request.session.data
 
-    form.bindFromRequest.fold (
+    form.bindFromRequest.fold(
       formWithErrors =>
         Future.successful(BadRequest(
           uk.gov.hmrc.offpayroll.views.html.interview.setup(
@@ -78,16 +82,18 @@ class SetupController @Inject() extends OffPayrollController{
         implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
 
         val setupResult = flow.shouldAskForNext(session, (fieldName, value))
-        if(setupResult.maybeElement.nonEmpty) { // continue setup
+        if (setupResult.maybeElement.nonEmpty) {
+          // continue setup
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, setupResult.maybeElement.get,
             fragmentService.getFragmentByName(setupResult.maybeElement.get.questionTag)))
             .withSession(request.session + (fieldName -> value))
           )
-        } else if(setupResult.exitTool) {
-          val exitReason = ExitReason("exitTool.soleTrader.heading","exitTool.soleTrader.reason","exitTool.soleTrader.explanation")
+        } else if (setupResult.exitTool) {
+          val exitReason = ExitReason("exitTool.soleTrader.heading", "exitTool.soleTrader.reason", "exitTool.soleTrader.explanation")
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason)))
         }
-        else { // ExitCluster
+        else {
+          // ExitCluster
           Future.successful(Redirect(routes.ExitController.begin())
             .withSession(request.session + (fieldName -> value)))
         }

@@ -8,3 +8,5 @@ POST    /setup/element/:elementID               @uk.gov.hmrc.offpayroll.controll
 
 GET     /exit                                   @uk.gov.hmrc.offpayroll.controllers.ExitController.begin()
 POST    /exit/element/:elementID                @uk.gov.hmrc.offpayroll.controllers.ExitController.processElement(elementID: Int)
+
+GET     /start                                  @uk.gov.hmrc.offpayroll.controllers.SetupController.start()
