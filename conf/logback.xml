@@ -39,9 +39,11 @@
         <appender-ref ref="ACCESS_LOG_FILE" />
     </logger>
 
-    <logger name="com.ning.http.client.providers.netty" additivity="false">
+    <logger name="com.ning.http.client.providers.netty" additivity="false" level="ERROR">
         <appender-ref ref="STDOUT_IGNORE_NETTY" />
     </logger>
+
+    <logger name="org.asynchttpclient" level="INFO" />
 
     <logger name="com.google.inject" level="INFO"/>
 
