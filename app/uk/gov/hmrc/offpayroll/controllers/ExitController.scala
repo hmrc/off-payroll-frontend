@@ -42,7 +42,7 @@ class ExitController  @Inject() extends OffPayrollController {
   val EXIT_CLUSTER_ID: Int = 0
 
 
-  def begin() = Action.async { implicit request =>
+  def begin() = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flow.getStart()
 
@@ -56,7 +56,7 @@ class ExitController  @Inject() extends OffPayrollController {
 
 
 
-  def processElement(elementID: Int) = Action.async { implicit request =>
+  def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
     val fieldName = element.questionTag

@@ -20,13 +20,16 @@ import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
 import play.api.test.{FakeApplication, FakeRequest, RouteInvokers}
 import play.api.test.Helpers.{contentAsString, contentType, route, status, _}
+import uk.gov.hmrc.offpayroll.WithTestFakeApplication
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import uk.gov.hmrc.offpayroll.resources._
 
 /**
   * Created by peter on 09/01/2017.
   */
-class SetupControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
+class SetupControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
+
+  override def configFile: String = "test-application.conf"
 
 
   "GET /setup/" should {
@@ -45,7 +48,7 @@ class SetupControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
     }
   }
 
-  "Submitting the firs question to the Setup Controller" should {
+  "Submitting the first question to the Setup Controller" should {
     " the second question in the SetupCluster" in {
 
       val request = FakeRequest().withFormUrlEncodedBody(

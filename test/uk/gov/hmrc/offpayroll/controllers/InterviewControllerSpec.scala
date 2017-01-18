@@ -16,15 +16,21 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import com.typesafe.config.{ConfigFactory, ConfigValueFactory}
 import org.scalatest.concurrent.ScalaFutures
+import play.GlobalSettings
+import play.api.Configuration
 import play.api.http.Status
-import play.api.test.FakeRequest
+import play.api.test.{FakeApplication, FakeRequest}
 import play.api.test.Helpers.{contentAsString, _}
+import uk.gov.hmrc.offpayroll.{FrontendAppConfig, WithTestFakeApplication}
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 
-class InterviewControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
+class InterviewControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
+
+  override def configFile: String = "test-application.conf"
 
   "GET /cluster/" should {
     "return 200" in {
