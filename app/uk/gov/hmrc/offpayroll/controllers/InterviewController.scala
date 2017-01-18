@@ -41,6 +41,7 @@ trait OffPayrollControllerHelper extends PasscodeAuthentication  {
   override def config = new PasscodeVerificationConfig(configuration)
   override def passcodeAuthenticationProvider = new PasscodeAuthenticationProvider(config)
 
+
   /**
     * Create a Form based on an Element
     * @param element
@@ -79,7 +80,7 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
 
-  def begin = Action.async { implicit request =>
+  def begin = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flowService.getStart()
     val form = createForm(element)
@@ -89,7 +90,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
       fragmentService.getFragmentByName(element.questionTag))))
   }
   
-  def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
+  def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
     val tag = element.questionTag

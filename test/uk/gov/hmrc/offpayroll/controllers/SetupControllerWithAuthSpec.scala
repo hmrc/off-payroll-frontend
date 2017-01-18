@@ -19,27 +19,20 @@ package uk.gov.hmrc.offpayroll.controllers
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{contentAsString, _}
-import uk.gov.hmrc.offpayroll.WithTestFakeApplication
-import uk.gov.hmrc.offpayroll.resources._
+import play.api.test.Helpers._
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 /**
-  * Created by peter on 16/01/2017.
+  * Created by work on 18/01/2017.
   */
-class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
+class SetupControllerWithAuthSpec extends UnitSpec with WithFakeApplication with ScalaFutures  {
 
-
-  override def configFile: String = "test-application.conf"
-
-  "GET " + THE_ROUTE_EXIT_PATH should {
-    "return 200 and the first page in Setup" in {
-      val result = await(ExitController.apply.begin().apply(FakeRequest("GET", THE_ROUTE_EXIT_PATH)))
-      status(result) shouldBe Status.OK
-      contentAsString(result) should include(exit_officeHolder)
+  "GET /setup/" should {
+    "return 303 and redirect to verification page" in {
+      val result = await(SetupController.apply.begin().apply(FakeRequest("GET", "/setup/")))
+      status(result) shouldBe Status.SEE_OTHER
+      redirectLocation(result).get shouldBe("http://localhost:9227/verification/otac/login")
     }
   }
-
-
 
 }
