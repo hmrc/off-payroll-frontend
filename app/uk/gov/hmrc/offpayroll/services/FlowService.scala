@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.services
 
+import javax.inject.Inject
+
 import com.google.inject.ImplementedBy
 import play.api.Logger
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
@@ -46,20 +48,18 @@ abstract class FlowService {
 }
 
 object IR35FlowService {
-  def apply() = new IR35FlowService
+  def apply() = new IR35FlowService(DecisionConnector)
 }
 
 
+class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) extends FlowService {
 
-class IR35FlowService extends FlowService {
 
   private val STOP = false
   private val CONTINUE = true
   implicit val hc = HeaderCarrier()
 
   private val webflow = OffPayrollWebflow
-
-  lazy val decisionConnector: DecisionConnector = DecisionConnector
 
   override def getStart(): Element = webflow.getStart()
 

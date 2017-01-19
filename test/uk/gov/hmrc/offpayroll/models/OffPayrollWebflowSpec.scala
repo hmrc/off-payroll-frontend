@@ -18,12 +18,11 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.typeDefs.Interview
 
 /**
   * Created by peter on 05/12/2016.
   */
-class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
+class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
   val mockClusters = mock[List[Cluster]]
 
@@ -34,12 +33,12 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   private val lastElement = webflow.clusters(5).clusterElements(7)
 
 
-  private val personalservice = "personalService"
-  private val firstQuestionTag = personalservice + ".contractualObligationForSubstitute"
+  private val personalService = "personalService"
+  private val firstQuestionTag = personalService + ".contractualObligationForSubstitute"
 
   "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element contractualObligationForSubstitute" in {
     val startElement = webflow.getStart()
-    startElement.clusterParent.name should be (personalservice)
+    startElement.clusterParent.name should be (personalService)
     startElement.questionTag should be (firstQuestionTag)
   }
 
@@ -48,19 +47,23 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should " be able to get a Cluster by its name " in {
-    val cluster: Cluster = webflow.getClusterByName(personalservice)
-    cluster.name should be (personalservice)
+    val cluster: Cluster = webflow.getClusterByName(personalService)
+    cluster.name should be (personalService)
   }
 
   it should " be able to get the start currentElement as the start point for the Interview" in {
     webflow.getStart() should equal(firstElement)
   }
 
-  val interview: Interview = Map(firstQuestionTag -> "No")
-
-
-  it should " give an empty option currentElement when we try and get an currentElement that is out of bound" in {
+  it should " give an empty option element when we try and get an element that is out of bound" in {
     webflow.getNext(lastElement).isEmpty should be (true)
+  }
+
+  it should " give the correct next element when cluster has no more elements but flow has more clusters" in {
+    val maybeElement = webflow.getNext(webflow.clusters(1).clusterElements(4))
+    maybeElement.isEmpty should be (false)
+    maybeElement.get.clusterParent.name should be ("financialRiskA")
+    maybeElement.get.questionTag should be ("financialRiskA.workerPaidInclusive")
   }
 
   it should "be able to get an currentElement by id that is valid" in {
@@ -77,7 +80,7 @@ class OffpayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     val contractualRightReflectInPractice: Element = webflow.getElementById(0, 4).head
     val controlToldWhatToDo = webflow.getElementById(1,0).head
 
-    webflow.getElementByTag(personalservice + ".contractualRightReflectInPractise")
+    webflow.getElementByTag(personalService + ".contractualRightReflectInPractise")
       .head.questionTag should equal (contractualRightReflectInPractice.questionTag)
 
     webflow.getElementByTag("control.toldWhatToDo.yes")
