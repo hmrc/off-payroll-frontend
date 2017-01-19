@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.models.FinancialRiskBCluster.{findNextQuestion, getElementForQuestionTag}
+
 object PartAndParcelCluster extends Cluster {
 
   /**
@@ -70,7 +72,9 @@ object PartAndParcelCluster extends Cluster {
 
   def getNextQuestionTag(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
-    val relevantFlowElement = currentQuestionFlowElements.filter(_.answers.toList.equals(clusterAnswers))
+    val relevantFlowElement = currentQuestionFlowElements.filter{
+      element => element.answers.forall(clusterAnswers.contains(_))
+    }
     if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
     else
       getElementForQuestionTag(relevantFlowElement.head.nextQuestion.getOrElse(""))
