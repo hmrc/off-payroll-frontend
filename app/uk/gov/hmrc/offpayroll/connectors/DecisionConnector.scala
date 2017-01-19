@@ -16,17 +16,18 @@
 
 package uk.gov.hmrc.offpayroll.connectors
 
-import play.api.libs.json.{Format, Json}
+import com.google.inject.ImplementedBy
+import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
 import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
-
 import uk.gov.hmrc.offpayroll.modelsFormat._
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
 
 import scala.concurrent.Future
 
 /**
   * Created by peter on 12/12/2016.
   */
+@ImplementedBy(classOf[FrontendDecisionConnector])
 trait DecisionConnector {
 
 

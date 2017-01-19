@@ -20,10 +20,10 @@ import javax.inject.Inject
 
 import com.google.inject.ImplementedBy
 import play.api.Logger
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.{OffPayrollWebflow, UNKNOWN, _}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.offpayroll.DecisionConnector
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
@@ -48,7 +48,7 @@ abstract class FlowService {
 }
 
 object IR35FlowService {
-  def apply() = new IR35FlowService(DecisionConnector)
+  def apply() = new IR35FlowService(new FrontendDecisionConnector)
 }
 
 

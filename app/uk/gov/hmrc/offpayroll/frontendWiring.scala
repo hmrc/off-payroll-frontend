@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll
 
+import javax.inject.Singleton
+
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
@@ -26,7 +28,7 @@ import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 
 
 trait ServiceRegistry extends ServicesConfig {
-  lazy val decisionConnector: DecisionConnector = DecisionConnector
+  lazy val decisionConnector: DecisionConnector = new FrontendDecisionConnector
   lazy val flowservice: FlowService = IR35FlowService()
 }
 
@@ -43,7 +45,8 @@ object FrontendAuthConnector extends AuthConnector with ServicesConfig {
   lazy val http = WSHttp
 }
 
-object DecisionConnector extends DecisionConnector with ServicesConfig {
+@Singleton
+class FrontendDecisionConnector extends DecisionConnector with ServicesConfig {
   val decisionURL: String = baseUrl("off-payroll-decision")
   val serviceURL = "off-payroll-decision/decide"
   val http = WSHttp
