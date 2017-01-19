@@ -2,27 +2,20 @@
 @import uk.gov.hmrc.play.views.html.helpers
 @import uk.gov.hmrc.offpayroll.models._
 @import uk.gov.hmrc.offpayroll.models.Element
+@import play.api.Play
 
 @(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages, session: Map[String, String])
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off-payroll-frontend", bodyClasses = None) {
+
     <h1>@Messages(element.questionTag)</h1>
 
     @guidance
 
     @helpers.form(routes.SetupController.processElement(element.order)) {
+
         @uk.gov.hmrc.offpayroll.views.html.interview.element(element)
 
-        <button>@Messages("global.button.continue")</button>
-
-        @if(true) {
-            <p>Debug is on!</p>
-            <ul>
-                <li>@session.toString()</li>
-                <li>Current currentElement @element.toString</li>
-            </ul>
         }
-
-    }
 
 }

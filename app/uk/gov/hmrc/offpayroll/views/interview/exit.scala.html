@@ -13,17 +13,6 @@
     @helpers.form(routes.ExitController.processElement(element.order)) {
         @uk.gov.hmrc.offpayroll.views.html.interview.element(element)
 
-        <button>@Messages("global.button.continue")</button>
-
-        @if(true) {
-            <p>Debug is on!</p>
-            <ul>
-                @for((key,value) <- session){
-                    <li>@key -> @value</li>
-                }
-                <li>Current currentElement @element.toString</li>
-            </ul>
-        }
 
     }
 
