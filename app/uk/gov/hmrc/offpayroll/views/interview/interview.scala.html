@@ -13,16 +13,6 @@
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order)) {
         @uk.gov.hmrc.offpayroll.views.html.interview.element(element)
 
-        <button>@Messages("global.button.continue")</button>
-
-        @if(true) {
-            <p>Debug is on!</p>
-            <ul>
-                <li>@session.toString()</li>
-                <li>Current currentElement @element.toString</li>
-            </ul>
-        }
-
     }
 
 }

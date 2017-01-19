@@ -2,7 +2,8 @@
 @import uk.gov.hmrc.offpayroll.models.Element
 
 @import uk.gov.hmrc.offpayroll.models.RADIO
-@(element: Element)(implicit request: Request[_], messages: Messages)
+@import play.api.Play
+@(element: Element)(implicit request: Request[_], messages: Messages, session: Map[String, String])
     @if(element.elementType == RADIO) {
 
         <div class="form-group">
@@ -27,13 +28,22 @@
     }
     @if(element.elementType == MULTI) {
 
-        @for(child <- element.children) {
-            <div class="form-field">
-                <label for="@child.questionTag" class="block-label">
-                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
-                    @Messages(child.questionTag)
-                </label>
-            </div>
-        }
-
+    @for(child <- element.children) {
+        <div class="form-field">
+            <label for="@child.questionTag" class="block-label">
+                <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
+                @Messages(child.questionTag)
+            </label>
+        </div>
     }
+
+}
+<button>@Messages("global.button.continue")</button>
+
+@if(Play.current.configuration.getBoolean("ui.debug").getOrElse(false)) {
+    <p>Debug is on!</p>
+    <ul>
+        <li>@session.toString()</li>
+        <li>Current currentElement @element.toString</li>
+    </ul>
+}
