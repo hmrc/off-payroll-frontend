@@ -33,7 +33,11 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
 
   override def getNext(element: Element): Option[Element] = {
+    getNext(element, false)
 
+  }
+
+  def getNext(element: Element, nextCluster: Boolean = true) : Option[Element] = {
     val clusterId = element.clusterParent.clusterID
     val cluster = clusters(clusterId)
 
@@ -45,12 +49,11 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
       cluster.clusterElements.size > element.order + 1
     }
 
-    if (clusterHasMoreElements)
+    if (!nextCluster && clusterHasMoreElements)
       Option(cluster.clusterElements(element.order + 1))
     else if (flowHasMoreClusters) {
       Option(clusters(clusterId +1).clusterElements(0))
     } else Option.empty
-
   }
 
   override def getStart(): Element = clusters.head.clusterElements.head

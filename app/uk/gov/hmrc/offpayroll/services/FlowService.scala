@@ -88,11 +88,11 @@ class IR35FlowService extends FlowService {
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
-              if (webflow.getNext(currentElement).isEmpty) {
+              if (webflow.getNext(currentElement, true).isEmpty) {
                 InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN)), STOP)
               }
               else
-                InterviewEvaluation(webflow.getNext(currentElement), Option.empty[Decision], CONTINUE)
+                InterviewEvaluation(webflow.getNext(currentElement, true), Option.empty[Decision], CONTINUE)
             } else {
                 InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision))), STOP)
             }

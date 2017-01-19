@@ -60,20 +60,20 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecH
     maybeElement.get.questionTag shouldBe "financialRiskB.workerMainIncome"
   }
   it should " ask the correct next question when 'incomeCommission' is the answer to financialRiskB.workerMainIncome" in {
-    val currentQnA = ("financialRiskB.workerMainIncome", "incomeCommission")
+    val currentQnA = ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeCommission")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"),
       ("financialRiskB.workerIncurExpense", "No"),
-      ("financialRiskB.workerMainIncome", "incomeCommission"))
+      ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeCommission"))
 
     val maybeElement = financialRiskBCluster.shouldAskForDecision(partialAnswers, currentQnA)
     maybeElement.nonEmpty shouldBe true
     maybeElement.get.questionTag shouldBe "financialRiskB.workerProvideAtTheirExpense"
   }
   it should " ask the correct next question when 'incomeRateByInvoice' is the answer to financialRiskB.workerMainIncome" in {
-    val currentQnA = ("financialRiskB.workerMainIncome", "incomeRateByInvoice")
+    val currentQnA = ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeRateByInvoice")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"),
       ("financialRiskB.workerIncurExpense", "No"),
-      ("financialRiskB.workerMainIncome", "incomeRateByInvoice"))
+      ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeRateByInvoice"))
 
     val maybeElement = financialRiskBCluster.shouldAskForDecision(partialAnswers, currentQnA)
     maybeElement.nonEmpty shouldBe true
@@ -83,7 +83,7 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecH
     val currentQnA = ("financialRiskB.workerProvideAtTheirExpense", "No")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"),
       ("financialRiskB.workerIncurExpense", "No"),
-      ("financialRiskB.workerMainIncome", "incomeCommission"),
+      ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeCommission"),
       ("financialRiskB.workerProvideAtTheirExpense", "No"))
 
     val maybeElement = financialRiskBCluster.shouldAskForDecision(partialAnswers, currentQnA)
@@ -94,7 +94,7 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecH
     val currentQnA = ("financialRiskB.workerFixAtTheirOwnTime", "Yes")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"),
       ("financialRiskB.workerIncurExpense", "No"),
-      ("financialRiskB.workerMainIncome", "incomeCommission"),
+      ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeCommission"),
       ("financialRiskB.workerProvideAtTheirExpense", "Yes"),
       ("financialRiskB.workerFixAtTheirOwnTime", "Yes"))
 
@@ -106,7 +106,7 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecH
     val currentQnA = ("financialRiskB.workerFixAtTheirOwnTime", "No")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"),
       ("financialRiskB.workerIncurExpense", "No"),
-      ("financialRiskB.workerMainIncome", "incomeCommission"),
+      ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeCommission"),
       ("financialRiskB.workerProvideAtTheirExpense", "Yes"),
       ("financialRiskB.workerFixAtTheirOwnTime", "No"))
 
@@ -118,7 +118,7 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecH
     val currentQnA = ("financialRiskB.paidForSubstandardWork", "No")
     val partialAnswers = List(("financialRiskB.provideVehicle", "No"),
       ("financialRiskB.workerIncurExpense", "No"),
-      ("financialRiskB.workerMainIncome", "incomeCommission"),
+      ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeCommission"),
       ("financialRiskB.workerProvideAtTheirExpense", "No"),
       ("financialRiskB.paidForSubstandardWork", "No"))
 
