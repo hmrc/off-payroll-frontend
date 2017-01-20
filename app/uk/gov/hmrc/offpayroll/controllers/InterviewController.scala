@@ -79,6 +79,8 @@ object InterviewController {
 }
 
 class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
+  val WHITELISTING_ID_COOKIE = "whitelisting"
+  val DEFAULT_CORRELATION_ID = "41c1fc6444bb7e"
 
   def begin = PasscodeAuthenticatedActionAsync { implicit request =>
 
@@ -89,12 +91,15 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
-  
+
   def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
     val tag = element.questionTag
     val form = createForm(element)
+
+    def createCorrelationId(request:Request[_]) =
+      request.cookies.get(WHITELISTING_ID_COOKIE).map(_.value).getOrElse(DEFAULT_CORRELATION_ID)
 
     implicit val session: Map[String, String] = request.session.data
 
@@ -107,7 +112,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
         value => {
           implicit val session: Map[String, String] = request.session.data + (tag -> value)
 
-          val result = flowService.evaluateInterview(session, (tag, value))
+          val result = flowService.evaluateInterview(session, (tag, value), createCorrelationId(request))
 
           result.map(
             decision => {
