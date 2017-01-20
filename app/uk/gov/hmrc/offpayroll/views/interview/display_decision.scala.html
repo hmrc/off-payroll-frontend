@@ -8,36 +8,36 @@
 @import uk.gov.hmrc.offpayroll.models.Decision
 @(decision: Decision)(implicit request: Request[_], messages: Messages, session: Map[String, String])
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
-<main id="content" role="main" class="result">
-	 <div class="grid-row" id="resultPreHeader">
-      <div class="column-two-thirds">Reference number ESFTPZZ9ZA</div>
-      <div class="column-one-third">07/12/2016</div>
-    </div>
-    <div class="grid-row">
-		<div class="column-two-thirds">
-      <div class="transaction-banner--complete">
-        <h1 class="transaction-banner__heading" id="decision-banner">@Messages("" + decision.decision.value)</h1>
-        
-          <!--<p>Because you are an office holder</p>-->
-        
-      </div>
+    <main id="content" role="main" class="result">
+        <div class="grid-row" id="resultPreHeader">
+            <div class="column-two-thirds">Reference number ESFTPZZ9ZA</div>
+            <div class="column-one-third">07/12/2016</div>
+        </div>
+        <div class="grid-row">
+            <div class="column-two-thirds">
+                <div class="transaction-banner--complete">
+                    <h1 class="transaction-banner__heading" id="decision-banner">@Messages("" + decision.decision.value)</h1>
 
-      <h2 class="heading-medium">Your answers</h2>
-			<ol id="yourAnswers">
-                @for((key,value) <- decision.qa){
-                <li class="panel-indent section divider--bottom"><h2>@messages(key)</h2>
-                    <div id="answer.@key">@messages(value)</div>
-                </li>
+                        <!--<p>Because you are an office holder</p>-->
+
+                </div>
+
+                <h2 class="heading-medium">Your answers</h2>
+                <ol id="yourAnswers">
+                @for((key, value) <- scala.collection.immutable.TreeMap(decision.qa.toArray: _*)) {
+                    <li class="panel-indent section divider--bottom"><h2>@messages(key)</h2>
+                        <div id="answer.@key">@messages(value)</div>
+                    </li>
                 }
-            </ol>
-		</div>
-    <div class="column-one-third">
-      <ul>
-      <li><a href="/customise-pdf">Download PDF</a></li>
-      <li><a href="#">Print this page</a></li>
-      </ul>
-    </div>
-	</div>
-  
-	</main>
+                </ol>
+            </div>
+            <div class="column-one-third">
+                <ul>
+                    <li><a href="/customise-pdf">Download PDF</a></li>
+                    <li><a href="#">Print this page</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
 }
