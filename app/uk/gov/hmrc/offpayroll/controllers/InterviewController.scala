@@ -18,18 +18,16 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.api.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.Messages.Implicits._
-import play.api.mvc.{AnyContent, _}
-import play.mvc.BodyParser.AnyContent
+import play.api.mvc._
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{Decision, Element, MULTI}
-import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
+import uk.gov.hmrc.offpayroll.models.Element
+import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import play.api.i18n.Messages.Implicits._
 
 import scala.concurrent.Future
 
@@ -79,8 +77,6 @@ object InterviewController {
 }
 
 class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
-  val WHITELISTING_ID_COOKIE = "whitelisting"
-  val DEFAULT_CORRELATION_ID = "41c1fc6444bb7e"
 
   def begin = PasscodeAuthenticatedActionAsync { implicit request =>
 
@@ -99,7 +95,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
     val form = createForm(element)
 
     def createCorrelationId(request:Request[_]) =
-      request.cookies.get(WHITELISTING_ID_COOKIE).map(_.value).getOrElse(DEFAULT_CORRELATION_ID)
+      request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value).getOrElse(OPF_DEFAULT_SESSION_ID)
 
     implicit val session: Map[String, String] = request.session.data
 

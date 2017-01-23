@@ -18,11 +18,13 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
-import play.api.test.{FakeApplication, FakeRequest, RouteInvokers}
-import play.api.test.Helpers.{contentAsString, contentType, route, status, _}
+import play.api.test.FakeRequest
+import play.api.test.Helpers.{contentAsString, route, _}
 import uk.gov.hmrc.offpayroll.WithTestFakeApplication
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import uk.gov.hmrc.offpayroll.filters.SessionIdFilter
+import uk.gov.hmrc.play.test.UnitSpec
 import uk.gov.hmrc.offpayroll.resources._
+import play.api.i18n.Messages.Implicits._
 
 /**
   * Created by peter on 09/01/2017.
@@ -31,12 +33,18 @@ class SetupControllerSpec extends UnitSpec with WithTestFakeApplication with Sca
 
   override def configFile: String = "test-application.conf"
 
-
   "GET /setup/" should {
     "return 200 and the first page in Setup" in {
-      val result = await(SetupController.apply.begin().apply(FakeRequest("GET", "/setup/")))
-      status(result) shouldBe Status.OK
-
+//      val result = await(setupController.begin()(FakeRequest("GET", "/setup/")))
+      val maybeRoute = route(fakeApplication, FakeRequest(GET, "/off-payroll-frontend/setup"))
+      maybeRoute.isDefined shouldBe true
+      maybeRoute.map{ route =>
+        val result = await(route)
+        status(result) shouldBe Status.OK
+        println(result)
+        val cookies = result.header.headers("Set-Cookie")
+        cookies.contains(SessionIdFilter.OPF_SESSION_ID_COOKIE) shouldBe true
+      }
     }
   }
 
