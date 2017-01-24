@@ -32,18 +32,17 @@ import play.api.i18n.Messages.Implicits._
 class SetupControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
 
   override def configFile: String = "test-application.conf"
+  val COOKIES_HEADER_NAME: String = "Set-Cookie"
 
   "GET /setup/" should {
     "return 200 and the first page in Setup" in {
-//      val result = await(setupController.begin()(FakeRequest("GET", "/setup/")))
       val maybeRoute = route(fakeApplication, FakeRequest(GET, "/off-payroll-frontend/setup"))
       maybeRoute.isDefined shouldBe true
-      maybeRoute.map{ route =>
+      maybeRoute.map { route =>
         val result = await(route)
         status(result) shouldBe Status.OK
-        println(result)
-        val cookies = result.header.headers("Set-Cookie")
-        cookies.contains(SessionIdFilter.OPF_SESSION_ID_COOKIE) shouldBe true
+        val cookies = result.header.headers(COOKIES_HEADER_NAME)
+        cookies should include(SessionIdFilter.OPF_SESSION_ID_COOKIE)
       }
     }
   }
@@ -52,17 +51,14 @@ class SetupControllerSpec extends UnitSpec with WithTestFakeApplication with Sca
     "return 200 and the first page Setup" in {
       val result = await(SetupController.apply.begin().apply(FakeRequest("GET", "/start/")))
       status(result) shouldBe Status.OK
-
     }
   }
 
   "Submitting the first question to the Setup Controller" should {
     " the second question in the SetupCluster" in {
-
       val request = FakeRequest().withFormUrlEncodedBody(
         setup_endUserRolePersonDoingWork
       )
-
       val result = SetupController.apply.processElement(0)(request).futureValue
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setup_hasContractStarted)

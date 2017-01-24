@@ -29,7 +29,6 @@ import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 
 object SessionIdFilter {
   val OPF_SESSION_ID_COOKIE = "ofpSessionId"
-  val OPF_DEFAULT_SESSION_ID = "41c1fc6444bb7e"
   def createSessionIdCookie = Cookie(name = OPF_SESSION_ID_COOKIE, value = s"opf-session-${UUID.randomUUID}")
 }
 
@@ -52,5 +51,4 @@ class SessionIdFilter @Inject() (implicit val mat: Materializer, ec: ExecutionCo
 
 
 class OffPayrollFrontendFilters @Inject() (sessionIdFilter: SessionIdFilter) extends DefaultHttpFilters(sessionIdFilter)
-//class OffPayrollFrontendFilters @Inject() (sessionIdFilter: SessionIdFilter) extends DefaultHttpFilters(sessionIdFilter)
 

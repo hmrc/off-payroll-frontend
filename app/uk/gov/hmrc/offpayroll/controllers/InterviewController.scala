@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import java.util.NoSuchElementException
 import javax.inject.Inject
 
 import play.api.Play._
@@ -67,16 +68,21 @@ trait OffPayrollControllerHelper extends PasscodeAuthentication  {
 
 }
 
+class SessionHelper {
+  def createCorrelationId(request:Request[_]) =
+    request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
+      case None => throw new NoSuchElementException("session id not found in the cookie")
+      case Some(value) => value
+    }
+}
 
 object InterviewController {
-
   def apply() = {
-    new InterviewController(IR35FlowService())
-
+    new InterviewController(IR35FlowService(), new SessionHelper)
   }
 }
 
-class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
+class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffPayrollController {
 
   def begin = PasscodeAuthenticatedActionAsync { implicit request =>
 
@@ -94,9 +100,6 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
     val tag = element.questionTag
     val form = createForm(element)
 
-    def createCorrelationId(request:Request[_]) =
-      request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value).getOrElse(OPF_DEFAULT_SESSION_ID)
-
     implicit val session: Map[String, String] = request.session.data
 
       form.bindFromRequest.fold (
@@ -108,7 +111,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
         value => {
           implicit val session: Map[String, String] = request.session.data + (tag -> value)
 
-          val result = flowService.evaluateInterview(session, (tag, value), createCorrelationId(request))
+          val result = flowService.evaluateInterview(session, (tag, value), sessionHelper.createCorrelationId(request))
 
           result.map(
             decision => {
@@ -124,6 +127,5 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
         }
       )
   }
-
 
 }
