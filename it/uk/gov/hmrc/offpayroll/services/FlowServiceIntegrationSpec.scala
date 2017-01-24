@@ -17,7 +17,7 @@ package uk.gov.hmrc.offpayroll.services
  */
 
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
-import uk.gov.hmrc.offpayroll.models.{OUT, UNKNOWN}
+import uk.gov.hmrc.offpayroll.models.UNKNOWN
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 
@@ -25,7 +25,7 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
   * Created by peter on 09/12/2016.
   */
 class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication {
-
+  private val TEST_CORRELATION_ID = "00000001099"
   private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
   private val csrf = "csrf"
   private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
@@ -34,19 +34,18 @@ class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication {
 
   val lastElement: (String, String) = "personalService.workerPayActualHelper" -> "Yes"
 
-    "A flow Service" should {
+  "A flow Service" should {
     "Process a full Interview and give a decision" in {
-
-      val result = await(flowservice.evaluateInterview(fullPlusJunk, lastElement))
-
-      result.continueWithQuestions should not be (true)
-      result.element.isEmpty should be (true)
-      result.decision.get.decision should be (UNKNOWN)
-      result.decision.get.qa.forall(value => !value._1.contains(csrf)) should be (true)
-
+      val result = await(flowservice.evaluateInterview(fullPlusJunk, lastElement, TEST_CORRELATION_ID))
+      result.continueWithQuestions shouldBe false
+      result.element.isEmpty shouldBe true
+      result.correlationId shouldBe TEST_CORRELATION_ID
+      result.decision.isDefined shouldBe true
+      result.decision.map { decision =>
+        decision.decision shouldBe UNKNOWN
+        decision.qa.forall(value => !value._1.contains(csrf)) shouldBe true
+      }
     }
   }
-
-
 
 }

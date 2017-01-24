@@ -16,20 +16,19 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import java.util.NoSuchElementException
 import javax.inject.Inject
 
-import play.api.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
-import play.api.i18n.Messages.Implicits._
-import play.api.mvc.{AnyContent, _}
-import play.mvc.BodyParser.AnyContent
+import play.api.mvc._
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{Decision, Element, MULTI}
-import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
+import uk.gov.hmrc.offpayroll.models.Element
+import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import play.api.i18n.Messages.Implicits._
 
 import scala.concurrent.Future
 
@@ -69,16 +68,21 @@ trait OffPayrollControllerHelper extends PasscodeAuthentication  {
 
 }
 
+class SessionHelper {
+  def createCorrelationId(request:Request[_]) =
+    request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
+      case None => throw new NoSuchElementException("session id not found in the cookie")
+      case Some(value) => value
+    }
+}
 
 object InterviewController {
-
   def apply() = {
-    new InterviewController(IR35FlowService())
-
+    new InterviewController(IR35FlowService(), new SessionHelper)
   }
 }
 
-class InterviewController @Inject()(val flowService: FlowService) extends OffPayrollController {
+class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffPayrollController {
 
   def begin = PasscodeAuthenticatedActionAsync { implicit request =>
 
@@ -89,7 +93,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
-  
+
   def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
@@ -107,7 +111,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
         value => {
           implicit val session: Map[String, String] = request.session.data + (tag -> value)
 
-          val result = flowService.evaluateInterview(session, (tag, value))
+          val result = flowService.evaluateInterview(session, (tag, value), sessionHelper.createCorrelationId(request))
 
           result.map(
             decision => {
@@ -123,6 +127,5 @@ class InterviewController @Inject()(val flowService: FlowService) extends OffPay
         }
       )
   }
-
 
 }

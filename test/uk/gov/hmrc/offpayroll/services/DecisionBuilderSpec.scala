@@ -29,16 +29,15 @@ import scala.concurrent.ExecutionContext.Implicits.global
   * Created by peter on 13/12/2016.
   */
 class DecisionBuilderSpec  extends FlatSpec with Matchers {
-
+  private val TEST_CORRELATION_ID = "00000001099"
   val interview = Map("personalService.workerSentActualSubstitiute" -> "false", "personalService.contractrualRight" -> "true",
     "control.hasMoreThan50Percent" -> "false", "control.toldWhatToDo" -> "control.toldWhatToDo.sometimes")
-
 
   private val decisionRequestStringPlusControl =
     """
       |{
       |  "version": "1.0.1-beta",
-      |  "correlationID": "12345",
+      |  "correlationID": "00000001099",
       |  "interview": {
       |    "personalService": {
       |      "workerSentActualSubstitiute": "false",
@@ -52,16 +51,11 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers {
       |}
     """.stripMargin
 
-
   val expectedDecisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestStringPlusControl)).get
 
   "A DecisionBuilder " should "build a DecisionRequest from the current Interview in the Sesssion" in {
-    val decisionRequest: DecisionRequest = DecisionBuilder.buildDecisionRequest(interview)
-
-    decisionRequest shouldBe (expectedDecisionRequest)
-
+    val decisionRequest: DecisionRequest = DecisionBuilder.buildDecisionRequest(interview, TEST_CORRELATION_ID)
+    decisionRequest shouldBe expectedDecisionRequest
+    decisionRequest.correlationID shouldBe TEST_CORRELATION_ID
   }
-
-
-
 }
