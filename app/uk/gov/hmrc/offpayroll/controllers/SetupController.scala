@@ -73,10 +73,10 @@ class SetupController @Inject() extends OffPayrollController {
     implicit val session: Map[String, String] = request.session.data
 
     form.bindFromRequest.fold(
-      formWithErrors =>
+      formWithErrors => {
         Future.successful(BadRequest(
           uk.gov.hmrc.offpayroll.views.html.interview.setup(
-            formWithErrors, element, Html.apply("")))),
+            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
 
       value => {
         implicit val session: Map[String, String] = request.session.data + (fieldName -> value)

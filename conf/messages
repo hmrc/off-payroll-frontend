@@ -164,3 +164,5 @@ exitTool.serviceProvision.explanation=Blah blah blah
 exitTool.soleTrader.heading=You are outside the off-payroll rules
 exitTool.soleTrader.reason=Because you are a sole trader
 exitTool.soleTrader.explanation=Blah blah blah
+
+error.required=You need to select an option:
