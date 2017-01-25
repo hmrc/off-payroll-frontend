@@ -104,7 +104,7 @@ financialRiskA.engagerPayEquipment=Do they get the money back?
 #### Financial Risk Cluster B
 
 financialRiskB.provideVehicle=Does the worker have to use their own vehicle for this contract?
-financialRiskB.engagerPayExpense=Do they get the money back?
+financialRiskB.engagerPayVehicleExpense=Do they get the money back?
 financialRiskB.workerIncurExpense=Does the worker have to pay for anything else out of their own pocket while working on this contract?
 financialRiskB.engagerPayOtherExpense=Do they get the money back?
 
