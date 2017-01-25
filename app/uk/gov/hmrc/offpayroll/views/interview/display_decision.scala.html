@@ -4,14 +4,15 @@
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.Element
+@import java.util.Date
 
 @import uk.gov.hmrc.offpayroll.models.Decision
 @(decision: Decision)(implicit request: Request[_], messages: Messages, session: Map[String, String])
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
-    <main id="content" role="main" class="result">
-        <div class="grid-row" id="resultPreHeader">
-            <div class="column-two-thirds">Reference number ESFTPZZ9ZA</div>
-            <div class="column-one-third">07/12/2016</div>
+    <main role="main" class="result">
+        <div class="grid-layout" id="resultPreHeader">
+            <div class="grid-layout__column--2-3">Reference number ESFTPZZ9ZA</div>
+            <div class="grid-layout__column--1-3">@(new Date().format("dd/mm/yyyy"))</div>
         </div>
         <div class="grid-row">
             <div class="column-two-thirds">
@@ -33,7 +34,7 @@
             </div>
             <div class="column-one-third">
                 <ul>
-                    <li><a href="/customise-pdf">Download PDF</a></li>
+                    <!--<li><a href="/customise-pdf">Download PDF</a></li>-->
                     <li><a href="#">Print this page</a></li>
                 </ul>
             </div>
