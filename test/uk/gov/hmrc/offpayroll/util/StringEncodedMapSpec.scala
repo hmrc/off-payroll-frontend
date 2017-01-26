@@ -7,30 +7,20 @@ import org.scalatest.{FlatSpec, Matchers}
   */
 class StringEncodedMapSpec extends FlatSpec with Matchers {
 
-
-
-
   "A StringEncodedMapSpec " should "convert string into internal representation" in {
-
     val stringEncodedMap = StringEncodedMap("a:b;c:d")
-
-    stringEncodedMap.pairs should contain theSameElementsAs List(("a","b"),("c","d"))
-
+    stringEncodedMap.pairs should contain theSameElementsInOrderAs List(("a","b"),("c","d"))
   }
 
   it should "be tolerant to whitespace" in {
-
     val stringEncodedMap = StringEncodedMap("a: b;c:d ")
-
-    stringEncodedMap.pairs should contain theSameElementsAs List(("a","b"),("c","d"))
-
+    stringEncodedMap.pairs should contain theSameElementsInOrderAs List(("a","b"),("c","d"))
   }
 
   it should "add a new value that does not exist" in {
 
     val stringEncodedMap = StringEncodedMap("a:b")
-
-    stringEncodedMap.add("c", "d").pairs should contain theSameElementsAs List(("a","b"),("c","d"))
+    stringEncodedMap.add("c", "d").pairs should contain theSameElementsInOrderAs List(("a","b"),("c","d"))
 
   }
   val testList1 = List(("a", "d"), ("x", "y"))
@@ -38,21 +28,24 @@ class StringEncodedMapSpec extends FlatSpec with Matchers {
 
   it should "add a new value that exists" in {
     val stringEncodedMap = StringEncodedMap("a:b;x:y")
-    stringEncodedMap.add("a", "d").pairs should contain theSameElementsAs testList1
+    stringEncodedMap.add("a", "d").pairs should contain theSameElementsInOrderAs testList1
+  }
+
+  it should "add a second value at the end of the list" in {
+    val stringEncodedMap = StringEncodedMap("a:b")
+
+    val newStringEncodeMap = stringEncodedMap.add("c", "d")
+    newStringEncodeMap.add("e", "f").pairs should contain theSameElementsInOrderAs  List(("a", "b"), ("c", "d"), ("e", "f"))
   }
 
   it should "maintain ordering" in {
     val stringEncodedMap = StringEncodedMap("a:b;c:d;e:f;g:h;i:j;k:l")
-    stringEncodedMap.add("m", "n").pairs should contain theSameElementsAs tuples
+    stringEncodedMap.add("m", "n").pairs should contain theSameElementsInOrderAs tuples
   }
 
   it should "convert back to a formatted String" in {
     val stringEncodedMap = StringEncodedMap(tuples)
     stringEncodedMap.asString shouldBe "a:b;c:d;e:f;g:h;i:j;k:l;m:n"
   }
-
-
-
-
 
 }

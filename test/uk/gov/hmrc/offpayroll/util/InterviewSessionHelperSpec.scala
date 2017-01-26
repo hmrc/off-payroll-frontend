@@ -23,10 +23,15 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
 
   it should "be able to add a second value" in {
     val newSession  = InterviewSessionHelper.addValue(mockSession, "someQuestionTag", "someAnswer")
-    val finalSession = InterviewSessionHelper.addValue(newSession, "someOtherQuestionTag", "someAnswer")
+    println(newSession.data)
+
+    val finalSession = InterviewSessionHelper.addValue(newSession, "someOtherQuestionTag", "someOtherAnswer")
 
     finalSession.data.keys should contain(INTERVIEW_KEY)
-    finalSession(INTERVIEW_KEY) shouldBe "someQuestionTag:someAnswer;someOtherQuestionTag:someAnswer"
+
+    println(finalSession.data)
+
+    finalSession(INTERVIEW_KEY) shouldBe "someQuestionTag:someAnswer;someOtherQuestionTag:someOtherAnswer"
 
   }
 

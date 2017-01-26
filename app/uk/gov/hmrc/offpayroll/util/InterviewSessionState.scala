@@ -13,18 +13,13 @@ object InterviewSessionHelper {
 
   def addValue(session: Session, questionTag: String, answer: String): Session = {
 
-//    session.data.get(INTERVIEW_KEY) match {
-//      case Some(v) => v.split(";").exists(p => p.split(":")(0) == questionTag)
-//      case None => s"${questionTag}:${answer}"
-//    }
-//
-//    val p = List(
-//      maybeString,
-//      Some(s"${questionTag}:${answer}")).flatten
-//      .mkString(";")
-//
-//    session + (INTERVIEW_KEY -> p)
-    session
+    val newInterview = session.data.get(INTERVIEW_KEY) match {
+      case Some(v) => StringEncodedMap(v).add(questionTag, answer).asString
+      case None => StringEncodedMap(Nil).add(questionTag, answer).asString
+    }
+
+    session + (INTERVIEW_KEY -> newInterview)
+
   }
 
 }
@@ -42,11 +37,11 @@ case class StringEncodedMap(pairs:List[(String,String)]) {
     def loop(list: List[(String,String)], acc: List[(String, String)]): List[(String, String)] = list match {
       case Nil => acc
       case (x,y) :: xs if(x == key) => loop(xs, (x,value) :: acc)
-      case(x,y) :: xs => loop(xs, (x,y) :: acc)
+      case(x,y) :: xs => loop(xs,  acc ::: List((x,y)))
     }
     StringEncodedMap(pairs.find(_._1 == key) match {
       case Some(_) => loop(pairs,Nil)
-      case None => (key,value) :: pairs
+      case None =>  pairs ::: List((key,value))
     })
   }
 }
@@ -60,4 +55,6 @@ object StringEncodedMap {
     }
     new StringEncodedMap(pairs)
   }
+
+//  def apply = new StringEncodedMap(List())
 }
