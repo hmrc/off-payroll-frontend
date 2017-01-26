@@ -39,12 +39,9 @@ object InterviewSessionHelper {
     (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
   }
 
-
   def push(session: Session, questionTag: String, answer: String): Session = {
-    val newInterview = session.data.get(INTERVIEW_KEY) match {
-      case Some(v) => StringEncodedMap(v).add(questionTag, answer).asString
-      case None => StringEncodedMap(Nil).add(questionTag, answer).asString
-    }
+    val newInterview = StringEncodedMap(session.data.get(INTERVIEW_KEY).getOrElse(""))
+      .add(questionTag, answer).asString
     session + (INTERVIEW_KEY -> newInterview)
   }
 
@@ -60,7 +57,7 @@ object InitLastSplitter {
     case Nil => None
     case xs =>
       val (a,b) = xs.splitAt(xs.length-1)
-      Some(a,b.head)
+      Some((a,b.head):(List[A], A))
   }
 }
 
@@ -105,6 +102,6 @@ object StringEncodedMap {
 object ColonPair {
   def unapply(s:String):Option[(String,String)] = s.span(_ != ':') match {
     case (_,"") => None
-    case (a,b) => Some(a, b.drop(1))
+    case (a,b) => Some((a, b.drop(1)):(String, String))
   }
 }
