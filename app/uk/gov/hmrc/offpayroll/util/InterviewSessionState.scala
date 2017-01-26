@@ -90,11 +90,21 @@ case class StringEncodedMap(pairs:List[(String,String)]) {
 
 object StringEncodedMap {
   def apply(s: String): StringEncodedMap = {
-    val tokens = s.split(";").toList.filter(_.contains(":"))
-    val pairs = tokens.map { token =>
-      val nameValuePair = token.split(":")
-      (nameValuePair(0).trim, nameValuePair(1).trim)
+//    val tokens = s.split(";").toList.filter(_.contains(":"))
+//    val pairs = tokens.map { token =>
+//      val nameValuePair = token.split(":")
+//      (nameValuePair(0).trim, nameValuePair(1).trim)
+//    }
+    val pairs = s.split(";").toList.collect {
+      case ColonPair(a,b) => (a.trim,b.trim)
     }
     new StringEncodedMap(pairs)
+  }
+}
+
+object ColonPair {
+  def unapply(s:String):Option[(String,String)] = s.span(_ != ':') match {
+    case (_,"") => None
+    case (a,b) => Some(a, b.drop(1))
   }
 }
