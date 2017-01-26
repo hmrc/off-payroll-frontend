@@ -24,11 +24,21 @@ import scala.annotation.tailrec
   * Created by peter on 26/01/2017.
   */
 object InterviewSessionHelper {
-
   val INTERVIEW_KEY = "interview"
 
-  def addValue(session: Session, questionTag: String, answer: String): Session = {
+  def pop(session: Session): (Session, String) = {
+    val (newStringEncodedMap:StringEncodedMap, lastQuestion:String) = session.data.get(INTERVIEW_KEY) match {
+      case Some(v) => StringEncodedMap(v).pairs match {
+        case Nil => (StringEncodedMap(Nil), "")
+        case xs => (StringEncodedMap(xs.init), xs.last._1)
+      }
+      case None => (StringEncodedMap(Nil), "")
+    }
+    (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
+  }
 
+
+  def push(session: Session, questionTag: String, answer: String): Session = {
     val newInterview = session.data.get(INTERVIEW_KEY) match {
       case Some(v) => StringEncodedMap(v).add(questionTag, answer).asString
       case None => StringEncodedMap(Nil).add(questionTag, answer).asString
@@ -41,7 +51,6 @@ object InterviewSessionHelper {
       case Some(v) => StringEncodedMap(v).pairs.toMap
       case None => Map()
     }
-
 }
 
 
@@ -75,5 +84,4 @@ object StringEncodedMap {
     }
     new StringEncodedMap(pairs)
   }
-
 }
