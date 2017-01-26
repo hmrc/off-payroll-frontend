@@ -29,6 +29,7 @@ import uk.gov.hmrc.offpayroll.models.Element
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
 import play.api.i18n.Messages.Implicits._
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{addValue, asMap}
 
 import scala.concurrent.Future
 
@@ -89,7 +90,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     val element = flowService.getStart()
     val form = createForm(element)
 
-    implicit val session: Map[String, String] = request.session.data
+//    implicit val session: Map[String, String] = request.session.data
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
@@ -97,10 +98,10 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
   def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
-    val tag = element.questionTag
+    val fieldName = element.questionTag
     val form = createForm(element)
 
-    implicit val session: Map[String, String] = request.session.data
+//    implicit val session: Map[String, String] = request.session.data
 
       form.bindFromRequest.fold (
         formWithErrors =>
@@ -109,16 +110,16 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
               formWithErrors, element, Html.apply(element.questionTag)))),
 
         value => {
-          implicit val session: Map[String, String] = request.session.data + (tag -> value)
-
-          val result = flowService.evaluateInterview(session, (tag, value), sessionHelper.createCorrelationId(request))
+//          implicit val session: Map[String, String] = request.session.data + (tag -> value)
+          val session = addValue(request.session, fieldName, value)
+          val result = flowService.evaluateInterview(asMap(session), (fieldName, value), sessionHelper.createCorrelationId(request))
 
           result.map(
             decision => {
               if (decision.continueWithQuestions) {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
                   form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
-                  .withSession(request.session + (tag -> value))
+                  .withSession(session)
               } else {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
               }
