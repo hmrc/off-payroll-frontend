@@ -28,11 +28,13 @@ object InterviewSessionHelper {
 
   def pop(session: Session): (Session, String) = {
     val (newStringEncodedMap:StringEncodedMap, lastQuestion:String) = session.data.get(INTERVIEW_KEY) match {
-      case Some(v) => StringEncodedMap(v).pairs match {
-        case Nil => (StringEncodedMap(Nil), "")
-        case xs => (StringEncodedMap(xs.init), xs.last._1)
-      }
-      case None => (StringEncodedMap(Nil), "")
+      case Some(v) =>
+        StringEncodedMap(v).pairs match {
+          case InitLastSplitter(a,b) => (StringEncodedMap(a), b._1)
+          case _ => (StringEncodedMap(Nil), "")
+        }
+      case None =>
+        (StringEncodedMap(Nil), "")
     }
     (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
   }
@@ -53,6 +55,14 @@ object InterviewSessionHelper {
     }
 }
 
+object InitLastSplitter {
+  def unapply[A](l:List[A]):Option[(List[A],A)] = l match {
+    case Nil => None
+    case xs =>
+      val (a,b) = xs.splitAt(xs.length-1)
+      Some(a,b.head)
+  }
+}
 
 case class StringEncodedMap(pairs:List[(String,String)]) {
 
@@ -62,16 +72,19 @@ case class StringEncodedMap(pairs:List[(String,String)]) {
 
   def add(key:String,value:String):StringEncodedMap = {
 
-    @tailrec
-    def loop(list: List[(String,String)], acc: List[(String, String)]): List[(String, String)] = list match {
-      case Nil => acc
-      case (x,y) :: xs if(x == key) => loop(xs, (x,value) :: acc)
-      case(x,y) :: xs => loop(xs,  acc ::: List((x,y)))
-    }
-    StringEncodedMap(pairs.find(_._1 == key) match {
-      case Some(_) => loop(pairs,Nil)
-      case None =>  pairs ::: List((key,value))
-    })
+      val (a,b) = pairs.span(_._1 != key)
+      StringEncodedMap(a ::: ((key,value) :: b.drop(1)))
+
+//    @tailrec
+//    def loop(list: List[(String,String)], acc: List[(String, String)]): List[(String, String)] = list match {
+//      case Nil => acc
+//      case (x,y) :: xs if(x == key) => loop(xs, (x,value) :: acc)
+//      case(x,y) :: xs => loop(xs,  acc ::: List((x,y)))
+//    }
+//    StringEncodedMap(pairs.find(_._1 == key) match {
+//      case Some(_) => loop(pairs,Nil)
+//      case None =>  pairs ::: List((key,value))
+//    })
   }
 }
 
