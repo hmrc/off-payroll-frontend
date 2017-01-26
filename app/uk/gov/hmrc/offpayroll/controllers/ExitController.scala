@@ -24,6 +24,7 @@ import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{ExitFlow, ExitReason}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{addValue, asMap}
 
 import scala.concurrent.Future
 
@@ -48,7 +49,7 @@ class ExitController  @Inject() extends OffPayrollController {
 
     val questionForm = createForm(element)
 
-    implicit val session: Map[String, String] = request.session.data
+//    implicit val session: Map[String, String] = request.session.data
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm,element,
       fragmentService.getFragmentByName(element.questionTag))))
@@ -61,7 +62,7 @@ class ExitController  @Inject() extends OffPayrollController {
     val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
     val fieldName = element.questionTag
     val form = createForm(element)
-    implicit val session: Map[String, String] = request.session.data
+//    implicit val session: Map[String, String] = request.session.data
 
     form.bindFromRequest.fold (
       formWithErrors =>
@@ -70,13 +71,15 @@ class ExitController  @Inject() extends OffPayrollController {
             formWithErrors, element, Html.apply("")))),
 
       value => {
-        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
-        val exitResult = flow.shouldAskForNext(session, (fieldName, value))
+//        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
+        val session = addValue(request.session, fieldName, value)
+
+        val exitResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
 
         if(exitResult.element.nonEmpty) { // continue with questions
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(form, exitResult.element.get,
             fragmentService.getFragmentByName(exitResult.element.get.questionTag)))
-            .withSession(request.session + (fieldName -> value))
+            .withSession(session)
           )
 
         } else if(exitResult.inIr35) { // in IR35
@@ -86,7 +89,7 @@ class ExitController  @Inject() extends OffPayrollController {
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason)))
         } else if(exitResult.continueToMainInterview) {
           Future.successful(Redirect(routes.InterviewController.begin)
-            .withSession(request.session + (fieldName -> value)))
+            .withSession(session))
         } else { // bad
           Future.successful(InternalServerError("Unknown result from the ExitFlow"))
         }

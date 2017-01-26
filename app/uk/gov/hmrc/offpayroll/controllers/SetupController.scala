@@ -27,6 +27,8 @@ import play.api.mvc.Action
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupCluster, SetupFlow}
 import uk.gov.hmrc.offpayroll.services.FragmentService
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{addValue, asMap}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
@@ -52,7 +54,7 @@ class SetupController @Inject() extends OffPayrollController {
 
     val questionForm = createForm(element)
 
-    implicit val session: Map[String, String] = request.session.data
+//    implicit val session: Map[String, String] = request.session.data
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element,
       fragmentService.getFragmentByName(element.questionTag))))
@@ -70,7 +72,7 @@ class SetupController @Inject() extends OffPayrollController {
     val fieldName = element.questionTag
     val form = createForm(element)
 
-    implicit val session: Map[String, String] = request.session.data
+//    implicit val session: Map[String, String] = request.session.data
 
     form.bindFromRequest.fold(
       formWithErrors =>
@@ -79,14 +81,15 @@ class SetupController @Inject() extends OffPayrollController {
             formWithErrors, element, Html.apply("")))),
 
       value => {
-        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
+//        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
+        val session = addValue(request.session, fieldName, value)
 
-        val setupResult = flow.shouldAskForNext(session, (fieldName, value))
+        val setupResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
         if (setupResult.maybeElement.nonEmpty) {
           // continue setup
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, setupResult.maybeElement.get,
             fragmentService.getFragmentByName(setupResult.maybeElement.get.questionTag)))
-            .withSession(request.session + (fieldName -> value))
+            .withSession(session)
           )
         } else if (setupResult.exitTool) {
           val exitReason = ExitReason("exitTool.soleTrader.heading", "exitTool.soleTrader.reason", "exitTool.soleTrader.explanation")
@@ -95,7 +98,7 @@ class SetupController @Inject() extends OffPayrollController {
         else {
           // ExitCluster
           Future.successful(Redirect(routes.ExitController.begin())
-            .withSession(request.session + (fieldName -> value)))
+            .withSession(session))
         }
       }
     )

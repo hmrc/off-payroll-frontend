@@ -7,7 +7,7 @@
 @import java.util.Date
 
 @import uk.gov.hmrc.offpayroll.models.Decision
-@(decision: Decision)(implicit request: Request[_], messages: Messages, session: Map[String, String])
+@(decision: Decision)(implicit request: Request[_], messages: Messages)
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
     <main role="main" class="result">
         <div class="grid-layout" id="resultPreHeader">

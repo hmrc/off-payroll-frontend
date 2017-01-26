@@ -4,7 +4,7 @@
 @import uk.gov.hmrc.offpayroll.models.Element
 @import play.api.Play
 
-@(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages, session: Map[String, String])
+@(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages)
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off-payroll-frontend", bodyClasses = None) {
 
