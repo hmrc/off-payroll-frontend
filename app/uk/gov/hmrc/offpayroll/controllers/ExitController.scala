@@ -24,7 +24,7 @@ import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{ExitFlow, ExitReason}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{addValue, asMap}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{push, asMap}
 
 import scala.concurrent.Future
 
@@ -72,7 +72,7 @@ class ExitController  @Inject() extends OffPayrollController {
 
       value => {
 //        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
-        val session = addValue(request.session, fieldName, value)
+        val session = push(request.session, fieldName, value)
 
         val exitResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
 

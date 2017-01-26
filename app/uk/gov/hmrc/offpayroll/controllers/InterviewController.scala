@@ -29,7 +29,7 @@ import uk.gov.hmrc.offpayroll.models.Element
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
 import play.api.i18n.Messages.Implicits._
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{addValue, asMap}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{push, asMap}
 
 import scala.concurrent.Future
 
@@ -111,7 +111,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
         value => {
 //          implicit val session: Map[String, String] = request.session.data + (tag -> value)
-          val session = addValue(request.session, fieldName, value)
+          val session = push(request.session, fieldName, value)
           val result = flowService.evaluateInterview(asMap(session), (fieldName, value), sessionHelper.createCorrelationId(request))
 
           result.map(

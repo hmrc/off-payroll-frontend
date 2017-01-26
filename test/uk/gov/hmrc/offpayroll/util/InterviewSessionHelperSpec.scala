@@ -28,28 +28,47 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
   val mockSession = Session.deserialize(Map())
 
   "An InterviewSessionHelper " should "take an existing Session and add a new value on an interview " in {
-    val newSession = InterviewSessionHelper.addValue(mockSession, "someQuestionTag", "someAnswer")
+    val newSession = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
     newSession.data.keys should contain(INTERVIEW_KEY)
   }
 
   val someInterview = "someQuestionTag:someAnswer;someOtherQuestionTag:someOtherAnswer"
 
   it should "be able to add a second value" in {
-    val newSession  = InterviewSessionHelper.addValue(mockSession, "someQuestionTag", "someAnswer")
-    val finalSession = InterviewSessionHelper.addValue(newSession, "someOtherQuestionTag", "someOtherAnswer")
+    val newSession  = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
+    val finalSession = InterviewSessionHelper.push(newSession, "someOtherQuestionTag", "someOtherAnswer")
     finalSession.data.keys should contain(INTERVIEW_KEY)
     finalSession(INTERVIEW_KEY) shouldBe someInterview
   }
 
   it should "replace the value of an existing key" in {
-    val newSession = InterviewSessionHelper.addValue(mockSession, "someQuestionTag", "someAnswer")
-    val finalSession = InterviewSessionHelper.addValue(newSession, "someQuestionTag", "someOtherAnswer")
+    val newSession = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
+    val finalSession = InterviewSessionHelper.push(newSession, "someQuestionTag", "someOtherAnswer")
+
     finalSession(INTERVIEW_KEY) shouldBe "someQuestionTag:someOtherAnswer"
   }
 
+
+
   it should "convert a string encoded interview to a Map of String String" in {
-    val newSession = InterviewSessionHelper.addValue(mockSession, "someQuestionTag", "someAnswer")
+    val newSession = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
     InterviewSessionHelper.asMap(newSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
+  }
+
+  it should "pop the last value from the interview and return a new session without the last value" in {
+    val newSession = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
+    val finalSession = InterviewSessionHelper.push(newSession, "someOtherQuestionTag", "someOtherAnswer")
+
+    val (updatedSession, questionTag) = InterviewSessionHelper.pop(finalSession)
+
+    questionTag shouldBe "someOtherQuestionTag"
+    InterviewSessionHelper.asMap(updatedSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
+  }
+
+  it should "pop should work on an empty interview" in {
+    val (updatedSession, questionTag) = InterviewSessionHelper.pop(mockSession)
+    questionTag shouldBe ""
+    InterviewSessionHelper.asMap(updatedSession) shouldBe Map()
   }
 
 

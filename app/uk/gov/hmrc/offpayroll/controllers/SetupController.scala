@@ -28,7 +28,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupCluster, SetupFlow}
 import uk.gov.hmrc.offpayroll.services.FragmentService
 import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{addValue, asMap}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{push, asMap}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
@@ -82,7 +82,7 @@ class SetupController @Inject() extends OffPayrollController {
 
       value => {
 //        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
-        val session = addValue(request.session, fieldName, value)
+        val session = push(request.session, fieldName, value)
 
         val setupResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
         if (setupResult.maybeElement.nonEmpty) {
