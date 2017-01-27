@@ -67,18 +67,11 @@ case class StringEncodedMap(pairs:List[(String,String)]) {
 }
 
 object StringEncodedMap {
+  val pattern = "(.*):(.*)".r
   def apply(s: String): StringEncodedMap = {
     val pairs = s.split(";").toList.collect {
-      case ColonSeparatedTokenPair(a,b) => (a.trim,b.trim)
+      case pattern(a,b) => (a.trim,b.trim)
     }
     new StringEncodedMap(pairs)
-  }
-}
-
-object ColonSeparatedTokenPair {
-  val pattern = "(.*):(.*)".r
-  def unapply(s:String):Option[(String,String)] = s match {
-    case pattern(a,b) => Some((a, b))
-    case _ => None
   }
 }
