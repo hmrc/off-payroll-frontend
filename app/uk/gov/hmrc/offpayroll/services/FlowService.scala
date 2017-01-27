@@ -34,6 +34,7 @@ import scala.concurrent.Future
 @ImplementedBy(classOf[IR35FlowService])
 abstract class FlowService {
 
+  val flow: Webflow
   /**
     *
     * @param interview
@@ -54,17 +55,16 @@ object IR35FlowService {
 
 class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) extends FlowService {
 
-
   private val STOP = false
   private val CONTINUE = true
   implicit val hc = HeaderCarrier()
 
-  private val webflow = OffPayrollWebflow
+  val flow = OffPayrollWebflow
 
-  override def getStart(): Element = webflow.getStart()
+  override def getStart(): Element = flow.getStart()
 
   private def guardValidEelement(currentTag: String): Element = {
-    val tag = webflow.getElementByTag(currentTag)
+    val tag = flow.getElementByTag(currentTag)
     if (tag.isEmpty) throw new IllegalAccessException("No Such Element: " + currentTag)
     else tag.get
   }
@@ -78,21 +78,21 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
   override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation] = {
 
-    val cleanInterview = interview.filter(qa => webflow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
+    val cleanInterview = interview.filter(qa => flow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
     val currentElement: Element = guardValidEelement(currentTag)
-    val optionalNextElement = webflow.shouldAskForDecision(interview, currentQnA)
+    val optionalNextElement = flow.shouldAskForDecision(interview, currentQnA)
 
     if (optionalNextElement.isEmpty) {
       decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview, correlationId)).map[InterviewEvaluation](
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
-              if (webflow.getNext(currentElement, true).isEmpty) {
+              if (flow.getNext(currentElement, true).isEmpty) {
                 InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN)), STOP, decision.correlationID)
               }
               else
-                InterviewEvaluation(webflow.getNext(currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
+                InterviewEvaluation(flow.getNext(currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
             } else {
                 InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision))), STOP, decision.correlationID)
             }
@@ -105,7 +105,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
 
   override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = {
-    val currentElement = webflow.getElementById(clusterId, elementId)
+    val currentElement = flow.getElementById(clusterId, elementId)
     if (currentElement.nonEmpty) currentElement.head
     else throw new NoSuchElementException("No Element found matching: " + clusterId + "/" + elementId)
   }
