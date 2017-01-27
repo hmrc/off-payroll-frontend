@@ -69,13 +69,18 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
     InterviewSessionHelper.asMap(updatedSession) shouldBe Map()
   }
 
-  it should "reset the interview" in {
+  it should "reset an interview which is not empty" in {
     val newSession = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
     InterviewSessionHelper.asMap(newSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
     val resetSession = InterviewSessionHelper.reset(newSession)
     InterviewSessionHelper.asMap(resetSession) shouldBe Map()
     val afterResetSession = InterviewSessionHelper.push(resetSession, "someQuestionTag", "someAnswer")
     InterviewSessionHelper.asMap(afterResetSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
+  }
+
+  it should "reset an empty interview" in {
+    val resetSession = InterviewSessionHelper.reset(mockSession)
+    InterviewSessionHelper.asMap(resetSession) shouldBe Map()
   }
 
 }
