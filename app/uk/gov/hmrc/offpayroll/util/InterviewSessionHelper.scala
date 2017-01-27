@@ -76,8 +76,9 @@ object StringEncodedMap {
 }
 
 object ColonSeparatedTokenPair {
-  def unapply(s:String):Option[(String,String)] = s.span(_ != ':') match {
-    case (_,"") => None
-    case (a,b) => Some((a, b.drop(1)):(String, String))
+  val pattern = "(.*):(.*)".r
+  def unapply(s:String):Option[(String,String)] = s match {
+    case pattern(a,b) => Some((a, b))
+    case _ => None
   }
 }
