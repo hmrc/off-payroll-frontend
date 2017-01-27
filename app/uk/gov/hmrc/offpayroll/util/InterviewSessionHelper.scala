@@ -35,6 +35,18 @@ object InterviewSessionHelper {
     }
     (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
   }
+  def peek(session: Session): (Session, String) = {
+    val (newStringEncodedMap:StringEncodedMap, lastQuestion:String) = session.data.get(INTERVIEW_KEY) match {
+      case Some(v) =>
+        StringEncodedMap(v).pairs match {
+          case p@ListInitLastPair(a,b) => (StringEncodedMap(p), b._1)
+          case _ => (StringEncodedMap(Nil), "")
+        }
+      case None =>
+        (StringEncodedMap(Nil), "")
+    }
+    (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
+  }
   def push(session: Session, questionTag: String, answer: String): Session = {
     val newInterview = StringEncodedMap(session.data.get(INTERVIEW_KEY).getOrElse(""))
       .add(questionTag, answer).asString
@@ -63,11 +75,18 @@ case class StringEncodedMap(pairs:List[(String,String)]) {
 }
 
 object StringEncodedMap {
-  val pattern = "(.*):(.*)".r
   def apply(s: String): StringEncodedMap = {
     val pairs = s.split(";").toList.collect {
-      case pattern(a,b) => (a.trim,b.trim)
+      case ColonSeparatedPair(a,b) => (a.trim,b.trim)
     }
     new StringEncodedMap(pairs)
+  }
+}
+
+object ColonSeparatedPair {
+  val pattern = "(.*):(.*)".r
+  def unapply(s:String):Option[(String,String)] = s match {
+    case pattern(a,b) => Some((a,b))
+    case _ => None
   }
 }
