@@ -36,11 +36,13 @@ import scala.concurrent.Future
   */
 class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication {
 
+  private val TEST_CORRELATION_ID = "00000001099"
+
   private val decisionResponseString_inIr35 =
     """
       |{
       |  "version": "1.0.0-beta",
-      |  "correlationID": "12345",
+      |  "correlationID": "00000001099",
       |  "score": {
       |    "personalService": "HIGH",
       |    "control": "LOW",
@@ -57,7 +59,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
     """
       |{
       |  "version": "1.0.0-beta",
-      |  "correlationID": "12345",
+      |  "correlationID": "00000001099",
       |  "score": {
       |    "personalService": "HIGH",
       |    "control": "LOW",
@@ -88,9 +90,10 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       val interview: Map[String, String] = Map(businessStructure_similarWork_zeroToThree)
       val currentElement: (String, String) = businessStructure_similarWork_zeroToThree
 
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement))
+      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       interviewEvalResult.continueWithQuestions shouldBe false
+      interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
     " move to the next cluster when cannotFixWorkerLocation is answered for control.workerDecideWhere" in {
@@ -100,10 +103,11 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       val interview: Map[String, String] = Map(control_workerDecideWhere_cannotFixWorkerLocation)
       val currentElement: (String, String) = control_workerDecideWhere_cannotFixWorkerLocation
 
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement))
+      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       interviewEvalResult.continueWithQuestions shouldBe true
       interviewEvalResult.element.head.questionTag shouldBe "financialRiskA.workerPaidInclusive"
+      interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
     " move to the next cluster when Yes is answered for partParcel.workerReceivesBenefits" in {
@@ -113,10 +117,11 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       val interview: Map[String, String] = Map(partParcel_workerReceivesBenefits_yes)
       val currentElement: (String, String) = partParcel_workerReceivesBenefits_yes
 
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement))
+      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       interviewEvalResult.continueWithQuestions shouldBe true
       interviewEvalResult.element.head.questionTag shouldBe "businessStructure.similarWork"
+      interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
     " be able to process a partial personalService and expect it to return Continue" in {
@@ -126,10 +131,11 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       val interview: Map[String, String] = Map(personalService_contractualObligationForSubstituteYes)
       val currentElement: (String, String) = personalService_contractualObligationForSubstituteYes
 
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement))
+      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       assert(interviewEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
       assert(interviewEvalResult.element.head.questionTag === personalService_contractualObligationInPractise) //next tag
+      interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
     " be able to get the current currentElement" in {

@@ -51,13 +51,48 @@ class FinancialRiskBClusterSpec extends FlatSpec with Matchers with ClusterSpecH
     maybeElement.nonEmpty shouldBe true
     maybeElement.get.questionTag shouldBe "financialRiskB.engagerPayVehicleExpense"
   }
-  it should " ask the correct next question when No is the answer to financialRiskB.engagerPayOtherExpense" in {
+  it should " ask the correct next question when No is the answer to financialRiskB.engagerPayVehicleExpense" in {
     val currentQnA = ("financialRiskB.workerIncurExpense", "No")
-    val partialAnswers = List(("financialRiskB.provideVehicle", "No"),("financialRiskB.workerIncurExpense", "No"))
+    val partialAnswers =
+      List(("financialRiskB.provideVehicle", "Yes"),
+        ("financialRiskB.engagerPayVehicleExpense", "No"),
+        ("financialRiskB.workerIncurExpense", "No"))
 
     val maybeElement = financialRiskBCluster.shouldAskForDecision(partialAnswers, currentQnA)
     maybeElement.nonEmpty shouldBe true
     maybeElement.get.questionTag shouldBe "financialRiskB.workerMainIncome"
+  }
+  it should " ask the correct next question when Yes is the answer to financialRiskB.engagerPayVehicleExpense" in {
+    val currentQnA = ("financialRiskB.engagerPayVehicleExpense", "Yes")
+    val partialAnswers =
+      List(("financialRiskB.provideVehicle", "Yes"),
+        ("financialRiskB.engagerPayVehicleExpense", "Yes"))
+
+    val maybeElement = financialRiskBCluster.shouldAskForDecision(partialAnswers, currentQnA)
+    maybeElement.nonEmpty shouldBe true
+    maybeElement.get.questionTag shouldBe "financialRiskB.workerIncurExpense"
+  }
+  it should " ask the correct next question when No is the answer to financialRiskB.workerIncurExpense" in {
+    val currentQnA = ("financialRiskB.workerIncurExpense", "No")
+    val partialAnswers =
+      List(("financialRiskB.provideVehicle", "Yes"),
+        ("financialRiskB.engagerPayVehicleExpense", "Yes"),
+        ("financialRiskB.workerIncurExpense", "No"))
+
+    val maybeElement = financialRiskBCluster.shouldAskForDecision(partialAnswers, currentQnA)
+    maybeElement.nonEmpty shouldBe true
+    maybeElement.get.questionTag shouldBe "financialRiskB.workerMainIncome"
+  }
+  it should " ask the correct next question when Yes is the answer to financialRiskB.workerIncurExpense" in {
+    val currentQnA = ("financialRiskB.workerIncurExpense", "Yes")
+    val partialAnswers =
+      List(("financialRiskB.provideVehicle", "Yes"),
+        ("financialRiskB.engagerPayVehicleExpense", "Yes"),
+        ("financialRiskB.workerIncurExpense", "Yes"))
+
+    val maybeElement = financialRiskBCluster.shouldAskForDecision(partialAnswers, currentQnA)
+    maybeElement.nonEmpty shouldBe true
+    maybeElement.get.questionTag shouldBe "financialRiskB.engagerPayOtherExpense"
   }
   it should " ask the correct next question when 'incomeCommission' is the answer to financialRiskB.workerMainIncome" in {
     val currentQnA = ("financialRiskB.workerMainIncome", "financialRiskB.workerMainIncome.incomeCommission")

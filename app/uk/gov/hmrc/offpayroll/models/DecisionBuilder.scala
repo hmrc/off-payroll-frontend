@@ -22,16 +22,11 @@ import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
 /**
   * Created by peter on 11/01/2017.
   *
-  * @TODO inject the WebFlow?
+  * TODO inject the WebFlow?
   */
 object DecisionBuilder {
 
-  //  @Todo get this value from the UI
-  val correlationID: String = "12345"
-
-
-
-  def buildDecisionRequest(interview: Interview): DecisionRequest = {
+  def buildDecisionRequest(interview: Interview, correlationId: String): DecisionRequest = {
 
     def normalizeAnswer(answer: String) = {
       answer.split('.').last
@@ -59,7 +54,7 @@ object DecisionBuilder {
     val mappedToResult = groupByCluster
       .map { case (cl, t3) => (cl, t3.map { case (t1, t2) => t2 }.toMap) }
 
-    DecisionRequest(OffPayrollWebflow.version, correlationID, mappedToResult)
+    DecisionRequest(OffPayrollWebflow.version, correlationId, mappedToResult)
   }
 
 }

@@ -39,7 +39,7 @@ abstract class FlowService {
     * @param interview
     * @return
     */
-  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvaluation]
+  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation]
 
   def getStart(): Element
 
@@ -76,7 +76,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
     case _ => UNKNOWN
   }
 
-  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String)): Future[InterviewEvaluation] = {
+  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation] = {
 
     val cleanInterview = interview.filter(qa => webflow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
@@ -84,22 +84,22 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
     val optionalNextElement = webflow.shouldAskForDecision(interview, currentQnA)
 
     if (optionalNextElement.isEmpty) {
-      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview)).map[InterviewEvaluation](
+      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview, correlationId)).map[InterviewEvaluation](
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
               if (webflow.getNext(currentElement, true).isEmpty) {
-                InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN)), STOP)
+                InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN)), STOP, decision.correlationID)
               }
               else
-                InterviewEvaluation(webflow.getNext(currentElement, true), Option.empty[Decision], CONTINUE)
+                InterviewEvaluation(webflow.getNext(currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
             } else {
-                InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision))), STOP)
+                InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision))), STOP, decision.correlationID)
             }
           }
           )
     } else {
-      Future[InterviewEvaluation](InterviewEvaluation(optionalNextElement, Option.empty[Decision], CONTINUE))
+      Future.successful(InterviewEvaluation(optionalNextElement, Option.empty[Decision], CONTINUE, correlationId))
     }
   }
 
@@ -112,6 +112,4 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
 }
 
-case class InterviewEvaluation(element: Option[Element], decision: Option[Decision], continueWithQuestions: Boolean) {
-
-}
+case class InterviewEvaluation(element: Option[Element], decision: Option[Decision], continueWithQuestions: Boolean, correlationId:String)

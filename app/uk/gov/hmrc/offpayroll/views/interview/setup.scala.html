@@ -14,8 +14,12 @@
 
     @helpers.form(routes.SetupController.processElement(element.order)) {
 
+        @if(f.errors.headOption.isDefined) {
+            <h3 style="color:red">@Messages(f.errors.head.message)</h3>
+        }
+
         @uk.gov.hmrc.offpayroll.views.html.interview.element(element)
 
-        }
+    }
 
 }
