@@ -47,12 +47,8 @@ object InterviewSessionHelper {
 }
 
 object ListInitLastPair {
-  def unapply[A](l:List[A]):Option[(List[A],A)] = l match {
-    case Nil => None
-    case xs =>
-      val (a,b) = xs.splitAt(xs.length-1)
-      Some((a,b.head):(List[A], A))
-  }
+  def unapply[A](l:List[A]):Option[(List[A],A)] =
+    if (l.isEmpty) None else Some(l.splitAt(l.length-1)).collect{case (a,b) => (a,b.head)}
 }
 
 case class StringEncodedMap(pairs:List[(String,String)]) {
