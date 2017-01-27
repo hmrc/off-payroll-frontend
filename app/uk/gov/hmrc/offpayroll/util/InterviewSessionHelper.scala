@@ -23,23 +23,13 @@ import play.api.mvc.Session
   */
 object InterviewSessionHelper {
   val INTERVIEW_KEY = "interview"
-  def pop(session: Session): (Session, String) = {
+  val pop = peekOrPop(false) _
+  val peek = peekOrPop(true) _
+  def peekOrPop(peek:Boolean)(session: Session): (Session, String) = {
     val (newStringEncodedMap:StringEncodedMap, lastQuestion:String) = session.data.get(INTERVIEW_KEY) match {
       case Some(v) =>
         StringEncodedMap(v).pairs match {
-          case ListInitLastPair(a,b) => (StringEncodedMap(a), b._1)
-          case _ => (StringEncodedMap(Nil), "")
-        }
-      case None =>
-        (StringEncodedMap(Nil), "")
-    }
-    (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
-  }
-  def peek(session: Session): (Session, String) = {
-    val (newStringEncodedMap:StringEncodedMap, lastQuestion:String) = session.data.get(INTERVIEW_KEY) match {
-      case Some(v) =>
-        StringEncodedMap(v).pairs match {
-          case p@ListInitLastPair(a,b) => (StringEncodedMap(p), b._1)
+          case p@ListInitLastPair(a,b) => (StringEncodedMap(if (peek) p else a), b._1)
           case _ => (StringEncodedMap(Nil), "")
         }
       case None =>
