@@ -24,7 +24,8 @@ import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{ExitFlow, ExitReason}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{push, asMap}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, push}
 
 import scala.concurrent.Future
 
@@ -46,16 +47,25 @@ class ExitController  @Inject() extends OffPayrollController {
   def begin() = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flow.getStart()
-
     val questionForm = createForm(element)
-
-//    implicit val session: Map[String, String] = request.session.data
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm,element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
+  def back = PasscodeAuthenticatedActionAsync { implicit request =>
 
+    val (session, questionTag) = InterviewSessionHelper.pop(request.session)
+    flow.getElementByTag(questionTag) match {
+      case Some(element) => {
+        val questionForm = createForm(element)
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm, element,
+          fragmentService.getFragmentByName(element.questionTag))).withSession(session))
+      }
+      case None => Future.successful(Redirect(routes.SetupController.back)
+        .withSession(session))
+    }
+  }
 
   def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 

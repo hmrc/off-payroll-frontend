@@ -25,11 +25,12 @@ import play.api.data._
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
-import uk.gov.hmrc.offpayroll.models.Element
+import uk.gov.hmrc.offpayroll.models.{Element, Webflow}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
 import play.api.i18n.Messages.Implicits._
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{push, asMap}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, push}
 
 import scala.concurrent.Future
 
@@ -58,23 +59,23 @@ trait OffPayrollControllerHelper extends PasscodeAuthentication  {
     */
   def createForm(element: String): Form[String] ={
     Form(
-      single(
-        element -> nonEmptyText
-      )
+    single(
+    element -> nonEmptyText
+    )
     )
   }
 
   def yesNo(value: Boolean): String =
-    if(value) "Yes" else "No"
+  if(value) "Yes" else "No"
 
 }
 
 class SessionHelper {
   def createCorrelationId(request:Request[_]) =
-    request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
-      case None => throw new NoSuchElementException("session id not found in the cookie")
-      case Some(value) => value
-    }
+  request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
+    case None => throw new NoSuchElementException("session id not found in the cookie")
+    case Some(value) => value
+  }
 }
 
 object InterviewController {
@@ -85,14 +86,30 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffPayrollController {
 
+
+  val flow: Webflow = flowService.flow
+
   def begin = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flowService.getStart()
     val form = createForm(element)
 
-//    implicit val session: Map[String, String] = request.session.data
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
-      fragmentService.getFragmentByName(element.questionTag))))
+    fragmentService.getFragmentByName(element.questionTag))))
+  }
+
+  def back = PasscodeAuthenticatedActionAsync { implicit request =>
+
+    val (session, questionTag) = InterviewSessionHelper.pop(request.session)
+    flow.getElementByTag(questionTag) match {
+      case Some(element) => {
+        val questionForm = createForm(element)
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element,
+          fragmentService.getFragmentByName(element.questionTag))).withSession(session))
+      }
+      case None => Future.successful(Redirect(routes.ExitController.back)
+        .withSession(session))
+    }
   }
 
   def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
@@ -101,24 +118,21 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     val fieldName = element.questionTag
     val form = createForm(element)
 
-//    implicit val session: Map[String, String] = request.session.data
+    form.bindFromRequest.fold (
+    formWithErrors =>
+    Future.successful(BadRequest(
+    uk.gov.hmrc.offpayroll.views.html.interview.interview(
+    formWithErrors, element, Html.apply(element.questionTag)))),
 
-      form.bindFromRequest.fold (
-        formWithErrors =>
-          Future.successful(BadRequest(
-            uk.gov.hmrc.offpayroll.views.html.interview.interview(
-              formWithErrors, element, Html.apply(element.questionTag)))),
-
-        value => {
-//          implicit val session: Map[String, String] = request.session.data + (tag -> value)
+    value => {
           val session = push(request.session, fieldName, value)
           val result = flowService.evaluateInterview(asMap(session), (fieldName, value), sessionHelper.createCorrelationId(request))
 
           result.map(
-            decision => {
+          decision => {
               if (decision.continueWithQuestions) {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
-                  form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
+                form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
                   .withSession(session)
               } else {
                 Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
@@ -126,7 +140,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
             }
           )
         }
-      )
+    )
   }
 
 }
