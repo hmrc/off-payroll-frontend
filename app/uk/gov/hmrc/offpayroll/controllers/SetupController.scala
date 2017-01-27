@@ -23,7 +23,7 @@ import play.api.Play.current
 import play.api.data.Form
 import play.api.data.Forms.{single, _}
 import play.api.i18n.Messages.Implicits._
-import play.api.mvc.Action
+import play.api.mvc.{Action, Request, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupCluster, SetupFlow}
 import uk.gov.hmrc.offpayroll.services.FragmentService
@@ -58,19 +58,11 @@ class SetupController @Inject() extends OffPayrollController {
       fragmentService.getFragmentByName(element.questionTag))).withSession(session))
   }
 
-  def back = PasscodeAuthenticatedActionAsync { implicit request =>
+  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result =
+    Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element, html))
 
-    val (session, questionTag) = pop(request.session)
-    flow.getElementByTag(questionTag) match {
-      case Some(element) => {
-        val questionForm = createForm(element)
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element,
-          fragmentService.getFragmentByName(element.questionTag))).withSession(session))
-      }
-      case None => Future.successful(Redirect(routes.SetupController.begin())
-        .withSession(session))
-    }
-  }
+  override def redirect: Result = Redirect(routes.SetupController.begin())
+
 
   def start() = PasscodeAuthenticatedActionAsync {
     implicit request =>
@@ -113,5 +105,6 @@ class SetupController @Inject() extends OffPayrollController {
       }
     )
   }
+
 
 }

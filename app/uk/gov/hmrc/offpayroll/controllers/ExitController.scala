@@ -20,12 +20,13 @@ import javax.inject.Inject
 
 import play.Logger
 import play.api.Play.current
+import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{ExitFlow, ExitReason}
+import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, ExitReason}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, push}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, pop, push}
 
 import scala.concurrent.Future
 
@@ -53,26 +54,18 @@ class ExitController  @Inject() extends OffPayrollController {
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  def back = PasscodeAuthenticatedActionAsync { implicit request =>
-
-    val (session, questionTag) = InterviewSessionHelper.pop(request.session)
-    flow.getElementByTag(questionTag) match {
-      case Some(element) => {
-        val questionForm = createForm(element)
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm, element,
-          fragmentService.getFragmentByName(element.questionTag))).withSession(session))
-      }
-      case None => Future.successful(Redirect(routes.SetupController.back)
-        .withSession(session))
-    }
+  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]) = {
+    Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm, element, html))
   }
+
+  override def redirect = Redirect(routes.SetupController.back)
+
 
   def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
     val fieldName = element.questionTag
     val form = createForm(element)
-//    implicit val session: Map[String, String] = request.session.data
 
     form.bindFromRequest.fold (
       formWithErrors =>
@@ -81,9 +74,7 @@ class ExitController  @Inject() extends OffPayrollController {
             formWithErrors, element, Html.apply("")))),
 
       value => {
-//        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
         val session = push(request.session, fieldName, value)
-
         val exitResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
 
         if(exitResult.element.nonEmpty) { // continue with questions
