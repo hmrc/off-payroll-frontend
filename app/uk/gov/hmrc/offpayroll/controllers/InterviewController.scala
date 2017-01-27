@@ -98,19 +98,10 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  def back = PasscodeAuthenticatedActionAsync { implicit request =>
+  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result =
+    Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
 
-    val (session, questionTag) = InterviewSessionHelper.pop(request.session)
-    flow.getElementByTag(questionTag) match {
-      case Some(element) => {
-        val questionForm = createForm(element)
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element,
-          fragmentService.getFragmentByName(element.questionTag))).withSession(session))
-      }
-      case None => Future.successful(Redirect(routes.ExitController.back)
-        .withSession(session))
-    }
-  }
+  override def redirect: Result = Redirect(routes.ExitController.back)
 
   def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
@@ -142,5 +133,6 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         }
     )
   }
+
 
 }
