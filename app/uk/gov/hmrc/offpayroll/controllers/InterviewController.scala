@@ -19,6 +19,7 @@ package uk.gov.hmrc.offpayroll.controllers
 import java.util.NoSuchElementException
 import javax.inject.Inject
 
+import play.api.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
@@ -103,10 +104,10 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     implicit val session: Map[String, String] = request.session.data
 
       form.bindFromRequest.fold (
-        formWithErrors =>
+        formWithErrors => {
           Future.successful(BadRequest(
             uk.gov.hmrc.offpayroll.views.html.interview.interview(
-              formWithErrors, element, Html.apply(element.questionTag)))),
+              formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
 
         value => {
           implicit val session: Map[String, String] = request.session.data + (tag -> value)

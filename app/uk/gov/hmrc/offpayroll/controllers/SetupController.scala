@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.Logger
+import play.api.Logger
 import play.api.Play.current
 import play.api.data.Form
 import play.api.data.Forms.{single, _}
@@ -73,10 +73,10 @@ class SetupController @Inject() extends OffPayrollController {
     implicit val session: Map[String, String] = request.session.data
 
     form.bindFromRequest.fold(
-      formWithErrors =>
+      formWithErrors => {
         Future.successful(BadRequest(
           uk.gov.hmrc.offpayroll.views.html.interview.setup(
-            formWithErrors, element, Html.apply("")))),
+            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
 
       value => {
         implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
