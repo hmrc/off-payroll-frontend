@@ -18,19 +18,16 @@ package uk.gov.hmrc.offpayroll.util
 
 import play.api.mvc.Session
 
-import scala.annotation.tailrec
-
 /**
-  * Created by peter on 26/01/2017.
+  * Created by peter and milosz on 26/01/2017.
   */
 object InterviewSessionHelper {
   val INTERVIEW_KEY = "interview"
-
   def pop(session: Session): (Session, String) = {
     val (newStringEncodedMap:StringEncodedMap, lastQuestion:String) = session.data.get(INTERVIEW_KEY) match {
       case Some(v) =>
         StringEncodedMap(v).pairs match {
-          case InitLastSplitter(a,b) => (StringEncodedMap(a), b._1)
+          case ListInitLastPair(a,b) => (StringEncodedMap(a), b._1)
           case _ => (StringEncodedMap(Nil), "")
         }
       case None =>
@@ -38,21 +35,18 @@ object InterviewSessionHelper {
     }
     (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
   }
-
   def push(session: Session, questionTag: String, answer: String): Session = {
     val newInterview = StringEncodedMap(session.data.get(INTERVIEW_KEY).getOrElse(""))
       .add(questionTag, answer).asString
     session + (INTERVIEW_KEY -> newInterview)
   }
-
+  def reset(session: Session): Session =
+    session - INTERVIEW_KEY
   def asMap(session: Session): Map[String, String] =
-    session.data.get(INTERVIEW_KEY) match {
-      case Some(v) => StringEncodedMap(v).pairs.toMap
-      case None => Map()
-    }
+    session.data.get(INTERVIEW_KEY).map(StringEncodedMap(_).asMap).getOrElse(Map())
 }
 
-object InitLastSplitter {
+object ListInitLastPair {
   def unapply[A](l:List[A]):Option[(List[A],A)] = l match {
     case Nil => None
     case xs =>
@@ -62,44 +56,26 @@ object InitLastSplitter {
 }
 
 case class StringEncodedMap(pairs:List[(String,String)]) {
-
   def asString: String = pairs.map{
     case (a,b) => s"${a}:${b}"
   }.mkString(";")
-
+  def asMap:Map[String, String] = pairs.toMap
   def add(key:String,value:String):StringEncodedMap = {
-
-      val (a,b) = pairs.span(_._1 != key)
-      StringEncodedMap(a ::: ((key,value) :: b.drop(1)))
-
-//    @tailrec
-//    def loop(list: List[(String,String)], acc: List[(String, String)]): List[(String, String)] = list match {
-//      case Nil => acc
-//      case (x,y) :: xs if(x == key) => loop(xs, (x,value) :: acc)
-//      case(x,y) :: xs => loop(xs,  acc ::: List((x,y)))
-//    }
-//    StringEncodedMap(pairs.find(_._1 == key) match {
-//      case Some(_) => loop(pairs,Nil)
-//      case None =>  pairs ::: List((key,value))
-//    })
+    val (a,b) = pairs.span(_._1 != key)
+    StringEncodedMap(a ::: ((key,value) :: b.drop(1)))
   }
 }
 
 object StringEncodedMap {
   def apply(s: String): StringEncodedMap = {
-//    val tokens = s.split(";").toList.filter(_.contains(":"))
-//    val pairs = tokens.map { token =>
-//      val nameValuePair = token.split(":")
-//      (nameValuePair(0).trim, nameValuePair(1).trim)
-//    }
     val pairs = s.split(";").toList.collect {
-      case ColonPair(a,b) => (a.trim,b.trim)
+      case ColonSeparatedTokenPair(a,b) => (a.trim,b.trim)
     }
     new StringEncodedMap(pairs)
   }
 }
 
-object ColonPair {
+object ColonSeparatedTokenPair {
   def unapply(s:String):Option[(String,String)] = s.span(_ != ':') match {
     case (_,"") => None
     case (a,b) => Some((a, b.drop(1)):(String, String))
