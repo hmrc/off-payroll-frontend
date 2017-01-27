@@ -83,4 +83,20 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
     InterviewSessionHelper.asMap(resetSession) shouldBe Map()
   }
 
+  it should "provide unchanged session and top element of a non empty interview" in {
+    val session1 = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
+    val session2 = InterviewSessionHelper.push(session1, "someQuestionTag2", "someAnswer2")
+    InterviewSessionHelper.asMap(session2) shouldBe Map("someQuestionTag" -> "someAnswer", "someQuestionTag2" -> "someAnswer2")
+    val (peekSession, topTag) = InterviewSessionHelper.peek(session2)
+    InterviewSessionHelper.asMap(peekSession) shouldBe Map("someQuestionTag" -> "someAnswer", "someQuestionTag2" -> "someAnswer2")
+    topTag shouldBe "someQuestionTag2"
+  }
+
+  it should "provide unchanged session and empty top element of an empty interview" in {
+    val (peekSession, topTag) = InterviewSessionHelper.peek(mockSession)
+    println(topTag)
+    InterviewSessionHelper.asMap(peekSession) shouldBe Map()
+    topTag shouldBe ""
+  }
+
 }
