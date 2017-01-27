@@ -53,7 +53,7 @@ object FinancialRiskBCluster extends Cluster {
       Map("financialRiskB.provideVehicle" -> "No"),
       Option("financialRiskB.workerIncurExpense")),
     FlowElement("financialRiskB.workerIncurExpense",
-      Map("financialRiskB.engagerPayVehicleExpense" -> "No"),
+      Map("financialRiskB.workerIncurExpense" -> "No"),
       Option("financialRiskB.workerMainIncome")),
     FlowElement("financialRiskB.workerMainIncome",
       Map("financialRiskB.workerMainIncome" -> "financialRiskB.workerMainIncome.incomeCalendarPeriods"),
