@@ -23,10 +23,12 @@ import play.api.Play.current
 import play.api.data.Form
 import play.api.data.Forms.{single, _}
 import play.api.i18n.Messages.Implicits._
-import play.api.mvc.Action
+import play.api.mvc.{Action, Request, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupCluster, SetupFlow}
 import uk.gov.hmrc.offpayroll.services.FragmentService
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, pop, push}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
@@ -45,23 +47,29 @@ class SetupController @Inject() extends OffPayrollController {
   val flow = SetupFlow
   val SETUP_CLUSTER_ID = 0
 
-
+  //todo shouldn't need the clusterId
   def begin(clusterId: Int = 0) = PasscodeAuthenticatedActionAsync { implicit request =>
 
     val element = flow.getStart()
-
     val questionForm = createForm(element)
-
-    implicit val session: Map[String, String] = request.session.data
+    val session = InterviewSessionHelper.reset(request.session)
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element,
-      fragmentService.getFragmentByName(element.questionTag))))
+      fragmentService.getFragmentByName(element.questionTag))).withSession(session))
   }
+
+  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result =
+    Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element, html))
+
+  override def redirect: Result = Redirect(routes.SetupController.begin())
+
 
   def start() = PasscodeAuthenticatedActionAsync {
     implicit request =>
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()))
+      val session = InterviewSessionHelper.reset(request.session)
+      Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()).withSession(session))
   }
+
 
 
   def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
@@ -70,8 +78,6 @@ class SetupController @Inject() extends OffPayrollController {
     val fieldName = element.questionTag
     val form = createForm(element)
 
-    implicit val session: Map[String, String] = request.session.data
-
     form.bindFromRequest.fold(
       formWithErrors => {
         Future.successful(BadRequest(
@@ -79,14 +85,14 @@ class SetupController @Inject() extends OffPayrollController {
             formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
 
       value => {
-        implicit val session: Map[String, String] = request.session.data + (fieldName -> value)
+        val session = push(request.session, fieldName, value)
 
-        val setupResult = flow.shouldAskForNext(session, (fieldName, value))
+        val setupResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
         if (setupResult.maybeElement.nonEmpty) {
           // continue setup
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, setupResult.maybeElement.get,
             fragmentService.getFragmentByName(setupResult.maybeElement.get.questionTag)))
-            .withSession(request.session + (fieldName -> value))
+            .withSession(session)
           )
         } else if (setupResult.exitTool) {
           val exitReason = ExitReason("exitTool.soleTrader.heading", "exitTool.soleTrader.reason", "exitTool.soleTrader.explanation")
@@ -94,11 +100,11 @@ class SetupController @Inject() extends OffPayrollController {
         }
         else {
           // ExitCluster
-          Future.successful(Redirect(routes.ExitController.begin())
-            .withSession(request.session + (fieldName -> value)))
+          Future.successful(Redirect(routes.ExitController.begin()).withSession(session))
         }
       }
     )
   }
+
 
 }

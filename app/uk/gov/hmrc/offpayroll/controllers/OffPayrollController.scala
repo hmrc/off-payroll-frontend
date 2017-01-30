@@ -19,6 +19,13 @@ package uk.gov.hmrc.offpayroll.controllers
 import uk.gov.hmrc.offpayroll.services.FragmentService
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import play.Logger
+import play.api.data.Form
+import play.api.mvc.{Request, Result}
+import play.twirl.api.Html
+import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, Webflow}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{pop, peek}
+
+import scala.concurrent.Future
 
 /**
   * Created by peter on 11/01/2017.
@@ -27,4 +34,24 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
 
   val fragmentService = FragmentService("/guidance/")
 
+  val flow:Webflow
+
+  def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result
+
+  def redirect: Result
+
+  def back = PasscodeAuthenticatedActionAsync { implicit request =>
+
+    val (peekSession, peekQuestionTag) = peek(request.session)
+
+    flow.getElementByTag(peekQuestionTag) match {
+      case Some(element) => {
+        val (session, questionTag) = pop(request.session)
+        val questionForm = createForm(element)
+        Future.successful(displaySuccess(element, questionForm)
+        (fragmentService.getFragmentByName(element.questionTag)).withSession(session))
+      }
+      case None => Future.successful(redirect.withSession(peekSession))
+    }
+  }
 }
