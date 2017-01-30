@@ -19,6 +19,7 @@ package uk.gov.hmrc.offpayroll.controllers
 import java.util.NoSuchElementException
 import javax.inject.Inject
 
+import play.api.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._

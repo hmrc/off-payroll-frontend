@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.Logger
+import play.api.Logger
 import play.api.Play.current
 import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
@@ -68,10 +68,10 @@ class ExitController  @Inject() extends OffPayrollController {
     val form = createForm(element)
 
     form.bindFromRequest.fold (
-      formWithErrors =>
+      formWithErrors => {
         Future.successful(BadRequest(
-          uk.gov.hmrc.offpayroll.views.html.interview.setup(
-            formWithErrors, element, Html.apply("")))),
+          uk.gov.hmrc.offpayroll.views.html.interview.exit(
+            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
 
       value => {
         val session = push(request.session, fieldName, value)
