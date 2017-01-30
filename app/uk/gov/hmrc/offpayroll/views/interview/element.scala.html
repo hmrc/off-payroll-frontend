@@ -46,4 +46,12 @@
         <li>@request.session.data.toString()</li>
         <li>Current currentElement @element.toString</li>
     </ul>
+    <p>Interview:</p>
+    @if(request.session.data.get("interview").isDefined) {
+        <ul>
+            @for(interviewElement <- request.session.data.get("interview").get.split(";")) {
+                <li>@interviewElement.toString</li>
+            }
+        </ul>
+    }
 }
