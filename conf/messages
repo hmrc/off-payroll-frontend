@@ -110,7 +110,7 @@ financialRiskB.engagerPayOtherExpense=Do they get the money back?
 
 financialRiskB.workerMainIncome=How does the end client pay the worker for this contract?
 financialRiskB.workerMainIncome.incomeCalendarPeriods=On an hourly, daily or weekly rate
-financialRiskB.workerMainIncome.incomePieceRate=A percentage of the savings the worker makes
+financialRiskB.workerMainIncome.incomePieceRate=An amount based on how much work they complete
 financialRiskB.workerMainIncome.incomeCommission=An amount based on the sales they make
 financialRiskB.workerMainIncome.incomeFixed=A fixed price agreed for the the whole piece of work
 financialRiskB.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits
@@ -152,13 +152,13 @@ businessStructure.workerPaysForInsurance=Does the end client require the worker 
 
 # Decision
 
-decision.in.ir35=You are inside IR35
-decision.out.ir35=You are outside IR35
-decision.unknown=Undecided
+decision.in.ir35=The worker is an employee for tax purposes.
+decision.out.ir35=The worker is not an employee for tax purposes.
+decision.unknown=The results are unclear for this worker.
 
 
-hardExit.heading=You are inside the off-payroll rules
-hardExit.reason=Because you are an office holder
+hardExit.heading=The worker is an employee for tax purposes.
+hardExit.reason=This worker is inside of the intermediaries legislation (IR35) and is considered an employee. They need to be on the end client’s or agent’s payroll.
 hardExit.explanation=Blah blah blah
 
 exitTool.serviceProvision.heading=You are outside the off-payroll rules
