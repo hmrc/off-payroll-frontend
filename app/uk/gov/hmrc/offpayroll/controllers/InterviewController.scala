@@ -114,7 +114,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     formWithErrors =>
     Future.successful(BadRequest(
     uk.gov.hmrc.offpayroll.views.html.interview.interview(
-    formWithErrors, element, Html.apply(element.questionTag)))),
+      formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))),
 
     value => {
           val session = push(request.session, fieldName, value)
