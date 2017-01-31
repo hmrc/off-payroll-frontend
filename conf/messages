@@ -159,14 +159,13 @@ decision.unknown=The results are unclear for this worker.
 
 hardExit.heading=The worker is an employee for tax purposes.
 hardExit.reason=This worker is inside of the intermediaries legislation (IR35) and is considered an employee. They need to be on the end client’s or agent’s payroll.
-hardExit.explanation=Blah blah blah
 
-exitTool.serviceProvision.heading=You are outside the off-payroll rules
-exitTool.serviceProvision.reason=Because you answered No to all the questions in the Exit Cluster on how you provide your services
-exitTool.serviceProvision.explanation=Blah blah blah
+exitTool.serviceProvision.heading=Your answers indicate that this service isn’t relevant to the worker. You do not need to continue with this service as the intermediaries legislation does not apply.
+exitTool.serviceProvision.reason=
+exitTool.serviceProvision.explanation=
 
-exitTool.soleTrader.heading=You are outside the off-payroll rules
-exitTool.soleTrader.reason=Because you are a sole trader
-exitTool.soleTrader.explanation=Blah blah blah
+exitTool.soleTrader.heading=As a sole trader, the intermediaries legislation does not apply to this worker.
+exitTool.soleTrader.reason=
+exitTool.soleTrader.explanation=
 
-error.required=You need to select an option:
+error.required=You need to select an answer:
