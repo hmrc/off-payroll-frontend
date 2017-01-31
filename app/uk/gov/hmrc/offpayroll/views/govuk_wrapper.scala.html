@@ -13,6 +13,7 @@
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
 @import uk.gov.hmrc.play.views.html.{helpers => uiHelpers}
 @import uk.gov.hmrc.play.views.html.layouts
+@import uk.gov.hmrc.offpayroll.controllers.routes
 
 @head = {
     @uiLayouts.head(
@@ -22,7 +23,7 @@
 }
 
 @headerNavLinks = {
-  <li><a id="homeNavHref" href="/check-your-employment-status-for-tax/start"
+  <li><a id="homeNavHref" href="@routes.SetupController.start()"
          data-journey-click="primary-navigation:Click:Home">Home</a></li>
 }
 
