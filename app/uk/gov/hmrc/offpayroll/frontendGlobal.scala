@@ -20,8 +20,9 @@ import java.io.File
 
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
+import play.Logger
 import play.api.Mode._
-import play.api.mvc.Request
+import play.api.mvc.{Request, RequestHeader, Result}
 import play.api.{Application, Configuration, Play}
 import play.twirl.api.Html
 import uk.gov.hmrc.crypto.ApplicationCrypto
@@ -50,6 +51,17 @@ object FrontendGlobal
     uk.gov.hmrc.offpayroll.views.html.error_template(pageTitle, heading, message)
 
   override def microserviceMetricsConfig(implicit app: Application): Option[Configuration] = app.configuration.getConfig(s"microservice.metrics")
+
+  def getStackTrace(stackTrace: Array[StackTraceElement]) = {
+
+    stackTrace.toList.map(_.toString).mkString("\n")
+  }
+
+  override def resolveError(rh: RequestHeader, ex: Throwable): Result = {
+    Logger.info(s"*** Intercepting resolveError ${ex.getMessage} \n Stacktrace \n ${getStackTrace(ex.getStackTrace)}")
+    super.resolveError(rh, ex)
+  }
+
 }
 
 object ControllerConfiguration extends ControllerConfig {
