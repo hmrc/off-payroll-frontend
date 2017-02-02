@@ -104,13 +104,30 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
     val newSession2 = InterviewSessionHelper.push(newSession1, "financialRisk.bbb", "answer2")
     val newSession3 = InterviewSessionHelper.push(newSession2, "businessStructure.ccc", "answer3")
     val newSession4 = InterviewSessionHelper.push(newSession3, "personalService.ddd", "answer4")
-    val finalSession = InterviewSessionHelper.push(newSession4, "control.eee", "answer5")
-    InterviewSessionHelper.asMap(finalSession) shouldBe Map("partOfOrganisation.aaa" -> "answer1", "financialRisk.bbb" -> "answer2", "businessStructure.ccc" -> "answer3", "personalService.ddd" -> "answer4", "control.eee" -> "answer5")
+    val newSession5 = InterviewSessionHelper.push(newSession4, "control.eee", "answer5")
+    val newSession6 = InterviewSessionHelper.push(newSession5, "setup.fff", "answer6")
+    val finalSession = InterviewSessionHelper.push(newSession6, "exit.ggg", "answer7")
+    InterviewSessionHelper.asMap(finalSession) shouldBe Map(
+      "partOfOrganisation.aaa" -> "answer1",
+      "financialRisk.bbb" -> "answer2",
+      "businessStructure.ccc" -> "answer3",
+      "personalService.ddd" -> "answer4",
+      "control.eee" -> "answer5",
+      "setup.fff" -> "answer6",
+      "exit.ggg" -> "answer7"
+    )
 
     val (updatedSession, questionTag) = InterviewSessionHelper.pop(finalSession)
 
-    questionTag shouldBe "control.eee"
-    InterviewSessionHelper.asMap(updatedSession) shouldBe Map("partOfOrganisation.aaa" -> "answer1", "financialRisk.bbb" -> "answer2", "businessStructure.ccc" -> "answer3", "personalService.ddd" -> "answer4")
+    questionTag shouldBe "exit.ggg"
+    InterviewSessionHelper.asMap(updatedSession) shouldBe Map(
+      "partOfOrganisation.aaa" -> "answer1",
+      "financialRisk.bbb" -> "answer2",
+      "businessStructure.ccc" -> "answer3",
+      "personalService.ddd" -> "answer4",
+      "control.eee" -> "answer5",
+      "setup.fff" -> "answer6"
+    )
   }
 
 }

@@ -50,7 +50,7 @@ object InterviewSessionHelper {
     val (a,b) = s.span(_ != '.')
     m.getOrElse(a,a) + b
   }
-  private val deflate = Map("partOfOrganisation" -> "o", "financialRisk" -> "f", "businessStructure" -> "b", "personalService" -> "s", "control" -> "c")
+  private val deflate = Map("partOfOrganisation" -> "o", "financialRisk" -> "f", "businessStructure" -> "b", "personalService" -> "s", "control" -> "c", "exit" -> "e", "setup" -> "t")
   private val inflate = deflate.map(_.swap)
   val compress = transform(deflate) _
   val decompress = transform(inflate) _
