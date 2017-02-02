@@ -100,15 +100,17 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
   }
 
   it should "encode pushed question tag and decode popped question tag" in {
-    val newSession = InterviewSessionHelper.push(mockSession, "financialRisk.def", "someAnswer")
-    InterviewSessionHelper.asMap(newSession) shouldBe Map("financialRisk.def" -> "someAnswer")
-    val finalSession = InterviewSessionHelper.push(newSession, "partOfOrganisation.abc", "someOtherAnswer")
-    InterviewSessionHelper.asMap(finalSession) shouldBe Map("financialRisk.def" -> "someAnswer", "partOfOrganisation.abc" -> "someOtherAnswer")
+    val newSession1 = InterviewSessionHelper.push(mockSession, "partOfOrganisation.aaa", "answer1")
+    val newSession2 = InterviewSessionHelper.push(newSession1, "financialRisk.bbb", "answer2")
+    val newSession3 = InterviewSessionHelper.push(newSession2, "businessStructure.ccc", "answer3")
+    val newSession4 = InterviewSessionHelper.push(newSession3, "personalService.ddd", "answer4")
+    val finalSession = InterviewSessionHelper.push(newSession4, "control.eee", "answer5")
+    InterviewSessionHelper.asMap(finalSession) shouldBe Map("partOfOrganisation.aaa" -> "answer1", "financialRisk.bbb" -> "answer2", "businessStructure.ccc" -> "answer3", "personalService.ddd" -> "answer4", "control.eee" -> "answer5")
 
     val (updatedSession, questionTag) = InterviewSessionHelper.pop(finalSession)
 
-    questionTag shouldBe "partOfOrganisation.abc"
-    InterviewSessionHelper.asMap(updatedSession) shouldBe Map(("financialRisk.def" -> "someAnswer" ))
+    questionTag shouldBe "control.eee"
+    InterviewSessionHelper.asMap(updatedSession) shouldBe Map("partOfOrganisation.aaa" -> "answer1", "financialRisk.bbb" -> "answer2", "businessStructure.ccc" -> "answer3", "personalService.ddd" -> "answer4")
   }
 
 }

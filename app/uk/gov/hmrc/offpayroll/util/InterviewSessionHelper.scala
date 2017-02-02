@@ -40,7 +40,6 @@ object InterviewSessionHelper {
   def push(session: Session, questionTag: String, answer: String): Session = {
     val newInterview = StringEncodedMap(session.data.get(INTERVIEW_KEY).getOrElse(""))
       .add(compress(questionTag), answer).asString
-    println(newInterview)
     session + (INTERVIEW_KEY -> newInterview)
   }
   def reset(session: Session): Session =
@@ -51,7 +50,7 @@ object InterviewSessionHelper {
     val (a,b) = s.span(_ != '.')
     m.getOrElse(a,a) + b
   }
-  private val deflate = Map("partOfOrganisation" -> "po", "financialRisk" -> "f", "businessStructure" -> "b", "personalService" -> "ps", "control" -> "c")
+  private val deflate = Map("partOfOrganisation" -> "o", "financialRisk" -> "f", "businessStructure" -> "b", "personalService" -> "s", "control" -> "c")
   private val inflate = deflate.map(_.swap)
   val compress = transform(deflate) _
   val decompress = transform(inflate) _
