@@ -45,6 +45,7 @@ object FrontendGlobal
   override def onStart(app: Application) {
     super.onStart(app)
     ApplicationCrypto.verifyConfiguration()
+    play.api.Logger.debug("In FrontendGlobal")
   }
 
   override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
