@@ -46,7 +46,7 @@ object InterviewSessionHelper {
   def reset(session: Session): Session =
     session - INTERVIEW_KEY
   def asMap(session: Session): Map[String, String] =
-    session.data.get(INTERVIEW_KEY).map(StringEncodedMap(_).asMap).getOrElse(Map())
+    session.data.get(INTERVIEW_KEY).map(StringEncodedMap(_).asMap.map{case (a,b) => (decompress(a), b)}).getOrElse(Map())
   private def transform(m:Map[String,String])(s:String):String = {
     val (a,b) = s.span(_ != '.')
     m.getOrElse(a,a) + b

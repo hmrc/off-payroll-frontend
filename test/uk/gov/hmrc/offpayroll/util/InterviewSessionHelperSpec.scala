@@ -101,14 +101,14 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
 
   it should "encode pushed question tag and decode popped question tag" in {
     val newSession = InterviewSessionHelper.push(mockSession, "financialRisk.def", "someAnswer")
-    InterviewSessionHelper.asMap(newSession) shouldBe Map("f.def" -> "someAnswer")
+    InterviewSessionHelper.asMap(newSession) shouldBe Map("financialRisk.def" -> "someAnswer")
     val finalSession = InterviewSessionHelper.push(newSession, "partOfOrganisation.abc", "someOtherAnswer")
-    InterviewSessionHelper.asMap(finalSession) shouldBe Map("f.def" -> "someAnswer", "po.abc" -> "someOtherAnswer")
+    InterviewSessionHelper.asMap(finalSession) shouldBe Map("financialRisk.def" -> "someAnswer", "partOfOrganisation.abc" -> "someOtherAnswer")
 
     val (updatedSession, questionTag) = InterviewSessionHelper.pop(finalSession)
 
     questionTag shouldBe "partOfOrganisation.abc"
-    InterviewSessionHelper.asMap(updatedSession) shouldBe Map(("f.def" -> "someAnswer" ))
+    InterviewSessionHelper.asMap(updatedSession) shouldBe Map(("financialRisk.def" -> "someAnswer" ))
   }
 
 }
