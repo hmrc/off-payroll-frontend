@@ -35,17 +35,26 @@ object InterviewSessionHelper {
       case None =>
         (StringEncodedMap(Nil), "")
     }
-    (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),lastQuestion)
+    (session + (INTERVIEW_KEY -> newStringEncodedMap.asString),decompress(lastQuestion))
   }
   def push(session: Session, questionTag: String, answer: String): Session = {
     val newInterview = StringEncodedMap(session.data.get(INTERVIEW_KEY).getOrElse(""))
-      .add(questionTag, answer).asString
+      .add(compress(questionTag), answer).asString
+    println(newInterview)
     session + (INTERVIEW_KEY -> newInterview)
   }
   def reset(session: Session): Session =
     session - INTERVIEW_KEY
   def asMap(session: Session): Map[String, String] =
     session.data.get(INTERVIEW_KEY).map(StringEncodedMap(_).asMap).getOrElse(Map())
+  private def transform(m:Map[String,String])(s:String):String = {
+    val (a,b) = s.span(_ != '.')
+    m.getOrElse(a,a) + b
+  }
+  private val deflate = Map("partOfOrganisation" -> "po", "financialRisk" -> "f", "businessStructure" -> "b", "personalService" -> "ps", "control" -> "c")
+  private val inflate = deflate.map(_.swap)
+  val compress = transform(deflate) _
+  val decompress = transform(inflate) _
 }
 
 object ListInitLastPair {
