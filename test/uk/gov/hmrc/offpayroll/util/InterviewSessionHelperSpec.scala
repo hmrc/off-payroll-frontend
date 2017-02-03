@@ -50,7 +50,7 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
 
   it should "convert a string encoded interview to a Map of String String" in {
     val newSession = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
-    InterviewSessionHelper.asMap(newSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
+    InterviewSessionHelper.asMap(newSession) shouldBe Map("someQuestionTag" -> "someAnswer" )
   }
 
   it should "pop the last value from the interview and return a new session without the last value" in {
@@ -60,7 +60,7 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
     val (updatedSession, questionTag) = InterviewSessionHelper.pop(finalSession)
 
     questionTag shouldBe "someOtherQuestionTag"
-    InterviewSessionHelper.asMap(updatedSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
+    InterviewSessionHelper.asMap(updatedSession) shouldBe Map("someQuestionTag" -> "someAnswer" )
   }
 
   it should "pop should work on an empty interview" in {
@@ -71,11 +71,11 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
 
   it should "reset an interview which is not empty" in {
     val newSession = InterviewSessionHelper.push(mockSession, "someQuestionTag", "someAnswer")
-    InterviewSessionHelper.asMap(newSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
+    InterviewSessionHelper.asMap(newSession) shouldBe Map("someQuestionTag" -> "someAnswer" )
     val resetSession = InterviewSessionHelper.reset(newSession)
     InterviewSessionHelper.asMap(resetSession) shouldBe Map()
     val afterResetSession = InterviewSessionHelper.push(resetSession, "someQuestionTag", "someAnswer")
-    InterviewSessionHelper.asMap(afterResetSession) shouldBe Map(("someQuestionTag" -> "someAnswer" ))
+    InterviewSessionHelper.asMap(afterResetSession) shouldBe Map("someQuestionTag" -> "someAnswer" )
   }
 
   it should "reset an empty interview" in {
@@ -97,6 +97,37 @@ class InterviewSessionHelperSpec extends FlatSpec with Matchers {
     println(topTag)
     InterviewSessionHelper.asMap(peekSession) shouldBe Map()
     topTag shouldBe ""
+  }
+
+  it should "encode pushed question tag and decode popped question tag" in {
+    val newSession1 = InterviewSessionHelper.push(mockSession, "partOfOrganisation.aaa", "answer1")
+    val newSession2 = InterviewSessionHelper.push(newSession1, "financialRisk.bbb", "answer2")
+    val newSession3 = InterviewSessionHelper.push(newSession2, "businessStructure.ccc", "answer3")
+    val newSession4 = InterviewSessionHelper.push(newSession3, "personalService.ddd", "answer4")
+    val newSession5 = InterviewSessionHelper.push(newSession4, "control.eee", "answer5")
+    val newSession6 = InterviewSessionHelper.push(newSession5, "setup.fff", "answer6")
+    val finalSession = InterviewSessionHelper.push(newSession6, "exit.ggg", "answer7")
+    InterviewSessionHelper.asMap(finalSession) shouldBe Map(
+      "partOfOrganisation.aaa" -> "answer1",
+      "financialRisk.bbb" -> "answer2",
+      "businessStructure.ccc" -> "answer3",
+      "personalService.ddd" -> "answer4",
+      "control.eee" -> "answer5",
+      "setup.fff" -> "answer6",
+      "exit.ggg" -> "answer7"
+    )
+
+    val (updatedSession, questionTag) = InterviewSessionHelper.pop(finalSession)
+
+    questionTag shouldBe "exit.ggg"
+    InterviewSessionHelper.asMap(updatedSession) shouldBe Map(
+      "partOfOrganisation.aaa" -> "answer1",
+      "financialRisk.bbb" -> "answer2",
+      "businessStructure.ccc" -> "answer3",
+      "personalService.ddd" -> "answer4",
+      "control.eee" -> "answer5",
+      "setup.fff" -> "answer6"
+    )
   }
 
 }
