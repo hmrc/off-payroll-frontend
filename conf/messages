@@ -126,7 +126,7 @@ financialRiskB.actualEngagerWithholdPayment=Has this happened during this contra
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-partParcel.workerReceivesBenefits=Does the worker get benefits as part of the contract? Select all that apply. Sick pay Holiday pay Workplace pension Maternity / paternity pay
+partParcel.workerReceivesBenefits=Does the worker get benefits as part of the contract?
 partParcel.workerAsLineManager=Does the worker have line management responsibilities for anyone else working for the end client during this contract?
 partParcel.contactWithEngagerCustomer=Does the worker come into direct contact with the end client''s customers, clients or service users as part of this contract?
 partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a member of the end client''s staff for this contract?
