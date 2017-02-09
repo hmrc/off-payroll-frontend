@@ -14,13 +14,20 @@
 
     @guidance
 
-    @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order)) {
+    @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order), 'class -> "jsForm", 'noValidate -> "noValidate") {
 
-        @if(f.errors.headOption.isDefined) {
-            <h3 style="color:red">@Messages(f.errors.head.message)</h3>
-        }
+        <div class="form-group @if(f.errors.headOption.isDefined) {
+            error
+        }">
+            <fieldset>
+                @if(f.errors.headOption.isDefined) {
+                    <span class="error-notification">@Messages(f.errors.head.message)</span>
+                }
 
-        @uk.gov.hmrc.offpayroll.views.html.interview.element(element)
+                @uk.gov.hmrc.offpayroll.views.html.interview.element(element)
+            </fieldset>
+        </div>
+        <button>@Messages("global.button.continue")</button>
 
     }
 

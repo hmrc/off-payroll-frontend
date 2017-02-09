@@ -6,8 +6,7 @@
 @(element: Element)(implicit request: Request[_], messages: Messages)
     @if(element.elementType == RADIO) {
 
-        <div class="form-group">
-            <fieldset>
+
                 <div class="form-field--inline">
                     <label for="radio-yes" class="block-label">
                         <input id="radio-yes" type="radio" name="@element.questionTag" value="Yes" />
@@ -21,8 +20,7 @@
                     </label>
                 </div>
 
-            </fieldset>
-        </div>
+
 
 
     }
@@ -38,7 +36,7 @@
     }
 
 }
-<button>@Messages("global.button.continue")</button>
+
 
 @if(Play.current.configuration.getBoolean("ui.debug").getOrElse(false)) {
     <p>Debug is on!</p>
