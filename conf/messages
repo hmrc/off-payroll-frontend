@@ -132,23 +132,6 @@ partParcel.contactWithEngagerCustomer=Does the worker come into direct contact w
 partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a member of the end client''s staff for this contract?
 
 
-#### Business Structure Cluster
-
-businessStructure.similarWork=Has the worker had similar contracts with other clients in the past 12 months?
-businessStructure.similarWork.zeroToThree=0-3
-businessStructure.similarWork.fourToNine=4-9
-businessStructure.similarWork.tenPlus=10+
-#may need two tags or some other way to switch the following question
-businessStructure.workerVAT=Is their business registered for VAT?
-businessStructure.businessAccount=Do they have a business bank account?
-businessStructure.advertiseForWork=Do they promote their business?
-#may need two tags or some other way to switch the following question
-businessStructure.businessWebsite=Do they have a website for their business?
-businessStructure.workerPayForTraining=Do they pay for training?
-businessStructure.workerExpenseRunningBusinessPremises=Do they pay for their own business premises?
-businessStructure.workerPaysForInsurance=Does the end client require the worker to take out insurance?
-
-
 
 # Decision
 

@@ -108,12 +108,9 @@ package object resources {
 
   val personalService_workerpayactualhelper = "personalService.workerPayActualHelper"
 
-  //BUSINESS STRUCTURE
-  val businessStructure_similarWork_zeroToThree = "businessStructure.similarWork" -> "businessStructure.similarWork.zeroToThree"
-
 
   //CONTROL
-  val control_workerDecideWhere_cannotFixWorkerLocation = "control.workerDecideWhere" -> "businessStructure.similarWork.cannotFixWorkerLocation"
+  val control_workerDecideWhere_cannotFixWorkerLocation = "control.workerDecideWhere" -> "control.workerDecideWhere.cannotFixWorkerLocation"
 
   //PART AND PARCEL
   val partParcel_workerReceivesBenefits_yes = "partParcel.workerReceivesBenefits" -> "Yes"
