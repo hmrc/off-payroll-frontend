@@ -21,7 +21,8 @@ setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
 
-exit.officeHolder=Is the worker an office holder of the client or do they perform the duties of an office holder?
+exit.officeHolder=Is the worker or their business an office holder for the end client?
+
 
 #### Personal Service cluster
 personalService.workerSentActualSubstitute=During this engagement has the worker arranged for someone to do the work instead of them?
