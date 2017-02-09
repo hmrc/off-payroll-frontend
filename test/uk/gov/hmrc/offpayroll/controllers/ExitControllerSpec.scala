@@ -33,7 +33,7 @@ class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with Scal
   override def configFile: String = "test-application.conf"
 
   "GET " + THE_ROUTE_EXIT_PATH should {
-    "return 200 and the first page in Setup" in {
+    "return 200 and the first page in Exit" in {
       val result = await(ExitController.apply.begin().apply(FakeRequest("GET", THE_ROUTE_EXIT_PATH)))
       status(result) shouldBe Status.OK
       contentAsString(result) should include(exit_officeHolder)
@@ -41,5 +41,25 @@ class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with Scal
   }
 
 
+  "POST /exit/element/0 with officeholder no" should {
+    "redirect to Personal Service" in {
+      val request = FakeRequest().withFormUrlEncodedBody(
+        officeHolderNo
+      )
+      val result = ExitController.apply.processElement(0)(request).futureValue
+      status(result) shouldBe Status.SEE_OTHER
+      redirectLocation(result).get shouldBe("/check-your-employment-status-for-tax/cluster/")
+    }
+  }
 
+  "POST /exit/element/0 with officeholder yes" should {
+    "return a HardDecision" in {
+      val request = FakeRequest().withFormUrlEncodedBody(
+        officeHolderYes
+      )
+      val result = ExitController.apply.processElement(0)(request).futureValue
+      status(result) shouldBe Status.OK
+      contentAsString(result) should include("If you employ this worker you will need to deduct taxes")
+    }
+  }
 }

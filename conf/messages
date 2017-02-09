@@ -23,27 +23,6 @@ setup.provideServices.soleTrader=As a sole trader
 
 exit.officeHolder=Is the worker an office holder of the client or do they perform the duties of an office holder?
 
-# Ltd company liability
-exit.conditionsLiabilityLtd1=Can the worker control more than 5% of the ordinary share capital?
-exit.conditionsLiabilityLtd2=All together, can the worker''s family control more than 5% of the ordinary share capital?
-exit.conditionsLiabilityLtd3=Can the worker take more than 5% of any dividends?
-exit.conditionsLiabilityLtd4=All together, can the worker''s family take more than 5% of any dividends?
-exit.conditionsLiabilityLtd5=Is the limited company controlled by five or fewer people?
-exit.conditionsLiabilityLtd6=Are all of the people who control the limited company also directors of the company?
-exit.conditionsLiabilityLtd7=If the company was wound up, would the worker get more than 5% of the assets that could be shared out?
-exit.conditionsLiabilityLtd8=If the company was wound up, all together would the worker''s family or an associate of the worker get more than 5% of the assets that could be shared out?
-
-# Partnership Liability
-exit.conditionsLiabilityPartnership1=Can the worker take 60% or more of the partnership''s profits?
-exit.conditionsLiabilityPartnership2=All together, can the worker''s family take 60% or more of the profits?
-exit.conditionsLiabilityPartnership3=Do more than 50% of the partnership''s profits come from a single client?
-exit.conditionsLiabilityPartnership4=Does the worker get a share of the profits that''s based on payments the partnership gets for their work?
-
-# Individual Liability
-exit.conditionsLiabilityIndividualIntermediary=Does the middleman give the worker money or other benefits in return for the work?
-
-
-
 #### Personal Service cluster
 
 personalService.contractualObligationForSubstitute=If the worker can''t or doesn''t want to do the work, does the contract state that they must send someone else?

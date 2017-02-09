@@ -45,7 +45,7 @@ class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
     val cluster = PropertyFileLoader.getMessagesForACluster("exit")
 
     cluster.contains("exit.officeHolder") shouldBe true
-    cluster.size shouldBe 14
+    cluster.size shouldBe 1
 
   }
 
