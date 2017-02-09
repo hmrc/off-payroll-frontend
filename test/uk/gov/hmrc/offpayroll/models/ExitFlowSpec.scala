@@ -25,11 +25,9 @@ import uk.gov.hmrc.offpayroll.resources._
   */
 class ExitFlowSpec  extends FlatSpec with Matchers {
 
-  val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
-  def answersAll(text: String) = answers.map { case (question, answer) => (question, text) }
+  private val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
 
   "An ExitFlow " should "get the start Element from the ExitCluster " in {
-
    ExitFlow.getStart().questionTag shouldBe "exit.officeHolder"
   }
 
@@ -38,80 +36,29 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
   }
 
   it should "get an element by its tag name" in {
-    ExitFlow.getElementByTag("exit.conditionsLiabilityLtd1").nonEmpty shouldBe true
+    ExitFlow.getElementByTag("exit.officeHolder").nonEmpty shouldBe true
   }
 
   it should "get an element bu its id and cluster id " in {
     ExitFlow.getElementById(0,0).nonEmpty shouldBe true
   }
 
-  it should "get the next element" in {
-    ExitFlow.getNext(ExitFlow.getStart()).nonEmpty shouldBe true
+  it should "get the next element will be empty as we have one Question" in {
+    ExitFlow.getNext(ExitFlow.getStart()).nonEmpty shouldBe false
   }
 
   it should "indicate that office holder was yes and an in IR35 Decision has been reached " in {
     val result = ExitFlow.shouldAskForNext(Map(officeHolderYes), officeHolderYes)
 
     result.inIr35 shouldBe true
-    result.continueToMainInterview shouldBe false
     result.element.isEmpty shouldBe true
-    result.exitTool shouldBe false
   }
 
-  it should "indicate that the tool should be exitied if the conditionsLiabilityLtd  questions were all No" in {
-
-    val ltdQuestions = answersAll("NO")
-      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityPartnership.*") }
-      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityIndividualIntermediary") }
-
-    val result = ExitFlow.shouldAskForNext(ltdQuestions, "conditionsLiabilityLtd8" -> "NO")
-
-    checkExitTool(result)
-
-  }
-
-  it should "indicate that the tool should be exitied if the conditionsLiabilityPartnership questions were all No" in {
-
-    val partnershipQuestions = answersAll("NO")
-      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityLtd.*") }
-      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityIndividualIntermediary") }
-
-    val result = ExitFlow.shouldAskForNext(partnershipQuestions, "conditionsLiabilityPartnership4" -> "NO")
-
-    checkExitTool(result)
-
-  }
-
-  it should "indicate that the tool should be exitied if the conditionsLiabilityIndividualIntermediary questions were all No" in {
-
-    val conditionsLiabilityPartnership = answersAll("NO")
-      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityLtd.*") }
-      .filter { case (question, answer) => !question.matches("exit.conditionsLiabilityPartnership.*") }
-
-    val result = ExitFlow.shouldAskForNext(conditionsLiabilityPartnership, "conditionsLiabilityPartnership4" -> "NO")
-
-    checkExitTool(result)
-
-  }
-
-  it should "indicate that the tool should be continued to the interview if the conditionsLiabilityIndividualIntermediary questions was Yes" in {
-
-    val conditionsLiabilityPartnership = Map(setupIntermediary, "exit.conditionsLiabilityIndividualIntermediary" -> "YES", officeHolderNo)
-
-    val result = ExitFlow.shouldAskForNext(conditionsLiabilityPartnership, "exit.conditionsLiabilityIndividualIntermediary" -> "YES")
+  it should "indicate that office holder was no and continue " in {
+    val result = ExitFlow.shouldAskForNext(Map(officeHolderNo), officeHolderNo)
 
     result.inIr35 shouldBe false
-    result.continueToMainInterview shouldBe true
     result.element.isEmpty shouldBe true
-    result.exitTool shouldBe false
-
   }
 
-
-  private def checkExitTool(result: ExitResult) = {
-    result.inIr35 shouldBe false
-    result.continueToMainInterview shouldBe false
-    result.element.isEmpty shouldBe true
-    result.exitTool shouldBe true
-  }
 }

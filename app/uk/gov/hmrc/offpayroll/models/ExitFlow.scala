@@ -57,28 +57,6 @@ object ExitFlow extends Webflow {
       }
     }
 
-    def checkForNo(questionTag: String) = {
-      if (!interview.exists { case (question, answer) => question.startsWith(questionTag) })
-        false
-      else {
-        interview.filter {
-          case (question, answer) => {
-            question.startsWith(questionTag)
-          }
-        }.forall {
-          case (question, answer) => {
-            answer.toUpperCase == "NO"
-          }
-        }
-      }
-    }
-
-    def checkAllForNo: Boolean = {
-      (checkForNo("exit.conditionsLiabilityLtd")
-        || checkForNo("exit.conditionsLiabilityPartnership")
-        || checkForNo("exit.conditionsLiabilityIndividualIntermediary"))
-    }
-
     def thereAreMoreQuestionsToBeAsked = {
       maybeElement.nonEmpty
     }
@@ -86,13 +64,11 @@ object ExitFlow extends Webflow {
     if (thereAreMoreQuestionsToBeAsked) ExitResult(maybeElement)
     else {
       if (isOfficeHolder) ExitResult(inIr35 = true)
-      else if (checkAllForNo) ExitResult(exitTool = true)
-      else ExitResult(continueToMainInterview = true)
+      else ExitResult()
     }
   }
 
 }
 
 
-case class ExitResult(element: Option[Element] = Option.empty, continueToMainInterview: Boolean = false,
-                      exitTool: Boolean = false, inIr35: Boolean = false)
+case class ExitResult(element: Option[Element] = Option.empty, inIr35: Boolean = false)
