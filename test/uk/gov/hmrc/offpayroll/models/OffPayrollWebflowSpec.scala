@@ -30,7 +30,7 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   private val firstElement: Element = webflow.getStart()
-  private val lastElement = webflow.clusters(5).clusterElements(7)
+  private val lastElement = webflow.clusters(4).clusterElements(3)
 
 
   private val personalService = "personalService"
@@ -43,7 +43,7 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should "have a two clusters" in {
-    webflow.clusters.size should be (6)
+    webflow.clusters.size should be (5)
   }
 
   it should " be able to get a Cluster by its name " in {

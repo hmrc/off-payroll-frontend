@@ -48,8 +48,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       |    "control": "LOW",
       |    "financialRiskA": "LOW",
       |    "financialRiskB": "LOW",
-      |    "partAndParcel": "LOW",
-      |    "businessStructure": "LOW"
+      |    "partAndParcel": "LOW"
       |  },
       |  "result": "Inside IR35"
       |}
@@ -65,8 +64,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       |    "control": "LOW",
       |    "financialRiskA": "",
       |    "financialRiskB": "LOW",
-      |    "partAndParcel": "MEDIUM",
-      |    "businessStructure": "LOW"
+      |    "partAndParcel": "MEDIUM"
       |  },
       |  "result": "Unknown"
       |}
@@ -83,19 +81,6 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       testFlowService.getStart() should not be (null)
     }
 
-    " exit when zeroToThree is answered for businessStructure.similarWork" in {
-
-      when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_inIr35))
-
-      val interview: Map[String, String] = Map(businessStructure_similarWork_zeroToThree)
-      val currentElement: (String, String) = businessStructure_similarWork_zeroToThree
-
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
-
-      interviewEvalResult.continueWithQuestions shouldBe false
-      interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
-    }
-
     " move to the next cluster when cannotFixWorkerLocation is answered for control.workerDecideWhere" in {
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
@@ -110,7 +95,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
-    " move to the next cluster when Yes is answered for partParcel.workerReceivesBenefits" in {
+    " Exit when Yes is answered for partParcel.workerReceivesBenefits which is the final question" in {
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
 
@@ -119,8 +104,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
 
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
-      interviewEvalResult.continueWithQuestions shouldBe true
-      interviewEvalResult.element.head.questionTag shouldBe "businessStructure.similarWork"
+      interviewEvalResult.continueWithQuestions shouldBe false
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 

@@ -51,8 +51,7 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
       |    "control": "LOW",
       |    "financialRiskA": "LOW",
       |    "financialRiskB": "LOW",
-      |    "partAndParcel": "LOW",
-      |    "businessStructure": "LOW"
+      |    "partAndParcel": "LOW"
       |  },
       |  "result": "Unknown"
       |}
@@ -78,9 +77,6 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
       |    },
       |    "partAndParcel": {
       |      "workerReceivesBenefits": "Yes"
-      |    },
-      |    "businessStructure": {
-      |      "workerVAT": "No"
       |    }
       |  }
       |}
@@ -106,9 +102,9 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
 
       decideResponse.version shouldBe version
       decideResponse.correlationID shouldBe correlationId
-      decideResponse.score.size shouldBe 6
+      decideResponse.score.size shouldBe 5
 
-      for (score <- List("personalService", "control", "financialRiskA", "financialRiskB","partAndParcel", "businessStructure" )){
+      for (score <- List("personalService", "control", "financialRiskA", "financialRiskB","partAndParcel" )){
         decideResponse.score.contains(score) shouldBe true
       }
 
