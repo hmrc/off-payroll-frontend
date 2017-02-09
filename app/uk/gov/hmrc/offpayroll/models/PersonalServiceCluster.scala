@@ -30,20 +30,17 @@ object PersonalServiceCluster extends Cluster {
   override def clusterID: Int = 0
 
   val clusterElements: List[Element] = List(
-    Element("contractualObligationForSubstitute", RADIO, 0, this),
-    Element("contractualObligationInPractise", RADIO, 1, this),
-    Element("contractualRightForSubstitute", RADIO, 2, this),
-    Element("actualRightToSendSubstitute", RADIO, 3, this),
-    Element("contractualRightReflectInPractise", RADIO, 4, this),
-    Element("engagerArrangeIfWorkerIsUnwillingOrUnable", RADIO, 5, this),
-    Element("possibleSubstituteRejection", RADIO, 6, this),
-    Element("contractTermsWorkerPaysSubstitute", RADIO, 7, this),
-    Element("workerSentActualSubstitute", RADIO, 8, this),
-    Element("actualSubstituteRejection", RADIO, 9, this),
-    Element("possibleHelper", RADIO, 10, this),
-    Element("wouldWorkerPayHelper", RADIO, 11, this),
-    Element("workerSentActualHelper", RADIO, 12, this),
-    Element("workerPayActualHelper", RADIO, 13, this)
+    Element("workerSentActualSubstitute", MULTI, 0, this,
+      List(
+        Element("workerSentActualSubstitute.yesClientAgreed", RADIO, 0, this),
+        Element("workerSentActualSubstitute.notAgreedWithClient", RADIO, 1, this),
+        Element("workerSentActualSubstitute.noSubstitutionHappened", RADIO, 2, this)
+      )
+    ),
+    Element("workerPayActualSubstitute", RADIO, 1, this),
+    Element("possibleSubstituteRejection", RADIO, 2, this),
+    Element("possibleSubstituteWorkerPay", RADIO, 3, this),
+    Element("wouldWorkerPayHelper", RADIO, 4, this)
   )
 
 }

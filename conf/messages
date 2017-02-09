@@ -24,23 +24,14 @@ setup.provideServices.soleTrader=As a sole trader
 exit.officeHolder=Is the worker an office holder of the client or do they perform the duties of an office holder?
 
 #### Personal Service cluster
-
-personalService.contractualObligationForSubstitute=If the worker can''t or doesn''t want to do the work, does the contract state that they must send someone else?
-personalService.contractualObligationInPractise=If the worker can''t or doesn''t want to do the work and the contract states that they must send someone else, would this happen in practice?
-personalService.contractualRightForSubstitute=If the worker can''t or doesn''t want to do the work, does the contract state that they''re allowed to send someone else?
-
-
-personalService.actualRightToSendSubstitute=If the worker can''t or doesn''t want to do the work, in practice are they allowed to send someone else?
-personalService.contractualRightReflectInPractise=If the worker can''t or doesn''t want to do the work and the contract states that they''re allowed to send someone else, would this happen in practice?
-personalService.engagerArrangeIfWorkerIsUnwillingOrUnable=If the worker can''t or doesn''t want to do the work, would the end client get someone else to do it?
-personalService.possibleSubstituteRejection=If the worker decided to send someone else to do the work, could the end client turn away the other person even if they''re qualified to do the work?
-personalService.contractTermsWorkerPaysSubstitute=Does the contract state that the worker has to pay the other person they bring in to do the work?
-personalService.workerSentActualSubstitute=If the worker couldn''t or didn''t want to do the work, have they ever sent someone else to do the work instead?
-personalService.actualSubstituteRejection=Did the end client turn the other person away?
-personalService.possibleHelper=Is the worker allowed to get someone to help them do the work for this contract?
-personalService.wouldWorkerPayHelper=Do they have to pay the helper?
-personalService.workerSentActualHelper=Has someone ever helped the worker do the work for this contract?
-personalService.workerPayActualHelper=Did they pay the helper?
+personalService.workerSentActualSubstitute=During this engagement has the worker arranged for someone to do the work instead of them?
+personalService.workerSentActualSubstitute.yesClientAgreed=Yes and the client agreed
+personalService.workerSentActualSubstitute.notAgreedWithClient=Yes but the client didn't agree 
+personalService.workerSentActualSubstitute.noSubstitutionHappened=No it's never happened
+personalService.workerPayActualSubstitute=Did the worker pay the person who did the work instead of them?
+personalService.possibleSubstituteRejection=Would the end client accept the worker sending someone else to do this work?
+personalService.possibleSubstituteWorkerPay=Would the worker have to pay the person who did the work instead of them?
+personalService.wouldWorkerPayHelper=Has the worker needed to pay a helper to do a significant amount of the work?
 
 #### Control Cluster
 
