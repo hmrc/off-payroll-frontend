@@ -98,15 +98,10 @@ package object resources {
 
   //PERSONAL SERVICE
 
-  val personalService_contractualObligationForSubstitute = "personalService.contractualObligationForSubstitute"
-  val personalService_contractualObligationForSubstituteYes = personalService_contractualObligationForSubstitute -> YES
-
-  val personalService_contractualObligationInPractise = "personalService.contractualObligationInPractise"
-  val personalService_contractualObligationInPractiseYes = personalService_contractualObligationInPractise -> "Yes"
-
-  val personalService_contractualRightForSubstitute = "personalService.contractualRightForSubstitute"
-
-  val personalService_workerpayactualhelper = "personalService.workerPayActualHelper"
+  val personalService_workerSentActualSubstitute = "personalService.workerSentActualSubstitute"
+  val personalService_workerSentActualSubstituteYes = "personalService.workerSentActualSubstitute" -> "Yes"
+  val personalService_workerPayActualSubstitute = "personalService.workerPayActualSubstitute"
+  val personalService_workerPayActualSubstituteYes = "personalService.workerPayActualSubstitute" -> "Yes"
 
   //BUSINESS STRUCTURE
   val businessStructure_similarWork_zeroToThree = "businessStructure.similarWork" -> "businessStructure.similarWork.zeroToThree"

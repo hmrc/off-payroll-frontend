@@ -38,7 +38,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
   }
 
   it should " have the correct amount of question tags " in {
-    personalServiceCluster.clusterElements.size shouldBe 14
+    personalServiceCluster.clusterElements.size shouldBe 5
   }
 
   it should " have the correct set of questions" in {
@@ -47,11 +47,13 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   it should "ask the next question if not all questions have been asked" in {
 
-    val currentQnA = "personalService.workerSentActualHelper" -> "Yes"
-    val partialAnswers = PropertyFileLoader.transformMapToAListOfAnswers(
-      PropertyFileLoader.getMessagesForACluster("personalService")).tail
+    val currentQnA = "personalService.possibleSubstituteWorkerPay" -> "Yes"
 
-    partialAnswers.size shouldBe 13
+    val partialAnswers = List(
+      ("personalService.workerSentActualSubstitute", "personalService.workerSentActualSubstitute.yesClientAgreed"),
+      ("personalService.workerPayActualSubstitute", "Yes"),
+      ("personalService.possibleSubstituteRejection", "Yes"),
+      currentQnA)
 
     val decision = personalServiceCluster.shouldAskForDecision(partialAnswers, currentQnA)
 
@@ -61,7 +63,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   it should " not ask anymore questions when all questions have been asked" in {
 
-    val currentQnA = personalService_workerpayactualhelper -> "Yes"
+    val currentQnA = personalService_workerSentActualSubstitute -> "Yes"
     val fullanswers = PropertyFileLoader.transformMapToAListOfAnswers(PropertyFileLoader.getMessagesForACluster("personalService"))
     val decision = personalServiceCluster.shouldAskForDecision(fullanswers, currentQnA)
 

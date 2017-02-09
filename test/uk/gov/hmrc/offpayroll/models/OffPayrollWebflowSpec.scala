@@ -34,9 +34,9 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   private val personalService = "personalService"
-  private val firstQuestionTag = personalService + ".contractualObligationForSubstitute"
+  private val firstQuestionTag = personalService + ".workerSentActualSubstitute"
 
-  "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element contractualObligationForSubstitute" in {
+  "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element workerSentActualSubstitute" in {
     val startElement = webflow.getStart()
     startElement.clusterParent.name should be (personalService)
     startElement.questionTag should be (firstQuestionTag)
@@ -66,8 +66,8 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     maybeElement.get.questionTag should be ("financialRiskA.workerPaidInclusive")
   }
 
-  it should "be able to get an currentElement by id that is valid" in {
-    webflow.getElementById(0, lastElement.order).nonEmpty should be (true)
+  it should "be able to get a currentElement by id that is valid" in {
+    webflow.getElementById(0, 3).nonEmpty should be (true)
     webflow.getElementById(0, 0).nonEmpty should be (true)
   }
 
@@ -77,11 +77,11 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should " be able to return an Element by its tag " in {
-    val contractualRightReflectInPractice: Element = webflow.getElementById(0, 4).head
+    val wouldWorkerPayHelper: Element = webflow.getElementById(0, 4).head
     val controlToldWhatToDo = webflow.getElementById(1,0).head
 
-    webflow.getElementByTag(personalService + ".contractualRightReflectInPractise")
-      .head.questionTag should equal (contractualRightReflectInPractice.questionTag)
+    webflow.getElementByTag(personalService + ".wouldWorkerPayHelper")
+      .head.questionTag should equal (wouldWorkerPayHelper.questionTag)
 
     webflow.getElementByTag("control.toldWhatToDo.yes")
       .head.questionTag should equal (controlToldWhatToDo.questionTag)

@@ -128,18 +128,18 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
 
-      val interview: Map[String, String] = Map(personalService_contractualObligationForSubstituteYes)
-      val currentElement: (String, String) = personalService_contractualObligationForSubstituteYes
+      val interview: Map[String, String] = Map(personalService_workerSentActualSubstituteYes)
+      val currentElement: (String, String) = personalService_workerSentActualSubstituteYes
 
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       assert(interviewEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
-      assert(interviewEvalResult.element.head.questionTag === personalService_contractualObligationInPractise) //next tag
+      assert(interviewEvalResult.element.head.questionTag === personalService_workerPayActualSubstitute) //next tag
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
     " be able to get the current currentElement" in {
-      assert(testFlowService.getAbsoluteElement(0, 1).questionTag == personalService_contractualObligationInPractise)
+      assert(testFlowService.getAbsoluteElement(0, 1).questionTag == personalService_workerPayActualSubstitute)
     }
   }
 
