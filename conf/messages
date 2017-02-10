@@ -99,10 +99,28 @@ financialRiskB.actualEngagerWithholdPayment=Has this happened during this contra
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-partParcel.workerReceivesBenefits=Does the worker get benefits as part of the contract?
-partParcel.workerAsLineManager=Does the worker have line management responsibilities for anyone else working for the end client during this contract?
-partParcel.contactWithEngagerCustomer=Does the worker come into direct contact with the end client''s customers, clients or service users as part of this contract?
-partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a member of the end client''s staff for this contract?
+partParcel.workerReceivesBenefits=Is the worker entitled to any benefits from the end client? Select any that apply. 
+    partParcel.workerReceivesBenefits.sickPay=Sick pay
+    partParcel.workerReceivesBenefits.holidayPay=Holiday pay
+    partParcel.workerReceivesBenefits.workPlacePension=Workplace pension
+    partParcel.workerReceivesBenefits.maternityPay=Maternity/ paternity pay
+    partParcel.workerReceivesBenefits.otherBenefits=Other employee benefits
+    partParcel.workerReceivesBenefits.noBenefits=The worker doesn''t get any benefits
+
+partParcel.workerAsLineManager=Does the worker perform any of these duties for the end client''s other workers? Select all that apply
+    partParcel.workerAsLineManager.hiring=Hiring
+    partParcel.workerAsLineManager.firing=Firing
+    partParcel.workerAsLineManager.appraising=Giving appraisals
+    partParcel.workerAsLineManager.paying=Deciding how much to pay someone
+    partParcel.workerAsLineManager.otherDuties=Other line management duties
+    partParcel.workerAsLineManager.noManagement=None of these
+
+partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
+
+partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
+    partParcel.workerRepresentsEngagerBusiness.workForClient=they work for the end client
+    partParcel.workerRepresentsEngagerBusiness.independent=they''re an independent worker acting on behalf of the end client
+    partParcel.workerRepresentsEngagerBusiness.OwnBusiness=they work for their own business
 
 
 
