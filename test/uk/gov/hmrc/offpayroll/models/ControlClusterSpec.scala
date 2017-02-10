@@ -28,13 +28,12 @@ class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
 
   private val controlCluster = ControlCluster
 
-  private val toldWhatToDoYes = "control.toldWhatToDo" -> "control.toldWhatToDo.yes"
+  private val engagerMovingWorkerYes = "control.engagerMovingWorker" -> "Yes"
   val fullInterview = List(
-    toldWhatToDoYes,
-    "control.engagerMovingWorker" -> "Yes",
-    "control.workerDecidingHowWorkIsDone" -> "control.workerDecidingHowWorkIsDone.workerCanGetInstructed",
-    "control.whenWorkHasToBeDone" -> "control.whenWorkHasToBeDone.noDefinedWorkingPattern",
-    "control.workerDecideWhere" -> "control.workerDecideWhere.workerLocationFixed"
+    engagerMovingWorkerYes,
+    "control.workerDecidingHowWorkIsDone" -> "control.workerDecidingHowWorkIsDone.noWorkerInputAllowed",
+    "control.whenWorkHasToBeDone" -> "control.whenWorkHasToBeDone.workerAgreeSchedule",
+    "control.workerDecideWhere" -> "control.workerDecideWhere.workerChooses"
   )
 
   "A Control Cluster" should " be called control" in {
@@ -42,7 +41,7 @@ class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
   }
 
   it should "have a list of Elements " in {
-    controlCluster.clusterElements.size shouldBe 5
+    controlCluster.clusterElements.size shouldBe 4
   }
 
   it should "have an ID of 1 (the second cluster in the flow" in {
@@ -58,7 +57,7 @@ class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
   }
 
   it should "give the next question to be asked when interview is not complete" in {
-    controlCluster.shouldAskForDecision(List(toldWhatToDoYes), toldWhatToDoYes).isEmpty shouldBe false
+    controlCluster.shouldAskForDecision(List(engagerMovingWorkerYes), engagerMovingWorkerYes).isEmpty shouldBe false
   }
 
   it should " have the correct set of questions" in {

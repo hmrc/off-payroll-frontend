@@ -60,7 +60,7 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   }
 
   it should " give the correct next element when cluster has no more elements but flow has more clusters" in {
-    val maybeElement = webflow.getNext(webflow.clusters(1).clusterElements(4))
+    val maybeElement = webflow.getNext(webflow.clusters(1).clusterElements(3))
     maybeElement.isEmpty should be (false)
     maybeElement.get.clusterParent.name should be ("financialRiskA")
     maybeElement.get.questionTag should be ("financialRiskA.workerPaidInclusive")
@@ -78,13 +78,13 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
   it should " be able to return an Element by its tag " in {
     val wouldWorkerPayHelper: Element = webflow.getElementById(0, 4).head
-    val controlToldWhatToDo = webflow.getElementById(1,0).head
+    val engagerMovingWorker = webflow.getElementById(1,0).head
 
     webflow.getElementByTag(personalService + ".wouldWorkerPayHelper")
       .head.questionTag should equal (wouldWorkerPayHelper.questionTag)
 
-    webflow.getElementByTag("control.toldWhatToDo.yes")
-      .head.questionTag should equal (controlToldWhatToDo.questionTag)
+    webflow.getElementByTag("control.engagerMovingWorker.canMoveWorkerWithPermission")
+      .head.questionTag should equal (engagerMovingWorker.questionTag)
 
 
   }

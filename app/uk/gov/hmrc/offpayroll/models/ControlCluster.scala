@@ -32,36 +32,35 @@ object ControlCluster extends Cluster {
     */
   override def clusterElements: List[Element] = {
     List(
-      Element("toldWhatToDo", MULTI, 0, this,
+      Element("engagerMovingWorker", MULTI, 0, this,
         List(
-          Element("toldWhatToDo.yes", RADIO, 0, this),
-          Element("toldWhatToDo.no", RADIO, 1, this),
-          Element("toldWhatToDo.sometimes", RADIO, 2, this)
+          Element("engagerMovingWorker.canMoveWorkerWithPermission", RADIO, 0, this),
+          Element("engagerMovingWorker.canMoveWorkerWithoutPermission", RADIO, 1, this),
+          Element("engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement", RADIO, 2, this)
         )
       ),
-      Element("engagerMovingWorker", RADIO, 1, this),
-      Element("workerDecidingHowWorkIsDone", MULTI, 2, this,
+      Element("workerDecidingHowWorkIsDone", MULTI, 1, this,
         List(
-          Element("workerDecidingHowWorkIsDone.workingSetInstructions", RADIO, 0, this),
-          Element("workerDecidingHowWorkIsDone.workerCanGetInstructed", RADIO, 1, this),
-          Element("workerDecidingHowWorkIsDone.workerDecidesToClientSatisfaction", RADIO, 2, this),
-          Element("workerDecidingHowWorkIsDone.workerFullyDecides", RADIO, 3, this)
+          Element("workerDecidingHowWorkIsDone.workerDecidesWithoutInput", RADIO, 0, this),
+          Element("workerDecidingHowWorkIsDone.workerAgreeWithOthers", RADIO, 1, this),
+          Element("workerDecidingHowWorkIsDone.noWorkerInputAllowed", RADIO, 2, this),
+          Element("workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures", RADIO, 3, this)
         )
       ),
-      Element("whenWorkHasToBeDone", MULTI, 3, this,
+      Element("whenWorkHasToBeDone", MULTI, 2, this,
         List(
-          Element("whenWorkHasToBeDone.workingPatternStipulated", RADIO, 0, this),
-          Element("whenWorkHasToBeDone.workingPatternAgreed", RADIO, 1, this),
-          Element("whenWorkHasToBeDone.noDefinedWorkingPattern", RADIO, 2, this),
-          Element("whenWorkHasToBeDone.workinPatternAgreedDeadlines", RADIO, 3, this),
-          Element("whenWorkHasToBeDone.workinPatternRegularHoursToAgreedDeadlines", RADIO, 4, this)
+          Element("whenWorkHasToBeDone.workerDecideSchedule", RADIO, 0, this),
+          Element("whenWorkHasToBeDone.workerAgreeSchedule", RADIO, 1, this),
+          Element("whenWorkHasToBeDone.scheduleDecidedForWorker", RADIO, 2, this),
+          Element("whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines", RADIO, 3, this)
         )
       ),
-      Element("workerDecideWhere", MULTI, 4, this,
+      Element("workerDecideWhere", MULTI, 3, this,
         List(
-          Element("workerDecideWhere.couldFixWorkerLocation", RADIO, 0, this),
-          Element("workerDecideWhere.cannotFixWorkerLocation", RADIO, 1, this),
-          Element("workerDecideWhere.workerLocationFixed", RADIO, 2, this)
+          Element("workerDecideWhere.workerChooses", RADIO, 0, this),
+          Element("workerDecideWhere.workerCannotChoose", RADIO, 1, this),
+          Element("workerDecideWhere.workerAgreeWithOthers", RADIO, 2, this),
+          Element("workerDecideWhere.noLocationRequired", RADIO, 3, this)
         )
       )
     )
