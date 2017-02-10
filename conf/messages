@@ -62,37 +62,27 @@ control.workerDecideWhere.workerCannotChoose=No - the end client decides where t
 control.workerDecideWhere.workerAgreeWithOthers=Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
 control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
-#### Financial Risk Cluster A
+#### Financial Risk Cluster
 
-financialRiskA.workerPaidInclusive=Is the worker paid an all-inclusive rate that must cover the cost of all materials needed for the contract?
-financialRiskA.workerNeedConsumablesMaterials=Does the worker need materials that become part of the work for this contract?
-financialRiskA.workerProvideConsumablesMaterials=Do they have to provide them?
-financialRiskA.engagerPayConsumables=Do they get the money back?
-financialRiskA.workerNeedEquipment=Does the worker need major items of equipment without which they can''t do the work for this contract?
-financialRiskA.workerProvideEquipment=Do they have to provide them?
-financialRiskA.engagerPayEquipment=Do they get the money back?
+financialRisk.haveToPayButCannotClaim=a
+financialRisk.workerProvidedMaterials=a
+financialRisk.workerProvidedEquipment=a
+financialRisk.workerUsedVehicle=a
+financialRisk.workerHadOtherExpenses=a
+financialRisk.expensesAreNotRelevantForRole=a
+financialRisk.workerMainIncome=a
+financialRisk.workerMainIncome.incomeCalendarPeriods=a
+financialRisk.workerMainIncome.incomeFixed=a
+financialRisk.workerMainIncome.incomePieceRate=a
+financialRisk.workerMainIncome.incomeCommission=a
+financialRisk.workerMainIncome.incomeProfitOrLosses=a
+financialRisk.paidForSubstandardWork=a
+financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=a
+financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=a
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=a
+financialRisk.paidForSubstandardWork.noObligationToCorrect=a
+financialRisk.paidForSubstandardWork.cannotBeCorrected=a
 
-#### Financial Risk Cluster B
-
-financialRiskB.provideVehicle=Does the worker have to use their own vehicle for this contract?
-financialRiskB.engagerPayVehicleExpense=Do they get the money back?
-financialRiskB.workerIncurExpense=Does the worker have to pay for anything else out of their own pocket while working on this contract?
-financialRiskB.engagerPayOtherExpense=Do they get the money back?
-
-financialRiskB.workerMainIncome=How does the end client pay the worker for this contract?
-financialRiskB.workerMainIncome.incomeCalendarPeriods=On an hourly, daily or weekly rate
-financialRiskB.workerMainIncome.incomePieceRate=An amount based on how much work they complete
-financialRiskB.workerMainIncome.incomeCommission=An amount based on the sales they make
-financialRiskB.workerMainIncome.incomeFixed=A fixed price agreed for the the whole piece of work
-financialRiskB.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits
-financialRiskB.workerMainIncome.incomeRateByInvoice=An hourly or daily rate paid on submission of an invoice
-
-financialRiskB.workerSufferedLatePayment=Has the worker ever been paid late, or not at all, on submission of an invoice?
-financialRiskB.workerProvideAtTheirExpense=If the work isn''t up to the end client''s expectations for this contract, does the worker have to put it right?
-financialRiskB.workerFixAtTheirOwnTime=Do they have to put it right on their own time?
-financialRiskB.workerPayForMaterialsSubstandardWorker=Do they have to pay for the materials used to put the work right?
-financialRiskB.paidForSubstandardWork=If the work isn''t up to the end client''s expectations for this contract, is the end client allowed to pay the worker late, or not at all?
-financialRiskB.actualEngagerWithholdPayment=Has this happened during this contract?
 
 #### Part & Parcel Cluster
 

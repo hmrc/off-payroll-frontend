@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.FinancialRiskBCluster.{findNextQuestion, getElementForQuestionTag}
 
 object PartAndParcelCluster extends Cluster {
 

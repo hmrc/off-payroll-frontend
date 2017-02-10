@@ -4,36 +4,52 @@
 @import uk.gov.hmrc.offpayroll.models.RADIO
 @import play.api.Play
 @(element: Element)(implicit request: Request[_], messages: Messages)
-    @if(element.elementType == RADIO) {
+
+@element.elementType match {
+    case RADIO => {
 
 
-                <div class="form-field--inline">
-                    <label for="radio-yes" class="block-label">
-                        <input id="radio-yes" type="radio" name="@element.questionTag" value="Yes" />
-                        Yes
-                    </label>
-                </div>
-                <div class="form-field--inline">
-                    <label for="radio-no" class="block-label">
-                        <input id="radio-no" type="radio" name="@element.questionTag" value="No" />
-                        No
-                    </label>
-                </div>
-
-
-
-
-    }
-    @if(element.elementType == MULTI) {
-
-    @for(child <- element.children) {
-        <div class="form-field">
-            <label for="@child.questionTag" class="block-label">
-                <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
-                @Messages(child.questionTag)
+        <div class="form-field--inline">
+            <label for="radio-yes" class="block-label">
+                <input id="radio-yes" type="radio" name="@element.questionTag" value="Yes" />
+                Yes
             </label>
         </div>
+        <div class="form-field--inline">
+            <label for="radio-no" class="block-label">
+                <input id="radio-no" type="radio" name="@element.questionTag" value="No" />
+                No
+            </label>
+        </div>
+
+
     }
+    case MULTI => {
+
+        @for(child <- element.children) {
+            <div class="form-field">
+                <label for="@child.questionTag" class="block-label">
+                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
+                    @Messages(child.questionTag)
+                </label>
+            </div>
+        }
+    }
+
+    case GROUP => {
+        @for(child <- element.children) {
+            <div class="form-field">
+                <label for="@child.questionTag" class="block-label">
+                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@child.questionTag" id="@child.questionTag" value="@child.questionTag" />
+                    @Messages(child.questionTag)
+                </label>
+            </div>
+        }
+
+    }
+
+
+
 
 }
 
