@@ -42,7 +42,7 @@ abstract class FlowService {
     */
   def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation]
 
-  def getStart(): Element
+  def getStart(interview: Map[String, String]): Element
 
   def getAbsoluteElement(clusterId: Int, elementId: Int): Element
 
@@ -61,7 +61,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
   val flow = OffPayrollWebflow
 
-  override def getStart(): Element = flow.getStart()
+  override def getStart(interview: Map[String, String]): Element = flow.getStart(interview)
 
   private def guardValidEelement(currentTag: String): Element = {
     val tag = flow.getElementByTag(currentTag)

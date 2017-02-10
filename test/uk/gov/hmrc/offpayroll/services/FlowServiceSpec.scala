@@ -78,7 +78,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
 
   "A Flow Service should " should {
     " be able to get the start of an Interview" in {
-      testFlowService.getStart() should not be (null)
+      testFlowService.getStart(Map[String, String]()) should not be (null)
     }
 
     " move to the next cluster when cannotFixWorkerLocation is answered for control.workerDecideWhere" in {
@@ -112,8 +112,8 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
 
-      val interview: Map[String, String] = Map(personalService_workerSentActualSubstituteYes)
-      val currentElement: (String, String) = personalService_workerSentActualSubstituteYes
+      val interview: Map[String, String] = Map(personalService_workerSentActualSubstituteYesClientAgreed)
+      val currentElement: (String, String) = personalService_workerSentActualSubstituteYesClientAgreed
 
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 

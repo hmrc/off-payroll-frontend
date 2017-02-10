@@ -28,7 +28,7 @@ object ExitFlow extends Webflow {
 
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, clusters(0))
 
-  override def getStart(): Element = getElementById(0, 0).get
+  override def getStart(interview: Map[String, String]): Element = getElementById(0, 0).get //fixme refactor to use getStart ????
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
     if (clusterId == 0 && elementId < clusters(0).clusterElements.size)

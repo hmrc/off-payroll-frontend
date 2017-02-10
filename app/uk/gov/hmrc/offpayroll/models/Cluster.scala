@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 
 /**
-  * Represents a Cluster which is a part of an Interview in Offpayroll
+  * Represents a Cluster which is a part of an Interview in Off Payroll
   */
 abstract class Cluster {
 
@@ -33,6 +33,8 @@ abstract class Cluster {
     * @return
     */
   def clusterElements: List[Element]
+
+  def getStart(interview: Map[String, String]) : Element = clusterElements.head
 
 
   def makeMapFromClusterElements: Map[String, Element] = {
