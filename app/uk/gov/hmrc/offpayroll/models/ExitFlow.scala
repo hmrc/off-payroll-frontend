@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models
 import uk.gov.hmrc.offpayroll.typeDefs.Interview
 
 /**
@@ -26,9 +25,11 @@ object ExitFlow extends Webflow {
 
   override def version: String = "1.0.1-beta"
 
+  private val exitCluster = ExitCluster
+
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, clusters(0))
 
-  override def getStart(interview: Map[String, String]): Element = getElementById(0, 0).get //fixme refactor to use getStart ????
+  override def getStart(interview: Map[String, String]): Element = exitCluster.clusterElements(0)
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
     if (clusterId == 0 && elementId < clusters(0).clusterElements.size)
@@ -40,8 +41,9 @@ object ExitFlow extends Webflow {
   override def getElementByTag(tag: String): Option[Element] =
     clusters.head.clusterElements.find(element => element.questionTag == tag)
 
+
   override def clusters: List[Cluster] =
-    List(ExitCluster)
+    List(exitCluster)
 
   override def getClusterByName(name: String): Cluster =
     clusters.find(cluster => cluster.name == name).get
@@ -49,7 +51,7 @@ object ExitFlow extends Webflow {
 
   def shouldAskForNext(interview: Interview, currentQnA: (String, String)): ExitResult = {
 
-    val maybeElement = ExitCluster.shouldAskForDecision(interview.toList, currentQnA)
+    val maybeElement = exitCluster.shouldAskForDecision(interview.toList, currentQnA)
 
     def isOfficeHolder: Boolean = {
       interview.exists {

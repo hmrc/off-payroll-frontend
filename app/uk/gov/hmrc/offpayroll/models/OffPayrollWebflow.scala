@@ -17,7 +17,6 @@
 package uk.gov.hmrc.offpayroll.models
 
 import uk.gov.hmrc.offpayroll.typeDefs.Interview
-import uk.gov.hmrc.offpayroll.util.{ClusterAndQuestion, InterviewSessionHelper}
 
 /**
   * Created by peter on 02/12/2016.
