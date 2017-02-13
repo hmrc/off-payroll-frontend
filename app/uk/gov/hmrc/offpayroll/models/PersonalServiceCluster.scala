@@ -77,20 +77,20 @@ object PersonalServiceCluster extends Cluster {
   /**
     * Returns the next element in the cluster or empty if we should ask for a decision
     *
-    * @param clusterAnswers
+    * @param interview
     * @return
     */
-  override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (allQuestionsAnswered(clusterAnswers))Option.empty
+  override def shouldAskForDecision(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+    if (allQuestionsAnswered(interview))Option.empty
     else
-      getNextQuestionElement(clusterAnswers, currentQnA)
+      getNextQuestionElement(interview, currentQnA)
 
   }
 
-  def getNextQuestionElement(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+  def getNextQuestionElement(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
     val relevantFlowElement = currentQuestionFlowElements.filter{
-      element => element.answers.forall(clusterAnswers.contains(_))
+      element => element.answers.forall(interview.contains(_))
     }
     if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
     else
