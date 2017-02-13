@@ -29,7 +29,7 @@ object ExitFlow extends Webflow {
 
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, clusters(0))
 
-  override def getStart(interview: Map[String, String]): Element = exitCluster.clusterElements(0)
+  override def getStart(interview: Map[String, String]): Element = exitCluster.getStart(interview)
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
     if (clusterId == 0 && elementId < clusters(0).clusterElements.size)
