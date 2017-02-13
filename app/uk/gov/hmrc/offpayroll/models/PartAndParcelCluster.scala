@@ -35,8 +35,8 @@ object PartAndParcelCluster extends Cluster {
     Element("workerRepresentsEngagerBusiness",MULTI, 3, this,
       List(
         Element("workerRepresentsEngagerBusiness.workForClient", RADIO, 0, this),
-        Element("workerRepresentsEngagerBusiness.independent", RADIO, 1, this),
-        Element("workerRepresentsEngagerBusiness.OwnBusiness", RADIO, 2, this)
+        Element("workerRepresentsEngagerBusiness.workAsIndependent", RADIO, 1, this),
+        Element("workerRepresentsEngagerBusiness.workAsBusiness", RADIO, 2, this)
       ))
   )
 
