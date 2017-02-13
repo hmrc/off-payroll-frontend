@@ -109,6 +109,7 @@ package object resources {
 
   //PART AND PARCEL
   val partParcel_workerReceivesBenefits_yes = "partParcel.workerReceivesBenefits" -> "Yes"
+  val partParcel_workerAsLineManager_yes = "partParcel.workerAsLineManager" -> "Yes"
 
   val partialInterview_hasContractStarted_Yes = Map("setup.endUserRole" -> "setup.endUserRole.endClient",
     "setup.hasContractStarted" -> "Yes",
