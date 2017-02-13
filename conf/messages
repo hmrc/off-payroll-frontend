@@ -38,31 +38,29 @@ personalService.wouldWorkerPayHelper=Has the worker needed to pay a helper to do
 
 #### Control Cluster
 
-control.toldWhatToDo=Does the worker get to decide which tasks they do each day for this contract?
-control.toldWhatToDo.yes=Yes, they get to decide
-control.toldWhatToDo.no=No, the end client decides
-control.toldWhatToDo.sometimes=Sometimes they get to decide and sometimes the end client decides
+control.engagerMovingWorker=Can the end client move the worker to a different task or project that they had not originally agreed to do?
+control.engagerMovingWorker.canMoveWorkerWithPermission=Yes, but only with the worker's permission
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes, without the worker's permission. If the worker doesn't want to change task or project, the end client would no longer engage them.
+control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No, that would need to be arranged under a new contract or formal agreement
 
-control.engagerMovingWorker=Can the end client tell the worker to move from job to job during this contract?
-
-control.workerDecidingHowWorkIsDone=Can the end client tell the worker how to do the work for this contract?
-control.workerDecidingHowWorkIsDone.workingSetInstructions=The worker follows a set process or set of instructions
-control.workerDecidingHowWorkIsDone.workerCanGetInstructed=The end client can give the worker written or spoken instructions
-control.workerDecidingHowWorkIsDone.workerDecidesToClientSatisfaction=The worker decides how they do the work as long as the end client is satisfied
-control.workerDecidingHowWorkIsDone.workerFullyDecides=The worker is skilled to the level that it''s not appropriate for the end client to tell them how to do the work
+control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, who decides how to do the work?
+control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=The worker decides what needs to be done without any input from the end client
+control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=The worker and other people employed by the end client agree what needs to be done
+control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=The end client decides what needs to be done without input from the worker
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=The worker follows the end client's existing employee procedures and guidelines
 
 
-control.whenWorkHasToBeDone=When does the worker have to do the work for this contract?
-control.whenWorkHasToBeDone.workingPatternStipulated=They have to work a pattern decided by the end client
-control.whenWorkHasToBeDone.workingPatternAgreed=They have to work a pattern they''ve agreed with the end client
-control.whenWorkHasToBeDone.noDefinedWorkingPattern=They''re free to do the work whenever they want, as long as it gets done
-control.whenWorkHasToBeDone.workinPatternAgreedDeadlines=They work to an agreed deadline or series of deadlines
-control.whenWorkHasToBeDone.workinPatternRegularHoursToAgreedDeadlines=They work regular hours, and to an agreed deadline or series of deadlines
+control.whenWorkHasToBeDone=Who decides the schedule of working hours?
+control.whenWorkHasToBeDone.workerDecideSchedule=The worker decides their own schedule
+control.whenWorkHasToBeDone.workerAgreeSchedule=The worker and the end client agree a schedule
+control.whenWorkHasToBeDone.scheduleDecidedForWorker=The end client decides the worker's schedule
+control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=No schedule is needed as long as the worker meets any agreed deadlines
 
-control.workerDecideWhere=Can the worker choose where to work during this contract?
-control.workerDecideWhere.couldFixWorkerLocation=The worker can choose where to work
-control.workerDecideWhere.cannotFixWorkerLocation=The worker can''t choose where to work
-control.workerDecideWhere.workerLocationFixed=The work can only be done in a specific location
+control.workerDecideWhere=Can the worker choose where they work?
+control.workerDecideWhere.workerChooses=Yes
+control.workerDecideWhere.workerCannotChoose=No - the end client decides where they work
+control.workerDecideWhere.workerAgreeWithOthers=Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
+control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
 #### Financial Risk Cluster A
 

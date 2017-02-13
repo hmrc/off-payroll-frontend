@@ -18,6 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.resources._
 
 /**
   * Created by peter on 05/12/2016.
@@ -29,7 +30,6 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   private val webflow = OffPayrollWebflow
 
 
-  private val firstElement: Element = webflow.getStart()
   private val lastElement = webflow.clusters(4).clusterElements(3)
 
 
@@ -37,12 +37,12 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   private val firstQuestionTag = personalService + ".workerSentActualSubstitute"
 
   "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element workerSentActualSubstitute" in {
-    val startElement = webflow.getStart()
+    val startElement = webflow.getStart(partialInterview_hasContractStarted_Yes)
     startElement.clusterParent.name should be (personalService)
     startElement.questionTag should be (firstQuestionTag)
   }
 
-  it should "have a two clusters" in {
+  it should "have 5 clusters" in {
     webflow.clusters.size should be (5)
   }
 
@@ -51,16 +51,12 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     cluster.name should be (personalService)
   }
 
-  it should " be able to get the start currentElement as the start point for the Interview" in {
-    webflow.getStart() should equal(firstElement)
-  }
-
   it should " give an empty option element when we try and get an element that is out of bound" in {
     webflow.getNext(lastElement).isEmpty should be (true)
   }
 
   it should " give the correct next element when cluster has no more elements but flow has more clusters" in {
-    val maybeElement = webflow.getNext(webflow.clusters(1).clusterElements(4))
+    val maybeElement = webflow.getNext(webflow.clusters(1).clusterElements(3))
     maybeElement.isEmpty should be (false)
     maybeElement.get.clusterParent.name should be ("financialRiskA")
     maybeElement.get.questionTag should be ("financialRiskA.workerPaidInclusive")
@@ -71,20 +67,20 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     webflow.getElementById(0, 0).nonEmpty should be (true)
   }
 
-  it should "return an empty Option if we try and get an currentElement by Id that does not exist" in {
+  it should "return an empty Option if we try and get a currentElement by Id that does not exist" in {
     webflow.getElementById(6, 0).isEmpty should be (true)
     webflow.getElementById(6, lastElement.order + 1).isEmpty should be (true)
   }
 
   it should " be able to return an Element by its tag " in {
     val wouldWorkerPayHelper: Element = webflow.getElementById(0, 4).head
-    val controlToldWhatToDo = webflow.getElementById(1,0).head
+    val engagerMovingWorker = webflow.getElementById(1,0).head
 
     webflow.getElementByTag(personalService + ".wouldWorkerPayHelper")
       .head.questionTag should equal (wouldWorkerPayHelper.questionTag)
 
-    webflow.getElementByTag("control.toldWhatToDo.yes")
-      .head.questionTag should equal (controlToldWhatToDo.questionTag)
+    webflow.getElementByTag("control.engagerMovingWorker.canMoveWorkerWithPermission")
+      .head.questionTag should equal (engagerMovingWorker.questionTag)
 
 
   }

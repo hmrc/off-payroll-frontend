@@ -26,9 +26,11 @@ import uk.gov.hmrc.offpayroll.resources._
 class ExitFlowSpec  extends FlatSpec with Matchers {
 
   private val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
+  private val emptyInterview = Map[String, String]()
+
 
   "An ExitFlow " should "get the start Element from the ExitCluster " in {
-   ExitFlow.getStart().questionTag shouldBe "exit.officeHolder"
+   ExitFlow.getStart(emptyInterview).questionTag shouldBe "exit.officeHolder"
   }
 
   it should "have an exit cluster " in {
@@ -44,7 +46,7 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
   }
 
   it should "get the next element will be empty as we have one Question" in {
-    ExitFlow.getNext(ExitFlow.getStart()).nonEmpty shouldBe false
+    ExitFlow.getNext(ExitFlow.getStart(emptyInterview)).nonEmpty shouldBe false
   }
 
   it should "indicate that office holder was yes and an in IR35 Decision has been reached " in {
