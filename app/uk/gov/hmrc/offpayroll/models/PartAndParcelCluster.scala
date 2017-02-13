@@ -23,7 +23,7 @@ object PartAndParcelCluster extends Cluster {
     */
   override def name: String = "partParcel"
 
-  override def clusterID: Int = 4
+  override def clusterID: Int = 3
 
 
   val clusterElements: List[Element] = List(

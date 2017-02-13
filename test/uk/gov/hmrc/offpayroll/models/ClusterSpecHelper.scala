@@ -26,12 +26,14 @@ trait ClusterSpecHelper {
   def assertAllElementsPresentForCluster(cluster: Cluster): Boolean = {
     val properties = PropertyFileLoader.getMessagesForACluster(cluster.name)
 
-    properties.forall {
-      case (question, value) => {
-        cluster.clusterElements.exists(element => {
-          question == element.questionTag || element.children.exists(child => question == child.questionTag)
-        })
+    if(properties.size > 0 ) {
+      properties.forall {
+        case (question, value) => {
+          cluster.clusterElements.exists(element => {
+            question == element.questionTag || element.children.exists(child => question == child.questionTag)
+          })
+        }
       }
-    }
+    } else false
   }
 }

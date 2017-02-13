@@ -22,11 +22,12 @@ package uk.gov.hmrc.offpayroll.models
 case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster,
                    children: List[Element] = List()) {
 
-  require(f(elementType, children), "Children only valid fot MULTI types. There were "
+  require(f(elementType, children), "Children only valid fot MULTI and GROUP types. There were "
     + children.size + " children and the Element Type was " + elementType)
 
   private def f(elementType: ElementType, children: List[Element]): Boolean = elementType match {
     case MULTI => children.nonEmpty
+    case GROUP => children.nonEmpty
     case RADIO => children.isEmpty
     case CHECKBOX => children.isEmpty
     case _ => false
@@ -45,6 +46,8 @@ trait ElementType
 case object RADIO extends ElementType
 
 case object MULTI extends ElementType
+
+case object GROUP extends ElementType
 
 case object CHECKBOX extends ElementType
 
