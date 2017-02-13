@@ -25,12 +25,12 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers with ClusterSpecHe
 
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("partParcel")
 
-  "The Part and Parcel Cluster "
-  it should " have the correct name " in {
+  "The Part and Parcel Cluster " should " have the correct name " in {
     partAndParcelCluster.name shouldBe "partParcel"
   }
+
   it should " have the correct clusterId " in {
-    partAndParcelCluster.clusterID shouldBe 4
+    partAndParcelCluster.clusterID shouldBe 3
   }
   it should " have the correct amount of question tags " in {
     partAndParcelCluster.clusterElements.size shouldBe 4

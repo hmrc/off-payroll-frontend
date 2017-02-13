@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models.FinancialRiskBCluster.{findNextQuestion, getElementForQuestionTag}
 
 object PartAndParcelCluster extends Cluster {
 
@@ -25,7 +24,7 @@ object PartAndParcelCluster extends Cluster {
     */
   override def name: String = "partParcel"
 
-  override def clusterID: Int = 4
+  override def clusterID: Int = 3
 
 
   val clusterElements: List[Element] = List(

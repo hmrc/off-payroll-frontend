@@ -18,9 +18,6 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
 
-/**
-  * Created by peter on 16/12/2016.
-  */
 class ElementSpec extends FlatSpec with Matchers {
 
   val cluster = PersonalServiceCluster
@@ -39,6 +36,12 @@ class ElementSpec extends FlatSpec with Matchers {
   it should "throw a validation exception if it is MULTI and has no children" in {
     assertThrows[IllegalArgumentException] {
       Element(tag, MULTI, 1, cluster)
+    }
+  }
+
+  it should "throw a validation exception if it is GROUP and has no children" in {
+    assertThrows[IllegalArgumentException] {
+      Element(tag, GROUP, 1, cluster)
     }
   }
 

@@ -46,8 +46,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       |  "score": {
       |    "personalService": "HIGH",
       |    "control": "LOW",
-      |    "financialRiskA": "LOW",
-      |    "financialRiskB": "LOW",
+      |    "financialRisk": "LOW",
       |    "partAndParcel": "LOW"
       |  },
       |  "result": "Inside IR35"
@@ -62,8 +61,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       |  "score": {
       |    "personalService": "HIGH",
       |    "control": "LOW",
-      |    "financialRiskA": "",
-      |    "financialRiskB": "LOW",
+      |    "financialRisk": "",
       |    "partAndParcel": "MEDIUM"
       |  },
       |  "result": "Unknown"
@@ -91,7 +89,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       interviewEvalResult.continueWithQuestions shouldBe true
-      interviewEvalResult.element.head.questionTag shouldBe "financialRiskA.workerPaidInclusive"
+      interviewEvalResult.element.head.questionTag shouldBe "financialRisk.haveToPayButCannotClaim"
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
