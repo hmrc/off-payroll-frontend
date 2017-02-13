@@ -90,10 +90,14 @@ financialRisk.paidForSubstandardWork.cannotBeCorrected=they can''t put it right 
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-partParcel.workerReceivesBenefits=Does the worker get benefits as part of the contract?
-partParcel.workerAsLineManager=Does the worker have line management responsibilities for anyone else working for the end client during this contract?
-partParcel.contactWithEngagerCustomer=Does the worker come into direct contact with the end client''s customers, clients or service users as part of this contract?
-partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a member of the end client''s staff for this contract?
+
+partParcel.workerReceivesBenefits=Is the worker entitled to benefits from the end client?
+partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
+partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
+partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
+    partParcel.workerRepresentsEngagerBusiness.workForClient=they work for the end client
+    partParcel.workerRepresentsEngagerBusiness.workAsIndependent=they''re an independent worker acting on behalf of the end client
+    partParcel.workerRepresentsEngagerBusiness.workAsBusiness=they work for their own business
 
 
 

@@ -18,6 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.resources._
 
 /**
   * Created by peter on 05/12/2016.
@@ -28,16 +29,15 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
   private val webflow = OffPayrollWebflow
 
-
-  private val firstElement: Element = webflow.getStart()
   private val lastElement = webflow.clusters(3).clusterElements(3)
+
 
 
   private val personalService = "personalService"
   private val firstQuestionTag = personalService + ".workerSentActualSubstitute"
 
   "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element workerSentActualSubstitute" in {
-    val startElement = webflow.getStart()
+    val startElement = webflow.getStart(partialInterview_hasContractStarted_Yes)
     startElement.clusterParent.name should be (personalService)
     startElement.questionTag should be (firstQuestionTag)
   }
@@ -49,10 +49,6 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   it should " be able to get a Cluster by its name " in {
     val cluster: Cluster = webflow.getClusterByName(personalService)
     cluster.name should be (personalService)
-  }
-
-  it should " be able to get the start currentElement as the start point for the Interview" in {
-    webflow.getStart() should equal(firstElement)
   }
 
   it should " give an empty option element when we try and get an element that is out of bound" in {
@@ -71,7 +67,7 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     webflow.getElementById(0, 0).nonEmpty should be (true)
   }
 
-  it should "return an empty Option if we try and get an currentElement by Id that does not exist" in {
+  it should "return an empty Option if we try and get a currentElement by Id that does not exist" in {
     webflow.getElementById(6, 0).isEmpty should be (true)
     webflow.getElementById(6, lastElement.order + 1).isEmpty should be (true)
   }

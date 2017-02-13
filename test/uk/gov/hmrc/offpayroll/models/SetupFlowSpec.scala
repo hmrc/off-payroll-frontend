@@ -26,7 +26,7 @@ import uk.gov.hmrc.offpayroll.resources._
 class SetupFlowSpec  extends FlatSpec with Matchers {
 
   private val setupFlow = SetupFlow
-  private val firstElement = setupFlow.getStart()
+  private val firstElement = setupFlow.getStart(Map[String, String]())
 
 
   "A SetupFlow " should " be at version 1.0.1-beta " in {

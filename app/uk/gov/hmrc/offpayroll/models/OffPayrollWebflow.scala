@@ -17,7 +17,6 @@
 package uk.gov.hmrc.offpayroll.models
 
 import uk.gov.hmrc.offpayroll.typeDefs.Interview
-import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
 
 /**
   * Created by peter on 02/12/2016.
@@ -55,7 +54,7 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
     } else Option.empty
   }
 
-  override def getStart(): Element = clusters.head.clusterElements.head
+  override def getStart(interview: Map[String, String]): Element = clusters.head.getStart(interview)
 
   override def getElementByTag(tag: String): Option[Element] = {
 

@@ -26,11 +26,17 @@ object PartAndParcelCluster extends Cluster {
 
   override def clusterID: Int = 3
 
+
   val clusterElements: List[Element] = List(
     Element("workerReceivesBenefits", RADIO, 0, this),
     Element("workerAsLineManager", RADIO, 1, this),
     Element("contactWithEngagerCustomer", RADIO, 2, this),
-    Element("workerRepresentsEngagerBusiness", RADIO, 3, this)
+    Element("workerRepresentsEngagerBusiness",MULTI, 3, this,
+      List(
+        Element("workerRepresentsEngagerBusiness.workForClient", RADIO, 0, this),
+        Element("workerRepresentsEngagerBusiness.workAsIndependent", RADIO, 1, this),
+        Element("workerRepresentsEngagerBusiness.workAsBusiness", RADIO, 2, this)
+      ))
   )
 
   private val flows = List(

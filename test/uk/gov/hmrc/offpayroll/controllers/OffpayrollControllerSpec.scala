@@ -73,7 +73,7 @@ class TestOffpayrollController (mockResult: Result) extends OffPayrollController
 
     override def getElementById(clusterId: Int, elementId: Int): Option[Element] = optionMockElement
 
-    override def getStart(): Element = mockElement
+    override def getStart(interview: Map[String, String]): Element = mockElement
 
     override def clusters: List[Cluster] = List(mockCluster)
 
