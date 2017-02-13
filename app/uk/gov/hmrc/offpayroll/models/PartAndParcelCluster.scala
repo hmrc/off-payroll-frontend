@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-
 object PartAndParcelCluster extends Cluster {
 
   /**
@@ -41,44 +40,33 @@ object PartAndParcelCluster extends Cluster {
 
   private val flows = List(
     FlowElement("partParcel.workerReceivesBenefits",
-      Map("partParcel.workerReceivesBenefits" -> "No"),
-      Option("partParcel.workerAsLineManager")),
-    FlowElement("partParcel.workerReceivesBenefits",
       Map("partParcel.workerReceivesBenefits" -> "Yes"),
-      Option.empty),
-    FlowElement("partParcel.workerAsLineManager",
-      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "Yes"),
-      Option.empty),
-    FlowElement("partParcel.workerAsLineManager",
-      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No"),
       Option("partParcel.contactWithEngagerCustomer")),
+    FlowElement("partParcel.workerAsLineManager",
+      Map("partParcel.workerAsLineManager" -> "Yes"),
+      Option.empty),
     FlowElement("partParcel.contactWithEngagerCustomer",
-      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No",
-        "partParcel.contactWithEngagerCustomer" -> "Yes"),
-      Option("partParcel.workerRepresentsEngagerBusiness")),
-    FlowElement("partParcel.contactWithEngagerCustomer",
-      Map("partParcel.workerReceivesBenefits" -> "No", "partParcel.workerAsLineManager" -> "No",
-        "partParcel.contactWithEngagerCustomer" -> "No"),
+      Map("partParcel.contactWithEngagerCustomer" -> "No"),
       Option.empty)
   )
 
   /**
     * Returns the next element in the cluster or empty if we should ask for a decision
     *
-    * @param clusterAnswers
+    * @param interview
     * @return
     */
-  override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (allQuestionsAnswered(clusterAnswers))Option.empty
+  override def shouldAskForDecision(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+    if (allQuestionsAnswered(interview))Option.empty
     else
-      getNextQuestionTag(clusterAnswers, currentQnA)
+      getNextQuestionTag(interview, currentQnA)
 
   }
 
-  def getNextQuestionTag(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+  def getNextQuestionTag(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
     val relevantFlowElement = currentQuestionFlowElements.filter{
-      element => element.answers.forall(clusterAnswers.contains(_))
+      element => element.answers.forall(interview.contains(_))
     }
     if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
     else

@@ -93,12 +93,12 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
-    " Exit when Yes is answered for partParcel.workerReceivesBenefits which is the final question" in {
+    " Exit when Yes is answered for partParcel.workerAsLineManager as it would be the final question" in {
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
 
-      val interview: Map[String, String] = Map(partParcel_workerReceivesBenefits_yes)
-      val currentElement: (String, String) = partParcel_workerReceivesBenefits_yes
+      val interview: Map[String, String] = Map(partParcel_workerAsLineManager_yes)
+      val currentElement: (String, String) = partParcel_workerAsLineManager_yes
 
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
