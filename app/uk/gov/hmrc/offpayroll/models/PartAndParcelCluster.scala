@@ -29,24 +29,8 @@ object PartAndParcelCluster extends Cluster {
 
 
   val clusterElements: List[Element] = List(
-    Element("workerReceivesBenefits", MULTI, 0, this,
-      List(
-        Element("workerReceivesBenefits.sickPay", CHECKBOX, 0, this),
-        Element("workerReceivesBenefits.holidayPay", CHECKBOX, 1, this),
-        Element("workerReceivesBenefits.workPlacePension", CHECKBOX, 2, this),
-        Element("workerReceivesBenefits.maternityPay", CHECKBOX, 3, this),
-        Element("workerReceivesBenefits.otherBenefits", CHECKBOX, 4, this),
-        Element("workerReceivesBenefits.noBenefits", CHECKBOX, 5, this)
-      )),
-    Element("workerAsLineManager", MULTI, 1, this,
-      List(
-        Element("workerAsLineManager.hiring", CHECKBOX, 0, this),
-        Element("workerAsLineManager.firing", CHECKBOX, 1, this),
-        Element("workerAsLineManager.appraising", CHECKBOX, 2, this),
-        Element("workerAsLineManager.paying", CHECKBOX, 3, this),
-        Element("workerAsLineManager.otherDuties", CHECKBOX, 4, this),
-        Element("workerAsLineManager.noManagement", CHECKBOX, 5, this)
-      )),
+    Element("workerReceivesBenefits", RADIO, 0, this),
+    Element("workerAsLineManager", RADIO, 1, this),
     Element("contactWithEngagerCustomer", RADIO, 2, this),
     Element("workerRepresentsEngagerBusiness",MULTI, 3, this,
       List(
