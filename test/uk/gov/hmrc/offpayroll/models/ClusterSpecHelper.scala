@@ -29,7 +29,6 @@ trait ClusterSpecHelper {
     if(properties.size > 0 ) {
       properties.forall {
         case (question, value) => {
-          println("Question from Properties file " + question)
           cluster.clusterElements.exists(element => {
             question == element.questionTag || element.children.exists(child => question == child.questionTag)
           })

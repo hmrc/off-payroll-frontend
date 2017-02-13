@@ -28,11 +28,7 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
   val version: String = "1.0.1-beta"
 
-  def clusters: List[Cluster] = List(
-    //PersonalServiceCluster, ControlCluster,
-    FinancialRiskCluster
-  //  , PartAndParcelCluster
-  )
+  def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
 
 
   override def getNext(element: Element): Option[Element] = {

@@ -23,35 +23,33 @@ object FinancialRiskCluster extends Cluster {
     */
   override def name: String = "financialRisk"
 
-  override def clusterID: Int = 0 // todo make this 2
+  override def clusterID: Int = 2
 
   val clusterElements: List[Element] = List(
-    Element("haveToPayButCannotClaim", GROUP, 0, this,
+    Element("haveToPayButCannotClaim", MULTI, 0, this,
       List(
-        Element("workerProvidedMaterials", CHECKBOX, 0, this),
-        Element("workerProvidedEquipment", CHECKBOX, 1, this),
-        Element("workerUsedVehicle", CHECKBOX, 2, this),
-        Element("workerHadOtherExpenses", CHECKBOX, 3, this),
-        Element("expensesAreNotRelevantForRole", CHECKBOX, 4, this)
+        Element("haveToPayButCannotClaim.workerProvidedMaterials", RADIO, 0, this),
+        Element("haveToPayButCannotClaim.workerProvidedEquipment", RADIO, 1, this),
+        Element("haveToPayButCannotClaim.workerUsedVehicle", RADIO, 2, this),
+        Element("haveToPayButCannotClaim.workerHadOtherExpenses", RADIO, 3, this),
+        Element("haveToPayButCannotClaim.expensesAreNotRelevantForRole", RADIO, 4, this)
       )),
     Element("workerMainIncome", MULTI, 1, this,
       List(
         Element("workerMainIncome.incomeCalendarPeriods", RADIO, 0, this),
-        Element("workerMainIncome.incomePieceRate", RADIO, 1, this),
-        Element("workerMainIncome.incomeCommission", RADIO, 2, this),
-        Element("workerMainIncome.incomeFixed", RADIO, 3, this),
-        Element("workerMainIncome.incomeProfitOrLosses", RADIO, 4, this),
-        Element("workerMainIncome.incomeRateByInvoice", RADIO, 5, this)
+        Element("workerMainIncome.incomeFixed", RADIO, 1, this),
+        Element("workerMainIncome.incomePieceRate", RADIO, 2, this),
+        Element("workerMainIncome.incomeCommission", RADIO, 3, this),
+        Element("workerMainIncome.incomeProfitOrLosses", RADIO, 4, this)
       )
     ),
     Element("paidForSubstandardWork", MULTI, 2, this,
       List(
-        Element("paidForSubstandardWork.incomeCalendarPeriods", RADIO, 0, this),
-        Element("paidForSubstandardWork.incomePieceRate", RADIO, 1, this),
-        Element("paidForSubstandardWork.incomeCommission", RADIO, 2, this),
-        Element("paidForSubstandardWork.incomeFixed", RADIO, 3, this),
-        Element("paidForSubstandardWork.incomeProfitOrLosses", RADIO, 4, this),
-        Element("paidForSubstandardWork.incomeRateByInvoice", RADIO, 5, this)
+        Element("paidForSubstandardWork.asPartOfUsualRateInWorkingHours", RADIO, 0, this),
+        Element("paidForSubstandardWork.outsideOfUsualRateAndHours", RADIO, 1, this),
+        Element("paidForSubstandardWork.outsideOfHoursNoCharge", RADIO, 2, this),
+        Element("paidForSubstandardWork.noObligationToCorrect", RADIO, 3, this),
+        Element("paidForSubstandardWork.cannotBeCorrected", RADIO, 4, this)
       )
     )
   )

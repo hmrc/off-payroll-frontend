@@ -30,7 +30,7 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
 
   private val firstElement: Element = webflow.getStart()
-  private val lastElement = webflow.clusters(4).clusterElements(3)
+  private val lastElement = webflow.clusters(3).clusterElements(3)
 
 
   private val personalService = "personalService"
@@ -42,8 +42,8 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     startElement.questionTag should be (firstQuestionTag)
   }
 
-  it should "have a two clusters" in {
-    webflow.clusters.size should be (5)
+  it should "have a four clusters" in {
+    webflow.clusters.size should be (4)
   }
 
   it should " be able to get a Cluster by its name " in {
@@ -62,8 +62,8 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
   it should " give the correct next element when cluster has no more elements but flow has more clusters" in {
     val maybeElement = webflow.getNext(webflow.clusters(1).clusterElements(3))
     maybeElement.isEmpty should be (false)
-    maybeElement.get.clusterParent.name should be ("financialRiskA")
-    maybeElement.get.questionTag should be ("financialRiskA.workerPaidInclusive")
+    maybeElement.get.clusterParent.name should be ("financialRisk")
+    maybeElement.get.questionTag should be ("financialRisk.haveToPayButCannotClaim")
   }
 
   it should "be able to get a currentElement by id that is valid" in {

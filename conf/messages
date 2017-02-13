@@ -65,17 +65,20 @@ control.workerDecideWhere.noLocationRequired=No - the task determines the work l
 #### Financial Risk Cluster
 
 financialRisk.haveToPayButCannotClaim=What items does the worker have to buy for this engagement that they can''t claim as an expense from the end client or the agency?
-financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including Stationery)
-financialRisk.workerProvidedEquipment=Equipment - significant tools needed to do the work (not including items already owned by the worker''s business) 
-financialRisk.workerUsedVehicle=Vehicle - for work tasks, not commuting
-financialRisk.workerHadOtherExpenses=Other expenses - including meals, accommodation, travel for work tasks (not including commuting)
-financialRisk.expensesAreNotRelevantForRole=Not relevant
+financialRisk.haveToPayButCannotClaim.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including Stationery)
+financialRisk.haveToPayButCannotClaim.workerProvidedEquipment=Equipment - significant tools needed to do the work (not including items already owned by the worker''s business) 
+financialRisk.haveToPayButCannotClaim.workerUsedVehicle=Vehicle - for work tasks, not commuting
+financialRisk.haveToPayButCannotClaim.workerHadOtherExpenses=Other expenses - including meals, accommodation, travel for work tasks (not including commuting)
+financialRisk.haveToPayButCannotClaim.expensesAreNotRelevantForRole=Not relevant
+
 financialRisk.workerMainIncome=What’s the main way the worker is paid for this engagement?
 financialRisk.workerMainIncome.incomeCalendarPeriods=an hourly, daily or weekly rate
 financialRisk.workerMainIncome.incomeFixed=a fixed price for a specific piece of work
 financialRisk.workerMainIncome.incomePieceRate=an amount based on how much work is completed
 financialRisk.workerMainIncome.incomeCommission=a percentage of the sales the worker makes
 financialRisk.workerMainIncome.incomeProfitOrLosses=a percentage of the end client''s profits or savings
+
+
 financialRisk.paidForSubstandardWork=If the end client isn''t happy with the worker''s output, when would the worker have to put it right?
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=in their agreed working hours at the usual rate of pay
 financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=outside of their agreed working hours for an additional charge to the end client

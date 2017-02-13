@@ -25,8 +25,7 @@ class FinancialRiskClusterSpec extends FlatSpec with Matchers with ClusterSpecHe
 
   private val propsFilteredByCluster = PropertyFileLoader.getMessagesForACluster("financialRisk")
 
-  "The Financial Risk Cluster "
-  it should " have the correct name " in {
+  "The Financial Risk Cluster " should " have the correct name " in {
     financialRiskCluster.name shouldBe "financialRisk"
   }
   it should "have the correct clusterId " in {
@@ -36,8 +35,8 @@ class FinancialRiskClusterSpec extends FlatSpec with Matchers with ClusterSpecHe
     financialRiskCluster.clusterElements.size shouldBe 3
   }
 
-//  it should "have the correct set of questions" in {
-//    assertAllElementsPresentForCluster(financialRiskCluster) shouldBe true
-//  }
+  it should "have the correct set of questions" in {
+    assertAllElementsPresentForCluster(financialRiskCluster) shouldBe true
+  }
 
 }
