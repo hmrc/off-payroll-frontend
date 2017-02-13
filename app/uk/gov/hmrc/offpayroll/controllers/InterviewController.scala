@@ -92,7 +92,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   def begin = PasscodeAuthenticatedActionAsync { implicit request =>
 
-    val element = flowService.getStart()
+    val element = flowService.getStart(asMap(request.session))
     val form = createForm(element)
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,

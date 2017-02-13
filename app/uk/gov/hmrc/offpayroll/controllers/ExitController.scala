@@ -47,7 +47,7 @@ class ExitController  @Inject() extends OffPayrollController {
 
   def begin() = PasscodeAuthenticatedActionAsync { implicit request =>
 
-    val element = flow.getStart()
+    val element = flow.getStart(asMap(request.session))
     val questionForm = createForm(element)
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm,element,

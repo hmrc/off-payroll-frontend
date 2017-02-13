@@ -99,7 +99,7 @@ package object resources {
   //PERSONAL SERVICE
 
   val personalService_workerSentActualSubstitute = "personalService.workerSentActualSubstitute"
-  val personalService_workerSentActualSubstituteYes = "personalService.workerSentActualSubstitute" -> "Yes"
+  val personalService_workerSentActualSubstituteYesClientAgreed = "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed"
   val personalService_workerPayActualSubstitute = "personalService.workerPayActualSubstitute"
   val personalService_workerPayActualSubstituteYes = "personalService.workerPayActualSubstitute" -> "Yes"
 
@@ -109,6 +109,16 @@ package object resources {
 
   //PART AND PARCEL
   val partParcel_workerReceivesBenefits_yes = "partParcel.workerReceivesBenefits" -> "Yes"
+
+  val partialInterview_hasContractStarted_Yes = Map("setup.endUserRole" -> "setup.endUserRole.endClient",
+    "setup.hasContractStarted" -> "Yes",
+    "setup.provideServices" -> "setup.provideServices.partnership",
+    "exit.officeHolder" -> "No")
+
+  val partialInterview_hasContractStarted_No = Map("setup.endUserRole" -> "setup.endUserRole.endClient",
+    "setup.hasContractStarted" -> "No",
+    "setup.provideServices" -> "setup.provideServices.partnership",
+    "exit.officeHolder" -> "No")
 
 
 
