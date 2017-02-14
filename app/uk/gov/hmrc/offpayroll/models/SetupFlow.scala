@@ -25,8 +25,6 @@ object SetupFlow extends Webflow {
 
   private val setupCluster = SetupCluster
 
-  override def version: String = "1.0.1-beta"
-
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, setupCluster)
 
   override def getStart(interview: Map[String, String]): Element = setupCluster.getStart(interview)
