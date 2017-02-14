@@ -127,6 +127,17 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   }
 
+  it should " ask the correct next question when 'No' is the answer to possibleSubstituteRejection - 2" in {
+    val currentQnA = "personalService.possibleSubstituteRejection" -> "No"
+    val previousAnswers = List("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed",currentQnA)
+
+    val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
+
+    maybeElement.nonEmpty shouldBe true
+    maybeElement.get.questionTag shouldBe "personalService.wouldWorkerPayHelper"
+
+  }
+
   it should " ask the correct next question when 'Yes' is the answer to possibleSubstituteRejection" in {
     val currentQnA = "personalService.possibleSubstituteRejection" -> "Yes"
     val previousAnswers = List("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened",currentQnA)
