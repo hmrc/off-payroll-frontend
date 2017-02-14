@@ -82,7 +82,10 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
     webflow.getElementByTag("control.engagerMovingWorker.canMoveWorkerWithPermission")
       .head.questionTag should equal (engagerMovingWorker.questionTag)
 
+  }
 
+  it should "be at version 1.0.0-final" in {
+    webflow.version shouldBe "1.0.0-final"
   }
 
 }

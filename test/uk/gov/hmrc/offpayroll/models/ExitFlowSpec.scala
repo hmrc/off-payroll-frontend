@@ -63,4 +63,8 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
     result.element.isEmpty shouldBe true
   }
 
+  it should "be at version 1.0.0-final" in {
+    ExitFlow.version shouldBe "1.0.0-final"
+  }
+
 }
