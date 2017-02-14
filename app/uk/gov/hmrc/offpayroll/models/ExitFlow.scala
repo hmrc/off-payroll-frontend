@@ -23,8 +23,6 @@ import uk.gov.hmrc.offpayroll.typeDefs.Interview
   */
 object ExitFlow extends Webflow {
 
-  override def version: String = "1.0.1-beta"
-
   private val exitCluster = ExitCluster
 
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, clusters(0))
