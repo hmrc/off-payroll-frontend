@@ -51,7 +51,12 @@ object PersonalServiceCluster extends Cluster {
       Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened"),
       Option("personalService.possibleSubstituteRejection")),
     FlowElement("personalService.workerPayActualSubstitute",
-      Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed"),
+      Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed",
+        "personalService.workerPayActualSubstitute" -> "Yes"),
+      Option.empty),
+    FlowElement("personalService.workerPayActualSubstitute",
+      Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed",
+        "personalService.workerPayActualSubstitute" -> "No"),
       Option("personalService.wouldWorkerPayHelper")),
     FlowElement("personalService.possibleSubstituteRejection",
       Map("setup.hasContractStarted" -> "Yes",
@@ -71,6 +76,11 @@ object PersonalServiceCluster extends Cluster {
       Map("setup.hasContractStarted" -> "No",
         "personalService.possibleSubstituteRejection" -> "Yes",
         "personalService.possibleSubstituteWorkerPay" -> "No"),
+      Option.empty),
+    FlowElement("personalService.possibleSubstituteWorkerPay",
+      Map("setup.hasContractStarted" -> "No",
+        "personalService.possibleSubstituteRejection" -> "Yes",
+        "personalService.possibleSubstituteWorkerPay" -> "Yes"),
       Option.empty)
   )
 
