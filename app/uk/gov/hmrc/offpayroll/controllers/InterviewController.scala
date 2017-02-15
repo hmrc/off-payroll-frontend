@@ -23,60 +23,56 @@ import play.api.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
+import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
-import uk.gov.hmrc.offpayroll.models.{Element, Webflow}
+import uk.gov.hmrc.offpayroll.models.{Element, GROUP, Webflow}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
-import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
-import play.api.i18n.Messages.Implicits._
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
 import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, push}
+import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
 
 import scala.concurrent.Future
 
 
-trait OffPayrollControllerHelper extends PasscodeAuthentication  {
-  //@Todo write tests
-
+trait OffPayrollControllerHelper extends PasscodeAuthentication {
 
   override def config = new PasscodeVerificationConfig(configuration)
+
   override def passcodeAuthenticationProvider = new PasscodeAuthenticationProvider(config)
 
-
-  /**
-    * Create a Form based on an Element
-    * @param element
-    * @return
-    */
-  def createForm(element: Element): Form[String] = {
-    createForm(element.questionTag)
+  def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
+    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
   }
 
-  /**
-    * Convience overload to alow form creation by the string name of the element
-    * @param element
-    * @return
-    */
-  def createForm(element: String): Form[String] ={
+  def createForm(element: Element) = {
     Form(
-    single(
-    element -> nonEmptyText
+      single(
+        element.questionTag -> nonEmptyText
+      )
     )
+  }
+
+  def createListForm(element: Element) = {
+    Form(
+      single(
+        element.questionTag -> list(nonEmptyText).verifying(nonEmptyList)
+      )
     )
   }
 
   def yesNo(value: Boolean): String =
-  if(value) "Yes" else "No"
+    if (value) "Yes" else "No"
 
 }
 
 class SessionHelper {
-  def createCorrelationId(request:Request[_]) =
-  request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
-    case None => throw new NoSuchElementException("session id not found in the cookie")
-    case Some(value) => value
-  }
+  def createCorrelationId(request: Request[_]) =
+    request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
+      case None => throw new NoSuchElementException("session id not found in the cookie")
+      case Some(value) => value
+    }
 }
 
 object InterviewController {
@@ -96,10 +92,10 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     val form = createForm(element)
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
-    fragmentService.getFragmentByName(element.questionTag))))
+      fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result =
+  override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
     Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
 
   override def redirect: Result = Redirect(routes.ExitController.back)
@@ -108,32 +104,58 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
     val fieldName = element.questionTag
-    val form = createForm(element)
 
-    form.bindFromRequest.fold (
-    formWithErrors =>
-    Future.successful(BadRequest(
-    uk.gov.hmrc.offpayroll.views.html.interview.interview(
-      formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))),
+    element.elementType match {
+      case GROUP => {
+        val newForm = createListForm(element).bindFromRequest
+        newForm.fold(
+          formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
+          value => {
+            evaluateInteview(fieldName, value.mkString("|"), newForm)
+          }
+        )
 
-    value => {
-          val session = push(request.session, fieldName, value)
-          val result = flowService.evaluateInterview(asMap(session), (fieldName, value), sessionHelper.createCorrelationId(request))
+      }
 
-          result.map(
-          decision => {
-              if (decision.continueWithQuestions) {
-                Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
-                form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
-                  .withSession(session)
-              } else {
-                Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
-              }
-            }
-          )
-        }
-    )
+      case _ => {
+        val newForm = createForm(element).bindFromRequest
+        newForm.fold(
+          formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
+          value => {
+            evaluateInteview(fieldName, value, newForm)
+          }
+        )
+
+      }
+    }
+
+
+
   }
 
 
+  private def handleFormError(element: Element, fieldName: String, newForm: Form[_], formWithErrors: Form[_])(implicit request : play.api.mvc.Request[_]) = {
+    Logger.debug("****************** " + fieldName + " " + newForm.data.mkString("~"))
+    Future.successful(BadRequest(
+      uk.gov.hmrc.offpayroll.views.html.interview.interview(
+        formWithErrors, element, fragmentService.getFragmentByName(element.questionTag))))
+  }
+
+  private def evaluateInteview(fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
+    Logger.debug("****************** " + fieldName + " " + form.data.toString() + " " + formValue)
+    val session = push(request.session, fieldName, formValue)
+    val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), sessionHelper.createCorrelationId(request))
+
+    result.map(
+      decision => {
+        if (decision.continueWithQuestions) {
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
+            form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
+            .withSession(session)
+        } else {
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
+        }
+      }
+    )
+  }
 }

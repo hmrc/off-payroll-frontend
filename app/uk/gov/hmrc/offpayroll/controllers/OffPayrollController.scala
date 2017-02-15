@@ -36,7 +36,7 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
 
   val flow:Webflow
 
-  def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result
+  def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result
 
   def redirect: Result
 

@@ -5,6 +5,12 @@
 @import play.api.Play
 @(element: Element)(implicit request: Request[_], messages: Messages)
 
+
+@indexZero = {[0]}
+@indexOne = {[1]}
+@openBracket = {[}
+@closingBracket = {]}
+
 @element.elementType match {
     case RADIO => {
 
@@ -37,10 +43,12 @@
     }
 
     case GROUP => {
+
         @for(child <- element.children) {
+
             <div class="form-field">
                 <label for="@child.questionTag" class="block-label">
-                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@child.questionTag" id="@child.questionTag" value="@child.questionTag" />
+                    <input id="@element.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag@openBracket@child.order@closingBracket" value="@child.questionTag" />
                     @Messages(child.questionTag)
                 </label>
             </div>
