@@ -95,7 +95,7 @@ partParcel.workerReceivesBenefits=Is the worker entitled to benefits from the en
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
 partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
 partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
-    partParcel.workerRepresentsEngagerBusiness.workForClient=they work for the end client
+    partParcel.workerRepresentsEngagerBusiness.workForEndClient=they work for the end client
     partParcel.workerRepresentsEngagerBusiness.workAsIndependent=they''re an independent worker acting on behalf of the end client
     partParcel.workerRepresentsEngagerBusiness.workAsBusiness=they work for their own business
 
