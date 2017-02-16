@@ -20,10 +20,12 @@ import uk.gov.hmrc.offpayroll.services.FragmentService
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 import play.Logger
 import play.api.data.Form
+import play.api.data.Forms.single
 import play.api.mvc.{Request, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, Webflow}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{pop, peek}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{peek, pop}
+import play.api.data.Forms.text
 
 import scala.concurrent.Future
 
@@ -47,11 +49,13 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
     flow.getElementByTag(peekQuestionTag) match {
       case Some(element) => {
         val (session, questionTag) = pop(request.session)
-        val questionForm = createForm(element)
-        Future.successful(displaySuccess(element, questionForm)
+//        val questionForm = createForm(element)
+        Future.successful(displaySuccess(element, emptyForm)
         (fragmentService.getFragmentByName(element.questionTag)).withSession(session))
       }
       case None => Future.successful(redirect.withSession(peekSession))
     }
   }
+
+  val emptyForm = Form(single("" -> text))
 }
