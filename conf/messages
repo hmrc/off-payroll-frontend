@@ -83,7 +83,7 @@ financialRisk.paidForSubstandardWork=If the end client isn''t happy with the wor
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=in their agreed working hours at the usual rate of pay
 financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=outside of their agreed working hours for an additional charge to the end client
 financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=outside of their agreed working hours without charging the end client additional money
-financialRisk.paidForSubstandardWork.noObligationToCorrect=they don't have to put it right
+financialRisk.paidForSubstandardWork.noObligationToCorrect=they don''t have to put it right
 financialRisk.paidForSubstandardWork.cannotBeCorrected=they can''t put it right as the work is time-specific or for a single event
 
 
