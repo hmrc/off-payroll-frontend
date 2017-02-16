@@ -54,7 +54,7 @@ class ExitController  @Inject() extends OffPayrollController {
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]) = {
+  override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]) = {
     Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm, element, html))
   }
 

@@ -97,4 +97,8 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
 
 
-case class Decision(qa: Map[String, String], decision: DecisionType)
+case class Decision(_qa: Map[String, String], decision: DecisionType) {
+
+  val qa = DecisionBuilder.decodeMultipleValues(_qa)
+
+}

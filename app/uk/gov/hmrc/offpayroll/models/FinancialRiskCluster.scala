@@ -26,13 +26,13 @@ object FinancialRiskCluster extends Cluster {
   override def clusterID: Int = 2
 
   val clusterElements: List[Element] = List(
-    Element("haveToPayButCannotClaim", MULTI, 0, this,
+    Element("haveToPayButCannotClaim", GROUP, 0, this,
       List(
-        Element("haveToPayButCannotClaim.workerProvidedMaterials", RADIO, 0, this),
-        Element("haveToPayButCannotClaim.workerProvidedEquipment", RADIO, 1, this),
-        Element("haveToPayButCannotClaim.workerUsedVehicle", RADIO, 2, this),
-        Element("haveToPayButCannotClaim.workerHadOtherExpenses", RADIO, 3, this),
-        Element("haveToPayButCannotClaim.expensesAreNotRelevantForRole", RADIO, 4, this)
+        Element("workerProvidedMaterials", CHECKBOX, 0, this),
+        Element("workerProvidedEquipment", CHECKBOX, 1, this),
+        Element("workerUsedVehicle", CHECKBOX, 2, this),
+        Element("workerHadOtherExpenses", CHECKBOX, 3, this),
+        Element("expensesAreNotRelevantForRole", CHECKBOX, 4, this)
       )),
     Element("workerMainIncome", MULTI, 1, this,
       List(

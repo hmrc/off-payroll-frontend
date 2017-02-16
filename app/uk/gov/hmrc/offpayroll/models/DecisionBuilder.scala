@@ -26,21 +26,32 @@ import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
   */
 object DecisionBuilder {
 
+  def decodeMultipleValues(m: Map[String,String]): Map[String,String] =
+    m.toList.flatMap { case (a,b) =>
+      b.split('|') match {
+        case s if s.size == 1 => List((a,b))
+        case s => s.drop(1).map(a => (a,"Yes"))
+      }
+    }.toMap
+
   def buildDecisionRequest(interview: Interview, correlationId: String): DecisionRequest = {
+
 
     def normalizeAnswer(answer: String) = {
       answer.split('.').last
     }
-    val listOfTripple = interview.toList
-      .map{
-        case(n,a) =>
-          n match {
-            case ClusterAndQuestion(c,q) => (c,(q,a))
-            case _ => (n,(n,a))
-          }
-      }
+    val listOfTriple = {
+      decodeMultipleValues(interview).toList
+        .map {
+          case (n, a) =>
+            n match {
+              case ClusterAndQuestion(c, q) => (c, (q, a))
+              case _ => (n, (n, a))
+            }
+        }
+    }
 
-    val fliteredByValidClusters = listOfTripple
+    val fliteredByValidClusters = listOfTriple
       .filter{ case (c,n) => OffPayrollWebflow.clusters.exists(cluster => c == cluster.name)}
 
     val normalizeChildren = fliteredByValidClusters.map{
