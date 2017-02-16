@@ -26,15 +26,16 @@ import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
   */
 object DecisionBuilder {
 
+  def decodeMultipleValues(m: Map[String,String]): Map[String,String] =
+    m.toList.flatMap { case (a,b) =>
+      b.split('|') match {
+        case s if s.size == 1 => List((a,b))
+        case s => s.drop(1).map(a => (a,"Yes"))
+      }
+    }.toMap
+
   def buildDecisionRequest(interview: Interview, correlationId: String): DecisionRequest = {
 
-    def decodeMultipleValues(m: Map[String,String]): Map[String,String] =
-      m.toList.flatMap { case (a,b) =>
-        b.split('|') match {
-          case s if s.size == 1 => List((a,b))
-          case s => s.drop(1).map(a => (a,"YES"))
-        }
-      }.toMap
 
     def normalizeAnswer(answer: String) = {
       answer.split('.').last

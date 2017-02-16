@@ -54,8 +54,8 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers {
       |      "toldWhatToDo": "sometimes"
       |    },
       |    "financialRisk": {
-      |    "workerProvidedMaterials": "YES",
-      |    "workerProvidedEquipment": "YES",
+      |    "workerProvidedMaterials": "Yes",
+      |    "workerProvidedEquipment": "Yes",
       |    "workerMainIncome": "incomeCalendarPeriods"
       |    }
       |  }
@@ -76,7 +76,7 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers {
       |      "toldWhatToDo": "sometimes"
       |    },
       |    "financialRisk": {
-      |    "workerProvidedMaterials": "YES"
+      |    "workerProvidedMaterials": "Yes"
       |    }
       |  }
       |}
