@@ -84,7 +84,7 @@ class TestOffpayrollController (mockResult: Result) extends OffPayrollController
     override def getClusterByName(name: String): Cluster = mockCluster
   }
 
-  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result = mockResult
+  override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result = mockResult
 
   override def redirect: Result = mockResult
 }

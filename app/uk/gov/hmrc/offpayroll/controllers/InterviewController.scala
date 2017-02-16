@@ -111,7 +111,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         newForm.fold(
           formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
           value => {
-            evaluateInteview(fieldName, value.mkString("|"), newForm)
+            evaluateInteview(fieldName, value.mkString("|","|",""), newForm)
           }
         )
 
