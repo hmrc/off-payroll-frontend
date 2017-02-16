@@ -31,7 +31,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class DecisionBuilderSpec  extends FlatSpec with Matchers {
   private val TEST_CORRELATION_ID = "00000001099"
   val interview = Map("personalService.workerSentActualSubstitiute" -> "false", "personalService.contractrualRight" -> "true",
-    "control.hasMoreThan50Percent" -> "false", "control.toldWhatToDo" -> "control.toldWhatToDo.sometimes")
+    "control.hasMoreThan50Percent" -> "false", "control.toldWhatToDo" -> "control.toldWhatToDo.sometimes",
+    "financialRisk.haveToPayButCannotClaim" -> "financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment")
 
   private val decisionRequestStringPlusControl =
     """
@@ -46,15 +47,22 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers {
       |    "control": {
       |      "hasMoreThan50Percent": "false",
       |      "toldWhatToDo": "sometimes"
+      |    },
+      |    "financialRisk": {
+      |    "workerProvidedMaterials": "YES",
+      |    "workerProvidedEquipment": "YES"
       |    }
       |  }
       |}
     """.stripMargin
 
-  val expectedDecisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestStringPlusControl)).get
+  val expectedDecisionRequest: DecisionRequest = Json.fromJson[DecisionRequest](Json.parse(decisionRequestStringPlusControl)).get
 
   "A DecisionBuilder " should "build a DecisionRequest from the current Interview in the Sesssion" in {
     val decisionRequest: DecisionRequest = DecisionBuilder.buildDecisionRequest(interview, TEST_CORRELATION_ID)
+
+
+
     decisionRequest shouldBe expectedDecisionRequest
     decisionRequest.correlationID shouldBe TEST_CORRELATION_ID
   }
