@@ -43,7 +43,7 @@ object PersonalServiceCluster extends Cluster {
     Element("wouldWorkerPayHelper", RADIO, 4, this)
   )
 
-  private val flows = List(
+  override val flows = List(
     FlowElement("personalService.workerSentActualSubstitute",
       Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.notAgreedWithClient"),
       Option("personalService.wouldWorkerPayHelper")),
@@ -97,16 +97,6 @@ object PersonalServiceCluster extends Cluster {
     else
       getNextQuestionElement(interview, currentQnA)
 
-  }
-
-  def getNextQuestionElement(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
-    val relevantFlowElement = currentQuestionFlowElements.filter{
-      element => element.answers.forall(interview.contains(_))
-    }
-    if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
-    else
-      getElementForQuestionTag(relevantFlowElement.head.nextQuestion.getOrElse(""))
   }
 
   override def getStart(interview: Map[String, String]) : Element = {

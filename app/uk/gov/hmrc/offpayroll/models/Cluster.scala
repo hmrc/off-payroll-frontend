@@ -34,6 +34,8 @@ abstract class Cluster {
     */
   def clusterElements: List[Element]
 
+  val flows: List[FlowElement] = List.empty
+
   def getStart(interview: Map[String, String]) : Element = clusterElements.head
 
 
@@ -90,6 +92,16 @@ abstract class Cluster {
   def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
     if(allQuestionsAnswered(clusterAnswers)) Option.empty
     else findNextQuestion(currentQnA)
+  }
+
+  def getNextQuestionElement(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+    val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
+    val relevantFlowElement = currentQuestionFlowElements.filter{
+      element => element.answers.forall(interview.contains(_))
+    }
+    if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
+    else
+      getElementForQuestionTag(relevantFlowElement.head.nextQuestion.getOrElse(""))
   }
 
 

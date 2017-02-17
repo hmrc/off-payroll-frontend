@@ -39,4 +39,46 @@ class FinancialRiskClusterSpec extends FlatSpec with Matchers with ClusterSpecHe
     assertAllElementsPresentForCluster(financialRiskCluster) shouldBe true
   }
 
+  it should "decide on composed answer" in {
+
+    val topTag = "financialRisk.haveToPayButCannotClaim"
+    
+    // If Materials OR Equipment is selected ask no more questions
+    val interviewMaterials = List(topTag -> "|financialRisk.workerProvidedMaterials")
+    val interviewEquipment = List(topTag -> "|financialRisk.workerProvidedEquipment")
+
+    // If Materials AND Equipment is selected ask no more questions
+    val interviewMaterialAndEquipment = interviewMaterials ++ interviewEquipment
+    // TODO: this is passing because we have both separate OR definitions in flow, but AND is not working
+
+    // If Vehicle AND Other Expenses are selected ask no more questions
+    val interviewVehicleOther = List("financialRisk.workerUsedVehicle", "financialRisk.workerHadOtherExpenses").
+      map(e => topTag -> s"|$e")
+
+    // If Materials AND Equpment AND Vehicle AND other expenses are selected ask no more questions
+    val interviewMaterialEquipmentVehicleOther = List(
+      "financialRisk.workerProvidedMaterials",
+      "financialRisk.workerProvidedEquipment",
+      "financialRisk.workerUsedVehicle",
+      "financialRisk.workerHadOtherExpenses").
+      map(e => topTag -> s"|$e")
+
+
+    // If Not relevent is selected continue with other questions
+    // If Vehicle is selected continue with other questions
+    val interviewVehicle = List("financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerUsedVehicle")
+
+    // If Other Expenses is selected continue with other questions
+
+    financialRiskCluster.shouldAskForDecision(interviewMaterials, interviewMaterials.head).isEmpty shouldBe true
+    financialRiskCluster.shouldAskForDecision(interviewEquipment, interviewEquipment.head).isEmpty shouldBe true
+    financialRiskCluster.shouldAskForDecision(interviewMaterialAndEquipment, interviewMaterialAndEquipment.head).isEmpty shouldBe true
+
+    financialRiskCluster.shouldAskForDecision(interviewVehicleOther, interviewVehicleOther.head).isEmpty shouldBe true
+    financialRiskCluster.shouldAskForDecision(interviewMaterialEquipmentVehicleOther, interviewMaterialEquipmentVehicleOther.head).isEmpty shouldBe true
+
+    financialRiskCluster.shouldAskForDecision(interviewVehicle, interviewVehicle.head).get.questionTag shouldBe "financialRisk.workerMainIncome"
+
+  }
+
 }
