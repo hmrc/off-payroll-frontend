@@ -53,7 +53,42 @@
                 </label>
             </div>
         }
+        <script type="text/javascript">
+            // make one checkbox exclusive (so it behaves like a radio button)
+            (function() {
+              var inputs = document.getElementsByTagName('input');
+              // name and index of exclusive checkbox
+              var exclusiveCheckbox = {
+                  elementName: 'financialRisk.haveToPayButCannotClaim[4]',
+                  elementIndex: 4
+              }
+              for (x = 0 ; x < inputs.length  ; x++){
+                  var inputName = inputs[x].getAttribute('name');
+                  if(inputName.indexOf('financialRisk.haveToPayButCannotClaim')===0){
+                      // attach change handler to all checkboxes in the group
+                      document.querySelector('input[name="' + inputName +'"]').onchange=changeEventHandler
+                  }
+              }
 
+              function changeEventHandler(event) {
+                  if(this.name == exclusiveCheckbox.elementName){
+                      if(document.querySelector('input[name="' + exclusiveCheckbox.elementName + '"]').checked){
+                          //not relevant checked - uncheck all others
+                          for (x = 0 ; x < inputs.length -1; x++){
+                              if(x != exclusiveCheckbox.elementIndex){
+                                  document.querySelector('input[name="financialRisk.haveToPayButCannotClaim[' + x + ']"').checked = false
+                              }
+                          }
+
+                      }
+                  }
+                  else {
+                      //uncheck not relevant
+                      document.querySelector('input[name="' + exclusiveCheckbox.elementName + '"]').checked = false
+                  }
+              }
+            })();
+        </script>
     }
 
 
