@@ -18,36 +18,46 @@ package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.models._
 
+import scala.annotation.tailrec
+import scala.collection.immutable.BitSet
+
 object InterviewCompressor extends App {
 
   def encodeYesNo(value:String) = if (value.toLowerCase == "yes") 2 else 1
 
-  def encodeElementValue(value: String, element: Element):Long = {
+  def encodeElementValue(value: String, element: Element):Int = {
     element.children match {
       case Nil => encodeYesNo(value)
-      case children => children.find(_.questionTag == value).map(_.order + 1L).getOrElse(0L)
+      case children => children.find(_.questionTag == value).map(_.order + 1).getOrElse(0)
     }
   }
 
-  def encodeElementValues(values: List[String], element: Element):List[Long] = {
+  def encodeElementValues(values: List[String], element: Element):List[Int] = {
     for {
       child <- element.children
     } yield {
-      values.find(_ == child.questionTag).map(_ => 2L).getOrElse(0L)
+      values.find(_ == child.questionTag).map(_ => 2).getOrElse(0)
     }
   }
 
-  def encodeMultiValues(multivalues: List[List[String]]): List[Long] = {
+  // returns encoded value and it width in bits
+  def encodeMultiValues(multivalues: List[List[String]]): List[(Int,Int)] = {
     val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
     val pairs = multivalues.zip(elements)
 
     pairs.flatMap { case (values, element) =>
       element.elementType match {
-        case GROUP => encodeElementValues(values, element)
-        case _ => List(encodeElementValue(values(0), element))
+        case GROUP => encodeElementValues(values, element).map(a => (a,2))
+        case _ => List((encodeElementValue(values(0), element), elementBitWidth(element)))
       }
     }
   }
+
+  def elementBitWidth(element: Element): Int = {
+    if (element.children.isEmpty) 2
+    else MsbEvaluator.msbPos(element.children.size + 1)
+  }
+
 
   println(encodeElementValue("personalService.workerSentActualSubstitute.yesClientAgreed", PersonalServiceCluster.clusterElements(0)))
   println(encodeElementValue("personalService.workerSentActualSubstitute.notAgreedWithClient", PersonalServiceCluster.clusterElements(0)))
@@ -76,8 +86,52 @@ object InterviewCompressor extends App {
     /* 15: cluster 3 children 3 type MULTI */  List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
   )
 
+  val encodedValues = encodeMultiValues(exampleValues)
 
-  println(encodeMultiValues(exampleValues))
+  println(encodedValues)
+
   // total values in element is: if element.children.isEmpty 3 else element.children.size + 1
+
+//  val b = BitSet(encodedValues: _*)
+//  b.toBitMask
+//  println("bit representation:")
+//  b.foreach(print(_))
+//  println
+
+}
+
+
+object InterviewCompressorek extends App {
+
+    val b = BitSet(0,1,2,3,4,1000)
+    val c = b & BitSet(0,1,2,3,4)
+    val bm = b.toBitMask
+
+    println("bit representation:")
+    b.foreach(print(_))
+    println
+
+    println(s"size1=${b.size}")
+    println(s"size1=${c.size}")
+    println(s"size2=${bm.size}")
+    println(s"max=${b.max}")
+    bm.zipWithIndex.foreach(p => println(s"${p._2}\t${p._1}"))
+
+    println(b.toList)
+
+  }
+
+
+object MsbEvaluator extends App {
+  def msbPos(n: Int): Int = {
+    @tailrec
+    def go(n: Int, acc: Int): Int = {
+      if (n == 0) acc else go(n >> 1, acc + 1)
+    }
+    go(n, 0)
+  }
+
+  val x = msbPos(1)
+  println(x)
 
 }
