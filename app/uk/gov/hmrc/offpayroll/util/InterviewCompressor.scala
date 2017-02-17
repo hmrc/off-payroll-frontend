@@ -44,10 +44,10 @@ object InterviewCompressor extends App {
   def encodeMultiValues(multivalues: List[List[String]]): List[(Int,Int)] = {
     val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
     val pairs = multivalues.zip(elements)
-
+    val GROUP_ITEM_VALUE_BIT_WIDTH = 2
     pairs.flatMap { case (values, element) =>
       element.elementType match {
-        case GROUP => encodeElementValues(values, element).map(a => (a,2))
+        case GROUP => encodeElementValues(values, element).map(a => (a,GROUP_ITEM_VALUE_BIT_WIDTH))
         case _ => List((encodeElementValue(values(0), element), elementBitWidth(element)))
       }
     }
@@ -151,7 +151,7 @@ object ValuesPairsToLongEvaluator extends App {
     @tailrec
     def go(p: List[(Int, Int)], acc: Long): Long = p match {
       case Nil => acc
-      case (v,w)::xs => {println(s"${acc.toBinaryString} $v $w");go(xs, (acc << w) | v) }
+      case (v,w)::xs => go(xs, (acc << w) | v)
     }
     go(p, 0L)
   }
@@ -160,7 +160,7 @@ object ValuesPairsToLongEvaluator extends App {
     def go(l:Long, widths: List[Int], acc: List[(Int, Int)]): List[(Int, Int)] = widths match {
       case Nil => List()
       case w::Nil => (l.toInt,w) :: acc
-      case w::xs => go(l >> w, xs, ((l & (Math.pow(2,w).toInt-1)).toInt,w) :: acc)
+      case w::xs => go(l >> w, xs, ((l & ((1 << w) - 1)).toInt,w) :: acc)
     }
     go(l, widths.reverse, List())
   }
@@ -172,4 +172,31 @@ object ValuesPairsToLongEvaluator extends App {
 //  println(valuesWidthPairsToLong(pp))
   println(pp)
   println(widthsToValuesWithPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+
+  val base = 62
+  val baseString: String = ((0 to 9) ++ ('A' to 'Z') ++ ('a' to 'z')).mkString
+
+  def encode(i: Long): String = {
+
+    @scala.annotation.tailrec
+    def div(i: Long, res: List[Int] = Nil): List[Int] = {
+      (i / base) match {
+        case q if q > 0 => div(q, (i % base).toInt :: res)
+        case _ => i.toInt :: res
+      }
+    }
+
+    div(i).map(x => baseString(x)).mkString
+  }
+
+  def decode(s: String): Long = {
+    s.zip(s.indices.reverse)
+      .map { case (c, p) => baseString.indexOf(c) * scala.math.pow(base, p).toLong }
+      .sum
+  }
+
+  println(encode(120163403909459L))
+  println(decode("Y7XjYxCV"))
+  println(widthsToValuesWithPairs(decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+
 }
