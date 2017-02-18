@@ -101,14 +101,10 @@ object FinancialRiskCluster extends Cluster {
   }
 
   override def getNextQuestionElement(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    Logger.debug(s"currentQnA: $currentQnA")
-    Logger.debug(s"interview: $interview")
-    val currentQuestionFlowElements = flows //.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
-    val relevantFlowElement = currentQuestionFlowElements.filter { element =>
+    val relevantFlowElement = flows.filter { element =>
       Logger.debug(s"element.answer: ${element.answers}")
       element.answers.forall(interview.contains(_))
     }
-    Logger.debug(s"currentQuest: $currentQuestionFlowElements \nrelevElems: $relevantFlowElement")
     if (relevantFlowElement.isEmpty)
       findNextQuestion(currentQnA)
     else
