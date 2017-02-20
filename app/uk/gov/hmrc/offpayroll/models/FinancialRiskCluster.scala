@@ -95,7 +95,7 @@ object FinancialRiskCluster extends Cluster {
     Logger.debug(s"AskForDecision: normalizedAnswers=$normalizedAnswers")
 
     if (allQuestionsAnswered(normalizedAnswers.toList))
-      Option.empty
+      None
     else
       getNextQuestionElement(normalizedAnswers.toList, currentQnA)
   }
