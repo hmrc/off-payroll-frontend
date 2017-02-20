@@ -30,7 +30,7 @@ object DecisionBuilder {
     m.toList.flatMap { case (a,b) =>
       b.split('|') match {
         case s if s.size == 1 => List((a,b))
-        case s => s.drop(1).map(a => (a,"Yes"))
+        case s => s.drop(1).map(c => (c,"Yes"))
       }
     }.toMap
 
