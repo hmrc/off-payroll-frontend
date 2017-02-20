@@ -30,7 +30,7 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
 
 
-  override def configFile: String = "test-application.conf"
+  override def configFile: String = "application.conf"
 
   "GET " + THE_ROUTE_EXIT_PATH should {
     "return 200 and the first page in Exit" in {

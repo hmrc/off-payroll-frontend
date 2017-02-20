@@ -31,7 +31,7 @@ import scala.concurrent.Future
 
 class InterviewControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
 
-  override def configFile: String = "test-application.conf"
+  override def configFile: String = "application.conf"
 
   val TEST_SESSION_ID = "41c1fc6444bb7e"
 

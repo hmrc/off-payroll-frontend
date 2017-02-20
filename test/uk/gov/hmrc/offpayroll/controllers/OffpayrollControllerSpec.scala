@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.test.UnitSpec
 
 class OffpayrollControllerSpec extends UnitSpec with MockitoSugar  with WithTestFakeApplication with ScalaFutures {
 
-  override def configFile: String = "test-application.conf"
+  override def configFile: String = "application.conf"
 
   val mockResult = mock[Result]
 

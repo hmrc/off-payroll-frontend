@@ -26,6 +26,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, Webflow}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{peek, pop}
 import play.api.data.Forms.text
+import play.api.mvc._
 
 import scala.concurrent.Future
 
@@ -42,7 +43,7 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
 
   def redirect: Result
 
-  def back = PasscodeAuthenticatedActionAsync { implicit request =>
+  def back = Action.async { implicit request =>
 
     val (peekSession, peekQuestionTag) = peek(request.session)
 

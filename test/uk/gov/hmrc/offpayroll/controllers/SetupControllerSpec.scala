@@ -31,7 +31,7 @@ import play.api.i18n.Messages.Implicits._
   */
 class SetupControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
 
-  override def configFile: String = "test-application.conf"
+  override def configFile: String = "application.conf"
   val COOKIES_HEADER_NAME: String = "Set-Cookie"
 
   "GET /setup/" should {
