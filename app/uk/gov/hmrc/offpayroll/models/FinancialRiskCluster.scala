@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import play.api.Logger
+
 object FinancialRiskCluster extends Cluster {
 
   /**
@@ -54,6 +56,32 @@ object FinancialRiskCluster extends Cluster {
     )
   )
 
+  override val flows = List(
+    FlowElement("financialRisk.haveToPayButCannotClaim",
+      Map("financialRisk.workerProvidedMaterials" -> "Yes"),
+      None),
+    FlowElement("financialRisk.haveToPayButCannotClaim",
+      Map("financialRisk.workerProvidedEquipment" -> "Yes"),
+      None),
+    FlowElement("financialRisk.haveToPayButCannotClaim",
+      Map(
+        "financialRisk.workerProvidedMaterials" -> "Yes",
+        "financialRisk.workerProvidedEquipment" -> "Yes"),
+      None),
+    FlowElement("financialRisk.haveToPayButCannotClaim",
+      Map(
+        "financialRisk.workerProvidedMaterials" -> "Yes",
+        "financialRisk.workerProvidedEquipment" -> "Yes",
+        "financialRisk.workerUsedVehicle" -> "Yes",
+        "financialRisk.workerHadOtherExpenses" -> "Yes"),
+      None),
+    FlowElement("financialRisk.haveToPayButCannotClaim",
+      Map(
+        "financialRisk.workerUsedVehicle" -> "Yes",
+        "financialRisk.workerHadOtherExpenses" -> "Yes"),
+      None)
+  )
+
 
   /**
     * Returns the next element in the cluster or empty if we should ask for a decision
@@ -62,10 +90,25 @@ object FinancialRiskCluster extends Cluster {
     * @return
     */
   override def shouldAskForDecision(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    if (allQuestionsAnswered(clusterAnswers)) Option.empty
-    else
-      findNextQuestion(currentQnA)
+    Logger.debug(s"AskForDecision: clusterAnswers=$clusterAnswers")
+    val normalizedAnswers = DecisionBuilder.decodeMultipleValues(clusterAnswers.toMap)
+    Logger.debug(s"AskForDecision: normalizedAnswers=$normalizedAnswers")
 
+    if (allQuestionsAnswered(normalizedAnswers.toList))
+      None
+    else
+      getNextQuestionElement(normalizedAnswers.toList, currentQnA)
+  }
+
+  override def getNextQuestionElement(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+    val relevantFlowElement = flows.filter { element =>
+      Logger.debug(s"element.answer: ${element.answers}")
+      element.answers.forall(interview.contains(_))
+    }
+    if (relevantFlowElement.isEmpty)
+      findNextQuestion(currentQnA)
+    else
+      getElementForQuestionTag(relevantFlowElement.head.nextQuestion.getOrElse(""))
   }
 
 

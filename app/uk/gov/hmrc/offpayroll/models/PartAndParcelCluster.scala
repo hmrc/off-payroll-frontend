@@ -38,7 +38,7 @@ object PartAndParcelCluster extends Cluster {
       ))
   )
 
-  private val flows = List(
+  override val flows = List(
     FlowElement("partParcel.workerReceivesBenefits",
       Map("partParcel.workerReceivesBenefits" -> "Yes"),
       Option("partParcel.contactWithEngagerCustomer")),
