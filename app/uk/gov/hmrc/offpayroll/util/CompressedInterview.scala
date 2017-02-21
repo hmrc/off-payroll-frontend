@@ -24,3 +24,6 @@ case class CompressedInterview(str: String){
   def asPairs: List[(Int,Int)] = ???
 }
 
+object CompressedInterview {
+  def apply(l: Long): CompressedInterview = new CompressedInterview(Base62EncoderDecoder.encode(l))
+}
