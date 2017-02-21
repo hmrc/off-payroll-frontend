@@ -41,4 +41,9 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
     val p = compressedInterview.asValueWidthPairs
     p should contain theSameElementsInOrderAs pairs
   }
+
+  it should "instantiate from empty string" in {
+    val compressedInterview = CompressedInterview("")
+    compressedInterview.asLong shouldBe 0L
+  }
 }

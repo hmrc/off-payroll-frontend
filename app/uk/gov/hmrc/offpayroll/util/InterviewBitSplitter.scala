@@ -86,7 +86,7 @@ object InterviewBitSplitter extends App {
 }
 
 
-object MsbEvaluator extends App {
+object MsbEvaluator extends {
   def msbPos(n: Int): Int = {
     @tailrec
     def go(n: Int, acc: Int): Int = {
@@ -94,10 +94,6 @@ object MsbEvaluator extends App {
     }
     go(n, 0)
   }
-
-  val x = msbPos(1)
-  println(x)
-
 }
 
 
@@ -129,28 +125,6 @@ object ValuesPairsToLongEvaluator extends App {
   println(longAndWidthsToValueWidthPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
 
 
-  def widthsFlat: List[Int] = {
-    val GROUP_ITEM_VALUE_BIT_WIDTH = 2
-    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
-    elements.flatMap { element =>
-      element.elementType match {
-        case GROUP => element.children.map(_ => GROUP_ITEM_VALUE_BIT_WIDTH)
-        case _ => List(InterviewBitSplitter.elementBitWidth(element))
-      }
-    }
-  }
-
-  def widths: List[List[Int]] = {
-    val GROUP_ITEM_VALUE_BIT_WIDTH = 2
-    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
-    elements.map { element =>
-      element.elementType match {
-        case GROUP => element.children.map(_ => GROUP_ITEM_VALUE_BIT_WIDTH)
-        case _ => List(InterviewBitSplitter.elementBitWidth(element))
-      }
-    }
-  }
-
   def elementIndex(element: Element): Option[Int] = {
     val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
     val found = elements.zipWithIndex.collect{ case (e, i) if (e == element) => i }
@@ -161,9 +135,6 @@ object ValuesPairsToLongEvaluator extends App {
   println(Base62EncoderDecoder.encode(120163403909459L))
   println(Base62EncoderDecoder.decode("Y7XjYxCV"))
   println(longAndWidthsToValueWidthPairs(Base62EncoderDecoder.decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
-  println(widthsFlat)
-  println(widths)
-  println(widths(elementIndex(FinancialRiskCluster.clusterElements(0)).getOrElse(0)))
   println(elementIndex(PartAndParcelCluster.clusterElements(3)).getOrElse(0))
 
 }
