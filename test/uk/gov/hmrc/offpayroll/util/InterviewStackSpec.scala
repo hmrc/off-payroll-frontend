@@ -21,35 +21,54 @@ import uk.gov.hmrc.offpayroll.models.{PartAndParcelCluster, PersonalServiceClust
 
 class InterviewStackSpec extends FlatSpec with Matchers {
 
+  private val firstElement = PersonalServiceCluster.clusterElements(0)
+  private val lastElement = PartAndParcelCluster.clusterElements(3)
+  private val firstElementValue = List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+  private val lastElementValue = List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
+
   "interview stack" should "push correctly one element value" in {
-    val stack = InterviewStack.push(CompressedInterview(0L), List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), PersonalServiceCluster.clusterElements(0))
+    val stack = InterviewStack.push(CompressedInterview(0L), firstElementValue, firstElement)
     stack.asValueWidthPairs should contain theSameElementsInOrderAs(List((3,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
   }
 
   it should "push correctly one element value for the last element" in {
-    val stack = InterviewStack.push(CompressedInterview(0L), List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness"), PartAndParcelCluster.clusterElements(3))
-    println(stack.asValueWidthPairs)
+    val stack = InterviewStack.push(CompressedInterview(0L), lastElementValue, lastElement)
     stack.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (3,3)))
   }
 
   it should "pop a value" in {
-    val stack = InterviewStack.push(CompressedInterview(0L), List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), PersonalServiceCluster.clusterElements(0))
+    val stack = InterviewStack.push(CompressedInterview(0L), firstElementValue, firstElement)
     stack.asValueWidthPairs should contain theSameElementsInOrderAs(List((3,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
-    val (newStack, v) = InterviewStack.pop(stack, PersonalServiceCluster.clusterElements(0))
+    val (newStack, v) = InterviewStack.pop(stack, firstElement)
+    v shouldBe 3
+    newStack.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
+  }
+
+  it should "pop a value on the last element" in {
+    val stack = InterviewStack.push(CompressedInterview(0L), lastElementValue, lastElement)
+    stack.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (3,3)))
+    val (newStack, v) = InterviewStack.pop(stack, lastElement)
     v shouldBe 3
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
   }
 
   it should "peek a value" in {
-    val stack = InterviewStack.push(CompressedInterview(0L), List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), PersonalServiceCluster.clusterElements(0))
+    val stack = InterviewStack.push(CompressedInterview(0L), firstElementValue, firstElement)
     val pairs = List((3, 3), (0, 2), (0, 2), (0, 2), (0, 2), (0, 3), (0, 3), (0, 3), (0, 3), (0, 5), (0, 3), (0, 3), (0, 2), (0, 2), (0, 2), (0, 3))
     stack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
-    val (newStack, v) = InterviewStack.peek(stack, PersonalServiceCluster.clusterElements(0))
+    val (newStack, v) = InterviewStack.peek(stack, firstElement)
+    v shouldBe 3
+    newStack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
+  }
+
+  it should "peek a value on the last element" in {
+    val stack = InterviewStack.push(CompressedInterview(0L), lastElementValue, lastElement)
+    val pairs = List((0, 3), (0, 2), (0, 2), (0, 2), (0, 2), (0, 3), (0, 3), (0, 3), (0, 3), (0, 5), (0, 3), (0, 3), (0, 2), (0, 2), (0, 2), (3, 3))
+    stack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
+    val (newStack, v) = InterviewStack.peek(stack, lastElement)
     v shouldBe 3
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
   }
 
 }
-
-// add test for last element
 
