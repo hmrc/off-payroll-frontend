@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="uk.gov.hmrc.play.logging.JsonEncoder"/>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/off-payroll-frontend-json.log</file>
+        <encoder class="uk.gov.hmrc.play.logging.JsonEncoder"/>
+    </appender>
+
+    <logger name="com.ning.http.client.providers.netty" additivity="false" level="ERROR" />
+
+    <logger name="org.asynchttpclient" level="ERROR" />
+
+    <logger name="uk.gov" level="INFO"/>
+
+    <logger name="play" level="INFO"/>
+
+    <logger name="uk.gov.hmrc.offpayroll" level="DEBUG"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
