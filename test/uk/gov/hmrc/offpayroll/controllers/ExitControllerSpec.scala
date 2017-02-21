@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
-import play.api.test.FakeRequest
+import play.api.test.{FakeApplication, FakeRequest}
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.offpayroll.WithTestFakeApplication
 import uk.gov.hmrc.offpayroll.resources._
@@ -27,10 +27,9 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 /**
   * Created by peter on 16/01/2017.
   */
-class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
+class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
 
-  override def configFile: String = "test-application.conf"
 
   "GET " + THE_ROUTE_EXIT_PATH should {
     "return 200 and the first page in Exit" in {

@@ -31,16 +31,12 @@ import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models.{Element, GROUP, Webflow}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, push}
-import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
 
 import scala.concurrent.Future
 
 
-trait OffPayrollControllerHelper extends PasscodeAuthentication {
+trait OffPayrollControllerHelper {
 
-  override def config = new PasscodeVerificationConfig(configuration)
-
-  override def passcodeAuthenticationProvider = new PasscodeAuthenticationProvider(config)
 
   def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
     if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
@@ -86,7 +82,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   val flow: Webflow = flowService.flow
 
-  def begin = PasscodeAuthenticatedActionAsync { implicit request =>
+  def begin = Action.async { implicit request =>
 
     val element = flowService.getStart(asMap(request.session))
     val form = createForm(element)
@@ -100,7 +96,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   override def redirect: Result = Redirect(routes.ExitController.back)
 
-  def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
     val fieldName = element.questionTag

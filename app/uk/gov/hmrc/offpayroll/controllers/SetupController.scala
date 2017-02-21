@@ -48,7 +48,7 @@ class SetupController @Inject() extends OffPayrollController {
   val SETUP_CLUSTER_ID = 0
 
   //todo shouldn't need the clusterId
-  def begin(clusterId: Int = 0) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def begin(clusterId: Int = 0) = Action.async { implicit request =>
 
     val element = flow.getStart(asMap(request.session))
     val questionForm = createForm(element)
@@ -64,7 +64,7 @@ class SetupController @Inject() extends OffPayrollController {
   override def redirect: Result = Redirect(routes.SetupController.begin())
 
 
-  def start() = PasscodeAuthenticatedActionAsync {
+  def start() = Action.async {
     implicit request =>
       val session = InterviewSessionHelper.reset(request.session)
       Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()).withSession(session))
@@ -72,7 +72,7 @@ class SetupController @Inject() extends OffPayrollController {
 
 
 
-  def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def processElement(elementID: Int) = Action.async { implicit request =>
 
     val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart(asMap(request.session)))
     val fieldName = element.questionTag

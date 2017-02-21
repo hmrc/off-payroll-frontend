@@ -45,7 +45,7 @@ class ExitController  @Inject() extends OffPayrollController {
   val EXIT_CLUSTER_ID: Int = 0
 
 
-  def begin() = PasscodeAuthenticatedActionAsync { implicit request =>
+  def begin() = Action.async { implicit request =>
 
     val element = flow.getStart(asMap(request.session))
     val questionForm = createForm(element)
@@ -61,7 +61,7 @@ class ExitController  @Inject() extends OffPayrollController {
   override def redirect = Redirect(routes.SetupController.back)
 
 
-  def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def processElement(elementID: Int) = Action.async { implicit request =>
 
     val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
     val fieldName = element.questionTag
