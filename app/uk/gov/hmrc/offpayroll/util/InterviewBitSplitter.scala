@@ -85,16 +85,7 @@ object MsbEvaluator extends App {
 
 
 object ValuesPairsToLongEvaluator extends App {
-  def valuesPairsToLong2(p: List[(Int, Int)]): Long = {
-    var l = 0L
-    for ( (v, w) <- p){
-      l = l | v
-      println(s"${l.toBinaryString} $w}")
-      l = l << w
-    }
-    l
-  }
-  def valuesWidthPairsToLong(p: List[(Int, Int)]): Long = {
+  def valueWidthPairsToLong(p: List[(Int, Int)]): Long = {
     @tailrec
     def go(p: List[(Int, Int)], acc: Long): Long = p match {
       case Nil => acc
@@ -103,7 +94,7 @@ object ValuesPairsToLongEvaluator extends App {
     go(p, 0L)
   }
 
-  def longAndWidthsFlatToValueWidthPairs(l: Long, widths: List[Int]): List[(Int, Int)] = {
+  def longAndWidthsToValueWidthPairs(l: Long, widths: List[Int]): List[(Int, Int)] = {
     def go(l:Long, widths: List[Int], acc: List[(Int, Int)]): List[(Int, Int)] = widths match {
       case Nil => List()
       case w::Nil => (l.toInt,w) :: acc
@@ -115,10 +106,10 @@ object ValuesPairsToLongEvaluator extends App {
   val pp = List((3,3), (1,2), (2,2), (2,2), (2,2), (2,3), (3,3), (3,3), (4,3), (2,2), (0,2), (0,2), (0,2), (2,2), (4,3), (4,3), (2,2), (2,2), (2,2), (3,3))
 
   //11001101010100110111000100000001100100010101011
-  println(valuesWidthPairsToLong(pp).toBinaryString)
+  println(valueWidthPairsToLong(pp).toBinaryString)
 //  println(valuesWidthPairsToLong(pp))
   println(pp)
-  println(longAndWidthsFlatToValueWidthPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+  println(longAndWidthsToValueWidthPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
 
 
   def widthsFlat: List[Int] = {
@@ -152,7 +143,7 @@ object ValuesPairsToLongEvaluator extends App {
 
   println(Base62EncoderDecoder.encode(120163403909459L))
   println(Base62EncoderDecoder.decode("Y7XjYxCV"))
-  println(longAndWidthsFlatToValueWidthPairs(Base62EncoderDecoder.decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+  println(longAndWidthsToValueWidthPairs(Base62EncoderDecoder.decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
   println(widthsFlat)
   println(widths)
   println(widths(elementIndex(FinancialRiskCluster.clusterElements(0)).getOrElse(0)))

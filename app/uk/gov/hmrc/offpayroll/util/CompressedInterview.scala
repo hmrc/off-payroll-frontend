@@ -40,7 +40,7 @@ case class CompressedInterview(str: String){
 
 object CompressedInterview {
   def apply(l: Long): CompressedInterview = new CompressedInterview(encode(l))
-  def fromValueWidthPairs(pairs: List[(Int,Int)]) = {
+  def apply(pairs: List[(Int,Int)]) = {
     def valuesWidthPairsToLong(p: List[(Int, Int)]): Long = {
       @tailrec
       def go(p: List[(Int, Int)], acc: Long): Long = p match {
