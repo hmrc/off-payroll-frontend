@@ -42,7 +42,7 @@ class InterviewStackSpec extends FlatSpec with Matchers {
     val stack = InterviewStack.push(CompressedInterview(0L), firstElementValue, firstElement)
     stack.asValueWidthPairs should contain theSameElementsInOrderAs(List((3,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
     val (newStack, v) = InterviewStack.pop(stack, firstElement)
-    v shouldBe 3
+    v should contain theSameElementsInOrderAs(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"))
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
   }
 
@@ -50,7 +50,7 @@ class InterviewStackSpec extends FlatSpec with Matchers {
     val stack = InterviewStack.push(CompressedInterview(0L), lastElementValue, lastElement)
     stack.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (3,3)))
     val (newStack, v) = InterviewStack.pop(stack, lastElement)
-    v shouldBe 3
+    v should contain theSameElementsInOrderAs(List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness"))
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
   }
 
@@ -59,7 +59,7 @@ class InterviewStackSpec extends FlatSpec with Matchers {
     val pairs = List((3, 3), (0, 2), (0, 2), (0, 2), (0, 2), (0, 3), (0, 3), (0, 3), (0, 3), (0, 5), (0, 3), (0, 3), (0, 2), (0, 2), (0, 2), (0, 3))
     stack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
     val (newStack, v) = InterviewStack.peek(stack, firstElement)
-    v shouldBe 3
+    v should contain theSameElementsInOrderAs(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"))
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
   }
 
@@ -68,7 +68,7 @@ class InterviewStackSpec extends FlatSpec with Matchers {
     val pairs = List((0, 3), (0, 2), (0, 2), (0, 2), (0, 2), (0, 3), (0, 3), (0, 3), (0, 3), (0, 5), (0, 3), (0, 3), (0, 2), (0, 2), (0, 2), (3, 3))
     stack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
     val (newStack, v) = InterviewStack.peek(stack, lastElement)
-    v shouldBe 3
+    v should contain theSameElementsInOrderAs(List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness"))
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
   }
 
@@ -77,10 +77,10 @@ class InterviewStackSpec extends FlatSpec with Matchers {
     val pairs = List((0, 3), (0, 2), (0, 2), (0, 2), (0, 2), (0, 3), (0, 3), (0, 3), (0, 3), (17, 5), (0, 3), (0, 3), (0, 2), (0, 2), (0, 2), (0, 3))
     stack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
     val (newStack, v) = InterviewStack.peek(stack, middleElement)
-    v shouldBe 17
+    v should contain theSameElementsInOrderAs(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"))
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
     val (newStack2, v2) = InterviewStack.pop(stack, middleElement)
-    v2 shouldBe 17
+    v2 should contain theSameElementsInOrderAs(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"))
     newStack2.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
   }
 

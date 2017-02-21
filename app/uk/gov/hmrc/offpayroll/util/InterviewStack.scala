@@ -27,7 +27,12 @@ object InterviewStack {
     }
   }
 
-  def pop(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {
+  def pop(previous: CompressedInterview, element: Element): (CompressedInterview, List[String]) = {
+    val (interview, bitValue) = doPop(previous, element)
+    (interview, InterviewBitSplitter.fromBitElement(bitValue, element))
+  }
+
+  def doPop(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {
     val pairs = previous.asValueWidthPairs
     elementIndex(element) match {
       case None => (previous, 0)
@@ -35,7 +40,12 @@ object InterviewStack {
     }
   }
 
-  def peek(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {
+  def peek(previous: CompressedInterview, element: Element): (CompressedInterview, List[String]) = {
+    val (interview, bitValue) = doPeek(previous, element)
+    (interview, InterviewBitSplitter.fromBitElement(bitValue, element))
+  }
+
+  def doPeek(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {
     val pairs = previous.asValueWidthPairs
     elementIndex(element) match {
       case None => (previous, 0)
