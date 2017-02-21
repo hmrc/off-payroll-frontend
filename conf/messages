@@ -91,7 +91,7 @@ financialRisk.paidForSubstandardWork.cannotBeCorrected=they can''t put it right 
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
 
-partParcel.workerReceivesBenefits=Is the worker entitled to benefits from the end client?
+partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefits from the end client?
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
 partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
 partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
