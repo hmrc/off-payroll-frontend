@@ -17,13 +17,15 @@
 package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.models.{PartAndParcelCluster, PersonalServiceCluster}
+import uk.gov.hmrc.offpayroll.models.{FinancialRiskCluster, PartAndParcelCluster, PersonalServiceCluster}
 
 class InterviewStackSpec extends FlatSpec with Matchers {
 
   private val firstElement = PersonalServiceCluster.clusterElements(0)
+  private val middleElement = FinancialRiskCluster.clusterElements(0)
   private val lastElement = PartAndParcelCluster.clusterElements(3)
   private val firstElementValue = List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+  private val middleElementValue = List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
   private val lastElementValue = List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
 
   "interview stack" should "push correctly one element value" in {
@@ -68,6 +70,18 @@ class InterviewStackSpec extends FlatSpec with Matchers {
     val (newStack, v) = InterviewStack.peek(stack, lastElement)
     v shouldBe 3
     newStack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
+  }
+
+  it should "push, peek and pop correctly a middle element" in {
+    val stack = InterviewStack.push(CompressedInterview(0L), middleElementValue, middleElement)
+    val pairs = List((0, 3), (0, 2), (0, 2), (0, 2), (0, 2), (0, 3), (0, 3), (0, 3), (0, 3), (17, 5), (0, 3), (0, 3), (0, 2), (0, 2), (0, 2), (0, 3))
+    stack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
+    val (newStack, v) = InterviewStack.peek(stack, middleElement)
+    v shouldBe 17
+    newStack.asValueWidthPairs should contain theSameElementsInOrderAs pairs
+    val (newStack2, v2) = InterviewStack.pop(stack, middleElement)
+    v2 shouldBe 17
+    newStack2.asValueWidthPairs should contain theSameElementsInOrderAs(List((0,3), (0,2), (0,2), (0,2), (0,2), (0,3), (0,3), (0,3), (0,3), (0,5), (0,3), (0,3), (0,2), (0,2), (0,2), (0,3)))
   }
 
 }
