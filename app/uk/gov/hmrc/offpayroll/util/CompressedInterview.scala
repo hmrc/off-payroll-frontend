@@ -16,14 +16,40 @@
 
 package uk.gov.hmrc.offpayroll.util
 
+import uk.gov.hmrc.offpayroll.util.Base62EncoderDecoder.{decode, encode}
+
+import scala.annotation.tailrec
+
 case class CompressedInterview(str: String){
   def asLong: Long = {
-    Base62EncoderDecoder.decode(str)
+    decode(str)
   }
-
-  def asPairs: List[(Int,Int)] = ???
+  def asValueWidthPairs: List[(Int,Int)] = {
+    def longAndWidthsToValueWidthPairs(l: Long, widths: List[Int]): List[(Int, Int)] = {
+      def go(l:Long, widths: List[Int], acc: List[(Int, Int)]): List[(Int, Int)] = widths match {
+        case Nil => List()
+        case w::Nil => (l.toInt,w) :: acc
+        case w::xs => go(l >> w, xs, ((l & ((1 << w) - 1)).toInt,w) :: acc)
+      }
+      go(l, widths.reverse, List())
+    }
+    val l = decode(str)
+    longAndWidthsToValueWidthPairs(l, InterviewBitSplitter.toWidths)
+  }
 }
 
 object CompressedInterview {
-  def apply(l: Long): CompressedInterview = new CompressedInterview(Base62EncoderDecoder.encode(l))
+  def apply(l: Long): CompressedInterview = new CompressedInterview(encode(l))
+  def fromValueWidthPairs(pairs: List[(Int,Int)]) = {
+    def valuesWidthPairsToLong(p: List[(Int, Int)]): Long = {
+      @tailrec
+      def go(p: List[(Int, Int)], acc: Long): Long = p match {
+        case Nil => acc
+        case (v,w)::xs => go(xs, (acc << w) | v)
+      }
+      go(p, 0L)
+    }
+    val l = valuesWidthPairsToLong(pairs)
+    new CompressedInterview(encode(l))
+  }
 }
