@@ -25,32 +25,36 @@ object InterviewCompressor extends App {
 
   def encodeYesNo(value:String) = if (value.toLowerCase == "yes") 2 else 1
 
-  def encodeElementValue(value: String, element: Element):Int = {
+  private def encodeElementValue(value: String, element: Element):Int = {
     element.children match {
       case Nil => encodeYesNo(value)
       case children => children.find(_.questionTag == value).map(_.order + 1).getOrElse(0)
     }
   }
 
-  def encodeElementValues(values: List[String], element: Element):List[Int] = {
-    for {
+  private def encodeElementValues(values: List[String], element: Element): (Int, Int) = {
+    val booleans = for {
       child <- element.children
     } yield {
-      values.find(_ == child.questionTag).map(_ => 2).getOrElse(0)
+      values.find(_ == child.questionTag).map(_ => true).getOrElse(false)
+    }
+    val indices = booleans.zipWithIndex.collect{ case (a, i) if a => i}
+    (BitSet(indices:_*).toBitMask.head.toInt, booleans.size)
+  }
+
+  // returns encoded values and its width in bits
+  def encodeValues(values: List[String], element: Element): (Int,Int) = {
+    element.elementType match {
+      case GROUP => encodeElementValues(values, element)
+      case _ => (encodeElementValue(values(0), element), elementBitWidth(element))
     }
   }
 
-  // returns encoded value and it width in bits
+  // returns encoded values and its width in bits
   def encodeMultiValues(multivalues: List[List[String]]): List[(Int,Int)] = {
     val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
     val pairs = multivalues.zip(elements)
-    val GROUP_ITEM_VALUE_BIT_WIDTH = 2
-    pairs.flatMap { case (values, element) =>
-      element.elementType match {
-        case GROUP => encodeElementValues(values, element).map(a => (a,GROUP_ITEM_VALUE_BIT_WIDTH))
-        case _ => List((encodeElementValue(values(0), element), elementBitWidth(element)))
-      }
-    }
+    pairs.map { case (values, element) => encodeValues(values, element) }
   }
 
   def elementBitWidth(element: Element): Int = {
@@ -98,28 +102,9 @@ object InterviewCompressor extends App {
 //  b.foreach(print(_))
 //  println
 
+  OffPayrollWebflow.clusters.flatMap(_.clusterElements).foreach(println(_))
+
 }
-
-
-object InterviewCompressorek extends App {
-
-    val b = BitSet(0,1,2,3,4,1000)
-    val c = b & BitSet(0,1,2,3,4)
-    val bm = b.toBitMask
-
-    println("bit representation:")
-    b.foreach(print(_))
-    println
-
-    println(s"size1=${b.size}")
-    println(s"size1=${c.size}")
-    println(s"size2=${bm.size}")
-    println(s"max=${b.max}")
-    bm.zipWithIndex.foreach(p => println(s"${p._2}\t${p._1}"))
-
-    println(b.toList)
-
-  }
 
 
 object MsbEvaluator extends App {
@@ -156,7 +141,7 @@ object ValuesPairsToLongEvaluator extends App {
     go(p, 0L)
   }
 
-  def widthsToValuesWithPairs(l: Long, widths: List[Int]): List[(Int, Int)] = {
+  def longAndWidthsFlatToValueWidthPairs(l: Long, widths: List[Int]): List[(Int, Int)] = {
     def go(l:Long, widths: List[Int], acc: List[(Int, Int)]): List[(Int, Int)] = widths match {
       case Nil => List()
       case w::Nil => (l.toInt,w) :: acc
@@ -171,7 +156,7 @@ object ValuesPairsToLongEvaluator extends App {
   println(valuesWidthPairsToLong(pp).toBinaryString)
 //  println(valuesWidthPairsToLong(pp))
   println(pp)
-  println(widthsToValuesWithPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+  println(longAndWidthsFlatToValueWidthPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
 
   val base = 62
   val baseString: String = ((0 to 9) ++ ('A' to 'Z') ++ ('a' to 'z')).mkString
@@ -195,8 +180,41 @@ object ValuesPairsToLongEvaluator extends App {
       .sum
   }
 
+  def widthsFlat: List[Int] = {
+    val GROUP_ITEM_VALUE_BIT_WIDTH = 2
+    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
+    elements.flatMap { element =>
+      element.elementType match {
+        case GROUP => element.children.map(_ => GROUP_ITEM_VALUE_BIT_WIDTH)
+        case _ => List(InterviewCompressor.elementBitWidth(element))
+      }
+    }
+  }
+
+  def widths: List[List[Int]] = {
+    val GROUP_ITEM_VALUE_BIT_WIDTH = 2
+    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
+    elements.map { element =>
+      element.elementType match {
+        case GROUP => element.children.map(_ => GROUP_ITEM_VALUE_BIT_WIDTH)
+        case _ => List(InterviewCompressor.elementBitWidth(element))
+      }
+    }
+  }
+
+  def elementIndex(element: Element): Option[Int] = {
+    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
+    val found = elements.zipWithIndex.collect{ case (e, i) if (e == element) => i }
+    found.headOption
+  }
+
+
   println(encode(120163403909459L))
   println(decode("Y7XjYxCV"))
-  println(widthsToValuesWithPairs(decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+  println(longAndWidthsFlatToValueWidthPairs(decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+  println(widthsFlat)
+  println(widths)
+  println(widths(elementIndex(FinancialRiskCluster.clusterElements(0)).getOrElse(0)))
+  println(elementIndex(PartAndParcelCluster.clusterElements(3)).getOrElse(0))
 
 }
