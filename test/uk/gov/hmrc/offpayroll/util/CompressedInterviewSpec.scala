@@ -29,4 +29,16 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
     CompressedInterview(120163403909459L).str shouldBe "Y7XjYxCV"
   }
 
+  it should "provide value/width pairs representation" in {
+    val pairs = CompressedInterview("146rjrJz").asValueWidthPairs
+    pairs should contain theSameElementsInOrderAs List((3,3), (1,2), (2,2), (2,2), (2,2), (2,3), (3,3), (3,3), (4,3), (0x11,5), (4,3), (4,3), (2,2), (2,2), (2,2), (3,3))
+  }
+
+  it should "instantiate from value/width pairs" in {
+    val pairs = List((3, 3), (1, 2), (2, 2), (2, 2), (2, 2), (2, 3), (3, 3), (3, 3), (4, 3), (0x11, 5), (4, 3), (4, 3), (2, 2), (2, 2), (2, 2), (3, 3))
+    val compressedInterview = CompressedInterview.fromValueWidthPairs(pairs)
+    compressedInterview.str shouldBe "146rjrJz"
+    val p = compressedInterview.asValueWidthPairs
+    p should contain theSameElementsInOrderAs pairs
+  }
 }
