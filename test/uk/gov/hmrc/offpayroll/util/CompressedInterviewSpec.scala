@@ -51,4 +51,21 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
     val compressedInterview = CompressedInterview("0")
     compressedInterview.asLong shouldBe 0L
   }
+
+  it should "provide list of all values" in {
+    val values = CompressedInterview("146rjrJz").asValues
+    values should contain theSameElementsInOrderAs List(3, 1, 2, 2, 2, 2, 3, 3, 4, 17, 4, 4, 2, 2, 2, 3)
+  }
+
+  it should "provide map from question tags to values" in {
+    val interview = CompressedInterview("146rjrJz")
+    val values = interview.asMap
+    values.size shouldBe interview.asValueWidthPairs.size
+  }
+
+  it should "provide map from question tags to values for an empty interview" in {
+    val interview = CompressedInterview("")
+    val values = interview.asMap
+    values.size shouldBe interview.asValueWidthPairs.size
+  }
 }

@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.util
 
+import uk.gov.hmrc.offpayroll.models.OffPayrollWebflow
 import uk.gov.hmrc.offpayroll.util.Base62EncoderDecoder.{decode, encode}
 
 import scala.annotation.tailrec
@@ -35,6 +36,12 @@ case class CompressedInterview(str: String){
     }
     val l = decode(str)
     longAndWidthsToValueWidthPairs(l, InterviewBitSplitter.toWidths)
+  }
+  def asValues: List[Int] = asValueWidthPairs.map { case (v,_) => v}
+  def asMap: Map[String,List[String]] = {
+    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
+    val elementIntAnswers = elements.zip(asValues)
+    elementIntAnswers.map { case (e, a) => (e.questionTag,InterviewBitSplitter.fromBitElement(a,e)) }.toMap
   }
 }
 
