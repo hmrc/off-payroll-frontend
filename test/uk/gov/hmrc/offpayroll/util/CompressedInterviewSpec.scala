@@ -18,14 +18,15 @@ package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
 
-class Base62EncoderDecoderSpec extends FlatSpec with Matchers {
+class CompressedInterviewSpec extends FlatSpec with Matchers {
 
-  "Base 62 encoder/decoder" should "correctly encode long into a base 62 string" in {
-    Base62EncoderDecoder.encode(120163403909459L) shouldBe "Y7XjYxCV"
+  "compressed interview" should "provide long representation" in {
+    CompressedInterview("Y7XjYxCV").asLong shouldBe 120163403909459L
   }
 
-  it should "correctly decode base 62 string into a long" in {
+  it should "be possible to create it from long" in {
     Base62EncoderDecoder.decode("Y7XjYxCV") shouldBe 120163403909459L
+    CompressedInterview(120163403909459L).str shouldBe "Y7XjYxCV"
   }
 
 }
