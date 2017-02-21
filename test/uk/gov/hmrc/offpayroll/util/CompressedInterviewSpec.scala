@@ -46,4 +46,9 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
     val compressedInterview = CompressedInterview("")
     compressedInterview.asLong shouldBe 0L
   }
+
+  it should "instantiate from a string '0'" in {
+    val compressedInterview = CompressedInterview("0")
+    compressedInterview.asLong shouldBe 0L
+  }
 }
