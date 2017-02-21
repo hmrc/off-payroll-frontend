@@ -19,7 +19,7 @@ package uk.gov.hmrc.offpayroll.util
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.models.{FinancialRiskCluster, PersonalServiceCluster}
 
-class InterviewCompressorSpec extends FlatSpec with Matchers {
+class InterviewBitSplitterSpec extends FlatSpec with Matchers {
 
   val exampleAnswerSet = List (
     /* 0: cluster 0 children 3 type MULTI */   List("personalService.workerSentActualSubstitute.noSubstitutionHappened"),
@@ -41,17 +41,22 @@ class InterviewCompressorSpec extends FlatSpec with Matchers {
   )
 
   "InterviewCompressor" should "convert all elements into list of (bit value, bit width) pairs" in {
-    val encodedValues = InterviewCompressor.encodeMultiValues(exampleAnswerSet)
+    val encodedValues = InterviewBitSplitter.toBitPairs(exampleAnswerSet)
     encodedValues should contain theSameElementsInOrderAs List((3,3), (1,2), (2,2), (2,2), (2,2), (2,3), (3,3), (3,3), (4,3), (0x11,5), (4,3), (4,3), (2,2), (2,2), (2,2), (3,3))
+  }
+
+  "InterviewCompressor" should "convert elements width list" in {
+    val widths = InterviewBitSplitter.toWidths
+    widths should contain theSameElementsInOrderAs List(3, 2, 2, 2, 2, 3, 3, 3, 3, 5, 3, 3, 2, 2, 2, 3)
   }
 
   it should "convert single element into a (bit value, bit width) pair" in {
     val element1 = PersonalServiceCluster.clusterElements(0)
     val element2 = FinancialRiskCluster.clusterElements(1)
-    val encodedValue1 = InterviewCompressor.encodeValues(List("personalService.workerSentActualSubstitute.yesClientAgreed"), element1)
-    val encodedValue2 = InterviewCompressor.encodeValues(List("personalService.workerSentActualSubstitute.notAgreedWithClient"), element1)
-    val encodedValue3 = InterviewCompressor.encodeValues(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), element1)
-    val encodedValue4 = InterviewCompressor.encodeValues(List("financialRisk.workerMainIncome.incomeFixed"), element2)
+    val encodedValue1 = InterviewBitSplitter.toBitPair(List("personalService.workerSentActualSubstitute.yesClientAgreed"), element1)
+    val encodedValue2 = InterviewBitSplitter.toBitPair(List("personalService.workerSentActualSubstitute.notAgreedWithClient"), element1)
+    val encodedValue3 = InterviewBitSplitter.toBitPair(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), element1)
+    val encodedValue4 = InterviewBitSplitter.toBitPair(List("financialRisk.workerMainIncome.incomeFixed"), element2)
     encodedValue1 shouldBe ((1,3):(Int,Int))
     encodedValue2 shouldBe ((2,3):(Int,Int))
     encodedValue3 shouldBe ((3,3):(Int,Int))
@@ -59,14 +64,14 @@ class InterviewCompressorSpec extends FlatSpec with Matchers {
   }
 
   it should "convert YES/NO element into a (bit value, bit width) pair" in {
-    val encodedValues1 = InterviewCompressor.encodeValues(List("Yes"), PersonalServiceCluster.clusterElements(1))
-    val encodedValues2 = InterviewCompressor.encodeValues(List("No"), PersonalServiceCluster.clusterElements(1))
+    val encodedValues1 = InterviewBitSplitter.toBitPair(List("Yes"), PersonalServiceCluster.clusterElements(1))
+    val encodedValues2 = InterviewBitSplitter.toBitPair(List("No"), PersonalServiceCluster.clusterElements(1))
     encodedValues1 shouldBe ((2,2):(Int,Int))
     encodedValues2 shouldBe ((1,2):(Int,Int))
   }
 
   it should "convert multiple element into a (bit value, bit width) pair" in {
-    val encodedValues = InterviewCompressor.encodeValues(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"), FinancialRiskCluster.clusterElements(0))
+    val encodedValues = InterviewBitSplitter.toBitPair(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"), FinancialRiskCluster.clusterElements(0))
     encodedValues shouldBe ((0x11,5):(Int,Int))
   }
 

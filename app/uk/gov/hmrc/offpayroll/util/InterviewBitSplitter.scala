@@ -21,7 +21,7 @@ import uk.gov.hmrc.offpayroll.models._
 import scala.annotation.tailrec
 import scala.collection.immutable.BitSet
 
-object InterviewCompressor extends App {
+object InterviewBitSplitter extends App {
 
   def encodeYesNo(value:String) = if (value.toLowerCase == "yes") 2 else 1
 
@@ -36,7 +36,7 @@ object InterviewCompressor extends App {
     val booleans = for {
       child <- element.children
     } yield {
-      values.find(_ == child.questionTag).map(_ => true).getOrElse(false)
+      values.exists(_ == child.questionTag)
     }
     val indices = booleans.zipWithIndex.collect{ case (a, i) if a => i}
     (BitSet(indices:_*).toBitMask.head.toInt, booleans.size)
@@ -44,22 +44,27 @@ object InterviewCompressor extends App {
 
   def elementBitWidth(element: Element): Int = {
     if (element.children.isEmpty) 2
+    else if (element.elementType == GROUP) element.children.size
     else MsbEvaluator.msbPos(element.children.size + 1)
   }
 
-  def encodeValues(values: List[String], element: Element): (Int,Int) = {
+  def toBitPair(values: List[String], element: Element): (Int,Int) = {
     element.elementType match {
       case GROUP => encodeElementValues(values, element)
       case _ => (encodeElementValue(values(0), element), elementBitWidth(element))
     }
   }
 
-  def encodeMultiValues(multivalues: List[List[String]]): List[(Int,Int)] = {
+  def toBitPairs(multivalues: List[List[String]]): List[(Int,Int)] = {
     val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
     val pairs = multivalues.zip(elements)
-    pairs.map { case (values, element) => encodeValues(values, element) }
+    pairs.map { case (values, element) => toBitPair(values, element) }
   }
 
+  def toWidths: List[Int] = {
+    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
+    elements.map(elementBitWidth(_))
+  }
 
 }
 
@@ -115,27 +120,6 @@ object ValuesPairsToLongEvaluator extends App {
   println(pp)
   println(longAndWidthsFlatToValueWidthPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
 
-  val base = 62
-  val baseString: String = ((0 to 9) ++ ('A' to 'Z') ++ ('a' to 'z')).mkString
-
-  def encode(i: Long): String = {
-
-    @scala.annotation.tailrec
-    def div(i: Long, res: List[Int] = Nil): List[Int] = {
-      (i / base) match {
-        case q if q > 0 => div(q, (i % base).toInt :: res)
-        case _ => i.toInt :: res
-      }
-    }
-
-    div(i).map(x => baseString(x)).mkString
-  }
-
-  def decode(s: String): Long = {
-    s.zip(s.indices.reverse)
-      .map { case (c, p) => baseString.indexOf(c) * scala.math.pow(base, p).toLong }
-      .sum
-  }
 
   def widthsFlat: List[Int] = {
     val GROUP_ITEM_VALUE_BIT_WIDTH = 2
@@ -143,7 +127,7 @@ object ValuesPairsToLongEvaluator extends App {
     elements.flatMap { element =>
       element.elementType match {
         case GROUP => element.children.map(_ => GROUP_ITEM_VALUE_BIT_WIDTH)
-        case _ => List(InterviewCompressor.elementBitWidth(element))
+        case _ => List(InterviewBitSplitter.elementBitWidth(element))
       }
     }
   }
@@ -154,7 +138,7 @@ object ValuesPairsToLongEvaluator extends App {
     elements.map { element =>
       element.elementType match {
         case GROUP => element.children.map(_ => GROUP_ITEM_VALUE_BIT_WIDTH)
-        case _ => List(InterviewCompressor.elementBitWidth(element))
+        case _ => List(InterviewBitSplitter.elementBitWidth(element))
       }
     }
   }
@@ -166,9 +150,9 @@ object ValuesPairsToLongEvaluator extends App {
   }
 
 
-  println(encode(120163403909459L))
-  println(decode("Y7XjYxCV"))
-  println(longAndWidthsFlatToValueWidthPairs(decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
+  println(Base62EncoderDecoder.encode(120163403909459L))
+  println(Base62EncoderDecoder.decode("Y7XjYxCV"))
+  println(longAndWidthsFlatToValueWidthPairs(Base62EncoderDecoder.decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
   println(widthsFlat)
   println(widths)
   println(widths(elementIndex(FinancialRiskCluster.clusterElements(0)).getOrElse(0)))
