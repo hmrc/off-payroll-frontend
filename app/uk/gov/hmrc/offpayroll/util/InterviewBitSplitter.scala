@@ -22,8 +22,25 @@ import scala.annotation.tailrec
 import scala.collection.immutable.BitSet
 
 object InterviewBitSplitter extends App {
+  def fromBitElement(bitValue: Int, element: Element): List[String] = element.elementType match {
+    case RADIO => decodeYesNo(bitValue)
+    case MULTI => decodeMulti(bitValue, element)
+    case GROUP => decodeGroup(bitValue, element)
+  }
 
-  def encodeYesNo(value:String) = if (value.toLowerCase == "yes") 2 else 1
+  def decodeMulti(bitValue: Int, element: Element): List[String] = {
+    val maybeQuestionTag = element.children.find(_.order + 1 == bitValue).map(_.questionTag)
+    List(maybeQuestionTag.getOrElse(""))
+  }
+
+  def decodeGroup(bitValue: Int, element: Element): List[String] = {
+    val tags = element.children.collect { case a if (bitValue & (1 << a.order)) > 0 => a }
+    tags.map(_.questionTag)
+  }
+
+  def decodeYesNo(bitValue: Int) = List(List("", "No", "Yes", "")(bitValue & 0x11))
+
+  def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else 1
 
   private def encodeElementValue(value: String, element: Element):Int = {
     element.children match {

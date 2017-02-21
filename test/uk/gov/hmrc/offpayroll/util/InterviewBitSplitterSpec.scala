@@ -75,4 +75,19 @@ class InterviewBitSplitterSpec extends FlatSpec with Matchers {
     encodedValues shouldBe ((0x11,5):(Int,Int))
   }
 
+  it should "convert bit value and element into string values" in {
+    val values = InterviewBitSplitter.fromBitElement(17, FinancialRiskCluster.clusterElements(0))
+    values should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
+  }
+
+  it should "convert bit value and element into string values (2)" in {
+    val values = InterviewBitSplitter.fromBitElement(1, PersonalServiceCluster.clusterElements(1))
+    values should contain theSameElementsInOrderAs List("No")
+  }
+
+  it should "convert bit value and element into string values (3)" in {
+    val values = InterviewBitSplitter.fromBitElement(3, PersonalServiceCluster.clusterElements(0))
+    values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+  }
+
 }
