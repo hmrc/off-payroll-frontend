@@ -5,11 +5,6 @@
         <encoder class="uk.gov.hmrc.play.logging.JsonEncoder"/>
     </appender>
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/off-payroll-frontend-json.log</file>
-        <encoder class="uk.gov.hmrc.play.logging.JsonEncoder"/>
-    </appender>
-
     <logger name="com.ning.http.client.providers.netty" additivity="false" level="ERROR" />
 
     <logger name="org.asynchttpclient" level="ERROR" />
@@ -22,6 +17,5 @@
 
     <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
     </root>
 </configuration>
