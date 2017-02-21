@@ -42,7 +42,11 @@ object InterviewCompressor extends App {
     (BitSet(indices:_*).toBitMask.head.toInt, booleans.size)
   }
 
-  // returns encoded values and its width in bits
+  def elementBitWidth(element: Element): Int = {
+    if (element.children.isEmpty) 2
+    else MsbEvaluator.msbPos(element.children.size + 1)
+  }
+
   def encodeValues(values: List[String], element: Element): (Int,Int) = {
     element.elementType match {
       case GROUP => encodeElementValues(values, element)
@@ -50,59 +54,12 @@ object InterviewCompressor extends App {
     }
   }
 
-  // returns encoded values and its width in bits
   def encodeMultiValues(multivalues: List[List[String]]): List[(Int,Int)] = {
     val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
     val pairs = multivalues.zip(elements)
     pairs.map { case (values, element) => encodeValues(values, element) }
   }
 
-  def elementBitWidth(element: Element): Int = {
-    if (element.children.isEmpty) 2
-    else MsbEvaluator.msbPos(element.children.size + 1)
-  }
-
-
-  println(encodeElementValue("personalService.workerSentActualSubstitute.yesClientAgreed", PersonalServiceCluster.clusterElements(0)))
-  println(encodeElementValue("personalService.workerSentActualSubstitute.notAgreedWithClient", PersonalServiceCluster.clusterElements(0)))
-  println(encodeElementValue("personalService.workerSentActualSubstitute.noSubstitutionHappened", PersonalServiceCluster.clusterElements(0)))
-  println(encodeElementValue("Yes", PersonalServiceCluster.clusterElements(1)))
-  println(encodeElementValue("No", PersonalServiceCluster.clusterElements(1)))
-  println(encodeElementValues(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"), FinancialRiskCluster.clusterElements(0)))
-  println(encodeElementValue("financialRisk.workerMainIncome.incomeFixed", FinancialRiskCluster.clusterElements(1)))
-
-  val exampleValues = List (
-    /* 0: cluster 0 children 3 type MULTI */   List("personalService.workerSentActualSubstitute.noSubstitutionHappened"),
-    /* 1: cluster 0 children 0 type RADIO */   List("No"),
-    /* 2: cluster 0 children 0 type RADIO */   List("Yes"),
-    /* 3: cluster 0 children 0 type RADIO */   List("Yes"),
-    /* 4: cluster 0 children 0 type RADIO */   List("Yes"),
-    /* 5: cluster 1 children 3 type MULTI */   List("control.engagerMovingWorker.canMoveWorkerWithoutPermission"),
-    /* 6: cluster 1 children 4 type MULTI */   List("control.workerDecidingHowWorkIsDone.noWorkerInputAllowed"),
-    /* 7: cluster 1 children 4 type MULTI */   List("control.whenWorkHasToBeDone.scheduleDecidedForWorker"),
-    /* 8: cluster 1 children 4 type MULTI */   List("control.workerDecideWhere.noLocationRequired"),
-    /* 9: cluster 2 children 5 type GROUP */   List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"),
-    /* 10: cluster 2 children 5 type MULTI */  List("financialRisk.workerMainIncome.incomeCommission"),
-    /* 11: cluster 2 children 5 type MULTI */  List("financialRisk.paidForSubstandardWork.noObligationToCorrect"),
-    /* 12: cluster 3 children 0 type RADIO */  List("Yes"),
-    /* 13: cluster 3 children 0 type RADIO */  List("Yes"),
-    /* 14: cluster 3 children 0 type RADIO */  List("Yes"),
-    /* 15: cluster 3 children 3 type MULTI */  List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
-  )
-
-  val encodedValues = encodeMultiValues(exampleValues)
-
-  println(encodedValues)
-
-  // total values in element is: if element.children.isEmpty 3 else element.children.size + 1
-
-//  val b = BitSet(encodedValues: _*)
-//  b.toBitMask
-//  println("bit representation:")
-//  b.foreach(print(_))
-//  println
-
-  OffPayrollWebflow.clusters.flatMap(_.clusterElements).foreach(println(_))
 
 }
 
