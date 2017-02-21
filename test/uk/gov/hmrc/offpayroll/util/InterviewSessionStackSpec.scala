@@ -64,4 +64,11 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     values should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
   }
 
+  "InterviewSessionStack" should "push two values and pop the first value wiping out the stack" in {
+    val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
+    val (poppedSession, values) = InterviewSessionStack.pop(newSession, firstElement)
+    poppedSession(INTERVIEW_KEY) shouldBe "0"
+    values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+  }
+
 }
