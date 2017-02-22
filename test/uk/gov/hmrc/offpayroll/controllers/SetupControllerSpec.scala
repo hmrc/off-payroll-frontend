@@ -35,7 +35,7 @@ class SetupControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
 
   "GET /setup/" should {
     "return 200 and the first page in Setup" in {
-      val maybeRoute = route(fakeApplication, FakeRequest(GET, "/check-your-employment-status-for-tax/setup"))
+      val maybeRoute = route(fakeApplication, FakeRequest(GET, "/check-employment-status-for-tax/setup"))
       maybeRoute.isDefined shouldBe true
       maybeRoute.map { route =>
         val result = await(route)
