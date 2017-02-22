@@ -16,45 +16,52 @@
 
 package uk.gov.hmrc.offpayroll.util
 
-import uk.gov.hmrc.offpayroll.models.OffPayrollWebflow
 import uk.gov.hmrc.offpayroll.util.Base62EncoderDecoder.{decode, encode}
 
 import scala.annotation.tailrec
 
-case class CompressedInterview(str: String){
+case class CompressedInterview(str: String) {
   def asLong: Long = {
     decode(str)
   }
-  def asValueWidthPairs: List[(Int,Int)] = {
+
+  def asValueWidthPairs: List[(Int, Int)] = {
     def longAndWidthsToValueWidthPairs(l: Long, widths: List[Int]): List[(Int, Int)] = {
-      def go(l:Long, widths: List[Int], acc: List[(Int, Int)]): List[(Int, Int)] = widths match {
+      def go(l: Long, widths: List[Int], acc: List[(Int, Int)]): List[(Int, Int)] = widths match {
         case Nil => List()
-        case w::Nil => (l.toInt,w) :: acc
-        case w::xs => go(l >> w, xs, ((l & ((1 << w) - 1)).toInt,w) :: acc)
+        case w :: Nil => (l.toInt, w) :: acc
+        case w :: xs => go(l >> w, xs, ((l & ((1 << w) - 1)).toInt, w) :: acc)
       }
+
       go(l, widths.reverse, List())
     }
+
     val l = decode(str)
     longAndWidthsToValueWidthPairs(l, InterviewBitSplitter.toWidths)
   }
-  def asValues: List[Int] = asValueWidthPairs.map { case (v,_) => v}
-  def asMap: Map[String,List[String]] = {
+
+  def asValues: List[Int] = asValueWidthPairs.map { case (v, _) => v }
+
+  def asMap: Map[String, List[String]] = {
     val elementIntAnswers = InterviewBitSplitter.toElements.zip(asValues)
-    elementIntAnswers.map { case (e, a) => (e.questionTag,InterviewBitSplitter.fromBitElement(a,e)) }.toMap
+    elementIntAnswers.map { case (e, a) => (e.questionTag, InterviewBitAssembler.fromBitElement(a, e)) }.toMap
   }
 }
 
 object CompressedInterview {
   def apply(l: Long): CompressedInterview = new CompressedInterview(encode(l))
-  def apply(pairs: List[(Int,Int)]) = {
+
+  def apply(pairs: List[(Int, Int)]) = {
     def valuesWidthPairsToLong(p: List[(Int, Int)]): Long = {
       @tailrec
       def go(p: List[(Int, Int)], acc: Long): Long = p match {
         case Nil => acc
-        case (v,w)::xs => go(xs, (acc << w) | v)
+        case (v, w) :: xs => go(xs, (acc << w) | v)
       }
+
       go(p, 0L)
     }
+
     val l = valuesWidthPairsToLong(pairs)
     new CompressedInterview(encode(l))
   }

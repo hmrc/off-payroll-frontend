@@ -18,9 +18,9 @@ package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.models.{ExitCluster, FinancialRiskCluster, PersonalServiceCluster, SetupCluster}
+import uk.gov.hmrc.offpayroll.util.InterviewBitSplitter.toBitPair
 
 class InterviewBitSplitterSpec extends FlatSpec with Matchers {
-
   val exampleAnswerSet = List (
     /*    setup     children 3 type MULTI */   List("setup.endUserRole.personDoingWork"),
     /*    setup     children 0 type RADIO */   List("Yes"),
@@ -54,11 +54,11 @@ class InterviewBitSplitterSpec extends FlatSpec with Matchers {
     val element0 = SetupCluster.clusterElements(2)
     val element1 = PersonalServiceCluster.clusterElements(0)
     val element2 = FinancialRiskCluster.clusterElements(1)
-    val encodedValue0 = InterviewBitSplitter.toBitPair(List("setup.provideServices.soleTrader"), element0)
-    val encodedValue1 = InterviewBitSplitter.toBitPair(List("personalService.workerSentActualSubstitute.yesClientAgreed"), element1)
-    val encodedValue2 = InterviewBitSplitter.toBitPair(List("personalService.workerSentActualSubstitute.notAgreedWithClient"), element1)
-    val encodedValue3 = InterviewBitSplitter.toBitPair(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), element1)
-    val encodedValue4 = InterviewBitSplitter.toBitPair(List("financialRisk.workerMainIncome.incomeFixed"), element2)
+    val encodedValue0 = toBitPair(List("setup.provideServices.soleTrader"), element0)
+    val encodedValue1 = toBitPair(List("personalService.workerSentActualSubstitute.yesClientAgreed"), element1)
+    val encodedValue2 = toBitPair(List("personalService.workerSentActualSubstitute.notAgreedWithClient"), element1)
+    val encodedValue3 = toBitPair(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), element1)
+    val encodedValue4 = toBitPair(List("financialRisk.workerMainIncome.incomeFixed"), element2)
     encodedValue0 shouldBe ((4,3):(Int,Int))
     encodedValue1 shouldBe ((1,3):(Int,Int))
     encodedValue2 shouldBe ((2,3):(Int,Int))
@@ -67,42 +67,16 @@ class InterviewBitSplitterSpec extends FlatSpec with Matchers {
   }
 
   it should "convert YES/NO element into a (bit value, bit width) pair" in {
-    val encodedValues0 = InterviewBitSplitter.toBitPair(List("No"), ExitCluster.clusterElements(0))
-    val encodedValues1 = InterviewBitSplitter.toBitPair(List("Yes"), PersonalServiceCluster.clusterElements(1))
-    val encodedValues2 = InterviewBitSplitter.toBitPair(List("No"), PersonalServiceCluster.clusterElements(1))
+    val encodedValues0 = toBitPair(List("No"), ExitCluster.clusterElements(0))
+    val encodedValues1 = toBitPair(List("Yes"), PersonalServiceCluster.clusterElements(1))
+    val encodedValues2 = toBitPair(List("No"), PersonalServiceCluster.clusterElements(1))
     encodedValues0 shouldBe ((1,2):(Int,Int))
     encodedValues1 shouldBe ((2,2):(Int,Int))
     encodedValues2 shouldBe ((1,2):(Int,Int))
   }
 
   it should "convert multiple element into a (bit value, bit width) pair" in {
-    val encodedValues = InterviewBitSplitter.toBitPair(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"), FinancialRiskCluster.clusterElements(0))
+    val encodedValues = toBitPair(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"), FinancialRiskCluster.clusterElements(0))
     encodedValues shouldBe ((0x11,5):(Int,Int))
   }
-
-  it should "convert bit value and element into string values" in {
-    val values = InterviewBitSplitter.fromBitElement(17, FinancialRiskCluster.clusterElements(0))
-    values should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
-  }
-
-  it should "convert bit value and element into string values (2)" in {
-    val values = InterviewBitSplitter.fromBitElement(1, PersonalServiceCluster.clusterElements(1))
-    values should contain theSameElementsInOrderAs List("No")
-  }
-
-  it should "convert bit value and element into string values (3)" in {
-    val values = InterviewBitSplitter.fromBitElement(3, PersonalServiceCluster.clusterElements(0))
-    values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
-  }
-
-  it should "calculate msb" in {
-    List(0,2,3,4,5,7,8).map(InterviewBitSplitter.msbPos) should contain theSameElementsInOrderAs List(0,2,2,3,3,3,4)
-  }
-
-  it should "convert booleans to int" in {
-    InterviewBitSplitter.indicesToInt(List(4, 3, 0)) shouldBe 0x19
-    InterviewBitSplitter.indicesToInt(List(4, 3, 2, 1, 0)) shouldBe 0x1F
-    InterviewBitSplitter.indicesToInt(List()) shouldBe 0
-  }
-
 }

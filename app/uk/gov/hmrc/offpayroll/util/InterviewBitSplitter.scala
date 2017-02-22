@@ -17,33 +17,9 @@
 package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.models._
-
-import scala.annotation.tailrec
-import scala.collection.immutable.BitSet
+import uk.gov.hmrc.offpayroll.util.BitHelper.{indicesToInt, msbPos}
 
 object InterviewBitSplitter {
-  def msbPos(n: Int): Int = {
-    @tailrec
-    def go(n: Int, acc: Int): Int = {
-      if (n == 0) acc else go(n >> 1, acc + 1)
-    }
-    go(n, 0)
-  }
-
-  def indicesToInt(b: List[Int]): Int = b.foldLeft(0)((a,i) => 1 << i | a)
-
-  private def decodeMulti(bitValue: Int, element: Element): List[String] = {
-    val maybeQuestionTag = element.children.find(_.order + 1 == bitValue).map(_.questionTag)
-    maybeQuestionTag.toList
-  }
-
-  private def decodeGroup(bitValue: Int, element: Element): List[String] = {
-    val tags = element.children.collect { case a if (bitValue & (1 << a.order)) > 0 => a }
-    tags.map(_.questionTag)
-  }
-
-  private def decodeYesNo(bitValue: Int) = List(Nil, List("No"), List("Yes"), Nil)(bitValue & 0x11)
-
   private def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else 1
 
   private def encodeElementValue(value: String, element: Element):Int = {
@@ -75,9 +51,4 @@ object InterviewBitSplitter {
 
   def toWidths: List[Int] = toElements.map(elementBitWidth)
 
-  def fromBitElement(bitValue: Int, element: Element): List[String] = element.elementType match {
-    case RADIO => decodeYesNo(bitValue)
-    case MULTI => decodeMulti(bitValue, element)
-    case GROUP => decodeGroup(bitValue, element)
-  }
 }
