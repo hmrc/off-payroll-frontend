@@ -17,8 +17,6 @@
 package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
-import uk.gov.hmrc.offpayroll.models.{ExitCluster, FinancialRiskCluster, PersonalServiceCluster, SetupCluster}
-import uk.gov.hmrc.offpayroll.util.ElementBitSplitter.toBitPair
 
 class ElementProviderSpec extends FlatSpec with Matchers {
   "ElementProvider" should "provide elements width list" in {

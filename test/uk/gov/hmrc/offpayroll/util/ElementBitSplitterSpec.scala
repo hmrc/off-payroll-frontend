@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.models.{ExitCluster, FinancialRiskCluster, PersonalServiceCluster, SetupCluster}
-import uk.gov.hmrc.offpayroll.util.ElementBitSplitter.toBitPair
+import uk.gov.hmrc.offpayroll.util.ElementBitSplitterImplicits._
 
 class ElementBitSplitterSpec extends FlatSpec with Matchers {
   val exampleAnswerSet = List (
@@ -48,11 +48,11 @@ class ElementBitSplitterSpec extends FlatSpec with Matchers {
     val element0 = SetupCluster.clusterElements(2)
     val element1 = PersonalServiceCluster.clusterElements(0)
     val element2 = FinancialRiskCluster.clusterElements(1)
-    val encodedValue0 = toBitPair(List("setup.provideServices.soleTrader"), element0)
-    val encodedValue1 = toBitPair(List("personalService.workerSentActualSubstitute.yesClientAgreed"), element1)
-    val encodedValue2 = toBitPair(List("personalService.workerSentActualSubstitute.notAgreedWithClient"), element1)
-    val encodedValue3 = toBitPair(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"), element1)
-    val encodedValue4 = toBitPair(List("financialRisk.workerMainIncome.incomeFixed"), element2)
+    val encodedValue0 = element0.toBitPair(List("setup.provideServices.soleTrader"))
+    val encodedValue1 = element1.toBitPair(List("personalService.workerSentActualSubstitute.yesClientAgreed"))
+    val encodedValue2 = element1.toBitPair(List("personalService.workerSentActualSubstitute.notAgreedWithClient"))
+    val encodedValue3 = element1.toBitPair(List("personalService.workerSentActualSubstitute.noSubstitutionHappened"))
+    val encodedValue4 = element2.toBitPair(List("financialRisk.workerMainIncome.incomeFixed"))
     encodedValue0 shouldBe ((4,3):(Int,Int))
     encodedValue1 shouldBe ((1,3):(Int,Int))
     encodedValue2 shouldBe ((2,3):(Int,Int))
@@ -61,16 +61,16 @@ class ElementBitSplitterSpec extends FlatSpec with Matchers {
   }
 
   it should "convert YES/NO element into a (bit value, bit width) pair" in {
-    val encodedValues0 = toBitPair(List("No"), ExitCluster.clusterElements(0))
-    val encodedValues1 = toBitPair(List("Yes"), PersonalServiceCluster.clusterElements(1))
-    val encodedValues2 = toBitPair(List("No"), PersonalServiceCluster.clusterElements(1))
+    val encodedValues0 = ExitCluster.clusterElements(0).toBitPair(List("No"))
+    val encodedValues1 = PersonalServiceCluster.clusterElements(1).toBitPair(List("Yes"))
+    val encodedValues2 = PersonalServiceCluster.clusterElements(1).toBitPair(List("No"))
     encodedValues0 shouldBe ((1,2):(Int,Int))
     encodedValues1 shouldBe ((2,2):(Int,Int))
     encodedValues2 shouldBe ((1,2):(Int,Int))
   }
 
   it should "convert multiple element into a (bit value, bit width) pair" in {
-    val encodedValues = toBitPair(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"), FinancialRiskCluster.clusterElements(0))
+    val encodedValues = FinancialRiskCluster.clusterElements(0).toBitPair(List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"))
     encodedValues shouldBe ((0x11,5):(Int,Int))
   }
 }

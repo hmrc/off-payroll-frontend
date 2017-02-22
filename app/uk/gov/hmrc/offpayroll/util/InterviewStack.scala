@@ -18,14 +18,14 @@ package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.models.Element
 import uk.gov.hmrc.offpayroll.util.ElementBitAssembler.fromBitElement
-import uk.gov.hmrc.offpayroll.util.ElementBitSplitter.toBitPair
+import uk.gov.hmrc.offpayroll.util.ElementBitSplitterImplicits._
 
 object InterviewStack {
   def push(previous: CompressedInterview, values: List[String], element: Element): CompressedInterview = {
     val pairs = previous.asValueWidthPairs
     elementIndex(element) match {
       case None => previous
-      case Some(index) => CompressedInterview(insertAtIndexZeroRight(pairs, index, toBitPair(values, element)))
+      case Some(index) => CompressedInterview(insertAtIndexZeroRight(pairs, index, element.toBitPair(values)))
     }
   }
 

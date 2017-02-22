@@ -19,7 +19,7 @@ package uk.gov.hmrc.offpayroll.util
 import uk.gov.hmrc.offpayroll.models._
 import uk.gov.hmrc.offpayroll.util.BitHelper.{indicesToInt, msbPos}
 
-object ElementBitSplitter {
+case class ElementBitSplitter(element: Element) {
   private def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else 1
 
   private def encodeElementValue(value: String, element: Element): Int = {
@@ -34,16 +34,22 @@ object ElementBitSplitter {
     (indicesToInt(indices), element.children.size)
   }
 
-  def elementBitWidth(element: Element): Int = {
+  def elementBitWidth: Int = {
     if (element.children.isEmpty) 2
     else if (element.elementType == GROUP) element.children.size
     else msbPos(element.children.size + 1)
   }
 
-  def toBitPair(values: List[String], element: Element): (Int, Int) = {
+  def toBitPair(values: List[String]): (Int, Int) = {
     element.elementType match {
       case GROUP => encodeGroupElementValues(values, element)
-      case _ => (encodeElementValue(values.headOption.getOrElse(""), element), elementBitWidth(element))
+      case _ => (encodeElementValue(values.headOption.getOrElse(""), element), elementBitWidth)
     }
   }
+}
+
+object ElementBitSplitterImplicits {
+
+  implicit def convert(element: Element): ElementBitSplitter = ElementBitSplitter(element)
+
 }
