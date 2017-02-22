@@ -47,7 +47,7 @@ class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFut
       )
       val result = ExitController.apply.processElement(0)(request).futureValue
       status(result) shouldBe Status.SEE_OTHER
-      redirectLocation(result).get shouldBe("/check-your-employment-status-for-tax/cluster/")
+      redirectLocation(result).get shouldBe("/check-employment-status-for-tax/cluster/")
     }
   }
 
