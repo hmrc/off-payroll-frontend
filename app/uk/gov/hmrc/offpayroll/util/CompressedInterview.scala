@@ -20,6 +20,8 @@ import uk.gov.hmrc.offpayroll.util.Base62EncoderDecoder.{decode, encode}
 
 import scala.annotation.tailrec
 
+import uk.gov.hmrc.offpayroll.util.ElementBitAssemblerImplicits._
+
 case class CompressedInterview(str: String) {
   def asLong: Long = {
     decode(str)
@@ -44,7 +46,7 @@ case class CompressedInterview(str: String) {
 
   def asMap: Map[String, List[String]] = {
     val elementIntAnswers = ElementProvider.toElements.zip(asValues)
-    elementIntAnswers.map { case (e, a) => (e.questionTag, ElementBitAssembler.fromBitElement(a, e)) }.toMap
+    elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }.toMap
   }
 }
 

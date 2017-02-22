@@ -17,7 +17,7 @@
 package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.models.Element
-import uk.gov.hmrc.offpayroll.util.ElementBitAssembler.fromBitElement
+import uk.gov.hmrc.offpayroll.util.ElementBitAssemblerImplicits._
 import uk.gov.hmrc.offpayroll.util.ElementBitSplitterImplicits._
 
 object InterviewStack {
@@ -31,7 +31,7 @@ object InterviewStack {
 
   def pop(previous: CompressedInterview, element: Element): (CompressedInterview, List[String]) = {
     val (interview, bitValue) = doPop(previous, element)
-    (interview, fromBitElement(bitValue, element))
+    (interview, element.fromBitValue(bitValue))
   }
 
   def doPop(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {
@@ -44,7 +44,7 @@ object InterviewStack {
 
   def peek(previous: CompressedInterview, element: Element): (CompressedInterview, List[String]) = {
     val (interview, bitValue) = doPeek(previous, element)
-    (interview, fromBitElement(bitValue, element))
+    (interview, element.fromBitValue(bitValue))
   }
 
   def doPeek(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {

@@ -24,6 +24,6 @@ object ElementProvider {
 
   def toElements: List[Element] = SuperWebflow.elements
 
-  def toWidths: List[Int] = toElements.map(a => a.elementBitWidth)
+  def toWidths: List[Int] = toElements.map(a => a.bitWidth)
 
 }

@@ -18,23 +18,29 @@ package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.models.{Element, GROUP, MULTI, RADIO}
 
-object ElementBitAssembler {
+case class ElementBitAssembler(element: Element) {
 
-  private def decodeMulti(bitValue: Int, element: Element): List[String] = {
+  private def decodeMulti(bitValue: Int): List[String] = {
     val maybeQuestionTag = element.children.find(_.order + 1 == bitValue).map(_.questionTag)
     maybeQuestionTag.toList
   }
 
-  private def decodeGroup(bitValue: Int, element: Element): List[String] = {
+  private def decodeGroup(bitValue: Int): List[String] = {
     val tags = element.children.collect { case a if (bitValue & (1 << a.order)) > 0 => a }
     tags.map(_.questionTag)
   }
 
   private def decodeYesNo(bitValue: Int) = List(Nil, List("No"), List("Yes"), Nil)(bitValue & 0x11)
 
-  def fromBitElement(bitValue: Int, element: Element): List[String] = element.elementType match {
+  def fromBitValue(bitValue: Int): List[String] = element.elementType match {
     case RADIO => decodeYesNo(bitValue)
-    case MULTI => decodeMulti(bitValue, element)
-    case GROUP => decodeGroup(bitValue, element)
+    case MULTI => decodeMulti(bitValue)
+    case GROUP => decodeGroup(bitValue)
   }
+}
+
+object ElementBitAssemblerImplicits {
+
+  implicit def convertToBitAssembler(element: Element): ElementBitAssembler = ElementBitAssembler(element)
+
 }

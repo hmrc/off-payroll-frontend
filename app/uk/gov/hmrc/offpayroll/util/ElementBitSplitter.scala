@@ -34,7 +34,7 @@ case class ElementBitSplitter(element: Element) {
     (indicesToInt(indices), element.children.size)
   }
 
-  def elementBitWidth: Int = {
+  def bitWidth: Int = {
     if (element.children.isEmpty) 2
     else if (element.elementType == GROUP) element.children.size
     else msbPos(element.children.size + 1)
@@ -43,13 +43,13 @@ case class ElementBitSplitter(element: Element) {
   def toBitPair(values: List[String]): (Int, Int) = {
     element.elementType match {
       case GROUP => encodeGroupElementValues(values, element)
-      case _ => (encodeElementValue(values.headOption.getOrElse(""), element), elementBitWidth)
+      case _ => (encodeElementValue(values.headOption.getOrElse(""), element), bitWidth)
     }
   }
 }
 
 object ElementBitSplitterImplicits {
 
-  implicit def convert(element: Element): ElementBitSplitter = ElementBitSplitter(element)
+  implicit def convertToBitSplitter(element: Element): ElementBitSplitter = ElementBitSplitter(element)
 
 }
