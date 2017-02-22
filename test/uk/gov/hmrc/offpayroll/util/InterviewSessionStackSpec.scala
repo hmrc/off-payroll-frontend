@@ -21,11 +21,7 @@ import play.api.mvc.Session
 import uk.gov.hmrc.offpayroll.models.{FinancialRiskCluster, PartAndParcelCluster, PersonalServiceCluster}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.INTERVIEW_KEY
 
-/**
-  * Created by peter on 26/01/2017.
-  */
 class InterviewSessionStackSpec extends FlatSpec with Matchers {
-
   val mockSession = Session.deserialize(Map())
   private val firstElement = PersonalServiceCluster.clusterElements(0)
   private val middleElement = FinancialRiskCluster.clusterElements(0)
@@ -41,7 +37,7 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     newSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
   }
 
-  "InterviewSessionStack" should "pop a value" in {
+  it should "pop a value" in {
     val newSession = InterviewSessionStack.push(mockSession, firstElementValue, firstElement)
     newSession.data.keys should contain(INTERVIEW_KEY)
     newSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
@@ -50,25 +46,55 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
   }
 
-  "InterviewSessionStack" should "push two values and pop a value" in {
+  it should "push two values and pop a value" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
     val (poppedSession, values) = InterviewSessionStack.pop(newSession, lastElement)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
     values should contain theSameElementsInOrderAs List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
   }
 
-  "InterviewSessionStack" should "push two values and peek a value" in {
+  it should "push two values and peek a value" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement)
     val (poppedSession, values) = InterviewSessionStack.peek(newSession, middleElement)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UwYMK"
     values should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
   }
 
-  "InterviewSessionStack" should "push two values and pop the first value wiping out the stack" in {
+  it should "push two values and pop the first value wiping out the stack" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
     val (poppedSession, values) = InterviewSessionStack.pop(newSession, firstElement)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
     values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+  }
+
+  it should "reset the interview" in {
+    val newSession = InterviewSessionStack.push(mockSession, firstElementValue, firstElement)
+    newSession.data.keys should contain(INTERVIEW_KEY)
+    newSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
+    val resetSession = InterviewSessionStack.reset(newSession)
+    resetSession.data.keys should not contain(INTERVIEW_KEY)
+  }
+
+  it should "reset the interview and pop correctly" in {
+    val resetSession = InterviewSessionStack.reset(mockSession)
+    resetSession.data.keys should not contain(INTERVIEW_KEY)
+    val (poppedSession, value) = InterviewSessionStack.pop(resetSession, lastElement)
+    poppedSession.data.keys should contain(INTERVIEW_KEY)
+    value.isEmpty shouldBe true
+    poppedSession(INTERVIEW_KEY) shouldBe "0"
+  }
+
+  it should "provide asMap function" in {
+    val newSession = InterviewSessionStack.push(
+      InterviewSessionStack.push(
+        InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement),
+      lastElementValue, lastElement
+    )
+    val map = InterviewSessionStack.asMap(newSession)
+    val (maybeFirstValue, maybeMiddleValue, maybeLastValue) = (map.get(firstElement.questionTag), map.get(middleElement.questionTag), map.get(lastElement.questionTag))
+    maybeFirstValue.get should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+    maybeMiddleValue.get should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
+    maybeLastValue.get should contain theSameElementsInOrderAs List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
   }
 
 }

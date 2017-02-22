@@ -85,7 +85,6 @@ object InterviewBitSplitter extends App {
 
 }
 
-
 object MsbEvaluator extends {
   def msbPos(n: Int): Int = {
     @tailrec
@@ -96,45 +95,3 @@ object MsbEvaluator extends {
   }
 }
 
-
-object ValuesPairsToLongEvaluator extends App {
-  def valueWidthPairsToLong(p: List[(Int, Int)]): Long = {
-    @tailrec
-    def go(p: List[(Int, Int)], acc: Long): Long = p match {
-      case Nil => acc
-      case (v,w)::xs => go(xs, (acc << w) | v)
-    }
-    go(p, 0L)
-  }
-
-  def longAndWidthsToValueWidthPairs(l: Long, widths: List[Int]): List[(Int, Int)] = {
-    def go(l:Long, widths: List[Int], acc: List[(Int, Int)]): List[(Int, Int)] = widths match {
-      case Nil => List()
-      case w::Nil => (l.toInt,w) :: acc
-      case w::xs => go(l >> w, xs, ((l & ((1 << w) - 1)).toInt,w) :: acc)
-    }
-    go(l, widths.reverse, List())
-  }
-
-  val pp = List((3,3), (1,2), (2,2), (2,2), (2,2), (2,3), (3,3), (3,3), (4,3), (2,2), (0,2), (0,2), (0,2), (2,2), (4,3), (4,3), (2,2), (2,2), (2,2), (3,3))
-
-  //11001101010100110111000100000001100100010101011
-  println(valueWidthPairsToLong(pp).toBinaryString)
-//  println(valuesWidthPairsToLong(pp))
-  println(pp)
-  println(longAndWidthsToValueWidthPairs(120163403909459L, List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
-
-
-  def elementIndex(element: Element): Option[Int] = {
-    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
-    val found = elements.zipWithIndex.collect{ case (e, i) if (e == element) => i }
-    found.headOption
-  }
-
-
-  println(Base62EncoderDecoder.encode(120163403909459L))
-  println(Base62EncoderDecoder.decode("Y7XjYxCV"))
-  println(longAndWidthsToValueWidthPairs(Base62EncoderDecoder.decode("Y7XjYxCV"), List(3, 2, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 3)))
-  println(elementIndex(PartAndParcelCluster.clusterElements(3)).getOrElse(0))
-
-}
