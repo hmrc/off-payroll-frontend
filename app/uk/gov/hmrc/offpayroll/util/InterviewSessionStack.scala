@@ -23,19 +23,19 @@ object InterviewSessionStack {
   val INTERVIEW_KEY = "interview"
 
   def push(session: Session, values: List[String], element: Element): Session = {
-    val compressed = session.data.get(INTERVIEW_KEY).getOrElse("")
+    val compressed = session.data.getOrElse(INTERVIEW_KEY, "")
     val newInterview = InterviewStack.push(CompressedInterview(compressed), values, element)
     session + (INTERVIEW_KEY -> newInterview.str)
   }
 
   def pop(session: Session, element: Element): (Session, List[String]) = {
-    val compressed = session.data.get(INTERVIEW_KEY).getOrElse("")
+    val compressed = session.data.getOrElse(INTERVIEW_KEY, "")
     val (newInterview, values) = InterviewStack.pop(CompressedInterview(compressed), element)
     (session + (INTERVIEW_KEY -> newInterview.str), values)
   }
 
   def peek(session: Session, element: Element): (Session, List[String]) = {
-    val compressed = session.data.get(INTERVIEW_KEY).getOrElse("")
+    val compressed = session.data.getOrElse(INTERVIEW_KEY, "")
     val (_, values) = InterviewStack.peek(CompressedInterview(compressed), element)
     (session + (INTERVIEW_KEY -> compressed), values)
   }
@@ -43,7 +43,6 @@ object InterviewSessionStack {
   def reset(session: Session): Session =
     session - INTERVIEW_KEY
 
-//  def asMap(session: Session): Map[String, String] =
-//    session.data.get(INTERVIEW_KEY).map(CompressedInterview(_).asMap).getOrElse(Map())
-
+  def asMap(session: Session): Map[String, List[String]] =
+    session.data.get(INTERVIEW_KEY).map(CompressedInterview(_).asMap).getOrElse(Map())
 }
