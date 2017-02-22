@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.models.{Element, GROUP, MULTI, RADIO}
 
-object InterviewBitAssembler {
+object ElementBitAssembler {
 
   private def decodeMulti(bitValue: Int, element: Element): List[String] = {
     val maybeQuestionTag = element.children.find(_.order + 1 == bitValue).map(_.questionTag)

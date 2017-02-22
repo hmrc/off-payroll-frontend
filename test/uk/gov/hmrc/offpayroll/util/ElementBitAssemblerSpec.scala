@@ -18,9 +18,9 @@ package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.models.{FinancialRiskCluster, PersonalServiceCluster}
-import uk.gov.hmrc.offpayroll.util.InterviewBitAssembler.fromBitElement
+import uk.gov.hmrc.offpayroll.util.ElementBitAssembler.fromBitElement
 
-class InterviewBitAssemblerSpec extends FlatSpec with Matchers {
+class ElementBitAssemblerSpec extends FlatSpec with Matchers {
   it should "convert bit value and element into string values" in {
     val values = fromBitElement(17, FinancialRiskCluster.clusterElements(0))
     values should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")

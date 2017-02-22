@@ -37,14 +37,14 @@ case class CompressedInterview(str: String) {
     }
 
     val l = decode(str)
-    longAndWidthsToValueWidthPairs(l, InterviewBitSplitter.toWidths)
+    longAndWidthsToValueWidthPairs(l, ElementProvider.toWidths)
   }
 
   def asValues: List[Int] = asValueWidthPairs.map { case (v, _) => v }
 
   def asMap: Map[String, List[String]] = {
-    val elementIntAnswers = InterviewBitSplitter.toElements.zip(asValues)
-    elementIntAnswers.map { case (e, a) => (e.questionTag, InterviewBitAssembler.fromBitElement(a, e)) }.toMap
+    val elementIntAnswers = ElementProvider.toElements.zip(asValues)
+    elementIntAnswers.map { case (e, a) => (e.questionTag, ElementBitAssembler.fromBitElement(a, e)) }.toMap
   }
 }
 

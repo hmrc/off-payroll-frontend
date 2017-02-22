@@ -18,9 +18,9 @@ package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.models.{ExitCluster, FinancialRiskCluster, PersonalServiceCluster, SetupCluster}
-import uk.gov.hmrc.offpayroll.util.InterviewBitSplitter.toBitPair
+import uk.gov.hmrc.offpayroll.util.ElementBitSplitter.toBitPair
 
-class InterviewBitSplitterSpec extends FlatSpec with Matchers {
+class ElementBitSplitterSpec extends FlatSpec with Matchers {
   val exampleAnswerSet = List (
     /*    setup     children 3 type MULTI */   List("setup.endUserRole.personDoingWork"),
     /*    setup     children 0 type RADIO */   List("Yes"),
@@ -43,12 +43,6 @@ class InterviewBitSplitterSpec extends FlatSpec with Matchers {
     /* 14: cluster 3 children 0 type RADIO */  List("Yes"),
     /* 15: cluster 3 children 3 type MULTI */  List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
   )
-
-  "InterviewBitSplitter" should "convert elements width list" in {
-    val widths = InterviewBitSplitter.toWidths
-    widths should contain theSameElementsInOrderAs List(3, 2, 3, 2, 3, 2, 2, 2, 2, 3, 3, 3, 3, 5, 3, 3, 2, 2, 2, 3)
-
-  }
 
   it should "convert single element into a (bit value, bit width) pair" in {
     val element0 = SetupCluster.clusterElements(2)
