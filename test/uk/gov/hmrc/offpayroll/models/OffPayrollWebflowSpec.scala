@@ -84,8 +84,8 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
   }
 
-  it should "be at version 1.0.0-final" in {
-    webflow.version shouldBe "1.0.0-final"
+  it should "be at version 1.1.0-final" in {
+    webflow.version shouldBe "1.1.0-final"
   }
 
 }
