@@ -44,7 +44,7 @@ class InterviewBitSplitterSpec extends FlatSpec with Matchers {
     /* 15: cluster 3 children 3 type MULTI */  List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
   )
 
-  "InterviewCompressor" should "convert elements width list" in {
+  "InterviewBitSplitter" should "convert elements width list" in {
     val widths = InterviewBitSplitter.toWidths
     widths should contain theSameElementsInOrderAs List(3, 2, 3, 2, 3, 2, 2, 2, 2, 3, 3, 3, 3, 5, 3, 3, 2, 2, 2, 3)
 
@@ -93,6 +93,10 @@ class InterviewBitSplitterSpec extends FlatSpec with Matchers {
   it should "convert bit value and element into string values (3)" in {
     val values = InterviewBitSplitter.fromBitElement(3, PersonalServiceCluster.clusterElements(0))
     values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+  }
+
+  it should "calculate msb" in {
+    List(0,2,3,4,5,7,8).map(InterviewBitSplitter.msbPos) should contain theSameElementsInOrderAs List(0,2,2,3,3,3,4)
   }
 
 }

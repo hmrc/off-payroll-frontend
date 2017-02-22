@@ -22,7 +22,7 @@ import scala.annotation.tailrec
 import scala.collection.immutable.BitSet
 
 object InterviewBitSplitter {
-  private def msbPos(n: Int): Int = {
+  def msbPos(n: Int): Int = {
     @tailrec
     def go(n: Int, acc: Int): Int = {
       if (n == 0) acc else go(n >> 1, acc + 1)
@@ -51,7 +51,7 @@ object InterviewBitSplitter {
     }
   }
 
-  private def encodeElementValues(values: List[String], element: Element): (Int, Int) = {
+  private def encodeGroupElementValues(values: List[String], element: Element): (Int, Int) = {
     val booleans = for {
       child <- element.children
     } yield {
@@ -69,14 +69,14 @@ object InterviewBitSplitter {
 
   def toBitPair(values: List[String], element: Element): (Int,Int) = {
     element.elementType match {
-      case GROUP => encodeElementValues(values, element)
-      case _ => (encodeElementValue(values(0), element), elementBitWidth(element))
+      case GROUP => encodeGroupElementValues(values, element)
+      case _ => (encodeElementValue(values.headOption.getOrElse(""), element), elementBitWidth(element))
     }
   }
 
-  def toElements: List[Element] = SuperWebflow.clusters.flatMap(_.clusterElements)
+  def toElements: List[Element] = SuperWebflow.elements
 
-  def toWidths: List[Int] = toElements.map(elementBitWidth(_))
+  def toWidths: List[Int] = toElements.map(elementBitWidth)
 
   def fromBitElement(bitValue: Int, element: Element): List[String] = element.elementType match {
     case RADIO => decodeYesNo(bitValue)

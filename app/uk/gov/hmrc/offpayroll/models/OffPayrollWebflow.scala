@@ -97,6 +97,7 @@ object OffPayrollWebflow extends OffPayrollWebflow
 
 object SuperWebflow extends OffPayrollWebflow {
   override def clusters: List[Cluster] = List(SetupCluster, ExitCluster, PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
+  lazy val elements = clusters.flatMap(_.clusterElements)
 }
 
 
