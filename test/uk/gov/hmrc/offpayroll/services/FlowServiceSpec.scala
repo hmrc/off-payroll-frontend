@@ -46,10 +46,8 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       |  "score": {
       |    "personalService": "HIGH",
       |    "control": "LOW",
-      |    "financialRiskA": "LOW",
-      |    "financialRiskB": "LOW",
-      |    "partAndParcel": "LOW",
-      |    "businessStructure": "LOW"
+      |    "financialRisk": "LOW",
+      |    "partAndParcel": "LOW"
       |  },
       |  "result": "Inside IR35"
       |}
@@ -63,10 +61,8 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       |  "score": {
       |    "personalService": "HIGH",
       |    "control": "LOW",
-      |    "financialRiskA": "",
-      |    "financialRiskB": "LOW",
-      |    "partAndParcel": "MEDIUM",
-      |    "businessStructure": "LOW"
+      |    "financialRisk": "",
+      |    "partAndParcel": "MEDIUM"
       |  },
       |  "result": "Unknown"
       |}
@@ -80,20 +76,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
 
   "A Flow Service should " should {
     " be able to get the start of an Interview" in {
-      testFlowService.getStart() should not be (null)
-    }
-
-    " exit when zeroToThree is answered for businessStructure.similarWork" in {
-
-      when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_inIr35))
-
-      val interview: Map[String, String] = Map(businessStructure_similarWork_zeroToThree)
-      val currentElement: (String, String) = businessStructure_similarWork_zeroToThree
-
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
-
-      interviewEvalResult.continueWithQuestions shouldBe false
-      interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
+      testFlowService.getStart(Map[String, String]()) should not be (null)
     }
 
     " move to the next cluster when cannotFixWorkerLocation is answered for control.workerDecideWhere" in {
@@ -106,21 +89,20 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       interviewEvalResult.continueWithQuestions shouldBe true
-      interviewEvalResult.element.head.questionTag shouldBe "financialRiskA.workerPaidInclusive"
+      interviewEvalResult.element.head.questionTag shouldBe "financialRisk.haveToPayButCannotClaim"
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
-    " move to the next cluster when Yes is answered for partParcel.workerReceivesBenefits" in {
+    " Exit when Yes is answered for partParcel.workerAsLineManager as it would be the final question" in {
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
 
-      val interview: Map[String, String] = Map(partParcel_workerReceivesBenefits_yes)
-      val currentElement: (String, String) = partParcel_workerReceivesBenefits_yes
+      val interview: Map[String, String] = Map(partParcel_workerAsLineManager_yes)
+      val currentElement: (String, String) = partParcel_workerAsLineManager_yes
 
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
-      interviewEvalResult.continueWithQuestions shouldBe true
-      interviewEvalResult.element.head.questionTag shouldBe "businessStructure.similarWork"
+      interviewEvalResult.continueWithQuestions shouldBe false
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
@@ -128,18 +110,18 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
 
-      val interview: Map[String, String] = Map(personalService_contractualObligationForSubstituteYes)
-      val currentElement: (String, String) = personalService_contractualObligationForSubstituteYes
+      val interview: Map[String, String] = Map(personalService_workerSentActualSubstituteYesClientAgreed)
+      val currentElement: (String, String) = personalService_workerSentActualSubstituteYesClientAgreed
 
       val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
 
       assert(interviewEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
-      assert(interviewEvalResult.element.head.questionTag === personalService_contractualObligationInPractise) //next tag
+      assert(interviewEvalResult.element.head.questionTag === personalService_workerPayActualSubstitute) //next tag
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
     " be able to get the current currentElement" in {
-      assert(testFlowService.getAbsoluteElement(0, 1).questionTag == personalService_contractualObligationInPractise)
+      assert(testFlowService.getAbsoluteElement(0, 1).questionTag == personalService_workerPayActualSubstitute)
     }
   }
 

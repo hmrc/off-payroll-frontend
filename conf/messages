@@ -8,145 +8,96 @@ No=No
 
 #### Set up cluster
 
-setup.endUserRole=Why do you want to use this tool?
-setup.endUserRole.personDoingWork=Person doing the work: I want to find out whether I''m working in a way that means I should pay tax like an employee
-setup.endUserRole.endClient=End client who needs the services: I want to find out whether a person providing services to my organisation is working in a way that means they should pay tax like an employee
-setup.endUserRole.placingAgency=Agency placing the person: I want to find out whether a person I''m placing is working in a way that means they should pay tax like an employee
-setup.hasContractStarted=Has the worker already started doing the work for this contract?
-setup.provideServices=How do they provide their services for this contract?
-setup.provideServices.limitedCompany=Through a limited company
-setup.provideServices.partnership=Through a partnership
-setup.provideServices.intermediary=Through an intermediary who is an individual
-setup.provideServices.soleTrader=As a sole trader
+setup.endUserRole=Which of these describes you best? 
+    setup.endUserRole.personDoingWork=The worker
+    setup.endUserRole.endClient=The end client
+    setup.endUserRole.placingAgency=The agency paying the worker
+
+setup.hasContractStarted=Has the worker already started this particular engagement for the end client?
+
+setup.provideServices=How does the worker provide their services to the end client?
+    setup.provideServices.limitedCompany=As a limited company
+    setup.provideServices.partnership=As a partnership
+    setup.provideServices.intermediary=Through another individual
+    setup.provideServices.soleTrader=Self-employed as a sole trader
 
 #### Exit Questions
 
-exit.officeHolder=Is the worker an office holder of the client or do they perform the duties of an office holder?
-
-# Ltd company liability
-exit.conditionsLiabilityLtd1=Can the worker control more than 5% of the ordinary share capital?
-exit.conditionsLiabilityLtd2=All together, can the worker''s family control more than 5% of the ordinary share capital?
-exit.conditionsLiabilityLtd3=Can the worker take more than 5% of any dividends?
-exit.conditionsLiabilityLtd4=All together, can the worker''s family take more than 5% of any dividends?
-exit.conditionsLiabilityLtd5=Is the limited company controlled by five or fewer people?
-exit.conditionsLiabilityLtd6=Are all of the people who control the limited company also directors of the company?
-exit.conditionsLiabilityLtd7=If the company was wound up, would the worker get more than 5% of the assets that could be shared out?
-exit.conditionsLiabilityLtd8=If the company was wound up, all together would the worker''s family or an associate of the worker get more than 5% of the assets that could be shared out?
-
-# Partnership Liability
-exit.conditionsLiabilityPartnership1=Can the worker take 60% or more of the partnership''s profits?
-exit.conditionsLiabilityPartnership2=All together, can the worker''s family take 60% or more of the profits?
-exit.conditionsLiabilityPartnership3=Do more than 50% of the partnership''s profits come from a single client?
-exit.conditionsLiabilityPartnership4=Does the worker get a share of the profits that''s based on payments the partnership gets for their work?
-
-# Individual Liability
-exit.conditionsLiabilityIndividualIntermediary=Does the middleman give the worker money or other benefits in return for the work?
-
+exit.officeHolder=Is the worker or their business an office holder for the end client?
 
 
 #### Personal Service cluster
-
-personalService.contractualObligationForSubstitute=If the worker can''t or doesn''t want to do the work, does the contract state that they must send someone else?
-personalService.contractualObligationInPractise=If the worker can''t or doesn''t want to do the work and the contract states that they must send someone else, would this happen in practice?
-personalService.contractualRightForSubstitute=If the worker can''t or doesn''t want to do the work, does the contract state that they''re allowed to send someone else?
-
-
-personalService.actualRightToSendSubstitute=If the worker can''t or doesn''t want to do the work, in practice are they allowed to send someone else?
-personalService.contractualRightReflectInPractise=If the worker can''t or doesn''t want to do the work and the contract states that they''re allowed to send someone else, would this happen in practice?
-personalService.engagerArrangeIfWorkerIsUnwillingOrUnable=If the worker can''t or doesn''t want to do the work, would the end client get someone else to do it?
-personalService.possibleSubstituteRejection=If the worker decided to send someone else to do the work, could the end client turn away the other person even if they''re qualified to do the work?
-personalService.contractTermsWorkerPaysSubstitute=Does the contract state that the worker has to pay the other person they bring in to do the work?
-personalService.workerSentActualSubstitute=If the worker couldn''t or didn''t want to do the work, have they ever sent someone else to do the work instead?
-personalService.actualSubstituteRejection=Did the end client turn the other person away?
-personalService.possibleHelper=Is the worker allowed to get someone to help them do the work for this contract?
-personalService.wouldWorkerPayHelper=Do they have to pay the helper?
-personalService.workerSentActualHelper=Has someone ever helped the worker do the work for this contract?
-personalService.workerPayActualHelper=Did they pay the helper?
+personalService.workerSentActualSubstitute=During this engagement has the worker arranged for someone to do the work instead of them?
+personalService.workerSentActualSubstitute.yesClientAgreed=Yes and the client agreed
+personalService.workerSentActualSubstitute.notAgreedWithClient=Yes but the client didn't agree 
+personalService.workerSentActualSubstitute.noSubstitutionHappened=No it's never happened
+personalService.workerPayActualSubstitute=Did the worker pay the person who did the work instead of them?
+personalService.possibleSubstituteRejection=Would the end client accept the worker sending someone else to do this work?
+personalService.possibleSubstituteWorkerPay=Would the worker have to pay the person who did the work instead of them?
+personalService.wouldWorkerPayHelper=Has the worker needed to pay a helper to do a significant amount of the work?
 
 #### Control Cluster
 
-control.toldWhatToDo=Does the worker get to decide which tasks they do each day for this contract?
-control.toldWhatToDo.yes=Yes, they get to decide
-control.toldWhatToDo.no=No, the end client decides
-control.toldWhatToDo.sometimes=Sometimes they get to decide and sometimes the end client decides
+control.engagerMovingWorker=Can the end client move the worker to a different task or project that they had not originally agreed to do?
+control.engagerMovingWorker.canMoveWorkerWithPermission=Yes, but only with the worker''s permission
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes, without the worker''s permission. If the worker doesn''t want to change task or project, the end client would no longer engage them.
+control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No, that would need to be arranged under a new contract or formal agreement
 
-control.engagerMovingWorker=Can the end client tell the worker to move from job to job during this contract?
-
-control.workerDecidingHowWorkIsDone=Can the end client tell the worker how to do the work for this contract?
-control.workerDecidingHowWorkIsDone.workingSetInstructions=The worker follows a set process or set of instructions
-control.workerDecidingHowWorkIsDone.workerCanGetInstructed=The end client can give the worker written or spoken instructions
-control.workerDecidingHowWorkIsDone.workerDecidesToClientSatisfaction=The worker decides how they do the work as long as the end client is satisfied
-control.workerDecidingHowWorkIsDone.workerFullyDecides=The worker is skilled to the level that it''s not appropriate for the end client to tell them how to do the work
+control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, who decides how to do the work?
+control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=The worker decides what needs to be done without any input from the end client
+control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=The worker and other people employed by the end client agree what needs to be done
+control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=The end client decides what needs to be done without input from the worker
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=The worker follows the end client''s existing employee procedures and guidelines
 
 
-control.whenWorkHasToBeDone=When does the worker have to do the work for this contract?
-control.whenWorkHasToBeDone.workingPatternStipulated=They have to work a pattern decided by the end client
-control.whenWorkHasToBeDone.workingPatternAgreed=They have to work a pattern they''ve agreed with the end client
-control.whenWorkHasToBeDone.noDefinedWorkingPattern=They''re free to do the work whenever they want, as long as it gets done
-control.whenWorkHasToBeDone.workinPatternAgreedDeadlines=They work to an agreed deadline or series of deadlines
-control.whenWorkHasToBeDone.workinPatternRegularHoursToAgreedDeadlines=They work regular hours, and to an agreed deadline or series of deadlines
+control.whenWorkHasToBeDone=Who decides the schedule of working hours?
+control.whenWorkHasToBeDone.workerDecideSchedule=The worker decides their own schedule
+control.whenWorkHasToBeDone.workerAgreeSchedule=The worker and the end client agree a schedule
+control.whenWorkHasToBeDone.scheduleDecidedForWorker=The end client decides the worker''s schedule
+control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=No schedule is needed as long as the worker meets any agreed deadlines
 
-control.workerDecideWhere=Can the worker choose where to work during this contract?
-control.workerDecideWhere.couldFixWorkerLocation=The worker can choose where to work
-control.workerDecideWhere.cannotFixWorkerLocation=The worker can''t choose where to work
-control.workerDecideWhere.workerLocationFixed=The work can only be done in a specific location
+control.workerDecideWhere=Can the worker choose where they work?
+control.workerDecideWhere.workerChooses=Yes
+control.workerDecideWhere.workerCannotChoose=No - the end client decides where they work
+control.workerDecideWhere.workerAgreeWithOthers=Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
+control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
-#### Financial Risk Cluster A
+#### Financial Risk Cluster
 
-financialRiskA.workerPaidInclusive=Is the worker paid an all-inclusive rate that must cover the cost of all materials needed for the contract?
-financialRiskA.workerNeedConsumablesMaterials=Does the worker need materials that become part of the work for this contract?
-financialRiskA.workerProvideConsumablesMaterials=Do they have to provide them?
-financialRiskA.engagerPayConsumables=Do they get the money back?
-financialRiskA.workerNeedEquipment=Does the worker need major items of equipment without which they can''t do the work for this contract?
-financialRiskA.workerProvideEquipment=Do they have to provide them?
-financialRiskA.engagerPayEquipment=Do they get the money back?
+financialRisk.haveToPayButCannotClaim=What items does the worker have to buy for this engagement that they can''t claim as an expense from the end client or the agency?
+    financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including Stationery)
+    financialRisk.workerProvidedEquipment=Equipment - significant tools needed to do the work (not including items already owned by the worker''s business) 
+    financialRisk.workerUsedVehicle=Vehicle - for work tasks, not commuting
+    financialRisk.workerHadOtherExpenses=Other expenses - including meals, accommodation, travel for work tasks (not including commuting)
+    financialRisk.expensesAreNotRelevantForRole=Not relevant
 
-#### Financial Risk Cluster B
+financialRisk.workerMainIncome=What’s the main way the worker is paid for this engagement?
+financialRisk.workerMainIncome.incomeCalendarPeriods=an hourly, daily or weekly rate
+financialRisk.workerMainIncome.incomeFixed=a fixed price for a specific piece of work
+financialRisk.workerMainIncome.incomePieceRate=an amount based on how much work is completed
+financialRisk.workerMainIncome.incomeCommission=a percentage of the sales the worker makes
+financialRisk.workerMainIncome.incomeProfitOrLosses=a percentage of the end client''s profits or savings
 
-financialRiskB.provideVehicle=Does the worker have to use their own vehicle for this contract?
-financialRiskB.engagerPayVehicleExpense=Do they get the money back?
-financialRiskB.workerIncurExpense=Does the worker have to pay for anything else out of their own pocket while working on this contract?
-financialRiskB.engagerPayOtherExpense=Do they get the money back?
 
-financialRiskB.workerMainIncome=How does the end client pay the worker for this contract?
-financialRiskB.workerMainIncome.incomeCalendarPeriods=On an hourly, daily or weekly rate
-financialRiskB.workerMainIncome.incomePieceRate=An amount based on how much work they complete
-financialRiskB.workerMainIncome.incomeCommission=An amount based on the sales they make
-financialRiskB.workerMainIncome.incomeFixed=A fixed price agreed for the the whole piece of work
-financialRiskB.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits
-financialRiskB.workerMainIncome.incomeRateByInvoice=An hourly or daily rate paid on submission of an invoice
+financialRisk.paidForSubstandardWork=If the end client isn''t happy with the worker''s output, when would the worker have to put it right?
+financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=in their agreed working hours at the usual rate of pay
+financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=outside of their agreed working hours for an additional charge to the end client
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=outside of their agreed working hours without charging the end client additional money
+financialRisk.paidForSubstandardWork.noObligationToCorrect=they don''t have to put it right
+financialRisk.paidForSubstandardWork.cannotBeCorrected=they can''t put it right as the work is time-specific or for a single event
 
-financialRiskB.workerSufferedLatePayment=Has the worker ever been paid late, or not at all, on submission of an invoice?
-financialRiskB.workerProvideAtTheirExpense=If the work isn''t up to the end client''s expectations for this contract, does the worker have to put it right?
-financialRiskB.workerFixAtTheirOwnTime=Do they have to put it right on their own time?
-financialRiskB.workerPayForMaterialsSubstandardWorker=Do they have to pay for the materials used to put the work right?
-financialRiskB.paidForSubstandardWork=If the work isn''t up to the end client''s expectations for this contract, is the end client allowed to pay the worker late, or not at all?
-financialRiskB.actualEngagerWithholdPayment=Has this happened during this contract?
 
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-partParcel.workerReceivesBenefits=Does the worker get benefits as part of the contract?
-partParcel.workerAsLineManager=Does the worker have line management responsibilities for anyone else working for the end client during this contract?
-partParcel.contactWithEngagerCustomer=Does the worker come into direct contact with the end client''s customers, clients or service users as part of this contract?
-partParcel.workerRepresentsEngagerBusiness=Does the worker act as if they''re a member of the end client''s staff for this contract?
 
-
-#### Business Structure Cluster
-
-businessStructure.similarWork=Has the worker had similar contracts with other clients in the past 12 months?
-businessStructure.similarWork.zeroToThree=0-3
-businessStructure.similarWork.fourToNine=4-9
-businessStructure.similarWork.tenPlus=10+
-#may need two tags or some other way to switch the following question
-businessStructure.workerVAT=Is their business registered for VAT?
-businessStructure.businessAccount=Do they have a business bank account?
-businessStructure.advertiseForWork=Do they promote their business?
-#may need two tags or some other way to switch the following question
-businessStructure.businessWebsite=Do they have a website for their business?
-businessStructure.workerPayForTraining=Do they pay for training?
-businessStructure.workerExpenseRunningBusinessPremises=Do they pay for their own business premises?
-businessStructure.workerPaysForInsurance=Does the end client require the worker to take out insurance?
+partParcel.workerReceivesBenefits=Is the worker entitled to benefits from the end client?
+partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
+partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
+partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
+    partParcel.workerRepresentsEngagerBusiness.workForEndClient=they work for the end client
+    partParcel.workerRepresentsEngagerBusiness.workAsIndependent=they''re an independent worker acting on behalf of the end client
+    partParcel.workerRepresentsEngagerBusiness.workAsBusiness=they work for their own business
 
 
 

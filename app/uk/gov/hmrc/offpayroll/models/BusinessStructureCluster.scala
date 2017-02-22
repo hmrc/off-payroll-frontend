@@ -42,7 +42,7 @@ object BusinessStructureCluster extends Cluster {
     Element("workerPaysForInsurance", RADIO, 7, this)
   )
 
-  private val flows = List(
+  override val flows = List(
     FlowElement("businessStructure.similarWork",
       Map("businessStructure.similarWork" -> "businessStructure.similarWork.zeroToThree"),
       Option.empty),
@@ -63,13 +63,4 @@ object BusinessStructureCluster extends Cluster {
       getNextQuestionElement(clusterAnswers, currentQnA)
   }
 
-  def getNextQuestionElement(clusterAnswers: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
-    val currentQuestionFlowElements = flows.filter(_.currentQuestion.equalsIgnoreCase(currentQnA._1))
-    val relevantFlowElement = currentQuestionFlowElements.filter{
-      element => element.answers.forall(clusterAnswers.contains(_))
-    }
-    if(relevantFlowElement.isEmpty) findNextQuestion(currentQnA)
-    else
-      getElementForQuestionTag(relevantFlowElement.head.nextQuestion.getOrElse(""))
-  }
 }

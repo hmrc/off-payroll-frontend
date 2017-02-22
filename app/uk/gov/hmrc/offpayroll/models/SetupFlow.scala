@@ -25,11 +25,9 @@ object SetupFlow extends Webflow {
 
   private val setupCluster = SetupCluster
 
-  override def version: String = "1.0.1-beta"
-
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, setupCluster)
 
-  override def getStart(): Element = setupCluster.clusterElements(0)
+  override def getStart(interview: Map[String, String]): Element = setupCluster.getStart(interview)
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
     if(clusterId == 0 && elementId < setupCluster.clusterElements.size) Option(setupCluster.clusterElements(elementId))

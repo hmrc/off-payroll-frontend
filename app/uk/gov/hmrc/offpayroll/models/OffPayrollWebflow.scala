@@ -17,7 +17,6 @@
 package uk.gov.hmrc.offpayroll.models
 
 import uk.gov.hmrc.offpayroll.typeDefs.Interview
-import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
 
 /**
   * Created by peter on 02/12/2016.
@@ -26,10 +25,7 @@ import uk.gov.hmrc.offpayroll.util.ClusterAndQuestion
   */
 object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
-  val version: String = "1.0.1-beta"
-
-  def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster, FinancialRiskACluster,
-    FinancialRiskBCluster, PartAndParcelCluster, BusinessStructureCluster)
+  def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
 
 
   override def getNext(element: Element): Option[Element] = {
@@ -56,7 +52,7 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
     } else Option.empty
   }
 
-  override def getStart(): Element = clusters.head.clusterElements.head
+  override def getStart(interview: Map[String, String]): Element = clusters.head.getStart(interview)
 
   override def getElementByTag(tag: String): Option[Element] = {
 
@@ -101,4 +97,8 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
 
 
-case class Decision(qa: Map[String, String], decision: DecisionType)
+case class Decision(_qa: Map[String, String], decision: DecisionType) {
+
+  val qa = DecisionBuilder.decodeMultipleValues(_qa)
+
+}

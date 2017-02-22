@@ -47,14 +47,14 @@ class ExitController  @Inject() extends OffPayrollController {
 
   def begin() = PasscodeAuthenticatedActionAsync { implicit request =>
 
-    val element = flow.getStart()
+    val element = flow.getStart(asMap(request.session))
     val questionForm = createForm(element)
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm,element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]) = {
+  override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]) = {
     Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(questionForm, element, html))
   }
 
@@ -75,24 +75,12 @@ class ExitController  @Inject() extends OffPayrollController {
 
       value => {
         val session = push(request.session, fieldName, value)
-        val exitResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
+        val inIr35 = flow.shouldAskForNext(asMap(session), (fieldName, value)).inIr35
 
-        if(exitResult.element.nonEmpty) { // continue with questions
-          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(form, exitResult.element.get,
-            fragmentService.getFragmentByName(exitResult.element.get.questionTag)))
-            .withSession(session)
-          )
-
-        } else if(exitResult.inIr35) { // in IR35
+        if(inIr35) {
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.hardDecision()))
-        } else if(exitResult.exitTool) { // exit the tool
-          val exitReason = ExitReason("exitTool.serviceProvision.heading","exitTool.serviceProvision.reason","exitTool.serviceProvision.explanation")
-          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason)))
-        } else if(exitResult.continueToMainInterview) {
-          Future.successful(Redirect(routes.InterviewController.begin)
-            .withSession(session))
-        } else { // bad
-          Future.successful(InternalServerError("Unknown result from the ExitFlow"))
+        } else {
+          Future.successful(Redirect(routes.InterviewController.begin).withSession(session))
         }
       }
     )

@@ -50,7 +50,7 @@ class SetupController @Inject() extends OffPayrollController {
   //todo shouldn't need the clusterId
   def begin(clusterId: Int = 0) = PasscodeAuthenticatedActionAsync { implicit request =>
 
-    val element = flow.getStart()
+    val element = flow.getStart(asMap(request.session))
     val questionForm = createForm(element)
     val session = InterviewSessionHelper.reset(request.session)
 
@@ -58,7 +58,7 @@ class SetupController @Inject() extends OffPayrollController {
       fragmentService.getFragmentByName(element.questionTag))).withSession(session))
   }
 
-  override def displaySuccess(element: Element, questionForm: Form[String])(html: Html)(implicit request: Request[_]): Result =
+  override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
     Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element, html))
 
   override def redirect: Result = Redirect(routes.SetupController.begin())
@@ -74,7 +74,7 @@ class SetupController @Inject() extends OffPayrollController {
 
   def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
 
-    val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart())
+    val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart(asMap(request.session)))
     val fieldName = element.questionTag
     val form = createForm(element)
 

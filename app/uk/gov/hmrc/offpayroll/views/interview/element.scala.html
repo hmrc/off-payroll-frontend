@@ -4,54 +4,113 @@
 @import uk.gov.hmrc.offpayroll.models.RADIO
 @import play.api.Play
 @(element: Element)(implicit request: Request[_], messages: Messages)
-    @if(element.elementType == RADIO) {
-
-        <div class="form-group">
-            <fieldset>
-                <div class="form-field--inline">
-                    <label for="radio-yes" class="block-label">
-                        <input id="radio-yes" type="radio" name="@element.questionTag" value="Yes" />
-                        Yes
-                    </label>
-                </div>
-                <div class="form-field--inline">
-                    <label for="radio-no" class="block-label">
-                        <input id="radio-no" type="radio" name="@element.questionTag" value="No" />
-                        No
-                    </label>
-                </div>
-
-            </fieldset>
-        </div>
 
 
-    }
-    @if(element.elementType == MULTI) {
+@indexZero = {[0]}
+@indexOne = {[1]}
+@openBracket = {[}
+@closingBracket = {]}
 
-    @for(child <- element.children) {
-        <div class="form-field">
-            <label for="@child.questionTag" class="block-label">
-                <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
-                @Messages(child.questionTag)
+@element.elementType match {
+    case RADIO => {
+
+
+        <div class="form-field--inline">
+            <label for="radio-yes" class="block-label">
+                <input id="radio-yes" type="radio" name="@element.questionTag" value="Yes" />
+                Yes
             </label>
         </div>
+        <div class="form-field--inline">
+            <label for="radio-no" class="block-label">
+                <input id="radio-no" type="radio" name="@element.questionTag" value="No" />
+                No
+            </label>
+        </div>
+
+
     }
+    case MULTI => {
+
+        @for(child <- element.children) {
+            <div class="form-field">
+                <label for="@child.questionTag" class="block-label">
+                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
+                    @Messages(child.questionTag)
+                </label>
+            </div>
+        }
+    }
+
+    case GROUP => {
+
+        @for(child <- element.children) {
+
+            <div class="form-field">
+                <label for="@element.questionTag@openBracket@child.order@closingBracket" class="block-label">
+                    <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag@openBracket@child.order@closingBracket" value="@child.questionTag" />
+                    @Messages(child.questionTag)
+                </label>
+            </div>
+        }
+        <script type="text/javascript">
+            // make one checkbox exclusive (so it behaves like a radio button)
+            (function() {
+              var inputs = document.getElementsByTagName('input');
+              // name and index of exclusive checkbox
+              var exclusiveCheckbox = {
+                  elementName: 'financialRisk.haveToPayButCannotClaim[4]',
+                  elementIndex: 4
+              }
+              for (x = 0 ; x < inputs.length  ; x++){
+                  var inputName = inputs[x].getAttribute('name');
+                  if(inputName.indexOf('financialRisk.haveToPayButCannotClaim')===0){
+                      // attach change handler to all checkboxes in the group
+                      document.querySelector('input[name="' + inputName +'"]').onchange=changeEventHandler
+                  }
+              }
+
+              function changeEventHandler(event) {
+                  if(this.name == exclusiveCheckbox.elementName){
+                      if(document.querySelector('input[name="' + exclusiveCheckbox.elementName + '"]').checked){
+                          //not relevant checked - uncheck all others
+                          for (x = 0 ; x < inputs.length -1; x++){
+                              if(x != exclusiveCheckbox.elementIndex){
+                                  document.querySelector('input[name="financialRisk.haveToPayButCannotClaim[' + x + ']"').checked = false
+                              }
+                          }
+
+                      }
+                  }
+                  else {
+                      //uncheck not relevant
+                      document.querySelector('input[name="' + exclusiveCheckbox.elementName + '"]').checked = false
+                  }
+              }
+            })();
+        </script>
+    }
+
+
+
 
 }
-<button>@Messages("global.button.continue")</button>
+
 
 @if(Play.current.configuration.getBoolean("ui.debug").getOrElse(false)) {
-    <p>Debug is on!</p>
-    <ul>
-        <li>@request.session.data.toString()</li>
-        <li>Current currentElement @element.toString</li>
-    </ul>
-    <p>Interview:</p>
-    @if(request.session.data.get("interview").isDefined) {
+    <div style="clear:both" >
+        <p>Debug is on!</p>
         <ul>
-            @for(interviewElement <- request.session.data.get("interview").get.split(";")) {
-                <li>@interviewElement.toString</li>
-            }
+            <li>@request.session.data.toString()</li>
+            <li>Current currentElement @element.toString</li>
         </ul>
-    }
+        <p>Interview:</p>
+        @if(request.session.data.get("interview").isDefined) {
+            <ul>
+                @for(interviewElement <- request.session.data.get("interview").get.split(";")) {
+                    <li>@interviewElement.toString</li>
+                }
+            </ul>
+        }
+    </div>
 }

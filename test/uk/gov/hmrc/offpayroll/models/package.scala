@@ -98,25 +98,28 @@ package object resources {
 
   //PERSONAL SERVICE
 
-  val personalService_contractualObligationForSubstitute = "personalService.contractualObligationForSubstitute"
-  val personalService_contractualObligationForSubstituteYes = personalService_contractualObligationForSubstitute -> YES
-
-  val personalService_contractualObligationInPractise = "personalService.contractualObligationInPractise"
-  val personalService_contractualObligationInPractiseYes = personalService_contractualObligationInPractise -> "Yes"
-
-  val personalService_contractualRightForSubstitute = "personalService.contractualRightForSubstitute"
-
-  val personalService_workerpayactualhelper = "personalService.workerPayActualHelper"
-
-  //BUSINESS STRUCTURE
-  val businessStructure_similarWork_zeroToThree = "businessStructure.similarWork" -> "businessStructure.similarWork.zeroToThree"
+  val personalService_workerSentActualSubstitute = "personalService.workerSentActualSubstitute"
+  val personalService_workerSentActualSubstituteYesClientAgreed = "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed"
+  val personalService_workerPayActualSubstitute = "personalService.workerPayActualSubstitute"
+  val personalService_workerPayActualSubstituteYes = "personalService.workerPayActualSubstitute" -> "Yes"
 
 
   //CONTROL
-  val control_workerDecideWhere_cannotFixWorkerLocation = "control.workerDecideWhere" -> "businessStructure.similarWork.cannotFixWorkerLocation"
+  val control_workerDecideWhere_cannotFixWorkerLocation = "control.workerDecideWhere" -> "control.workerDecideWhere.cannotFixWorkerLocation"
 
   //PART AND PARCEL
   val partParcel_workerReceivesBenefits_yes = "partParcel.workerReceivesBenefits" -> "Yes"
+  val partParcel_workerAsLineManager_yes = "partParcel.workerAsLineManager" -> "Yes"
+
+  val partialInterview_hasContractStarted_Yes = Map("setup.endUserRole" -> "setup.endUserRole.endClient",
+    "setup.hasContractStarted" -> "Yes",
+    "setup.provideServices" -> "setup.provideServices.partnership",
+    "exit.officeHolder" -> "No")
+
+  val partialInterview_hasContractStarted_No = Map("setup.endUserRole" -> "setup.endUserRole.endClient",
+    "setup.hasContractStarted" -> "No",
+    "setup.provideServices" -> "setup.provideServices.partnership",
+    "exit.officeHolder" -> "No")
 
 
 

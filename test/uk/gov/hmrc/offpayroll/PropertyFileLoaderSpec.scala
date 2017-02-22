@@ -23,7 +23,7 @@ import org.scalatest.{FlatSpec, Matchers}
   */
 class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
 
-  val personalServiceKey = "personalService.contractualObligationForSubstitute"
+  val personalServiceKey = "personalService.wouldWorkerPayHelper"
 
   "A Property File Loader " should " get the messages file as a Map[String, String]" in {
     val messagesMap = PropertyFileLoader.getMessagesFileAsMap
@@ -36,7 +36,7 @@ class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
     val cluster = PropertyFileLoader.getMessagesForACluster("personalService")
     
     cluster.contains(personalServiceKey) shouldBe true
-    cluster.size shouldBe 14
+    cluster.size shouldBe 8
 
 
   }
@@ -45,7 +45,7 @@ class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
     val cluster = PropertyFileLoader.getMessagesForACluster("exit")
 
     cluster.contains("exit.officeHolder") shouldBe true
-    cluster.size shouldBe 14
+    cluster.size shouldBe 1
 
   }
 

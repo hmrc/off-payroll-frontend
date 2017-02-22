@@ -30,20 +30,83 @@ object PersonalServiceCluster extends Cluster {
   override def clusterID: Int = 0
 
   val clusterElements: List[Element] = List(
-    Element("contractualObligationForSubstitute", RADIO, 0, this),
-    Element("contractualObligationInPractise", RADIO, 1, this),
-    Element("contractualRightForSubstitute", RADIO, 2, this),
-    Element("actualRightToSendSubstitute", RADIO, 3, this),
-    Element("contractualRightReflectInPractise", RADIO, 4, this),
-    Element("engagerArrangeIfWorkerIsUnwillingOrUnable", RADIO, 5, this),
-    Element("possibleSubstituteRejection", RADIO, 6, this),
-    Element("contractTermsWorkerPaysSubstitute", RADIO, 7, this),
-    Element("workerSentActualSubstitute", RADIO, 8, this),
-    Element("actualSubstituteRejection", RADIO, 9, this),
-    Element("possibleHelper", RADIO, 10, this),
-    Element("wouldWorkerPayHelper", RADIO, 11, this),
-    Element("workerSentActualHelper", RADIO, 12, this),
-    Element("workerPayActualHelper", RADIO, 13, this)
+    Element("workerSentActualSubstitute", MULTI, 0, this,
+      List(
+        Element("workerSentActualSubstitute.yesClientAgreed", RADIO, 0, this),
+        Element("workerSentActualSubstitute.notAgreedWithClient", RADIO, 1, this),
+        Element("workerSentActualSubstitute.noSubstitutionHappened", RADIO, 2, this)
+      )
+    ),
+    Element("workerPayActualSubstitute", RADIO, 1, this),
+    Element("possibleSubstituteRejection", RADIO, 2, this),
+    Element("possibleSubstituteWorkerPay", RADIO, 3, this),
+    Element("wouldWorkerPayHelper", RADIO, 4, this)
   )
+
+  override val flows = List(
+    FlowElement("personalService.workerSentActualSubstitute",
+      Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.notAgreedWithClient"),
+      Option("personalService.wouldWorkerPayHelper")),
+    FlowElement("personalService.workerSentActualSubstitute",
+      Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened"),
+      Option("personalService.possibleSubstituteRejection")),
+    FlowElement("personalService.workerPayActualSubstitute",
+      Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed",
+        "personalService.workerPayActualSubstitute" -> "Yes"),
+      Option.empty),
+    FlowElement("personalService.workerPayActualSubstitute",
+      Map("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed",
+        "personalService.workerPayActualSubstitute" -> "No"),
+      Option("personalService.wouldWorkerPayHelper")),
+    FlowElement("personalService.possibleSubstituteRejection",
+      Map("setup.hasContractStarted" -> "Yes",
+        "personalService.possibleSubstituteRejection" -> "No"),
+      Option("personalService.wouldWorkerPayHelper")),
+    FlowElement("personalService.possibleSubstituteRejection",
+      Map("setup.hasContractStarted" -> "No",
+        "personalService.possibleSubstituteRejection" -> "No"),
+      Option.empty),
+    FlowElement("personalService.possibleSubstituteWorkerPay",
+      Map("setup.hasContractStarted" -> "Yes",
+        "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened",
+        "personalService.possibleSubstituteRejection" -> "Yes",
+        "personalService.possibleSubstituteWorkerPay" -> "Yes"),
+      Option.empty),
+    FlowElement("personalService.possibleSubstituteWorkerPay",
+      Map("setup.hasContractStarted" -> "No",
+        "personalService.possibleSubstituteRejection" -> "Yes",
+        "personalService.possibleSubstituteWorkerPay" -> "No"),
+      Option.empty),
+    FlowElement("personalService.possibleSubstituteWorkerPay",
+      Map("setup.hasContractStarted" -> "No",
+        "personalService.possibleSubstituteRejection" -> "Yes",
+        "personalService.possibleSubstituteWorkerPay" -> "Yes"),
+      Option.empty)
+  )
+
+
+
+  /**
+    * Returns the next element in the cluster or empty if we should ask for a decision
+    *
+    * @param interview
+    * @return
+    */
+  override def shouldAskForDecision(interview: List[(String, String)], currentQnA: (String, String)): Option[Element] = {
+    if (allQuestionsAnswered(interview))Option.empty
+    else
+      getNextQuestionElement(interview, currentQnA)
+
+  }
+
+  override def getStart(interview: Map[String, String]) : Element = {
+    if(interview.isEmpty || contractHasStarted(interview)) clusterElements.head
+    else clusterElements(2)
+  }
+
+  private def contractHasStarted(interview: Map[String, String]): Boolean = {
+    val hasContractStarted = interview.filterKeys(_.equals("setup.hasContractStarted"))
+    hasContractStarted.head._2.equals("Yes")
+  }
 
 }

@@ -16,24 +16,17 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import org.scalatest
-import uk.gov.hmrc.offpayroll.PropertyFileLoader
+import org.scalatest.{FlatSpec, Matchers}
 
-/**
-  * Created by peter on 10/01/2017.
-  */
-trait ClusterSpecHelper {
-  def assertAllElementsPresentForCluster(cluster: Cluster): Boolean = {
-    val properties = PropertyFileLoader.getMessagesForACluster(cluster.name)
+class DecisionBuilderSpec extends FlatSpec with Matchers  {
+  it should "decodeMultipleValues" in {
 
-    if(properties.size > 0 ) {
-      properties.forall {
-        case (question, value) => {
-          cluster.clusterElements.exists(element => {
-            question == element.questionTag || element.children.exists(child => question == child.questionTag)
-          })
-        }
-      }
-    } else false
+    val out = Map(
+      "financialRisk.workerProvidedMaterials" -> "Yes",
+      "financialRisk.workerProvidedEquipment" -> "Yes")
+
+    DecisionBuilder.decodeMultipleValues(
+      Map("financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment")
+    ) shouldBe out
   }
 }

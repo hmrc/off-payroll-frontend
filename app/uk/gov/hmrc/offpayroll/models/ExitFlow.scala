@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import uk.gov.hmrc.offpayroll.models
 import uk.gov.hmrc.offpayroll.typeDefs.Interview
 
 /**
@@ -24,11 +23,11 @@ import uk.gov.hmrc.offpayroll.typeDefs.Interview
   */
 object ExitFlow extends Webflow {
 
-  override def version: String = "1.0.1-beta"
+  private val exitCluster = ExitCluster
 
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, clusters(0))
 
-  override def getStart(): Element = getElementById(0, 0).get
+  override def getStart(interview: Map[String, String]): Element = exitCluster.getStart(interview)
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
     if (clusterId == 0 && elementId < clusters(0).clusterElements.size)
@@ -40,8 +39,9 @@ object ExitFlow extends Webflow {
   override def getElementByTag(tag: String): Option[Element] =
     clusters.head.clusterElements.find(element => element.questionTag == tag)
 
+
   override def clusters: List[Cluster] =
-    List(ExitCluster)
+    List(exitCluster)
 
   override def getClusterByName(name: String): Cluster =
     clusters.find(cluster => cluster.name == name).get
@@ -49,34 +49,12 @@ object ExitFlow extends Webflow {
 
   def shouldAskForNext(interview: Interview, currentQnA: (String, String)): ExitResult = {
 
-    val maybeElement = ExitCluster.shouldAskForDecision(interview.toList, currentQnA)
+    val maybeElement = exitCluster.shouldAskForDecision(interview.toList, currentQnA)
 
     def isOfficeHolder: Boolean = {
       interview.exists {
         case (question, answer) => question == "exit.officeHolder" && answer.toUpperCase == "YES"
       }
-    }
-
-    def checkForNo(questionTag: String) = {
-      if (!interview.exists { case (question, answer) => question.startsWith(questionTag) })
-        false
-      else {
-        interview.filter {
-          case (question, answer) => {
-            question.startsWith(questionTag)
-          }
-        }.forall {
-          case (question, answer) => {
-            answer.toUpperCase == "NO"
-          }
-        }
-      }
-    }
-
-    def checkAllForNo: Boolean = {
-      (checkForNo("exit.conditionsLiabilityLtd")
-        || checkForNo("exit.conditionsLiabilityPartnership")
-        || checkForNo("exit.conditionsLiabilityIndividualIntermediary"))
     }
 
     def thereAreMoreQuestionsToBeAsked = {
@@ -86,13 +64,11 @@ object ExitFlow extends Webflow {
     if (thereAreMoreQuestionsToBeAsked) ExitResult(maybeElement)
     else {
       if (isOfficeHolder) ExitResult(inIr35 = true)
-      else if (checkAllForNo) ExitResult(exitTool = true)
-      else ExitResult(continueToMainInterview = true)
+      else ExitResult()
     }
   }
 
 }
 
 
-case class ExitResult(element: Option[Element] = Option.empty, continueToMainInterview: Boolean = false,
-                      exitTool: Boolean = false, inIr35: Boolean = false)
+case class ExitResult(element: Option[Element] = Option.empty, inIr35: Boolean = false)
