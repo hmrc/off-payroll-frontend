@@ -99,4 +99,10 @@ class InterviewBitSplitterSpec extends FlatSpec with Matchers {
     List(0,2,3,4,5,7,8).map(InterviewBitSplitter.msbPos) should contain theSameElementsInOrderAs List(0,2,2,3,3,3,4)
   }
 
+  it should "convert booleans to int" in {
+    InterviewBitSplitter.indicesToInt(List(4, 3, 0)) shouldBe 0x19
+    InterviewBitSplitter.indicesToInt(List(4, 3, 2, 1, 0)) shouldBe 0x1F
+    InterviewBitSplitter.indicesToInt(List()) shouldBe 0
+  }
+
 }

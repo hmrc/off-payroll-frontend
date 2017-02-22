@@ -30,6 +30,8 @@ object InterviewBitSplitter {
     go(n, 0)
   }
 
+  def indicesToInt(b: List[Int]): Int = b.foldLeft(0)((a,i) => 1 << i | a)
+
   private def decodeMulti(bitValue: Int, element: Element): List[String] = {
     val maybeQuestionTag = element.children.find(_.order + 1 == bitValue).map(_.questionTag)
     maybeQuestionTag.toList
@@ -52,13 +54,8 @@ object InterviewBitSplitter {
   }
 
   private def encodeGroupElementValues(values: List[String], element: Element): (Int, Int) = {
-    val booleans = for {
-      child <- element.children
-    } yield {
-      values.contains(child.questionTag)
-    }
-    val indices = booleans.zipWithIndex.collect{ case (a, i) if a => i}
-    (BitSet(indices:_*).toBitMask.head.toInt, booleans.size)
+    val indices = element.children.zipWithIndex.collect{ case (child, i) if values.contains(child.questionTag) => i }
+    (indicesToInt(indices), element.children.size)
   }
 
   private def elementBitWidth(element: Element): Int = {
