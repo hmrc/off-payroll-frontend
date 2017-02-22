@@ -30,7 +30,7 @@ object InterviewBitSplitter extends App {
 
   def decodeMulti(bitValue: Int, element: Element): List[String] = {
     val maybeQuestionTag = element.children.find(_.order + 1 == bitValue).map(_.questionTag)
-    List(maybeQuestionTag.getOrElse(""))
+    maybeQuestionTag.toList
   }
 
   def decodeGroup(bitValue: Int, element: Element): List[String] = {
@@ -38,7 +38,7 @@ object InterviewBitSplitter extends App {
     tags.map(_.questionTag)
   }
 
-  def decodeYesNo(bitValue: Int) = List(List("", "No", "Yes", "")(bitValue & 0x11))
+  def decodeYesNo(bitValue: Int) = List(Nil, List("No"), List("Yes"), Nil)(bitValue & 0x11)
 
   def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else 1
 
@@ -53,7 +53,7 @@ object InterviewBitSplitter extends App {
     val booleans = for {
       child <- element.children
     } yield {
-      values.exists(_ == child.questionTag)
+      values.contains(child.questionTag)
     }
     val indices = booleans.zipWithIndex.collect{ case (a, i) if a => i}
     (BitSet(indices:_*).toBitMask.head.toInt, booleans.size)
