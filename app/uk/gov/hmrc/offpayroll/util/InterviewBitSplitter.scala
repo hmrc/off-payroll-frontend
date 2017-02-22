@@ -21,26 +21,28 @@ import uk.gov.hmrc.offpayroll.models._
 import scala.annotation.tailrec
 import scala.collection.immutable.BitSet
 
-object InterviewBitSplitter extends App {
-  def fromBitElement(bitValue: Int, element: Element): List[String] = element.elementType match {
-    case RADIO => decodeYesNo(bitValue)
-    case MULTI => decodeMulti(bitValue, element)
-    case GROUP => decodeGroup(bitValue, element)
+object InterviewBitSplitter {
+  private def msbPos(n: Int): Int = {
+    @tailrec
+    def go(n: Int, acc: Int): Int = {
+      if (n == 0) acc else go(n >> 1, acc + 1)
+    }
+    go(n, 0)
   }
 
-  def decodeMulti(bitValue: Int, element: Element): List[String] = {
+  private def decodeMulti(bitValue: Int, element: Element): List[String] = {
     val maybeQuestionTag = element.children.find(_.order + 1 == bitValue).map(_.questionTag)
     maybeQuestionTag.toList
   }
 
-  def decodeGroup(bitValue: Int, element: Element): List[String] = {
+  private def decodeGroup(bitValue: Int, element: Element): List[String] = {
     val tags = element.children.collect { case a if (bitValue & (1 << a.order)) > 0 => a }
     tags.map(_.questionTag)
   }
 
-  def decodeYesNo(bitValue: Int) = List(Nil, List("No"), List("Yes"), Nil)(bitValue & 0x11)
+  private def decodeYesNo(bitValue: Int) = List(Nil, List("No"), List("Yes"), Nil)(bitValue & 0x11)
 
-  def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else 1
+  private def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else 1
 
   private def encodeElementValue(value: String, element: Element):Int = {
     element.children match {
@@ -59,10 +61,10 @@ object InterviewBitSplitter extends App {
     (BitSet(indices:_*).toBitMask.head.toInt, booleans.size)
   }
 
-  def elementBitWidth(element: Element): Int = {
+  private def elementBitWidth(element: Element): Int = {
     if (element.children.isEmpty) 2
     else if (element.elementType == GROUP) element.children.size
-    else MsbEvaluator.msbPos(element.children.size + 1)
+    else msbPos(element.children.size + 1)
   }
 
   def toBitPair(values: List[String], element: Element): (Int,Int) = {
@@ -72,26 +74,13 @@ object InterviewBitSplitter extends App {
     }
   }
 
-  def toBitPairs(multivalues: List[List[String]]): List[(Int,Int)] = {
-    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
-    val pairs = multivalues.zip(elements)
-    pairs.map { case (values, element) => toBitPair(values, element) }
-  }
+  def toElements: List[Element] = SuperWebflow.clusters.flatMap(_.clusterElements)
 
-  def toWidths: List[Int] = {
-    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
-    elements.map(elementBitWidth(_))
-  }
+  def toWidths: List[Int] = toElements.map(elementBitWidth(_))
 
-}
-
-object MsbEvaluator extends {
-  def msbPos(n: Int): Int = {
-    @tailrec
-    def go(n: Int, acc: Int): Int = {
-      if (n == 0) acc else go(n >> 1, acc + 1)
-    }
-    go(n, 0)
+  def fromBitElement(bitValue: Int, element: Element): List[String] = element.elementType match {
+    case RADIO => decodeYesNo(bitValue)
+    case MULTI => decodeMulti(bitValue, element)
+    case GROUP => decodeGroup(bitValue, element)
   }
 }
-

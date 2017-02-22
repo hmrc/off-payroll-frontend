@@ -23,7 +23,7 @@ import uk.gov.hmrc.offpayroll.typeDefs.Interview
   *
   *
   */
-object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
+trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
   def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
 
@@ -93,8 +93,11 @@ object OffPayrollWebflow extends Webflow with ShouldAskForDecision {
   }
 }
 
+object OffPayrollWebflow extends OffPayrollWebflow
 
-
+object SuperWebflow extends OffPayrollWebflow {
+  override def clusters: List[Cluster] = List(SetupCluster, ExitCluster, PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
+}
 
 
 case class Decision(_qa: Map[String, String], decision: DecisionType) {

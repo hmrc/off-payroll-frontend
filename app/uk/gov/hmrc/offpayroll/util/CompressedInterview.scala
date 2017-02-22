@@ -39,8 +39,7 @@ case class CompressedInterview(str: String){
   }
   def asValues: List[Int] = asValueWidthPairs.map { case (v,_) => v}
   def asMap: Map[String,List[String]] = {
-    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
-    val elementIntAnswers = elements.zip(asValues)
+    val elementIntAnswers = InterviewBitSplitter.toElements.zip(asValues)
     elementIntAnswers.map { case (e, a) => (e.questionTag,InterviewBitSplitter.fromBitElement(a,e)) }.toMap
   }
 }

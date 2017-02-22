@@ -68,8 +68,7 @@ object InterviewStack {
   }
 
   def elementIndex(element: Element): Option[Int] = {
-    val elements = OffPayrollWebflow.clusters.flatMap(_.clusterElements)
-    val found = elements.zipWithIndex.collect{ case (e, i) if (e == element) => i }
+    val found = InterviewBitSplitter.toElements.zipWithIndex.collect{ case (e, i) if (e == element) => i }
     found.headOption
   }
 

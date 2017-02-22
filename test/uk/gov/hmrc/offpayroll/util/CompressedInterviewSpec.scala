@@ -21,23 +21,23 @@ import org.scalatest.{FlatSpec, Matchers}
 class CompressedInterviewSpec extends FlatSpec with Matchers {
 
   "compressed interview" should "provide long representation" in {
-    CompressedInterview("Y7XjYxCV").asLong shouldBe 120163403909459L
+    CompressedInterview("7x7Yk4RPP").asLong shouldBe 1736585431796051L
   }
 
   it should "be possible to create it from long" in {
-    Base62EncoderDecoder.decode("Y7XjYxCV") shouldBe 120163403909459L
-    CompressedInterview(120163403909459L).str shouldBe "Y7XjYxCV"
+    Base62EncoderDecoder.decode("7x7Yk4RPP") shouldBe 1736585431796051L
+    CompressedInterview(1736585431796051L).str shouldBe "7x7Yk4RPP"
   }
 
   it should "provide value/width pairs representation" in {
-    val pairs = CompressedInterview("146rjrJz").asValueWidthPairs
-    pairs should contain theSameElementsInOrderAs List((3,3), (1,2), (2,2), (2,2), (2,2), (2,3), (3,3), (3,3), (4,3), (0x11,5), (4,3), (4,3), (2,2), (2,2), (2,2), (3,3))
+    val pairs = CompressedInterview("7x7Yk4RPP").asValueWidthPairs
+    pairs should contain theSameElementsInOrderAs List((1, 3), (2, 2), (1, 3), (1, 2), (3,3), (1,2), (2,2), (2,2), (2,2), (2,3), (3,3), (3,3), (4,3), (0x11,5), (4,3), (4,3), (2,2), (2,2), (2,2), (3,3))
   }
 
   it should "instantiate from value/width pairs" in {
-    val pairs = List((3, 3), (1, 2), (2, 2), (2, 2), (2, 2), (2, 3), (3, 3), (3, 3), (4, 3), (0x11, 5), (4, 3), (4, 3), (2, 2), (2, 2), (2, 2), (3, 3))
+    val pairs = List((1, 3), (2, 2), (1, 3), (1, 2), (3, 3), (1, 2), (2, 2), (2, 2), (2, 2), (2, 3), (3, 3), (3, 3), (4, 3), (0x11, 5), (4, 3), (4, 3), (2, 2), (2, 2), (2, 2), (3, 3))
     val compressedInterview = CompressedInterview(pairs)
-    compressedInterview.str shouldBe "146rjrJz"
+    compressedInterview.str shouldBe "7x7Yk4RPP"
     val p = compressedInterview.asValueWidthPairs
     p should contain theSameElementsInOrderAs pairs
   }
@@ -53,12 +53,12 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
   }
 
   it should "provide list of all values" in {
-    val values = CompressedInterview("146rjrJz").asValues
-    values should contain theSameElementsInOrderAs List(3, 1, 2, 2, 2, 2, 3, 3, 4, 17, 4, 4, 2, 2, 2, 3)
+    val values = CompressedInterview("7x7Yk4RPP").asValues
+    values should contain theSameElementsInOrderAs List(1, 2, 1, 1, 3, 1, 2, 2, 2, 2, 3, 3, 4, 17, 4, 4, 2, 2, 2, 3)
   }
 
   it should "provide map from question tags to values" in {
-    val interview = CompressedInterview("146rjrJz")
+    val interview = CompressedInterview("7x7Yk4RPP")
     val values = interview.asMap
     values.size shouldBe interview.asValueWidthPairs.size
   }
