@@ -43,7 +43,9 @@ case class CompressedInterview(str: String) {
 
   def asMap: Map[String, String] = {
     val elementIntAnswers = ElementProvider.toElements.zip(asValues)
-    elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }.toMap
+    elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }.toMap.filter{
+      case (_,a) => a != "" && a != "|"
+    }
   }
 }
 

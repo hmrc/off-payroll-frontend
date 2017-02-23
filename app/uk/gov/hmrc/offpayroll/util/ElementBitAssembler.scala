@@ -30,7 +30,7 @@ case class ElementBitAssembler(element: Element) {
     tags.map(_.questionTag).mkString("|","|","")
   }
 
-  private def decodeYesNo(bitValue: Int) = List("", "No", "Yes", "")(bitValue & 0x11)
+  private def decodeYesNo(bitValue: Int) = List("", "No", "Yes", "")(bitValue & 3)
 
   def fromBitValue(bitValue: Int): String = element.elementType match {
     case RADIO => decodeYesNo(bitValue)

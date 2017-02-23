@@ -18,14 +18,16 @@ package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
 import play.api.mvc.Session
-import uk.gov.hmrc.offpayroll.models.{FinancialRiskCluster, PartAndParcelCluster, PersonalServiceCluster}
+import uk.gov.hmrc.offpayroll.models.{ExitCluster, FinancialRiskCluster, PartAndParcelCluster, PersonalServiceCluster}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.INTERVIEW_KEY
 
 class InterviewSessionStackSpec extends FlatSpec with Matchers {
   val mockSession = Session.deserialize(Map())
+  private val exitElement = ExitCluster.clusterElements(0)
   private val firstElement = PersonalServiceCluster.clusterElements(0)
   private val middleElement = FinancialRiskCluster.clusterElements(0)
   private val lastElement = PartAndParcelCluster.clusterElements(3)
+  private val exitElementValue = "Yes"
   private val firstElementValue = "personalService.workerSentActualSubstitute.noSubstitutionHappened"
   private val middleElementValue = "financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole"
   private val lastElementValue = "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
@@ -44,6 +46,15 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     val (poppedSession, value) = InterviewSessionStack.pop(newSession, firstElement)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
     value shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
+  }
+
+  it should "pop a value for exit element" in {
+    val newSession = InterviewSessionStack.push(mockSession, exitElementValue, exitElement)
+    newSession.data.keys should contain(INTERVIEW_KEY)
+    newSession(INTERVIEW_KEY) shouldBe "4ziepp2G"
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession, exitElement)
+    poppedSession(INTERVIEW_KEY) shouldBe "0"
+    value shouldBe "Yes"
   }
 
   it should "push two values and pop a value" in {
