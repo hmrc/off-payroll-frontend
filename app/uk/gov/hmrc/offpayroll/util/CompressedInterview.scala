@@ -17,9 +17,6 @@
 package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.util.Base62EncoderDecoder.{decode, encode}
-
-import scala.annotation.tailrec
-
 import uk.gov.hmrc.offpayroll.util.ElementBitAssemblerImplicits._
 
 case class CompressedInterview(str: String) {
@@ -54,17 +51,7 @@ object CompressedInterview {
   def apply(l: Long): CompressedInterview = new CompressedInterview(encode(l))
 
   def apply(pairs: List[(Int, Int)]) = {
-    def valuesWidthPairsToLong(p: List[(Int, Int)]): Long = {
-      @tailrec
-      def go(p: List[(Int, Int)], acc: Long): Long = p match {
-        case Nil => acc
-        case (v, w) :: xs => go(xs, (acc << w) | v)
-      }
-
-      go(p, 0L)
-    }
-
-    val l = valuesWidthPairsToLong(pairs)
+    val l = pairs.foldLeft(0L)((a, v) => (a << v._2) | v._1)
     new CompressedInterview(encode(l))
   }
 }
