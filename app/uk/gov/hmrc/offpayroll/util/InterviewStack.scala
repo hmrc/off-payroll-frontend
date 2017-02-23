@@ -17,7 +17,6 @@
 package uk.gov.hmrc.offpayroll.util
 
 import uk.gov.hmrc.offpayroll.models.Element
-import uk.gov.hmrc.offpayroll.util.ElementBitAssemblerImplicits._
 import uk.gov.hmrc.offpayroll.util.ElementBitSplitterImplicits._
 
 object InterviewStack {
@@ -29,32 +28,25 @@ object InterviewStack {
     }
   }
 
-  def pop(previous: CompressedInterview, element: Element): (CompressedInterview, String) = {
-    val (interview, bitValue) = doPop(previous, element)
-    (interview, element.fromBitValue(bitValue))
-  }
-
-  def doPop(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {
+  def pop(previous: CompressedInterview): (CompressedInterview, String) = {
     val pairs = previous.asValueWidthPairs
-    elementIndex(element) match {
-      case None => (previous, 0)
+    elementIndex(previous) match {
+      case None => (previous, "")
       case Some(index) => deleteAndReadIndexZeroRight(pairs, index)
     }
   }
 
-  def peek(previous: CompressedInterview, element: Element): (CompressedInterview, String) = {
-    val (interview, bitValue) = doPeek(previous, element)
-    (interview, element.fromBitValue(bitValue))
+  def peek(previous: CompressedInterview): (CompressedInterview, String) = {
+    val pairs = previous.asValueWidthPairs
+    elementIndex(previous) match {
+      case None => (previous, "")
+      case Some(index) =>
+        (previous, getQuestionTag(index))
+    }
   }
 
-  def doPeek(previous: CompressedInterview, element: Element): (CompressedInterview, Int) = {
-    val pairs = previous.asValueWidthPairs
-    elementIndex(element) match {
-      case None => (previous, 0)
-      case Some(index) =>
-        val (v,_) = pairs(index)
-        (previous, v)
-    }
+  def getQuestionTag(index: Int) = {
+    ElementProvider.toElements(index).questionTag
   }
 
   private def insertAtIndexZeroRight(pairs: List[(Int,Int)], index: Int, pair: (Int,Int)): List[(Int,Int)] = {
@@ -62,11 +54,16 @@ object InterviewStack {
     a ::: List(pair) ::: b.drop(1).map { case (_,w) => (0,w) }
   }
 
-  private def deleteAndReadIndexZeroRight(pairs: List[(Int,Int)], index: Int): (CompressedInterview, Int) = {
+  private def deleteAndReadIndexZeroRight(pairs: List[(Int,Int)], index: Int): (CompressedInterview, String) = {
     val (a,b) = pairs.splitAt(index)
     val (v,_) = b.head
     val compressedInterview = CompressedInterview(a ::: b.map { case (_,w) => (0,w) })
-    (compressedInterview, v)
+    (compressedInterview, getQuestionTag(index))
+  }
+
+  def elementIndex(compressedInterview: CompressedInterview): Option[Int] = {
+    val values = compressedInterview.asValues
+    values.zipWithIndex.reverse.dropWhile{ case (a,_) => a == 0 }.headOption.map(_._2)
   }
 
   def elementIndex(element: Element): Option[Int] = {

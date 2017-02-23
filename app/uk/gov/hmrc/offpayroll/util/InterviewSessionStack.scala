@@ -28,16 +28,16 @@ object InterviewSessionStack {
     session + (INTERVIEW_KEY -> newInterview.str)
   }
 
-  def pop(session: Session, element: Element): (Session, String) = {
+  def pop(session: Session): (Session, String) = {
     val compressed = session.data.getOrElse(INTERVIEW_KEY, "")
-    val (newInterview, values) = InterviewStack.pop(CompressedInterview(compressed), element)
-    (session + (INTERVIEW_KEY -> newInterview.str), values)
+    val (newInterview, questionTag) = InterviewStack.pop(CompressedInterview(compressed))
+    (session + (INTERVIEW_KEY -> newInterview.str), questionTag)
   }
 
-  def peek(session: Session, element: Element): (Session, String) = {
+  def peek(session: Session): (Session, String) = {
     val compressed = session.data.getOrElse(INTERVIEW_KEY, "")
-    val (_, values) = InterviewStack.peek(CompressedInterview(compressed), element)
-    (session + (INTERVIEW_KEY -> compressed), values)
+    val (_, questionTag) = InterviewStack.peek(CompressedInterview(compressed))
+    (session + (INTERVIEW_KEY -> compressed), questionTag)
   }
 
   def reset(session: Session): Session =

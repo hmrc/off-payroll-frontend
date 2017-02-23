@@ -43,7 +43,7 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     val newSession = InterviewSessionStack.push(mockSession, firstElementValue, firstElement)
     newSession.data.keys should contain(INTERVIEW_KEY)
     newSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession, firstElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
     value shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
   }
@@ -52,28 +52,28 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     val newSession = InterviewSessionStack.push(mockSession, exitElementValue, exitElement)
     newSession.data.keys should contain(INTERVIEW_KEY)
     newSession(INTERVIEW_KEY) shouldBe "4ziepp2G"
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession, exitElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
     value shouldBe "Yes"
   }
 
   it should "push two values and pop a value" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession, lastElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
     value shouldBe "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
   }
 
   it should "push two values and peek a value" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement)
-    val (poppedSession, value) = InterviewSessionStack.peek(newSession, middleElement)
+    val (poppedSession, value) = InterviewSessionStack.peek(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UwYMK"
     value shouldBe "|financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole"
   }
 
   it should "push two values and pop the first value wiping out the stack" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession, firstElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
     value shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
   }
@@ -89,7 +89,7 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
   it should "reset the interview and pop correctly" in {
     val resetSession = InterviewSessionStack.reset(mockSession)
     resetSession.data.keys should not contain(INTERVIEW_KEY)
-    val (poppedSession, value) = InterviewSessionStack.pop(resetSession, lastElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(resetSession)
     poppedSession.data.keys should contain(INTERVIEW_KEY)
     value.isEmpty shouldBe true
     poppedSession(INTERVIEW_KEY) shouldBe "0"

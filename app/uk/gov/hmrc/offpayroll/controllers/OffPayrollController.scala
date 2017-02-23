@@ -49,7 +49,7 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
 
     flow.getElementByTag(peekQuestionTag) match {
       case Some(element) => {
-        val (session, questionTag) = pop(request.session, element)
+        val (session, questionTag) = pop(request.session)
         Future.successful(displaySuccess(element, emptyForm)
         (fragmentService.getFragmentByName(element.questionTag)).withSession(session))
       }
