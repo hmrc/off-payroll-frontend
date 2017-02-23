@@ -37,7 +37,6 @@ object InterviewStack {
   }
 
   def peek(previous: CompressedInterview): (CompressedInterview, String) = {
-    val pairs = previous.asValueWidthPairs
     elementIndex(previous) match {
       case None => (previous, "")
       case Some(index) =>
