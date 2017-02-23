@@ -39,43 +39,44 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     newSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
   }
 
-  it should "pop a value" in {
+  it should "pop a question tag" in {
     val newSession = InterviewSessionStack.push(mockSession, firstElementValue, firstElement)
     newSession.data.keys should contain(INTERVIEW_KEY)
     newSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
+    val (poppedSession, questionTag) = InterviewSessionStack.pop(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
-    value shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
+    questionTag shouldBe "personalService.workerSentActualSubstitute"
   }
 
-  it should "pop a value for exit element" in {
+  it should "pop a question tag for exit element" in {
     val newSession = InterviewSessionStack.push(mockSession, exitElementValue, exitElement)
     newSession.data.keys should contain(INTERVIEW_KEY)
     newSession(INTERVIEW_KEY) shouldBe "4ziepp2G"
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
+    val (poppedSession, questionTag) = InterviewSessionStack.pop(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
-    value shouldBe "Yes"
+    questionTag shouldBe "exit.officeHolder"
   }
 
-  it should "push two values and pop a value" in {
+  it should "push two values and pop a question tag" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
+    val (poppedSession, questionTag) = InterviewSessionStack.pop(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
-    value shouldBe "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
+    questionTag shouldBe "partParcel.workerRepresentsEngagerBusiness"
   }
 
-  it should "push two values and peek a value" in {
+  it should "push two values and peek a question tag" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement)
-    val (poppedSession, value) = InterviewSessionStack.peek(newSession)
+    val (poppedSession, questionTag) = InterviewSessionStack.peek(newSession)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UwYMK"
-    value shouldBe "|financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole"
+    questionTag shouldBe "financialRisk.haveToPayButCannotClaim"
   }
 
-  it should "push two values and pop the first value wiping out the stack" in {
+  it should "push two values and pop two question tags wiping out the stack" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
-    val (poppedSession, value) = InterviewSessionStack.pop(newSession)
-    poppedSession(INTERVIEW_KEY) shouldBe "0"
-    value shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
+    val (poppedSession, _) = InterviewSessionStack.pop(newSession)
+    val (poppedSession2, questionTag) = InterviewSessionStack.pop(poppedSession)
+    poppedSession2(INTERVIEW_KEY) shouldBe "0"
+    questionTag shouldBe "personalService.workerSentActualSubstitute"
   }
 
   it should "reset the interview" in {
@@ -89,10 +90,10 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
   it should "reset the interview and pop correctly" in {
     val resetSession = InterviewSessionStack.reset(mockSession)
     resetSession.data.keys should not contain(INTERVIEW_KEY)
-    val (poppedSession, value) = InterviewSessionStack.pop(resetSession)
+    val (poppedSession, questinoTag) = InterviewSessionStack.pop(resetSession)
     poppedSession.data.keys should contain(INTERVIEW_KEY)
-    value.isEmpty shouldBe true
-    poppedSession(INTERVIEW_KEY) shouldBe "0"
+    questinoTag.isEmpty shouldBe true
+    poppedSession(INTERVIEW_KEY) shouldBe ""
   }
 
   it should "provide asMap function" in {
