@@ -30,7 +30,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models.{Element, GROUP, Webflow}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, push}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, push}
 
 import scala.concurrent.Future
 
@@ -107,7 +107,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         newForm.fold(
           formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
           value => {
-            evaluateInteview(fieldName, value.mkString("|","|",""), newForm)
+            evaluateInteview(element, fieldName, value.mkString("|","|",""), newForm)
           }
         )
 
@@ -118,7 +118,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         newForm.fold(
           formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
           value => {
-            evaluateInteview(fieldName, value, newForm)
+            evaluateInteview(element, fieldName, value, newForm)
           }
         )
 
@@ -137,9 +137,9 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         formWithErrors, element, fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  private def evaluateInteview(fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
+  private def evaluateInteview(element: Element, fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + form.data.toString() + " " + formValue)
-    val session = push(request.session, fieldName, formValue)
+    val session = push(request.session, formValue, element)
     val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), sessionHelper.createCorrelationId(request))
 
     result.map(

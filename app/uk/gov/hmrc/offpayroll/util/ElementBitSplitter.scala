@@ -20,7 +20,7 @@ import uk.gov.hmrc.offpayroll.models._
 import uk.gov.hmrc.offpayroll.util.BitHelper.{indicesToInt, msbPos}
 
 case class ElementBitSplitter(element: Element) {
-  private def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else 1
+  private def encodeYesNo(value: String) = if (value.toLowerCase == "yes") 2 else if (value.toLowerCase == "no") 1 else 0
 
   private def encodeElementValue(value: String, element: Element): Int = {
     element.children match {
