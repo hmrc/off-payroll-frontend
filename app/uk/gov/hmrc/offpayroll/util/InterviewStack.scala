@@ -21,7 +21,7 @@ import uk.gov.hmrc.offpayroll.util.ElementBitAssemblerImplicits._
 import uk.gov.hmrc.offpayroll.util.ElementBitSplitterImplicits._
 
 object InterviewStack {
-  def push(previous: CompressedInterview, values: List[String], element: Element): CompressedInterview = {
+  def push(previous: CompressedInterview, values: String, element: Element): CompressedInterview = {
     val pairs = previous.asValueWidthPairs
     elementIndex(element) match {
       case None => previous
@@ -29,7 +29,7 @@ object InterviewStack {
     }
   }
 
-  def pop(previous: CompressedInterview, element: Element): (CompressedInterview, List[String]) = {
+  def pop(previous: CompressedInterview, element: Element): (CompressedInterview, String) = {
     val (interview, bitValue) = doPop(previous, element)
     (interview, element.fromBitValue(bitValue))
   }
@@ -42,7 +42,7 @@ object InterviewStack {
     }
   }
 
-  def peek(previous: CompressedInterview, element: Element): (CompressedInterview, List[String]) = {
+  def peek(previous: CompressedInterview, element: Element): (CompressedInterview, String) = {
     val (interview, bitValue) = doPeek(previous, element)
     (interview, element.fromBitValue(bitValue))
   }

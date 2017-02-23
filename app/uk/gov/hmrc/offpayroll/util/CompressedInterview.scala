@@ -41,7 +41,7 @@ case class CompressedInterview(str: String) {
 
   def asValues: List[Int] = asValueWidthPairs.map { case (v, _) => v }
 
-  def asMap: Map[String, List[String]] = {
+  def asMap: Map[String, String] = {
     val elementIntAnswers = ElementProvider.toElements.zip(asValues)
     elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }.toMap
   }

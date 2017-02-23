@@ -66,7 +66,8 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
   it should "provide map from question tags to values for an empty interview" in {
     val interview = CompressedInterview("")
     val values = interview.asMap
-    val allAnswersEmpty = values.toList.forall{ case (_,a) => a.isEmpty }
+    println(values)
+    val allAnswersEmpty = values.toList.forall{ case (_,a) => (a.isEmpty || a == "|") }
     allAnswersEmpty shouldBe true
   }
 

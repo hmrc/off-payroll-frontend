@@ -34,16 +34,24 @@ case class ElementBitSplitter(element: Element) {
     (indicesToInt(indices), element.children.size)
   }
 
+  def splitValues(value: String): List[String] = {
+    val pattern = "\\|(.*)".r
+    (value match {
+      case pattern(s) => s
+      case s => s
+    }).split('|').toList
+  }
+
   def bitWidth: Int = {
     if (element.children.isEmpty) 2
     else if (element.elementType == GROUP) element.children.size
     else msbPos(element.children.size + 1)
   }
 
-  def toBitPair(values: List[String]): (Int, Int) = {
+  def toBitPair(value: String): (Int, Int) = {
     element.elementType match {
-      case GROUP => encodeGroupElementValues(values, element)
-      case _ => (encodeElementValue(values.headOption.getOrElse(""), element), bitWidth)
+      case GROUP => encodeGroupElementValues(splitValues(value), element)
+      case _ => (encodeElementValue(value, element), bitWidth)
     }
   }
 }

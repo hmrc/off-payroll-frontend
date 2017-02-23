@@ -26,9 +26,9 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
   private val firstElement = PersonalServiceCluster.clusterElements(0)
   private val middleElement = FinancialRiskCluster.clusterElements(0)
   private val lastElement = PartAndParcelCluster.clusterElements(3)
-  private val firstElementValue = List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
-  private val middleElementValue = List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
-  private val lastElementValue = List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
+  private val firstElementValue = "personalService.workerSentActualSubstitute.noSubstitutionHappened"
+  private val middleElementValue = "financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole"
+  private val lastElementValue = "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
 
 
   "InterviewSessionStack" should "insert new interwiew if it is not present" in {
@@ -41,30 +41,30 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     val newSession = InterviewSessionStack.push(mockSession, firstElementValue, firstElement)
     newSession.data.keys should contain(INTERVIEW_KEY)
     newSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
-    val (poppedSession, values) = InterviewSessionStack.pop(newSession, firstElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession, firstElement)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
-    values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+    value shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
   }
 
   it should "push two values and pop a value" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
-    val (poppedSession, values) = InterviewSessionStack.pop(newSession, lastElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession, lastElement)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UuDRY"
-    values should contain theSameElementsInOrderAs List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
+    value shouldBe "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
   }
 
   it should "push two values and peek a value" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement)
-    val (poppedSession, values) = InterviewSessionStack.peek(newSession, middleElement)
+    val (poppedSession, value) = InterviewSessionStack.peek(newSession, middleElement)
     poppedSession(INTERVIEW_KEY) shouldBe "w4UwYMK"
-    values should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
+    value shouldBe "|financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole"
   }
 
   it should "push two values and pop the first value wiping out the stack" in {
     val newSession = InterviewSessionStack.push(InterviewSessionStack.push(mockSession, firstElementValue, firstElement), lastElementValue, lastElement)
-    val (poppedSession, values) = InterviewSessionStack.pop(newSession, firstElement)
+    val (poppedSession, value) = InterviewSessionStack.pop(newSession, firstElement)
     poppedSession(INTERVIEW_KEY) shouldBe "0"
-    values should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+    value shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
   }
 
   it should "reset the interview" in {
@@ -92,9 +92,9 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     )
     val map = InterviewSessionStack.asMap(newSession)
     val (maybeFirstValue, maybeMiddleValue, maybeLastValue) = (map.get(firstElement.questionTag), map.get(middleElement.questionTag), map.get(lastElement.questionTag))
-    maybeFirstValue.get should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
-    maybeMiddleValue.get should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
-    maybeLastValue.get should contain theSameElementsInOrderAs List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
+    maybeFirstValue.get shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
+    maybeMiddleValue.get shouldBe "|financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole"
+    maybeLastValue.get shouldBe "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
   }
 
 }
