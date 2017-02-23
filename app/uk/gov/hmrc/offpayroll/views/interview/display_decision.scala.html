@@ -4,61 +4,107 @@
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.Element
+@import play.api.Play
 @import java.util.Date
 
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.{IN, OUT, UNKNOWN}
 
-@(decision: Decision)(implicit request: Request[_], messages: Messages)
-@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
-    <main role="main" class="result">
-        <div class="grid-layout" id="resultPreHeader">
-            <div class="grid-layout__column--2-3">Reference number ESFTPZZ9ZA</div>
-            <div class="grid-layout__column--1-3">@(new Date().format("dd/MM/yyyy"))</div>
-        </div>
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <div class="transaction-banner--complete">
-                    <h1 class="transaction-banner__heading" id="decision-banner">@Messages("" + decision.decision.value)</h1>
-
-                    @decision.decision match {
-                        case IN => {<p>This worker is inside of the intermediaries legislation (IR35) and is considered an employee. They need to be on the end client’s or agent’s payroll.</p>}
-                        case OUT => {<p>This worker is outside of the intermediaries legislation (IR35). For tax purposes, they are not considered an employee.</p>}
-                        case UNKNOWN => {<p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>}
-                        case _ => {<p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>}
-                    }
+@(decision: Decision, interview: Map[String, String], esi: Boolean)(implicit request: Request[_], messages: Messages) {
 
 
-                </div>
-                <h2>What to do now</h2>
-                @decision.decision match {
-                    case IN => {<p>If you employ this worker you will need to deduct taxes and insurance on any salary or wages you pay them.</p>
-                                <p>These results are not legally binding.</p>
-                    }
-                    case OUT => {<p>If the terms of the engagement change, you may need to reconsider the answers to these questions.</p>
-                                <p>These results are not legally binding.</p>
-                    }
-                    case UNKNOWN => {<p>Try for a more conclusive result by reviewing the Employment Status Manual then checking your employment tax status again.</p>}
-                    case _ => {<p>Try for a more conclusive result by reviewing the <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual">Employment Status Manual</a> then checking your employment tax status again.</p>}
-                }
+
+    @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
 
 
-                <h2 class="heading-medium">Your answers</h2>
-                <ol id="yourAnswers">
-                @for((key, value) <- scala.collection.immutable.TreeMap(decision.qa.toArray: _*)) {
-                    <li class="panel-indent section divider--bottom"><h3>@messages(key)</h3>
-                        <div id="answer.@key">@messages(value)</div>
-                    </li>
-                }
-                </ol>
+        <main role="main" class="result">
+            <div class="grid-layout" id="resultPreHeader">
+                <div class="grid-layout__column--2-3">Reference number ESFTPZZ9ZA</div>
+                <div class="grid-layout__column--1-3">@(new Date().format("dd/MM/yyyy"))</div>
             </div>
-            <div class="column-one-third">
+            <div class="grid-row">
+                <div class="column-two-thirds">
+                    <div class="transaction-banner--complete">
+                        <h1 class="transaction-banner__heading" id="decision-banner">
+                            @if(esi) {
+                                <p>In ESI Route</p>
+                            } else {
+                                <p>In Intermediary Route</p>
+                            }
+
+                            @Messages("" + decision.decision.value)</h1>
+
+                        @decision.decision match {
+                            case IN => {
+                                <p>This worker is inside of the intermediaries legislation (IR35) and is considered an employee. They need to be on the end client’s or agent’s payroll.</p>
+                            }
+                            case OUT => {
+                                <p>This worker is outside of the intermediaries legislation (IR35). For tax purposes, they are not considered an employee.</p>
+                            }
+                            case UNKNOWN => {
+                                <p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>
+                            }
+                            case _ => {
+                                <p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>
+                            }
+                        }
+
+
+                    </div>
+                    <h2>What to do now</h2>
+                    @decision.decision match {
+                        case IN => {
+                            <p>If you employ this worker you will need to deduct taxes and insurance on any salary or wages you pay them.</p>
+                            <p>These results are not legally binding.</p>
+                        }
+                        case OUT => {
+                            <p>If the terms of the engagement change, you may need to reconsider the answers to these questions.</p>
+                            <p>These results are not legally binding.</p>
+                        }
+                        case UNKNOWN => {
+                            <p>Try for a more conclusive result by reviewing the Employment Status Manual then checking your employment tax status again.</p>
+                        }
+                        case _ => {
+                            <p>Try for a more conclusive result by reviewing the <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual">Employment Status Manual</a>
+                                then checking your employment tax status again.</p>
+                        }
+                    }
+
+
+                    <h2 class="heading-medium">Your answers</h2>
+                    <ol id="yourAnswers">
+                    @for((key, value) <- scala.collection.immutable.TreeMap(decision.qa.toArray: _*)) {
+                        <li class="panel-indent section divider--bottom"><h3>@messages(key)</h3>
+                            <div id="answer.@key">@messages(value)</div>
+                        </li>
+                    }
+                    </ol>
+                </div>
+                <div class="column-one-third">
+                    <ul>
+                            <!--<li><a href="/customise-pdf">Download PDF</a></li>-->
+                        <li><a href="#">Print this page</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </main>
+
+        @if(Play.current.configuration.getBoolean("ui.debug").getOrElse(false)) {
+
+            @if(esi) {
+                <p>In ESI Route</p>
+            } else {
+                <p>In Intermediary Route</p>
+            }
+            <div style="clear: both" >
+                <p>Interview:</p>
                 <ul>
-                    <!--<li><a href="/customise-pdf">Download PDF</a></li>-->
-                    <li><a href="#">Print this page</a></li>
+                @for(interviewElement <- interview) {
+                    <li>@interviewElement.toString</li>
+                }
                 </ul>
             </div>
-        </div>
-
-    </main>
+        }
+    }
 }

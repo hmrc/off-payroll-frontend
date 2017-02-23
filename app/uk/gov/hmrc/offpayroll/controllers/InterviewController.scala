@@ -149,9 +149,15 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
             form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
             .withSession(session)
         } else {
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asMap(session), esi(asMap(session))))
         }
       }
     )
+  }
+
+  private def esi(interview: Map[String, String]): Boolean = {
+      interview.exists{
+        case (question, answer) => "setup.provideServices.soleTrader" == answer
+      }
   }
 }
