@@ -1,4 +1,3 @@
-
 @import uk.gov.hmrc.play.views.html.helpers
 @import uk.gov.hmrc.offpayroll.models.ElementType
 @import uk.gov.hmrc.offpayroll.controllers.routes
@@ -13,26 +12,17 @@
 @(decision: Decision, interview: Map[String, String], esi: Boolean)(implicit request: Request[_], messages: Messages) {
 
 
-
     @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
 
 
         <main role="main" class="result">
-            <div class="grid-layout" id="resultPreHeader">
-                <div class="grid-layout__column--2-3">Reference number ESFTPZZ9ZA</div>
-                <div class="grid-layout__column--1-3">@(new Date().format("dd/MM/yyyy"))</div>
-            </div>
-            <div class="grid-row">
-                <div class="column-two-thirds">
-                    <div class="transaction-banner--complete">
-                        <h1 class="transaction-banner__heading" id="decision-banner">
-                            @if(esi) {
-                                <p>In ESI Route</p>
-                            } else {
-                                <p>In Intermediary Route</p>
-                            }
 
-                            @Messages("" + decision.decision.value)</h1>
+                    <div class="transaction-banner--complete">
+
+                    @if(esi) {
+                        <h1 class="transaction-banner__heading" id="decision-banner">
+                            <p>In ESI Route</p>
+                            @Messages("esi." + decision.decision.value)</h1>
 
                         @decision.decision match {
                             case IN => {
@@ -48,6 +38,26 @@
                                 <p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>
                             }
                         }
+                    } else {
+                        <h1 class="transaction-banner__heading" id="decision-banner">
+                            <p>In Intermediary Route</p>
+                            @Messages("ir35." + decision.decision.value) </h1>
+
+                        @decision.decision match {
+                            case IN => {
+                                <p>This worker is inside of the intermediaries legislation (IR35) and is considered an employee. They need to be on the end client’s or agent’s payroll.</p>
+                            }
+                            case OUT => {
+                                <p>This worker is outside of the intermediaries legislation (IR35). For tax purposes, they are not considered an employee.</p>
+                            }
+                            case UNKNOWN => {
+                                <p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>
+                            }
+                            case _ => {
+                                <p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>
+                            }
+                        }
+                    }
 
 
                     </div>
@@ -79,24 +89,14 @@
                         </li>
                     }
                     </ol>
-                </div>
-                <div class="column-one-third">
-                    <ul>
-                            <!--<li><a href="/customise-pdf">Download PDF</a></li>-->
-                        <li><a href="#">Print this page</a></li>
-                    </ul>
-                </div>
-            </div>
+
+
 
         </main>
 
         @if(Play.current.configuration.getBoolean("ui.debug").getOrElse(false)) {
 
-            @if(esi) {
-                <p>In ESI Route</p>
-            } else {
-                <p>In Intermediary Route</p>
-            }
+
             <div style="clear: both" >
                 <p>Interview:</p>
                 <ul>
