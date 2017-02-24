@@ -63,14 +63,6 @@ class SetupController @Inject() extends OffPayrollController {
   override def redirect: Result = Redirect(routes.SetupController.begin())
 
 
-  def start() = Action.async {
-    implicit request =>
-      val session = reset(request.session)
-      Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()).withSession(session))
-  }
-
-
-
   def processElement(elementID: Int) = Action.async { implicit request =>
 
     val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart(asMap(request.session)))
