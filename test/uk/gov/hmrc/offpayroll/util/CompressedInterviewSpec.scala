@@ -60,17 +60,41 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
   it should "provide map from question tags to values" in {
     val interview = CompressedInterview("7x7Yk4RPP")
     val values = interview.asMap
-    values.size shouldBe 20
+    values.size shouldBe 21
+    values("financialRisk.workerProvidedMaterials") shouldBe "Yes"
+    values("financialRisk.expensesAreNotRelevantForRole") shouldBe "Yes"
+  }
+
+  it should "provide list from question tags to values" in {
+    val interview = CompressedInterview("7x7Yk4RPP")
+    val values = interview.asList
+    values.size shouldBe 21
+    values should contain (("financialRisk.workerProvidedMaterials", "Yes"))
+    values should contain (("financialRisk.expensesAreNotRelevantForRole", "Yes"))
   }
 
   it should "provide map from question tags to values for an empty interview" in {
     val interview = CompressedInterview("")
     val values = interview.asMap
-    val allAnswersEmpty = values.toList.forall{ case (_,a) => (a.isEmpty || a == "|") }
+    val allAnswersEmpty = values.forall{ case (_,a) => (a.isEmpty || a == "|") }
     allAnswersEmpty shouldBe true
   }
 
+  it should "provide list from question tags to values for an empty interview" in {
+    val interview = CompressedInterview("")
+    val values = interview.asList
+    val allAnswersEmpty = values.forall{ case (_,a) => (a.isEmpty || a == "|") }
+    allAnswersEmpty shouldBe true
+  }
 
+  it should "decode multiple values" in {
+    val out = Map(
+      "financialRisk.workerProvidedMaterials" -> "Yes",
+      "financialRisk.workerProvidedEquipment" -> "Yes")
 
+    CompressedInterview.decodeMultipleValues(
+      Map("financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment")
+    ) shouldBe out
+  }
 }
 

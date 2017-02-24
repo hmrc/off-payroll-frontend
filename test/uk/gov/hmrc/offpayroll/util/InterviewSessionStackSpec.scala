@@ -103,10 +103,26 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
       lastElementValue, lastElement
     )
     val map = InterviewSessionStack.asMap(newSession)
-    val (maybeFirstValue, maybeMiddleValue, maybeLastValue) = (map.get(firstElement.questionTag), map.get(middleElement.questionTag), map.get(lastElement.questionTag))
+    val (maybeFirstValue, maybeLastValue) = (map.get(firstElement.questionTag), map.get(lastElement.questionTag))
     maybeFirstValue.get shouldBe "personalService.workerSentActualSubstitute.noSubstitutionHappened"
-    maybeMiddleValue.get shouldBe "|financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole"
     maybeLastValue.get shouldBe "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
+    map("financialRisk.workerProvidedMaterials") shouldBe "Yes"
+    map("financialRisk.expensesAreNotRelevantForRole") shouldBe "Yes"
+  }
+
+  it should "provide asList function" in {
+    val newSession = InterviewSessionStack.push(
+      InterviewSessionStack.push(
+        InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement),
+      lastElementValue, lastElement
+    )
+    val list = InterviewSessionStack.asList(newSession)
+    def find(questionTag: String) = list.find { case (t, _) => t == questionTag }
+    val (maybeFirstValue, maybeLastValue) = (find(firstElement.questionTag), find(lastElement.questionTag))
+    maybeFirstValue.get shouldBe ("personalService.workerSentActualSubstitute", "personalService.workerSentActualSubstitute.noSubstitutionHappened")
+    maybeLastValue.get shouldBe ("partParcel.workerRepresentsEngagerBusiness", "partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
+    list should contain (("financialRisk.workerProvidedMaterials", "Yes"))
+    list should contain (("financialRisk.expensesAreNotRelevantForRole", "Yes"))
   }
 
 }
