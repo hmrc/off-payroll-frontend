@@ -42,16 +42,16 @@ case class CompressedInterview(str: String) {
 
   def asValues: List[Int] = asValueWidthPairs.map { case (v, _) => v }
 
-  def asMap: Map[String, String] = {
-    def tagAnswerMap: Map[String, String] = {
+  def asList: List[(String, String)] = {
+    def tagAnswerList: List[(String, String)] = {
       val elementIntAnswers = ElementProvider.toElements.zip(asValues)
-      elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }.toMap
+      elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }
     }
 
-    CompressedInterview.decodeMultipleValues(tagAnswerMap).filter{ case (_,a) => a != "" }
+    CompressedInterview.decodeMultipleValues(tagAnswerList).filter{ case (_,a) => a != "" }
   }
 
-  def asList: List[(String, String)] = asMap.toList
+  def asMap: Map[String, String] = asList.toMap
 }
 
 object CompressedInterview {
@@ -62,11 +62,11 @@ object CompressedInterview {
     new CompressedInterview(encode(l))
   }
 
-  def decodeMultipleValues(m: Map[String,String]): Map[String,String] =
-    m.toList.flatMap { case (a,b) =>
+  def decodeMultipleValues(m: List[(String, String)]): List[(String, String)] =
+    m.flatMap { case (a,b) =>
       b.split('|') match {
         case s if s.size == 1 => List((a,b))
         case s => s.drop(1).map(c => (c,"Yes"))
       }
-    }.toMap
+    }
 }
