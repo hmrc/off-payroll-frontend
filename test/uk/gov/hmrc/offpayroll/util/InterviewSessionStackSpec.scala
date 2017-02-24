@@ -109,4 +109,18 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     maybeLastValue.get shouldBe "partParcel.workerRepresentsEngagerBusiness.workAsBusiness"
   }
 
+  it should "provide asList function" in {
+    val newSession = InterviewSessionStack.push(
+      InterviewSessionStack.push(
+        InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement),
+      lastElementValue, lastElement
+    )
+    val list = InterviewSessionStack.asList(newSession)
+    def find(questionTag: String) = list.find { case (t, _) => t == questionTag }
+    val (maybeFirstValue, maybeMiddleValue, maybeLastValue) = (find(firstElement.questionTag), find(middleElement.questionTag), find(lastElement.questionTag))
+    maybeFirstValue.get shouldBe ("personalService.workerSentActualSubstitute", "personalService.workerSentActualSubstitute.noSubstitutionHappened")
+    maybeMiddleValue.get shouldBe ("financialRisk.haveToPayButCannotClaim", "|financialRisk.workerProvidedMaterials|financialRisk.expensesAreNotRelevantForRole")
+    maybeLastValue.get shouldBe ("partParcel.workerRepresentsEngagerBusiness", "partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
+  }
+
 }
