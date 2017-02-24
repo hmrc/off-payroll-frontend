@@ -88,12 +88,12 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
   }
 
   it should "decode multiple values" in {
-    val out = Map(
-      "financialRisk.workerProvidedMaterials" -> "Yes",
-      "financialRisk.workerProvidedEquipment" -> "Yes")
+    val out = List(
+      ("financialRisk.workerProvidedMaterials", "Yes"),
+      ("financialRisk.workerProvidedEquipment", "Yes"))
 
     CompressedInterview.decodeMultipleValues(
-      Map("financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment")
+      List("financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment")
     ) shouldBe out
   }
 }
