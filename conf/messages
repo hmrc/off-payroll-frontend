@@ -9,17 +9,17 @@ No=No
 #### Set up cluster
 
 setup.endUserRole=Which of these describes you best? 
-    setup.endUserRole.personDoingWork=The worker
-    setup.endUserRole.endClient=The end client
-    setup.endUserRole.placingAgency=The agency paying the worker
+setup.endUserRole.personDoingWork=The worker
+setup.endUserRole.endClient=The end client
+setup.endUserRole.placingAgency=The agency paying the worker
 
 setup.hasContractStarted=Has the worker already started this particular engagement for the end client?
 
 setup.provideServices=How does the worker provide their services to the end client?
-    setup.provideServices.limitedCompany=As a limited company
-    setup.provideServices.partnership=As a partnership
-    setup.provideServices.intermediary=Through another individual
-    setup.provideServices.soleTrader=Self-employed as a sole trader
+setup.provideServices.limitedCompany=As a limited company
+setup.provideServices.partnership=As a partnership
+setup.provideServices.intermediary=Through another individual
+setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
 
@@ -27,64 +27,64 @@ exit.officeHolder=Is the worker or their business an office holder for the end c
 
 
 #### Personal Service cluster
-personalService.workerSentActualSubstitute=During this engagement has the worker arranged for someone to do the work instead of them?
-personalService.workerSentActualSubstitute.yesClientAgreed=Yes and the client agreed
-personalService.workerSentActualSubstitute.notAgreedWithClient=Yes but the client didn't agree 
-personalService.workerSentActualSubstitute.noSubstitutionHappened=No it's never happened
-personalService.workerPayActualSubstitute=Did the worker pay the person who did the work instead of them?
-personalService.possibleSubstituteRejection=Would the end client accept the worker sending someone else to do this work?
-personalService.possibleSubstituteWorkerPay=Would the worker have to pay the person who did the work instead of them?
-personalService.wouldWorkerPayHelper=Has the worker needed to pay a helper to do a significant amount of the work?
+personalService.workerSentActualSubstitute=During this engagement has the worker''s business arranged for someone else to do the work instead?
+personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
+personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree 
+personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it''s never happened
+personalService.workerPayActualSubstitute=Did the worker''s business pay the person who did the work instead of them?
+personalService.possibleSubstituteRejection=Would the end client accept the worker''s business sending someone else to do this work instead?
+personalService.possibleSubstituteWorkerPay=Would the worker''s business have to pay the person who did the work instead of them?
+personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work?
 
 #### Control Cluster
 
-control.engagerMovingWorker=Can the end client move the worker to a different task or project that they had not originally agreed to do?
-control.engagerMovingWorker.canMoveWorkerWithPermission=Yes, but only with the worker''s permission
-control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes, without the worker''s permission. If the worker doesn''t want to change task or project, the end client would no longer engage them.
-control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No, that would need to be arranged under a new contract or formal agreement
+control.engagerMovingWorker=Can the end client move the worker to a different task or project than they originally agreed to do?
+control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker''s agreement (if the worker doesn''t want to change task or project, the end client would no longer engage them)
+control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No - that would need to be arranged under a new contract or formal agreement
 
-control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, who decides how to do the work?
-control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=The worker decides what needs to be done without any input from the end client
-control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=The worker and other people employed by the end client agree what needs to be done
-control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=The end client decides what needs to be done without input from the worker
-control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=The worker follows the end client''s existing employee procedures and guidelines
+control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, can the end client decide how the work is done?
+control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=The worker decides how the work needs to be done without any input from the end client
+control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=The worker and other people employed by the end client agree how the work needs to be done
+control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=The end client decides how the work needs to be done without input from the worker
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=The end client can''t decide how the work needs to be done because it''s a highly skilled role
 
 
-control.whenWorkHasToBeDone=Who decides the schedule of working hours?
+control.whenWorkHasToBeDone=Can the end client decide the schedule of working hours?
 control.whenWorkHasToBeDone.workerDecideSchedule=The worker decides their own schedule
 control.whenWorkHasToBeDone.workerAgreeSchedule=The worker and the end client agree a schedule
 control.whenWorkHasToBeDone.scheduleDecidedForWorker=The end client decides the worker''s schedule
 control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=No schedule is needed as long as the worker meets any agreed deadlines
 
 control.workerDecideWhere=Can the worker choose where they work?
-control.workerDecideWhere.workerChooses=Yes
-control.workerDecideWhere.workerCannotChoose=No - the end client decides where they work
+control.workerDecideWhere.workerChooses=Yes - the worker decides
 control.workerDecideWhere.workerAgreeWithOthers=Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
+control.workerDecideWhere.workerCannotChoose=No - the end client decides
 control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
 #### Financial Risk Cluster
 
-financialRisk.haveToPayButCannotClaim=What items does the worker have to buy for this engagement that they can''t claim as an expense from the end client or the agency?
-    financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including Stationery)
-    financialRisk.workerProvidedEquipment=Equipment - significant tools needed to do the work (not including items already owned by the worker''s business) 
-    financialRisk.workerUsedVehicle=Vehicle - for work tasks, not commuting
-    financialRisk.workerHadOtherExpenses=Other expenses - including meals, accommodation, travel for work tasks (not including commuting)
-    financialRisk.expensesAreNotRelevantForRole=Not relevant
+financialRisk.haveToPayButCannotClaim=What items does the worker have to buy for this engagement that they can''t claim as an expense from the end client or an agency?
+financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery)
+financialRisk.workerProvidedEquipment=Equipment - significant tools needed to do the work (not including items already owned by the worker''s business) 
+financialRisk.workerUsedVehicle=Vehicle - for work tasks, not commuting
+financialRisk.workerHadOtherExpenses=Other expenses - including meals, accommodation, travel for work tasks (not including commuting)
+financialRisk.expensesAreNotRelevantForRole=Not relevant
 
 financialRisk.workerMainIncome=What’s the main way the worker is paid for this engagement?
-financialRisk.workerMainIncome.incomeCalendarPeriods=an hourly, daily or weekly rate
-financialRisk.workerMainIncome.incomeFixed=a fixed price for a specific piece of work
-financialRisk.workerMainIncome.incomePieceRate=an amount based on how much work is completed
-financialRisk.workerMainIncome.incomeCommission=a percentage of the sales the worker makes
-financialRisk.workerMainIncome.incomeProfitOrLosses=a percentage of the end client''s profits or savings
+financialRisk.workerMainIncome.incomeCalendarPeriods=An hourly, daily or weekly rate
+financialRisk.workerMainIncome.incomeFixed=A fixed price for a specific piece of work
+financialRisk.workerMainIncome.incomePieceRate=An amount based on how much work is completed
+financialRisk.workerMainIncome.incomeCommission=A percentage of the sales the worker makes
+financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits or savings
 
 
-financialRisk.paidForSubstandardWork=If the end client isn''t happy with the worker''s output, when would the worker have to put it right?
-financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=in their agreed working hours at the usual rate of pay
-financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=outside of their agreed working hours for an additional charge to the end client
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=outside of their agreed working hours without charging the end client additional money
-financialRisk.paidForSubstandardWork.noObligationToCorrect=they don''t have to put it right
-financialRisk.paidForSubstandardWork.cannotBeCorrected=they can''t put it right as the work is time-specific or for a single event
+financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the worker''s output, when would the worker have to put it right?
+financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=In their usual working hours at the usual rate of pay
+financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=Outside of their usual working hours for an additional charge to the end client
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Outside of their usual working hours at additional cost to the worker
+financialRisk.paidForSubstandardWork.noObligationToCorrect=They don''t have to put it right
+financialRisk.paidForSubstandardWork.cannotBeCorrected=They can''t put it right as the work is time-specific or for a single event
 
 
 #### Part & Parcel Cluster
@@ -95,17 +95,17 @@ partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefit
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
 partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
 partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
-    partParcel.workerRepresentsEngagerBusiness.workForEndClient=they work for the end client
-    partParcel.workerRepresentsEngagerBusiness.workAsIndependent=they''re an independent worker acting on behalf of the end client
-    partParcel.workerRepresentsEngagerBusiness.workAsBusiness=they work for their own business
+partParcel.workerRepresentsEngagerBusiness.workForEndClient=They work for the end client
+partParcel.workerRepresentsEngagerBusiness.workAsIndependent=They''re an independent worker acting on behalf of the end client
+partParcel.workerRepresentsEngagerBusiness.workAsBusiness=They work for their own business
 
 
 
 # Decision
 
-decision.in.ir35=The worker is an employee for tax purposes.
-decision.out.ir35=The worker is not an employee for tax purposes.
-decision.unknown=The results are unclear for this worker.
+decision.in.ir35= The worker is an employee for tax purposes.
+decision.out.ir35= The worker is not an employee for tax purposes.
+decision.unknown= The results are unclear for this worker.
 
 
 hardExit.heading=The worker is an employee for tax purposes.
