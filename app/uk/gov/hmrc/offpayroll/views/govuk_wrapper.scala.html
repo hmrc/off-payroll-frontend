@@ -40,7 +40,6 @@
 @afterHeader = {}
 
 @analyticsCode(virtualUrl: String, analyticsToken: String) = {
-  ga('create', '@analyticsToken', {'cookieDomain': 'https://www-dev.tax.service.gov.uk/'});
   ga('set', 'page', '/@{appConfig.appUrlPath}/@virtualUrl');
   ga('send', 'pageview', { 'anonymizeIp': true });
 }
