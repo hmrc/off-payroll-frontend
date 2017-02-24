@@ -12,7 +12,12 @@
 @(decision: Decision, interview: List[(String, String)], esi: Boolean)(implicit request: Request[_], messages: Messages)
 
 
-    @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
+    @uk.gov.hmrc.offpayroll.views.html.main_template(
+        title = "Off Payroll Decision",
+        bodyClasses = None,
+        mainClass = Option("decision"),
+        virtualPage = Some("decisionDisplay")
+    ) {
 
 
         <main role="main" class="result">
