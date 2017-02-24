@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.util
 
+import uk.gov.hmrc.offpayroll.models.DecisionBuilder
 import uk.gov.hmrc.offpayroll.util.Base62EncoderDecoder.{decode, encode}
 import uk.gov.hmrc.offpayroll.util.ElementBitAssemblerImplicits._
 
@@ -42,11 +43,15 @@ case class CompressedInterview(str: String) {
   def asValues: List[Int] = asValueWidthPairs.map { case (v, _) => v }
 
   def asMap: Map[String, String] = {
-    val elementIntAnswers = ElementProvider.toElements.zip(asValues)
-    elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }.toMap.filter{
-      case (_,a) => a != "" && a != "|"
+    def tagAnswerMap: Map[String, String] = {
+      val elementIntAnswers = ElementProvider.toElements.zip(asValues)
+      elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }.toMap
     }
+
+    CompressedInterview.decodeMultipleValues(tagAnswerMap).filter{ case (_,a) => a != "" }
   }
+
+  def asList: List[(String, String)] = asMap.toList
 }
 
 object CompressedInterview {
@@ -56,4 +61,12 @@ object CompressedInterview {
     val l = pairs.foldLeft(0L)((a, v) => (a << v._2) | v._1)
     new CompressedInterview(encode(l))
   }
+
+  def decodeMultipleValues(m: Map[String,String]): Map[String,String] =
+    m.toList.flatMap { case (a,b) =>
+      b.split('|') match {
+        case s if s.size == 1 => List((a,b))
+        case s => s.drop(1).map(c => (c,"Yes"))
+      }
+    }.toMap
 }
