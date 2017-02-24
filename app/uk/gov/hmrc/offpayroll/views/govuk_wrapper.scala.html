@@ -40,7 +40,7 @@
 @afterHeader = {}
 
 @analyticsCode(virtualUrl: String, analyticsToken: String) = {
-  ga('create', 'UA-43414424-24', 'auto');
+  ga('create', '@analyticsToken', 'auto');
   ga('set', 'page', '/@{appConfig.appUrlPath}/@virtualUrl');
   ga('send', 'pageview', { 'anonymizeIp': true });
 }
