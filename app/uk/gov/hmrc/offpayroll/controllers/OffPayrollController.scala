@@ -24,7 +24,7 @@ import play.api.data.Forms.single
 import play.api.mvc.{Request, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, Webflow}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{peek, pop}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{peek, pop}
 import play.api.data.Forms.text
 import play.api.mvc._
 
