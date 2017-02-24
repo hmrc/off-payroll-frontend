@@ -42,28 +42,31 @@ class FinancialRiskClusterSpec extends FlatSpec with Matchers with ClusterSpecHe
   }
 
   it should "ask no more questions If workerProvidedMaterials" in {
-    val interviewMaterials = List(topTag -> "|financialRisk.workerProvidedMaterials")
+    val interviewMaterials = List("financialRisk.workerProvidedMaterials" -> "Yes")
     financialRiskCluster.shouldAskForDecision(interviewMaterials, interviewMaterials.head).isEmpty shouldBe true
   }
 
   it should "ask no more questions If workerProvidedEquipment" in {
-    val interviewEquipment = List(topTag -> "|financialRisk.workerProvidedEquipment")
+    val interviewEquipment = List("financialRisk.workerProvidedEquipment" -> "Yes")
     financialRiskCluster.shouldAskForDecision(interviewEquipment, interviewEquipment.head).isEmpty shouldBe true
   }
 
   it should "ask no more questions If workerProvidedEquipment AND workerProvidedMaterials" in {
-    val interviewMaterialAndEquipment = List(topTag -> "|financialRisk.workerProvidedEquipment|financialRisk.workerProvidedMaterials")
+    val interviewMaterialAndEquipment = List("financialRisk.workerProvidedEquipment" -> "Yes", "financialRisk.workerProvidedMaterials" -> "Yes")
     financialRiskCluster.shouldAskForDecision(interviewMaterialAndEquipment, interviewMaterialAndEquipment.head).isEmpty shouldBe true
   }
 
   it should "ask no more questions If workerUsedVehicle AND workerHadOtherExpenses" in {
-    val interviewVehicleOther = List(topTag -> "|financialRisk.workerUsedVehicle|financialRisk.workerHadOtherExpenses")
+    val interviewVehicleOther = List("financialRisk.workerUsedVehicle" -> "Yes", "financialRisk.workerHadOtherExpenses" -> "Yes")
     financialRiskCluster.shouldAskForDecision(interviewVehicleOther, interviewVehicleOther.head).isEmpty shouldBe true
   }
 
   it should "ask no more questions If workerProvidedMaterial AND workerProvidedEquipment AND workerUsedVehicle AND workerHadOtherExpenses" in {
     val interviewMaterialEquipmentVehicleOther = List(
-      topTag -> "|financialRisk.workerProvidedMaterial|financialRisk.workerProvidedEquipment|financialRisk.workerUsedVehicle|financialRisk.workerHadOtherExpenses")
+      "financialRisk.workerProvidedMaterial" -> "Yes",
+      "financialRisk.workerProvidedEquipment" -> "Yes",
+      "financialRisk.workerUsedVehicle" -> "Yes",
+      "financialRisk.workerHadOtherExpenses" -> "Yes")
     financialRiskCluster.shouldAskForDecision(interviewMaterialEquipmentVehicleOther, interviewMaterialEquipmentVehicleOther.head).isEmpty shouldBe true
   }
 
