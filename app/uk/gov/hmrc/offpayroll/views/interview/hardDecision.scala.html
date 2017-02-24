@@ -9,7 +9,9 @@
 @import uk.gov.hmrc.offpayroll.models.Decision
 @()(implicit request: Request[_], messages: Messages)
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None,
-    mainClass = Option("full-width") ) {
+    mainClass = Option("full-width"),
+    virtualPage = Some("hardExit")
+) {
 
     <main role="main" class="result">
         <div class="grid-layout" id="resultPreHeader">
