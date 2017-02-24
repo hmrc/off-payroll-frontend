@@ -24,6 +24,7 @@ trait AppConfig {
   val analyticsHost: String
   val reportAProblemPartialUrl: String
   val reportAProblemNonJSUrl: String
+  val appUrlPath: String
 }
 
 object FrontendAppConfig extends AppConfig with ServicesConfig {
@@ -37,5 +38,6 @@ object FrontendAppConfig extends AppConfig with ServicesConfig {
   override lazy val analyticsHost = loadConfig(s"google-analytics.host")
   override lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?services=$contactFormServiceIdentifier"
   override lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?services=$contactFormServiceIdentifier"
+  override lazy val appUrlPath = loadConfig(s"appUrlPath")
 
 }

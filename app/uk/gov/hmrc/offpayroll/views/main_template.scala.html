@@ -3,7 +3,9 @@
   contentHeader: Option[Html] = None,
   bodyClasses: Option[String] = None,
   mainClass: Option[String] = None,
-  scriptElem: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
+  scriptElem: Option[Html] = None,
+  virtualPage: Option[String] = None
+)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
 @import uk.gov.hmrc.offpayroll.views.html.govuk_wrapper
@@ -22,7 +24,6 @@
         @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
     }
 }
-
 @govuk_wrapper(appConfig = uk.gov.hmrc.offpayroll.FrontendAppConfig,
                title = title,
                mainClass = mainClass,
@@ -31,5 +32,6 @@
                contentHeader = contentHeader,
                mainContent = layouts.article(mainContent),
                serviceInfoContent = serviceInfoContent,
-               scriptElem = scriptElem
+               scriptElem = scriptElem,
+               virtualPage = virtualPage
 )

@@ -6,8 +6,11 @@
 
 @(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages)
 @import uk.gov.hmrc.offpayroll.controllers.routes
-@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Check employment status for tax", bodyClasses = None) {
-
+@uk.gov.hmrc.offpayroll.views.html.main_template(
+    title = "Check employment status for tax",
+    bodyClasses = None,
+    virtualPage = Some("setupPage.html")
+) {
     <a href="@routes.SetupController.back()">Back</a>
 
     <h1>@Messages(element.questionTag)</h1>
