@@ -46,8 +46,8 @@ object InterviewSessionStack {
   def asMap(session: Session): Map[String, String] =
     session.data.get(INTERVIEW_KEY).map(CompressedInterview(_).asMap).getOrElse(Map())
 
-  def asRawMap(session: Session): Map[String, List[String]] =
-    session.data.get(INTERVIEW_KEY).map(CompressedInterview(_).asRawMap).getOrElse(Map())
+  def asRawList(session: Session): List[(String, List[String])] =
+    session.data.get(INTERVIEW_KEY).map(CompressedInterview(_).asRawList).getOrElse(List())
 
   def asList(session: Session): List[(String, String)] =
     session.data.get(INTERVIEW_KEY).map(CompressedInterview(_).asList).getOrElse(List())
