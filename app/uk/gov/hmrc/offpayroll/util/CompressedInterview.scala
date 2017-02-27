@@ -16,8 +16,8 @@
 
 package uk.gov.hmrc.offpayroll.util
 
-import uk.gov.hmrc.offpayroll.models.DecisionBuilder
 import uk.gov.hmrc.offpayroll.util.Base62EncoderDecoder.{decode, encode}
+import uk.gov.hmrc.offpayroll.util.CompressedInterview.{decodeMultipleValues, decodeMultipleValuesToLists}
 import uk.gov.hmrc.offpayroll.util.ElementBitAssemblerImplicits._
 
 case class CompressedInterview(str: String) {
@@ -42,16 +42,18 @@ case class CompressedInterview(str: String) {
 
   def asValues: List[Int] = asValueWidthPairs.map { case (v, _) => v }
 
-  def asList: List[(String, String)] = {
-    def tagAnswerList: List[(String, String)] = {
-      val elementIntAnswers = ElementProvider.toElements.zip(asValues)
-      elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }
-    }
-
-    CompressedInterview.decodeMultipleValues(tagAnswerList).filter{ case (_,a) => a != "" }
+  private def tagAnswerList: List[(String, String)] = {
+    val elementIntAnswers = ElementProvider.toElements.zip(asValues)
+    elementIntAnswers.map { case (e, a) => (e.questionTag, e.fromBitValue(a)) }
   }
 
+  def asList: List[(String, String)] =
+    decodeMultipleValues(tagAnswerList).filter{ case (_,a) => a != "" }
+
   def asMap: Map[String, String] = asList.toMap
+
+  def asRawMap: Map[String, List[String]] =
+    decodeMultipleValuesToLists(tagAnswerList).filter{ case (_,a) => a.size > 1 || a.size == 1 && a.head != "" }.toMap
 }
 
 object CompressedInterview {
@@ -63,10 +65,18 @@ object CompressedInterview {
   }
 
   def decodeMultipleValues(m: List[(String, String)]): List[(String, String)] =
-    m.flatMap { case (a,b) =>
+    m.flatMap { case (a, b) =>
       b.split('|') match {
-        case s if s.size == 1 => List((a,b))
-        case s => s.drop(1).map(c => (c,"Yes"))
+        case s if s.size == 1 => List((a, b))
+        case s => s.drop(1).map(c => (c, "Yes"))
+      }
+    }
+
+  def decodeMultipleValuesToLists(m: List[(String, String)]): List[(String, List[String])] =
+    m.map { case (a, b) =>
+      b.split('|') match {
+        case s if s.size == 1 => (a, List(b))
+        case s => (a, s.drop(1).toList)
       }
     }
 }
