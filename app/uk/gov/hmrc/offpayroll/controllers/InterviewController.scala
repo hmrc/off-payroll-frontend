@@ -30,7 +30,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models.{Element, GROUP, Webflow}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, push}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asList, push}
 
 import scala.concurrent.Future
 
@@ -149,9 +149,15 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
             form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
             .withSession(session)
         } else {
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asList(session), esi(asMap(session))))
         }
       }
     )
+  }
+
+  private def esi(interview: Map[String, String]): Boolean = {
+      interview.exists{
+        case (question, answer) => "setup.provideServices.soleTrader" == answer
+      }
   }
 }

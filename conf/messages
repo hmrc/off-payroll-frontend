@@ -103,9 +103,15 @@ partParcel.workerRepresentsEngagerBusiness.workAsBusiness=They work for their ow
 
 # Decision
 
-decision.in.ir35= The worker is an employee for tax purposes.
-decision.out.ir35= The worker is not an employee for tax purposes.
-decision.unknown= The results are unclear for this worker.
+
+ir35.decision.in.ir35= The intermediaries legislation applies to this engagement
+ir35.decision.out.ir35= The intermediaries legislation does not apply to this engagement
+ir35.decision.unknown= Unable to determine the tax status of this engagement
+
+esi.decision.in.ir35=  This engagement should be classed as employed for tax purposes
+esi.decision.out.ir35= This engagement should be classed as self-employed for tax purposes
+esi.decision.unknown= Unable to determine the tax status of this engagement
+
 
 
 hardExit.heading=The worker is an employee for tax purposes.

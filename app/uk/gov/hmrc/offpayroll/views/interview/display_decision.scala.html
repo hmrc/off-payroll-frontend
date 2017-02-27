@@ -1,64 +1,185 @@
-
 @import uk.gov.hmrc.play.views.html.helpers
 @import uk.gov.hmrc.offpayroll.models.ElementType
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.Element
+@import play.api.Play
 @import java.util.Date
 
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.{IN, OUT, UNKNOWN}
 
-@(decision: Decision)(implicit request: Request[_], messages: Messages)
-@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
-    <main role="main" class="result">
-        <div class="grid-layout" id="resultPreHeader">
-            <div class="grid-layout__column--2-3">Reference number ESFTPZZ9ZA</div>
-            <div class="grid-layout__column--1-3">@(new Date().format("dd/MM/yyyy"))</div>
-        </div>
-        <div class="grid-row">
-            <div class="column-two-thirds">
-                <div class="transaction-banner--complete">
-                    <h1 class="transaction-banner__heading" id="decision-banner">@Messages("" + decision.decision.value)</h1>
+@(decision: Decision, interview: List[(String, String)], esi: Boolean)(implicit request: Request[_], messages: Messages)
+
+
+    @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
+
+
+        <main role="main" class="result">
+
+                    <div class="transaction-banner--complete">
+
+                    @if(esi) {
+                        <h1 class="transaction-banner__heading" id="decision-banner">
+                            @Messages("esi." + decision.decision.value)</h1>
+                        }else {
+                        <h1 class="transaction-banner__heading" id="decision-banner">
+                            @Messages("ir35." + decision.decision.value) </h1>
+                        }
+
+
+                    </div>
+
+            <p class="indent-warning"> HMRC will not keep a record of this transaction for security reasons</p>
+
+            @if(esi) {
+
+                @decision.decision match {
+                    case IN => {
+                        <p>You need to reassess the status if this engagement varies or changes.</p>
+                    }
+                    case OUT => {
+                        <p>You need to reassess the status if this engagement varies or changes.</p>
+                    }
+                    case UNKNOWN => {
+                        <p>We need more information to understand the working practices of this engagement.
+                        </p>
+                    }
+                    case _ => {
+                        <p>We need more information to understand the working practices of this engagement.
+                        </p>
+                    }
+                }
+            } else {
+
+                @decision.decision match {
+                    case IN => {
+                        <p>Based on the information you’ve given the working practices of this engagement fall within the scope of the intermediaries legislation.</p>
+                        <p>The worker should pay tax and National Insurance as if they were an employee.</p>
+                        <p>You should reassess the status of the role if there are changes to the engagement or the way the work is done.</p>
+                    }
+                    case OUT => {
+                        <p>Based on the information you’ve given the working practices of this engagement fall outside the scope of the intermediaries legislation</p>
+                        <p>The worker should pay tax and National Insurance as a self-employed person.</p>
+                        <p>You should reassess the status of the role if there are changes to the engagement or the way the work is done.</p>
+                    }
+                    case UNKNOWN => {
+                        <p>We need more information to understand the working practices of this engagement.</p>
+                    }
+                    case _ => {
+                        <p>We need more information to understand the working practices of this engagement.</p>
+                    }
+                }
+            }
 
                     @decision.decision match {
-                        case IN => {<p>This worker is inside of the intermediaries legislation (IR35) and is considered an employee. They need to be on the end client’s or agent’s payroll.</p>}
-                        case OUT => {<p>This worker is outside of the intermediaries legislation (IR35). For tax purposes, they are not considered an employee.</p>}
-                        case UNKNOWN => {<p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>}
-                        case _ => {<p>We have not been able to determine if the worker falls within the intermediaries legislation (IR35) or not.</p>}
+                        case IN => {
+                            @if(esi) {
+                                <h2>You should now do the following:</h2>
+                                <p>If you’re the engager you need to <a href="https://www.gov.uk/paye-for-employers/paye-and-payroll" target="_blank" rel="external">operate PAYE</a>  for this worker.</p>
+                                <p>If you’re the worker you should tell your engager to operate PAYE for you.</p>
+                                <h2>About this result</h2>
+                                <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
+                                <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+                                <p>HMRC can review your taxes for up to 20 years</p>
+
+                            }else{
+                                <h2>You should now do the following:</h2>
+                                <h3>Public sector</h3>
+                                <p>If you’re the worker you should tell the organisation that pays your fees (the fee payer) to deduct tax and National Insurance from your payment.</p>
+                                <p>If you’re the fee payer you need to deduct tax and NationalInsurance from the <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3140" target="_blank" rel="external">worker’s deemed employment payment</a>(s) during this engagement.</p>
+                                <h3>Private sector</h3>
+                                <p>If you’re the worker you need to follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes.</a></p>
+                                <h2>About this result</h2>
+                                <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
+                                <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+                                <p>HMRC can review your taxes for up to 20 years.</p>
+                                <p>The intermediaries legislation will only apply where the worker’s business (the intermediary) satisfies <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3100" target="_blank" rel="external">these specific conditions of liability.</a></p>
+                                }
+                        }
+                        case OUT => {
+                            @if(esi) {
+                                <h2>You should now do the following:</h2>
+                                <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes</a>.</p>
+                                <p>If you’re the engager you can pay this worker a gross amount without deducting tax or National Insurance.</p>
+                                <h2>About this result</h2>
+                                <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
+                                <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+                                <p>HMRC can review your taxes for up to 20 years</p>
+                            }else{
+                                <h2>You should now do the following:</h2>
+                                <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes.</a></p>
+                                <p>If you’re the fee payer you can pay this worker a gross amount without deducting tax or National Insurance.</p>
+                                <h2>About this result</h2>
+                                <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
+                                <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+                                <p>HMRC can review your taxes for up to 20 years</p>
+                            }
+                        }
+                        case UNKNOWN => {
+                            <p>Please contact HMRC’s Employment Status and Intermediaries helpline for advice, either by phone on <span style="white-space: nowrap">0300 123 2326</span>, or by email at <a href="mailto:ir35@@hmrc.gov.uk">ir35@@hmrc.gov.uk</a></p>
+                        }
+                        case _ => {
+                            <p>Please contact HMRC’s Employment Status and Intermediaries helpline for advice, either by phone on <span style="white-space: nowrap">0300 123 2326</span>, or by email at <a href="mailto:ir35@@hmrc.gov.uk">ir35@@hmrc.gov.uk</a></p>
+                        }
                     }
+                    <div class="bordered-box" id="printResult">
+                        <form>
+                            <p class="print-hidden"><strong>Optional</strong>: you can customise this summary by adding some information before you print it. This is for your reference only and won't be stored by HMRC.</p>
+                            <div class="form-field">
+                                <label>
+                                    Check performed by
+                                    <input type="text"
+                                    name="completedBy" class="form-control form-control--block"/>
+                                </label>
+                            </div>
+                            <!--
+                            <div class="form-field">
+                                <label>
+                                    Worker's name
+                                    <input type="text"
+                                    name="worker" class="form-control form-control--block"/>
+                                </label>
+                            </div>-->
+                            <div class="form-field">
+                                <label>
+                                    Your reference or contract number
+                                    <input type="text"
+                                    name="ref" class="form-control form-control--block"/>
+                                </label>
+                            </div>
+                            <a href="javascript:window.print()" class="print-link print-hidden js-visible">Print this page</a>
+                        </form>
+                    </div>
 
 
-                </div>
-                <h2>What to do now</h2>
-                @decision.decision match {
-                    case IN => {<p>If you employ this worker you will need to deduct taxes and insurance on any salary or wages you pay them.</p>
-                                <p>These results are not legally binding.</p>
+                    <h2 class="heading-medium">Your answers</h2>
+                    <ol id="yourAnswers">
+                    @for((key, value) <- interview) {
+                        <li class="panel-indent section divider--bottom"><h3>@messages(key)</h3>
+                            <div id="answer.@key">@messages(value)</div>
+                        </li>
                     }
-                    case OUT => {<p>If the terms of the engagement change, you may need to reconsider the answers to these questions.</p>
-                                <p>These results are not legally binding.</p>
-                    }
-                    case UNKNOWN => {<p>Try for a more conclusive result by reviewing the Employment Status Manual then checking your employment tax status again.</p>}
-                    case _ => {<p>Try for a more conclusive result by reviewing the <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual">Employment Status Manual</a> then checking your employment tax status again.</p>}
-                }
+                    </ol>
 
 
-                <h2 class="heading-medium">Your answers</h2>
-                <ol id="yourAnswers">
-                @for((key, value) <- scala.collection.immutable.TreeMap(decision.qa.toArray: _*)) {
-                    <li class="panel-indent section divider--bottom"><h3>@messages(key)</h3>
-                        <div id="answer.@key">@messages(value)</div>
-                    </li>
-                }
-                </ol>
-            </div>
-            <div class="column-one-third">
+        </main>
+
+        @if(Play.current.configuration.getBoolean("ui.debug").getOrElse(false)) {
+
+
+            <div style="clear: both" >
+                <p>Interview:</p>
                 <ul>
-                    <!--<li><a href="/customise-pdf">Download PDF</a></li>-->
-                    <li><a href="#">Print this page</a></li>
+                @for(interviewElement <- interview) {
+                    <li>@interviewElement.toString</li>
+                }
                 </ul>
             </div>
-        </div>
+        }
+    }
 
-    </main>
-}
