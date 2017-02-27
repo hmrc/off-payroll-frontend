@@ -67,9 +67,9 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
 
   it should "provide raw map from question tags to values" in {
     val interview = CompressedInterview("7x7Yk4RPP")
-    val rawMap = interview.asRawMap
-    rawMap.size shouldBe 20
-    rawMap should contain ("financialRisk.haveToPayButCannotClaim" -> List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"))
+    val rawList = interview.asRawList
+    rawList.size shouldBe 20
+    rawList should contain ("financialRisk.haveToPayButCannotClaim", List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"))
   }
 
   it should "provide list from question tags to values" in {
@@ -89,8 +89,8 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
 
   it should "provide raw map from question tags to values for an empty interview" in {
     val interview = CompressedInterview("")
-    val rawMap = interview.asRawMap
-    rawMap.isEmpty shouldBe true
+    val rawList = interview.asRawList
+    rawList.isEmpty shouldBe true
   }
 
   it should "provide list from question tags to values for an empty interview" in {

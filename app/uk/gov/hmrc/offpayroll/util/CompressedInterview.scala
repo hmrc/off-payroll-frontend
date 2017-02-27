@@ -52,8 +52,8 @@ case class CompressedInterview(str: String) {
 
   def asMap: Map[String, String] = asList.toMap
 
-  def asRawMap: Map[String, List[String]] =
-    decodeMultipleValuesToLists(tagAnswerList).filter{ case (_,a) => a.size > 1 || a.size == 1 && a.head != "" }.toMap
+  def asRawList: List[(String, List[String])] =
+    decodeMultipleValuesToLists(tagAnswerList).filter{ case (_,a) => a.size > 1 || a.size == 1 && a.head != "" }
 }
 
 object CompressedInterview {

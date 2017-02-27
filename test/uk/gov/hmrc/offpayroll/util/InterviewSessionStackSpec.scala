@@ -116,11 +116,12 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
         InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement),
       lastElementValue, lastElement
     )
-    val rawMap = InterviewSessionStack.asRawMap(newSession)
-    val (maybeFirstValue, maybeLastValue) = (rawMap.get(firstElement.questionTag), rawMap.get(lastElement.questionTag))
-    maybeFirstValue.get should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
-    maybeLastValue.get should contain theSameElementsInOrderAs List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
-    rawMap("financialRisk.haveToPayButCannotClaim") should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
+    val rawList = InterviewSessionStack.asRawList(newSession)
+    def find(questionTag: String) = rawList.find { case (t, _) => t == questionTag }
+    val (maybeFirstValue, maybeLastValue) = (find(firstElement.questionTag), find(lastElement.questionTag))
+    maybeFirstValue.get shouldBe ("personalService.workerSentActualSubstitute", List("personalService.workerSentActualSubstitute.noSubstitutionHappened"))
+    maybeLastValue.get shouldBe ("partParcel.workerRepresentsEngagerBusiness", List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness"))
+    rawList should contain ("financialRisk.haveToPayButCannotClaim", List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"))
   }
 
   it should "provide asList function" in {
