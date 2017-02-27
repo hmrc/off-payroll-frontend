@@ -7,7 +7,9 @@
   contentHeader: Option[Html] = None,
   mainContent: Html = HtmlFormat.empty,
   serviceInfoContent: Html = HtmlFormat.empty,
-  scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
+  scriptElem: Option[Html] = None,
+  virtualPage: Option[String] = None
+)(implicit request: Request[_], messages: Messages)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
@@ -37,13 +39,20 @@
 
 @afterHeader = {}
 
+@analyticsCode(virtualUrl: String, analyticsToken: String) = {
+  ga('set', 'page', '/@{appConfig.appUrlPath}/@virtualUrl');
+  ga('send', 'pageview', { 'anonymizeIp': true });
+}
+
 @bodyEnd = {
     @uiLayouts.footer(
       analyticsToken = Some(appConfig.analyticsToken),
       analyticsHost = appConfig.analyticsHost,
       ssoUrl = None,
       scriptElem = scriptElem,
-      gaCalls = None)
+      gaCalls = virtualPage.map(url =>
+        (a, b) => analyticsCode(url, appConfig.analyticsToken))
+    )
 }
 
 @footerTop = {}
