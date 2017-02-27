@@ -9,7 +9,7 @@
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.{IN, OUT, UNKNOWN}
 
-@(decision: Decision, interview: List[(String, String)], esi: Boolean)(implicit request: Request[_], messages: Messages)
+@(decision: Decision, interview: List[(String, List[String])], esi: Boolean)(implicit request: Request[_], messages: Messages)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(title = "Off Payroll Decision", bodyClasses = None, mainClass = Option("decision")) {
@@ -161,7 +161,9 @@
                     <ol id="yourAnswers">
                     @for((key, value) <- interview) {
                         <li class="panel-indent section divider--bottom"><h3>@messages(key)</h3>
-                            <div id="answer.@key">@messages(value)</div>
+                            @for(child <- value) {
+                                <div id="answer.@key">@messages(child)</div>
+                            }
                         </li>
                     }
                     </ol>
