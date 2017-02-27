@@ -35,8 +35,8 @@
 
                     </div>
 
-            <p class="indent-warning"> HMRC will not keep a record of this transaction for security reasons</p>
-
+            <p class="indent-warning"> HMRC will not keep a record of this transaction for security reasons.</p>
+            <p>Please <a href="#printResult"> print a copy for your records.</a></p>
             @if(esi) {
 
                 @decision.decision match {
@@ -85,7 +85,6 @@
                                 <p>If you’re the worker you should tell your engager to operate PAYE for you.</p>
                                 <h2>About this result</h2>
                                 <p>HMRC won’t keep a record of this transaction for security reasons.</p>
-                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
                                 <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
                                 <p>HMRC can review your taxes for up to 20 years</p>
 
@@ -98,7 +97,6 @@
                                 <p>If you’re the worker you need to follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes.</a></p>
                                 <h2>About this result</h2>
                                 <p>HMRC won’t keep a record of this transaction for security reasons.</p>
-                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
                                 <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
                                 <p>HMRC can review your taxes for up to 20 years.</p>
                                 <p>The intermediaries legislation will only apply where the worker’s business (the intermediary) satisfies <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3100" target="_blank" rel="external">these specific conditions of liability.</a></p>
@@ -111,7 +109,6 @@
                                 <p>If you’re the engager you can pay this worker a gross amount without deducting tax or National Insurance.</p>
                                 <h2>About this result</h2>
                                 <p>HMRC won’t keep a record of this transaction for security reasons.</p>
-                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
                                 <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
                                 <p>HMRC can review your taxes for up to 20 years</p>
                             }else{
@@ -120,7 +117,6 @@
                                 <p>If you’re the fee payer you can pay this worker a gross amount without deducting tax or National Insurance.</p>
                                 <h2>About this result</h2>
                                 <p>HMRC won’t keep a record of this transaction for security reasons.</p>
-                                <p>Please <a href="#printResult"> print a copy for your records.</a></p>
                                 <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
                                 <p>HMRC can review your taxes for up to 20 years</p>
                             }
@@ -137,7 +133,7 @@
                             <p class="print-hidden"><strong>Optional</strong>: you can customise this summary by adding some information before you print it. This is for your reference only and won't be stored by HMRC.</p>
                             <div class="form-field">
                                 <label>
-                                    Check performed by
+                                    Check performed by (name)
                                     <input type="text"
                                     name="completedBy" class="form-control form-control--block"/>
                                 </label>
@@ -152,7 +148,7 @@
                             </div>-->
                             <div class="form-field">
                                 <label>
-                                    Your reference or contract number
+                                    Your reference (contractor name or contract reference)
                                     <input type="text"
                                     name="ref" class="form-control form-control--block"/>
                                 </label>

@@ -114,8 +114,8 @@ esi.decision.unknown= Unable to determine the tax status of this engagement
 
 
 
-hardExit.heading=The worker is an employee for tax purposes.
-hardExit.reason=This worker is inside of the intermediaries legislation (IR35) and is considered an employee. They need to be on the end client’s or agent’s payroll.
+hardExit.heading=This engagement should be classed as employed for tax purposes
+hardExit.reason=
 
 exitTool.serviceProvision.heading=Your answers indicate that this service isn’t relevant to the worker. You do not need to continue with this service as the intermediaries legislation does not apply.
 exitTool.serviceProvision.reason=

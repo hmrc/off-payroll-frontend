@@ -58,7 +58,7 @@ class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFut
       )
       val result = ExitController.apply.processElement(0)(request).futureValue
       status(result) shouldBe Status.OK
-      contentAsString(result) should include("If you employ this worker you will need to deduct taxes")
+      contentAsString(result) should include("This engagement should be classed as employed for tax purposes")
     }
   }
 }
