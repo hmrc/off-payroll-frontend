@@ -110,6 +110,19 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     map("financialRisk.expensesAreNotRelevantForRole") shouldBe "Yes"
   }
 
+  it should "provide asRawMap function" in {
+    val newSession = InterviewSessionStack.push(
+      InterviewSessionStack.push(
+        InterviewSessionStack.push(mockSession, firstElementValue, firstElement), middleElementValue, middleElement),
+      lastElementValue, lastElement
+    )
+    val rawMap = InterviewSessionStack.asRawMap(newSession)
+    val (maybeFirstValue, maybeLastValue) = (rawMap.get(firstElement.questionTag), rawMap.get(lastElement.questionTag))
+    maybeFirstValue.get should contain theSameElementsInOrderAs List("personalService.workerSentActualSubstitute.noSubstitutionHappened")
+    maybeLastValue.get should contain theSameElementsInOrderAs List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
+    rawMap("financialRisk.haveToPayButCannotClaim") should contain theSameElementsInOrderAs List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole")
+  }
+
   it should "provide asList function" in {
     val newSession = InterviewSessionStack.push(
       InterviewSessionStack.push(

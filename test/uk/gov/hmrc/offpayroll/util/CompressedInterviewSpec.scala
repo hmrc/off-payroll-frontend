@@ -65,6 +65,13 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
     values("financialRisk.expensesAreNotRelevantForRole") shouldBe "Yes"
   }
 
+  it should "provide raw map from question tags to values" in {
+    val interview = CompressedInterview("7x7Yk4RPP")
+    val rawMap = interview.asRawMap
+    rawMap.size shouldBe 20
+    rawMap should contain ("financialRisk.haveToPayButCannotClaim" -> List("financialRisk.workerProvidedMaterials", "financialRisk.expensesAreNotRelevantForRole"))
+  }
+
   it should "provide list from question tags to values" in {
     val interview = CompressedInterview("7x7Yk4RPP")
     val values = interview.asList
@@ -76,8 +83,14 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
   it should "provide map from question tags to values for an empty interview" in {
     val interview = CompressedInterview("")
     val values = interview.asMap
-    val allAnswersEmpty = values.forall{ case (_,a) => (a.isEmpty || a == "|") }
+    val allAnswersEmpty = values.forall{ case (_,a) => a.isEmpty || a == "|" }
     allAnswersEmpty shouldBe true
+  }
+
+  it should "provide raw map from question tags to values for an empty interview" in {
+    val interview = CompressedInterview("")
+    val rawMap = interview.asRawMap
+    rawMap.isEmpty shouldBe true
   }
 
   it should "provide list from question tags to values for an empty interview" in {
@@ -93,6 +106,15 @@ class CompressedInterviewSpec extends FlatSpec with Matchers {
       ("financialRisk.workerProvidedEquipment", "Yes"))
 
     CompressedInterview.decodeMultipleValues(
+      List("financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment")
+    ) shouldBe out
+  }
+
+  it should "decode multiple values to lists" in {
+    val out = List(
+      ("financialRisk.haveToPayButCannotClaim", List("financialRisk.workerProvidedMaterials", "financialRisk.workerProvidedEquipment")))
+
+    CompressedInterview.decodeMultipleValuesToLists(
       List("financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment")
     ) shouldBe out
   }
