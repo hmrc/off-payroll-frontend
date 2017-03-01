@@ -6,13 +6,9 @@
 
 @(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages)
 @import uk.gov.hmrc.offpayroll.controllers.routes
-@uk.gov.hmrc.offpayroll.views.html.main_template(title = "Check employment status for tax", bodyClasses = None) {
+@uk.gov.hmrc.offpayroll.views.html.main_template(title = Messages(element.questionTag), bodyClasses = None) {
 
     <a href="@routes.SetupController.back()">Back</a>
-
-    <h1>@Messages(element.questionTag)</h1>
-
-    @guidance
 
     @helpers.form(routes.SetupController.processElement(element.order), 'class -> "jsForm", 'class -> "jsForm") {
 
@@ -21,6 +17,9 @@
             error
         }">
             <fieldset>
+                <legend class="h1-heading" role="heading" aria-level="1">@Messages(element.questionTag)</legend>
+
+                @guidance
                 @if(f.errors.headOption.isDefined) {
                     <span class="error-notification">@Messages(f.errors.head.message)</span>
                 }
