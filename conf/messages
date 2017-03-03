@@ -103,14 +103,15 @@ partParcel.workerRepresentsEngagerBusiness.workAsBusiness=They work for their ow
 
 # Decision
 
+# ESI (sole trader) messages are prefixed with true IR35 equivalents are false
 
-ir35.decision.in.ir35= The intermediaries legislation applies to this engagement
-ir35.decision.out.ir35= The intermediaries legislation does not apply to this engagement
-ir35.decision.unknown= Unable to determine the tax status of this engagement
+false.decision.in.ir35= The intermediaries legislation applies to this engagement
+false.decision.out.ir35= The intermediaries legislation does not apply to this engagement
+false.decision.unknown= Unable to determine the tax status of this engagement
 
-esi.decision.in.ir35=  This engagement should be classed as employed for tax purposes
-esi.decision.out.ir35= This engagement should be classed as self-employed for tax purposes
-esi.decision.unknown= Unable to determine the tax status of this engagement
+true.decision.in.ir35=  This engagement should be classed as employed for tax purposes
+true.decision.out.ir35= This engagement should be classed as self-employed for tax purposes
+true.decision.unknown= Unable to determine the tax status of this engagement
 
 
 

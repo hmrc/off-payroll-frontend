@@ -13,7 +13,7 @@
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
-        title = "Off Payroll Decision",
+        title = Messages(esi + "." + decision.decision.value),
         bodyClasses = None,
         mainClass = Option("decision"),
         virtualPage = Some("decisionDisplay")
@@ -23,16 +23,7 @@
         <main role="main" class="result">
 
                     <div class="transaction-banner--complete">
-
-                    @if(esi) {
-                        <h1 class="transaction-banner__heading" id="decision-banner">
-                            @Messages("esi." + decision.decision.value)</h1>
-                        }else {
-                        <h1 class="transaction-banner__heading" id="decision-banner">
-                            @Messages("ir35." + decision.decision.value) </h1>
-                        }
-
-
+                        <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(esi + "." + decision.decision.value)</span>
                     </div>
 
             <p class="indent-warning"> HMRC will not keep a record of this transaction for security reasons.</p>
