@@ -25,8 +25,8 @@ import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, ExitReason}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, pop, push}
+
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, pop, push}
 
 import scala.concurrent.Future
 
@@ -45,7 +45,7 @@ class ExitController  @Inject() extends OffPayrollController {
   val EXIT_CLUSTER_ID: Int = 0
 
 
-  def begin() = PasscodeAuthenticatedActionAsync { implicit request =>
+  def begin() = Action.async { implicit request =>
 
     val element = flow.getStart(asMap(request.session))
     val questionForm = createForm(element)
@@ -61,7 +61,7 @@ class ExitController  @Inject() extends OffPayrollController {
   override def redirect = Redirect(routes.SetupController.back)
 
 
-  def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def processElement(elementID: Int) = Action.async { implicit request =>
 
     val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
     val fieldName = element.questionTag
@@ -74,7 +74,7 @@ class ExitController  @Inject() extends OffPayrollController {
             formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
 
       value => {
-        val session = push(request.session, fieldName, value)
+        val session = push(request.session, value, element)
         val inIr35 = flow.shouldAskForNext(asMap(session), (fieldName, value)).inIr35
 
         if(inIr35) {

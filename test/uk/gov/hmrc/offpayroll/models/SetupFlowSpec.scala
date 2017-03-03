@@ -29,8 +29,8 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
   private val firstElement = setupFlow.getStart(Map[String, String]())
 
 
-  "A SetupFlow " should " be at version 1.0.0-final " in {
-    setupFlow.version shouldBe "1.0.0-final"
+  "A SetupFlow " should " be at version 1.1.1-final " in {
+    setupFlow.version shouldBe "1.1.1-final"
   }
 
 
@@ -60,8 +60,10 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
     setupFlow.shouldAskForNext(Map(setup_endUserRolePersonDoingWork), setup_endUserRolePersonDoingWork).maybeElement.nonEmpty shouldBe true
   }
 
-  it should "should indicate exit the tool if the we are a Sole Trader trying to use the tool " in {
-    setupFlow.shouldAskForNext(Map(setup_endUserRolePersonDoingWork, setup_SoleTrader), setup_SoleTrader).exitTool shouldBe true
+  it should "should not exit the tool if the we are a Sole Trader trying to use the tool " in {
+    val result = setupFlow.shouldAskForNext(Map(setup_endUserRolePersonDoingWork, setup_hasContractStartedYes, setup_SoleTrader), setup_SoleTrader)
+    result.exitTool shouldBe false
+    result.maybeElement.isEmpty shouldBe true
   }
 
 

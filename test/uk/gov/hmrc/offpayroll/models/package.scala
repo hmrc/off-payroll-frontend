@@ -33,6 +33,7 @@ package object resources {
   val setup_endUserRolePersonDoingWork = setup_endUserRole -> "setup.endUserRole.personDoingWork"
 
   val setup_hasContractStarted = "setup.hasContractStarted"
+  val setup_hasContractStartedYes = setup_hasContractStarted -> "Yes"
 
   val officeHolderProperty = "exit.officeHolder"
 

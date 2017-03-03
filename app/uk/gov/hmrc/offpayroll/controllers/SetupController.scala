@@ -27,8 +27,7 @@ import play.api.mvc.{Action, Request, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupCluster, SetupFlow}
 import uk.gov.hmrc.offpayroll.services.FragmentService
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, pop, push}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, pop, push, reset}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
@@ -48,11 +47,11 @@ class SetupController @Inject() extends OffPayrollController {
   val SETUP_CLUSTER_ID = 0
 
   //todo shouldn't need the clusterId
-  def begin(clusterId: Int = 0) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def begin(clusterId: Int = 0) = Action.async { implicit request =>
 
     val element = flow.getStart(asMap(request.session))
     val questionForm = createForm(element)
-    val session = InterviewSessionHelper.reset(request.session)
+    val session = reset(request.session)
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element,
       fragmentService.getFragmentByName(element.questionTag))).withSession(session))
@@ -64,15 +63,7 @@ class SetupController @Inject() extends OffPayrollController {
   override def redirect: Result = Redirect(routes.SetupController.begin())
 
 
-  def start() = PasscodeAuthenticatedActionAsync {
-    implicit request =>
-      val session = InterviewSessionHelper.reset(request.session)
-      Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.start()).withSession(session))
-  }
-
-
-
-  def processElement(elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def processElement(elementID: Int) = Action.async { implicit request =>
 
     val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart(asMap(request.session)))
     val fieldName = element.questionTag
@@ -85,7 +76,7 @@ class SetupController @Inject() extends OffPayrollController {
             formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
 
       value => {
-        val session = push(request.session, fieldName, value)
+        val session = push(request.session, value, element)
 
         val setupResult = flow.shouldAskForNext(asMap(session), (fieldName, value))
         if (setupResult.maybeElement.nonEmpty) {

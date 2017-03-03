@@ -30,17 +30,13 @@ import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models.{Element, GROUP, Webflow}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.{asMap, push}
-import uk.gov.hmrc.passcode.authentication.{PasscodeAuthentication, PasscodeAuthenticationProvider, PasscodeVerificationConfig}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList, push}
 
 import scala.concurrent.Future
 
 
-trait OffPayrollControllerHelper extends PasscodeAuthentication {
+trait OffPayrollControllerHelper {
 
-  override def config = new PasscodeVerificationConfig(configuration)
-
-  override def passcodeAuthenticationProvider = new PasscodeAuthenticationProvider(config)
 
   def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
     if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
@@ -86,7 +82,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   val flow: Webflow = flowService.flow
 
-  def begin = PasscodeAuthenticatedActionAsync { implicit request =>
+  def begin = Action.async { implicit request =>
 
     val element = flowService.getStart(asMap(request.session))
     val form = createForm(element)
@@ -100,7 +96,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   override def redirect: Result = Redirect(routes.ExitController.back)
 
-  def processElement(clusterID: Int, elementID: Int) = PasscodeAuthenticatedActionAsync { implicit request =>
+  def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
 
     val element = flowService.getAbsoluteElement(clusterID, elementID)
     val fieldName = element.questionTag
@@ -111,7 +107,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         newForm.fold(
           formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
           value => {
-            evaluateInteview(fieldName, value.mkString("|","|",""), newForm)
+            evaluateInteview(element, fieldName, value.mkString("|","|",""), newForm)
           }
         )
 
@@ -122,7 +118,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         newForm.fold(
           formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
           value => {
-            evaluateInteview(fieldName, value, newForm)
+            evaluateInteview(element, fieldName, value, newForm)
           }
         )
 
@@ -141,9 +137,9 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         formWithErrors, element, fragmentService.getFragmentByName(element.questionTag))))
   }
 
-  private def evaluateInteview(fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
+  private def evaluateInteview(element: Element, fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + form.data.toString() + " " + formValue)
-    val session = push(request.session, fieldName, formValue)
+    val session = push(request.session, formValue, element)
     val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), sessionHelper.createCorrelationId(request))
 
     result.map(
@@ -153,9 +149,15 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
             form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
             .withSession(session)
         } else {
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head))
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asRawList(session), esi(asMap(session))))
         }
       }
     )
+  }
+
+  private def esi(interview: Map[String, String]): Boolean = {
+      interview.exists{
+        case (question, answer) => "setup.provideServices.soleTrader" == answer
+      }
   }
 }

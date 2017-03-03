@@ -22,21 +22,20 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, route, _}
 import uk.gov.hmrc.offpayroll.WithTestFakeApplication
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter
-import uk.gov.hmrc.play.test.UnitSpec
+import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import uk.gov.hmrc.offpayroll.resources._
 import play.api.i18n.Messages.Implicits._
 
 /**
   * Created by peter on 09/01/2017.
   */
-class SetupControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
+class SetupControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
-  override def configFile: String = "test-application.conf"
   val COOKIES_HEADER_NAME: String = "Set-Cookie"
 
   "GET /setup/" should {
     "return 200 and the first page in Setup" in {
-      val maybeRoute = route(fakeApplication, FakeRequest(GET, "/check-your-employment-status-for-tax/setup"))
+      val maybeRoute = route(fakeApplication, FakeRequest(GET, "/check-employment-status-for-tax/setup"))
       maybeRoute.isDefined shouldBe true
       maybeRoute.map { route =>
         val result = await(route)

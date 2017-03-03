@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
-import play.api.test.FakeRequest
+import play.api.test.{FakeApplication, FakeRequest}
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.offpayroll.WithTestFakeApplication
 import uk.gov.hmrc.offpayroll.resources._
@@ -27,10 +27,9 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 /**
   * Created by peter on 16/01/2017.
   */
-class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
+class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
 
-  override def configFile: String = "test-application.conf"
 
   "GET " + THE_ROUTE_EXIT_PATH should {
     "return 200 and the first page in Exit" in {
@@ -48,7 +47,7 @@ class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with Scal
       )
       val result = ExitController.apply.processElement(0)(request).futureValue
       status(result) shouldBe Status.SEE_OTHER
-      redirectLocation(result).get shouldBe("/check-your-employment-status-for-tax/cluster/")
+      redirectLocation(result).get shouldBe("/check-employment-status-for-tax/cluster/")
     }
   }
 
@@ -59,7 +58,7 @@ class ExitControllerSpec extends UnitSpec with WithTestFakeApplication with Scal
       )
       val result = ExitController.apply.processElement(0)(request).futureValue
       status(result) shouldBe Status.OK
-      contentAsString(result) should include("If you employ this worker you will need to deduct taxes")
+      contentAsString(result) should include("This engagement should be classed as employed for tax purposes")
     }
   }
 }

@@ -23,12 +23,11 @@ import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.WithTestFakeApplication
 import uk.gov.hmrc.offpayroll.models.{CHECKBOX, Cluster, Element, Webflow}
 import uk.gov.hmrc.play.http.HeaderCarrier
-import uk.gov.hmrc.play.test.UnitSpec
+import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 
-class OffpayrollControllerSpec extends UnitSpec with MockitoSugar  with WithTestFakeApplication with ScalaFutures {
+class OffpayrollControllerSpec extends UnitSpec with MockitoSugar  with WithFakeApplication with ScalaFutures {
 
-  override def configFile: String = "test-application.conf"
 
   val mockResult = mock[Result]
 

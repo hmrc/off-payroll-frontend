@@ -45,12 +45,7 @@ object SetupFlow extends Webflow {
 
 
   def shouldAskForNext(interview: Interview, currentQnA: (String, String)): SetupResult = {
-
-    def soleTrader = interview.exists{ case(qestion, answer) =>
-      qestion == "setup.provideServices" && answer == "setup.provideServices.soleTrader"}
-
-    if(soleTrader) SetupResult(exitTool = true)
-    else SetupResult(setupCluster.shouldAskForDecision(interview.toList, currentQnA))
+    SetupResult(setupCluster.shouldAskForDecision(interview.toList, currentQnA))
   }
 
 }

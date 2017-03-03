@@ -24,14 +24,13 @@ import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.offpayroll.services.{IR35FlowService, InterviewEvaluation}
 import uk.gov.hmrc.offpayroll.{FrontendDecisionConnector, WithTestFakeApplication}
-import uk.gov.hmrc.play.test.UnitSpec
+import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 import scala.concurrent.Future
 
 
-class InterviewControllerSpec extends UnitSpec with WithTestFakeApplication with ScalaFutures {
+class InterviewControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
-  override def configFile: String = "test-application.conf"
 
   val TEST_SESSION_ID = "41c1fc6444bb7e"
 

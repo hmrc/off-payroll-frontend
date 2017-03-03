@@ -47,7 +47,7 @@
         @for(child <- element.children) {
 
             <div class="form-field">
-                <label for="@element.questionTag@openBracket@child.order@closingBracket" class="block-label">
+                <label for="@child.questionTag" class="block-label">
                     <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag@openBracket@child.order@closingBracket" value="@child.questionTag" />
                     @Messages(child.questionTag)
                 </label>
@@ -77,6 +77,7 @@
                           for (x = 0 ; x < inputs.length -1; x++){
                               if(x != exclusiveCheckbox.elementIndex){
                                   document.querySelector('input[name="financialRisk.haveToPayButCannotClaim[' + x + ']"').checked = false
+                                  document.querySelector('input[name="financialRisk.haveToPayButCannotClaim[' + x + ']"').parentNode.classList.remove("selected")
                               }
                           }
 
@@ -85,6 +86,7 @@
                   else {
                       //uncheck not relevant
                       document.querySelector('input[name="' + exclusiveCheckbox.elementName + '"]').checked = false
+                      document.querySelector('input[name="' + exclusiveCheckbox.elementName + '"]').parentNode.classList.remove("selected")
                   }
               }
             })();

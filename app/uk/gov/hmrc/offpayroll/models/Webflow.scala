@@ -22,7 +22,7 @@ package uk.gov.hmrc.offpayroll.models
   */
 abstract class Webflow {
 
-  def version  = "1.0.0-final"
+  def version  = "1.1.1-final"
 
   def getNext(currentElement: Element): Option[Element]
 
