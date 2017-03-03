@@ -29,8 +29,8 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
   private val firstElement = setupFlow.getStart(Map[String, String]())
 
 
-  "A SetupFlow " should " be at version 1.1.0-final " in {
-    setupFlow.version shouldBe "1.1.0-final"
+  "A SetupFlow " should " be at version 1.1.1-final " in {
+    setupFlow.version shouldBe "1.1.1-final"
   }
 
 
