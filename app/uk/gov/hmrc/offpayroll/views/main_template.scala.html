@@ -1,23 +1,14 @@
 @(title: String,
-  sidebarLinks: Option[Html] = None,
-  contentHeader: Option[Html] = None,
-  bodyClasses: Option[String] = None,
-  mainClass: Option[String] = None,
-  scriptElem: Option[Html] = None,
-  virtualPage: Option[String] = None
+        sidebarLinks: Option[Html] = None,
+        contentHeader: Option[Html] = None,
+        bodyClasses: Option[String] = None,
+        mainClass: Option[String] = None,
+        scriptElem: Option[Html] = None,
+        virtualPage: Option[String] = None
 )(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
 @import uk.gov.hmrc.offpayroll.views.html.govuk_wrapper
-
-
-@betaBanner = {
-    @layouts.betaBanner(false, "https://docs.google.com/forms/d/1gaqKUe6x9ZqF9Z6lnZ_92WE1CA00UjwPgiRQVWGYjdw/edit", "https://docs.google.com/forms/d/1gaqKUe6x9ZqF9Z6lnZ_92WE1CA00UjwPgiRQVWGYjdw/edit", true, true)
-}
-
-@serviceInfoContent = {
-    @layouts.serviceInfo(betaBanner, false, Option.empty, true )
-}
 
 @sidebar = {
     @if(sidebarLinks.isDefined) {
@@ -31,7 +22,7 @@
                sidebar = sidebar,
                contentHeader = contentHeader,
                mainContent = layouts.article(mainContent),
-               serviceInfoContent = serviceInfoContent,
+               serviceInfoContent = HtmlFormat.empty,
                scriptElem = scriptElem,
                virtualPage = virtualPage
 )
