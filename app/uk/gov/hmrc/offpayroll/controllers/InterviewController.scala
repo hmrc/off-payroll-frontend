@@ -25,11 +25,12 @@ import play.api.data.Forms._
 import play.api.data._
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 import play.api.i18n.Messages.Implicits._
+import play.api.libs.json.{Format, Json}
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
-import uk.gov.hmrc.offpayroll.models.{Element, GROUP, Webflow}
-import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.models.{Decision, Element, GROUP, Webflow}
+import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService, InterviewEvaluation}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList, push}
 
 import scala.concurrent.Future
@@ -139,8 +140,9 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   private def evaluateInteview(element: Element, fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + form.data.toString() + " " + formValue)
+    val correlationId = sessionHelper.createCorrelationId(request)
     val session = push(request.session, formValue, element)
-    val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), sessionHelper.createCorrelationId(request))
+    val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), correlationId)
 
     result.map(
       decision => {
@@ -149,6 +151,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
             form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
             .withSession(session)
         } else {
+          logResponse(decision, session, correlationId)
           Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asRawList(session), esi(asMap(session))))
         }
       }
@@ -160,4 +163,30 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         case (question, answer) => "setup.provideServices.soleTrader" == answer
       }
   }
+  private def logResponse(interviewEvaluation: InterviewEvaluation, session: Session, correlationId: String): Unit ={
+    val interview = "interview"
+    val decision = interviewEvaluation.decision
+    if(decision.isEmpty){
+      Logger.error("decision is empty")
+      return
+    }
+    if(session.get(interview).isEmpty){
+      Logger.error("interview is empty")
+      return
+    }
+
+    val compressedInterview = session.get(interview).get
+    val esiOrIr35Route = if(esi(asMap(session))) "ESI" else "IR35"
+    val version = decision.get.version
+
+    val responseBody = Json.toJson(DecisionResponse(compressedInterview, esiOrIr35Route, version, correlationId))
+    Logger.info(s"DECISION: ${responseBody.toString.replaceAll("\"", "")}")
+  }
+
+}
+
+case class DecisionResponse(interview:String, esiOrIr35Route: String,version:String, correlationID:String)
+
+object DecisionResponse {
+  implicit val decisionResponseFormat: Format[DecisionResponse] = Json.format[DecisionResponse]
 }
