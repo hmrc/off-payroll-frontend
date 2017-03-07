@@ -8,7 +8,7 @@
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = Messages(element.questionTag), bodyClasses = None) {
 
 
-    <a href="@routes.InterviewController.back()">Back</a>
+    <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
 
 
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order), 'class -> "jsForm", 'noValidate -> "noValidate") {

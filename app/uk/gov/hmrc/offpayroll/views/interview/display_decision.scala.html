@@ -83,7 +83,9 @@
                                 <h2>You should now do the following:</h2>
                                 <h3>Public sector</h3>
                                 <p>If you’re the worker you should tell the organisation that pays your fees (the fee payer) to deduct tax and National Insurance from your payment.</p>
-                                <p>If you’re the fee payer you need to deduct tax and NationalInsurance from the <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3140" target="_blank" rel="external">worker’s deemed employment payment</a>(s) during this engagement.</p>
+                                <p>If you’re the fee payer you need to deduct tax and NationalInsurance from the
+                                    <b><a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3140" target="_blank" rel="external">worker’s deemed employment payment(s)</a></b>
+                                    during this engagement.</p>
                                 <h3>Private sector</h3>
                                 <p>If you’re the worker you need to follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes.</a></p>
                                 <h2>About this result</h2>
@@ -96,7 +98,7 @@
                         case OUT => {
                             @if(esi) {
                                 <h2>You should now do the following:</h2>
-                                <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes</a>.</p>
+                                <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/browse/business/business-tax" target="_blank" rel="external">this guidance about your taxes</a>.</p>
                                 <p>If you’re the engager you can pay this worker a gross amount without deducting tax or National Insurance.</p>
                                 <h2>About this result</h2>
                                 <p>HMRC won’t keep a record of this transaction for security reasons.</p>
@@ -104,7 +106,7 @@
                                 <p>HMRC can review your taxes for up to 20 years</p>
                             }else{
                                 <h2>You should now do the following:</h2>
-                                <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes.</a></p>
+                                <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/browse/business/business-tax" target="_blank" rel="external">this guidance about your taxes.</a></p>
                                 <p>If you’re the fee payer you can pay this worker a gross amount without deducting tax or National Insurance.</p>
                                 <h2>About this result</h2>
                                 <p>HMRC won’t keep a record of this transaction for security reasons.</p>
@@ -152,9 +154,9 @@
                     <h2 class="heading-medium">Your answers</h2>
                     <ol id="yourAnswers">
                     @for((key, value) <- interview) {
-                        <li class="panel-indent section divider--bottom"><h3>@messages(key)</h3>
+                        <li class="section divider--bottom"><h3>@messages(key)</h3>
                             @for(child <- value) {
-                                <div id="answer.@key">@messages(child)</div>
+                                <div id="answer.@key" class="panel-indent">@messages(child)</div>
                             }
                         </li>
                     }
