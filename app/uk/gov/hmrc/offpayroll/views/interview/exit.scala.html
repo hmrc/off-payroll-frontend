@@ -7,7 +7,7 @@
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(title = Messages(element.questionTag), bodyClasses = None) {
 
-    <a href="@routes.ExitController.back()">Back</a>
+    <a href="@routes.ExitController.back()" style="line-height:3">Back</a>
 
 
     @helpers.form(routes.ExitController.processElement(element.order), 'class -> "jsForm", 'noValidate -> "noValidate") {
