@@ -168,14 +168,13 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     session.get("interview").fold(Logger.error("interview is empty")) { compressedInterview =>
       val esiOrIr35Route = if (esi(asMap(session))) "ESI" else "IR35"
       val version = maybeDecision.map(_.version).getOrElse("unknown")
-      val responseBody = Json.toJson(DecisionResponse(compressedInterview, esiOrIr35Route, version, correlationId))
+      val decision = maybeDecision.map(_.decision).getOrElse("decision is not known").toString
+      val responseBody = Json.toJson(DecisionResponse(compressedInterview, esiOrIr35Route, version, correlationId, decision))
       Logger.info(s"DECISION: ${responseBody.toString.replaceAll("\"", "")}")
     }
-
-
 }
 
-case class DecisionResponse(interview:String, esiOrIr35Route: String,version:String, correlationID:String)
+case class DecisionResponse(interview:String, esiOrIr35Route: String,version:String, correlationID:String, decision: String)
 
 object DecisionResponse {
   implicit val decisionResponseFormat: Format[DecisionResponse] = Json.format[DecisionResponse]
