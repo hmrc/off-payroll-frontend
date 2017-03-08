@@ -89,12 +89,12 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
               if (flow.getNext(currentElement, true).isEmpty) {
-                InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN)), STOP, decision.correlationID)
+                InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN, flow.version)), STOP, decision.correlationID)
               }
               else
                 InterviewEvaluation(flow.getNext(currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
             } else {
-                InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision))), STOP, decision.correlationID)
+                InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision), flow.version)), STOP, decision.correlationID)
             }
           }
           )
