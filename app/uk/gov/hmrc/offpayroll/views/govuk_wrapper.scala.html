@@ -76,6 +76,14 @@
 
 @getHelpForm = @{uiHelpers.reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJSUrl)}
 
+@betaBanner = {
+@layouts.betaBanner(false, appConfig.betaFeedbackUrlNoAuth, appConfig.betaFeedbackUrlNoAuth, true, true)
+}
+
+@serviceInfoContent = {
+    @layouts.serviceInfo(betaBanner, false, Option.empty, true )
+}
+
 @content = {
     @uiLayouts.main_content(
       article = mainContent,
