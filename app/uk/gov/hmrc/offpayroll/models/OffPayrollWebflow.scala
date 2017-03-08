@@ -52,7 +52,7 @@ trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
     } else Option.empty
   }
 
-  override def getStart(interview: Map[String, String]): Element = clusters.head.getStart(interview)
+  override def getStart(interview: Map[String, String]): Option[Element] = clusters.head.getStart(interview)
 
   override def getElementByTag(tag: String): Option[Element] = {
 

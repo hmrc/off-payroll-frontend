@@ -220,8 +220,8 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   it should " ask possibleSubstituteRejection when 'No' is the answer to setup.hasContractStarted" in {
     val maybeElement = personalServiceCluster.getStart(partialInterview_hasContractStarted_No)
-
-    maybeElement.questionTag shouldBe "personalService.possibleSubstituteRejection"
+    maybeElement.isDefined shouldBe true
+    maybeElement.get.questionTag shouldBe "personalService.possibleSubstituteRejection"
 
   }
 

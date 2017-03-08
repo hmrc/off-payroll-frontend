@@ -26,7 +26,7 @@ import uk.gov.hmrc.offpayroll.resources._
 class SetupFlowSpec  extends FlatSpec with Matchers {
 
   private val setupFlow = SetupFlow
-  private val firstElement = setupFlow.getStart(Map[String, String]())
+  private val maybeElement = setupFlow.getStart(Map[String, String]())
 
 
   "A SetupFlow " should " be at version 1.1.1-final " in {
@@ -35,7 +35,8 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
 
 
   it should "get the " + setup_endUserRole + " as the first element" in {
-    firstElement.questionTag shouldBe setup_endUserRole
+    maybeElement.isDefined shouldBe true
+    maybeElement.get.questionTag shouldBe setup_endUserRole
   }
 
   it should "get an element by id only when the cluster is Zero and the element is in range " in {
@@ -45,7 +46,7 @@ class SetupFlowSpec  extends FlatSpec with Matchers {
   }
 
   it should "get the next element relative the element passed in or empty if there are no more"  in {
-    setupFlow.getNext(firstElement).nonEmpty shouldBe true
+    setupFlow.getNext(maybeElement.get).nonEmpty shouldBe true
   }
 
   it should "get an element by its tag e.g. " + setup_endUserRole in {

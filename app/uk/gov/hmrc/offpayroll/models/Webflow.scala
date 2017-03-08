@@ -26,7 +26,7 @@ abstract class Webflow {
 
   def getNext(currentElement: Element): Option[Element]
 
-  def getStart(interview: Map[String, String]): Element
+  def getStart(interview: Map[String, String]): Option[Element]
 
   def getElementById(clusterId: Int, elementId: Int): Option[Element]
 
