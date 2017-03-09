@@ -13,7 +13,7 @@
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
-        title = "Off Payroll Decision",
+        title = Messages(esi + "." + decision.decision.value),
         bodyClasses = None,
         mainClass = Option("decision"),
         virtualPage = Some("decisionDisplay")
@@ -23,16 +23,7 @@
         <main role="main" class="result">
 
                     <div class="transaction-banner--complete">
-
-                    @if(esi) {
-                        <h1 class="transaction-banner__heading" id="decision-banner">
-                            @Messages("esi." + decision.decision.value)</h1>
-                        }else {
-                        <h1 class="transaction-banner__heading" id="decision-banner">
-                            @Messages("ir35." + decision.decision.value) </h1>
-                        }
-
-
+                        <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(esi + "." + decision.decision.value)</span>
                     </div>
 
             <p class="indent-warning"> HMRC will not keep a record of this transaction for security reasons.</p>
@@ -93,7 +84,9 @@
                                 <h2>You should now do the following:</h2>
                                 <h3>Public sector</h3>
                                 <p>If you’re the worker you should tell the organisation that pays your fees (the fee payer) to deduct tax and National Insurance from your payment.</p>
-                                <p>If you’re the fee payer you need to deduct tax and NationalInsurance from the <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3140" target="_blank" rel="external">worker’s deemed employment payment</a>(s) during this engagement.</p>
+                                <p>If you’re the fee payer you need to deduct tax and NationalInsurance from the
+                                    <b><a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3140" target="_blank" rel="external">worker’s deemed employment payment(s)</a></b>
+                                    during this engagement.</p>
                                 <h3>Private sector</h3>
                                 <p>If you’re the worker you need to follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes.</a></p>
                                 <h2>About this result</h2>
@@ -165,9 +158,9 @@
                     <h2 class="heading-medium">Your answers</h2>
                     <ol id="yourAnswers">
                     @for((key, value) <- interview) {
-                        <li class="panel-indent section divider--bottom"><h3>@messages(key)</h3>
+                        <li class="section divider--bottom"><h3>@messages(key)</h3>
                             @for(child <- value) {
-                                <div id="answer.@key">@messages(child)</div>
+                                <div id="answer.@key" class="panel-indent">@messages(child)</div>
                             }
                         </li>
                     }
