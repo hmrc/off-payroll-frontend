@@ -114,5 +114,12 @@
                 }
             </ul>
         }
+        <ul>
+            <li><b>Headers</b></li>
+            @for((key, value) <- request.headers.headers) {
+                <li>@key -> @value</li>
+            }
+        </ul>
+
     </div>
 }
