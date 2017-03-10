@@ -22,7 +22,7 @@ import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
 import play.Logger
 import play.api.Mode._
-import play.api.mvc._
+import play.api.mvc.{Request, RequestHeader, Result, Filter}
 import play.api.{Application, Configuration, Play}
 import play.twirl.api.Html
 import uk.gov.hmrc.crypto.ApplicationCrypto
@@ -35,7 +35,6 @@ import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 
 import scala.concurrent.Future
-
 
 object FrontendGlobal
   extends DefaultFrontendGlobal {
