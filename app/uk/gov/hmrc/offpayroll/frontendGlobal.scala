@@ -42,7 +42,7 @@ object FrontendGlobal
   override val auditConnector = FrontendAuditConnector
   override val loggingFilter = LoggingFilter
   override val frontendAuditFilter = AuditFilter
-  override def defaultFrontendFilters = Seq(CSRFNoCheckFilter) ++ super.defaultFrontendFilters
+  override def defaultFrontendFilters = CSRFNoCheckFilter +: super.defaultFrontendFilters
 
   override def onStart(app: Application) {
     super.onStart(app)
