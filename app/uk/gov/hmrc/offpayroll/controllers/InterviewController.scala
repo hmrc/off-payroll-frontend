@@ -94,44 +94,38 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
   override def redirect: Result = Redirect(routes.ExitController.back)
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
-
     val element = flowService.getAbsoluteElement(clusterID, elementID)
-    val indexElement = InterviewSessionStack.currentIndex(request.session)
-    if (element != indexElement){
-      Future.successful(BadRequest(s"bad (interview) got ${element.questionTag}, index is ${indexElement.questionTag}"))
-    }
-    else {
+    checkElementIndex("interview", Some(element))(doProcessElement)
+  }
 
-      val fieldName = element.questionTag
+  private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
+    val fieldName = element.questionTag
 
-      element.elementType match {
-        case GROUP => {
-          val newForm = createListForm(element).bindFromRequest
-          newForm.fold(
-            formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
-            value => {
-              evaluateInteview(element, fieldName, value.mkString("|", "|", ""), newForm)
-            }
-          )
+    element.elementType match {
+      case GROUP => {
+        val newForm = createListForm(element).bindFromRequest
+        newForm.fold(
+          formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
+          value => {
+            evaluateInteview(element, fieldName, value.mkString("|", "|", ""), newForm)
+          }
+        )
 
-        }
-
-        case _ => {
-          val newForm = createForm(element).bindFromRequest
-          newForm.fold(
-            formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
-            value => {
-              evaluateInteview(element, fieldName, value, newForm)
-            }
-          )
-
-        }
       }
 
+      case _ => {
+        val newForm = createForm(element).bindFromRequest
+        newForm.fold(
+          formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
+          value => {
+            evaluateInteview(element, fieldName, value, newForm)
+          }
+        )
+
+      }
     }
 
   }
-
 
   private def handleFormError(element: Element, fieldName: String, newForm: Form[_], formWithErrors: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + newForm.data.mkString("~"))
