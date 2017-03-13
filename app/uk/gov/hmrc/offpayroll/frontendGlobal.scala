@@ -87,11 +87,6 @@ object AuditFilter extends FrontendAuditFilter with RunMode with AppName with Mi
 }
 
 object CSRFNoCheckFilter extends Filter with MicroserviceFilterSupport {
-  def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
-    def enrichedHeaders(rh: RequestHeader) =
-      if (rh.method == "POST")
-        rh.copy(headers = rh.headers.add("Csrf-Token" -> "nocheck"))
-      else rh
-    f(enrichedHeaders(rh))
-  }
+  def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader) =
+    f(rh.copy(headers = rh.headers.add("Csrf-Token" -> "nocheck")))
 }
