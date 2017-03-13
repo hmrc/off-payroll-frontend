@@ -46,7 +46,7 @@ class ExitController  @Inject() extends OffPayrollController {
   val EXIT_CLUSTER_ID: Int = 0
 
 
-  def beginSuccess(element: Element)(implicit request:Request[AnyContent]) = {
+  def beginSuccess(element: Element)(implicit request: Request[AnyContent]) = {
 
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exit(emptyForm, element,
       fragmentService.getFragmentByName(element.questionTag))))
@@ -60,35 +60,33 @@ class ExitController  @Inject() extends OffPayrollController {
 
 
   def processElement(elementID: Int) = Action.async { implicit request =>
+    val maybeElement = flow.getElementById(EXIT_CLUSTER_ID, elementID)
+    checkElementIndex("exit", maybeElement)(doProcessElement)
+  }
 
-    val element = flow.getElementById(EXIT_CLUSTER_ID, elementID).get
-    val indexElement = InterviewSessionStack.currentIndex(request.session)
-    if (element != indexElement){
-      Future.successful(BadRequest(s"bad (exit) got ${element.questionTag}, index is ${indexElement.questionTag}"))
-    }
-    else {
-      val fieldName = element.questionTag
-      val form = createForm(element)
+  private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
+    val fieldName = element.questionTag
+    val form = createForm(element)
 
-      form.bindFromRequest.fold(
-        formWithErrors => {
-          Future.successful(BadRequest(
-            uk.gov.hmrc.offpayroll.views.html.interview.exit(
-              formWithErrors, element, fragmentService.getFragmentByName(element.questionTag))))
-        },
+    form.bindFromRequest.fold(
+      formWithErrors => {
+        Future.successful(BadRequest(
+          uk.gov.hmrc.offpayroll.views.html.interview.exit(
+            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag))))
+      },
 
-        value => {
-          val session = push(request.session, value, element)
-          val inIr35 = flow.shouldAskForNext(asMap(session), (fieldName, value)).inIr35
+      value => {
+        val session = push(request.session, value, element)
+        val inIr35 = flow.shouldAskForNext(asMap(session), (fieldName, value)).inIr35
 
-          if (inIr35) {
-            Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.hardDecision()))
-          } else {
-            Future.successful(Redirect(routes.InterviewController.begin).
-              withSession(InterviewSessionStack.addCurrentIndex(session, IR35FlowService().getStart(asMap(session)).getOrElse(PersonalServiceCluster.clusterElements(0))))) // TODO remove the hack here
-          }
+        if (inIr35) {
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.hardDecision()))
+        } else {
+          Future.successful(Redirect(routes.InterviewController.begin).
+            withSession(InterviewSessionStack.addCurrentIndex(session, IR35FlowService().getStart(asMap(session)).getOrElse(PersonalServiceCluster.clusterElements(0))))) // TODO remove the hack here
         }
-      )
-    }
+      }
+    )
   }
 }
+

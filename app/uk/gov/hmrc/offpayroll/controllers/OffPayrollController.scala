@@ -72,4 +72,16 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
   def beginSuccess(element: Element)(implicit request:Request[AnyContent]): Future[Result]
 
   val emptyForm = Form(single("" -> text))
+
+  def checkElementIndex(message: String, maybeElement: Option[Element])(f: Element => Future[Result])(implicit request: Request[_]): Future[Result] = {
+    val indexElement = InterviewSessionStack.currentIndex(request.session)
+    maybeElement.fold(Future.successful(BadRequest(s"bad - missing element at $indexElement"))){ element =>
+      if (element != indexElement) {
+        Future.successful(BadRequest(s"bad ($message) got ${element.questionTag}, index is ${indexElement.questionTag}"))
+      }
+      else {
+        f(element)
+      }
+    }
+  }
 }

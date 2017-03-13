@@ -61,13 +61,11 @@ class SetupController @Inject() extends OffPayrollController {
 
 
   def processElement(elementID: Int) = Action.async { implicit request =>
+    val maybeElement = flow.getElementById(SETUP_CLUSTER_ID, elementID).orElse(flow.getStart(asMap(request.session)))
+    checkElementIndex("setup", maybeElement)(doProcessElement)
+  }
 
-    val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart(asMap(request.session)).get)
-    val indexElement = InterviewSessionStack.currentIndex(request.session)
-    if (element != indexElement){
-      Future.successful(BadRequest(s"bad (setup) got ${element.questionTag}, index is ${indexElement.questionTag}"))
-    }
-    else {
+  private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
     val fieldName = element.questionTag
     val form = createForm(element)
 
@@ -75,7 +73,8 @@ class SetupController @Inject() extends OffPayrollController {
       formWithErrors => {
         Future.successful(BadRequest(
           uk.gov.hmrc.offpayroll.views.html.interview.setup(
-            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
+            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag))))
+      },
 
       value => {
         val session = push(request.session, value, element)
@@ -85,7 +84,7 @@ class SetupController @Inject() extends OffPayrollController {
           // continue setup
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, setupResult.maybeElement.get,
             fragmentService.getFragmentByName(setupResult.maybeElement.get.questionTag)))
-            .withSession(addCurrentIndex(session,setupResult.maybeElement.get))
+            .withSession(addCurrentIndex(session, setupResult.maybeElement.get))
           )
         } else if (setupResult.exitTool) {
           val exitReason = ExitReason("exitTool.soleTrader.heading", "exitTool.soleTrader.reason", "exitTool.soleTrader.explanation")
@@ -94,11 +93,9 @@ class SetupController @Inject() extends OffPayrollController {
         }
         else {
           // ExitCluster
-          Future.successful(Redirect(routes.ExitController.begin()).withSession(addCurrentIndex(session,ExitCluster.clusterElements(0)))) // TODO remove this hack
+          Future.successful(Redirect(routes.ExitController.begin()).withSession(addCurrentIndex(session, ExitCluster.clusterElements(0)))) // TODO remove this hack
         }
       }
     )
-    }
   }
-
 }
