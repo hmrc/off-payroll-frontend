@@ -28,6 +28,9 @@ import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, peek, pop}
 import play.api.data.Forms.text
 import play.api.mvc._
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack
+import play.api.Play._
+import play.api.i18n.Messages.Implicits._
+
 
 import scala.concurrent.Future
 
@@ -75,9 +78,12 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
 
   def checkElementIndex(message: String, maybeElement: Option[Element])(f: Element => Future[Result])(implicit request: Request[_]): Future[Result] = {
     val indexElement = InterviewSessionStack.currentIndex(request.session)
-    maybeElement.fold(Future.successful(BadRequest(s"bad - missing element at $indexElement"))){ element =>
+    maybeElement.fold {
+      Logger.error("could not find index in session, redirecting to the start")
+      Future.successful(Redirect(routes.SetupController.begin))
+      }{ element =>
       if (element != indexElement) {
-        Future.successful(BadRequest(s"bad ($message) got ${element.questionTag}, index is ${indexElement.questionTag}"))
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.multipleInterview()))
       }
       else {
         f(element)

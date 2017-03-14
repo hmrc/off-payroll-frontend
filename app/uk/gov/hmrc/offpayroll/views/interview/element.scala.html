@@ -111,12 +111,6 @@
                         }
                         <li>Current currentElement: @element.toString</li>
         </ul>
-        <ul>
-                        <li><b>Headers</b></li>
-                        @for((key, value) <- request.headers.headers) {
-                            <li>@key -> @value</li>
-                        }
-        </ul>
         <p>Interview:</p>
         @if(request.session.data.get("interview").isDefined) {
             <ul>
