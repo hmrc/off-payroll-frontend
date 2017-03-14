@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.api.Logger
+import play.api.{Logger, Play}
 import play.api.Play.current
 import play.api.data.Form
 import play.api.data.Forms.{single, _}
@@ -68,6 +68,7 @@ class SetupController @Inject() extends OffPayrollController {
   private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
     val fieldName = element.questionTag
     val form = createForm(element)
+    val exitController = Play.routesCompilerMaybeApplication.get.injector.instanceOf[ExitController]
 
     form.bindFromRequest.fold(
       formWithErrors => {
@@ -93,7 +94,8 @@ class SetupController @Inject() extends OffPayrollController {
         }
         else {
           // ExitCluster
-          Future.successful(Redirect(routes.ExitController.begin()).withSession(addCurrentIndex(session, ExitCluster.clusterElements(0)))) // TODO remove this hack
+//          Future.successful(Redirect(routes.ExitController.begin()).withSession(addCurrentIndex(session, ExitCluster.clusterElements(0)))) // TODO remove this hack
+          Future.successful(Redirect(routes.ExitController.begin()).withSession(InterviewSessionStack.addCurrentIndex(session, exitController.startElement)))
         }
       }
     )

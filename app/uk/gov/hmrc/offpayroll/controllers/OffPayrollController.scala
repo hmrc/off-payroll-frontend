@@ -27,10 +27,9 @@ import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, Webflow}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, peek, pop}
 import play.api.data.Forms.text
 import play.api.mvc._
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack
+import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack}
 import play.api.Play._
 import play.api.i18n.Messages.Implicits._
-
 
 import scala.concurrent.Future
 
@@ -62,15 +61,16 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
   }
 
   def begin() = Action.async { implicit request =>
-
-    val element = flow.getStart(asMap(request.session))
-
-    element.fold (
+    maybeStartElement.fold (
       Future.successful(Redirect(routes.SetupController.begin).withSession(request.session))
     ) (
       beginSuccess(_)
     )
   }
+
+  private def maybeStartElement(implicit request: Request[AnyContent]) = flow.getStart(asMap(request.session))
+
+  def startElement(implicit request: Request[AnyContent]) = maybeStartElement.getOrElse(ElementProvider.toElements(0))
 
   def beginSuccess(element: Element)(implicit request:Request[AnyContent]): Future[Result]
 
