@@ -26,10 +26,8 @@ import play.api.i18n.Messages.Implicits._
 import play.api.mvc.{Action, AnyContent, Request, Result}
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models._
-import uk.gov.hmrc.offpayroll.services.FragmentService
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack._
-import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 
@@ -46,7 +44,7 @@ class SetupController @Inject() extends OffPayrollController {
 
   val flow = SetupFlow
   val SETUP_CLUSTER_ID = 0
-  @Inject var exitController: ExitController = null
+  val exitController = ExitController.apply
 
   override def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
 

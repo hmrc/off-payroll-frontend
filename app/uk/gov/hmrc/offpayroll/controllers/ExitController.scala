@@ -24,10 +24,9 @@ import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, ExitReason, PersonalServiceCluster}
-import uk.gov.hmrc.offpayroll.services.IR35FlowService
+import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, pop, push}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, push}
 
 import scala.concurrent.Future
 
@@ -44,7 +43,7 @@ class ExitController  @Inject() extends OffPayrollController {
 
   val flow = ExitFlow
   val EXIT_CLUSTER_ID: Int = 0
-  @Inject var interviewController: InterviewController = null
+  val interviewController = InterviewController()
 
 
   def beginSuccess(element: Element)(implicit request: Request[AnyContent]) = {
