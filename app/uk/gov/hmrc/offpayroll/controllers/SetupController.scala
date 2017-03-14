@@ -46,6 +46,7 @@ class SetupController @Inject() extends OffPayrollController {
 
   val flow = SetupFlow
   val SETUP_CLUSTER_ID = 0
+  @Inject var exitController: ExitController = null
 
   override def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
 
@@ -68,7 +69,6 @@ class SetupController @Inject() extends OffPayrollController {
   private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
     val fieldName = element.questionTag
     val form = createForm(element)
-    val exitController = Play.routesCompilerMaybeApplication.get.injector.instanceOf[ExitController]
 
     form.bindFromRequest.fold(
       formWithErrors => {
@@ -94,7 +94,6 @@ class SetupController @Inject() extends OffPayrollController {
         }
         else {
           // ExitCluster
-//          Future.successful(Redirect(routes.ExitController.begin()).withSession(addCurrentIndex(session, ExitCluster.clusterElements(0)))) // TODO remove this hack
           Future.successful(Redirect(routes.ExitController.begin()).withSession(InterviewSessionStack.addCurrentIndex(session, exitController.startElement)))
         }
       }

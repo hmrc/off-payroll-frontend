@@ -44,6 +44,7 @@ class ExitController  @Inject() extends OffPayrollController {
 
   val flow = ExitFlow
   val EXIT_CLUSTER_ID: Int = 0
+  @Inject var interviewController: InterviewController = null
 
 
   def beginSuccess(element: Element)(implicit request: Request[AnyContent]) = {
@@ -67,7 +68,6 @@ class ExitController  @Inject() extends OffPayrollController {
   private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
     val fieldName = element.questionTag
     val form = createForm(element)
-    val interviewController = Play.routesCompilerMaybeApplication.get.injector.instanceOf[InterviewController]
 
     form.bindFromRequest.fold(
       formWithErrors => {
@@ -84,7 +84,6 @@ class ExitController  @Inject() extends OffPayrollController {
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.hardDecision()))
         } else {
           Future.successful(Redirect(routes.InterviewController.begin).
-//            withSession(InterviewSessionStack.addCurrentIndex(session, IR35FlowService().getStart(asMap(session)).getOrElse(PersonalServiceCluster.clusterElements(0))))) // TODO remove the hack here
             withSession(InterviewSessionStack.addCurrentIndex(session, interviewController.startElement)))
         }
       }
