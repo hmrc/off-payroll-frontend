@@ -1,0 +1,43 @@
+@import uk.gov.hmrc.offpayroll.controllers.PrintResult
+@(interview: List[(String, List[String])], printResult: PrintResult)(implicit request: Request[_], messages: Messages)
+
+<table>
+    <tr>
+        <th>Checked by</th>
+        <td>@printResult.completedBy</td>
+    </tr>
+    <tr>
+        <th>End client's name</th>
+        <td>@printResult.client</td>
+    </tr>
+    <tr>
+        <th>Engagement job title</th>
+        <td>@printResult.job</td>
+    </tr>
+    <tr>
+        <th>Reference</th>
+        <td>@printResult.reference</td>
+    </tr>
+</table>
+
+<div class="transaction-banner--complete">
+    <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(printResult.esi + "." + printResult.decisionResult)</span>
+</div>
+
+
+
+@resultDecisionExplained_template(printResult.esi, printResult.decisionResult)
+@resultNextSteps_template(printResult.esi, printResult.decisionResult)
+
+<h2 class="heading-medium">Your answers</h2>
+<ol id="yourAnswers">
+    @for((key, value) <- interview) {
+        <li class="section divider--bottom"><h3>@messages(key)</h3>
+            @for(child <- value) {
+                <div id="answer.@key" class="panel-indent">@messages(child)</div>
+            }
+        </li>
+    }
+</ol>
+
+@printResult.completedBy

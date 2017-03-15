@@ -6,7 +6,7 @@
 @import uk.gov.hmrc.offpayroll.controllers.FormatPrint
 @import play.api.Play
 
-@(esi: Boolean , decision: String)(implicit request: Request[_], messages: Messages)
+@(esi: Boolean , decisionResult: String, decisionVersion: String, compressedInterview: String)(implicit request: Request[_], messages: Messages)
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(
     title = Messages("format print"),
@@ -19,11 +19,12 @@
     <p class="form-field--hint">
         You can add some information to this page before you print it. This is for your reference only and won't be stored by HMRC. All fields are optional
     </p>
-    @helpers.form(routes.PrintController.format, 'id -> "resultData") {
+    @helpers.form(routes.PrintController.printResult, 'id -> "resultData") {
 
         <input type="hidden" name="esi" value="@esi" />
-        <input type="hidden" name="decision" value="@decision" />
-
+        <input type="hidden" name="decisionResult" value="@decisionResult" />
+        <input type="hidden" name="compressedInterview" value="@compressedInterview" />
+        <input type="hidden" name="decisionVersion" value="@decisionVersion" />
         <fieldset class="form-field-group">
             <div class="form-field">
                 <label>

@@ -1,0 +1,59 @@
+@(esi: Boolean, decision: String)
+
+@decision match {
+    case "IN" => {
+        @if(esi) {
+            <h2>You should now do the following:</h2>
+            <p>If you’re the engager you need to <a href="https://www.gov.uk/paye-for-employers/paye-and-payroll" target="_blank" rel="external">operate PAYE</a>  for this worker.</p>
+            <p>If you’re the worker you should tell your engager to operate PAYE for you.</p>
+            <h2>About this result</h2>
+            <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+            <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+            <p>HMRC won’t stand by results achieved through contrived arrangements designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.</p>
+            <p>HMRC can review your taxes for up to 20 years</p>
+
+        }else{
+            <h2>You should now do the following:</h2>
+            <h3>Public sector</h3>
+            <p>If you’re the worker you should tell the organisation that pays your fees (the fee payer) to deduct tax and National Insurance from your payment.</p>
+            <p>If you’re the fee payer you need to deduct tax and NationalInsurance from the
+                <b><a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3140" target="_blank" rel="external">worker’s deemed employment payment(s)</a></b>
+                during this engagement.</p>
+            <h3>Private sector</h3>
+            <p>If you’re the worker you need to follow <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" target="_blank" rel="external">this guidance about your taxes.</a></p>
+            <h2>About this result</h2>
+            <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+            <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+            <p>HMRC won’t stand by results achieved through contrived arrangements designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.</p>
+            <p>HMRC can review your taxes for up to 20 years.</p>
+            <p>The intermediaries legislation will only apply where the worker’s business (the intermediary) satisfies <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm3100" target="_blank" rel="external">these specific conditions of liability.</a></p>
+        }
+    }
+    case "OUT" => {
+        @if(esi) {
+            <h2>You should now do the following:</h2>
+            <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/browse/business/business-tax" target="_blank" rel="external">this guidance about your taxes</a>.</p>
+            <p>If you’re the engager you can pay this worker a gross amount without deducting tax or National Insurance.</p>
+            <h2>About this result</h2>
+            <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+            <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+            <p>HMRC won’t stand by results achieved through contrived arrangements designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.</p>
+            <p>HMRC can review your taxes for up to 20 years</p>
+        }else{
+            <h2>You should now do the following:</h2>
+            <p>If you’re the worker you should be paid a gross amount and follow <a href="https://www.gov.uk/browse/business/business-tax" target="_blank" rel="external">this guidance about your taxes.</a></p>
+            <p>If you’re the fee payer you can pay this worker a gross amount without deducting tax or National Insurance.</p>
+            <h2>About this result</h2>
+            <p>HMRC won’t keep a record of this transaction for security reasons.</p>
+            <p>HMRC will stand by the result given unless a compliance check finds the information provided isn’t accurate.</p>
+            <p>HMRC won’t stand by results achieved through contrived arrangements designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.</p>
+            <p>HMRC can review your taxes for up to 20 years</p>
+        }
+    }
+    case "UNKNOWN" => {
+        <p>Please contact HMRC’s Employment Status and Intermediaries helpline for advice, either by phone on <span style="white-space: nowrap">0300 123 2326</span>, or by email at <a href="mailto:ir35@@hmrc.gov.uk">ir35@@hmrc.gov.uk</a></p>
+    }
+    case _ => {
+        <p>Please contact HMRC’s Employment Status and Intermediaries helpline for advice, either by phone on <span style="white-space: nowrap">0300 123 2326</span>, or by email at <a href="mailto:ir35@@hmrc.gov.uk">ir35@@hmrc.gov.uk</a></p>
+    }
+}

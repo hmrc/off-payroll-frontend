@@ -153,8 +153,8 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
             form, interviewEvaluation.element.head, fragmentService.getFragmentByName(interviewEvaluation.element.head.questionTag)))
             .withSession(session)
         } else {
-          logResponse(interviewEvaluation.decision, session, correlationId)
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head, asRawList(session), esi(asMap(session))))
+          val compressedInterview = logResponse(interviewEvaluation.decision, session, correlationId)
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head, asRawList(session), esi(asMap(session)), compressedInterview))
         }
       }
     )
@@ -166,13 +166,15 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
       }
   }
 
-  private def logResponse(maybeDecision: Option[Decision], session: Session, correlationId: String): Unit =
-    session.get("interview").fold(Logger.error("interview is empty")) { compressedInterview =>
+  private def logResponse(maybeDecision: Option[Decision], session: Session, correlationId: String): String =
+    session.get("interview").fold{Logger.error("interview is empty")
+      ""} { compressedInterview =>
       val esiOrIr35Route = if (esi(asMap(session))) "ESI" else "IR35"
       val version = maybeDecision.map(_.version).getOrElse("unknown")
       val decision = maybeDecision.map(_.decision).getOrElse("decision is not known").toString
       val responseBody = Json.toJson(DecisionResponse(compressedInterview, esiOrIr35Route, version, correlationId, decision))
       Logger.info(s"DECISION: ${responseBody.toString.replaceAll("\"", "")}")
+      compressedInterview
     }
 }
 

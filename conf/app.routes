@@ -13,4 +13,4 @@ GET     /exit/back                              @uk.gov.hmrc.offpayroll.controll
 POST    /exit/element/:elementID                @uk.gov.hmrc.offpayroll.controllers.ExitController.processElement(elementID: Int)
 
 POST    /decision/format                        @uk.gov.hmrc.offpayroll.controllers.PrintController.format
-#POST    /decision/print
+POST    /decision/print                         @uk.gov.hmrc.offpayroll.controllers.PrintController.printResult

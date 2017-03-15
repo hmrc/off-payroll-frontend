@@ -24,6 +24,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc.Action
+import uk.gov.hmrc.offpayroll.util.CompressedInterview
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
@@ -36,7 +37,9 @@ class PrintController @Inject() extends FrontendController {
     val formatPrint = Form(
       mapping(
         "esi" -> boolean,
-        "decision" -> nonEmptyText
+        "decisionResult" -> nonEmptyText,
+        "decisionVersion" -> nonEmptyText,
+        "compressedInterview" -> nonEmptyText
       )(FormatPrint.apply)(FormatPrint.unapply)
     )
 
@@ -45,13 +48,39 @@ class PrintController @Inject() extends FrontendController {
         throw new Exception("Hidden fields missing from the form") // fixme make this the correct type of Exception
       },
       formSuccess => {
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess.esi, formSuccess.decision)))
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess.esi, formSuccess.decisionResult, formSuccess.decisionVersion, formSuccess.compressedInterview)))
       }
       )
   }
 
+  def printResult = Action.async { implicit request =>
+
+    val printPrint = Form(
+      mapping(
+        "esi" -> boolean,
+        "decisionResult" -> nonEmptyText,
+        "decisionVersion" -> nonEmptyText,
+        "compressedInterview" -> nonEmptyText,
+        "completedBy" -> text,
+        "client" -> text,
+        "job" -> text,
+        "reference" -> text
+      )(PrintResult.apply)(PrintResult.unapply)
+    )
+
+    printPrint.bindFromRequest.fold (
+      formWithErrors => {
+        throw new Exception("Hidden fields missing from the form") // fixme make this the correct type of Exception
+      },
+      printResult => {
+        val interview = CompressedInterview(printResult.compressedInterview).asRawList
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)))
+      }
+    )
+  }
+
 }
 
-case class FormatPrint(esi: Boolean, decision: String)
+case class FormatPrint(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String)
 
-
+case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, completedBy: String, client: String, job: String, reference: String )
