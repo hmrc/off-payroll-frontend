@@ -20,8 +20,8 @@ object MainObject extends App {
 
   println("interview decompressor hello world")
 
-  val interviews = List("D6iw9Vb3C", "6e9AH4HUm", "7x0q00uiW")
-  for (interview <- interviews) {
+  if (args.length == 1){
+    val interview = args(0)
     val values = CompressedInterview(interview).asList
     println(s"interview $interview:")
     println
@@ -29,7 +29,19 @@ object MainObject extends App {
       println(s"$q -> $a")
     }
     println
-    println
+  }
+  else {
+    val interviews = List("D6iw9Vb3C", "6e9AH4HUm", "7x0q00uiW")
+    for (interview <- interviews) {
+      val values = CompressedInterview(interview).asList
+      println(s"interview $interview:")
+      println
+      for ((q,a) <- values){
+        println(s"$q -> $a")
+      }
+      println
+      println
+    }
   }
 
 }
