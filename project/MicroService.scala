@@ -62,16 +62,13 @@ private object TestPhases {
 }
 
 object AssemblySettings{
-  val excludeJars = List("netty", "spring", "metrics", "play-ui", "frontend-bootstrap", "commons-logging",
-  "crypto_", "secure_", "play-filters", "play-auditing", "http-verbs", "time", "http-exceptions", "play-graphite",
-  "play-partials", "play-authorised", "domain", "play-config", "play-json", "govuk-template", "play-health")
-  def exclude(name: String) = excludeJars.exists(name.startsWith(_))
+  val includeJars = List("scala-library")
+  def include(name: String) = includeJars.exists(name.startsWith(_))
   def apply()= Seq(
     assemblyJarName in assembly := "interview-decompressor.jar",
     assemblyExcludedJars in assembly := {
       val cp = (fullClasspath in assembly).value
-      cp.foreach(a => println(a.data.getName))
-      cp filter {a => exclude(a.data.getName)}
+      cp filterNot {a => include(a.data.getName)}
     },
     mainClass in assembly := Some("uk.gov.hmrc.offpayroll.util.MainObject")
   )
