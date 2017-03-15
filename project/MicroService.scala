@@ -70,6 +70,6 @@ object AssemblySettings{
       val cp = (fullClasspath in assembly).value
       cp filterNot {a => include(a.data.getName)}
     },
-    mainClass in assembly := Some("uk.gov.hmrc.offpayroll.util.MainObject")
+    mainClass in assembly := Some("uk.gov.hmrc.offpayroll.util.InterviewDecompressor")
   )
 }

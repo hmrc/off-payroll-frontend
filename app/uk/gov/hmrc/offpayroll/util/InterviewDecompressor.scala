@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.offpayroll.util
 
-object MainObject extends App {
+object InterviewDecompressor extends App {
 
-  println("interview decompressor hello world")
+  println("interview decompressor - hello")
 
   if (args.length == 1){
     val interview = args(0)
