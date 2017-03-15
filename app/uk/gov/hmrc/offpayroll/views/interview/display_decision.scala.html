@@ -13,7 +13,7 @@
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
-        title = Messages(esi + "." + decision.decision.value),
+        title = Messages(esi + "." + decision.decision),
         bodyClasses = None,
         mainClass = Option("decision"),
         virtualPage = Some("decisionDisplay")
@@ -25,14 +25,14 @@
                     <div class="transaction-banner--complete">
                         <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(esi + "." + decision.decision)</span>
                     </div>
-            <form method="get" id="resultData" action="#">
+            @helpers.form(routes.PrintController.format, 'id -> "resultData") {
                 <input type="hidden" name="esi" value="@esi" />
                 <input type="hidden" name="decision" value="@decision.decision" />
                 <div  class="indent-warning">
                     <div>HMRC will not keep a record of this transaction for security reasons.</div>
                     <button class="button button--link">Please print a copy for your records</button>
                 </div>
-            </form>
+                }
             @if(esi) {
 
                 @decision.decision match {
