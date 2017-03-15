@@ -18,15 +18,14 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.api.{Logger, Play}
+import play.api.Logger
 import play.api.Play.current
 import play.api.data.Form
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, push}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, push, addCurrentIndex}
 
 import scala.concurrent.Future
 
@@ -83,7 +82,7 @@ class ExitController  @Inject() extends OffPayrollController {
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.hardDecision()))
         } else {
           Future.successful(Redirect(routes.InterviewController.begin).
-            withSession(InterviewSessionStack.addCurrentIndex(session, interviewController.startElement)))
+            withSession(addCurrentIndex(session, interviewController.startElement)))
         }
       }
     )
