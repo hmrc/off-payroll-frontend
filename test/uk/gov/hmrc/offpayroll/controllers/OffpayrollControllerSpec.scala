@@ -25,6 +25,8 @@ import uk.gov.hmrc.offpayroll.models.{CHECKBOX, Cluster, Element, Webflow}
 import uk.gov.hmrc.play.http.HeaderCarrier
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
+import scala.concurrent.Future
+
 
 class OffpayrollControllerSpec extends UnitSpec with MockitoSugar  with WithFakeApplication with ScalaFutures {
 
@@ -72,7 +74,7 @@ class TestOffpayrollController (mockResult: Result) extends OffPayrollController
 
     override def getElementById(clusterId: Int, elementId: Int): Option[Element] = optionMockElement
 
-    override def getStart(interview: Map[String, String]): Element = mockElement
+    override def getStart(interview: Map[String, String]): Option[Element] = Some(mockElement)
 
     override def clusters: List[Cluster] = List(mockCluster)
 
@@ -86,4 +88,6 @@ class TestOffpayrollController (mockResult: Result) extends OffPayrollController
   override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result = mockResult
 
   override def redirect: Result = mockResult
+
+  override def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = Future(mockResult)
 }

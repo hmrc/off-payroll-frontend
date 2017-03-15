@@ -23,12 +23,10 @@ import play.api.Play.current
 import play.api.data.Form
 import play.api.data.Forms.{single, _}
 import play.api.i18n.Messages.Implicits._
-import play.api.mvc.{Action, Request, Result}
+import play.api.mvc.{Action, Request, Result, AnyContent}
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupCluster, SetupFlow}
-import uk.gov.hmrc.offpayroll.services.FragmentService
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, pop, push, reset}
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import uk.gov.hmrc.offpayroll.models.{Element, ExitReason, SetupFlow}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{reset, push, asMap, addCurrentIndex}
 
 import scala.concurrent.Future
 
@@ -45,16 +43,13 @@ class SetupController @Inject() extends OffPayrollController {
 
   val flow = SetupFlow
   val SETUP_CLUSTER_ID = 0
+  val exitController = ExitController.apply
 
-  //todo shouldn't need the clusterId
-  def begin(clusterId: Int = 0) = Action.async { implicit request =>
+  override def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
 
-    val element = flow.getStart(asMap(request.session))
-    val questionForm = createForm(element)
     val session = reset(request.session)
-
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(questionForm, element,
-      fragmentService.getFragmentByName(element.questionTag))).withSession(session))
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(emptyForm, element,
+      fragmentService.getFragmentByName(element.questionTag))).withSession(addCurrentIndex(session,element)))
   }
 
   override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
@@ -64,8 +59,11 @@ class SetupController @Inject() extends OffPayrollController {
 
 
   def processElement(elementID: Int) = Action.async { implicit request =>
+    val maybeElement = flow.getElementById(SETUP_CLUSTER_ID, elementID).orElse(flow.getStart(asMap(request.session)))
+    checkElementIndex("setup", maybeElement)(doProcessElement)
+  }
 
-    val element = flow.getElementById(SETUP_CLUSTER_ID, elementID).getOrElse(flow.getStart(asMap(request.session)))
+  private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
     val fieldName = element.questionTag
     val form = createForm(element)
 
@@ -73,7 +71,8 @@ class SetupController @Inject() extends OffPayrollController {
       formWithErrors => {
         Future.successful(BadRequest(
           uk.gov.hmrc.offpayroll.views.html.interview.setup(
-            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag)))) },
+            formWithErrors, element, fragmentService.getFragmentByName(element.questionTag))))
+      },
 
       value => {
         val session = push(request.session, value, element)
@@ -83,19 +82,18 @@ class SetupController @Inject() extends OffPayrollController {
           // continue setup
           Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.setup(form, setupResult.maybeElement.get,
             fragmentService.getFragmentByName(setupResult.maybeElement.get.questionTag)))
-            .withSession(session)
+            .withSession(addCurrentIndex(session, setupResult.maybeElement.get))
           )
         } else if (setupResult.exitTool) {
           val exitReason = ExitReason("exitTool.soleTrader.heading", "exitTool.soleTrader.reason", "exitTool.soleTrader.explanation")
-          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason)))
+          Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.exitTool(exitReason))
+            .withSession(session))
         }
         else {
           // ExitCluster
-          Future.successful(Redirect(routes.ExitController.begin()).withSession(session))
+          Future.successful(Redirect(routes.ExitController.begin()).withSession(addCurrentIndex(session, exitController.startElement)))
         }
       }
     )
   }
-
-
 }

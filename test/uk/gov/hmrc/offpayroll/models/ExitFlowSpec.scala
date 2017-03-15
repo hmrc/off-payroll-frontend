@@ -28,9 +28,11 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
   private val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
   private val emptyInterview = Map[String, String]()
 
+  val start = ExitFlow.getStart(emptyInterview)
 
   "An ExitFlow " should "get the start Element from the ExitCluster " in {
-   ExitFlow.getStart(emptyInterview).questionTag shouldBe "exit.officeHolder"
+    start.isDefined shouldBe true
+    start.get.questionTag shouldBe "exit.officeHolder"
   }
 
   it should "have an exit cluster " in {
@@ -38,15 +40,16 @@ class ExitFlowSpec  extends FlatSpec with Matchers {
   }
 
   it should "get an element by its tag name" in {
-    ExitFlow.getElementByTag("exit.officeHolder").nonEmpty shouldBe true
+    ExitFlow.getElementByTag("exit.officeHolder").isDefined shouldBe true
   }
 
   it should "get an element bu its id and cluster id " in {
-    ExitFlow.getElementById(0,0).nonEmpty shouldBe true
+    ExitFlow.getElementById(0,0).isDefined shouldBe true
   }
 
   it should "get the next element will be empty as we have one Question" in {
-    ExitFlow.getNext(ExitFlow.getStart(emptyInterview)).nonEmpty shouldBe false
+    start.isDefined shouldBe true
+    ExitFlow.getNext(start.get).isDefined shouldBe false
   }
 
   it should "indicate that office holder was yes and an in IR35 Decision has been reached " in {

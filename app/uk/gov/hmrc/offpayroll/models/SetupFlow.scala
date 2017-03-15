@@ -27,7 +27,7 @@ object SetupFlow extends Webflow {
 
   override def getNext(currentElement: Element): Option[Element] = getNext(currentElement, setupCluster)
 
-  override def getStart(interview: Map[String, String]): Element = setupCluster.getStart(interview)
+  override def getStart(interview: Map[String, String]): Option[Element] = setupCluster.getStart(interview)
 
   override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
     if(clusterId == 0 && elementId < setupCluster.clusterElements.size) Option(setupCluster.clusterElements(elementId))

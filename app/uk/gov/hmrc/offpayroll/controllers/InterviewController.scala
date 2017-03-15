@@ -30,7 +30,8 @@ import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models.{Decision, Element, GROUP, Webflow}
-import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService, InterviewEvaluation}
+import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList, push}
 
 import scala.concurrent.Future
@@ -80,26 +81,24 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffPayrollController {
 
-
   val flow: Webflow = flowService.flow
 
-  def begin = Action.async { implicit request =>
-
-    val element = flowService.getStart(asMap(request.session))
-    val form = createForm(element)
-
-    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(form, element,
+  override def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
+    Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(emptyForm, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
 
   override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
-    Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
+  Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
 
   override def redirect: Result = Redirect(routes.ExitController.back)
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
-
     val element = flowService.getAbsoluteElement(clusterID, elementID)
+    checkElementIndex("interview", Some(element))(doProcessElement)
+  }
+
+  private def doProcessElement(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
     val fieldName = element.questionTag
 
     element.elementType match {
@@ -108,7 +107,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         newForm.fold(
           formWithErrors => handleFormError(element, fieldName, newForm, formWithErrors),
           value => {
-            evaluateInteview(element, fieldName, value.mkString("|","|",""), newForm)
+            evaluateInteview(element, fieldName, value.mkString("|", "|", ""), newForm)
           }
         )
 
@@ -126,10 +125,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
       }
     }
 
-
-
   }
-
 
   private def handleFormError(element: Element, fieldName: String, newForm: Form[_], formWithErrors: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + newForm.data.mkString("~"))
@@ -145,21 +141,22 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), correlationId)
 
     result.map(
-      interviewEvaluation => {
-        if (interviewEvaluation.continueWithQuestions) {
+    decision => {
+        if (decision.continueWithQuestions) {
           Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
-            form, interviewEvaluation.element.head, fragmentService.getFragmentByName(interviewEvaluation.element.head.questionTag)))
-            .withSession(session)
+          form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
+            .withSession(InterviewSessionStack.addCurrentIndex(session, decision.element.head))
         } else {
-          logResponse(interviewEvaluation.decision, session, correlationId)
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head, asRawList(session), esi(asMap(session))))
+	        logResponse(decision.decision, session, correlationId)
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asRawList(session), esi(asMap(session))))
+            .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
         }
       }
     )
   }
 
   private def esi(interview: Map[String, String]): Boolean = {
-      interview.exists{
+    interview.exists{
         case (question, answer) => "setup.provideServices.soleTrader" == answer
       }
   }

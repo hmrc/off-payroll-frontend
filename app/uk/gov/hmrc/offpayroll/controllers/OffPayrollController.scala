@@ -23,10 +23,13 @@ import play.api.data.Form
 import play.api.data.Forms.single
 import play.api.mvc.{Request, Result}
 import play.twirl.api.Html
-import uk.gov.hmrc.offpayroll.models.{Element, ExitFlow, Webflow}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{peek, pop}
+import uk.gov.hmrc.offpayroll.models.{Element, Webflow}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, peek, pop}
 import play.api.data.Forms.text
 import play.api.mvc._
+import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack}
+import play.api.Play._
+import play.api.i18n.Messages.Implicits._
 
 import scala.concurrent.Future
 
@@ -51,11 +54,40 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
       case Some(element) => {
         val (session, questionTag) = pop(request.session)
         Future.successful(displaySuccess(element, emptyForm)
-        (fragmentService.getFragmentByName(element.questionTag)).withSession(session))
+        (fragmentService.getFragmentByName(element.questionTag)).withSession(InterviewSessionStack.addCurrentIndex(session, element)))
       }
       case None => Future.successful(redirect.withSession(peekSession))
     }
   }
 
+  def begin() = Action.async { implicit request =>
+    maybeStartElement.fold (
+      Future.successful(Redirect(routes.SetupController.begin).withSession(request.session))
+    ) (
+      beginSuccess(_)
+    )
+  }
+
+  private def maybeStartElement(implicit request: Request[AnyContent]) = flow.getStart(asMap(request.session))
+
+  def startElement(implicit request: Request[AnyContent]) = maybeStartElement.getOrElse(ElementProvider.toElements(0))
+
+  def beginSuccess(element: Element)(implicit request:Request[AnyContent]): Future[Result]
+
   val emptyForm = Form(single("" -> text))
+
+  def checkElementIndex(message: String, maybeElement: Option[Element])(f: Element => Future[Result])(implicit request: Request[_]): Future[Result] = {
+    val indexElement = InterviewSessionStack.currentIndex(request.session)
+    maybeElement.fold {
+      Logger.error("could not find index in session, redirecting to the start")
+      Future.successful(Redirect(routes.SetupController.begin))
+      }{ element =>
+      if (element != indexElement) {
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.multipleInterview()))
+      }
+      else {
+        f(element)
+      }
+    }
+  }
 }
