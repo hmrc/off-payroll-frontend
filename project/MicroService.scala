@@ -1,7 +1,9 @@
 import sbt.Keys._
-import sbt.Tests.{SubProcess, Group}
+import sbt.Tests.{Group, SubProcess}
 import sbt._
 import play.routes.compiler.StaticRoutesGenerator
+import sbtassembly.AssemblyKeys.{assembly, assemblyJarName, assemblyExcludedJars}
+import sbtassembly.{MergeStrategy, PathList}
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 
 
@@ -44,10 +46,11 @@ trait MicroService {
       addTestReportOption(IntegrationTest, "int-test-reports"),
       testGrouping in IntegrationTest := oneForkedJvmPerTest((definedTests in IntegrationTest).value),
       parallelExecution in IntegrationTest := false)
-      .settings(resolvers ++= Seq(
-        Resolver.bintrayRepo("hmrc", "releases"),
-        Resolver.jcenterRepo
-      ))
+    .settings(resolvers ++= Seq(
+      Resolver.bintrayRepo("hmrc", "releases"),
+      Resolver.jcenterRepo
+    ))
+    .settings(AssemblySettings())
 }
 
 private object TestPhases {
@@ -56,4 +59,20 @@ private object TestPhases {
     tests map {
       test => new Group(test.name, Seq(test), SubProcess(ForkOptions(runJVMOptions = Seq("-Dtest.name=" + test.name))))
     }
+}
+
+object AssemblySettings{
+  val excludeJars = List("netty", "spring", "metrics", "play-ui", "frontend-bootstrap", "commons-logging",
+  "crypto_", "secure_", "play-filters", "play-auditing", "http-verbs", "time", "http-exceptions", "play-graphite",
+  "play-partials", "play-authorised", "domain", "play-config", "play-json", "govuk-template", "play-health")
+  def exclude(name: String) = excludeJars.exists(name.startsWith(_))
+  def apply()= Seq(
+    assemblyJarName in assembly := "interview-decompressor.jar",
+    assemblyExcludedJars in assembly := {
+      val cp = (fullClasspath in assembly).value
+      cp.foreach(a => println(a.data.getName))
+      cp filter {a => exclude(a.data.getName)}
+    },
+    mainClass in assembly := Some("uk.gov.hmrc.offpayroll.util.MainObject")
+  )
 }
