@@ -18,7 +18,10 @@ package uk.gov.hmrc.offpayroll.util
 
 import java.io.{File, PrintWriter}
 
+import uk.gov.hmrc.offpayroll.util.InterviewDecompressorFormatter.{asCsvHeader, asCsvLine}
+
 import scala.io.Source
+import scala.util.{Failure, Success, Try}
 
 object InterviewDecompressor extends App {
 
@@ -39,13 +42,22 @@ object InterviewDecompressor extends App {
   }
   else if (args.length == 2) {
     val pw = new PrintWriter(new File(args(1)))
-    for ((line, index) <- Source.fromFile(args(0)).getLines().zipWithIndex){
-      val compressedInterview = line.trim().replaceAll(",", "")
-      if (index == 0)
-        pw.println("interview, " + InterviewDecompressorFormatter.asCsvHeader(compressedInterview))
-      pw.println(compressedInterview + ", " + InterviewDecompressorFormatter.asCsvLine(compressedInterview))
+    readCompressedInterviews(args(1)) match {
+      case Success(compressedInterviews) =>
+        for ((line, index) <- compressedInterviews.zipWithIndex){
+          val compressedInterview = line.trim().replaceAll(",", "")
+          if (index == 0)
+            pw.println("interview, " + asCsvHeader(compressedInterview))
+          pw.println(compressedInterview + ", " + asCsvLine(compressedInterview))
+        }
+        pw.close
+      case Failure(e) =>
+        println(s"could not read compressed interviews from file - ${e.getMessage}")
     }
-    pw.close
+  }
+
+  def readCompressedInterviews(file: String): Try[List[String]] = {
+    Try(Source.fromFile(args(0)).getLines().map(_.trim().replaceAll(",", "")).toList)
   }
 
 }
