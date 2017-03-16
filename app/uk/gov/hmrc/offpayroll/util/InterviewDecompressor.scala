@@ -60,11 +60,11 @@ object InterviewDecompressor extends App {
           pw.println("interview, " + asCsvHeader(compressedInterview))
         pw.println(compressedInterview + ", " + asCsvLine(compressedInterview))
       }
-    }).map(_ => "Done")
+    }).map(_ => s"done, decompressed ${compressedInterviews.size} interviews")
   }
 
   def readCompressedInterviews(file: String): Try[List[String]] =
-    Try(Source.fromFile(file).getLines().map(_.trim().replaceAll(",", "")).toList)
+    Try(Source.fromFile(file).getLines().map(_.span(_ != ',')._1.trim).toList)
 
   private def using[R <: { def close(): Unit }, B](resource: R)(f: R => B): B = try { f(resource) } finally { resource.close() }
 
