@@ -71,22 +71,22 @@ object InterviewDecompressor extends App {
 }
 
 object InterviewDecompressorFormatter {
+  private def qaPairs(compressedInterview: String) =
+    CompressedInterview(compressedInterview).asFullList
+
   def asMultiLine(compressedInterview: String): String = {
-    val values = CompressedInterview(compressedInterview).asFullList
     val header = s"interview $compressedInterview:\n\n"
-    val lines = for ((q, a) <- values) yield s"$q -> $a"
+    val lines = for ((q, a) <- qaPairs(compressedInterview)) yield s"$q -> $a"
     header + lines.mkString("\n") + "\n"
   }
 
   def asCsvHeader(compressedInterview: String): String = {
-    val values = CompressedInterview(compressedInterview).asFullList
-    val questions = values.map{ case(q, _) => q }
+    val questions = qaPairs(compressedInterview).map{ case(q, _) => q }
     questions.mkString(", ")
   }
 
   def asCsvLine(compressedInterview: String): String = {
-    val values = CompressedInterview(compressedInterview).asFullList
-    val answers = values.map{ case(_, a) => a.split('.').last }
+    val answers = qaPairs(compressedInterview).map{ case(_, a) => a.split('.').last }
     answers.mkString(", ")
   }
 }
