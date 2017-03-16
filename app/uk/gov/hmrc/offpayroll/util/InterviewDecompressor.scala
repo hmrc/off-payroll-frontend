@@ -41,24 +41,28 @@ object InterviewDecompressor extends App {
     println(InterviewDecompressorFormatter.asMultiLine(args(0)))
   }
   else if (args.length == 2) {
-    val pw = new PrintWriter(new File(args(1)))
     readCompressedInterviews(args(1)) match {
       case Success(compressedInterviews) =>
-        for ((line, index) <- compressedInterviews.zipWithIndex){
-          val compressedInterview = line.trim().replaceAll(",", "")
-          if (index == 0)
-            pw.println("interview, " + asCsvHeader(compressedInterview))
-          pw.println(compressedInterview + ", " + asCsvLine(compressedInterview))
-        }
-        pw.close
+        writeCompressedInterviews(compressedInterviews, args(1))
       case Failure(e) =>
         println(s"could not read compressed interviews from file - ${e.getMessage}")
     }
   }
 
-  def readCompressedInterviews(file: String): Try[List[String]] = {
-    Try(Source.fromFile(args(0)).getLines().map(_.trim().replaceAll(",", "")).toList)
+  private def writeCompressedInterviews(compressedInterviews: List[String], file: String) = {
+    using(new PrintWriter(new File(file))) { pw =>
+      for ((compressedInterview, index) <- compressedInterviews.zipWithIndex) {
+        if (index == 0)
+          pw.println("interview, " + asCsvHeader(compressedInterview))
+        pw.println(compressedInterview + ", " + asCsvLine(compressedInterview))
+      }
+    }
   }
+
+  def readCompressedInterviews(file: String): Try[List[String]] =
+    Try(Source.fromFile(args(0)).getLines().map(_.trim().replaceAll(",", "")).toList)
+
+  private def using[R <: { def close(): Unit }, B](resource: R)(f: R => B): B = try { f(resource) } finally { resource.close() }
 
 }
 
