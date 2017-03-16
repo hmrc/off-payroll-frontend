@@ -16,25 +16,36 @@
 
 package uk.gov.hmrc.offpayroll.util
 
+import java.io.{File, PrintWriter}
+
+import scala.io.Source
+
 object InterviewDecompressor extends App {
 
-  println("interview decompressor - hello")
-
-  if (args.length == 1){
+  if (args.length == 0) {
+    println("interview decompressor - usage:")
+    println("0 arguments - usage")
+    println("1 argument  - compressed_interview_string (e.g. 7x0q00uiW)")
+    println("2 arguments - input_file output_file")
+    println("NOTE - input_file should contain single column with compressed interview strings")
+    println("e.g.:")
+    println("D6iw9Vb3C")
+    println("6e9AH4HUm")
+    println("7x0q00uiW")
+    println("output_file will contain csv representations of corresponding interviews")
+  }
+  else if (args.length == 1){
     println(InterviewDecompressorFormatter.asMultiLine(args(0)))
   }
-  else {
-    val interviews = List("D6iw9Vb3C", "6e9AH4HUm", "7x0q00uiW")
-    for (interview <- interviews) {
-      val values = CompressedInterview(interview).asList
-      println(s"interview $interview:")
-      println
-      for ((q,a) <- values){
-        println(s"$q -> $a")
-      }
-      println
-      println
+  else if (args.length == 2) {
+    val pw = new PrintWriter(new File(args(1)))
+    for ((line, index) <- Source.fromFile(args(0)).getLines().zipWithIndex){
+      val compressedInterview = line.trim().replaceAll(",", "")
+      if (index == 0)
+        pw.println("interview, " + InterviewDecompressorFormatter.asCsvHeader(compressedInterview))
+      pw.println(compressedInterview + ", " + InterviewDecompressorFormatter.asCsvLine(compressedInterview))
     }
+    pw.close
   }
 
 }
@@ -48,14 +59,14 @@ object InterviewDecompressorFormatter {
   }
 
   def asCsvHeader(compressedInterview: String): String = {
-    val values = CompressedInterview(compressedInterview).asList
+    val values = CompressedInterview(compressedInterview).asFullList
     val questions = values.map{ case(q, _) => q }
     questions.mkString(", ")
   }
 
   def asCsvLine(compressedInterview: String): String = {
-    val values = CompressedInterview(compressedInterview).asList
-    val answers = values.map{ case(_, a) => a }
+    val values = CompressedInterview(compressedInterview).asFullList
+    val answers = values.map{ case(_, a) => a.split('.').last }
     answers.mkString(", ")
   }
 }
