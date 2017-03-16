@@ -86,7 +86,7 @@ object InterviewDecompressorFormatter {
   }
 
   def asCsvLine(compressedInterview: String): String = {
-    val answers = qaPairs(compressedInterview).map{ case(_, a) => a.split('.').last }
+    val answers = qaPairs(compressedInterview).map{ case(_, a) => if (a.startsWith("|")) a else a.split('.').last }
     answers.mkString(", ")
   }
 }
