@@ -72,7 +72,7 @@ object InterviewDecompressor extends App {
 
 object InterviewDecompressorFormatter {
   def asMultiLine(compressedInterview: String): String = {
-    val values = CompressedInterview(compressedInterview).asList
+    val values = CompressedInterview(compressedInterview).asFullList
     val header = s"interview $compressedInterview:\n\n"
     val lines = for ((q, a) <- values) yield s"$q -> $a"
     header + lines.mkString("\n") + "\n"
