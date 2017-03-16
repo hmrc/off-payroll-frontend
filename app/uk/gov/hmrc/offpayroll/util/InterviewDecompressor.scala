@@ -21,14 +21,7 @@ object InterviewDecompressor extends App {
   println("interview decompressor - hello")
 
   if (args.length == 1){
-    val interview = args(0)
-    val values = CompressedInterview(interview).asList
-    println(s"interview $interview:")
-    println
-    for ((q,a) <- values){
-      println(s"$q -> $a")
-    }
-    println
+    println(InterviewDecompressorFormatter.asMultiLine(args(0)))
   }
   else {
     val interviews = List("D6iw9Vb3C", "6e9AH4HUm", "7x0q00uiW")
@@ -44,4 +37,25 @@ object InterviewDecompressor extends App {
     }
   }
 
+}
+
+object InterviewDecompressorFormatter {
+  def asMultiLine(compressedInterview: String): String = {
+    val values = CompressedInterview(compressedInterview).asList
+    val header = s"interview $compressedInterview:\n\n"
+    val lines = for ((q, a) <- values) yield s"$q -> $a"
+    header + lines.mkString("\n") + "\n"
+  }
+
+  def asCsvHeader(compressedInterview: String): String = {
+    val values = CompressedInterview(compressedInterview).asList
+    val questions = values.map{ case(q, _) => q }
+    questions.mkString(", ")
+  }
+
+  def asCsvLine(compressedInterview: String): String = {
+    val values = CompressedInterview(compressedInterview).asList
+    val answers = values.map{ case(_, a) => a }
+    answers.mkString(", ")
+  }
 }
