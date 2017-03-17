@@ -34,8 +34,9 @@ class InterviewDecompressorSpec extends FlatSpec with Matchers {
 
   "interview decompressor" should "produce correct csv containing decompressed interviews" in {
     def decompress(baos: ByteArrayOutputStream): Try[String] = {
-      val pw = new PrintWriter(baos)
-      InterviewDecompressor.readCompressedInterviews(inputSource).flatMap(l => InterviewDecompressor.writeCompressedInterviews(l, pw)).map(_ => {pw.close; baos.toString})
+      InterviewDecompressor.readCompressedInterviews(inputSource).flatMap(l => using(new PrintWriter(baos)){pw =>
+        InterviewDecompressor.writeCompressedInterviews(l, pw)
+      }).map(_ => baos.toString)
     }
     val tryString = using(new ByteArrayOutputStream()){ decompress }
     tryString.isSuccess shouldBe true
