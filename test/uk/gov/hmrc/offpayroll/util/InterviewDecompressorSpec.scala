@@ -29,16 +29,19 @@ class InterviewDecompressorSpec extends FlatSpec with Matchers {
   private val ID_RESOURCES_ROOT = "interviewDecompressor"
   private val IN_CSV = s"/$ID_RESOURCES_ROOT/100InterviewsIn.csv"
   private val EXPECTED_OUT_CSV = s"/$ID_RESOURCES_ROOT/100InterviewsOut.csv"
-  val inputSource = Source.fromInputStream(getClass.getResourceAsStream(IN_CSV))
-  val expectedCsvLines = Source.fromInputStream(getClass.getResourceAsStream(EXPECTED_OUT_CSV)).getLines().toList
+  private val inputSource = Source.fromInputStream(getClass.getResourceAsStream(IN_CSV))
+  private val expectedCsvLines = Source.fromInputStream(getClass.getResourceAsStream(EXPECTED_OUT_CSV)).getLines().toList
 
   "interview decompressor" should "produce correct csv containing decompressed interviews" in {
     def decompress(baos: ByteArrayOutputStream): Try[String] = {
-      InterviewDecompressor.readCompressedInterviews(inputSource).flatMap(l => using(new PrintWriter(baos)){pw =>
+      InterviewDecompressor.readCompressedInterviews(inputSource).flatMap(l => using(new PrintWriter(baos)) { pw =>
         InterviewDecompressor.writeCompressedInterviews(l, pw)
       }).map(_ => baos.toString)
     }
-    val tryString = using(new ByteArrayOutputStream()){ decompress }
+
+    val tryString = using(new ByteArrayOutputStream()) {
+      decompress
+    }
     tryString.isSuccess shouldBe true
     Source.fromString(tryString.get).getLines().toList.map(_.trim) should contain theSameElementsInOrderAs expectedCsvLines.map(_.trim)
   }
