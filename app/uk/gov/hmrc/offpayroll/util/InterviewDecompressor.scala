@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.util
 
-import java.io.{File, PrintWriter}
+import java.io.{File, PrintWriter, Writer}
 
 import uk.gov.hmrc.offpayroll.util.InterviewDecompressorFormatter.{asCsvHeader, asCsvLine}
 
@@ -53,20 +53,29 @@ object InterviewDecompressor extends App {
     }
   }
 
-  private def writeCompressedInterviews(compressedInterviews: List[String], file: String): Try[String] = {
+  def writeCompressedInterviews(compressedInterviews: List[String], file: String): Try[String] = {
     Try(using(new PrintWriter(new File(file))) { pw =>
+      writeCompressedInterviews(compressedInterviews, pw)
+    }).map(_ => s"done, decompressed ${compressedInterviews.size} interviews")
+  }
+
+  def writeCompressedInterviews(compressedInterviews: List[String], pw: PrintWriter): Try[Unit] = {
+    Try(
       for ((compressedInterview, index) <- compressedInterviews.zipWithIndex) {
         if (index == 0)
           pw.println("interview, " + asCsvHeader(compressedInterview))
         pw.println(compressedInterview + ", " + asCsvLine(compressedInterview))
       }
-    }).map(_ => s"done, decompressed ${compressedInterviews.size} interviews")
+    )
   }
 
   def readCompressedInterviews(file: String): Try[List[String]] =
-    Try(Source.fromFile(file).getLines().map(_.span(_ != ',')._1.trim).toList)
+    Try(Source.fromFile(file)).flatMap(readCompressedInterviews(_))
 
-  private def using[R <: { def close(): Unit }, B](resource: R)(f: R => B): B = try { f(resource) } finally { resource.close() }
+  def readCompressedInterviews(source: Source): Try[List[String]] =
+    Try(source.getLines().map(_.span(_ != ',')._1.trim).toList)
+
+  def using[R <: { def close(): Unit }, B](resource: R)(f: R => B): B = try { f(resource) } finally { resource.close() }
 
 }
 
