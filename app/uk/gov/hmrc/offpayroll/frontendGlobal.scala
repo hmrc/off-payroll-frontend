@@ -22,7 +22,7 @@ import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
 import play.Logger
 import play.api.Mode._
-import play.api.mvc.{Request, RequestHeader, Result}
+import play.api.mvc.{Request, RequestHeader, Result, Filter}
 import play.api.{Application, Configuration, Play}
 import play.twirl.api.Html
 import uk.gov.hmrc.crypto.ApplicationCrypto
@@ -34,6 +34,7 @@ import uk.gov.hmrc.play.filters.MicroserviceFilterSupport
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 
+import scala.concurrent.Future
 
 object FrontendGlobal
   extends DefaultFrontendGlobal {
@@ -41,6 +42,7 @@ object FrontendGlobal
   override val auditConnector = FrontendAuditConnector
   override val loggingFilter = LoggingFilter
   override val frontendAuditFilter = AuditFilter
+  override def defaultFrontendFilters = CSRFNoCheckFilter +: super.defaultFrontendFilters
 
   override def onStart(app: Application) {
     super.onStart(app)
@@ -82,4 +84,9 @@ object AuditFilter extends FrontendAuditFilter with RunMode with AppName with Mi
   override lazy val auditConnector = FrontendAuditConnector
 
   override def controllerNeedsAuditing(controllerName: String) = ControllerConfiguration.paramsForController(controllerName).needsAuditing
+}
+
+object CSRFNoCheckFilter extends Filter with MicroserviceFilterSupport {
+  def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader) =
+    f(rh.copy(headers = rh.headers.add("Csrf-Token" -> "nocheck")))
 }

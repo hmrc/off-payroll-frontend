@@ -18,8 +18,8 @@ package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.{FlatSpec, Matchers}
 import play.api.mvc.Session
-import uk.gov.hmrc.offpayroll.models.{ExitCluster, FinancialRiskCluster, PartAndParcelCluster, PersonalServiceCluster}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionHelper.INTERVIEW_KEY
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{INTERVIEW_CURRENT_INDEX, INTERVIEW_KEY}
+import uk.gov.hmrc.offpayroll.models._
 
 class InterviewSessionStackSpec extends FlatSpec with Matchers {
   val mockSession = Session.deserialize(Map())
@@ -137,6 +137,43 @@ class InterviewSessionStackSpec extends FlatSpec with Matchers {
     maybeLastValue.get shouldBe ("partParcel.workerRepresentsEngagerBusiness", "partParcel.workerRepresentsEngagerBusiness.workAsBusiness")
     list should contain (("financialRisk.workerProvidedMaterials", "Yes"))
     list should contain (("financialRisk.expensesAreNotRelevantForRole", "Yes"))
+  }
+
+  it should "add element index" in {
+    val newSession = InterviewSessionStack.addCurrentIndex(mockSession, lastElement)
+    newSession.data.keys should contain(INTERVIEW_CURRENT_INDEX)
+    newSession(INTERVIEW_CURRENT_INDEX) shouldBe (ElementProvider.toElements.size-1).toString
+  }
+
+  it should "add first element index if element not found" in {
+    val nonExistingElement = Element("", RADIO, 0, null)
+    val newSession = InterviewSessionStack.addCurrentIndex(mockSession, nonExistingElement)
+    newSession.data.keys should contain(INTERVIEW_CURRENT_INDEX)
+    newSession(INTERVIEW_CURRENT_INDEX) shouldBe "0"
+  }
+
+  it should "provide correct element" in {
+    val newSession = InterviewSessionStack.addCurrentIndex(mockSession, middleElement)
+    val element = InterviewSessionStack.currentIndex(newSession)
+    element shouldBe middleElement
+  }
+
+  it should "provide default element if index not set" in {
+    val element = InterviewSessionStack.currentIndex(mockSession)
+    element shouldBe ElementProvider.toElements(0)
+  }
+
+  it should "provide default element if non existing element is set" in {
+    val nonExistingElement = Element("", RADIO, 0, null)
+    val newSession = InterviewSessionStack.addCurrentIndex(mockSession, nonExistingElement)
+    val element = InterviewSessionStack.currentIndex(newSession)
+    element shouldBe ElementProvider.toElements(0)
+  }
+
+  it should "provide default element if non numeric index is set" in {
+    val newSession = mockSession + (INTERVIEW_CURRENT_INDEX -> "ABC")
+    val element = InterviewSessionStack.currentIndex(newSession)
+    element shouldBe ElementProvider.toElements(0)
   }
 
 }

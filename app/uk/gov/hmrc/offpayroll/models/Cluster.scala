@@ -36,7 +36,7 @@ abstract class Cluster {
 
   val flows: List[FlowElement] = List.empty
 
-  def getStart(interview: Map[String, String]) : Element = clusterElements.head
+  def getStart(interview: Map[String, String]) : Option[Element] = clusterElements.headOption
 
 
   def makeMapFromClusterElements: Map[String, Element] = {

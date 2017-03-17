@@ -1,0 +1,26 @@
+
+@()(implicit request: Request[_], messages: Messages)
+@uk.gov.hmrc.offpayroll.views.html.main_template(
+    title = "Off Payroll Decision",
+    bodyClasses = None,
+    mainClass = Option("full-width"),
+    virtualPage = Some("multipleTabs")
+) {
+
+    <main role="main">
+        <div class="grid-row">
+            <header class="hero">
+                <section class="hero__content">
+                    <h1 class="hero__heading-large">@Messages("multipleInterview.heading")</h1>
+                </section>
+            </header>
+            <h2 class="hero__heading-small">
+                @Messages("multipleInterview.intro")
+            </h2>
+            <p>@Messages("multipleInterview.toContinue")</p>
+            <p>@Messages("multipleInterview.thanks")</p>
+        </div>
+
+    </main>
+
+}

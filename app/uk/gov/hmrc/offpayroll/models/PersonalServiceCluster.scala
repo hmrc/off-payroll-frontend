@@ -99,14 +99,12 @@ object PersonalServiceCluster extends Cluster {
 
   }
 
-  override def getStart(interview: Map[String, String]) : Element = {
-    if(interview.isEmpty || contractHasStarted(interview)) clusterElements.head
-    else clusterElements(2)
-  }
-
-  private def contractHasStarted(interview: Map[String, String]): Boolean = {
-    val hasContractStarted = interview.filterKeys(_.equals("setup.hasContractStarted"))
-    hasContractStarted.head._2.equals("Yes")
-  }
+  override def getStart(interview: Map[String, String]): Option[Element] =
+    interview.find { case (q, _) => q == "setup.hasContractStarted" }.flatMap { case (q, a) =>
+      if (a.toUpperCase == "NO") clusterElements.find {
+        _.questionTag == name + ".possibleSubstituteRejection"
+      }
+      else clusterElements.headOption
+    }
 
 }
