@@ -18,10 +18,11 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
-import play.api.test.{FakeApplication, FakeRequest}
+import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
-import uk.gov.hmrc.offpayroll.WithTestFakeApplication
+import uk.gov.hmrc.offpayroll.models.ExitCluster
 import uk.gov.hmrc.offpayroll.resources._
+import uk.gov.hmrc.offpayroll.util.{InterviewSessionStack, InterviewStack}
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 /**
@@ -29,7 +30,7 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
   */
 class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
-
+  private val mockSessionAsPair = (InterviewSessionStack.INTERVIEW_CURRENT_INDEX, InterviewStack.elementIndex(ExitCluster.clusterElements(0)).getOrElse(0).toString)
 
   "GET " + THE_ROUTE_EXIT_PATH should {
     "return 200 and the first page in Exit" in {
@@ -39,10 +40,10 @@ class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFut
     }
   }
 
-
   "POST /exit/element/0 with officeholder no" should {
     "redirect to Personal Service" in {
-      val request = FakeRequest().withFormUrlEncodedBody(
+      val request = FakeRequest().withSession(mockSessionAsPair)
+      .withFormUrlEncodedBody(
         officeHolderNo
       )
       val result = ExitController.apply.processElement(0)(request).futureValue
@@ -53,7 +54,8 @@ class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFut
 
   "POST /exit/element/0 with officeholder yes" should {
     "return a HardDecision" in {
-      val request = FakeRequest().withFormUrlEncodedBody(
+      val request = FakeRequest().withSession(mockSessionAsPair)
+      .withFormUrlEncodedBody(
         officeHolderYes
       )
       val result = ExitController.apply.processElement(0)(request).futureValue

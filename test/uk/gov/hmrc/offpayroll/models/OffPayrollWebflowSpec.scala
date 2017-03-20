@@ -38,8 +38,10 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
   "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element workerSentActualSubstitute" in {
     val startElement = webflow.getStart(partialInterview_hasContractStarted_Yes)
-    startElement.clusterParent.name should be (personalService)
-    startElement.questionTag should be (firstQuestionTag)
+    startElement.isDefined shouldBe true
+
+    startElement.get.clusterParent.name should be (personalService)
+    startElement.get.questionTag should be (firstQuestionTag)
   }
 
   it should "have a four clusters" in {

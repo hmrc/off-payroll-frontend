@@ -1,4 +1,5 @@
 @import uk.gov.hmrc.offpayroll.models._
+@import uk.gov.hmrc.offpayroll.util._
 @import uk.gov.hmrc.offpayroll.models.Element
 
 @import uk.gov.hmrc.offpayroll.models.RADIO
@@ -102,9 +103,13 @@
 @if(Play.current.configuration.getBoolean("ui.debug").getOrElse(false)) {
     <div style="clear:both" >
         <p>Debug is on!</p>
+        <h1>Current element @InterviewStack.elementIndex(element).getOrElse(-1).toString</h1>
         <ul>
-            <li>@request.session.data.toString()</li>
-            <li>Current currentElement @element.toString</li>
+                        <li><b>Session</b></li>
+                        @for((key, value) <- request.session.data) {
+                            <li>@key -> @value</li>
+                        }
+                        <li>Current currentElement: @element.toString</li>
         </ul>
         <p>Interview:</p>
         @if(request.session.data.get("interview").isDefined) {
@@ -112,6 +117,14 @@
                 @for(interviewElement <- request.session.data.get("interview").get.split(";")) {
                     <li>@interviewElement.toString</li>
                 }
+            </ul>
+            <p>@CompressedInterview(request.session.data.get("interview").get).asValues.mkString("|")</p>
+        }
+        <p>Index:</p>
+        @if(request.session.data.get("index").isDefined) {
+            <ul>
+                    <li>@request.session.data.get("index").get</li>
+                    <li>@ElementProvider.toElements(request.session.data.get("index").get.toInt).questionTag</li>
             </ul>
         }
         <ul>
