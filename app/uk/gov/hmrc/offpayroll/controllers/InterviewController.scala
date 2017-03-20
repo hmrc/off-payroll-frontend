@@ -40,6 +40,10 @@ import scala.concurrent.Future
 trait OffPayrollControllerHelper {
 
 
+  def verifyElement(element: Element)(): Constraint[List[String]] = Constraint[List[String]]("constraint.required") { list =>
+    if (element.verify(list)) Valid else Invalid(ValidationError("error.required"))
+  }
+
   def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
     if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
   }
@@ -53,9 +57,10 @@ trait OffPayrollControllerHelper {
   }
 
   def createListForm(element: Element) = {
+    val verify = verifyElement(element)
     Form(
       single(
-        element.questionTag -> list(nonEmptyText).verifying(nonEmptyList)
+        element.questionTag -> list(nonEmptyText).verifying(verify)
       )
     )
   }

@@ -16,11 +16,16 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+object ElementVerifier {
+  val basic = { l:List[String] => l.nonEmpty}
+  val nonEmptyAndNotFive = { l:List[String] => l.nonEmpty && l.size < 5}
+}
+
 /**
   * Created by peter on 15/12/2016.
   */
 case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster,
-                   children: List[Element] = List()) {
+                   children: List[Element] = List(), verify:(List[String] => Boolean) = ElementVerifier.basic) {
 
   require(f(elementType, children), "Children only valid fot MULTI and GROUP types. There were "
     + children.size + " children and the Element Type was " + elementType)
@@ -38,6 +43,7 @@ case class Element(_questionTag: String, elementType: ElementType, order: Int, c
   override def toString: String = {
     "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
   }
+
 }
 
 
