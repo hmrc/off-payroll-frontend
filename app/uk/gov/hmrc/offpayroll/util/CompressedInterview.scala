@@ -50,6 +50,9 @@ case class CompressedInterview(str: String) {
   def asList: List[(String, String)] =
     decodeMultipleValues(tagAnswerList).filter{ case (_,a) => a != "" }
 
+  def asFullList: List[(String, String)] =
+    tagAnswerList
+
   def asMap: Map[String, String] = asList.toMap
 
   def asRawList: List[(String, List[String])] =
