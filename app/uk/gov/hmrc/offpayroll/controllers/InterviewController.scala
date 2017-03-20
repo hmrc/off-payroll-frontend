@@ -149,8 +149,8 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
           form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
             .withSession(InterviewSessionStack.addCurrentIndex(session, decision.element.head))
         } else {
-	        logResponse(decision.decision, session, correlationId)
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asRawList(session), esi(asMap(session))))
+	        val compressedInterview= logResponse(decision.decision, session, correlationId)
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asRawList(session), esi(asMap(session)), compressedInterview))
             .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
         }
       }
