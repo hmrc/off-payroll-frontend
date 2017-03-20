@@ -1,0 +1,84 @@
+/*
+ * Copyright 2017 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package uk.gov.hmrc.offpayroll.controllers
+
+import org.scalatest.concurrent.ScalaFutures
+import play.api.http.Status
+import play.api.test.FakeRequest
+import play.api.test.Helpers.{contentAsString, route, _}
+import uk.gov.hmrc.offpayroll.filters.SessionIdFilter
+import uk.gov.hmrc.offpayroll.resources._
+import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import uk.gov.hmrc.offpayroll.controllers.PrintController
+
+/**
+  * Created by peter on 09/01/2017.
+  */
+class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
+
+  val COOKIES_HEADER_NAME: String = "Set-Cookie"
+  val HIDDEN_FIELDS: Map[String, String] = Map("esi" -> "false", "decisionResult" -> "OUT", "compressedInterview" -> "6eAwrZDHs", "decisionVersion" -> "12345")
+  val HIDDEN_FIELDS_AND_FORM = HIDDEN_FIELDS + ("completedBy" -> "SBT TEST", "client" -> "HMRC", "job" -> "Tester", "reference" -> "testola")
+  val PRINT_PAGE_TITLE = "Customise this result record"
+
+  "POST /print/format" should {
+    "return 200 and display the print form" in {
+    val maybeRoute = route(fakeApplication, FakeRequest(POST, "/check-employment-status-for-tax/print/format").withFormUrlEncodedBody(HIDDEN_FIELDS.toList :_*))
+      maybeRoute.isDefined shouldBe true
+      maybeRoute.map { route =>
+        val result = await(route)
+        status(result) shouldBe Status.OK
+        contentAsString(result) should include(PRINT_PAGE_TITLE)
+      }
+    }
+  }
+  "POST /print/format" should {
+    "return 500 and report missing fields" in {
+      val fakeRequest = FakeRequest(POST, "/check-employment-status-for-tax/print/format").withFormUrlEncodedBody("esi" -> "false")
+      intercept[IllegalStateException]{new PrintController().format()(fakeRequest).futureValue}
+    }
+  }
+  "POST /print/print" should {
+    "return 200 and didplay pretty print result" in {
+      val maybeRoute = route(fakeApplication, FakeRequest(POST, "/check-employment-status-for-tax/print/print").withFormUrlEncodedBody(HIDDEN_FIELDS_AND_FORM.toList :_*))
+      maybeRoute.isDefined shouldBe true
+      maybeRoute.map { route =>
+        val result = await(route)
+        status(result) shouldBe Status.OK
+      }
+    }
+  }
+
+//  "GET /start" should {
+//    "return 200 and the first page Setup" in {
+//      val result = await(SetupController.apply.begin().apply(FakeRequest("GET", "/start/")))
+//      status(result) shouldBe Status.OK
+//    }
+//  }
+//
+//  "Submitting the first question to the Setup Controller" should {
+//    " the second question in the SetupCluster" in {
+//      val request = FakeRequest().withFormUrlEncodedBody(
+//        setup_endUserRolePersonDoingWork
+//      )
+//      val result = SetupController.apply.processElement(0)(request).futureValue
+//      status(result) shouldBe Status.OK
+//      contentAsString(result) should include(setup_hasContractStarted)
+//    }
+//  }
+
+}
