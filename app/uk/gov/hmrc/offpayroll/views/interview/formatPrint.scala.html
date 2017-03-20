@@ -56,4 +56,13 @@
             </div>
         <button>Continue</button>
     }
+<script type="text/javascript">
+        // make one checkbox exclusive (so it behaves like a radio button)
+        (function() {
+            $("#resultData").on("submit", function () {
+                ga("send", "event", "end-client", $(this).find("input[name=client]").val());
+                ga("send", "event", "role", $(this).find("input[name=job]").val());
+            });
+        })();
+</script>
 }
