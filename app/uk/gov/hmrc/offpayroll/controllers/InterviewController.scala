@@ -39,14 +39,13 @@ import scala.concurrent.Future
 
 trait OffPayrollControllerHelper {
 
-
-  def verifyElement(element: Element)(): Constraint[List[String]] = Constraint[List[String]]("constraint.required") { list =>
-    if (element.verify(list)) Valid else Invalid(ValidationError("error.required"))
+  def verifyElement(element: Element)(): Constraint[List[String]] = Constraint[List[String]]("constraint.required") {
+    element.verify(_)
   }
 
-  def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
-    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
-  }
+//  def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
+//    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
+//  }
 
   def createForm(element: Element) = {
     Form(

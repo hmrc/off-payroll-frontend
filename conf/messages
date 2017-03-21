@@ -128,6 +128,7 @@ exitTool.soleTrader.reason=
 exitTool.soleTrader.explanation=
 
 error.required=You need to select an answer:
+error.invalid.combination=Invalid combination selected:
 
 multipleInterview.heading=Please close this tab or window to continue checking employment status for tax
 multipleInterview.intro=We''ve noticed that you already have this service open in another tab or window.
