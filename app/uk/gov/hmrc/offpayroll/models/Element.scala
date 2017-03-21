@@ -16,11 +16,25 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import play.api.data.validation.{Invalid, Valid, ValidationError, ValidationResult}
+
+object ElementVerifier {
+  val nonEmpty = { list: List[String] =>
+    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
+  }
+
+  def nonEmptyAndExclusive(exclusiveQuestionTag: String)(list: List[String]) = list match {
+    case l if l.isEmpty => Invalid(ValidationError("error.required"))
+    case l if l.exists(_.contains(exclusiveQuestionTag)) && l.size > 1 => Invalid(ValidationError("error.invalid.combination"))
+    case _ => Valid
+  }
+}
+
 /**
   * Created by peter on 15/12/2016.
   */
 case class Element(_questionTag: String, elementType: ElementType, order: Int, clusterParent: Cluster,
-                   children: List[Element] = List()) {
+                   children: List[Element] = List(), verify:(List[String] => ValidationResult) = ElementVerifier.nonEmpty) {
 
   require(f(elementType, children), "Children only valid fot MULTI and GROUP types. There were "
     + children.size + " children and the Element Type was " + elementType)
@@ -38,6 +52,7 @@ case class Element(_questionTag: String, elementType: ElementType, order: Int, c
   override def toString: String = {
     "Question Tag: " + questionTag + " Element Type: " + elementType + " Order: " + order + " In Cluster: " + clusterParent.toString
   }
+
 }
 
 
