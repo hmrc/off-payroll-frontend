@@ -78,12 +78,15 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
 
   def checkElementIndex(message: String, maybeElement: Option[Element])(f: Element => Future[Result])(implicit request: Request[_]): Future[Result] = {
     val indexElement = InterviewSessionStack.currentIndex(request.session)
+    def start: Future[Result] = {
+      Future.successful(Redirect(routes.SetupController.begin))
+    }
     maybeElement.fold {
       Logger.error("could not find index in session, redirecting to the start")
-      Future.successful(Redirect(routes.SetupController.begin))
+      start
       }{ element =>
       if (element != indexElement) {
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.multipleInterview()))
+        start
       }
       else {
         f(element)
