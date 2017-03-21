@@ -1,0 +1,69 @@
+
+@import uk.gov.hmrc.play.views.html.helpers
+@import uk.gov.hmrc.play.views.html.helpers.input
+@import uk.gov.hmrc.offpayroll.models._
+@import uk.gov.hmrc.offpayroll.models.Element
+@import uk.gov.hmrc.offpayroll.controllers.FormatPrint
+@import play.api.Play
+
+@(esi: Boolean , decisionResult: String, decisionVersion: String, compressedInterview: String)(implicit request: Request[_], messages: Messages)
+@import uk.gov.hmrc.offpayroll.controllers.routes
+@uk.gov.hmrc.offpayroll.views.html.main_template(
+    title = Messages("format print"),
+    bodyClasses = None,
+    virtualPage = None
+    ) {
+
+
+    <h1>Customise this result record</h1>
+    <p class="form-field--hint">
+        You can add some information to this page before you print it. This is for your reference only and won't be stored by HMRC. All fields are optional
+    </p>
+    @helpers.form(routes.PrintController.printResult, 'id -> "resultData") {
+
+        <input type="hidden" name="esi" value="@esi" />
+        <input type="hidden" name="decisionResult" value="@decisionResult" />
+        <input type="hidden" name="compressedInterview" value="@compressedInterview" />
+        <input type="hidden" name="decisionVersion" value="@decisionVersion" />
+        <fieldset class="form-field-group">
+            <div class="form-field">
+                <label>
+                    Name of the person that completed this check
+                    <input type="text"
+                    name="completedBy" class="form-control form-control--block"/>
+                </label>
+            </div>
+            <div class="form-field">
+                <label>
+                    End client's name
+                    <input type="text"
+                    name="client" class="form-control form-control--block"/>
+                </label>
+            </div>
+            <div class="form-field">
+                <label>
+                    Engagement job title
+                    <input type="text"
+                    name="job" class="form-control form-control--block"/>
+                </label>
+            </div>
+            <div class="form-field">
+                <label>
+                    Reference (worker's name or contract number, for example)
+                    <input type="text"
+                    name="reference" class="form-control form-control--block"/>
+                </label>
+            </div>
+        <button>Continue</button>
+    }
+<script type="text/javascript">
+        // make one checkbox exclusive (so it behaves like a radio button)
+        (function() {
+            $("#resultData").on("submit", function () {
+                ga("send", "event", "end-client", $(this).find("input[name=client]").val());
+                ga("send", "event", "role", $(this).find("input[name=job]").val());
+                ga("send", "event", "decision", $(this).find("input[name=decisionResult]").val());
+            });
+        })();
+</script>
+}

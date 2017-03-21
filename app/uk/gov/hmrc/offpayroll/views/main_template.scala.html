@@ -15,7 +15,8 @@
         @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
     }
 }
-@govuk_wrapper(appConfig = uk.gov.hmrc.offpayroll.FrontendAppConfig,
+@appConfig = @{uk.gov.hmrc.offpayroll.FrontendAppConfig}
+@govuk_wrapper(appConfig = appConfig,
                title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
@@ -26,3 +27,18 @@
                scriptElem = scriptElem,
                virtualPage = virtualPage
 )
+
+@analyticsCode(virtualUrl: String, analyticsToken: String) = {
+    ga('create', '@analyticsToken', 'auto');
+    ga('set', 'page', '/@{appConfig.appUrlPath}/@virtualUrl');
+    ga('send', 'pageview', { 'anonymizeIp': true });
+}
+@bodyEnd = {
+    analyticsToken = Some(appConfig.analyticsToken),
+    analyticsHost = appConfig.analyticsHost,
+    ssoUrl = None,
+    scriptElem = scriptElem,
+    gaCalls = virtualPage.map(url =>
+    (a, b) => analyticsCode(url, appConfig.analyticsToken))
+
+}

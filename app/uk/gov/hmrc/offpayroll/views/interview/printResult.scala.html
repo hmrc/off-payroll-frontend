@@ -1,0 +1,147 @@
+@import uk.gov.hmrc.offpayroll.controllers.PrintResult
+@(interview: List[(String, List[String])], printResult: PrintResult)(implicit request: Request[_], messages: Messages)
+@uk.gov.hmrc.offpayroll.views.html.print_template(
+    appConfig = uk.gov.hmrc.offpayroll.FrontendAppConfig,
+    Some("Print Result"),
+    Some(""))(head ,Html(""),Html(""),Html(""),Html(""),Some(Html("")), false) {
+    <div id="content">
+        <article class="content__body">
+            <table>
+                <tr>
+                    <th>Checked by</th>
+                    <td>@printResult.completedBy</td>
+                </tr>
+                <tr>
+                    <th>End client's name</th>
+                    <td>@printResult.client</td>
+                </tr>
+                <tr>
+                    <th>Engagement job title</th>
+                    <td>@printResult.job</td>
+                </tr>
+                <tr>
+                    <th>Reference</th>
+                    <td>@printResult.reference</td>
+                </tr>
+            </table>
+
+            <div class="transaction-banner--complete">
+                <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(printResult.esi + "." + printResult.decisionResult)</span>
+            </div>
+
+
+            @resultDecisionExplained_template(printResult.esi, printResult.decisionResult)
+            @resultNextSteps_template(printResult.esi, printResult.decisionResult)
+
+            <h2 class="heading-medium">Your answers</h2>
+            <ol id="yourAnswers">
+            @for((key, value) <- interview) {
+                <li class="section divider--bottom"><h3>@messages(key)</h3>
+                    @for(child <- value) {
+                        <div id="answer.@key" class="panel-indent">@messages(child)</div>
+                    }
+                </li>
+            }
+            </ol>
+            <p>Decision Service Version: <span id="dsVersion">@printResult.decisionVersion</span></p>
+        </article>
+    </div>
+
+}
+@title={
+    Print @Messages(printResult.esi + "." + printResult.decisionResult)
+}
+@head = {
+    <style>
+    #content {
+        display: block;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0em .78947em 1.68421em .78947em;
+        line-height: 1.5;
+        font-family: "nta",Arial,sans-serif;
+        font-size: 19px;
+        line-height: 1.31579;
+        font-weight: 400;
+        text-transform: none;
+    }
+    #skiplink-container{
+        display: none;
+    }
+    table {
+        width: 100%;
+        margin-bottom: 1.57895em;
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+    table th, table td {
+        font-family: "nta", Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.25;
+        font-weight: 300;
+        text-transform: none;
+        padding: 0.73684em 1.05263em 0.52632em 0;
+        text-align: left;
+        color: #0b0c0c;
+        border-bottom: 1px solid #bfc1c3;
+    }
+    table th {
+        font-weight: 700;
+        width: 30%;
+    }
+    .transaction-banner--complete {
+        background-color: #28a197;
+        color: #fff;
+        padding: 30px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .transaction-banner__heading {
+        font-family: "nta",Arial,sans-serif;
+        font-size: 36px;
+        line-height: 1.11111;
+        font-weight: 400;
+        text-transform: none;
+        font-weight: 700;
+        margin: 15px 0;
+    }
+    article h3 {
+        font-family: "nta",Arial,sans-serif;
+        font-size: 19px;
+        line-height: 1.31579;
+        font-weight: 400;
+        text-transform: none;
+        font-weight: 700;
+        margin:0 0 0.75em;
+    }
+    article ol {
+        margin: 0.75em 0.2em 0.75em 0;
+        padding: 0 0 0 20px;
+        list-style-type: decimal;
+    }
+    .divider--bottom {
+        border-bottom: 1px solid #bfc1c3;
+    }
+    .section, .section--branded {
+        margin-bottom: 1em;
+        padding: 1em 0;
+    }
+    .panel-indent, .email-notifications__indent {
+        margin: 0;
+        clear: both;
+        border-left: 4px solid #bfc1c3;
+        padding: 10px 0 10px 15px;
+    }
+    a{
+        text-decoration: none;
+        color: #0b0c0c ;
+    }
+    a:after{content:" (" attr(href) ") ";font-size:0.8em;font-weight:normal;}
+    </style>
+    <script type="text/javascript">
+            window.onload = function () {
+                window.print();
+            }
+    </script>
+}
+
