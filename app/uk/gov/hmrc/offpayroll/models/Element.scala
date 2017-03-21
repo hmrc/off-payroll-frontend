@@ -23,9 +23,9 @@ object ElementVerifier {
     if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
   }
 
-  def nonEmptyAndExclusive(exclusiveText: String)(list: List[String]) = list match {
+  def nonEmptyAndExclusive(exclusiveQuestionTag: String)(list: List[String]) = list match {
     case l if l.isEmpty => Invalid(ValidationError("error.required"))
-    case l if l.exists(_.contains(exclusiveText)) && l.size > 1 => Invalid(ValidationError("error.invalid.combination"))
+    case l if l.exists(_.contains(exclusiveQuestionTag)) && l.size > 1 => Invalid(ValidationError("error.invalid.combination"))
     case _ => Valid
   }
 }
