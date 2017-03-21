@@ -62,23 +62,11 @@ class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
       }
     }
   }
-
-//  "GET /start" should {
-//    "return 200 and the first page Setup" in {
-//      val result = await(SetupController.apply.begin().apply(FakeRequest("GET", "/start/")))
-//      status(result) shouldBe Status.OK
-//    }
-//  }
-//
-//  "Submitting the first question to the Setup Controller" should {
-//    " the second question in the SetupCluster" in {
-//      val request = FakeRequest().withFormUrlEncodedBody(
-//        setup_endUserRolePersonDoingWork
-//      )
-//      val result = SetupController.apply.processElement(0)(request).futureValue
-//      status(result) shouldBe Status.OK
-//      contentAsString(result) should include(setup_hasContractStarted)
-//    }
-//  }
+  "POST /print/print" should {
+    "return 500 and report missing fields" in {
+      val fakeRequest = FakeRequest(POST, "/check-employment-status-for-tax/print/print").withFormUrlEncodedBody("esi" -> "false")
+      intercept[IllegalStateException]{new PrintController().format()(fakeRequest).futureValue}
+    }
+  }
 
 }

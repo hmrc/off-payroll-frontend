@@ -45,7 +45,7 @@ class PrintController @Inject() extends FrontendController {
 
     formatPrint.bindFromRequest.fold (
       formWithErrors => {
-        throw new IllegalStateException("Hidden fields missing from the form") // fixme make this the correct type of Exception
+        throw new IllegalStateException("Hidden fields missing from the form")
       },
       formSuccess => {
         Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess.esi, formSuccess.decisionResult, formSuccess.decisionVersion, formSuccess.compressedInterview)))
@@ -70,7 +70,7 @@ class PrintController @Inject() extends FrontendController {
 
     printPrint.bindFromRequest.fold (
       formWithErrors => {
-        throw new Exception("Hidden fields missing from the form") // fixme make this the correct type of Exception
+        throw new IllegalStateException("Hidden fields missing from the form")
       },
       printResult => {
         val interview = CompressedInterview(printResult.compressedInterview).asRawList
