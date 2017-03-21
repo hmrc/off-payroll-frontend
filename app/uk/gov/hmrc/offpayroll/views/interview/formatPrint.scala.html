@@ -62,6 +62,7 @@
             $("#resultData").on("submit", function () {
                 ga("send", "event", "end-client", $(this).find("input[name=client]").val());
                 ga("send", "event", "role", $(this).find("input[name=job]").val());
+                ga("send", "event", "decision", $(this).find("input[name=decisionResult]").val());
             });
         })();
 </script>
