@@ -19,8 +19,9 @@ package uk.gov.hmrc.offpayroll.models
 import play.api.data.validation.{Invalid, Valid, ValidationError, ValidationResult}
 
 object ElementVerifier {
-  def nonEmpty(list: List[String]) =
+  val nonEmpty = { list: List[String] =>
     if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
+  }
 
   def nonEmptyAndExclusive(exclusiveText: String)(list: List[String]) = list match {
     case l if l.isEmpty => Invalid(ValidationError("error.required"))

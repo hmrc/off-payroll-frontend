@@ -23,7 +23,7 @@ import play.api.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
-import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+import play.api.data.validation.Constraint
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.{Format, Json}
 import play.api.mvc._
@@ -42,10 +42,6 @@ trait OffPayrollControllerHelper {
   def verifyElement(element: Element)(): Constraint[List[String]] = Constraint[List[String]]("constraint.required") {
     element.verify(_)
   }
-
-//  def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
-//    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
-//  }
 
   def createForm(element: Element) = {
     Form(
