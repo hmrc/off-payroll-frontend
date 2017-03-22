@@ -67,3 +67,12 @@ object FeatureSwitch {
 object OffPayrollSwitches {
   def pdfGeneration = FeatureSwitch.forName("pdfGeneration")
 }
+
+object OffPayrollSwitchesDemo extends App {
+  // TODO remove this class
+  System.setProperty("feature.pdfGeneration", "true")
+
+  if (OffPayrollSwitches.pdfGeneration.enabled) println("enabled")
+  else println("disabled")
+}
+
