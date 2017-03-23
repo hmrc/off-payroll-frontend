@@ -38,7 +38,7 @@ object FeatureSwitch {
     BooleanFeatureSwitch(name, Try(value.toBoolean).toOption.getOrElse(false))
   }
 
-  def apply(name: String, enabled: Boolean): FeatureSwitch = forName(name)
+  def apply(name: String, enabled: Boolean): FeatureSwitch = BooleanFeatureSwitch(name, enabled)
 
   def enable(switch: FeatureSwitch): FeatureSwitch = setProp(switch.name, "true")
 
@@ -49,7 +49,7 @@ object FeatureSwitch {
     forName(name)
   }
 
-  def systemPropertyName(name: String) = s"feature.$name"
+  def systemPropertyName(name: String) = name
 
   implicit val featureSwitchWrites = new Writes[FeatureSwitch] {
     def writes(fs: FeatureSwitch): JsValue = {
@@ -65,14 +65,8 @@ object FeatureSwitch {
 }
 
 object OffPayrollSwitches {
-  def pdfGeneration = FeatureSwitch.forName("pdfGeneration")
+  private val OFF_PAYROLL_PDF_SWITCH_NAME = "offPayrollPdf"
+  def offPayrollPdf = {
+    FeatureSwitch.forName(OFF_PAYROLL_PDF_SWITCH_NAME)
+  }
 }
-
-object OffPayrollSwitchesDemo extends App {
-  // TODO remove this class
-  System.setProperty("feature.pdfGeneration", "true")
-
-  if (OffPayrollSwitches.pdfGeneration.enabled) println("enabled")
-  else println("disabled")
-}
-

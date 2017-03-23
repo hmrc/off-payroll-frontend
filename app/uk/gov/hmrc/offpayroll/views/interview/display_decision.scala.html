@@ -33,7 +33,7 @@
                 <input type="hidden" name="decisionVersion" value="@decision.version" />
                 <div  class="indent-warning">
                     <div>HMRC will not keep a record of this transaction for security reasons.</div>
-                    @if(OffPayrollSwitches.pdfGeneration.enabled) {
+                    @if(OffPayrollSwitches.offPayrollPdf.enabled) {
                         <button class="button button--link">Please save a pdf for your records</button>
                     } else {
                         <button class="button button--link">Please print a copy for your records</button>

@@ -17,6 +17,7 @@
 package uk.gov.hmrc.offpayroll.util
 
 import org.scalatest.BeforeAndAfter
+import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.play.test.UnitSpec
 
 class FeatureSwitchSpec extends UnitSpec with BeforeAndAfter {
@@ -24,24 +25,21 @@ class FeatureSwitchSpec extends UnitSpec with BeforeAndAfter {
   "FeatureSwitch" should {
 
     "generate correct system property name for the feature" in {
-      FeatureSwitch.systemPropertyName("test") shouldBe "feature.test"
+      FeatureSwitch.systemPropertyName("test") shouldBe "test"
     }
 
-    "be ENABLED if the system property is defined as 'true'" in {
-      System.setProperty("feature.test", "true")
-
+    "be enabled if the system property is defined as 'true'" in {
+      System.setProperty("test", "true")
       FeatureSwitch.forName("test").enabled shouldBe true
     }
 
-    "be DISABLED if the system property is defined as 'false'" in {
-      System.setProperty("feature.test", "false")
-
+    "be disabled if the system property is defined as 'false'" in {
+      System.setProperty("test", "false")
       FeatureSwitch.forName("test").enabled shouldBe false
     }
 
-    "be DISABLED if the system property is undefined" in {
-      System.clearProperty("feature.test")
-
+    "be disabled if the system property is not defined" in {
+      System.clearProperty("test")
       FeatureSwitch.forName("test").enabled shouldBe false
     }
 
@@ -51,21 +49,33 @@ class FeatureSwitchSpec extends UnitSpec with BeforeAndAfter {
     }
 
     "create BooleanFeatureSwitch when system property is a true" in {
-      System.setProperty("feature.test", "true")
-
+      System.setProperty("test", "true")
       FeatureSwitch.forName("test") shouldBe a[BooleanFeatureSwitch]
     }
 
     "create BooleanFeatureSwitch when system property is a false" in {
-      System.setProperty("feature.test", "false")
-
+      System.setProperty("test", "false")
       FeatureSwitch.forName("test") shouldBe a[BooleanFeatureSwitch]
     }
 
+    "convert to json from scala object" in {
+      val jsValue:JsValue = Json.toJson(FeatureSwitch.enable(FeatureSwitch.forName("test")))
+      (jsValue \\ "name").head.toString() shouldBe "\"test\""
+      (jsValue \\ "enabled").head.toString() shouldBe "true"
+    }
+
+    "convert from json to scala object" in {
+      val json = "{\"name\":\"test\",\"enabled\":true}"
+      val parsed = Json.parse(json)
+      val jsResult = Json.fromJson[FeatureSwitch](parsed)
+      jsResult.isSuccess shouldBe true
+      val switch = jsResult.get
+      switch.enabled shouldBe true
+    }
   }
 
   after {
-    System.clearProperty("feature.test")
+    System.clearProperty("test")
   }
 
 }
