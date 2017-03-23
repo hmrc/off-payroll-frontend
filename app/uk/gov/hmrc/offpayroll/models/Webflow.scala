@@ -16,13 +16,15 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.FrontendAppConfig.offPayrollDecisionVersion
+
 
 /**
   * Created by peter on 15/12/2016.
   */
 abstract class Webflow {
 
-  def version  = "1.1.1-final"
+  def version  = offPayrollDecisionVersion
 
   def getNext(currentElement: Element): Option[Element]
 

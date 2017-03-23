@@ -19,16 +19,15 @@ package uk.gov.hmrc.offpayroll.services
 import org.scalatest.{FlatSpec, Matchers}
 import play.api.libs.json.Json
 import uk.gov.hmrc.offpayroll.models.{DecisionBuilder, DecisionRequest, OffPayrollWebflow}
-
-
 import uk.gov.hmrc.offpayroll.modelsFormat._
+import uk.gov.hmrc.play.test.WithFakeApplication
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by peter on 13/12/2016.
   */
-class DecisionBuilderSpec  extends FlatSpec with Matchers {
+class DecisionBuilderSpec  extends FlatSpec with Matchers with WithFakeApplication {
   private val TEST_CORRELATION_ID = "00000001099"
   val interview1 = Map("personalService.workerSentActualSubstitiute" -> "false", "personalService.contractrualRight" -> "true",
     "control.hasMoreThan50Percent" -> "false", "control.toldWhatToDo" -> "control.toldWhatToDo.sometimes",
@@ -42,7 +41,7 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers {
   private val decisionRequestStringPlusControl1 =
     """
       |{
-      |  "version": "1.1.1-final",
+      |  "version": "1.2.0-final",
       |  "correlationID": "00000001099",
       |  "interview": {
       |    "personalService": {
@@ -64,7 +63,7 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers {
   private val decisionRequestStringPlusControl2 =
     """
       |{
-      |  "version": "1.1.1-final",
+      |  "version": "1.2.0-final",
       |  "correlationID": "00000001099",
       |  "interview": {
       |    "personalService": {
