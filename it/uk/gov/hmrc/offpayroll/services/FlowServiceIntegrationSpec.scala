@@ -16,23 +16,24 @@ package uk.gov.hmrc.offpayroll.services
  * limitations under the License.
  */
 
+import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
-import uk.gov.hmrc.offpayroll.models.UNKNOWN
+import uk.gov.hmrc.offpayroll.models.{OUT, UNKNOWN}
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 
 /**
   * Created by peter on 09/12/2016.
   */
-class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication {
+class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication with ScalaFutures  {
   private val TEST_CORRELATION_ID = "00000001099"
   private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
   private val csrf = "csrf"
   private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
 
-  val flowservice: FlowService = IR35FlowService()
+  lazy val flowservice: FlowService = IR35FlowService()
 
-  val lastElement: (String, String) = "personalService.workerPayActualHelper" -> "Yes"
+  val lastElement: (String, String) = "personalService.wouldWorkerPayHelper" -> "Yes"
 
   "A flow Service" should {
     "Process a full Interview and give a decision" in {
@@ -42,7 +43,7 @@ class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication {
       result.correlationId shouldBe TEST_CORRELATION_ID
       result.decision.isDefined shouldBe true
       result.decision.map { decision =>
-        decision.decision shouldBe UNKNOWN
+        decision.decision shouldBe OUT
         decision.qa.forall(value => !value._1.contains(csrf)) shouldBe true
       }
     }

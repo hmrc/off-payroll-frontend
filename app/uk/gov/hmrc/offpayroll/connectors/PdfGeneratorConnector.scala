@@ -14,28 +14,30 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll
+package uk.gov.hmrc.offpayroll.connectors
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
-import uk.gov.hmrc.play.http.HeaderCarrier
+
+import com.google.inject.ImplementedBy
+import play.api.libs.ws.{WSClient, WSResponse}
+import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
+import uk.gov.hmrc.play.http.ws.WSPost
+
+import scala.concurrent.Future
 
 /**
   * Created by peter on 12/12/2016.
   */
-package object modelsFormat {
+@ImplementedBy(classOf[FrontendPdfGeneratorConnector])
+trait PdfGeneratorConnector {
 
-  implicit val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
-  implicit val decideResponseFormatter: Format[DecisionResponse] = Json.format[DecisionResponse]
-  implicit val hc = HeaderCarrier()
-  implicit val rds = uk.gov.hmrc.play.http.HttpReads
+  val pdfServiceUrl: String
+  val serviceURL: String
+  val http: WSPost
 
+  def getWsClient:WSClient
 
-}
-
-
-package object typeDefs {
-
-  type Interview = Map[String, String]
+  def generatePdf(html: String): Future[WSResponse] = {
+    getWsClient.url(serviceURL).post[String](html)
+  }
 
 }
