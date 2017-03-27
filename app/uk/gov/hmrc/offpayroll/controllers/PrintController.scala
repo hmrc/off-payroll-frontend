@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import java.io.ByteArrayInputStream
 import javax.inject.Inject
 
 import play.api.Logger
@@ -23,14 +24,20 @@ import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
+import play.api.libs.iteratee.Enumerator
+import play.api.libs.ws.WSClient
 import play.api.mvc.Action
-import uk.gov.hmrc.offpayroll.util.CompressedInterview
+import play.api.mvc.Results.Ok
+import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
+import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
+import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
 
 
-class PrintController @Inject() extends FrontendController {
+
+class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) extends FrontendController {
 
   def format = Action.async { implicit request =>
 
@@ -74,7 +81,29 @@ class PrintController @Inject() extends FrontendController {
       },
       printResult => {
         val interview = CompressedInterview(printResult.compressedInterview).asRawList
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)))
+        val printData = Ok(uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult))
+        if (OffPayrollSwitches.offPayrollPdf.enabled) {
+//          val s = "<h1>HELLO <i>WORLD ...</i> !!!</h1>"
+          val wsResponse = pdfGeneratorConnector.generatePdf(printResult.toString)
+          wsResponse.map{
+            response =>
+              val bytes = response.bodyAsBytes.toArray
+              Logger.debug(s"********** got ${bytes.length} bytes ***********")
+              Logger.debug(s"********** got ${response.status} ***********")
+              Logger.debug(s"********** got ${response.statusText} ***********")
+              if (response.status == 400){
+                Ok(response.body)
+              }
+              else {
+                val inputStream = new ByteArrayInputStream(bytes)
+                val dataContent: Enumerator[Array[Byte]] = Enumerator.fromStream(inputStream)
+                Ok.chunked(dataContent).as("application/pdf")
+              }
+          }
+        }
+        else {
+          Future.successful(printData)
+        }
       }
     )
   }
