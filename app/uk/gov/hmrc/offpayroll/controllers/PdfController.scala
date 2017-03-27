@@ -45,11 +45,22 @@ class PdfController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector){
     wsResponse.map{
       response =>
         val bytes = response.bodyAsBytes.toArray
-        val inputStream = new ByteArrayInputStream(bytes)
-
-        val dataContent: Enumerator[Array[Byte]] = Enumerator.fromStream(inputStream)
-
-        Ok.chunked(dataContent).as("application/pdf")
+        Logger.debug(s"********** got ${bytes.length} bytes ***********")
+        Logger.debug(s"********** got ${response.status} ***********")
+        Logger.debug(s"********** got ${response.statusText} ***********")
+        if (response.status == 400){
+          Ok(response.body)
+        }
+        else {
+          val inputStream = new ByteArrayInputStream(bytes)
+          val dataContent: Enumerator[Array[Byte]] = Enumerator.fromStream(inputStream)
+          Ok.chunked(dataContent).as("application/pdf")
+        }
+    }.recover {
+      case e => {
+        Logger.debug(s"********** ERROR: ${e.getMessage}Calling PDF Service ***********")
+        Ok(e.getMessage)
+      }
     }
   }
 

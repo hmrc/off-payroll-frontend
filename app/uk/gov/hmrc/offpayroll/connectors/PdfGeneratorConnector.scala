@@ -18,11 +18,13 @@ package uk.gov.hmrc.offpayroll.connectors
 
 
 import com.google.inject.ImplementedBy
+import play.api.Logger
 import play.api.libs.ws.{WSClient, WSResponse}
 import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
 import uk.gov.hmrc.play.http.ws.WSPost
 
 import scala.concurrent.Future
+import scala.util.{Failure, Success}
 
 /**
   * Created by peter on 12/12/2016.
@@ -37,7 +39,9 @@ trait PdfGeneratorConnector {
   def getWsClient:WSClient
 
   def generatePdf(html: String): Future[WSResponse] = {
-    getWsClient.url(serviceURL).post[String](html)
+    Logger.debug(s"********** $html ***********")
+//    getWsClient.url(serviceURL).post[String](html)
+    getWsClient.url(serviceURL).post(Map("html" -> Seq(html)))
   }
 
 }
