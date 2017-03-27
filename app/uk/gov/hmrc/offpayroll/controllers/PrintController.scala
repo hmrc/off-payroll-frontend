@@ -28,6 +28,7 @@ import play.api.libs.iteratee.Enumerator
 import play.api.libs.ws.WSClient
 import play.api.mvc.Action
 import play.api.mvc.Results.Ok
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
 import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
@@ -81,10 +82,12 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
       },
       printResult => {
         val interview = CompressedInterview(printResult.compressedInterview).asRawList
-        val printData = Ok(uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult))
+        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)
+
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
-//          val s = "<h1>HELLO <i>WORLD ...</i> !!!</h1>"
-          val wsResponse = pdfGeneratorConnector.generatePdf(printResult.toString)
+          val s = "<h1>HELLO <i>WORLD ...</i> !!!</h1>"
+          Logger.debug(s"********** sending to pdf generator ${HtmlFormat.escape(body.toString).toString} bytes ***********")
+          val wsResponse = pdfGeneratorConnector.generatePdf(HtmlFormat.escape(body.toString).toString)
           wsResponse.map{
             response =>
               val bytes = response.bodyAsBytes.toArray
@@ -102,7 +105,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
           }
         }
         else {
-          Future.successful(printData)
+          Future.successful(Ok(body))
         }
       }
     )
