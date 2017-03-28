@@ -30,11 +30,12 @@ import play.api.mvc.Action
 import play.api.mvc.Results.Ok
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
-import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches}
+import uk.gov.hmrc.offpayroll.util.{CompressedInterview, HtmlHelper, OffPayrollSwitches}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
+import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
 
 
 
@@ -77,7 +78,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
     )
 
     printPrint.bindFromRequest.fold (
-      formWithErrors => {
+      _ => {
         throw new IllegalStateException("Hidden fields missing from the form")
       },
       printResult => {
@@ -85,24 +86,10 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)
 
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
-          val s = "<h1>HELLO <i>WORLD ...</i> !!!</h1>"
           Logger.debug(s"********** sending to pdf generator ***********")
-          val wsResponse = pdfGeneratorConnector.generatePdf(body.toString.replaceAll("<script[\\s\\S]*?/script>", ""))
-          wsResponse.map{
-            response =>
-              val bytes = response.bodyAsBytes.toArray
-              Logger.debug(s"********** got ${bytes.length} bytes ***********")
-              Logger.debug(s"********** got ${response.status} ***********")
-              Logger.debug(s"********** got ${response.statusText} ***********")
-              if (response.status == 400){
-                Ok(response.body)
-              }
-              else {
-//                val inputStream = new ByteArrayInputStream(bytes)
-//                val dataContent: Enumerator[Array[Byte]] = Enumerator.fromStream(inputStream)
-//                Ok.chunked(dataContent).as("application/pdf")
-                Ok(bytes).as("application/pdf")
-              }
+          val wsResponse = pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString))
+          wsResponse.map{ response =>
+            Ok(response.bodyAsBytes.toArray).as("application/pdf")
           }
         }
         else {

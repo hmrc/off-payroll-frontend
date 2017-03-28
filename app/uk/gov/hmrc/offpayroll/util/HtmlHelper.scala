@@ -14,27 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.connectors
+package uk.gov.hmrc.offpayroll.util
 
+object HtmlHelper {
 
-import com.google.inject.ImplementedBy
-import play.api.libs.ws.{WSClient, WSResponse}
-import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
-
-import scala.concurrent.Future
-
-/**
-  * Created by peter on 12/12/2016.
-  */
-@ImplementedBy(classOf[FrontendPdfGeneratorConnector])
-trait PdfGeneratorConnector {
-
-  val serviceURL: String
-
-  def getWsClient: WSClient
-
-  def generatePdf(html: String): Future[WSResponse] = {
-    getWsClient.url(serviceURL).post(Map("html" -> Seq(html)))
-  }
+  def removeScriptTags(html: String) = html.replaceAll("<script[\\s\\S]*?/script>", "")
 
 }

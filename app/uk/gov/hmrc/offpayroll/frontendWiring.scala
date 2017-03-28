@@ -53,12 +53,11 @@ class FrontendDecisionConnector extends DecisionConnector with ServicesConfig {
   val serviceURL = "off-payroll-decision/decide"
   val http = WSHttp
 }
+
 @Singleton
 class FrontendPdfGeneratorConnector @Inject() (ws: WSClient) extends PdfGeneratorConnector with ServicesConfig {
   val pdfServiceUrl: String = baseUrl("pdf-generator-service")
   val serviceURL = pdfServiceUrl + "/pdf-generator/generate"
   val http = WSHttp
-
-
   def getWsClient:WSClient = ws
 }
