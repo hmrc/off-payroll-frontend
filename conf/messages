@@ -7,6 +7,7 @@ Yes=Yes
 No=No
 
 #### Set up cluster
+setup=About the people involved
 
 setup.endUserRole=Which of these describes you best? 
 setup.endUserRole.personDoingWork=The worker
@@ -23,10 +24,14 @@ setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
 
+exit=About the worker''s duties
+
 exit.officeHolder=Is the worker or their business an office holder for the end client?
 
 
 #### Personal Service cluster
+personalService=About substitutes and helpers
+
 personalService.workerSentActualSubstitute=During this engagement has the worker''s business arranged for someone else to do the work instead?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
 personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree 
@@ -37,6 +42,7 @@ personalService.possibleSubstituteWorkerPay=Would the worker''s business have to
 personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work?
 
 #### Control Cluster
+control=About the work arrangements
 
 control.engagerMovingWorker=Can the end client move the worker to a different task or project than they originally agreed to do?
 control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
@@ -63,6 +69,7 @@ control.workerDecideWhere.workerCannotChoose=No - the end client decides
 control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
 #### Financial Risk Cluster
+financialRisk=About the worker''s financial risk
 
 financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they can''t claim as an expense from the end client or an agency?
 financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
@@ -91,6 +98,7 @@ financialRisk.paidForSubstandardWork.cannotBeCorrected=They can''t put it right 
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
+partParcel=About the worker''s involvement in the organisation
 
 partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefits from the end client?
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
@@ -118,7 +126,7 @@ true.UNKNOWN= Unable to determine the tax status of this engagement
 
 
 hardExit.heading=This engagement should be classed as employed for tax purposes
-hardExit.reason=
+hardExit.reason=About the worker''s involvement in the organisation
 
 exitTool.serviceProvision.heading=Your answers indicate that this service isn’t relevant to the worker. You do not need to continue with this service as the intermediaries legislation does not apply.
 exitTool.serviceProvision.reason=

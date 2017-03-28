@@ -20,7 +20,10 @@
             error
         }">
             <fieldset>
-                <legend class="h1-heading" role="heading" aria-level="1" id="question">@Messages(element.questionTag)</legend>
+                <legend class="h1-heading" role="heading" aria-level="1"  id="question">
+                    <span class="pre-heading">@Messages(element.clusterParent.name)</span>
+                    @Messages(element.questionTag)
+                </legend>
 
                 @guidance
                 @if(f.errors.headOption.isDefined) {
