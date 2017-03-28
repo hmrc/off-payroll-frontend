@@ -98,7 +98,7 @@ financialRisk.paidForSubstandardWork.cannotBeCorrected=They can''t put it right 
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-partParcel=About the worker''s involvement in the organisation
+partParcel=About the worker''s integration into the organisation
 
 partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefits from the end client?
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
