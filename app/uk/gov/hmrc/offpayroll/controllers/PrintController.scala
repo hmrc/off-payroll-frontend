@@ -86,8 +86,8 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
           val s = "<h1>HELLO <i>WORLD ...</i> !!!</h1>"
-          Logger.debug(s"********** sending to pdf generator ${HtmlFormat.escape(body.toString).toString} bytes ***********")
-          val wsResponse = pdfGeneratorConnector.generatePdf(HtmlFormat.escape(body.toString).toString)
+          Logger.debug(s"********** sending to pdf generator ***********")
+          val wsResponse = pdfGeneratorConnector.generatePdf(body.toString.replaceAll("<script[\\s\\S]*?/script>", ""))
           wsResponse.map{
             response =>
               val bytes = response.bodyAsBytes.toArray
