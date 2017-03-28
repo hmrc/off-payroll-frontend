@@ -98,9 +98,10 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
                 Ok(response.body)
               }
               else {
-                val inputStream = new ByteArrayInputStream(bytes)
-                val dataContent: Enumerator[Array[Byte]] = Enumerator.fromStream(inputStream)
-                Ok.chunked(dataContent).as("application/pdf")
+//                val inputStream = new ByteArrayInputStream(bytes)
+//                val dataContent: Enumerator[Array[Byte]] = Enumerator.fromStream(inputStream)
+//                Ok.chunked(dataContent).as("application/pdf")
+                Ok(bytes).as("application/pdf")
               }
           }
         }
