@@ -10,7 +10,8 @@
 @import uk.gov.hmrc.offpayroll.models.{IN, OUT, UNKNOWN}
 @import uk.gov.hmrc.offpayroll.util.OffPayrollSwitches
 
-@(decision: Decision, interview: List[(String, List[String])], esi: Boolean, compressedInterview: String)(implicit request: Request[_], messages: Messages)
+@(decision: Decision, interview: List[(String, List[String])],
+        esi: Boolean, compressedInterview: String, fragments: Map[String, Html])(implicit request: Request[_], messages: Messages)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
@@ -48,6 +49,7 @@
                     <ol id="yourAnswers">
                     @for((key, value) <- interview) {
                         <li class="section divider--bottom"><h3>@messages(key)</h3>
+                            <div>@fragments.get(key)</div>
                             @for(child <- value) {
                                 <div id="answer.@key" class="panel-indent">@messages(child)</div>
                             }

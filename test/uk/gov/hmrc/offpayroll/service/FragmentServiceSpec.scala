@@ -29,9 +29,11 @@ class FragmentServiceSpec   extends FlatSpec with Matchers  {
   val fragmentService = FragmentService("/testGuidance/")
 
 
+  private val contractualObligationKey = "personalService.contractualObligationForSubstitute"
+
   "A Fragment Service" should " be able to return a piece of html based on a question tag" in {
 
-    val fragment: Html = fragmentService.getFragmentByName("personalService.contractualObligationForSubstitute")
+    val fragment: Html = fragmentService.getFragmentByName(contractualObligationKey)
     fragment should not be null
     fragment.body.contains(" I need to see an example of how this works in practice") shouldBe true
 
@@ -51,5 +53,12 @@ class FragmentServiceSpec   extends FlatSpec with Matchers  {
     fragment.body.contains("") shouldBe true
   }
 
+
+  it should "return a filtered copy of the the fragment collection basee on the current interview" in {
+
+    val fragments = fragmentService.getAllFragmentsForInterview(Map(contractualObligationKey -> "bla"))
+    fragments.size shouldBe 1
+    fragments.get(contractualObligationKey).toString.contains("I need to see an example of how this works in practice") shouldBe true
+  }
 
 }
