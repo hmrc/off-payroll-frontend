@@ -28,7 +28,6 @@ package object modelsFormat {
   implicit val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
   implicit val decideResponseFormatter: Format[DecisionResponse] = Json.format[DecisionResponse]
   implicit val hc = HeaderCarrier()
-  implicit val rds = uk.gov.hmrc.play.http.HttpReads
 
 
 }

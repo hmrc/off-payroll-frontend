@@ -16,25 +16,19 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
-import java.io.ByteArrayInputStream
 import javax.inject.Inject
 
-import play.api.Logger
 import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
-import play.api.libs.iteratee.Enumerator
-import play.api.libs.ws.WSClient
 import play.api.mvc.Action
-import play.api.mvc.Results.Ok
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
-import uk.gov.hmrc.offpayroll.util.{CompressedInterview, HtmlHelper, OffPayrollSwitches}
+import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
-import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
 import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
 
 
@@ -53,7 +47,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
     )
 
     formatPrint.bindFromRequest.fold (
-      formWithErrors => {
+      _ => {
         throw new IllegalStateException("Hidden fields missing from the form")
       },
       formSuccess => {
@@ -86,9 +80,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)
 
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
-          Logger.debug(s"********** sending to pdf generator ***********")
-          val wsResponse = pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString))
-          wsResponse.map{ response =>
+          pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
             Ok(response.bodyAsBytes.toArray).as("application/pdf")
           }
         }
