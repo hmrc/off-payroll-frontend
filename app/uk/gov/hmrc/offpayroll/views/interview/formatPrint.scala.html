@@ -21,37 +21,37 @@
     </p>
     @helpers.form(routes.PrintController.printResult, 'id -> "resultData") {
 
-        <input type="hidden" name="esi" value="@esi" />
-        <input type="hidden" name="decisionResult" value="@decisionResult" />
-        <input type="hidden" name="compressedInterview" value="@compressedInterview" />
-        <input type="hidden" name="decisionVersion" value="@decisionVersion" />
+        <input type="hidden" name="esi" id="esi" value="@esi" />
+        <input type="hidden" name="decisionResult" id="decisionResult" value="@decisionResult" />
+        <input type="hidden" name="compressedInterview" id="compressedInterview" value="@compressedInterview" />
+        <input type="hidden" name="decisionVersion" id="decisionVersion" value="@decisionVersion" />
         <fieldset class="form-field-group">
             <div class="form-field">
                 <label>
                     Name of the person that completed this check
                     <input type="text"
-                    name="completedBy" class="form-control form-control--block"/>
+                    name="completedBy" id="completedBy" class="form-control form-control--block"/>
                 </label>
             </div>
             <div class="form-field">
                 <label>
                     End client's name
                     <input type="text"
-                    name="client" class="form-control form-control--block"/>
+                    name="client" id="client" class="form-control form-control--block"/>
                 </label>
             </div>
             <div class="form-field">
                 <label>
                     Engagement job title
                     <input type="text"
-                    name="job" class="form-control form-control--block"/>
+                    name="job" id="job" class="form-control form-control--block"/>
                 </label>
             </div>
             <div class="form-field">
                 <label>
                     Reference (worker's name or contract number, for example)
                     <input type="text"
-                    name="reference" class="form-control form-control--block"/>
+                    name="reference" id="reference" class="form-control form-control--block"/>
                 </label>
             </div>
         <button>Continue</button>
@@ -59,10 +59,11 @@
 <script type="text/javascript">
         (function() {
             document.getElementById("resultData").addEventListener("submit", function () {
-                ga("send", "event", "Forms", "end-client", document.querySelectorAll("input[name$=client]").value);
-                ga("send", "event", "Forms", "role", document.querySelectorAll("input[name$=job]").value);
-                ga("send", "event", "Forms", "decision", document.querySelectorAll("input[name$=decisionResult]").value);
+                ga("send", "event", "Forms", "end-client", document.getElementById("client").value);
+                ga("send", "event", "Forms", "role", document.getElementById("job").value);
+                ga("send", "event", "Forms", "decision", document.getElementById("decisionResult").value);
             });
+
         })();
 </script>
 }
