@@ -35,7 +35,7 @@ object FinancialRiskCluster extends Cluster {
         Element("workerUsedVehicle", CHECKBOX, 2, this),
         Element("workerHadOtherExpenses", CHECKBOX, 3, this),
         Element("expensesAreNotRelevantForRole", CHECKBOX, 4, this)
-      )),
+      ), ElementVerifier.nonEmptyAndExclusive("expensesAreNotRelevantForRole")),
     Element("workerMainIncome", MULTI, 1, this,
       List(
         Element("workerMainIncome.incomeCalendarPeriods", RADIO, 0, this),

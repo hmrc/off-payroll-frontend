@@ -105,14 +105,15 @@ partParcel.workerRepresentsEngagerBusiness.workAsBusiness=They work for their ow
 # Decision
 
 # ESI (sole trader) messages are prefixed with true IR35 equivalents are false
+# IN =
 
-false.decision.in.ir35= The intermediaries legislation applies to this engagement
-false.decision.out.ir35= The intermediaries legislation does not apply to this engagement
-false.decision.unknown= Unable to determine the tax status of this engagement
+false.IN= The intermediaries legislation applies to this engagement
+false.OUT= The intermediaries legislation does not apply to this engagement
+false.UNKNOWN= Unable to determine the tax status of this engagement
 
-true.decision.in.ir35=  This engagement should be classed as employed for tax purposes
-true.decision.out.ir35= This engagement should be classed as self-employed for tax purposes
-true.decision.unknown= Unable to determine the tax status of this engagement
+true.IN=  This engagement should be classed as employed for tax purposes
+true.OUT= This engagement should be classed as self-employed for tax purposes
+true.UNKNOWN= Unable to determine the tax status of this engagement
 
 
 
@@ -128,6 +129,7 @@ exitTool.soleTrader.reason=
 exitTool.soleTrader.explanation=
 
 error.required=You need to select an answer:
+error.invalid.combination=Invalid combination selected:
 
 multipleInterview.heading=Please close this tab or window to continue checking employment status for tax
 multipleInterview.intro=We''ve noticed that you already have this service open in another tab or window.

@@ -23,7 +23,7 @@ import play.api.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
-import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+import play.api.data.validation.Constraint
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.{Format, Json}
 import play.api.mvc._
@@ -39,9 +39,8 @@ import scala.concurrent.Future
 
 trait OffPayrollControllerHelper {
 
-
-  def nonEmptyList[T]: Constraint[List[T]] = Constraint[List[T]]("constraint.required") { list =>
-    if (list.nonEmpty) Valid else Invalid(ValidationError("error.required"))
+  def verifyElement(element: Element)(): Constraint[List[String]] = Constraint[List[String]]("constraint.required") {
+    element.verify(_)
   }
 
   def createForm(element: Element) = {
@@ -53,9 +52,10 @@ trait OffPayrollControllerHelper {
   }
 
   def createListForm(element: Element) = {
+    val verify = verifyElement(element)
     Form(
       single(
-        element.questionTag -> list(nonEmptyText).verifying(nonEmptyList)
+        element.questionTag -> list(nonEmptyText).verifying(verify)
       )
     )
   }
@@ -87,6 +87,8 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(emptyForm, element,
       fragmentService.getFragmentByName(element.questionTag))))
   }
+
+
 
   override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
   Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
@@ -147,8 +149,8 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
           form, decision.element.head, fragmentService.getFragmentByName(decision.element.head.questionTag)))
             .withSession(InterviewSessionStack.addCurrentIndex(session, decision.element.head))
         } else {
-	        logResponse(decision.decision, session, correlationId)
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asRawList(session), esi(asMap(session))))
+	        val compressedInterview= logResponse(decision.decision, session, correlationId)
+          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision.decision.head, asRawList(session), esi(asMap(session)), compressedInterview))
             .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
         }
       }
@@ -161,13 +163,15 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
       }
   }
 
-  private def logResponse(maybeDecision: Option[Decision], session: Session, correlationId: String): Unit =
-    session.get("interview").fold(Logger.error("interview is empty")) { compressedInterview =>
+  private def logResponse(maybeDecision: Option[Decision], session: Session, correlationId: String): String =
+    session.get("interview").fold{Logger.error("interview is empty")
+      ""} { compressedInterview =>
       val esiOrIr35Route = if (esi(asMap(session))) "ESI" else "IR35"
       val version = maybeDecision.map(_.version).getOrElse("unknown")
       val decision = maybeDecision.map(_.decision).getOrElse("decision is not known").toString
       val responseBody = Json.toJson(DecisionResponse(compressedInterview, esiOrIr35Route, version, correlationId, decision))
       Logger.info(s"DECISION: ${responseBody.toString.replaceAll("\"", "")}")
+      compressedInterview
     }
 }
 

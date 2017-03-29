@@ -19,11 +19,12 @@ package uk.gov.hmrc.offpayroll.models
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.resources._
+import uk.gov.hmrc.play.test.WithFakeApplication
 
 /**
   * Created by peter on 05/12/2016.
   */
-class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
+class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar with WithFakeApplication  {
 
   val mockClusters = mock[List[Cluster]]
 
@@ -86,8 +87,8 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar {
 
   }
 
-  it should "be at version 1.1.1-final" in {
-    webflow.version shouldBe "1.1.1-final"
+  it should "be at version 1.2.0-final" in {
+    webflow.version shouldBe "1.2.0-final"
   }
 
 }
