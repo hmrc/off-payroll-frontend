@@ -82,6 +82,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
           pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
             Ok(response.bodyAsBytes.toArray).as("application/pdf")
+              .withHeaders("Content-Disposition" -> s"attachment; filename=${printResult.reference}.pdf")
           }
         }
         else {
