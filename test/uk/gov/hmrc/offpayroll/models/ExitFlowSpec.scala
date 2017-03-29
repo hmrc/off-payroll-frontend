@@ -19,11 +19,12 @@ package uk.gov.hmrc.offpayroll.models
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 import uk.gov.hmrc.offpayroll.resources._
+import uk.gov.hmrc.play.test.WithFakeApplication
 
 /**
   * Created by peter on 11/01/2017.
   */
-class ExitFlowSpec  extends FlatSpec with Matchers {
+class ExitFlowSpec  extends FlatSpec with Matchers with WithFakeApplication {
 
   private val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
   private val emptyInterview = Map[String, String]()
