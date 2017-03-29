@@ -67,7 +67,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         "completedBy" -> text,
         "client" -> text,
         "job" -> text,
-        "reference" -> text
+        "reference" -> optional(text)
       )(PrintResult.apply)(PrintResult.unapply)
     )
 
@@ -82,7 +82,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
           pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
             Ok(response.bodyAsBytes.toArray).as("application/pdf")
-              .withHeaders("Content-Disposition" -> s"attachment; filename=${printResult.reference}.pdf")
+              .withHeaders("Content-Disposition" -> s"attachment; filename=${printResult.reference.getOrElse("result")}.pdf")
           }
         }
         else {
@@ -96,4 +96,4 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
 case class FormatPrint(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String)
 
-case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, completedBy: String, client: String, job: String, reference: String )
+case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, completedBy: String, client: String, job: String, reference: Option[String] )
