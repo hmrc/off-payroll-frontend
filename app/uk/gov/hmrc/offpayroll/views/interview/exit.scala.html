@@ -20,9 +20,9 @@
             error
         }">
             <fieldset>
-                <legend class="h1-heading" role="heading" aria-level="1"  id="question">
-                    <span class="pre-heading">@Messages(element.clusterParent.name)</span>
-                    @Messages(element.questionTag)
+                <legend class="h1-heading" role="heading" aria-level="1">
+                    <span class="pre-heading">@Messages("sectionHeader." + element.clusterParent.name)</span>
+                    <span id="question">@Messages(element.questionTag)</span>
                 </legend>
 
                 @guidance
