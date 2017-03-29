@@ -43,7 +43,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
         "compressedInterview" -> nonEmptyText,
-        "cluster" -> nonEmptyText
+        "decisionCluster" -> nonEmptyText
       )(FormatPrint.apply)(FormatPrint.unapply)
     )
 
@@ -65,7 +65,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
         "compressedInterview" -> nonEmptyText,
-        "cluster" -> nonEmptyText,
+        "decisionCluster" -> nonEmptyText,
         "completedBy" -> text,
         "client" -> text,
         "job" -> text,
