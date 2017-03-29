@@ -6,7 +6,7 @@
 @import uk.gov.hmrc.offpayroll.controllers.FormatPrint
 @import play.api.Play
 
-@(esi: Boolean , decisionResult: String, decisionVersion: String, compressedInterview: String)(implicit request: Request[_], messages: Messages)
+@(formatPrint: FormatPrint)(implicit request: Request[_], messages: Messages)
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(
     title = Messages("format print"),
@@ -21,10 +21,11 @@
     </p>
     @helpers.form(routes.PrintController.printResult, 'id -> "resultData") {
 
-        <input type="hidden" name="esi" id="esi" value="@esi" />
-        <input type="hidden" name="decisionResult" id="decisionResult" value="@decisionResult" />
-        <input type="hidden" name="compressedInterview" id="compressedInterview" value="@compressedInterview" />
-        <input type="hidden" name="decisionVersion" id="decisionVersion" value="@decisionVersion" />
+        <input type="hidden" name="esi" id="esi" value="@formatPrint.esi" />
+        <input type="hidden" name="decisionResult" id="decisionResult" value="@formatPrint.decisionResult" />
+        <input type="hidden" name="compressedInterview" id="compressedInterview" value="@formatPrint.compressedInterview" />
+        <input type="hidden" name="decisionVersion" id="decisionVersion" value="@formatPrint.decisionVersion" />
+        <input type="hidden" name="cluster" id="cluster" value="@formatPrint.decisionCluster" />
         <fieldset class="form-field-group">
             <div class="form-field">
                 <label>

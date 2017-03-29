@@ -101,7 +101,7 @@ object SuperWebflow extends OffPayrollWebflow {
 }
 
 
-case class Decision(_qa: Map[String, String], decision: DecisionType, version: String) {
+case class Decision(_qa: Map[String, String], decision: DecisionType, version: String, cluster: String) {
 
   val qa = DecisionBuilder.decodeMultipleValues(_qa)
 
