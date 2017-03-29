@@ -18,19 +18,22 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.api.Logger
 import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc.Action
-import uk.gov.hmrc.offpayroll.util.CompressedInterview
+import play.twirl.api.Html
+import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
+import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
+import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
 
 
-class PrintController @Inject() extends FrontendController {
+
+class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) extends FrontendController {
 
   def format = Action.async { implicit request =>
 
@@ -44,7 +47,7 @@ class PrintController @Inject() extends FrontendController {
     )
 
     formatPrint.bindFromRequest.fold (
-      formWithErrors => {
+      _ => {
         throw new IllegalStateException("Hidden fields missing from the form")
       },
       formSuccess => {
@@ -69,12 +72,21 @@ class PrintController @Inject() extends FrontendController {
     )
 
     printPrint.bindFromRequest.fold (
-      formWithErrors => {
+      _ => {
         throw new IllegalStateException("Hidden fields missing from the form")
       },
       printResult => {
         val interview = CompressedInterview(printResult.compressedInterview).asRawList
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)))
+        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)
+
+        if (OffPayrollSwitches.offPayrollPdf.enabled) {
+          pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
+            Ok(response.bodyAsBytes.toArray).as("application/pdf")
+          }
+        }
+        else {
+          Future.successful(Ok(body))
+        }
       }
     )
   }

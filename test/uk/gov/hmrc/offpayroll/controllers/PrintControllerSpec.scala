@@ -18,17 +18,21 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
+import play.api.libs.ws.WSClient
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, route, _}
-import uk.gov.hmrc.offpayroll.filters.SessionIdFilter
-import uk.gov.hmrc.offpayroll.resources._
+import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
-import uk.gov.hmrc.offpayroll.controllers.PrintController
 
 /**
   * Created by peter on 09/01/2017.
   */
 class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
+
+  object TestPdfGeneratorConnector extends PdfGeneratorConnector {
+    override val serviceURL: String = ""
+    override def getWsClient: WSClient = ???
+  }
 
   val COOKIES_HEADER_NAME: String = "Set-Cookie"
   val HIDDEN_FIELDS: Map[String, String] = Map("esi" -> "false", "decisionResult" -> "OUT", "compressedInterview" -> "6eAwrZDHs", "decisionVersion" -> "12345")
@@ -49,7 +53,7 @@ class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
   "POST /print/format" should {
     "return 500 and report missing fields" in {
       val fakeRequest = FakeRequest(POST, "/check-employment-status-for-tax/print/format").withFormUrlEncodedBody("esi" -> "false")
-      intercept[IllegalStateException]{new PrintController().format()(fakeRequest).futureValue}
+      intercept[IllegalStateException]{new PrintController(TestPdfGeneratorConnector).format()(fakeRequest).futureValue}
     }
   }
   "POST /print/print" should {
@@ -65,7 +69,7 @@ class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
   "POST /print/print" should {
     "return 500 and report missing fields" in {
       val fakeRequest = FakeRequest(POST, "/check-employment-status-for-tax/print/print").withFormUrlEncodedBody("esi" -> "false")
-      intercept[IllegalStateException]{new PrintController().format()(fakeRequest).futureValue}
+      intercept[IllegalStateException]{new PrintController(TestPdfGeneratorConnector).format()(fakeRequest).futureValue}
     }
   }
 
