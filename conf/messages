@@ -46,23 +46,23 @@ personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a 
 #### Control Cluster
 sectionHeader.control=About the work arrangements
 
-control.engagerMovingWorker=Can the end client move the worker to a different task or project than they originally agreed to do?
+control.engagerMovingWorker=Can the end client move the worker to a different task than they originally agreed to do?
 control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
-control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker''s agreement (if the worker doesn''t want to change task or project, the end client would no longer engage them)
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker''s agreement (if the worker doesn''t want to change, the end client might end the engagement)
 control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No - that would need to be arranged under a new contract or formal agreement
 
-control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, can the end client decide how the work is done?
-control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=The worker decides how the work needs to be done without any input from the end client
-control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=The worker and other people employed by the end client agree how the work needs to be done
-control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=The end client decides how the work needs to be done without input from the worker
-control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=The end client can''t decide how the work needs to be done because it''s a highly skilled role
+control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, does the end client have the right to decide how the work is done?
+control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=No - the worker decides how the work needs to be done without input from the end client
+control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done
+control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Yes - the end client decides how the work needs to be done without input from the worker
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=No - the end client can''t decide how the work needs to be done because it''s a highly skilled role
 
 
 control.whenWorkHasToBeDone=Can the end client decide the schedule of working hours?
-control.whenWorkHasToBeDone.workerDecideSchedule=The worker decides their own schedule
-control.whenWorkHasToBeDone.workerAgreeSchedule=The worker and the end client agree a schedule
-control.whenWorkHasToBeDone.scheduleDecidedForWorker=The end client decides the worker''s schedule
-control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=No schedule is needed as long as the worker meets any agreed deadlines
+control.whenWorkHasToBeDone.workerDecideSchedule=No - the worker decides their own schedule
+control.whenWorkHasToBeDone.workerAgreeSchedule=Partly - the worker and the end client agree a schedule
+control.whenWorkHasToBeDone.scheduleDecidedForWorker=Yes - the end client decides the worker''s schedule
+control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
 
 control.workerDecideWhere=Can the worker choose where they work?
 control.workerDecideWhere.workerChooses=Yes - the worker decides
