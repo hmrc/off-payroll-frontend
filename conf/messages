@@ -19,7 +19,7 @@ setup.hasContractStarted=Has the worker already started this particular engageme
 setup.provideServices=How does the worker provide their services to the end client?
 setup.provideServices.limitedCompany=As a limited company
 setup.provideServices.partnership=As a partnership
-setup.provideServices.intermediary=Through another individual
+setup.provideServices.intermediary=Through another individual (not an agency)
 setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
