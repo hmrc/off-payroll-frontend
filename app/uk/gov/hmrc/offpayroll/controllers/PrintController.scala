@@ -42,7 +42,8 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         "esi" -> boolean,
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
-        "compressedInterview" -> nonEmptyText
+        "compressedInterview" -> nonEmptyText,
+        "decisionCluster" -> nonEmptyText
       )(FormatPrint.apply)(FormatPrint.unapply)
     )
 
@@ -51,7 +52,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         throw new IllegalStateException("Hidden fields missing from the form")
       },
       formSuccess => {
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess.esi, formSuccess.decisionResult, formSuccess.decisionVersion, formSuccess.compressedInterview)))
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess)))
       }
       )
   }
@@ -64,6 +65,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
         "compressedInterview" -> nonEmptyText,
+        "decisionCluster" -> nonEmptyText,
         "completedBy" -> text,
         "client" -> text,
         "job" -> text,
@@ -94,6 +96,6 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
 }
 
-case class FormatPrint(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String)
+case class FormatPrint(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
 
-case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, completedBy: String, client: String, job: String, reference: Option[String] )
+case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String, completedBy: String, client: String, job: String, reference: Option[String] )
