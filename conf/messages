@@ -26,7 +26,7 @@ setup.provideServices.soleTrader=As a sole trader
 
 sectionHeader.exit=About the worker''s duties
 
-exit.officeHolder=Is the worker or their business an office holder for the end client?
+exit.officeHolder=Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 
 
 #### Personal Service cluster
