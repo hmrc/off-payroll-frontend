@@ -32,14 +32,16 @@ exit.officeHolder=Will the worker (or their business) perform office holder duti
 #### Personal Service cluster
 sectionHeader.personalService=About substitutes and helpers
 
-personalService.workerSentActualSubstitute=During this engagement has the worker''s business arranged for someone else to do the work instead?
+personalService.workerSentActualSubstitute=Has the worker''s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
 personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree 
-personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it''s never happened
+personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it hasn''t happened
 personalService.workerPayActualSubstitute=Did the worker''s business pay the person who did the work instead of them?
-personalService.possibleSubstituteRejection=Would the end client accept the worker''s business sending someone else to do this work instead?
+personalService.possibleSubstituteRejection=If the worker''s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+personalService.possibleSubstituteRejection.wouldReject=Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work 
+personalService.possibleSubstituteRejection.wouldNotReject=No - the end client would always accept a substitute who met these criteria
 personalService.possibleSubstituteWorkerPay=Would the worker''s business have to pay the person who did the work instead of them?
-personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work?
+personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work for this engagement?
 
 #### Control Cluster
 sectionHeader.control=About the work arrangements
