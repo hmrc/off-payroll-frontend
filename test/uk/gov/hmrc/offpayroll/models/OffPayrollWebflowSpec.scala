@@ -88,7 +88,7 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar wit
 
   }
 
-  it should "be at version 1.3.0-final" in {
+  it should "have the same version as declared in application.conf" in {
     webflow.version shouldBe getString("microservice.services.off-payroll-decision.version")
   }
 

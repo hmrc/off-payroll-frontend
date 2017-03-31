@@ -30,7 +30,7 @@ class SetupFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
   private val maybeElement = setupFlow.getStart(Map[String, String]())
 
 
-  "A SetupFlow " should " be at version 1.3.0-final " in {
+  "A SetupFlow " should "have the same version as declared in application.conf" in {
     setupFlow.version shouldBe getString("microservice.services.off-payroll-decision.version")
   }
 

@@ -69,7 +69,7 @@ class ExitFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
     result.element.isEmpty shouldBe true
   }
 
-  it should "be at version 1.3.0-final" in {
+  it should "have the same version as declared in application.conf" in {
     ExitFlow.version shouldBe getString("microservice.services.off-payroll-decision.version")
   }
 
