@@ -91,7 +91,7 @@ financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end clie
 financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the work, does the worker need to put it right at their own cost?
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
 financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs 
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCost=Yes - the worker would have to put it right without an additional charge, but wouldn''t incur any costs
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Yes - the worker would have to put it right without an additional charge, but wouldn''t incur any costs
 financialRisk.paidForSubstandardWork.noObligationToCorrect=No – they wouldn''t need to put it right
 financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t be able to put it right because the work is time-specific or for a single event
 
