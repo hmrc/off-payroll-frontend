@@ -19,48 +19,50 @@ setup.hasContractStarted=Has the worker already started this particular engageme
 setup.provideServices=How does the worker provide their services to the end client?
 setup.provideServices.limitedCompany=As a limited company
 setup.provideServices.partnership=As a partnership
-setup.provideServices.intermediary=Through another individual
+setup.provideServices.intermediary=Through another individual (not an agency)
 setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
 
 sectionHeader.exit=About the worker''s duties
 
-exit.officeHolder=Is the worker or their business an office holder for the end client?
+exit.officeHolder=Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 
 
 #### Personal Service cluster
 sectionHeader.personalService=About substitutes and helpers
 
-personalService.workerSentActualSubstitute=During this engagement has the worker''s business arranged for someone else to do the work instead?
+personalService.workerSentActualSubstitute=Has the worker''s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
 personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree 
-personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it''s never happened
+personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it hasn''t happened
 personalService.workerPayActualSubstitute=Did the worker''s business pay the person who did the work instead of them?
-personalService.possibleSubstituteRejection=Would the end client accept the worker''s business sending someone else to do this work instead?
+personalService.possibleSubstituteRejection=If the worker''s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+personalService.possibleSubstituteRejection.wouldReject=Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work 
+personalService.possibleSubstituteRejection.wouldNotReject=No - the end client would always accept a substitute who met these criteria
 personalService.possibleSubstituteWorkerPay=Would the worker''s business have to pay the person who did the work instead of them?
-personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work?
+personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work for this engagement?
 
 #### Control Cluster
 sectionHeader.control=About the work arrangements
 
-control.engagerMovingWorker=Can the end client move the worker to a different task or project than they originally agreed to do?
+control.engagerMovingWorker=Can the end client move the worker to a different task than they originally agreed to do?
 control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
-control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker''s agreement (if the worker doesn''t want to change task or project, the end client would no longer engage them)
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker''s agreement (if the worker doesn''t want to change, the end client might end the engagement)
 control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No - that would need to be arranged under a new contract or formal agreement
 
-control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, can the end client decide how the work is done?
-control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=The worker decides how the work needs to be done without any input from the end client
-control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=The worker and other people employed by the end client agree how the work needs to be done
-control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=The end client decides how the work needs to be done without input from the worker
-control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=The end client can''t decide how the work needs to be done because it''s a highly skilled role
+control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, does the end client have the right to decide how the work is done?
+control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=No - the worker decides how the work needs to be done without input from the end client
+control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done
+control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Yes - the end client decides how the work needs to be done without input from the worker
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=No - the end client can''t decide how the work needs to be done because it''s a highly skilled role
 
 
 control.whenWorkHasToBeDone=Can the end client decide the schedule of working hours?
-control.whenWorkHasToBeDone.workerDecideSchedule=The worker decides their own schedule
-control.whenWorkHasToBeDone.workerAgreeSchedule=The worker and the end client agree a schedule
-control.whenWorkHasToBeDone.scheduleDecidedForWorker=The end client decides the worker''s schedule
-control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=No schedule is needed as long as the worker meets any agreed deadlines
+control.whenWorkHasToBeDone.workerDecideSchedule=No - the worker decides their own schedule
+control.whenWorkHasToBeDone.workerAgreeSchedule=Partly - the worker and the end client agree a schedule
+control.whenWorkHasToBeDone.scheduleDecidedForWorker=Yes - the end client decides the worker''s schedule
+control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
 
 control.workerDecideWhere=Can the worker choose where they work?
 control.workerDecideWhere.workerChooses=Yes - the worker decides
@@ -74,7 +76,6 @@ sectionHeader.financialRisk=About the worker''s financial risk
 financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they can''t claim as an expense from the end client or an agency?
 financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
 financialRisk.workerProvidedEquipment=Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
-
 financialRisk.workerUsedVehicle=Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
 financialRisk.workerHadOtherExpenses=Other expenses – including significant travel and subsistence expenses (not including commuting) or the cost of a business premises outside of the home
 financialRisk.expensesAreNotRelevantForRole=Not relevant
@@ -86,14 +87,12 @@ financialRisk.workerMainIncome.incomePieceRate=An amount based on how much work 
 financialRisk.workerMainIncome.incomeCommission=A percentage of the sales the worker makes
 financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits or savings
 
-
-financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the worker''s output, when would the worker have to put it right?
-financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=In their usual working hours at the usual rate of pay
-financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=Outside of their usual working hours for an additional charge to the end client
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Outside of their usual working hours at additional cost to the worker
-financialRisk.paidForSubstandardWork.noObligationToCorrect=They don''t have to put it right
-financialRisk.paidForSubstandardWork.cannotBeCorrected=They can''t put it right as the work is time-specific or for a single event
-
+financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the work, does the worker need to put it right at their own cost?
+financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs 
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Yes - the worker would have to put it right without an additional charge, but wouldn''t incur any costs
+financialRisk.paidForSubstandardWork.noObligationToCorrect=No – they wouldn''t need to put it right
+financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t be able to put it right because the work is time-specific or for a single event
 
 #### Part & Parcel Cluster
 

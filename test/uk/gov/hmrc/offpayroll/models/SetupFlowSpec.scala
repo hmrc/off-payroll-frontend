@@ -18,6 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.resources._
+import uk.gov.hmrc.offpayroll.util.TestConfigurationHelper.getString
 import uk.gov.hmrc.play.test.WithFakeApplication
 
 /**
@@ -29,8 +30,8 @@ class SetupFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
   private val maybeElement = setupFlow.getStart(Map[String, String]())
 
 
-  "A SetupFlow " should " be at version 1.2.0-final " in {
-    setupFlow.version shouldBe "1.2.0-final"
+  "A SetupFlow " should "have the same version as declared in application.conf" in {
+    setupFlow.version shouldBe getString("microservice.services.off-payroll-decision.version")
   }
 
 

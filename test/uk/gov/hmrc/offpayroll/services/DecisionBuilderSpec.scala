@@ -20,6 +20,7 @@ import org.scalatest.{FlatSpec, Matchers}
 import play.api.libs.json.Json
 import uk.gov.hmrc.offpayroll.models.{DecisionBuilder, DecisionRequest, OffPayrollWebflow}
 import uk.gov.hmrc.offpayroll.modelsFormat._
+import uk.gov.hmrc.offpayroll.util.TestConfigurationHelper.getString
 import uk.gov.hmrc.play.test.WithFakeApplication
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -38,10 +39,12 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers with WithFakeApplicati
     "control.hasMoreThan50Percent" -> "false", "control.toldWhatToDo" -> "control.toldWhatToDo.sometimes",
     "financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials")
 
+  private val offPayrollDecisionVersion = getString("microservice.services.off-payroll-decision.version")
+
   private val decisionRequestStringPlusControl1 =
-    """
+    s"""
       |{
-      |  "version": "1.2.0-final",
+      |  "version": "${offPayrollDecisionVersion}",
       |  "correlationID": "00000001099",
       |  "interview": {
       |    "personalService": {
@@ -61,9 +64,9 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers with WithFakeApplicati
       |}
     """.stripMargin
   private val decisionRequestStringPlusControl2 =
-    """
+    s"""
       |{
-      |  "version": "1.2.0-final",
+      |  "version": "${offPayrollDecisionVersion}",
       |  "correlationID": "00000001099",
       |  "interview": {
       |    "personalService": {
