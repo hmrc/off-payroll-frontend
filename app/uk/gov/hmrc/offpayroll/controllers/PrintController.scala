@@ -18,6 +18,7 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
+import play.api.Logger
 import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
@@ -30,6 +31,7 @@ import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
+import uk.gov.hmrc.play.http.BadRequestException
 
 
 
@@ -83,8 +85,11 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
           pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
-            Ok(response.bodyAsBytes.toArray).as("application/pdf")
-              .withHeaders("Content-Disposition" -> s"attachment; filename=${printResult.reference.getOrElse("result")}.pdf")
+            if (response.status != OK)
+              throw new BadRequestException(response.body)
+            else
+              Ok(response.bodyAsBytes.toArray).as("application/pdf")
+                .withHeaders("Content-Disposition" -> s"attachment; filename=${printResult.reference.getOrElse("result")}.pdf")
           }
         }
         else {
