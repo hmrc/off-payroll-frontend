@@ -67,8 +67,8 @@ class ExitFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
     result.element.isEmpty shouldBe true
   }
 
-  it should "be at version 1.2.0-final" in {
-    ExitFlow.version shouldBe "1.2.0-final"
+  it should "be at version 1.3.0-final" in {
+    ExitFlow.version shouldBe "1.3.0-final"
   }
 
 }

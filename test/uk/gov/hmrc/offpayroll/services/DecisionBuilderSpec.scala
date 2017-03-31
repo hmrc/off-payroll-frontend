@@ -41,7 +41,7 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers with WithFakeApplicati
   private val decisionRequestStringPlusControl1 =
     """
       |{
-      |  "version": "1.2.0-final",
+      |  "version": "1.3.0-final",
       |  "correlationID": "00000001099",
       |  "interview": {
       |    "personalService": {
@@ -63,7 +63,7 @@ class DecisionBuilderSpec  extends FlatSpec with Matchers with WithFakeApplicati
   private val decisionRequestStringPlusControl2 =
     """
       |{
-      |  "version": "1.2.0-final",
+      |  "version": "1.3.0-final",
       |  "correlationID": "00000001099",
       |  "interview": {
       |    "personalService": {
