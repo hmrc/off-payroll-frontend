@@ -16,10 +16,12 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import com.typesafe.config.ConfigFactory
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.play.test.WithFakeApplication
+import uk.gov.hmrc.offpayroll.util.TestConfigurationHelper._
 
 /**
   * Created by peter on 11/01/2017.
@@ -68,7 +70,7 @@ class ExitFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
   }
 
   it should "be at version 1.3.0-final" in {
-    ExitFlow.version shouldBe "1.3.0-final"
+    ExitFlow.version shouldBe getString("microservice.services.off-payroll-decision.version")
   }
 
 }

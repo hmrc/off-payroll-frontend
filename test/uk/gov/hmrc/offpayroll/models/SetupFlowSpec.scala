@@ -18,6 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.resources._
+import uk.gov.hmrc.offpayroll.util.TestConfigurationHelper.getString
 import uk.gov.hmrc.play.test.WithFakeApplication
 
 /**
@@ -30,7 +31,7 @@ class SetupFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
 
 
   "A SetupFlow " should " be at version 1.3.0-final " in {
-    setupFlow.version shouldBe "1.3.0-final"
+    setupFlow.version shouldBe getString("microservice.services.off-payroll-decision.version")
   }
 
 
