@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.test.WithFakeApplication
 /**
   * Created by peter on 11/01/2017.
   */
-class ExitFlowSpec  extends FlatSpec with Matchers with WithFakeApplication {
+class ExitFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
 
   private val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
   private val emptyInterview = Map[String, String]()

@@ -10,7 +10,8 @@
 @import uk.gov.hmrc.offpayroll.models.{IN, OUT, UNKNOWN}
 @import uk.gov.hmrc.offpayroll.util.OffPayrollSwitches
 
-@(decision: Decision, interview: List[(String, List[String])], esi: Boolean, compressedInterview: String)(implicit request: Request[_], messages: Messages)
+@(decision: Decision, interview: List[(String, List[String])],
+        esi: Boolean, compressedInterview: String, fragments: Map[String, Html])(implicit request: Request[_], messages: Messages)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
@@ -31,6 +32,7 @@
                 <input type="hidden" name="decisionResult" value="@decision.decision" />
                 <input type="hidden" name="compressedInterview" value="@compressedInterview" />
                 <input type="hidden" name="decisionVersion" value="@decision.version" />
+                <input type="hidden" name="decisionCluster" value="@decision.cluster" />
                 <div  class="indent-warning">
                     <div>HMRC will not keep a record of this transaction for security reasons.</div>
                     @if(OffPayrollSwitches.offPayrollPdf.enabled) {
@@ -48,6 +50,7 @@
                     <ol id="yourAnswers">
                     @for((key, value) <- interview) {
                         <li class="section divider--bottom"><h3>@messages(key)</h3>
+                            <div>@fragments.get(key)</div>
                             @for(child <- value) {
                                 <div id="answer.@key" class="panel-indent">@messages(child)</div>
                             }
