@@ -27,8 +27,8 @@ import scala.util.Try
 class InterviewDecompressorSpec extends FlatSpec with Matchers {
 
   private val ID_RESOURCES_ROOT = "interviewDecompressor"
-  private val IN_CSV = s"/$ID_RESOURCES_ROOT/100InterviewsIn.csv"
-  private val EXPECTED_OUT_CSV = s"/$ID_RESOURCES_ROOT/100InterviewsOut.csv"
+  private val IN_CSV = s"/$ID_RESOURCES_ROOT/ThreeInterviewsIn.csv"
+  private val EXPECTED_OUT_CSV = s"/$ID_RESOURCES_ROOT/ThreeInterviewsOut.csv"
   private val inputSource = Source.fromInputStream(getClass.getResourceAsStream(IN_CSV))
   private val expectedCsvLines = Source.fromInputStream(getClass.getResourceAsStream(EXPECTED_OUT_CSV)).getLines().toList
 
@@ -43,7 +43,9 @@ class InterviewDecompressorSpec extends FlatSpec with Matchers {
       decompress
     }
     tryString.isSuccess shouldBe true
-    Source.fromString(tryString.get).getLines().toList.map(_.trim) should contain theSameElementsInOrderAs expectedCsvLines.map(_.trim)
+    val map: List[String] = Source.fromString(tryString.get).getLines().toList.map(_.trim)
+    println( "boo " + map)
+    map should contain theSameElementsInOrderAs expectedCsvLines.map(_.trim)
   }
 
 }
