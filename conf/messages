@@ -76,7 +76,6 @@ sectionHeader.financialRisk=About the worker''s financial risk
 financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they can''t claim as an expense from the end client or an agency?
 financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
 financialRisk.workerProvidedEquipment=Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
-
 financialRisk.workerUsedVehicle=Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
 financialRisk.workerHadOtherExpenses=Other expenses – including significant travel and subsistence expenses (not including commuting) or the cost of a business premises outside of the home
 financialRisk.expensesAreNotRelevantForRole=Not relevant
@@ -89,12 +88,12 @@ financialRisk.workerMainIncome.incomeCommission=A percentage of the sales the wo
 financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits or savings
 
 
-financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the worker''s output, when would the worker have to put it right?
-financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=In their usual working hours at the usual rate of pay
-financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=Outside of their usual working hours for an additional charge to the end client
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Outside of their usual working hours at additional cost to the worker
-financialRisk.paidForSubstandardWork.noObligationToCorrect=They don''t have to put it right
-financialRisk.paidForSubstandardWork.cannotBeCorrected=They can''t put it right as the work is time-specific or for a single event
+financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the work, does the worker need to put it right at their own cost?
+financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs 
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCost=Yes - the worker would have to put it right without an additional charge, but wouldn''t incur any costs
+financialRisk.paidForSubstandardWork.noObligationToCorrect=No – they wouldn''t need to put it right
+financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t be able to put it right because the work is time-specific or for a single event
 
 
 #### Part & Parcel Cluster
