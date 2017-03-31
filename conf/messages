@@ -32,7 +32,9 @@ personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client 
 personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree 
 personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it''s never happened
 personalService.workerPayActualSubstitute=Did the worker''s business pay the person who did the work instead of them?
-personalService.possibleSubstituteRejection=Would the end client accept the worker''s business sending someone else to do this work instead?
+personalService.possibleSubstituteRejection=If the worker''s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+personalService.possibleSubstituteRejection.wouldReject=Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work
+personalService.possibleSubstituteRejection.wouldNotReject=No - the end client would always accept a substitute who met these criteria
 personalService.possibleSubstituteWorkerPay=Would the worker''s business have to pay the person who did the work instead of them?
 personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work?
 
@@ -82,7 +84,7 @@ financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end clie
 
 financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the worker''s output, when would the worker have to put it right?
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=In their usual working hours at the usual rate of pay
-financialRisk.paidForSubstandardWork.outsideOfUsualRateAndHours=Outside of their usual working hours for an additional charge to the end client
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Outside of their usual working hours for an additional charge to the end client
 financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Outside of their usual working hours at additional cost to the worker
 financialRisk.paidForSubstandardWork.noObligationToCorrect=They don''t have to put it right
 financialRisk.paidForSubstandardWork.cannotBeCorrected=They can''t put it right as the work is time-specific or for a single event

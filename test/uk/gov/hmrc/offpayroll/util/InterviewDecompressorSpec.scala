@@ -43,9 +43,7 @@ class InterviewDecompressorSpec extends FlatSpec with Matchers {
       decompress
     }
     tryString.isSuccess shouldBe true
-    val map: List[String] = Source.fromString(tryString.get).getLines().toList.map(_.trim)
-    println( "boo " + map)
-    map should contain theSameElementsInOrderAs expectedCsvLines.map(_.trim)
+    Source.fromString(tryString.get).getLines().toList.map(_.trim) should contain theSameElementsInOrderAs expectedCsvLines.map(_.trim)
   }
 
 }

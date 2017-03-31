@@ -28,7 +28,6 @@ class InterviewDecompressorFormatterSpec extends FlatSpec with Matchers {
 
   "interview decompressor formatter" should "provide correct csv line representation" in {
     InterviewDecompressorFormatter.asCsvLine("6y9FLKLlw").trim shouldBe csvLines(1)
-
   }
 
   it should "provide correct csv header representation" in {
