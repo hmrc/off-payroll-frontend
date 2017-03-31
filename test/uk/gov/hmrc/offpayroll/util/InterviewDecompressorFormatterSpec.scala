@@ -23,15 +23,16 @@ import scala.io.Source
 class InterviewDecompressorFormatterSpec extends FlatSpec with Matchers {
 
   private val ID_RESOURCES_ROOT = "interviewDecompressor"
-  private val EXPECTED_CSV = s"/$ID_RESOURCES_ROOT/7x7Yk4RPP.csv"
+  private val EXPECTED_CSV = s"/$ID_RESOURCES_ROOT/6y9FLKLlw.csv"
   val csvLines = Source.fromInputStream(getClass.getResourceAsStream(EXPECTED_CSV)).getLines().toList
 
   "interview decompressor formatter" should "provide correct csv line representation" in {
-    InterviewDecompressorFormatter.asCsvLine("7x7Yk4RPP") shouldBe csvLines(1)
+    InterviewDecompressorFormatter.asCsvLine("6y9FLKLlw").trim shouldBe csvLines(1)
   }
 
   it should "provide correct csv header representation" in {
-    InterviewDecompressorFormatter.asCsvHeader("7x7Yk4RPP") shouldBe csvLines(0)
+    InterviewDecompressorFormatter.asCsvHeader("6y9FLKLlw") shouldBe csvLines(0)
+
   }
 
 }
