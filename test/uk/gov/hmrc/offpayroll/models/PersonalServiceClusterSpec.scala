@@ -153,6 +153,20 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   }
 
+  it should "Ask possibleSubstituteWorkerPay when" +
+    "setup.hasContractStarted -> No " +
+    "AND " +
+    "possibleSubstituteRejection -> wouldNotReject " in {
+
+    val currentQnA = "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject"
+    val previousAnswers = List("setup.hasContractStarted" -> "No",currentQnA)
+
+    val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
+
+    maybeElement.nonEmpty shouldBe true
+    maybeElement.get.questionTag shouldBe "personalService.possibleSubstituteWorkerPay"
+  }
+
   // yesClientAgreed means this question would not even be asked?
 //  it should " ask the correct next question when 'No' is the answer to possibleSubstituteRejection - 2" in {
 //    val currentQnA = "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject"
