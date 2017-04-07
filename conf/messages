@@ -77,7 +77,7 @@ financialRisk.haveToPayButCannotClaim=What does the worker have to provide for t
 financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
 financialRisk.workerProvidedEquipment=Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
 financialRisk.workerUsedVehicle=Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
-financialRisk.workerHadOtherExpenses=Other expenses – including significant travel and subsistence expenses (not including commuting) or the cost of a business premises outside of the home
+financialRisk.workerHadOtherExpenses=Other expenses – including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker''s home
 financialRisk.expensesAreNotRelevantForRole=Not relevant
 
 financialRisk.workerMainIncome=What’s the main way the worker is paid for this engagement?
