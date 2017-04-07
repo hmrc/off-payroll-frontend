@@ -35,11 +35,8 @@
                 <input type="hidden" name="decisionCluster" value="@decision.cluster" />
                 <div  class="indent-warning">
                     <div>HMRC will not keep a record of this transaction for security reasons.</div>
-                    @if(OffPayrollSwitches.offPayrollPdf.enabled) {
-                        <button class="button button--link">Please save a pdf for your records</button>
-                    } else {
-                        <button class="button button--link">Please print a copy for your records</button>
-                    }
+                    <a class="button button--link" href="#promise">Please save a pdf for your records</a>
+
                 </div>
                 }
 
@@ -58,6 +55,20 @@
                     }
                     </ol>
             <p>Decision Service Version: <span id="dsVersion">@decision.version</span></p>
+            <div class="form-group ">
+                <div class="bordered-box bordered-box--shaded" id="promise">
+                    <label for="pinkyPromise"><input type="checkbox" id="pinkyPromise"/> Before you rely on this result, please confirm that you’ve:</label>
+                        <ul class="bullets">
+                            <li><label for="pinkyPromise">read the guidance for each question</label></li>
+                            <li><label for="pinkyPromise">reviewed your answers</label></li>
+                            <li><label for="pinkyPromise">given answers that reflect the actual or expected working practices of this engagement</label></li>
+                        </ul>
+                    <label for="pinkyPromise">If the working practices of this engagement change you accept this result may no longer hold.</label>
+                </div>
+                </div>
+            <button class="button">Confirm and print/save</button>
+
+
 
         </main>
 
