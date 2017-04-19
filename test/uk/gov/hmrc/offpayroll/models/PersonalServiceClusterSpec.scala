@@ -22,9 +22,6 @@ import uk.gov.hmrc.offpayroll.resources._
 
 
 
-/**
-  * Created by peter on 11/12/2016.
-  */
 class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
 
   private val personalServiceCluster = PersonalServiceCluster
@@ -52,7 +49,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
     val partialAnswers = List(
       ("personalService.workerSentActualSubstitute", "personalService.workerSentActualSubstitute.yesClientAgreed"),
       ("personalService.workerPayActualSubstitute", "Yes"),
-      ("personalService.possibleSubstituteRejection", "Yes"),
+      ("personalService.possibleSubstituteRejection", "personalService.possibleSubstituteRejection.wouldReject"),
       currentQnA)
 
     val decision = personalServiceCluster.shouldAskForDecision(partialAnswers, currentQnA)
@@ -71,9 +68,11 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
   }
 
 
+  // CURRENT FLOW
+  // added "setup.hasContractStarted" -> "Yes" for this to be valid
   it should " ask the correct next question when 'yesClientAgreed' is the answer to workerSentActualSubstitute" in {
     val currentQnA = personalService_workerSentActualSubstituteYesClientAgreed
-    val previousAnswers = List(personalService_workerSentActualSubstituteYesClientAgreed)
+    val previousAnswers = List(personalService_workerSentActualSubstituteYesClientAgreed, "setup.hasContractStarted" -> "Yes")
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
 
@@ -82,10 +81,11 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   }
 
-
+  // CURRENT FLOW
+  // added "setup.hasContractStarted" -> "Yes" for this to be valid
   it should " ask the correct next question when 'notAgreedWithClient' is the answer to workerSentActualSubstitute" in {
     val currentQnA = personalService_workerSentActualSubstitute -> "personalService.workerSentActualSubstitute.notAgreedWithClient"
-    val previousAnswers = List(currentQnA)
+    val previousAnswers = List(currentQnA, "setup.hasContractStarted" -> "Yes")
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
 
@@ -94,9 +94,11 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   }
 
+  // CURRENT FLOW
+  // added "setup.hasContractStarted" -> "Yes" for this to be valid
   it should " ask the correct next question when 'noSubstitutionHappened' is the answer to workerSentActualSubstitute" in {
     val currentQnA = personalService_workerSentActualSubstitute -> "personalService.workerSentActualSubstitute.noSubstitutionHappened"
-    val previousAnswers = List(currentQnA)
+    val previousAnswers = List(currentQnA, "setup.hasContractStarted" -> "Yes")
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
 
@@ -105,19 +107,28 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   }
 
-  it should " ask the correct next question when 'Yes' is the answer to workerPayActualSubstitute and it is the current question but 'yesClientAgreed' is the answer to workerSentActualSubstitute" in {
+  // CURRENT FLOW
+  // added "setup.hasContractStarted" -> "Yes" for this to be valid
+  it should "Ask no more questions when" +
+    "workerSentActualSubstitute -> 'yesClientAgreed'   " +
+    " AND " +
+    "workerPayActualSubstitute -> 'Yes' " in {
     val currentQnA = "personalService.workerPayActualSubstitute" -> "Yes"
-    val previousAnswers = List(personalService_workerSentActualSubstituteYesClientAgreed,currentQnA)
+    val previousAnswers = List(personalService_workerSentActualSubstituteYesClientAgreed, currentQnA, "setup.hasContractStarted" -> "Yes")
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
-
     maybeElement.isEmpty shouldBe true
 
   }
 
-  it should " ask the correct next question when 'No' is the answer to workerPayActualSubstitute and it is the current question but 'yesClientAgreed' is the answer to workerSentActualSubstitute" in {
+  // CURRENT FLOW
+  // added "setup.hasContractStarted" -> "Yes" for this to be valid
+  it should "Ask personalService.wouldWorkerPayHelper when" +
+    " workerSentActualSubstitute -> 'yesClientAgreed' " +
+    " AND " +
+    "workerPayActualSubstitute -> 'No' " in {
     val currentQnA = "personalService.workerPayActualSubstitute" -> "No"
-    val previousAnswers = List(personalService_workerSentActualSubstituteYesClientAgreed,currentQnA)
+    val previousAnswers = List(personalService_workerSentActualSubstituteYesClientAgreed,currentQnA, "setup.hasContractStarted" -> "Yes")
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
 
@@ -126,8 +137,12 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   }
 
-  it should " ask the correct next question when 'No' is the answer to possibleSubstituteRejection" in {
-    val currentQnA = "personalService.possibleSubstituteRejection" -> "No"
+  // CURRENT FLOW
+  // noSubstitutionHappened is the only time this question will be asked
+  it should "Ask personalService.wouldWorkerPayHelper when " +
+    "possibleSubstituteRejection -> 'wouldReject'" +
+    " AND personalService.possibleSubstituteRejection is the current question" in {
+    val currentQnA = "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject"
     val previousAnswers = List("setup.hasContractStarted" -> "Yes",
       "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened",currentQnA)
 
@@ -138,20 +153,22 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
 
   }
 
-  it should " ask the correct next question when 'No' is the answer to possibleSubstituteRejection - 2" in {
-    val currentQnA = "personalService.possibleSubstituteRejection" -> "No"
-    val previousAnswers = List("setup.hasContractStarted" -> "Yes",
-      "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.yesClientAgreed",currentQnA)
+  it should "Ask possibleSubstituteWorkerPay when" +
+    "setup.hasContractStarted -> No " +
+    "AND " +
+    "possibleSubstituteRejection -> wouldNotReject " in {
+
+    val currentQnA = "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject"
+    val previousAnswers = List("setup.hasContractStarted" -> "No",currentQnA)
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
 
     maybeElement.nonEmpty shouldBe true
-    maybeElement.get.questionTag shouldBe "personalService.wouldWorkerPayHelper"
-
+    maybeElement.get.questionTag shouldBe "personalService.possibleSubstituteWorkerPay"
   }
 
   it should " ask the correct next question when 'Yes' is the answer to possibleSubstituteRejection" in {
-    val currentQnA = "personalService.possibleSubstituteRejection" -> "Yes"
+    val currentQnA = "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject"
     val previousAnswers = List("personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened",currentQnA)
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
@@ -165,7 +182,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
     val currentQnA = "personalService.possibleSubstituteWorkerPay" -> "No"
     val previousAnswers = List("setup.hasContractStarted" -> "Yes",
       "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened",
-      "personalService.possibleSubstituteRejection" -> "Yes",
+      "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject",
       currentQnA)
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
@@ -174,11 +191,15 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
     maybeElement.get.questionTag shouldBe "personalService.wouldWorkerPayHelper"
   }
 
-  it should " ask no more questions when 'Yes' is the answer to possibleSubstituteWorkerPay and setup.hasContractStarted is Yes" in {
+  //CURRENT FLOW
+
+  it should "possibleSubstituteWorkerPay -> 'Yes' " +
+    " AND " +
+    "setup.hasContractStarted is Yes" in {
     val currentQnA = "personalService.possibleSubstituteWorkerPay" -> "Yes"
     val previousAnswers = List("setup.hasContractStarted" -> "Yes",
       "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened",
-      "personalService.possibleSubstituteRejection" -> "Yes",
+      "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject",
       currentQnA)
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
@@ -186,10 +207,11 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
     maybeElement.isEmpty shouldBe true
   }
 
-  it should " ask no more questions when 'No' is the answer to possibleSubstituteWorkerPay and setup.hasContractStarted is No" in {
+  it should "possibleSubstituteWorkerPay -> 'No'" +
+    "And setup.hasContractStarted is No" in {
     val currentQnA = "personalService.possibleSubstituteWorkerPay" -> "No"
     val previousAnswers = List("setup.hasContractStarted" -> "No",
-      "personalService.possibleSubstituteRejection" -> "Yes",
+      "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject",
       currentQnA)
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
@@ -197,10 +219,12 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
     maybeElement.isEmpty shouldBe true
   }
 
-  it should " ask no more questions when 'Yes' is the answer to possibleSubstituteWorkerPay and setup.hasContractStarted is No" in {
+  it should "Ask no more questions when possibleSubstituteWorkerPay -> 'Yes'" +
+    " AND " +
+    "setup.hasContractStarted is No" in {
     val currentQnA = "personalService.possibleSubstituteWorkerPay" -> "Yes"
     val previousAnswers = List("setup.hasContractStarted" -> "No",
-      "personalService.possibleSubstituteRejection" -> "Yes",
+      "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject",
       currentQnA)
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
@@ -208,17 +232,20 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
     maybeElement.isEmpty shouldBe true
   }
 
-  it should " ask no more questions when 'No' is the answer to possibleSubstituteRejection and setup.hasContractStarted is No" in {
-    val currentQnA = "personalService.possibleSubstituteRejection" -> "No"
-    val previousAnswers = List("setup.hasContractStarted" -> "No",
-      currentQnA)
+  //FUTURE FLOW
+  it should " ask no more questions when possibleSubstituteRejection -> 'wouldReject' " +
+    " AND " +
+    "setup.hasContractStarted -> 'No'" in {
+    val currentQnA = "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject"
+    val previousAnswers = List("setup.hasContractStarted" -> "No", currentQnA)
 
     val maybeElement = personalServiceCluster.shouldAskForDecision(previousAnswers, currentQnA)
 
     maybeElement.isEmpty shouldBe true
   }
 
-  it should " ask possibleSubstituteRejection when 'No' is the answer to setup.hasContractStarted" in {
+  //FUTURE FLOW
+  it should "Ask possibleSubstituteRejection when 'no' is the answer to setup.hasContractStarted" in {
     val maybeElement = personalServiceCluster.getStart(partialInterview_hasContractStarted_No)
     maybeElement.isDefined shouldBe true
     maybeElement.get.questionTag shouldBe "personalService.possibleSubstituteRejection"

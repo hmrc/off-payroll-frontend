@@ -47,11 +47,11 @@ object FinancialRiskCluster extends Cluster {
     ),
     Element("paidForSubstandardWork", MULTI, 2, this,
       List(
-        Element("paidForSubstandardWork.asPartOfUsualRateInWorkingHours", RADIO, 0, this),
-        Element("paidForSubstandardWork.outsideOfUsualRateAndHours", RADIO, 1, this),
-        Element("paidForSubstandardWork.outsideOfHoursNoCharge", RADIO, 2, this),
-        Element("paidForSubstandardWork.noObligationToCorrect", RADIO, 3, this),
-        Element("paidForSubstandardWork.cannotBeCorrected", RADIO, 4, this)
+        Element("paidForSubstandardWork.outsideOfHoursNoCharge", RADIO, 0, this),
+        Element("paidForSubstandardWork.outsideOfHoursNoCosts", RADIO, 1, this),
+        Element("paidForSubstandardWork.asPartOfUsualRateInWorkingHours", RADIO, 2, this),
+        Element("paidForSubstandardWork.cannotBeCorrected", RADIO, 3, this),
+        Element("paidForSubstandardWork.noObligationToCorrect", RADIO, 4, this)
       )
     )
   )

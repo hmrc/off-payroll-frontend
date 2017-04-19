@@ -36,7 +36,7 @@ class PropertyFileLoaderSpec  extends FlatSpec with Matchers {
     val cluster = PropertyFileLoader.getMessagesForACluster("personalService")
     
     cluster.contains(personalServiceKey) shouldBe true
-    cluster.size shouldBe 8
+    cluster.size shouldBe 10
 
 
   }

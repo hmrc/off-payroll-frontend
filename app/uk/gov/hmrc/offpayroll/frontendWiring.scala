@@ -16,15 +16,17 @@
 
 package uk.gov.hmrc.offpayroll
 
-import javax.inject.Singleton
+import javax.inject.{Inject, Singleton}
 
-import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
+import play.api.libs.ws.{WS, WSClient}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.play.audit.http.config.LoadAuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.{AuditConnector => Auditing}
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
+import play.api.libs.ws.WSClient
+import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, PdfGeneratorConnector}
 
 
 trait ServiceRegistry extends ServicesConfig {
@@ -50,4 +52,12 @@ class FrontendDecisionConnector extends DecisionConnector with ServicesConfig {
   val decisionURL: String = baseUrl("off-payroll-decision")
   val serviceURL = "off-payroll-decision/decide"
   val http = WSHttp
+}
+
+@Singleton
+class FrontendPdfGeneratorConnector @Inject() (ws: WSClient) extends PdfGeneratorConnector with ServicesConfig {
+  val pdfServiceUrl: String = baseUrl("pdf-generator-service")
+  val serviceURL = pdfServiceUrl + "/pdf-generator/generate"
+  val http = WSHttp
+  def getWsClient:WSClient = ws
 }

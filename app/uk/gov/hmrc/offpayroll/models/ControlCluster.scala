@@ -41,17 +41,17 @@ object ControlCluster extends Cluster {
       ),
       Element("workerDecidingHowWorkIsDone", MULTI, 1, this,
         List(
-          Element("workerDecidingHowWorkIsDone.workerDecidesWithoutInput", RADIO, 0, this),
-          Element("workerDecidingHowWorkIsDone.workerAgreeWithOthers", RADIO, 1, this),
-          Element("workerDecidingHowWorkIsDone.noWorkerInputAllowed", RADIO, 2, this),
-          Element("workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures", RADIO, 3, this)
+          Element("workerDecidingHowWorkIsDone.noWorkerInputAllowed", RADIO, 0, this),
+          Element("workerDecidingHowWorkIsDone.workerDecidesWithoutInput", RADIO, 1, this),
+          Element("workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures", RADIO, 2, this),
+          Element("workerDecidingHowWorkIsDone.workerAgreeWithOthers", RADIO, 3, this)
         )
       ),
       Element("whenWorkHasToBeDone", MULTI, 2, this,
         List(
-          Element("whenWorkHasToBeDone.workerDecideSchedule", RADIO, 0, this),
-          Element("whenWorkHasToBeDone.workerAgreeSchedule", RADIO, 1, this),
-          Element("whenWorkHasToBeDone.scheduleDecidedForWorker", RADIO, 2, this),
+          Element("whenWorkHasToBeDone.scheduleDecidedForWorker", RADIO, 0, this),
+          Element("whenWorkHasToBeDone.workerDecideSchedule", RADIO, 1, this),
+          Element("whenWorkHasToBeDone.workerAgreeSchedule", RADIO, 2, this),
           Element("whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines", RADIO, 3, this)
         )
       ),
@@ -59,8 +59,8 @@ object ControlCluster extends Cluster {
         List(
           Element("workerDecideWhere.workerChooses", RADIO, 0, this),
           Element("workerDecideWhere.workerCannotChoose", RADIO, 1, this),
-          Element("workerDecideWhere.workerAgreeWithOthers", RADIO, 2, this),
-          Element("workerDecideWhere.noLocationRequired", RADIO, 3, this)
+          Element("workerDecideWhere.noLocationRequired", RADIO, 2, this),
+          Element("workerDecideWhere.workerAgreeWithOthers", RADIO, 3, this)
         )
       )
     )

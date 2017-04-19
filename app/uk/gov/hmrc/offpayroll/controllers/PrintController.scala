@@ -18,19 +18,22 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.api.Logger
 import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc.Action
-import uk.gov.hmrc.offpayroll.util.CompressedInterview
+import play.twirl.api.Html
+import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
+import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
+import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
 
 
-class PrintController @Inject() extends FrontendController {
+
+class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) extends FrontendController {
 
   def format = Action.async { implicit request =>
 
@@ -39,16 +42,17 @@ class PrintController @Inject() extends FrontendController {
         "esi" -> boolean,
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
-        "compressedInterview" -> nonEmptyText
+        "compressedInterview" -> nonEmptyText,
+        "decisionCluster" -> nonEmptyText
       )(FormatPrint.apply)(FormatPrint.unapply)
     )
 
     formatPrint.bindFromRequest.fold (
-      formWithErrors => {
+      _ => {
         throw new IllegalStateException("Hidden fields missing from the form")
       },
       formSuccess => {
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess.esi, formSuccess.decisionResult, formSuccess.decisionVersion, formSuccess.compressedInterview)))
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess)))
       }
       )
   }
@@ -61,26 +65,37 @@ class PrintController @Inject() extends FrontendController {
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
         "compressedInterview" -> nonEmptyText,
+        "decisionCluster" -> nonEmptyText,
         "completedBy" -> text,
         "client" -> text,
         "job" -> text,
-        "reference" -> text
+        "reference" -> optional(text)
       )(PrintResult.apply)(PrintResult.unapply)
     )
 
     printPrint.bindFromRequest.fold (
-      formWithErrors => {
+      _ => {
         throw new IllegalStateException("Hidden fields missing from the form")
       },
       printResult => {
         val interview = CompressedInterview(printResult.compressedInterview).asRawList
-        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)))
+        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)
+
+        if (OffPayrollSwitches.offPayrollPdf.enabled) {
+          pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
+            Ok(response.bodyAsBytes.toArray).as("application/pdf")
+              .withHeaders("Content-Disposition" -> s"attachment; filename=${printResult.reference.getOrElse("result")}.pdf")
+          }
+        }
+        else {
+          Future.successful(Ok(body))
+        }
       }
     )
   }
 
 }
 
-case class FormatPrint(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String)
+case class FormatPrint(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
 
-case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, completedBy: String, client: String, job: String, reference: String )
+case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String, completedBy: String, client: String, job: String, reference: Option[String] )

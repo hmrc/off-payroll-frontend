@@ -21,14 +21,11 @@ import play.twirl.api.Html
 
 
 
-/**
-  * Created by peter on 05/01/2017.
-  */
 class FragmentService(val sourceDir: String){
 
-  val  personalData: Map[String, Html] = {
-    val is = getClass.getResourceAsStream(sourceDir)
+  private lazy val fragments: Map[String, Html] = {
 
+    val is = getClass.getResourceAsStream(sourceDir)
     val fileArray = scala.io.Source.fromInputStream(is).getLines().mkString(":").split(':')
 
     def htmlFromResource(filename: String ): Html = {
@@ -36,15 +33,26 @@ class FragmentService(val sourceDir: String){
         getClass.getResourceAsStream(filename)).getLines().mkString(""))
     }
 
-    fileArray.map{ file => file -> htmlFromResource(sourceDir + file)}.toMap
+    fileArray.map{file => file -> htmlFromResource(sourceDir + file)}.toMap
 
   }
+
 
   def getFragmentByName(name: String): Html = {
-
     Logger.debug("FragmentService getting fragment for " + name)
-    personalData.getOrElse(name + ".html", Html.apply(""))
+    fragments.getOrElse(name + ".html", Html.apply(""))
   }
+
+  def getAllFragmentsForInterview(interview: Map[String, String]): Map[String, Html] = {
+    fragments.filter {
+      case (filename, _) => interview.exists {
+        case (question, _) => question + ".html" == filename
+      }
+    }.map {
+      case (filename, html) =>  (filename.replace(".html", ""), html)
+    }
+  }
+
 
 }
 
@@ -53,8 +61,5 @@ object FragmentService {
   def apply(sourceDir: String): FragmentService = {
     new FragmentService(sourceDir)
   }
-
-
-
 
 }

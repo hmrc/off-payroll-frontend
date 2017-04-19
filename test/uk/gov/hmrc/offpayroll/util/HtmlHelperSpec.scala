@@ -20,20 +20,16 @@ import org.scalatest.{FlatSpec, Matchers}
 
 import scala.io.Source
 
-class InterviewDecompressorFormatterSpec extends FlatSpec with Matchers {
+class HtmlHelperSpec extends FlatSpec with Matchers {
 
-  private val ID_RESOURCES_ROOT = "interviewDecompressor"
-  private val EXPECTED_CSV = s"/$ID_RESOURCES_ROOT/6y9FLKLlw.csv"
-  val csvLines = Source.fromInputStream(getClass.getResourceAsStream(EXPECTED_CSV)).getLines().toList
+  private val HELPER_RESOURCES_ROOT = "htmlHelper"
+  private val IN_HTML = s"/$HELPER_RESOURCES_ROOT/decision.html"
+  private val EXPECTED_HTML = s"/$HELPER_RESOURCES_ROOT/decision_no_script.html"
+  private val inputSource = Source.fromInputStream(getClass.getResourceAsStream(IN_HTML))
+  private val expectedHtmlLines = Source.fromInputStream(getClass.getResourceAsStream(EXPECTED_HTML)).getLines().toList
 
-  "interview decompressor formatter" should "provide correct csv line representation" in {
-    InterviewDecompressorFormatter.asCsvLine("6y9FLKLlw").trim shouldBe csvLines(1)
+  "HtmlHelper" should "remove script tags" in {
+    val convertedLines = HtmlHelper.removeScriptTags(inputSource.getLines.mkString("\n")).split("\n")
+    convertedLines.map(_.trim) should contain theSameElementsInOrderAs expectedHtmlLines.map(_.trim)
   }
-
-  it should "provide correct csv header representation" in {
-    InterviewDecompressorFormatter.asCsvHeader("6y9FLKLlw") shouldBe csvLines(0)
-
-  }
-
 }
-
