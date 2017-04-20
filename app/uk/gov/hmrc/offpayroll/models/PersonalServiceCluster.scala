@@ -65,26 +65,36 @@ object PersonalServiceCluster extends Cluster {
       Option("personalService.wouldWorkerPayHelper")),
     FlowElement("personalService.possibleSubstituteRejection",
       Map("setup.hasContractStarted" -> "Yes",
-        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject"),
+        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject"),
       Option("personalService.wouldWorkerPayHelper")),
+
     FlowElement("personalService.possibleSubstituteRejection",
       Map("setup.hasContractStarted" -> "No",
         "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject"),
-      Option.empty),
+      Option("personalService.possibleSubstituteWorkerPay")),
+
     FlowElement("personalService.possibleSubstituteWorkerPay",
       Map("setup.hasContractStarted" -> "Yes",
         "personalService.workerSentActualSubstitute" -> "personalService.workerSentActualSubstitute.noSubstitutionHappened",
-        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject",
+        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject",
         "personalService.possibleSubstituteWorkerPay" -> "Yes"),
       Option.empty),
-    FlowElement("personalService.possibleSubstituteWorkerPay",
+
+    FlowElement("personalService.possibleSubstituteRejection",
       Map("setup.hasContractStarted" -> "No",
-        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject",
-        "personalService.possibleSubstituteWorkerPay" -> "No"),
+        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject"),
       Option.empty),
+
     FlowElement("personalService.possibleSubstituteWorkerPay",
       Map("setup.hasContractStarted" -> "No",
-        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldReject",
+        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject",
+        "personalService.possibleSubstituteWorkerPay" -> "No"),
+      Option("wouldWorkerPayHelper")),
+
+
+    FlowElement("personalService.possibleSubstituteWorkerPay",
+      Map("setup.hasContractStarted" -> "No",
+        "personalService.possibleSubstituteRejection" -> "personalService.possibleSubstituteRejection.wouldNotReject",
         "personalService.possibleSubstituteWorkerPay" -> "Yes"),
       Option.empty)
   )
