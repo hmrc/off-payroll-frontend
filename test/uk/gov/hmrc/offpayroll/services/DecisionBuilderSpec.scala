@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.services
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.{FlatSpec, Matchers}
 import play.api.libs.json.Json
 import uk.gov.hmrc.offpayroll.models.{DecisionBuilder, DecisionRequest, OffPayrollWebflow}
@@ -30,6 +31,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
   */
 class DecisionBuilderSpec  extends FlatSpec with Matchers with WithFakeApplication {
   private val TEST_CORRELATION_ID = "00000001099"
+  override def bindModules = Seq(new PlayModule)
   val interview1 = Map("personalService.workerSentActualSubstitiute" -> "false", "personalService.contractrualRight" -> "true",
     "control.hasMoreThan50Percent" -> "false", "control.toldWhatToDo" -> "control.toldWhatToDo.sometimes",
     "financialRisk.haveToPayButCannotClaim" -> "|financialRisk.workerProvidedMaterials|financialRisk.workerProvidedEquipment",

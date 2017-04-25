@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.connectors
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.mockito.MockitoSugar
 import org.mockito.Matchers._
 import org.mockito.Mockito._
@@ -25,7 +26,6 @@ import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
 import uk.gov.hmrc.play.http.ws.WSHttp
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
-
 import uk.gov.hmrc.offpayroll.modelsFormat._
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -37,6 +37,7 @@ import scala.concurrent.Future
 class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication {
 
   implicit val hc = HeaderCarrier()
+  override def bindModules = Seq(new PlayModule)
 
   private val version = "1.0.0-beta"
   private val correlationId = "12345"

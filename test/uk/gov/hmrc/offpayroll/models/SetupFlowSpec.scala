@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.offpayroll.util.TestConfigurationHelper.getString
@@ -28,6 +29,7 @@ class SetupFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
 
   private val setupFlow = SetupFlow
   private val maybeElement = setupFlow.getStart(Map[String, String]())
+  override def bindModules = Seq(new PlayModule)
 
 
   "A SetupFlow " should "have the same version as declared in application.conf" in {

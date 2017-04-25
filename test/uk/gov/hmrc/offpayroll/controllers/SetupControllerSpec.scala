@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
 import play.api.test.FakeRequest
@@ -32,6 +33,7 @@ import play.api.i18n.Messages.Implicits._
 class SetupControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
   val COOKIES_HEADER_NAME: String = "Set-Cookie"
+  override def bindModules = Seq(new PlayModule)
 
   "GET /setup/" should {
     "return 200 and the first page in Setup" in {
