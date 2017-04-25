@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
 import play.api.test.FakeRequest
@@ -31,6 +32,7 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 class ExitControllerSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
   private val mockSessionAsPair = (InterviewSessionStack.INTERVIEW_CURRENT_INDEX, InterviewStack.elementIndex(ExitCluster.clusterElements(0)).getOrElse(0).toString)
+  override def bindModules = Seq(new PlayModule)
 
   "GET " + THE_ROUTE_EXIT_PATH should {
     "return 200 and the first page in Exit" in {

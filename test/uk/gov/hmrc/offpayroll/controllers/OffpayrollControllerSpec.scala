@@ -15,6 +15,7 @@
  */
 
 package uk.gov.hmrc.offpayroll.controllers
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import play.api.data.Form
@@ -38,6 +39,8 @@ class OffpayrollControllerSpec extends UnitSpec with MockitoSugar  with WithFake
   val testOffpayrollController = new TestOffpayrollController(mockResult)
 
   evaluateUsingPlay(testOffpayrollController.back)
+
+  override def bindModules = Seq(new PlayModule)
 
 }
 

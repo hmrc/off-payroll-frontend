@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
 import play.api.mvc.{Request, Session}
@@ -36,7 +37,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
 
   val TEST_SESSION_ID = "41c1fc6444bb7e"
   private val mockSessionAsPair = (InterviewSessionStack.INTERVIEW_CURRENT_INDEX, InterviewStack.elementIndex(PersonalServiceCluster.clusterElements(0)).getOrElse(0).toString)
-
+  override def bindModules = Seq(new PlayModule)
 
   class TestSessionHelper extends SessionHelper {
     override def createCorrelationId(request: Request[_]): String = TEST_SESSION_ID

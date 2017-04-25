@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.views.interview
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
 import play.api.libs.ws.WSClient
@@ -37,6 +38,7 @@ import uk.gov.hmrc.offpayroll.views.html.interview.display_decision
   */
 class DisplayDecisionViewSpec extends UnitSpec with WithFakeApplication with ScalaFutures {
 
+  override def bindModules = Seq(new PlayModule)
 
   "display_decision view" should {
     "have the correct hidden fields" in {

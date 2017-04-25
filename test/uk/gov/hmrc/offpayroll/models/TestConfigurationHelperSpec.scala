@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 import uk.gov.hmrc.offpayroll.resources._
@@ -26,6 +27,8 @@ import uk.gov.hmrc.play.test.WithFakeApplication
   * Created by peter on 11/01/2017.
   */
 class TestConfigurationHelperSpec  extends FlatSpec with WithFakeApplication with Matchers {
+
+  override def bindModules = Seq(new PlayModule)
 
   "A TestConfigurationHelper " should " be able to get a defined property" in {
     val propertyName = "microservice.services.off-payroll-decision.version"

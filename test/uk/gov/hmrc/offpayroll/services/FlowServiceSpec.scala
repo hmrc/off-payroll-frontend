@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.services
 
+import com.kenshoo.play.metrics.PlayModule
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
@@ -37,6 +38,7 @@ import scala.concurrent.Future
 class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication {
 
   private val TEST_CORRELATION_ID = "00000001099"
+  override def bindModules = Seq(new PlayModule)
 
   private val decisionResponseString_inIr35 =
     """

@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.resources._
@@ -32,6 +33,8 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar wit
   private val webflow = OffPayrollWebflow
 
   private val lastElement = webflow.clusters(3).clusterElements(3)
+
+  override def bindModules = Seq(new PlayModule)
 
 
 

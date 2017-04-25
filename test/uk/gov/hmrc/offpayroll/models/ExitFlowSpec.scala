@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import com.kenshoo.play.metrics.PlayModule
 import com.typesafe.config.ConfigFactory
 import org.scalatest.{FlatSpec, Matchers}
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
@@ -30,6 +31,7 @@ class ExitFlowSpec  extends FlatSpec with WithFakeApplication with Matchers {
 
   private val answers = PropertyFileLoader.transformMapFromQuestionTextToAnswers("exit")
   private val emptyInterview = Map[String, String]()
+  override def bindModules = Seq(new PlayModule)
 
   val start = ExitFlow.getStart(emptyInterview)
 

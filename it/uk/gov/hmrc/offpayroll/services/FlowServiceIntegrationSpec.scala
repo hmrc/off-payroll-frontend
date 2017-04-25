@@ -16,6 +16,7 @@ package uk.gov.hmrc.offpayroll.services
  * limitations under the License.
  */
 
+import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.offpayroll.PropertyFileLoader
 import uk.gov.hmrc.offpayroll.models.{OUT, UNKNOWN}
@@ -30,6 +31,7 @@ class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication with 
   private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
   private val csrf = "csrf"
   private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
+  override def bindModules = Seq(new PlayModule)
 
   lazy val flowservice: FlowService = IR35FlowService()
 
