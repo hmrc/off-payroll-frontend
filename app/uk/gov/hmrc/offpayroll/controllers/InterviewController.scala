@@ -93,7 +93,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
   override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
   Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
 
-  override def redirect: Result = Redirect(routes.ExitController.back)
+  override def redirect: Result = Redirect(routes.InterviewController.back)
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
     val element = flowService.getAbsoluteElement(clusterID, elementID)

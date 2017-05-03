@@ -62,7 +62,7 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
 
   def begin() = Action.async { implicit request =>
     maybeStartElement.fold (
-      Future.successful(Redirect(routes.SetupController.begin).withSession(request.session))
+      Future.successful(Redirect(routes.InterviewController.begin).withSession(request.session))
     ) (
       beginSuccess(_)
     )
@@ -79,7 +79,7 @@ abstract class OffPayrollController extends FrontendController  with OffPayrollC
   def checkElementIndex(message: String, maybeElement: Option[Element])(f: Element => Future[Result])(implicit request: Request[_]): Future[Result] = {
     val indexElement = InterviewSessionStack.currentIndex(request.session)
     def start: Future[Result] = {
-      Future.successful(Redirect(routes.SetupController.begin))
+      Future.successful(Redirect(routes.InterviewController.begin))
     }
     maybeElement.fold {
       Logger.error("could not find index in session, redirecting to the start")

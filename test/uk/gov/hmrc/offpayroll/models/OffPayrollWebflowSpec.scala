@@ -32,25 +32,27 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar wit
 
   private val webflow = OffPayrollWebflow
 
-  private val lastElement = webflow.clusters(3).clusterElements(3)
+  private val lastElement = webflow.clusters(5).clusterElements(3)
 
   override def bindModules = Seq(new PlayModule)
 
 
 
   private val personalService = "personalService"
-  private val firstQuestionTag = personalService + ".workerSentActualSubstitute"
+  private val firstPersonalServiceQuestionTag = personalService + ".workerSentActualSubstitute"
+  private val setup = "setup"
+  private val firstQuestionTag = "setup.endUserRole"
 
-  "An OffPayrollWebflow " should " start with the  PersonalServiceCluster Cluster and with Element workerSentActualSubstitute" in {
-    val startElement = webflow.getStart(partialInterview_hasContractStarted_Yes)
+  "An OffPayrollWebflow " should " start with the SetupCluster and with Element endUserRole" in {
+    val startElement = webflow.getStart(Map())
     startElement.isDefined shouldBe true
 
-    startElement.get.clusterParent.name should be (personalService)
+    startElement.get.clusterParent.name should be (setup)
     startElement.get.questionTag should be (firstQuestionTag)
   }
 
   it should "have a four clusters" in {
-    webflow.clusters.size should be (4)
+    webflow.clusters.size should be (6)
   }
 
   it should " be able to get a Cluster by its name " in {
@@ -63,15 +65,17 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar wit
   }
 
   it should " give the correct next element when cluster has no more elements but flow has more clusters" in {
-    val maybeElement = webflow.getNext(webflow.clusters(1).clusterElements(3))
+    val maybeElement = webflow.getNext(webflow.clusters(3).clusterElements(3))
     maybeElement.isEmpty should be (false)
     maybeElement.get.clusterParent.name should be ("financialRisk")
     maybeElement.get.questionTag should be ("financialRisk.haveToPayButCannotClaim")
   }
 
   it should "be able to get a currentElement by id that is valid" in {
-    webflow.getElementById(0, 3).nonEmpty should be (true)
-    webflow.getElementById(0, 0).nonEmpty should be (true)
+    checkElement(webflow.getElementById(0, 0), "setup.endUserRole")
+    checkElement(webflow.getElementById(0, 1), "setup.hasContractStarted")
+    checkElement(webflow.getElementById(2, 3), "personalService.possibleSubstituteWorkerPay")
+    checkElement(webflow.getElementById(2, 0), "personalService.workerSentActualSubstitute")
   }
 
   it should "return an empty Option if we try and get a currentElement by Id that does not exist" in {
@@ -80,8 +84,8 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar wit
   }
 
   it should " be able to return an Element by its tag " in {
-    val wouldWorkerPayHelper: Element = webflow.getElementById(0, 4).head
-    val engagerMovingWorker = webflow.getElementById(1,0).head
+    val wouldWorkerPayHelper: Element = webflow.getElementById(2, 4).head
+    val engagerMovingWorker = webflow.getElementById(3,0).head
 
     webflow.getElementByTag(personalService + ".wouldWorkerPayHelper")
       .head.questionTag should equal (wouldWorkerPayHelper.questionTag)
@@ -93,6 +97,11 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar wit
 
   it should "have the same version as declared in application.conf" in {
     webflow.version shouldBe getString("microservice.services.off-payroll-decision.version")
+  }
+
+  def checkElement(element: Option[Element], questionTagToMatch: String): Unit ={
+    element.nonEmpty shouldBe true
+    element.get.questionTag shouldBe questionTagToMatch
   }
 
 }

@@ -63,7 +63,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
   override def getStart(interview: Map[String, String]): Option[Element] = flow.getStart(interview)
 
-  private def guardValidEelement(currentTag: String): Element = {
+  private def guardValidElement(currentTag: String): Element = {
     val tag = flow.getElementByTag(currentTag)
     if (tag.isEmpty) throw new IllegalAccessException("No Such Element: " + currentTag)
     else tag.get
@@ -80,7 +80,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
     val cleanInterview = interview.filter(qa => flow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
-    val currentElement: Element = guardValidEelement(currentTag)
+    val currentElement: Element = guardValidElement(currentTag)
     val optionalNextElement = flow.shouldAskForDecision(interview, currentQnA)
 
     if (optionalNextElement.isEmpty) {

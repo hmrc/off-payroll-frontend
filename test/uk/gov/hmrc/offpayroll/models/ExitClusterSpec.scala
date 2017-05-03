@@ -30,7 +30,7 @@ class ExitClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
     exitcluster.name shouldBe "exit"
   }
 
-  it should "be in postition 2 of the list of clusters " in {
+  it should "be in position 2 of the list of clusters " in {
     exitcluster.clusterID shouldBe 1
   }
 
@@ -42,7 +42,7 @@ class ExitClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper {
     assertAllElementsPresentForCluster(exitcluster) shouldBe true
   }
 
-  it should "allways ask for a decision if the officeHolder Question is yes " in {
+  it should "always ask for a decision if the officeHolder Question is yes " in {
     exitcluster.shouldAskForDecision(
       List(officeHolderYes), officeHolderYes).isEmpty shouldBe true
   }

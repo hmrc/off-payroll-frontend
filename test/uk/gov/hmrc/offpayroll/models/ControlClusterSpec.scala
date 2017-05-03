@@ -45,7 +45,7 @@ class ControlClusterSpec extends FlatSpec with Matchers with ClusterSpecHelper{
   }
 
   it should "have an ID of 1 (the second cluster in the flow" in {
-    controlCluster.clusterID shouldBe 1
+    controlCluster.clusterID shouldBe 3
   }
 
   it should "have all elements in a cluster compared to messages " in {

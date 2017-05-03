@@ -25,7 +25,7 @@ import uk.gov.hmrc.offpayroll.typeDefs.Interview
   */
 trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
-  def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
+  def clusters: List[Cluster] = List(SetupCluster, ExitCluster, PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
 
 
   override def getNext(element: Element): Option[Element] = {
