@@ -26,14 +26,15 @@ import uk.gov.hmrc.offpayroll.typeDefs.Interview
 trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 
   def clusters: List[Cluster] = List(SetupCluster, ExitCluster, PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
+  lazy val elements = clusters.flatMap(_.clusterElements)
 
 
   override def getNext(element: Element): Option[Element] = {
-    getNext(element, false)
+    getNext(Map(),element, false)
 
   }
 
-  def getNext(element: Element, nextCluster: Boolean = true) : Option[Element] = {
+  def getNext(interview: Map[String, String], element: Element, nextCluster: Boolean = true) : Option[Element] = {
     val clusterId = element.clusterParent.clusterID
     val cluster = clusters(clusterId)
 
@@ -48,7 +49,7 @@ trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
     if (!nextCluster && clusterHasMoreElements)
       Option(cluster.clusterElements(element.order + 1))
     else if (flowHasMoreClusters) {
-      Option(clusters(clusterId +1).clusterElements(0))
+      clusters(clusterId +1).getStart(interview)
     } else Option.empty
   }
 
@@ -94,12 +95,6 @@ trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
 }
 
 object OffPayrollWebflow extends OffPayrollWebflow
-
-object SuperWebflow extends OffPayrollWebflow {
-  override def clusters: List[Cluster] = List(SetupCluster, ExitCluster, PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
-  lazy val elements = clusters.flatMap(_.clusterElements)
-}
-
 
 case class Decision(_qa: Map[String, String], decision: DecisionType, version: String, cluster: String) {
 

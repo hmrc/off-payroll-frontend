@@ -32,7 +32,7 @@ import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models.{Decision, Element, GROUP, Webflow}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
 import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList, push}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList, push, reset, addCurrentIndex}
 
 import scala.concurrent.Future
 
@@ -84,8 +84,9 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
   val flow: Webflow = flowService.flow
 
   override def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
+    val session = reset(request.session)
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(emptyForm, element,
-      fragmentService.getFragmentByName(element.questionTag))))
+      fragmentService.getFragmentByName(element.questionTag))).withSession(addCurrentIndex(session,element)))
   }
 
 
@@ -93,7 +94,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
   override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
   Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
 
-  override def redirect: Result = Redirect(routes.InterviewController.back)
+  override def redirect: Result = Redirect(routes.InterviewController.begin)
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
     val element = flowService.getAbsoluteElement(clusterID, elementID)
