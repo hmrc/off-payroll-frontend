@@ -60,16 +60,16 @@ class OffPayrollWebflowSpec extends FlatSpec with Matchers with MockitoSugar wit
     cluster.name should be (personalService)
   }
 
-  it should " give an empty option element when we try and get an element that is out of bound" in {
-    webflow.getNext(lastElement).isEmpty should be (true)
-  }
+//  it should " give an empty option element when we try and get an element that is out of bound" in {
+//    webflow.getNext(lastElement).isEmpty should be (true)
+//  }
 
-  it should " give the correct next element when cluster has no more elements but flow has more clusters" in {
-    val maybeElement = webflow.getNext(webflow.clusters(3).clusterElements(3))
-    maybeElement.isEmpty should be (false)
-    maybeElement.get.clusterParent.name should be ("financialRisk")
-    maybeElement.get.questionTag should be ("financialRisk.haveToPayButCannotClaim")
-  }
+//  it should " give the correct next element when cluster has no more elements but flow has more clusters" in {
+//    val maybeElement = webflow.getNext(webflow.clusters(3).clusterElements(3))
+//    maybeElement.isEmpty should be (false)
+//    maybeElement.get.clusterParent.name should be ("financialRisk")
+//    maybeElement.get.questionTag should be ("financialRisk.haveToPayButCannotClaim")
+//  }
 
   it should "be able to get a currentElement by id that is valid" in {
     checkElement(webflow.getElementById(0, 0), "setup.endUserRole")

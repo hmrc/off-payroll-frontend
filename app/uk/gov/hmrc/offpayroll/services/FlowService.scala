@@ -34,7 +34,7 @@ import scala.concurrent.Future
 @ImplementedBy(classOf[IR35FlowService])
 abstract class FlowService {
 
-  val flow: Webflow
+  val flow: OffPayrollWebflow
   /**
     *
     * @param interview

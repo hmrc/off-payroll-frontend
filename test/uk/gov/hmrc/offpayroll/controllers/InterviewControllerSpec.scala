@@ -54,7 +54,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   }
 
   class TestFlowService extends FlowService {
-    override val flow: Webflow = new TestFlow
+    override val flow = new TestFlow
 
     override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId: String):
     Future[InterviewEvaluation] = ???
@@ -63,8 +63,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
 
     override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = ???
 
-    class TestFlow extends Webflow {
-      override def getNext(currentElement: Element): Option[Element] = ???
+    class TestFlow extends OffPayrollWebflow {
 
       override def getStart(interview: Map[String, String]): Option[Element] =
         Some(Element("tag", RADIO, 0, SetupCluster))

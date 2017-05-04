@@ -19,7 +19,7 @@ package uk.gov.hmrc.offpayroll.controllers
 import java.util.NoSuchElementException
 import javax.inject.Inject
 
-import play.api.Logger
+import play.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
@@ -29,10 +29,11 @@ import play.api.libs.json.{Format, Json}
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
-import uk.gov.hmrc.offpayroll.models.{Decision, Element, GROUP, Webflow}
-import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.models._
+import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
 import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack}
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList, push, reset, addCurrentIndex}
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack._
+import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 
@@ -79,22 +80,68 @@ object InterviewController {
   }
 }
 
-class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffPayrollController {
+class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends FrontendController  with OffPayrollControllerHelper {
 
-  val flow: Webflow = flowService.flow
+  val fragmentService = FragmentService("/guidance/")
 
-  override def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
+  val flow: OffPayrollWebflow = flowService.flow
+
+  private def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
+    Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
+
+  private def redirect: Result = Redirect(routes.InterviewController.begin)
+
+  def back = Action.async { implicit request =>
+
+    val (peekSession, peekQuestionTag) = peek(request.session)
+
+    flow.getElementByTag(peekQuestionTag) match {
+      case Some(element) => {
+        val (session, questionTag) = pop(request.session)
+        Future.successful(displaySuccess(element, emptyForm)
+        (fragmentService.getFragmentByName(element.questionTag)).withSession(InterviewSessionStack.addCurrentIndex(session, element)))
+      }
+      case None => Future.successful(redirect.withSession(peekSession))
+    }
+  }
+
+  def begin() = Action.async { implicit request =>
+
+    val maybeStartElement =  flow.getStart(asMap(request.session))
+
+    maybeStartElement.fold (
+      Future.successful(Redirect(routes.InterviewController.begin).withSession(request.session))
+    ) (
+      beginSuccess(_)
+    )
+  }
+
+  private def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
     val session = reset(request.session)
     Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(emptyForm, element,
       fragmentService.getFragmentByName(element.questionTag))).withSession(addCurrentIndex(session,element)))
   }
 
+  val emptyForm = Form(single("" -> text))
 
+  def checkElementIndex(message: String, maybeElement: Option[Element])(f: Element => Future[Result])(implicit request: Request[_]): Future[Result] = {
+    val indexElement = InterviewSessionStack.currentIndex(request.session)
+    def start: Future[Result] = {
+      Future.successful(Redirect(routes.InterviewController.begin))
+    }
+    maybeElement.fold {
+      Logger.error("could not find index in session, redirecting to the start")
+      start
+    }{ element =>
+      if (element != indexElement) {
+        start
+      }
+      else {
+        f(element)
+      }
+    }
+  }
 
-  override def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
-  Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(questionForm, element, html))
-
-  override def redirect: Result = Redirect(routes.InterviewController.begin)
 
   def processElement(clusterID: Int, elementID: Int) = Action.async { implicit request =>
     val element = flowService.getAbsoluteElement(clusterID, elementID)
