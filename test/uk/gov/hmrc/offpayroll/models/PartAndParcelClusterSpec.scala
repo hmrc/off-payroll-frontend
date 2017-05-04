@@ -30,7 +30,7 @@ class PartAndParcelClusterSpec extends FlatSpec with Matchers with ClusterSpecHe
   }
 
   it should "have the correct clusterId " in {
-    partAndParcelCluster.clusterID shouldBe 3
+    partAndParcelCluster.clusterID shouldBe 5
   }
   it should "have the correct amount of question tags " in {
     partAndParcelCluster.clusterElements.size shouldBe 4

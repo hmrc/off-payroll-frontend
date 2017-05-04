@@ -4,13 +4,7 @@ GET     /cluster/                               @uk.gov.hmrc.offpayroll.controll
 GET     /cluster/back                           @uk.gov.hmrc.offpayroll.controllers.InterviewController.back
 POST    /cluster/:clusterID/element/:elementID  @uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
 
-GET     /setup                                  @uk.gov.hmrc.offpayroll.controllers.SetupController.begin()
-GET     /setup/back                             @uk.gov.hmrc.offpayroll.controllers.SetupController.back
-POST    /setup/element/:elementID               @uk.gov.hmrc.offpayroll.controllers.SetupController.processElement(elementID: Int)
-
-GET     /exit                                   @uk.gov.hmrc.offpayroll.controllers.ExitController.begin()
-GET     /exit/back                              @uk.gov.hmrc.offpayroll.controllers.ExitController.back
-POST    /exit/element/:elementID                @uk.gov.hmrc.offpayroll.controllers.ExitController.processElement(elementID: Int)
+GET     /setup                                  @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin()
 
 POST    /print/format                        @uk.gov.hmrc.offpayroll.controllers.PrintController.format
 POST    /print/print                         @uk.gov.hmrc.offpayroll.controllers.PrintController.printResult

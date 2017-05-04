@@ -16,13 +16,13 @@
 
 package uk.gov.hmrc.offpayroll.util
 
-import uk.gov.hmrc.offpayroll.models.{Element, SuperWebflow}
+import uk.gov.hmrc.offpayroll.models.{Element, OffPayrollWebflow}
 
 import uk.gov.hmrc.offpayroll.util.ElementBitSplitterImplicits._
 
 object ElementProvider {
 
-  def toElements: List[Element] = SuperWebflow.elements
+  def toElements: List[Element] = OffPayrollWebflow.elements
 
   def toWidths: List[Int] = toElements.map(a => a.bitWidth)
 

@@ -31,7 +31,7 @@ class PersonalServiceClusterSpec extends FlatSpec with Matchers with ClusterSpec
   }
 
   it should " have the correct clusterId " in {
-    personalServiceCluster.clusterID shouldBe 0
+    personalServiceCluster.clusterID shouldBe 2
   }
 
   it should " have the correct amount of question tags " in {
