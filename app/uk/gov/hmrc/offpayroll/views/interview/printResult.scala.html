@@ -1,7 +1,6 @@
 @import uk.gov.hmrc.offpayroll.controllers.PrintResult
-@(interview: List[(String, List[String])], printResult: PrintResult)(implicit request: Request[_], messages: Messages)
+@(interview: List[(String, List[String])], printResult: PrintResult, fragments: Map[String, Html])(implicit request: Request[_], messages: Messages)
 @uk.gov.hmrc.offpayroll.views.html.print_template(
-    appConfig = uk.gov.hmrc.offpayroll.FrontendAppConfig,
     Some("Print Result"),
     Some(""))(head ,Html(""),Html(""),Html(""),Html(""),Some(Html("")), false) {
     <div id="content">
@@ -37,6 +36,7 @@
             <ol id="yourAnswers">
             @for((key, value) <- interview) {
                 <li class="section divider--bottom"><h3>@messages(key)</h3>
+                    <div>@fragments.get(key)</div>
                     @for(child <- value) {
                         <div id="answer.@key" class="panel-indent">@messages(child)</div>
                     }

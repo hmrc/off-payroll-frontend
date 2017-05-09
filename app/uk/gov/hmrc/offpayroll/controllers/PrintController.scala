@@ -31,11 +31,12 @@ import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
+import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.asMap
 import uk.gov.hmrc.play.http.BadRequestException
 
 
 
-class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) extends FrontendController {
+class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) extends OffpayrollController {
 
   def format = Action.async { implicit request =>
 
@@ -81,7 +82,9 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
       },
       printResult => {
         val interview = CompressedInterview(printResult.compressedInterview).asRawList
-        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult)
+        val session = CompressedInterview(printResult.compressedInterview).asMap
+        val fragments = fragmentService.getAllFragmentsForInterview(session)
+        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult, fragments)
 
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
           pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
