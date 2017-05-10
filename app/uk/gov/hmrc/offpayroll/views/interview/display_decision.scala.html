@@ -14,7 +14,7 @@
 
 @import uk.gov.hmrc.offpayroll.util.ResultPageHelper
 @(decision: Decision, interview: List[(String, List[String])],
-        esi: Boolean, compressedInterview: String, fragments: Map[String, Html], resultsPageFragmentService: FragmentService, resultPageHelper: ResultPageHelper)(implicit request: Request[_], messages: Messages)
+        esi: Boolean, compressedInterview: String, fragments: Map[String, Html], resultPageHelper: ResultPageHelper)(implicit request: Request[_], messages: Messages)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
@@ -31,7 +31,7 @@
                     </div>
 
             <h2>@Messages("result.summary")</h2>
-            @resultsPageFragmentService.getFragmentByName(resultPageHelper.getDecisionTag+".resultSummary")
+            @fragments.get("result."+resultPageHelper.getDecisionTag+".resultSummary")
 
             @if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
                 @clusterResult("setup",resultPageHelper, fragments, messages)

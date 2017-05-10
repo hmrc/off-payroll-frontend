@@ -82,7 +82,7 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends FrontendController  with OffPayrollControllerHelper {
 
-  val fragmentService = FragmentService("/guidance/")
+  val fragmentService = FragmentService("/guidance/","/resultsPage/")
 
   val flow: OffPayrollWebflow = flowService.flow
 
@@ -199,10 +199,9 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         } else {
 	        val compressedInterview= logResponse(interviewEvaluation.decision, session, correlationId)
           val fragments = fragmentService.getAllFragmentsForInterview(asMap(session))
-          val resultsPageFragmentService = FragmentService("/resultsPage/")
           val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN))
           Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head,
-            asRawList(session), esi(asMap(session)), compressedInterview, fragments, resultsPageFragmentService, resultPageHelper))
+            asRawList(session), esi(asMap(session)), compressedInterview, fragments ++ fragmentService.getAllFragmentsForResultPage, resultPageHelper))
             .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
         }
       }
