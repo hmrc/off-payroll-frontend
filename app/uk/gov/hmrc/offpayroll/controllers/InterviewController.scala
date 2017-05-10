@@ -82,6 +82,9 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffpayrollController {
 
+//  val fragmentService = FragmentService("/guidance/","/resultsPage/")
+//>>>>>>> refactored fragmentService to read from more than one directory
+
   val flow: OffPayrollWebflow = flowService.flow
 
   private def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
@@ -197,10 +200,9 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         } else {
 	        val compressedInterview= logResponse(interviewEvaluation.decision, session, correlationId)
           val fragments = fragmentService.getAllFragmentsForInterview(asMap(session))
-          val resultsPageFragmentService = FragmentService("/resultsPage/")
           val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN))
           Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head,
-            asRawList(session), esi(asMap(session)), compressedInterview, fragments, resultsPageFragmentService, resultPageHelper))
+            asRawList(session), esi(asMap(session)), compressedInterview, fragments ++ fragmentService.getAllFragmentsForResultPage, resultPageHelper))
             .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
         }
       }

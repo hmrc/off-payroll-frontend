@@ -54,7 +54,7 @@ class ResultPageHelper(interview: List[(String, List[String])], decision: Decisi
   private def esiOrIr35: String = {
     val provideServices = interview.toMap.get("setup.provideServices")
 
-    if(!provideServices.isDefined) throw new IllegalStateException("Invalid Interview object passed")
+    if(!provideServices.isDefined) throw new IllegalStateException("Invalid Interview object passed") //FIXME refactor
 
     if(provideServices.get.contains("setup.provideServices.soleTrader")) s"${DOT}esi" else s"${DOT}ir35"
   }
@@ -62,7 +62,7 @@ class ResultPageHelper(interview: List[(String, List[String])], decision: Decisi
   private def getFutureOrCurrent : String = {
     val hasContractStarted = interview.toMap.get("setup.hasContractStarted")
 
-    if(!hasContractStarted.isDefined) throw new IllegalStateException("Invalid Interview object passed")
+    if(!hasContractStarted.isDefined) throw new IllegalStateException("Invalid Interview object passed") //FIXME refactor
 
     if(hasContractStarted.get.head.toUpperCase.equals("YES")) "current" else "future"
 
