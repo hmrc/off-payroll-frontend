@@ -80,9 +80,7 @@ object InterviewController {
   }
 }
 
-class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends FrontendController  with OffPayrollControllerHelper {
-
-  val fragmentService = FragmentService("/guidance/")
+class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffpayrollController {
 
   val flow: OffPayrollWebflow = flowService.flow
 
