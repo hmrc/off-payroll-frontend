@@ -9,9 +9,12 @@
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.{IN, OUT, UNKNOWN}
 @import uk.gov.hmrc.offpayroll.util.OffPayrollSwitches
+@import uk.gov.hmrc.offpayroll.util.ResultPageHelper._
+@import uk.gov.hmrc.offpayroll.services.FragmentService
 
+@import uk.gov.hmrc.offpayroll.util.ResultPageHelper
 @(decision: Decision, interview: List[(String, List[String])],
-        esi: Boolean, compressedInterview: String, fragments: Map[String, Html])(implicit request: Request[_], messages: Messages)
+        esi: Boolean, compressedInterview: String, fragments: Map[String, Html], resultsPageFragmentService: FragmentService, resultPageHelper: ResultPageHelper)(implicit request: Request[_], messages: Messages)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
@@ -21,12 +24,43 @@
         virtualPage = Some("decisionDisplay")
     ) {
 
-
         <main role="main" class="result">
             <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
                     <div class="transaction-banner--complete">
-                        <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(esi + "." + decision.decision)</span>
+                        <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(resultPageHelper.getDecisionTag+".headerBox")</span>
                     </div>
+
+            <h2>@Messages("result.summary")</h2>
+            @resultsPageFragmentService.getFragmentByName(resultPageHelper.getDecisionTag+".resultSummary")
+
+            @if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
+                @clusterResult("setup",resultPageHelper, fragments, messages)
+            }
+
+            @if(resultPageHelper.getQuestionsAndAnswersForCluster("exit").nonEmpty){
+                @clusterResult("exit",resultPageHelper, fragments, messages)
+            }
+
+            @if(resultPageHelper.getQuestionsAndAnswersForCluster("personalService").nonEmpty){
+                @clusterResult("personalService",resultPageHelper, fragments, messages)
+            }
+
+            @if(resultPageHelper.getQuestionsAndAnswersForCluster("control").nonEmpty){
+                @clusterResult("control",resultPageHelper, fragments, messages)
+            }
+
+            @if(resultPageHelper.getQuestionsAndAnswersForCluster("financialRisk").nonEmpty){
+                @clusterResult("financialRisk",resultPageHelper, fragments, messages)
+            }
+
+            @if(resultPageHelper.getQuestionsAndAnswersForCluster("partParcel").nonEmpty){
+                @clusterResult("partParcel",resultPageHelper, fragments, messages)
+            }
+
+
+            <h2>  --------------------- END OF NEW RESULTS PAGE ---------------------</h2>
+
+
             @helpers.form(routes.PrintController.format, 'id -> "resultData") {
                 <input type="hidden" name="esi" value="@esi" />
                 <input type="hidden" name="decisionResult" value="@decision.decision" />
