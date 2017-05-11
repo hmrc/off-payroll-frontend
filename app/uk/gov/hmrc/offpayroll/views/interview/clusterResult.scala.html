@@ -1,12 +1,15 @@
 @import uk.gov.hmrc.offpayroll.util.ResultPageHelper
-@(cluster: String, resultPageHelper: ResultPageHelper, fragments: Map[String, Html], messages: Messages)
+@(cluster: String, resultPageHelper: ResultPageHelper, messages: Messages)
 
 <h2>@messages(cluster+"Cluster"+".title")</h2>
-<p>@messages(cluster+"Cluster"+".summary")</p>
+@if(!cluster.equals("setup")){
+    <p>@messages(cluster+"Cluster"+".summary")</p>
+
+}
 <ul id="yourAnswers">
 @for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
     <li class="section divider--bottom"><h3>@messages(key)</h3>
-        <div>@fragments.get(key)</div>
+        <div>@resultPageHelper.fragments.get(key)</div>
         @for(child <- value) {
             <div id="answer.@key" class="panel-indent">@messages(child)</div>
         }
