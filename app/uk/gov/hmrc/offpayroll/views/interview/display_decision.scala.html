@@ -14,7 +14,7 @@
 
 @import uk.gov.hmrc.offpayroll.util.ResultPageHelper
 @(decision: Decision, interview: List[(String, List[String])],
-        esi: Boolean, compressedInterview: String, fragments: Map[String, Html], resultPageHelper: ResultPageHelper)(implicit request: Request[_], messages: Messages)
+        esi: Boolean, compressedInterview: String, resultPageHelper: ResultPageHelper)(implicit request: Request[_], messages: Messages)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
@@ -27,38 +27,38 @@
         <main role="main" class="result">
             <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
                     <div class="transaction-banner--complete">
-                        <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(resultPageHelper.getDecisionTag+".headerBox")</span>
+                        <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(resultPageHelper.decisionKey+".headerBox")</span>
                     </div>
 
             <h2>@Messages("result.summary")</h2>
-            @fragments.get("result."+resultPageHelper.getDecisionTag+".resultSummary")
+            @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".resultSummary")
 
             @if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
-                @clusterResult("setup",resultPageHelper, fragments, messages)
+                @clusterResult("setup",resultPageHelper, messages)
             }
 
             @if(resultPageHelper.getQuestionsAndAnswersForCluster("exit").nonEmpty){
-                @clusterResult("exit",resultPageHelper, fragments, messages)
+                @clusterResult("exit",resultPageHelper, messages)
             }
 
             @if(resultPageHelper.getQuestionsAndAnswersForCluster("personalService").nonEmpty){
-                @clusterResult("personalService",resultPageHelper, fragments, messages)
+                @clusterResult("personalService",resultPageHelper, messages)
             }
 
             @if(resultPageHelper.getQuestionsAndAnswersForCluster("control").nonEmpty){
-                @clusterResult("control",resultPageHelper, fragments, messages)
+                @clusterResult("control",resultPageHelper, messages)
             }
 
             @if(resultPageHelper.getQuestionsAndAnswersForCluster("financialRisk").nonEmpty){
-                @clusterResult("financialRisk",resultPageHelper, fragments, messages)
+                @clusterResult("financialRisk",resultPageHelper, messages)
             }
 
             @if(resultPageHelper.getQuestionsAndAnswersForCluster("partParcel").nonEmpty){
-                @clusterResult("partParcel",resultPageHelper, fragments, messages)
+                @clusterResult("partParcel",resultPageHelper, messages)
             }
 
-
-            <h2>  --------------------- END OF NEW RESULTS PAGE ---------------------</h2>
+            @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".action")
+            @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".statement")
 
 
             @helpers.form(routes.PrintController.format, 'id -> "resultData") {
@@ -77,20 +77,6 @@
                 </div>
                 }
 
-                @resultDecisionExplained_template(esi, decision.decision.toString())
-                @resultNextSteps_template(esi, decision.decision.toString())
-
-                    <h2 class="heading-medium">Your answers</h2>
-                    <ol id="yourAnswers">
-                    @for((key, value) <- interview) {
-                        <li class="section divider--bottom"><h3>@messages(key)</h3>
-                            <div>@fragments.get(key)</div>
-                            @for(child <- value) {
-                                <div id="answer.@key" class="panel-indent">@messages(child)</div>
-                            }
-                        </li>
-                    }
-                    </ol>
             <p>Decision Service Version: <span id="dsVersion">@decision.version</span></p>
 
         </main>

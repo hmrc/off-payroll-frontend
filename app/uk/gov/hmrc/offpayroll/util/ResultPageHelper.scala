@@ -16,12 +16,13 @@
 
 package uk.gov.hmrc.offpayroll.util
 
+import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.models._
 
 /**
   * Created by Habeeb on 05/05/2017.
   */
-class ResultPageHelper(interview: List[(String, List[String])], decision: DecisionType) {
+class ResultPageHelper(val interview: List[(String, List[String])], decision: DecisionType, val fragments: Map[String, Html]) {
 
   private val DOT = "."
   private val MATRIX = "matrix"
@@ -34,6 +35,13 @@ class ResultPageHelper(interview: List[(String, List[String])], decision: Decisi
     PartAndParcelCluster.name -> (MATRIX,MATRIX)
   )
 
+  lazy val decisionKey : String = {
+    val lastCompletedCluster = getLastCompletedCluster
+    var decisionTag = lastCompletedCluster + getDecisionString
+    if(!decision.equals(UNKNOWN)) decisionTag = decisionTag + esiOrIr35
+    decisionTag
+  }
+
   def getQuestionsAndAnswersForCluster(clusterName: String): List[(String, List[String])] = {
     var clusterQuestionAndAnswers: List[(String, List[String])] = List()
     interview.foreach{qAndA =>
@@ -42,43 +50,36 @@ class ResultPageHelper(interview: List[(String, List[String])], decision: Decisi
     clusterQuestionAndAnswers
   }
 
-  def getInterview: List[(String, List[String])] = interview
-
-  def getDecisionTag : String = {
-    val lastCompletedCluster = getLastCompletedCluster
-    var decisionTag = lastCompletedCluster + getDecisionString
-    if(!decision.equals(UNKNOWN)) decisionTag = decisionTag + esiOrIr35
-    decisionTag
-  }
-
   private def esiOrIr35: String = {
     val provideServices = interview.toMap.get("setup.provideServices")
 
-    if(!provideServices.isDefined) throw new IllegalStateException("Invalid Interview object passed") //FIXME refactor
-
-    if(provideServices.get.contains("setup.provideServices.soleTrader")) s"${DOT}esi" else s"${DOT}ir35"
+    if(!provideServices.isDefined){
+      "setup.provideServices is missing"
+    }
+    else if(provideServices.get.contains("setup.provideServices.soleTrader")) s"${DOT}esi" else s"${DOT}ir35"
   }
 
   private def getFutureOrCurrent : String = {
     val hasContractStarted = interview.toMap.get("setup.hasContractStarted")
 
-    if(!hasContractStarted.isDefined) throw new IllegalStateException("Invalid Interview object passed") //FIXME refactor
-
-    if(hasContractStarted.get.head.toUpperCase.equals("YES")) "current" else "future"
+    if(!hasContractStarted.isDefined){
+      "setup.hasContractStarted is missing"
+    }
+    else if(hasContractStarted.get.head.toUpperCase.equals("YES")) "current" else "future"
 
   }
 
   private def getLastCompletedCluster: String = {
-    if(!getQuestionsAndAnswersForCluster(PartAndParcelCluster.name).isEmpty){
+    if(getQuestionsAndAnswersForCluster(PartAndParcelCluster.name).nonEmpty){
       getClusterLabel(PartAndParcelCluster.name, esiOrIr35)
     }
-    else if(!getQuestionsAndAnswersForCluster(FinancialRiskCluster.name).isEmpty){
+    else if(getQuestionsAndAnswersForCluster(FinancialRiskCluster.name).nonEmpty){
       getClusterLabel(FinancialRiskCluster.name, esiOrIr35)
     }
-    else if(!getQuestionsAndAnswersForCluster(ControlCluster.name).isEmpty){
+    else if(getQuestionsAndAnswersForCluster(ControlCluster.name).nonEmpty){
       getClusterLabel(ControlCluster.name, esiOrIr35)
     }
-    else if(!getQuestionsAndAnswersForCluster(PersonalServiceCluster.name).isEmpty){
+    else if(getQuestionsAndAnswersForCluster(PersonalServiceCluster.name).nonEmpty){
       var label = getClusterLabel(PersonalServiceCluster.name, esiOrIr35)
       if(esiOrIr35.contains("ir35")){
         label = label + DOT + getFutureOrCurrent
@@ -102,7 +103,7 @@ class ResultPageHelper(interview: List[(String, List[String])], decision: Decisi
 }
 
 object ResultPageHelper{
-  def apply(interview: List[(String, List[String])], decision: DecisionType): ResultPageHelper = {
-    new ResultPageHelper(interview, decision)
+  def apply(interview: List[(String, List[String])], decision: DecisionType, fragments: Map[String, Html]): ResultPageHelper = {
+    new ResultPageHelper(interview, decision, fragments)
   }
 }
