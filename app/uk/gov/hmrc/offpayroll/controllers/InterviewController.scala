@@ -82,9 +82,6 @@ object InterviewController {
 
 class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffpayrollController {
 
-//  val fragmentService = FragmentService("/guidance/","/resultsPage/")
-//>>>>>>> refactored fragmentService to read from more than one directory
-
   val flow: OffPayrollWebflow = flowService.flow
 
   private def displaySuccess(element: Element, questionForm: Form[_])(html: Html)(implicit request: Request[_]): Result =
