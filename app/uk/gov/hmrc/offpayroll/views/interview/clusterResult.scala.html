@@ -6,9 +6,9 @@
     <p>@messages(cluster+"Cluster"+".summary")</p>
 
 }
-<ul id="yourAnswers">
+<ul class="section">
 @for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
-    <li class="section divider--bottom"><h3>@messages(key)</h3>
+    <li class="divider--bottom"><h3>@messages(key)</h3>
         <div>@resultPageHelper.fragments.get(key)</div>
         @for(child <- value) {
             <div id="answer.@key" class="panel-indent">@messages(child)</div>
