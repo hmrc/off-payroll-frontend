@@ -148,14 +148,12 @@ multipleInterview.thanks=Thank you.
 # Results Page
 result.summary=Why are you getting this result
 
-
 # officeHolder.in.ir35
 officeHolder.in.ir35.headerBox=The intermediaries legislation applies to this engagement
 
 
 # officeHolder.in.esi
 officeHolder.in.esi.headerBox=This engagement should be classed as employed for tax purposes
-
 
 personalServiceCluster.current.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
 
@@ -171,7 +169,7 @@ matrix.in.esi.headerBox=This engagement should be classed as employed for tax pu
 
 matrix.in.ir35.headerBox=The intermediaries legislation applies to this engagement
 
-matrix.unknown.headerBox=We're unable to determine the tax status of this engagement
+matrix.unknown.headerBox=We''re unable to determine the tax status of this engagement
 
 setupCluster.title=About the people involved
 
