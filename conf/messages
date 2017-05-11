@@ -193,9 +193,3 @@ partParcelCluster.title=About the worker’s integration into the organisation
 partParcelCluster.summary=We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
 
 
-action.to.take.title=You should now do the following:
-
-hmrc.statement.title=About this result
-hmrc.statement.wont.keep.record=[!] HMRC won’t keep a record of this result.
-
-
