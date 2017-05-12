@@ -26,8 +26,12 @@ import uk.gov.hmrc.offpayroll.resources._
   */
 class ResultPageHelperSpec extends FlatSpec with Matchers {
 
+
+  private val ESI = true
+  private val IR35 = false
+
   "An ResultPageHelper " should " be able to get the correct set of Q and As for a given cluster name" in {
-    val resultPageHelper = ResultPageHelper(endToEndEsiInterview, IN, fragments)
+    val resultPageHelper = ResultPageHelper(endToEndEsiInterview, IN, fragments, "partParcel", ESI)
 
     val questionsAndAnswersForCluster = resultPageHelper.getQuestionsAndAnswersForCluster("financialRisk")
 
@@ -40,74 +44,74 @@ class ResultPageHelperSpec extends FlatSpec with Matchers {
   }
 
   it should " be able to return an empty list if the given cluster name is not in the list" in {
-    val questionsAndAnswersForCluster = ResultPageHelper(endToEndEsiInterview, IN, fragments).getQuestionsAndAnswersForCluster("bobby")
+    val questionsAndAnswersForCluster = ResultPageHelper(endToEndEsiInterview, IN, fragments, "partParcel", ESI).getQuestionsAndAnswersForCluster("bobby")
 
     questionsAndAnswersForCluster.isEmpty shouldBe true
   }
 
   it should " be able to return the correct 'decision type' for an ir35 office holder interview" in {
 
-    val outcomeType = ResultPageHelper(ir35OfficeHolderYesInterview, IN, fragments).decisionKey
+    val outcomeType = ResultPageHelper(ir35OfficeHolderYesInterview, IN, fragments, "exit", IR35).decisionKey
     outcomeType shouldBe "officeHolder.in.ir35"
   }
 
   it should " be able to return the correct 'decision type' for an esi office holder interview" in {
-    val outcomeType = ResultPageHelper(esiOfficeHolderYesInterview, IN, fragments).decisionKey
+    val outcomeType = ResultPageHelper(esiOfficeHolderYesInterview, IN, fragments, "exit", ESI).decisionKey
     outcomeType shouldBe "officeHolder.in.esi"
   }
 
   it should " be able to return the correct 'decision type' for an ir35 personal service (early exit) current route interview" in {
-    val outcomeType = ResultPageHelper(personalServiceIr35CurrentInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(personalServiceIr35CurrentInterview, OUT, fragments, "personalService", IR35).decisionKey
     outcomeType shouldBe "personalServiceCluster.current.out.ir35"
   }
 
   it should " be able to return the correct 'decision type' for an esi personal service (early exit) current route interview" in {
-    val outcomeType = ResultPageHelper(personalServiceEsiCurrentInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(personalServiceEsiCurrentInterview, OUT, fragments, "personalService", ESI).decisionKey
     outcomeType shouldBe "earlyExit.out.esi"
   }
 
   it should " be able to return the correct 'decision type' for an ir35 personal service (early exit) future route interview" in {
-    val outcomeType = ResultPageHelper(personalServiceIr35FutureInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(personalServiceIr35FutureInterview, OUT, fragments, "personalService", IR35).decisionKey
     outcomeType shouldBe "personalServiceCluster.future.out.ir35"
   }
 
   it should " be able to return the correct 'decision type' for an esi personal service (early exit) future route interview" in {
-    val outcomeType = ResultPageHelper(personalServiceEsiFutureInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(personalServiceEsiFutureInterview, OUT, fragments, "personalService", ESI).decisionKey
     outcomeType shouldBe "earlyExit.out.esi"
   }
 
   it should " be able to return the correct 'decision type' for an esi control (early exit) interview" in {
-    val outcomeType = ResultPageHelper(controlEsiInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(controlEsiInterview, OUT, fragments, "control", ESI).decisionKey
     outcomeType shouldBe "earlyExit.out.esi"
   }
 
   it should " be able to return the correct 'decision type' for an esi financial risk (early exit) interview" in {
-    val outcomeType = ResultPageHelper(financialRiskEsiInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(financialRiskEsiInterview, OUT, fragments, "financialRisk", ESI).decisionKey
     outcomeType shouldBe "earlyExit.out.esi"
   }
 
   it should " be able to return the correct 'decision type' for an ir35 control (early exit) interview" in {
-    val outcomeType = ResultPageHelper(controlInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(controlInterview, OUT, fragments, "control", IR35).decisionKey
     outcomeType shouldBe "controlCluster.out.ir35"
   }
 
   it should " be able to return the correct 'decision type' for an ir35 financial risk (early exit) interview" in {
-    val outcomeType = ResultPageHelper(financialRiskInterview, OUT, fragments).decisionKey
+    val outcomeType = ResultPageHelper(financialRiskInterview, OUT, fragments, "financialRisk", IR35).decisionKey
     outcomeType shouldBe "financialRiskCluster.out.ir35"
   }
 
   it should " be able to return the correct 'decision type' for an inside ir35 end to end interview" in {
-    val outcomeType = ResultPageHelper(endToEndIr35Interview, IN, fragments).decisionKey
+    val outcomeType = ResultPageHelper(endToEndIr35Interview, IN, fragments, "partParcel", IR35).decisionKey
     outcomeType shouldBe "matrix.in.ir35"
   }
 
   it should " be able to return the correct 'decision type' for an unknown ir35 end to end interview" in {
-    val outcomeType = ResultPageHelper(endToEndIr35Interview, UNKNOWN, fragments).decisionKey
+    val outcomeType = ResultPageHelper(endToEndIr35Interview, UNKNOWN, fragments, "partParcel", IR35).decisionKey
     outcomeType shouldBe "matrix.unknown"
   }
 
   it should " be able to return the correct 'decision type' for an unknown esi end to end interview" in {
-    val outcomeType = ResultPageHelper(endToEndEsiInterview, UNKNOWN, fragments).decisionKey
+    val outcomeType = ResultPageHelper(endToEndEsiInterview, UNKNOWN, fragments, "partParcel", IR35).decisionKey
     outcomeType shouldBe "matrix.unknown"
   }
 

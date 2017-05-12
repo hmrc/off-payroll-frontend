@@ -22,7 +22,7 @@ import uk.gov.hmrc.offpayroll.models._
 /**
   * Created by Habeeb on 05/05/2017.
   */
-class ResultPageHelper(val interview: List[(String, List[String])], decision: DecisionType, val fragments: Map[String, Html]) {
+class ResultPageHelper(val interview: List[(String, List[String])], decision: DecisionType, val fragments: Map[String, Html], decisionCluster: String, esi: Boolean) {
 
   private val DOT = "."
   private val MATRIX = "matrix"
@@ -36,64 +36,33 @@ class ResultPageHelper(val interview: List[(String, List[String])], decision: De
   )
 
   lazy val decisionKey : String = {
-    val lastCompletedCluster = getLastCompletedCluster
-    var decisionTag = lastCompletedCluster + getDecisionString
-    if(!decision.equals(UNKNOWN)) decisionTag = decisionTag + esiOrIr35
-    decisionTag
+    val decisionTag =
+      if(decisionCluster.equals(PersonalServiceCluster.name) && !esi)
+        getClusterLabel(decisionCluster) + DOT + getFutureOrCurrent + getDecisionString
+      else getClusterLabel(decisionCluster) + getDecisionString
+
+    if(!decision.equals(UNKNOWN)) decisionTag + esiOrIr35 else decisionTag
   }
 
   def getQuestionsAndAnswersForCluster(clusterName: String): List[(String, List[String])] = {
-    var clusterQuestionAndAnswers: List[(String, List[String])] = List()
-    interview.foreach{qAndA =>
-      if (qAndA._1.startsWith(clusterName)) clusterQuestionAndAnswers = clusterQuestionAndAnswers :+ qAndA
+    interview.filter{qAndA =>
+      qAndA._1.startsWith(clusterName)
     }
-    clusterQuestionAndAnswers
   }
 
-  private def esiOrIr35: String = {
-    val provideServices = interview.toMap.get("setup.provideServices")
-
-    if(!provideServices.isDefined){
-      "setup.provideServices is missing"
-    }
-    else if(provideServices.get.contains("setup.provideServices.soleTrader")) s"${DOT}esi" else s"${DOT}ir35"
-  }
+  private def esiOrIr35: String = if(esi) s"${DOT}esi" else s"${DOT}ir35"
 
   private def getFutureOrCurrent : String = {
-    val hasContractStarted = interview.toMap.get("setup.hasContractStarted")
-
-    if(!hasContractStarted.isDefined){
-      "setup.hasContractStarted is missing"
+    val exists = interview.exists {
+      case (question, answer) => "setup.hasContractStarted" == question && "YES" == answer.head.toUpperCase
     }
-    else if(hasContractStarted.get.head.toUpperCase.equals("YES")) "current" else "future"
-
+    if(exists) "current" else "future"
   }
 
-  private def getLastCompletedCluster: String = {
-    if(getQuestionsAndAnswersForCluster(PartAndParcelCluster.name).nonEmpty){
-      getClusterLabel(PartAndParcelCluster.name, esiOrIr35)
-    }
-    else if(getQuestionsAndAnswersForCluster(FinancialRiskCluster.name).nonEmpty){
-      getClusterLabel(FinancialRiskCluster.name, esiOrIr35)
-    }
-    else if(getQuestionsAndAnswersForCluster(ControlCluster.name).nonEmpty){
-      getClusterLabel(ControlCluster.name, esiOrIr35)
-    }
-    else if(getQuestionsAndAnswersForCluster(PersonalServiceCluster.name).nonEmpty){
-      var label = getClusterLabel(PersonalServiceCluster.name, esiOrIr35)
-      if(esiOrIr35.contains("ir35")){
-        label = label + DOT + getFutureOrCurrent
-      }
-      label
-    }
-    else
-      getClusterLabel(ExitCluster.name, esiOrIr35)
-  }
-
-  private def getClusterLabel(clusterName: String, esiOrIr35: String): String = {
-    if(esiOrIr35.contains("ir35"))
-      CLUSTER_TO_LABEL.get(clusterName).get._1
-    else CLUSTER_TO_LABEL.get(clusterName).get._2
+  private def getClusterLabel(clusterName: String): String = {
+    if(esi)
+       CLUSTER_TO_LABEL.get(clusterName).get._2
+    else CLUSTER_TO_LABEL.get(clusterName).get._1
   }
 
   private def getDecisionString: String = {
@@ -103,7 +72,7 @@ class ResultPageHelper(val interview: List[(String, List[String])], decision: De
 }
 
 object ResultPageHelper{
-  def apply(interview: List[(String, List[String])], decision: DecisionType, fragments: Map[String, Html]): ResultPageHelper = {
-    new ResultPageHelper(interview, decision, fragments)
+  def apply(interview: List[(String, List[String])], decision: DecisionType, fragments: Map[String, Html], decisionCluster: String, esi: Boolean): ResultPageHelper = {
+    new ResultPageHelper(interview, decision, fragments, decisionCluster, esi)
   }
 }

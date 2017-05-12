@@ -197,9 +197,11 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
         } else {
 	        val compressedInterview= logResponse(interviewEvaluation.decision, session, correlationId)
           val fragments = fragmentService.getAllFragmentsForInterview(asMap(session)) ++ fragmentService.getAllFragmentsForResultPage
-          val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN),fragments)
+          val isEsi = esi(asMap(session))
+          val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN),
+            fragments, interviewEvaluation.decision.map(_.cluster).getOrElse("unknownCluster"), isEsi)
           Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head,
-            asRawList(session), esi(asMap(session)), compressedInterview, resultPageHelper))
+            asRawList(session), isEsi, compressedInterview, resultPageHelper))
             .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
         }
       }
