@@ -1,14 +1,14 @@
 #### Global Content
-application.title=Check employment status for tax
+application.title=Gwiriwch statws cyflogaeth ar gyfer treth
 
-global.button.continue=Continue
+global.button.continue=Parhau
 yes=yes
 no=no
 Yes=Yes
 No=No
 
 #### Set up cluster
-sectionHeader.setup=About the people involved
+sectionHeader.setup=Am y bobl sy''n cymryd rhan
 
 setup.endUserRole=Which of these describes you best? 
 setup.endUserRole.personDoingWork=The worker
@@ -25,7 +25,7 @@ setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
 
-sectionHeader.exit=About the worker''s duties
+sectionHeader.exit=Ynglŷn dyletswyddau y gweithiwr
 
 exit.officeHolder=Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 
@@ -45,7 +45,7 @@ personalService.possibleSubstituteWorkerPay=Would the worker''s business have to
 personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work for this engagement?
 
 #### Control Cluster
-sectionHeader.control=About the work arrangements
+sectionHeader.control=Am y trefniadau gwaith
 
 control.engagerMovingWorker=Can the end client move the worker to a different task than they originally agreed to do?
 control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
@@ -72,7 +72,7 @@ control.workerDecideWhere.workerCannotChoose=No - the end client decides
 control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
 #### Financial Risk Cluster
-sectionHeader.financialRisk=About the worker''s financial risk
+sectionHeader.financialRisk=Ynglŷn risg ariannol y gweithiwr
 
 financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they can''t claim as an expense from the end client or an agency?
 financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
@@ -98,7 +98,7 @@ financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-sectionHeader.partParcel=About the worker''s integration into the organisation
+sectionHeader.partParcel=Ynglŷn integreiddiad y gweithiwr yn y sefydliad
 
 partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefits from the end client?
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?

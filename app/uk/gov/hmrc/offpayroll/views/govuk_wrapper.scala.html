@@ -1,3 +1,4 @@
+@import uk.gov.hmrc.offpayroll.FrontendAppConfig
 @(appConfig: uk.gov.hmrc.offpayroll.AppConfig,
   title: String,
   mainClass: Option[String] = None,
@@ -9,7 +10,7 @@
   serviceInfoContent: Html = HtmlFormat.empty,
   scriptElem: Option[Html] = None,
   virtualPage: Option[String] = None
-)(implicit request: Request[_], messages: Messages)
+)(implicit request: Request[_], messages: Messages, lang : Lang)
 
 @import layouts.{govuk_template => hmrcGovUkTemplate}
 @import uk.gov.hmrc.play.views.html.{layouts => uiLayouts}
@@ -31,7 +32,7 @@
 
 @insideHeader = {
     @uiLayouts.header_nav(
-      navTitle = Some("Check employment status for tax"),
+      navTitle = Some(messages("application.title")),
       navTitleLink = None,
       showBetaLink = false,
       navLinks = Some(headerNavLinks))
@@ -95,4 +96,4 @@
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links()), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links(Some(language.language_selection(FrontendAppConfig.enableLanguageSwitching)))), true)(content)

@@ -27,6 +27,8 @@ trait AppConfig {
   val appUrlPath: String
   val betaFeedbackUrlNoAuth: String
   val offPayrollDecisionVersion: String
+  def fallbackURLForLanguageSwitcher: String
+  def enableLanguageSwitching: Boolean
 }
 
 object FrontendAppConfig extends AppConfig with ServicesConfig {
@@ -43,5 +45,7 @@ object FrontendAppConfig extends AppConfig with ServicesConfig {
   override lazy val appUrlPath = loadConfig(s"appUrlPath")
   override lazy val betaFeedbackUrlNoAuth = s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier"
   override lazy val offPayrollDecisionVersion = loadConfig(s"microservice.services.off-payroll-decision.version")
+  override def fallbackURLForLanguageSwitcher: String = loadConfig("languageSwitcher.fallback.url")
+  override def enableLanguageSwitching: Boolean = configuration.getBoolean("enableLanguageSwitching").getOrElse(false)
 
 }
