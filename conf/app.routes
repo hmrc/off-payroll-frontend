@@ -8,3 +8,6 @@ GET     /setup                                  @uk.gov.hmrc.offpayroll.controll
 
 POST    /print/format                        @uk.gov.hmrc.offpayroll.controllers.PrintController.format
 POST    /print/print                         @uk.gov.hmrc.offpayroll.controllers.PrintController.printResult
+
+GET    /switch-to-welsh                      @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToWelsh
+GET    /switch-to-english                    @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToEnglish
