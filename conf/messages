@@ -143,7 +143,7 @@ multipleInterview.heading=Please close this tab or window to continue checking e
 multipleInterview.intro=We''ve noticed that you already have this service open in another tab or window.
 multipleInterview.toContinue=This could affect the result you get, so you need to close this tab or window to continue using the service.
 multipleInterview.thanks=Thank you.
-
+        
 # Results Page
 result.summary=Why are you getting this result
 
