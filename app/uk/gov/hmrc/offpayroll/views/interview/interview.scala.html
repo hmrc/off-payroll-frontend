@@ -3,7 +3,7 @@
 @import uk.gov.hmrc.offpayroll.models._
 @import uk.gov.hmrc.offpayroll.models.Element
 
-@(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages)
+@(f:Form[_], element:Element, guidance: Html)(implicit request: Request[_], messages: Messages, lang : Lang)
 @import uk.gov.hmrc.offpayroll.controllers.routes
 @uk.gov.hmrc.offpayroll.views.html.main_template(
     title = Messages(element.questionTag),
