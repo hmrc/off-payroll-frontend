@@ -23,7 +23,7 @@ import uk.gov.hmrc.offpayroll.services.FragmentService
 /**
   * Created by peter on 05/01/2017.
   */
-class FragmentServiceSpec   extends FlatSpec with Matchers  {
+class FragmentServiceSpec  extends FlatSpec with Matchers  {
 
 
   val fragmentService = FragmentService("/testGuidance/","/testOtherFragments/")
@@ -69,7 +69,7 @@ class FragmentServiceSpec   extends FlatSpec with Matchers  {
 
   it should "return only the result page fragments" in {
 
-    val fragments = fragmentService.getAllFragmentsForResultPage
+    val fragments = fragmentService.getFragmentsByFilenamePrefix("result")
     fragments.size shouldBe 1
     fragments.get("result.someFragment.SomeOtherThing").toString.contains("I want to see some other different text.") shouldBe true
   }

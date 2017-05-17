@@ -58,9 +58,9 @@ class FragmentService(val sourceDirs: Seq[String]){
     }
   }
 
-  def getAllFragmentsForResultPage: Map[String, Html] = {
+  def getFragmentsByFilenamePrefix(prefix: String): Map[String, Html] = {
     fragments.filter {
-      case (filename, _) => filename.startsWith("result")
+      case (filename, _) => filename.startsWith(prefix)
     }.map {
       case (filename, html) =>  (filename.replace(".html", ""), html)
     }

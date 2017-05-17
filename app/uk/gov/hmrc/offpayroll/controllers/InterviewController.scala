@@ -196,7 +196,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
             .withSession(InterviewSessionStack.addCurrentIndex(session, interviewEvaluation.element.head))
         } else {
 	        val compressedInterview= logResponse(interviewEvaluation.decision, session, correlationId)
-          val fragments = fragmentService.getAllFragmentsForInterview(asMap(session)) ++ fragmentService.getAllFragmentsForResultPage
+          val fragments = fragmentService.getAllFragmentsForInterview(asMap(session)) ++ fragmentService.getFragmentsByFilenamePrefix("result")
           val isEsi = esi(asMap(session))
           val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN),
             fragments, interviewEvaluation.decision.map(_.cluster).getOrElse("unknownCluster"), isEsi)
