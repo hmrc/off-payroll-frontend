@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.offpayroll
 
+import play.twirl.api.Html
+
 /**
   * Created by peter on 11/01/2017.
   */
@@ -121,5 +123,158 @@ package object resources {
     "exit.officeHolder" -> "No")
 
 
+  val endToEndIr35Interview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.limitedCompany")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.noSubstitutionHappened")),
+      ("personalService.workerPayActualSubstitute",List("No")),
+      ("personalService.possibleSubstituteRejection",List("personalService.possibleSubstituteRejection.wouldNotReject")),
+      ("personalService.possibleSubstituteWorkerPay",List("Yes")),
+      ("control.engagerMovingWorker",List("control.engagerMovingWorker.canMoveWorkerWithoutPermission")),
+      ("control.workerDecidingHowWorkIsDone",List("control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures")),
+      ("control.whenWorkHasToBeDone",List("control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures")),
+      ("control.workerDecideWhere",List("control.workerDecideWhere.workerAgreeWithOthers")),
+      ("financialRisk.haveToPayButCannotClaim",List("financialRisk.workerProvidedMaterials","financialRisk.expensesAreNotRelevantForRole")),
+      ("financialRisk.workerMainIncome",List("financialRisk.workerMainIncome.incomeCommission")),
+      ("financialRisk.paidForSubstandardWork",List("financialRisk.paidForSubstandardWork.cannotBeCorrected")),
+      ("partParcel.workerReceivesBenefits",List("Yes")),
+      ("partParcel.workerAsLineManager",List("Yes")),
+      ("partParcel.contactWithEngagerCustomer",List("Yes")),
+      ("partParcel.workerRepresentsEngagerBusiness",List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness"))
+    )
+
+  val endToEndEsiInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.soleTrader")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.noSubstitutionHappened")),
+      ("personalService.workerPayActualSubstitute",List("No")),
+      ("personalService.possibleSubstituteRejection",List("personalService.possibleSubstituteRejection.wouldNotReject")),
+      ("personalService.possibleSubstituteWorkerPay",List("Yes")),
+      ("control.engagerMovingWorker",List("control.engagerMovingWorker.canMoveWorkerWithoutPermission")),
+      ("control.workerDecidingHowWorkIsDone",List("control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures")),
+      ("control.whenWorkHasToBeDone",List("control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures")),
+      ("control.workerDecideWhere",List("control.workerDecideWhere.workerAgreeWithOthers")),
+      ("financialRisk.haveToPayButCannotClaim",List("financialRisk.workerProvidedMaterials","financialRisk.expensesAreNotRelevantForRole")),
+      ("financialRisk.workerMainIncome",List("financialRisk.workerMainIncome.incomeCommission")),
+      ("financialRisk.paidForSubstandardWork",List("financialRisk.paidForSubstandardWork.cannotBeCorrected")),
+      ("partParcel.workerReceivesBenefits",List("Yes")),
+      ("partParcel.workerAsLineManager",List("Yes")),
+      ("partParcel.contactWithEngagerCustomer",List("Yes")),
+      ("partParcel.workerRepresentsEngagerBusiness",List("partParcel.workerRepresentsEngagerBusiness.workAsBusiness"))
+    )
+
+  val ir35OfficeHolderYesInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.limitedCompany")),
+      ("exit.officeHolder",List("Yes"))
+    )
+
+  val esiOfficeHolderYesInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.soleTrader")),
+      ("exit.officeHolder",List("Yes"))
+    )
+
+  val personalServiceIr35CurrentInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.limitedCompany")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.yesClientAgreed")),
+      ("personalService.workerPayActualSubstitute",List("Yes"))
+    )
+
+  val personalServiceEsiCurrentInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.soleTrader")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.yesClientAgreed")),
+      ("personalService.workerPayActualSubstitute",List("Yes"))
+    )
+
+  val personalServiceIr35FutureInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("No")),
+      ("setup.provideServices",List("setup.provideServices.limitedCompany")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.yesClientAgreed")),
+      ("personalService.workerPayActualSubstitute",List("Yes"))
+    )
+
+  val personalServiceEsiFutureInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("No")),
+      ("setup.provideServices",List("setup.provideServices.soleTrader")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.yesClientAgreed")),
+      ("personalService.workerPayActualSubstitute",List("Yes"))
+    )
+
+  val controlInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.limitedCompany")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.noSubstitutionHappened")),
+      ("personalService.workerPayActualSubstitute",List("No")),
+      ("personalService.possibleSubstituteRejection",List("personalService.possibleSubstituteRejection.wouldNotReject")),
+      ("personalService.possibleSubstituteWorkerPay",List("Yes")),
+      ("control.engagerMovingWorker",List("control.engagerMovingWorker.canMoveWorkerWithoutNewAgreement")),
+      ("control.workerDecidingHowWorkIsDone",List("control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput")),
+      ("control.whenWorkHasToBeDone",List("control.workerDecidingHowWorkIsDone.workerDecidesSchedule")),
+      ("control.workerDecideWhere",List("control.workerDecideWhere.workerChooses"))
+    )
+
+  val controlEsiInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.soleTrader")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.workerSentActualSubstitute",List("personalService.workerSentActualSubstitute.noSubstitutionHappened")),
+      ("personalService.workerPayActualSubstitute",List("No")),
+      ("personalService.possibleSubstituteRejection",List("personalService.possibleSubstituteRejection.wouldNotReject")),
+      ("personalService.possibleSubstituteWorkerPay",List("Yes")),
+      ("control.engagerMovingWorker",List("control.engagerMovingWorker.canMoveWorkerWithoutNewAgreement")),
+      ("control.workerDecidingHowWorkIsDone",List("control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput")),
+      ("control.whenWorkHasToBeDone",List("control.workerDecidingHowWorkIsDone.workerDecidesSchedule")),
+      ("control.workerDecideWhere",List("control.workerDecideWhere.workerChooses"))
+    )
+
+  val financialRiskInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.limitedCompany")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.possibleSubstituteRejection",List("personalService.possibleSubstituteRejection.wouldNotReject")),
+      ("personalService.possibleSubstituteWorkerPay",List("No")),
+      ("control.engagerMovingWorker",List("control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement")),
+      ("control.workerDecidingHowWorkIsDone",List("control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures")),
+      ("control.whenWorkHasToBeDone",List("control.workerDecidingHowWorkIsDone.noScheduleRequiredOnlyDeadlines")),
+      ("control.workerDecideWhere",List("control.workerDecideWhere.workerAgreeWithOthers")),
+      ("financialRisk.haveToPayButCannotClaim",List("financialRisk.haveToPayButCannotClaim.workerProvidedMaterials"))
+    )
+
+  val financialRiskEsiInterview : List[(String, List[String])] =
+    List(("setup.endUserRole",List("setup.endUserRole.personDoingWork")),
+      ("setup.hasContractStarted",List("Yes")),
+      ("setup.provideServices",List("setup.provideServices.soleTrader")),
+      ("exit.officeHolder",List("No")),
+      ("personalService.possibleSubstituteRejection",List("personalService.possibleSubstituteRejection.wouldNotReject")),
+      ("personalService.possibleSubstituteWorkerPay",List("No")),
+      ("control.engagerMovingWorker",List("control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement")),
+      ("control.workerDecidingHowWorkIsDone",List("control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures")),
+      ("control.whenWorkHasToBeDone",List("control.workerDecidingHowWorkIsDone.noScheduleRequiredOnlyDeadlines")),
+      ("control.workerDecideWhere",List("control.workerDecideWhere.workerAgreeWithOthers")),
+      ("financialRisk.haveToPayButCannotClaim",List("financialRisk.haveToPayButCannotClaim.workerProvidedMaterials"))
+    )
+
+  val fragments: Map[String, Html] = Map()
 
 }

@@ -21,19 +21,24 @@ import play.twirl.api.Html
 
 
 
-class FragmentService(val sourceDir: String){
+class FragmentService(val sourceDirs: Seq[String]){
 
   private lazy val fragments: Map[String, Html] = {
 
-    val is = getClass.getResourceAsStream(sourceDir)
-    val fileArray = scala.io.Source.fromInputStream(is).getLines().mkString(":").split(':')
+    var fragmentsMap: Map[String, Html] = Map()
 
-    def htmlFromResource(filename: String ): Html = {
-      Html.apply(scala.io.Source.fromInputStream(
-        getClass.getResourceAsStream(filename)).getLines().mkString(""))
+    sourceDirs.foreach{sourceDir =>
+      val is = getClass.getResourceAsStream(sourceDir)
+      val fileArray = scala.io.Source.fromInputStream(is).getLines().mkString(":").split(':')
+
+      def htmlFromResource(filename: String ): Html = {
+        Html.apply(scala.io.Source.fromInputStream(
+          getClass.getResourceAsStream(filename)).getLines().mkString(""))
+      }
+
+      fragmentsMap = fragmentsMap ++ fileArray.map{file => file -> htmlFromResource(sourceDir + file)}.toMap
     }
-
-    fileArray.map{file => file -> htmlFromResource(sourceDir + file)}.toMap
+    fragmentsMap
 
   }
 
@@ -53,12 +58,20 @@ class FragmentService(val sourceDir: String){
     }
   }
 
+  def getFragmentsByFilenamePrefix(prefix: String): Map[String, Html] = {
+    fragments.filter {
+      case (filename, _) => filename.startsWith(prefix)
+    }.map {
+      case (filename, html) =>  (filename.replace(".html", ""), html)
+    }
+  }
+
 
 }
 
 object FragmentService {
 
-  def apply(sourceDir: String): FragmentService = {
+  def apply(sourceDir: String*): FragmentService = {
     new FragmentService(sourceDir)
   }
 

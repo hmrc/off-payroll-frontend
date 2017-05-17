@@ -23,10 +23,10 @@ import uk.gov.hmrc.offpayroll.services.FragmentService
 /**
   * Created by peter on 05/01/2017.
   */
-class FragmentServiceSpec   extends FlatSpec with Matchers  {
+class FragmentServiceSpec  extends FlatSpec with Matchers  {
 
 
-  val fragmentService = FragmentService("/testGuidance/")
+  val fragmentService = FragmentService("/testGuidance/","/testOtherFragments/")
 
 
   private val contractualObligationKey = "personalService.contractualObligationForSubstitute"
@@ -46,6 +46,13 @@ class FragmentServiceSpec   extends FlatSpec with Matchers  {
     fragment.body.contains("Lorem ipsum dolor sit amet") shouldBe true
   }
 
+  it should "be able to get another fragment (from another directory) by name " in {
+
+    val fragment: Html = fragmentService.getFragmentByName("result.someFragment.SomeOtherThing")
+    fragment should not be null
+    fragment.body.contains("I want to see some other different text.") shouldBe true
+  }
+
   it should "return an empty fragment if the question tag passed has no help text" in {
 
     val fragment: Html = fragmentService.getFragmentByName("personalService.SomeUnknownTag")
@@ -53,12 +60,18 @@ class FragmentServiceSpec   extends FlatSpec with Matchers  {
     fragment.body.contains("") shouldBe true
   }
 
-
-  it should "return a filtered copy of the the fragment collection basee on the current interview" in {
+  it should "return a filtered copy of the fragments collection based on the current interview" in {
 
     val fragments = fragmentService.getAllFragmentsForInterview(Map(contractualObligationKey -> "bla"))
     fragments.size shouldBe 1
     fragments.get(contractualObligationKey).toString.contains("I need to see an example of how this works in practice") shouldBe true
+  }
+
+  it should "return only the result page fragments" in {
+
+    val fragments = fragmentService.getFragmentsByFilenamePrefix("result")
+    fragments.size shouldBe 1
+    fragments.get("result.someFragment.SomeOtherThing").toString.contains("I want to see some other different text.") shouldBe true
   }
 
 }

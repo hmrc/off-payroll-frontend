@@ -24,12 +24,13 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, route, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
-import uk.gov.hmrc.offpayroll.models.{Decision, IN}
+import uk.gov.hmrc.offpayroll.models.{Decision, IN, UNKNOWN}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList}
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
-import uk.gov.hmrc.offpayroll.util.TestHtmlHelper
+import uk.gov.hmrc.offpayroll.services.FragmentService
+import uk.gov.hmrc.offpayroll.util.{ResultPageHelper, TestHtmlHelper}
 import uk.gov.hmrc.offpayroll.util.TestHtmlHelper.containsHiddenInput
 import uk.gov.hmrc.offpayroll.views.html.interview.display_decision
 
@@ -49,8 +50,9 @@ class DisplayDecisionViewSpec extends UnitSpec with WithFakeApplication with Sca
       val decision = Decision(Map(), in, version, decisionCluster)
       val compressedInterview = "dummy"
       implicit val request = (FakeRequest(POST, "/check-employment-status-for-tax/dummy"))
+      val fragments: Map[String, Html] = Map()
 
-      val displayDecision: Html = display_decision(decision, List(), true, compressedInterview, Map[String, Html]())
+      val displayDecision: Html = display_decision(decision, List(), true, compressedInterview, ResultPageHelper(List(),UNKNOWN,fragments, "partParcel", true))
 
       val hiddenFields = List(
         ("decisionCluster", decisionCluster),
