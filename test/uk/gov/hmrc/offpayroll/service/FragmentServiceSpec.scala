@@ -26,7 +26,7 @@ import uk.gov.hmrc.offpayroll.services.FragmentService
 class FragmentServiceSpec  extends FlatSpec with Matchers  {
 
 
-  val fragmentService = FragmentService("/testGuidance/","/testOtherFragments/")
+  val fragmentService = FragmentService("/testGuidance","/testOtherFragments")
 
 
   private val contractualObligationKey = "personalService.contractualObligationForSubstitute"

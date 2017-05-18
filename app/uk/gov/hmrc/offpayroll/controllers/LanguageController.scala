@@ -41,7 +41,7 @@ class LanguageController extends FrontendController with LegacyI18nSupport {
     val newLang = if (FrontendAppConfig.enableLanguageSwitching) lang else english
 
     request.headers.get(REFERER) match {
-      case Some(referrer) => Redirect(referrer).withLang(newLang).flashing(LanguageUtils.flashWithSwitchIndicator)
+      case Some(referrer) => Redirect(routes.InterviewController.begin).withLang(newLang).flashing(LanguageUtils.flashWithSwitchIndicator)
       case None =>
         Logger.warn(s"Unable to get the referrer, so sending them to ${FrontendAppConfig.fallbackURLForLanguageSwitcher}")
         Redirect(FrontendAppConfig.fallbackURLForLanguageSwitcher).withLang(newLang)
