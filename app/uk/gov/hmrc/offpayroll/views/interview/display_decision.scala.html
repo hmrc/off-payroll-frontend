@@ -61,22 +61,9 @@
             @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".statement")
 
 
-            @helpers.form(routes.PrintController.format, 'id -> "resultData") {
-                <input type="hidden" name="esi" value="@esi" />
-                <input type="hidden" name="decisionResult" value="@decision.decision" />
-                <input type="hidden" name="compressedInterview" value="@compressedInterview" />
-                <input type="hidden" name="decisionVersion" value="@decision.version" />
-                <input type="hidden" name="decisionCluster" value="@decision.cluster" />
-                <div  class="indent-warning">
-                    <div>HMRC won’t keep a record of this result.</div>
-                    @if(OffPayrollSwitches.offPayrollPdf.enabled) {
-                        <button class="button button--link">Please save a pdf for your records</button>
-                    } else {
-                        <button class="button button--link">Please print a copy for your records</button>
-                    }
-                </div>
-                }
-
+            <div  class="indent-warning">
+                <div>HMRC won’t keep a record of this result.</div>
+            </div>
             <p>Decision Service Version: <span id="dsVersion">@decision.version</span></p>
             <div class="form-group ">
                 <div class="bordered-box bordered-box--shaded" id="promise">
@@ -89,9 +76,18 @@
                     <label for="pinkyPromise">If the working practices of this engagement change you accept this result may no longer hold.</label>
                 </div>
                 </div>
-            <button class="button">Confirm and print/save</button>
-
-
+            @helpers.form(routes.PrintController.format, 'id -> "resultData") {
+                <input type="hidden" name="esi" value="@esi" />
+                <input type="hidden" name="decisionResult" value="@decision.decision" />
+                <input type="hidden" name="compressedInterview" value="@compressedInterview" />
+                <input type="hidden" name="decisionVersion" value="@decision.version" />
+                <input type="hidden" name="decisionCluster" value="@decision.cluster" />
+                @if(OffPayrollSwitches.offPayrollPdf.enabled) {
+                    <button class="button">Confirm and save</button>
+                } else {
+                    <button class="button">Confirm and print</button>
+                }
+            }
 
         </main>
 
