@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.util
+package uk.gov.hmrc.offpayroll.controllers
 
-import uk.gov.hmrc.offpayroll.models.{Element, OffPayrollWebflow}
+import uk.gov.hmrc.offpayroll.services.FragmentService
+import uk.gov.hmrc.play.frontend.controller.FrontendController
 
-import uk.gov.hmrc.offpayroll.util.ElementBitSplitterImplicits._
+/**
+  * Created by peter on 09/05/2017.
+  */
+class OffpayrollController extends FrontendController with OffPayrollControllerHelper {
 
-object ElementProvider {
-
-  def toElements: List[Element] = OffPayrollWebflow.elements
-
-  def toWidths: List[Int] = toElements.map(a => a.bitWidth)
+  val fragmentService = FragmentService("/guidance/")
 
 }

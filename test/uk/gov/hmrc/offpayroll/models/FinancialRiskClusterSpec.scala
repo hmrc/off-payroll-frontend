@@ -31,7 +31,7 @@ class FinancialRiskClusterSpec extends FlatSpec with Matchers with ClusterSpecHe
     financialRiskCluster.name shouldBe "financialRisk"
   }
   it should "have the correct clusterId " in {
-    financialRiskCluster.clusterID shouldBe 2
+    financialRiskCluster.clusterID shouldBe 4
   }
   it should "have the correct amount of question tags " in {
     financialRiskCluster.clusterElements.size shouldBe 3

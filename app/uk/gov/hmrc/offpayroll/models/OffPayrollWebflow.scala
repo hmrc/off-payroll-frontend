@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
+import uk.gov.hmrc.offpayroll.FrontendAppConfig.offPayrollDecisionVersion
 import uk.gov.hmrc.offpayroll.typeDefs.Interview
 
 /**
@@ -23,17 +24,15 @@ import uk.gov.hmrc.offpayroll.typeDefs.Interview
   *
   *
   */
-trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
+trait OffPayrollWebflow extends ShouldAskForDecision {
 
-  def clusters: List[Cluster] = List(PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
+  def version  = offPayrollDecisionVersion
 
+  def clusters: List[Cluster] = List(SetupCluster, ExitCluster, PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
 
-  override def getNext(element: Element): Option[Element] = {
-    getNext(element, false)
-
-  }
-
-  def getNext(element: Element, nextCluster: Boolean = true) : Option[Element] = {
+  lazy val elements = clusters.flatMap(_.clusterElements)
+  
+  def getNext(interview: Map[String, String], element: Element, nextCluster: Boolean = true) : Option[Element] = {
     val clusterId = element.clusterParent.clusterID
     val cluster = clusters(clusterId)
 
@@ -48,13 +47,13 @@ trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
     if (!nextCluster && clusterHasMoreElements)
       Option(cluster.clusterElements(element.order + 1))
     else if (flowHasMoreClusters) {
-      Option(clusters(clusterId +1).clusterElements(0))
+      clusters(clusterId +1).getStart(interview)
     } else Option.empty
   }
 
-  override def getStart(interview: Map[String, String]): Option[Element] = clusters.head.getStart(interview)
+  def getStart(interview: Map[String, String]): Option[Element] = clusters.head.getStart(interview)
 
-  override def getElementByTag(tag: String): Option[Element] = {
+  def getElementByTag(tag: String): Option[Element] = {
 
     val tagArray = tag.split('.')
 
@@ -66,11 +65,10 @@ trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
       if(element.questionTag == cleanTag)
     } yield element
 
-    // @fixme this doesn't prevent duplicates it will just return the last element found
     foundElement.headOption
   }
 
-  override def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
+  def getElementById(clusterId: Int, elementId: Int): Option[Element] = {
 
     if (clusters.size > clusterId && clusters(clusterId).clusterElements.size > elementId) {
       Option(clusters(clusterId).clusterElements(elementId))
@@ -79,7 +77,7 @@ trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
     Option.empty[Element]
   }
 
-  override def getClusterByName(name: String): Cluster = {
+  def getClusterByName(name: String): Cluster = {
     if (clusters.exists(cluster => cluster.name == name)) {
       clusters.filter(cluster => cluster.name == name).head
     } else {
@@ -87,19 +85,13 @@ trait OffPayrollWebflow extends Webflow with ShouldAskForDecision {
     }
   }
 
-  override def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element] = {
+  def shouldAskForDecision(interview: Interview, currentQnA: (String, String)): Option[Element] = {
     val currentCluster = getClusterByName(currentQnA._1.takeWhile(c => c != '.'))
     currentCluster.shouldAskForDecision(interview.toList, currentQnA)
   }
 }
 
 object OffPayrollWebflow extends OffPayrollWebflow
-
-object SuperWebflow extends OffPayrollWebflow {
-  override def clusters: List[Cluster] = List(SetupCluster, ExitCluster, PersonalServiceCluster, ControlCluster, FinancialRiskCluster, PartAndParcelCluster)
-  lazy val elements = clusters.flatMap(_.clusterElements)
-}
-
 
 case class Decision(_qa: Map[String, String], decision: DecisionType, version: String, cluster: String) {
 

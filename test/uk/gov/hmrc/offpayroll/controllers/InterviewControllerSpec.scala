@@ -36,7 +36,8 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
 
 
   val TEST_SESSION_ID = "41c1fc6444bb7e"
-  private val mockSessionAsPair = (InterviewSessionStack.INTERVIEW_CURRENT_INDEX, InterviewStack.elementIndex(PersonalServiceCluster.clusterElements(0)).getOrElse(0).toString)
+  private val indexValue = InterviewStack.elementIndex(SetupCluster.clusterElements(0)).getOrElse(0).toString
+  private val mockSessionAsPair = (InterviewSessionStack.INTERVIEW_CURRENT_INDEX, indexValue)
   override def bindModules = Seq(new PlayModule)
 
   class TestSessionHelper extends SessionHelper {
@@ -53,7 +54,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   }
 
   class TestFlowService extends FlowService {
-    override val flow: Webflow = new TestFlow
+    override val flow = new TestFlow
 
     override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId: String):
     Future[InterviewEvaluation] = ???
@@ -62,11 +63,10 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
 
     override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = ???
 
-    class TestFlow extends Webflow {
-      override def getNext(currentElement: Element): Option[Element] = ???
+    class TestFlow extends OffPayrollWebflow {
 
       override def getStart(interview: Map[String, String]): Option[Element] =
-        Some(Element("tag", RADIO, 0, PersonalServiceCluster))
+        Some(Element("tag", RADIO, 0, SetupCluster))
 
       override def getElementById(clusterId: Int, elementId: Int): Option[Element] = ???
 
@@ -77,16 +77,6 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
       override def getClusterByName(name: String): Cluster = ???
     }
   }
-
-  "GET /cluster/ without Session Interview" should {
-    "return 303" in {
-      val request = FakeRequest("GET", "/cluster/")
-      val result = await(InterviewController().begin.apply(request))
-      status(result) shouldBe Status.SEE_OTHER
-    }
-  }
-
-
 
   "GET /cluster/ with Session Interview" should {
     "return 200" in {
@@ -103,11 +93,11 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     "return 200" in {
       val request = FakeRequest().withSession(mockSessionAsPair)
       .withFormUrlEncodedBody(
-        personalService_workerSentActualSubstituteYesClientAgreed
+        setup_endUserRolePersonDoingWork
       )
       val result = new InterviewController(IR35FlowService(), new TestSessionHelper()).processElement(0, 0)(request).futureValue
       status(result) shouldBe Status.OK
-      contentAsString(result) should include(personalService_workerPayActualSubstitute)
+      contentAsString(result) should include(setup_hasContractStarted)
     }
   }
 
@@ -115,7 +105,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     "intercept an exception" in {
       val request = FakeRequest().withSession(mockSessionAsPair)
       .withFormUrlEncodedBody(
-        personalService_workerSentActualSubstituteYesClientAgreed
+        setup_endUserRolePersonDoingWork
       )
       intercept[NoSuchElementException]{InterviewController().processElement(0, 0)(request).futureValue}
     }
@@ -125,12 +115,12 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     "return 200" in {
       val request = FakeRequest().withSession(mockSessionAsPair)
       .withFormUrlEncodedBody(
-        personalService_workerSentActualSubstituteYesClientAgreed
+        setup_endUserRolePersonDoingWork
       )
       val flowService = new InstrumentedIR35FlowService
       val result = new InterviewController(flowService, new TestSessionHelper()).processElement(0, 0)(request).futureValue
       status(result) shouldBe Status.OK
-      contentAsString(result) should include(personalService_workerPayActualSubstitute)
+      contentAsString(result) should include(setup_hasContractStarted)
       flowService.passedCorrelationId shouldBe TEST_SESSION_ID
     }
   }

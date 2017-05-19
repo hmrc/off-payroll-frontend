@@ -27,7 +27,7 @@ object PersonalServiceCluster extends Cluster {
     */
   override def name: String = "personalService"
 
-  override def clusterID: Int = 0
+  override def clusterID: Int = 2
 
   val clusterElements: List[Element] = List(
     Element("workerSentActualSubstitute", MULTI, 0, this,

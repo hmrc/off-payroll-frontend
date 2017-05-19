@@ -25,7 +25,7 @@ object FinancialRiskCluster extends Cluster {
     */
   override def name: String = "financialRisk"
 
-  override def clusterID: Int = 2
+  override def clusterID: Int = 4
 
   val clusterElements: List[Element] = List(
     Element("haveToPayButCannotClaim", GROUP, 0, this,

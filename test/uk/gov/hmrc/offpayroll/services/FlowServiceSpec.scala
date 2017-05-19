@@ -122,8 +122,12 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
-    " be able to get the current currentElement" in {
-      assert(testFlowService.getAbsoluteElement(0, 1).questionTag == personalService_workerPayActualSubstitute)
+    " be able to get an element in personalService cluster" in {
+      assert(testFlowService.getAbsoluteElement(2, 1).questionTag == personalService_workerPayActualSubstitute)
+    }
+
+    " be able to get an element in setup cluster" in {
+      assert(testFlowService.getAbsoluteElement(0, 1).questionTag == setup_hasContractStarted)
     }
   }
 

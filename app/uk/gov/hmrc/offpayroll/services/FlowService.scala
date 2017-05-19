@@ -34,7 +34,7 @@ import scala.concurrent.Future
 @ImplementedBy(classOf[IR35FlowService])
 abstract class FlowService {
 
-  val flow: Webflow
+  val flow: OffPayrollWebflow
   /**
     *
     * @param interview
@@ -63,7 +63,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
   override def getStart(interview: Map[String, String]): Option[Element] = flow.getStart(interview)
 
-  private def guardValidEelement(currentTag: String): Element = {
+  private def guardValidElement(currentTag: String): Element = {
     val tag = flow.getElementByTag(currentTag)
     if (tag.isEmpty) throw new IllegalAccessException("No Such Element: " + currentTag)
     else tag.get
@@ -80,7 +80,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
 
     val cleanInterview = interview.filter(qa => flow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
-    val currentElement: Element = guardValidEelement(currentTag)
+    val currentElement: Element = guardValidElement(currentTag)
     val optionalNextElement = flow.shouldAskForDecision(interview, currentQnA)
 
     if (optionalNextElement.isEmpty) {
@@ -88,11 +88,11 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
-              if (flow.getNext(currentElement, true).isEmpty) {
+              if (flow.getNext(interview, currentElement, true).isEmpty) {
                 InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN, flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
               }
               else
-                InterviewEvaluation(flow.getNext(currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
+                InterviewEvaluation(flow.getNext(interview, currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
             } else {
                 InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision), flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
             }

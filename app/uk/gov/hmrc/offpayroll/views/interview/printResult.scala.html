@@ -1,7 +1,6 @@
 @import uk.gov.hmrc.offpayroll.controllers.PrintResult
-@(interview: List[(String, List[String])], printResult: PrintResult)(implicit request: Request[_], messages: Messages)
+@(interview: List[(String, List[String])], printResult: PrintResult, fragments: Map[String, Html])(implicit request: Request[_], messages: Messages)
 @uk.gov.hmrc.offpayroll.views.html.print_template(
-    appConfig = uk.gov.hmrc.offpayroll.FrontendAppConfig,
     Some("Print Result"),
     Some(""))(head ,Html(""),Html(""),Html(""),Html(""),Some(Html("")), false) {
     <div id="content">
@@ -37,6 +36,7 @@
             <ol id="yourAnswers">
             @for((key, value) <- interview) {
                 <li class="section divider--bottom"><h3>@messages(key)</h3>
+                    <div>@fragments.get(key)</div>
                     @for(child <- value) {
                         <div id="answer.@key" class="panel-indent">@messages(child)</div>
                     }
@@ -126,7 +126,7 @@
         margin-bottom: 1em;
         padding: 1em 0;
     }
-    .panel-indent, .email-notifications__indent {
+    .panel-indent {
         margin: 0;
         clear: both;
         border-left: 4px solid #bfc1c3;
@@ -137,11 +137,10 @@
         color: #0b0c0c ;
     }
     a:after{content:" (" attr(href) ") ";font-size:0.8em;font-weight:normal;}
+
+    .form-hint{
+        color: #6f777b;
+    }
     </style>
-    <script type="text/javascript">
-            window.onload = function () {
-                window.print();
-            }
-    </script>
 }
 

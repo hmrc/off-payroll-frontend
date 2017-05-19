@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.offpayroll
 
-import uk.gov.hmrc.offpayroll.controllers.SetupController
-
 /**
   * Created by peter on 11/01/2017.
   */
