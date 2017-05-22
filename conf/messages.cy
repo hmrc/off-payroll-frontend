@@ -31,7 +31,7 @@ exit.officeHolder=Will the worker (or their business) perform office holder duti
 
 
 #### Personal Service cluster
-sectionHeader.personalService=About substitutes and helpers
+sectionHeader.personalService=Ynglŷn â dirprwyon a chynorthwywyr
 
 personalService.workerSentActualSubstitute=Has the worker''s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
