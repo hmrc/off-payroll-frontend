@@ -41,8 +41,6 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
   def format = Action.async { implicit request =>
 
-    Logger.error(s"REQUEST: ${request.body}")
-
     val formatPrint = Form(
       mapping(
         "pinkyPromise" -> text.verifying(_.equalsIgnoreCase("on")),
