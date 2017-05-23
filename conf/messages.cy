@@ -148,3 +148,6 @@ language-switcher.english=English
 language-switcher.english.hover=Use this account in English
 language-switcher.welsh=Cymraeg
 language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Cymraeg
+
+declarationBox.error.print=You will need to check the declaration box below in order to print this page
+declarationBox.error.pdf=You will need to check the declaration box below in order to download a PDF

@@ -29,10 +29,13 @@ import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.{asMap, asRawList}
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
+import play.api.data.Form
+import play.api.data.Forms.single
 import uk.gov.hmrc.offpayroll.services.FragmentService
 import uk.gov.hmrc.offpayroll.util.{ResultPageHelper, TestHtmlHelper}
 import uk.gov.hmrc.offpayroll.util.TestHtmlHelper.containsHiddenInput
 import uk.gov.hmrc.offpayroll.views.html.interview.display_decision
+import play.api.data.Forms._
 
 /**
   * Created by peter on 09/01/2017.
@@ -52,7 +55,7 @@ class DisplayDecisionViewSpec extends UnitSpec with WithFakeApplication with Sca
       implicit val request = (FakeRequest(POST, "/check-employment-status-for-tax/dummy"))
       val fragments: Map[String, Html] = Map()
 
-      val displayDecision: Html = display_decision(decision, List(), true, compressedInterview, ResultPageHelper(List(),UNKNOWN,fragments, "partParcel", true))
+      val displayDecision: Html = display_decision(decision, List(), true, compressedInterview, ResultPageHelper(List(),UNKNOWN,fragments, "partParcel", true), Form(single("" -> text)))
 
       val hiddenFields = List(
         ("decisionCluster", decisionCluster),
