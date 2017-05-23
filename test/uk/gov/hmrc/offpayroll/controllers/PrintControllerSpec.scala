@@ -55,7 +55,7 @@ class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
   "POST /print/format" should {
     "return 500 and report missing fields" in {
       val fakeRequest = FakeRequest(POST, "/check-employment-status-for-tax/print/format").withFormUrlEncodedBody("esi" -> "false")
-      intercept[IllegalStateException]{new PrintController(TestPdfGeneratorConnector).format()(fakeRequest).futureValue}
+      intercept[NoSuchElementException]{new PrintController(TestPdfGeneratorConnector).format()(fakeRequest).futureValue}
     }
   }
   "POST /print/print" should {
@@ -71,7 +71,7 @@ class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
   "POST /print/print" should {
     "return 500 and report missing fields" in {
       val fakeRequest = FakeRequest(POST, "/check-employment-status-for-tax/print/print").withFormUrlEncodedBody("esi" -> "false")
-      intercept[IllegalStateException]{new PrintController(TestPdfGeneratorConnector).format()(fakeRequest).futureValue}
+      intercept[IllegalStateException]{new PrintController(TestPdfGeneratorConnector).printResult()(fakeRequest).futureValue}
     }
   }
 

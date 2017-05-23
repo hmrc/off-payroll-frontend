@@ -56,14 +56,13 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
     formatPrint.bindFromRequest.fold (
       error => {
-        validateHiddenFields(error.data)
 
-        val compressedInterviewRawString = error.data.getOrElse("compressedInterview", "")
+        val compressedInterviewRawString = error.data("compressedInterview")
         val compressedInterview = CompressedInterview(compressedInterviewRawString)
-        val decisionType = getDecisionType(error.data.getOrElse("decisionResult",""))
-        val version = error.data.getOrElse("decisionVersion","")
-        val cluster = error.data.getOrElse("decisionCluster","")
-        val esi = error.data.getOrElse("esi","").toBoolean
+        val decisionType = getDecisionType(error.data("decisionResult"))
+        val version = error.data("decisionVersion")
+        val cluster = error.data("decisionCluster")
+        val esi = error.data("esi").toBoolean
         val decision = Decision(compressedInterview.asMap,decisionType,version,cluster)
         val interviewAsRawList = compressedInterview.asRawList
         val fragments = fragmentService.getAllFragmentsForInterview(compressedInterview.asMap) ++ fragmentService.getFragmentsByFilenamePrefix("result")
@@ -75,18 +74,6 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess)))
       }
     )
-  }
-
-  private def validateHiddenFields(data: Map[String, String]): Unit = {
-    val compressedInterviewRawString = data.getOrElse("compressedInterview", "")
-    val decisionType = data.getOrElse("decisionResult","")
-    val version = data.getOrElse("decisionVersion","")
-    val cluster = data.getOrElse("decisionCluster","")
-    val esi = data.getOrElse("esi","")
-
-    List(compressedInterviewRawString, decisionType, version, cluster, esi).foreach{field =>
-      if(field.equals("")) throw new IllegalStateException(s"Hidden field '${field}' missing from the form")
-    }
   }
 
   private def getDecisionType(decisionResult: String): DecisionType = decisionResult match {
