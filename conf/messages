@@ -14,6 +14,7 @@ setup.endUserRole=Which of these describes you best?
 setup.endUserRole.personDoingWork=The worker
 setup.endUserRole.endClient=The end client
 setup.endUserRole.placingAgency=The agency paying the worker
+setup.endUserRole.none=None of the above
 
 setup.hasContractStarted=Has the worker already started this particular engagement for the end client?
 
