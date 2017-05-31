@@ -18,7 +18,7 @@ package uk.gov.hmrc.offpayroll.connectors
 
 import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.mockito.MockitoSugar
-import org.mockito.Matchers._
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
