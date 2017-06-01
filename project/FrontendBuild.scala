@@ -18,15 +18,15 @@ private object AppDependencies {
   private val logbackJsonLoggerVersion = "3.1.0"
   private val frontendBootstrapVersion = "7.19.0"
   private val govukTemplateVersion = "5.2.0"
-  private val playUiVersion = "7.0.0"
+  private val playUiVersion = "7.2.1"
   private val playPartialsVersion = "5.3.0"
   private val playAuthorisedFrontendVersion = "6.3.0"
   private val playConfigVersion = "4.3.0"
   private val hmrcTestVersion = "2.3.0"
 //  private val scalaTestVersion = "2.2.6"
-  private val scalaTestVersion = "3.0.1"
+  private val scalaTestVersion = "3.0.3"
   private val pegdownVersion = "1.6.0"
-  private val jacksonVersion = "2.7.4"
+  private val jacksonVersion = "2.8.8"
 
   val compile = Seq(
     ws,
@@ -61,8 +61,8 @@ private object AppDependencies {
         "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
         "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
         "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
-        "org.mockito" % "mockito-core" % "1.8.5",
-        "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % scope
+        "org.mockito" % "mockito-core" % "2.8.9",
+        "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % scope
 
 
       )
@@ -70,4 +70,5 @@ private object AppDependencies {
   }
 
   def apply() = compile ++ Test()
+
 }
