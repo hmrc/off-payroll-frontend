@@ -1,4 +1,4 @@
-@import uk.gov.hmrc.offpayroll.FrontendAppConfig
+@import uk.gov.hmrc.offpayroll.util.OffPayrollSwitches
 @(appConfig: uk.gov.hmrc.offpayroll.AppConfig,
   title: String,
   mainClass: Option[String] = None,
@@ -96,4 +96,4 @@
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links(Some(language.language_selection(FrontendAppConfig.enableLanguageSwitching)))), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links(Some(language.language_selection(OffPayrollSwitches.enableLanguageSwitching.enabled)))), true)(content)
