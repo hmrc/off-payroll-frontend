@@ -1,14 +1,14 @@
 #### Global Content
-application.title=Gwiriwch statws cyflogaeth ar gyfer treth
+application.title=Check employment status for tax
 
-global.button.continue=Parhau
+global.button.continue=Continue
 yes=yes
 no=no
 Yes=Yes
 No=No
 
 #### Set up cluster
-sectionHeader.setup=Am y bobl sy''n cymryd rhan
+sectionHeader.setup=About the people involved
 
 setup.endUserRole=Which of these describes you best? 
 setup.endUserRole.personDoingWork=The worker
@@ -26,13 +26,13 @@ setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
 
-sectionHeader.exit=Ynglŷn dyletswyddau y gweithiwr
+sectionHeader.exit=About the worker''s duties
 
 exit.officeHolder=Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 
 
 #### Personal Service cluster
-sectionHeader.personalService=Ynglŷn â dirprwyon a chynorthwywyr
+sectionHeader.personalService=About substitutes and helpers
 
 personalService.workerSentActualSubstitute=Has the worker''s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
@@ -46,7 +46,7 @@ personalService.possibleSubstituteWorkerPay=Would the worker''s business have to
 personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work for this engagement?
 
 #### Control Cluster
-sectionHeader.control=Am y trefniadau gwaith
+sectionHeader.control=About the work arrangements
 
 control.engagerMovingWorker=Can the end client move the worker to a different task than they originally agreed to do?
 control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
@@ -73,7 +73,7 @@ control.workerDecideWhere.workerCannotChoose=No - the end client decides
 control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
 #### Financial Risk Cluster
-sectionHeader.financialRisk=Ynglŷn risg ariannol y gweithiwr
+sectionHeader.financialRisk=About the worker''s financial risk
 
 financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they can''t claim as an expense from the end client or an agency?
 financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
@@ -99,7 +99,7 @@ financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-sectionHeader.partParcel=Ynglŷn integreiddiad y gweithiwr yn y sefydliad
+sectionHeader.partParcel=About the worker''s integration into the organisation
 
 partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefits from the end client?
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
@@ -145,6 +145,49 @@ multipleInterview.intro=We''ve noticed that you already have this service open i
 multipleInterview.toContinue=This could affect the result you get, so you need to close this tab or window to continue using the service.
 multipleInterview.thanks=Thank you.
 
+# Results Page
+result.summary=Why are you getting this result
+
+# officeHolder.in.ir35
+officeHolder.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+
+
+# officeHolder.in.esi
+officeHolder.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+
+personalServiceCluster.current.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+personalServiceCluster.future.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+controlCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+financialRiskCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+earlyExit.out.esi.headerBox=This engagement should be classed as self-employed for tax purposes
+
+matrix.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+
+matrix.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+
+matrix.unknown.headerBox=We''re unable to determine the tax status of this engagement
+
+setupCluster.title=About the people involved
+
+exitCluster.title=About the worker''s duties
+exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes. You''ve told us that the worker will not perform office holder duties during this engagement.
+
+personalServiceCluster.title=About substitutes and helpers
+personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis. 
+
+controlCluster.title=About the work arrangements
+controlCluster.summary=We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
+
+financialRiskCluster.title=About the worker''s financial risk
+financialRiskCluster.summary=We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who don''t risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
+
+partParcelCluster.title=About the worker’s integration into the organisation
+partParcelCluster.summary=We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
+
 language-switcher.english=English
 language-switcher.english.hover=Use this account in English
 language-switcher.welsh=Cymraeg
@@ -152,3 +195,4 @@ language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Cymraeg
 
 declarationBox.error.print=In order to print this page, you will need to check the declaration box at the bottom of the page
 declarationBox.error.pdf=In order to download a PDF, you will need to check the declaration box at the bottom of the page
+
