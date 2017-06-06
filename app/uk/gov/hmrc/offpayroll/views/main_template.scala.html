@@ -5,7 +5,7 @@
         mainClass: Option[String] = None,
         scriptElem: Option[Html] = None,
         virtualPage: Option[String] = None
-)(mainContent: Html)(implicit request : Request[_], messages: Messages)
+)(mainContent: Html)(implicit request : Request[_], messages: Messages, lang : Lang)
 
 @import uk.gov.hmrc.play.views.html.layouts
 @import uk.gov.hmrc.offpayroll.views.html.govuk_wrapper

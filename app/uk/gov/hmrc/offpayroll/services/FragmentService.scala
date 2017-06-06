@@ -17,37 +17,58 @@
 package uk.gov.hmrc.offpayroll.services
 
 import play.Logger
+import play.api.i18n.Lang
 import play.twirl.api.Html
 
 
 
-class FragmentService(val sourceDir: String){
+class FragmentService(val sourceDirs: Seq[String]){
 
-  private lazy val fragments: Map[String, Html] = {
+  private lazy val defaultFragments: Map[String, Html] = loadFragments("en")
+  private lazy val cyFragments: Map[String, Html] = loadFragments("cy")
 
-    val is = getClass.getResourceAsStream(sourceDir)
-    val fileArray = scala.io.Source.fromInputStream(is).getLines().mkString(":").split(':')
+  private def loadFragments(localeCode: String): Map[String, Html] = {
+    var fragmentsMap: Map[String, Html] = Map()
 
-    def htmlFromResource(filename: String ): Html = {
-      Html.apply(scala.io.Source.fromInputStream(
-        getClass.getResourceAsStream(filename)).getLines().mkString(""))
+    sourceDirs.foreach{sourceDir =>
+      val directoryName = if (localeCode.equals("cy")) sourceDir + s".${localeCode}/" else sourceDir+"/"
+      val is = getClass.getResourceAsStream(directoryName)
+      val fileArray = scala.io.Source.fromInputStream(is).getLines().mkString(":").split(':')
+
+      def htmlFromResource(filename: String ): Html = {
+        Html.apply(scala.io.Source.fromInputStream(
+          getClass.getResourceAsStream(filename)).getLines().mkString(""))
+      }
+
+      fragmentsMap = fragmentsMap ++ fileArray.map{file => file -> htmlFromResource(directoryName+ file)}.toMap
     }
-
-    fileArray.map{file => file -> htmlFromResource(sourceDir + file)}.toMap
+    fragmentsMap
 
   }
 
+  private def getFragments(lang: Lang): Map[String, Html] = lang.code match {
+    case "cy" => cyFragments
+    case _ => defaultFragments
+  }
 
-  def getFragmentByName(name: String): Html = {
+  def getFragmentByName(name: String)(implicit lang: Lang): Html = {
     Logger.debug("FragmentService getting fragment for " + name)
-    fragments.getOrElse(name + ".html", Html.apply(""))
+    getFragments(lang).getOrElse(name + ".html", Html.apply(""))
   }
 
-  def getAllFragmentsForInterview(interview: Map[String, String]): Map[String, Html] = {
-    fragments.filter {
+  def getAllFragmentsForInterview(interview: Map[String, String])(implicit lang: Lang): Map[String, Html] = {
+    getFragments(lang).filter {
       case (filename, _) => interview.exists {
         case (question, _) => question + ".html" == filename
       }
+    }.map {
+      case (filename, html) =>  (filename.replace(".html", ""), html)
+    }
+  }
+
+  def getFragmentsByFilenamePrefix(prefix: String)(implicit lang: Lang): Map[String, Html] = {
+    getFragments(lang).filter {
+      case (filename, _) => filename.startsWith(prefix)
     }.map {
       case (filename, html) =>  (filename.replace(".html", ""), html)
     }
@@ -58,7 +79,7 @@ class FragmentService(val sourceDir: String){
 
 object FragmentService {
 
-  def apply(sourceDir: String): FragmentService = {
+  def apply(sourceDir: String*): FragmentService = {
     new FragmentService(sourceDir)
   }
 

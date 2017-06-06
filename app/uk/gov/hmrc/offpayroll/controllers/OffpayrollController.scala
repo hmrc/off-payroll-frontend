@@ -24,6 +24,6 @@ import uk.gov.hmrc.play.frontend.controller.FrontendController
   */
 class OffpayrollController extends FrontendController with OffPayrollControllerHelper {
 
-  val fragmentService = FragmentService("/guidance/")
+  val fragmentService = FragmentService("/guidance","/resultsPage")
 
 }

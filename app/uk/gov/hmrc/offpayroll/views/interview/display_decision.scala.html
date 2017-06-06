@@ -9,9 +9,12 @@
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.models.{IN, OUT, UNKNOWN}
 @import uk.gov.hmrc.offpayroll.util.OffPayrollSwitches
+@import uk.gov.hmrc.offpayroll.util.ResultPageHelper._
+@import uk.gov.hmrc.offpayroll.services.FragmentService
 
+@import uk.gov.hmrc.offpayroll.util.ResultPageHelper
 @(decision: Decision, interview: List[(String, List[String])],
-        esi: Boolean, compressedInterview: String, fragments: Map[String, Html])(implicit request: Request[_], messages: Messages)
+        esi: Boolean, compressedInterview: String, resultPageHelper: ResultPageHelper, f:Form[_])(implicit request: Request[_], messages: Messages, lang: Lang)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
@@ -21,43 +24,89 @@
         virtualPage = Some("decisionDisplay")
     ) {
 
-
         <main role="main" class="result">
-            <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
-                    <div class="transaction-banner--complete">
-                        <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(esi + "." + decision.decision)</span>
-                    </div>
+
             @helpers.form(routes.PrintController.format, 'id -> "resultData") {
+
+                <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
+
+                @if(f.errors.headOption.isDefined) {
+                    <div class="flash error-summary error-summary--show" id="error-summary-display" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
+                        @if(OffPayrollSwitches.offPayrollPdf.enabled) {
+                            <a>@Messages("declarationBox.error.pdf")</a>
+                        } else {
+                            <a>@Messages("declarationBox.error.print")</a>
+                        }
+                    </div>
+                }
+
+                <div class="transaction-banner--complete">
+                    <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(resultPageHelper.decisionKey+".headerBox")</span>
+                </div>
+
+                <h2>@Messages("result.summary")</h2>
+                @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".resultSummary")
+
+                @if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
+                    @clusterResult("setup",resultPageHelper, messages)
+                }
+
+                @if(resultPageHelper.getQuestionsAndAnswersForCluster("exit").nonEmpty){
+                    @clusterResult("exit",resultPageHelper, messages)
+                }
+
+                @if(resultPageHelper.getQuestionsAndAnswersForCluster("personalService").nonEmpty){
+                    @clusterResult("personalService",resultPageHelper, messages)
+                }
+
+                @if(resultPageHelper.getQuestionsAndAnswersForCluster("control").nonEmpty){
+                    @clusterResult("control",resultPageHelper, messages)
+                }
+
+                @if(resultPageHelper.getQuestionsAndAnswersForCluster("financialRisk").nonEmpty){
+                    @clusterResult("financialRisk",resultPageHelper, messages)
+                }
+
+                @if(resultPageHelper.getQuestionsAndAnswersForCluster("partParcel").nonEmpty){
+                    @clusterResult("partParcel",resultPageHelper, messages)
+                }
+
+                @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".action")
+                @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".statement")
+
+
+                <div  class="indent-warning" style="line-height:2">
+                    <div>HMRC won’t keep a record of this result.</div>
+                </div>
+                <p>Decision Service Version: <span id="dsVersion">@decision.version</span></p>
+                <div class="form-group @if(f.errors.headOption.isDefined) {
+                    error
+                }">
+                <div class="bordered-box bordered-box--shaded" id="promise">
+                    <label for="pinkyPromise">
+                        <input type="checkbox" name="pinkyPromise" id="pinkyPromise"/> Before you rely on this result, please confirm that you’ve:
+                    </label>
+                        <ul class="bullets">
+                            <li><label for="pinkyPromise">read the guidance for each question</label></li>
+                            <li><label for="pinkyPromise">reviewed your answers</label></li>
+                            <li><label for="pinkyPromise">given answers that reflect the actual or expected working practices of this engagement</label></li>
+                        </ul>
+                    <label for="pinkyPromise">If the working practices of this engagement change you accept this result may no longer hold.</label>
+                </div>
+                </div>
                 <input type="hidden" name="esi" value="@esi" />
                 <input type="hidden" name="decisionResult" value="@decision.decision" />
                 <input type="hidden" name="compressedInterview" value="@compressedInterview" />
                 <input type="hidden" name="decisionVersion" value="@decision.version" />
                 <input type="hidden" name="decisionCluster" value="@decision.cluster" />
-                <div  class="indent-warning">
-                    <div>HMRC will not keep a record of this transaction for security reasons.</div>
-                    @if(OffPayrollSwitches.offPayrollPdf.enabled) {
-                        <button class="button button--link">Please save a pdf for your records</button>
-                    } else {
-                        <button class="button button--link">Please print a copy for your records</button>
-                    }
-                </div>
+
+                @if(OffPayrollSwitches.offPayrollPdf.enabled) {
+                    <button class="button">Confirm and save</button>
+                } else {
+                    <button class="button">Confirm and print</button>
                 }
 
-                @resultDecisionExplained_template(esi, decision.decision.toString())
-                @resultNextSteps_template(esi, decision.decision.toString())
-
-                    <h2 class="heading-medium">Your answers</h2>
-                    <ol id="yourAnswers">
-                    @for((key, value) <- interview) {
-                        <li class="section divider--bottom"><h3>@messages(key)</h3>
-                            <div>@fragments.get(key)</div>
-                            @for(child <- value) {
-                                <div id="answer.@key" class="panel-indent">@messages(child)</div>
-                            }
-                        </li>
-                    }
-                    </ol>
-            <p>Decision Service Version: <span id="dsVersion">@decision.version</span></p>
+            }
 
         </main>
 

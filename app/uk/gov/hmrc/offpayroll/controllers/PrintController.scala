@@ -26,7 +26,8 @@ import play.api.i18n.Messages.Implicits._
 import play.api.mvc.Action
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
-import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches}
+import uk.gov.hmrc.offpayroll.models._
+import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches, ResultPageHelper}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
@@ -42,6 +43,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
     val formatPrint = Form(
       mapping(
+        "pinkyPromise" -> text.verifying(_.equalsIgnoreCase("on")),
         "esi" -> boolean,
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
@@ -51,13 +53,31 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
     )
 
     formatPrint.bindFromRequest.fold (
-      _ => {
-        throw new IllegalStateException("Hidden fields missing from the form")
+      error => {
+
+        val compressedInterviewRawString = error.data("compressedInterview")
+        val compressedInterview = CompressedInterview(compressedInterviewRawString)
+        val decisionType = getDecisionType(error.data("decisionResult"))
+        val version = error.data("decisionVersion")
+        val cluster = error.data("decisionCluster")
+        val esi = error.data("esi").toBoolean
+        val decision = Decision(compressedInterview.asMap,decisionType,version,cluster)
+        val interviewAsRawList = compressedInterview.asRawList
+        val fragments = fragmentService.getAllFragmentsForInterview(compressedInterview.asMap) ++ fragmentService.getFragmentsByFilenamePrefix("result")
+        val resultPageHelper = ResultPageHelper(interviewAsRawList, decisionType, fragments, cluster, esi)
+
+        Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision, interviewAsRawList, esi, compressedInterviewRawString, resultPageHelper, error)))
       },
       formSuccess => {
         Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess)))
       }
-      )
+    )
+  }
+
+  private def getDecisionType(decisionResult: String): DecisionType = decisionResult match {
+    case "IN" => IN
+    case "OUT" => OUT
+    case _ => UNKNOWN
   }
 
   def printResult = Action.async { implicit request =>
@@ -104,6 +124,6 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
 }
 
-case class FormatPrint(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
+case class FormatPrint(pinkyPromise: String, esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
 
 case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String, completedBy: String, client: String, job: String, reference: Option[String] )
