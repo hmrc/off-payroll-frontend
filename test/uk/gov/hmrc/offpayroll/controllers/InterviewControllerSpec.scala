@@ -16,12 +16,15 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
+import java.util.UUID
+
 import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
-import play.api.mvc.{Request, Session}
+import play.api.mvc.{Cookie, Request, Session}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
+import uk.gov.hmrc.offpayroll.filters.SessionIdFilter.OPF_SESSION_ID_COOKIE
 import uk.gov.hmrc.offpayroll.models._
 import uk.gov.hmrc.offpayroll.resources.{partialInterview_hasContractStarted_Yes, _}
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService, InterviewEvaluation}
@@ -122,6 +125,32 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setup_hasContractStarted)
       flowService.passedCorrelationId shouldBe TEST_SESSION_ID
+    }
+  }
+
+  "GET /setup with cookies disabled" should {
+    "return 200" in {
+
+      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper)
+
+      val request = FakeRequest("GET", "/setup")
+      val result = await(interviewController.begin.apply(request))
+      status(result) shouldBe Status.OK
+      contentAsString(result).toLowerCase.contains("cookies disabled") shouldBe true
+    }
+  }
+
+  "GET /setup with cookies enabled" should {
+    "return 200" in {
+
+      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper)
+
+      val request = FakeRequest("GET", "/setup").withCookies(cookies = Cookie(name = OPF_SESSION_ID_COOKIE, value = s"opf-session-${UUID.randomUUID}"))
+      val result = await(interviewController.begin.apply(request))
+      status(result) shouldBe Status.OK
+      val string = contentAsString(result)
+      string.toLowerCase.contains("cookies disabled") shouldBe false
+      string.toLowerCase.contains("about the people involve") shouldBe true
     }
   }
 }

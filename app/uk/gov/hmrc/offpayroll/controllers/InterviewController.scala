@@ -24,8 +24,10 @@ import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
 import play.api.data.validation.Constraint
+import play.api.i18n.{Lang, Messages}
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.{Format, Json}
+import play.api.mvc.Results.Ok
 import play.api.mvc._
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
@@ -104,14 +106,20 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
   }
 
   def begin() = Action.async { implicit request =>
+  val maybeOfpSessionCookie: Option[Cookie] = request.cookies.get("ofpSessionId")
 
-    val maybeStartElement =  flow.getStart(asMap(request.session))
+    maybeOfpSessionCookie match {
+      case Some(_) => {
+        val maybeStartElement = flow.getStart(asMap(request.session))
 
-    maybeStartElement.fold (
-      Future.successful(Redirect(routes.InterviewController.begin).withSession(request.session))
-    ) (
-      beginSuccess(_)
-    )
+        maybeStartElement.fold(
+          Future.successful(Redirect(routes.InterviewController.begin).withSession(request.session))
+        )(
+          beginSuccess(_)
+        )
+      }
+      case None => Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.cookiesDisabled()))
+    }
   }
 
   private def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
