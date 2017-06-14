@@ -1,13 +1,14 @@
 # microservice specific routes
 
-GET     /cluster/                               @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin()
-GET     /cluster/back                           @uk.gov.hmrc.offpayroll.controllers.InterviewController.back
-POST    /cluster/:clusterID/element/:elementID  @uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
+GET         /cluster/                                     @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin
+GET         /cluster/back                                 @uk.gov.hmrc.offpayroll.controllers.InterviewController.back
+POST        /cluster/:clusterID/element/:elementID        @uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
 
-GET     /setup                                  @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin()
+GET         /setup                                        @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin
+GET         /begin                                        @uk.gov.hmrc.offpayroll.controllers.InterviewController.beginWithCookiesCheck
 
-POST    /print/format                        @uk.gov.hmrc.offpayroll.controllers.PrintController.format
-POST    /print/print                         @uk.gov.hmrc.offpayroll.controllers.PrintController.printResult
+POST        /print/format                                 @uk.gov.hmrc.offpayroll.controllers.PrintController.format
+POST        /print/print                                  @uk.gov.hmrc.offpayroll.controllers.PrintController.printResult
 
-GET    /switch-to-welsh                      @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToWelsh
-GET    /switch-to-english                    @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToEnglish
+GET         /switch-to-welsh                              @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToWelsh
+GET         /switch-to-english                            @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToEnglish

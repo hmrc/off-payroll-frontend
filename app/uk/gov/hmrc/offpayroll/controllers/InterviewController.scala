@@ -105,12 +105,14 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     }
   }
 
-  def begin() = Action.async { implicit request =>
-  val maybeOfpSessionCookie: Option[Cookie] = request.cookies.get("ofpSessionId")
+  private val ofpsessionid = "ofpSessionId"
 
+  def beginWithCookiesCheck() = Action.async { implicit request =>
+  val maybeOfpSessionCookie: Option[Cookie] = request.cookies.get(ofpsessionid)
+
+    val maybeStartElement = flow.getStart(asMap(request.session))
     maybeOfpSessionCookie match {
       case Some(_) => {
-        val maybeStartElement = flow.getStart(asMap(request.session))
 
         maybeStartElement.fold(
           Future.successful(Redirect(routes.InterviewController.begin).withSession(request.session))
@@ -118,8 +120,17 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
           beginSuccess(_)
         )
       }
-      case None => Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.cookiesDisabled()))
+      case None => {
+        Logger.info(s"user has cookies disabled: user agent: ${request.headers.toMap.get("User-Agent")}")
+        Logger.info(s"user has cookies disabled: current element: ${maybeStartElement.getOrElse("no element").toString}")
+        Logger.info(s"user has cookies disabled: interview: ${asRawList(request.session)}")
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.cookiesDisabled()))
+      }
     }
+  }
+
+  def begin() = Action.async { implicit request =>
+    Future.successful(Redirect(routes.InterviewController.beginWithCookiesCheck).withSession(request.session))
   }
 
   private def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
