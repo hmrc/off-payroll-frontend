@@ -52,6 +52,10 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     Element("endUserRole.none", RADIO, 3, SetupCluster)
   ))
 
+  class TestSessionHelper extends SessionHelper {
+    override def getCorrelationId(request: Request[_]) = Option(Cookie(name = OPF_SESSION_ID_COOKIE, value = TEST_SESSION_ID))
+  }
+
   class InstrumentedIR35FlowService extends IR35FlowService(new FrontendDecisionConnector) {
     var passedCorrelationId = ""
     override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId: String): Future[InterviewEvaluation] = {
@@ -91,7 +95,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   "GET /cluster/ with Session Interview" should {
     "return 200" in {
 
-      val interviewController = new InterviewController(new TestFlowService)
+      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper)
 
       val request = FakeRequest("GET", "/cluster/")
       val result = await(interviewController.begin.apply(request))
@@ -101,12 +105,12 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
 
   "POST /cluster/0/element/0" should {
     "return 200" in {
-      val interviewController = new InterviewController(new TestFlowService())
+      val interviewController = new InterviewController(new TestFlowService(), new TestSessionHelper())
       interviewController.begin.apply(FakeRequest("GET", "/setup"))
       val request = FakeRequest().withSession(mockSessionAsPair)
         .withFormUrlEncodedBody(
           setup_endUserRolePersonDoingWork
-        ).withCookies(cookies = Cookie(name = OPF_SESSION_ID_COOKIE, value = TEST_SESSION_ID))
+        )
       val result = interviewController.processElement(0, 0)(request).futureValue
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setup_hasContractStarted)
@@ -130,12 +134,12 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     "return 200" in {
 
       val flowService = new InstrumentedIR35FlowService
-      val interviewController = new InterviewController(flowService)
+      val interviewController = new InterviewController(flowService, new TestSessionHelper())
       interviewController.begin.apply(FakeRequest("GET", "/setup"))
       val request = FakeRequest().withSession(mockSessionAsPair)
       .withFormUrlEncodedBody(
         setup_endUserRolePersonDoingWork
-      ).withCookies(cookies = Cookie(name = OPF_SESSION_ID_COOKIE, value = TEST_SESSION_ID))
+      )
       val result = interviewController.processElement(0, 0)(request).futureValue
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setup_hasContractStarted)
@@ -146,7 +150,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   "GET /setup with cookies disabled" should {
     "return 200" in {
 
-      val interviewController = new InterviewController(new TestFlowService)
+      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper())
 
       val request = FakeRequest("GET", "/setup")
       val result = await(interviewController.begin.apply(request))
@@ -158,9 +162,9 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   "GET /setup with cookies enabled" should {
     "return 200" in {
 
-      val interviewController = new InterviewController(new TestFlowService)
+      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper())
 
-      val request = FakeRequest("GET", "/setup").withCookies(cookies = Cookie(name = OPF_SESSION_ID_COOKIE, value = TEST_SESSION_ID))
+      val request = FakeRequest("GET", "/setup")
       val result = await(interviewController.begin.apply(request))
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setupTag)

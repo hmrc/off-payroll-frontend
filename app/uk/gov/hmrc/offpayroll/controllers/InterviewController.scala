@@ -68,13 +68,17 @@ trait OffPayrollControllerHelper {
 
 }
 
+class SessionHelper {
+  def getCorrelationId(request: Request[_]) = request.cookies.get(OPF_SESSION_ID_COOKIE)
+}
+
 object InterviewController {
   def apply() = {
-    new InterviewController(IR35FlowService())
+    new InterviewController(IR35FlowService(), new SessionHelper)
   }
 }
 
-class InterviewController @Inject()(val flowService: FlowService) extends OffpayrollController {
+class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffpayrollController {
 
   val flow: OffPayrollWebflow = flowService.flow
 
@@ -180,8 +184,7 @@ class InterviewController @Inject()(val flowService: FlowService) extends Offpay
 
   private def evaluateInteview(element: Element, fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + form.data.toString() + " " + formValue)
-    request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
-
+    sessionHelper.getCorrelationId(request).map(_.value) match {
       case None => {
         Logger.info(s"user has cookies disabled: user agent: ${request.headers.toMap.get("User-Agent")}")
         Logger.info(s"user has cookies disabled: interview: ${asRawList(request.session)}")
