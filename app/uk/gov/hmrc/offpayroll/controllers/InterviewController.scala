@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
-import java.util.NoSuchElementException
+import java.util.{NoSuchElementException, UUID}
 import javax.inject.Inject
 
 import play.Logger
@@ -33,7 +33,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models._
 import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
-import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack, ResultPageHelper}
+import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionHelper, InterviewSessionStack, ResultPageHelper}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack._
 import uk.gov.hmrc.play.frontend.controller.FrontendController
 
@@ -69,11 +69,7 @@ trait OffPayrollControllerHelper {
 }
 
 class SessionHelper {
-  def createCorrelationId(request: Request[_]) =
-    request.cookies.get(OPF_SESSION_ID_COOKIE).map(_.value) match {
-      case None => throw new NoSuchElementException("session id not found in the cookie")
-      case Some(value) => value
-    }
+  def getCorrelationId(request: Request[_]) = request.cookies.get(OPF_SESSION_ID_COOKIE)
 }
 
 object InterviewController {
@@ -105,21 +101,17 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     }
   }
 
+  private val ofpsessionid = "ofpSessionId"
+
   def begin() = Action.async { implicit request =>
-  val maybeOfpSessionCookie: Option[Cookie] = request.cookies.get("ofpSessionId")
 
-    maybeOfpSessionCookie match {
-      case Some(_) => {
-        val maybeStartElement = flow.getStart(asMap(request.session))
+    val maybeStartElement =  flow.getStart(asMap(request.session))
 
-        maybeStartElement.fold(
-          Future.successful(Redirect(routes.InterviewController.begin).withSession(request.session))
-        )(
-          beginSuccess(_)
-        )
-      }
-      case None => Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.cookiesDisabled()))
-    }
+    maybeStartElement.fold (
+      Future.successful(Redirect(routes.InterviewController.begin).withSession(request.session))
+    ) (
+      beginSuccess(_)
+    )
   }
 
   private def beginSuccess(element: Element)(implicit request: Request[AnyContent]): Future[Result] = {
@@ -192,28 +184,36 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   private def evaluateInteview(element: Element, fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + form.data.toString() + " " + formValue)
-    val correlationId = sessionHelper.createCorrelationId(request)
-    val session = push(request.session, formValue, element)
-    val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), correlationId)
-
-    result.map(
-    interviewEvaluation => {
-        if (interviewEvaluation.continueWithQuestions) {
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
-          form, interviewEvaluation.element.head, fragmentService.getFragmentByName(interviewEvaluation.element.head.questionTag)))
-            .withSession(InterviewSessionStack.addCurrentIndex(session, interviewEvaluation.element.head))
-        } else {
-	        val compressedInterview= logResponse(interviewEvaluation.decision, session, correlationId)
-          val fragments = fragmentService.getAllFragmentsForInterview(asMap(session)) ++ fragmentService.getFragmentsByFilenamePrefix("result")
-          val isEsi = esi(asMap(session))
-          val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN),
-            fragments, interviewEvaluation.decision.map(_.cluster).getOrElse("unknownCluster"), isEsi)
-          Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head,
-            asRawList(session), isEsi, compressedInterview, resultPageHelper, emptyForm))
-            .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
-        }
+    sessionHelper.getCorrelationId(request).map(_.value) match {
+      case None => {
+        Logger.info(s"user has cookies disabled: user agent: ${request.headers.toMap.get("User-Agent")}")
+        Logger.info(s"user has cookies disabled: interview: ${asRawList(request.session)}")
+        Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.cookiesDisabled()))
       }
-    )
+      case Some(value) => {
+        val session = push(request.session, formValue, element)
+        val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), value)
+
+        result.map(
+          interviewEvaluation => {
+            if (interviewEvaluation.continueWithQuestions) {
+              Ok(uk.gov.hmrc.offpayroll.views.html.interview.interview(
+                form, interviewEvaluation.element.head, fragmentService.getFragmentByName(interviewEvaluation.element.head.questionTag)))
+                .withSession(InterviewSessionStack.addCurrentIndex(session, interviewEvaluation.element.head))
+            } else {
+              val compressedInterview = logResponse(interviewEvaluation.decision, session, value)
+              val fragments = fragmentService.getAllFragmentsForInterview(asMap(session)) ++ fragmentService.getFragmentsByFilenamePrefix("result")
+              val isEsi = esi(asMap(session))
+              val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN),
+                fragments, interviewEvaluation.decision.map(_.cluster).getOrElse("unknownCluster"), isEsi)
+              Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head,
+                asRawList(session), isEsi, compressedInterview, resultPageHelper, emptyForm))
+                .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
+            }
+          }
+        )
+      }
+    }
   }
 
   private def esi(interview: Map[String, String]): Boolean = {

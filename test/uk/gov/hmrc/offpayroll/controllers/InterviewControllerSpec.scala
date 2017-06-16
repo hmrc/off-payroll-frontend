@@ -41,10 +41,23 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   val TEST_SESSION_ID = "41c1fc6444bb7e"
   private val indexValue = InterviewStack.elementIndex(SetupCluster.clusterElements(0)).getOrElse(0).toString
   private val mockSessionAsPair = (InterviewSessionStack.INTERVIEW_CURRENT_INDEX, indexValue)
+  private val setupTag = "setup.tag"
   override def bindModules = Seq(new PlayModule)
 
+  val setupHasContractStarted = Element("hasContractStarted", RADIO, 1, SetupCluster)
+  val setupEndUserRole =  Element("endUserRole", MULTI, 0, SetupCluster, List(
+    Element("endUserRole.personDoingWork", RADIO, 0, SetupCluster),
+    Element("endUserRole.endClient", RADIO, 1, SetupCluster),
+    Element("endUserRole.placingAgency", RADIO, 2, SetupCluster),
+    Element("endUserRole.none", RADIO, 3, SetupCluster)
+  ))
+
   class TestSessionHelper extends SessionHelper {
-    override def createCorrelationId(request: Request[_]): String = TEST_SESSION_ID
+    override def getCorrelationId(request: Request[_]) = Option(Cookie(name = OPF_SESSION_ID_COOKIE, value = TEST_SESSION_ID))
+  }
+
+  class NoCookiesTestSessionHelper extends SessionHelper {
+    override def getCorrelationId(request: Request[_]) = None
   }
 
   class InstrumentedIR35FlowService extends IR35FlowService(new FrontendDecisionConnector) {
@@ -60,24 +73,26 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     override val flow = new TestFlow
 
     override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId: String):
-    Future[InterviewEvaluation] = ???
+    Future[InterviewEvaluation] = {
+      InterviewEvaluation(Option(setupHasContractStarted), Option(Decision(Map(), UNKNOWN, "v1", "setup")), true, TEST_SESSION_ID)
+    }
 
     override def getStart(interview: Map[String, String]): Option[Element] = flow.getStart(interview)
 
-    override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = ???
+    override def getAbsoluteElement(clusterId: Int, elementId: Int): Element = setupEndUserRole
 
     class TestFlow extends OffPayrollWebflow {
 
       override def getStart(interview: Map[String, String]): Option[Element] =
         Some(Element("tag", RADIO, 0, SetupCluster))
 
-      override def getElementById(clusterId: Int, elementId: Int): Option[Element] = ???
+      override def getElementById(clusterId: Int, elementId: Int): Option[Element] = Option(setupEndUserRole)
 
-      override def getElementByTag(tag: String): Option[Element] = ???
+      override def getElementByTag(tag: String): Option[Element] =  Option(setupEndUserRole)
 
-      override def clusters: List[Cluster] = ???
+      override def clusters: List[Cluster] = List(SetupCluster)
 
-      override def getClusterByName(name: String): Cluster = ???
+      override def getClusterByName(name: String): Cluster = SetupCluster
     }
   }
 
@@ -94,34 +109,42 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
 
   "POST /cluster/0/element/0" should {
     "return 200" in {
+      val interviewController = new InterviewController(new TestFlowService(), new TestSessionHelper())
+      interviewController.begin.apply(FakeRequest("GET", "/setup"))
       val request = FakeRequest().withSession(mockSessionAsPair)
-      .withFormUrlEncodedBody(
-        setup_endUserRolePersonDoingWork
-      )
-      val result = new InterviewController(IR35FlowService(), new TestSessionHelper()).processElement(0, 0)(request).futureValue
+        .withFormUrlEncodedBody(
+          setup_endUserRolePersonDoingWork
+        )
+      val result = interviewController.processElement(0, 0)(request).futureValue
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setup_hasContractStarted)
     }
   }
 
-  "POST /cluster/0/element/0 without a cookie" should {
-    "intercept an exception" in {
+  "POST /cluster/0/element/0 without a session id in the cookie collection" should {
+    "displays the cookies disabled page" in {
       val request = FakeRequest().withSession(mockSessionAsPair)
       .withFormUrlEncodedBody(
         setup_endUserRolePersonDoingWork
       )
-      intercept[NoSuchElementException]{InterviewController().processElement(0, 0)(request).futureValue}
+      val result = InterviewController().processElement(0, 0)(request).futureValue
+      status(result) shouldBe Status.OK
+      val string = contentAsString(result)
+      string.toLowerCase.contains("cookies disabled") shouldBe true
     }
   }
 
   "POST /cluster/0/element/0 with test correlation id" should {
     "return 200" in {
+
+      val flowService = new InstrumentedIR35FlowService
+      val interviewController = new InterviewController(flowService, new TestSessionHelper())
+      interviewController.begin.apply(FakeRequest("GET", "/setup"))
       val request = FakeRequest().withSession(mockSessionAsPair)
       .withFormUrlEncodedBody(
         setup_endUserRolePersonDoingWork
       )
-      val flowService = new InstrumentedIR35FlowService
-      val result = new InterviewController(flowService, new TestSessionHelper()).processElement(0, 0)(request).futureValue
+      val result = interviewController.processElement(0, 0)(request).futureValue
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setup_hasContractStarted)
       flowService.passedCorrelationId shouldBe TEST_SESSION_ID
@@ -131,26 +154,24 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   "GET /setup with cookies disabled" should {
     "return 200" in {
 
-      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper)
+      val interviewController = new InterviewController(new TestFlowService, new NoCookiesTestSessionHelper())
 
       val request = FakeRequest("GET", "/setup")
       val result = await(interviewController.begin.apply(request))
       status(result) shouldBe Status.OK
-      contentAsString(result).toLowerCase.contains("cookies disabled") shouldBe true
+      contentAsString(result) should include(setupTag)
     }
   }
 
   "GET /setup with cookies enabled" should {
     "return 200" in {
 
-      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper)
+      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper())
 
-      val request = FakeRequest("GET", "/setup").withCookies(cookies = Cookie(name = OPF_SESSION_ID_COOKIE, value = s"opf-session-${UUID.randomUUID}"))
+      val request = FakeRequest("GET", "/setup")
       val result = await(interviewController.begin.apply(request))
       status(result) shouldBe Status.OK
-      val string = contentAsString(result)
-      string.toLowerCase.contains("cookies disabled") shouldBe false
-      string.toLowerCase.contains("about the people involve") shouldBe true
+      contentAsString(result) should include(setupTag)
     }
   }
 }
