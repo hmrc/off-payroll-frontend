@@ -56,6 +56,10 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     override def getCorrelationId(request: Request[_]) = Option(Cookie(name = OPF_SESSION_ID_COOKIE, value = TEST_SESSION_ID))
   }
 
+  class NoCookiesTestSessionHelper extends SessionHelper {
+    override def getCorrelationId(request: Request[_]) = None
+  }
+
   class InstrumentedIR35FlowService extends IR35FlowService(new FrontendDecisionConnector) {
     var passedCorrelationId = ""
     override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId: String): Future[InterviewEvaluation] = {
@@ -118,7 +122,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   }
 
   "POST /cluster/0/element/0 without a session id in the cookie collection" should {
-    "throws an exception" in {
+    "displays the cookies disabled page" in {
       val request = FakeRequest().withSession(mockSessionAsPair)
       .withFormUrlEncodedBody(
         setup_endUserRolePersonDoingWork
@@ -150,7 +154,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   "GET /setup with cookies disabled" should {
     "return 200" in {
 
-      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper())
+      val interviewController = new InterviewController(new TestFlowService, new NoCookiesTestSessionHelper())
 
       val request = FakeRequest("GET", "/setup")
       val result = await(interviewController.begin.apply(request))
