@@ -26,7 +26,7 @@ import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.mvc.{Action, LegacyI18nSupport}
 import uk.gov.hmrc.play.frontend.controller.FrontendController
-import uk.gov.hmrc.offpayroll.util.LanguageUtils
+import uk.gov.hmrc.offpayroll.util.{LanguageUtils, OffPayrollSwitches}
 import play.api.i18n.Messages.Implicits._
 
 class LanguageController extends FrontendController with LegacyI18nSupport {
@@ -38,7 +38,7 @@ class LanguageController extends FrontendController with LegacyI18nSupport {
   def switchToWelsh = switchToLang(welsh)
 
   private def switchToLang(lang: Lang) = Action { implicit request =>
-    val newLang = if (FrontendAppConfig.enableLanguageSwitching) lang else english
+    val newLang = if (OffPayrollSwitches.enableLanguageSwitching.enabled) lang else english
 
     request.headers.get(REFERER) match {
       case Some(referrer) => Redirect(routes.InterviewController.begin).withLang(newLang).flashing(LanguageUtils.flashWithSwitchIndicator)

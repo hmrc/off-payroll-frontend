@@ -66,7 +66,11 @@ object FeatureSwitch {
 
 object OffPayrollSwitches {
   private val OFF_PAYROLL_PDF_SWITCH_NAME = "offPayrollPdf"
+  private val OFF_PAYROLL_LANGUAGE_TOGGLE_SWITCH = "enableLanguageSwitching"
   def offPayrollPdf = {
     FeatureSwitch.forName(OFF_PAYROLL_PDF_SWITCH_NAME)
+  }
+  def enableLanguageSwitching = {
+    FeatureSwitch.forName(OFF_PAYROLL_LANGUAGE_TOGGLE_SWITCH)
   }
 }
