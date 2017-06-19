@@ -8,9 +8,12 @@
     virtualPage = Some("cookiesDisabled")
 ) {
     <main role="main">
-        <p>You are seeing this page, because cookies have been turned off, please
-            enable cookies in order to use this service properly. If you would like
-            to return to the service any way please <a href="@routes.InterviewController.begin()">click this link</a></p>
+        <p>
+            We've noticed your browser's cookies are switched off. To use this service, you'll need to <a href="https://www.aboutcookies.org/how-to-control-cookies/" target="_blank">switch cookies on</a>.
+        </p>
+        <p>
+            Go back to <a href="@routes.InterviewController.begin()">start of service</a>
+        </p>
     </main>
 
 }
