@@ -144,6 +144,49 @@ multipleInterview.intro=Rydym wedi sylwi bod y gwasanaeth hwn ar agor gennych ei
 multipleInterview.toContinue=Gall hyn effeithio ar eich canlyniad¤ felly mae angen i chi gau''r tab neu''r ffenestr er mwyn parhau i ddefnyddio''r gwasanaeth.
 multipleInterview.thanks=Diolch.
 
+# Results Page
+result.summary=Why are you getting this result
+
+# officeHolder.in.ir35
+officeHolder.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+
+
+# officeHolder.in.esi
+officeHolder.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+
+personalServiceCluster.current.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+personalServiceCluster.future.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+controlCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+financialRiskCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+
+earlyExit.out.esi.headerBox=This engagement should be classed as self-employed for tax purposes
+
+matrix.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+
+matrix.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+
+matrix.unknown.headerBox=We''re unable to determine the tax status of this engagement
+
+setupCluster.title=About the people involved
+
+exitCluster.title=About the worker''s duties
+exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes. You''ve told us that the worker will not perform office holder duties during this engagement.
+
+personalServiceCluster.title=About substitutes and helpers
+personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis. 
+
+controlCluster.title=About the work arrangements
+controlCluster.summary=We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
+
+financialRiskCluster.title=About the worker''s financial risk
+financialRiskCluster.summary=We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who don''t risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
+
+partParcelCluster.title=About the worker’s integration into the organisation
+partParcelCluster.summary=We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
+
 language-switcher.english=English
 language-switcher.english.hover=Use this account in English
 language-switcher.welsh=Cymraeg
@@ -151,3 +194,4 @@ language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Gymraeg
 
 declarationBox.error.print=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn argraffu''r tudalen hwn
 declarationBox.error.pdf=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
+

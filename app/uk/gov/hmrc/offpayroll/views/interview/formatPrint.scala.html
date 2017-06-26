@@ -60,9 +60,11 @@
 <script type="text/javascript">
         (function() {
             document.getElementById("resultData").addEventListener("submit", function () {
-                ga("send", "event", "Forms", "end-client", document.getElementById("client").value);
-                ga("send", "event", "Forms", "role", document.getElementById("job").value);
-                ga("send", "event", "Forms", "decision", document.getElementById("decisionResult").value);
+                var endClient = document.getElementById("client").value;
+                var role = document.getElementById("job").value;
+                var decision = document.getElementById("decisionResult").value;
+
+                ga("send", "event", "Forms", "end-client,role,decision", endClient+","+role+","+decision);
             });
 
         })();
