@@ -145,7 +145,7 @@ multipleInterview.toContinue=Gall hyn effeithio ar eich canlyniad¤ felly mae an
 multipleInterview.thanks=Diolch.
 
 # Results Page
-result.summary=Why are you getting this result
+result.summary=WPam yr ydych yn cael y canlyniad hwn
 
 # officeHolder.in.ir35
 officeHolder.in.ir35.headerBox=Mae''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
