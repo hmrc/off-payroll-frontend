@@ -148,44 +148,44 @@ multipleInterview.thanks=Diolch.
 result.summary=Why are you getting this result
 
 # officeHolder.in.ir35
-officeHolder.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+officeHolder.in.ir35.headerBox=Mae''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
 
 # officeHolder.in.esi
-officeHolder.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+officeHolder.in.esi.headerBox=Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
 
-personalServiceCluster.current.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+personalServiceCluster.current.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-personalServiceCluster.future.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+personalServiceCluster.future.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-controlCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+controlCluster.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-financialRiskCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+financialRiskCluster.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-earlyExit.out.esi.headerBox=This engagement should be classed as self-employed for tax purposes
+earlyExit.out.esi.headerBox=Dylid ystyried y swydd hon i fod yn un hunangyflogedig at ddibenion treth
 
-matrix.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+matrix.in.esi.headerBox=Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
 
-matrix.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+matrix.in.ir35.headerBox=Mae''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-matrix.unknown.headerBox=We''re unable to determine the tax status of this engagement
+matrix.unknown.headerBox=Ni allwn bennu''r statws treth ar gyfer y swydd hon
 
-setupCluster.title=About the people involved
+setupCluster.title=Ynglŷn â''r bobl berthnasol
 
-exitCluster.title=About the worker''s duties
-exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes. You''ve told us that the worker will not perform office holder duties during this engagement.
+exitCluster.title=Ynglŷn â dyletswyddau''r gweithiwr
+exitCluster.summary=Mae gweithwyr sy''n cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol yn cael eu hystyried i fod yn gyflogedig at ddibenion treth.
 
-personalServiceCluster.title=About substitutes and helpers
-personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis. 
+personalServiceCluster.title=Ynglŷn ag eilyddion a chynorthwywyr
+personalServiceCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod a yw''r gweithiwr yn cael ei hurio fel busnes neu ar sail gwasanaeth personol. Os nad yw''r cleient terfynol wedi cytuno bod busnes y gweithiwr yn trefnu bod rhywun arall yn cael ei dalu i wneud y gwaith yn ei le, neu os na fyddai''n cytuno i hynny, mae''n awgrymu ei fod yn cael ei hurio ar sail gwasanaeth personol.
 
-controlCluster.title=About the work arrangements
-controlCluster.summary=We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
+controlCluster.title=Ynglŷn â''r trefniadau gwaith
+controlCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod faint o hawl sydd gan y cleient terfynol i reoli''r hyn y mae''r gweithiwr yn ei wneud yn ystod y swydd hon. Os oes gan y cleient terfynol yr hawl i reoli, byddai hynny''n awgrymu bod yr arferion gwaith yn debyg i''r rheiny a ddilynir gan gyflogai.
 
-financialRiskCluster.title=About the worker''s financial risk
-financialRiskCluster.summary=We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who don''t risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
+financialRiskCluster.title=Ynglŷn â risg ariannol y gweithiwr
+financialRiskCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn canfod lefel y risg ariannol sy''n rhaid i''r gweithiwr fentro iddi yn ystod y swydd hon. Mae gweithwyr nad ydynt yn mentro''u harian eu hunain drwy, er enghraifft, brynu asedion neu dalu am orbenion a deunyddiau, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
 
-partParcelCluster.title=About the worker’s integration into the organisation
-partParcelCluster.summary=We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
+partParcelCluster.title=Ynglŷn ag integreiddio''r gweithiwr i mewn i''r sefydliad
+partParcelCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i ba raddau y mae''r gweithiwr wedi''i integreiddio i mewn i sefydliad y cleient terfynol. Mae gweithwyr sy''n cael buddiannau, sy''n gyfrifol am fod yn rheolwr llinell ar bobl eraill, ac sy''n rhoi''r argraff eu bod yn gweithio i''r cleient terfynol, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
 
 language-switcher.english=English
 language-switcher.english.hover=Use this account in English
