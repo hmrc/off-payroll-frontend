@@ -76,22 +76,22 @@
 
 
                 <div  class="indent-warning" style="line-height:2">
-                    <div>HMRC won’t keep a record of this result.</div>
+                    <div>@Messages("result.wontBeRecoreded")</div>
                 </div>
-                <p>Decision Service Version: <span id="dsVersion">@decision.version</span></p>
+                <p>@Messages("result.decisionServiceVersion") <span id="dsVersion">@decision.version</span></p>
                 <div class="form-group @if(f.errors.headOption.isDefined) {
                     error
                 }">
                 <div class="bordered-box bordered-box--shaded" id="promise">
                     <label for="pinkyPromise">
-                        <input type="checkbox" name="pinkyPromise" id="pinkyPromise"/> Before you rely on this result, please confirm that you’ve:
+                        <input type="checkbox" name="pinkyPromise" id="pinkyPromise"/>&nbsp;@Messages("result.declaration.heading")
                     </label>
                         <ul class="bullets">
-                            <li><label for="pinkyPromise">read the guidance for each question</label></li>
-                            <li><label for="pinkyPromise">reviewed your answers</label></li>
-                            <li><label for="pinkyPromise">given answers that reflect the actual or expected working practices of this engagement</label></li>
+                            <li><label for="pinkyPromise">@Messages("result.declaration.readGuidance")</label></li>
+                            <li><label for="pinkyPromise">@Messages("result.declaration.reviewedAnswers")</label></li>
+                            <li><label for="pinkyPromise">@Messages("result.declaration.answersReflectPractice")</label></li>
                         </ul>
-                    <label for="pinkyPromise">If the working practices of this engagement change you accept this result may no longer hold.</label>
+                    <label for="pinkyPromise">@Messages("result.declaration.practicesWontChange")</label>
                 </div>
                 </div>
                 <input type="hidden" name="esi" value="@esi" />
@@ -101,9 +101,9 @@
                 <input type="hidden" name="decisionCluster" value="@decision.cluster" />
 
                 @if(OffPayrollSwitches.offPayrollPdf.enabled) {
-                    <button class="button">Confirm and save</button>
+                    <button class="button">@Messages("result.confirmAndSave")</button>
                 } else {
-                    <button class="button">Confirm and print</button>
+                    <button class="button">@Messages("result.confirmAndPrint")</button>
                 }
 
             }

@@ -39,8 +39,8 @@ personalService.workerSentActualSubstitute.yesClientAgreed=Iawn - a chytunodd y 
 personalService.workerSentActualSubstitute.notAgreedWithClient=Iawn - ond ni chytunodd y cleient
 personalService.workerSentActualSubstitute.noSubstitutionHappened=Na - nid yw hyn wedi digwydd
 personalService.workerPayActualSubstitute=A wnaeth busnes y gweithiwr dalu''r person a wnaeth y gwaith yn ei le?
-personalService.possibleSubstituteRejection=Os yw busnes y gweithiwr yn anfon rhywun arall i wneud y gwaith (eilydd)¤ a''i fod yn bodloni''r holl feini prawf¤ a fyddai''r cleient terfynol yn ei wrthod o gwbl?
-personalService.possibleSubstituteRejection.wouldReject=Iawn - mae gan y cleient terfynol yr hawl i wrthod eilydd am ba bynnag reswm¤ gan gynnwys os byddai''n effeithio''n negyddol ar y gwaith
+personalService.possibleSubstituteRejection=Os yw busnes y gweithiwr yn anfon rhywun arall i wneud y gwaith (eilydd), a''i fod yn bodloni''r holl feini prawf, a fyddai''r cleient terfynol yn ei wrthod o gwbl?
+personalService.possibleSubstituteRejection.wouldReject=Iawn - mae gan y cleient terfynol yr hawl i wrthod eilydd am ba bynnag reswm, gan gynnwys os byddai''n effeithio''n negyddol ar y gwaith
 personalService.possibleSubstituteRejection.wouldNotReject=Na - byddai''r cleient terfynol bob amser yn derbyn eilydd a fyddai''n bodloni''r meini prawf hyn
 personalService.possibleSubstituteWorkerPay=A fyddai busnes y gweithiwr yn gorfod talu''r person a wnaeth y gwaith yn ei le?
 personalService.wouldWorkerPayHelper=A fu''n rhaid i fusnes y gweithiwr dalu helpwr i wneud llwyth sylweddol o''r gwaith ar gyfer y swydd hon?
@@ -50,12 +50,12 @@ sectionHeader.control=Ynglŷn â''r trefniadau gwaith
 
 control.engagerMovingWorker=A all y cleient terfynol symud y gweithiwr i dasg sy''n wahanol i''r hyn a gytunwyd yn wreiddiol?
 control.engagerMovingWorker.canMoveWorkerWithPermission=Iawn - ond dim ond gyda chytundeb y gweithiwr
-control.engagerMovingWorker.canMoveWorkerWithoutPermission=Iawn - heb gytundeb y gweithiwr (os nad yw''r gweithiwr am newid¤ gall y cleient terfynol ddod ‰''r huriad i ben)
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Iawn - heb gytundeb y gweithiwr (os nad yw''r gweithiwr am newid, gall y cleient terfynol ddod â''r huriad i ben)
 control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=Na - byddai''n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
-control.workerDecidingHowWorkIsDone=Pan fo''r gweithiwr yn dechrau''r swydd¤ a oes hawl gan y cleient terfynol i benderfynu sut y gwneir y gwaith?
+control.workerDecidingHowWorkIsDone=Pan fo''r gweithiwr yn dechrau''r swydd, a oes hawl gan y cleient terfynol i benderfynu sut y gwneir y gwaith?
 control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=Na - y gweithiwr sy''n penderfynu sut y mae gwneud y gwaith heb ymyrraeth gan y cleient terfynol
-control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Yn rhannol - mae''r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol¤ yn cytuno ar faint o''r gwaith sydd angen ei wneud
+control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Yn rhannol - mae''r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o''r gwaith sydd angen ei wneud
 control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Iawn - y cleient terfynol sy''n penderfynu sut mae gwneud y gwaith heb ymyrraeth gan y gweithiwr
 control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=Na - ni all y cleient terfynol penderfynu sut mae angen i''r gwaith cael ei wneud oherwydd ei fod yn swyddogaeth dra medrus
 
@@ -68,7 +68,7 @@ control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Ddim yn gymwys - nid
 
 control.workerDecideWhere=A all y gweithiwr ddewis ble y mae''n gweithio?
 control.workerDecideWhere.workerChooses=Iawn - y gweithiwr sy''n penderfynu
-control.workerDecideWhere.workerAgreeWithOthers=Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno¤ a rhaid i beth ohono gael ei wneud lle bynnag y mae''r gweithiwr yn dewis
+control.workerDecideWhere.workerAgreeWithOthers=Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno, a rhaid i beth ohono gael ei wneud lle bynnag y mae''r gweithiwr yn dewis
 control.workerDecideWhere.workerCannotChoose=Na - y cleient terfynol sy''n dewis
 control.workerDecideWhere.noLocationRequired=Na - y dasg sy''n pennu lleoliad y gwaith
 
@@ -76,23 +76,23 @@ control.workerDecideWhere.noLocationRequired=Na - y dasg sy''n pennu lleoliad y 
 sectionHeader.financialRisk=Ynglŷn â risg ariannol y gweithiwr
 
 financialRisk.haveToPayButCannotClaim=Beth sy''n rhaid i''r gweithiwr ei ddarparu ar gyfer y swydd hon na allai''i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
-financialRisk.workerProvidedMaterials=Deunyddiau - eitemau sy''n ffurfio rhan barhaol o''r gwaith¤ neu eitem a brynwyd ar gyfer y gwaith a adawir ar ™l pan fo''r gweithiwr yn gadael (nid yw''n cynnwys deunydd ysgrifennu¤ ac mae''n fwyaf tebygol o fod yn berthnasol i bryniadau sylweddol yn y diwydiant adeiladu)
-financialRisk.workerProvidedEquipment=Offer - yn cynnwys peiriannau trwm¤ cerbydau diwydiannol neu offer arbenigol sydd ‰ chost uchel¤ ond heb gynnwys ffonau¤ llechi neu liniaduron
-financialRisk.workerUsedVehicle=Cerbydau - yn gynnwys costau prynu¤ costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith¤ nid ar gyfer cymudo)
-financialRisk.workerHadOtherExpenses=Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith¤ nid ar gyfer cymudo)¤ neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
+financialRisk.workerProvidedMaterials=Deunyddiau - eitemau sy''n ffurfio rhan barhaol o''r gwaith, neu eitem a brynwyd ar gyfer y gwaith a adawir ar ôl pan fo''r gweithiwr yn gadael (nid yw''n cynnwys deunydd ysgrifennu, ac mae''n fwyaf tebygol o fod yn berthnasol i bryniadau sylweddol yn y diwydiant adeiladu)
+financialRisk.workerProvidedEquipment=Offer - yn cynnwys peiriannau trwm, cerbydau diwydiannol neu offer arbenigol sydd ‰ chost uchel, ond heb gynnwys ffonau, llechi neu liniaduron
+financialRisk.workerUsedVehicle=Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
+financialRisk.workerHadOtherExpenses=Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 financialRisk.expensesAreNotRelevantForRole=Ddim yn berthnasol
 
 financialRisk.workerMainIncome=Beth yw''r prif fodd y mae''r gweithiwr yn cael ei dalu ar gyfer y swydd hon?
-financialRisk.workerMainIncome.incomeCalendarPeriods=Cyfradd yn ™l yr awr¤ cyfradd ddyddiol neu gyfradd wythnosol
+financialRisk.workerMainIncome.incomeCalendarPeriods=Cyfradd yn ôl yr awr, cyfradd ddyddiol neu gyfradd wythnosol
 financialRisk.workerMainIncome.incomeFixed=Pris sefydlog ar gyfer darn penodol o waith
 financialRisk.workerMainIncome.incomePieceRate=Swm sy''n seiliedig ar faint o waith sy''n cael ei gwblhau
 financialRisk.workerMainIncome.incomeCommission=Canran o''r gwerthiannau y mae''r gweithiwr yn gyfrifol amdanynt
 financialRisk.workerMainIncome.incomeProfitOrLosses=Canran o elw neu gynilion y cleient terfynol
 
-financialRisk.paidForSubstandardWork=Os nad yw''r cleient terfynol yn fodlon gyda''r gwaith¤ a oes angen i''r gweithiwr rhoi pethau''n iawn ar ei gost ei hun?
-financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=Na - byddai''r gweithiwr yn rhoi pethau''n iawn yn ei oriau gwaith arferol ar y gyfradd gyflog arferol¤ neu am ffi ychwanegol
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Iawn - byddai''n rhaid i''r gweithiwr rhoi pethau''n iawn heb godi t‰l ychwanegol¤ a byddai treuliau ychwanegol sylweddol¤ neu gostau ychwanegol sylweddol am ddeunyddiau¤ yn cael eu codi arno
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Iawn - byddai''n rhaid i''r gweithiwr roi pethau''n iawn heb godi t‰l ychwanegol¤ ond ni fyddai costau ychwanegol yn cael eu codi arno
+financialRisk.paidForSubstandardWork=Os nad yw''r cleient terfynol yn fodlon gyda''r gwaith, a oes angen i''r gweithiwr rhoi pethau''n iawn ar ei gost ei hun?
+financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=Na - byddai''r gweithiwr yn rhoi pethau''n iawn yn ei oriau gwaith arferol ar y gyfradd gyflog arferol, neu am ffi ychwanegol
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Iawn - byddai''n rhaid i''r gweithiwr rhoi pethau''n iawn heb godi t‰l ychwanegol, a byddai treuliau ychwanegol sylweddol, neu gostau ychwanegol sylweddol am ddeunyddiau, yn cael eu codi arno
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Iawn - byddai''n rhaid i''r gweithiwr roi pethau''n iawn heb godi t‰l ychwanegol, ond ni fyddai costau ychwanegol yn cael eu codi arno
 financialRisk.paidForSubstandardWork.noObligationToCorrect=Na - ni fyddai''n rhaid iddo roi pethau''n iawn
 financialRisk.paidForSubstandardWork.cannotBeCorrected=Na - ni fyddai''r gweithiwr yn gallu rhoi pethau''n iawn oherwydd bod y gwaith yn amser-benodol neu ar gyfer un digwyddia
 
@@ -103,8 +103,8 @@ sectionHeader.partParcel=Yngl_n ag integreiddio''r gweithiwr i mewn i''r sefydli
 
 partParcel.workerReceivesBenefits=A oes gan y gweithiwr hawl i unrhyw un o''r buddiannau canlynol oddi wrth y cleient terfynol?
 partParcel.workerAsLineManager=A yw''r gweithiwr yn gyfrifol am unrhyw un o''r dyletswyddau canlynol ar gyfer y cleient terfynol?
-partParcel.contactWithEngagerCustomer=A yw''r gweithiwr yn rhyngweithio ‰ chwsmeriaid¤ cleientiaid¤ cynulleidfa neu ddefnyddwyr y cleient terfynol?
-partParcel.workerRepresentsEngagerBusiness=Pan fydd y gweithiwr yn rhyngweithio ‰ chwsmeriaid¤ cleientiaid¤ cynulleidfa neu ddefnyddwyr y cleient terfynol¤ sut mae''n rhoi gwybod pwy ydyw?
+partParcel.contactWithEngagerCustomer=A yw''r gweithiwr yn rhyngweithio ‰ chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
+partParcel.workerRepresentsEngagerBusiness=Pan fydd y gweithiwr yn rhyngweithio ‰ chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae''n rhoi gwybod pwy ydyw?
 partParcel.workerRepresentsEngagerBusiness.workForEndClient=Mae''n gweithio i''r cleient terfynol
 partParcel.workerRepresentsEngagerBusiness.workAsIndependent=Mae''n weithiwr annibynnol sy''n gweithio ar ran y cleient terfynol
 partParcel.workerRepresentsEngagerBusiness.workAsBusiness=Mae''n gweithio ar gyfer busnes ei hun
@@ -132,7 +132,7 @@ hardExit.reason=Ynghylch ymrwymiad y gweithiwr yn y sefydliad
 exitTool.serviceProvision.heading=Mae''ch ateb yn dynodi nad yw''r gwasanaeth hwn yn berthnasol i''r gweithiwr. Nid oes angen i chi barhau ‰''r gwasanaeth hwn gan nad yw''r ddeddfwriaeth cyfryngwyr yn berthnasol.exitTool.serviceProvision.reason=
 exitTool.serviceProvision.explanation=
 
-exitTool.soleTrader.heading=Fel unig fasnachwr¤ nid yw''r ddeddfwriaeth cyfryngwyr yn berthnasol i''r gweithiwr hwn.
+exitTool.soleTrader.heading=Fel unig fasnachwr, nid yw''r ddeddfwriaeth cyfryngwyr yn berthnasol i''r gweithiwr hwn.
 exitTool.soleTrader.reason=
 exitTool.soleTrader.explanation=
 
@@ -141,11 +141,20 @@ error.invalid.combination=Cyfuniad annilys wedi''i ddewis:
 
 multipleInterview.heading=Caewch y tab neu''r ffenestr hon er mwyn parhau i wirio statws cyflogaeth ar gyfer treth
 multipleInterview.intro=Rydym wedi sylwi bod y gwasanaeth hwn ar agor gennych eisoes mewn tab neu ffenestr arall.
-multipleInterview.toContinue=Gall hyn effeithio ar eich canlyniad¤ felly mae angen i chi gau''r tab neu''r ffenestr er mwyn parhau i ddefnyddio''r gwasanaeth.
+multipleInterview.toContinue=Gall hyn effeithio ar eich canlyniad, felly mae angen i chi gau''r tab neu''r ffenestr er mwyn parhau i ddefnyddio''r gwasanaeth.
 multipleInterview.thanks=Diolch.
 
 # Results Page
 result.summary=WPam yr ydych yn cael y canlyniad hwn
+result.confirmAndSave=Cadarnhau a chadw
+result.confirmAndPrint=Cadarnhau ac argraffu
+result.wontBeRecoreded=Ni fydd CThEM yn cadw cofnod o''r canlyniad hwn.
+result.decisionServiceVersion=Decision Service Version:
+result.declaration.heading=Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
+result.declaration.readGuidance=darllen yr arweiniad ar gyfer pob cwestiwn
+result.declaration.reviewedAnswers=adolygu''ch atebion
+result.declaration.answersReflectPractice=rhoi atebion sy''n adlewyrchu arferion gwaith, gwirioneddol neu ddisgwyliedig, y swydd hon
+result.declaration.practicesWontChange=Os bydd arferion gwaith y swydd hon yn newid, rydych yn derbyn na fydd y canlyniad hwn, o bosib, yn sefyll.
 
 # officeHolder.in.ir35
 officeHolder.in.ir35.headerBox=Mae''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
