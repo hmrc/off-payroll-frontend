@@ -2,6 +2,8 @@
 application.title=Check employment status for tax
 
 global.button.continue=Continue
+Back=Back
+Home=Home
 yes=yes
 no=no
 Yes=Yes
