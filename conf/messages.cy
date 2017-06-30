@@ -2,6 +2,8 @@
 application.title=Gwirio statws cyflogaeth ar gyfer treth
 
 global.button.continue=Yn eich blaen
+back.capitalised=Yn ôl
+home.capitalised=Hafan
 yes=iawn
 no=na
 Yes=Iawn

@@ -12,7 +12,7 @@
     ) {
 
 
-    <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
+    <a href="@routes.InterviewController.back()" style="line-height:3">@Messages("back.capitalised")</a>
 
 
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order), 'class -> "jsForm", 'noValidate -> "noValidate") {
