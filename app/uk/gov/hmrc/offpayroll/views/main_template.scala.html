@@ -4,7 +4,8 @@
         bodyClasses: Option[String] = None,
         mainClass: Option[String] = None,
         scriptElem: Option[Html] = None,
-        virtualPage: Option[String] = None
+        virtualPage: Option[String] = None,
+        sidebar: Html = HtmlFormat.empty
 )(mainContent: Html)(implicit request : Request[_], messages: Messages, lang : Lang)
 
 @import uk.gov.hmrc.play.views.html.layouts
@@ -20,7 +21,7 @@
                title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
-               sidebar = sidebar,
+               sidebar = sidebarContent,
                contentHeader = contentHeader,
                mainContent = layouts.article(mainContent),
                serviceInfoContent = HtmlFormat.empty,
@@ -41,4 +42,9 @@
     gaCalls = virtualPage.map(url =>
     (a, b) => analyticsCode(url, appConfig.analyticsToken))
 
+}
+@sidebarContent= {
+    <div class="available-languages" style="float:right">
+        English | <a id="switch-to-welsh" href="/#" >Cymraeg</a>
+    </div>
 }
