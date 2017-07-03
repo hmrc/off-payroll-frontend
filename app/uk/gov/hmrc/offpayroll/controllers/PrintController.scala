@@ -39,6 +39,8 @@ import uk.gov.hmrc.play.http.BadRequestException
 
 class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) extends OffpayrollController {
 
+  val emptyForm = Form(single("" -> text))
+
   def format = Action.async { implicit request =>
 
     val formatPrint = Form(
@@ -103,8 +105,12 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
       printResult => {
         val interview = CompressedInterview(printResult.compressedInterview).asRawList
         val session = CompressedInterview(printResult.compressedInterview).asMap
-        val fragments = fragmentService.getAllFragmentsForInterview(session)
-        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(interview, printResult, fragments)
+        val fragments = fragmentService.getAllFragmentsForInterview(session) ++ fragmentService.getFragmentsByFilenamePrefix("result")
+
+        val decision = Decision(session,getDecisionType(printResult.decisionResult),printResult.decisionVersion,printResult.decisionCluster)
+        val resultPageHelper = ResultPageHelper(interview, getDecisionType(printResult.decisionResult), fragments, printResult.decisionCluster, printResult.esi)
+
+        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(printResult, decision, resultPageHelper, emptyForm)
 
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
           pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
