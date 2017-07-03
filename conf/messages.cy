@@ -34,7 +34,7 @@ exit.officeHolder=A fydd y gweithiwr (neu''i fusnes) yn cyflawni dyletswyddau de
 
 
 #### Personal Service cluster
-sectionHeader.personalService=Yngl_n ag eilyddion a chynorthwywyr
+sectionHeader.personalService=Ynglŷn ag eilyddion a chynorthwywyr
 
 personalService.workerSentActualSubstitute=A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
 personalService.workerSentActualSubstitute.yesClientAgreed=Iawn - a chytunodd y cleient
@@ -66,7 +66,7 @@ control.whenWorkHasToBeDone=A all y cleient terfynol benderfynu amserlen yr oria
 control.whenWorkHasToBeDone.workerDecideSchedule=Na - mae''r gweithiwr yn penderfynu amserlen ei hun
 control.whenWorkHasToBeDone.workerAgreeSchedule=Yn rhannol - mae''r gweithiwr a''r cleient terfynol yn cytuno ar amserlen
 control.whenWorkHasToBeDone.scheduleDecidedForWorker=Iawn - mae''r cleient terfynol yn penderfynu amserlen y gweithiwr
-control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Ddim yn gymwys - nid oes angen amserlen cyn belled ‰ bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
+control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Ddim yn gymwys - nid oes angen amserlen cyn belled â bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
 
 control.workerDecideWhere=A all y gweithiwr ddewis ble y mae''n gweithio?
 control.workerDecideWhere.workerChooses=Iawn - y gweithiwr sy''n penderfynu
@@ -79,7 +79,7 @@ sectionHeader.financialRisk=Ynglŷn â risg ariannol y gweithiwr
 
 financialRisk.haveToPayButCannotClaim=Beth sy''n rhaid i''r gweithiwr ei ddarparu ar gyfer y swydd hon na allai''i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 financialRisk.workerProvidedMaterials=Deunyddiau - eitemau sy''n ffurfio rhan barhaol o''r gwaith, neu eitem a brynwyd ar gyfer y gwaith a adawir ar ôl pan fo''r gweithiwr yn gadael (nid yw''n cynnwys deunydd ysgrifennu, ac mae''n fwyaf tebygol o fod yn berthnasol i bryniadau sylweddol yn y diwydiant adeiladu)
-financialRisk.workerProvidedEquipment=Offer - yn cynnwys peiriannau trwm, cerbydau diwydiannol neu offer arbenigol sydd ‰ chost uchel, ond heb gynnwys ffonau, llechi neu liniaduron
+financialRisk.workerProvidedEquipment=Offer - yn cynnwys peiriannau trwm, cerbydau diwydiannol neu offer arbenigol sydd â chost uchel, ond heb gynnwys ffonau, llechi neu liniaduron
 financialRisk.workerUsedVehicle=Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 financialRisk.workerHadOtherExpenses=Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 financialRisk.expensesAreNotRelevantForRole=Ddim yn berthnasol
@@ -93,20 +93,20 @@ financialRisk.workerMainIncome.incomeProfitOrLosses=Canran o elw neu gynilion y 
 
 financialRisk.paidForSubstandardWork=Os nad yw''r cleient terfynol yn fodlon gyda''r gwaith, a oes angen i''r gweithiwr rhoi pethau''n iawn ar ei gost ei hun?
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=Na - byddai''r gweithiwr yn rhoi pethau''n iawn yn ei oriau gwaith arferol ar y gyfradd gyflog arferol, neu am ffi ychwanegol
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Iawn - byddai''n rhaid i''r gweithiwr rhoi pethau''n iawn heb godi t‰l ychwanegol, a byddai treuliau ychwanegol sylweddol, neu gostau ychwanegol sylweddol am ddeunyddiau, yn cael eu codi arno
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Iawn - byddai''n rhaid i''r gweithiwr roi pethau''n iawn heb godi t‰l ychwanegol, ond ni fyddai costau ychwanegol yn cael eu codi arno
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Iawn - byddai''n rhaid i''r gweithiwr rhoi pethau''n iawn heb godi tâl ychwanegol, a byddai treuliau ychwanegol sylweddol, neu gostau ychwanegol sylweddol am ddeunyddiau, yn cael eu codi arno
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Iawn - byddai''n rhaid i''r gweithiwr roi pethau''n iawn heb godi tâl ychwanegol, ond ni fyddai costau ychwanegol yn cael eu codi arno
 financialRisk.paidForSubstandardWork.noObligationToCorrect=Na - ni fyddai''n rhaid iddo roi pethau''n iawn
 financialRisk.paidForSubstandardWork.cannotBeCorrected=Na - ni fyddai''r gweithiwr yn gallu rhoi pethau''n iawn oherwydd bod y gwaith yn amser-benodol neu ar gyfer un digwyddia
 
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-sectionHeader.partParcel=Yngl_n ag integreiddio''r gweithiwr i mewn i''r sefydliad
+sectionHeader.partParcel=Ynglŷn ag integreiddio''r gweithiwr i mewn i''r sefydliad
 
 partParcel.workerReceivesBenefits=A oes gan y gweithiwr hawl i unrhyw un o''r buddiannau canlynol oddi wrth y cleient terfynol?
 partParcel.workerAsLineManager=A yw''r gweithiwr yn gyfrifol am unrhyw un o''r dyletswyddau canlynol ar gyfer y cleient terfynol?
-partParcel.contactWithEngagerCustomer=A yw''r gweithiwr yn rhyngweithio ‰ chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
-partParcel.workerRepresentsEngagerBusiness=Pan fydd y gweithiwr yn rhyngweithio ‰ chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae''n rhoi gwybod pwy ydyw?
+partParcel.contactWithEngagerCustomer=A yw''r gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
+partParcel.workerRepresentsEngagerBusiness=Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae''n rhoi gwybod pwy ydyw?
 partParcel.workerRepresentsEngagerBusiness.workForEndClient=Mae''n gweithio i''r cleient terfynol
 partParcel.workerRepresentsEngagerBusiness.workAsIndependent=Mae''n weithiwr annibynnol sy''n gweithio ar ran y cleient terfynol
 partParcel.workerRepresentsEngagerBusiness.workAsBusiness=Mae''n gweithio ar gyfer busnes ei hun
@@ -131,7 +131,7 @@ true.UNKNOWN=Ni allwn bennu''r statws treth ar gyfer y swydd hon
 hardExit.heading=Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
 hardExit.reason=Ynghylch ymrwymiad y gweithiwr yn y sefydliad
 
-exitTool.serviceProvision.heading=Mae''ch ateb yn dynodi nad yw''r gwasanaeth hwn yn berthnasol i''r gweithiwr. Nid oes angen i chi barhau ‰''r gwasanaeth hwn gan nad yw''r ddeddfwriaeth cyfryngwyr yn berthnasol.exitTool.serviceProvision.reason=
+exitTool.serviceProvision.heading=Mae''ch ateb yn dynodi nad yw''r gwasanaeth hwn yn berthnasol i''r gweithiwr. Nid oes angen i chi barhau â''r gwasanaeth hwn gan nad yw''r ddeddfwriaeth cyfryngwyr yn berthnasol.exitTool.serviceProvision.reason=
 exitTool.serviceProvision.explanation=
 
 exitTool.soleTrader.heading=Fel unig fasnachwr, nid yw''r ddeddfwriaeth cyfryngwyr yn berthnasol i''r gweithiwr hwn.
