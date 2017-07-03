@@ -1,0 +1,44 @@
+
+@import uk.gov.hmrc.offpayroll.models.Decision
+@import uk.gov.hmrc.offpayroll.util.ResultPageHelper
+@(decision: Decision, resultPageHelper: ResultPageHelper, f:Form[_])(implicit request: Request[_], messages: Messages, lang: Lang)
+
+<div class="transaction-banner--complete">
+    <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(resultPageHelper.decisionKey+".headerBox")</span>
+</div>
+
+<h2>@Messages("result.summary")</h2>
+@resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".resultSummary")
+
+@if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
+    @clusterResult("setup",resultPageHelper, messages)
+}
+
+@if(resultPageHelper.getQuestionsAndAnswersForCluster("exit").nonEmpty){
+    @clusterResult("exit",resultPageHelper, messages)
+}
+
+@if(resultPageHelper.getQuestionsAndAnswersForCluster("personalService").nonEmpty){
+    @clusterResult("personalService",resultPageHelper, messages)
+}
+
+@if(resultPageHelper.getQuestionsAndAnswersForCluster("control").nonEmpty){
+    @clusterResult("control",resultPageHelper, messages)
+}
+
+@if(resultPageHelper.getQuestionsAndAnswersForCluster("financialRisk").nonEmpty){
+    @clusterResult("financialRisk",resultPageHelper, messages)
+}
+
+@if(resultPageHelper.getQuestionsAndAnswersForCluster("partParcel").nonEmpty){
+    @clusterResult("partParcel",resultPageHelper, messages)
+}
+
+@resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".action")
+@resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".statement")
+
+
+<div  class="indent-warning" style="line-height:2">
+    <div>HMRC won’t keep a record of this result.</div>
+</div>
+<p>Decision Service Version: <span id="dsVersion">@decision.version</span></p>

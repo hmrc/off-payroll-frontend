@@ -19,11 +19,16 @@ package uk.gov.hmrc.offpayroll.views.interview
 import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
 import play.api.Play.current
+import play.api.data.Form
+import play.api.data.Forms.single
+import play.api.data.Forms.text
 import play.api.i18n.Messages.Implicits._
 import play.api.test.FakeRequest
 import play.api.test.Helpers.POST
 import play.twirl.api.Html
 import uk.gov.hmrc.offpayroll.controllers.PrintResult
+import uk.gov.hmrc.offpayroll.models.{Decision, IN}
+import uk.gov.hmrc.offpayroll.util.ResultPageHelper
 import uk.gov.hmrc.offpayroll.views.html.interview.printResult
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
@@ -35,16 +40,21 @@ class PrintResultViewSpec extends UnitSpec with WithFakeApplication with ScalaFu
 
   val printResultObject: PrintResult = PrintResult(false, "IN", "1.4.0-final", "dummy", "Exit", "John", "Home Office", "Cleaner", None)
   implicit val request = (FakeRequest(POST, "/check-employment-status-for-tax/dummy"))
+  val emptyForm = Form(single("" -> text))
 
   private val helpText = "An office holder holds an office"
   private val helpTextQuestionTag = "exit.officeHolder"
+
+  val interview = List(helpTextQuestionTag -> List("No"))
   
   val fragments: Map[String, Html] = Map(helpTextQuestionTag -> Html(helpText))
+  private val personalservice = "personalService"
+  val resultPageHelper = ResultPageHelper(interview, IN, fragments, personalservice, true)
+  val decision = Decision(Map(),IN,"1.5.0",personalservice)
 
   "printResult view" should {
     "display the correct help text and guidance" in {
-
-      val displayDecision: Html = printResult(List(helpTextQuestionTag -> List("No")), printResultObject, fragments)
+      val displayDecision: Html = printResult(printResultObject, decision, resultPageHelper, emptyForm)
 
       displayDecision.body.contains(helpText) shouldBe true
     }
