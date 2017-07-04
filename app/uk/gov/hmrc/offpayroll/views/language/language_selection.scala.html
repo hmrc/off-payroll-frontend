@@ -1,12 +1,19 @@
-@import uk.gov.hmrc.offpayroll.controllers.LanguageController
+@import uk.gov.hmrc.offpayroll.util.LanguageUtils
 @import uk.gov.hmrc.offpayroll.controllers.routes
 
 @(enableLanguageSwitching: Boolean)(implicit lang : Lang, messages: Messages)
 
 @if(enableLanguageSwitching) {
-    @if(lang.code == "cy") {
-        <a title="@Messages("language-switcher.english.hover")" href="@routes.LanguageController.switchToEnglish" data-journey-click="Language:Click:English">@Messages("language-switcher.english")</a>
+    <div class="available-languages">
+    @if(LanguageUtils.isWelsh(lang)) {
+        <div class="available-languages" style="float:right">
+            <a id="switch-to-english" href="@routes.LanguageController.switchToEnglish" >English</a> | Cymraeg
+        </div>
     } else {
-        <a title="@Messages("language-switcher.welsh.hover")" href="@routes.LanguageController.switchToWelsh" data-journey-click="Language:Click:Welsh">@Messages("language-switcher.welsh")</a>
+        <div class="available-languages" style="float:right">
+            English | <a id="switch-to-welsh" href="@routes.LanguageController.switchToWelsh" >Cymraeg</a>
+        </div>
     }
+    </div>
+
 }

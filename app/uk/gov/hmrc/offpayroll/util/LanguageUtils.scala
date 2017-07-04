@@ -16,12 +16,17 @@
 
 package uk.gov.hmrc.offpayroll.util
 
+import play.api.i18n.Lang
 import play.api.mvc.Flash
 
 /**
   * Created by Habeeb on 15/05/2017.
   */
 object LanguageUtils {
+  val LANG_LANG_WELSH = "cy"
   val switchIndicatorKey = "switching-language"
   val flashWithSwitchIndicator = Flash(Map(switchIndicatorKey -> "true"))
+
+  def isWelsh(lang: Lang) = LANG_LANG_WELSH == lang.language
+
 }

@@ -1,10 +1,13 @@
+@import uk.gov.hmrc.offpayroll.controllers.routes
+@import uk.gov.hmrc.offpayroll.util.OffPayrollSwitches
 @(title: String,
         sidebarLinks: Option[Html] = None,
         contentHeader: Option[Html] = None,
         bodyClasses: Option[String] = None,
         mainClass: Option[String] = None,
         scriptElem: Option[Html] = None,
-        virtualPage: Option[String] = None
+        virtualPage: Option[String] = None,
+        sidebar: Html = HtmlFormat.empty
 )(mainContent: Html)(implicit request : Request[_], messages: Messages, lang : Lang)
 
 @import uk.gov.hmrc.play.views.html.layouts
@@ -20,7 +23,7 @@
                title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
-               sidebar = sidebar,
+               sidebar = language.language_selection(OffPayrollSwitches.enableLanguageSwitching.enabled),
                contentHeader = contentHeader,
                mainContent = layouts.article(mainContent),
                serviceInfoContent = HtmlFormat.empty,
