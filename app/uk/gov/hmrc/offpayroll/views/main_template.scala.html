@@ -1,3 +1,5 @@
+@import uk.gov.hmrc.offpayroll.controllers.routes
+@import uk.gov.hmrc.offpayroll.util.OffPayrollSwitches
 @(title: String,
         sidebarLinks: Option[Html] = None,
         contentHeader: Option[Html] = None,
@@ -21,7 +23,7 @@
                title = title,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
-               sidebar = sidebarContent,
+               sidebar = language.language_selection(OffPayrollSwitches.enableLanguageSwitching.enabled),
                contentHeader = contentHeader,
                mainContent = layouts.article(mainContent),
                serviceInfoContent = HtmlFormat.empty,
@@ -42,9 +44,4 @@
     gaCalls = virtualPage.map(url =>
     (a, b) => analyticsCode(url, appConfig.analyticsToken))
 
-}
-@sidebarContent= {
-    <div class="available-languages" style="float:right">
-        English | <a id="switch-to-welsh" href="/#" >Cymraeg</a>
-    </div>
 }
