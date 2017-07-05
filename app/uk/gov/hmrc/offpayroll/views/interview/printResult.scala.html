@@ -1,5 +1,8 @@
 @import uk.gov.hmrc.offpayroll.controllers.PrintResult
-@(interview: List[(String, List[String])], printResult: PrintResult, fragments: Map[String, Html])(implicit request: Request[_], messages: Messages)
+@import uk.gov.hmrc.offpayroll.util.ResultPageHelper
+@import uk.gov.hmrc.offpayroll.models.Decision
+
+@(printResult: PrintResult, decision: Decision,resultPageHelper: ResultPageHelper, f:Form[_])(implicit request: Request[_], messages: Messages)
 @uk.gov.hmrc.offpayroll.views.html.print_template(
     Some("Print Result"),
     Some(""))(head ,Html(""),Html(""),Html(""),Html(""),Some(Html("")), false) {
@@ -24,26 +27,8 @@
                 </tr>
             </table>
 
-            <div class="transaction-banner--complete">
-                <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(printResult.esi + "." + printResult.decisionResult)</span>
-            </div>
+            @dynamicResult(decision,resultPageHelper,f)
 
-
-            @resultDecisionExplained_template(printResult.esi, printResult.decisionResult)
-            @resultNextSteps_template(printResult.esi, printResult.decisionResult)
-
-            <h2 class="heading-medium">Your answers</h2>
-            <ol id="yourAnswers">
-            @for((key, value) <- interview) {
-                <li class="section divider--bottom"><h3>@messages(key)</h3>
-                    <div>@fragments.get(key)</div>
-                    @for(child <- value) {
-                        <div id="answer.@key" class="panel-indent">@messages(child)</div>
-                    }
-                </li>
-            }
-            </ol>
-            <p>Decision Service Version: <span id="dsVersion">@printResult.decisionVersion</span></p>
         </article>
     </div>
 
@@ -140,6 +125,11 @@
 
     .form-hint{
         color: #6f777b;
+    }
+    .indent-warning {
+        background: transparent no-repeat 0 0;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAQAAAC00HvSAAABZklEQVR4Aa3WsWoTUBTG8V9v4yQElywRAlYzJVCQdMrgmKVDce3m3mfI0ofoY7QQfAOngmQIOGgzOGRpQYhLUynHZjb3JtL7/+8f53DhfmfPZlqGjvR1tTUtLXw3c+2LWzsycG4qNjp1bmArHWM3ouiNsY4CIxOxkxMjGU7NxM7OnG4OmYv/cv5v0KgwSWmiEdAAHWd6NvLeHsJXG+g5881PgLHI+RBrHkLOMcCg9MS/Y82y9PwDEk4cyHIPVrIcOCFpOVZgtS2GY61k6PCZMYeGyRFsW+pekaOkzzOnoZ90K8R0k3aFpdpJs8I0zWRZIWaZLCosteBKlNyPF0/uh5JXyUyRR3+efFRk1nCtyBufrFy4U+CalqnI+Tp+xZof8TLknGoltyayfPQKvPVBlonbhEtzGe4A8kvNXW79/RrxOdZc7PD70cn301704l2przoVm6FCT1VozQodXuuiqH/fVLq2/gLNMwwtCpJpLgAAAABJRU5ErkJggg==);
+        padding-left: 2.36842em;
     }
     </style>
 }
