@@ -34,7 +34,7 @@
     case MULTI => {
 
         @for(child <- element.children) {
-            <div class="form-field">
+            <div>
                 <label for="@child.questionTag" class="block-label">
                     <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
                     @Messages(child.questionTag)
@@ -47,7 +47,7 @@
 
         @for(child <- element.children) {
 
-            <div class="form-field">
+            <div>
                 <label for="@child.questionTag" class="block-label">
                     <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag@openBracket@child.order@closingBracket" value="@child.questionTag" />
                     @Messages(child.questionTag)
