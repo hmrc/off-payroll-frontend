@@ -209,3 +209,11 @@ declarationBox.error.print=In order to print this page, you will need to check t
 declarationBox.error.pdf=In order to download a PDF, you will need to check the declaration box at the bottom of the page
 
 
+formatPrint.mainHeading=Customise this result record
+formatPrint.formHint=You can add some information to this page before you print it. This is for your reference only and won't be stored by HMRC. All fields are optional
+formatPrint.person=Name of the person that completed this check
+formatPrint.client=End client''s name
+formatPrint.jobTitle=Engagement job title
+formatPrint.reference=Reference (worker''s name or contract number, for example)
+
+decisionService.version=Decision Service Version:

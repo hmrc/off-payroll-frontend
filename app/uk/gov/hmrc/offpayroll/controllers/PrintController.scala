@@ -45,7 +45,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
     val formatPrint = Form(
       mapping(
-        "pinkyPromise" -> text.verifying(_.equalsIgnoreCase("on")),
+        "promise" -> text.verifying(_.equalsIgnoreCase("on")),
         "esi" -> boolean,
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
