@@ -36,7 +36,7 @@ class PrintControllerSpec extends UnitSpec with WithFakeApplication with ScalaFu
   }
 
   val COOKIES_HEADER_NAME: String = "Set-Cookie"
-  val HIDDEN_FIELDS: Map[String, String] = Map("pinkyPromise" -> "on", "esi" -> "false", "decisionResult" -> "OUT", "compressedInterview" -> "6eAwrZDHs", "decisionVersion" -> "12345", "decisionCluster" -> "control")
+  val HIDDEN_FIELDS: Map[String, String] = Map("promise" -> "on", "esi" -> "false", "decisionResult" -> "OUT", "compressedInterview" -> "6eAwrZDHs", "decisionVersion" -> "12345", "decisionCluster" -> "control")
   val HIDDEN_FIELDS_AND_FORM = HIDDEN_FIELDS + ("completedBy" -> "SBT TEST", "client" -> "HMRC", "job" -> "Tester", "reference" -> "testola")
   val PRINT_PAGE_TITLE = "Customise this result record"
   override def bindModules = Seq(new PlayModule)

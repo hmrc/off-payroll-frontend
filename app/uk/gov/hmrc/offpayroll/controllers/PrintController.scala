@@ -130,6 +130,6 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
 }
 
-case class FormatPrint(pinkyPromise: String, esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
+case class FormatPrint(promise: String, esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
 
 case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String, completedBy: String, client: String, job: String, reference: Option[String] )
