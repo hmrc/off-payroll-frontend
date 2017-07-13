@@ -211,7 +211,7 @@ formatPrint.formHint=Gallwch ychwanegu ychydig o wybodaeth I’’r dudalen hon 
 formatPrint.person=Enw''r person sydd wedi cyflawni''r gwiriad hwn
 formatPrint.client=Enw''r cleient terfynol
 formatPrint.jobTitle=Teitl y swydd
-formatPrint.reference=Cyfeirnod (enw'r gweithiwr neu rif y cytundeb, er enghraifft)
+formatPrint.reference=Cyfeirnod (enw''r gweithiwr neu rif y cytundeb, er enghraifft)
 
 
 decisionService.version=Fersiwn y Gwasanaeth Penderfyniadau:
