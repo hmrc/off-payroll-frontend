@@ -206,3 +206,13 @@ language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Gymraeg
 declarationBox.error.print=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn argraffu''r tudalen hwn
 declarationBox.error.pdf=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
 
+formatPrint.mainHeading=Addasu cofnod y canlyniad hwn
+formatPrint.formHint=Gallwch ychwanegu ychydig o wybodaeth I’’r dudalen hon cyn i chi’’I hargraffu. Mae hwn er eich gwybodaeth yn unig ac ni chaiff ei storio gan CThEM. Mae pob maes yn ddewisol
+formatPrint.person=Enw''r person sydd wedi cyflawni''r gwiriad hwn
+formatPrint.client=Enw''r cleient terfynol
+formatPrint.jobTitle=Teitl y swydd
+formatPrint.reference=Cyfeirnod (enw''r gweithiwr neu rif y cytundeb, er enghraifft)
+
+
+decisionService.version=Fersiwn y Gwasanaeth Penderfyniadau:
+
