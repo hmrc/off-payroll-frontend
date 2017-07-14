@@ -147,7 +147,7 @@ multipleInterview.toContinue=Gall hyn effeithio ar eich canlyniad, felly mae ang
 multipleInterview.thanks=Diolch.
 
 # Results Page
-result.summary=WPam yr ydych yn cael y canlyniad hwn
+result.summary=Pam yr ydych yn cael y canlyniad hwn
 result.confirmAndSave=Cadarnhau a chadw
 result.confirmAndPrint=Cadarnhau ac argraffu
 result.wontBeRecoreded=Ni fydd CThEM yn cadw cofnod o''r canlyniad hwn.
