@@ -217,3 +217,5 @@ formatPrint.jobTitle=Engagement job title
 formatPrint.reference=Reference (worker''s name or contract number, for example)
 
 decisionService.version=Decision Service Version:
+result.decisionServiceVersion.after=You only need to re-check your employment status for tax purposes through this service, if your working practises have changed
+
