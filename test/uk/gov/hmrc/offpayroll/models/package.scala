@@ -46,7 +46,6 @@ package object resources {
   val setup_SoleTrader = setup_provideServices -> "setup.provideServices.soleTrader"
 
 
-
   //EXIT
   val THE_ROUTE_EXIT_PATH = "/exit/"
 
@@ -121,6 +120,11 @@ package object resources {
     "setup.hasContractStarted" -> "No",
     "setup.provideServices" -> "setup.provideServices.partnership",
     "exit.officeHolder" -> "No")
+
+  val fullInterview_ir35OfficeHolderYes = Map("setup.endUserRole" -> "setup.endUserRole.endClient",
+  "setup.hasContractStarted" -> "Yes",
+  "setup.provideServices" -> "setup.provideServices.partnership",
+  "exit.officeHolder" -> "Yes")
 
 
   val endToEndIr35Interview : List[(String, List[String])] =

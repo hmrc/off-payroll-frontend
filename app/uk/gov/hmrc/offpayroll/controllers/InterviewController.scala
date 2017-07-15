@@ -192,7 +192,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
       }
       case Some(value) => {
         val session = push(request.session, formValue, element)
-        val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), value)
+        val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), value, session.get("interview").getOrElse(""))
 
         result.map(
           interviewEvaluation => {

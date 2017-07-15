@@ -26,7 +26,7 @@ import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 import play.api.libs.ws.WSClient
-import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, PdfGeneratorConnector}
+import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, PdfGeneratorConnector, LogInterviewConnector}
 
 
 trait ServiceRegistry extends ServicesConfig {
@@ -60,4 +60,11 @@ class FrontendPdfGeneratorConnector @Inject() (ws: WSClient) extends PdfGenerato
   val serviceURL = pdfServiceUrl + "/pdf-generator-service/generate"
   val http = WSHttp
   def getWsClient:WSClient = ws
+}
+
+@Singleton
+class FrontendLogInterviewConnector extends LogInterviewConnector with ServicesConfig {
+  val decisionURL: String = baseUrl("off-payroll-decision")
+  val serviceURL = "off-payroll-decision/log"
+  val http = WSHttp
 }

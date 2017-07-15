@@ -21,7 +21,7 @@ import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
 import play.api.libs.json.Json
-import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
+import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, LogInterviewConnector}
 import uk.gov.hmrc.offpayroll.models.DecisionResponse
 import uk.gov.hmrc.offpayroll.modelsFormat._
 import uk.gov.hmrc.offpayroll.resources._
@@ -38,6 +38,8 @@ import scala.concurrent.Future
 class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication {
 
   private val TEST_CORRELATION_ID = "00000001099"
+  private val TEST_COMPRESSED_INTERVIEW = "7yYJCkUbY"
+
   override def bindModules = Seq(new PlayModule)
 
   private val decisionResponseString_inIr35 =
@@ -74,7 +76,8 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
   private val jsonResponse_inIr35 = Json.fromJson[DecisionResponse](Json.parse(decisionResponseString_inIr35)).get
   private val jsonResponse_unknown = Json.fromJson[DecisionResponse](Json.parse(decisionResponseString_unknown)).get
   val mockDecisionConnector = mock[DecisionConnector]
-  val testFlowService = new IR35FlowService(mockDecisionConnector)
+  val mockLogInterviewConnector = mock[LogInterviewConnector]
+  val testFlowService = new IR35FlowService(mockDecisionConnector, mockLogInterviewConnector)
 
   "A Flow Service should " should {
     " be able to get the start of an Interview" in {
@@ -88,24 +91,25 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       val interview: Map[String, String] = Map(control_workerDecideWhere_cannotFixWorkerLocation)
       val currentElement: (String, String) = control_workerDecideWhere_cannotFixWorkerLocation
 
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
+      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID, TEST_COMPRESSED_INTERVIEW))
 
       interviewEvalResult.continueWithQuestions shouldBe true
       interviewEvalResult.element.head.questionTag shouldBe "financialRisk.haveToPayButCannotClaim"
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
     }
 
-    " Exit when Yes is answered for partParcel.workerAsLineManager as it would be the final question" in {
+    " Exit when Yes is answered for exit.officeHolder as it would be the final question" in {
 
-      when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
+      when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_inIr35))
+      when(mockLogInterviewConnector.log(any())(any())).thenReturn(Future(jsonResponse_inIr35))
 
-      val interview: Map[String, String] = Map(partParcel_workerAsLineManager_yes)
-      val currentElement: (String, String) = partParcel_workerAsLineManager_yes
+      val interview: Map[String, String] = fullInterview_ir35OfficeHolderYes
+      val currentElement: (String, String) = "exit.officeHolder" -> "Yes"
 
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
+      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID, TEST_COMPRESSED_INTERVIEW))
 
-      interviewEvalResult.continueWithQuestions shouldBe false
       interviewEvalResult.correlationId shouldBe TEST_CORRELATION_ID
+      interviewEvalResult.continueWithQuestions shouldBe false
     }
 
     " be able to process a partial personalService and expect it to return Continue" in {
@@ -113,9 +117,10 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_unknown))
 
       val interview: Map[String, String] = Map(personalService_workerSentActualSubstituteYesClientAgreed)
+
       val currentElement: (String, String) = personalService_workerSentActualSubstituteYesClientAgreed
 
-      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID))
+      val interviewEvalResult = await(testFlowService.evaluateInterview(interview, currentElement, TEST_CORRELATION_ID, TEST_COMPRESSED_INTERVIEW))
 
       assert(interviewEvalResult.continueWithQuestions === true, "Only a partial personalService so we need to continue")
       assert(interviewEvalResult.element.head.questionTag === personalService_workerPayActualSubstitute) //next tag

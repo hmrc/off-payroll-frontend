@@ -21,8 +21,8 @@ import javax.inject.Inject
 import com.google.inject.ImplementedBy
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
-import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
+import uk.gov.hmrc.offpayroll.{FrontendDecisionConnector, FrontendLogInterviewConnector}
+import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, LogInterviewConnector}
 import uk.gov.hmrc.offpayroll.models.{OffPayrollWebflow, UNKNOWN, _}
 import uk.gov.hmrc.play.http.HeaderCarrier
 
@@ -40,7 +40,7 @@ abstract class FlowService {
     * @param interview
     * @return
     */
-  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation]
+  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String, compressedInterview: String): Future[InterviewEvaluation]
 
   def getStart(interview: Map[String, String]): Option[Element]
 
@@ -49,11 +49,11 @@ abstract class FlowService {
 }
 
 object IR35FlowService {
-  def apply() = new IR35FlowService(new FrontendDecisionConnector)
+  def apply() = new IR35FlowService(new FrontendDecisionConnector, new FrontendLogInterviewConnector)
 }
 
 
-class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) extends FlowService {
+class IR35FlowService @Inject() (val decisionConnector: DecisionConnector, val logInterviewConnector: LogInterviewConnector) extends FlowService {
 
   private val STOP = false
   private val CONTINUE = true
@@ -76,7 +76,7 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
     case _ => UNKNOWN
   }
 
-  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation] = {
+  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String, compressedInterview: String): Future[InterviewEvaluation] = {
 
     val cleanInterview = interview.filter(qa => flow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
@@ -84,17 +84,21 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
     val optionalNextElement = flow.shouldAskForDecision(interview, currentQnA)
 
     if (optionalNextElement.isEmpty) {
-      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview, correlationId)).map[InterviewEvaluation](
+
+      val decisionRequest = DecisionBuilder.buildDecisionRequest(cleanInterview, correlationId)
+      decisionConnector.decide(decisionRequest).map[InterviewEvaluation](
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
               if (flow.getNext(interview, currentElement, true).isEmpty) {
+                logInterviewConnector.log(LogInterviewBuilder.buildLogRequest(decisionRequest, compressedInterview, decision))
                 InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN, flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
               }
               else
                 InterviewEvaluation(flow.getNext(interview, currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
             } else {
-                InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision), flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
+              logInterviewConnector.log(LogInterviewBuilder.buildLogRequest(decisionRequest, compressedInterview, decision))
+              InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision), flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
             }
           }
           )

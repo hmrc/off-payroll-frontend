@@ -41,7 +41,8 @@ private object AppDependencies {
     "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion
+    "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
+    "ai.x" %% "play-json-extensions" % "0.8.0"
   )
 
   trait TestDependencies {
