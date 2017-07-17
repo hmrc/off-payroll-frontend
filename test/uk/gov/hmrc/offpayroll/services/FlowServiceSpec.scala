@@ -20,12 +20,14 @@ import com.kenshoo.play.metrics.PlayModule
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
+import play.api.http.Status.OK
 import play.api.libs.json.Json
-import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, LogInterviewConnector}
+import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.DecisionResponse
 import uk.gov.hmrc.offpayroll.modelsFormat._
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.http.HttpResponse
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -101,7 +103,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
     " Exit when Yes is answered for exit.officeHolder as it would be the final question" in {
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_inIr35))
-      when(mockDecisionConnector.log(any())(any())).thenReturn(Future(jsonResponse_inIr35))
+      when(mockDecisionConnector.log(any())(any())).thenReturn(Future(HttpResponse.apply(OK)))
 
       val interview: Map[String, String] = fullInterview_ir35OfficeHolderYes
       val currentElement: (String, String) = "exit.officeHolder" -> "Yes"
