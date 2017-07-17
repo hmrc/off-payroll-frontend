@@ -31,45 +31,30 @@ package object LogInterviewBuilder {
 
     Logger.debug(s"---------------- Build LogInterview ------------------------------------")
 
+    val interview: Map[String, Map[String, String]] = decisionRequest.interview
+
     val exit = Exit(
-      decisionRequest.interview("exit")("officeHolder")
+      interview("exit")("officeHolder")
     )
 
     val setup = Setup(
-      decisionRequest.interview("setup")("endUserRole"),
-      decisionRequest.interview("setup")("hasContractStarted"),
-      decisionRequest.interview("setup")("provideServices")
+      interview("setup")("endUserRole"),
+      interview("setup")("hasContractStarted"),
+      interview("setup")("provideServices")
     )
 
     def createPersonalService(): PersonalService = {
-      //val personalService = PersonalService(
-      if (decisionRequest.interview.exists(_._1 == "personalService")) {
-        PersonalService(
-          Option(decisionRequest.interview("personalService").get("workerSentActualSubstitute").getOrElse("")),
-          Option(decisionRequest.interview("personalService").get("workerPayActualSubstitute").getOrElse("")),
-          Option(decisionRequest.interview("personalService").get("possibleSubstituteRejection").getOrElse("")),
-          Option(decisionRequest.interview("personalService").get("possibleSubstituteWorkerPay").getOrElse("")),
-          Option(decisionRequest.interview("personalService").get("wouldWorkerPayHelper").getOrElse(""))
-        )
-      } else {
-        PersonalService(
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty
-        )
-      }
+      PersonalService(interview)
     }
 
 
     def createControl(): Control = {
-      if (decisionRequest.interview.exists(_._1 == "control")) {
+      if (interview.exists(_._1 == "control")) {
         Control(
-          Option(decisionRequest.interview("control").get("engagerMovingWorker").getOrElse("")),
-          Option(decisionRequest.interview("control").get("workerDecidingHowWorkIsDone").getOrElse("")),
-          Option(decisionRequest.interview("control").get("workHasToBeDone").getOrElse("")),
-          Option(decisionRequest.interview("control").get("workerDecideWhere").getOrElse(""))
+          Option(interview("control").get("engagerMovingWorker").getOrElse("")),
+          Option(interview("control").get("workerDecidingHowWorkIsDone").getOrElse("")),
+          Option(interview("control").get("workHasToBeDone").getOrElse("")),
+          Option(interview("control").get("workerDecideWhere").getOrElse(""))
         )
       } else {
         Control(
@@ -83,15 +68,15 @@ package object LogInterviewBuilder {
 
 
     def createFinacialRisk(): FinancialRisk = {
-      if (decisionRequest.interview.exists(_._1 == "financialRisk")) {
+      if (interview.exists(_._1 == "financialRisk")) {
         FinancialRisk(
-          Option(decisionRequest.interview("financialRisk").get("workerProvidedMaterials").getOrElse("")),
-          Option(decisionRequest.interview("financialRisk").get("workerProvidedEquipment").getOrElse("")),
-          Option(decisionRequest.interview("financialRisk").get("workerUsedVehicle").getOrElse("")),
-          Option(decisionRequest.interview("financialRisk").get("workerHadOtherExpenses").getOrElse("")),
-          Option(decisionRequest.interview("financialRisk").get("expensesAreNotRelevantForRole").getOrElse("")),
-          Option(decisionRequest.interview("financialRisk").get("workerMainIncome").getOrElse("")),
-          Option(decisionRequest.interview("financialRisk").get("paidForSubstandardWork").getOrElse(""))
+          Option(interview("financialRisk").get("workerProvidedMaterials").getOrElse("")),
+          Option(interview("financialRisk").get("workerProvidedEquipment").getOrElse("")),
+          Option(interview("financialRisk").get("workerUsedVehicle").getOrElse("")),
+          Option(interview("financialRisk").get("workerHadOtherExpenses").getOrElse("")),
+          Option(interview("financialRisk").get("expensesAreNotRelevantForRole").getOrElse("")),
+          Option(interview("financialRisk").get("workerMainIncome").getOrElse("")),
+          Option(interview("financialRisk").get("paidForSubstandardWork").getOrElse(""))
         )
       } else {
         FinancialRisk(
@@ -107,12 +92,12 @@ package object LogInterviewBuilder {
     }
 
     def createPartAndParcel(): PartAndParcel = {
-      if (decisionRequest.interview.exists(_._1 == "partAndParcel")) {
+      if (interview.exists(_._1 == "partAndParcel")) {
         PartAndParcel(
-          Option(decisionRequest.interview("partAndParcel").get("workerReceivesBenefits").getOrElse("")),
-          Option(decisionRequest.interview("partAndParcel").get("workerAsLineManager").getOrElse("")),
-          Option(decisionRequest.interview("partAndParcel").get("contactWithEngagerCustomer").getOrElse("")),
-          Option(decisionRequest.interview("partAndParcel").get("workerRepresentsEngagerBusiness").getOrElse(""))
+          Option(interview("partAndParcel").get("workerReceivesBenefits").getOrElse("")),
+          Option(interview("partAndParcel").get("workerAsLineManager").getOrElse("")),
+          Option(interview("partAndParcel").get("contactWithEngagerCustomer").getOrElse("")),
+          Option(interview("partAndParcel").get("workerRepresentsEngagerBusiness").getOrElse(""))
         )
       } else {
         PartAndParcel(

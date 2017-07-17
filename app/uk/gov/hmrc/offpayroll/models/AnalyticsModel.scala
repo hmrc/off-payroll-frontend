@@ -18,9 +18,7 @@ package uk.gov.hmrc.offpayroll.models
 
 import org.joda.time.DateTime
 
-/**
-  * Created by work on 20/06/2017.
-  */
+
 case class LogInterview(version: String, compressedInterview: String, route: String, decision:String, count: Option[String], setup: Setup,
                     exit: Exit, personalService: Option[PersonalService], control: Option[Control], financialRisk: Option[FinancialRisk],
                     partAndParcel: Option[PartAndParcel], completed: DateTime)
@@ -29,9 +27,26 @@ case class Setup(endUserRole: String, hasContractStarted: String, provideService
 
 case class Exit(officeHolder: String)
 
-case class PersonalService(workerSentActualSubstitute: Option[String], workerPayActualSubstitute: Option[String],
-                     possibleSubstituteRejection: Option[String], possibleSubstituteWorkerPay: Option[String],
-                     wouldWorkerPayHelper: Option[String])
+
+case class PersonalService(workerSentActualSubstitute: Option[String] = None, workerPayActualSubstitute: Option[String] = None,
+                     possibleSubstituteRejection: Option[String] = None, possibleSubstituteWorkerPay: Option[String] = None,
+                     wouldWorkerPayHelper: Option[String] = None)
+
+
+object PersonalService {
+  def apply(interview: Map[String, Map[String, String]]): PersonalService = {
+    interview.get("personalService").fold[PersonalService]
+      {PersonalService()}
+      { ps =>
+        PersonalService(
+          ps.get("workerSentActualSubstitute"),
+          ps.get("workerPayActualSubstitute"),
+          ps.get("possibleSubstituteRejection"),
+          ps.get("possibleSubstituteWorkerPay"),
+          ps.get("wouldWorkerPayHelper"))
+      }
+  }
+}
 
 case class Control(engagerMovingWorker: Option[String], workerDecidingHowWorkIsDone: Option[String], workHasToBeDone: Option[String],
                      workerDecideWhere: Option[String])
