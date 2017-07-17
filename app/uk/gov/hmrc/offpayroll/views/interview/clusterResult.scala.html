@@ -6,13 +6,20 @@
     <p>@messages(cluster+"Cluster"+".summary")</p>
 
 }
-<ul class="section">
-@for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
-    <li class="divider--bottom"><h3>@messages(key)</h3>
-        <div>@resultPageHelper.fragments.get(key)</div>
-        @for(child <- value) {
-            <div id="answer.@key" class="panel-indent">@messages(child)</div>
+<details>
+    <summary role="button">
+        <span class="summary">View my answers for this section</span>
+    </summary>
+    <panel>
+        <ul class="section">
+        @for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
+            <li class="divider--bottom"><h3>@messages(key)</h3>
+                <div>@resultPageHelper.fragments.get(key)</div>
+                @for(child <- value) {
+                    <div id="answer.@key" class="panel-indent">@messages(child)</div>
+                }
+            </li>
         }
-    </li>
-}
-</ul>
+        </ul>
+    </panel>
+</details>
