@@ -52,7 +52,7 @@ trait DecisionConnector {
         Logger.error(s"Not Found Exception while calling Offpayroll Decision to log analytics ${e.getMessage}")
         HttpResponse.apply(NOT_FOUND)
       case e : Exception =>
-        Logger.error(s"Exception while connecting to email capture service ${e.getMessage}")
+        Logger.error(s"Exception while connecting to Offpayroll Decision to log analytics ${e.getMessage}")
         HttpResponse.apply(INTERNAL_SERVER_ERROR)
     }
   }
