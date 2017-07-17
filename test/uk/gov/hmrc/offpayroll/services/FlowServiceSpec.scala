@@ -76,8 +76,8 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
   private val jsonResponse_inIr35 = Json.fromJson[DecisionResponse](Json.parse(decisionResponseString_inIr35)).get
   private val jsonResponse_unknown = Json.fromJson[DecisionResponse](Json.parse(decisionResponseString_unknown)).get
   val mockDecisionConnector = mock[DecisionConnector]
-  val mockLogInterviewConnector = mock[LogInterviewConnector]
-  val testFlowService = new IR35FlowService(mockDecisionConnector, mockLogInterviewConnector)
+
+  val testFlowService = new IR35FlowService(mockDecisionConnector)
 
   "A Flow Service should " should {
     " be able to get the start of an Interview" in {
@@ -101,7 +101,7 @@ class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig wit
     " Exit when Yes is answered for exit.officeHolder as it would be the final question" in {
 
       when(mockDecisionConnector.decide(any())(any())).thenReturn(Future(jsonResponse_inIr35))
-      when(mockLogInterviewConnector.log(any())(any())).thenReturn(Future(jsonResponse_inIr35))
+      when(mockDecisionConnector.log(any())(any())).thenReturn(Future(jsonResponse_inIr35))
 
       val interview: Map[String, String] = fullInterview_ir35OfficeHolderYes
       val currentElement: (String, String) = "exit.officeHolder" -> "Yes"

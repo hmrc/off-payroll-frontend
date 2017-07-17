@@ -92,8 +92,9 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
 
   object testConnector extends DecisionConnector {
     override val decisionURL: String = "off-payroll-decision"
-    override val serviceURL: String = "decide"
+    override val serviceDecideURL: String = "decide"
     override val http: HttpPost = mock[WSHttp]
+    override val serviceLogURL: String = "log"
   }
 
   "Calling /off-payroll-decision/decide" should {

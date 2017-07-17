@@ -17,11 +17,11 @@
 package uk.gov.hmrc.offpayroll.connectors
 
 import com.google.inject.ImplementedBy
-import uk.gov.hmrc.offpayroll.FrontendLogInterviewConnector
+//import uk.gov.hmrc.offpayroll.FrontendLogInterviewConnector
 import uk.gov.hmrc.offpayroll.models.{DecisionResponse, LogInterview}
 import uk.gov.hmrc.offpayroll.modelsFormat._
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost, HttpResponse}
-import uk.gov.hmrc.offpayroll.models.InterviewFormat._
+//import uk.gov.hmrc.offpayroll.models.InterviewFormat._
 //import play.api.mvc.Result
 
 import scala.concurrent.Future
@@ -29,7 +29,7 @@ import scala.concurrent.Future
 /**
   * Created by brian on 10/07/2017.
   */
-@ImplementedBy(classOf[FrontendLogInterviewConnector])
+//@ImplementedBy(classOf[FrontendLogInterviewConnector])
 trait LogInterviewConnector {
 
 

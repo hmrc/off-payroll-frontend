@@ -16,10 +16,7 @@
 
 package uk.gov.hmrc.offpayroll.models
 
-import ai.x.play.json.Jsonx
 import org.joda.time.DateTime
-import play.api.libs.json._
-import uk.gov.hmrc.offpayroll.controllers.DecisionResponse
 
 /**
   * Created by work on 20/06/2017.
@@ -62,24 +59,6 @@ case class InterviewSearchResponse(compressedInterview: String, route: String, d
 
 case class AnalyticsResponse(interviews: List[InterviewSearchResponse])
 
-object InterviewFormat {
-  val dateFormat = "yyyy-MM-dd HH:mm:ss"
 
-  implicit val dateWrites = Writes.jodaDateWrites(dateFormat)
-  implicit val dateReads = Reads.jodaDateReads(dateFormat)
-
-  implicit val sFormat = Json.format[Setup]
-  implicit val eFormat = Json.format[Exit]
-  implicit val psFormat = Json.format[PersonalService]
-  implicit val cFormat = Json.format[Control]
-  implicit val frFormat = Json.format[FinancialRisk]
-  implicit val ppFormat = Json.format[PartAndParcel]
-  implicit val iFormat = Json.format[LogInterview]
-
-  implicit val isFormat = Json.format[InterviewSearch]
-
-  implicit val isrFormat = Jsonx.formatCaseClass[InterviewSearchResponse]
-  implicit val arFormat = Jsonx.formatCaseClass[AnalyticsResponse]
-}
 
 
