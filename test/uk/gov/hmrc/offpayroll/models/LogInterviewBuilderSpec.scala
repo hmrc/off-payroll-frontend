@@ -26,7 +26,8 @@ class LogInterviewBuilderSpec extends FlatSpec with Matchers  {
 
   private val interview = Map(
     "exit" -> Map("officeHolder" -> "Yes"),
-    "setup" -> Map("endUserRole" -> "endClient", "hasContractStarted" -> "Yes", "provideServices" -> "partnership"))
+    "setup" -> Map("endUserRole" -> "endClient", "hasContractStarted" -> "Yes", "provideServices" -> "partnership"),
+  "personalService" -> Map("workerSentActualSubstitute" -> "Yes"))
 
   private val TEST_CORRELATION_ID = "00000001099"
   private val TEST_COMPRESSED_INTERVIEW = "DIFqfup0a"
@@ -62,10 +63,17 @@ class LogInterviewBuilderSpec extends FlatSpec with Matchers  {
     logInterview.exit.officeHolder shouldBe "Yes"
   }
 
-  it should "create and populate a setup objevt from the intervoew passed in the decisionRequest" in {
+  it should "create and populate a setup object from the interview passed in the decisionRequest" in {
     logInterview.setup.endUserRole shouldBe "endClient"
     logInterview.setup.hasContractStarted shouldBe "Yes"
     logInterview.setup.provideServices shouldBe "partnership"
+  }
+
+  it should "contain a valid PersonalService section" in {
+    val personalService = logInterview.personalService
+    personalService shouldBe defined
+    personalService.get.workerSentActualSubstitute shouldBe defined
+    personalService.get.workerSentActualSubstitute.get shouldBe "Yes"
   }
 
 }
