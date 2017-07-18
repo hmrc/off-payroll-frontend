@@ -1,25 +1,38 @@
 @import uk.gov.hmrc.offpayroll.util.ResultPageHelper
-@(cluster: String, resultPageHelper: ResultPageHelper, messages: Messages)
+@(cluster: String, resultPageHelper: ResultPageHelper, messages: Messages, renderShowHideToggle: Boolean)
 
 <h2>@messages(cluster+"Cluster"+".title")</h2>
 @if(!cluster.equals("setup")){
     <p>@messages(cluster+"Cluster"+".summary")</p>
 
 }
-<details>
-    <summary role="button">
-        <span class="summary">View my answers for this section</span>
-    </summary>
-    <panel>
-        <ul class="section">
-        @for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
-            <li class="divider--bottom"><h3>@messages(key)</h3>
-                <div>@resultPageHelper.fragments.get(key)</div>
-                @for(child <- value) {
-                    <div id="answer.@key" class="panel-indent">@messages(child)</div>
-                }
-            </li>
-        }
-        </ul>
-    </panel>
-</details>
+@if(renderShowHideToggle){
+    <details>
+        <summary role="button">
+            <span class="summary">View my answers for this section</span>
+        </summary>
+        <panel>
+            <ul class="section">
+            @for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
+                <li class="divider--bottom"><h3>@messages(key)</h3>
+                    <div>@resultPageHelper.fragments.get(key)</div>
+                    @for(child <- value) {
+                        <div id="answer.@key" class="panel-indent">@messages(child)</div>
+                    }
+                </li>
+            }
+            </ul>
+        </panel>
+    </details>
+}else{
+    <ul class="section">
+    @for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
+        <li class="divider--bottom"><h3>@messages(key)</h3>
+            <div>@resultPageHelper.fragments.get(key)</div>
+            @for(child <- value) {
+                <div id="answer.@key" class="panel-indent">@messages(child)</div>
+            }
+        </li>
+    }
+    </ul>
+}

@@ -1,7 +1,7 @@
 
 @import uk.gov.hmrc.offpayroll.models.Decision
 @import uk.gov.hmrc.offpayroll.util.ResultPageHelper
-@(decision: Decision, resultPageHelper: ResultPageHelper, f:Form[_])(implicit request: Request[_], messages: Messages, lang: Lang)
+@(decision: Decision, resultPageHelper: ResultPageHelper, f:Form[_], renderShowHideToggle: Boolean)(implicit request: Request[_], messages: Messages, lang: Lang)
 
 <div class="transaction-banner--complete">
     <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(resultPageHelper.decisionKey+".headerBox")</span>
@@ -11,27 +11,27 @@
 @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".resultSummary")
 
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
-    @clusterResult("setup",resultPageHelper, messages)
+    @clusterResult("setup",resultPageHelper, messages, renderShowHideToggle)
 }
 
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("exit").nonEmpty){
-    @clusterResult("exit",resultPageHelper, messages)
+    @clusterResult("exit",resultPageHelper, messages, renderShowHideToggle)
 }
 
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("personalService").nonEmpty){
-    @clusterResult("personalService",resultPageHelper, messages)
+    @clusterResult("personalService",resultPageHelper, messages, renderShowHideToggle)
 }
 
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("control").nonEmpty){
-    @clusterResult("control",resultPageHelper, messages)
+    @clusterResult("control",resultPageHelper, messages, renderShowHideToggle)
 }
 
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("financialRisk").nonEmpty){
-    @clusterResult("financialRisk",resultPageHelper, messages)
+    @clusterResult("financialRisk",resultPageHelper, messages, renderShowHideToggle)
 }
 
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("partParcel").nonEmpty){
-    @clusterResult("partParcel",resultPageHelper, messages)
+    @clusterResult("partParcel",resultPageHelper, messages, renderShowHideToggle)
 }
 
 @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".action")
