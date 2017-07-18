@@ -37,18 +37,18 @@ package object modelsFormat {
   implicit val dateWrites = Writes.jodaDateWrites(dateFormat)
   implicit val dateReads = Reads.jodaDateReads(dateFormat)
 
-  implicit val sFormat = Json.format[Setup]
-  implicit val eFormat = Json.format[Exit]
-  implicit val psFormat = Json.format[PersonalService]
-  implicit val cFormat = Json.format[Control]
-  implicit val frFormat = Json.format[FinancialRisk]
-  implicit val ppFormat = Json.format[PartAndParcel]
-  implicit val iFormat = Json.format[LogInterview]
+  implicit val interviewSetupFormat = Json.format[Setup]
+  implicit val interviewExitFormat = Json.format[Exit]
+  implicit val interviewPersonalServiceFormat = Json.format[PersonalService]
+  implicit val interviewControlFormat = Json.format[Control]
+  implicit val interviewFinancialRiskFormat = Json.format[FinancialRisk]
+  implicit val interviewPartAndParcelFormat = Json.format[PartAndParcel]
+  implicit val interviewFormat = Json.format[LogInterview]
 
-  implicit val isFormat = Json.format[InterviewSearch]
+  implicit val interviewSearchFormat = Json.format[InterviewSearch]
 
-  implicit val isrFormat = Jsonx.formatCaseClass[InterviewSearchResponse]
-  implicit val arFormat = Jsonx.formatCaseClass[AnalyticsResponse]
+  implicit val interviewSearchResponceFormat = Jsonx.formatCaseClass[InterviewSearchResponse]
+  implicit val analyticsResponseFormat = Jsonx.formatCaseClass[AnalyticsResponse]
 
 
 }
