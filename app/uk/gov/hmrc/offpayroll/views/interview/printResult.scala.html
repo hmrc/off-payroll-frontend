@@ -131,11 +131,22 @@
         background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAQAAAC00HvSAAABZklEQVR4Aa3WsWoTUBTG8V9v4yQElywRAlYzJVCQdMrgmKVDce3m3mfI0ofoY7QQfAOngmQIOGgzOGRpQYhLUynHZjb3JtL7/+8f53DhfmfPZlqGjvR1tTUtLXw3c+2LWzsycG4qNjp1bmArHWM3ouiNsY4CIxOxkxMjGU7NxM7OnG4OmYv/cv5v0KgwSWmiEdAAHWd6NvLeHsJXG+g5881PgLHI+RBrHkLOMcCg9MS/Y82y9PwDEk4cyHIPVrIcOCFpOVZgtS2GY61k6PCZMYeGyRFsW+pekaOkzzOnoZ90K8R0k3aFpdpJs8I0zWRZIWaZLCosteBKlNyPF0/uh5JXyUyRR3+efFRk1nCtyBufrFy4U+CalqnI+Tp+xZof8TLknGoltyayfPQKvPVBlonbhEtzGe4A8kvNXW79/RrxOdZc7PD70cn301704l2przoVm6FCT1VozQodXuuiqH/fVLq2/gLNMwwtCpJpLgAAAABJRU5ErkJggg==);
         padding-left: 2.36842em;
     }
-    summary{
-        display: none;
+    ul.section{
+        margin: 0;
+        padding:0;
     }
-    details, details panel{
-        display: block !important
+    ul.section > li{
+        list-style-type: none;
+        margin-bottom: 1em;
+    }
+    ul.section + h2 {
+        margin-top: 2.5em;
+    }
+    p.form-hint{
+        margin: 0 0 0.5em 0;
+    }
+    .indent-warning{
+        min-height: 2em;
     }
     </style>
 }
