@@ -28,7 +28,7 @@
 
             @helpers.form(routes.PrintController.format, 'id -> "resultData") {
 
-                <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
+                <a href="@routes.InterviewController.back()" style="line-height:3">@Messages("back.capitalised")</a>
 
                 @if(f.errors.headOption.isDefined) {
                     <div class="flash error-summary error-summary--show" id="error-summary-display" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
