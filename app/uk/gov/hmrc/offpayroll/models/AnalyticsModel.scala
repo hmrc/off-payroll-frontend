@@ -48,16 +48,61 @@ object PersonalService {
   }
 }
 
-case class Control(engagerMovingWorker: Option[String], workerDecidingHowWorkIsDone: Option[String], workHasToBeDone: Option[String],
-                     workerDecideWhere: Option[String])
+case class Control(engagerMovingWorker: Option[String] = None, workerDecidingHowWorkIsDone: Option[String] = None, workHasToBeDone: Option[String] = None,
+                     workerDecideWhere: Option[String] = None)
 
-case class FinancialRisk(workerProvidedMaterials: Option[String], workerProvidedEquipment: Option[String],
-                         workerUsedVehicle: Option[String], workerHadOtherExpenses: Option[String],
-                         expensesAreNotRelevantForRole: Option[String],
-                         workerMainIncome: Option[String], paidForSubstandardWork: Option[String])
+object Control {
+  def apply(interview: Map[String, Map[String, String]]): Control = {
+    interview.get("control").fold[Control]
+      {Control()}
+      { c =>
+        Control(
+          c.get("engagerMovingWorker"),
+          c.get("workerDecidingHowWorkIsDone"),
+          c.get("workHasToBeDone"),
+          c.get("workerDecideWhere"))
+      }
+  }
+}
 
-case class PartAndParcel(workerReceivesBenefits: Option[String], workerAsLineManager: Option[String],
-                         contactWithEngagerCustomer: Option[String],  workerRepresentsEngagerBusiness: Option[String])
+case class FinancialRisk(workerProvidedMaterials: Option[String] = None, workerProvidedEquipment: Option[String] = None,
+                         workerUsedVehicle: Option[String] = None, workerHadOtherExpenses: Option[String] = None,
+                         expensesAreNotRelevantForRole: Option[String] = None,
+                         workerMainIncome: Option[String] = None, paidForSubstandardWork: Option[String] = None)
+
+object FinancialRisk {
+  def apply(interview: Map[String, Map[String, String]]): FinancialRisk = {
+    interview.get("FinancialRisk").fold[FinancialRisk]
+      {FinancialRisk()}
+      { fr =>
+        FinancialRisk(
+          fr.get("workerProvidedMaterials"),
+          fr.get("workerProvidedEquipment"),
+          fr.get("workerUsedVehicle"),
+          fr.get("workerHadOtherExpenses"),
+          fr.get("expensesAreNotRelevantForRole"),
+          fr.get("workerMainIncome"),
+          fr.get("paidForSubstandardWork"))
+      }
+  }
+}
+
+case class PartAndParcel(workerReceivesBenefits: Option[String] = None, workerAsLineManager: Option[String] = None,
+                         contactWithEngagerCustomer: Option[String] = None,  workerRepresentsEngagerBusiness: Option[String] = None)
+
+object PartAndParcel {
+  def apply(interview: Map[String, Map[String, String]]): PartAndParcel = {
+    interview.get("PartAndParcel").fold[PartAndParcel]
+      {PartAndParcel()}
+      { pp =>
+        PartAndParcel(
+          pp.get("workerReceivesBenefits"),
+          pp.get("workerAsLineManager"),
+          pp.get("contactWithEngagerCustomer"),
+          pp.get("workerRepresentsEngagerBusiness"))
+      }
+  }
+}
 
 case class InterviewSearch(version: String, start: DateTime, end: DateTime)
 
