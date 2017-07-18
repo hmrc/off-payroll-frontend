@@ -49,64 +49,16 @@ package object LogInterviewBuilder {
 
 
     def createControl(): Control = {
-      if (interview.exists(_._1 == "control")) {
-        Control(
-          Option(interview("control").get("engagerMovingWorker").getOrElse("")),
-          Option(interview("control").get("workerDecidingHowWorkIsDone").getOrElse("")),
-          Option(interview("control").get("workHasToBeDone").getOrElse("")),
-          Option(interview("control").get("workerDecideWhere").getOrElse(""))
-        )
-      } else {
-        Control(
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty
-        )
-      }
+      Control(interview)
     }
 
 
     def createFinacialRisk(): FinancialRisk = {
-      if (interview.exists(_._1 == "financialRisk")) {
-        FinancialRisk(
-          Option(interview("financialRisk").get("workerProvidedMaterials").getOrElse("")),
-          Option(interview("financialRisk").get("workerProvidedEquipment").getOrElse("")),
-          Option(interview("financialRisk").get("workerUsedVehicle").getOrElse("")),
-          Option(interview("financialRisk").get("workerHadOtherExpenses").getOrElse("")),
-          Option(interview("financialRisk").get("expensesAreNotRelevantForRole").getOrElse("")),
-          Option(interview("financialRisk").get("workerMainIncome").getOrElse("")),
-          Option(interview("financialRisk").get("paidForSubstandardWork").getOrElse(""))
-        )
-      } else {
-        FinancialRisk(
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty
-        )
-      }
+      FinancialRisk(interview)
     }
 
     def createPartAndParcel(): PartAndParcel = {
-      if (interview.exists(_._1 == "partAndParcel")) {
-        PartAndParcel(
-          Option(interview("partAndParcel").get("workerReceivesBenefits").getOrElse("")),
-          Option(interview("partAndParcel").get("workerAsLineManager").getOrElse("")),
-          Option(interview("partAndParcel").get("contactWithEngagerCustomer").getOrElse("")),
-          Option(interview("partAndParcel").get("workerRepresentsEngagerBusiness").getOrElse(""))
-        )
-      } else {
-        PartAndParcel(
-          Option.empty,
-          Option.empty,
-          Option.empty,
-          Option.empty
-        )
-      }
+      PartAndParcel(interview)
     }
 
     def getRoute(route: String): String = {
@@ -118,7 +70,7 @@ package object LogInterviewBuilder {
       compressedInterview,
       getRoute(setup.provideServices),
       decision.result,
-      Option.empty,
+      None,
       setup,
       exit,
       Option(createPersonalService),
