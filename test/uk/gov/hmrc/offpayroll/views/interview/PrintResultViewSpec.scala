@@ -54,7 +54,7 @@ class PrintResultViewSpec extends UnitSpec with WithFakeApplication with ScalaFu
 
   "printResult view" should {
     "display the correct help text and guidance" in {
-      val displayDecision: Html = printResult(printResultObject, decision, resultPageHelper, emptyForm)
+      val displayDecision: Html = printResult(printResultObject, decision, resultPageHelper, emptyForm, false)
 
       displayDecision.body.contains(helpText) shouldBe true
     }

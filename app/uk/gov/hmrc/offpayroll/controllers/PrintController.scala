@@ -67,8 +67,8 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         val interviewAsRawList = compressedInterview.asRawList
         val fragments = fragmentService.getAllFragmentsForInterview(compressedInterview.asMap) ++ fragmentService.getFragmentsByFilenamePrefix("result")
         val resultPageHelper = ResultPageHelper(interviewAsRawList, decisionType, fragments, cluster, esi)
-
-        Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision, interviewAsRawList, esi, compressedInterviewRawString, resultPageHelper, error)))
+        val renderShowHideToggle = false
+        Future.successful(BadRequest(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(decision, interviewAsRawList, esi, compressedInterviewRawString, resultPageHelper, error, renderShowHideToggle)))
       },
       formSuccess => {
         Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.formatPrint(formSuccess)))
@@ -110,7 +110,8 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
         val decision = Decision(session,getDecisionType(printResult.decisionResult),printResult.decisionVersion,printResult.decisionCluster)
         val resultPageHelper = ResultPageHelper(interview, getDecisionType(printResult.decisionResult), fragments, printResult.decisionCluster, printResult.esi)
 
-        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(printResult, decision, resultPageHelper, emptyForm)
+        val renderShowHideToggle = false
+        val body: Html = uk.gov.hmrc.offpayroll.views.html.interview.printResult(printResult, decision, resultPageHelper, emptyForm, renderShowHideToggle)
 
         if (OffPayrollSwitches.offPayrollPdf.enabled) {
           pdfGeneratorConnector.generatePdf(removeScriptTags(body.toString)).map { response =>
