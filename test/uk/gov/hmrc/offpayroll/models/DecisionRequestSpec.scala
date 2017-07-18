@@ -37,7 +37,7 @@ class DecisionRequestSpec extends FlatSpec with Matchers  {
     "{\"personalService\":{\"personalService.workerSentActualSubstitiute\":\"false\"}}}"
 
   "A DecisionRequest " should " serialize " in {
-    //Logger.info(decideRequestFormatter.writes(decideRequest).toString())
+//    Logger.info(decideRequestFormatter.writes(decideRequest).toString())
     decideRequestFormatter.writes(decideRequest).toString() should === (expectedJsonDecideRequest)
   }
 

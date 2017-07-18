@@ -17,6 +17,7 @@
 package uk.gov.hmrc.offpayroll
 
 import play.twirl.api.Html
+import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
 
 /**
   * Created by peter on 11/01/2017.
@@ -280,5 +281,45 @@ package object resources {
     )
 
   val fragments: Map[String, Html] = Map()
+
+
+  val TEST_CORRELATION_ID = "00000001099"
+  val TEST_COMPRESSED_INTERVIEW = "DIFqfup0a"
+  val TEST_VERSION = "1.5.0-final"
+  val TEST_DECISION ="Inside IR35"
+
+  val completeInterview = Map(
+    "exit" -> Map("officeHolder" -> "Yes"),
+    "setup" -> Map("endUserRole" -> "endClient", "hasContractStarted" -> "Yes", "provideServices" -> "partnership"),
+    "personalService" -> Map("workerSentActualSubstitute" -> "Yes",
+      "workerPayActualSubstitute" -> "No",
+      "possibleSubstituteRejection" -> "Yes",
+      "possibleSubstituteWorkerPay" -> "No",
+      "wouldWorkerPayHelper" -> "Yes"),
+    "control" -> Map("engagerMovingWorker" -> "Yes",
+      "workerDecidingHowWorkIsDone" -> "No",
+      "workHasToBeDone" -> "Yes",
+      "workerDecideWhere" -> "No"),
+    "financialRisk" -> Map("workerProvidedMaterials" -> "Yes",
+      "workerProvidedEquipment" -> "No",
+      "workerUsedVehicle" -> "Yes",
+      "workerHadOtherExpenses" -> "No",
+      "expensesAreNotRelevantForRole" -> "Yes",
+      "workerMainIncome" -> "No",
+      "paidForSubstandardWork" -> "Yes"),
+    "partAndParcel" -> Map("workerReceivesBenefits" -> "Yes",
+      "workerAsLineManager" -> "No",
+      "contactWithEngagerCustomer" -> "Yes",
+      "workerRepresentsEngagerBusiness" -> "No")
+  )
+
+  val logInterviewJson = "{\"version\":\"1.5.0-final\",\"compressedInterview\":\"DIFqfup0a\",\"route\":\"IR35\",\"decision\":\"Inside IR35\"," +
+    "\"setup\":{\"endUserRole\":\"endClient\",\"hasContractStarted\":\"Yes\",\"provideServices\":\"partnership\"}," +
+    "\"exit\":{\"officeHolder\":\"Yes\"}," +
+    "\"personalService\":{\"workerSentActualSubstitute\":\"Yes\",\"workerPayActualSubstitute\":\"No\",\"possibleSubstituteRejection\":\"Yes\",\"possibleSubstituteWorkerPay\":\"No\",\"wouldWorkerPayHelper\":\"Yes\"}," +
+    "\"control\":{\"engagerMovingWorker\":\"Yes\",\"workerDecidingHowWorkIsDone\":\"No\",\"workHasToBeDone\":\"Yes\",\"workerDecideWhere\":\"No\"}," +
+    "\"financialRisk\":{\"workerProvidedMaterials\":\"Yes\",\"workerProvidedEquipment\":\"No\",\"workerUsedVehicle\":\"Yes\",\"workerHadOtherExpenses\":\"No\",\"expensesAreNotRelevantForRole\":\"Yes\",\"workerMainIncome\":\"No\",\"paidForSubstandardWork\":\"Yes\"}," +
+    "\"partAndParcel\":{\"workerReceivesBenefits\":\"Yes\",\"workerAsLineManager\":\"No\",\"contactWithEngagerCustomer\":\"Yes\",\"workerRepresentsEngagerBusiness\":\"No\"}," +
+    "\"completed\":\"2017-07-18 15:15:18\"}"
 
 }

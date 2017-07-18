@@ -17,6 +17,11 @@
 package uk.gov.hmrc.offpayroll.models
 
 import org.scalatest.{FlatSpec, Matchers}
+import uk.gov.hmrc.offpayroll.resources._
+
+import play.api.libs.json.Json._
+import uk.gov.hmrc.offpayroll.modelsFormat._
+import play.api.Logger
 
 /**
   * Created by brianheathcote on 15/07/2017.
@@ -24,16 +29,12 @@ import org.scalatest.{FlatSpec, Matchers}
 
 class LogInterviewBuilderSpec extends FlatSpec with Matchers  {
 
-  private val interview = Map(
-    "exit" -> Map("officeHolder" -> "Yes"),
-    "setup" -> Map("endUserRole" -> "endClient", "hasContractStarted" -> "Yes", "provideServices" -> "partnership"),
-  "personalService" -> Map("workerSentActualSubstitute" -> "Yes"))
+//  private val interview = Map(
+//    "exit" -> Map("officeHolder" -> "Yes"),
+//    "setup" -> Map("endUserRole" -> "endClient", "hasContractStarted" -> "Yes", "provideServices" -> "partnership"),
+//  "personalService" -> Map("workerSentActualSubstitute" -> "Yes"))
 
-  private val TEST_CORRELATION_ID = "00000001099"
-  private val TEST_COMPRESSED_INTERVIEW = "DIFqfup0a"
-  private val TEST_VERSION = "1.5.0-final"
-  private val TEST_DECISION ="Inside IR35"
-  private val decisionRequest = DecisionRequest(TEST_VERSION, TEST_CORRELATION_ID, interview)
+  private val decisionRequest = DecisionRequest(TEST_VERSION, TEST_CORRELATION_ID, completeInterview)
   private val decision = DecisionResponse(TEST_VERSION, TEST_CORRELATION_ID, Map("testKey" -> "testValue"), TEST_DECISION)
 
   val logInterview = LogInterviewBuilder.buildLogRequest(decisionRequest, TEST_COMPRESSED_INTERVIEW, decision)
@@ -60,13 +61,15 @@ class LogInterviewBuilderSpec extends FlatSpec with Matchers  {
   }
 
   it should "create and populate an exit object from the interview passed in the decisionRequest" in {
-    logInterview.exit.officeHolder shouldBe "Yes"
+    val exit = logInterview.exit
+    exit.officeHolder shouldBe "Yes"
   }
 
   it should "create and populate a setup object from the interview passed in the decisionRequest" in {
-    logInterview.setup.endUserRole shouldBe "endClient"
-    logInterview.setup.hasContractStarted shouldBe "Yes"
-    logInterview.setup.provideServices shouldBe "partnership"
+    val setup = logInterview.setup
+    setup.endUserRole shouldBe "endClient"
+    setup.hasContractStarted shouldBe "Yes"
+    setup.provideServices shouldBe "partnership"
   }
 
   it should "contain a valid PersonalService section" in {
@@ -74,6 +77,66 @@ class LogInterviewBuilderSpec extends FlatSpec with Matchers  {
     personalService shouldBe defined
     personalService.get.workerSentActualSubstitute shouldBe defined
     personalService.get.workerSentActualSubstitute.get shouldBe "Yes"
+    personalService.get.workerPayActualSubstitute shouldBe defined
+    personalService.get.workerPayActualSubstitute.get shouldBe "No"
+    personalService.get.possibleSubstituteRejection shouldBe defined
+    personalService.get.possibleSubstituteRejection.get shouldBe "Yes"
+    personalService.get.possibleSubstituteWorkerPay shouldBe defined
+    personalService.get.possibleSubstituteWorkerPay.get shouldBe "No"
+    personalService.get.wouldWorkerPayHelper shouldBe defined
+    personalService.get.wouldWorkerPayHelper.get shouldBe "Yes"
   }
+
+  it should "contain a valid Control section" in {
+    val control = logInterview.control
+    control shouldBe defined
+    control.get.engagerMovingWorker shouldBe defined
+    control.get.engagerMovingWorker.get shouldBe "Yes"
+    control.get.workerDecidingHowWorkIsDone shouldBe defined
+    control.get.workerDecidingHowWorkIsDone.get shouldBe "No"
+    control.get.workHasToBeDone shouldBe defined
+    control.get.workHasToBeDone.get shouldBe "Yes"
+    control.get.workerDecideWhere shouldBe defined
+    control.get.workerDecideWhere.get shouldBe "No"
+  }
+
+  it should "contain a valid FinancialRisk section" in {
+    val financilRisk = logInterview.financialRisk
+    financilRisk shouldBe defined
+    financilRisk.get.workerProvidedMaterials shouldBe defined
+    financilRisk.get.workerProvidedMaterials.get shouldBe "Yes"
+    financilRisk.get.workerProvidedEquipment shouldBe defined
+    financilRisk.get.workerProvidedEquipment.get shouldBe "No"
+    financilRisk.get.workerUsedVehicle shouldBe defined
+    financilRisk.get.workerUsedVehicle.get shouldBe "Yes"
+    financilRisk.get.workerHadOtherExpenses shouldBe defined
+    financilRisk.get.workerHadOtherExpenses.get shouldBe "No"
+    financilRisk.get.expensesAreNotRelevantForRole shouldBe defined
+    financilRisk.get.expensesAreNotRelevantForRole.get shouldBe "Yes"
+    financilRisk.get.workerMainIncome shouldBe defined
+    financilRisk.get.workerMainIncome.get shouldBe "No"
+    financilRisk.get.paidForSubstandardWork shouldBe defined
+    financilRisk.get.paidForSubstandardWork.get shouldBe "Yes"
+  }
+
+  it should "contain a valid PartAndParcel section" in {
+    val partAndParcel = logInterview.partAndParcel
+    partAndParcel shouldBe defined
+    partAndParcel.get.workerReceivesBenefits shouldBe defined
+    partAndParcel.get.workerReceivesBenefits.get shouldBe "Yes"
+    partAndParcel.get.workerAsLineManager shouldBe defined
+    partAndParcel.get.workerAsLineManager.get shouldBe "No"
+    partAndParcel.get.contactWithEngagerCustomer shouldBe defined
+    partAndParcel.get.contactWithEngagerCustomer.get shouldBe "Yes"
+    partAndParcel.get.workerRepresentsEngagerBusiness shouldBe defined
+    partAndParcel.get.workerRepresentsEngagerBusiness.get shouldBe "No"
+  }
+
+//  it should "produce excellent json" in {
+//    val jsonInterview = toJson(logInterview)
+//    Logger.info(jsonInterview.toString())
+////    Logger.info(toJson(logInterviewJson).toString)
+//    true shouldBe true
+//  }
 
 }

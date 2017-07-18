@@ -72,7 +72,7 @@ case class FinancialRisk(workerProvidedMaterials: Option[String] = None, workerP
 
 object FinancialRisk {
   def apply(interview: Map[String, Map[String, String]]): FinancialRisk = {
-    interview.get("FinancialRisk").fold[FinancialRisk]
+    interview.get("financialRisk").fold[FinancialRisk]
       {FinancialRisk()}
       { fr =>
         FinancialRisk(
@@ -92,7 +92,7 @@ case class PartAndParcel(workerReceivesBenefits: Option[String] = None, workerAs
 
 object PartAndParcel {
   def apply(interview: Map[String, Map[String, String]]): PartAndParcel = {
-    interview.get("PartAndParcel").fold[PartAndParcel]
+    interview.get("partAndParcel").fold[PartAndParcel]
       {PartAndParcel()}
       { pp =>
         PartAndParcel(
