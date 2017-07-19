@@ -17,6 +17,7 @@
 package uk.gov.hmrc.offpayroll.connectors
 
 import com.kenshoo.play.metrics.PlayModule
+import org.joda.time.DateTime
 import org.scalatest.mockito.MockitoSugar
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
@@ -25,8 +26,13 @@ import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
 import uk.gov.hmrc.play.http.ws.WSHttp
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+//import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import uk.gov.hmrc.play.test._
 import uk.gov.hmrc.offpayroll.modelsFormat._
+import uk.gov.hmrc.offpayroll.models._
+import org.scalatest.Matchers._
+import org.scalatest.concurrent.ScalaFutures
+import play.api.http.Status
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -34,9 +40,10 @@ import scala.concurrent.Future
 /**
   * Created by peter on 12/12/2016.
   */
-class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication {
+class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication with ScalaFutures {
 
   implicit val hc = HeaderCarrier()
+
   override def bindModules = Seq(new PlayModule)
 
   private val version = "1.0.0-beta"
@@ -85,10 +92,10 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
 
   object testConnector extends DecisionConnector {
     override val decisionURL: String = "off-payroll-decision"
-    override val serviceURL: String = "decide"
+    override val serviceDecideURL: String = "decide"
     override val http: HttpPost = mock[WSHttp]
+    override val serviceLogURL: String = "log"
   }
-
 
   "Calling /off-payroll-decision/decide" should {
     "return a decision" in {
@@ -105,7 +112,7 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
       decideResponse.correlationID shouldBe correlationId
       decideResponse.score.size shouldBe 5
 
-      for (score <- List("personalService", "control", "financialRiskA", "financialRiskB","partAndParcel" )){
+      for (score <- List("personalService", "control", "financialRiskA", "financialRiskB", "partAndParcel")) {
         decideResponse.score.contains(score) shouldBe true
       }
 
@@ -114,4 +121,5 @@ class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConf
     }
 
   }
+
 }

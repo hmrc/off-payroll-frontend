@@ -28,6 +28,8 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
   */
 class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication with ScalaFutures  {
   private val TEST_CORRELATION_ID = "00000001099"
+  private val TEST_COMPRESSED_INTERVIEW = "7yYJCkUbY"
+
   private val personalService = PropertyFileLoader.transformMapFromQuestionTextToAnswers("personalService")
   private val csrf = "csrf"
   private val fullPlusJunk:Map[String,String] = personalService + (csrf -> "112361283681230")
@@ -39,7 +41,7 @@ class FlowServiceIntegrationSpec extends UnitSpec with WithFakeApplication with 
 
   "A flow Service" should {
     "Process a full Interview and give a decision" in {
-      val result = await(flowservice.evaluateInterview(fullPlusJunk, lastElement, TEST_CORRELATION_ID))
+      val result = await(flowservice.evaluateInterview(fullPlusJunk, lastElement, TEST_CORRELATION_ID, TEST_COMPRESSED_INTERVIEW))
       result.continueWithQuestions shouldBe false
       result.element.isEmpty shouldBe true
       result.correlationId shouldBe TEST_CORRELATION_ID

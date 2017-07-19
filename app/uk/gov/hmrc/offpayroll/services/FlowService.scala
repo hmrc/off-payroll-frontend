@@ -40,7 +40,7 @@ abstract class FlowService {
     * @param interview
     * @return
     */
-  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation]
+  def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String, compressedInterview: String): Future[InterviewEvaluation]
 
   def getStart(interview: Map[String, String]): Option[Element]
 
@@ -76,25 +76,33 @@ class IR35FlowService @Inject() (val decisionConnector: DecisionConnector) exten
     case _ => UNKNOWN
   }
 
-  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String): Future[InterviewEvaluation] = {
+  override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String, compressedInterview: String): Future[InterviewEvaluation] = {
 
     val cleanInterview = interview.filter(qa => flow.clusters.exists(clsrt => qa._1.startsWith(clsrt.name)))
     val currentTag = currentQnA._1
     val currentElement: Element = guardValidElement(currentTag)
     val optionalNextElement = flow.shouldAskForDecision(interview, currentQnA)
 
+    def logInterview(decisionRequest: DecisionRequest, decision: DecisionResponse) = {
+      decisionConnector.log(LogInterviewBuilder.buildLogRequest(decisionRequest, compressedInterview, decision))
+    }
+
     if (optionalNextElement.isEmpty) {
-      decisionConnector.decide(DecisionBuilder.buildDecisionRequest(cleanInterview, correlationId)).map[InterviewEvaluation](
+
+      val decisionRequest = DecisionBuilder.buildDecisionRequest(cleanInterview, correlationId)
+      decisionConnector.decide(decisionRequest).map[InterviewEvaluation](
         decision => {
           Logger.debug("Decision received from Decision Service: " + decision)
             if (getStatus(decision) == UNKNOWN) {
               if (flow.getNext(interview, currentElement, true).isEmpty) {
+                logInterview(decisionRequest, decision)
                 InterviewEvaluation(Option.empty[Element], Option(Decision(cleanInterview, UNKNOWN, flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
               }
               else
                 InterviewEvaluation(flow.getNext(interview, currentElement, true), Option.empty[Decision], CONTINUE, decision.correlationID)
             } else {
-                InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision), flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
+              logInterview(decisionRequest, decision)
+              InterviewEvaluation(Option.empty[Element], Option.apply(Decision(cleanInterview, getStatus(decision), flow.version, currentElement.clusterParent.name)), STOP, decision.correlationID)
             }
           }
           )
