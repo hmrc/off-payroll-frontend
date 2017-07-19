@@ -45,7 +45,7 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
     val formatPrint = Form(
       mapping(
-        "pinkyPromise" -> text.verifying(_.equalsIgnoreCase("on")),
+        "promise" -> text.verifying(_.equalsIgnoreCase("on")),
         "esi" -> boolean,
         "decisionResult" -> nonEmptyText,
         "decisionVersion" -> nonEmptyText,
@@ -130,6 +130,6 @@ class PrintController @Inject() (pdfGeneratorConnector: PdfGeneratorConnector) e
 
 }
 
-case class FormatPrint(pinkyPromise: String, esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
+case class FormatPrint(promise: String, esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String)
 
 case class PrintResult(esi: Boolean, decisionResult: String, decisionVersion: String, compressedInterview: String, decisionCluster: String, completedBy: String, client: String, job: String, reference: Option[String] )

@@ -28,7 +28,7 @@
 
             @helpers.form(routes.PrintController.format, 'id -> "resultData") {
 
-                <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
+                <a href="@routes.InterviewController.back()" style="line-height:3">@Messages("back.capitalised")</a>
 
                 @if(f.errors.headOption.isDefined) {
                     <div class="flash error-summary error-summary--show" id="error-summary-display" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
@@ -46,15 +46,15 @@
                     error
                 }">
                 <div class="bordered-box bordered-box--shaded" id="promise">
-                    <label for="pinkyPromise">
-                        <input type="checkbox" name="pinkyPromise" id="pinkyPromise"/>&nbsp;@Messages("result.declaration.heading")
+                    <label for="promise">
+                        <input type="checkbox" name="promise" id="promise"/>&nbsp;@Messages("result.declaration.heading")
                     </label>
                         <ul class="bullets">
-                            <li><label for="pinkyPromise">@Messages("result.declaration.readGuidance")</label></li>
-                            <li><label for="pinkyPromise">@Messages("result.declaration.reviewedAnswers")</label></li>
-                            <li><label for="pinkyPromise">@Messages("result.declaration.answersReflectPractice")</label></li>
+                            <li><label for="promise">@Messages("result.declaration.readGuidance")</label></li>
+                            <li><label for="promise">@Messages("result.declaration.reviewedAnswers")</label></li>
+                            <li><label for="promise">@Messages("result.declaration.answersReflectPractice")</label></li>
                         </ul>
-                    <label for="pinkyPromise">@Messages("result.declaration.practicesWontChange")</label>
+                    <label for="promise">@Messages("result.declaration.practicesWontChange")</label>
                 </div>
                 </div>
                 <input type="hidden" name="esi" value="@esi" />

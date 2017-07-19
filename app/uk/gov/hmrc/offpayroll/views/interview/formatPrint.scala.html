@@ -15,9 +15,9 @@
     ) {
 
 
-    <h1>Customise this result record</h1>
+    <h1>@Messages("formatPrint.mainHeading")</h1>
     <p class="form-field--hint">
-        You can add some information to this page before you print it. This is for your reference only and won't be stored by HMRC. All fields are optional
+        @Messages("formatPrint.formHint")
     </p>
     @helpers.form(routes.PrintController.printResult, 'id -> "resultData") {
 
@@ -29,33 +29,33 @@
         <fieldset class="form-field-group">
             <div class="form-field">
                 <label>
-                    Name of the person that completed this check
+                    @Messages("formatPrint.person")
                     <input type="text"
                     name="completedBy" id="completedBy" class="form-control form-control--block"/>
                 </label>
             </div>
             <div class="form-field">
                 <label>
-                    End client's name
+                    @Messages("formatPrint.client")
                     <input type="text"
                     name="client" id="client" class="form-control form-control--block"/>
                 </label>
             </div>
             <div class="form-field">
                 <label>
-                    Engagement job title
+                    @Messages("formatPrint.jobTitle")
                     <input type="text"
                     name="job" id="job" class="form-control form-control--block"/>
                 </label>
             </div>
             <div class="form-field">
                 <label>
-                    Reference (worker's name or contract number, for example)
+                    @Messages("formatPrint.reference")
                     <input type="text"
                     name="reference" id="reference" class="form-control form-control--block"/>
                 </label>
             </div>
-        <button>Continue</button>
+        <button>@Messages("global.button.continue")</button>
     }
 <script type="text/javascript">
         (function() {

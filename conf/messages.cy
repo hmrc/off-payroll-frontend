@@ -147,11 +147,12 @@ multipleInterview.toContinue=Gall hyn effeithio ar eich canlyniad, felly mae ang
 multipleInterview.thanks=Diolch.
 
 # Results Page
-result.summary=WPam yr ydych yn cael y canlyniad hwn
+result.summary=Pam yr ydych yn cael y canlyniad hwn
 result.confirmAndSave=Cadarnhau a chadw
 result.confirmAndPrint=Cadarnhau ac argraffu
 result.wontBeRecoreded=Ni fydd CThEM yn cadw cofnod o''r canlyniad hwn.
-result.decisionServiceVersion=Decision Service Version:
+result.decisionServiceVersion=Fersiwn y Gwasanaeth Penderfyniadau:
+result.decisionServiceVersion.after=
 result.declaration.heading=Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
 result.declaration.readGuidance=darllen yr arweiniad ar gyfer pob cwestiwn
 result.declaration.reviewedAnswers=adolygu''ch atebion
@@ -205,4 +206,14 @@ language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Gymraeg
 
 declarationBox.error.print=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn argraffu''r tudalen hwn
 declarationBox.error.pdf=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
+
+formatPrint.mainHeading=Addasu cofnod y canlyniad hwn
+formatPrint.formHint=Gallwch ychwanegu ychydig o wybodaeth I’’r dudalen hon cyn i chi’’I hargraffu. Mae hwn er eich gwybodaeth yn unig ac ni chaiff ei storio gan CThEM. Mae pob maes yn ddewisol
+formatPrint.person=Enw''r person sydd wedi cyflawni''r gwiriad hwn
+formatPrint.client=Enw''r cleient terfynol
+formatPrint.jobTitle=Teitl y swydd
+formatPrint.reference=Cyfeirnod (enw''r gweithiwr neu rif y cytundeb, er enghraifft)
+
+
+decisionService.version=Fersiwn y Gwasanaeth Penderfyniadau:
 
