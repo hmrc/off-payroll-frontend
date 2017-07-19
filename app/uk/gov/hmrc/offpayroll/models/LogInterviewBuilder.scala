@@ -43,23 +43,6 @@ package object LogInterviewBuilder {
       interview("setup")("provideServices")
     )
 
-    def createPersonalService(): PersonalService = {
-      PersonalService(interview)
-    }
-
-
-    def createControl(): Control = {
-      Control(interview)
-    }
-
-
-    def createFinacialRisk(): FinancialRisk = {
-      FinancialRisk(interview)
-    }
-
-    def createPartAndParcel(): PartAndParcel = {
-      PartAndParcel(interview)
-    }
 
     def getRoute(route: String): String = {
       if (route == "soleTrader") "ESI" else "IR35"
@@ -73,10 +56,10 @@ package object LogInterviewBuilder {
       None,
       setup,
       exit,
-      Option(createPersonalService),
-      Option(createControl),
-      Option(createFinacialRisk),
-      Option(createPartAndParcel),
+      Option(PersonalService(interview)),
+      Option(Control(interview)),
+      Option(FinancialRisk(interview)),
+      Option(PartAndParcel(interview)),
       new DateTime()
     )
 

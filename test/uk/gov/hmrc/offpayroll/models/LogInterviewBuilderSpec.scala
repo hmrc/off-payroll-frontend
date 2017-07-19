@@ -23,16 +23,9 @@ import play.api.libs.json.Json._
 import uk.gov.hmrc.offpayroll.modelsFormat._
 import play.api.Logger
 
-/**
-  * Created by brianheathcote on 15/07/2017.
-  */
 
 class LogInterviewBuilderSpec extends FlatSpec with Matchers  {
 
-//  private val interview = Map(
-//    "exit" -> Map("officeHolder" -> "Yes"),
-//    "setup" -> Map("endUserRole" -> "endClient", "hasContractStarted" -> "Yes", "provideServices" -> "partnership"),
-//  "personalService" -> Map("workerSentActualSubstitute" -> "Yes"))
 
   private val decisionRequest = DecisionRequest(TEST_VERSION, TEST_CORRELATION_ID, completeInterview)
   private val decision = DecisionResponse(TEST_VERSION, TEST_CORRELATION_ID, Map("testKey" -> "testValue"), TEST_DECISION)
@@ -132,11 +125,5 @@ class LogInterviewBuilderSpec extends FlatSpec with Matchers  {
     partAndParcel.get.workerRepresentsEngagerBusiness.get shouldBe "No"
   }
 
-//  it should "produce excellent json" in {
-//    val jsonInterview = toJson(logInterview)
-//    Logger.info(jsonInterview.toString())
-////    Logger.info(toJson(logInterviewJson).toString)
-//    true shouldBe true
-//  }
 
 }
