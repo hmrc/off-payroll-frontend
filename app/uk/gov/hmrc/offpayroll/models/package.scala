@@ -16,8 +16,10 @@
 
 package uk.gov.hmrc.offpayroll
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
+import ai.x.play.json.Jsonx
+import play.api.libs.json.{Format, Json, Reads, Writes}
+import play.api.libs.ws.WSResponse
+import uk.gov.hmrc.offpayroll.models._
 import uk.gov.hmrc.play.http.HeaderCarrier
 
 /**
@@ -25,12 +27,32 @@ import uk.gov.hmrc.play.http.HeaderCarrier
   */
 package object modelsFormat {
 
+  val dateFormat = "yyyy-MM-dd HH:mm:ss"
+
   implicit val decideRequestFormatter: Format[DecisionRequest] = Json.format[DecisionRequest]
   implicit val decideResponseFormatter: Format[DecisionResponse] = Json.format[DecisionResponse]
   implicit val hc = HeaderCarrier()
 
 
+  implicit val dateWrites = Writes.jodaDateWrites(dateFormat)
+  implicit val dateReads = Reads.jodaDateReads(dateFormat)
+
+  implicit val interviewSetupFormat = Json.format[Setup]
+  implicit val interviewExitFormat = Json.format[Exit]
+  implicit val interviewPersonalServiceFormat = Json.format[PersonalService]
+  implicit val interviewControlFormat = Json.format[Control]
+  implicit val interviewFinancialRiskFormat = Json.format[FinancialRisk]
+  implicit val interviewPartAndParcelFormat = Json.format[PartAndParcel]
+  implicit val interviewFormat = Json.format[LogInterview]
+
+  implicit val interviewSearchFormat = Json.format[InterviewSearch]
+
+  implicit val interviewSearchResponceFormat = Jsonx.formatCaseClass[InterviewSearchResponse]
+  implicit val analyticsResponseFormat = Jsonx.formatCaseClass[AnalyticsResponse]
+
+
 }
+
 
 
 package object typeDefs {

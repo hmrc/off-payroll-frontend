@@ -1,113 +1,115 @@
 #### Global Content
-application.title=Check employment status for tax
+application.title=Gwirio statws cyflogaeth ar gyfer treth
 
-global.button.continue=Continue
-yes=yes
-no=no
-Yes=Yes
-No=No
+global.button.continue=Yn eich blaen
+back.capitalised=Yn ôl
+home.capitalised=Hafan
+yes=iawn
+no=na
+Yes=Iawn
+No=Na
 
 #### Set up cluster
-sectionHeader.setup=About the people involved
+sectionHeader.setup=Ynglŷn â''r bobl berthnasol
 
-setup.endUserRole=Which of these describes you best? 
-setup.endUserRole.personDoingWork=The worker
-setup.endUserRole.endClient=The end client
-setup.endUserRole.placingAgency=The agency paying the worker
-setup.endUserRole.none=None of the above
+setup.endUserRole=Pa un o''r canlynol sy''n eich disgrifio orau?
+setup.endUserRole.personDoingWork=Y gweithiwr
+setup.endUserRole.endClient=Y cleient terfynol
+setup.endUserRole.placingAgency=Yr asiantaeth sy''n talu''r gweithiwr
+setup.endUserRole.none=Dim un o''r uchod
 
-setup.hasContractStarted=Has the worker already started this particular engagement for the end client?
+setup.hasContractStarted=A yw''r gweithiwr wedi dechrau''r swydd benodol hon ar gyfer y cleient terfynol?
 
-setup.provideServices=How does the worker provide their services to the end client?
-setup.provideServices.limitedCompany=As a limited company
-setup.provideServices.partnership=As a partnership
-setup.provideServices.intermediary=Through another individual (not an agency)
-setup.provideServices.soleTrader=As a sole trader
+setup.provideServices=Sut mae''r gweithiwr yn darparu''i wasanaethau i''r cleient terfynol?
+setup.provideServices.limitedCompany=Fel cwmni cyfyngedig
+setup.provideServices.partnership=Fel partneriaeth
+setup.provideServices.intermediary=Drwy unigolyn arall (nid asiantaeth)
+setup.provideServices.soleTrader=Fel unig fasnachwr
 
 #### Exit Questions
 
-sectionHeader.exit=About the worker''s duties
+sectionHeader.exit=Ynglŷn â dyletswyddau''r gweithiwr
 
-exit.officeHolder=Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
+exit.officeHolder=A fydd y gweithiwr (neu''i fusnes) yn cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol fel rhan o''r swydd hon?
 
 
 #### Personal Service cluster
-sectionHeader.personalService=About substitutes and helpers
+sectionHeader.personalService=Ynglŷn ag eilyddion a chynorthwywyr
 
-personalService.workerSentActualSubstitute=Has the worker''s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
-personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
-personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree 
-personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it hasn''t happened
-personalService.workerPayActualSubstitute=Did the worker''s business pay the person who did the work instead of them?
-personalService.possibleSubstituteRejection=If the worker''s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
-personalService.possibleSubstituteRejection.wouldReject=Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work 
-personalService.possibleSubstituteRejection.wouldNotReject=No - the end client would always accept a substitute who met these criteria
-personalService.possibleSubstituteWorkerPay=Would the worker''s business have to pay the person who did the work instead of them?
-personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work for this engagement?
+personalService.workerSentActualSubstitute=A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
+personalService.workerSentActualSubstitute.yesClientAgreed=Iawn - a chytunodd y cleient
+personalService.workerSentActualSubstitute.notAgreedWithClient=Iawn - ond ni chytunodd y cleient
+personalService.workerSentActualSubstitute.noSubstitutionHappened=Na - nid yw hyn wedi digwydd
+personalService.workerPayActualSubstitute=A wnaeth busnes y gweithiwr dalu''r person a wnaeth y gwaith yn ei le?
+personalService.possibleSubstituteRejection=Os yw busnes y gweithiwr yn anfon rhywun arall i wneud y gwaith (eilydd), a''i fod yn bodloni''r holl feini prawf, a fyddai''r cleient terfynol yn ei wrthod o gwbl?
+personalService.possibleSubstituteRejection.wouldReject=Iawn - mae gan y cleient terfynol yr hawl i wrthod eilydd am ba bynnag reswm, gan gynnwys os byddai''n effeithio''n negyddol ar y gwaith
+personalService.possibleSubstituteRejection.wouldNotReject=Na - byddai''r cleient terfynol bob amser yn derbyn eilydd a fyddai''n bodloni''r meini prawf hyn
+personalService.possibleSubstituteWorkerPay=A fyddai busnes y gweithiwr yn gorfod talu''r person a wnaeth y gwaith yn ei le?
+personalService.wouldWorkerPayHelper=A fu''n rhaid i fusnes y gweithiwr dalu helpwr i wneud llwyth sylweddol o''r gwaith ar gyfer y swydd hon?
 
 #### Control Cluster
-sectionHeader.control=About the work arrangements
+sectionHeader.control=Ynglŷn â''r trefniadau gwaith
 
-control.engagerMovingWorker=Can the end client move the worker to a different task than they originally agreed to do?
-control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
-control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker''s agreement (if the worker doesn''t want to change, the end client might end the engagement)
-control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No - that would need to be arranged under a new contract or formal agreement
+control.engagerMovingWorker=A all y cleient terfynol symud y gweithiwr i dasg sy''n wahanol i''r hyn a gytunwyd yn wreiddiol?
+control.engagerMovingWorker.canMoveWorkerWithPermission=Iawn - ond dim ond gyda chytundeb y gweithiwr
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Iawn - heb gytundeb y gweithiwr (os nad yw''r gweithiwr am newid, gall y cleient terfynol ddod â''r huriad i ben)
+control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=Na - byddai''n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
-control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, does the end client have the right to decide how the work is done?
-control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=No - the worker decides how the work needs to be done without input from the end client
-control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done
-control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Yes - the end client decides how the work needs to be done without input from the worker
-control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=No - the end client can''t decide how the work needs to be done because it''s a highly skilled role
+control.workerDecidingHowWorkIsDone=Pan fo''r gweithiwr yn dechrau''r swydd, a oes hawl gan y cleient terfynol i benderfynu sut y gwneir y gwaith?
+control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=Na - y gweithiwr sy''n penderfynu sut y mae gwneud y gwaith heb ymyrraeth gan y cleient terfynol
+control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Yn rhannol - mae''r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o''r gwaith sydd angen ei wneud
+control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Iawn - y cleient terfynol sy''n penderfynu sut mae gwneud y gwaith heb ymyrraeth gan y gweithiwr
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=Na - ni all y cleient terfynol penderfynu sut mae angen i''r gwaith cael ei wneud oherwydd ei fod yn swyddogaeth dra medrus
 
 
-control.whenWorkHasToBeDone=Can the end client decide the schedule of working hours?
-control.whenWorkHasToBeDone.workerDecideSchedule=No - the worker decides their own schedule
-control.whenWorkHasToBeDone.workerAgreeSchedule=Partly - the worker and the end client agree a schedule
-control.whenWorkHasToBeDone.scheduleDecidedForWorker=Yes - the end client decides the worker''s schedule
-control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
+control.whenWorkHasToBeDone=A all y cleient terfynol benderfynu amserlen yr oriau gwaith?
+control.whenWorkHasToBeDone.workerDecideSchedule=Na - mae''r gweithiwr yn penderfynu amserlen ei hun
+control.whenWorkHasToBeDone.workerAgreeSchedule=Yn rhannol - mae''r gweithiwr a''r cleient terfynol yn cytuno ar amserlen
+control.whenWorkHasToBeDone.scheduleDecidedForWorker=Iawn - mae''r cleient terfynol yn penderfynu amserlen y gweithiwr
+control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Ddim yn gymwys - nid oes angen amserlen cyn belled â bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
 
-control.workerDecideWhere=Can the worker choose where they work?
-control.workerDecideWhere.workerChooses=Yes - the worker decides
-control.workerDecideWhere.workerAgreeWithOthers=Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
-control.workerDecideWhere.workerCannotChoose=No - the end client decides
-control.workerDecideWhere.noLocationRequired=No - the task determines the work location
+control.workerDecideWhere=A all y gweithiwr ddewis ble y mae''n gweithio?
+control.workerDecideWhere.workerChooses=Iawn - y gweithiwr sy''n penderfynu
+control.workerDecideWhere.workerAgreeWithOthers=Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno, a rhaid i beth ohono gael ei wneud lle bynnag y mae''r gweithiwr yn dewis
+control.workerDecideWhere.workerCannotChoose=Na - y cleient terfynol sy''n dewis
+control.workerDecideWhere.noLocationRequired=Na - y dasg sy''n pennu lleoliad y gwaith
 
 #### Financial Risk Cluster
-sectionHeader.financialRisk=About the worker''s financial risk
+sectionHeader.financialRisk=Ynglŷn â risg ariannol y gweithiwr
 
-financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they can''t claim as an expense from the end client or an agency?
-financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
-financialRisk.workerProvidedEquipment=Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
-financialRisk.workerUsedVehicle=Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
-financialRisk.workerHadOtherExpenses=Other expenses – including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker''s home
-financialRisk.expensesAreNotRelevantForRole=Not relevant
+financialRisk.haveToPayButCannotClaim=Beth sy''n rhaid i''r gweithiwr ei ddarparu ar gyfer y swydd hon na allai''i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
+financialRisk.workerProvidedMaterials=Deunyddiau - eitemau sy''n ffurfio rhan barhaol o''r gwaith, neu eitem a brynwyd ar gyfer y gwaith a adawir ar ôl pan fo''r gweithiwr yn gadael (nid yw''n cynnwys deunydd ysgrifennu, ac mae''n fwyaf tebygol o fod yn berthnasol i bryniadau sylweddol yn y diwydiant adeiladu)
+financialRisk.workerProvidedEquipment=Offer - yn cynnwys peiriannau trwm, cerbydau diwydiannol neu offer arbenigol sydd â chost uchel, ond heb gynnwys ffonau, llechi neu liniaduron
+financialRisk.workerUsedVehicle=Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
+financialRisk.workerHadOtherExpenses=Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
+financialRisk.expensesAreNotRelevantForRole=Ddim yn berthnasol
 
-financialRisk.workerMainIncome=What’s the main way the worker is paid for this engagement?
-financialRisk.workerMainIncome.incomeCalendarPeriods=An hourly, daily or weekly rate
-financialRisk.workerMainIncome.incomeFixed=A fixed price for a specific piece of work
-financialRisk.workerMainIncome.incomePieceRate=An amount based on how much work is completed
-financialRisk.workerMainIncome.incomeCommission=A percentage of the sales the worker makes
-financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits or savings
+financialRisk.workerMainIncome=Beth yw''r prif fodd y mae''r gweithiwr yn cael ei dalu ar gyfer y swydd hon?
+financialRisk.workerMainIncome.incomeCalendarPeriods=Cyfradd yn ôl yr awr, cyfradd ddyddiol neu gyfradd wythnosol
+financialRisk.workerMainIncome.incomeFixed=Pris sefydlog ar gyfer darn penodol o waith
+financialRisk.workerMainIncome.incomePieceRate=Swm sy''n seiliedig ar faint o waith sy''n cael ei gwblhau
+financialRisk.workerMainIncome.incomeCommission=Canran o''r gwerthiannau y mae''r gweithiwr yn gyfrifol amdanynt
+financialRisk.workerMainIncome.incomeProfitOrLosses=Canran o elw neu gynilion y cleient terfynol
 
-financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the work, does the worker need to put it right at their own cost?
-financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs 
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Yes - the worker would have to put it right without an additional charge, but wouldn''t incur any costs
-financialRisk.paidForSubstandardWork.noObligationToCorrect=No – they wouldn''t need to put it right
-financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t be able to put it right because the work is time-specific or for a single event
+financialRisk.paidForSubstandardWork=Os nad yw''r cleient terfynol yn fodlon gyda''r gwaith, a oes angen i''r gweithiwr rhoi pethau''n iawn ar ei gost ei hun?
+financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=Na - byddai''r gweithiwr yn rhoi pethau''n iawn yn ei oriau gwaith arferol ar y gyfradd gyflog arferol, neu am ffi ychwanegol
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Iawn - byddai''n rhaid i''r gweithiwr rhoi pethau''n iawn heb godi tâl ychwanegol, a byddai treuliau ychwanegol sylweddol, neu gostau ychwanegol sylweddol am ddeunyddiau, yn cael eu codi arno
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Iawn - byddai''n rhaid i''r gweithiwr roi pethau''n iawn heb godi tâl ychwanegol, ond ni fyddai costau ychwanegol yn cael eu codi arno
+financialRisk.paidForSubstandardWork.noObligationToCorrect=Na - ni fyddai''n rhaid iddo roi pethau''n iawn
+financialRisk.paidForSubstandardWork.cannotBeCorrected=Na - ni fyddai''r gweithiwr yn gallu rhoi pethau''n iawn oherwydd bod y gwaith yn amser-benodol neu ar gyfer un digwyddia
 
 #### Part & Parcel Cluster
 
 # First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-sectionHeader.partParcel=About the worker''s integration into the organisation
+sectionHeader.partParcel=Ynglŷn ag integreiddio''r gweithiwr i mewn i''r sefydliad
 
-partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefits from the end client?
-partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
-partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
-partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
-partParcel.workerRepresentsEngagerBusiness.workForEndClient=They work for the end client
-partParcel.workerRepresentsEngagerBusiness.workAsIndependent=They''re an independent worker acting on behalf of the end client
-partParcel.workerRepresentsEngagerBusiness.workAsBusiness=They work for their own business
+partParcel.workerReceivesBenefits=A oes gan y gweithiwr hawl i unrhyw un o''r buddiannau canlynol oddi wrth y cleient terfynol?
+partParcel.workerAsLineManager=A yw''r gweithiwr yn gyfrifol am unrhyw un o''r dyletswyddau canlynol ar gyfer y cleient terfynol?
+partParcel.contactWithEngagerCustomer=A yw''r gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
+partParcel.workerRepresentsEngagerBusiness=Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae''n rhoi gwybod pwy ydyw?
+partParcel.workerRepresentsEngagerBusiness.workForEndClient=Mae''n gweithio i''r cleient terfynol
+partParcel.workerRepresentsEngagerBusiness.workAsIndependent=Mae''n weithiwr annibynnol sy''n gweithio ar ran y cleient terfynol
+partParcel.workerRepresentsEngagerBusiness.workAsBusiness=Mae''n gweithio ar gyfer busnes ei hun
 
 
 
@@ -116,83 +118,102 @@ partParcel.workerRepresentsEngagerBusiness.workAsBusiness=They work for their ow
 # ESI (sole trader) messages are prefixed with true IR35 equivalents are false
 # IN =
 
-false.IN= The intermediaries legislation applies to this engagement
-false.OUT= The intermediaries legislation does not apply to this engagement
-false.UNKNOWN= Unable to determine the tax status of this engagement
+false.IN=Mae''r ddeddfwriaeth Ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
+false.OUT=Nid yw''r ddeddfwriaeth Ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
+false.UNKNOWN=Ni allwn bennu''r statws treth ar gyfer y swydd hon
 
-true.IN=  This engagement should be classed as employed for tax purposes
-true.OUT= This engagement should be classed as self-employed for tax purposes
-true.UNKNOWN= Unable to determine the tax status of this engagement
+true.IN=Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
+true.OUT=Dylid ystyried y swydd hon i fod yn un hunangyflogedig at ddibenion treth
+true.UNKNOWN=Ni allwn bennu''r statws treth ar gyfer y swydd hon
 
 
 
-hardExit.heading=This engagement should be classed as employed for tax purposes
-hardExit.reason=About the worker''s involvement in the organisation
+hardExit.heading=Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
+hardExit.reason=Ynghylch ymrwymiad y gweithiwr yn y sefydliad
 
-exitTool.serviceProvision.heading=Your answers indicate that this service isn’t relevant to the worker. You do not need to continue with this service as the intermediaries legislation does not apply.
-exitTool.serviceProvision.reason=
+exitTool.serviceProvision.heading=Mae''ch ateb yn dynodi nad yw''r gwasanaeth hwn yn berthnasol i''r gweithiwr. Nid oes angen i chi barhau â''r gwasanaeth hwn gan nad yw''r ddeddfwriaeth cyfryngwyr yn berthnasol.exitTool.serviceProvision.reason=
 exitTool.serviceProvision.explanation=
 
-exitTool.soleTrader.heading=As a sole trader, the intermediaries legislation does not apply to this worker.
+exitTool.soleTrader.heading=Fel unig fasnachwr, nid yw''r ddeddfwriaeth cyfryngwyr yn berthnasol i''r gweithiwr hwn.
 exitTool.soleTrader.reason=
 exitTool.soleTrader.explanation=
 
-error.required=You need to select an answer:
-error.invalid.combination=Invalid combination selected:
+error.required=Mae angen i chi ddewis ateb:
+error.invalid.combination=Cyfuniad annilys wedi''i ddewis:
 
-multipleInterview.heading=Please close this tab or window to continue checking employment status for tax
-multipleInterview.intro=We''ve noticed that you already have this service open in another tab or window.
-multipleInterview.toContinue=This could affect the result you get, so you need to close this tab or window to continue using the service.
-multipleInterview.thanks=Thank you.
+multipleInterview.heading=Caewch y tab neu''r ffenestr hon er mwyn parhau i wirio statws cyflogaeth ar gyfer treth
+multipleInterview.intro=Rydym wedi sylwi bod y gwasanaeth hwn ar agor gennych eisoes mewn tab neu ffenestr arall.
+multipleInterview.toContinue=Gall hyn effeithio ar eich canlyniad, felly mae angen i chi gau''r tab neu''r ffenestr er mwyn parhau i ddefnyddio''r gwasanaeth.
+multipleInterview.thanks=Diolch.
 
 # Results Page
-result.summary=Why are you getting this result
+result.summary=Pam yr ydych yn cael y canlyniad hwn
+result.confirmAndSave=Cadarnhau a chadw
+result.confirmAndPrint=Cadarnhau ac argraffu
+result.wontBeRecoreded=Ni fydd CThEM yn cadw cofnod o''r canlyniad hwn.
+result.decisionServiceVersion=Fersiwn y Gwasanaeth Penderfyniadau:
+result.decisionServiceVersion.after=
+result.declaration.heading=Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
+result.declaration.readGuidance=darllen yr arweiniad ar gyfer pob cwestiwn
+result.declaration.reviewedAnswers=adolygu''ch atebion
+result.declaration.answersReflectPractice=rhoi atebion sy''n adlewyrchu arferion gwaith, gwirioneddol neu ddisgwyliedig, y swydd hon
+result.declaration.practicesWontChange=Os bydd arferion gwaith y swydd hon yn newid, rydych yn derbyn na fydd y canlyniad hwn, o bosib, yn sefyll.
 
 # officeHolder.in.ir35
-officeHolder.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+officeHolder.in.ir35.headerBox=Mae''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
 
 # officeHolder.in.esi
-officeHolder.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+officeHolder.in.esi.headerBox=Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
 
-personalServiceCluster.current.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+personalServiceCluster.current.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-personalServiceCluster.future.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+personalServiceCluster.future.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-controlCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+controlCluster.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-financialRiskCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+financialRiskCluster.out.ir35.headerBox=Nid yw''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-earlyExit.out.esi.headerBox=This engagement should be classed as self-employed for tax purposes
+earlyExit.out.esi.headerBox=Dylid ystyried y swydd hon i fod yn un hunangyflogedig at ddibenion treth
 
-matrix.in.esi.headerBox=This engagement should be classed as employed for tax purposes
+matrix.in.esi.headerBox=Dylid ystyried y swydd hon i fod yn un gyflogedig at ddibenion treth
 
-matrix.in.ir35.headerBox=The intermediaries legislation applies to this engagement
+matrix.in.ir35.headerBox=Mae''r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i''r swydd hon
 
-matrix.unknown.headerBox=We''re unable to determine the tax status of this engagement
+matrix.unknown.headerBox=Ni allwn bennu''r statws treth ar gyfer y swydd hon
 
-setupCluster.title=About the people involved
+setupCluster.title=Ynglŷn â''r bobl berthnasol
 
-exitCluster.title=About the worker''s duties
-exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes. You''ve told us that the worker will not perform office holder duties during this engagement.
+exitCluster.title=Ynglŷn â dyletswyddau''r gweithiwr
+exitCluster.summary=Mae gweithwyr sy''n cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol yn cael eu hystyried i fod yn gyflogedig at ddibenion treth.
 
-personalServiceCluster.title=About substitutes and helpers
-personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis. 
+personalServiceCluster.title=Ynglŷn ag eilyddion a chynorthwywyr
+personalServiceCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod a yw''r gweithiwr yn cael ei hurio fel busnes neu ar sail gwasanaeth personol. Os nad yw''r cleient terfynol wedi cytuno bod busnes y gweithiwr yn trefnu bod rhywun arall yn cael ei dalu i wneud y gwaith yn ei le, neu os na fyddai''n cytuno i hynny, mae''n awgrymu ei fod yn cael ei hurio ar sail gwasanaeth personol.
 
-controlCluster.title=About the work arrangements
-controlCluster.summary=We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
+controlCluster.title=Ynglŷn â''r trefniadau gwaith
+controlCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod faint o hawl sydd gan y cleient terfynol i reoli''r hyn y mae''r gweithiwr yn ei wneud yn ystod y swydd hon. Os oes gan y cleient terfynol yr hawl i reoli, byddai hynny''n awgrymu bod yr arferion gwaith yn debyg i''r rheiny a ddilynir gan gyflogai.
 
-financialRiskCluster.title=About the worker''s financial risk
-financialRiskCluster.summary=We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who don''t risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
+financialRiskCluster.title=Ynglŷn â risg ariannol y gweithiwr
+financialRiskCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn canfod lefel y risg ariannol sy''n rhaid i''r gweithiwr fentro iddi yn ystod y swydd hon. Mae gweithwyr nad ydynt yn mentro''u harian eu hunain drwy, er enghraifft, brynu asedion neu dalu am orbenion a deunyddiau, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
 
-partParcelCluster.title=About the worker’s integration into the organisation
-partParcelCluster.summary=We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
+partParcelCluster.title=Ynglŷn ag integreiddio''r gweithiwr i mewn i''r sefydliad
+partParcelCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i ba raddau y mae''r gweithiwr wedi''i integreiddio i mewn i sefydliad y cleient terfynol. Mae gweithwyr sy''n cael buddiannau, sy''n gyfrifol am fod yn rheolwr llinell ar bobl eraill, ac sy''n rhoi''r argraff eu bod yn gweithio i''r cleient terfynol, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
 
 language-switcher.english=English
 language-switcher.english.hover=Use this account in English
 language-switcher.welsh=Cymraeg
-language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Cymraeg
+language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Gymraeg
 
-declarationBox.error.print=In order to print this page, you will need to check the declaration box at the bottom of the page
-declarationBox.error.pdf=In order to download a PDF, you will need to check the declaration box at the bottom of the page
+declarationBox.error.print=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn argraffu''r tudalen hwn
+declarationBox.error.pdf=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
+
+formatPrint.mainHeading=Addasu cofnod y canlyniad hwn
+formatPrint.formHint=Gallwch ychwanegu ychydig o wybodaeth I’’r dudalen hon cyn i chi’’I hargraffu. Mae hwn er eich gwybodaeth yn unig ac ni chaiff ei storio gan CThEM. Mae pob maes yn ddewisol
+formatPrint.person=Enw''r person sydd wedi cyflawni''r gwiriad hwn
+formatPrint.client=Enw''r cleient terfynol
+formatPrint.jobTitle=Teitl y swydd
+formatPrint.reference=Cyfeirnod (enw''r gweithiwr neu rif y cytundeb, er enghraifft)
+
+
+decisionService.version=Fersiwn y Gwasanaeth Penderfyniadau:
 

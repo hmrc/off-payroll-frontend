@@ -28,7 +28,7 @@
 
             @helpers.form(routes.PrintController.format, 'id -> "resultData") {
 
-                <a href="@routes.InterviewController.back()" style="line-height:3">Back</a>
+                <a href="@routes.InterviewController.back()" style="line-height:3">@Messages("back.capitalised")</a>
 
                 @if(f.errors.headOption.isDefined) {
                     <div class="flash error-summary error-summary--show" id="error-summary-display" role="alert" aria-labelledby="error-summary-heading" tabindex="-1">
@@ -46,15 +46,15 @@
                     error
                 }">
                 <div class="bordered-box bordered-box--shaded" id="promise">
-                    <label for="pinkyPromise">
-                        <input type="checkbox" name="pinkyPromise" id="pinkyPromise"/> Before you rely on this result, please confirm that you’ve:
+                    <label for="promise">
+                        <input type="checkbox" name="promise" id="promise"/>&nbsp;@Messages("result.declaration.heading")
                     </label>
                         <ul class="bullets">
-                            <li><label for="pinkyPromise">read the guidance for each question</label></li>
-                            <li><label for="pinkyPromise">reviewed your answers</label></li>
-                            <li><label for="pinkyPromise">given answers that reflect the actual or expected working practices of this engagement</label></li>
+                            <li><label for="promise">@Messages("result.declaration.readGuidance")</label></li>
+                            <li><label for="promise">@Messages("result.declaration.reviewedAnswers")</label></li>
+                            <li><label for="promise">@Messages("result.declaration.answersReflectPractice")</label></li>
                         </ul>
-                    <label for="pinkyPromise">If the working practices of this engagement change you accept this result may no longer hold.</label>
+                    <label for="promise">@Messages("result.declaration.practicesWontChange")</label>
                 </div>
                 </div>
                 <input type="hidden" name="esi" value="@esi" />
@@ -64,9 +64,9 @@
                 <input type="hidden" name="decisionCluster" value="@decision.cluster" />
 
                 @if(OffPayrollSwitches.offPayrollPdf.enabled) {
-                    <button class="button">Confirm and save</button>
+                    <button class="button">@Messages("result.confirmAndSave")</button>
                 } else {
-                    <button class="button">Confirm and print</button>
+                    <button class="button">@Messages("result.confirmAndPrint")</button>
                 }
 
             }

@@ -27,6 +27,10 @@ import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 import play.api.libs.ws.WSClient
 import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, PdfGeneratorConnector}
+import uk.gov.hmrc.offpayroll.models.LogInterview
+import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost}
+
+import scala.concurrent.Future
 
 
 trait ServiceRegistry extends ServicesConfig {
@@ -49,9 +53,11 @@ object FrontendAuthConnector extends AuthConnector with ServicesConfig {
 
 @Singleton
 class FrontendDecisionConnector extends DecisionConnector with ServicesConfig {
-  val decisionURL: String = baseUrl("off-payroll-decision")
-  val serviceURL = "off-payroll-decision/decide"
-  val http = WSHttp
+  override val decisionURL: String = baseUrl("off-payroll-decision")
+  override val serviceLogURL: String = "off-payroll-decision/log"
+  override val serviceDecideURL = "off-payroll-decision/decide"
+  override val http = WSHttp
+
 }
 
 @Singleton

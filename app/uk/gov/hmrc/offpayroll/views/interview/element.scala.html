@@ -19,13 +19,13 @@
         <div class="form-field--inline">
             <label for="radio-yes" class="block-label">
                 <input id="radio-yes" type="radio" name="@element.questionTag" value="Yes" />
-                Yes
+                @Messages("Yes")
             </label>
         </div>
         <div class="form-field--inline">
             <label for="radio-no" class="block-label">
                 <input id="radio-no" type="radio" name="@element.questionTag" value="No" />
-                No
+                @Messages("No")
             </label>
         </div>
 
@@ -34,7 +34,7 @@
     case MULTI => {
 
         @for(child <- element.children) {
-            <div class="form-field">
+            <div>
                 <label for="@child.questionTag" class="block-label">
                     <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag" id="@child.questionTag" value="@child.questionTag" />
                     @Messages(child.questionTag)
@@ -47,7 +47,7 @@
 
         @for(child <- element.children) {
 
-            <div class="form-field">
+            <div>
                 <label for="@child.questionTag" class="block-label">
                     <input id="@child.questionTag" type="@child.elementType.toString.toLowerCase" name="@element.questionTag@openBracket@child.order@closingBracket" value="@child.questionTag" />
                     @Messages(child.questionTag)

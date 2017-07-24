@@ -27,7 +27,7 @@
 
 @headerNavLinks = {
   <li><a id="homeNavHref" href="@routes.InterviewController.begin()"
-         data-journey-click="primary-navigation:Click:Home">Home</a></li>
+         data-journey-click="primary-navigation:Click:Home">@Messages("home.capitalised")</a></li>
 }
 
 @insideHeader = {
@@ -96,4 +96,4 @@
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links(Some(language.language_selection(OffPayrollSwitches.enableLanguageSwitching.enabled)))), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(head, bodyEnd, insideHeader, afterHeader, footerTop, Some(uiLayouts.footer_links(None)), true)(content)

@@ -2,6 +2,8 @@
 application.title=Check employment status for tax
 
 global.button.continue=Continue
+back.capitalised=Back
+home.capitalised=Home
 yes=yes
 no=no
 Yes=Yes
@@ -147,6 +149,16 @@ multipleInterview.thanks=Thank you.
         
 # Results Page
 result.summary=Why are you getting this result
+result.confirmAndSave=Confirm and save
+result.confirmAndPrint=Confirm and print
+result.wontBeRecoreded=HMRC won’'t keep a record of this result.
+result.decisionServiceVersion=Decision Service Version:
+result.declaration.heading=Before you rely on this result, please confirm that you’ve:
+result.declaration.readGuidance=read the guidance for each question
+result.declaration.reviewedAnswers=reviewed your answers
+result.declaration.answersReflectPractice=given answers that reflect the actual or expected working practices of this engagement
+result.declaration.practicesWontChange=If the working practices of this engagement change you accept this result may no longer hold.
+
 
 # officeHolder.in.ir35
 officeHolder.in.ir35.headerBox=The intermediaries legislation applies to this engagement
@@ -196,3 +208,13 @@ language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Cymraeg
 declarationBox.error.print=In order to print this page, you will need to check the declaration box at the bottom of the page
 declarationBox.error.pdf=In order to download a PDF, you will need to check the declaration box at the bottom of the page
 
+
+formatPrint.mainHeading=Customise this result record
+formatPrint.formHint=You can add some information to this page before you print it. This is for your reference only and won't be stored by HMRC. All fields are optional
+formatPrint.person=Name of the person that completed this check
+formatPrint.client=End client''s name
+formatPrint.jobTitle=Engagement job title
+formatPrint.reference=Reference (worker''s name or contract number, for example)
+
+decisionService.version=Decision Service Version:
+result.decisionServiceVersion.after=This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
