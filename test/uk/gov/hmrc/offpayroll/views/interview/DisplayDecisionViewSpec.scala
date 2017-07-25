@@ -55,7 +55,7 @@ class DisplayDecisionViewSpec extends UnitSpec with WithFakeApplication with Sca
       implicit val request = (FakeRequest(POST, "/check-employment-status-for-tax/dummy"))
       val fragments: Map[String, Html] = Map()
 
-      val displayDecision: Html = display_decision(decision, List(), true, compressedInterview, ResultPageHelper(List(),UNKNOWN,fragments, "partParcel", true), Form(single("" -> text)))
+      val displayDecision: Html = display_decision(decision, List(), true, compressedInterview, ResultPageHelper(List(),UNKNOWN,fragments, "partParcel", true), Form(single("" -> text)), false)
 
       val hiddenFields = List(
         ("decisionCluster", decisionCluster),
