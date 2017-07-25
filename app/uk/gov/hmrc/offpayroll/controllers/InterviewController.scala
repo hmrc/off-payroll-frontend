@@ -206,9 +206,8 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
               val isEsi = esi(asMap(session))
               val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN),
                 fragments, interviewEvaluation.decision.map(_.cluster).getOrElse("unknownCluster"), isEsi)
-              val renderShowHideToggle = true
               Ok(uk.gov.hmrc.offpayroll.views.html.interview.display_decision(interviewEvaluation.decision.head,
-                asRawList(session), isEsi, compressedInterview, resultPageHelper, emptyForm, renderShowHideToggle))
+                asRawList(session), isEsi, compressedInterview, resultPageHelper, emptyForm, renderShowHideToggle = true))
                 .withSession(InterviewSessionStack.addCurrentIndex(session, ElementProvider.toElements(0)))
             }
           }
