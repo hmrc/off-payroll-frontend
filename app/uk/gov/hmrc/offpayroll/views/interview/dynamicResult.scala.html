@@ -10,6 +10,12 @@
 <h2>@Messages("result.summary")</h2>
 @resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".resultSummary")
 
+@if(resultPageHelper.decisionUnknown) {
+    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".action")
+    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".statement")
+}
+
+
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
     @clusterResult("setup",resultPageHelper, messages, renderShowHideToggle)
 }
@@ -34,9 +40,10 @@
     @clusterResult("partParcel",resultPageHelper, messages, renderShowHideToggle)
 }
 
-@resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".action")
-@resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".statement")
-
+@if(!resultPageHelper.decisionUnknown) {
+    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".action")
+    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".statement")
+}
 
 <div  class="indent-warning" style="line-height:2">
     <div>HMRC won’t keep a record of this result.</div>

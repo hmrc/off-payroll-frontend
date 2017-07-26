@@ -50,6 +50,8 @@ class ResultPageHelper(val interview: List[(String, List[String])], decision: De
     }
   }
 
+  def decisionUnknown : Boolean = decision.equals(UNKNOWN)
+
   private def esiOrIr35: String = if(esi) s"${DOT}esi" else s"${DOT}ir35"
 
   private def getFutureOrCurrent : String = {
