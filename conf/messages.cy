@@ -58,8 +58,8 @@ control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=Na - byddai''n r
 control.workerDecidingHowWorkIsDone=Pan fo''r gweithiwr yn dechrau''r swydd, a oes hawl gan y cleient terfynol i benderfynu sut y gwneir y gwaith?
 control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=Na - y gweithiwr sy''n penderfynu sut y mae gwneud y gwaith heb ymyrraeth gan y cleient terfynol
 control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Yn rhannol - mae''r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o''r gwaith sydd angen ei wneud
-control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Iawn - y cleient terfynol sy''n penderfynu sut mae gwneud y gwaith heb ymyrraeth gan y gweithiwr
-control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=Na - ni all y cleient terfynol penderfynu sut mae angen i''r gwaith cael ei wneud oherwydd ei fod yn swyddogaeth dra medrus
+control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Iawn - y cleient terfynol sy''n penderfynu sut y mae gwneud y gwaith heb ymyrraeth gan y gweithiwr
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=Na - ni all y cleient terfynol penderfynu sut y mae angen i''r gwaith cael ei wneud oherwydd ei fod yn swyddogaeth dra medrus
 
 
 control.whenWorkHasToBeDone=A all y cleient terfynol benderfynu amserlen yr oriau gwaith?
@@ -94,9 +94,9 @@ financialRisk.workerMainIncome.incomeProfitOrLosses=Canran o elw neu gynilion y 
 financialRisk.paidForSubstandardWork=Os nad yw''r cleient terfynol yn fodlon gyda''r gwaith, a oes angen i''r gweithiwr rhoi pethau''n iawn ar ei gost ei hun?
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=Na - byddai''r gweithiwr yn rhoi pethau''n iawn yn ei oriau gwaith arferol ar y gyfradd gyflog arferol, neu am ffi ychwanegol
 financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Iawn - byddai''n rhaid i''r gweithiwr rhoi pethau''n iawn heb godi tâl ychwanegol, a byddai treuliau ychwanegol sylweddol, neu gostau ychwanegol sylweddol am ddeunyddiau, yn cael eu codi arno
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Iawn - byddai''n rhaid i''r gweithiwr roi pethau''n iawn heb godi tâl ychwanegol, ond ni fyddai costau ychwanegol yn cael eu codi arno
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Iawn - byddai''n rhaid i''r gweithiwr rhoi pethau''n iawn heb godi tâl ychwanegol, ond ni fyddai costau ychwanegol yn cael eu codi arno
 financialRisk.paidForSubstandardWork.noObligationToCorrect=Na - ni fyddai''n rhaid iddo roi pethau''n iawn
-financialRisk.paidForSubstandardWork.cannotBeCorrected=Na - ni fyddai''r gweithiwr yn gallu rhoi pethau''n iawn oherwydd bod y gwaith yn amser-benodol neu ar gyfer un digwyddia
+financialRisk.paidForSubstandardWork.cannotBeCorrected=Na - ni fyddai''r gweithiwr yn gallu rhoi pethau''n iawn oherwydd bod y gwaith yn amser-benodol neu ar gyfer un digwyddiad
 
 #### Part & Parcel Cluster
 
@@ -106,7 +106,7 @@ sectionHeader.partParcel=Ynglŷn ag integreiddio''r gweithiwr i mewn i''r sefydl
 partParcel.workerReceivesBenefits=A oes gan y gweithiwr hawl i unrhyw un o''r buddiannau canlynol oddi wrth y cleient terfynol?
 partParcel.workerAsLineManager=A yw''r gweithiwr yn gyfrifol am unrhyw un o''r dyletswyddau canlynol ar gyfer y cleient terfynol?
 partParcel.contactWithEngagerCustomer=A yw''r gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
-partParcel.workerRepresentsEngagerBusiness=Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae''n rhoi gwybod pwy ydyw?
+partParcel.workerRepresentsEngagerBusiness=Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae''n rhoi gwybod pwy ydyw?
 partParcel.workerRepresentsEngagerBusiness.workForEndClient=Mae''n gweithio i''r cleient terfynol
 partParcel.workerRepresentsEngagerBusiness.workAsIndependent=Mae''n weithiwr annibynnol sy''n gweithio ar ran y cleient terfynol
 partParcel.workerRepresentsEngagerBusiness.workAsBusiness=Mae''n gweithio ar gyfer busnes ei hun
