@@ -9,12 +9,12 @@
 @if(renderShowHideToggle){
     <details>
         <summary role="button">
-            <span class="summary">View my answers for this section</span>
+            <span class="summary">@messages("result.viewMyAnswers")</span>
         </summary>
         <panel>
             <ul class="section">
             @for((key, value) <- resultPageHelper.getQuestionsAndAnswersForCluster(cluster)) {
-                <li class="divider--bottom"><h3>@messages(key)</h3>
+                <li class="divider--bottom" style="padding-bottom: 0.7pc;"><h3>@messages(key)</h3>
                     <div>@resultPageHelper.fragments.get(key)</div>
                     @for(child <- value) {
                         <div id="answer.@key" class="panel-indent">@messages(child)</div>
