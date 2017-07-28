@@ -7,13 +7,12 @@
     <span class="transaction-banner__heading h1-heading" id="decision-banner">@Messages(resultPageHelper.decisionKey+".headerBox")</span>
 </div>
 
-<h2>@Messages("result.summary")</h2>
-@resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".resultSummary")
+@if(resultPageHelper.decisionUnknown) {@resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".action")}
 
-@if(resultPageHelper.decisionUnknown) {
-    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".action")
-    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".statement")
-}
+
+<h2>@Messages("result.summary")</h2>
+
+@resultPageHelper.fragments.get("result."+resultPageHelper.decisionKey+".resultSummary")
 
 
 @if(resultPageHelper.getQuestionsAndAnswersForCluster("setup").nonEmpty){
@@ -40,10 +39,10 @@
     @clusterResult("partParcel",resultPageHelper, messages, renderShowHideToggle)
 }
 
-@if(!resultPageHelper.decisionUnknown) {
-    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".action")
-    @resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".statement")
-}
+@if(!resultPageHelper.decisionUnknown) {@resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".action")}
+
+
+@resultPageHelper.fragments.get("result." + resultPageHelper.decisionKey + ".statement")
 
 <div  class="indent-warning" style="line-height:2">
     <div>@Messages("result.wontBeRecoreded")</div>
