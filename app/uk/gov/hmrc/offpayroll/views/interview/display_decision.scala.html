@@ -14,7 +14,7 @@
 
 @import uk.gov.hmrc.offpayroll.util.ResultPageHelper
 @(decision: Decision, interview: List[(String, List[String])],
-        esi: Boolean, compressedInterview: String, resultPageHelper: ResultPageHelper, f:Form[_])(implicit request: Request[_], messages: Messages, lang: Lang)
+        esi: Boolean, compressedInterview: String, resultPageHelper: ResultPageHelper, f:Form[_], renderShowHideToggle: Boolean)(implicit request: Request[_], messages: Messages, lang: Lang)
 
 
     @uk.gov.hmrc.offpayroll.views.html.main_template(
@@ -40,14 +40,14 @@
                     </div>
                 }
 
-                @dynamicResult(decision,resultPageHelper,f)
+                @dynamicResult(decision,resultPageHelper,f,renderShowHideToggle)
 
                 <div class="form-group @if(f.errors.headOption.isDefined) {
                     error
                 }">
-                <div class="bordered-box bordered-box--shaded" id="promise">
+                <div class="box--shaded" id="promise">
                     <label for="promise">
-                        <input type="checkbox" name="promise" id="promise"/>&nbsp;@Messages("result.declaration.heading")
+                        <input type="checkbox" class="check-box" name="promise" id="promise"/>&nbsp;@Messages("result.declaration.heading")
                     </label>
                         <ul class="bullets">
                             <li><label for="promise">@Messages("result.declaration.readGuidance")</label></li>
@@ -64,7 +64,7 @@
                 <input type="hidden" name="decisionCluster" value="@decision.cluster" />
 
                 @if(OffPayrollSwitches.offPayrollPdf.enabled) {
-                    <button class="button">@Messages("result.confirmAndSave")</button>
+                    <button class="button">@Messages("result.confirmAndContinue")</button>
                 } else {
                     <button class="button">@Messages("result.confirmAndPrint")</button>
                 }

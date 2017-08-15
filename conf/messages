@@ -149,10 +149,11 @@ multipleInterview.thanks=Thank you.
         
 # Results Page
 result.summary=Why are you getting this result
-result.confirmAndSave=Confirm and save
+result.confirmAndContinue=Confirm and continue
 result.confirmAndPrint=Confirm and print
 result.wontBeRecoreded=HMRC won’'t keep a record of this result.
 result.decisionServiceVersion=Decision Service Version:
+result.viewMyAnswers=View my answers for this section
 result.declaration.heading=Before you rely on this result, please confirm that you’ve:
 result.declaration.readGuidance=read the guidance for each question
 result.declaration.reviewedAnswers=reviewed your answers
