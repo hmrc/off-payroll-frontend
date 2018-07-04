@@ -218,3 +218,7 @@ formatPrint.reference=Cyfeirnod (enw''r gweithiwr neu rif y cytundeb, er enghrai
 
 decisionService.version=Fersiwn y Gwasanaeth Penderfyniadau:
 
+cookies.disabled.part1 = Prawf
+cookies.disabled.part2 = Prawf
+
+startAgain = Dechrau eto

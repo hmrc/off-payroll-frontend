@@ -9,14 +9,11 @@
 ) {
     <main role="main">
         <p>
-            We've noticed your browser's cookies are switched off. To use this service, you'll need to <a href="https://www.aboutcookies.org/how-to-control-cookies/" target="_blank">switch cookies on</a>.
+            @Messages("cookies.disabled.part1") <a href="https://www.aboutcookies.org/how-to-control-cookies/" target="_blank">@Messages("cookies.disabled.part2")</a>.
         </p>
         <p>
-            <a href="@routes.InterviewController.begin()">Start again</a>
+            <a href="@routes.InterviewController.begin()">@Messages("startAgain")</a>
         </p>
     </main>
 
 }
-
-
-
