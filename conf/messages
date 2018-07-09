@@ -12,7 +12,7 @@ No=No
 #### Set up cluster
 sectionHeader.setup=About the people involved
 
-setup.endUserRole=Which of these describes you best? 
+setup.endUserRole=Which of these describes you best?
 setup.endUserRole.personDoingWork=The worker
 setup.endUserRole.endClient=The end client
 setup.endUserRole.placingAgency=The agency paying the worker
@@ -38,11 +38,11 @@ sectionHeader.personalService=About substitutes and helpers
 
 personalService.workerSentActualSubstitute=Has the worker''s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
-personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree 
+personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree
 personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it hasn''t happened
 personalService.workerPayActualSubstitute=Did the worker''s business pay the person who did the work instead of them?
 personalService.possibleSubstituteRejection=If the worker''s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
-personalService.possibleSubstituteRejection.wouldReject=Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work 
+personalService.possibleSubstituteRejection.wouldReject=Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work
 personalService.possibleSubstituteRejection.wouldNotReject=No - the end client would always accept a substitute who met these criteria
 personalService.possibleSubstituteWorkerPay=Would the worker''s business have to pay the person who did the work instead of them?
 personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work for this engagement?
@@ -93,7 +93,7 @@ financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end clie
 
 financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the work, does the worker need to put it right at their own cost?
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs 
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
 financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Yes - the worker would have to put it right without an additional charge, but wouldn''t incur any costs
 financialRisk.paidForSubstandardWork.noObligationToCorrect=No – they wouldn''t need to put it right
 financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t be able to put it right because the work is time-specific or for a single event
@@ -146,7 +146,7 @@ multipleInterview.heading=Please close this tab or window to continue checking e
 multipleInterview.intro=We''ve noticed that you already have this service open in another tab or window.
 multipleInterview.toContinue=This could affect the result you get, so you need to close this tab or window to continue using the service.
 multipleInterview.thanks=Thank you.
-        
+
 # Results Page
 result.summary=Why are you getting this result
 result.confirmAndContinue=Confirm and continue
@@ -190,7 +190,7 @@ exitCluster.title=About the worker''s duties
 exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes. You''ve told us that the worker will not perform office holder duties during this engagement.
 
 personalServiceCluster.title=About substitutes and helpers
-personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis. 
+personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis.
 
 controlCluster.title=About the work arrangements
 controlCluster.summary=We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
