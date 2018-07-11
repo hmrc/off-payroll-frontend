@@ -218,3 +218,7 @@ formatPrint.reference=Cyfeirnod (enw''r gweithiwr neu rif y cytundeb, er enghrai
 
 decisionService.version=Fersiwn y Gwasanaeth Penderfyniadau:
 
+cookies.disabled.part1 =  Rydym yn sylwi bod cwcis eich porwr ar gau. I ddefnyddio’’r gwasanaeth hwn bydd yn rhaid i chi
+cookies.disabled.part2 = agor y cwcis.
+
+startAgain = Dechrau eto

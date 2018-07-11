@@ -26,10 +26,22 @@ trait MicroService {
   lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
 
+  lazy val scoverageSettings = {
+    import scoverage._
+    Seq(
+      // Semicolon-separated list of regexs matching classes to exclude
+      ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;.*AuthService.*;models/.data/..*;view.*;.*BuildInfo.*;dashboard.Routes;prod.Routes;tcs.Routes;renewals.Routes;testOnlyDoNotUseInAppConf.Routes",
+      ScoverageKeys.coverageMinimum := 80,
+      ScoverageKeys.coverageFailOnMinimum := false,
+      ScoverageKeys.coverageHighlighting := true
+    )
+  }
+
   lazy val microservice = Project(appName, file("."))
     .enablePlugins(Seq(play.sbt.PlayScala,SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin) ++ plugins : _*)
     .settings(playSettings : _*)
     .settings(scalaSettings: _*)
+    .settings(playSettings ++ scoverageSettings : _*)
     .settings(publishingSettings: _*)
     .settings(defaultSettings(): _*)
     .settings(
