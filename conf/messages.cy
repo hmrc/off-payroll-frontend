@@ -209,7 +209,7 @@ declarationBox.error.print=Bydd angen i chi dicio''r blwch datganiad ar waelod y
 declarationBox.error.pdf=Bydd angen i chi dicio''r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
 
 formatPrint.mainHeading=Addasu cofnod y canlyniad hwn
-formatPrint.formHint=Gallwch ychwanegu ychydig o wybodaeth I’’r dudalen hon cyn i chi’’I hargraffu. Mae hwn er eich gwybodaeth yn unig ac ni chaiff ei storio gan CThEM. Mae pob maes yn ddewisol
+formatPrint.formHint=Gallwch ychwanegu ychydig o wybodaeth I’’r dudalen hon cyn i chi''I hargraffu. Mae hwn er eich gwybodaeth yn unig ac ni chaiff ei storio gan CThEM. Mae pob maes yn ddewisol
 formatPrint.person=Enw''r person sydd wedi cyflawni''r gwiriad hwn
 formatPrint.client=Enw''r cleient terfynol
 formatPrint.jobTitle=Teitl y swydd
@@ -218,7 +218,7 @@ formatPrint.reference=Cyfeirnod (enw''r gweithiwr neu rif y cytundeb, er enghrai
 
 decisionService.version=Fersiwn y Gwasanaeth Penderfyniadau:
 
-cookies.disabled.part1 =  Rydym yn sylwi bod cwcis eich porwr ar gau. I ddefnyddio’’r gwasanaeth hwn bydd yn rhaid i chi
-cookies.disabled.part2 = agor y cwcis.
+cookies.disabled.part1 =  Rydym yn sylwi bod cwcis eich porwr ar gau. I ddefnyddio''r gwasanaeth hwn bydd yn rhaid i chi
+cookies.disabled.part2 = agor y cwcis
 
 startAgain = Dechrau eto
