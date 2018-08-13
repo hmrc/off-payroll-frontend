@@ -22,12 +22,12 @@ import org.mockito.Mockito.when
 import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status.OK
 import play.api.libs.json.Json
+import uk.gov.hmrc.http.HttpResponse
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.DecisionResponse
 import uk.gov.hmrc.offpayroll.modelsFormat._
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.HttpResponse
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 import scala.concurrent.ExecutionContext.Implicits.global

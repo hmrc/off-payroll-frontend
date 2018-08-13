@@ -18,9 +18,8 @@ package uk.gov.hmrc.offpayroll
 
 import ai.x.play.json.Jsonx
 import play.api.libs.json.{Format, Json, Reads, Writes}
-import play.api.libs.ws.WSResponse
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.offpayroll.models._
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 /**
   * Created by peter on 12/12/2016.

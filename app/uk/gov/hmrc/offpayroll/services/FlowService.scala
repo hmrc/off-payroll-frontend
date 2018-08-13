@@ -21,10 +21,10 @@ import javax.inject.Inject
 import com.google.inject.ImplementedBy
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.{OffPayrollWebflow, UNKNOWN, _}
-import uk.gov.hmrc.play.http.HeaderCarrier
 
 import scala.concurrent.Future
 
