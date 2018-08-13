@@ -18,22 +18,19 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import javax.inject.Inject
 
-import play.api.Logger
 import play.api.Play._
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.i18n.Messages.Implicits._
 import play.api.mvc.Action
 import play.twirl.api.Html
+import uk.gov.hmrc.http.BadRequestException
 import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
 import uk.gov.hmrc.offpayroll.models._
+import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
 import uk.gov.hmrc.offpayroll.util.{CompressedInterview, OffPayrollSwitches, ResultPageHelper}
-import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
-import uk.gov.hmrc.offpayroll.util.HtmlHelper.removeScriptTags
-import uk.gov.hmrc.offpayroll.util.InterviewSessionStack.asMap
-import uk.gov.hmrc.play.http.BadRequestException
 
 
 

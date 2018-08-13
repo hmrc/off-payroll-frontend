@@ -19,12 +19,12 @@ package uk.gov.hmrc.offpayroll.connectors
 import com.google.inject.ImplementedBy
 import play.api.Logger
 import play.api.http.Status.{INTERNAL_SERVER_ERROR, NOT_FOUND}
+import uk.gov.hmrc.http.{HeaderCarrier, HttpPost, HttpResponse, NotFoundException}
 import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
 import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse, LogInterview}
 import uk.gov.hmrc.offpayroll.modelsFormat._
-import uk.gov.hmrc.play.http.{HeaderCarrier, HttpPost, HttpResponse, NotFoundException}
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 /**
