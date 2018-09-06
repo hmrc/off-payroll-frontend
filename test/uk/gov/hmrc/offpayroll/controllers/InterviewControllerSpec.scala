@@ -18,8 +18,9 @@ package uk.gov.hmrc.offpayroll.controllers
 
 import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.concurrent.ScalaFutures
+import play.api.data.Form
 import play.api.http.Status
-import play.api.mvc.{Cookie, Request}
+import play.api.mvc.{Cookie, Request, Session}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
@@ -95,11 +96,38 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     }
   }
 
+  class Setup(flowService: FlowService = new TestFlowService,
+              sessionHelper: SessionHelper = new TestSessionHelper) {
+
+    val interviewController = new InterviewController(flowService, sessionHelper)
+
+  }
+
+  val testElement = Element("endUserRole.personDoingWork", RADIO, 0, SetupCluster)
+
+  "verifyElement" should {
+    "return a required constraint" in new Setup {
+      interviewController.verifyElement(testElement).name shouldBe Some("constraint.required")
+    }
+  }
+
+  "createListForm" should {
+    "build an empty form of type list" in new Setup {
+      val form: Form[List[String]] = interviewController.createListForm(testElement)
+      form.data shouldBe Map()
+      form.value shouldBe None
+    }
+  }
+
+  "yesNo" should {
+    "convert a boolean into a string" in new Setup {
+      interviewController.yesNo(true) shouldBe "Yes"
+      interviewController.yesNo(false) shouldBe "No"
+    }
+  }
+
   "GET /cluster/ with Session Interview" should {
-    "return 200" in {
-
-      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper)
-
+    "return 200" in new Setup {
       val request = FakeRequest("GET", "/cluster/")
       val result = await(interviewController.begin.apply(request))
       status(result) shouldBe Status.OK
@@ -107,8 +135,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   }
 
   "POST /cluster/0/element/0" should {
-    "return 200" in {
-      val interviewController = new InterviewController(new TestFlowService(), new TestSessionHelper())
+    "return 200" in new Setup {
       interviewController.begin.apply(FakeRequest("GET", "/setup"))
       val request = FakeRequest().withSession(mockSessionAsPair)
         .withFormUrlEncodedBody(
@@ -133,9 +160,19 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     }
   }
 
+  "POST /cluster/0/element/0 with a sole trader" should {
+    "return a 400" in {
+      val request = FakeRequest().withSession(mockSessionAsPair)
+      .withFormUrlEncodedBody(
+        setup_SoleTrader
+      )
+      val result = InterviewController().processElement(0, 0)(request).futureValue
+      status(result) shouldBe Status.BAD_REQUEST
+    }
+  }
+
   "POST /cluster/0/element/0 with test correlation id" should {
     "return 200" in {
-
       val flowService = new InstrumentedIR35FlowService
       val interviewController = new InterviewController(flowService, new TestSessionHelper())
       interviewController.begin.apply(FakeRequest("GET", "/setup"))
@@ -152,7 +189,6 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
 
   "GET /setup with cookies disabled" should {
     "return 200" in {
-
       val interviewController = new InterviewController(new TestFlowService, new NoCookiesTestSessionHelper())
 
       val request = FakeRequest("GET", "/setup")
@@ -163,14 +199,31 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   }
 
   "GET /setup with cookies enabled" should {
-    "return 200" in {
-
-      val interviewController = new InterviewController(new TestFlowService, new TestSessionHelper())
-
+    "return 200" in new Setup {
       val request = FakeRequest("GET", "/setup")
       val result = await(interviewController.begin.apply(request))
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setupTag)
+    }
+  }
+
+  val soleTrader = Map("a" -> "b", "c" -> "setup.provideServices.soleTrader", "d" -> "e")
+  val nonSoleTrader = Map("a" -> "b", "setup.provideServices.soleTrader" -> "c", "d" -> "e")
+
+  "esi" should {
+    "check for the presence of the answer 'soleTrader'" in new Setup {
+      interviewController.esi(soleTrader) shouldBe true
+      interviewController.esi(nonSoleTrader) shouldBe false
+    }
+  }
+
+  "logResponse" should {
+    "log errors when there is no interview field" in new Setup {
+      interviewController.logResponse(None, Session(nonSoleTrader), "my-id") shouldBe ""
+    }
+    "log correctly when there is an interview field" in new Setup {
+      interviewController.logResponse(None, Session(soleTrader.+("interview" -> "testval")), "my-id") shouldBe "testval"
+      interviewController.logResponse(None, Session(nonSoleTrader.+("interview" -> "otherval")), "my-id") shouldBe "otherval"
     }
   }
 }

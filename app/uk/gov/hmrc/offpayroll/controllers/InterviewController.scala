@@ -216,13 +216,13 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
     }
   }
 
-  private def esi(interview: Map[String, String]): Boolean = {
+  private[controllers] def esi(interview: Map[String, String]): Boolean = {
     interview.exists{
         case (question, answer) => "setup.provideServices.soleTrader" == answer
       }
   }
 
-  private def logResponse(maybeDecision: Option[Decision], session: Session, correlationId: String): String =
+  private[controllers] def logResponse(maybeDecision: Option[Decision], session: Session, correlationId: String): String =
     session.get("interview").fold{Logger.error("interview is empty")
       ""} { compressedInterview =>
       val esiOrIr35Route = if (esi(asMap(session))) "ESI" else "IR35"
