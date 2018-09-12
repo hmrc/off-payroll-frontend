@@ -37,7 +37,7 @@ class FragmentService(val sourceDirs: Seq[String]){
 
       def htmlFromResource(filename: String ): Html = {
         Html.apply(scala.io.Source.fromInputStream(
-          getClass.getResourceAsStream(filename)).getLines().mkString(""))
+          getClass.getResourceAsStream(filename)).getLines().drop(15).mkString(""))
       }
 
       fragmentsMap = fragmentsMap ++ fileArray.map{file => file -> htmlFromResource(directoryName+ file)}.toMap
