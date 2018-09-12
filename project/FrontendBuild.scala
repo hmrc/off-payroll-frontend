@@ -14,16 +14,9 @@ private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
 
-  private val playHealthVersion = "2.1.0"
-  private val logbackJsonLoggerVersion = "3.1.0"
   private val frontendBootstrapVersion = "10.3.0"
-  private val govukTemplateVersion = "5.22.0"
-  private val playUiVersion = "7.22.0"
   private val playPartialsVersion = "6.1.0"
-  private val playAuthorisedFrontendVersion = "7.0.0"
-  private val playConfigVersion = "4.3.0"
-  private val hmrcTestVersion = "3.0.0"
-//  private val scalaTestVersion = "2.2.6"
+  private val hmrcTestVersion = "3.1.0"
   private val scalaTestVersion = "3.0.3"
   private val pegdownVersion = "1.6.0"
   private val jacksonVersion = "2.8.8"
@@ -32,12 +25,6 @@ private object AppDependencies {
     ws,
     "uk.gov.hmrc" %% "frontend-bootstrap" % frontendBootstrapVersion,
     "uk.gov.hmrc" %% "play-partials" % playPartialsVersion,
-    "uk.gov.hmrc" %% "play-authorised-frontend" % playAuthorisedFrontendVersion,
-    "uk.gov.hmrc" %% "play-config" % playConfigVersion,
-    "uk.gov.hmrc" %% "logback-json-logger" % logbackJsonLoggerVersion,
-    "uk.gov.hmrc" %% "govuk-template" % govukTemplateVersion,
-    "uk.gov.hmrc" %% "play-health" % playHealthVersion,
-    "uk.gov.hmrc" %% "play-ui" % playUiVersion,
     "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
@@ -57,7 +44,6 @@ private object AppDependencies {
         "org.scalatest" %% "scalatest" % scalaTestVersion % scope,
         "org.pegdown" % "pegdown" % pegdownVersion % scope,
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
-        "uk.gov.hmrc" %% "logback-json-logger" % logbackJsonLoggerVersion,
         "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
         "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
         "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
