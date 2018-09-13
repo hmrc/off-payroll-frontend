@@ -17,29 +17,22 @@
 package uk.gov.hmrc.offpayroll.services
 
 import javax.inject.Inject
-
 import com.google.inject.ImplementedBy
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
+import uk.gov.hmrc.offpayroll.{WSHttp, offPayrollConfig}
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.{OffPayrollWebflow, UNKNOWN, _}
 
 import scala.concurrent.Future
 
-/**
-  * Created by peter on 09/12/2016.
-  */
+
 @ImplementedBy(classOf[IR35FlowService])
 abstract class FlowService {
 
   val flow: OffPayrollWebflow
-  /**
-    *
-    * @param interview
-    * @return
-    */
+
   def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId:String, compressedInterview: String): Future[InterviewEvaluation]
 
   def getStart(interview: Map[String, String]): Option[Element]
@@ -48,8 +41,13 @@ abstract class FlowService {
 
 }
 
-object IR35FlowService {
-  def apply() = new IR35FlowService(new FrontendDecisionConnector)
+object IR35FlowService extends offPayrollConfig{
+  def apply() = new IR35FlowService(new DecisionConnector {
+    override val decisionURL: String = ""
+    override val serviceLogURL: String = ""
+    override val serviceDecideURL = ""
+    override val http = WSHttp
+  })
 }
 
 

@@ -16,26 +16,22 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
-import java.util.{NoSuchElementException, UUID}
 import javax.inject.Inject
-
 import play.Logger
 import play.api.Play._
 import play.api.data.Forms._
 import play.api.data._
 import play.api.data.validation.Constraint
-import play.api.i18n.{Lang, Messages}
 import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.{Format, Json}
-import play.api.mvc.Results.Ok
 import play.api.mvc._
 import play.twirl.api.Html
+
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models._
-import uk.gov.hmrc.offpayroll.services.{FlowService, FragmentService, IR35FlowService}
-import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionHelper, InterviewSessionStack, ResultPageHelper}
+import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack, ResultPageHelper}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack._
-import uk.gov.hmrc.play.frontend.controller.FrontendController
 
 import scala.concurrent.Future
 
@@ -100,8 +96,6 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
       case None => Future.successful(redirect.withSession(peekSession))
     }
   }
-
-  private val ofpsessionid = "ofpSessionId"
 
   def begin() = Action.async { implicit request =>
 
@@ -193,7 +187,6 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
       case Some(value) => {
         val session = push(request.session, formValue, element)
         val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), value, session.get("interview").getOrElse(""))
-
         result.map(
           interviewEvaluation => {
             if (interviewEvaluation.continueWithQuestions) {

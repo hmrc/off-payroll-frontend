@@ -17,55 +17,39 @@
 package uk.gov.hmrc.offpayroll
 
 import javax.inject.{Inject, Singleton}
-
+import play.api.Mode.Mode
+import play.api.{Configuration, Environment, Play}
 import play.api.libs.ws.WSClient
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.http.hooks.HttpHooks
-import uk.gov.hmrc.offpayroll.connectors.{DecisionConnector, PdfGeneratorConnector}
-import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.connectors.PdfGeneratorConnector
 import uk.gov.hmrc.play.audit.http.HttpAuditing
-import uk.gov.hmrc.play.audit.http.config.AuditingConfig
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 import uk.gov.hmrc.play.config.{AppName, ServicesConfig}
-import uk.gov.hmrc.play.frontend.auth.connectors.AuthConnector
-import uk.gov.hmrc.play.frontend.config.LoadAuditingConfig
 import uk.gov.hmrc.play.http.ws.{WSDelete, WSGet, WSPost, WSPut}
 
-trait ServiceRegistry extends ServicesConfig {
-  lazy val decisionConnector: DecisionConnector = new FrontendDecisionConnector
-  lazy val flowservice: FlowService = IR35FlowService()
-}
-
-//
-
-object FrontendAuditConnector extends AuditConnector {
-  lazy val auditingConfig: AuditingConfig = LoadAuditingConfig(s"auditing")
+trait offPayrollConfig {
+  protected def appNameConfiguration:Configuration = Play.current.configuration
+  protected def mode:Mode = Play.current.mode
+  protected def runModeConfiguration: Configuration = Play.current.configuration
+  def auditConnector : AuditConnector = auditConnector
 }
 
 trait Hooks extends HttpHooks with HttpAuditing {
   override val hooks = Seq(AuditingHook)
-  override lazy val auditConnector: AuditConnector = FrontendAuditConnector
 }
 
 trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with Hooks with AppName
-object WSHttp extends WSHttp
+object WSHttp extends WSHttp with offPayrollConfig
 
-object FrontendAuthConnector extends AuthConnector with ServicesConfig {
-  val serviceUrl = baseUrl("auth")
-  lazy val http = WSHttp
-}
 
 @Singleton
-class FrontendDecisionConnector extends DecisionConnector with ServicesConfig {
-  override val decisionURL: String = baseUrl("off-payroll-decision")
-  override val serviceLogURL: String = "off-payroll-decision/log"
-  override val serviceDecideURL = "off-payroll-decision/decide"
-  override val http = WSHttp
-
-}
-
-@Singleton
-class FrontendPdfGeneratorConnector @Inject() (ws: WSClient) extends PdfGeneratorConnector with ServicesConfig {
+class FrontendPdfGeneratorConnector @Inject()(
+                                              override val runModeConfiguration: Configuration,
+                                              environment: Environment,
+                                              ws: WSClient
+                                            ) extends PdfGeneratorConnector with ServicesConfig {
+  override protected def mode = environment.mode
   val pdfServiceUrl: String = baseUrl("pdf-generator-service")
   val serviceURL = pdfServiceUrl + "/pdf-generator-service/generate"
   val http = WSHttp

@@ -30,7 +30,7 @@ trait AppConfig {
   def fallbackURLForLanguageSwitcher: String
 }
 
-object FrontendAppConfig extends AppConfig with ServicesConfig {
+object FrontendAppConfig  extends AppConfig with ServicesConfig with offPayrollConfig {
 
   private def loadConfig(key: String) = configuration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 

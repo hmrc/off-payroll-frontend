@@ -16,16 +16,12 @@
 
 package uk.gov.hmrc.offpayroll.controllers
 
-/**
-  * Created by Habeeb on 15/05/2017.
-  */
-
 import uk.gov.hmrc.offpayroll.FrontendAppConfig
 import play.api.Logger
 import play.api.Play.current
 import play.api.i18n.Lang
 import play.api.mvc.{Action, LegacyI18nSupport}
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import uk.gov.hmrc.offpayroll.util.{LanguageUtils, OffPayrollSwitches}
 import play.api.i18n.Messages.Implicits._
 

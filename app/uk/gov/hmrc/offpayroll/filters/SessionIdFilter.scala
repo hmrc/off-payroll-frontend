@@ -17,8 +17,8 @@
 package uk.gov.hmrc.offpayroll.filters
 
 import java.util.UUID
-import javax.inject.Inject
 
+import javax.inject.{Inject, Singleton}
 import akka.stream.Materializer
 import play.Logger
 import play.api.http.DefaultHttpFilters
@@ -28,26 +28,27 @@ import play.api.mvc._
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 
 object SessionIdFilter {
-  val OPF_SESSION_ID_COOKIE = "ofpSessionId"
-  def createSessionIdCookie = Cookie(name = OPF_SESSION_ID_COOKIE, value = s"opf-session-${UUID.randomUUID}")
+val OPF_SESSION_ID_COOKIE = "ofpSessionId"
+ def createSessionIdCookie = Cookie(name = OPF_SESSION_ID_COOKIE, value = s"opf-session-${UUID.randomUUID}")
 }
 
+@Singleton
 class SessionIdFilter @Inject() (implicit val mat: Materializer, ec: ExecutionContext) extends Filter {
-  def apply(nextFilter: RequestHeader => Future[Result])
-           (requestHeader: RequestHeader): Future[Result] = {
-    nextFilter(requestHeader).map { result =>
-      requestHeader.cookies.find(_.name == SessionIdFilter.OPF_SESSION_ID_COOKIE).map(_.value) match {
-        case Some(sessionId) =>
-          Logger.debug(s"session id filter: found session id ${sessionId} in cookie ${OPF_SESSION_ID_COOKIE}")
-          result
-        case None =>
-          val sessionId = createSessionIdCookie
-          Logger.debug(s"session id filter: created session id ${sessionId} and stored in cookie ${OPF_SESSION_ID_COOKIE}")
-          result.withCookies(sessionId)
+    def apply(nextFilter: RequestHeader => Future[Result])
+             (requestHeader: RequestHeader): Future[Result] = {
+      nextFilter(requestHeader).map { result =>
+        requestHeader.cookies.find(_.name == SessionIdFilter.OPF_SESSION_ID_COOKIE).map(_.value) match {
+          case Some(sessionId) =>
+            Logger.debug(s"session id filter: found session id $sessionId in cookie $OPF_SESSION_ID_COOKIE")
+            result
+          case None =>
+            val sessionId = createSessionIdCookie
+            Logger.debug(s"session id filter: created session id $sessionId and stored in cookie $OPF_SESSION_ID_COOKIE")
+            result.withCookies(sessionId)
+        }
       }
     }
-  }
 }
 
-
+@Singleton
 class OffPayrollFrontendFilters @Inject() (sessionIdFilter: SessionIdFilter) extends DefaultHttpFilters(sessionIdFilter)

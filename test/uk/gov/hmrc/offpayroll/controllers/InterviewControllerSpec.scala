@@ -23,7 +23,8 @@ import play.api.http.Status
 import play.api.mvc.{Cookie, Request, Session}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
-import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
+import uk.gov.hmrc.offpayroll.WSHttp
+import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter.OPF_SESSION_ID_COOKIE
 import uk.gov.hmrc.offpayroll.models._
 import uk.gov.hmrc.offpayroll.resources._
@@ -60,7 +61,12 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     override def getCorrelationId(request: Request[_]) = None
   }
 
-  class InstrumentedIR35FlowService extends IR35FlowService(new FrontendDecisionConnector) {
+  class InstrumentedIR35FlowService extends IR35FlowService(new DecisionConnector {
+    override val decisionURL: String = ""
+    override val serviceLogURL: String = ""
+    override val serviceDecideURL = ""
+    override val http = WSHttp
+  }) {
     var passedCorrelationId = ""
     override def evaluateInterview(interview: Map[String, String], currentQnA: (String, String), correlationId: String, compressedInterview: String): Future[InterviewEvaluation] = {
       val futureInterviewEvaluation = super.evaluateInterview(interview, currentQnA, correlationId, TEST_COMPRESSED_INTERVIEW)

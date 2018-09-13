@@ -16,23 +16,19 @@
 
 package uk.gov.hmrc.offpayroll.connectors
 
-import com.google.inject.ImplementedBy
-import play.api.Logger
+import javax.inject.{Inject, Singleton}
+import play.api.{Configuration, Environment, Logger}
 import play.api.http.Status.{INTERNAL_SERVER_ERROR, NOT_FOUND}
 import uk.gov.hmrc.http.{HeaderCarrier, HttpPost, HttpResponse, NotFoundException}
-import uk.gov.hmrc.offpayroll.FrontendDecisionConnector
+import uk.gov.hmrc.offpayroll.WSHttp
 import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse, LogInterview}
 import uk.gov.hmrc.offpayroll.modelsFormat._
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-/**
-  * Created by peter on 12/12/2016.
-  */
-@ImplementedBy(classOf[FrontendDecisionConnector])
 trait DecisionConnector {
-
 
   val decisionURL: String
   val serviceDecideURL: String
@@ -56,5 +52,16 @@ trait DecisionConnector {
         HttpResponse.apply(INTERNAL_SERVER_ERROR)
     }
   }
+}
 
+@Singleton
+class FrontendDecisionConnector @Inject()(
+                                           override val runModeConfiguration: Configuration,
+                                           environment: Environment
+                                         ) extends DecisionConnector with ServicesConfig {
+  override protected def mode = environment.mode
+  override val decisionURL: String = baseUrl("off-payroll-decision")
+  override val serviceLogURL: String = "off-payroll-decision/log"
+  override val serviceDecideURL = "off-payroll-decision/decide"
+  override val http = WSHttp
 }

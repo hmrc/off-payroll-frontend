@@ -26,6 +26,7 @@ import uk.gov.hmrc.http.HttpResponse
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.DecisionResponse
 import uk.gov.hmrc.offpayroll.modelsFormat._
+import uk.gov.hmrc.offpayroll.offPayrollConfig
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.play.config.ServicesConfig
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
@@ -33,11 +34,7 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
-/**
-  * Created by peter on 09/12/2016.
-  */
-class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication {
+class FlowServiceSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication with offPayrollConfig{
 
   private val TEST_CORRELATION_ID = "00000001099"
   private val TEST_COMPRESSED_INTERVIEW = "7yYJCkUbY"
