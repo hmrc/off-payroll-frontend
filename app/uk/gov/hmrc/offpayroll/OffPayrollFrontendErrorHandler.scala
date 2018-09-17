@@ -22,7 +22,7 @@ import play.api.i18n.MessagesApi
 import play.api.mvc.Request
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 
-class frontendErrorHandler @Inject() (
+class OffPayrollFrontendErrorHandler @Inject() (
                                      val messagesApi: MessagesApi,
                                      val configuration: Configuration
                                      ) extends FrontendErrorHandler {

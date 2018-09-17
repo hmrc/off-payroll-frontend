@@ -11,7 +11,7 @@ private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
 
-  private val bootstrapPlay25Version = "3.4.0"
+  private val bootstrapPlay25Version = "3.5.0"
   private val govukTemplateVersion = "5.22.0"
   private val playUIVersion = "7.22.0"
   private val playPartialsVersion = "6.1.0"
