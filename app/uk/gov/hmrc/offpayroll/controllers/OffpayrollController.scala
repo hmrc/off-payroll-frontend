@@ -17,11 +17,8 @@
 package uk.gov.hmrc.offpayroll.controllers
 
 import uk.gov.hmrc.offpayroll.services.FragmentService
-import uk.gov.hmrc.play.frontend.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-/**
-  * Created by peter on 09/05/2017.
-  */
 class OffpayrollController extends FrontendController with OffPayrollControllerHelper {
 
   val fragmentService = FragmentService("/guidance","/resultsPage")

@@ -1,7 +1,4 @@
 import sbt._
-import uk.gov.hmrc.SbtAutoBuildPlugin
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
-import uk.gov.hmrc.versioning.SbtGitVersioning
 
 object FrontendBuild extends Build with MicroService {
 
@@ -14,16 +11,20 @@ private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
 
-  private val frontendBootstrapVersion = "10.3.0"
+  private val bootstrapPlay25Version = "3.5.0"
+  private val govukTemplateVersion = "5.22.0"
+  private val playUIVersion = "7.22.0"
   private val playPartialsVersion = "6.1.0"
   private val hmrcTestVersion = "3.1.0"
   private val scalaTestVersion = "3.0.3"
   private val pegdownVersion = "1.6.0"
-  private val jacksonVersion = "2.8.8"
+  private val jacksonVersion = "2.9.6"
 
   val compile = Seq(
     ws,
-    "uk.gov.hmrc" %% "frontend-bootstrap" % frontendBootstrapVersion,
+    "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapPlay25Version,
+    "uk.gov.hmrc" %% "govuk-template" % govukTemplateVersion,
+    "uk.gov.hmrc" %% "play-ui" % playUIVersion,
     "uk.gov.hmrc" %% "play-partials" % playPartialsVersion,
     "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
     "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
@@ -48,7 +49,7 @@ private object AppDependencies {
         "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
         "com.fasterxml.jackson.core" % "jackson-annotations" % jacksonVersion,
         "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion,
-        "org.mockito" % "mockito-core" % "2.8.9",
+        "org.mockito" % "mockito-core" % "2.13.0",
         "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % scope
 
 

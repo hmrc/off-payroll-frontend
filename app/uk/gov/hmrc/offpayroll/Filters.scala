@@ -14,23 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.offpayroll.connectors
+package uk.gov.hmrc.offpayroll
 
+import uk.gov.hmrc.offpayroll.filters.SessionIdFilter
+import javax.inject.Inject
+import play.api.http.DefaultHttpFilters
+import uk.gov.hmrc.play.bootstrap.filters.MicroserviceFilters
 
-import com.google.inject.ImplementedBy
-import play.api.libs.ws.{WSClient, WSResponse}
-import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
-
-import scala.concurrent.Future
-
-@ImplementedBy(classOf[FrontendPdfGeneratorConnector])
-trait PdfGeneratorConnector {
-
-  val serviceURL: String
-
-  def getWsClient: WSClient
-
-  def generatePdf(html: String): Future[WSResponse] = {
-    getWsClient.url(serviceURL).post(Map("html" -> Seq(html)))
-  }
-}
+class Filters @Inject()(
+                         defaultFilters : MicroserviceFilters,
+                         sessionFilter: SessionIdFilter
+                       ) extends DefaultHttpFilters(defaultFilters.filters :+ sessionFilter: _*)
