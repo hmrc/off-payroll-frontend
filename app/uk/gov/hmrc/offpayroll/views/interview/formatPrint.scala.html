@@ -72,16 +72,4 @@
             </div>
         <button>@Messages("global.button.continue")</button>
     }
-<script type="text/javascript">
-        (function() {
-            document.getElementById("resultData").addEventListener("submit", function () {
-                var endClient = document.getElementById("client").value;
-                var role = document.getElementById("job").value;
-                var decision = document.getElementById("decisionResult").value;
-
-                ga("send", "event", "Forms", "end-client,role,decision", endClient+","+role+","+decision);
-            });
-
-        })();
-</script>
 }
