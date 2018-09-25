@@ -16,12 +16,49 @@
 
 package uk.gov.hmrc.offpayroll
 
+import com.kenshoo.play.metrics.MetricsFilter
 import uk.gov.hmrc.offpayroll.filters.SessionIdFilter
-import javax.inject.Inject
-import play.api.http.DefaultHttpFilters
-import uk.gov.hmrc.play.bootstrap.filters.MicroserviceFilters
+import javax.inject.{Inject, Singleton}
+import play.api.Configuration
+import play.api.http.{DefaultHttpFilters, HttpFilters}
+import play.filters.csrf.CSRFFilter
+import play.filters.headers.SecurityHeadersFilter
+import uk.gov.hmrc.play.bootstrap.filters.frontend.crypto.CookieCryptoFilter
+import uk.gov.hmrc.play.bootstrap.filters.{CacheControlFilter, LoggingFilter, MicroserviceFilters}
+import uk.gov.hmrc.play.bootstrap.filters.frontend.{FrontendAuditFilter, HeadersFilter, SessionTimeoutFilter}
+import uk.gov.hmrc.play.bootstrap.filters.frontend.deviceid.DeviceIdFilter
 
+@Singleton
 class Filters @Inject()(
-                         defaultFilters : MicroserviceFilters,
-                         sessionFilter: SessionIdFilter
-                       ) extends DefaultHttpFilters(defaultFilters.filters :+ sessionFilter: _*)
+                                 configuration: Configuration,
+                                 loggingFilter: LoggingFilter,
+                                 headersFilter: HeadersFilter,
+                                 securityFilter: SecurityHeadersFilter,
+                                 frontendAuditFilter: FrontendAuditFilter,
+                                 metricsFilter: MetricsFilter,
+                                 deviceIdFilter: DeviceIdFilter,
+                                 cookieCryptoFilter: CookieCryptoFilter,
+                                 sessionTimeoutFilter: SessionTimeoutFilter,
+                                 cacheControlFilter: CacheControlFilter,
+                                 sessionFilter: SessionIdFilter
+                               ) extends HttpFilters {
+
+  val frontendFilters = Seq(
+    metricsFilter,
+    headersFilter,
+    cookieCryptoFilter,
+    deviceIdFilter,
+    loggingFilter,
+    frontendAuditFilter,
+    sessionTimeoutFilter,
+    cacheControlFilter,
+    sessionFilter
+  )
+
+  lazy val enableSecurityHeaderFilter: Boolean =
+    configuration.getBoolean("security.headers.filter.enabled").getOrElse(true)
+
+  override val filters =
+    if (enableSecurityHeaderFilter) Seq(securityFilter) ++ frontendFilters else frontendFilters
+
+}
