@@ -187,7 +187,7 @@ matrix.unknown.headerBox=We''re unable to determine the tax status of this engag
 setupCluster.title=About the people involved
 
 exitCluster.title=About the worker''s duties
-exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes. You''ve told us that the worker will not perform office holder duties during this engagement.
+exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes.
 
 personalServiceCluster.title=About substitutes and helpers
 personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis.
