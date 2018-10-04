@@ -186,7 +186,7 @@ matrix.unknown.headerBox=Ni allwn bennu''r statws treth ar gyfer y swydd hon
 setupCluster.title=Ynglŷn â''r bobl berthnasol
 
 exitCluster.title=Ynglŷn â dyletswyddau''r gweithiwr
-exitCluster.summary=Mae gweithwyr sy''n cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol yn cael eu hystyried i fod yn gyflogedig at ddibenion treth.
+exitCluster.summary=Ystyrir bod gweithwyr sy''n cyflawni dyletswyddau deiliad swydd ar gyfer y cleient terfynol yn gyflogedig at ddibenion treth.
 
 personalServiceCluster.title=Ynglŷn ag eilyddion a chynorthwywyr
 personalServiceCluster.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod a yw''r gweithiwr yn cael ei hurio fel busnes neu ar sail gwasanaeth personol. Os nad yw''r cleient terfynol wedi cytuno bod busnes y gweithiwr yn trefnu bod rhywun arall yn cael ei dalu i wneud y gwaith yn ei le, neu os na fyddai''n cytuno i hynny, mae''n awgrymu ei fod yn cael ei hurio ar sail gwasanaeth personol.
