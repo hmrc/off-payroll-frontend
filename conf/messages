@@ -38,7 +38,7 @@ sectionHeader.personalService=About substitutes and helpers
 
 personalService.workerSentActualSubstitute=Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
-personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn’t agree
+personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client did not agree
 personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it has not happened
 personalService.workerPayActualSubstitute=Did the worker’s business pay the person who did the work instead of them?
 personalService.possibleSubstituteRejection=If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
