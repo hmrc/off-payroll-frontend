@@ -28,7 +28,7 @@ setup.provideServices.soleTrader=As a sole trader
 
 #### Exit Questions
 
-sectionHeader.exit=About the worker''s duties
+sectionHeader.exit=About the worker’s duties
 
 exit.officeHolder=Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 
@@ -36,36 +36,36 @@ exit.officeHolder=Will the worker (or their business) perform office holder duti
 #### Personal Service cluster
 sectionHeader.personalService=About substitutes and helpers
 
-personalService.workerSentActualSubstitute=Has the worker''s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
+personalService.workerSentActualSubstitute=Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 personalService.workerSentActualSubstitute.yesClientAgreed=Yes - and the client agreed
-personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn''t agree
-personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it hasn''t happened
-personalService.workerPayActualSubstitute=Did the worker''s business pay the person who did the work instead of them?
-personalService.possibleSubstituteRejection=If the worker''s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+personalService.workerSentActualSubstitute.notAgreedWithClient=Yes - but the client didn’t agree
+personalService.workerSentActualSubstitute.noSubstitutionHappened=No - it has not happened
+personalService.workerPayActualSubstitute=Did the worker’s business pay the person who did the work instead of them?
+personalService.possibleSubstituteRejection=If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
 personalService.possibleSubstituteRejection.wouldReject=Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work
 personalService.possibleSubstituteRejection.wouldNotReject=No - the end client would always accept a substitute who met these criteria
-personalService.possibleSubstituteWorkerPay=Would the worker''s business have to pay the person who did the work instead of them?
-personalService.wouldWorkerPayHelper=Has the worker''s business needed to pay a helper to do a significant amount of the work for this engagement?
+personalService.possibleSubstituteWorkerPay=Would the worker’s business have to pay the person who did the work instead of them?
+personalService.wouldWorkerPayHelper=Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 
 #### Control Cluster
 sectionHeader.control=About the work arrangements
 
 control.engagerMovingWorker=Can the end client move the worker to a different task than they originally agreed to do?
-control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker''s agreement
-control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker''s agreement (if the worker doesn''t want to change, the end client might end the engagement)
+control.engagerMovingWorker.canMoveWorkerWithPermission=Yes - but only with the worker’s agreement
+control.engagerMovingWorker.canMoveWorkerWithoutPermission=Yes - without the worker’s agreement (if the worker does not want to change, the end client might end the engagement)
 control.engagerMovingWorker.cannotMoveWorkerWithoutNewAgreement=No - that would need to be arranged under a new contract or formal agreement
 
 control.workerDecidingHowWorkIsDone=Once the worker starts the engagement, does the end client have the right to decide how the work is done?
 control.workerDecidingHowWorkIsDone.workerDecidesWithoutInput=No - the worker decides how the work needs to be done without input from the end client
 control.workerDecidingHowWorkIsDone.workerAgreeWithOthers=Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done
 control.workerDecidingHowWorkIsDone.noWorkerInputAllowed=Yes - the end client decides how the work needs to be done without input from the worker
-control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=No - the end client can''t decide how the work needs to be done because it''s a highly skilled role
+control.workerDecidingHowWorkIsDone.workerFollowStrictEmployeeProcedures=No - the end client cannot decide how the work needs to be done because it is a highly skilled role
 
 
 control.whenWorkHasToBeDone=Can the end client decide the schedule of working hours?
 control.whenWorkHasToBeDone.workerDecideSchedule=No - the worker decides their own schedule
 control.whenWorkHasToBeDone.workerAgreeSchedule=Partly - the worker and the end client agree a schedule
-control.whenWorkHasToBeDone.scheduleDecidedForWorker=Yes - the end client decides the worker''s schedule
+control.whenWorkHasToBeDone.scheduleDecidedForWorker=Yes - the end client decides the worker’s schedule
 control.whenWorkHasToBeDone.noScheduleRequiredOnlyDeadlines=Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
 
 control.workerDecideWhere=Can the worker choose where they work?
@@ -75,40 +75,40 @@ control.workerDecideWhere.workerCannotChoose=No - the end client decides
 control.workerDecideWhere.noLocationRequired=No - the task determines the work location
 
 #### Financial Risk Cluster
-sectionHeader.financialRisk=About the worker''s financial risk
+sectionHeader.financialRisk=About the worker’s financial risk
 
-financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they can''t claim as an expense from the end client or an agency?
+financialRisk.haveToPayButCannotClaim=What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 financialRisk.workerProvidedMaterials=Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
 financialRisk.workerProvidedEquipment=Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
 financialRisk.workerUsedVehicle=Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
-financialRisk.workerHadOtherExpenses=Other expenses – including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker''s home
+financialRisk.workerHadOtherExpenses=Other expenses – including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 financialRisk.expensesAreNotRelevantForRole=Not relevant
 
-financialRisk.workerMainIncome=What’s the main way the worker is paid for this engagement?
+financialRisk.workerMainIncome=What is the main way the worker is paid for this engagement?
 financialRisk.workerMainIncome.incomeCalendarPeriods=An hourly, daily or weekly rate
 financialRisk.workerMainIncome.incomeFixed=A fixed price for a specific piece of work
 financialRisk.workerMainIncome.incomePieceRate=An amount based on how much work is completed
 financialRisk.workerMainIncome.incomeCommission=A percentage of the sales the worker makes
-financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end client''s profits or savings
+financialRisk.workerMainIncome.incomeProfitOrLosses=A percentage of the end client’s profits or savings
 
-financialRisk.paidForSubstandardWork=If the end client isn''t satisfied with the work, does the worker need to put it right at their own cost?
+financialRisk.paidForSubstandardWork=If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
 financialRisk.paidForSubstandardWork.asPartOfUsualRateInWorkingHours=No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
 financialRisk.paidForSubstandardWork.outsideOfHoursNoCharge=Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
-financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Yes - the worker would have to put it right without an additional charge, but wouldn''t incur any costs
-financialRisk.paidForSubstandardWork.noObligationToCorrect=No – they wouldn''t need to put it right
-financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker wouldn''t be able to put it right because the work is time-specific or for a single event
+financialRisk.paidForSubstandardWork.outsideOfHoursNoCosts=Yes - the worker would have to put it right without an additional charge, but would not incur any costs
+financialRisk.paidForSubstandardWork.noObligationToCorrect=No – they would not need to put it right
+financialRisk.paidForSubstandardWork.cannotBeCorrected=No - the worker would not be able to put it right because the work is time-specific or for a single event
 
 #### Part & Parcel Cluster
 
-# First question needs attention - copy implies it''s multi part but it''s a single question in the schema
-sectionHeader.partParcel=About the worker''s integration into the organisation
+# First question needs attention - copy implies it is multi part but it is a single question in the schema
+sectionHeader.partParcel=About the worker’s integration into the organisation
 
 partParcel.workerReceivesBenefits=Is the worker entitled to any of these benefits from the end client?
 partParcel.workerAsLineManager=Is the worker responsible for any of these duties for the end client?
-partParcel.contactWithEngagerCustomer=Does the worker interact with the end client''s customers, clients, audience or users?
-partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client''s customers, clients, audience or users, how do they identify themselves?
+partParcel.contactWithEngagerCustomer=Does the worker interact with the end client’s customers, clients, audience or users?
+partParcel.workerRepresentsEngagerBusiness=When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
 partParcel.workerRepresentsEngagerBusiness.workForEndClient=They work for the end client
-partParcel.workerRepresentsEngagerBusiness.workAsIndependent=They''re an independent worker acting on behalf of the end client
+partParcel.workerRepresentsEngagerBusiness.workAsIndependent=They are an independent worker acting on behalf of the end client
 partParcel.workerRepresentsEngagerBusiness.workAsBusiness=They work for their own business
 
 
@@ -129,9 +129,9 @@ true.UNKNOWN= Unable to determine the tax status of this engagement
 
 
 hardExit.heading=This engagement should be classed as employed for tax purposes
-hardExit.reason=About the worker''s involvement in the organisation
+hardExit.reason=About the worker’s involvement in the organisation
 
-exitTool.serviceProvision.heading=Your answers indicate that this service isn’t relevant to the worker. You do not need to continue with this service as the intermediaries legislation does not apply.
+exitTool.serviceProvision.heading=Your answers indicate that this service is not relevant to the worker. You do not need to continue with this service as the intermediaries legislation does not apply.
 exitTool.serviceProvision.reason=
 exitTool.serviceProvision.explanation=
 
@@ -143,7 +143,7 @@ error.required=You need to select an answer:
 error.invalid.combination=Invalid combination selected:
 
 multipleInterview.heading=Please close this tab or window to continue checking employment status for tax
-multipleInterview.intro=We''ve noticed that you already have this service open in another tab or window.
+multipleInterview.intro=We have noticed that you already have this service open in another tab or window.
 multipleInterview.toContinue=This could affect the result you get, so you need to close this tab or window to continue using the service.
 multipleInterview.thanks=Thank you.
 
@@ -151,10 +151,10 @@ multipleInterview.thanks=Thank you.
 result.summary=Why are you getting this result
 result.confirmAndContinue=Confirm and continue
 result.confirmAndPrint=Confirm and print
-result.wontBeRecoreded=HMRC won’'t keep a record of this result.
+result.wontBeRecoreded=HMRC will not keep a record of this result.
 result.decisionServiceVersion=Decision Service Version:
 result.viewMyAnswers=View my answers for this section
-result.declaration.heading=Before you rely on this result, please confirm that you’ve:
+result.declaration.heading=Before you rely on this result, please confirm that you have:
 result.declaration.readGuidance=read the guidance for each question
 result.declaration.reviewedAnswers=reviewed your answers
 result.declaration.answersReflectPractice=given answers that reflect the actual or expected working practices of this engagement
@@ -168,13 +168,13 @@ officeHolder.in.ir35.headerBox=The intermediaries legislation applies to this en
 # officeHolder.in.esi
 officeHolder.in.esi.headerBox=This engagement should be classed as employed for tax purposes
 
-personalServiceCluster.current.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+personalServiceCluster.current.out.ir35.headerBox=The intermediaries legislation does not apply to this engagement
 
-personalServiceCluster.future.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+personalServiceCluster.future.out.ir35.headerBox=The intermediaries legislation does not apply to this engagement
 
-controlCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+controlCluster.out.ir35.headerBox=The intermediaries legislation does not apply to this engagement
 
-financialRiskCluster.out.ir35.headerBox=The intermediaries legislation doesn''t apply to this engagement
+financialRiskCluster.out.ir35.headerBox=The intermediaries legislation does not apply to this engagement
 
 earlyExit.out.esi.headerBox=This engagement should be classed as self-employed for tax purposes
 
@@ -182,21 +182,21 @@ matrix.in.esi.headerBox=This engagement should be classed as employed for tax pu
 
 matrix.in.ir35.headerBox=The intermediaries legislation applies to this engagement
 
-matrix.unknown.headerBox=We''re unable to determine the tax status of this engagement
+matrix.unknown.headerBox=We are unable to determine the tax status of this engagement
 
 setupCluster.title=About the people involved
 
-exitCluster.title=About the worker''s duties
-exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes.
+exitCluster.title=About the worker’s duties
+exitCluster.summary=Workers that perform office holder duties for the end client are classed as employed for tax purposes. You have told us that the worker will not perform office holder duties during this engagement.
 
 personalServiceCluster.title=About substitutes and helpers
-personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client hasn''t or wouldn''t agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they''re being engaged on a personal service basis.
+personalServiceCluster.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client has not or would not agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they are being engaged on a personal service basis.
 
 controlCluster.title=About the work arrangements
 controlCluster.summary=We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
 
-financialRiskCluster.title=About the worker''s financial risk
-financialRiskCluster.summary=We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who don''t risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
+financialRiskCluster.title=About the worker’s financial risk
+financialRiskCluster.summary=We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who do not risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
 
 partParcelCluster.title=About the worker’s integration into the organisation
 partParcelCluster.summary=We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
@@ -204,23 +204,23 @@ partParcelCluster.summary=We ask these questions to find out how integrated the 
 language-switcher.english=English
 language-switcher.english.hover=Use this account in English
 language-switcher.welsh=Cymraeg
-language-switcher.welsh.hover=Defnyddio''r cyfrif hwn yn Cymraeg
+language-switcher.welsh.hover=Defnyddio’r cyfrif hwn yn Cymraeg
 
 declarationBox.error.print=In order to print this page, you will need to check the declaration box at the bottom of the page
 declarationBox.error.pdf=In order to download a PDF, you will need to check the declaration box at the bottom of the page
 
 
 formatPrint.mainHeading=Customise this result record
-formatPrint.formHint=You can add some information to this page before you print it. This is for your reference only and won't be stored by HMRC. All fields are optional
+formatPrint.formHint=You can add some information to this page before you print it. This is for your reference only and will not be stored by HMRC. All fields are optional
 formatPrint.person=Name of the person that completed this check
-formatPrint.client=End client''s name
+formatPrint.client=End client’s name
 formatPrint.jobTitle=Engagement job title
-formatPrint.reference=Reference (worker''s name or contract number, for example)
+formatPrint.reference=Reference (for example, worker’s name or contract number)
 
 decisionService.version=Decision Service Version:
 result.decisionServiceVersion.after=This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
 
-cookies.disabled.part1 = We''ve noticed your browser''s cookies are switched off. To use this service, you''ll need to
-cookies.disabled.part2 = switch cookies on
+cookies.disabled.part1 = We have noticed your browser’s cookies are switched off. To use this service, you will need to
+cookies.disabled.part2 = switch cookies on.
 
 startAgain = Start again
