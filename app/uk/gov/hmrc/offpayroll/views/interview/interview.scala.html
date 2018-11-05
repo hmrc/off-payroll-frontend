@@ -26,8 +26,9 @@
     virtualPage = Some(element.questionTag)
     ) {
 
-
-    <a href="@routes.InterviewController.back()" class="link-back">@Messages("back.capitalised")</a>
+    <div class="form-group">
+        <a href="@routes.InterviewController.back()" class="link-back">@Messages("back.capitalised")</a>
+    </div>
 
 
     @helpers.form(routes.InterviewController.processElement(element.clusterParent.clusterID, element.order), 'class -> "jsForm", 'noValidate -> "noValidate") {
