@@ -87,13 +87,15 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
     val (peekSession, peekQuestionTag) = peek(request.session)
 
-    flow.getElementByTag(peekQuestionTag) match {
-      case Some(element) => {
-        val (session, questionTag) = pop(request.session)
-        Future.successful(displaySuccess(element, emptyForm)
-        (fragmentService.getFragmentByName(element.questionTag)).withSession(InterviewSessionStack.addCurrentIndex(session, element)))
+    if(peekQuestionTag == "") Future.successful(Redirect("https://www.gov.uk/guidance/check-employment-status-for-tax")) else {
+      flow.getElementByTag(peekQuestionTag) match {
+        case Some(element) => {
+          val (session, questionTag) = pop(request.session)
+          Future.successful(displaySuccess(element, emptyForm)
+          (fragmentService.getFragmentByName(element.questionTag)).withSession(InterviewSessionStack.addCurrentIndex(session, element)))
+        }
+        case None => Future.successful(redirect.withSession(peekSession))
       }
-      case None => Future.successful(redirect.withSession(peekSession))
     }
   }
 
