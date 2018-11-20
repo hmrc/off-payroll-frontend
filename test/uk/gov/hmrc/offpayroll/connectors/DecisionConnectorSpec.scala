@@ -22,11 +22,9 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import play.api.libs.json.Json
 import uk.gov.hmrc.http.{HeaderCarrier, HttpPost}
+import uk.gov.hmrc.offpayroll.OffPayrollConfig
 import uk.gov.hmrc.offpayroll.models.{DecisionRequest, DecisionResponse}
-import uk.gov.hmrc.offpayroll.offPayrollConfig
 import uk.gov.hmrc.play.config.ServicesConfig
-import uk.gov.hmrc.play.http.ws.WSHttp
-//import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 import org.scalatest.concurrent.ScalaFutures
 import uk.gov.hmrc.offpayroll.modelsFormat._
 import uk.gov.hmrc.play.test._
@@ -34,7 +32,7 @@ import uk.gov.hmrc.play.test._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication with ScalaFutures with offPayrollConfig{
+class DecisionConnectorSpec extends UnitSpec with MockitoSugar with ServicesConfig with WithFakeApplication with ScalaFutures with OffPayrollConfig{
 
   implicit val hc = HeaderCarrier()
 

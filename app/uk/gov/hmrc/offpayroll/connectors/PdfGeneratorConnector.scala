@@ -16,12 +16,28 @@
 
 package uk.gov.hmrc.offpayroll.connectors
 
-
 import com.google.inject.ImplementedBy
+import javax.inject.{Inject, Singleton}
+import play.api.Mode.Mode
 import play.api.libs.ws.{WSClient, WSResponse}
-import uk.gov.hmrc.offpayroll.FrontendPdfGeneratorConnector
+import play.api.{Configuration, Environment}
+import uk.gov.hmrc.offpayroll.WSHttp
+import uk.gov.hmrc.play.config.ServicesConfig
 
 import scala.concurrent.Future
+
+@Singleton
+class FrontendPdfGeneratorConnector @Inject()(
+                                               override val runModeConfiguration: Configuration,
+                                               environment: Environment,
+                                               ws: WSClient
+                                             ) extends PdfGeneratorConnector with ServicesConfig {
+  override protected def mode: Mode = environment.mode
+  val pdfServiceUrl: String = baseUrl("pdf-generator-service")
+  val serviceURL = pdfServiceUrl + "/pdf-generator-service/generate"
+  val http = WSHttp
+  def getWsClient:WSClient = ws
+}
 
 @ImplementedBy(classOf[FrontendPdfGeneratorConnector])
 trait PdfGeneratorConnector {

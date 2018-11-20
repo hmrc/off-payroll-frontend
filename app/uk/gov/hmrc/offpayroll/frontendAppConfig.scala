@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.offpayroll
 
+import play.api.Configuration
 import play.api.Play.{configuration, current}
 import uk.gov.hmrc.play.config.ServicesConfig
 
@@ -30,20 +31,20 @@ trait AppConfig {
   def fallbackURLForLanguageSwitcher: String
 }
 
-object FrontendAppConfig  extends AppConfig with ServicesConfig with offPayrollConfig {
+object FrontendAppConfig extends AppConfig with ServicesConfig with OffPayrollConfig {
 
   private def loadConfig(key: String) = configuration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
   private val contactHost = configuration.getString(s"contact-frontend.host").getOrElse("")
   private val contactFormServiceIdentifier = "off-payroll"
 
-  override lazy val analyticsToken = loadConfig(s"google-analytics.token")
-  override lazy val analyticsHost = loadConfig(s"google-analytics.host")
+  override lazy val analyticsToken: String = loadConfig(s"google-analytics.token")
+  override lazy val analyticsHost: String = loadConfig(s"google-analytics.host")
   override lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?services=$contactFormServiceIdentifier"
   override lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?services=$contactFormServiceIdentifier"
-  override lazy val appUrlPath = loadConfig(s"appUrlPath")
+  override lazy val appUrlPath: String = loadConfig(s"appUrlPath")
   override lazy val betaFeedbackUrlNoAuth = s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier"
-  override lazy val offPayrollDecisionVersion = loadConfig(s"microservice.services.off-payroll-decision.version")
-  override def fallbackURLForLanguageSwitcher: String = loadConfig("languageSwitcher.fallback.url")
+  override lazy val offPayrollDecisionVersion: String = loadConfig(s"microservice.services.off-payroll-decision.version")
 
+  override def fallbackURLForLanguageSwitcher: String = loadConfig("languageSwitcher.fallback.url")
 }
