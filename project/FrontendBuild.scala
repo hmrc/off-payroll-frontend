@@ -11,10 +11,10 @@ private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
 
-  private val bootstrapPlay25Version = "3.10.0"
+  private val bootstrapPlay25Version = "3.15.0"
   private val govukTemplateVersion = "5.23.0"
-  private val playUIVersion = "7.22.0"
-  private val playPartialsVersion = "6.1.0"
+  private val playUIVersion = "7.25.0-play-25"
+  private val playPartialsVersion = "6.2.0"
   private val hmrcTestVersion = "3.2.0"
   private val scalaTestVersion = "3.0.3"
   private val pegdownVersion = "1.6.0"

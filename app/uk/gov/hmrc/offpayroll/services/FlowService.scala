@@ -21,7 +21,7 @@ import com.google.inject.ImplementedBy
 import play.api.Logger
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.offpayroll.{WSHttp, offPayrollConfig}
+import uk.gov.hmrc.offpayroll.{WSHttp, OffPayrollConfig}
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
 import uk.gov.hmrc.offpayroll.models.{OffPayrollWebflow, UNKNOWN, _}
 
@@ -41,7 +41,7 @@ abstract class FlowService {
 
 }
 
-object IR35FlowService extends offPayrollConfig{
+object IR35FlowService extends OffPayrollConfig{
   def apply() = new IR35FlowService(new DecisionConnector {
     override val decisionURL: String = ""
     override val serviceLogURL: String = ""
