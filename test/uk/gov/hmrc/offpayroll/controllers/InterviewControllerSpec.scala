@@ -23,9 +23,10 @@ import play.api.http.Status
 import play.api.mvc.{Cookie, Request, Session}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
+import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys}
+import uk.gov.hmrc.http.logging.SessionId
 import uk.gov.hmrc.offpayroll.WSHttp
 import uk.gov.hmrc.offpayroll.connectors.DecisionConnector
-import uk.gov.hmrc.offpayroll.filters.SessionIdFilter.OPF_SESSION_ID_COOKIE
 import uk.gov.hmrc.offpayroll.models._
 import uk.gov.hmrc.offpayroll.resources._
 import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService, InterviewEvaluation}
@@ -52,14 +53,6 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     Element("endUserRole.placingAgency", RADIO, 2, SetupCluster),
     Element("endUserRole.none", RADIO, 3, SetupCluster)
   ))
-
-  class TestSessionHelper extends SessionHelper {
-    override def getCorrelationId(request: Request[_]) = Option(Cookie(name = OPF_SESSION_ID_COOKIE, value = TEST_SESSION_ID))
-  }
-
-  class NoCookiesTestSessionHelper extends SessionHelper {
-    override def getCorrelationId(request: Request[_]) = None
-  }
 
   class InstrumentedIR35FlowService extends IR35FlowService(new DecisionConnector {
     override val decisionURL: String = ""
@@ -102,10 +95,9 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     }
   }
 
-  class Setup(flowService: FlowService = new TestFlowService,
-              sessionHelper: SessionHelper = new TestSessionHelper) {
+  class Setup(flowService: FlowService = new TestFlowService) {
 
-    val interviewController = new InterviewController(flowService, sessionHelper)
+    val interviewController = new InterviewController(flowService)
 
   }
 
@@ -143,7 +135,7 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
   "POST /cluster/0/element/0" should {
     "return 200" in new Setup {
       interviewController.begin.apply(FakeRequest("GET", "/setup"))
-      val request = FakeRequest().withSession(mockSessionAsPair)
+      val request = FakeRequest().withSession(SessionKeys.sessionId -> TEST_SESSION_ID)
         .withFormUrlEncodedBody(
           setup_endUserRolePersonDoingWork
         )
@@ -153,36 +145,24 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
     }
   }
 
-  "POST /cluster/0/element/0 without a session id in the cookie collection" should {
-    "displays the cookies disabled page" in {
-      val request = FakeRequest().withSession(mockSessionAsPair)
-      .withFormUrlEncodedBody(
-        setup_endUserRolePersonDoingWork
-      )
-      val result = InterviewController().processElement(0, 0)(request).futureValue
-      status(result) shouldBe Status.OK
-      val string = contentAsString(result)
-      string.toLowerCase.contains("cookies disabled") shouldBe true
-    }
-  }
-
   "POST /cluster/0/element/0 with a sole trader" should {
-    "return a 400" in {
-      val request = FakeRequest().withSession(mockSessionAsPair)
+    "return a 400" in new Setup {
+      val request = FakeRequest().withSession(SessionKeys.sessionId -> TEST_SESSION_ID)
       .withFormUrlEncodedBody(
         setup_SoleTrader
       )
-      val result = InterviewController().processElement(0, 0)(request).futureValue
+      val result = interviewController.processElement(0, 0)(request).futureValue
       status(result) shouldBe Status.BAD_REQUEST
     }
   }
 
   "POST /cluster/0/element/0 with test correlation id" should {
     "return 200" in {
+      implicit val hc = HeaderCarrier(sessionId = Some(SessionId(TEST_SESSION_ID)))
       val flowService = new InstrumentedIR35FlowService
-      val interviewController = new InterviewController(flowService, new TestSessionHelper())
+      val interviewController = new InterviewController(flowService)
       interviewController.begin.apply(FakeRequest("GET", "/setup"))
-      val request = FakeRequest().withSession(mockSessionAsPair)
+      val request = FakeRequest().withSession(SessionKeys.sessionId -> TEST_SESSION_ID)
       .withFormUrlEncodedBody(
         setup_endUserRolePersonDoingWork
       )
@@ -190,26 +170,6 @@ class InterviewControllerSpec extends UnitSpec with WithFakeApplication with Sca
       status(result) shouldBe Status.OK
       contentAsString(result) should include(setup_hasContractStarted)
       flowService.passedCorrelationId shouldBe TEST_SESSION_ID
-    }
-  }
-
-  "GET /setup with cookies disabled" should {
-    "return 200" in {
-      val interviewController = new InterviewController(new TestFlowService, new NoCookiesTestSessionHelper())
-
-      val request = FakeRequest("GET", "/setup")
-      val result = await(interviewController.begin.apply(request))
-      status(result) shouldBe Status.OK
-      contentAsString(result) should include(setupTag)
-    }
-  }
-
-  "GET /setup with cookies enabled" should {
-    "return 200" in new Setup {
-      val request = FakeRequest("GET", "/setup")
-      val result = await(interviewController.begin.apply(request))
-      status(result) shouldBe Status.OK
-      contentAsString(result) should include(setupTag)
     }
   }
 

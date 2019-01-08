@@ -18,37 +18,63 @@ package uk.gov.hmrc.offpayroll.filters
 
 import java.util.UUID
 
-import javax.inject.{Inject, Singleton}
 import akka.stream.Materializer
-import play.Logger
-import play.api.http.DefaultHttpFilters
+import javax.inject.Inject
+import play.api.http.HeaderNames
+import play.api.mvc._
+import uk.gov.hmrc.http.{SessionKeys, HeaderNames => HMRCHeaderNames}
 
 import scala.concurrent.{ExecutionContext, Future}
-import play.api.mvc._
-import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 
-object SessionIdFilter {
-val OPF_SESSION_ID_COOKIE = "ofpSessionId"
- def createSessionIdCookie = Cookie(name = OPF_SESSION_ID_COOKIE, value = s"opf-session-${UUID.randomUUID}")
-}
+class SessionIdFilter (
+                        override val mat: Materializer,
+                        uuid: => UUID,
+                        implicit val ec: ExecutionContext
+                      ) extends Filter {
 
-@Singleton
-class SessionIdFilter @Inject() (implicit val mat: Materializer, ec: ExecutionContext) extends Filter {
-    def apply(nextFilter: RequestHeader => Future[Result])
-             (requestHeader: RequestHeader): Future[Result] = {
-      nextFilter(requestHeader).map { result =>
-        requestHeader.cookies.find(_.name == SessionIdFilter.OPF_SESSION_ID_COOKIE).map(_.value) match {
-          case Some(sessionId) =>
-            Logger.debug(s"session id filter: found session id $sessionId in cookie $OPF_SESSION_ID_COOKIE")
-            result
-          case None =>
-            val sessionId = createSessionIdCookie
-            Logger.debug(s"session id filter: created session id $sessionId and stored in cookie $OPF_SESSION_ID_COOKIE")
-            result.withCookies(sessionId)
-        }
+  @Inject
+  def this(mat: Materializer, ec: ExecutionContext) {
+    this(mat, UUID.randomUUID(), ec)
+  }
+
+  override def apply(f: RequestHeader => Future[Result])(rh: RequestHeader): Future[Result] = {
+
+    lazy val sessionId: String = s"session-$uuid"
+
+    if (rh.session.get(SessionKeys.sessionId).isEmpty) {
+
+      val cookies: String = {
+
+        val session: Session =
+          rh.session + (SessionKeys.sessionId -> sessionId)
+
+        val cookies =
+          rh.cookies ++ Seq(Session.encodeAsCookie(session))
+
+        Cookies.encodeCookieHeader(cookies.toSeq)
       }
-    }
-}
 
-@Singleton
-class OffPayrollFrontendFilters @Inject() (sessionIdFilter: SessionIdFilter) extends DefaultHttpFilters(sessionIdFilter)
+      val headers = rh.headers.add(
+        HMRCHeaderNames.xSessionId -> sessionId,
+        HeaderNames.COOKIE -> cookies
+      )
+
+      f(rh.copy(headers = headers)).map {
+        result =>
+
+          val cookies =
+            Cookies.fromSetCookieHeader(result.header.headers.get(HeaderNames.SET_COOKIE))
+
+          val session = Session.decodeFromCookie(cookies.get(Session.COOKIE_NAME)).data
+            .foldLeft(rh.session) {
+              case (m, n) =>
+                m + n
+            }
+
+          result.withSession(session + (SessionKeys.sessionId -> sessionId))
+      }
+    } else {
+      f(rh)
+    }
+  }
+}
