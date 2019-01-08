@@ -16,8 +16,9 @@
 
 package uk.gov.hmrc.offpayroll
 
+import akka.actor.ActorSystem
 import com.typesafe.config.Config
-import play.api.Configuration
+import play.api.{Configuration, Play}
 import play.api.Mode.Mode
 import play.api.Play.current
 import uk.gov.hmrc.http._
@@ -33,9 +34,10 @@ object FrontendAuditConnector extends AppName with AuditConnector with OffPayrol
 }
 
 trait OffPayrollConfig {
-  protected def appNameConfiguration: Configuration = current.configuration
-  protected def runModeConfiguration: Configuration = current.configuration
-  protected def mode: Mode = current.mode
+  protected def appNameConfiguration: Configuration = Play.current.configuration
+  protected def runModeConfiguration: Configuration = Play.current.configuration
+  protected def mode: Mode = Play.current.mode
+  protected def actorSystem: ActorSystem = Play.current.actorSystem
 }
 
 trait Hooks extends HttpHooks with HttpAuditing {
