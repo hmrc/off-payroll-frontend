@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,10 +26,8 @@ import play.api.i18n.Messages.Implicits._
 import play.api.libs.json.{Format, Json}
 import play.api.mvc._
 import play.twirl.api.Html
-
-import uk.gov.hmrc.offpayroll.filters.SessionIdFilter._
 import uk.gov.hmrc.offpayroll.models._
-import uk.gov.hmrc.offpayroll.services.{FlowService, IR35FlowService}
+import uk.gov.hmrc.offpayroll.services.FlowService
 import uk.gov.hmrc.offpayroll.util.{ElementProvider, InterviewSessionStack, ResultPageHelper}
 import uk.gov.hmrc.offpayroll.util.InterviewSessionStack._
 
@@ -64,17 +62,7 @@ trait OffPayrollControllerHelper {
 
 }
 
-class SessionHelper {
-  def getCorrelationId(request: Request[_]) = request.cookies.get(OPF_SESSION_ID_COOKIE)
-}
-
-object InterviewController {
-  def apply() = {
-    new InterviewController(IR35FlowService(), new SessionHelper)
-  }
-}
-
-class InterviewController @Inject()(val flowService: FlowService, val sessionHelper: SessionHelper) extends OffpayrollController {
+class InterviewController @Inject()(val flowService: FlowService) extends OffpayrollController {
 
   val flow: OffPayrollWebflow = flowService.flow
 
@@ -180,15 +168,15 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
 
   private def evaluateInteview(element: Element, fieldName: String, formValue: String, form: Form[_])(implicit request : play.api.mvc.Request[_]) = {
     Logger.debug("****************** " + fieldName + " " + form.data.toString() + " " + formValue)
-    sessionHelper.getCorrelationId(request).map(_.value) match {
+    hc.sessionId match {
       case None => {
         Logger.info(s"user has cookies disabled: user agent: ${request.headers.toMap.get("User-Agent")}")
         Logger.info(s"user has cookies disabled: interview: ${asRawList(request.session)}")
         Future.successful(Ok(uk.gov.hmrc.offpayroll.views.html.interview.cookiesDisabled()))
       }
-      case Some(value) => {
+      case Some(sessId) => {
         val session = push(request.session, formValue, element)
-        val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), value, session.get("interview").getOrElse(""))
+        val result = flowService.evaluateInterview(asMap(session), (fieldName, formValue), sessId.value, session.get("interview").getOrElse(""))
         result.map(
           interviewEvaluation => {
             if (interviewEvaluation.continueWithQuestions) {
@@ -196,7 +184,7 @@ class InterviewController @Inject()(val flowService: FlowService, val sessionHel
                 form, interviewEvaluation.element.head, fragmentService.getFragmentByName(interviewEvaluation.element.head.questionTag)))
                 .withSession(InterviewSessionStack.addCurrentIndex(session, interviewEvaluation.element.head))
             } else {
-              val compressedInterview = logResponse(interviewEvaluation.decision, session, value)
+              val compressedInterview = logResponse(interviewEvaluation.decision, session, sessId.value)
               val fragments = fragmentService.getAllFragmentsForInterview(asMap(session)) ++ fragmentService.getFragmentsByFilenamePrefix("result")
               val isEsi = esi(asMap(session))
               val resultPageHelper = ResultPageHelper(asRawList(session), interviewEvaluation.decision.map(_.decision).getOrElse(UNKNOWN),
