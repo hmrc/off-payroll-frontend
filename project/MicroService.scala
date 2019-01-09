@@ -1,7 +1,5 @@
 import sbt.Keys._
 import sbt._
-import play.routes.compiler.StaticRoutesGenerator
-import sbtassembly.AssemblyKeys.{assembly, assemblyJarName, assemblyExcludedJars}
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 
 
@@ -50,20 +48,5 @@ trait MicroService {
     .configs(IntegrationTest)
     .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
     .settings(integrationTestSettings())
-    .settings(AssemblySettings())
     .settings(majorVersion := 0)
-}
-
-
-object AssemblySettings{
-  val includeJars = List("scala-library")
-  def include(name: String) = includeJars.exists(name.startsWith(_))
-  def apply()= Seq(
-    assemblyJarName in assembly := "interview-decompressor.jar",
-    assemblyExcludedJars in assembly := {
-      val cp = (fullClasspath in assembly).value
-      cp filterNot {a => include(a.data.getName)}
-    },
-    mainClass in assembly := Some("uk.gov.hmrc.offpayroll.util.InterviewDecompressor")
-  )
 }
