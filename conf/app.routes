@@ -86,3 +86,8 @@ GET        /how-work-is-done                            controllers.HowWorkIsDon
 POST       /how-work-is-done                            controllers.HowWorkIsDoneController.onSubmit(mode: Mode = NormalMode)
 GET        /change-how-work-is-done                     controllers.HowWorkIsDoneController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-how-work-is-done                     controllers.HowWorkIsDoneController.onSubmit(mode: Mode = CheckMode)
+
+GET        /move-worker                                 controllers.MoveWorkerController.onPageLoad(mode: Mode = NormalMode)
+POST       /move-worker                                 controllers.MoveWorkerController.onSubmit(mode: Mode = NormalMode)
+GET        /change-move-worker                          controllers.MoveWorkerController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-move-worker                          controllers.MoveWorkerController.onSubmit(mode: Mode = CheckMode)

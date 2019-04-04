@@ -2,17 +2,17 @@ package models
 
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
+import org.scalatest.scalacheck.ScalaCheckPropertyChecks
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import play.api.libs.json.{JsError, JsString, Json}
 
-class $className$Spec extends WordSpec with MustMatchers with PropertyChecks with OptionValues {
+class $className$Spec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
 
   "$className$" must {
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf($className$.values.toSeq)
+      val gen = Gen.oneOf($className$.values)
 
       forAll(gen) {
         $className;format="decap"$ =>
@@ -34,7 +34,7 @@ class $className$Spec extends WordSpec with MustMatchers with PropertyChecks wit
 
     "serialise" in {
 
-      val gen = Gen.oneOf($className$.values.toSeq)
+      val gen = Gen.oneOf($className$.values)
 
       forAll(gen) {
         $className;format="decap"$ =>
