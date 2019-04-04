@@ -34,23 +34,56 @@ class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
                                            view: CheckYourAnswersView)
   extends FrontendController(controllerComponents) with I18nSupport {
 
+  //noinspection ScalaStyle
   def onPageLoad(): Action[AnyContent] = (authenticate andThen getData andThen requireData) { implicit request =>
 
     val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
     val sections = Seq(
       AnswerSection(
-        headingKey = None,
+        headingKey = Some("Setup Section"),
         rows = Seq(
           checkYourAnswersHelper.aboutYou,
           checkYourAnswersHelper.contractStarted,
-          checkYourAnswersHelper.workerType,
-          checkYourAnswersHelper.officeHolder
+          checkYourAnswersHelper.workerType
         ).flatten
       ),
       AnswerSection(
-        headingKey = None,
+        headingKey = Some("Early Exit Section"),
+        rows = Seq(checkYourAnswersHelper.officeHolder).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("Personal Service Section"),
         rows = Seq(
+          checkYourAnswersHelper.arrangedSubstitue,
+          checkYourAnswersHelper.didPaySubstitute,
+          checkYourAnswersHelper.rejectSubstitute,
+          checkYourAnswersHelper.wouldWorkerPaySubstitute,
+          checkYourAnswersHelper.neededToPayHelper
+        ).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("Control Section"),
+        rows = Seq(
+          checkYourAnswersHelper.moveWorker,
+          checkYourAnswersHelper.howWorkIsDone,
+          checkYourAnswersHelper.scheduleOfWorkingHours,
+          checkYourAnswersHelper.chooseWhereWork
+        ).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("Financial Risk Section"),
+        rows = Seq(
+          checkYourAnswersHelper.cannotClaimAsExpense,
+          checkYourAnswersHelper.howWorkerIsPaid,
+          checkYourAnswersHelper.putRightAtOwnCost
+        ).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("Part and Parcel Section"),
+        rows = Seq(
+          checkYourAnswersHelper.benefits,
+          checkYourAnswersHelper.lineManagerDuties,
           checkYourAnswersHelper.interactWithStakeholders,
           checkYourAnswersHelper.identifyToStakeholders
         ).flatten
