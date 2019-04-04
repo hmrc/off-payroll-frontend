@@ -17,9 +17,9 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
 import play.api.mvc.Call
 import controllers.routes
+import models.ArrangedSubstitue.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import models._
 
@@ -38,13 +38,20 @@ class Navigator @Inject()() {
 
     //Early Exit Section
     OfficeHolderPage -> (answers => answers.get(ContractStartedPage) match {
-      case Some(answer) if answer => routes.ArrangedSubstitueController.onPageLoad(NormalMode)
-      case Some(_) => routes.CheckYourAnswersController.onPageLoad() //TODO: Update with correct flow
+      case Some(true) => routes.ArrangedSubstitueController.onPageLoad(NormalMode)
+      case Some(_) => routes.RejectSubstituteController.onPageLoad(NormalMode)
       case _ => routes.ContractStartedController.onPageLoad(NormalMode)
     }),
 
-
     //Personal Service Section
+    ArrangedSubstituePage -> (answers =>
+      answers.get(ArrangedSubstituePage) match {
+        case Some(YesClientAgreed) => routes.DidPaySubstituteController.onPageLoad(NormalMode)
+        case Some(YesClientNotAgreed) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case Some(No) => routes.RejectSubstituteController.onPageLoad(NormalMode)
+        case _ => routes.ArrangedSubstitueController.onPageLoad(NormalMode)
+      }),
+    DidPaySubstitutePage -> (_ => routes.NeededToPayHelperController.onPageLoad(NormalMode)),
     RejectSubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
         case (Some(true), Some(true)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
