@@ -91,3 +91,8 @@ GET        /move-worker                                 controllers.MoveWorkerCo
 POST       /move-worker                                 controllers.MoveWorkerController.onSubmit(mode: Mode = NormalMode)
 GET        /change-move-worker                          controllers.MoveWorkerController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-move-worker                          controllers.MoveWorkerController.onSubmit(mode: Mode = CheckMode)
+
+GET        /needed-to-pay-helper                        controllers.NeededToPayHelperController.onPageLoad(mode: Mode = NormalMode)
+POST       /needed-to-pay-helper                        controllers.NeededToPayHelperController.onSubmit(mode: Mode = NormalMode)
+GET        /change-needed-to-pay-helper                 controllers.NeededToPayHelperController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-needed-to-pay-helper                 controllers.NeededToPayHelperController.onSubmit(mode: Mode = CheckMode)

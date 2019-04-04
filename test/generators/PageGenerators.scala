@@ -21,6 +21,9 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryNeededToPayHelperPage: Arbitrary[NeededToPayHelperPage.type] =
+    Arbitrary(NeededToPayHelperPage)
+
   implicit lazy val arbitraryMoveWorkerPage: Arbitrary[MoveWorkerPage.type] =
     Arbitrary(MoveWorkerPage)
 

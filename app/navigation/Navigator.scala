@@ -44,6 +44,9 @@ class Navigator @Inject()() {
     }),
 
 
+    //Personal Service Section
+    NeededToPayHelperPage -> (_ => routes.MoveWorkerController.onPageLoad(NormalMode)),
+
     //Control Section
     MoveWorkerPage -> (_ => routes.HowWorkIsDoneController.onPageLoad(NormalMode)),
     HowWorkIsDonePage -> (_ => routes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)),
