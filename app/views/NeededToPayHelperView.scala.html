@@ -25,39 +25,26 @@
 @(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("officeHolder.title")}",
+    title = s"${errorPrefix(form)} ${messages("neededToPayHelper.title")}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = OfficeHolderController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = NeededToPayHelperController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.back_link()
 
         @components.error_summary(form.errors)
 
-        @components.heading("officeHolder.heading", Some("officeHolder.subheading"))
+        @components.heading("neededToPayHelper.heading", Some("neededToPayHelper.subheading"))
 
-        @components.hint(hint)
-
-        @components.exclamation(Html(messages("officeHolder.exclamation")))
+        @components.exclamation(Html(messages("neededToPayHelper.exclamation")))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("officeHolder.heading"),
+            label = messages("neededToPayHelper.heading"),
             labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
-}
-
-@hint = {
-    <p>@messages("officeHolder.p1")</p>
-    <p>@messages("officeHolder.p2")</p>
-
-    <ul class="list-bullet">
-        <li>@messages("officeHolder.bullet1")</li>
-        <li>@messages("officeHolder.bullet2")</li>
-        <li>@messages("officeHolder.bullet3")</li>
-    </ul>
 }

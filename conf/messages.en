@@ -227,3 +227,10 @@ moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arra
 moveWorker.checkYourAnswersLabel = Can the end client move the worker to a different task than they originally agreed to do?
 moveWorker.error.required = You need to select an answer
 moveWorker.error.invalid = You need to select an answer
+
+neededToPayHelper.title = Would the worker’s business have to pay the person who did the work instead of them?
+neededToPayHelper.heading = Would the worker’s business have to pay the person who did the work instead of them?
+neededToPayHelper.subheading = About substitutes and helpers
+neededToPayHelper.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
+neededToPayHelper.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
+neededToPayHelper.error.required = You need to select an answer
