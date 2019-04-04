@@ -25,34 +25,26 @@
 @(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("neededToPayHelper.title")}",
+    title = s"${errorPrefix(form)} ${messages("wouldWorkerPaySubstitute.title")}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = NeededToPayHelperController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = WouldWorkerPaySubstituteController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.back_link()
 
         @components.error_summary(form.errors)
 
-        @components.heading("neededToPayHelper.heading", Some("neededToPayHelper.subheading"))
+        @components.heading("wouldWorkerPaySubstitute.heading", Some("wouldWorkerPaySubstitute.subheading"))
+
+        @components.exclamation(Html(messages("wouldWorkerPaySubstitute.exclamation")))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("neededToPayHelper.heading"),
-            labelClass = Some("visually-hidden"),
-            hint = Some(hint)
+            label = messages("wouldWorkerPaySubstitute.heading"),
+            labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
-}
-
-@hint = {
-    <p>@messages("neededToPayHelper.hint.p1")</p>
-    <p>@messages("neededToPayHelper.hint.p2")</p>
-    @components.bulleted_list(Seq(
-        messages("neededToPayHelper.hint.bullet1"),
-        messages("neededToPayHelper.hint.bullet2")
-    ))
 }

@@ -45,6 +45,12 @@ class Navigator @Inject()() {
 
 
     //Personal Service Section
+    WouldWorkerPaySubstitutePage -> (answers =>
+      answers.get(ContractStartedPage) match {
+        case Some(true) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case Some(_) => routes.MoveWorkerController.onPageLoad(NormalMode)
+        case _ => routes.ContractStartedController.onPageLoad(NormalMode)
+    }),
     NeededToPayHelperPage -> (_ => routes.MoveWorkerController.onPageLoad(NormalMode)),
 
     //Control Section
@@ -60,17 +66,17 @@ class Navigator @Inject()() {
 
     //Part and Parcel Section
     BenefitsPage -> (answers => answers.get(BenefitsPage) match {
-      case Some(answer) if answer => routes.CheckYourAnswersController.onPageLoad()
+      case Some(true) => routes.CheckYourAnswersController.onPageLoad()
       case Some(_) => routes.LineManagerDutiesController.onPageLoad(NormalMode)
       case _ => routes.BenefitsController.onPageLoad(NormalMode)
     }),
     LineManagerDutiesPage -> (answers => answers.get(LineManagerDutiesPage) match {
-      case Some(answer) if answer => routes.CheckYourAnswersController.onPageLoad()
+      case Some(true) => routes.CheckYourAnswersController.onPageLoad()
       case Some(_) => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
       case _ => routes.LineManagerDutiesController.onPageLoad(NormalMode)
     }),
     InteractWithStakeholdersPage -> (answers => answers.get(InteractWithStakeholdersPage) match {
-      case Some(answer) if answer => routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
+      case Some(true) => routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
       case Some(_) => routes.CheckYourAnswersController.onPageLoad()
       case _ => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
     }),

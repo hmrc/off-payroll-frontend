@@ -66,6 +66,16 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         nextPage(OfficeHolderPage, setAnswers(ContractStartedPage -> false)) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
 
+      "go to NeededToPayHelperPage from the WouldWorkerPaySubstitutePage if Contract Started" in {
+        nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> true)) mustBe
+          routes.NeededToPayHelperController.onPageLoad(NormalMode)
+      }
+
+      "go to MoveWorkerPage from the WouldWorkerPaySubstitutePage if Contract Started not started" in {
+        nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> false)) mustBe
+          routes.MoveWorkerController.onPageLoad(NormalMode)
+      }
+
       "go to MoveWorkerPage from the NeededToPayHelperPage" in {
         nextPage(NeededToPayHelperPage) mustBe routes.MoveWorkerController.onPageLoad(NormalMode)
       }
