@@ -61,9 +61,12 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         nextPage(OfficeHolderPage, setAnswers(ContractStartedPage -> true)) mustBe routes.ArrangedSubstitueController.onPageLoad(NormalMode)
       }
 
-      //TODO: Update with correct route
-      "go to CheckYourAnswers page from the Office Holder page if Contract Started" in {
-        nextPage(OfficeHolderPage, setAnswers(ContractStartedPage -> false)) mustBe routes.CheckYourAnswersController.onPageLoad()
+      "go to RejectSubstitutePage page from the Office Holder page if Contract Started" in {
+        nextPage(OfficeHolderPage, setAnswers(ContractStartedPage -> false)) mustBe routes.RejectSubstituteController.onPageLoad(NormalMode)
+      }
+
+      "go to NeededToPayHelperPage from the RejectSubstitutePage if Contract Started and would NOT reject" in {
+        nextPage(DidPaySubstitutePage) mustBe routes.NeededToPayHelperController.onPageLoad(NormalMode)
       }
 
       "go to MoveWorkerPage from the RejectSubstitutePage if Contract Started and would NOT reject" in {

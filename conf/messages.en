@@ -258,4 +258,11 @@ rejectSubstitute.exclamation = We need to know what would happen in practice, no
 rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work
 rejectSubstitute.no = No - the end client would always accept a substitute who met these criteria
 rejectSubstitute.checkYourAnswersLabel = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
-rejectSubstitute.error.required = Select an option
+rejectSubstitute.error.required = You need to select an answer
+
+didPaySubstitute.title = Did the worker’s business pay the person who did the work instead of them?
+didPaySubstitute.heading = Did the worker’s business pay the person who did the work instead of them?
+didPaySubstitute.subheading = About substitutes and helpers
+didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
+didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
+didPaySubstitute.error.required = You need to select an answer

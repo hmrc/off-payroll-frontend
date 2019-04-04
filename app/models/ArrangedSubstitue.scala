@@ -23,12 +23,12 @@ sealed trait ArrangedSubstitue
 
 object ArrangedSubstitue {
 
-  case object Yesclientagreed extends WithName("yesClientAgreed") with ArrangedSubstitue
-  case object Yesclientnotagreed extends WithName("yesClientNotAgreed") with ArrangedSubstitue
+  case object YesClientAgreed extends WithName("yesClientAgreed") with ArrangedSubstitue
+  case object YesClientNotAgreed extends WithName("yesClientNotAgreed") with ArrangedSubstitue
   case object No extends WithName("no") with ArrangedSubstitue
 
   val values: Seq[ArrangedSubstitue] = Seq(
-    Yesclientagreed, Yesclientnotagreed, No
+    YesClientAgreed, YesClientNotAgreed, No
   )
 
   val options: Seq[RadioOption] = values.map {
@@ -45,8 +45,8 @@ object ArrangedSubstitue {
 
   implicit object ArrangedSubstitueReads extends Reads[ArrangedSubstitue] {
     override def reads(json: JsValue): JsResult[ArrangedSubstitue] = json match {
-      case JsString(Yesclientagreed.toString) => JsSuccess(Yesclientagreed)
-      case JsString(Yesclientnotagreed.toString) => JsSuccess(Yesclientnotagreed)
+      case JsString(YesClientAgreed.toString) => JsSuccess(YesClientAgreed)
+      case JsString(YesClientNotAgreed.toString) => JsSuccess(YesClientNotAgreed)
       case JsString(No.toString) => JsSuccess(No)
       case _                          => JsError("Unknown arrangedSubstitue")
     }
