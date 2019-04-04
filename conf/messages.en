@@ -204,3 +204,15 @@ scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no sch
 scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.error.required = You need to select an answer
 scheduleOfWorkingHours.error.invalid = You need to select an answer
+
+howWorkIsDone.title = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
+howWorkIsDone.heading = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
+howWorkIsDone.subheading = About the work arrangements
+howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
+howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without input from the worker
+howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without input from the end client
+howWorkIsDone.workerFollowStrictEmployeeProcedures = No - the end client cannot decide how the work needs to be done because it is a highly skilled role
+howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done
+howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
+howWorkIsDone.error.required = You need to select an answer
+howWorkIsDone.error.invalid = You need to select an answer

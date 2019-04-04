@@ -41,7 +41,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new CannotClaimAsExpenseController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = FakeDataCacheConnector,
+    dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,

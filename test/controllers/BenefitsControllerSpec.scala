@@ -40,7 +40,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new BenefitsController(
     frontendAppConfig,
-    FakeDataCacheConnector,
+    new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,

@@ -20,7 +20,7 @@ object AppDependencies {
   val test = Seq(
     "uk.gov.hmrc" %% "hmrctest" % "3.6.0-play-26",
     "uk.gov.hmrc" %% "reactivemongo-test" % "4.10.0-play-26",
-    "org.scalatest" %% "scalatest" % "3.0.4",
+    "org.scalatest" %% "scalatest" % "3.0.7",
     "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2",
     "org.pegdown" % "pegdown" % "1.6.0",
     "org.jsoup" % "jsoup" % "1.10.3",

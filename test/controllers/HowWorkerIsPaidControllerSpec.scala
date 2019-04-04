@@ -41,7 +41,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new HowWorkerIsPaidController(
     frontendAppConfig,
-    FakeDataCacheConnector,
+    new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,

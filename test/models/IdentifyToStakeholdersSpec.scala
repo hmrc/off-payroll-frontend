@@ -20,15 +20,16 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.prop.PropertyChecks
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with PropertyChecks with OptionValues {
+class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
 
   "IdentifyToStakeholders" must {
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(IdentifyToStakeholders.values.toSeq)
+      val gen = Gen.oneOf(IdentifyToStakeholders.values)
 
       forAll(gen) {
         identifyToStakeholders =>
@@ -50,7 +51,7 @@ class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with Propert
 
     "serialise" in {
 
-      val gen = Gen.oneOf(IdentifyToStakeholders.values.toSeq)
+      val gen = Gen.oneOf(IdentifyToStakeholders.values)
 
       forAll(gen) {
         identifyToStakeholders =>

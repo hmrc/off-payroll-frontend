@@ -41,7 +41,7 @@ class ArrangedSubstitueControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ArrangedSubstitueController(
     frontendAppConfig,
-    FakeDataCacheConnector,
+    new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,

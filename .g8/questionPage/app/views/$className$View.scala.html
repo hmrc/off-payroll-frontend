@@ -1,0 +1,36 @@
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import controllers.routes._
+@import models.{Mode, $className$}
+@import views.ViewUtils._
+
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
+
+@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+
+@mainTemplate(
+    title = s"\${errorPrefix(form)} \${messages("$className;format="decap"$.title")}",
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    @formWithCsrf(action = $className;format="cap"$Controller.onSubmit(mode), 'autoComplete -> "off") {
+
+        @components.back_link()
+        
+        @components.error_summary(form.errors)
+
+        @components.heading("$className;format="decap"$.heading", Some("$className;format="decap"$.subheading"))
+
+        @components.input_text(
+            field = form("field1"),
+            label = messages("$className;format="decap"$.field1")
+        )
+
+        @components.input_text(
+            field = form("field2"),
+            label = messages("$className;format="decap"$.field2")
+        )
+
+        @components.submit_button()
+    }
+}

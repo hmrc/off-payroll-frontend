@@ -35,7 +35,7 @@ class IndexControllerSpec extends ControllerSpecBase {
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
         getData = dataRetrievalAction,
-        cache = FakeDataCacheConnector,
+        cache = new FakeDataCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 
@@ -57,7 +57,7 @@ class IndexControllerSpec extends ControllerSpecBase {
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
         getData = dataRetrievalAction,
-        cache = FakeDataCacheConnector,
+        cache = new FakeDataCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 

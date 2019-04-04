@@ -17,18 +17,21 @@
 package base
 
 import config.FrontendAppConfig
+import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
 import play.api.i18n.{Lang, Messages, MessagesApi}
-import play.api.inject.Injector
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
 
 import scala.concurrent.ExecutionContext
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with MaterializerSupport {
+trait SpecBase extends PlaySpec with MaterializerSupport {
 
-  def injector: Injector = app.injector
+  val injector = new GuiceApplicationBuilder()
+    .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
+    .injector()
 
   def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 

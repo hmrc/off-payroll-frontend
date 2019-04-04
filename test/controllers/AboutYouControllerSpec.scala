@@ -41,7 +41,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new AboutYouController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = FakeDataCacheConnector,
+    dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,

@@ -22,15 +22,16 @@ import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson.{BSONDocument, BSONObjectID}
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
 import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
+import reactivemongo.api.indexes.{Index, IndexType}
+import reactivemongo.core.errors.GenericDatabaseException
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
@@ -44,7 +45,7 @@ object DatedCacheMap {
 }
 
 @Singleton
-class SessionRepository @Inject()(config: FrontendAppConfig, mongoComponent: ReactiveMongoComponent, @Named("appName") appName: String)
+class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appConfig: FrontendAppConfig, @Named("appName") appName: String)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID](
     collectionName = appName,
     mongo = mongoComponent.mongoConnector.db,
@@ -55,7 +56,7 @@ class SessionRepository @Inject()(config: FrontendAppConfig, mongoComponent: Rea
   val fieldName = "lastUpdated"
   val createdIndexName = "userAnswersExpiry"
   val expireAfterSeconds = "expireAfterSeconds"
-  val timeToLiveInSeconds: Int = config.servicesConfig.getInt("mongodb.timeToLiveInSeconds")
+  val timeToLiveInSeconds: Int = appConfig.mongoTtl
 
   createIndex(fieldName, createdIndexName, timeToLiveInSeconds)
 

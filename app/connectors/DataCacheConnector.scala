@@ -24,7 +24,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class MongoCacheConnector @Inject()(val sessionRepository: SessionRepository) extends DataCacheConnector {
+class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extends DataCacheConnector {
 
   def save[A](cacheMap: CacheMap): Future[CacheMap] = {
     sessionRepository.upsert(cacheMap).map{_ => cacheMap}

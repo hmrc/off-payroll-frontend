@@ -17,7 +17,6 @@
 package controllers.actions
 
 import com.google.inject.Inject
-import controllers.errors.routes
 import models.requests.{DataRequest, OptionalDataRequest}
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, MessagesControllerComponents, Result}

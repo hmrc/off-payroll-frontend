@@ -23,7 +23,7 @@ import scala.concurrent.Future
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-object FakeDataCacheConnector extends DataCacheConnector {
+class FakeDataCacheConnector extends DataCacheConnector {
 
   override def save[A](cacheMap: CacheMap): Future[CacheMap] = Future.successful(cacheMap)
 

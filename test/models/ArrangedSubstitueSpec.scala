@@ -18,17 +18,17 @@ package models
 
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-class ArrangedSubstitueSpec extends WordSpec with MustMatchers with PropertyChecks with OptionValues {
+class ArrangedSubstitueSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
 
   "ArrangedSubstitue" must {
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(ArrangedSubstitue.values.toSeq)
+      val gen = Gen.oneOf(ArrangedSubstitue.values)
 
       forAll(gen) {
         arrangedSubstitue =>
@@ -50,7 +50,7 @@ class ArrangedSubstitueSpec extends WordSpec with MustMatchers with PropertyChec
 
     "serialise" in {
 
-      val gen = Gen.oneOf(ArrangedSubstitue.values.toSeq)
+      val gen = Gen.oneOf(ArrangedSubstitue.values)
 
       forAll(gen) {
         arrangedSubstitue =>

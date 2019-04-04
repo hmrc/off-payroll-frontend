@@ -81,3 +81,8 @@ GET        /schedule-of-working-hours                   controllers.ScheduleOfWo
 POST       /schedule-of-working-hours                   controllers.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = NormalMode)
 GET        /change-schedule-of-working-hours            controllers.ScheduleOfWorkingHoursController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-schedule-of-working-hours            controllers.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = CheckMode)
+
+GET        /how-work-is-done                            controllers.HowWorkIsDoneController.onPageLoad(mode: Mode = NormalMode)
+POST       /how-work-is-done                            controllers.HowWorkIsDoneController.onSubmit(mode: Mode = NormalMode)
+GET        /change-how-work-is-done                     controllers.HowWorkIsDoneController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-how-work-is-done                     controllers.HowWorkIsDoneController.onSubmit(mode: Mode = CheckMode)

@@ -1,0 +1,15 @@
+@import config.FrontendAppConfig
+
+@this(mainTemplate: templates.MainTemplate)
+
+@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+
+@mainTemplate(
+    title = messages("$className;format="decap"$.title"),
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    @components.back_link()
+
+    @components.heading("$className;format="decap"$.heading", Some("$className;format="decap"$.subheading"))
+}

@@ -18,17 +18,17 @@ package models
 
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-class WorkerTypeSpec extends WordSpec with MustMatchers with PropertyChecks with OptionValues {
+class WorkerTypeSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
 
   "WorkerType" must {
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(WorkerType.values.toSeq)
+      val gen = Gen.oneOf(WorkerType.values)
 
       forAll(gen) {
         workerType =>
@@ -50,7 +50,7 @@ class WorkerTypeSpec extends WordSpec with MustMatchers with PropertyChecks with
 
     "serialise" in {
 
-      val gen = Gen.oneOf(WorkerType.values.toSeq)
+      val gen = Gen.oneOf(WorkerType.values)
 
       forAll(gen) {
         workerType =>

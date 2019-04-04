@@ -49,4 +49,7 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
+
+  lazy val mongoTtl: Int = servicesConfig.getInt("mongodb.timeToLiveInSeconds")
+
 }

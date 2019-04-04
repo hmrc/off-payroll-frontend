@@ -16,18 +16,18 @@
 
 package controllers
 
-import javax.inject.Inject
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.OfficeHolderFormProvider
+import javax.inject.Inject
 import models.Mode
-import pages.OfficeHolderPage
 import navigation.Navigator
+import pages.OfficeHolderPage
+import play.api.data.Form
+import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.OfficeHolderView
 
 import scala.concurrent.{ExecutionContext, Future}
