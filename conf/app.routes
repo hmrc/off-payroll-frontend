@@ -96,3 +96,8 @@ GET        /needed-to-pay-helper                        controllers.NeededToPayH
 POST       /needed-to-pay-helper                        controllers.NeededToPayHelperController.onSubmit(mode: Mode = NormalMode)
 GET        /change-needed-to-pay-helper                 controllers.NeededToPayHelperController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-needed-to-pay-helper                 controllers.NeededToPayHelperController.onSubmit(mode: Mode = CheckMode)
+
+GET        /would-worker-pay-substitute                 controllers.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = NormalMode)
+POST       /would-worker-pay-substitute                 controllers.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = NormalMode)
+GET        /change-would-worker-pay-substitute          controllers.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-would-worker-pay-substitute          controllers.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = CheckMode)
