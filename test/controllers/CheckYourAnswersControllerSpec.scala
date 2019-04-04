@@ -38,9 +38,14 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     "return 200 and the correct view for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig,
-        Seq(AnswerSection(None, Seq()),AnswerSection(None, Seq()))
-      )(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(frontendAppConfig, Seq(
+        AnswerSection(Some("Setup Section"), Seq()),
+        AnswerSection(Some("Early Exit Section"), Seq()),
+        AnswerSection(Some("Personal Service Section"), Seq()),
+        AnswerSection(Some("Control Section"), Seq()),
+        AnswerSection(Some("Financial Risk Section"), Seq()),
+        AnswerSection(Some("Part and Parcel Section"), Seq())
+      ))(fakeRequest, messages).toString
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {

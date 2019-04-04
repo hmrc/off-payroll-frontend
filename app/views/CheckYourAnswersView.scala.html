@@ -24,16 +24,16 @@
 @mainTemplate(
     title = messages("checkYourAnswers.title"),
     appConfig = appConfig,
-    bodyClasses = None) {
+    bodyClasses = None,
+    articleLayout = false) {
 
     @components.heading("checkYourAnswers.heading")</h1>
-
-    <p>@messages("checkYourAnswers.guidance")</p>
 
     @for(section <- answerSections){
         @{
             section match {
-                case a: AnswerSection => components.answer_section(a)
+                case a: AnswerSection if a.nonEmpty => components.answer_section(a)
+                case a: AnswerSection => Html("")
                 case r: RepeaterAnswerSection => components.repeater_answer_section(r)
             }
         }
