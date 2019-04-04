@@ -45,6 +45,7 @@ class Navigator @Inject()() {
 
 
     //Control Section
+    MoveWorkerPage -> (_ => routes.HowWorkIsDoneController.onPageLoad(NormalMode)),
     HowWorkIsDonePage -> (_ => routes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)),
     ScheduleOfWorkingHoursPage -> (_ => routes.ChooseWhereWorkController.onPageLoad(NormalMode)),
     ChooseWhereWorkPage -> (_ => routes.CannotClaimAsExpenseController.onPageLoad(NormalMode)),

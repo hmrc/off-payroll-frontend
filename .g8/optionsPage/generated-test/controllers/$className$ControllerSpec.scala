@@ -25,7 +25,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new $className$Controller(
     frontendAppConfig,
-    FakeDataCacheConnector,
+    new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,

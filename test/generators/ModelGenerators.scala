@@ -22,6 +22,11 @@ import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
+  implicit lazy val arbitraryMoveWorker: Arbitrary[MoveWorker] =
+    Arbitrary {
+      Gen.oneOf(MoveWorker.values.toSeq)
+    }
+
   implicit lazy val arbitraryHowWorkIsDone: Arbitrary[HowWorkIsDone] =
     Arbitrary {
       Gen.oneOf(HowWorkIsDone.values.toSeq)
