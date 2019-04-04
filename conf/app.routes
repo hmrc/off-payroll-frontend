@@ -101,3 +101,8 @@ GET        /would-worker-pay-substitute                 controllers.WouldWorkerP
 POST       /would-worker-pay-substitute                 controllers.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = NormalMode)
 GET        /change-would-worker-pay-substitute          controllers.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-would-worker-pay-substitute          controllers.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = CheckMode)
+
+GET        /reject-substitute                           controllers.RejectSubstituteController.onPageLoad(mode: Mode = NormalMode)
+POST       /reject-substitute                           controllers.RejectSubstituteController.onSubmit(mode: Mode = NormalMode)
+GET        /change-reject-substitute                    controllers.RejectSubstituteController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-reject-substitute                    controllers.RejectSubstituteController.onSubmit(mode: Mode = CheckMode)
