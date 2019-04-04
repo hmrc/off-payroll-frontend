@@ -41,7 +41,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new PutRightAtOwnCostController(
     frontendAppConfig,
-    FakeDataCacheConnector,
+    new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,

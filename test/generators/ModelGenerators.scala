@@ -22,6 +22,11 @@ import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
+  implicit lazy val arbitraryHowWorkIsDone: Arbitrary[HowWorkIsDone] =
+    Arbitrary {
+      Gen.oneOf(HowWorkIsDone.values.toSeq)
+    }
+
   implicit lazy val arbitraryScheduleOfWorkingHours: Arbitrary[ScheduleOfWorkingHours] =
     Arbitrary {
       Gen.oneOf(ScheduleOfWorkingHours.values.toSeq)

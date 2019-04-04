@@ -19,7 +19,7 @@ package navigation
 import base.SpecBase
 import controllers.routes
 import models._
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 import pages._
 import play.api.libs.json.Writes
 
@@ -64,6 +64,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       //TODO: Update with correct route
       "go to CheckYourAnswers page from the Office Holder page if Contract Started" in {
         nextPage(OfficeHolderPage, setAnswers(ContractStartedPage -> false)) mustBe routes.CheckYourAnswersController.onPageLoad()
+      }
+
+      "go to ScheduleOfWorkingHoursPage from the HowWorkIsDonePage" in {
+        nextPage(HowWorkIsDonePage) mustBe routes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)
       }
 
       "go to ChooseWhereWorkPage from the ScheduleOfWorkingHoursPage" in {

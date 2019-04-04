@@ -23,6 +23,10 @@ import viewmodels.AnswerRow
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
+  def howWorkIsDone: Option[AnswerRow] = userAnswers.get(HowWorkIsDonePage) map {
+    x => AnswerRow("howWorkIsDone.checkYourAnswersLabel", s"howWorkIsDone.$x", true, routes.HowWorkIsDoneController.onPageLoad(CheckMode).url)
+  }
+
   def scheduleOfWorkingHours: Option[AnswerRow] = userAnswers.get(ScheduleOfWorkingHoursPage) map {
     x => AnswerRow("scheduleOfWorkingHours.checkYourAnswersLabel", s"scheduleOfWorkingHours.$x", true, routes.ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url)
   }

@@ -18,8 +18,9 @@ package viewmodels
 
 import base.SpecBase
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.prop.PropertyChecks._
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks._
 import play.twirl.api.Html
+
 
 class AnswerRowSpec extends SpecBase {
 

@@ -18,17 +18,17 @@ package models
 
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-class PutRightAtOwnCostSpec extends WordSpec with MustMatchers with PropertyChecks with OptionValues {
+class PutRightAtOwnCostSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
 
   "PutRightAtOwnCost" must {
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(PutRightAtOwnCost.values.toSeq)
+      val gen = Gen.oneOf(PutRightAtOwnCost.values)
 
       forAll(gen) {
         putRightAtOwnCost =>
@@ -50,7 +50,7 @@ class PutRightAtOwnCostSpec extends WordSpec with MustMatchers with PropertyChec
 
     "serialise" in {
 
-      val gen = Gen.oneOf(PutRightAtOwnCost.values.toSeq)
+      val gen = Gen.oneOf(PutRightAtOwnCost.values)
 
       forAll(gen) {
         putRightAtOwnCost =>
