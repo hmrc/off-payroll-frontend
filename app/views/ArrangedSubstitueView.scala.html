@@ -1,0 +1,62 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import controllers.routes._
+@import models.ArrangedSubstitue
+@import models.Mode
+@import views.ViewUtils._
+
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
+
+@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+
+@mainTemplate(
+    title = s"${errorPrefix(form)} ${messages("arrangedSubstitue.title")}",
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    @formWithCsrf(action = ArrangedSubstitueController.onSubmit(mode), 'autoComplete -> "off") {
+
+        @components.back_link()
+
+        @components.error_summary(form.errors)
+
+        @components.heading("arrangedSubstitue.heading", Some("arrangedSubstitue.subheading"))
+
+        @components.input_radio(
+            field = form("value"),
+            legend = messages("arrangedSubstitue.heading"),
+            hint = Some(hint),
+            legendClass = Some("visually-hidden"),
+            inputs = ArrangedSubstitue.options
+        )
+
+        @components.submit_button()
+    }
+}
+
+@hint = {
+    <p>@messages("arrangedSubstitue.p1")</p>
+    @components.bulleted_list(Seq(
+        "arrangedSubstitue.bullet1",
+        "arrangedSubstitue.bullet2",
+        "arrangedSubstitue.bullet3",
+        "arrangedSubstitue.bullet4",
+        "arrangedSubstitue.bullet5"
+    ))
+}

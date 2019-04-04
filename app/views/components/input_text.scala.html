@@ -1,0 +1,46 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(
+        field: Field,
+        label: String,
+        inputClass: Option[String] = None,
+        hint: Option[String] = None,
+        labelClass: Option[String] = None
+)(implicit messages: Messages)
+
+<div class="form-group @if(field.hasErrors){form-group-error}">
+    <label class="form-label" for="@{field.id}">
+        <span class="bold @if(labelClass.nonEmpty){@labelClass}">@label</span>
+        @if(hint.nonEmpty){
+            <span class="form-hint">@hint</span>
+        }
+        @field.errors.map { error =>
+            <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+        }
+    </label>
+    <div class="form-control-wrapper">
+        <input
+        class="form-control @inputClass"
+        type="text"
+        id="@{field.id}"
+        name="@{field.name}"
+        value="@{field.value}"
+            @if(field.hasErrors){aria-describedby="error-message-@{field.id}-input"}
+        />
+    </div>
+</div>
+

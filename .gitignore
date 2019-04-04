@@ -1,5 +1,3 @@
-!.gitignore
-
 .cache
 /.classpath
 db
@@ -31,3 +29,7 @@ test-result
 tmp
 .idea_modules
 bin
+/*.iml
+/*.ipr
+/.classpath
+*.iws

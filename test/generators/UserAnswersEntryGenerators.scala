@@ -1,0 +1,138 @@
+/*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package generators
+
+import models._
+import org.scalacheck.Arbitrary
+import org.scalacheck.Arbitrary.arbitrary
+import pages._
+import play.api.libs.json.{JsValue, Json}
+
+trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
+
+  implicit lazy val arbitraryScheduleOfWorkingHoursUserAnswersEntry: Arbitrary[(ScheduleOfWorkingHoursPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ScheduleOfWorkingHoursPage.type]
+        value <- arbitrary[ScheduleOfWorkingHours].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryChooseWhereWorkUserAnswersEntry: Arbitrary[(ChooseWhereWorkPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ChooseWhereWorkPage.type]
+        value <- arbitrary[ChooseWhereWork].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryHowWorkerIsPaidUserAnswersEntry: Arbitrary[(HowWorkerIsPaidPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[HowWorkerIsPaidPage.type]
+        value <- arbitrary[HowWorkerIsPaid].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryPutRightAtOwnCostUserAnswersEntry: Arbitrary[(PutRightAtOwnCostPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[PutRightAtOwnCostPage.type]
+        value <- arbitrary[PutRightAtOwnCost].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryBenefitsUserAnswersEntry: Arbitrary[(BenefitsPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[BenefitsPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryLineManagerDutiesUserAnswersEntry: Arbitrary[(LineManagerDutiesPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[LineManagerDutiesPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryInteractWithStakeholdersUserAnswersEntry: Arbitrary[(InteractWithStakeholdersPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[InteractWithStakeholdersPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryIdentifyToStakeholdersUserAnswersEntry: Arbitrary[(IdentifyToStakeholdersPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[IdentifyToStakeholdersPage.type]
+        value <- arbitrary[IdentifyToStakeholders].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryArrangedSubstitueUserAnswersEntry: Arbitrary[(ArrangedSubstituePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ArrangedSubstituePage.type]
+        value <- arbitrary[ArrangedSubstitue].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryCannotClaimAsExpenseUserAnswersEntry: Arbitrary[(CannotClaimAsExpensePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[CannotClaimAsExpensePage.type]
+        value <- arbitrary[CannotClaimAsExpense].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryOfficeHolderUserAnswersEntry: Arbitrary[(OfficeHolderPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[OfficeHolderPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWorkerTypeUserAnswersEntry: Arbitrary[(WorkerTypePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WorkerTypePage.type]
+        value <- arbitrary[WorkerType].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryContractStartedUserAnswersEntry: Arbitrary[(ContractStartedPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[ContractStartedPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryAboutYouUserAnswersEntry: Arbitrary[(AboutYouPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[AboutYouPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+}

@@ -1,0 +1,68 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import controllers.routes._
+@import models.Mode
+@import views.ViewUtils._
+
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
+
+@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+
+@mainTemplate(
+    title = s"${errorPrefix(form)} ${messages("officeHolder.title")}",
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    @formWithCsrf(action = OfficeHolderController.onSubmit(mode), 'autoComplete -> "off") {
+
+        @components.back_link()
+
+        @components.error_summary(form.errors)
+
+        @components.heading("officeHolder.heading", Some("officeHolder.subheading"))
+
+        <div class="form-hint">
+            <p>@messages("officeHolder.p1")</p>
+            <p>@messages("officeHolder.p2")</p>
+
+            <ul class="list-bullet">
+                <li>@messages("officeHolder.bullet1")</li>
+                <li>@messages("officeHolder.bullet2")</li>
+                <li>@messages("officeHolder.bullet3")</li>
+            </ul>
+        </div>
+
+        <div class="notice form-group">
+            <i class="icon icon-important">
+                <span class="visually-hidden">@messages("site.warning")</span>
+            </i>
+            <strong class="bold-small">
+                @messages("officeHolder.exclamation")
+            </strong>
+        </div>
+
+        @components.input_yes_no(
+            field = form("value"),
+            label = messages("officeHolder.heading"),
+            labelClass = Some("visually-hidden")
+        )
+
+        @components.submit_button()
+    }
+}

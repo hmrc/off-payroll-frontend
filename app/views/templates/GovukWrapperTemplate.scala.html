@@ -1,0 +1,133 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import layouts.GovUkTemplate
+@import uk.gov.hmrc.play.views.html.layouts.Head
+@import uk.gov.hmrc.play.views.html.layouts.HeaderNav
+@import uk.gov.hmrc.play.views.html.layouts.Footer
+@import uk.gov.hmrc.play.views.html.layouts.ServiceInfo
+@import uk.gov.hmrc.play.views.html.layouts.MainContentHeader
+@import uk.gov.hmrc.play.views.html.layouts.MainContent
+@import uk.gov.hmrc.play.views.html.layouts.Sidebar
+@import uk.gov.hmrc.play.views.html.layouts.Article
+@import uk.gov.hmrc.play.views.html.layouts.FooterLinks
+@import uk.gov.hmrc.play.views.html.helpers.ReportAProblemLink
+
+@this(head: Head,
+headerNav: HeaderNav,
+footer: Footer,
+serviceInfo: ServiceInfo,
+mainContentHeader: MainContentHeader,
+mainContent: MainContent,
+sidebar: Sidebar,
+article: Article,
+reportAProblemLink: ReportAProblemLink,
+footerLinks: FooterLinks,
+hmrcGovUkTemplate: GovUkTemplate)
+
+@(appConfig: config.FrontendAppConfig,
+  title: String,
+  mainClass: Option[String] = None,
+  mainDataAttributes: Option[Html] = None,
+  bodyClasses: Option[String] = None,
+  sidebar: Html = Html(""),
+  contentHeader: Option[Html] = None,
+  mainBody: Html = Html(""),
+  serviceInfoContent: Html = Html(""),
+  scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
+
+@headContent = {
+    @head(
+      linkElem = None,
+      headScripts = None)
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/offpayrollfrontend-app.css")' />
+}
+
+@headerNavLinks = {}
+
+@insideHeader = {
+    @headerNav(
+      navTitle = Some(messages("site.service_name")),
+      navTitleLink = None,
+      showBetaLink = false,
+      navLinks = Some(headerNavLinks))
+}
+
+@afterHeader = {}
+
+@bodyEnd = {
+    @footer(
+      analyticsToken = Some(appConfig.analyticsToken),
+      analyticsHost = appConfig.analyticsHost,
+      ssoUrl = None,
+      scriptElem = scriptElem,
+      gaCalls = None)
+      <script src='@routes.Assets.versioned("javascripts/offpayrollfrontend-app.min.js")'> </script>
+}
+
+@footerTop = {}
+@footerLinksContent = {}
+
+@phaseBanner = {
+    <div class="beta-banner">
+        <p>
+            <strong id="phase" class="phase-tag">BETA</strong>
+            <span>
+                @messages("feedback.before")
+                <a id="beta-banner-feedback" href="@{appConfig.feedbackUrl}">@messages("feedback.link")</a>
+                @messages("feedback.after")
+            </span>
+        </p>
+    </div>
+}
+
+@serviceInfoHtml = {
+    @serviceInfo(
+      betaBanner = phaseBanner,
+      includeHMRCBranding = true,
+      includeGridWrapper = false,
+      serviceInfoContent = Some(serviceInfoContent))
+}
+
+@mainContentHeaderContent = {
+
+    @if(appConfig.languageTranslationEnabled) {
+        @views.html.language_selection(
+            appConfig.languageMap,
+            appConfig.routeToSwitchLanguage,
+            Some("translate u-align--right"))
+    }
+
+    @if(contentHeader.isDefined) {
+        @mainContentHeader(contentHeader = contentHeader.get)
+    }
+}
+
+@getHelpForm = @{reportAProblemLink(appConfig.reportAProblemPartialUrl, appConfig.reportAProblemNonJSUrl)}
+
+@content = {
+    @mainContent(
+      article = mainBody,
+      mainClass = mainClass,
+      mainDataAttributes = mainDataAttributes,
+      mainContentHeader = mainContentHeaderContent,
+      serviceInfo = serviceInfoHtml,
+      getHelpForm = getHelpForm,
+      sidebar = sidebar)
+}
+
+@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks()), true)(content)

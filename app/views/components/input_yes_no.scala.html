@@ -1,0 +1,57 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(
+        field: Field,
+        label: String,
+        secondaryLabel: Option[String] = None,
+        inputClass: Option[String] = None,
+        hint: Option[Html] = None,
+        yesAssoc: Option[String] = None,
+        noAssoc: Option[String] = None,
+        labelClass: Option[String] = None
+)(implicit messages: Messages)
+
+
+<div class="form-group @if(field.hasErrors){form-group-error}">
+    <fieldset class="inline" id="@{field.id}">
+
+        <legend>
+            <span @if(labelClass.nonEmpty){class="@labelClass"}>@label</span>
+        </legend>
+        @if(hint.nonEmpty){
+            <span class="form-hint form-group">@hint</span>
+        }
+        @field.errors.map { error =>
+            <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+        }
+        <div class="multiple-choice">
+            <input id="@{field.id}-yes" type="radio" name="@{field.id}" value="true" @if(field.value.contains("true")){checked="checked"} />
+            <label class="block-label selection-button-radio" for="@{field.id}-yes" data-target="@if(yesAssoc.nonEmpty){@yesAssoc}">
+                @messages("site.yes")
+            </label>
+        </div>
+
+        <div class="multiple-choice">
+            <input id="@{field.id}-no" type="radio" name="@{field.id}" value="false" @if(field.value.contains("false")){checked="checked"} />
+            <label class="block-label selection-button-radio" for="@{field.id}-no" data-target="@if(noAssoc.nonEmpty){@noAssoc}">
+                @messages("site.no")
+            </label>
+        </div>
+
+    </fieldset>
+</div>
+

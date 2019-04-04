@@ -1,14 +1,83 @@
 # microservice specific routes
 
-GET         /                                             @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin
-GET         /cluster/                                     @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin
-GET         /cluster/back                                 @uk.gov.hmrc.offpayroll.controllers.InterviewController.back
-POST        /cluster/:clusterID/element/:elementID        @uk.gov.hmrc.offpayroll.controllers.InterviewController.processElement(clusterID: Int, elementID: Int)
+GET        /                                            controllers.IndexController.onPageLoad
 
-GET         /setup                                        @uk.gov.hmrc.offpayroll.controllers.InterviewController.begin
+GET        /assets/*file                                controllers.Assets.versioned(path="/public", file: Asset)
 
-POST        /print/format                                 @uk.gov.hmrc.offpayroll.controllers.PrintController.format
-POST        /print/print                                  @uk.gov.hmrc.offpayroll.controllers.PrintController.printResult
+GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
-GET         /switch-to-welsh                              @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToWelsh
-GET         /switch-to-english                            @uk.gov.hmrc.offpayroll.controllers.LanguageController.switchToEnglish
+GET        /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onPageLoad
+
+GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
+
+GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
+
+GET        /about-you                                   controllers.AboutYouController.onPageLoad(mode: Mode = NormalMode)
+POST       /about-you                                   controllers.AboutYouController.onSubmit(mode: Mode = NormalMode)
+GET        /change-about-you                            controllers.AboutYouController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-about-you                            controllers.AboutYouController.onSubmit(mode: Mode = CheckMode)
+
+GET        /contract-started                            controllers.ContractStartedController.onPageLoad(mode: Mode = NormalMode)
+POST       /contract-started                            controllers.ContractStartedController.onSubmit(mode: Mode = NormalMode)
+GET        /change-contract-started                     controllers.ContractStartedController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-contract-started                     controllers.ContractStartedController.onSubmit(mode: Mode = CheckMode)
+
+GET        /worker-type                                 controllers.WorkerTypeController.onPageLoad(mode: Mode = NormalMode)
+POST       /worker-type                                 controllers.WorkerTypeController.onSubmit(mode: Mode = NormalMode)
+GET        /change-worker-type                          controllers.WorkerTypeController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-worker-type                          controllers.WorkerTypeController.onSubmit(mode: Mode = CheckMode)
+
+GET        /office-holder                               controllers.OfficeHolderController.onPageLoad(mode: Mode = NormalMode)
+POST       /office-holder                               controllers.OfficeHolderController.onSubmit(mode: Mode = NormalMode)
+GET        /change-office-holder                        controllers.OfficeHolderController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-office-holder                        controllers.OfficeHolderController.onSubmit(mode: Mode = CheckMode)
+
+GET        /cannot-claim-as-expense                     controllers.CannotClaimAsExpenseController.onPageLoad(mode: Mode = NormalMode)
+POST       /cannot-claim-as-expense                     controllers.CannotClaimAsExpenseController.onSubmit(mode: Mode = NormalMode)
+GET        /change-cannot-claim-as-expense              controllers.CannotClaimAsExpenseController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-cannot-claim-as-expense              controllers.CannotClaimAsExpenseController.onSubmit(mode: Mode = CheckMode)
+
+GET        /arranged-substitue                          controllers.ArrangedSubstitueController.onPageLoad(mode: Mode = NormalMode)
+POST       /arranged-substitue                          controllers.ArrangedSubstitueController.onSubmit(mode: Mode = NormalMode)
+GET        /change-arranged-substitue                   controllers.ArrangedSubstitueController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-arranged-substitue                   controllers.ArrangedSubstitueController.onSubmit(mode: Mode = CheckMode)
+
+GET        /identify-to-stakeholders                    controllers.IdentifyToStakeholdersController.onPageLoad(mode: Mode = NormalMode)
+POST       /identify-to-stakeholders                    controllers.IdentifyToStakeholdersController.onSubmit(mode: Mode = NormalMode)
+GET        /change-identify-to-stakeholders             controllers.IdentifyToStakeholdersController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-identify-to-stakeholders             controllers.IdentifyToStakeholdersController.onSubmit(mode: Mode = CheckMode)
+
+GET        /interact-with-stakeholders                  controllers.InteractWithStakeholdersController.onPageLoad(mode: Mode = NormalMode)
+POST       /interact-with-stakeholders                  controllers.InteractWithStakeholdersController.onSubmit(mode: Mode = NormalMode)
+GET        /change-interact-with-stakeholders           controllers.InteractWithStakeholdersController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-interact-with-stakeholders           controllers.InteractWithStakeholdersController.onSubmit(mode: Mode = CheckMode)
+
+GET        /line-manager-duties                         controllers.LineManagerDutiesController.onPageLoad(mode: Mode = NormalMode)
+POST       /line-manager-duties                         controllers.LineManagerDutiesController.onSubmit(mode: Mode = NormalMode)
+GET        /change-line-manager-duties                  controllers.LineManagerDutiesController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-line-manager-duties                  controllers.LineManagerDutiesController.onSubmit(mode: Mode = CheckMode)
+
+GET        /benefits                                    controllers.BenefitsController.onPageLoad(mode: Mode = NormalMode)
+POST       /benefits                                    controllers.BenefitsController.onSubmit(mode: Mode = NormalMode)
+GET        /change-benefits                             controllers.BenefitsController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-benefits                             controllers.BenefitsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /put-right-at-own-cost                       controllers.PutRightAtOwnCostController.onPageLoad(mode: Mode = NormalMode)
+POST       /put-right-at-own-cost                       controllers.PutRightAtOwnCostController.onSubmit(mode: Mode = NormalMode)
+GET        /change-put-right-at-own-cost                controllers.PutRightAtOwnCostController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-put-right-at-own-cost                controllers.PutRightAtOwnCostController.onSubmit(mode: Mode = CheckMode)
+
+GET        /how-worker-is-paid                          controllers.HowWorkerIsPaidController.onPageLoad(mode: Mode = NormalMode)
+POST       /how-worker-is-paid                          controllers.HowWorkerIsPaidController.onSubmit(mode: Mode = NormalMode)
+GET        /change-how-worker-is-paid                   controllers.HowWorkerIsPaidController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-how-worker-is-paid                   controllers.HowWorkerIsPaidController.onSubmit(mode: Mode = CheckMode)
+
+GET        /choose-where-work                           controllers.ChooseWhereWorkController.onPageLoad(mode: Mode = NormalMode)
+POST       /choose-where-work                           controllers.ChooseWhereWorkController.onSubmit(mode: Mode = NormalMode)
+GET        /change-choose-where-work                    controllers.ChooseWhereWorkController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-choose-where-work                    controllers.ChooseWhereWorkController.onSubmit(mode: Mode = CheckMode)
+
+GET        /schedule-of-working-hours                   controllers.ScheduleOfWorkingHoursController.onPageLoad(mode: Mode = NormalMode)
+POST       /schedule-of-working-hours                   controllers.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = NormalMode)
+GET        /change-schedule-of-working-hours            controllers.ScheduleOfWorkingHoursController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-schedule-of-working-hours            controllers.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = CheckMode)

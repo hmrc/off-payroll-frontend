@@ -1,0 +1,206 @@
+checkYourAnswers.title = Check Your Answers
+checkYourAnswers.heading = Check Your Answers
+checkYourAnswers.guidance = Guidance for check your answers
+
+date.day = Day
+date.month = Month
+date.year = Year
+
+error.browser.title.prefix = Error:
+error.boolean = Please give an answer
+error.invalid_date = Give a correct date
+error.date.day_blank = Enter a day
+error.date.day_invalid = Give a correct day using numbers 1 to 31
+error.date.month_blank = Enter a month
+error.date.month_invalid = Give a correct month using numbers 1 to 12
+error.date.year_blank = Enter a year
+error.date.year_invalid = Give a correct year
+error.integer = Give an answer in whole numbers
+error.non_numeric = Give a value using only numbers
+error.number = Please enter a valid number
+error.required = Please enter a value
+error.summary.title = There is a problem
+
+session_expired.title = For your security, this service has been reset
+session_expired.heading = For your security, this service has been reset
+session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
+
+site.back = Back
+site.delete = Remove
+site.edit = Change
+site.hidden-delete = Delete {0}
+site.hidden-edit = Change {0}
+site.no = No
+site.yes = Yes
+site.continue = Continue
+site.service_name = Check employment status for tax
+site.textarea.char_limit = (Limit is {0} characters)
+
+feedback.before = This is a new service – your
+feedback.link = feedback
+feedback.after = will help us to improve it.
+
+unauthorised.title = You can’t access this service with this account
+unauthorised.heading = You can’t access this service with this account
+
+aboutYou.title = Which of these describes you best?
+aboutYou.heading = Which of these describes you best?
+aboutYou.subheading = About the people involved
+aboutYou.checkYourAnswersLabel = Which of these describes you best?
+aboutYou.hint = The end client is the public body, corporation or business that the worker is providing services to.
+aboutYou.worker = The worker
+aboutYou.client = The end client
+aboutYou.agency = The agency paying the worker
+aboutYou.noneOfAbove = None of the above
+
+aboutYou.error.required = You need to select an answer
+aboutYou.error.invalid = You need to select an answer
+
+contractStarted.title = Has the worker already started this particular engagement for the end client?
+contractStarted.heading = Has the worker already started this particular engagement for the end client?
+contractStarted.subheading = About the people involved
+contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for the end client?
+contractStarted.error.required = You need to select an answer
+
+workerType.title = How does the worker provide their services to the end client?
+workerType.heading = How does the worker provide their services to the end client?
+workerType.subheading = About the people involved
+workerType.limitedCompany = As a limited company
+workerType.partnership = As a partnership
+workerType.throughIndividual = Through another individual (not an agency)
+workerType.soleTrader = As a sole trader
+workerType.checkYourAnswersLabel = How does the worker provide their services to the end client?
+workerType.error.required = You need to select an answer
+workerType.error.invalid = You need to select an answer
+
+
+officeHolder.title = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
+officeHolder.heading = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
+officeHolder.subheading = About the worker’s duties
+officeHolder.p1 = Being an office holder is not about the physical place where the work is done, it is about the worker’s responsibilities within the organisation. Office holders can be appointed on a permanent or temporary basis.
+officeHolder.p2 = This engagement will include performing office holder duties for the end client, if:
+officeHolder.bullet1 = the worker has a position of responsibility for the end client, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles
+officeHolder.bullet2 = the role is created by statute, articles of association, trust deed or from documents that establish an organisation (a director or company secretary, for example)
+officeHolder.bullet3 = the role exists even if someone is not engaged to fill it (a club treasurer, for example)
+officeHolder.exclamation =  If you are not sure if these things apply, please ask the end client’s management about their organisational structure.
+officeHolder.checkYourAnswersLabel = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
+officeHolder.error.required = You need to select an answer
+
+cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
+cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
+cannotClaimAsExpense.subheading = About the worker’s financial risk
+cannotClaimAsExpense.p1 = These are things that:
+cannotClaimAsExpense.bullet1 = the worker has to provide to complete this specific engagement
+cannotClaimAsExpense.bullet2 = are not provided by the end client
+cannotClaimAsExpense.bullet3 = could place the worker at financial risk if the cost is not regained
+cannotClaimAsExpense.p2 = They do not include expenses incurred by being based away from home for the engagement.
+cannotClaimAsExpense.p3 = Select all that apply
+cannotClaimAsExpense.workerProvidedMaterials = Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationery, and most likely to be relevant to substantial purchases in the construction industry)
+cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
+cannotClaimAsExpense.workerUsedVehicle = Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
+cannotClaimAsExpense.workerHadOtherExpenses = Other expenses – including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
+cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
+cannotClaimAsExpense.error.required = You need to select an answer
+cannotClaimAsExpense.error.invalid = You need to select an answer
+
+arrangedSubstitue.title = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
+arrangedSubstitue.heading = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
+arrangedSubstitue.subheading = About substitutes and helpers
+arrangedSubstitue.p1 = This means someone who:
+arrangedSubstitue.bullet1 = was equally skilled, qualified, security cleared and able to perform the worker’s duties
+arrangedSubstitue.bullet2 = was not interviewed by the end client before they started (except for any verification checks)
+arrangedSubstitue.bullet3 = was not from a pool or bank of workers regularly engaged by the end client
+arrangedSubstitue.bullet4 = did all of the worker’s tasks for that period of time
+arrangedSubstitue.bullet5 = was substituted because the worker was unwilling but not unable to do the work
+arrangedSubstitue.yesClientAgreed = Yes - and the client agreed
+arrangedSubstitue.yesClientNotAgreed = Yes - but the client did not agree
+arrangedSubstitue.no = No - it has not happened
+arrangedSubstitue.checkYourAnswersLabel = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
+arrangedSubstitue.error.required = You need to select an answer
+arrangedSubstitue.error.invalid = You need to select an answer
+
+identifyToStakeholders.title = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
+identifyToStakeholders.heading = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
+identifyToStakeholders.subheading = About the worker’s integration into the organisation
+identifyToStakeholders.workForEndClient = They work for the end client
+identifyToStakeholders.workAsIndependent = They are an independent worker acting on behalf of the end client
+identifyToStakeholders.workAsBusiness = They work for their own business
+identifyToStakeholders.checkYourAnswersLabel = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
+identifyToStakeholders.error.required = You need to select an answer
+identifyToStakeholders.error.invalid = You need to select an answer
+
+interactWithStakeholders.title = Does the worker interact with the end client’s customers, clients, audience or users?
+interactWithStakeholders.heading = Does the worker interact with the end client’s customers, clients, audience or users?
+interactWithStakeholders.subheading = About the worker’s integration into the organisation
+interactWithStakeholders.hint = These are people who use or are affected by the service provided by the public body, corporation or business. This would not include the worker’s colleagues or other employees.
+interactWithStakeholders.checkYourAnswersLabel = Does the worker interact with the end client’s customers, clients, audience or users?
+interactWithStakeholders.error.required = You need to select an answer
+
+lineManagerDuties.title = Is the worker responsible for any of these duties for the end client?
+lineManagerDuties.heading = Is the worker responsible for any of these duties for the end client?
+lineManagerDuties.subheading = About the worker’s integration into the organisation
+lineManagerDuties.bullet1 = Hiring workers
+lineManagerDuties.bullet2 = Dismissing workers
+lineManagerDuties.bullet3 = Delivering appraisals
+lineManagerDuties.bullet4 = Deciding how much to pay someone
+lineManagerDuties.checkYourAnswersLabel = Is the worker responsible for any of these duties for the end client?
+lineManagerDuties.error.required = You need to select an answer
+
+benefits.title = Is the worker entitled to any of these benefits from the end client?
+benefits.heading = Is the worker entitled to any of these benefits from the end client?
+benefits.subheading = About the worker’s integration into the organisation
+benefits.bullet1 = Sick pay
+benefits.bullet2 = Holiday pay
+benefits.bullet3 = A workplace pension
+benefits.bullet4 = Maternity/paternity pay
+benefits.bullet5 = Other benefits (such as gym membership and health insurance)
+benefits.p1 = These do not include benefits provided by a third party or agency.
+benefits.checkYourAnswersLabel = Is the worker entitled to any of these benefits from the end client?
+benefits.error.required = You need to select an answer
+
+putRightAtOwnCost.title = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.heading = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.subheading = About the worker’s financial risk
+putRightAtOwnCost.outsideOfHoursNoCharge = Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to put it right without an additional charge, but would not incur any costs
+putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
+putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
+putRightAtOwnCost.noObligationToCorrect = No – they would not need to put it right
+putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.error.required = You need to select an answer
+putRightAtOwnCost.error.invalid = You need to select an answer
+
+howWorkerIsPaid.title = What is the main way the worker is paid for this engagement?
+howWorkerIsPaid.heading = What is the main way the worker is paid for this engagement?
+howWorkerIsPaid.subheading = About the worker’s financial risk
+howWorkerIsPaid.hourlyDailyOrWeekly = An hourly, daily or weekly rate
+howWorkerIsPaid.fixedPrice = A fixed price for a specific piece of work
+howWorkerIsPaid.pieceRate = An amount based on how much work is completed
+howWorkerIsPaid.commission = A percentage of the sales the worker makes
+howWorkerIsPaid.profitOrLosses = A percentage of the end client’s profits or savings
+howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
+howWorkerIsPaid.error.required = You need to select an answer
+howWorkerIsPaid.error.invalid = You need to select an answer
+
+chooseWhereWork.title = Can the worker choose where they work?
+chooseWhereWork.heading = Can the worker choose where they work?
+chooseWhereWork.subheading = About the work arrangements
+chooseWhereWork.workerChooses = Yes - the worker decides
+chooseWhereWork.workerCannotChoose = No - the end client decides
+chooseWhereWork.noLocationRequired = No - the task determines the work location
+chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
+chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
+chooseWhereWork.error.required = You need to select an answer
+chooseWhereWork.error.invalid = You need to select an answer
+
+scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
+scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+scheduleOfWorkingHours.subheading = About the work arrangements
+scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides the worker’s schedule
+scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule
+scheduleOfWorkingHours.workerAgreeSchedule = Partly - the worker and the end client agree a schedule
+scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
+scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
+scheduleOfWorkingHours.error.required = You need to select an answer
+scheduleOfWorkingHours.error.invalid = You need to select an answer
