@@ -45,6 +45,14 @@ class Navigator @Inject()() {
 
 
     //Personal Service Section
+    RejectSubstitutePage -> (answers =>
+      (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
+        case (Some(true), Some(true)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case (_, Some(false)) => routes.WouldWorkerPaySubstituteController.onPageLoad(NormalMode)
+        case (_, Some(true)) => routes.MoveWorkerController.onPageLoad(NormalMode)
+        case (None, _) => routes.ContractStartedController.onPageLoad(NormalMode)
+        case (_, None) => routes.RejectSubstituteController.onPageLoad(NormalMode)
+      }),
     WouldWorkerPaySubstitutePage -> (answers =>
       answers.get(ContractStartedPage) match {
         case Some(true) => routes.NeededToPayHelperController.onPageLoad(NormalMode)

@@ -23,6 +23,10 @@ import viewmodels.AnswerRow
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
+  def rejectSubstitute: Option[AnswerRow] = userAnswers.get(RejectSubstitutePage) map {
+    x => AnswerRow("rejectSubstitute.checkYourAnswersLabel", if(x) "site.yes" else "site.no", true, routes.RejectSubstituteController.onPageLoad(CheckMode).url)
+  }
+
   def wouldWorkerPaySubstitute: Option[AnswerRow] = userAnswers.get(WouldWorkerPaySubstitutePage) map {
     x => AnswerRow("wouldWorkerPaySubstitute.checkYourAnswersLabel", if(x) "site.yes" else "site.no", true, routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
   }

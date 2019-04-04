@@ -21,6 +21,9 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryRejectSubstitutePage: Arbitrary[RejectSubstitutePage.type] =
+    Arbitrary(RejectSubstitutePage)
+
   implicit lazy val arbitraryWouldWorkerPaySubstitutePage: Arbitrary[WouldWorkerPaySubstitutePage.type] =
     Arbitrary(WouldWorkerPaySubstitutePage)
 
