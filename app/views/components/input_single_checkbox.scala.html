@@ -1,0 +1,51 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import viewmodels.RadioOption
+
+@(field: Field,
+  label: String,
+  legend: String,
+  legendClass: Option[String] = None,
+  hint: Option[String] = None,
+  trackGa: Boolean = false
+)(implicit messages: Messages)
+
+<div class="form-group @if(field.hasErrors){form-group-error}">
+
+    <fieldset id="@{field.id}">
+        <legend>
+            <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get}}">@legend</span>
+            @if(hint.nonEmpty){
+                <span class="form-hint">@{hint.get}</span>
+            }
+            @field.errors.map { error =>
+                <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+            }
+        </legend>
+
+        <div class="multiple-choice">
+            <input id="@{field.id}"
+                   type="checkbox"
+                   name="@{field.id}"
+                   value="true"
+                   @if(field.value.contains("true")){checked="checked"}
+                   @if(trackGa){data-journey-click="off-payroll-frontend:click:@{field.id}"}><label for="@{field.id}">
+                @label
+            </label>
+        </div>
+    </fieldset>
+</div>

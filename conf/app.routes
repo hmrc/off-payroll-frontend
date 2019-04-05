@@ -111,3 +111,6 @@ GET        /did-pay-substitute                          controllers.DidPaySubsti
 POST       /did-pay-substitute                          controllers.DidPaySubstituteController.onSubmit(mode: Mode = NormalMode)
 GET        /change-did-pay-substitute                   controllers.DidPaySubstituteController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-did-pay-substitute                   controllers.DidPaySubstituteController.onSubmit(mode: Mode = CheckMode)
+
+GET        /result                                      controllers.ResultController.onPageLoad()
+POST       /result                                      controllers.ResultController.onSubmit()
