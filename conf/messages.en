@@ -382,3 +382,16 @@ result.control.shouldNowDo.p2 = If you are the fee payer you can pay the worker�
 result.control.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.control.aboutResult.p1.link = these specific conditions of liability
 result.control.aboutResult.p1.afterLink = .
+
+# Financial Risk Result
+result.financialRisk.title = The intermediaries legislation does not apply to this engagement
+result.financialRisk.heading = The intermediaries legislation does not apply to this engagement
+result.financialRisk.whyResult.p1 = You have told us that the worker’s business must make a significant capital investment to work on this engagement. These costs cannot be claimed back from the end client or an agency. Workers who risk their own money by, for example, buying assets, or paying for overheads and materials are acting more like a business in their own account and are likely to be self-employed for tax purposes.
+result.financialRisk.whyResult.exclamation = If HMRC investigate this engagement, the worker will need to demonstrate that they had to incur significant costs for materials, equipment, vehicles or other expenses that cannot be claimed back from the end client or agency.
+result.financialRisk.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
+result.financialRisk.shouldNowDo.p1.link = this guidance
+result.financialRisk.shouldNowDo.p1.afterLink = about your taxes.
+result.financialRisk.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.financialRisk.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
+result.financialRisk.aboutResult.p1.link = these specific conditions of liability
+result.financialRisk.aboutResult.p1.afterLink = .
