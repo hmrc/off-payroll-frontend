@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package views
+package views.results
 
 import akka.http.scaladsl.model.HttpMethods
-import forms.BenefitsFormProvider
+import forms.DeclarationFormProvider
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
-import views.html.results.OfficeHolderInsideIR35View
+import views.html.results.OfficeHolderEmployedView
 
-class ResultViewSpec extends ViewBehaviours {
+class OfficeHolderEmployedViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "result.officeHolderInsideIR35"
+  val messageKeyPrefix = "result.officeHolderEmployed"
 
-  val form = new BenefitsFormProvider()()
+  val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[OfficeHolderInsideIR35View]
+  val view = injector.instanceOf[OfficeHolderEmployedView]
 
-  val postAction = Call(HttpMethods.GET.value, "/")
+  val postAction = Call(HttpMethods.POST.value, "/")
 
   val answers = Seq()
 

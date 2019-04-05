@@ -26,7 +26,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
-import views.html.results.OfficeHolderInsideIR35View
+import views.html.results.{OfficeHolderEmployedView, OfficeHolderInsideIR35View}
 
 import scala.concurrent.ExecutionContext
 
@@ -36,6 +36,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  requireData: DataRequiredAction,
                                  controllerComponents: MessagesControllerComponents,
                                  officeHolderInsideIR35View: OfficeHolderInsideIR35View,
+                                 officeHolderEmployedView: OfficeHolderEmployedView,
                                  formProvider: DeclarationFormProvider
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 

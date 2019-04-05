@@ -21,14 +21,15 @@ import forms.DeclarationFormProvider
 import play.api.i18n.Messages
 import play.api.test.Helpers._
 import viewmodels.AnswerSection
-import views.html.results.OfficeHolderInsideIR35View
+import views.html.results.{OfficeHolderEmployedView, OfficeHolderInsideIR35View}
 
 class ResultControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[OfficeHolderInsideIR35View]
+  val officeHolderInsideIR35View = injector.instanceOf[OfficeHolderInsideIR35View]
+  val officeHolderEmployedView = injector.instanceOf[OfficeHolderEmployedView]
 
   val postAction = routes.ResultController.onSubmit() //TODO: this will need to go to the PDF controller
 
@@ -49,11 +50,12 @@ class ResultControllerSpec extends ControllerSpecBase {
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
-    view,
+    officeHolderInsideIR35View,
+    officeHolderEmployedView,
     formProvider
   )
 
-  def viewAsString() = view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
+  def viewAsString() = officeHolderInsideIR35View(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
 
   //TODO: Currently only renders the one view; this will need to cater for all views
   "ResultPage Controller" must {

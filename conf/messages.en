@@ -314,3 +314,13 @@ result.officeHolderInsideIR35.shouldNowDo.private.p1.afterLink = about your taxe
 result.officeHolderInsideIR35.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.officeHolderInsideIR35.aboutResult.p1.link = these specific conditions of liability
 result.officeHolderInsideIR35.aboutResult.p1.afterLink = .
+
+
+# Early Exit, Office Holder Employed
+result.officeHolderEmployed.title = This engagement should be classed as employed for tax purposes
+result.officeHolderEmployed.heading = This engagement should be classed as employed for tax purposes
+result.officeHolderEmployed.whyResult.p1 = Workers that perform office holder duties for the end client are classed as employed for tax purposes.
+result.officeHolderEmployed.shouldNowDo.engager.beforeLink = If you are the engager you need to
+result.officeHolderEmployed.shouldNowDo.engager.link = operate PAYE
+result.officeHolderEmployed.shouldNowDo.engager.afterLink = for this worker.
+result.officeHolderEmployed.shouldNowDo.worker = If you are the worker you should tell your engager to operate PAYE for you.

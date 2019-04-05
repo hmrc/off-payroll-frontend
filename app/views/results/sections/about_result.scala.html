@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@(content: Html)(implicit messages: Messages)
+@(content: Option[Html] = None)(implicit messages: Messages)
 
 <h2>@messages("result.aboutResult.h2")</h2>
 @content
