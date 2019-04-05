@@ -20,15 +20,15 @@ import akka.http.scaladsl.model.HttpMethods
 import forms.DeclarationFormProvider
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
-import views.html.results.CurrentSubstitutionView
+import views.html.results.SelfEmployedView
 
-class CurrentSubstitutionViewSpec extends ViewBehaviours {
+class SelfEmployedViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "result.currentSubstitution"
+  val messageKeyPrefix = "result.selfEmployed"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[CurrentSubstitutionView]
+  val view = injector.instanceOf[SelfEmployedView]
 
   val postAction = Call(HttpMethods.POST.value, "/")
 

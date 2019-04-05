@@ -21,7 +21,7 @@ import forms.DeclarationFormProvider
 import play.api.i18n.Messages
 import play.api.test.Helpers._
 import viewmodels.AnswerSection
-import views.html.results.{CurrentSubstitutionView, FutureSubstitutionView, OfficeHolderEmployedView, OfficeHolderInsideIR35View}
+import views.html.results._
 
 class ResultControllerSpec extends ControllerSpecBase {
 
@@ -32,6 +32,7 @@ class ResultControllerSpec extends ControllerSpecBase {
   val officeHolderEmployedView = injector.instanceOf[OfficeHolderEmployedView]
   val currentSubstitutionView = injector.instanceOf[CurrentSubstitutionView]
   val futureSubstitutionView = injector.instanceOf[FutureSubstitutionView]
+  val selfEmployedView = injector.instanceOf[SelfEmployedView]
 
   val postAction = routes.ResultController.onSubmit() //TODO: this will need to go to the PDF controller
 
@@ -56,6 +57,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     officeHolderEmployedView,
     currentSubstitutionView,
     futureSubstitutionView,
+    selfEmployedView,
     formProvider
   )
 

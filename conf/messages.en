@@ -351,3 +351,12 @@ result.currentSubstitution.shouldNowDo.p2 = If you are the fee payer you can pay
 result.currentSubstitution.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.currentSubstitution.aboutResult.p1.link = these specific conditions of liability
 result.currentSubstitution.aboutResult.p1.afterLink = .
+
+# Self Employed Result
+result.selfEmployed.title = This engagement should be classed as self-employed for tax purposes
+result.selfEmployed.heading = This engagement should be classed as self-employed for tax purposes
+result.selfEmployed.whyResult.p1 = The answers you have given tell us that the worker is a sole trader, and the working practices of this engagement mean they are self-employed for tax purposes.
+result.selfEmployed.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
+result.selfEmployed.shouldNowDo.p1.link = this guidance
+result.selfEmployed.shouldNowDo.p1.afterLink = about your taxes.
+result.selfEmployed.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
