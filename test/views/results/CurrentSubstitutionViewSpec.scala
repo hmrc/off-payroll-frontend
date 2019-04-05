@@ -22,9 +22,9 @@ import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
 import views.html.results.FutureSubstitutionView
 
-class FutureSubstitutionViewSpec extends ViewBehaviours {
+class CurrentSubstitutionViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "result.futureSubstitution"
+  val messageKeyPrefix = "result.currentSubstitution"
 
   val form = new DeclarationFormProvider()()
 

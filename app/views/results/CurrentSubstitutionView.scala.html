@@ -23,7 +23,7 @@
 @(appConfig: FrontendAppConfig, answerSections: Seq[Section], version: String, form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = messages("result.futureSubstitution.title"),
+    title = messages("result.currentSubstitution.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -31,7 +31,7 @@
 
     @components.error_summary(form.errors)
 
-    @sections.teal_result(Html(messages("result.futureSubstitution.title")))
+    @sections.teal_result(Html(messages("result.currentSubstitution.title")))
 
     @sections.why_result(whyResultContent)
 
@@ -39,7 +39,7 @@
 
     @sections.should_now_do(shouldNowDoContent)
 
-    @sections.about_result(Some(aboutResultContent))
+    @sections.about_result()
 
     @sections.decision_version(version)
 
@@ -52,23 +52,14 @@
 
 @shouldNowDoContent = {
     <p>
-        @messages("result.futureSubstitution.shouldNowDo.p1.beforeLink")
-        <a href="https://www.gov.uk/browse/business/business-tax">@messages("result.futureSubstitution.shouldNowDo.p1.link")</a>
-        @messages("result.futureSubstitution.shouldNowDo.p1.afterLink")
+        @messages("result.currentSubstitution.shouldNowDo.p1.beforeLink")
+        <a href="https://www.gov.uk/browse/business/business-tax">@messages("result.currentSubstitution.shouldNowDo.p1.link")</a>
+        @messages("result.currentSubstitution.shouldNowDo.p1.afterLink")
     </p>
-    <p>@messages("result.futureSubstitution.shouldNowDo.p2")</p>
+    <p>@messages("result.currentSubstitution.shouldNowDo.p2")</p>
 }
 
 @whyResultContent = {
-    <p>@messages("result.futureSubstitution.whyResult.p1")</p>
-    @components.exclamation(Html(messages("result.futureSubstitution.whyResult.exclamation")))
-    <p>@messages("result.futureSubstitution.whyResult.p2")</p>
-}
-
-@aboutResultContent = {
-    <p>
-        @messages("result.futureSubstitution.aboutResult.p1.beforeLink")
-        <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies">@messages("result.futureSubstitution.aboutResult.p1.link")</a>
-        @messages("result.futureSubstitution.aboutResult.p1.afterLink")
-    </p>
+    <p>@messages("result.currentSubstitution.whyResult.p1")</p>
+    @components.exclamation(Html(messages("result.currentSubstitution.whyResult.exclamation")))
 }
