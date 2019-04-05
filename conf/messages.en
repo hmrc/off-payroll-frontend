@@ -360,3 +360,12 @@ result.selfEmployed.shouldNowDo.p1.beforeLink = If you are the worker your busin
 result.selfEmployed.shouldNowDo.p1.link = this guidance
 result.selfEmployed.shouldNowDo.p1.afterLink = about your taxes.
 result.selfEmployed.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+
+# Employed Result
+result.employed.title = This engagement should be classed as employed for tax purposes
+result.employed.heading = This engagement should be classed as employed for tax purposes
+result.employed.whyResult.p1 = The answers you have given tell us that the worker is directly engaged, and the working practices of this engagement means that they are employed for tax purposes.
+result.employed.shouldNowDo.p1.beforeLink = If you are the engager you need to
+result.employed.shouldNowDo.p1.link = operate PAYE
+result.employed.shouldNowDo.p1.afterLink = for this worker.
+result.employed.shouldNowDo.p2 = If you are the worker you should tell your engager to operate PAYE for you.

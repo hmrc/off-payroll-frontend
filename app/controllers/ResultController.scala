@@ -40,6 +40,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  currentSubstitutionView: CurrentSubstitutionView,
                                  futureSubstitutionView: FutureSubstitutionView,
                                  selfEmployedView: SelfEmployedView,
+                                 employedView: EmployedView,
                                  formProvider: DeclarationFormProvider
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 

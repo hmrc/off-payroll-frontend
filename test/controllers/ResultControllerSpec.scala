@@ -33,6 +33,7 @@ class ResultControllerSpec extends ControllerSpecBase {
   val currentSubstitutionView = injector.instanceOf[CurrentSubstitutionView]
   val futureSubstitutionView = injector.instanceOf[FutureSubstitutionView]
   val selfEmployedView = injector.instanceOf[SelfEmployedView]
+  val employedView = injector.instanceOf[EmployedView]
 
   val postAction = routes.ResultController.onSubmit() //TODO: this will need to go to the PDF controller
 
@@ -58,6 +59,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     currentSubstitutionView,
     futureSubstitutionView,
     selfEmployedView,
+    employedView,
     formProvider
   )
 
