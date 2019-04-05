@@ -324,3 +324,17 @@ result.officeHolderEmployed.shouldNowDo.engager.beforeLink = If you are the enga
 result.officeHolderEmployed.shouldNowDo.engager.link = operate PAYE
 result.officeHolderEmployed.shouldNowDo.engager.afterLink = for this worker.
 result.officeHolderEmployed.shouldNowDo.worker = If you are the worker you should tell your engager to operate PAYE for you.
+
+# Early Exit, Currently has Subsitution
+result.currentSubstitution.title = The intermediaries legislation does not apply to this engagement
+result.currentSubstitution.heading = The intermediaries legislation does not apply to this engagement
+result.currentSubstitution.whyResult.p1 = You have told us that the worker’s business could arrange and pay for a substitute to work on this engagement, and that the end client would accept it. This suggests that the end client is engaging the worker on a business to business basis, rather than on a personal service basis.
+result.currentSubstitution.whyResult.exclamation = If HMRC investigate this engagement, the end client will need to confirm that they would accept substitution. They may also be asked to demonstrate that they have accepted substitution during this, or a similar engagement.
+result.currentSubstitution.whyResult.p2 = It is important to demonstrate that it is the worker’s business that will pay, and provide the substitute, not the agency, and not the end client
+result.currentSubstitution.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
+result.currentSubstitution.shouldNowDo.p1.link = this guidance
+result.currentSubstitution.shouldNowDo.p1.afterLink = about your taxes.
+result.currentSubstitution.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.currentSubstitution.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
+result.currentSubstitution.aboutResult.p1.link = these specific conditions of liability
+result.currentSubstitution.aboutResult.p1.afterLink = .

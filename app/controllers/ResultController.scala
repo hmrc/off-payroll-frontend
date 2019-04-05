@@ -26,7 +26,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
-import views.html.results.{OfficeHolderEmployedView, OfficeHolderInsideIR35View}
+import views.html.results.{FutureSubstitutionView, OfficeHolderEmployedView, OfficeHolderInsideIR35View}
 
 import scala.concurrent.ExecutionContext
 
@@ -37,6 +37,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  controllerComponents: MessagesControllerComponents,
                                  officeHolderInsideIR35View: OfficeHolderInsideIR35View,
                                  officeHolderEmployedView: OfficeHolderEmployedView,
+                                 currentSubstitutionView: FutureSubstitutionView,
                                  formProvider: DeclarationFormProvider
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 
@@ -67,7 +68,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
         useProgressiveDisclosure = true
       ),
       AnswerSection(
-        headingKey = Some("Personal Service Section"),
+        headingKey = Some("result.substitutesHelpers.h2"),
         rows = Seq(
           checkYourAnswersHelper.arrangedSubstitue,
           checkYourAnswersHelper.didPaySubstitute,
@@ -78,7 +79,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
         useProgressiveDisclosure = true
       ),
       AnswerSection(
-        headingKey = Some("Control Section"),
+        headingKey = Some("result.workArrangements.h2"),
         rows = Seq(
           checkYourAnswersHelper.moveWorker,
           checkYourAnswersHelper.howWorkIsDone,
@@ -88,7 +89,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
         useProgressiveDisclosure = true
       ),
       AnswerSection(
-        headingKey = Some("Financial Risk Section"),
+        headingKey = Some("result.financialRisk.h2"),
         rows = Seq(
           checkYourAnswersHelper.cannotClaimAsExpense,
           checkYourAnswersHelper.howWorkerIsPaid,
@@ -97,7 +98,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
         useProgressiveDisclosure = true
       ),
       AnswerSection(
-        headingKey = Some("Part and Parcel Section"),
+        headingKey = Some("result.partAndParcel.h2"),
         rows = Seq(
           checkYourAnswersHelper.benefits,
           checkYourAnswersHelper.lineManagerDuties,
