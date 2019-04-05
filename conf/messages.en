@@ -369,3 +369,16 @@ result.employed.shouldNowDo.p1.beforeLink = If you are the engager you need to
 result.employed.shouldNowDo.p1.link = operate PAYE
 result.employed.shouldNowDo.p1.afterLink = for this worker.
 result.employed.shouldNowDo.p2 = If you are the worker you should tell your engager to operate PAYE for you.
+
+# Control Result
+result.control.title = The intermediaries legislation does not apply to this engagement
+result.control.heading = The intermediaries legislation does not apply to this engagement
+result.control.whyResult.p1 = Your answers suggest that the end client does not have a right of control over the work for this engagement to be classed as employed for tax purposes.
+result.control.whyResult.exclamation = If HMRC investigate this engagement, the end client would need to agree and demonstrate that they could not or did not exert their right of control over the worker.
+result.control.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
+result.control.shouldNowDo.p1.link = this guidance
+result.control.shouldNowDo.p1.afterLink = about your taxes.
+result.control.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.control.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
+result.control.aboutResult.p1.link = these specific conditions of liability
+result.control.aboutResult.p1.afterLink = .
