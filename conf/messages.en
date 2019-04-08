@@ -32,7 +32,8 @@ site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
-site.continue = Confirm and continue
+site.continue = Continue
+site.confirm_continue = Confirm and continue
 site.service_name = Check employment status for tax
 site.textarea.char_limit = (Limit is {0} characters)
 

@@ -52,4 +52,6 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
 
   lazy val mongoTtl: Int = servicesConfig.getInt("mongodb.timeToLiveInSeconds")
 
+  lazy val decisionVersion = servicesConfig.getString("decisionServiceVersion")
+
 }
