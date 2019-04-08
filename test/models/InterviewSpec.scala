@@ -71,11 +71,11 @@ class InterviewSpec extends SpecBase {
 
         val expected = Json.obj(
           "version"-> "1.5.0-final",
-          "correlationID"-> "12345",
+          "correlationID"-> "id",
           "interview"-> Json.obj(
             "setup"-> Json.obj(
             "endUserRole"-> "personDoingWork",
-            "hasContractStarted"-> "No",
+            "hasContractStarted"-> "Yes",
             "provideServices"-> "soleTrader"
           ),
             "exit"-> Json.obj(
@@ -84,28 +84,28 @@ class InterviewSpec extends SpecBase {
             "personalService"-> Json.obj(
             "workerSentActualSubstitute"-> "yesClientAgreed",
             "workerPayActualSubstitute"-> "No",
-            "possibleSubstituteRejection"-> "wouldReject",
+            "possibleSubstituteRejection"-> "wouldNotReject",
             "possibleSubstituteWorkerPay"-> "Yes",
-            "wouldWorkerPayHelper"-> "Yes"
+            "wouldWorkerPayHelper"-> "No"
           ),
             "control"-> Json.obj(
             "engagerMovingWorker"-> "canMoveWorkerWithPermission",
-            "workerDecidingHowWorkIsDone"-> "workerAgreeWithOthers",
+            "workerDecidingHowWorkIsDone"-> "workerFollowStrictEmployeeProcedures",
             "whenWorkHasToBeDone"-> "workerAgreeSchedule",
-            "workerDecideWhere"-> "workerChooses"
+            "workerDecideWhere"-> "workerAgreeWithOthers"
           ),
             "financialRisk"-> Json.obj(
             "workerProvidedMaterials"-> "No",
             "workerProvidedEquipment"-> "No",
-            "workerUsedVehicle"-> "No",
-            "workerHadOtherExpenses"-> "No",
+            "workerUsedVehicle"-> "Yes",
+            "workerHadOtherExpenses"-> "Yes",
             "expensesAreNotRelevantForRole"-> "No",
-            "workerMainIncome"-> "incomeCalendarPeriods",
-            "paidForSubstandardWork"-> "asPartOfUsualRateInWorkingHours"
+            "workerMainIncome"-> "incomeCommission",
+            "paidForSubstandardWork"-> "cannotBeCorrected"
           ),
             "partAndParcel"-> Json.obj(
-            "workerReceivesBenefits"-> "Yes",
-            "workerAsLineManager"-> "Yes",
+            "workerReceivesBenefits"-> "No",
+            "workerAsLineManager"-> "No",
             "contactWithEngagerCustomer"-> "No",
             "workerRepresentsEngagerBusiness"-> "workAsIndependent"
           )
@@ -116,6 +116,29 @@ class InterviewSpec extends SpecBase {
 
         actual mustBe expected
       }
+
+      "the minimum model is supplied" in {
+
+        val model = Interview("id")
+
+        val expected = Json.obj(
+          "version"-> "1.5.0-final",
+          "correlationID"-> "id",
+          "interview"-> Json.obj(
+            "setup"-> Json.obj(),
+            "exit"-> Json.obj(),
+            "personalService"-> Json.obj(),
+            "control"-> Json.obj(),
+            "financialRisk"-> Json.obj(),
+            "partAndParcel"-> Json.obj()
+          )
+        )
+
+        val actual = Json.toJson(model)
+
+        actual mustBe expected
+      }
+
     }
   }
 }

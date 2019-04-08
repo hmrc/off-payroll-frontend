@@ -19,39 +19,46 @@ package models
 import config.FrontendAppConfig
 import models.CannotClaimAsExpense._
 import pages._
-import play.api.libs.json.{JsString, Json, Writes}
+import play.api.libs.json.{JsNull, JsString, Json, Writes}
+import utils.JsonObjectSugar
 
 case class Interview(correlationId: String,
-                     endUserRole: Option[AboutYouAnswer],
-                     hasContractStarted: Option[Boolean],
-                     provideServices: Option[WorkerType],
-                     officeHolder: Option[Boolean],
-                     workerSentActualSubstitute: Option[ArrangedSubstitue],
-                     workerPayActualSubstitute: Option[Boolean],
-                     possibleSubstituteRejection: Option[Boolean],
-                     possibleSubstituteWorkerPay: Option[Boolean],
-                     wouldWorkerPayHelper: Option[Boolean],
-                     engagerMovingWorker: Option[MoveWorker],
-                     workerDecidingHowWorkIsDone: Option[HowWorkIsDone],
-                     whenWorkHasToBeDone: Option[ScheduleOfWorkingHours],
-                     workerDecideWhere: Option[ChooseWhereWork],
-                     workerProvidedMaterials: Option[Boolean],
-                     workerProvidedEquipment: Option[Boolean],
-                     workerUsedVehicle: Option[Boolean],
-                     workerHadOtherExpenses: Option[Boolean],
-                     expensesAreNotRelevantForRole: Option[Boolean],
-                     workerMainIncome: Option[HowWorkerIsPaid],
-                     paidForSubstandardWork: Option[PutRightAtOwnCost],
-                     workerReceivesBenefits: Option[Boolean],
-                     workerAsLineManager: Option[Boolean],
-                     contactWithEngagerCustomer: Option[Boolean],
-                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders])(implicit val appConfig: FrontendAppConfig)
+                     endUserRole: Option[AboutYouAnswer] = None,
+                     hasContractStarted: Option[Boolean] = None,
+                     provideServices: Option[WorkerType] = None,
+                     officeHolder: Option[Boolean] = None,
+                     workerSentActualSubstitute: Option[ArrangedSubstitue] = None,
+                     workerPayActualSubstitute: Option[Boolean] = None,
+                     possibleSubstituteRejection: Option[Boolean] = None,
+                     possibleSubstituteWorkerPay: Option[Boolean] = None,
+                     wouldWorkerPayHelper: Option[Boolean] = None,
+                     engagerMovingWorker: Option[MoveWorker] = None,
+                     workerDecidingHowWorkIsDone: Option[HowWorkIsDone] = None,
+                     whenWorkHasToBeDone: Option[ScheduleOfWorkingHours] = None,
+                     workerDecideWhere: Option[ChooseWhereWork] = None,
+                     workerProvidedMaterials: Option[Boolean] = None,
+                     workerProvidedEquipment: Option[Boolean] = None,
+                     workerUsedVehicle: Option[Boolean] = None,
+                     workerHadOtherExpenses: Option[Boolean] = None,
+                     expensesAreNotRelevantForRole: Option[Boolean] = None,
+                     workerMainIncome: Option[HowWorkerIsPaid] = None,
+                     paidForSubstandardWork: Option[PutRightAtOwnCost] = None,
+                     workerReceivesBenefits: Option[Boolean] = None,
+                     workerAsLineManager: Option[Boolean] = None,
+                     contactWithEngagerCustomer: Option[Boolean] = None,
+                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig)
 
-object Interview {
+object Interview extends JsonObjectSugar {
 
   private implicit val writesBool: Writes[Boolean] = Writes {
     case true => JsString("Yes")
     case false => JsString("No")
+  }
+
+  private val writesPossibleSubstituteRejection: Writes[Option[Boolean]] = Writes {
+    case Some(true) => JsString("wouldReject")
+    case Some(_) => JsString("wouldNotReject")
+    case _ => JsNull
   }
 
   implicit def writes: Writes[Interview] = Writes { model =>
@@ -59,28 +66,28 @@ object Interview {
       "version" -> model.appConfig.decisionVersion,
       "correlationID" -> model.correlationId,
       "interview" -> Json.obj(
-        "setup" -> Json.obj(
+        "setup" -> jsonObjNoNulls(
           "endUserRole" -> model.endUserRole,
           "hasContractStarted" -> model.hasContractStarted,
           "provideServices" -> model.provideServices
         ),
-        "exit" -> Json.obj(
+        "exit" -> jsonObjNoNulls(
           "officeHolder" -> model.officeHolder
         ),
-        "personalService" -> Json.obj(
+        "personalService" -> jsonObjNoNulls(
           "workerSentActualSubstitute" -> model.workerSentActualSubstitute,
           "workerPayActualSubstitute" -> model.workerPayActualSubstitute,
-          "possibleSubstituteRejection" -> model.possibleSubstituteRejection,
+          "possibleSubstituteRejection" -> Json.toJson(model.possibleSubstituteRejection)(writesPossibleSubstituteRejection),
           "possibleSubstituteWorkerPay" -> model.possibleSubstituteWorkerPay,
           "wouldWorkerPayHelper" -> model.wouldWorkerPayHelper
         ),
-        "control" -> Json.obj(
+        "control" -> jsonObjNoNulls(
           "engagerMovingWorker" -> model.engagerMovingWorker,
           "workerDecidingHowWorkIsDone" -> model.workerDecidingHowWorkIsDone,
           "whenWorkHasToBeDone" -> model.whenWorkHasToBeDone,
           "workerDecideWhere" -> model.workerDecideWhere
         ),
-        "financialRisk" -> Json.obj(
+        "financialRisk" -> jsonObjNoNulls(
           "workerProvidedMaterials" -> model.workerProvidedMaterials,
           "workerProvidedEquipment" -> model.workerProvidedEquipment,
           "workerUsedVehicle" -> model.workerUsedVehicle,
@@ -89,7 +96,7 @@ object Interview {
           "workerMainIncome" -> model.workerMainIncome,
           "paidForSubstandardWork" -> model.paidForSubstandardWork
         ),
-        "partAndParcel" -> Json.obj(
+        "partAndParcel" -> jsonObjNoNulls(
           "workerReceivesBenefits" -> model.workerReceivesBenefits,
           "workerAsLineManager" -> model.workerAsLineManager,
           "contactWithEngagerCustomer" -> model.contactWithEngagerCustomer,

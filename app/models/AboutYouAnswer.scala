@@ -23,10 +23,10 @@ sealed trait AboutYouAnswer
 
 object AboutYouAnswer {
 
-  case object Worker extends WithName("worker") with AboutYouAnswer
-  case object Client extends WithName("client") with AboutYouAnswer
-  case object Agency extends WithName("agency") with AboutYouAnswer
-  case object NoneOfAbove extends WithName("noneOfAbove") with AboutYouAnswer
+  case object Worker extends WithName("personDoingWork") with AboutYouAnswer
+  case object Client extends WithName("endClient") with AboutYouAnswer
+  case object Agency extends WithName("placingAgency") with AboutYouAnswer
+  case object NoneOfAbove extends WithName("none") with AboutYouAnswer
 
   val values: Seq[AboutYouAnswer] = Seq(
     Worker, Client, Agency, NoneOfAbove
