@@ -37,6 +37,7 @@ class ResultControllerSpec extends ControllerSpecBase {
   val controlView = injector.instanceOf[ControlView]
   val financialRiskView = injector.instanceOf[FinancialRiskView]
   val indeterminateView = injector.instanceOf[IndeterminateView]
+  val insideIR35 = injector.instanceOf[InsideIR35View]
 
   val postAction = routes.ResultController.onSubmit() //TODO: this will need to go to the PDF controller
 
@@ -66,6 +67,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     controlView,
     financialRiskView,
     indeterminateView,
+    insideIR35,
     formProvider
   )
 

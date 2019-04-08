@@ -44,6 +44,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  controlView: ControlView,
                                  financialRiskView: FinancialRiskView,
                                  indeterminateView: IndeterminateView,
+                                 insideIR35View: InsideIR35View,
                                  formProvider: DeclarationFormProvider
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 

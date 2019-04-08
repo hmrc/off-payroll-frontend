@@ -406,3 +406,21 @@ result.indeterminate.shouldNowDo.bullet1 = by phone on 0300 123 2326
 result.indeterminate.shouldNowDo.bullet2 = by email at ir35@hmrc.gov.uk
 result.indeterminate.shouldNowDo.p2.beforeLink = You could also read through the
 result.indeterminate.shouldNowDo.p2.link = Employment status manual
+
+# Inside IR35
+result.insideIR35.title = The intermediaries legislation applies to this engagement
+result.insideIR35.heading = The intermediaries legislation applies to this engagement
+result.insideIR35.whyResult.p1 = The answers you have given suggest that the working practices of this engagement mean the worker is employed for tax purposes.
+result.insideIR35.shouldNowDo.public.p1 = If you are the worker you should tell the organisation that pays your fees (the fee payer) to deduct tax and National Insurance from your payment.
+result.insideIR35.shouldNowDo.public.p2.beforeLink = If you are the fee payer you need to deduct tax and National Insurance from the worker’s
+result.insideIR35.shouldNowDo.public.p2.link = deemed employment payment(s)
+result.insideIR35.shouldNowDo.public.p2.afterLink = during this engagement.
+result.insideIR35.shouldNowDo.public.p3.beforeLink = If you are the end client, and not the organisation paying the worker (fee payer). You should tell the fee paying agency to deduct tax and National Insurance from the worker’s
+result.insideIR35.shouldNowDo.public.p3.link = deemed employment payment(s)
+result.insideIR35.shouldNowDo.public.p3.afterLink = during this engagement.
+result.insideIR35.shouldNowDo.private.p1.beforeLink = If you are the worker you need to follow
+result.insideIR35.shouldNowDo.private.p1.link = this guidance
+result.insideIR35.shouldNowDo.private.p1.afterLink = about your taxes.
+result.insideIR35.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
+result.insideIR35.aboutResult.p1.link = these specific conditions of liability
+result.insideIR35.aboutResult.p1.afterLink = .

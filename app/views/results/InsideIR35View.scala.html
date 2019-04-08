@@ -1,0 +1,85 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import viewmodels.Section
+
+@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+
+@(appConfig: FrontendAppConfig, answerSections: Seq[Section], version: String, form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages)
+
+@mainTemplate(
+    title = messages("result.insideIR35.title"),
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    @components.back_link()
+
+    @components.error_summary(form.errors)
+
+    @sections.teal_result(Html(messages("result.insideIR35.title")))
+
+    @sections.why_result(whyResultContent)
+
+    @sections.answers(answerSections)
+
+    @sections.should_now_do(shouldNowDoContent)
+
+    @sections.about_result(Some(aboutResultContent))
+
+    @sections.decision_version(version)
+
+    @formWithCsrf(postAction, 'autoComplete -> "off") {
+        @sections.declaration(form)
+
+        @components.submit_button()
+    }
+}
+
+@shouldNowDoContent = {
+    <h3>@messages("result.shouldNowDo.h3.public")</h3>
+    <p>@messages("result.insideIR35.shouldNowDo.public.p1")</p>
+    <p>
+        @messages("result.insideIR35.shouldNowDo.public.p2.beforeLink")
+        <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm0500">@messages("result.insideIR35.shouldNowDo.public.p2.link")</a>
+        @messages("result.insideIR35.shouldNowDo.public.p2.afterLink")
+    </p>
+    <p>
+        @messages("result.insideIR35.shouldNowDo.public.p3.beforeLink")
+        <a href="https://www.gov.uk/government/publications/off-payroll-working-in-the-public-sector-reform-of-the-intermediaries-legislation-technical-note/off-payroll-working-in-the-public-sector-reform-of-the-intermediaries-legislation-technical-note#fee-payer-accounts-for-tax-nics-apprenticeship-levy">@messages("result.insideIR35.shouldNowDo.public.p3.link")</a>
+        @messages("result.insideIR35.shouldNowDo.public.p3.afterLink")
+    </p>
+
+    <h3>@messages("result.shouldNowDo.h3.private")</h3>
+    <p>
+        @messages("result.insideIR35.shouldNowDo.private.p1.beforeLink")
+        <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies">@messages("result.insideIR35.shouldNowDo.private.p1.link")</a>
+        @messages("result.insideIR35.shouldNowDo.private.p1.afterLink")
+    </p>
+}
+
+@whyResultContent = {
+    <p>@messages("result.insideIR35.whyResult.p1")</p>
+}
+
+@aboutResultContent = {
+    <p>
+        @messages("result.insideIR35.aboutResult.p1.beforeLink")
+        <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies">@messages("result.insideIR35.aboutResult.p1.link")</a>
+        @messages("result.insideIR35.aboutResult.p1.afterLink")
+    </p>
+}
