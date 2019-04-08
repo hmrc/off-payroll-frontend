@@ -21,7 +21,7 @@ import forms.DeclarationFormProvider
 import play.api.i18n.Messages
 import play.api.test.Helpers._
 import viewmodels.AnswerSection
-import views.html.results._
+import views.html.results.{IndeterminateView, _}
 
 class ResultControllerSpec extends ControllerSpecBase {
 
@@ -36,6 +36,7 @@ class ResultControllerSpec extends ControllerSpecBase {
   val employedView = injector.instanceOf[EmployedView]
   val controlView = injector.instanceOf[ControlView]
   val financialRiskView = injector.instanceOf[FinancialRiskView]
+  val indeterminateView = injector.instanceOf[IndeterminateView]
 
   val postAction = routes.ResultController.onSubmit() //TODO: this will need to go to the PDF controller
 
@@ -64,6 +65,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     employedView,
     controlView,
     financialRiskView,
+    indeterminateView,
     formProvider
   )
 

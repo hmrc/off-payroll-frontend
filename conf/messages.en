@@ -395,3 +395,14 @@ result.financialRisk.shouldNowDo.p2 = If you are the fee payer you can pay the w
 result.financialRisk.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.financialRisk.aboutResult.p1.link = these specific conditions of liability
 result.financialRisk.aboutResult.p1.afterLink = .
+
+# Indeterminate Result
+result.indeterminate.title = We are unable to determine the tax status of this engagement
+result.indeterminate.heading = We are unable to determine the tax status of this engagement
+result.indeterminate.whyResult.p1 = We need more information to understand the working practices of this engagement.
+result.indeterminate.whyResult.p2 = You can review the answers you have given below.
+result.indeterminate.shouldNowDo.p1 = If you require further assistance, please contact HMRC’s Employment Status and Intermediaries helpline for advice:
+result.indeterminate.shouldNowDo.bullet1 = by phone on 0300 123 2326
+result.indeterminate.shouldNowDo.bullet2 = by email at ir35@hmrc.gov.uk
+result.indeterminate.shouldNowDo.p2.beforeLink = You could also read through the
+result.indeterminate.shouldNowDo.p2.link = Employment status manual

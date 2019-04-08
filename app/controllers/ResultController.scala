@@ -43,6 +43,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  employedView: EmployedView,
                                  controlView: ControlView,
                                  financialRiskView: FinancialRiskView,
+                                 indeterminateView: IndeterminateView,
                                  formProvider: DeclarationFormProvider
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 
@@ -52,6 +53,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
 
   private val version = "1.5.0-final" //TODO: Remove this hard coding
 
+  //noinspection ScalaStyle
   private def answers(implicit request: DataRequest[_]): Seq[AnswerSection] = {
     val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
 
