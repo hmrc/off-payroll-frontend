@@ -14,25 +14,21 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerSection
-@import views.html._
+@(form: Form[_])(implicit messages: Messages)
 
-@(answerSection: AnswerSection)(implicit messages: Messages)
+<div class="box--shaded">
+    @components.input_single_checkbox(
+        field = form("value"),
+        label = messages("result.declaration.checkbox"),
+        legend = messages("result.declaration.checkbox"),
+        legendClass = Some("visually-hidden")
+    )
 
-@if(answerSection.headingKey.isDefined){
-    <h2>@messages(answerSection.headingKey.get)</h2>
-}
+    @components.bulleted_list(Seq(
+        messages("result.declaration.bullet1"),
+        messages("result.declaration.bullet2"),
+        messages("result.declaration.bullet3")
+    ))
 
-@if(answerSection.useProgressiveDisclosure) {
-    @components.progressive_disclosure(messages("result.showAnswers"), content)
-} else {
-    @content
-}
-
-@content = {
-    <ul role="list" class="govuk-check-your-answers cya-questions-long section">
-        @for(row <- answerSection.rows){
-            @components.answer_row(row)
-        }
-    </ul>
-}
+    <p>@messages("result.declaration.noLongerHold")</p>
+</div>

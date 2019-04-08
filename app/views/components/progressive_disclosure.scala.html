@@ -14,25 +14,13 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerSection
-@import views.html._
+@(title: String, content: Html, gaEvent: Option[String] = None)
 
-@(answerSection: AnswerSection)(implicit messages: Messages)
-
-@if(answerSection.headingKey.isDefined){
-    <h2>@messages(answerSection.headingKey.get)</h2>
-}
-
-@if(answerSection.useProgressiveDisclosure) {
-    @components.progressive_disclosure(messages("result.showAnswers"), content)
-} else {
-    @content
-}
-
-@content = {
-    <ul role="list" class="govuk-check-your-answers cya-questions-long section">
-        @for(row <- answerSection.rows){
-            @components.answer_row(row)
-        }
-    </ul>
-}
+<details>
+    <summary>
+        <span class="summary" @gaEvent.map(event => s"data-journey-click=$event")>@title</span>
+    </summary>
+    <div>
+        @content
+    </div>
+</details>

@@ -14,25 +14,16 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerSection
-@import views.html._
+@(content: Option[Html] = None)(implicit messages: Messages)
 
-@(answerSection: AnswerSection)(implicit messages: Messages)
+<h2>@messages("result.aboutResult.h2")</h2>
+@content
 
-@if(answerSection.headingKey.isDefined){
-    <h2>@messages(answerSection.headingKey.get)</h2>
-}
+<p>@messages("result.aboutResult.willStandByResult")</p>
 
-@if(answerSection.useProgressiveDisclosure) {
-    @components.progressive_disclosure(messages("result.showAnswers"), content)
-} else {
-    @content
-}
+<p>@messages("result.aboutResult.willNotStandByResult")</p>
 
-@content = {
-    <ul role="list" class="govuk-check-your-answers cya-questions-long section">
-        @for(row <- answerSection.rows){
-            @components.answer_row(row)
-        }
-    </ul>
-}
+<p>@messages("result.aboutResult.reviewTaxes")</p>
+
+@components.exclamation(Html(messages("result.aboutResult.exclamation")))
+
