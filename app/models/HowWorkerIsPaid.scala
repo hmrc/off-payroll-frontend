@@ -23,11 +23,11 @@ sealed trait HowWorkerIsPaid
 
 object HowWorkerIsPaid {
 
-  case object HourlyDailyOrWeekly extends WithName("hourlyDailyOrWeekly") with HowWorkerIsPaid
-  case object FixedPrice extends WithName("fixedPrice") with HowWorkerIsPaid
-  case object PieceRate extends WithName("pieceRate") with HowWorkerIsPaid
-  case object Commission extends WithName("commission") with HowWorkerIsPaid
-  case object ProfitOrLosses extends WithName("profitOrLosses") with HowWorkerIsPaid
+  case object HourlyDailyOrWeekly extends WithName("incomeCalendarPeriods") with HowWorkerIsPaid
+  case object FixedPrice extends WithName("incomeFixed") with HowWorkerIsPaid
+  case object PieceRate extends WithName("incomePieceRate") with HowWorkerIsPaid
+  case object Commission extends WithName("incomeCommission") with HowWorkerIsPaid
+  case object ProfitOrLosses extends WithName("incomeProfitOrLosses") with HowWorkerIsPaid
 
   val values: Seq[HowWorkerIsPaid] = Seq(
     HourlyDailyOrWeekly, FixedPrice, PieceRate, Commission, ProfitOrLosses

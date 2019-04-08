@@ -19,8 +19,7 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.AboutYouFormProvider
-import models.AboutYouAnswer._
-import models.NormalMode
+import models.{AboutYouAnswer, NormalMode}
 import navigation.FakeNavigator
 import pages.AboutYouPage
 import play.api.data.Form
@@ -63,16 +62,16 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(AboutYouPage.toString -> JsString("worker"))
+      val validData = Map(AboutYouPage.toString -> JsString(AboutYouAnswer.values.head.toString))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(Worker))
+      contentAsString(result) mustBe viewAsString(form.fill(AboutYouAnswer.values.head))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
