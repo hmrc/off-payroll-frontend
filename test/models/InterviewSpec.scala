@@ -19,6 +19,7 @@ package models
 import base.SpecBase
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitue.YesClientAgreed
+import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.ChooseWhereWork.Workeragreewithothers
 import models.HowWorkIsDone.Workerfollowstrictemployeeprocedures
 import models.HowWorkerIsPaid.Commission
@@ -27,15 +28,86 @@ import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.Workeragreeschedule
 import models.WorkerType.SoleTrader
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest.{MustMatchers, OptionValues, WordSpec}
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.{JsError, JsString, Json}
+import pages._
+import play.api.libs.json.{JsNull, Json}
+import uk.gov.hmrc.http.cache.client.CacheMap
 
 class InterviewSpec extends SpecBase {
 
   "Interview" must {
+
+    "construct correctly from a UserAnswers model" when {
+
+      "all values are supplied" in {
+
+        val userAnswers = UserAnswers("id")
+          .set(AboutYouPage, Worker)
+          .set(ContractStartedPage, true)
+          .set(WorkerTypePage, SoleTrader)
+          .set(OfficeHolderPage, false)
+          .set(ArrangedSubstituePage, YesClientAgreed)
+          .set(DidPaySubstitutePage, false)
+          .set(WouldWorkerPaySubstitutePage, true)
+          .set(RejectSubstitutePage, false)
+          .set(NeededToPayHelperPage, false)
+          .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+          .set(HowWorkIsDonePage, Workerfollowstrictemployeeprocedures)
+          .set(ScheduleOfWorkingHoursPage, Workeragreeschedule)
+          .set(ChooseWhereWorkPage, Workeragreewithothers)
+          .set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+          .set(HowWorkerIsPaidPage, Commission)
+          .set(PutRightAtOwnCostPage, CannotBeCorrected)
+          .set(BenefitsPage, false)
+          .set(LineManagerDutiesPage, false)
+          .set(InteractWithStakeholdersPage, false)
+          .set(IdentifyToStakeholdersPage, WorkAsIndependent)
+
+        val expected = Interview(
+          correlationId = "id",
+          endUserRole = Some(Worker),
+          hasContractStarted = Some(true),
+          provideServices = Some(SoleTrader),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(Workerfollowstrictemployeeprocedures),
+          whenWorkHasToBeDone = Some(Workeragreeschedule),
+          workerDecideWhere = Some(Workeragreewithothers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        )
+
+        val actual = Interview(userAnswers)
+
+        actual mustBe expected
+
+      }
+
+      "minimum values are supplied" in {
+
+        val userAnswers = UserAnswers("id")
+
+        val expected = Interview("id")
+
+        val actual = Interview(userAnswers)
+
+        actual mustBe expected
+
+      }
+    }
 
     "serialise to JSON correctly" when {
 
@@ -74,41 +146,41 @@ class InterviewSpec extends SpecBase {
           "correlationID"-> "id",
           "interview"-> Json.obj(
             "setup"-> Json.obj(
-            "endUserRole"-> "personDoingWork",
-            "hasContractStarted"-> "Yes",
-            "provideServices"-> "soleTrader"
-          ),
+              "endUserRole"-> "personDoingWork",
+              "hasContractStarted"-> "Yes",
+              "provideServices"-> "soleTrader"
+            ),
             "exit"-> Json.obj(
-            "officeHolder"-> "No"
-          ),
+              "officeHolder"-> "No"
+            ),
             "personalService"-> Json.obj(
-            "workerSentActualSubstitute"-> "yesClientAgreed",
-            "workerPayActualSubstitute"-> "No",
-            "possibleSubstituteRejection"-> "wouldNotReject",
-            "possibleSubstituteWorkerPay"-> "Yes",
-            "wouldWorkerPayHelper"-> "No"
-          ),
+              "workerSentActualSubstitute"-> "yesClientAgreed",
+              "workerPayActualSubstitute"-> "No",
+              "possibleSubstituteRejection"-> "wouldNotReject",
+              "possibleSubstituteWorkerPay"-> "Yes",
+              "wouldWorkerPayHelper"-> "No"
+            ),
             "control"-> Json.obj(
-            "engagerMovingWorker"-> "canMoveWorkerWithPermission",
-            "workerDecidingHowWorkIsDone"-> "workerFollowStrictEmployeeProcedures",
-            "whenWorkHasToBeDone"-> "workerAgreeSchedule",
-            "workerDecideWhere"-> "workerAgreeWithOthers"
-          ),
+              "engagerMovingWorker"-> "canMoveWorkerWithPermission",
+              "workerDecidingHowWorkIsDone"-> "workerFollowStrictEmployeeProcedures",
+              "whenWorkHasToBeDone"-> "workerAgreeSchedule",
+              "workerDecideWhere"-> "workerAgreeWithOthers"
+            ),
             "financialRisk"-> Json.obj(
-            "workerProvidedMaterials"-> "No",
-            "workerProvidedEquipment"-> "No",
-            "workerUsedVehicle"-> "Yes",
-            "workerHadOtherExpenses"-> "Yes",
-            "expensesAreNotRelevantForRole"-> "No",
-            "workerMainIncome"-> "incomeCommission",
-            "paidForSubstandardWork"-> "cannotBeCorrected"
-          ),
+              "workerProvidedMaterials"-> "No",
+              "workerProvidedEquipment"-> "No",
+              "workerUsedVehicle"-> "Yes",
+              "workerHadOtherExpenses"-> "Yes",
+              "expensesAreNotRelevantForRole"-> "No",
+              "workerMainIncome"-> "incomeCommission",
+              "paidForSubstandardWork"-> "cannotBeCorrected"
+            ),
             "partAndParcel"-> Json.obj(
-            "workerReceivesBenefits"-> "No",
-            "workerAsLineManager"-> "No",
-            "contactWithEngagerCustomer"-> "No",
-            "workerRepresentsEngagerBusiness"-> "workAsIndependent"
-          )
+              "workerReceivesBenefits"-> "No",
+              "workerAsLineManager"-> "No",
+              "contactWithEngagerCustomer"-> "No",
+              "workerRepresentsEngagerBusiness"-> "workAsIndependent"
+            )
           )
         )
 
@@ -138,7 +210,6 @@ class InterviewSpec extends SpecBase {
 
         actual mustBe expected
       }
-
     }
   }
 }
