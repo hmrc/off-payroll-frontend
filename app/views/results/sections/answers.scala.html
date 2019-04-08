@@ -14,25 +14,17 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerSection
-@import views.html._
+@import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
 
-@(answerSection: AnswerSection)(implicit messages: Messages)
+@(answerSections: Seq[Section])(implicit messages: Messages)
 
-@if(answerSection.headingKey.isDefined){
-    <h2>@messages(answerSection.headingKey.get)</h2>
-}
-
-@if(answerSection.useProgressiveDisclosure) {
-    @components.progressive_disclosure(messages("result.showAnswers"), content)
-} else {
-    @content
-}
-
-@content = {
-    <ul role="list" class="govuk-check-your-answers cya-questions-long section">
-        @for(row <- answerSection.rows){
-            @components.answer_row(row)
+@for(section <- answerSections){
+    @{
+        section match {
+            case a: AnswerSection if a.nonEmpty => components.answer_section(a)
+            case a: AnswerSection => Html("")
+            case r: RepeaterAnswerSection => components.repeater_answer_section(r)
         }
-    </ul>
+    }
 }
+

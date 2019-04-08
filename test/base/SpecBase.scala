@@ -33,7 +33,7 @@ trait SpecBase extends PlaySpec with MaterializerSupport {
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
     .injector()
 
-  def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
   def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
