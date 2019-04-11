@@ -25,11 +25,11 @@ object ScheduleOfWorkingHours {
 
   case object Scheduledecidedforworker extends WithName("scheduleDecidedForWorker") with ScheduleOfWorkingHours
   case object Workerdecideschedule extends WithName("workerDecideSchedule") with ScheduleOfWorkingHours
-  case object Workeragreeschedule extends WithName("workerAgreeSchedule") with ScheduleOfWorkingHours
+  case object WorkerAgreeSchedule extends WithName("workerAgreeSchedule") with ScheduleOfWorkingHours
   case object Noschedulerequiredonlydeadlines extends WithName("noScheduleRequiredOnlyDeadlines") with ScheduleOfWorkingHours
 
   val values: Seq[ScheduleOfWorkingHours] = Seq(
-    Scheduledecidedforworker, Workerdecideschedule, Workeragreeschedule, Noschedulerequiredonlydeadlines
+    Scheduledecidedforworker, Workerdecideschedule, WorkerAgreeSchedule, Noschedulerequiredonlydeadlines
   )
 
   val options: Seq[RadioOption] = values.map {
@@ -48,7 +48,7 @@ object ScheduleOfWorkingHours {
     override def reads(json: JsValue): JsResult[ScheduleOfWorkingHours] = json match {
       case JsString(Scheduledecidedforworker.toString) => JsSuccess(Scheduledecidedforworker)
       case JsString(Workerdecideschedule.toString) => JsSuccess(Workerdecideschedule)
-      case JsString(Workeragreeschedule.toString) => JsSuccess(Workeragreeschedule)
+      case JsString(WorkerAgreeSchedule.toString) => JsSuccess(WorkerAgreeSchedule)
       case JsString(Noschedulerequiredonlydeadlines.toString) => JsSuccess(Noschedulerequiredonlydeadlines)
       case _                          => JsError("Unknown scheduleOfWorkingHours")
     }

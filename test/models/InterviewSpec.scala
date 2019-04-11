@@ -20,12 +20,12 @@ import base.SpecBase
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitue.YesClientAgreed
 import models.ChooseWhereWork.Workeragreewithothers
-import models.HowWorkIsDone.Workerfollowstrictemployeeprocedures
+import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
 import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ScheduleOfWorkingHours.Workeragreeschedule
+import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WorkerType.SoleTrader
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
@@ -53,8 +53,8 @@ class InterviewSpec extends SpecBase {
           possibleSubstituteWorkerPay = Some(true),
           wouldWorkerPayHelper = Some(false),
           engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(Workerfollowstrictemployeeprocedures),
-          whenWorkHasToBeDone =Some(Workeragreeschedule),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone =Some(WorkerAgreeSchedule),
           workerDecideWhere =Some(Workeragreewithothers),
           workerProvidedMaterials =Some(false),
           workerProvidedEquipment =Some(false),

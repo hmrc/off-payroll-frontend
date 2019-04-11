@@ -17,24 +17,22 @@
 package connectors
 
 import config.FrontendAppConfig
+import connectors.DecisionHttpParser.DecisionReads
 import javax.inject.{Inject, Singleton}
-import models.Interview
-import play.api.{Configuration, Environment, Logger, Mode}
-import play.api.http.Status.OK
-import play.api.libs.json.Json
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse, Upstream4xxResponse, Upstream5xxResponse}
-import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
+import models.{DecisionResponse, ErrorResponse, Interview}
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 trait DecisionConnector {
 
   val baseUrl: String
   val decideUrl: String
 
-  def decide(decideRequest: Interview)(implicit hc: HeaderCarrier): Future[String]
+  def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]]
 }
 
 @Singleton
@@ -45,24 +43,8 @@ class FrontendDecisionConnector @Inject()(http: HttpClient,
   override val baseUrl: String = servicesConfig.baseUrl("off-payroll-decision")
   override val decideUrl = s"$baseUrl/off-payroll-decision/decide"
 
-  case class Score(personalService: String, control: String, financialRiskA: String, financialRiskB: String, partAndParcel: String)
-  case class model(version: String, correlationID: String, score: Score, result: String)
+  def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
 
-  def decide(decideRequest: Interview)(implicit hc: HeaderCarrier): Future[model] = {
-
-    http.POST[Interview, HttpResponse](decideUrl, decideRequest).map { response =>
-      response.status match {
-        case OK =>
-          Logger.info("Received an OK response from decide API")
-          Json.parse(response.body).as[model]
-
-        case status  => throw new Exception(s"Unexpected response from decide API - Status $status")
-      }
-    } recover {
-      case e: Upstream4xxResponse => throw new Exception(s"Unexpected 4XX response from decide API - ${e.getMessage}")
-      case e: Upstream5xxResponse => throw new Exception(s"Unexpected 5XX response from decide API - ${e.getMessage}")
-      case e: Exception => throw new Exception(s"Unexpected exception from decide API - ${e.getMessage}")
-    }
+    http.POST[Interview, Either[ErrorResponse, DecisionResponse]](decideUrl, decisionRequest)
   }
-
 }
