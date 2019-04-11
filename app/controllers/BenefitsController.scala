@@ -21,13 +21,14 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.BenefitsFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{DecisionResponse, ExitEnum, Interview, Mode, Score, SetupEnum}
 import navigation.Navigator
 import pages.BenefitsPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.BenefitsView
 
@@ -49,6 +50,8 @@ class BenefitsController @Inject()(appConfig: FrontendAppConfig,
 
   val form: Form[Boolean] = formProvider()
 
+  implicit val headerCarrier = new HeaderCarrier()
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(appConfig, request.userAnswers.get(BenefitsPage).fold(form)(form.fill), mode))
   }
@@ -59,8 +62,26 @@ class BenefitsController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(BenefitsPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            decisionService.decide(Interview(updatedAnswers)(appConfig)).map {
+              case Right(DecisionResponse(_, _, Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), _, _, _, _), _)) =>
+                //CONTINUE
+
+                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+
+              case Right(model) =>
+                //EXIT
+
+                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+
+              case Left(error) =>
+                //ERROR? WHERE LINK TO
+                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+            }
+          }
         )
       }
     )
