@@ -14,37 +14,30 @@
  * limitations under the License.
  */
 
-package connectors
+package services
 
-import config.FrontendAppConfig
-import connectors.DecisionHttpParser.DecisionReads
 import javax.inject.{Inject, Singleton}
+import connectors.DecisionConnector
 import models.{DecisionResponse, ErrorResponse, Interview}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-trait DecisionConnector {
-
-  val baseUrl: String
-  val decideUrl: String
+trait DecisionService {
 
   def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]]
+
 }
 
 @Singleton
-class DecisionConnectorImpl @Inject()(http: HttpClient,
-                                      servicesConfig: ServicesConfig,
-                                      conf: FrontendAppConfig) extends DecisionConnector {
+class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector
+                                               ) extends DecisionService {
 
-  override val baseUrl: String = servicesConfig.baseUrl("off-payroll-decision")
-  override val decideUrl = s"$baseUrl/off-payroll-decision/decide"
+  override def decide(decisionRequest: Interview)
+                     (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
 
-  def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
+    decisionConnector.decide(decisionRequest)
 
-    http.POST[Interview, Either[ErrorResponse, DecisionResponse]](decideUrl, decisionRequest)
   }
 }
+

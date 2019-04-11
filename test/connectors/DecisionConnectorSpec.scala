@@ -35,7 +35,7 @@ class DecisionConnectorSpec extends ConnectorTests {
   implicit val headerCarrier = new HeaderCarrier()
   implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
 
-  val connector: DecisionConnector = new FrontendDecisionConnector(client, servicesConfig, configuration)
+  val connector: DecisionConnector = new DecisionConnectorImpl(client, servicesConfig, configuration)
 
   val decisionConnectorWiremock = new DecisionConnectorWiremock
   val emptyInterview: Interview = Interview(

@@ -27,21 +27,23 @@ import pages.LineManagerDutiesPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.LineManagerDutiesView
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class LineManagerDutiesController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: LineManagerDutiesFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: LineManagerDutiesView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+                                            dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: LineManagerDutiesFormProvider,
+                                            controllerComponents: MessagesControllerComponents,
+                                            view: LineManagerDutiesView,
+                                            decisionService: DecisionService
+                                           ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

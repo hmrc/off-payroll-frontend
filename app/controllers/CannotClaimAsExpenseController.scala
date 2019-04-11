@@ -26,6 +26,7 @@ import navigation.Navigator
 import pages.CannotClaimAsExpensePage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.CannotClaimAsExpenseView
 
@@ -39,7 +40,8 @@ class CannotClaimAsExpenseController @Inject()(appConfig: FrontendAppConfig,
                                                requireData: DataRequiredAction,
                                                formProvider: CannotClaimAsExpenseFormProvider,
                                                controllerComponents: MessagesControllerComponents,
-                                               view: CannotClaimAsExpenseView
+                                               view: CannotClaimAsExpenseView,
+                                               decisionService: DecisionService
                                               ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext

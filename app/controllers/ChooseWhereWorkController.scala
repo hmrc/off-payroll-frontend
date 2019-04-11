@@ -26,21 +26,23 @@ import navigation.Navigator
 import pages.ChooseWhereWorkPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.ChooseWhereWorkView
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class ChooseWhereWorkController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: ChooseWhereWorkFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: ChooseWhereWorkView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                          dataCacheConnector: DataCacheConnector,
+                                          navigator: Navigator,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: ChooseWhereWorkFormProvider,
+                                          controllerComponents: MessagesControllerComponents,
+                                          view: ChooseWhereWorkView,
+                                          decisionService: DecisionService
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

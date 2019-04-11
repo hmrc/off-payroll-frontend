@@ -17,7 +17,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import play.api.i18n.I18nSupport
 import play.api.data.Form
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -29,20 +28,23 @@ import models.Mode
 import pages.NeededToPayHelperPage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import views.html.NeededToPayHelperView
 
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.{ExecutionContext, Future}
 
 class NeededToPayHelperController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: NeededToPayHelperFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: NeededToPayHelperView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+                                            dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: NeededToPayHelperFormProvider,
+                                            controllerComponents: MessagesControllerComponents,
+                                            view: NeededToPayHelperView,
+                                            decisionService: DecisionService
+
+                                           ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

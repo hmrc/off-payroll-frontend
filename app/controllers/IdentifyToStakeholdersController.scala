@@ -26,21 +26,23 @@ import navigation.Navigator
 import pages.IdentifyToStakeholdersPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.IdentifyToStakeholdersView
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class IdentifyToStakeholdersController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: IdentifyToStakeholdersFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: IdentifyToStakeholdersView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                                 dataCacheConnector: DataCacheConnector,
+                                                 navigator: Navigator,
+                                                 identify: IdentifierAction,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 formProvider: IdentifyToStakeholdersFormProvider,
+                                                 controllerComponents: MessagesControllerComponents,
+                                                 view: IdentifyToStakeholdersView,
+                                                 decisionService: DecisionService
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

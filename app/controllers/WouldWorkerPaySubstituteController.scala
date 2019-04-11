@@ -17,7 +17,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import play.api.i18n.I18nSupport
 import play.api.data.Form
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -29,20 +28,22 @@ import models.Mode
 import pages.WouldWorkerPaySubstitutePage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import views.html.WouldWorkerPaySubstituteView
 
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.{ExecutionContext, Future}
 
 class WouldWorkerPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: WouldWorkerPaySubstituteFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: WouldWorkerPaySubstituteView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+                                                   dataCacheConnector: DataCacheConnector,
+                                                   navigator: Navigator,
+                                                   identify: IdentifierAction,
+                                                   getData: DataRetrievalAction,
+                                                   requireData: DataRequiredAction,
+                                                   formProvider: WouldWorkerPaySubstituteFormProvider,
+                                                   controllerComponents: MessagesControllerComponents,
+                                                   view: WouldWorkerPaySubstituteView,
+                                                   decisionService: DecisionService
+                                                  ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

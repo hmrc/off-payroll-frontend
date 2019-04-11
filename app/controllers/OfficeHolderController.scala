@@ -27,6 +27,7 @@ import pages.OfficeHolderPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.OfficeHolderView
 
@@ -40,7 +41,8 @@ class OfficeHolderController @Inject()(appConfig: FrontendAppConfig,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
-                                       view: OfficeHolderView
+                                       view: OfficeHolderView,
+                                       decisionService: DecisionService
                                       ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext

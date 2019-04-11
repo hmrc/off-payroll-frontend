@@ -16,24 +16,20 @@
 
 package connectors
 
-import config.FrontendAppConfig
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
+import utils.ImplicitConfig
 
-trait ConnectorTests extends UnitSpec with WithFakeApplication with MockitoSugar {
+trait ConnectorTests extends UnitSpec with WithFakeApplication with ImplicitConfig {
 
   val stubPort = 8080
   val wireMock = new Wiremock
 
   val client = fakeApplication.injector.instanceOf[HttpClient]
   val servicesConfig = mock[ServicesConfig]
-  implicit val configuration = mock[FrontendAppConfig]
-
-  when(configuration.decisionVersion).thenReturn("1.5.0-final")
 
   when(servicesConfig.baseUrl(any())).thenReturn(s"http://localhost:$stubPort")
 

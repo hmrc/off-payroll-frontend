@@ -26,21 +26,23 @@ import navigation.Navigator
 import pages.PutRightAtOwnCostPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.PutRightAtOwnCostView
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class PutRightAtOwnCostController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: PutRightAtOwnCostFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: PutRightAtOwnCostView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                            dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: PutRightAtOwnCostFormProvider,
+                                            controllerComponents: MessagesControllerComponents,
+                                            view: PutRightAtOwnCostView,
+                                            decisionService: DecisionService
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
