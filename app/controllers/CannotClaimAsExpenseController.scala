@@ -32,8 +32,7 @@ import views.html.CannotClaimAsExpenseView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CannotClaimAsExpenseController @Inject()(appConfig: FrontendAppConfig,
-                                               dataCacheConnector: DataCacheConnector,
+class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConnector,
                                                navigator: Navigator,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
@@ -41,7 +40,8 @@ class CannotClaimAsExpenseController @Inject()(appConfig: FrontendAppConfig,
                                                formProvider: CannotClaimAsExpenseFormProvider,
                                                controllerComponents: MessagesControllerComponents,
                                                view: CannotClaimAsExpenseView,
-                                               decisionService: DecisionService
+                                               decisionService: DecisionService,
+                                               implicit val appConfig: FrontendAppConfig
                                               ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -58,8 +58,12 @@ class CannotClaimAsExpenseController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       values => {
         val updatedAnswers = request.userAnswers.set(CannotClaimAsExpensePage, values)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(CannotClaimAsExpensePage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

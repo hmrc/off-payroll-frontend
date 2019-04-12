@@ -24,6 +24,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
+import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.ExecutionContext
 

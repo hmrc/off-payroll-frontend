@@ -33,8 +33,7 @@ import views.html.WouldWorkerPaySubstituteView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class WouldWorkerPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
-                                                   dataCacheConnector: DataCacheConnector,
+class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
                                                    navigator: Navigator,
                                                    identify: IdentifierAction,
                                                    getData: DataRetrievalAction,
@@ -42,7 +41,8 @@ class WouldWorkerPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
                                                    formProvider: WouldWorkerPaySubstituteFormProvider,
                                                    controllerComponents: MessagesControllerComponents,
                                                    view: WouldWorkerPaySubstituteView,
-                                                   decisionService: DecisionService
+                                                   decisionService: DecisionService,
+                                                   implicit val appConfig: FrontendAppConfig
                                                   ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -58,9 +58,15 @@ class WouldWorkerPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
+
         val updatedAnswers = request.userAnswers.set(WouldWorkerPaySubstitutePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(WouldWorkerPaySubstitutePage, mode)(updatedAnswers))
+
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(WouldWorkerPaySubstitutePage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

@@ -32,8 +32,7 @@ import views.html.WorkerTypeView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class WorkerTypeController @Inject()(appConfig: FrontendAppConfig,
-                                     dataCacheConnector: DataCacheConnector,
+class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
                                      navigator: Navigator,
                                      identify: IdentifierAction,
                                      getData: DataRetrievalAction,
@@ -41,7 +40,8 @@ class WorkerTypeController @Inject()(appConfig: FrontendAppConfig,
                                      formProvider: WorkerTypeFormProvider,
                                      controllerComponents: MessagesControllerComponents,
                                      view: WorkerTypeView,
-                                     decisionService: DecisionService
+                                     decisionService: DecisionService,
+                                     implicit val appConfig: FrontendAppConfig
                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext

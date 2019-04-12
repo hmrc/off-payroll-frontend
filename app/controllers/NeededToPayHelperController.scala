@@ -33,8 +33,7 @@ import views.html.NeededToPayHelperView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class NeededToPayHelperController @Inject()(appConfig: FrontendAppConfig,
-                                            dataCacheConnector: DataCacheConnector,
+class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnector,
                                             navigator: Navigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
@@ -42,8 +41,8 @@ class NeededToPayHelperController @Inject()(appConfig: FrontendAppConfig,
                                             formProvider: NeededToPayHelperFormProvider,
                                             controllerComponents: MessagesControllerComponents,
                                             view: NeededToPayHelperView,
-                                            decisionService: DecisionService
-
+                                            decisionService: DecisionService,
+                                            implicit val appConfig: FrontendAppConfig
                                            ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -60,8 +59,13 @@ class NeededToPayHelperController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(NeededToPayHelperPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(NeededToPayHelperPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(NeededToPayHelperPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

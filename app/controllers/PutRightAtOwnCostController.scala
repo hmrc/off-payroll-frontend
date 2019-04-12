@@ -32,8 +32,7 @@ import views.html.PutRightAtOwnCostView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PutRightAtOwnCostController @Inject()(appConfig: FrontendAppConfig,
-                                            dataCacheConnector: DataCacheConnector,
+class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnector,
                                             navigator: Navigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
@@ -41,7 +40,8 @@ class PutRightAtOwnCostController @Inject()(appConfig: FrontendAppConfig,
                                             formProvider: PutRightAtOwnCostFormProvider,
                                             controllerComponents: MessagesControllerComponents,
                                             view: PutRightAtOwnCostView,
-                                            decisionService: DecisionService
+                                            decisionService: DecisionService,
+                                            implicit val appConfig: FrontendAppConfig
                                            ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -58,8 +58,19 @@ class PutRightAtOwnCostController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(PutRightAtOwnCostPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(PutRightAtOwnCostPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(PutRightAtOwnCostPage, mode)(updatedAnswers)
+            println(22)
+            val exit = continue
+
+            println(updatedAnswers)
+            println(continue)
+            println(exit)
+
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

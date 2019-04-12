@@ -34,8 +34,7 @@ import views.html.BenefitsView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BenefitsController @Inject()(appConfig: FrontendAppConfig,
-                                   dataCacheConnector: DataCacheConnector,
+class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
                                    navigator: Navigator,
                                    identify: IdentifierAction,
                                    getData: DataRetrievalAction,
@@ -43,7 +42,8 @@ class BenefitsController @Inject()(appConfig: FrontendAppConfig,
                                    formProvider: BenefitsFormProvider,
                                    controllerComponents: MessagesControllerComponents,
                                    view: BenefitsView,
-                                   decisionService: DecisionService
+                                   decisionService: DecisionService,
+                                   implicit val appConfig: FrontendAppConfig
                                   ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -61,29 +61,36 @@ class BenefitsController @Inject()(appConfig: FrontendAppConfig,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
+
         val updatedAnswers = request.userAnswers.set(BenefitsPage, value)
 
         dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
           _ => {
 
-            decisionService.decide(Interview(updatedAnswers)(appConfig)).map {
-              case Right(DecisionResponse(_, _, Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), _, _, _, _), _)) =>
-                //CONTINUE
+            val continue = navigator.nextPage(BenefitsPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
 
-                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
-
-              case Right(model) =>
-                //EXIT
-
-                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
-
-              case Left(error) =>
-                //ERROR? WHERE LINK TO
-                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
-            }
           }
         )
       }
     )
   }
+
+  ////            decisionService.decide(Interview(updatedAnswers)(appConfig)).map {
+  ////              case Right(DecisionResponse(_, _, Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), _, _, _, _), _)) =>
+  ////                //CONTINUE
+  ////
+  ////                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+  ////
+  ////              case Right(model) =>
+  ////                //EXIT
+  ////
+  ////                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+  ////
+  ////              case Left(error) =>
+  ////                //ERROR? WHERE LINK TO
+  ////                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+  ////            }
+
 }

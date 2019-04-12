@@ -33,8 +33,7 @@ import views.html.LineManagerDutiesView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class LineManagerDutiesController @Inject()(appConfig: FrontendAppConfig,
-                                            dataCacheConnector: DataCacheConnector,
+class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnector,
                                             navigator: Navigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
@@ -42,7 +41,8 @@ class LineManagerDutiesController @Inject()(appConfig: FrontendAppConfig,
                                             formProvider: LineManagerDutiesFormProvider,
                                             controllerComponents: MessagesControllerComponents,
                                             view: LineManagerDutiesView,
-                                            decisionService: DecisionService
+                                            decisionService: DecisionService,
+                                            implicit val appConfig: FrontendAppConfig
                                            ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -59,8 +59,12 @@ class LineManagerDutiesController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(LineManagerDutiesPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(LineManagerDutiesPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(LineManagerDutiesPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

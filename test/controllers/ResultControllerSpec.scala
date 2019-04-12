@@ -53,7 +53,6 @@ class ResultControllerSpec extends ControllerSpecBase {
   val version = "1.5.0-final"
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ResultController(
-    frontendAppConfig,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
@@ -68,7 +67,8 @@ class ResultControllerSpec extends ControllerSpecBase {
     financialRiskView,
     indeterminateView,
     insideIR35,
-    formProvider
+    formProvider,
+    frontendAppConfig
   )
 
   def viewAsString() = officeHolderInsideIR35View(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString

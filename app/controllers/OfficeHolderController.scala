@@ -33,8 +33,7 @@ import views.html.OfficeHolderView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class OfficeHolderController @Inject()(appConfig: FrontendAppConfig,
-                                       dataCacheConnector: DataCacheConnector,
+class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
                                        navigator: Navigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
@@ -42,7 +41,8 @@ class OfficeHolderController @Inject()(appConfig: FrontendAppConfig,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
                                        view: OfficeHolderView,
-                                       decisionService: DecisionService
+                                       decisionService: DecisionService,
+                                       implicit val appConfig: FrontendAppConfig
                                       ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -58,9 +58,16 @@ class OfficeHolderController @Inject()(appConfig: FrontendAppConfig,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
+
         val updatedAnswers = request.userAnswers.set(OfficeHolderPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(OfficeHolderPage, mode)(updatedAnswers))
+
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(OfficeHolderPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

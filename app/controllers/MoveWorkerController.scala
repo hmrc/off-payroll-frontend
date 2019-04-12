@@ -31,16 +31,16 @@ import views.html.MoveWorkerView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class MoveWorkerController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: MoveWorkerFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: MoveWorkerView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
+                                     navigator: Navigator,
+                                     identify: IdentifierAction,
+                                     getData: DataRetrievalAction,
+                                     requireData: DataRequiredAction,
+                                     formProvider: MoveWorkerFormProvider,
+                                     controllerComponents: MessagesControllerComponents,
+                                     view: MoveWorkerView,
+                                     implicit val appConfig: FrontendAppConfig
+                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

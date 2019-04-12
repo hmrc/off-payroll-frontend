@@ -33,8 +33,7 @@ import views.html.DidPaySubstituteView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DidPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
-                                           dataCacheConnector: DataCacheConnector,
+class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
                                            navigator: Navigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
@@ -42,7 +41,8 @@ class DidPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
                                            formProvider: DidPaySubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
                                            view: DidPaySubstituteView,
-                                           decisionService: DecisionService
+                                           decisionService: DecisionService,
+                                           implicit val appConfig: FrontendAppConfig
                                           ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -59,8 +59,13 @@ class DidPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(DidPaySubstitutePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(DidPaySubstitutePage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(DidPaySubstitutePage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

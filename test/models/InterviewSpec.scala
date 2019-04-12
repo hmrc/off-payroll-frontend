@@ -51,8 +51,8 @@ class InterviewSpec extends SpecBase {
           .set(RejectSubstitutePage, false)
           .set(NeededToPayHelperPage, false)
           .set(MoveWorkerPage, CanMoveWorkerWithPermission)
-          .set(HowWorkIsDonePage, Workerfollowstrictemployeeprocedures)
-          .set(ScheduleOfWorkingHoursPage, Workeragreeschedule)
+          .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
+          .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
           .set(ChooseWhereWorkPage, Workeragreewithothers)
           .set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
           .set(HowWorkerIsPaidPage, Commission)
@@ -74,8 +74,8 @@ class InterviewSpec extends SpecBase {
           possibleSubstituteWorkerPay = Some(true),
           wouldWorkerPayHelper = Some(false),
           engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(Workerfollowstrictemployeeprocedures),
-          whenWorkHasToBeDone = Some(Workeragreeschedule),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
           workerDecideWhere = Some(Workeragreewithothers),
           workerProvidedMaterials = Some(false),
           workerProvidedEquipment = Some(false),

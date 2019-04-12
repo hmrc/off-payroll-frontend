@@ -39,9 +39,18 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[WorkerTypeView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new WorkerTypeController(frontendAppConfig, new FakeDataCacheConnector, new FakeNavigator(onwardRoute),
-      FakeIdentifierAction, dataRetrievalAction, new DataRequiredActionImpl(messagesControllerComponents),
-      formProvider, messagesControllerComponents, view, decisionService)
+    new WorkerTypeController(
+      new FakeDataCacheConnector,
+      new FakeNavigator(onwardRoute),
+      FakeIdentifierAction,
+      dataRetrievalAction,
+      new DataRequiredActionImpl(messagesControllerComponents),
+      formProvider,
+      messagesControllerComponents,
+      view,
+      decisionService,
+      frontendAppConfig
+    )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 

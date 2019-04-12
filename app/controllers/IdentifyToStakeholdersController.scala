@@ -32,8 +32,7 @@ import views.html.IdentifyToStakeholdersView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentifyToStakeholdersController @Inject()(appConfig: FrontendAppConfig,
-                                                 dataCacheConnector: DataCacheConnector,
+class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheConnector,
                                                  navigator: Navigator,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
@@ -41,7 +40,8 @@ class IdentifyToStakeholdersController @Inject()(appConfig: FrontendAppConfig,
                                                  formProvider: IdentifyToStakeholdersFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: IdentifyToStakeholdersView,
-                                                 decisionService: DecisionService
+                                                 decisionService: DecisionService,
+                                                 implicit val appConfig: FrontendAppConfig
                                                 ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -58,8 +58,12 @@ class IdentifyToStakeholdersController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(IdentifyToStakeholdersPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(IdentifyToStakeholdersPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit)
+          }
         )
       }
     )

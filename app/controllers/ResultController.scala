@@ -30,8 +30,7 @@ import views.html.results._
 
 import scala.concurrent.ExecutionContext
 
-class ResultController @Inject()(appConfig: FrontendAppConfig,
-                                 identify: IdentifierAction,
+class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
                                  requireData: DataRequiredAction,
                                  controllerComponents: MessagesControllerComponents,
@@ -45,7 +44,8 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  financialRiskView: FinancialRiskView,
                                  indeterminateView: IndeterminateView,
                                  insideIR35View: InsideIR35View,
-                                 formProvider: DeclarationFormProvider
+                                 formProvider: DeclarationFormProvider,
+                                 implicit val appConfig: FrontendAppConfig
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext

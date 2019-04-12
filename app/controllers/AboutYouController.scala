@@ -32,15 +32,15 @@ import views.html.AboutYouView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AboutYouController @Inject()(appConfig: FrontendAppConfig,
-                                   dataCacheConnector: DataCacheConnector,
+class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
                                    navigator: Navigator,
                                    identify: IdentifierAction,
                                    getData: DataRetrievalAction,
                                    requireData: DataRequiredAction,
                                    formProvider: AboutYouFormProvider,
                                    controllerComponents: MessagesControllerComponents,
-                                   view: AboutYouView
+                                   view: AboutYouView,
+                                   implicit val appConfig: FrontendAppConfig
                                   ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext

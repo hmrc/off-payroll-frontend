@@ -26,12 +26,12 @@ import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersController @Inject()(appConfig: FrontendAppConfig,
-                                           authenticate: IdentifierAction,
+class CheckYourAnswersController @Inject()(authenticate: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            controllerComponents: MessagesControllerComponents,
-                                           view: CheckYourAnswersView)
+                                           view: CheckYourAnswersView,
+                                           implicit val appConfig: FrontendAppConfig)
   extends FrontendController(controllerComponents) with I18nSupport {
 
   //noinspection ScalaStyle

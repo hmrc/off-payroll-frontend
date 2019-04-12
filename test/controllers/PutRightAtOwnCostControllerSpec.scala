@@ -24,11 +24,18 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.PutRightAtOwnCostFormProvider
-import models.NormalMode
-import models.PutRightAtOwnCost
+import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
+import models.{NormalMode, PutRightAtOwnCost, UserAnswers}
 import pages.PutRightAtOwnCostPage
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
+import uk.gov.hmrc.http.HeaderCarrier
 import views.html.PutRightAtOwnCostView
+import org.mockito.Mockito.when
+import org.mockito.Matchers.{eq => eqTo, _}
+import org.mockito.Matchers
+
+import scala.concurrent.Future
 
 class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
@@ -40,7 +47,6 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new PutRightAtOwnCostController(
-    frontendAppConfig,
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -48,7 +54,9 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    decisionService,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
@@ -72,6 +80,14 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, OutsideOfHoursNoCharge)
+
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

@@ -24,10 +24,17 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.LineManagerDutiesFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
+import org.mockito.Matchers
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
 import pages.LineManagerDutiesPage
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
+import uk.gov.hmrc.http.HeaderCarrier
 import views.html.LineManagerDutiesView
+
+import scala.concurrent.Future
 
 class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
@@ -39,7 +46,6 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[LineManagerDutiesView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new LineManagerDutiesController(
-    frontendAppConfig,
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -47,7 +53,9 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    decisionService,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
@@ -71,6 +79,14 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, true)
+
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

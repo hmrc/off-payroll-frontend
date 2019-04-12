@@ -16,9 +16,12 @@
 
 package services
 
-import javax.inject.{Inject, Singleton}
+import config.FrontendAppConfig
 import connectors.DecisionConnector
-import models.{DecisionResponse, ErrorResponse, Interview}
+import javax.inject.{Inject, Singleton}
+import models._
+import play.api.mvc.Results._
+import play.api.mvc.{Call, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -26,6 +29,9 @@ import scala.concurrent.{ExecutionContext, Future}
 trait DecisionService {
 
   def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]]
+
+  def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call)
+            (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig): Future[Result]
 
 }
 
@@ -38,6 +44,18 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector
 
     decisionConnector.decide(decisionRequest)
 
+  }
+
+  override def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call)
+                     (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig): Future[Result] = {
+
+    val interview = Interview(userAnswers)
+
+    decisionConnector.decide(interview).map{
+      case Right(DecisionResponse(_, _, Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), _, _, _, _), _)) => Redirect(continueResult)
+      case Right(exit) => Redirect(exitResult)
+      case Left(error) => Redirect(continueResult)
+    }
   }
 }
 

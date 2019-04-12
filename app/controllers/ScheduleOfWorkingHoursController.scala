@@ -31,16 +31,16 @@ import views.html.ScheduleOfWorkingHoursView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ScheduleOfWorkingHoursController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: ScheduleOfWorkingHoursFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: ScheduleOfWorkingHoursView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheConnector,
+                                                 navigator: Navigator,
+                                                 identify: IdentifierAction,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 formProvider: ScheduleOfWorkingHoursFormProvider,
+                                                 controllerComponents: MessagesControllerComponents,
+                                                 view: ScheduleOfWorkingHoursView,
+                                                 implicit val appConfig: FrontendAppConfig
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

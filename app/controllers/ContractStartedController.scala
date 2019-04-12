@@ -32,15 +32,15 @@ import views.html.ContractStartedView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ContractStartedController @Inject()(appConfig: FrontendAppConfig,
-                                          dataCacheConnector: DataCacheConnector,
+class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector,
                                           navigator: Navigator,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ContractStartedFormProvider,
                                           controllerComponents: MessagesControllerComponents,
-                                          view: ContractStartedView
+                                          view: ContractStartedView,
+                                          implicit val appConfig: FrontendAppConfig
                                          ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext

@@ -24,10 +24,17 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.InteractWithStakeholdersFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
+import org.mockito.Matchers
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
 import pages.InteractWithStakeholdersPage
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
+import uk.gov.hmrc.http.HeaderCarrier
 import views.html.InteractWithStakeholdersView
+
+import scala.concurrent.Future
 
 class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
 
@@ -39,7 +46,6 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[InteractWithStakeholdersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new InteractWithStakeholdersController(
-    frontendAppConfig,
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -47,7 +53,9 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    decisionService,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
@@ -71,6 +79,15 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(InteractWithStakeholdersPage, true)
+
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

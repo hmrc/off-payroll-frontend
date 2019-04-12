@@ -24,11 +24,18 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.CannotClaimAsExpenseFormProvider
-import models.NormalMode
-import models.CannotClaimAsExpense
+import models.CannotClaimAsExpense.WorkerProvidedMaterials
+import models.{CannotClaimAsExpense, NormalMode, UserAnswers}
+import org.mockito.Matchers
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
 import pages.CannotClaimAsExpensePage
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
+import uk.gov.hmrc.http.HeaderCarrier
 import views.html.CannotClaimAsExpenseView
+
+import scala.concurrent.Future
 
 class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
@@ -40,7 +47,6 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[CannotClaimAsExpenseView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new CannotClaimAsExpenseController(
-    appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
@@ -48,7 +54,9 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    decisionService,
+    appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
@@ -72,6 +80,15 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, Seq(WorkerProvidedMaterials))
+
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("cannotClaimAsExpense[0]", CannotClaimAsExpense.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

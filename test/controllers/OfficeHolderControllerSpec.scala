@@ -19,15 +19,22 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.OfficeHolderFormProvider
-import models.NormalMode
+import models.{NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import org.mockito.Matchers
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
 import pages.OfficeHolderPage
 import play.api.data.Form
 import play.api.libs.json.JsBoolean
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.OfficeHolderView
+
+import scala.concurrent.Future
 
 class OfficeHolderControllerSpec extends ControllerSpecBase {
 
@@ -39,7 +46,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[OfficeHolderView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new OfficeHolderController(
-    appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
@@ -47,7 +53,9 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    decisionService,
+    appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
@@ -71,6 +79,14 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(OfficeHolderPage, true)
+
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
