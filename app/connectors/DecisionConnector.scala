@@ -20,12 +20,14 @@ import config.FrontendAppConfig
 import connectors.DecisionHttpParser.DecisionReads
 import javax.inject.{Inject, Singleton}
 import models.{DecisionResponse, ErrorResponse, Interview}
+import play.api.Logger
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
+import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 
 trait DecisionConnector {
 
@@ -45,6 +47,10 @@ class DecisionConnectorImpl @Inject()(http: HttpClient,
 
   def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
 
-    http.POST[Interview, Either[ErrorResponse, DecisionResponse]](decideUrl, decisionRequest)
+    http.POST[Interview, Either[ErrorResponse, DecisionResponse]](decideUrl, decisionRequest).recover{
+      case e: Exception =>
+        Logger.error(s"Unexpected response from decide API - Response: ${e.getMessage}")
+        Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"Exception: ${e.getMessage}"))
+    }
   }
 }

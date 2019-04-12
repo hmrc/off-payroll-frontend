@@ -76,21 +76,4 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
       }
     )
   }
-
-  ////            decisionService.decide(Interview(updatedAnswers)(appConfig)).map {
-  ////              case Right(DecisionResponse(_, _, Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), _, _, _, _), _)) =>
-  ////                //CONTINUE
-  ////
-  ////                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
-  ////
-  ////              case Right(model) =>
-  ////                //EXIT
-  ////
-  ////                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
-  ////
-  ////              case Left(error) =>
-  ////                //ERROR? WHERE LINK TO
-  ////                Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
-  ////            }
-
 }
