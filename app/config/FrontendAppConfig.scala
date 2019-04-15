@@ -54,4 +54,6 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
 
   lazy val decisionVersion = servicesConfig.getString("decisionServiceVersion")
 
+  lazy val pdfGeneratorService = servicesConfig.baseUrl("pdf-generator-service")
+
 }

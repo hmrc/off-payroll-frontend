@@ -26,9 +26,18 @@ import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.{Duration, FiniteDuration}
+import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.language.implicitConversions
 
 trait SpecBase extends PlaySpec with MaterializerSupport {
+
+  implicit val defaultTimeout: FiniteDuration = 5.seconds
+
+  implicit def extractAwait[A](future: Future[A]): A = await[A](future)
+
+  def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)
 
   val injector = new GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
@@ -43,6 +52,7 @@ trait SpecBase extends PlaySpec with MaterializerSupport {
   def messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
   implicit def ec: ExecutionContext = injector.instanceOf[ExecutionContext]
+  implicit def hc: HeaderCarrier = HeaderCarrier()
 
   def fakeRequest = FakeRequest("", "")
 
