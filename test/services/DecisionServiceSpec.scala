@@ -29,7 +29,7 @@ import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ResultEnum.UNKNOWN
+import models.ResultEnum._
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WeightedAnswerEnum.{HIGH, LOW}
 import models.WorkerType.SoleTrader
@@ -91,7 +91,7 @@ class DecisionServiceSpec extends UnitSpec with WithFakeApplication with Implici
 
   val response = DecisionResponse("1.0.0-beta", "12345",
     Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
-    UNKNOWN
+    NOT_MATCHED
   )
 
   val error = ErrorTemplate("error.title")

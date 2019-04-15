@@ -45,8 +45,13 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val interview = Interview(userAnswers)
 
     decisionConnector.decide(interview).map{
-      case Right(DecisionResponse(_, _, Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), _, _, _, _), _)) => Redirect(continueResult)
-      case Right(exit) => Redirect(exitResult)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => Redirect(exitResult)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.OUTSIDE_IR35)) => Redirect(exitResult)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => Redirect(exitResult)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => Redirect(exitResult)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => Redirect(exitResult)
+      case Right(_) => Redirect(continueResult)
       case Left(error) =>
 
         val errorTemplate = errorHandler.standardErrorTemplate(
