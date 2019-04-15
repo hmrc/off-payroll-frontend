@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.LineManagerDutiesFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.LineManagerDutiesPage
 import play.api.data.Form
@@ -63,7 +63,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
           _ => {
             val continue = navigator.nextPage(LineManagerDutiesPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("lineManagerDuties.title"))
           }
         )
       }

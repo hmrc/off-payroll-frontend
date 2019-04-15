@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.IdentifyToStakeholdersPage
 import play.api.i18n.I18nSupport
@@ -62,7 +62,7 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
           _ => {
             val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("identifyToStakeholders.title"))
           }
         )
       }

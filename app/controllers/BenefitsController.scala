@@ -20,8 +20,9 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.BenefitsFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
-import models.{DecisionResponse, ExitEnum, Interview, Mode, Score, SetupEnum}
+import models.{DecisionResponse, ErrorTemplate, ExitEnum, Interview, Mode, Score, SetupEnum}
 import navigation.Navigator
 import pages.BenefitsPage
 import play.api.data.Form
@@ -69,7 +70,7 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
 
             val continue = navigator.nextPage(BenefitsPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("benefits.title"))
 
           }
         )

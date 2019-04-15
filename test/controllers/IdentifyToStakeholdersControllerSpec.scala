@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.IdentifyToStakeholdersFormProvider
 import models.IdentifyToStakeholders.WorkForEndClient
-import models.{IdentifyToStakeholders, NormalMode, UserAnswers}
+import models.{ErrorTemplate, IdentifyToStakeholders, NormalMode, UserAnswers}
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -85,8 +85,9 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, WorkForEndClient)
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+        Matchers.eq(ErrorTemplate("identifyToStakeholders.title")))
+      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 

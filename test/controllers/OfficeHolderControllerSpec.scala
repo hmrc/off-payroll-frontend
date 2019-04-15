@@ -19,7 +19,7 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.OfficeHolderFormProvider
-import models.{NormalMode, UserAnswers}
+import models.{ErrorTemplate, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
@@ -84,8 +84,8 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(OfficeHolderPage, true)
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute), Matchers.eq(ErrorTemplate("officeHolder.title")))
+      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

@@ -40,9 +40,4 @@ trait ControllerSpecBase extends SpecBase with MockitoSugar {
 
   val decisionService = mock[DecisionService]
 
-  def serviceResponse(input: Interview, output: Either[ErrorResponse, DecisionResponse])
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext): OngoingStubbing[Future[Either[ErrorResponse, DecisionResponse]]] ={
-
-    when(decisionService.decide(input)).thenReturn(Future.successful(output))
-  }
 }

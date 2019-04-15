@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.CannotClaimAsExpenseFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
-import models.{CannotClaimAsExpense, NormalMode, UserAnswers}
+import models.{CannotClaimAsExpense, ErrorTemplate, NormalMode, UserAnswers}
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -85,8 +85,9 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, Seq(WorkerProvidedMaterials))
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+        Matchers.eq(ErrorTemplate("cannotClaimAsExpense.title")))
+      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("cannotClaimAsExpense[0]", CannotClaimAsExpense.options.head.value))

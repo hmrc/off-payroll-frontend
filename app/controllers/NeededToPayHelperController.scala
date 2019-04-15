@@ -24,7 +24,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.NeededToPayHelperFormProvider
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import pages.NeededToPayHelperPage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -64,7 +64,7 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
 
             val continue = navigator.nextPage(NeededToPayHelperPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("neededToPayHelper.title"))
           }
         )
       }

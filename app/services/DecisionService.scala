@@ -18,43 +18,44 @@ package services
 
 import config.FrontendAppConfig
 import connectors.DecisionConnector
+import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
 import models._
 import play.api.mvc.Results._
-import play.api.mvc.{Call, Result}
+import play.api.mvc.{Call, Request, Result}
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
 trait DecisionService {
 
-  def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]]
-
-  def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig): Future[Result]
+  def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call, errorResult: ErrorTemplate)
+            (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig, rh: Request[_]): Future[Result]
 
 }
 
 @Singleton
-class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector
-                                               ) extends DecisionService {
+class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
+                                    errorHandler: ErrorHandler
+                                   ) extends DecisionService {
 
-  override def decide(decisionRequest: Interview)
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-
-    decisionConnector.decide(decisionRequest)
-
-  }
-
-  override def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call)
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig): Future[Result] = {
+  override def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call, errorResult: ErrorTemplate)
+                     (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig, rh: Request[_]): Future[Result] = {
 
     val interview = Interview(userAnswers)
 
     decisionConnector.decide(interview).map{
       case Right(DecisionResponse(_, _, Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), _, _, _, _), _)) => Redirect(continueResult)
       case Right(exit) => Redirect(exitResult)
-      case Left(error) => Redirect(continueResult)
+      case Left(error) =>
+
+        val errorTemplate = errorHandler.standardErrorTemplate(
+          errorResult.pageTitle,
+          errorResult.heading.getOrElse(errorResult.defaultErrorHeading),
+          errorResult.message.getOrElse(errorResult.defaultErrorMessage)
+        )
+
+        Status(error.status)(errorTemplate)
     }
   }
 }

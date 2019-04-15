@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.ChooseWhereWorkPage
 import play.api.i18n.I18nSupport
@@ -63,7 +63,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
 
             val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("chooseWhereWork.title"))
           }
         )
       }

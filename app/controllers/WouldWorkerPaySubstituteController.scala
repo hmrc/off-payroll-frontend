@@ -24,7 +24,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.WouldWorkerPaySubstituteFormProvider
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import pages.WouldWorkerPaySubstitutePage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -65,7 +65,7 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
           _ => {
             val continue = navigator.nextPage(WouldWorkerPaySubstitutePage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("wouldWorkerPaySubstitute.title"))
           }
         )
       }

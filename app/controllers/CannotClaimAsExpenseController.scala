@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.CannotClaimAsExpensePage
 import play.api.i18n.I18nSupport
@@ -62,7 +62,7 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
           _ => {
             val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("cannotClaimAsExpense.title"))
           }
         )
       }

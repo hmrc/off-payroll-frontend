@@ -2,6 +2,9 @@ checkYourAnswers.title = Check Your Answers
 checkYourAnswers.heading = Check Your Answers
 checkYourAnswers.guidance = Guidance for check your answers
 
+common.standardErrorMessageContent = Please try again in few moments
+common.standardErrorMessageHeader = Sorry we are experiencing technical problems
+
 date.day = Day
 date.month = Month
 date.year = Year

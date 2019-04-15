@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.PutRightAtOwnCostFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.PutRightAtOwnCostPage
 import play.api.i18n.I18nSupport
@@ -62,14 +62,9 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
           _ => {
 
             val continue = navigator.nextPage(PutRightAtOwnCostPage, mode)(updatedAnswers)
-            println(22)
             val exit = continue
 
-            println(updatedAnswers)
-            println(continue)
-            println(exit)
-
-            decisionService.decide(updatedAnswers, continue, exit)
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("putRightAtOwnCost.title"))
           }
         )
       }

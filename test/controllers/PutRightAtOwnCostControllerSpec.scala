@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.PutRightAtOwnCostFormProvider
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
-import models.{NormalMode, PutRightAtOwnCost, UserAnswers}
+import models.{ErrorTemplate, NormalMode, PutRightAtOwnCost, UserAnswers}
 import pages.PutRightAtOwnCostPage
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
@@ -85,8 +85,9 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, OutsideOfHoursNoCharge)
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+        Matchers.eq(ErrorTemplate("putRightAtOwnCost.title")))
+      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 
