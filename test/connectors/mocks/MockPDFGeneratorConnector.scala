@@ -14,29 +14,24 @@
  * limitations under the License.
  */
 
-package connectors
+package connectors.mocks
 
-import config.FrontendAppConfig
+import base.SpecBase
 import connectors.HttpParsers.PDFGeneratorHttpParser
-import javax.inject.Inject
-import play.api.libs.json.{Json, Writes}
+import connectors.PDFGeneratorConnector
+import org.scalamock.scalatest.MockFactory
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
+trait MockPDFGeneratorConnector extends SpecBase with MockFactory {
 
-class PDFGeneratorConnector @Inject()(httpClient: HttpClient,
-                                      appConfig: FrontendAppConfig) {
+  val mockPdfGeneratorConnector: PDFGeneratorConnector = mock[PDFGeneratorConnector]
 
-  private[connectors] lazy val url = appConfig.pdfGeneratorService + "/pdf-generator-service/generate"
-
-  private[connectors] def writes: Writes[Html] = Writes { html =>
-    Json.obj("html" -> html.toString)
-  }
-
-  def generatePdf(html: Html)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[PDFGeneratorHttpParser.Response] = {
-    httpClient.POST(url, html)(writes, PDFGeneratorHttpParser.reads, hc, ec)
+  def mockGeneratePdf(content: Html)(response: Future[PDFGeneratorHttpParser.Response]): Unit = {
+    (mockPdfGeneratorConnector.generatePdf(_: Html)(_: HeaderCarrier, _: ExecutionContext))
+      .expects(content, *, *)
+      .returns(response)
   }
 }
