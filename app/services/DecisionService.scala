@@ -23,6 +23,7 @@ import javax.inject.{Inject, Singleton}
 import models._
 import play.api.mvc.Results._
 import play.api.mvc.{Call, Request, Result}
+import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -44,6 +45,17 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
     val interview = Interview(userAnswers)
 
+    def redirectErrorPage(status: Int): Result = {
+
+      val errorTemplate = errorHandler.standardErrorTemplate(
+        errorResult.pageTitle,
+        errorResult.heading.getOrElse(errorResult.defaultErrorHeading),
+        errorResult.message.getOrElse(errorResult.defaultErrorMessage)
+      )
+
+      Status(status)(errorTemplate)
+    }
+
     decisionConnector.decide(interview).map{
       case model@Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
       case model@Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => Redirect(exitResult)
@@ -51,16 +63,8 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
       case model@Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => Redirect(exitResult)
       case model@Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => Redirect(exitResult)
       case model@Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => Redirect(exitResult)
-      case Right(_) => Redirect(continueResult)
-      case Left(error) =>
-
-        val errorTemplate = errorHandler.standardErrorTemplate(
-          errorResult.pageTitle,
-          errorResult.heading.getOrElse(errorResult.defaultErrorHeading),
-          errorResult.message.getOrElse(errorResult.defaultErrorMessage)
-        )
-
-        Status(error.status)(errorTemplate)
+      case Left(error) => redirectErrorPage(error.status)
+      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR)
     }
   }
 }
