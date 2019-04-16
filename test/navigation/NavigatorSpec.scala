@@ -162,6 +162,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "go to CheckYourAnswersController page from the IdentifyToStakeholdersPage page" in {
         nextPage(IdentifyToStakeholdersPage) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
+
+      "go to CustomisePDFPage from the ResultPage" in {
+        nextPage(ResultPage) mustBe routes.CustomisePDFController.onPageLoad(NormalMode)
+      }
     }
 
     "in Check mode" must {

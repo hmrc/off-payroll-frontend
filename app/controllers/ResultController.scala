@@ -20,7 +20,10 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
+import models.NormalMode
 import models.requests.DataRequest
+import navigation.Navigator
+import pages.{HowWorkIsDonePage, ResultPage}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -45,7 +48,8 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  financialRiskView: FinancialRiskView,
                                  indeterminateView: IndeterminateView,
                                  insideIR35View: InsideIR35View,
-                                 formProvider: DeclarationFormProvider
+                                 formProvider: DeclarationFormProvider,
+                                 navigator: Navigator
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -128,7 +132,7 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
       formWithErrors =>
         BadRequest(officeHolderInsideIR35View(appConfig, answers, version, formWithErrors, routes.ResultController.onSubmit())),
       _ => {
-        Redirect(routes.ResultController.onPageLoad())
+        Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
       }
     )
   }

@@ -18,12 +18,16 @@ package controllers
 
 import controllers.actions._
 import forms.DeclarationFormProvider
+import navigation.FakeNavigator
 import play.api.i18n.Messages
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import viewmodels.AnswerSection
 import views.html.results.{IndeterminateView, _}
 
 class ResultControllerSpec extends ControllerSpecBase {
+
+  def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
@@ -68,7 +72,8 @@ class ResultControllerSpec extends ControllerSpecBase {
     financialRiskView,
     indeterminateView,
     insideIR35,
-    formProvider
+    formProvider,
+    new FakeNavigator(onwardRoute)
   )
 
   def viewAsString() = officeHolderInsideIR35View(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
