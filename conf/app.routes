@@ -114,3 +114,8 @@ POST       /change-did-pay-substitute                   controllers.DidPaySubsti
 
 GET        /result                                      controllers.ResultController.onPageLoad()
 POST       /result                                      controllers.ResultController.onSubmit()
+
+GET        /customise-result                            controllers.CustomisePDFController.onPageLoad(mode: Mode = NormalMode)
+POST       /customise-result                            controllers.CustomisePDFController.onSubmit(mode: Mode = NormalMode)
+GET        /change-customise-result                     controllers.CustomisePDFController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-customise-result                     controllers.CustomisePDFController.onSubmit(mode: Mode = CheckMode)

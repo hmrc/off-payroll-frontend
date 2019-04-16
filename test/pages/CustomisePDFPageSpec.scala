@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,22 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(content: Html)
-<div class="form-hint form-group">@content</div>
+package pages
+
+import models.AdditionalPdfDetails
+import pages.behaviours.PageBehaviours
+
+
+class CustomisePDFPageSpec extends PageBehaviours {
+
+  "CustomisePDFPage" must {
+
+    beRetrievable[AdditionalPdfDetails](CustomisePDFPage)
+
+    beSettable[AdditionalPdfDetails](CustomisePDFPage)
+
+    beRemovable[AdditionalPdfDetails](CustomisePDFPage)
+  }
+}

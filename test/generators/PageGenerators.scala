@@ -21,6 +21,9 @@ import pages._
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryCustomisePDFPage: Arbitrary[CustomisePDFPage.type] =
+    Arbitrary(CustomisePDFPage)
+
   implicit lazy val arbitraryDidPaySubstitutePage: Arbitrary[DidPaySubstitutePage.type] =
     Arbitrary(DidPaySubstitutePage)
 
