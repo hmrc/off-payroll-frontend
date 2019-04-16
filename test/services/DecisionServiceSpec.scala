@@ -19,6 +19,7 @@ package services
 import java.util.concurrent.TimeUnit
 
 import akka.util.Timeout
+import base.SpecBase
 import connectors.DecisionConnector
 import handlers.ErrorHandler
 import models.AboutYouAnswer.Worker
@@ -38,23 +39,18 @@ import models._
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import pages._
-import play.api.http.Status._
 import play.api.mvc.Call
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{redirectLocation,contentAsString}
+import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
-import utils.ImplicitConfig
 
 import scala.concurrent.Future
 
-class DecisionServiceSpec extends UnitSpec with WithFakeApplication with ImplicitConfig {
+class DecisionServiceSpec extends SpecBase {
 
   implicit val headerCarrier = new HeaderCarrier()
-  implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
   implicit val request = FakeRequest("", "")
-  implicit val timeout: Timeout = Timeout(1,TimeUnit.SECONDS)
 
   val connector = mock[DecisionConnector]
   val errorHandler: ErrorHandler = mock[ErrorHandler]
@@ -104,40 +100,40 @@ class DecisionServiceSpec extends UnitSpec with WithFakeApplication with Implici
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
 
-      status(result) shouldBe SEE_OTHER
-      redirectLocation(result) shouldBe Some(onwardRoute.url)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
 
     }
     "return a decision based on the interview" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
 
-      status(result) shouldBe SEE_OTHER
-      redirectLocation(result) shouldBe Some(exitRoute.url)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(exitRoute.url)
     }
 
     "handle 400 errors" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(400,"Bad"))))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
 
-      status(result) shouldBe BAD_REQUEST
-      contentAsString(result) shouldBe "Error page"
+      status(result) mustBe BAD_REQUEST
+      contentAsString(result) mustBe "Error page"
     }
 
     "handle 500 errors" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(500,"Internal error"))))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
 
-      status(result) shouldBe INTERNAL_SERVER_ERROR
-      contentAsString(result) shouldBe "Error page"
+      status(result) mustBe INTERNAL_SERVER_ERROR
+      contentAsString(result) mustBe "Error page"
     }
   }
 

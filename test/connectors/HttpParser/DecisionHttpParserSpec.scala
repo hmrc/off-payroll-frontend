@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-package connectors
+package connectors.HttpParser
 
+import base.SpecBase
+import connectors.DecisionHttpParser
 import models.ResultEnum.SELF_EMPLOYED
 import models.WeightedAnswerEnum._
 import models._
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.http.HttpResponse
-import uk.gov.hmrc.play.test.UnitSpec
 
-class DecisionHttpParserSpec extends UnitSpec {
+class DecisionHttpParserSpec extends SpecBase {
 
   val json: JsValue = Json.parse(
     """
@@ -65,7 +66,7 @@ class DecisionHttpParserSpec extends UnitSpec {
   "Http parser" should {
     "parse json to model" in {
 
-      DecisionHttpParser.DecisionReads.read("decision","decision", HttpResponse(OK, Some(json))) shouldBe
+      DecisionHttpParser.DecisionReads.read("decision","decision", HttpResponse(OK, Some(json))) mustBe
         Right(DecisionResponse("1.5.0-final", "12345",
           Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(MEDIUM),Some(MEDIUM),Some(NOT_VALID_USE_CASE),Some(NOT_VALID_USE_CASE)),
           SELF_EMPLOYED
@@ -73,15 +74,16 @@ class DecisionHttpParserSpec extends UnitSpec {
     }
 
     "handle invalid json" in {
-      DecisionHttpParser.DecisionReads.read("decision","decision", HttpResponse(OK, Some(invalidJson))) shouldBe
+      DecisionHttpParser.DecisionReads.read("decision","decision", HttpResponse(OK, Some(invalidJson))) mustBe
         Left(ErrorResponse(INTERNAL_SERVER_ERROR, "Invalid Json received from decision connector"))
     }
 
     "handle errors" in {
-      DecisionHttpParser.DecisionReads.read("decision","decision", HttpResponse(BAD_REQUEST, None)) shouldBe
+      DecisionHttpParser.DecisionReads.read("decision","decision", HttpResponse(BAD_REQUEST, None)) mustBe
         Left(ErrorResponse(BAD_REQUEST,"Unexpected Response. Response: null"))
 
-      DecisionHttpParser.DecisionReads.read("decision","decision", HttpResponse(BAD_REQUEST, Some(Json.parse("""{"error":"bad request"}""")))) shouldBe
+      DecisionHttpParser.DecisionReads.read("decision","decision",
+        HttpResponse(BAD_REQUEST, Some(Json.parse("""{"error":"bad request"}""")))) mustBe
         Left(ErrorResponse(BAD_REQUEST,"""Unexpected Response. Response: {
                                          |  "error" : "bad request"
                                          |}""".stripMargin))

@@ -16,8 +16,6 @@
 
 package connectors.mocks
 
-
-import base.SpecBase
 import org.scalamock.scalatest.MockFactory
 import play.api.libs.json.Writes
 import uk.gov.hmrc.http.{HeaderCarrier, HttpReads}
@@ -25,7 +23,7 @@ import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockHttp extends SpecBase with MockFactory {
+trait MockHttp extends MockFactory {
 
   val mockHttp: HttpClient = mock[HttpClient]
 

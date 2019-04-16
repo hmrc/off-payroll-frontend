@@ -16,6 +16,7 @@
 
 package connectors
 
+import base.SpecBase
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitue.YesClientAgreed
 import models.ChooseWhereWork.Workerchooses
@@ -30,18 +31,17 @@ import models.{DecisionResponse, ErrorResponse, ExitEnum, Interview, Score, Setu
 import uk.gov.hmrc.http.HeaderCarrier
 
 
-class DecisionConnectorSpec extends ConnectorTests {
+class DecisionConnectorSpec extends SpecBase {
 
-  implicit val headerCarrier = new HeaderCarrier()
-  implicit val ec = scala.concurrent.ExecutionContext.Implicits.global
+  implicit val headerCarrier: HeaderCarrier = new HeaderCarrier()
 
-  val connector: DecisionConnector = new DecisionConnectorImpl(client, servicesConfig, configuration)
+  val connector: DecisionConnector = new DecisionConnectorImpl(client, servicesConfig, frontendAppConfig)
 
   val decisionConnectorWiremock = new DecisionConnectorWiremock
-  val emptyInterview: Interview = Interview(
+  val emptyInterviewModel: Interview = Interview(
     "12345"
   )
-  val interview: Interview = Interview(
+  val interviewModel: Interview = Interview(
     "12345",
     Some(Worker),
     Some(false),
@@ -68,6 +68,12 @@ class DecisionConnectorSpec extends ConnectorTests {
     Some(false),
     Some(WorkAsIndependent)
   )
+
+  trait Setup {
+    wireMock.stop()
+    wireMock.start()
+  }
+
   private val decisionResponseString =
     """
       |{
@@ -83,50 +89,129 @@ class DecisionConnectorSpec extends ConnectorTests {
       |}
     """.stripMargin
 
+  val fullDecisionResponseString: String =
+    """
+      |{
+      |  "version": "1.5.0-final",
+      |  "correlationID": "12345",
+      |  "score": {
+      |    "setup": "CONTINUE",
+      |    "exit": "CONTINUE",
+      |    "personalService": "HIGH",
+      |    "control": "LOW",
+      |    "financialRisk": "LOW",
+      |    "partAndParcel": "LOW"
+      |  },
+      |  "result": "Self-Employed"
+      |}
+    """.stripMargin
+
+  val emptyInterview: String =
+    s"""
+       |{
+       |  "version" : "1.5.0-final",
+       |  "correlationID" : "12345",
+       |  "interview" : {
+       |    "setup" : { },
+       |    "exit" : { },
+       |    "personalService" : { },
+       |    "control" : { },
+       |    "financialRisk" : { },
+       |    "partAndParcel" : { }
+       |  }
+       |}
+     """.stripMargin
+
+  val fullInterview: String =
+    s"""
+       |{
+       |  "version": "1.5.0-final",
+       |  "correlationID": "12345",
+       |  "interview": {
+       |    "setup": {
+       |      "endUserRole": "personDoingWork",
+       |      "hasContractStarted": "No",
+       |      "provideServices": "soleTrader"
+       |    },
+       |    "exit": {
+       |      "officeHolder": "No"
+       |    },
+       |    "personalService": {
+       |      "workerSentActualSubstitute": "yesClientAgreed",
+       |      "workerPayActualSubstitute": "No",
+       |      "possibleSubstituteRejection": "wouldReject",
+       |      "possibleSubstituteWorkerPay": "Yes",
+       |      "wouldWorkerPayHelper": "Yes"
+       |    },
+       |    "control": {
+       |      "engagerMovingWorker": "canMoveWorkerWithPermission",
+       |      "workerDecidingHowWorkIsDone": "workerAgreeWithOthers",
+       |      "whenWorkHasToBeDone": "workerAgreeSchedule",
+       |      "workerDecideWhere": "workerChooses"
+       |    },
+       |    "financialRisk": {
+       |      "workerProvidedMaterials": "No",
+       |      "workerProvidedEquipment": "No",
+       |      "workerUsedVehicle": "No",
+       |      "workerHadOtherExpenses": "No",
+       |      "expensesAreNotRelevantForRole": "No",
+       |      "workerMainIncome": "incomeCalendarPeriods",
+       |      "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
+       |    },
+       |    "partAndParcel": {
+       |      "workerReceivesBenefits": "Yes",
+       |      "workerAsLineManager": "Yes",
+       |      "contactWithEngagerCustomer": "No",
+       |      "workerRepresentsEngagerBusiness": "workAsIndependent"
+       |    }
+       |  }
+       |}
+     """.stripMargin
+
   "Calling the decide connector" should {
-    "return a decision based on the empty interview" in {
-      decisionConnectorWiremock.mockForSuccessResponse()
+    "return a decision based on the empty interview" in new Setup {
+      decisionConnectorWiremock.mockForSuccessResponse(emptyInterview, decisionResponseString)
 
       import models.ResultEnum._
       import models.WeightedAnswerEnum._
 
-      val clientResponse = await(connector.decide(emptyInterview))
-      clientResponse shouldBe Right(DecisionResponse("1.0.0-beta", "12345",
+      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(connector.decide(emptyInterviewModel))
+      clientResponse mustBe Right(DecisionResponse("1.0.0-beta", "12345",
         Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
         UNKNOWN
       ))
     }
-    "return a decision based on the populated interview" in {
-      decisionConnectorWiremock.mockForSuccessFullInterviewResponse()
+    "return a decision based on the populated interview" in new Setup {
+      decisionConnectorWiremock.mockForSuccessResponse(fullInterview, fullDecisionResponseString)
 
       import models.ResultEnum._
       import models.WeightedAnswerEnum._
 
-      val clientResponse = await(connector.decide(interview))
-      clientResponse shouldBe Right(DecisionResponse("1.5.0-final", "12345",
+      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(connector.decide(interviewModel))
+      clientResponse mustBe Right(DecisionResponse("1.5.0-final", "12345",
         Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
         SELF_EMPLOYED
       ))
     }
 
-    "return an error if a bad request is returned" in {
-      decisionConnectorWiremock.mockFor400FailureResponse()
+    "return an error if a bad request is returned" in new Setup  {
+      decisionConnectorWiremock.mockForFailureResponse(emptyInterview, 400)
 
-      val clientResponse = await(connector.decide(emptyInterview))
-      clientResponse shouldBe Left(ErrorResponse(400, "Unexpected Response. Response: "))
+      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(connector.decide(emptyInterviewModel))
+      clientResponse mustBe Left(ErrorResponse(400, "Unexpected Response. Response: "))
     }
-    "return an error if a 499 is returned" in {
-      decisionConnectorWiremock.mockFor499FailureResponse()
+    "return an error if a 499 is returned" in new Setup  {
+      decisionConnectorWiremock.mockForFailureResponse(emptyInterview, 499)
 
-      val clientResponse = await(connector.decide(emptyInterview))
-      clientResponse shouldBe Left(ErrorResponse(499, "Unexpected Response. Response: "))
+      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(connector.decide(emptyInterviewModel))
+      clientResponse mustBe Left(ErrorResponse(499, "Unexpected Response. Response: "))
 
     }
-    "return an error a 500 is returned" in {
-      decisionConnectorWiremock.mockFor500FailureResponse()
+    "return an error a 500 is returned" in new Setup  {
+      decisionConnectorWiremock.mockForFailureResponse(emptyInterview, 500)
 
-      val clientResponse = await(connector.decide(emptyInterview))
-      clientResponse shouldBe Left(ErrorResponse(500, "Unexpected Response. Response: "))
+      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(connector.decide(emptyInterviewModel))
+      clientResponse mustBe Left(ErrorResponse(500, "Unexpected Response. Response: "))
 
     }
   }

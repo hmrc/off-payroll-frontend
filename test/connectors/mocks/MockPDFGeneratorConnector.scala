@@ -25,7 +25,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockPDFGeneratorConnector extends SpecBase with MockFactory {
+trait MockPDFGeneratorConnector extends MockFactory {
 
   val mockPdfGeneratorConnector: PDFGeneratorConnector = mock[PDFGeneratorConnector]
 
