@@ -18,6 +18,7 @@ package services
 
 import config.FrontendAppConfig
 import connectors.DecisionConnector
+import controllers.routes
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
 import models._
@@ -30,7 +31,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait DecisionService {
 
-  def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call, errorResult: ErrorTemplate)
+  def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
             (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig, rh: Request[_]): Future[Result]
 
 }
@@ -40,7 +41,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                                     errorHandler: ErrorHandler
                                    ) extends DecisionService {
 
-  override def decide(userAnswers: UserAnswers, continueResult: Call, exitResult: Call, errorResult: ErrorTemplate)
+  override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig, rh: Request[_]): Future[Result] = {
 
     val interview = Interview(userAnswers)
@@ -56,13 +57,17 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
       Status(status)(errorTemplate)
     }
 
-    decisionConnector.decide(interview).map{
+    def redirectResultsPage(result: ResultEnum.Value): Result = {
+      Redirect(routes.ResultController.onPageLoad()).addingToSession("result" -> result.toString)
+    }
+
+    decisionConnector.decide(interview).map {
       case model@Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => Redirect(exitResult)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.OUTSIDE_IR35)) => Redirect(exitResult)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => Redirect(exitResult)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => Redirect(exitResult)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => Redirect(exitResult)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.OUTSIDE_IR35)) => redirectResultsPage(ResultEnum.OUTSIDE_IR35)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => redirectResultsPage(ResultEnum.EMPLOYED)
+      case model@Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => redirectResultsPage(ResultEnum.UNKNOWN)
       case Left(error) => redirectErrorPage(error.status)
       case _ => redirectErrorPage(INTERNAL_SERVER_ERROR)
     }

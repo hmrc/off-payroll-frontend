@@ -104,7 +104,7 @@ class DecisionServiceSpec extends UnitSpec with WithFakeApplication with Implici
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = await(service.decide(userAnswers, onwardRoute, error))
 
       status(result) shouldBe SEE_OTHER
       redirectLocation(result) shouldBe Some(onwardRoute.url)
@@ -114,7 +114,7 @@ class DecisionServiceSpec extends UnitSpec with WithFakeApplication with Implici
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = await(service.decide(userAnswers, onwardRoute, error))
 
       status(result) shouldBe SEE_OTHER
       redirectLocation(result) shouldBe Some(exitRoute.url)
@@ -124,7 +124,7 @@ class DecisionServiceSpec extends UnitSpec with WithFakeApplication with Implici
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(400,"Bad"))))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = await(service.decide(userAnswers, onwardRoute, error))
 
       status(result) shouldBe BAD_REQUEST
       contentAsString(result) shouldBe "Error page"
@@ -134,7 +134,7 @@ class DecisionServiceSpec extends UnitSpec with WithFakeApplication with Implici
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(500,"Internal error"))))
 
-      val result = await(service.decide(userAnswers, onwardRoute, exitRoute, error))
+      val result = await(service.decide(userAnswers, onwardRoute, error))
 
       status(result) shouldBe INTERNAL_SERVER_ERROR
       contentAsString(result) shouldBe "Error page"

@@ -62,7 +62,7 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
           _ => {
             val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("cannotClaimAsExpense.title"))
+            decisionService.decide(updatedAnswers, continue, ErrorTemplate("cannotClaimAsExpense.title"))
           }
         )
       }

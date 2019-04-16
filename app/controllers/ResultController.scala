@@ -20,9 +20,13 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
+import models.ResultEnum
 import models.requests.DataRequest
+import pages.{ContractStartedPage, OfficeHolderPage, WorkerTypePage}
+import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
+import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
@@ -120,13 +124,66 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   //noinspection ScalaStyle
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(officeHolderInsideIR35View(appConfig, answers, version, form, routes.ResultController.onSubmit()))
+
+    Ok(routeToResultPage(answers))
+  }
+
+  def routeToResultPage(answers: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None)
+                       (implicit request: DataRequest[_]): Html = {
+
+    val result = ResultEnum.withName(request.session.get("result").get)
+
+    println(result)
+    println(result)
+    println(result)
+    println(result)
+    println(result)
+    println(result)
+
+    result match {
+
+      case ResultEnum.OUTSIDE_IR35 =>
+
+        val currentContract = request.userAnswers.get(ContractStartedPage)
+        val workerUsingIntermediary = request.userAnswers.get(WorkerTypePage)
+
+        officeHolderInsideIR35View(appConfig, answers, version, form, routes.ResultController.onSubmit())
+
+      case ResultEnum.EMPLOYED =>
+
+        val officeHolder = request.userAnswers.get(OfficeHolderPage).getOrElse(false)
+
+        if(officeHolder){
+          officeHolderEmployedView(appConfig, answers, version, form, routes.ResultController.onSubmit())
+        } else {
+          employedView(appConfig, answers, version, form, routes.ResultController.onSubmit())
+        }
+
+      case ResultEnum.SELF_EMPLOYED =>
+
+        selfEmployedView(appConfig, answers, version, form, routes.ResultController.onSubmit())
+
+      case ResultEnum.UNKNOWN =>
+
+        indeterminateView(appConfig, answers, version, form, routes.ResultController.onSubmit())
+
+      case ResultEnum.INSIDE_IR35 =>
+
+        val officeHolder = request.userAnswers.get(OfficeHolderPage).getOrElse(false)
+
+        if(officeHolder){
+          officeHolderInsideIR35View(appConfig, answers, version, form, routes.ResultController.onSubmit())
+        } else {
+          insideIR35View(appConfig, answers, version, form, routes.ResultController.onSubmit())
+        }
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors =>
-        BadRequest(officeHolderInsideIR35View(appConfig, answers, version, formWithErrors, routes.ResultController.onSubmit())),
+      formWithErrors => {
+        BadRequest(routeToResultPage(answers, Some(formWithErrors)))
+      },
       _ => {
         Redirect(routes.ResultController.onPageLoad())
       }
