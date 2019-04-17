@@ -27,19 +27,19 @@ import uk.gov.hmrc.http.HttpResponse
 class DecisionHttpParserSpec extends SpecBase {
 
   val json: JsValue = Json.parse(
-    """
+    s"""
       |{
       |  "version": "1.5.0-final",
       |  "correlationID": "12345",
       |  "score": {
-      |    "setup": "CONTINUE",
-      |    "exit": "CONTINUE",
-      |    "personalService": "MEDIUM",
-      |    "control": "MEDIUM",
-      |    "financialRisk": "NotValidUseCase",
-      |    "partAndParcel": "NotValidUseCase"
+      |    "setup": "${SetupEnum.CONTINUE}",
+      |    "exit": "${ExitEnum.CONTINUE}",
+      |    "personalService": "${WeightedAnswerEnum.MEDIUM}",
+      |    "control": "${WeightedAnswerEnum.MEDIUM}",
+      |    "financialRisk": "${WeightedAnswerEnum.NOT_VALID_USE_CASE}",
+      |    "partAndParcel": "${WeightedAnswerEnum.NOT_VALID_USE_CASE}"
       |  },
-      |  "result": "Self-Employed"
+      |  "result": "${ResultEnum.SELF_EMPLOYED}"
       |}
     """.stripMargin)
 
@@ -49,12 +49,6 @@ class DecisionHttpParserSpec extends SpecBase {
       |  "version": "1.5.0-final",
       |  "correlationI": "12345",
       |  "scoe": {
-      |    "setup": "CONTINUE",
-      |    "exit": "CONTINUE",
-      |    "personalService": "MEDIUM",
-      |    "control": "MEDIUM",
-      |    "financialRisk": "NotValidUseCase",
-      |    "partAndParcel": "NotValidUseCase"
       |  },
       |  "result": "Self-Employed"
       |}

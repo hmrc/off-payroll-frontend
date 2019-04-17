@@ -27,7 +27,7 @@ import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WorkerType.SoleTrader
-import models.{DecisionResponse, ErrorResponse, ExitEnum, Interview, Score, SetupEnum}
+import models.{DecisionResponse, ErrorResponse, ExitEnum, Interview, ResultEnum, Score, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.http.HeaderCarrier
 
 
@@ -75,34 +75,34 @@ class DecisionConnectorSpec extends SpecBase {
   }
 
   private val decisionResponseString =
-    """
+    s"""
       |{
       |  "version": "1.0.0-beta",
       |  "correlationID": "12345",
       |  "score": {
-      |    "personalService": "HIGH",
-      |    "control": "LOW",
-      |    "financialRisk": "LOW",
-      |    "partAndParcel": "LOW"
+      |    "personalService": "${WeightedAnswerEnum.HIGH}",
+      |    "control": "${WeightedAnswerEnum.LOW}",
+      |    "financialRisk": "${WeightedAnswerEnum.LOW}",
+      |    "partAndParcel": "${WeightedAnswerEnum.LOW}"
       |  },
-      |  "result": "Unknown"
+      |  "result": "${ResultEnum.UNKNOWN}"
       |}
     """.stripMargin
 
   val fullDecisionResponseString: String =
-    """
+    s"""
       |{
       |  "version": "1.5.0-final",
       |  "correlationID": "12345",
       |  "score": {
-      |    "setup": "CONTINUE",
-      |    "exit": "CONTINUE",
-      |    "personalService": "HIGH",
-      |    "control": "LOW",
-      |    "financialRisk": "LOW",
-      |    "partAndParcel": "LOW"
+      |    "setup": "${SetupEnum.CONTINUE}",
+      |    "exit": "${ExitEnum.CONTINUE}",
+      |    "personalService": "${WeightedAnswerEnum.HIGH}",
+      |    "control": "${WeightedAnswerEnum.LOW}",
+      |    "financialRisk": "${WeightedAnswerEnum.LOW}",
+      |    "partAndParcel": "${WeightedAnswerEnum.LOW}"
       |  },
-      |  "result": "Self-Employed"
+      |  "result": "${ResultEnum.SELF_EMPLOYED}"
       |}
     """.stripMargin
 
