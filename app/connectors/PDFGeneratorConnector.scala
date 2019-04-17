@@ -18,25 +18,27 @@ package connectors
 
 import config.FrontendAppConfig
 import connectors.HttpParsers.PDFGeneratorHttpParser
+import connectors.HttpParsers.PDFGeneratorHttpParser.Response
 import javax.inject.Inject
 import play.api.libs.json.{Json, Writes}
+import play.api.libs.ws.WSClient
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
-class PDFGeneratorConnector @Inject()(httpClient: HttpClient,
+class PDFGeneratorConnector @Inject()(ws: WSClient,
                                       appConfig: FrontendAppConfig) {
+
+  private def removeScriptTags(html: Html) = html.toString.replaceAll("<script[\\s\\S]*?/script>", "")
 
   private[connectors] lazy val url = appConfig.pdfGeneratorService + "/pdf-generator-service/generate"
 
-  private[connectors] def writes: Writes[Html] = Writes { html =>
-    Json.obj("html" -> html.toString)
+  implicit private[connectors] def writes: Writes[Html] = Writes { html =>
+    Json.obj("html" -> removeScriptTags(html))
   }
 
-  def generatePdf(html: Html)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[PDFGeneratorHttpParser.Response] = {
-    httpClient.POST(url, html)(writes, PDFGeneratorHttpParser.reads, hc, ec)
-  }
+  def generatePdf(html: Html)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Response] =
+    ws.url(url).post(Json.toJson(html)) map PDFGeneratorHttpParser.reads
 }

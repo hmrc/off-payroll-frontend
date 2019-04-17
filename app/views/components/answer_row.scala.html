@@ -16,17 +16,19 @@
 
 @import viewmodels.AnswerRow
 
-@(row: AnswerRow)(implicit messages: Messages)
+@(row: AnswerRow, printMode: Boolean = false)(implicit messages: Messages)
 
 <li>
     <div class="cya-question">@messages(row.label)</div>
     <div class="cya-answer">
         @row.answerHtml
     </div>
-    <div class="cya-change">
-        <a href='@row.changeUrl'>
-            <span aria-hidden="true">@messages("site.edit")</span>
-            <span class="visually-hidden">@messages("site.hidden-edit", messages(row.label))</span>
-        </a>
-    </div>
+    @if(!printMode) {
+        <div class="cya-change">
+            <a href='@row.changeUrl'>
+                <span aria-hidden="true">@messages("site.edit")</span>
+                <span class="visually-hidden">@messages("site.hidden-edit", messages(row.label))</span>
+            </a>
+        </div>
+    }
 </li>

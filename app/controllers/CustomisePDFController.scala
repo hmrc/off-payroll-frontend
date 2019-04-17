@@ -16,35 +16,118 @@
 
 package controllers
 
-import javax.inject.Inject
-import play.api.i18n.I18nSupport
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import connectors.DataCacheConnector
-import controllers.actions._
 import config.FrontendAppConfig
+import connectors.DataCacheConnector
+import connectors.HttpParsers.PDFGeneratorHttpParser.SuccessfulPDF
+import controllers.actions._
 import forms.CustomisePDFFormProvider
-import models.Mode
-import pages.CustomisePDFPage
+import handlers.ErrorHandler
+import javax.inject.Inject
+import models.{AdditionalPdfDetails, Mode}
+import models.requests.DataRequest
 import navigation.Navigator
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import pages.CustomisePDFPage
+import play.api.i18n.I18nSupport
+import play.api.mvc._
+import services.PDFService
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.CheckYourAnswersHelper
+import viewmodels.AnswerSection
 import views.html.CustomisePDFView
+import views.html.results._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class CustomisePDFController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: CustomisePDFFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: CustomisePDFView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport {
+                                       dataCacheConnector: DataCacheConnector,
+                                       navigator: Navigator,
+                                       identify: IdentifierAction,
+                                       getData: DataRetrievalAction,
+                                       requireData: DataRequiredAction,
+                                       formProvider: CustomisePDFFormProvider,
+                                       controllerComponents: MessagesControllerComponents,
+                                       view: CustomisePDFView,
+                                       officeHolderInsideIR35View: OfficeHolderInsideIR35View,
+                                       officeHolderEmployedView: OfficeHolderEmployedView,
+                                       currentSubstitutionView: CurrentSubstitutionView,
+                                       futureSubstitutionView: FutureSubstitutionView,
+                                       selfEmployedView: SelfEmployedView,
+                                       employedView: EmployedView,
+                                       controlView: ControlView,
+                                       financialRiskView: FinancialRiskView,
+                                       indeterminateView: IndeterminateView,
+                                       insideIR35View: InsideIR35View,
+                                       pdfService: PDFService,
+                                       errorHandler: ErrorHandler
+                                      ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form = formProvider()
+
+  //noinspection ScalaStyle
+  private def answers(implicit request: DataRequest[_]): Seq[AnswerSection] = {
+    val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
+
+    Seq(
+      AnswerSection(
+        headingKey = Some("result.peopleInvolved.h2"),
+        rows = Seq(
+          checkYourAnswersHelper.aboutYou,
+          checkYourAnswersHelper.contractStarted,
+          checkYourAnswersHelper.workerType
+        ).flatten,
+        useProgressiveDisclosure = true
+      ),
+      AnswerSection(
+        headingKey = Some("result.workersDuties.h2"),
+        rows = Seq(
+          checkYourAnswersHelper.officeHolder
+        ).flatten,
+        useProgressiveDisclosure = true
+      ),
+      AnswerSection(
+        headingKey = Some("result.substitutesHelpers.h2"),
+        rows = Seq(
+          checkYourAnswersHelper.arrangedSubstitue,
+          checkYourAnswersHelper.didPaySubstitute,
+          checkYourAnswersHelper.rejectSubstitute,
+          checkYourAnswersHelper.wouldWorkerPaySubstitute,
+          checkYourAnswersHelper.neededToPayHelper
+        ).flatten,
+        useProgressiveDisclosure = true
+      ),
+      AnswerSection(
+        headingKey = Some("result.workArrangements.h2"),
+        rows = Seq(
+          checkYourAnswersHelper.moveWorker,
+          checkYourAnswersHelper.howWorkIsDone,
+          checkYourAnswersHelper.scheduleOfWorkingHours,
+          checkYourAnswersHelper.chooseWhereWork
+        ).flatten,
+        useProgressiveDisclosure = true
+      ),
+      AnswerSection(
+        headingKey = Some("result.financialRisk.h2"),
+        rows = Seq(
+          checkYourAnswersHelper.cannotClaimAsExpense,
+          checkYourAnswersHelper.howWorkerIsPaid,
+          checkYourAnswersHelper.putRightAtOwnCost
+        ).flatten,
+        useProgressiveDisclosure = true
+      ),
+      AnswerSection(
+        headingKey = Some("result.partAndParcel.h2"),
+        rows = Seq(
+          checkYourAnswersHelper.benefits,
+          checkYourAnswersHelper.lineManagerDuties,
+          checkYourAnswersHelper.interactWithStakeholders,
+          checkYourAnswersHelper.identifyToStakeholders
+        ).flatten,
+        useProgressiveDisclosure = true
+      )
+    )
+  }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(form.fill), mode))
@@ -52,14 +135,31 @@ class CustomisePDFController @Inject()(appConfig: FrontendAppConfig,
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
-      value => {
-        val updatedAnswers = request.userAnswers.set(CustomisePDFPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(CustomisePDFPage, mode)(updatedAnswers))
-        )
-      }
+      formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
+      additionalData => printResult(additionalData)
     )
+  }
+
+  def printResult(additionalPdfDetails: AdditionalPdfDetails)(implicit request: DataRequest[_]): Future[Result] = {
+
+    val pdfView = officeHolderInsideIR35View(
+      appConfig = appConfig,
+      answerSections = answers,
+      version = appConfig.decisionVersion,
+      form = form,
+      postAction = routes.ResultController.onSubmit(),
+      printView = true,
+      additionalPdfDetails = Some(additionalPdfDetails)
+    )
+
+    pdfService.generatePdf(pdfView) map {
+      case Right(result: SuccessfulPDF) => {
+        val fileName = additionalPdfDetails.reference.getOrElse("result")
+        Ok(result.pdf)
+          .as("application/pdf")
+          .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
+      }
+      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+    }
   }
 }

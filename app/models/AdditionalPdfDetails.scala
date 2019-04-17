@@ -16,12 +16,20 @@
 
 package models
 
+import java.time.LocalDateTime
+import java.time.format.{DateTimeFormatter, FormatStyle}
+
 import play.api.libs.json.{Format, Json}
 
 case class AdditionalPdfDetails(completedBy: Option[String] = None,
                                 client: Option[String] = None,
                                 job: Option[String] = None,
-                                reference: Option[String] = None)
+                                reference: Option[String] = None) {
+
+  def timestamp =
+    LocalDateTime.now().format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
+
+}
 
 object AdditionalPdfDetails {
   implicit val fmt: Format[AdditionalPdfDetails] = Json.format[AdditionalPdfDetails]

@@ -19,11 +19,12 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions._
 import forms.DeclarationFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.NormalMode
 import models.requests.DataRequest
 import navigation.Navigator
-import pages.{HowWorkIsDonePage, ResultPage}
+import pages.ResultPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -49,14 +50,13 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
                                  indeterminateView: IndeterminateView,
                                  insideIR35View: InsideIR35View,
                                  formProvider: DeclarationFormProvider,
-                                 navigator: Navigator
+                                 navigator: Navigator,
+                                 errorHandler: ErrorHandler
                                 ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form = formProvider()
-
-  private val version = "1.5.0-final" //TODO: Remove this hard coding
 
   //noinspection ScalaStyle
   private def answers(implicit request: DataRequest[_]): Seq[AnswerSection] = {
@@ -124,13 +124,13 @@ class ResultController @Inject()(appConfig: FrontendAppConfig,
 
   //noinspection ScalaStyle
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(officeHolderInsideIR35View(appConfig, answers, version, form, routes.ResultController.onSubmit()))
+    Ok(officeHolderInsideIR35View(appConfig, answers, appConfig.decisionVersion, form, routes.ResultController.onSubmit()))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors =>
-        BadRequest(officeHolderInsideIR35View(appConfig, answers, version, formWithErrors, routes.ResultController.onSubmit())),
+        BadRequest(officeHolderInsideIR35View(appConfig, answers, appConfig.decisionVersion, formWithErrors, routes.ResultController.onSubmit())),
       _ => {
         Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
       }
