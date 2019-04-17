@@ -21,11 +21,11 @@
 @(pageTitle: String, heading: String, message: String, appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
 @contentHeader = {
-  <h1>@heading</h1>
+  <h1>@messages(heading)</h1>
 }
 
 @mainContent = {
-  <p>@message</p>
+  <p>@messages(message)</p>
 }
 
 @govukWrapper(appConfig = appConfig, title = pageTitle, contentHeader = Some(contentHeader), mainBody = mainContent)

@@ -46,31 +46,42 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
     val interview = Interview(userAnswers)
 
-    def redirectErrorPage(status: Int): Result = {
-
-      val errorTemplate = errorHandler.standardErrorTemplate(
-        errorResult.pageTitle,
-        errorResult.heading.getOrElse(errorResult.defaultErrorHeading),
-        errorResult.message.getOrElse(errorResult.defaultErrorMessage)
-      )
-
-      Status(status)(errorTemplate)
-    }
-
-    def redirectResultsPage(result: ResultEnum.Value): Result = {
-      Redirect(routes.ResultController.onPageLoad()).addingToSession("result" -> result.toString)
-    }
-
     decisionConnector.decide(interview).map {
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.OUTSIDE_IR35)) => redirectResultsPage(ResultEnum.OUTSIDE_IR35)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => redirectResultsPage(ResultEnum.EMPLOYED)
-      case model@Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => redirectResultsPage(ResultEnum.UNKNOWN)
-      case Left(error) => redirectErrorPage(error.status)
-      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR)
+      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
+      case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+      case Right(DecisionResponse(_, _, Score(_,_,_, control, financialRisk, _), ResultEnum.OUTSIDE_IR35)) =>
+        redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
+      case Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
+      case Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => redirectResultsPage(ResultEnum.EMPLOYED)
+      case Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => redirectResultsPage(ResultEnum.UNKNOWN)
+      case Left(error) => redirectErrorPage(error.status, errorResult)
+      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
     }
+  }
+
+  def redirectErrorPage(status: Int, errorResult: ErrorTemplate)(implicit rh: Request[_]): Result = {
+
+    val errorTemplate = errorHandler.standardErrorTemplate(
+      errorResult.pageTitle,
+      errorResult.heading.getOrElse(errorResult.defaultErrorHeading),
+      errorResult.message.getOrElse(errorResult.defaultErrorMessage)
+    )
+
+    Status(status)(errorTemplate)
+  }
+
+  def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
+                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
+
+    val result: (String, String) = "result" -> resultValue.toString
+    val control = controlOption.map(control => "control" -> control.toString)
+    val financialRisk = financialRiskOption.map(financialRisk => "financialRisk" -> financialRisk.toString)
+
+    val redirect = Redirect(routes.ResultController.onPageLoad()).addingToSession(result)
+    val controlRedirect = if(control.nonEmpty) redirect.addingToSession(control.get) else redirect
+    val financialRiskRedirect = if(financialRisk.nonEmpty) controlRedirect.addingToSession(financialRisk.get) else controlRedirect
+
+    financialRiskRedirect
   }
 }
 
