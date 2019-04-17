@@ -17,7 +17,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import play.api.i18n.I18nSupport
 import play.api.data.Form
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -25,24 +24,26 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.NeededToPayHelperFormProvider
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import pages.NeededToPayHelperPage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import views.html.NeededToPayHelperView
 
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.{ExecutionContext, Future}
 
-class NeededToPayHelperController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: NeededToPayHelperFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: NeededToPayHelperView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: NeededToPayHelperFormProvider,
+                                            controllerComponents: MessagesControllerComponents,
+                                            view: NeededToPayHelperView,
+                                            decisionService: DecisionService,
+                                            implicit val appConfig: FrontendAppConfig
+                                           ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -58,8 +59,13 @@ class NeededToPayHelperController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(NeededToPayHelperPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(NeededToPayHelperPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(NeededToPayHelperPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("neededToPayHelper.title"))
+          }
         )
       }
     )

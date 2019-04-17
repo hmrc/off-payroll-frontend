@@ -18,20 +18,25 @@ package base
 
 import config.FrontendAppConfig
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import play.api.i18n.{Lang, Messages, MessagesApi}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{MessagesControllerComponents, Result}
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
-
-import scala.concurrent.duration.{Duration, FiniteDuration}
-import scala.concurrent.duration._
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import utils.Wiremock
+import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.language.implicitConversions
 
-trait SpecBase extends PlaySpec with MaterializerSupport {
+
+trait SpecBase extends PlaySpec with MaterializerSupport with MockitoSugar{
 
   implicit val defaultTimeout: FiniteDuration = 5.seconds
 
@@ -57,4 +62,13 @@ trait SpecBase extends PlaySpec with MaterializerSupport {
   def fakeRequest = FakeRequest("", "")
 
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
+
+  val stubPort = 8080
+  val wireMock = new Wiremock
+
+  val client = injector.instanceOf[HttpClient]
+  val servicesConfig = mock[ServicesConfig]
+
+  when(servicesConfig.baseUrl(any())).thenReturn(s"http://localhost:$stubPort")
+
 }

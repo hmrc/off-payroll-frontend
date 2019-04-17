@@ -21,26 +21,28 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.IdentifyToStakeholdersPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.IdentifyToStakeholdersView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class IdentifyToStakeholdersController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: IdentifyToStakeholdersFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: IdentifyToStakeholdersView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheConnector,
+                                                 navigator: Navigator,
+                                                 identify: IdentifierAction,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 formProvider: IdentifyToStakeholdersFormProvider,
+                                                 controllerComponents: MessagesControllerComponents,
+                                                 view: IdentifyToStakeholdersView,
+                                                 decisionService: DecisionService,
+                                                 implicit val appConfig: FrontendAppConfig
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -56,8 +58,12 @@ class IdentifyToStakeholdersController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(IdentifyToStakeholdersPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(IdentifyToStakeholdersPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("identifyToStakeholders.title"))
+          }
         )
       }
     )

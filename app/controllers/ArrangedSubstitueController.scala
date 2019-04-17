@@ -31,16 +31,16 @@ import views.html.ArrangedSubstitueView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ArrangedSubstitueController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: ArrangedSubstitueFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: ArrangedSubstitueView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+class ArrangedSubstitueController @Inject()(dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: ArrangedSubstitueFormProvider,
+                                            controllerComponents: MessagesControllerComponents,
+                                            view: ArrangedSubstitueView,
+                                            implicit val appConfig: FrontendAppConfig
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

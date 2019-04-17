@@ -40,7 +40,6 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[HowWorkerIsPaidView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new HowWorkerIsPaidController(
-    frontendAppConfig,
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -48,7 +47,8 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString

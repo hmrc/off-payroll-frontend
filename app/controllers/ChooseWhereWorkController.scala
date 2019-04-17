@@ -21,26 +21,28 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.ChooseWhereWorkPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.ChooseWhereWorkView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ChooseWhereWorkController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: ChooseWhereWorkFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: ChooseWhereWorkView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector,
+                                          navigator: Navigator,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: ChooseWhereWorkFormProvider,
+                                          controllerComponents: MessagesControllerComponents,
+                                          view: ChooseWhereWorkView,
+                                          decisionService: DecisionService,
+                                          implicit val appConfig: FrontendAppConfig
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -56,8 +58,13 @@ class ChooseWhereWorkController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(ChooseWhereWorkPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ChooseWhereWorkPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("chooseWhereWork.title"))
+          }
         )
       }
     )

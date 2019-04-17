@@ -30,12 +30,12 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 import scala.concurrent.ExecutionContext
 
-class IndexController @Inject()(val appConfig: FrontendAppConfig,
-                                navigator: Navigator,
+class IndexController @Inject()(navigator: Navigator,
                                 identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 cache: DataCacheConnector,
-                                controllerComponents: MessagesControllerComponents) extends FrontendController(controllerComponents) with I18nSupport {
+                                controllerComponents: MessagesControllerComponents,
+                                implicit val appConfig: FrontendAppConfig) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

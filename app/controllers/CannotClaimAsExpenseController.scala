@@ -21,25 +21,27 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.CannotClaimAsExpensePage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.CannotClaimAsExpenseView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CannotClaimAsExpenseController @Inject()(appConfig: FrontendAppConfig,
-                                               dataCacheConnector: DataCacheConnector,
+class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConnector,
                                                navigator: Navigator,
                                                identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,
                                                formProvider: CannotClaimAsExpenseFormProvider,
                                                controllerComponents: MessagesControllerComponents,
-                                               view: CannotClaimAsExpenseView
+                                               view: CannotClaimAsExpenseView,
+                                               decisionService: DecisionService,
+                                               implicit val appConfig: FrontendAppConfig
                                               ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -56,8 +58,12 @@ class CannotClaimAsExpenseController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       values => {
         val updatedAnswers = request.userAnswers.set(CannotClaimAsExpensePage, values)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(CannotClaimAsExpensePage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("cannotClaimAsExpense.title"))
+          }
         )
       }
     )

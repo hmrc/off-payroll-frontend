@@ -17,7 +17,7 @@
 package handlers
 
 import javax.inject.{Inject, Singleton}
-import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.i18n.{I18nSupport, Lang, MessagesApi}
 import play.api.mvc.Request
 import play.twirl.api.Html
 import config.FrontendAppConfig
@@ -26,11 +26,16 @@ import views.html.templates.ErrorTemplate
 
 @Singleton
 class ErrorHandler @Inject()(appConfig: FrontendAppConfig,
-                              val messagesApi: MessagesApi,
+                             val messagesApi: MessagesApi,
                              view: ErrorTemplate
                             ) extends FrontendErrorHandler with I18nSupport {
 
-  override def standardErrorTemplate(pageTitle: String, heading: String, message: String)(implicit rh: Request[_]): Html =
+  override def standardErrorTemplate(pageTitle: String,
+                                     heading: String,
+                                     message: String
+                                    )(implicit rh: Request[_]): Html = {
+
     view(pageTitle, heading, message, appConfig)
+  }
 }
 

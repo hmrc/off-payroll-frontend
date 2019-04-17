@@ -31,16 +31,16 @@ import views.html.HowWorkerIsPaidView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class HowWorkerIsPaidController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: HowWorkerIsPaidFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: HowWorkerIsPaidView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector,
+                                          navigator: Navigator,
+                                          identify: IdentifierAction,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          formProvider: HowWorkerIsPaidFormProvider,
+                                          controllerComponents: MessagesControllerComponents,
+                                          view: HowWorkerIsPaidView,
+                                          implicit val appConfig: FrontendAppConfig
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

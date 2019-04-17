@@ -21,27 +21,29 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.InteractWithStakeholdersFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.InteractWithStakeholdersView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class InteractWithStakeholdersController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: InteractWithStakeholdersFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: InteractWithStakeholdersView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCacheConnector,
+                                                   navigator: Navigator,
+                                                   identify: IdentifierAction,
+                                                   getData: DataRetrievalAction,
+                                                   requireData: DataRequiredAction,
+                                                   formProvider: InteractWithStakeholdersFormProvider,
+                                                   controllerComponents: MessagesControllerComponents,
+                                                   view: InteractWithStakeholdersView,
+                                                   decisionService: DecisionService,
+                                                   implicit val appConfig: FrontendAppConfig
+                                                  ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -57,8 +59,12 @@ class InteractWithStakeholdersController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(InteractWithStakeholdersPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(InteractWithStakeholdersPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("interactWithStakeholders.title"))
+          }
         )
       }
     )

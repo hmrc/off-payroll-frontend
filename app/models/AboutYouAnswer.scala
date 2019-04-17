@@ -34,7 +34,7 @@ object AboutYouAnswer {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("value", value.toString)
+      RadioOption("aboutYou", value.toString)
   }
 
   implicit val enumerable: Enumerable[AboutYouAnswer] =
