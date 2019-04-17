@@ -1,5 +1,5 @@
 # Add all the application routes to the app.routes file
-->         /off-payroll-frontend                    app.Routes
+->         /cest-frontend                    app.Routes
 ->         /                          health.Routes
 ->     	   /template                  template.Routes
 

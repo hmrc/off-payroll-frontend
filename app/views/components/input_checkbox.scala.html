@@ -45,7 +45,7 @@
                        name=@{s"${field.id}[]"}
                        value="@{input.value}"
                        @if(form.data.exists(_._2 == input.value)){checked="checked"}
-                       @if(trackGa){data-journey-click="off-payroll-frontend:click:@{input.id}"}><label for="@{input.id}">
+                       @if(trackGa){data-journey-click="cest-frontend:click:@{input.id}"}><label for="@{input.id}">
                     @messages(input.messageKey)
                 </label>
             </div>
