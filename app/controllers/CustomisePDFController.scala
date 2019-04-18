@@ -17,6 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, PrintPDF}
 import connectors.DataCacheConnector
 import connectors.HttpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
@@ -38,7 +39,7 @@ import views.html.results._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CustomisePDFController @Inject()(appConfig: FrontendAppConfig,
+class CustomisePDFController @Inject()(implicit appConfig: FrontendAppConfig,
                                        dataCacheConnector: DataCacheConnector,
                                        navigator: Navigator,
                                        identify: IdentifierAction,
@@ -59,7 +60,7 @@ class CustomisePDFController @Inject()(appConfig: FrontendAppConfig,
                                        insideIR35View: InsideIR35View,
                                        pdfService: PDFService,
                                        errorHandler: ErrorHandler
-                                      ) extends FrontendController(controllerComponents) with I18nSupport {
+                                      ) extends FrontendController(controllerComponents) with I18nSupport with FeatureSwitching {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -152,14 +153,18 @@ class CustomisePDFController @Inject()(appConfig: FrontendAppConfig,
       additionalPdfDetails = Some(additionalPdfDetails)
     )
 
-    pdfService.generatePdf(pdfView) map {
-      case Right(result: SuccessfulPDF) => {
-        val fileName = additionalPdfDetails.reference.getOrElse("result")
-        Ok(result.pdf)
-          .as("application/pdf")
-          .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
+    if (isEnabled(PrintPDF)) {
+      pdfService.generatePdf(pdfView) map {
+        case Right(result: SuccessfulPDF) => {
+          val fileName = additionalPdfDetails.reference.getOrElse("result")
+          Ok(result.pdf)
+            .as("application/pdf")
+            .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
+        }
+        case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
       }
-      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+    } else {
+      Future.successful(Ok(pdfView))
     }
   }
 }
