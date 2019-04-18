@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
+package config
 
-@this(govukWrapper: GovukWrapperTemplate)
+object SessionKeys {
 
-@(pageTitle: String, heading: String, message: String, appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+  val result = "CEST_RESULT"
+  val financialRiskResult = "CEST_FINANCIAL_RISK_RESULT"
+  val controlResult = "CEST_CONTROL_RESULT"
 
-@contentHeader = {
-  <h1>@messages(heading)</h1>
 }
-
-@mainContent = {
-  <p>@messages(message)</p>
-}
-
-@govukWrapper(appConfig = appConfig, title = pageTitle, contentHeader = Some(contentHeader), mainBody = mainContent)

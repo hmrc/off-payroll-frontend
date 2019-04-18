@@ -64,7 +64,7 @@ class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
 
             val continue = navigator.nextPage(DidPaySubstitutePage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("didPaySubstitute.title"))
+            decisionService.decide(updatedAnswers, continue, ErrorTemplate("didPaySubstitute.title"))
           }
         )
       }

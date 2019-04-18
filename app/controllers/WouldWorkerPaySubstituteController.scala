@@ -65,7 +65,7 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
           _ => {
             val continue = navigator.nextPage(WouldWorkerPaySubstitutePage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("wouldWorkerPaySubstitute.title"))
+            decisionService.decide(updatedAnswers, continue, ErrorTemplate("wouldWorkerPaySubstitute.title"))
           }
         )
       }

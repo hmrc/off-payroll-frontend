@@ -84,7 +84,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, true)
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("wouldWorkerPaySubstitute.title")))
       (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 

@@ -66,7 +66,7 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
 
             val continue = navigator.nextPage(OfficeHolderPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("officeHolder.title"))
+            decisionService.decide(updatedAnswers, continue, ErrorTemplate("officeHolder.title"))
           }
         )
       }
