@@ -18,6 +18,7 @@ package services
 
 import base.SpecBase
 import connectors.DecisionConnector
+import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitue.YesClientAgreed
@@ -41,6 +42,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
+import views.html.results._
 
 import scala.concurrent.Future
 
@@ -49,12 +51,26 @@ class DecisionServiceSpec extends SpecBase {
   implicit val headerCarrier = new HeaderCarrier()
   implicit val request = FakeRequest("", "")
 
+  val formProvider = new DeclarationFormProvider()
+
   val connector = mock[DecisionConnector]
   override val errorHandler: ErrorHandler = mock[ErrorHandler]
 
   when(errorHandler.standardErrorTemplate(any(),any(),any())(any())).thenReturn(Html("Error page"))
 
-  val service: DecisionService = new DecisionServiceImpl(connector, errorHandler)
+  val service: DecisionService = new DecisionServiceImpl(connector, errorHandler, formProvider,
+    injector.instanceOf[OfficeHolderInsideIR35View],
+    injector.instanceOf[OfficeHolderEmployedView],
+    injector.instanceOf[CurrentSubstitutionView],
+    injector.instanceOf[FutureSubstitutionView],
+    injector.instanceOf[SelfEmployedView],
+    injector.instanceOf[EmployedView],
+    injector.instanceOf[ControlView],
+    injector.instanceOf[FinancialRiskView],
+    injector.instanceOf[IndeterminateView],
+    injector.instanceOf[InsideIR35View],
+    frontendAppConfig
+  )
 
   val userAnswers: UserAnswers = UserAnswers("id")
     .set(AboutYouPage, Worker)

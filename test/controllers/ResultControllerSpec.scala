@@ -24,6 +24,7 @@ import navigation.FakeNavigator
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.DecisionService
 import viewmodels.AnswerSection
 import views.html.results.{IndeterminateView, _}
 
@@ -63,19 +64,9 @@ class ResultControllerSpec extends ControllerSpecBase {
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
-    officeHolderInsideIR35View,
-    officeHolderEmployedView,
-    currentSubstitutionView,
-    futureSubstitutionView,
-    selfEmployedView,
-    employedView,
-    controlView,
-    financialRiskView,
-    indeterminateView,
-    insideIR35,
+    injector.instanceOf[DecisionService],
     formProvider,
     new FakeNavigator(onwardRoute),
-    errorHandler,
     frontendAppConfig
   )
 

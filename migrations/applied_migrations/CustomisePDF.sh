@@ -5,11 +5,11 @@ echo "Applying migration CustomisePDF"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /customisePDF                        controllers.CustomisePDFController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /customisePDF                        controllers.CustomisePDFController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /customisePDF                        controllers.PDFController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /customisePDF                        controllers.PDFController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeCustomisePDF                  controllers.CustomisePDFController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeCustomisePDF                  controllers.CustomisePDFController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeCustomisePDF                  controllers.PDFController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeCustomisePDF                  controllers.PDFController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en
@@ -52,7 +52,7 @@ awk '/class/ {\
      print;\
      print "";\
      print "  def customisePDF: Option[AnswerRow] = userAnswers.get(CustomisePDFPage) map {";\
-     print "    x => AnswerRow(\"customisePDF.checkYourAnswersLabel\", s\"$x\", false, routes.CustomisePDFController.onPageLoad(CheckMode).url)";\
+     print "    x => AnswerRow(\"customisePDF.checkYourAnswersLabel\", s\"$x\", false, routes.PDFController.onPageLoad(CheckMode).url)";\
      print "  }";\
      next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 

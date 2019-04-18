@@ -43,7 +43,7 @@ class CustomisePDFViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] 
     behave like pageWithTextFields(
       createViewUsingForm,
       messageKeyPrefix,
-      routes.CustomisePDFController.onSubmit(NormalMode).url,
+      routes.PDFController.onSubmit(NormalMode).url,
       "completedBy", "client", "job", "reference"
     )
   }

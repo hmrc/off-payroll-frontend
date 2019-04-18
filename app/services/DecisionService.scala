@@ -19,30 +19,59 @@ package services
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DecisionConnector
 import controllers.routes
+import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+import models.WorkerType.SoleTrader
 import models._
+import models.requests.DataRequest
+import pages.{ContractStartedPage, OfficeHolderPage, WorkerTypePage}
+import play.api.data.Form
+import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Call, Request, Result}
 import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.AnswerSection
+import views.html.results._
 
 import scala.concurrent.{ExecutionContext, Future}
 
 trait DecisionService {
 
   def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig, rh: Request[_]): Future[Result]
+            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result]
+
+  def determineResultView(answerSections: Seq[AnswerSection],
+                          formWithErrors: Option[Form[Boolean]] = None,
+                          printMode: Boolean = false,
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: DataRequest[_], messages: Messages): Html
 
 }
 
 @Singleton
 class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
-                                    errorHandler: ErrorHandler
-                                   ) extends DecisionService {
+                                    errorHandler: ErrorHandler,
+                                    formProvider: DeclarationFormProvider,
+                                    officeHolderInsideIR35View: OfficeHolderInsideIR35View,
+                                    officeHolderEmployedView: OfficeHolderEmployedView,
+                                    currentSubstitutionView: CurrentSubstitutionView,
+                                    futureSubstitutionView: FutureSubstitutionView,
+                                    selfEmployedView: SelfEmployedView,
+                                    employedView: EmployedView,
+                                    controlView: ControlView,
+                                    financialRiskView: FinancialRiskView,
+                                    indeterminateView: IndeterminateView,
+                                    insideIR35View: InsideIR35View,
+                                    implicit val appConf: FrontendAppConfig) extends DecisionService {
+
+  lazy val version = appConf.decisionVersion
+
+  val resultForm: Form[Boolean] = formProvider()
 
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext, appConfig: FrontendAppConfig, rh: Request[_]): Future[Result] = {
+                     (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
 
     val interview = Interview(userAnswers)
 
@@ -82,6 +111,53 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val financialRiskRedirect = if(financialRisk.nonEmpty) controlRedirect.addingToSession(financialRisk.get) else controlRedirect
 
     financialRiskRedirect
+  }
+
+  def determineResultView(answerSections: Seq[AnswerSection],
+                          formWithErrors: Option[Form[Boolean]] = None,
+                          printMode: Boolean = false,
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None)
+                         (implicit request: DataRequest[_], messages: Messages): Html = {
+
+    val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
+    val controlSession = request.session.get(SessionKeys.controlResult)
+    val financialRiskSession = request.session.get(SessionKeys.financialRiskResult)
+    val control = controlSession.map(WeightedAnswerEnum.withName)
+    val financialRisk = financialRiskSession.map(WeightedAnswerEnum.withName)
+    val workerTypeAnswer = request.userAnswers.get(WorkerTypePage)
+    val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
+    val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).getOrElse(false)
+
+    val action: Call = routes.ResultController.onSubmit()
+
+    def resultViewInside() = (officeHolderAnswer, workerTypeAnswer) match {
+      case (_, Some(SoleTrader)) => employedView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case (true, _) => officeHolderInsideIR35View(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case (_, _) => insideIR35View(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+    }
+
+    def resultViewOutside(): HtmlFormat.Appendable = (currentContractAnswer, workerTypeAnswer, control, financialRisk) match {
+      case (_, Some(SoleTrader), _, _) => selfEmployedView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) => financialRiskView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case (_, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case (Some(true), _, _, _) => currentSubstitutionView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case (Some(false), _, _, _) => futureSubstitutionView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case _ => financialRiskView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+    }
+
+    result match {
+      case ResultEnum.OUTSIDE_IR35 => resultViewOutside()
+      case ResultEnum.INSIDE_IR35 => resultViewInside()
+      case ResultEnum.SELF_EMPLOYED => selfEmployedView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case ResultEnum.UNKNOWN => indeterminateView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case ResultEnum.EMPLOYED =>
+        if (officeHolderAnswer) {
+          officeHolderEmployedView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+        } else {
+          employedView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+        }
+      case ResultEnum.NOT_MATCHED => errorHandler.internalServerErrorTemplate
+    }
   }
 }
 

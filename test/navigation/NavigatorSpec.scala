@@ -164,7 +164,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
 
       "go to CustomisePDFPage from the ResultPage" in {
-        nextPage(ResultPage) mustBe routes.CustomisePDFController.onPageLoad(NormalMode)
+        nextPage(ResultPage) mustBe routes.PDFController.onPageLoad(NormalMode)
       }
     }
 

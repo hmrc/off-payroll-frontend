@@ -16,22 +16,21 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.{JsString, Json}
-import uk.gov.hmrc.http.cache.client.CacheMap
-import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
-import play.api.test.Helpers._
-import models.{AdditionalPdfDetails, NormalMode}
 import forms.CustomisePDFFormProvider
+import models.{AdditionalPdfDetails, NormalMode}
+import navigation.FakeNavigator
 import pages.CustomisePDFPage
+import play.api.data.Form
+import play.api.libs.json.Json
 import play.api.mvc.Call
-import services.PDFService
+import play.api.test.Helpers._
+import services.{DecisionService, PDFService}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.CustomisePDFView
-import views.html.results._
 
-class CustomisePDFControllerSpec extends ControllerSpecBase {
+class PDFControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -40,7 +39,7 @@ class CustomisePDFControllerSpec extends ControllerSpecBase {
 
   val customisePdfView = injector.instanceOf[CustomisePDFView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new CustomisePDFController(
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new PDFController(
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -49,16 +48,7 @@ class CustomisePDFControllerSpec extends ControllerSpecBase {
     formProvider,
     controllerComponents = messagesControllerComponents,
     customisePdfView,
-    injector.instanceOf[OfficeHolderInsideIR35View],
-    injector.instanceOf[OfficeHolderEmployedView],
-    injector.instanceOf[CurrentSubstitutionView],
-    injector.instanceOf[FutureSubstitutionView],
-    injector.instanceOf[SelfEmployedView],
-    injector.instanceOf[EmployedView],
-    injector.instanceOf[ControlView],
-    injector.instanceOf[FinancialRiskView],
-    injector.instanceOf[IndeterminateView],
-    injector.instanceOf[InsideIR35View],
+    injector.instanceOf[DecisionService],
     injector.instanceOf[PDFService],
     errorHandler,
     frontendAppConfig

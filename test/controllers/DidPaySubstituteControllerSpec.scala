@@ -86,7 +86,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("didPaySubstitute.title")))
-      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
