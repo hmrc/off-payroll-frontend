@@ -24,11 +24,18 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.IdentifyToStakeholdersFormProvider
-import models.NormalMode
-import models.IdentifyToStakeholders
+import models.IdentifyToStakeholders.WorkForEndClient
+import models.{ErrorTemplate, IdentifyToStakeholders, NormalMode, UserAnswers}
+import org.mockito.Matchers
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
 import pages.IdentifyToStakeholdersPage
 import play.api.mvc.Call
+import play.api.mvc.Results.Redirect
+import uk.gov.hmrc.http.HeaderCarrier
 import views.html.IdentifyToStakeholdersView
+
+import scala.concurrent.Future
 
 class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
@@ -40,7 +47,6 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new IdentifyToStakeholdersController(
-    frontendAppConfig,
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -48,7 +54,9 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    decisionService,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
@@ -72,6 +80,15 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, WorkForEndClient)
+
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+        Matchers.eq(ErrorTemplate("identifyToStakeholders.title")))
+      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

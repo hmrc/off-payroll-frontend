@@ -21,27 +21,29 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.LineManagerDutiesFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.LineManagerDutiesPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.LineManagerDutiesView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class LineManagerDutiesController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: LineManagerDutiesFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: LineManagerDutiesView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: LineManagerDutiesFormProvider,
+                                            controllerComponents: MessagesControllerComponents,
+                                            view: LineManagerDutiesView,
+                                            decisionService: DecisionService,
+                                            implicit val appConfig: FrontendAppConfig
+                                           ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -57,8 +59,12 @@ class LineManagerDutiesController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(LineManagerDutiesPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(LineManagerDutiesPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+            val continue = navigator.nextPage(LineManagerDutiesPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("lineManagerDuties.title"))
+          }
         )
       }
     )

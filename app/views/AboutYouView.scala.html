@@ -44,12 +44,7 @@
             legend = messages("aboutYou.heading"),
             legendClass = Some("visually-hidden"),
             hint = Some(Html(messages("aboutYou.hint"))),
-            inputs = Seq(
-                RadioOption(id = Worker.toString, value = Worker.toString, messageKey = s"aboutYou.${Worker.toString}"),
-                RadioOption(id = Client.toString, value = Client.toString, messageKey = s"aboutYou.${Client.toString}"),
-                RadioOption(id = Agency.toString, value = Agency.toString, messageKey = s"aboutYou.${Agency.toString}"),
-                RadioOption(id = NoneOfAbove.toString, value = NoneOfAbove.toString, messageKey = s"aboutYou.${NoneOfAbove.toString}")
-            )
+            inputs = AboutYouAnswer.options
         )
 
         @components.submit_button()

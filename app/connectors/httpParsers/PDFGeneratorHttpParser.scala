@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package connectors.HttpParsers
+package connectors.httpParsers
 
+import akka.util.ByteString
 import play.api.Logger
 import play.api.http.Status
 import play.api.libs.ws.WSResponse
@@ -26,7 +27,7 @@ object PDFGeneratorHttpParser {
 
   val reads: WSResponse => Response = response =>
     response.status match {
-      case Status.OK => Right(SuccessfulPDF(response.bodyAsBytes.toArray))
+      case Status.OK => Right(SuccessfulPDF(response.bodyAsBytes))
       case Status.BAD_REQUEST =>
         Logger.debug(s"[PDFGeneratorHttpParser][updateReads]: Bad Request returned from PDF Generator Service:\n\n ${response.body}")
         Logger.warn(s"[PDFGeneratorHttpParser][updateReads]: Bad Request returned from PDF Generator Service")
@@ -49,6 +50,6 @@ object PDFGeneratorHttpParser {
                              override val body: String = "Unexpected Response returned from PDF Generator Service") extends ErrorResponse
 
   sealed trait SuccessResponse
-  case class SuccessfulPDF(pdf: Array[Byte]) extends SuccessResponse
+  case class SuccessfulPDF(pdf: ByteString) extends SuccessResponse
 
 }

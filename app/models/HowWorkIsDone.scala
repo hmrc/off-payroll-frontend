@@ -23,13 +23,13 @@ sealed trait HowWorkIsDone
 
 object HowWorkIsDone {
 
-  case object Noworkerinputallowed extends WithName("noWorkerInputAllowed") with HowWorkIsDone
-  case object Workerdecideswithoutinput extends WithName("workerDecidesWithoutInput") with HowWorkIsDone
-  case object Workerfollowstrictemployeeprocedures extends WithName("workerFollowStrictEmployeeProcedures") with HowWorkIsDone
-  case object Workeragreewithothers extends WithName("workerAgreeWithOthers") with HowWorkIsDone
+  case object NoWorkerInputAllowed extends WithName("noWorkerInputAllowed") with HowWorkIsDone
+  case object WorkerDecidesWithoutInput extends WithName("workerDecidesWithoutInput") with HowWorkIsDone
+  case object WorkerFollowStrictEmployeeProcedures extends WithName("workerFollowStrictEmployeeProcedures") with HowWorkIsDone
+  case object WorkerAgreeWithOthers extends WithName("workerAgreeWithOthers") with HowWorkIsDone
 
   val values: Seq[HowWorkIsDone] = Seq(
-    Noworkerinputallowed, Workerdecideswithoutinput, Workerfollowstrictemployeeprocedures, Workeragreewithothers
+    NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerFollowStrictEmployeeProcedures, WorkerAgreeWithOthers
   )
 
   val options: Seq[RadioOption] = values.map {
@@ -46,10 +46,10 @@ object HowWorkIsDone {
 
   implicit object HowWorkIsDoneReads extends Reads[HowWorkIsDone] {
     override def reads(json: JsValue): JsResult[HowWorkIsDone] = json match {
-      case JsString(Noworkerinputallowed.toString) => JsSuccess(Noworkerinputallowed)
-      case JsString(Workerdecideswithoutinput.toString) => JsSuccess(Workerdecideswithoutinput)
-      case JsString(Workerfollowstrictemployeeprocedures.toString) => JsSuccess(Workerfollowstrictemployeeprocedures)
-      case JsString(Workeragreewithothers.toString) => JsSuccess(Workeragreewithothers)
+      case JsString(NoWorkerInputAllowed.toString) => JsSuccess(NoWorkerInputAllowed)
+      case JsString(WorkerDecidesWithoutInput.toString) => JsSuccess(WorkerDecidesWithoutInput)
+      case JsString(WorkerFollowStrictEmployeeProcedures.toString) => JsSuccess(WorkerFollowStrictEmployeeProcedures)
+      case JsString(WorkerAgreeWithOthers.toString) => JsSuccess(WorkerAgreeWithOthers)
       case _                          => JsError("Unknown howWorkIsDone")
     }
   }

@@ -21,26 +21,28 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.PutRightAtOwnCostFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.{Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.PutRightAtOwnCostPage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.PutRightAtOwnCostView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PutRightAtOwnCostController @Inject()(appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: PutRightAtOwnCostFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: PutRightAtOwnCostView
-                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            identify: IdentifierAction,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: PutRightAtOwnCostFormProvider,
+                                            controllerComponents: MessagesControllerComponents,
+                                            view: PutRightAtOwnCostView,
+                                            decisionService: DecisionService,
+                                            implicit val appConfig: FrontendAppConfig
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -56,8 +58,14 @@ class PutRightAtOwnCostController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(PutRightAtOwnCostPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(PutRightAtOwnCostPage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(PutRightAtOwnCostPage, mode)(updatedAnswers)
+            val exit = continue
+
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("putRightAtOwnCost.title"))
+          }
         )
       }
     )

@@ -30,9 +30,9 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: Req
 
 @defining(
     if(printView) {
-        printTemplate(messages("result.indeterminate.title"), appConfig = appConfig)(_)
+        printTemplate(messages("result.selfEmployed.title"), appConfig = appConfig)(_)
     } else {
-        mainTemplate(messages("result.indeterminate.title"), appConfig = appConfig)(_)
+        mainTemplate(messages("result.selfEmployed.title"), appConfig = appConfig)(_)
     }
 ) { template =>
 

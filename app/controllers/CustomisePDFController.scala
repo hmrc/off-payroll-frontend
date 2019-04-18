@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, PrintPDF}
 import connectors.DataCacheConnector
-import connectors.HttpParsers.PDFGeneratorHttpParser.SuccessfulPDF
+import connectors.httpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
 import forms.CustomisePDFFormProvider
 import handlers.ErrorHandler
@@ -39,15 +39,14 @@ import views.html.results._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class CustomisePDFController @Inject()(implicit appConfig: FrontendAppConfig,
-                                       dataCacheConnector: DataCacheConnector,
+class CustomisePDFController @Inject()(dataCacheConnector: DataCacheConnector,
                                        navigator: Navigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: CustomisePDFFormProvider,
                                        controllerComponents: MessagesControllerComponents,
-                                       view: CustomisePDFView,
+                                       customisePdfView: CustomisePDFView,
                                        officeHolderInsideIR35View: OfficeHolderInsideIR35View,
                                        officeHolderEmployedView: OfficeHolderEmployedView,
                                        currentSubstitutionView: CurrentSubstitutionView,
@@ -59,7 +58,8 @@ class CustomisePDFController @Inject()(implicit appConfig: FrontendAppConfig,
                                        indeterminateView: IndeterminateView,
                                        insideIR35View: InsideIR35View,
                                        pdfService: PDFService,
-                                       errorHandler: ErrorHandler
+                                       errorHandler: ErrorHandler,
+                                       implicit val appConfig: FrontendAppConfig
                                       ) extends FrontendController(controllerComponents) with I18nSupport with FeatureSwitching {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -131,17 +131,17 @@ class CustomisePDFController @Inject()(implicit appConfig: FrontendAppConfig,
   }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(form.fill), mode))
+    Ok(customisePdfView(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(form.fill), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
       additionalData => printResult(additionalData)
     )
   }
 
-  def printResult(additionalPdfDetails: AdditionalPdfDetails)(implicit request: DataRequest[_]): Future[Result] = {
+  private def printResult(additionalPdfDetails: AdditionalPdfDetails)(implicit request: DataRequest[_]): Future[Result] = {
 
     val pdfView = officeHolderInsideIR35View(
       appConfig = appConfig,
@@ -157,7 +157,7 @@ class CustomisePDFController @Inject()(implicit appConfig: FrontendAppConfig,
       pdfService.generatePdf(pdfView) map {
         case Right(result: SuccessfulPDF) => {
           val fileName = additionalPdfDetails.reference.getOrElse("result")
-          Ok(result.pdf)
+          Ok(result.pdf.toArray)
             .as("application/pdf")
             .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
         }

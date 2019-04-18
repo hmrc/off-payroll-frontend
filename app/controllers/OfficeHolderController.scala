@@ -21,26 +21,28 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.OfficeHolderPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.OfficeHolderView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class OfficeHolderController @Inject()(appConfig: FrontendAppConfig,
-                                       dataCacheConnector: DataCacheConnector,
+class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
                                        navigator: Navigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
-                                       view: OfficeHolderView
+                                       view: OfficeHolderView,
+                                       decisionService: DecisionService,
+                                       implicit val appConfig: FrontendAppConfig
                                       ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -56,9 +58,16 @@ class OfficeHolderController @Inject()(appConfig: FrontendAppConfig,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
+
         val updatedAnswers = request.userAnswers.set(OfficeHolderPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(OfficeHolderPage, mode)(updatedAnswers))
+
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(OfficeHolderPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("officeHolder.title"))
+          }
         )
       }
     )

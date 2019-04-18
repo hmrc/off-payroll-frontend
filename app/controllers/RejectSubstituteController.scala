@@ -33,16 +33,16 @@ import views.html.RejectSubstituteView
 
 import scala.concurrent.{Future, ExecutionContext}
 
-class RejectSubstituteController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: RejectSubstituteFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: RejectSubstituteView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
+                                           navigator: Navigator,
+                                           identify: IdentifierAction,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           formProvider: RejectSubstituteFormProvider,
+                                           controllerComponents: MessagesControllerComponents,
+                                           view: RejectSubstituteView,
+                                           implicit val appConfig: FrontendAppConfig
+                                          ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 

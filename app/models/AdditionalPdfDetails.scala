@@ -17,7 +17,7 @@
 package models
 
 import java.time.LocalDateTime
-import java.time.format.{DateTimeFormatter, FormatStyle}
+import java.time.format.DateTimeFormatter
 
 import play.api.libs.json.{Format, Json}
 

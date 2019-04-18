@@ -17,18 +17,6 @@
 package models
 
 import base.SpecBase
-import models.AboutYouAnswer.Worker
-import models.ArrangedSubstitue.YesClientAgreed
-import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.Workeragreewithothers
-import models.HowWorkIsDone.Workerfollowstrictemployeeprocedures
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ScheduleOfWorkingHours.Workeragreeschedule
-import models.WorkerType.SoleTrader
-import pages._
 import play.api.libs.json.Json
 
 class AdditionalPdfDetailsSpec extends SpecBase {

@@ -20,32 +20,38 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.BenefitsFormProvider
+import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Mode
+import models.{DecisionResponse, ErrorTemplate, ExitEnum, Interview, Mode, Score, SetupEnum}
 import navigation.Navigator
 import pages.BenefitsPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.BenefitsView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BenefitsController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: BenefitsFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: BenefitsView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
+                                   navigator: Navigator,
+                                   identify: IdentifierAction,
+                                   getData: DataRetrievalAction,
+                                   requireData: DataRequiredAction,
+                                   formProvider: BenefitsFormProvider,
+                                   controllerComponents: MessagesControllerComponents,
+                                   view: BenefitsView,
+                                   decisionService: DecisionService,
+                                   implicit val appConfig: FrontendAppConfig
+                                  ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[Boolean] = formProvider()
+
+  implicit val headerCarrier = new HeaderCarrier()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(appConfig, request.userAnswers.get(BenefitsPage).fold(form)(form.fill), mode))
@@ -56,9 +62,17 @@ class BenefitsController @Inject()(appConfig: FrontendAppConfig,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
+
         val updatedAnswers = request.userAnswers.set(BenefitsPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(BenefitsPage, mode)(updatedAnswers))
+
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(BenefitsPage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("benefits.title"))
+
+          }
         )
       }
     )

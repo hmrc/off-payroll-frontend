@@ -17,7 +17,6 @@
 package controllers
 
 import javax.inject.Inject
-
 import play.api.i18n.I18nSupport
 import play.api.data.Form
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -25,24 +24,26 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.DidPaySubstituteFormProvider
-import models.Mode
+import models.{ErrorTemplate, Mode}
 import pages.DidPaySubstitutePage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import views.html.DidPaySubstituteView
 
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.{ExecutionContext, Future}
 
-class DidPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: DidPaySubstituteFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         view: DidPaySubstituteView
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
+                                           navigator: Navigator,
+                                           identify: IdentifierAction,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           formProvider: DidPaySubstituteFormProvider,
+                                           controllerComponents: MessagesControllerComponents,
+                                           view: DidPaySubstituteView,
+                                           decisionService: DecisionService,
+                                           implicit val appConfig: FrontendAppConfig
+                                          ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -58,8 +59,13 @@ class DidPaySubstituteController @Inject()(appConfig: FrontendAppConfig,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
         val updatedAnswers = request.userAnswers.set(DidPaySubstitutePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(DidPaySubstitutePage, mode)(updatedAnswers))
+        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+          _ => {
+
+            val continue = navigator.nextPage(DidPaySubstitutePage, mode)(updatedAnswers)
+            val exit = continue
+            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("didPaySubstitute.title"))
+          }
         )
       }
     )

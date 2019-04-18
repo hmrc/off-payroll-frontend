@@ -26,20 +26,22 @@ import navigation.Navigator
 import pages.WorkerTypePage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.WorkerTypeView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class WorkerTypeController @Inject()(appConfig: FrontendAppConfig,
-                                     dataCacheConnector: DataCacheConnector,
+class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
                                      navigator: Navigator,
                                      identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
                                      formProvider: WorkerTypeFormProvider,
                                      controllerComponents: MessagesControllerComponents,
-                                     view: WorkerTypeView
+                                     view: WorkerTypeView,
+                                     decisionService: DecisionService,
+                                     implicit val appConfig: FrontendAppConfig
                                     ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext

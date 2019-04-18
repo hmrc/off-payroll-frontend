@@ -27,7 +27,9 @@ import models.{AdditionalPdfDetails, NormalMode}
 import forms.CustomisePDFFormProvider
 import pages.CustomisePDFPage
 import play.api.mvc.Call
+import services.PDFService
 import views.html.CustomisePDFView
+import views.html.results._
 
 class CustomisePDFControllerSpec extends ControllerSpecBase {
 
@@ -36,10 +38,9 @@ class CustomisePDFControllerSpec extends ControllerSpecBase {
   val formProvider = new CustomisePDFFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[CustomisePDFView]
+  val customisePdfView = injector.instanceOf[CustomisePDFView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new CustomisePDFController(
-    frontendAppConfig,
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -47,10 +48,23 @@ class CustomisePDFControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    customisePdfView,
+    injector.instanceOf[OfficeHolderInsideIR35View],
+    injector.instanceOf[OfficeHolderEmployedView],
+    injector.instanceOf[CurrentSubstitutionView],
+    injector.instanceOf[FutureSubstitutionView],
+    injector.instanceOf[SelfEmployedView],
+    injector.instanceOf[EmployedView],
+    injector.instanceOf[ControlView],
+    injector.instanceOf[FinancialRiskView],
+    injector.instanceOf[IndeterminateView],
+    injector.instanceOf[InsideIR35View],
+    injector.instanceOf[PDFService],
+    errorHandler,
+    frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 
   val testAnswer = "answer"
 
@@ -72,13 +86,12 @@ class CustomisePDFControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(form.fill(AdditionalPdfDetails(Some(testAnswer))))
     }
 
-    "redirect to the next page when valid data is submitted" in {
+    "show the PDF view" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      status(result) mustBe OK
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

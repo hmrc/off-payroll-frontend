@@ -27,6 +27,7 @@ object AppDependencies {
     "com.typesafe.play" %% "play-test" % PlayVersion.current,
     "org.mockito" % "mockito-all" % "1.10.19",
     "org.scalacheck" %% "scalacheck" % "1.13.4",
+    "com.github.tomakehurst" % "wiremock-jre8" % "2.21.0",
     "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0"
   ).map(_ % Test)
 
