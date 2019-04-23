@@ -16,9 +16,6 @@
 
 package services
 
-import java.util.concurrent.TimeUnit
-
-import akka.util.Timeout
 import base.SpecBase
 import connectors.DecisionConnector
 import handlers.ErrorHandler
@@ -39,7 +36,7 @@ import models._
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import pages._
-import play.api.mvc.Call
+import play.api.mvc.{Call, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
@@ -55,7 +52,7 @@ class DecisionServiceSpec extends SpecBase {
   val connector = mock[DecisionConnector]
   val errorHandler: ErrorHandler = mock[ErrorHandler]
 
-  when(errorHandler.standardErrorTemplate(any(),any(),any())(any())).thenReturn(Html("Error page"))
+  when(errorHandler.standardErrorTemplate(any(), any(), any())(any())).thenReturn(Html("Error page"))
 
   val service: DecisionService = new DecisionServiceImpl(connector, errorHandler)
 
@@ -82,25 +79,27 @@ class DecisionServiceSpec extends SpecBase {
     .set(IdentifyToStakeholdersPage, WorkAsIndependent)
 
   val exitResponse = DecisionResponse("1.0.0-beta", "12345",
-    Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
+    Score(None, None, Some(HIGH), Some(LOW), Some(LOW), Some(LOW)),
     UNKNOWN
   )
 
   val response = DecisionResponse("1.0.0-beta", "12345",
-    Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
+    Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), Some(LOW), Some(LOW), Some(LOW)),
     NOT_MATCHED
   )
 
   val error = ErrorTemplate("error.title")
+
   def onwardRoute = Call("GET", "/continue")
-  def exitRoute = Call("GET", "/exit")
+
+  def exitRoute = Call("GET", "/result")
 
   "Calling the decide service" should {
     "return a continue decision based on the interview" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))
 
-      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
+      val result = service.decide(userAnswers, onwardRoute, error)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -110,7 +109,7 @@ class DecisionServiceSpec extends SpecBase {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
 
-      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
+      val result = service.decide(userAnswers, onwardRoute, error)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(exitRoute.url)
@@ -118,9 +117,9 @@ class DecisionServiceSpec extends SpecBase {
 
     "handle 400 errors" in {
 
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(400,"Bad"))))
+      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(400, "Bad"))))
 
-      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
+      val result = service.decide(userAnswers, onwardRoute, error)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe "Error page"
@@ -128,9 +127,9 @@ class DecisionServiceSpec extends SpecBase {
 
     "handle 500 errors" in {
 
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(500,"Internal error"))))
+      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(500, "Internal error"))))
 
-      val result = service.decide(userAnswers, onwardRoute, exitRoute, error)
+      val result = service.decide(userAnswers, onwardRoute, error)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
       contentAsString(result) mustBe "Error page"

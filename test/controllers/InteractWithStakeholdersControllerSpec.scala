@@ -84,7 +84,7 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(InteractWithStakeholdersPage, true)
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("interactWithStakeholders.title")))
       (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 

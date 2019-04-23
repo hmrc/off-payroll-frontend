@@ -71,13 +71,13 @@ class ResultControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   )
 
-  def viewAsString() = officeHolderInsideIR35View(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
+  def viewAsString() = insideIR35(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
 
   //TODO: Currently only renders the one view; this will need to cater for all views
   "ResultPage Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val result = controller().onPageLoad(fakeRequest.withSession("result" -> "Inside IR35"))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
