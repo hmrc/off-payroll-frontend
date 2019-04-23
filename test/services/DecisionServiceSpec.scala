@@ -95,13 +95,8 @@ class DecisionServiceSpec extends SpecBase {
     .set(IdentifyToStakeholdersPage, WorkAsIndependent)
 
   val exitResponse = DecisionResponse("1.0.0-beta", "12345",
-<<<<<<< HEAD
-    Score(None, None, Some(HIGH), Some(LOW), Some(LOW), Some(LOW)),
-    UNKNOWN
-=======
     Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
     OUTSIDE_IR35
->>>>>>> 8100babb898e239b0dfb157ec7f5490db44b96d4
   )
 
   val response = DecisionResponse("1.0.0-beta", "12345",
