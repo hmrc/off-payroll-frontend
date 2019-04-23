@@ -18,6 +18,7 @@ package services
 
 import base.SpecBase
 import connectors.DecisionConnector
+import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitue.YesClientAgreed
@@ -41,6 +42,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
+import views.html.results._
 
 import scala.concurrent.Future
 
@@ -49,12 +51,26 @@ class DecisionServiceSpec extends SpecBase {
   implicit val headerCarrier = new HeaderCarrier()
   implicit val request = FakeRequest("", "")
 
+  val formProvider = new DeclarationFormProvider()
+
   val connector = mock[DecisionConnector]
-  val errorHandler: ErrorHandler = mock[ErrorHandler]
+  override val errorHandler: ErrorHandler = mock[ErrorHandler]
 
   when(errorHandler.standardErrorTemplate(any(), any(), any())(any())).thenReturn(Html("Error page"))
 
-  val service: DecisionService = new DecisionServiceImpl(connector, errorHandler)
+  val service: DecisionService = new DecisionServiceImpl(connector, errorHandler, formProvider,
+    injector.instanceOf[OfficeHolderInsideIR35View],
+    injector.instanceOf[OfficeHolderEmployedView],
+    injector.instanceOf[CurrentSubstitutionView],
+    injector.instanceOf[FutureSubstitutionView],
+    injector.instanceOf[SelfEmployedView],
+    injector.instanceOf[EmployedView],
+    injector.instanceOf[ControlView],
+    injector.instanceOf[FinancialRiskView],
+    injector.instanceOf[IndeterminateView],
+    injector.instanceOf[InsideIR35View],
+    frontendAppConfig
+  )
 
   val userAnswers: UserAnswers = UserAnswers("id")
     .set(AboutYouPage, Worker)
@@ -79,8 +95,13 @@ class DecisionServiceSpec extends SpecBase {
     .set(IdentifyToStakeholdersPage, WorkAsIndependent)
 
   val exitResponse = DecisionResponse("1.0.0-beta", "12345",
+<<<<<<< HEAD
     Score(None, None, Some(HIGH), Some(LOW), Some(LOW), Some(LOW)),
     UNKNOWN
+=======
+    Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
+    OUTSIDE_IR35
+>>>>>>> 8100babb898e239b0dfb157ec7f5490db44b96d4
   )
 
   val response = DecisionResponse("1.0.0-beta", "12345",
@@ -93,6 +114,7 @@ class DecisionServiceSpec extends SpecBase {
   def onwardRoute = Call("GET", "/continue")
 
   def exitRoute = Call("GET", "/result")
+
 
   "Calling the decide service" should {
     "return a continue decision based on the interview" in {
@@ -112,7 +134,7 @@ class DecisionServiceSpec extends SpecBase {
       val result = service.decide(userAnswers, onwardRoute, error)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(exitRoute.url)
+      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
     }
 
     "handle 400 errors" in {

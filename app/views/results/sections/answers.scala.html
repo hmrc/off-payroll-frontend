@@ -16,12 +16,12 @@
 
 @import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
 
-@(answerSections: Seq[Section])(implicit messages: Messages)
+@(answerSections: Seq[Section], printMode: Boolean = false)(implicit messages: Messages)
 
 @for(section <- answerSections){
     @{
         section match {
-            case a: AnswerSection if a.nonEmpty => components.answer_section(a)
+            case a: AnswerSection if a.nonEmpty => components.answer_section(a, printMode)
             case a: AnswerSection => Html("")
             case r: RepeaterAnswerSection => components.repeater_answer_section(r)
         }

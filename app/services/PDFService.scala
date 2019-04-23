@@ -16,8 +16,8 @@
 
 package services
 
-import connectors.HttpParsers.PDFGeneratorHttpParser.Response
 import connectors.PDFGeneratorConnector
+import connectors.httpParsers.PDFGeneratorHttpParser.Response
 import javax.inject.Inject
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
