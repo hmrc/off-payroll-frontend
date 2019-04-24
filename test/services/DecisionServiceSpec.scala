@@ -104,6 +104,16 @@ class DecisionServiceSpec extends SpecBase {
     NOT_MATCHED
   )
 
+  val riskResponse = DecisionResponse("1.0.0-beta", "12345",
+    Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), None, Some(LOW), Some(LOW)),
+    OUTSIDE_IR35
+  )
+
+  val controlResponse = DecisionResponse("1.0.0-beta", "12345",
+    Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), Some(LOW), None, Some(LOW)),
+    OUTSIDE_IR35
+  )
+
   val error = ErrorTemplate("error.title")
 
   def onwardRoute = Call("GET", "/continue")
@@ -120,6 +130,26 @@ class DecisionServiceSpec extends SpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+
+    }
+    "return a continue decision based on the interview when control is empty" in {
+
+      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(riskResponse)))
+
+      val result = service.decide(userAnswers, onwardRoute, error)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
+
+    }
+    "return a continue decision based on the interview when risk is empty" in {
+
+      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(controlResponse)))
+
+      val result = service.decide(userAnswers, onwardRoute, error)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
 
     }
     "return a decision based on the interview" in {
