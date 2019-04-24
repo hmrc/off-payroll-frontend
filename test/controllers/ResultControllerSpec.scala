@@ -19,7 +19,7 @@ package controllers
 import config.SessionKeys
 import controllers.actions._
 import forms.DeclarationFormProvider
-import models.ResultEnum
+import models.{AboutYouAnswer, NormalMode, ResultEnum}
 import navigation.FakeNavigator
 import play.api.i18n.Messages
 import play.api.mvc.Call
@@ -81,6 +81,24 @@ class ResultControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+
+    "redirect to next page" in {
+
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val result = controller().onSubmit(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+    "handle errors" in {
+
+      val postRequest = fakeRequest
+
+      val result = controller().onSubmit(postRequest)
+
+      status(result) mustBe BAD_REQUEST
     }
   }
 }

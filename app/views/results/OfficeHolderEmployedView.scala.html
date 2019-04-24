@@ -42,7 +42,7 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: Req
             @sections.additional_pdf_details(details)
         }
 
-        if(!printView) { @components.back_link() }
+        @if(!printView) { @components.back_link() }
 
         @components.error_summary(form.errors)
 
