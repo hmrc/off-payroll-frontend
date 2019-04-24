@@ -18,35 +18,53 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import viewmodels.Section
 
-@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+@this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(appConfig: FrontendAppConfig, answerSections: Seq[Section], version: String, form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig,
+  answerSections: Seq[Section],
+  version: String,
+  form: Form[_],
+  postAction: Call,
+  printView: Boolean = false,
+  additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: Request[_], messages: Messages)
 
-@mainTemplate(
-    title = messages("result.control.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+@defining(
+    if(printView) {
+        printTemplate(messages("result.control.title"), appConfig = appConfig)(_)
+    } else {
+        mainTemplate(messages("result.control.title"), appConfig = appConfig)(_)
+    }
+) { template =>
 
-    @components.back_link()
+    @template {
 
-    @components.error_summary(form.errors)
+        @additionalPdfDetails.map { details =>
+            @sections.additional_pdf_details(details)
+        }
 
-    @sections.teal_result(Html(messages("result.control.title")))
+        @if(!printView) { @components.back_link() }
 
-    @sections.why_result(whyResultContent)
+        @components.error_summary(form.errors)
 
-    @sections.answers(answerSections)
+        @sections.teal_result(Html(messages("result.control.title")))
 
-    @sections.should_now_do(shouldNowDoContent)
+        @sections.why_result(whyResultContent)
 
-    @sections.about_result(Some(aboutResultContent))
+        @sections.answers(answerSections, printView)
 
-    @sections.decision_version(version)
+        @sections.should_now_do(shouldNowDoContent)
 
-    @formWithCsrf(postAction, 'autoComplete -> "off") {
-        @sections.declaration(form)
+        @sections.about_result(Some(aboutResultContent))
 
-        @components.submit_button()
+        @sections.decision_version(version)
+
+        @if(!printView){
+            @formWithCsrf(postAction, 'autoComplete -> "off") {
+                @sections.declaration(form)
+
+                @components.submit_button(true)
+            }
+        }
     }
 }
 

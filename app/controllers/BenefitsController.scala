@@ -70,7 +70,7 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
 
             val continue = navigator.nextPage(BenefitsPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("benefits.title"))
+            decisionService.decide(updatedAnswers, continue, ErrorTemplate("benefits.title"))
 
           }
         )

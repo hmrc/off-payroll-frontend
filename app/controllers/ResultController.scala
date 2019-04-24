@@ -20,13 +20,15 @@ import config.FrontendAppConfig
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
-import models.requests.DataRequest
+import models.NormalMode
+import navigation.Navigator
+import pages.ResultPage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.CheckYourAnswersHelper
-import viewmodels.AnswerSection
-import views.html.results._
+import utils.UserAnswersUtils
 
 import scala.concurrent.ExecutionContext
 
@@ -34,101 +36,29 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
                                  requireData: DataRequiredAction,
                                  controllerComponents: MessagesControllerComponents,
-                                 officeHolderInsideIR35View: OfficeHolderInsideIR35View,
-                                 officeHolderEmployedView: OfficeHolderEmployedView,
-                                 currentSubstitutionView: CurrentSubstitutionView,
-                                 futureSubstitutionView: FutureSubstitutionView,
-                                 selfEmployedView: SelfEmployedView,
-                                 employedView: EmployedView,
-                                 controlView: ControlView,
-                                 financialRiskView: FinancialRiskView,
-                                 indeterminateView: IndeterminateView,
-                                 insideIR35View: InsideIR35View,
+                                 decisionService: DecisionService,
                                  formProvider: DeclarationFormProvider,
-                                 implicit val appConfig: FrontendAppConfig
-                                ) extends FrontendController(controllerComponents) with I18nSupport {
+                                 navigator: Navigator,
+                                 implicit val conf: FrontendAppConfig)
+  extends FrontendController(controllerComponents) with I18nSupport with UserAnswersUtils {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val resultForm: Form[Boolean] = formProvider()
 
-  private val version = "1.5.0-final" //TODO: Remove this hard coding
+  private val version = conf.decisionVersion
 
-  //noinspection ScalaStyle
-  private def answers(implicit request: DataRequest[_]): Seq[AnswerSection] = {
-    val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
-
-    Seq(
-      AnswerSection(
-        headingKey = Some("result.peopleInvolved.h2"),
-        rows = Seq(
-          checkYourAnswersHelper.aboutYou,
-          checkYourAnswersHelper.contractStarted,
-          checkYourAnswersHelper.workerType
-        ).flatten,
-        useProgressiveDisclosure = true
-      ),
-      AnswerSection(
-        headingKey = Some("result.workersDuties.h2"),
-        rows = Seq(
-          checkYourAnswersHelper.officeHolder
-        ).flatten,
-        useProgressiveDisclosure = true
-      ),
-      AnswerSection(
-        headingKey = Some("result.substitutesHelpers.h2"),
-        rows = Seq(
-          checkYourAnswersHelper.arrangedSubstitue,
-          checkYourAnswersHelper.didPaySubstitute,
-          checkYourAnswersHelper.rejectSubstitute,
-          checkYourAnswersHelper.wouldWorkerPaySubstitute,
-          checkYourAnswersHelper.neededToPayHelper
-        ).flatten,
-        useProgressiveDisclosure = true
-      ),
-      AnswerSection(
-        headingKey = Some("result.workArrangements.h2"),
-        rows = Seq(
-          checkYourAnswersHelper.moveWorker,
-          checkYourAnswersHelper.howWorkIsDone,
-          checkYourAnswersHelper.scheduleOfWorkingHours,
-          checkYourAnswersHelper.chooseWhereWork
-        ).flatten,
-        useProgressiveDisclosure = true
-      ),
-      AnswerSection(
-        headingKey = Some("result.financialRisk.h2"),
-        rows = Seq(
-          checkYourAnswersHelper.cannotClaimAsExpense,
-          checkYourAnswersHelper.howWorkerIsPaid,
-          checkYourAnswersHelper.putRightAtOwnCost
-        ).flatten,
-        useProgressiveDisclosure = true
-      ),
-      AnswerSection(
-        headingKey = Some("result.partAndParcel.h2"),
-        rows = Seq(
-          checkYourAnswersHelper.benefits,
-          checkYourAnswersHelper.lineManagerDuties,
-          checkYourAnswersHelper.interactWithStakeholders,
-          checkYourAnswersHelper.identifyToStakeholders
-        ).flatten,
-        useProgressiveDisclosure = true
-      )
-    )
-  }
-
-  //noinspection ScalaStyle
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(officeHolderInsideIR35View(appConfig, answers, version, form, routes.ResultController.onSubmit()))
+    Ok(decisionService.determineResultView(answers))
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        BadRequest(officeHolderInsideIR35View(appConfig, answers, version, formWithErrors, routes.ResultController.onSubmit())),
+    resultForm.bindFromRequest().fold(
+      formWithErrors => {
+        BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
+      },
       _ => {
-        Redirect(routes.ResultController.onPageLoad())
+        Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
       }
     )
   }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package connectors.HttpParser
+package connectors.httpParsers
 
 import base.SpecBase
 import connectors.DecisionHttpParser

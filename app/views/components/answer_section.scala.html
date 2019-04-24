@@ -17,13 +17,13 @@
 @import viewmodels.AnswerSection
 @import views.html._
 
-@(answerSection: AnswerSection)(implicit messages: Messages)
+@(answerSection: AnswerSection, printMode: Boolean = false)(implicit messages: Messages)
 
 @if(answerSection.headingKey.isDefined){
     <h2>@messages(answerSection.headingKey.get)</h2>
 }
 
-@if(answerSection.useProgressiveDisclosure) {
+@if(answerSection.useProgressiveDisclosure && !printMode) {
     @components.progressive_disclosure(messages("result.showAnswers"), content)
 } else {
     @content
@@ -32,7 +32,7 @@
 @content = {
     <ul role="list" class="govuk-check-your-answers cya-questions-long section">
         @for(row <- answerSection.rows){
-            @components.answer_row(row)
+            @components.answer_row(row, printMode)
         }
     </ul>
 }

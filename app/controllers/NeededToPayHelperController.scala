@@ -64,7 +64,7 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
 
             val continue = navigator.nextPage(NeededToPayHelperPage, mode)(updatedAnswers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("neededToPayHelper.title"))
+            decisionService.decide(updatedAnswers, continue, ErrorTemplate("neededToPayHelper.title"))
           }
         )
       }

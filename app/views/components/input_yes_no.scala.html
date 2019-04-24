@@ -51,7 +51,7 @@
         <div class="multiple-choice">
             <input id="@{field.id}-no" type="radio" name="@{field.id}" value="false" @if(field.value.contains("false")){checked="checked"} />
             <label class="block-label selection-button-radio" for="@{field.id}-no" data-target="@if(noAssoc.nonEmpty){@noAssoc}">
-                @yesMessage.fold(messages("site.no"))(x => x)
+                @noMessage.fold(messages("site.no"))(x => x)
             </label>
         </div>
 

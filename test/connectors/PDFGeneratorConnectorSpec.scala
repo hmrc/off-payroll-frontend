@@ -17,19 +17,22 @@
 package connectors
 
 import base.SpecBase
-import connectors.HttpParsers.PDFGeneratorHttpParser
-import connectors.HttpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
-import connectors.mocks.MockHttp
+import connectors.httpParsers.PDFGeneratorHttpParser
+import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
+import connectors.mocks.MockWsClient
+import models.PdfRequest
+import play.api.http.Status
+import play.api.libs.json.Json
 import play.twirl.api.Html
 
 import scala.concurrent.Future
 
 
-class PDFGeneratorConnectorSpec extends SpecBase with MockHttp {
+class PDFGeneratorConnectorSpec extends SpecBase with MockWsClient {
 
   val testHtml = Html("<html><title>Test</title></html>")
 
-  object TestPDFGeneratorConnector extends PDFGeneratorConnector(mockHttp, frontendAppConfig)
+  object TestPDFGeneratorConnector extends PDFGeneratorConnector(mockWsClient, frontendAppConfig)
 
   "PDFGeneratorConnector" should {
 
@@ -42,8 +45,10 @@ class PDFGeneratorConnectorSpec extends SpecBase with MockHttp {
       "A valid response is returned" should {
 
         "return a SuccessfulPDF model" in {
-          val expected = Right(SuccessfulPDF("PDF"))
-          setupMockHttpPost[Html, PDFGeneratorHttpParser.Response](TestPDFGeneratorConnector.url, testHtml)(Future.successful(expected))
+          val response = wsResponse(Status.OK, "PDF")
+          setupMockHttpPost(TestPDFGeneratorConnector.url, Json.toJson(PdfRequest(testHtml)))(Future.successful(response))
+
+          val expected = Right(SuccessfulPDF(response.bodyAsBytes))
           val actual = await(TestPDFGeneratorConnector.generatePdf(testHtml))
 
           actual mustBe expected
@@ -53,8 +58,10 @@ class PDFGeneratorConnectorSpec extends SpecBase with MockHttp {
       "An error response is returned" should {
 
         "return an error model" in {
+          val response = wsResponse(Status.BAD_REQUEST, "")
+          setupMockHttpPost(TestPDFGeneratorConnector.url, Json.toJson(PdfRequest(testHtml)))(Future.successful(response))
+
           val expected = Left(BadRequest)
-          setupMockHttpPost[Html, PDFGeneratorHttpParser.Response](TestPDFGeneratorConnector.url, testHtml)(Future.successful(expected))
           val actual = await(TestPDFGeneratorConnector.generatePdf(testHtml))
 
           actual mustBe expected
