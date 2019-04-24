@@ -21,12 +21,15 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ContractStartedFormProvider
 import javax.inject.Inject
+import services.CompareAnswerService
+
 import models.Mode
 import navigation.Navigator
 import pages.ContractStartedPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.CompareAnswerService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.ContractStartedView
 
@@ -41,7 +44,7 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
                                           controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport {
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean]{
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -55,11 +58,12 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(ContractStartedPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ContractStartedPage, mode)(updatedAnswers))
-        )
-      }
+        val answers = compareAndConstructAnswer(request,value,ContractStartedPage)
+        dataCacheConnector.save(answers.cacheMap).map(
+            _ => Redirect(navigator.nextPage(ContractStartedPage, mode)(answers))
+          )
+        }
     )
   }
+
 }

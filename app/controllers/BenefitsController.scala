@@ -32,6 +32,7 @@ import services.DecisionService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.BenefitsView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -45,7 +46,7 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
                                    view: BenefitsView,
                                    decisionService: DecisionService,
                                    implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport {
+                                  ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean]{
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -62,15 +63,13 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-
-        val updatedAnswers = request.userAnswers.set(BenefitsPage, value)
-
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = compareAndConstructAnswer(request,value,BenefitsPage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 
-            val continue = navigator.nextPage(BenefitsPage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(BenefitsPage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("benefits.title"))
+            decisionService.decide(answers, continue, exit, ErrorTemplate("benefits.title"))
 
           }
         )

@@ -51,7 +51,6 @@ class Navigator @Inject()() {
         case Some(No) => routes.RejectSubstituteController.onPageLoad(NormalMode)
         case _ => routes.ArrangedSubstitueController.onPageLoad(NormalMode)
       }),
-    DidPaySubstitutePage -> (_ => routes.NeededToPayHelperController.onPageLoad(NormalMode)),
     RejectSubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
         case (Some(true), Some(true)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)

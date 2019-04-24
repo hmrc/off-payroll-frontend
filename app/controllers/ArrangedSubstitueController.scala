@@ -21,8 +21,10 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ArrangedSubstitueFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+
+import models.{ArrangedSubstitue, Enumerable, Mode}
 import navigation.Navigator
+import services.CompareAnswerService
 import pages.ArrangedSubstituePage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -40,7 +42,7 @@ class ArrangedSubstitueController @Inject()(dataCacheConnector: DataCacheConnect
                                             controllerComponents: MessagesControllerComponents,
                                             view: ArrangedSubstitueView,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[ArrangedSubstitue]{
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -55,9 +57,9 @@ class ArrangedSubstitueController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(ArrangedSubstituePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ArrangedSubstituePage, mode)(updatedAnswers))
+        val answers = compareAndConstructAnswer(request,value,ArrangedSubstituePage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(ArrangedSubstituePage, mode)(answers))
         )
       }
     )

@@ -17,17 +17,20 @@
 package controllers
 
 import javax.inject.Inject
+
 import play.api.i18n.I18nSupport
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import connectors.DataCacheConnector
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.MoveWorkerFormProvider
-import models.{Enumerable, Mode}
+import models.{Enumerable, Mode, MoveWorker}
 import pages.MoveWorkerPage
 import navigation.Navigator
+import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.MoveWorkerView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,11 +43,11 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
                                      controllerComponents: MessagesControllerComponents,
                                      view: MoveWorkerView,
                                      implicit val appConfig: FrontendAppConfig
-                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[MoveWorker] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val form: Form[MoveWorker] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(appConfig, request.userAnswers.get(MoveWorkerPage).fold(form)(form.fill), mode))
@@ -55,9 +58,9 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(MoveWorkerPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(MoveWorkerPage, mode)(updatedAnswers))
+        val answers = compareAndConstructAnswer(request,value,MoveWorkerPage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(MoveWorkerPage, mode)(answers))
         )
       }
     )

@@ -30,6 +30,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.OfficeHolderView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -43,7 +44,7 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
                                        view: OfficeHolderView,
                                        decisionService: DecisionService,
                                        implicit val appConfig: FrontendAppConfig
-                                      ) extends FrontendController(controllerComponents) with I18nSupport {
+                                      ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -59,14 +60,14 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
 
-        val updatedAnswers = request.userAnswers.set(OfficeHolderPage, value)
+        val answers = compareAndConstructAnswer(request,value,OfficeHolderPage)
 
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 
-            val continue = navigator.nextPage(OfficeHolderPage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(OfficeHolderPage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("officeHolder.title"))
+            decisionService.decide(answers, continue, exit, ErrorTemplate("officeHolder.title"))
           }
         )
       }

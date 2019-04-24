@@ -30,6 +30,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.LineManagerDutiesView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -43,7 +44,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
                                             view: LineManagerDutiesView,
                                             decisionService: DecisionService,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport {
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -58,12 +59,12 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(LineManagerDutiesPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = compareAndConstructAnswer(request,value,LineManagerDutiesPage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-            val continue = navigator.nextPage(LineManagerDutiesPage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(LineManagerDutiesPage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("lineManagerDuties.title"))
+            decisionService.decide(answers, continue, exit, ErrorTemplate("lineManagerDuties.title"))
           }
         )
       }

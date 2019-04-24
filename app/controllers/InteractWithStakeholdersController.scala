@@ -30,6 +30,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.InteractWithStakeholdersView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -43,7 +44,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
                                                    view: InteractWithStakeholdersView,
                                                    decisionService: DecisionService,
                                                    implicit val appConfig: FrontendAppConfig
-                                                  ) extends FrontendController(controllerComponents) with I18nSupport {
+                                                  ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -58,12 +59,12 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(InteractWithStakeholdersPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = compareAndConstructAnswer(request,value,InteractWithStakeholdersPage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-            val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("interactWithStakeholders.title"))
+            decisionService.decide(answers, continue, exit, ErrorTemplate("interactWithStakeholders.title"))
           }
         )
       }

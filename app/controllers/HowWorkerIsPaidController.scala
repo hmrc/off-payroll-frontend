@@ -21,13 +21,16 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+
+import models.{Enumerable, HowWorkerIsPaid, Mode}
 import navigation.Navigator
 import pages.HowWorkerIsPaidPage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.HowWorkerIsPaidView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,11 +43,11 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
                                           controllerComponents: MessagesControllerComponents,
                                           view: HowWorkerIsPaidView,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[HowWorkerIsPaid] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val form: Form[HowWorkerIsPaid] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(appConfig, request.userAnswers.get(HowWorkerIsPaidPage).fold(form)(form.fill), mode))
@@ -55,9 +58,9 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(HowWorkerIsPaidPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(HowWorkerIsPaidPage, mode)(updatedAnswers))
+        val answers = compareAndConstructAnswer(request,value,HowWorkerIsPaidPage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(HowWorkerIsPaidPage, mode)(answers))
         )
       }
     )

@@ -30,6 +30,7 @@ import pages.RejectSubstitutePage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.RejectSubstituteView
+import services.CompareAnswerService
 
 import scala.concurrent.{Future, ExecutionContext}
 
@@ -42,7 +43,7 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
                                            controllerComponents: MessagesControllerComponents,
                                            view: RejectSubstituteView,
                                            implicit val appConfig: FrontendAppConfig
-                                          ) extends FrontendController(controllerComponents) with I18nSupport {
+                                          ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -57,9 +58,9 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(RejectSubstitutePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(RejectSubstitutePage, mode)(updatedAnswers))
+        val answers = compareAndConstructAnswer(request,value,RejectSubstitutePage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(RejectSubstitutePage, mode)(answers))
         )
       }
     )

@@ -30,6 +30,7 @@ import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import views.html.DidPaySubstituteView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -43,7 +44,7 @@ class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
                                            view: DidPaySubstituteView,
                                            decisionService: DecisionService,
                                            implicit val appConfig: FrontendAppConfig
-                                          ) extends FrontendController(controllerComponents) with I18nSupport {
+                                          ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -58,13 +59,13 @@ class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(DidPaySubstitutePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = compareAndConstructAnswer(request,value,DidPaySubstitutePage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 
-            val continue = navigator.nextPage(DidPaySubstitutePage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(DidPaySubstitutePage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, exit, ErrorTemplate("didPaySubstitute.title"))
+            decisionService.decide(answers, continue, exit, ErrorTemplate("didPaySubstitute.title"))
           }
         )
       }
