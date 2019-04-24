@@ -19,7 +19,8 @@ package services
 import base.SpecBase
 import config.SessionKeys
 import connectors.DecisionConnector
-import forms.DeclarationFormProvider
+import forms.mappings.Mappings
+import forms.{DeclarationFormProvider, InteractWithStakeholdersFormProvider}
 import handlers.ErrorHandler
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitue.YesClientAgreed
@@ -39,6 +40,8 @@ import models.requests.DataRequest
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import pages._
+import play.api.data.Form
+import play.api.data.Forms.of
 import play.api.mvc.{Call, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, redirectLocation, _}
@@ -558,6 +561,46 @@ class DecisionServiceSpec extends SpecBase {
 
       val result = service.determineResultView(answers, None, false, None)
 
+      result.toString() must include("This engagement should be classed as employed for tax purposes")
+      result.toString() must include(messagesApi("result.employed.whyResult.p1"))
+    }
+    "determine the view when employed and route to employed view with an error form" in {
+
+      val userAnswers: UserAnswers = UserAnswers("id")
+        .set(AboutYouPage, Worker)
+        .set(WorkerTypePage, LimitedCompany)
+        .set(OfficeHolderPage, false)
+        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(DidPaySubstitutePage, false)
+        .set(WouldWorkerPaySubstitutePage, true)
+        .set(RejectSubstitutePage, false)
+        .set(NeededToPayHelperPage, false)
+        .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+        .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
+        .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
+        .set(ChooseWhereWorkPage, Workeragreewithothers)
+        .set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+        .set(HowWorkerIsPaidPage, Commission)
+        .set(PutRightAtOwnCostPage, CannotBeCorrected)
+        .set(BenefitsPage, false)
+        .set(LineManagerDutiesPage, false)
+        .set(InteractWithStakeholdersPage, false)
+        .set(IdentifyToStakeholdersPage, WorkAsIndependent)
+
+      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString), "", userAnswers)
+
+      val answers: Seq[AnswerSection] = Seq()
+
+      import forms.mappings.Mappings
+      import play.api.data.Form
+
+      object errorForm extends Mappings {
+        val form: Form[Boolean] = Form("value" -> boolean("interactWithStakeholders.error.required")).withError("value", "Required")
+      }
+
+      val result = service.determineResultView(answers, Some(errorForm.form), false, None)
+
+      //TODO ADD ERROR FORM
       result.toString() must include("This engagement should be classed as employed for tax purposes")
       result.toString() must include(messagesApi("result.employed.whyResult.p1"))
     }
