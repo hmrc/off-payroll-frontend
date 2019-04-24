@@ -66,7 +66,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
 
             val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(answers)
             val exit = continue
-            decisionService.decide(answers, continue, exit, ErrorTemplate("chooseWhereWork.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("chooseWhereWork.title"))
           }
         )
       }

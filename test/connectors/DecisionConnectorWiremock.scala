@@ -23,7 +23,7 @@ class DecisionConnectorWiremock {
 
   def mockForSuccessResponse(request: String, response: String): StubMapping = {
 
-    stubFor(post(urlEqualTo("/off-payroll-decision/decide"))
+    stubFor(post(urlEqualTo("/cest-decision/decide"))
       .withRequestBody(equalToJson(request))
       .willReturn(
         aResponse()
@@ -33,7 +33,7 @@ class DecisionConnectorWiremock {
   }
 
   def mockForFailureResponse(request: String, responseStatus: Int): StubMapping = {
-    stubFor(post(urlEqualTo("/off-payroll-decision/decide"))
+    stubFor(post(urlEqualTo("/cest-decision/decide"))
       .withRequestBody(equalToJson(request))
       .willReturn(
         aResponse()

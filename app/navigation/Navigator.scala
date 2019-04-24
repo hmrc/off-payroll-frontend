@@ -94,7 +94,10 @@ class Navigator @Inject()() {
       case Some(_) => routes.CheckYourAnswersController.onPageLoad()
       case _ => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
     }),
-    IdentifyToStakeholdersPage -> (_ => routes.CheckYourAnswersController.onPageLoad())
+    IdentifyToStakeholdersPage -> (_ => routes.CheckYourAnswersController.onPageLoad()),
+
+    //Results Page
+    ResultPage -> (_ => routes.PDFController.onPageLoad(NormalMode))
   )
 
   private val checkRouteMap: Map[Page, UserAnswers => Call] = Map()

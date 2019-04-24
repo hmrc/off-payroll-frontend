@@ -16,14 +16,21 @@
 
 package controllers
 
+import config.SessionKeys
 import controllers.actions._
 import forms.DeclarationFormProvider
+import models.{AboutYouAnswer, NormalMode, ResultEnum}
+import navigation.FakeNavigator
 import play.api.i18n.Messages
+import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.DecisionService
 import viewmodels.AnswerSection
 import views.html.results.{IndeterminateView, _}
 
 class ResultControllerSpec extends ControllerSpecBase {
+
+  def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
@@ -57,30 +64,41 @@ class ResultControllerSpec extends ControllerSpecBase {
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
-    officeHolderInsideIR35View,
-    officeHolderEmployedView,
-    currentSubstitutionView,
-    futureSubstitutionView,
-    selfEmployedView,
-    employedView,
-    controlView,
-    financialRiskView,
-    indeterminateView,
-    insideIR35,
+    injector.instanceOf[DecisionService],
     formProvider,
+    new FakeNavigator(onwardRoute),
     frontendAppConfig
   )
 
-  def viewAsString() = officeHolderInsideIR35View(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
+  def viewAsString() = employedView(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
 
   //TODO: Currently only renders the one view; this will need to cater for all views
   "ResultPage Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+
+      val result = controller().onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+
+    "redirect to next page" in {
+
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val result = controller().onSubmit(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+    "handle errors" in {
+
+      val postRequest = fakeRequest
+
+      val result = controller().onSubmit(postRequest)
+
+      status(result) mustBe BAD_REQUEST
     }
   }
 }

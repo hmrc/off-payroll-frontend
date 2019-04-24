@@ -16,17 +16,31 @@
 
 package forms
 
-import javax.inject.Inject
-
 import forms.mappings.Mappings
-import play.api.data.Forms.seq
-import play.api.data.Form
+import javax.inject.Inject
 import models.CannotClaimAsExpense
+import play.api.data.Form
+import play.api.data.Forms.seq
+import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 
 class CannotClaimAsExpenseFormProvider @Inject() extends Mappings {
 
   def apply(): Form[Seq[CannotClaimAsExpense]] =
     Form(
-      "cannotClaimAsExpense" -> seq(enumerable[CannotClaimAsExpense]())
+      "cannotClaimAsExpense" -> seq(enumerable[CannotClaimAsExpense]()).verifying(validField)
     )
+
+  def validField: Constraint[Seq[CannotClaimAsExpense]] = {
+
+      Constraint("validCannotClaimAsExpense")({
+        claimAsExpense =>
+          val error =
+            if(claimAsExpense.nonEmpty) {
+              Nil
+            } else {
+              Seq(ValidationError("cannotClaimAsExpense.error.required"))
+            }
+          if(error.isEmpty) Valid else Invalid(error)
+      })
+  }
 }

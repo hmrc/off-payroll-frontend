@@ -85,9 +85,9 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, Seq(WorkerProvidedMaterials))
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("cannotClaimAsExpense.title")))
-      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("cannotClaimAsExpense[0]", CannotClaimAsExpense.options.head.value))

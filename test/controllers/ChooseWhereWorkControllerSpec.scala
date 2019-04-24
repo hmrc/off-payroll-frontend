@@ -85,9 +85,9 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage, Workerchooses)
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("chooseWhereWork.title")))
-      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options.head.value))

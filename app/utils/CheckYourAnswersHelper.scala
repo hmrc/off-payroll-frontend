@@ -23,6 +23,10 @@ import viewmodels.AnswerRow
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
+  def customisePDF: Option[AnswerRow] = userAnswers.get(CustomisePDFPage) map {
+    x => AnswerRow("customisePDF.checkYourAnswersLabel", s"$x", false, routes.PDFController.onPageLoad(CheckMode).url)
+  }
+
   def didPaySubstitute: Option[AnswerRow] = userAnswers.get(DidPaySubstitutePage) map {
     x => AnswerRow("didPaySubstitute.checkYourAnswersLabel", if(x) "site.yes" else "site.no", true, routes.DidPaySubstituteController.onPageLoad(CheckMode).url)
   }

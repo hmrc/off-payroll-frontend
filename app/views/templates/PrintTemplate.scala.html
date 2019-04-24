@@ -1,0 +1,40 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.config.AssetsConfig
+
+@this(assetsConfig: AssetsConfig)
+
+@(title: String, appConfig: FrontendAppConfig, bodyClasses: Option[String] = None)(content: Html)
+
+<!DOCTYPE html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+        <title>@title</title>
+
+        <link href='@appConfig.host@controllers.template.routes.Template.at("stylesheets/govuk-template.css")' media="screen" rel="stylesheet" type="text/css" />
+        <link href='@appConfig.host@controllers.template.routes.Template.at("stylesheets/govuk-template-print.css")' media="print" rel="stylesheet" type="text/css" />
+        <link href='@appConfig.host@controllers.template.routes.Template.at("stylesheets/fonts.css")' media="all" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="@{assetsConfig.assetsPrefix}/stylesheets/application.min.css">
+    </head>
+
+    <body class='@bodyClasses.getOrElse("")'>
+        @content
+    </body>
+</html>
+
+

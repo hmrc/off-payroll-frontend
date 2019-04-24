@@ -10,4 +10,9 @@
 # Failing to follow this rule may result in test routes deployed in production.
 
 # Add all the application routes to the prod.routes file
-->         /                          prod.Routes
+
+
+GET         /check-employment-status-for-tax/test-only/feature-switch        testonly.controllers.FeatureSwitchController.show
+POST        /check-employment-status-for-tax/test-only/feature-switch        testonly.controllers.FeatureSwitchController.submit
+
+->          /                                                     prod.Routes

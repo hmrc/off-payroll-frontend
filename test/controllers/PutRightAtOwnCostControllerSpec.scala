@@ -85,9 +85,9 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, OutsideOfHoursNoCharge)
 
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),Matchers.eq(onwardRoute),
+      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("putRightAtOwnCost.title")))
-      (any(),any(),any(), any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 

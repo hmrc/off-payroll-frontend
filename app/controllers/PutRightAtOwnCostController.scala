@@ -66,8 +66,7 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
 
             val continue = navigator.nextPage(PutRightAtOwnCostPage, mode)(answers)
             val exit = continue
-
-            decisionService.decide(answers, continue, exit, ErrorTemplate("putRightAtOwnCost.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("putRightAtOwnCost.title"))
           }
         )
       }

@@ -64,7 +64,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
           _ => {
             val continue = navigator.nextPage(LineManagerDutiesPage, mode)(answers)
             val exit = continue
-            decisionService.decide(answers, continue, exit, ErrorTemplate("lineManagerDuties.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("lineManagerDuties.title"))
           }
         )
       }

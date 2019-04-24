@@ -428,3 +428,16 @@ result.insideIR35.shouldNowDo.private.p1.afterLink = about your taxes.
 result.insideIR35.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.insideIR35.aboutResult.p1.link = these specific conditions of liability
 result.insideIR35.aboutResult.p1.afterLink = .
+
+customisePDF.title = Customise this result record
+customisePDF.heading = Customise this result record
+customisePDF.hint = You can add some information to this page before you print it. This is for your reference only and will not be stored by HMRC. All fields are optional
+customisePDF.customisedBy = Name of the person that completed this check
+customisePDF.time = Created on
+customisePDF.client = End client’s name
+customisePDF.job = Engagement job title
+customisePDF.reference = Reference (for example, worker’s name or contract number)
+customisePDF.completedBy.error.length = Name must be 100 characters or less
+customisePDF.client.error.length = Name must be 100 characters or less
+customisePDF.job.error.length = Job title must be 100 characters or less
+customisePDF.reference.error.length = Reference must be 100 characters or less

@@ -14,31 +14,29 @@
  * limitations under the License.
  */
 
-package connectors.HttpParsers
+package connectors.httpParsers
 
+import akka.util.ByteString
 import play.api.Logger
 import play.api.http.Status
-import uk.gov.hmrc.http.{HttpReads, HttpResponse}
+import play.api.libs.ws.WSResponse
 
 object PDFGeneratorHttpParser {
 
   type Response = Either[ErrorResponse, SuccessResponse]
 
-  val reads: HttpReads[Response] = new HttpReads[Response] {
-    override def read(method: String, url: String, response: HttpResponse): Response = {
-      response.status match {
-        case Status.OK => Right(SuccessfulPDF(response.body))
-        case Status.BAD_REQUEST =>
-          Logger.debug(s"[PDFGeneratorHttpParser][updateReads]: Bad Request returned from PDF Generator Service:\n\n $response")
-          Logger.warn(s"[PDFGeneratorHttpParser][updateReads]: Bad Request returned from PDF Generator Service")
-          Left(BadRequest)
-        case status =>
-          Logger.debug(s"[PDFGeneratorHttpParser][updateReads]: $status returned from PDF Generator Service:\n\n $response")
-          Logger.warn(s"[PDFGeneratorHttpParser][updateReads]: $status returned from PDF Generator Service")
-          Left(UnexpectedError(status))
-      }
+  val reads: WSResponse => Response = response =>
+    response.status match {
+      case Status.OK => Right(SuccessfulPDF(response.bodyAsBytes))
+      case Status.BAD_REQUEST =>
+        Logger.debug(s"[PDFGeneratorHttpParser][updateReads]: Bad Request returned from PDF Generator Service:\n\n ${response.body}")
+        Logger.warn(s"[PDFGeneratorHttpParser][updateReads]: Bad Request returned from PDF Generator Service")
+        Left(BadRequest)
+      case status =>
+        Logger.debug(s"[PDFGeneratorHttpParser][updateReads]: $status returned from PDF Generator Service:\n\n $response")
+        Logger.warn(s"[PDFGeneratorHttpParser][updateReads]: $status returned from PDF Generator Service")
+        Left(UnexpectedError(status))
     }
-  }
 
   sealed trait ErrorResponse {
     val status: Int = Status.INTERNAL_SERVER_ERROR
@@ -52,6 +50,6 @@ object PDFGeneratorHttpParser {
                              override val body: String = "Unexpected Response returned from PDF Generator Service") extends ErrorResponse
 
   sealed trait SuccessResponse
-  case class SuccessfulPDF(body: String) extends SuccessResponse
+  case class SuccessfulPDF(pdf: ByteString) extends SuccessResponse
 
 }

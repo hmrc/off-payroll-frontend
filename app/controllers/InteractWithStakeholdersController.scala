@@ -64,7 +64,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
           _ => {
             val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(answers)
             val exit = continue
-            decisionService.decide(answers, continue, exit, ErrorTemplate("interactWithStakeholders.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("interactWithStakeholders.title"))
           }
         )
       }

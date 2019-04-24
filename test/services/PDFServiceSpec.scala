@@ -16,8 +16,9 @@
 
 package services
 
+import akka.util.ByteString
 import base.SpecBase
-import connectors.HttpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
+import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import connectors.mocks.MockPDFGeneratorConnector
 import play.twirl.api.Html
 
@@ -37,7 +38,7 @@ class PDFServiceSpec extends SpecBase with MockPDFGeneratorConnector {
       "A valid response is returned" should {
 
         "return a SuccessfulPDF model" in {
-          val expected = Right(SuccessfulPDF("PDF"))
+          val expected = Right(SuccessfulPDF(ByteString("")))
           mockGeneratePdf(testHtml)(Future.successful(expected))
           val actual = await(TestPDFService.generatePdf(testHtml))
 

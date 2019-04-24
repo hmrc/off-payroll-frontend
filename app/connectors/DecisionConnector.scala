@@ -42,8 +42,8 @@ class DecisionConnectorImpl @Inject()(http: HttpClient,
                                       servicesConfig: ServicesConfig,
                                       conf: FrontendAppConfig) extends DecisionConnector {
 
-  override val baseUrl: String = servicesConfig.baseUrl("off-payroll-decision")
-  override val decideUrl = s"$baseUrl/off-payroll-decision/decide"
+  override val baseUrl: String = servicesConfig.baseUrl("cest-decision")
+  override val decideUrl = s"$baseUrl/cest-decision/decide"
 
   def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
 

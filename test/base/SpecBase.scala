@@ -18,6 +18,7 @@ package base
 
 import config.FrontendAppConfig
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
+import handlers.ErrorHandler
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -31,6 +32,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.Wiremock
+
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.language.implicitConversions
@@ -58,6 +60,8 @@ trait SpecBase extends PlaySpec with MaterializerSupport with MockitoSugar{
 
   implicit def ec: ExecutionContext = injector.instanceOf[ExecutionContext]
   implicit def hc: HeaderCarrier = HeaderCarrier()
+
+  def errorHandler = injector.instanceOf[ErrorHandler]
 
   def fakeRequest = FakeRequest("", "")
 

@@ -22,44 +22,54 @@ import org.scalacheck.{Arbitrary, Gen}
 
 trait ModelGenerators {
 
+  implicit lazy val arbitraryAdditionalPdfDetails: Arbitrary[AdditionalPdfDetails] =
+    Arbitrary {
+      for {
+        name <- arbitrary[Option[String]]
+        client <- arbitrary[Option[String]]
+        job <- arbitrary[Option[String]]
+        reference <- arbitrary[Option[String]]
+      } yield AdditionalPdfDetails(name, client, job, reference)
+    }
+
   implicit lazy val arbitraryMoveWorker: Arbitrary[MoveWorker] =
     Arbitrary {
-      Gen.oneOf(MoveWorker.values.toSeq)
+      Gen.oneOf(MoveWorker.values)
     }
 
   implicit lazy val arbitraryHowWorkIsDone: Arbitrary[HowWorkIsDone] =
     Arbitrary {
-      Gen.oneOf(HowWorkIsDone.values.toSeq)
+      Gen.oneOf(HowWorkIsDone.values)
     }
 
   implicit lazy val arbitraryScheduleOfWorkingHours: Arbitrary[ScheduleOfWorkingHours] =
     Arbitrary {
-      Gen.oneOf(ScheduleOfWorkingHours.values.toSeq)
+      Gen.oneOf(ScheduleOfWorkingHours.values)
     }
 
   implicit lazy val arbitraryChooseWhereWork: Arbitrary[ChooseWhereWork] =
     Arbitrary {
-      Gen.oneOf(ChooseWhereWork.values.toSeq)
+      Gen.oneOf(ChooseWhereWork.values)
     }
 
   implicit lazy val arbitraryHowWorkerIsPaid: Arbitrary[HowWorkerIsPaid] =
     Arbitrary {
-      Gen.oneOf(HowWorkerIsPaid.values.toSeq)
+      Gen.oneOf(HowWorkerIsPaid.values)
     }
 
   implicit lazy val arbitraryPutRightAtOwnCost: Arbitrary[PutRightAtOwnCost] =
     Arbitrary {
-      Gen.oneOf(PutRightAtOwnCost.values.toSeq)
+      Gen.oneOf(PutRightAtOwnCost.values)
     }
 
   implicit lazy val arbitraryIdentifyToStakeholders: Arbitrary[IdentifyToStakeholders] =
     Arbitrary {
-      Gen.oneOf(IdentifyToStakeholders.values.toSeq)
+      Gen.oneOf(IdentifyToStakeholders.values)
     }
 
   implicit lazy val arbitraryArrangedSubstitue: Arbitrary[ArrangedSubstitue] =
     Arbitrary {
-      Gen.oneOf(ArrangedSubstitue.values.toSeq)
+      Gen.oneOf(ArrangedSubstitue.values)
     }
 
   implicit lazy val arbitraryCannotClaimAsExpense: Arbitrary[CannotClaimAsExpense] =

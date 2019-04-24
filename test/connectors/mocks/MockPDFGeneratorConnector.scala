@@ -16,9 +16,8 @@
 
 package connectors.mocks
 
-import base.SpecBase
-import connectors.HttpParsers.PDFGeneratorHttpParser
 import connectors.PDFGeneratorConnector
+import connectors.httpParsers.PDFGeneratorHttpParser
 import org.scalamock.scalatest.MockFactory
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier

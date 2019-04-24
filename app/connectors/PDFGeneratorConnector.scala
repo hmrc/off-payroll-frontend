@@ -17,26 +17,24 @@
 package connectors
 
 import config.FrontendAppConfig
-import connectors.HttpParsers.PDFGeneratorHttpParser
+import connectors.httpParsers.PDFGeneratorHttpParser
+import connectors.httpParsers.PDFGeneratorHttpParser.Response
 import javax.inject.Inject
-import play.api.libs.json.{Json, Writes}
+import models.PdfRequest
+import play.api.libs.json.Json
+import play.api.libs.ws.WSClient
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
 
 import scala.concurrent.{ExecutionContext, Future}
 
 
-class PDFGeneratorConnector @Inject()(httpClient: HttpClient,
+class PDFGeneratorConnector @Inject()(ws: WSClient,
                                       appConfig: FrontendAppConfig) {
 
   private[connectors] lazy val url = appConfig.pdfGeneratorService + "/pdf-generator-service/generate"
 
-  private[connectors] def writes: Writes[Html] = Writes { html =>
-    Json.obj("html" -> html.toString)
-  }
-
-  def generatePdf(html: Html)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[PDFGeneratorHttpParser.Response] = {
-    httpClient.POST(url, html)(writes, PDFGeneratorHttpParser.reads, hc, ec)
-  }
+  //TODO Why not HTTP verbs?
+  def generatePdf(html: Html)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Response] =
+    ws.url(url).post(Json.toJson(PdfRequest(html))) map PDFGeneratorHttpParser.reads
 }
