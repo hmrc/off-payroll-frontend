@@ -61,7 +61,7 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: Req
         @if(!printView){
             @formWithCsrf(postAction, 'autoComplete -> "off") {
                 @sections.declaration(form)
-                @components.submit_button()
+                @components.submit_button(true)
             }
         }
     }
