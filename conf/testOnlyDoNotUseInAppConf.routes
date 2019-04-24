@@ -12,7 +12,7 @@
 # Add all the application routes to the prod.routes file
 
 
-GET         /off-payroll-frontend/test-only/feature-switch        testonly.controllers.FeatureSwitchController.show
-POST        /off-payroll-frontend/test-only/feature-switch        testonly.controllers.FeatureSwitchController.submit
+GET         /check-employment-status-for-tax/test-only/feature-switch        testonly.controllers.FeatureSwitchController.show
+POST        /check-employment-status-for-tax/test-only/feature-switch        testonly.controllers.FeatureSwitchController.submit
 
 ->          /                                                     prod.Routes
