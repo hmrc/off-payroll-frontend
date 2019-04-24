@@ -143,8 +143,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
       case (_, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
       case (Some(true), _, _, _) => currentSubstitutionView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
       case (Some(false), _, _, _) => futureSubstitutionView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
-        //TODO Change default?
-      case _ => financialRiskView(appConf,answerSections,version,resultForm,action,printMode,additionalPdfDetails)
+      case _ => errorHandler.internalServerErrorTemplate
     }
 
     result match {
