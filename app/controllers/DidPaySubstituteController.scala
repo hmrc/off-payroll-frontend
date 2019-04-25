@@ -62,9 +62,7 @@ class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
         val answers = constructAnswers(request,value,DidPaySubstitutePage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-
             val continue = navigator.nextPage(DidPaySubstitutePage, mode)(answers)
-            val exit = continue
             decisionService.decide(answers, continue, ErrorTemplate("didPaySubstitute.title"))
           }
         )

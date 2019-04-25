@@ -31,6 +31,7 @@ trait CompareAnswerService[T] {
     WorkerTypePage,
     OfficeHolderPage,
     ArrangedSubstitutePage,
+    DidPaySubstitutePage,
     RejectSubstitutePage,
     WouldWorkerPaySubstitutePage,
     NeededToPayHelperPage,
