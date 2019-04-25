@@ -30,7 +30,7 @@ import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.ArrangedSubstitueView
+import views.html.ArrangedSubstituteView
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -41,7 +41,7 @@ class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnec
                                              requireData: DataRequiredAction,
                                              formProvider: ArrangedSubstituteFormProvider,
                                              controllerComponents: MessagesControllerComponents,
-                                             view: ArrangedSubstitueView,
+                                             view: ArrangedSubstituteView,
                                              implicit val appConfig: FrontendAppConfig
                                            ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[ArrangedSubstitute]{
   implicit val ec: ExecutionContext = controllerComponents.executionContext

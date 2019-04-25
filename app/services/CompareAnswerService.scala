@@ -56,8 +56,10 @@ trait CompareAnswerService[T] {
     val previousAnswer = request.userAnswers.get(page)(reads)
     val updatedAnswer = request.userAnswers.set(page, value)
     if(previousAnswer.fold(false){ answer => answer == updatedAnswer}){
+      println("1")
       request.userAnswers
     } else {
+      println("2")
       val removedPages = recursivelyClearQuestions(getPagesToClear(page),request.userAnswers)
       removedPages.set(page,updatedAnswer.get(page).get)
     }
