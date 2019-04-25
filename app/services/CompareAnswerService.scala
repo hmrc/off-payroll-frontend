@@ -54,14 +54,17 @@ trait CompareAnswerService[T] {
   def constructAnswers(request: DataRequest[AnyContent], value: T,
                        page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T]): UserAnswers = {
     val previousAnswer = request.userAnswers.get(page)(reads)
-    val updatedAnswer = request.userAnswers.set(page, value)
+    val updatedAnswer = value
     if(previousAnswer.fold(false){ answer => answer == updatedAnswer}){
-      println("1")
+      println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++1")
       request.userAnswers
     } else {
-      println("2")
+      println("*****************************************************2")
+      println(previousAnswer.getOrElse("no previous").toString)
+      println(updatedAnswer)
+      println("*****************************************************2")
       val removedPages = recursivelyClearQuestions(getPagesToClear(page),request.userAnswers)
-      removedPages.set(page,updatedAnswer.get(page).get)
+      removedPages.set(page,value)
     }
   }
 
