@@ -38,5 +38,5 @@ class LanguageSwitchController @Inject()(appConfig: FrontendAppConfig,
       Redirect(redirectURL).withLang(Lang.apply(lang.code)).flashing(Flash(Map("switching-language" -> "true")))
   }
 
-  protected def isWelshEnabled: Boolean = appConfig.servicesConfig.getBoolean("microservice.services.features.welsh-translation")
+  protected def isWelshEnabled: Boolean = appConfig.servicesConfig.getBoolean("feature-switch.welsh-translation")
 }

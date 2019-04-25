@@ -44,7 +44,7 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
 
   lazy val host: String = servicesConfig.getString("host")
 
-  lazy val languageTranslationEnabled = servicesConfig.getBoolean("microservice.services.features.welsh-translation")
+  lazy val languageTranslationEnabled = servicesConfig.getBoolean("feature-switch.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
