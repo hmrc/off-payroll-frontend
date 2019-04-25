@@ -22,40 +22,40 @@ import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}
 
-class ArrangedSubstitueSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
+class ArrangedSubstituteSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with OptionValues {
 
-  "ArrangedSubstitue" must {
+  "ArrangedSubstitute" must {
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(ArrangedSubstitue.values)
+      val gen = Gen.oneOf(ArrangedSubstitute.values)
 
       forAll(gen) {
-        arrangedSubstitue =>
+        arrangedSubstitute =>
 
-          JsString(arrangedSubstitue.toString).validate[ArrangedSubstitue].asOpt.value mustEqual arrangedSubstitue
+          JsString(arrangedSubstitute.toString).validate[ArrangedSubstitute].asOpt.value mustEqual arrangedSubstitute
       }
     }
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!ArrangedSubstitue.values.map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!ArrangedSubstitute.values.map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
 
-          JsString(invalidValue).validate[ArrangedSubstitue] mustEqual JsError("Unknown arrangedSubstitue")
+          JsString(invalidValue).validate[ArrangedSubstitute] mustEqual JsError("Unknown arrangedSubstitute")
       }
     }
 
     "serialise" in {
 
-      val gen = Gen.oneOf(ArrangedSubstitue.values)
+      val gen = Gen.oneOf(ArrangedSubstitute.values)
 
       forAll(gen) {
-        arrangedSubstitue =>
+        arrangedSubstitute =>
 
-          Json.toJson(arrangedSubstitue) mustEqual JsString(arrangedSubstitue.toString)
+          Json.toJson(arrangedSubstitute) mustEqual JsString(arrangedSubstitute.toString)
       }
     }
   }

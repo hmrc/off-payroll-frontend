@@ -42,7 +42,7 @@ trait UserAnswersUtils {
   def substitutesHelpers(implicit checkYourAnswersHelper: CheckYourAnswersHelper) = AnswerSection(
     headingKey = Some("result.substitutesHelpers.h2"),
     rows = Seq(
-      checkYourAnswersHelper.arrangedSubstitue,
+      checkYourAnswersHelper.arrangedSubstitute,
       checkYourAnswersHelper.didPaySubstitute,
       checkYourAnswersHelper.rejectSubstitute,
       checkYourAnswersHelper.wouldWorkerPaySubstitute,

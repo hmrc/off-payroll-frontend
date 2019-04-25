@@ -17,22 +17,22 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
-import models.ArrangedSubstitue
+import models.ArrangedSubstitute
 import play.api.data.FormError
 
-class ArrangedSubstitueFormProviderSpec extends OptionFieldBehaviours {
+class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours {
 
-  val form = new ArrangedSubstitueFormProvider()()
+  val form = new ArrangedSubstituteFormProvider()()
 
   ".value" must {
 
     val fieldName = "value"
-    val requiredKey = "arrangedSubstitue.error.required"
+    val requiredKey = "arrangedSubstitute.error.required"
 
-    behave like optionsField[ArrangedSubstitue](
+    behave like optionsField[ArrangedSubstitute](
       form,
       fieldName,
-      validValues  = ArrangedSubstitue.values,
+      validValues  = ArrangedSubstitute.values,
       invalidError = FormError(fieldName, "error.invalid")
     )
 

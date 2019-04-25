@@ -20,12 +20,12 @@ import javax.inject.Inject
 
 import forms.mappings.Mappings
 import play.api.data.Form
-import models.ArrangedSubstitue
+import models.ArrangedSubstitute
 
-class ArrangedSubstitueFormProvider @Inject() extends Mappings {
+class ArrangedSubstituteFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[ArrangedSubstitue] =
+  def apply(): Form[ArrangedSubstitute] =
     Form(
-      "value" -> enumerable[ArrangedSubstitue]("arrangedSubstitue.error.required")
+      "value" -> enumerable[ArrangedSubstitute]("arrangedSubstitute.error.required")
     )
 }

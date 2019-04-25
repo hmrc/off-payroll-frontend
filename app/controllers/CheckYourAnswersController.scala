@@ -55,7 +55,7 @@ class CheckYourAnswersController @Inject()(authenticate: IdentifierAction,
       AnswerSection(
         headingKey = Some("Personal Service Section"),
         rows = Seq(
-          checkYourAnswersHelper.arrangedSubstitue,
+          checkYourAnswersHelper.arrangedSubstitute,
           checkYourAnswersHelper.didPaySubstitute,
           checkYourAnswersHelper.rejectSubstitute,
           checkYourAnswersHelper.wouldWorkerPaySubstitute,

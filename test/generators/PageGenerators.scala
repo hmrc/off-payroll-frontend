@@ -66,8 +66,8 @@ trait PageGenerators {
   implicit lazy val arbitraryIdentifyToStakeholdersPage: Arbitrary[IdentifyToStakeholdersPage.type] =
     Arbitrary(IdentifyToStakeholdersPage)
 
-  implicit lazy val arbitraryArrangedSubstituePage: Arbitrary[ArrangedSubstituePage.type] =
-    Arbitrary(ArrangedSubstituePage)
+  implicit lazy val arbitraryArrangedSubstitutePage: Arbitrary[ArrangedSubstitutePage.type] =
+    Arbitrary(ArrangedSubstitutePage)
 
   implicit lazy val arbitraryCannotClaimAsExpensePage: Arbitrary[CannotClaimAsExpensePage.type] =
     Arbitrary(CannotClaimAsExpensePage)
