@@ -41,7 +41,7 @@ trait CacheMapGenerator {
     arbitrary[(LineManagerDutiesPage.type, JsValue)] ::
     arbitrary[(InteractWithStakeholdersPage.type, JsValue)] ::
     arbitrary[(IdentifyToStakeholdersPage.type, JsValue)] ::
-    arbitrary[(ArrangedSubstituePage.type, JsValue)] ::
+    arbitrary[(ArrangedSubstitutePage.type, JsValue)] ::
     arbitrary[(CannotClaimAsExpensePage.type, JsValue)] ::
     arbitrary[(OfficeHolderPage.type, JsValue)] ::
     arbitrary[(WorkerTypePage.type, JsValue)] ::

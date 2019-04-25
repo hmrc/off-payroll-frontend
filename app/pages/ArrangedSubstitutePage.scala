@@ -16,8 +16,8 @@
 
 package pages
 
-import models.ArrangedSubstitue
+import models.ArrangedSubstitute
 
-case object ArrangedSubstituePage extends QuestionPage[ArrangedSubstitue] {
-  override def toString: String = "arrangedSubstitue"
+case object ArrangedSubstitutePage extends QuestionPage[ArrangedSubstitute] {
+  override def toString: String = "arrangedSubstitute"
 }

@@ -18,7 +18,7 @@ package models
 
 import base.SpecBase
 import models.AboutYouAnswer.Worker
-import models.ArrangedSubstitue.YesClientAgreed
+import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.ChooseWhereWork.Workeragreewithothers
 import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
@@ -45,7 +45,7 @@ class InterviewSpec extends SpecBase {
           .set(ContractStartedPage, true)
           .set(WorkerTypePage, SoleTrader)
           .set(OfficeHolderPage, false)
-          .set(ArrangedSubstituePage, YesClientAgreed)
+          .set(ArrangedSubstitutePage, YesClientAgreed)
           .set(DidPaySubstitutePage, false)
           .set(WouldWorkerPaySubstitutePage, true)
           .set(RejectSubstitutePage, false)

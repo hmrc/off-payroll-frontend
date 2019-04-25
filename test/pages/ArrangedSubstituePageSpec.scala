@@ -16,17 +16,17 @@
 
 package pages
 
-import models.ArrangedSubstitue
+import models.ArrangedSubstitute
 import pages.behaviours.PageBehaviours
 
-class ArrangedSubstitueSpec extends PageBehaviours {
+class ArrangedSubstituteSpec extends PageBehaviours {
 
   "YourLocation" must {
 
-    beRetrievable[ArrangedSubstitue](ArrangedSubstituePage)
+    beRetrievable[ArrangedSubstitute](ArrangedSubstitutePage)
 
-    beSettable[ArrangedSubstitue](ArrangedSubstituePage)
+    beSettable[ArrangedSubstitute](ArrangedSubstitutePage)
 
-    beRemovable[ArrangedSubstitue](ArrangedSubstituePage)
+    beRemovable[ArrangedSubstitute](ArrangedSubstitutePage)
   }
 }

@@ -19,36 +19,36 @@ package models
 import play.api.libs.json._
 import viewmodels.RadioOption
 
-sealed trait ArrangedSubstitue
+sealed trait ArrangedSubstitute
 
-object ArrangedSubstitue {
+object ArrangedSubstitute {
 
-  case object YesClientAgreed extends WithName("yesClientAgreed") with ArrangedSubstitue
-  case object YesClientNotAgreed extends WithName("yesClientNotAgreed") with ArrangedSubstitue
-  case object No extends WithName("no") with ArrangedSubstitue
+  case object YesClientAgreed extends WithName("yesClientAgreed") with ArrangedSubstitute
+  case object YesClientNotAgreed extends WithName("yesClientNotAgreed") with ArrangedSubstitute
+  case object No extends WithName("no") with ArrangedSubstitute
 
-  val values: Seq[ArrangedSubstitue] = Seq(
+  val values: Seq[ArrangedSubstitute] = Seq(
     YesClientAgreed, YesClientNotAgreed, No
   )
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("arrangedSubstitue", value.toString)
+      RadioOption("arrangedSubstitute", value.toString)
   }
 
-  implicit val enumerable: Enumerable[ArrangedSubstitue] =
+  implicit val enumerable: Enumerable[ArrangedSubstitute] =
     Enumerable(values.map(v => v.toString -> v): _*)
 
-  implicit object ArrangedSubstitueWrites extends Writes[ArrangedSubstitue] {
-    def writes(arrangedSubstitue: ArrangedSubstitue) = Json.toJson(arrangedSubstitue.toString)
+  implicit object ArrangedSubstituteWrites extends Writes[ArrangedSubstitute] {
+    def writes(arrangedSubstitute: ArrangedSubstitute) = Json.toJson(arrangedSubstitute.toString)
   }
 
-  implicit object ArrangedSubstitueReads extends Reads[ArrangedSubstitue] {
-    override def reads(json: JsValue): JsResult[ArrangedSubstitue] = json match {
+  implicit object ArrangedSubstituteReads extends Reads[ArrangedSubstitute] {
+    override def reads(json: JsValue): JsResult[ArrangedSubstitute] = json match {
       case JsString(YesClientAgreed.toString) => JsSuccess(YesClientAgreed)
       case JsString(YesClientNotAgreed.toString) => JsSuccess(YesClientNotAgreed)
       case JsString(No.toString) => JsSuccess(No)
-      case _                          => JsError("Unknown arrangedSubstitue")
+      case _                          => JsError("Unknown arrangedSubstitute")
     }
   }
 }

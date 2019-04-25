@@ -17,7 +17,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import controllers.routes._
-@import models.ArrangedSubstitue
+@import models.ArrangedSubstitute
 @import models.Mode
 @import views.ViewUtils._
 
@@ -26,24 +26,24 @@
 @(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("arrangedSubstitue.title")}",
+    title = s"${errorPrefix(form)} ${messages("arrangedSubstitute.title")}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = ArrangedSubstitueController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = ArrangedSubstituteController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.back_link()
 
         @components.error_summary(form.errors)
 
-        @components.heading("arrangedSubstitue.heading", Some("arrangedSubstitue.subheading"))
+        @components.heading("arrangedSubstitute.heading", Some("arrangedSubstitute.subheading"))
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("arrangedSubstitue.heading"),
+            legend = messages("arrangedSubstitute.heading"),
             hint = Some(hint),
             legendClass = Some("visually-hidden"),
-            inputs = ArrangedSubstitue.options
+            inputs = ArrangedSubstitute.options
         )
 
         @components.submit_button()
@@ -51,12 +51,12 @@
 }
 
 @hint = {
-    <p>@messages("arrangedSubstitue.p1")</p>
+    <p>@messages("arrangedSubstitute.p1")</p>
     @components.bulleted_list(Seq(
-        "arrangedSubstitue.bullet1",
-        "arrangedSubstitue.bullet2",
-        "arrangedSubstitue.bullet3",
-        "arrangedSubstitue.bullet4",
-        "arrangedSubstitue.bullet5"
+        "arrangedSubstitute.bullet1",
+        "arrangedSubstitute.bullet2",
+        "arrangedSubstitute.bullet3",
+        "arrangedSubstitute.bullet4",
+        "arrangedSubstitute.bullet5"
     ))
 }

@@ -23,23 +23,23 @@ import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
-import forms.ArrangedSubstitueFormProvider
+import forms.ArrangedSubstituteFormProvider
 import models.NormalMode
-import models.ArrangedSubstitue
-import pages.ArrangedSubstituePage
+import models.ArrangedSubstitute
+import pages.ArrangedSubstitutePage
 import play.api.mvc.Call
-import views.html.ArrangedSubstitueView
+import views.html.ArrangedSubstituteView
 
-class ArrangedSubstitueControllerSpec extends ControllerSpecBase {
+class ArrangedSubstituteControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = Call("GET", "/foo")
 
-  val formProvider = new ArrangedSubstitueFormProvider()
+  val formProvider = new ArrangedSubstituteFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[ArrangedSubstitueView]
+  val view = injector.instanceOf[ArrangedSubstituteView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ArrangedSubstitueController(
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ArrangedSubstituteController(
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -53,7 +53,7 @@ class ArrangedSubstitueControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 
-  "ArrangedSubstitue Controller" must {
+  "ArrangedSubstitute Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
@@ -63,16 +63,16 @@ class ArrangedSubstitueControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ArrangedSubstituePage.toString -> JsString(ArrangedSubstitue.values.head.toString))
+      val validData = Map(ArrangedSubstitutePage.toString -> JsString(ArrangedSubstitute.values.head.toString))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(ArrangedSubstitue.values.head))
+      contentAsString(result) mustBe viewAsString(form.fill(ArrangedSubstitute.values.head))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitue.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -98,7 +98,7 @@ class ArrangedSubstitueControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitue.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
       val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
