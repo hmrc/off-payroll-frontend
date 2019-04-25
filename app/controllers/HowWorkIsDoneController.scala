@@ -58,7 +58,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,HowWorkIsDonePage)
+        val answers = constructAnswers(request,value,HowWorkIsDonePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(HowWorkIsDonePage, mode)(answers))
         )

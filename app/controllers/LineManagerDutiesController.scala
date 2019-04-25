@@ -59,7 +59,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,LineManagerDutiesPage)
+        val answers = constructAnswers(request,value,LineManagerDutiesPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(LineManagerDutiesPage, mode)(answers)

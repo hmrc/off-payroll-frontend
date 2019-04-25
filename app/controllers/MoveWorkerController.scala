@@ -58,7 +58,7 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,MoveWorkerPage)
+        val answers = constructAnswers(request,value,MoveWorkerPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(MoveWorkerPage, mode)(answers))
         )

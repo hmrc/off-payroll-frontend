@@ -51,22 +51,22 @@ trait CompareAnswerService[T] {
     pageOrder.splitAt(pageOrder.indexOf(currentPage))._2
   }
 
-  def compareAndConstructAnswer(request: DataRequest[AnyContent], value: T,
-                                page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T]): UserAnswers = {
+  def constructAnswers(request: DataRequest[AnyContent], value: T,
+                       page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T]): UserAnswers = {
     val previousAnswer = request.userAnswers.get(page)(reads)
     val updatedAnswer = request.userAnswers.set(page, value)
     if(previousAnswer.fold(false){ answer => answer == updatedAnswer}){
       request.userAnswers
     } else {
-      val removedPages = recursivelyRemovePages(getPagesToClear(page),request.userAnswers)
+      val removedPages = recursivelyClearQuestions(getPagesToClear(page),request.userAnswers)
       removedPages.set(page,updatedAnswer.get(page).get)
     }
   }
 
-  def recursivelyRemovePages(pages: Seq[Page],userAnswers: UserAnswers): UserAnswers = {
+  def recursivelyClearQuestions(pages: Seq[Page], userAnswers: UserAnswers): UserAnswers = {
     if(pages.isEmpty) userAnswers else {
       val updatedAnswers = UserAnswers(userAnswers.cacheMap copy (data = userAnswers.cacheMap.data - pages.head))
-      recursivelyRemovePages(pages.tail,updatedAnswers)
+      recursivelyClearQuestions(pages.tail,updatedAnswers)
     }
   }
 

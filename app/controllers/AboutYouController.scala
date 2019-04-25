@@ -57,7 +57,7 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,AboutYouPage)
+        val answers = constructAnswers(request,value,AboutYouPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(AboutYouPage, mode)(answers))
         )

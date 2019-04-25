@@ -60,7 +60,7 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,PutRightAtOwnCostPage)
+        val answers = constructAnswers(request,value,PutRightAtOwnCostPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 

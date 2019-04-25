@@ -59,7 +59,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,InteractWithStakeholdersPage)
+        val answers = constructAnswers(request,value,InteractWithStakeholdersPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(answers)

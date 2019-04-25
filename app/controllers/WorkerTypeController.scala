@@ -60,7 +60,7 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,WorkerTypePage)
+        val answers = constructAnswers(request,value,WorkerTypePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(WorkerTypePage, mode)(answers))
         )

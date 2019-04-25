@@ -58,7 +58,7 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,RejectSubstitutePage)
+        val answers = constructAnswers(request,value,RejectSubstitutePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(RejectSubstitutePage, mode)(answers))
         )

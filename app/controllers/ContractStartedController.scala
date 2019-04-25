@@ -58,7 +58,7 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,ContractStartedPage)
+        val answers = constructAnswers(request,value,ContractStartedPage)
         dataCacheConnector.save(answers.cacheMap).map(
             _ => Redirect(navigator.nextPage(ContractStartedPage, mode)(answers))
           )

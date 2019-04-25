@@ -59,7 +59,7 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,NeededToPayHelperPage)
+        val answers = constructAnswers(request,value,NeededToPayHelperPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 

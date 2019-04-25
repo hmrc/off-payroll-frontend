@@ -57,7 +57,7 @@ class ArrangedSubstitueController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,ArrangedSubstituePage)
+        val answers = constructAnswers(request,value,ArrangedSubstituePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(ArrangedSubstituePage, mode)(answers))
         )

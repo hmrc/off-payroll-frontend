@@ -63,7 +63,7 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,BenefitsPage)
+        val answers = constructAnswers(request,value,BenefitsPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 

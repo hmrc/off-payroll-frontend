@@ -60,7 +60,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,ChooseWhereWorkPage)
+        val answers = constructAnswers(request,value,ChooseWhereWorkPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 

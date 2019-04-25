@@ -58,7 +58,7 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,HowWorkerIsPaidPage)
+        val answers = constructAnswers(request,value,HowWorkerIsPaidPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(HowWorkerIsPaidPage, mode)(answers))
         )

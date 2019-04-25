@@ -59,7 +59,7 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       values => {
-        val answers = compareAndConstructAnswer(request,values,CannotClaimAsExpensePage)
+        val answers = constructAnswers(request,values,CannotClaimAsExpensePage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(answers)

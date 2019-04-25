@@ -60,7 +60,7 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
 
-        val answers = compareAndConstructAnswer(request,value,OfficeHolderPage)
+        val answers = constructAnswers(request,value,OfficeHolderPage)
 
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {

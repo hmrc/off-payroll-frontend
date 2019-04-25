@@ -60,7 +60,7 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
 
-        val answers = compareAndConstructAnswer(request,value,WouldWorkerPaySubstitutePage)
+        val answers = constructAnswers(request,value,WouldWorkerPaySubstitutePage)
 
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {

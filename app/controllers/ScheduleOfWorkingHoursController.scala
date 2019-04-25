@@ -58,7 +58,7 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = compareAndConstructAnswer(request,value,ScheduleOfWorkingHoursPage)
+        val answers = constructAnswers(request,value,ScheduleOfWorkingHoursPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(ScheduleOfWorkingHoursPage, mode)(answers))
         )
