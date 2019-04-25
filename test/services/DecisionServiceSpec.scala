@@ -23,7 +23,7 @@ import forms.mappings.Mappings
 import forms.{DeclarationFormProvider, InteractWithStakeholdersFormProvider}
 import handlers.ErrorHandler
 import models.AboutYouAnswer.Worker
-import models.ArrangedSubstitue.YesClientAgreed
+import models.ArrangedSubstitute.{No, YesClientAgreed}
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.ChooseWhereWork.Workeragreewithothers
 import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
@@ -84,7 +84,7 @@ class DecisionServiceSpec extends SpecBase {
     .set(ContractStartedPage, true)
     .set(WorkerTypePage, SoleTrader)
     .set(OfficeHolderPage, false)
-    .set(ArrangedSubstituePage, YesClientAgreed)
+    .set(ArrangedSubstitutePage, YesClientAgreed)
     .set(DidPaySubstitutePage, false)
     .set(WouldWorkerPaySubstitutePage, true)
     .set(RejectSubstitutePage, false)
@@ -137,7 +137,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(ContractStartedPage, true)
         .set(WorkerTypePage, SoleTrader)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -171,7 +171,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(ContractStartedPage, true)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -206,7 +206,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(ContractStartedPage, true)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -242,7 +242,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(ContractStartedPage, true)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -268,6 +268,39 @@ class DecisionServiceSpec extends SpecBase {
       result.toString() must include("The intermediaries legislation does not apply to this engagement")
       result.toString() must include(messagesApi("result.currentSubstitution.whyResult.p1"))
     }
+    "determine the view when outside and future substitution due to not yet arranged" in {
+
+      val userAnswers: UserAnswers = UserAnswers("id")
+        .set(AboutYouPage, Worker)
+        .set(ContractStartedPage, true)
+        .set(WorkerTypePage, LimitedCompany)
+        .set(OfficeHolderPage, false)
+        .set(ArrangedSubstitutePage, No)
+        .set(DidPaySubstitutePage, false)
+        .set(WouldWorkerPaySubstitutePage, true)
+        .set(RejectSubstitutePage, false)
+        .set(NeededToPayHelperPage, false)
+        .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+        .set(HowWorkIsDonePage, WorkerFollowStrictEmployeeProcedures)
+        .set(ScheduleOfWorkingHoursPage, WorkerAgreeSchedule)
+        .set(ChooseWhereWorkPage, Workeragreewithothers)
+        .set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+        .set(HowWorkerIsPaidPage, Commission)
+        .set(PutRightAtOwnCostPage, CannotBeCorrected)
+        .set(BenefitsPage, false)
+        .set(LineManagerDutiesPage, false)
+        .set(InteractWithStakeholdersPage, false)
+        .set(IdentifyToStakeholdersPage, WorkAsIndependent)
+
+      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
+
+      val answers: Seq[AnswerSection] = Seq()
+
+      val result = service.determineResultView(answers, None, false, None)
+
+      result.toString() must include("The intermediaries legislation does not apply to this engagement")
+      result.toString() must include(messagesApi("result.futureSubstitution.whyResult.p1"))
+    }
 
     "determine the view when outside and future substitution" in {
 
@@ -276,7 +309,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(ContractStartedPage, false)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -309,7 +342,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -342,7 +375,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, SoleTrader)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -375,7 +408,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, true)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -408,7 +441,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -441,7 +474,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, SoleTrader)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -474,7 +507,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, SoleTrader)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -506,7 +539,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, true)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -538,7 +571,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)
@@ -570,7 +603,7 @@ class DecisionServiceSpec extends SpecBase {
         .set(AboutYouPage, Worker)
         .set(WorkerTypePage, LimitedCompany)
         .set(OfficeHolderPage, false)
-        .set(ArrangedSubstituePage, YesClientAgreed)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
         .set(DidPaySubstitutePage, false)
         .set(WouldWorkerPaySubstitutePage, true)
         .set(RejectSubstitutePage, false)

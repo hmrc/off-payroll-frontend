@@ -22,10 +22,11 @@ import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
-import pages.{ContractStartedPage, OfficeHolderPage, WorkerTypePage}
+import pages.{ArrangedSubstitutePage, ContractStartedPage, OfficeHolderPage, WorkerTypePage}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
@@ -126,6 +127,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val financialRisk = financialRiskSession.map(WeightedAnswerEnum.withName)
     val workerTypeAnswer = request.userAnswers.get(WorkerTypePage)
     val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
+    val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
     val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).getOrElse(false)
 
     val action: Call = routes.ResultController.onSubmit()
@@ -137,13 +139,14 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
       case (_, _) => insideIR35View(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
     }
 
-    def resultViewOutside: HtmlFormat.Appendable = (currentContractAnswer, workerTypeAnswer, control, financialRisk) match {
-      case (_, Some(SoleTrader), _, _) => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
-      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
+    def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, workerTypeAnswer, control, financialRisk) match {
+      case (_, _, Some(SoleTrader), _, _) => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
         financialRiskView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
-      case (_, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
-      case (Some(true), _, _, _) => currentSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
-      case (Some(false), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (Some(No), Some(true), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (Some(_), Some(true), _, _, _) => currentSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (_, Some(false), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
       case _ => errorHandler.internalServerErrorTemplate
     }
 

@@ -19,27 +19,27 @@ package controllers
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.ArrangedSubstitueFormProvider
+import forms.ArrangedSubstituteFormProvider
 import javax.inject.Inject
 import models.{Enumerable, Mode}
 import navigation.Navigator
-import pages.ArrangedSubstituePage
+import pages.ArrangedSubstitutePage
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.ArrangedSubstitueView
+import views.html.ArrangedSubstituteView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ArrangedSubstitueController @Inject()(dataCacheConnector: DataCacheConnector,
-                                            navigator: Navigator,
-                                            identify: IdentifierAction,
-                                            getData: DataRetrievalAction,
-                                            requireData: DataRequiredAction,
-                                            formProvider: ArrangedSubstitueFormProvider,
-                                            controllerComponents: MessagesControllerComponents,
-                                            view: ArrangedSubstitueView,
-                                            implicit val appConfig: FrontendAppConfig
+class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
+                                             navigator: Navigator,
+                                             identify: IdentifierAction,
+                                             getData: DataRetrievalAction,
+                                             requireData: DataRequiredAction,
+                                             formProvider: ArrangedSubstituteFormProvider,
+                                             controllerComponents: MessagesControllerComponents,
+                                             view: ArrangedSubstituteView,
+                                             implicit val appConfig: FrontendAppConfig
                                            ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
@@ -47,7 +47,7 @@ class ArrangedSubstitueController @Inject()(dataCacheConnector: DataCacheConnect
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(ArrangedSubstituePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(ArrangedSubstitutePage).fold(form)(form.fill), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -55,9 +55,9 @@ class ArrangedSubstitueController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(ArrangedSubstituePage, value)
+        val updatedAnswers = request.userAnswers.set(ArrangedSubstitutePage, value)
         dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ArrangedSubstituePage, mode)(updatedAnswers))
+          _ => Redirect(navigator.nextPage(ArrangedSubstitutePage, mode)(updatedAnswers))
         )
       }
     )

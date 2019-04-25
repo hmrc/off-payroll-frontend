@@ -37,10 +37,10 @@ POST       /cannot-claim-as-expense                     controllers.CannotClaimA
 GET        /change-cannot-claim-as-expense              controllers.CannotClaimAsExpenseController.onPageLoad(mode: Mode = CheckMode)
 POST       /change-cannot-claim-as-expense              controllers.CannotClaimAsExpenseController.onSubmit(mode: Mode = CheckMode)
 
-GET        /arranged-substitue                          controllers.ArrangedSubstitueController.onPageLoad(mode: Mode = NormalMode)
-POST       /arranged-substitue                          controllers.ArrangedSubstitueController.onSubmit(mode: Mode = NormalMode)
-GET        /change-arranged-substitue                   controllers.ArrangedSubstitueController.onPageLoad(mode: Mode = CheckMode)
-POST       /change-arranged-substitue                   controllers.ArrangedSubstitueController.onSubmit(mode: Mode = CheckMode)
+GET        /arranged-substitute                          controllers.ArrangedSubstituteController.onPageLoad(mode: Mode = NormalMode)
+POST       /arranged-substitute                          controllers.ArrangedSubstituteController.onSubmit(mode: Mode = NormalMode)
+GET        /change-arranged-substitute                   controllers.ArrangedSubstituteController.onPageLoad(mode: Mode = CheckMode)
+POST       /change-arranged-substitute                   controllers.ArrangedSubstituteController.onSubmit(mode: Mode = CheckMode)
 
 GET        /identify-to-stakeholders                    controllers.IdentifyToStakeholdersController.onPageLoad(mode: Mode = NormalMode)
 POST       /identify-to-stakeholders                    controllers.IdentifyToStakeholdersController.onSubmit(mode: Mode = NormalMode)

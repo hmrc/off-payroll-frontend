@@ -18,7 +18,7 @@ package connectors
 
 import base.SpecBase
 import models.AboutYouAnswer.Worker
-import models.ArrangedSubstitue.YesClientAgreed
+import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.Workerchooses
 import models.HowWorkIsDone.WorkerAgreeWithOthers
 import models.HowWorkerIsPaid.HourlyDailyOrWeekly

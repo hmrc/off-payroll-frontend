@@ -17,47 +17,47 @@
 package views
 
 import play.api.data.Form
-import forms.ArrangedSubstitueFormProvider
+import forms.ArrangedSubstituteFormProvider
 import models.NormalMode
-import models.ArrangedSubstitue
+import models.ArrangedSubstitute
 import views.behaviours.ViewBehaviours
-import views.html.ArrangedSubstitueView
+import views.html.ArrangedSubstituteView
 
-class ArrangedSubstitueViewSpec extends ViewBehaviours {
+class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "arrangedSubstitue"
+  val messageKeyPrefix = "arrangedSubstitute"
 
-  val form = new ArrangedSubstitueFormProvider()()
+  val form = new ArrangedSubstituteFormProvider()()
 
-  val view = injector.instanceOf[ArrangedSubstitueView]
+  val view = injector.instanceOf[ArrangedSubstituteView]
 
   def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
 
   def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
 
-  "ArrangedSubstitue view" must {
+  "ArrangedSubstitute view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
   }
 
-  "ArrangedSubstitue view" when {
+  "ArrangedSubstitute view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- ArrangedSubstitue.options) {
+        for (option <- ArrangedSubstitute.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- ArrangedSubstitue.options) {
+    for(option <- ArrangedSubstitute.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- ArrangedSubstitue.options.filterNot(o => o == option)) {
+          for(unselectedOption <- ArrangedSubstitute.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

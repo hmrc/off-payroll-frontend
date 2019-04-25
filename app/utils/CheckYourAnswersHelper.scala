@@ -83,8 +83,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     x => AnswerRow("identifyToStakeholders.checkYourAnswersLabel", s"identifyToStakeholders.$x", true, routes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url)
   }
 
-  def arrangedSubstitue: Option[AnswerRow] = userAnswers.get(ArrangedSubstituePage) map {
-    x => AnswerRow("arrangedSubstitue.checkYourAnswersLabel", s"arrangedSubstitue.$x", true, routes.ArrangedSubstitueController.onPageLoad(CheckMode).url)
+  def arrangedSubstitute: Option[AnswerRow] = userAnswers.get(ArrangedSubstitutePage) map {
+    x => AnswerRow("arrangedSubstitute.checkYourAnswersLabel", s"arrangedSubstitute.$x", true, routes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
   }
 
   def cannotClaimAsExpense: Option[AnswerRow] = userAnswers.get(CannotClaimAsExpensePage) map {

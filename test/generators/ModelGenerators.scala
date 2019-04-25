@@ -67,9 +67,9 @@ trait ModelGenerators {
       Gen.oneOf(IdentifyToStakeholders.values)
     }
 
-  implicit lazy val arbitraryArrangedSubstitue: Arbitrary[ArrangedSubstitue] =
+  implicit lazy val arbitraryArrangedSubstitute: Arbitrary[ArrangedSubstitute] =
     Arbitrary {
-      Gen.oneOf(ArrangedSubstitue.values)
+      Gen.oneOf(ArrangedSubstitute.values)
     }
 
   implicit lazy val arbitraryCannotClaimAsExpense: Arbitrary[CannotClaimAsExpense] =

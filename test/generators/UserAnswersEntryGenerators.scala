@@ -144,11 +144,11 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
       } yield (page, value)
     }
 
-  implicit lazy val arbitraryArrangedSubstitueUserAnswersEntry: Arbitrary[(ArrangedSubstituePage.type, JsValue)] =
+  implicit lazy val arbitraryArrangedSubstituteUserAnswersEntry: Arbitrary[(ArrangedSubstitutePage.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[ArrangedSubstituePage.type]
-        value <- arbitrary[ArrangedSubstitue].map(Json.toJson(_))
+        page  <- arbitrary[ArrangedSubstitutePage.type]
+        value <- arbitrary[ArrangedSubstitute].map(Json.toJson(_))
       } yield (page, value)
     }
 
