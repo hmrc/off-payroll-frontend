@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
 import javax.inject.Inject
+import models.Answers._
 
 import models.{ChooseWhereWork, Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
@@ -52,7 +53,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
   val form: Form[ChooseWhereWork] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(ChooseWhereWorkPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(ChooseWhereWorkPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

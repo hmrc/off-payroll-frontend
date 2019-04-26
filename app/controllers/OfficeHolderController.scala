@@ -31,6 +31,7 @@ import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.OfficeHolderView
 import services.CompareAnswerService
+import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -51,7 +52,7 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(OfficeHolderPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(OfficeHolderPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

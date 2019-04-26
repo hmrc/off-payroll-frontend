@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
+import models.Answers._
 
 import models.{CannotClaimAsExpense, Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
@@ -44,14 +45,15 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
                                                view: CannotClaimAsExpenseView,
                                                decisionService: DecisionService,
                                                implicit val appConfig: FrontendAppConfig
-                                              ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[Seq[CannotClaimAsExpense]]  {
+                                              ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
+  with CompareAnswerService[Seq[CannotClaimAsExpense]] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(CannotClaimAsExpensePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(CannotClaimAsExpensePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

@@ -31,6 +31,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import views.html.WouldWorkerPaySubstituteView
 import services.CompareAnswerService
+import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -51,7 +52,7 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(WouldWorkerPaySubstitutePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(WouldWorkerPaySubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

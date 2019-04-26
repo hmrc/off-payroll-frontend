@@ -31,6 +31,7 @@ import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.RejectSubstituteView
 import services.CompareAnswerService
+import models.Answers._
 
 import scala.concurrent.{Future, ExecutionContext}
 
@@ -50,7 +51,7 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(RejectSubstitutePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(RejectSubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

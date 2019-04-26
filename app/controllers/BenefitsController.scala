@@ -22,7 +22,9 @@ import controllers.actions._
 import forms.BenefitsFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.{DecisionResponse, ErrorTemplate, ExitEnum, Interview, Mode, Score, SetupEnum}
+import models.Answers._
+
+import models._
 import navigation.Navigator
 import pages.BenefitsPage
 import play.api.data.Form
@@ -46,7 +48,8 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
                                    view: BenefitsView,
                                    decisionService: DecisionService,
                                    implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean]{
+                                  ) extends FrontendController(controllerComponents) with I18nSupport
+  with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -55,7 +58,7 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
   implicit val headerCarrier = new HeaderCarrier()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(BenefitsPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(BenefitsPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

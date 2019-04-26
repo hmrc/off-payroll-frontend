@@ -31,6 +31,7 @@ import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.MoveWorkerView
 import services.CompareAnswerService
+import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -50,7 +51,7 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
   val form: Form[MoveWorker] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(MoveWorkerPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(MoveWorkerPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.HowWorkIsDoneFormProvider
 import javax.inject.Inject
+import models.Answers._
 
 import models.{Enumerable, HowWorkIsDone, Mode}
 import navigation.Navigator
@@ -50,7 +51,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
   val form: Form[HowWorkIsDone] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(HowWorkIsDonePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

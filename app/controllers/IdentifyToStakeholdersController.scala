@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
+import models.Answers._
 
 import models.{Enumerable, ErrorTemplate, IdentifyToStakeholders, Mode}
 import navigation.Navigator
@@ -45,14 +46,15 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
                                                  view: IdentifyToStakeholdersView,
                                                  decisionService: DecisionService,
                                                  implicit val appConfig: FrontendAppConfig
-                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[IdentifyToStakeholders] {
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
+  with CompareAnswerService[IdentifyToStakeholders] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[IdentifyToStakeholders] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(IdentifyToStakeholdersPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(IdentifyToStakeholdersPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
+import models.Answers._
 
 import models.{Enumerable, HowWorkerIsPaid, Mode}
 import navigation.Navigator
@@ -43,14 +44,15 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
                                           controllerComponents: MessagesControllerComponents,
                                           view: HowWorkerIsPaidView,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[HowWorkerIsPaid] {
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
+  with CompareAnswerService[HowWorkerIsPaid] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[HowWorkerIsPaid] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(HowWorkerIsPaidPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(HowWorkerIsPaidPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

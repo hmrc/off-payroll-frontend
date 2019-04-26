@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ArrangedSubstituteFormProvider
 import javax.inject.Inject
+import models.Answers._
 
 import models.{ArrangedSubstitute, Enumerable, Mode}
 import navigation.Navigator
@@ -49,7 +50,7 @@ class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnec
   val form: Form[ArrangedSubstitute] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(ArrangedSubstitutePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(ArrangedSubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

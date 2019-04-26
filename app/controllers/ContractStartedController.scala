@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ContractStartedFormProvider
 import javax.inject.Inject
-import services.CompareAnswerService
+import models.Answers._
 
 import models.Mode
 import navigation.Navigator
@@ -44,14 +44,15 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
                                           controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean]{
+                                         ) extends FrontendController(controllerComponents) with I18nSupport
+  with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(ContractStartedPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

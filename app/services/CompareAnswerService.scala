@@ -16,64 +16,86 @@
 
 package services
 
-import models.UserAnswers
-import pages.{AboutYouPage, QuestionPage, _}
-import play.api.libs.json.Reads
-import play.api.libs.json.Writes
+import models.{Answers, UserAnswers}
+import pages._
+import play.api.libs.json.{JsString, Json, Reads, Writes}
 import models.requests.DataRequest
 import play.api.mvc.AnyContent
 
+import scala.collection.immutable.Map
+
 trait CompareAnswerService[T] {
 
-  lazy val pageOrder = Seq(
-    AboutYouPage,
-    ContractStartedPage,
-    WorkerTypePage,
-    OfficeHolderPage,
-    ArrangedSubstitutePage,
-    DidPaySubstitutePage,
-    RejectSubstitutePage,
-    WouldWorkerPaySubstitutePage,
-    NeededToPayHelperPage,
-    MoveWorkerPage,
-    HowWorkIsDonePage,
-    ScheduleOfWorkingHoursPage,
-    ChooseWhereWorkPage,
-    CannotClaimAsExpensePage,
-    HowWorkerIsPaidPage,
-    PutRightAtOwnCostPage,
-    BenefitsPage,
-    LineManagerDutiesPage,
-    InteractWithStakeholdersPage,
-    IdentifyToStakeholdersPage
-  )
-
-  def getPagesToClear(currentPage: QuestionPage[T]): Seq[Page] = {
-    pageOrder.splitAt(pageOrder.indexOf(currentPage))._2
+  def getPagesToClear(currentPage: QuestionPage[T],allPages: List[String]): List[QuestionPage[_]] = {
+    val questionsToPages: List[QuestionPage[_]] = allPages.map(page => CompareAnswerService.questionToPage(page))
+    val currentPageIndex = questionsToPages.indexOf(currentPage)
+    val toBeRemoved = questionsToPages.splitAt(currentPageIndex)._2
+    toBeRemoved
   }
 
   def constructAnswers(request: DataRequest[AnyContent], value: T,
-                       page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T]): UserAnswers = {
-    val previousAnswer = request.userAnswers.get(page)(reads)
-    val updatedAnswer = value
-    if(previousAnswer.fold(false){ answer => answer == updatedAnswer}){
-      println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++1")
-      request.userAnswers
-    } else {
-      println("*****************************************************2")
-      println(previousAnswer.getOrElse("no previous").toString)
-      println(updatedAnswer)
-      println("*****************************************************2")
-      val removedPages = recursivelyClearQuestions(getPagesToClear(page),request.userAnswers)
-      removedPages.set(page,value)
+                       page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]): UserAnswers = {
+    val answerNumber = request.userAnswers.size
+    request.userAnswers.get(page) match {
+      case None =>
+        println("***************************************************************************")
+        println("adding new answer")
+        println(page.toString)
+        println(answerNumber)
+        println("***************************************************************************")
+        request.userAnswers.set(page, answerNumber, value)
+      case Some(answer) if answer.answer == value =>
+        println("***************************************************************************")
+        println("unchanged")
+        println(answerNumber)
+        println("***************************************************************************")
+        request.userAnswers
+      case Some(answer) => {
+        println("***************************************************************************")
+        println("changing answer")
+        println(page.toString)
+        println(answerNumber)
+        println("***************************************************************************")
+
+        val allAnswers = request.userAnswers.cacheMap.data
+        val allAnswersInOrder = allAnswers.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(result => result._2)
+        val pagesToRemove = allAnswersInOrder.splitAt(answer.answerNumber)._2.map(_._1)
+        val removedPages = recursivelyClearQuestions(pagesToRemove.map(pageName => CompareAnswerService.questionToPage(pageName)), request.userAnswers)
+        val updatedAnswerNumber = removedPages.size
+        removedPages.set(page, updatedAnswerNumber, value)
+      }
     }
   }
 
-  def recursivelyClearQuestions(pages: Seq[Page], userAnswers: UserAnswers): UserAnswers = {
+  def recursivelyClearQuestions(pages: List[QuestionPage[_]], userAnswers: UserAnswers): UserAnswers = {
     if(pages.isEmpty) userAnswers else {
-      val updatedAnswers = UserAnswers(userAnswers.cacheMap copy (data = userAnswers.cacheMap.data - pages.head))
-      recursivelyClearQuestions(pages.tail,updatedAnswers)
+      recursivelyClearQuestions(pages.tail,userAnswers.remove(pages.head))
     }
   }
 
+}
+
+object CompareAnswerService {
+
+  lazy val questionToPage = Map(
+    "aboutYou" -> AboutYouPage,
+    "contract_started" -> ContractStartedPage,
+    "workerType" -> WorkerTypePage,
+    "officeHolder" -> OfficeHolderPage,
+    "arrangedSubstitute" -> ArrangedSubstitutePage,
+    "wouldWorkerPaySubstitute" -> WouldWorkerPaySubstitutePage,
+    "neededToPayHelper" -> NeededToPayHelperPage,
+    "moveWorker" -> MoveWorkerPage,
+    "rejectSubstitute" -> RejectSubstitutePage,
+    "howWorkIsDone" -> HowWorkIsDonePage,
+    "scheduleOfWorkingHours" -> ScheduleOfWorkingHoursPage,
+    "chooseWhereWork" -> ChooseWhereWorkPage,
+    "cannotClaimAsExpense" -> CannotClaimAsExpensePage,
+    "howWorkerIsPaid" -> HowWorkerIsPaidPage,
+    "putRightAtOwnCost" -> PutRightAtOwnCostPage,
+    "benefits" -> BenefitsPage,
+    "lineManagerDuties" -> LineManagerDutiesPage,
+    "interactWithStakeholders" -> InteractWithStakeholdersPage,
+    "identifyToStakeholders" -> IdentifyToStakeholdersPage
+  )
 }

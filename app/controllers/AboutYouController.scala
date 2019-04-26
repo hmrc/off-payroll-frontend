@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.AboutYouFormProvider
 import javax.inject.Inject
-
+import models.Answers._
 import models.{AboutYouAnswer, Enumerable, Mode}
 import navigation.Navigator
 import pages.{AboutYouPage, ContractStartedPage, Page, QuestionPage}
@@ -43,14 +43,15 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
                                    controllerComponents: MessagesControllerComponents,
                                    view: AboutYouView,
                                    implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[AboutYouAnswer]{
+                                  ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
+  with CompareAnswerService[AboutYouAnswer] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[AboutYouAnswer] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(AboutYouPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(AboutYouPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

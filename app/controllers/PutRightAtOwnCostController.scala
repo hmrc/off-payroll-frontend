@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.PutRightAtOwnCostFormProvider
 import javax.inject.Inject
+import models.Answers._
 
 import models.{Enumerable, ErrorTemplate, Mode, PutRightAtOwnCost}
 import navigation.Navigator
@@ -52,7 +53,7 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
   val form: Form[PutRightAtOwnCost] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(PutRightAtOwnCostPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(PutRightAtOwnCostPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
