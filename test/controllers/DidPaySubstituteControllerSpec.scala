@@ -82,7 +82,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(DidPaySubstitutePage, true)
+      val userAnswers = UserAnswers("id").set(DidPaySubstitutePage,0, true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("didPaySubstitute.title")))

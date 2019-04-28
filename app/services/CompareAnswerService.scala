@@ -58,7 +58,8 @@ trait CompareAnswerService[T] {
         println("***************************************************************************")
 
         val allAnswers = request.userAnswers.cacheMap.data
-        val allAnswersInOrder = allAnswers.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(result => result._2)
+        val allAnswersInOrder = allAnswers.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
+        println(allAnswersInOrder.toString())
         val pagesToRemove = allAnswersInOrder.splitAt(answer.answerNumber)._2.map(_._1)
         val removedPages = recursivelyClearQuestions(pagesToRemove.map(pageName => CompareAnswerService.questionToPage(pageName)), request.userAnswers)
         val updatedAnswerNumber = removedPages.size
@@ -83,6 +84,7 @@ object CompareAnswerService {
     "workerType" -> WorkerTypePage,
     "officeHolder" -> OfficeHolderPage,
     "arrangedSubstitute" -> ArrangedSubstitutePage,
+    "didPaySubstitute" -> DidPaySubstitutePage,
     "wouldWorkerPaySubstitute" -> WouldWorkerPaySubstitutePage,
     "neededToPayHelper" -> NeededToPayHelperPage,
     "moveWorker" -> MoveWorkerPage,

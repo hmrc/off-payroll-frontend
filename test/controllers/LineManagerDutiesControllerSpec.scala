@@ -82,7 +82,7 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, true)
+      val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, 0,true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("lineManagerDuties.title")))

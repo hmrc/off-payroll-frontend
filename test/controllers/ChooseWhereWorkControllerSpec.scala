@@ -83,7 +83,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage, Workerchooses)
+      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, Workerchooses)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("chooseWhereWork.title")))

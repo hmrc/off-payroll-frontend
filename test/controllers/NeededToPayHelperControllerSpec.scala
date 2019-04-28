@@ -82,7 +82,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(NeededToPayHelperPage, true)
+      val userAnswers = UserAnswers("id").set(NeededToPayHelperPage,0, true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("neededToPayHelper.title")))

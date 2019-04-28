@@ -17,7 +17,7 @@
 package pages.behaviours
 
 import generators.Generators
-import models.UserAnswers
+import models.{Answers, UserAnswers}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
@@ -25,11 +25,16 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import pages.QuestionPage
 import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
+import play.api.libs.json.{JsString, Json, Reads, Writes}
+import models.Answers._
+import play.api.libs.json._
+import play.api.libs.json.Reads._
+import play.api.libs.functional.syntax._
 
 trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with Generators with OptionValues {
 
   class BeRetrievable[A] {
-    def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A]): Unit = {
+    def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A], ev3: Reads[Answers[A]], ev4: Writes[Answers[A]]): Unit = {
 
       "return None" when {
 
@@ -71,7 +76,7 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
               case (page, savedValue, cacheMap) =>
 
                 val userAnswers = UserAnswers(cacheMap)
-                userAnswers.get(page).value mustEqual savedValue
+                userAnswers.get(page).value.answer mustEqual savedValue
             }
           }
         }
@@ -80,7 +85,7 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
   }
 
   class BeSettable[A] {
-    def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A]): Unit = {
+    def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A], ev3: Reads[Answers[A]], ev4: Writes[Answers[A]]): Unit = {
 
       "be able to be set on UserAnswers" in {
 
@@ -94,15 +99,16 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
           case (page, newValue, cacheMap) =>
 
             val userAnswers = UserAnswers(cacheMap)
-            val updatedAnswers = userAnswers.set(page, newValue)
-            updatedAnswers.get(page).value mustEqual newValue
+            val updatedAnswers = userAnswers.set(page, 0,newValue)
+            updatedAnswers.get(page).value.answer mustEqual newValue
         }
       }
     }
   }
 
   class BeRemovable[A] {
-    def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A]): Unit = {
+
+    def apply[P <: QuestionPage[A]](genP: Gen[P])(implicit ev1: Arbitrary[A], ev2: Format[A], ev3: Reads[Answers[A]], ev4: Writes[Answers[A]]): Unit = {
 
       "be able to be removed from UserAnswers" in {
 

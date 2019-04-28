@@ -82,7 +82,7 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(InteractWithStakeholdersPage, true)
+      val userAnswers = UserAnswers("id").set(InteractWithStakeholdersPage,0, true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("interactWithStakeholders.title")))

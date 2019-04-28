@@ -83,7 +83,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, Seq(WorkerProvidedMaterials))
+      val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("cannotClaimAsExpense.title")))

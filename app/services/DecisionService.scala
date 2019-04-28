@@ -22,6 +22,7 @@ import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+
 import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
 import models._
@@ -29,6 +30,7 @@ import models.requests.DataRequest
 import pages.{ArrangedSubstitutePage, ContractStartedPage, OfficeHolderPage, WorkerTypePage}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json.Json
 import play.api.mvc.Results._
 import play.api.mvc.{Call, Request, Result}
 import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
@@ -75,6 +77,9 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
 
     val interview = Interview(userAnswers)
+    println("+++++++++++++++++++++++++++++++++++")
+    println(Json.toJson(interview).toString())
+    println("+++++++++++++++++++++++++++++++++++")
 
     decisionConnector.decide(interview).map {
       case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)

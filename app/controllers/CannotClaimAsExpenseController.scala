@@ -65,7 +65,6 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(answers)
-            val exit = continue
             decisionService.decide(answers, continue, ErrorTemplate("cannotClaimAsExpense.title"))
           }
         )

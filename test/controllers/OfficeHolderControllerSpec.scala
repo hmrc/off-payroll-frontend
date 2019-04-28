@@ -82,7 +82,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(OfficeHolderPage, true)
+      val userAnswers = UserAnswers("id").set(OfficeHolderPage,0, true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute), Matchers.eq(ErrorTemplate("officeHolder.title")))
       (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))

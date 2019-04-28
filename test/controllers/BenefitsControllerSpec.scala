@@ -82,7 +82,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(BenefitsPage, true)
+      val userAnswers = UserAnswers("id").set(BenefitsPage, 0,true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute), Matchers.eq(ErrorTemplate("benefits.title")))
       (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))

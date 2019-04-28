@@ -22,7 +22,7 @@ import models._
 import org.scalatestplus.mockito.MockitoSugar
 import pages._
 import play.api.libs.json.Writes
-
+import models.Answers._
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
   val navigator = new Navigator
@@ -32,8 +32,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "in Normal mode" must {
 
       def nextPage(fromPage: Page, userAnswers: UserAnswers = mock[UserAnswers]) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
-      def setAnswers[A](answers: (QuestionPage[A], A)*)(implicit writes: Writes[A]) =
-        answers.foldLeft(UserAnswers.apply("id"))((o, a) => o.set(a._1, a._2))
+      def setAnswers[A](answers: (QuestionPage[A], A)*)(implicit writes: Writes[A],aWrites: Writes[Answers[A]]) =
+        answers.foldLeft(UserAnswers.apply("id"))((o, a) => o.set(a._1,0, a._2))
 
       "go to Index from a page that doesn't exist in the route map" in {
 

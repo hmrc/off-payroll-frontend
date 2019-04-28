@@ -83,7 +83,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, WorkForEndClient)
+      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0, WorkForEndClient)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("identifyToStakeholders.title")))
