@@ -16,8 +16,13 @@
 
 package views.behaviours
 
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+import models.AdditionalPdfDetails
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
+import java.time.{ZoneOffset, ZonedDateTime}
 
 trait ViewBehaviours extends ViewSpecBase {
 
@@ -46,6 +51,57 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display the correct guidance" in {
           val doc = asDocument(view())
+          for (key <- expectedGuidanceKeys) assertContainsText(doc, messages(s"$messageKeyPrefix.$key"))
+        }
+
+        "not include a timestamp" in {
+          val doc = asDocument(view())
+          doc.toString contains "Date of result:" mustBe false
+        }
+      }
+    }
+  }
+
+  def printPage(view: () => HtmlFormat.Appendable,
+                pdfDetails: AdditionalPdfDetails,
+                 messageKeyPrefix: String,
+                 expectedGuidanceKeys: String*) = {
+    "behave like a normal page" when {
+      "rendered" must {
+
+        "display the correct browser title" in {
+          val doc = asDocument(view())
+          assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title")
+        }
+
+        "display the correct page title" in {
+          val doc = asDocument(view())
+          assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
+        }
+
+        "display the correct guidance" in {
+          val doc = asDocument(view())
+          for (key <- expectedGuidanceKeys) assertContainsText(doc, messages(s"$messageKeyPrefix.$key"))
+        }
+
+        "display the pdf content" in {
+          val doc = asDocument(view())
+          assertContainsText(doc, messages("customisePDF.customisedBy"))
+          assertContainsText(doc, messages("customisePDF.client"))
+          assertContainsText(doc, messages("customisePDF.job"))
+          assertContainsText(doc, messages("customisePDF.reference"))
+
+          if(pdfDetails.client.isDefined) assertContainsText(doc, pdfDetails.client.get)
+          if(pdfDetails.completedBy.isDefined) assertContainsText(doc, pdfDetails.completedBy.get)
+          if(pdfDetails.job.isDefined) assertContainsText(doc, pdfDetails.job.get)
+          if(pdfDetails.reference.isDefined) assertContainsText(doc, pdfDetails.reference.get)
+
+          val timestamp = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
+
+          assertContainsText(doc, timestamp)
+          assertContainsText(doc, "Date of result: ")
+          assertContainsText(doc, "(UTC)")
+
           for (key <- expectedGuidanceKeys) assertContainsText(doc, messages(s"$messageKeyPrefix.$key"))
         }
       }

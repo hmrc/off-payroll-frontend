@@ -14,17 +14,28 @@
  * limitations under the License.
  */
 
-package models
+package utils
 
-import play.api.libs.json.{Format, Json}
+import base.SpecBase
+import config.featureSwitch.{FeatureSwitch, PrintPDF}
 
-case class AdditionalPdfDetails(completedBy: Option[String] = None,
-                                client: Option[String] = None,
-                                job: Option[String] = None,
-                                reference: Option[String] = None)
+class FeatureSwitchSpec extends SpecBase {
 
-object AdditionalPdfDetails {
-  implicit val fmt: Format[AdditionalPdfDetails] = Json.format[AdditionalPdfDetails]
+
+  "Feature switch" must {
+
+    "find a switch" in {
+
+      FeatureSwitch.get("feature-switch.printPdfEnabled") mustBe Some(PrintPDF)
+      FeatureSwitch.get("switch.printPdfEnabled") mustBe None
+
+    }
+    "accept a valid feature" in {
+      FeatureSwitch.apply("feature-switch.printPdfEnabled") mustBe PrintPDF
+    }
+
+    "reject an invalid feature" in {
+      intercept[Exception](FeatureSwitch.apply("invalid")).getMessage mustBe "Invalid feature switch: invalid"
+    }
+  }
 }
-
-

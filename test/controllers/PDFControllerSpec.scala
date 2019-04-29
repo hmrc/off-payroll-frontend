@@ -65,9 +65,6 @@ class PDFControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   ){
     override def isEnabled(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): Boolean = true
-
-
-
   }
 
   def viewAsString(form: Form[_] = form) = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString

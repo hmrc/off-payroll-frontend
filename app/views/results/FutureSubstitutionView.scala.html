@@ -56,6 +56,8 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: Req
 
         @sections.about_result(Some(aboutResultContent))
 
+        @if(printView) { @sections.timestamp() }
+
         @sections.decision_version(version)
 
         @if(!printView){

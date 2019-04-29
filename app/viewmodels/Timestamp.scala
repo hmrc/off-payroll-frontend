@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,19 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import viewmodels.Timestamp
+package viewmodels
 
-@(content: Option[Html] = None)(implicit messages: Messages)
+import java.time.format.DateTimeFormatter
+import java.time.{ZoneOffset, ZonedDateTime}
 
-<h2>@messages("result.aboutResult.h2")</h2>
-@content
+object Timestamp {
 
-<p>@messages("result.aboutResult.willStandByResult")</p>
+  def timestamp: String = s"${ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))} (UTC)"
 
-<p>@messages("result.aboutResult.willNotStandByResult")</p>
-
-<p>@messages("result.aboutResult.reviewTaxes")</p>
-
-@components.exclamation(Html(messages("result.aboutResult.exclamation")))
+}
