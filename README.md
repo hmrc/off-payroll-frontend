@@ -21,4 +21,3 @@ To run the application with PDF Generation on:
 sbt "run 9843" -DoffPayrollPdf=true
 
 ```
-
