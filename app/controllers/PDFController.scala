@@ -69,7 +69,9 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails)(implicit request: DataRequest[_]): Future[Result] = {
+
     if (isEnabled(PrintPDF)) {
+
       pdfService.generatePdf(decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails))) map {
         case Right(result: SuccessfulPDF) => {
           val fileName = additionalPdfDetails.reference.getOrElse("result")

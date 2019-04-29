@@ -16,19 +16,29 @@
 
 package controllers
 
-import connectors.FakeDataCacheConnector
+import akka.util.ByteString
+import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitch
+import connectors.httpParsers.PDFGeneratorHttpParser
+import connectors.{FakeDataCacheConnector, PDFGeneratorConnector}
+import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, ErrorResponse, SuccessResponse, SuccessfulPDF}
 import controllers.actions._
 import forms.CustomisePDFFormProvider
 import models.{AdditionalPdfDetails, NormalMode}
 import navigation.FakeNavigator
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
 import pages.CustomisePDFPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import services.{DecisionService, PDFService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.CustomisePDFView
+
+import scala.concurrent.Future
 
 class PDFControllerSpec extends ControllerSpecBase {
 
@@ -38,6 +48,7 @@ class PDFControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   val customisePdfView = injector.instanceOf[CustomisePDFView]
+  val pdf = mock[PDFService]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new PDFController(
     new FakeDataCacheConnector,
@@ -49,10 +60,15 @@ class PDFControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     customisePdfView,
     injector.instanceOf[DecisionService],
-    injector.instanceOf[PDFService],
+    pdf,
     errorHandler,
     frontendAppConfig
-  )
+  ){
+    override def isEnabled(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): Boolean = true
+
+
+
+  }
 
   def viewAsString(form: Form[_] = form) = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 
@@ -79,9 +95,27 @@ class PDFControllerSpec extends ControllerSpecBase {
     "show the PDF view" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
+      val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
+
+      when(pdf.generatePdf(any())(any(),any())).thenReturn(Future.successful(response))
+
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe OK
+      contentAsString(result) mustBe "PDF"
+    }
+
+    "handle error from PDF service" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
+
+      val response: PDFGeneratorHttpParser.Response = Left(BadRequest)
+
+      when(pdf.generatePdf(any())(any(),any())).thenReturn(Future.successful(response))
+
+      val result = controller().onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe INTERNAL_SERVER_ERROR
+      contentAsString(result) must include("Sorry, we’re experiencing technical difficulties")
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
