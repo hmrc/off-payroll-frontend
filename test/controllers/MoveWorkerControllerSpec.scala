@@ -17,15 +17,14 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.MoveWorkerFormProvider
-import models.NormalMode
-import models.MoveWorker
+import models.{Answers, MoveWorker, NormalMode}
 import pages.MoveWorkerPage
 import play.api.mvc.Call
 import views.html.MoveWorkerView
@@ -63,7 +62,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(MoveWorkerPage.toString -> JsString(MoveWorker.values.head.toString))
+      val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.values.head.toString,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

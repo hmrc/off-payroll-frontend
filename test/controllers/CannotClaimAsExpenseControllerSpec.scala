@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.CannotClaimAsExpenseFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
-import models.{CannotClaimAsExpense, ErrorTemplate, NormalMode, UserAnswers}
+import models._
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -71,7 +71,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(CannotClaimAsExpensePage.toString -> Json.toJson(Seq(CannotClaimAsExpense.values.head.toString)))
+      val validData = Map(CannotClaimAsExpensePage.toString -> Json.toJson(Answers(Seq(CannotClaimAsExpense.values.head.toString),0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

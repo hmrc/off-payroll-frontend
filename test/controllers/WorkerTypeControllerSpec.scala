@@ -19,11 +19,11 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.WorkerTypeFormProvider
-import models.{NormalMode, WorkerType}
+import models.{Answers, NormalMode, WorkerType}
 import navigation.FakeNavigator
 import pages.WorkerTypePage
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsString, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -64,7 +64,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(WorkerTypePage.toString -> JsString(WorkerType.values.head.toString))
+      val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head.toString,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

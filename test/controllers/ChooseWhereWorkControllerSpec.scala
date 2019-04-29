@@ -17,7 +17,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.ChooseWhereWorkFormProvider
 import models.ChooseWhereWork.Workerchooses
-import models.{ChooseWhereWork, ErrorTemplate, NormalMode, UserAnswers}
+import models._
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -71,7 +71,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ChooseWhereWorkPage.toString -> JsString(ChooseWhereWork.values.head.toString))
+      val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(ChooseWhereWork.values.head.toString,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

@@ -19,11 +19,11 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.AboutYouFormProvider
-import models.{AboutYouAnswer, NormalMode}
+import models.{AboutYouAnswer, Answers, NormalMode}
 import navigation.FakeNavigator
 import pages.AboutYouPage
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -62,7 +62,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(AboutYouPage.toString -> JsString(AboutYouAnswer.values.head.toString))
+      val validData = Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head.toString,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
