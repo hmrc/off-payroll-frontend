@@ -34,7 +34,6 @@ class PDFGeneratorConnector @Inject()(ws: WSClient,
 
   private[connectors] lazy val url = appConfig.pdfGeneratorService + "/pdf-generator-service/generate"
 
-  //TODO Why not HTTP verbs?
   def generatePdf(html: Html)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Response] =
     ws.url(url).post(Json.toJson(PdfRequest(html))) map PDFGeneratorHttpParser.reads
 }
