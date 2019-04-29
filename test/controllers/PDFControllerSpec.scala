@@ -67,6 +67,21 @@ class PDFControllerSpec extends ControllerSpecBase {
     override def isEnabled(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): Boolean = true
   }
 
+  def controllerFeature(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new PDFController(
+    new FakeDataCacheConnector,
+    new FakeNavigator(onwardRoute),
+    FakeIdentifierAction,
+    dataRetrievalAction,
+    new DataRequiredActionImpl(messagesControllerComponents),
+    formProvider,
+    controllerComponents = messagesControllerComponents,
+    customisePdfView,
+    injector.instanceOf[DecisionService],
+    pdf,
+    errorHandler,
+    frontendAppConfig
+  )
+
   def viewAsString(form: Form[_] = form) = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
 
   val testAnswer = "answer"
@@ -100,6 +115,14 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe "PDF"
+    }
+
+    "show the PDF view when the feature defaults" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
+
+      val result = controllerFeature().onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe OK
     }
 
     "handle error from PDF service" in {
