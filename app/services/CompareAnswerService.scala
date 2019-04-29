@@ -80,6 +80,7 @@ object CompareAnswerService {
     "benefits" -> BenefitsPage,
     "lineManagerDuties" -> LineManagerDutiesPage,
     "interactWithStakeholders" -> InteractWithStakeholdersPage,
-    "identifyToStakeholders" -> IdentifyToStakeholdersPage
+    "identifyToStakeholders" -> IdentifyToStakeholdersPage,
+    "customisePDF" -> CustomisePDFPage
   )
 }

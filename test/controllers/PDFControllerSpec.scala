@@ -19,7 +19,7 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.CustomisePDFFormProvider
-import models.{AdditionalPdfDetails, NormalMode}
+import models.{AdditionalPdfDetails, Answers, NormalMode}
 import navigation.FakeNavigator
 import pages.CustomisePDFPage
 import play.api.data.Form
@@ -68,7 +68,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(CustomisePDFPage.toString -> Json.obj("completedBy" -> testAnswer))
+      val validData = Map(CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer")),0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
