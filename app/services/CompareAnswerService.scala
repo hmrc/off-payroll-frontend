@@ -37,29 +37,11 @@ trait CompareAnswerService[T] {
                        page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]): UserAnswers = {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
-      case None =>
-        println("***************************************************************************")
-        println("adding new answer")
-        println(page.toString)
-        println(answerNumber)
-        println("***************************************************************************")
-        request.userAnswers.set(page, answerNumber, value)
-      case Some(answer) if answer.answer == value =>
-        println("***************************************************************************")
-        println("unchanged")
-        println(answerNumber)
-        println("***************************************************************************")
-        request.userAnswers
+      case None => request.userAnswers.set(page, answerNumber, value)
+      case Some(answer) if answer.answer == value => request.userAnswers
       case Some(answer) => {
-        println("***************************************************************************")
-        println("changing answer")
-        println(page.toString)
-        println(answerNumber)
-        println("***************************************************************************")
-
         val allAnswers = request.userAnswers.cacheMap.data
         val allAnswersInOrder = allAnswers.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
-        println(allAnswersInOrder.toString())
         val pagesToRemove = allAnswersInOrder.splitAt(answer.answerNumber)._2.map(_._1)
         val removedPages = recursivelyClearQuestions(pagesToRemove.map(pageName => CompareAnswerService.questionToPage(pageName)), request.userAnswers)
         val updatedAnswerNumber = removedPages.size

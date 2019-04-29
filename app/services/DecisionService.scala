@@ -75,12 +75,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
-
     val interview = Interview(userAnswers)
-    println("+++++++++++++++++++++++++++++++++++")
-    println(Json.toJson(interview).toString())
-    println("+++++++++++++++++++++++++++++++++++")
-
     decisionConnector.decide(interview).map {
       case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
       case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)

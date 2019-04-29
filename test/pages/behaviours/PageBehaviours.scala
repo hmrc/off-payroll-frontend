@@ -70,7 +70,7 @@ trait PageBehaviours extends WordSpec with MustMatchers with ScalaCheckPropertyC
               page       <- genP
               savedValue <- arbitrary[A]
               cacheMap   <- arbitrary[CacheMap]
-            } yield (page, savedValue, cacheMap copy (data = cacheMap.data + (page.toString -> Json.toJson(savedValue))))
+            } yield (page, savedValue, cacheMap copy (data = cacheMap.data + (page.toString -> Json.toJson(Answers(savedValue,0)))))
 
             forAll(gen) {
               case (page, savedValue, cacheMap) =>
