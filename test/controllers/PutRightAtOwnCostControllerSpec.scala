@@ -34,6 +34,7 @@ import views.html.PutRightAtOwnCostView
 import org.mockito.Mockito.when
 import org.mockito.Matchers.{eq => eqTo, _}
 import org.mockito.Matchers
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -71,7 +72,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(PutRightAtOwnCostPage.toString -> Json.toJson(Answers(PutRightAtOwnCost.values.head.toString,0)))
+      val validData = Map(PutRightAtOwnCostPage.toString -> Json.toJson(Answers(PutRightAtOwnCost.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

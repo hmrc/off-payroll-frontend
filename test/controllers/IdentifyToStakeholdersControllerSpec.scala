@@ -34,6 +34,7 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import views.html.IdentifyToStakeholdersView
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -71,7 +72,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values.head.toString,0)))
+      val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

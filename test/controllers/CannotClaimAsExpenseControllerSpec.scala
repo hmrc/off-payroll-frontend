@@ -34,6 +34,7 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import views.html.CannotClaimAsExpenseView
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -71,7 +72,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(CannotClaimAsExpensePage.toString -> Json.toJson(Answers(Seq(CannotClaimAsExpense.values.head.toString),0)))
+      val validData = Map(CannotClaimAsExpensePage.toString -> Json.toJson(Answers(Seq(CannotClaimAsExpense.values.head),0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

@@ -33,6 +33,7 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import views.html.WouldWorkerPaySubstituteView
+import models.Answers._
 
 import scala.concurrent.Future
 

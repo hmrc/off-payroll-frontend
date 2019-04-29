@@ -34,6 +34,7 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import views.html.ChooseWhereWorkView
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -71,7 +72,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(ChooseWhereWork.values.head.toString,0)))
+      val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(ChooseWhereWork.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

@@ -28,6 +28,7 @@ import models.{Answers, NormalMode, ScheduleOfWorkingHours}
 import pages.ScheduleOfWorkingHoursPage
 import play.api.mvc.Call
 import views.html.ScheduleOfWorkingHoursView
+import models.Answers._
 
 class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase {
 
@@ -62,7 +63,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ScheduleOfWorkingHoursPage.toString -> Json.toJson(Answers(ScheduleOfWorkingHours.values.head.toString,0)))
+      val validData = Map(ScheduleOfWorkingHoursPage.toString -> Json.toJson(Answers(ScheduleOfWorkingHours.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

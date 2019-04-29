@@ -28,6 +28,7 @@ import models.{Answers, MoveWorker, NormalMode}
 import pages.MoveWorkerPage
 import play.api.mvc.Call
 import views.html.MoveWorkerView
+import models.Answers._
 
 class MoveWorkerControllerSpec extends ControllerSpecBase {
 
@@ -62,7 +63,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.values.head.toString,0)))
+      val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

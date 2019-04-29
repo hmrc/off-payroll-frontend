@@ -28,6 +28,7 @@ import models.{Answers, HowWorkIsDone, NormalMode}
 import pages.HowWorkIsDonePage
 import play.api.mvc.Call
 import views.html.HowWorkIsDoneView
+import models.Answers._
 
 class HowWorkIsDoneControllerSpec extends ControllerSpecBase {
 
@@ -62,7 +63,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(Answers(HowWorkIsDone.values.head.toString,0)))
+      val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(Answers(HowWorkIsDone.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
