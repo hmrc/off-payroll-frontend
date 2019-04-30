@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package viewmodels
+package models
 
 import java.time.format.DateTimeFormatter
 import java.time.{ZoneOffset, ZonedDateTime}

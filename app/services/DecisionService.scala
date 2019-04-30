@@ -17,7 +17,7 @@
 package services
 
 import config.{FrontendAppConfig, SessionKeys}
-import connectors.DecisionConnector
+import connectors.{DataCacheConnector, DecisionConnector}
 import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
@@ -26,7 +26,7 @@ import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
-import pages.{ArrangedSubstitutePage, ContractStartedPage, OfficeHolderPage, WorkerTypePage}
+import pages._
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
@@ -34,6 +34,7 @@ import play.api.mvc.{Call, Request, Result}
 import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.cache.client.CacheMap
 import viewmodels.AnswerSection
 import views.html.results._
 
@@ -47,12 +48,14 @@ trait DecisionService {
   def determineResultView(answerSections: Seq[AnswerSection],
                           formWithErrors: Option[Form[Boolean]] = None,
                           printMode: Boolean = false,
-                          additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: DataRequest[_], messages: Messages): Html
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+                          timestamp: Option[String] = None)(implicit request: DataRequest[_], messages: Messages): Html
 
 }
 
 @Singleton
 class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
+                                    dataCacheConnector: DataCacheConnector,
                                     errorHandler: ErrorHandler,
                                     formProvider: DeclarationFormProvider,
                                     officeHolderInsideIR35View: OfficeHolderInsideIR35View,
@@ -76,16 +79,16 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
     val interview = Interview(userAnswers)
 
-    decisionConnector.decide(interview).map {
-      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
-      case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+    decisionConnector.decide(interview).flatMap {
+      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Future.successful(Redirect(continueResult))
+      case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.INSIDE_IR35))
       case Right(DecisionResponse(_, _, Score(_,_,_, control, financialRisk, _), ResultEnum.OUTSIDE_IR35)) =>
-        redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
-      case Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
-      case Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => redirectResultsPage(ResultEnum.EMPLOYED)
-      case Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => redirectResultsPage(ResultEnum.UNKNOWN)
-      case Left(error) => redirectErrorPage(error.status, errorResult)
-      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
+        setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk))
+      case Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.SELF_EMPLOYED))
+      case Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.EMPLOYED))
+      case Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.UNKNOWN))
+      case Left(error) => Future.successful(redirectErrorPage(error.status, errorResult))
+      case _ => Future.successful(redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult))
     }
   }
 
@@ -98,6 +101,13 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     )
 
     Status(status)(errorTemplate)
+  }
+
+  def setTimestamp(userAnswers: UserAnswers): Future[CacheMap] ={
+
+    val answers = userAnswers.set(ResultPage, Timestamp.timestamp)
+    dataCacheConnector.save(answers.cacheMap)
+
   }
 
   def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
@@ -114,10 +124,8 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     financialRiskRedirect
   }
 
-  def determineResultView(answerSections: Seq[AnswerSection],
-                          formWithErrors: Option[Form[Boolean]] = None,
-                          printMode: Boolean = false,
-                          additionalPdfDetails: Option[AdditionalPdfDetails] = None)
+  def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
                          (implicit request: DataRequest[_], messages: Messages): Html = {
 
     val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)

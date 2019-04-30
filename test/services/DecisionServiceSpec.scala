@@ -18,7 +18,7 @@ package services
 
 import base.SpecBase
 import config.SessionKeys
-import connectors.DecisionConnector
+import connectors.{DataCacheConnector, DecisionConnector}
 import forms.mappings.Mappings
 import forms.{DeclarationFormProvider, InteractWithStakeholdersFormProvider}
 import handlers.ErrorHandler
@@ -60,12 +60,13 @@ class DecisionServiceSpec extends SpecBase {
   val formProvider = new DeclarationFormProvider()
 
   val connector = mock[DecisionConnector]
+  val dataConnector = mock[DataCacheConnector]
   override val errorHandler: ErrorHandler = mock[ErrorHandler]
 
   when(errorHandler.standardErrorTemplate(any(), any(), any())(any())).thenReturn(Html("Error page"))
   when(errorHandler.internalServerErrorTemplate(any())).thenReturn(Html("Error page"))
 
-  val service: DecisionService = new DecisionServiceImpl(connector, errorHandler, formProvider,
+  val service: DecisionService = new DecisionServiceImpl(connector, dataConnector, errorHandler, formProvider,
     injector.instanceOf[OfficeHolderInsideIR35View],
     injector.instanceOf[OfficeHolderEmployedView],
     injector.instanceOf[CurrentSubstitutionView],

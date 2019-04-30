@@ -16,6 +16,6 @@
 
 package pages
 
-case object ResultPage extends Page {
+case object ResultPage extends QuestionPage[String] {
   override def toString: String = "result"
 }
