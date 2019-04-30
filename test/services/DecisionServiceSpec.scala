@@ -47,6 +47,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.cache.client.CacheMap
 import viewmodels.AnswerSection
 import views.html.results._
 
@@ -652,6 +653,9 @@ class DecisionServiceSpec extends SpecBase {
   }
 
   "Calling the decide service" should {
+
+    when(dataConnector.save(any())).thenReturn(Future.successful(CacheMap("id", Map())))
+
     "return a continue decision based on the interview" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))
