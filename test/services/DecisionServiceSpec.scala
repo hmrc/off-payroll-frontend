@@ -18,7 +18,7 @@ package services
 
 import base.SpecBase
 import config.SessionKeys
-import connectors.DecisionConnector
+import connectors.{DataCacheConnector, DecisionConnector}
 import forms.mappings.Mappings
 import forms.{DeclarationFormProvider, InteractWithStakeholdersFormProvider}
 import handlers.ErrorHandler
@@ -47,6 +47,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.cache.client.CacheMap
 import viewmodels.AnswerSection
 import views.html.results._
 
@@ -60,12 +61,13 @@ class DecisionServiceSpec extends SpecBase {
   val formProvider = new DeclarationFormProvider()
 
   val connector = mock[DecisionConnector]
+  val dataConnector = mock[DataCacheConnector]
   override val errorHandler: ErrorHandler = mock[ErrorHandler]
 
   when(errorHandler.standardErrorTemplate(any(), any(), any())(any())).thenReturn(Html("Error page"))
   when(errorHandler.internalServerErrorTemplate(any())).thenReturn(Html("Error page"))
 
-  val service: DecisionService = new DecisionServiceImpl(connector, errorHandler, formProvider,
+  val service: DecisionService = new DecisionServiceImpl(connector, dataConnector, errorHandler, formProvider,
     injector.instanceOf[OfficeHolderInsideIR35View],
     injector.instanceOf[OfficeHolderEmployedView],
     injector.instanceOf[CurrentSubstitutionView],
@@ -651,6 +653,9 @@ class DecisionServiceSpec extends SpecBase {
   }
 
   "Calling the decide service" should {
+
+    when(dataConnector.save(any())).thenReturn(Future.successful(CacheMap("id", Map())))
+
     "return a continue decision based on the interview" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))

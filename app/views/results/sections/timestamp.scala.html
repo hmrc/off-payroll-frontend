@@ -14,11 +14,9 @@
  * limitations under the License.
  *@
 
-@import viewmodels.Timestamp
+@(timestamp: String)(implicit messages: Messages)
 
-@()(implicit messages: Messages)
-
-<p>@messages("customisePDF.time", Timestamp.timestamp)</p>
+<p>@messages("customisePDF.time", timestamp)</p>
 
 
 

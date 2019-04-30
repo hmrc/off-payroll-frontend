@@ -18,7 +18,7 @@ package views.results
 
 import akka.http.scaladsl.model.HttpMethods
 import forms.DeclarationFormProvider
-import models.AdditionalPdfDetails
+import models.{AdditionalPdfDetails, Timestamp}
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
 import views.html.results.EmployedView
@@ -41,7 +41,7 @@ class EmployedViewSpec extends ViewBehaviours {
 
   val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
 
-  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model))(fakeRequest, messages)
+  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(Timestamp.timestamp))(fakeRequest, messages)
 
   "ResultPrintPage view" must {
     behave like printPage(createPrintView, model, messageKeyPrefix)

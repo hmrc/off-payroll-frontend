@@ -18,7 +18,7 @@ package views.results
 
 import akka.http.scaladsl.model.HttpMethods
 import forms.DeclarationFormProvider
-import models.AdditionalPdfDetails
+import models.{AdditionalPdfDetails, Timestamp}
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
 import views.html.results.CurrentSubstitutionView
@@ -41,7 +41,7 @@ class CurrentSubstitutionViewSpec extends ViewBehaviours {
 
   def createView = () => view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages)
 
-  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model))(fakeRequest, messages)
+  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(Timestamp.timestamp))(fakeRequest, messages)
 
   "ResultPage view" must {
     behave like normalPage(createView, messageKeyPrefix)

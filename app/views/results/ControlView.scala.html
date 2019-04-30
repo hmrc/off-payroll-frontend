@@ -26,7 +26,8 @@
   form: Form[_],
   postAction: Call,
   printView: Boolean = false,
-  additionalPdfDetails: Option[AdditionalPdfDetails] = None)(implicit request: Request[_], messages: Messages)
+  additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+  timestamp: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
 @defining(
     if(printView) {
@@ -56,7 +57,7 @@
 
         @sections.about_result(Some(aboutResultContent))
 
-        @if(printView) { @sections.timestamp() }
+        @if(printView) { @sections.timestamp(timestamp.get) }
 
         @sections.decision_version(version)
 

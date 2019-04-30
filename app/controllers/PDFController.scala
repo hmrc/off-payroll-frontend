@@ -24,18 +24,16 @@ import controllers.actions._
 import forms.CustomisePDFFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.{AdditionalPdfDetails, Mode}
 import models.requests.DataRequest
+import models.{AdditionalPdfDetails, Answers, Mode, Timestamp}
 import navigation.Navigator
-import pages.CustomisePDFPage
+import pages.{CustomisePDFPage, ResultPage}
 import play.api.i18n.I18nSupport
 import play.api.mvc._
 import services.{DecisionService, PDFService}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import utils.{CheckYourAnswersHelper, UserAnswersUtils}
-import viewmodels.AnswerSection
+import utils.UserAnswersUtils
 import views.html.CustomisePDFView
-import views.html.results._
 import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -65,15 +63,19 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
-      additionalData => printResult(additionalData)
+      additionalData => {
+        val timestamp = request.userAnswers.get(ResultPage)
+        printResult(additionalData, if(timestamp.isDefined) timestamp.get.answer else Timestamp.timestamp)
+      }
     )
   }
 
-  private def printResult(additionalPdfDetails: AdditionalPdfDetails)(implicit request: DataRequest[_]): Future[Result] = {
+  private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
 
     if (isEnabled(PrintPDF)) {
 
-      pdfService.generatePdf(decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails))) map {
+      pdfService.generatePdf(decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
+        timestamp = Some(timestamp))) map {
         case Right(result: SuccessfulPDF) => {
           val fileName = additionalPdfDetails.reference.getOrElse("result")
           Ok(result.pdf.toArray)

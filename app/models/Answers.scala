@@ -29,6 +29,18 @@ object Answers {
       (JsPath \ "answerNumber").read[Int]
     )(Answers.apply(_,_))
 
+  implicit val answersReadsString: Reads[Answers[String]] = (
+    (JsPath \ "answer").read[String] and
+      (JsPath \ "answerNumber").read[Int]
+    )(Answers.apply(_,_))
+
+  implicit val answersWritesString: Writes[Answers[String]] = new Writes[Answers[String]] {
+    def writes(answers: Answers[String]) = Json.obj(
+      "answer" -> answers.answer,
+      "answerNumber" -> answers.answerNumber
+    )
+  }
+
   implicit val answersWritesBoolean: Writes[Answers[Boolean]] = new Writes[Answers[Boolean]] {
     def writes(answers: Answers[Boolean]) = Json.obj(
       "answer" -> answers.answer,

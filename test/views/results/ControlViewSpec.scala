@@ -18,7 +18,7 @@ package views.results
 
 import akka.http.scaladsl.model.HttpMethods
 import forms.DeclarationFormProvider
-import models.AdditionalPdfDetails
+import models.{AdditionalPdfDetails, Timestamp}
 import pages.ResultPage
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
@@ -42,7 +42,7 @@ class ControlViewSpec extends ViewBehaviours {
 
   def createView = () => view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages)
 
-  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model))(fakeRequest, messages)
+  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(Timestamp.timestamp))(fakeRequest, messages)
 
   "result page" must {
 

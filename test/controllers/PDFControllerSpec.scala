@@ -19,21 +19,21 @@ package controllers
 import akka.util.ByteString
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitch
+import connectors.FakeDataCacheConnector
 import connectors.httpParsers.PDFGeneratorHttpParser
-import connectors.{FakeDataCacheConnector, PDFGeneratorConnector}
-import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, ErrorResponse, SuccessResponse, SuccessfulPDF}
+import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import controllers.actions._
 import forms.CustomisePDFFormProvider
+import models.Timestamp
 import models.{AdditionalPdfDetails, Answers, NormalMode}
 import navigation.FakeNavigator
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
-import pages.CustomisePDFPage
+import pages.{CustomisePDFPage, ResultPage}
 import play.api.data.Form
-import play.api.libs.json.Json
+import play.api.libs.json.{JsString, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.Html
 import services.{DecisionService, PDFService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.CustomisePDFView
@@ -107,6 +107,22 @@ class PDFControllerSpec extends ControllerSpecBase {
     "show the PDF view" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(Timestamp.timestamp,0)))
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
+
+      when(pdf.generatePdf(any())(any(),any())).thenReturn(Future.successful(response))
+
+      val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe "PDF"
+    }
+
+    "show the PDF view with a default timestamp" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
+
       val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
       when(pdf.generatePdf(any())(any(),any())).thenReturn(Future.successful(response))
@@ -120,7 +136,10 @@ class PDFControllerSpec extends ControllerSpecBase {
     "show the PDF view when the feature defaults" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
-      val result = controllerFeature().onSubmit(NormalMode)(postRequest)
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(Timestamp.timestamp,0)))
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controllerFeature(getRelevantData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe OK
     }
@@ -130,9 +149,12 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       val response: PDFGeneratorHttpParser.Response = Left(BadRequest)
 
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(Timestamp.timestamp,0)))
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
       when(pdf.generatePdf(any())(any(),any())).thenReturn(Future.successful(response))
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+      val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
       contentAsString(result) must include("Sorry, we’re experiencing technical difficulties")
@@ -142,7 +164,10 @@ class PDFControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
       val boundForm = form.bind(Map("completedBy" -> "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+      val validData = Map(ResultPage.toString -> JsString(Timestamp.timestamp))
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
