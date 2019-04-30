@@ -17,14 +17,14 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsBoolean
+import play.api.libs.json.{JsBoolean, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.RejectSubstituteFormProvider
-import models.NormalMode
+import models.{Answers, NormalMode}
 import pages.RejectSubstitutePage
 import play.api.mvc.Call
 import views.html.RejectSubstituteView
@@ -62,7 +62,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(RejectSubstitutePage.toString -> JsBoolean(true))
+      val validData = Map(RejectSubstitutePage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

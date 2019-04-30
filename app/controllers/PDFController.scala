@@ -36,6 +36,7 @@ import utils.{CheckYourAnswersHelper, UserAnswersUtils}
 import viewmodels.AnswerSection
 import views.html.CustomisePDFView
 import views.html.results._
+import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -58,7 +59,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(customisePdfView(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(form.fill), mode))
+    Ok(customisePdfView(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

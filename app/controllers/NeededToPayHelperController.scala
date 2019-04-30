@@ -30,6 +30,8 @@ import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import views.html.NeededToPayHelperView
+import services.CompareAnswerService
+import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -43,14 +45,14 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
                                             view: NeededToPayHelperView,
                                             decisionService: DecisionService,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport {
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(NeededToPayHelperPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(NeededToPayHelperPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -58,13 +60,13 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(NeededToPayHelperPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = constructAnswers(request,value,NeededToPayHelperPage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 
-            val continue = navigator.nextPage(NeededToPayHelperPage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(NeededToPayHelperPage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, ErrorTemplate("neededToPayHelper.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("neededToPayHelper.title"))
           }
         )
       }

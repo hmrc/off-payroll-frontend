@@ -22,6 +22,7 @@ import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+
 import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
 import models._
@@ -29,6 +30,7 @@ import models.requests.DataRequest
 import pages.{ArrangedSubstitutePage, ContractStartedPage, OfficeHolderPage, WorkerTypePage}
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.libs.json.Json
 import play.api.mvc.Results._
 import play.api.mvc.{Call, Request, Result}
 import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
@@ -73,9 +75,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
-
     val interview = Interview(userAnswers)
-
     decisionConnector.decide(interview).map {
       case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
       case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
@@ -128,28 +128,28 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val workerTypeAnswer = request.userAnswers.get(WorkerTypePage)
     val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
     val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
-    val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).getOrElse(false)
-
+    val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage) match {
+      case Some(answer) => answer.answer
+      case _ => false
+    }
     val action: Call = routes.ResultController.onSubmit()
     val form = formWithErrors.getOrElse(resultForm)
 
     def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, workerTypeAnswer) match {
-      case (_, Some(SoleTrader)) => employedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (_, Some(Answers(SoleTrader,_))) => employedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
       case (true, _) => officeHolderInsideIR35View(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
       case (_, _) => insideIR35View(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
     }
-
     def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, workerTypeAnswer, control, financialRisk) match {
-      case (_, _, Some(SoleTrader), _, _) => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (_, _, Some(Answers(SoleTrader,_)), _, _) => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
       case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
         financialRiskView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
       case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
-      case (Some(No), Some(true), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
-      case (Some(_), Some(true), _, _, _) => currentSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
-      case (_, Some(false), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (Some(Answers(No,_)), Some(Answers(true,_)), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (Some(_), Some(Answers(true,_)), _, _, _) => currentSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
+      case (_, Some(Answers(false,_)), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails)
       case _ => errorHandler.internalServerErrorTemplate
     }
-
     result match {
       case ResultEnum.OUTSIDE_IR35 => resultViewOutside
       case ResultEnum.INSIDE_IR35 => resultViewInside

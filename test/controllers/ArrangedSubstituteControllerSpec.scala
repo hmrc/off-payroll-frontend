@@ -17,18 +17,18 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.ArrangedSubstituteFormProvider
-import models.NormalMode
-import models.ArrangedSubstitute
+import models.{Answers, ArrangedSubstitute, NormalMode}
 import pages.ArrangedSubstitutePage
 import play.api.mvc.Call
 import views.html.ArrangedSubstituteView
+import models.Answers._
 
 class ArrangedSubstituteControllerSpec extends ControllerSpecBase {
 
@@ -63,7 +63,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ArrangedSubstitutePage.toString -> JsString(ArrangedSubstitute.values.head.toString))
+      val validData = Map(ArrangedSubstitutePage.toString -> Json.toJson(Answers(ArrangedSubstitute.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

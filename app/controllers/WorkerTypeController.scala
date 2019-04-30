@@ -21,14 +21,18 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.WorkerTypeFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.Answers._
+
+import models.{Enumerable, Mode, WorkerType}
 import navigation.Navigator
 import pages.WorkerTypePage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.WorkerTypeView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -42,14 +46,14 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
                                      view: WorkerTypeView,
                                      decisionService: DecisionService,
                                      implicit val appConfig: FrontendAppConfig
-                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[WorkerType] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val form: Form[WorkerType] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(WorkerTypePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(WorkerTypePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -57,9 +61,9 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(WorkerTypePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(WorkerTypePage, mode)(updatedAnswers))
+        val answers = constructAnswers(request,value,WorkerTypePage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(WorkerTypePage, mode)(answers))
         )
       }
     )

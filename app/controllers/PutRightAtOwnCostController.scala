@@ -21,14 +21,18 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.PutRightAtOwnCostFormProvider
 import javax.inject.Inject
-import models.{Enumerable, ErrorTemplate, Mode}
+import models.Answers._
+
+import models.{Enumerable, ErrorTemplate, Mode, PutRightAtOwnCost}
 import navigation.Navigator
 import pages.PutRightAtOwnCostPage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.PutRightAtOwnCostView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -42,14 +46,14 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
                                             view: PutRightAtOwnCostView,
                                             decisionService: DecisionService,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[PutRightAtOwnCost] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val form: Form[PutRightAtOwnCost] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(PutRightAtOwnCostPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(PutRightAtOwnCostPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -57,14 +61,13 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(PutRightAtOwnCostPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = constructAnswers(request,value,PutRightAtOwnCostPage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 
-            val continue = navigator.nextPage(PutRightAtOwnCostPage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(PutRightAtOwnCostPage, mode)(answers)
             val exit = continue
-
-            decisionService.decide(updatedAnswers, continue, ErrorTemplate("putRightAtOwnCost.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("putRightAtOwnCost.title"))
           }
         )
       }

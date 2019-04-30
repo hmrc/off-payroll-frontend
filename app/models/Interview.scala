@@ -19,7 +19,7 @@ package models
 import config.FrontendAppConfig
 import models.CannotClaimAsExpense._
 import pages._
-import play.api.libs.json.{JsNull, JsString, Json, Writes}
+import play.api.libs.json._
 import utils.JsonObjectSugar
 
 case class Interview(correlationId: String,
@@ -109,29 +109,29 @@ object Interview extends JsonObjectSugar {
   def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig): Interview =
     Interview(
       correlationId = userAnswers.cacheMap.id,
-      endUserRole = userAnswers.get(AboutYouPage),
-      hasContractStarted = userAnswers.get(ContractStartedPage),
-      provideServices = userAnswers.get(WorkerTypePage),
-      officeHolder = userAnswers.get(OfficeHolderPage),
-      workerSentActualSubstitute = userAnswers.get(ArrangedSubstitutePage),
-      workerPayActualSubstitute = userAnswers.get(DidPaySubstitutePage),
-      possibleSubstituteRejection = userAnswers.get(RejectSubstitutePage),
-      possibleSubstituteWorkerPay = userAnswers.get(WouldWorkerPaySubstitutePage),
-      wouldWorkerPayHelper = userAnswers.get(NeededToPayHelperPage),
-      engagerMovingWorker = userAnswers.get(MoveWorkerPage),
-      workerDecidingHowWorkIsDone = userAnswers.get(HowWorkIsDonePage),
-      whenWorkHasToBeDone = userAnswers.get(ScheduleOfWorkingHoursPage),
-      workerDecideWhere = userAnswers.get(ChooseWhereWorkPage),
-      workerProvidedMaterials = userAnswers.get(CannotClaimAsExpensePage).map(_.exists(_ == WorkerProvidedMaterials)),
-      workerProvidedEquipment = userAnswers.get(CannotClaimAsExpensePage).map(_.exists(_ == WorkerProvidedEquipment)),
-      workerUsedVehicle = userAnswers.get(CannotClaimAsExpensePage).map(_.exists(_ == WorkerUsedVehicle)),
-      workerHadOtherExpenses = userAnswers.get(CannotClaimAsExpensePage).map(_.exists(_ == WorkerHadOtherExpenses)),
-      expensesAreNotRelevantForRole = userAnswers.get(CannotClaimAsExpensePage).map(_.exists(_ == ExpensesAreNotRelevantForRole)),
-      workerMainIncome = userAnswers.get(HowWorkerIsPaidPage),
-      paidForSubstandardWork = userAnswers.get(PutRightAtOwnCostPage),
-      workerReceivesBenefits = userAnswers.get(BenefitsPage),
-      workerAsLineManager = userAnswers.get(LineManagerDutiesPage),
-      contactWithEngagerCustomer = userAnswers.get(InteractWithStakeholdersPage),
-      workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage)
+      endUserRole = userAnswers.get(AboutYouPage).fold(None: Option[AboutYouAnswer]){ answer => Some(answer.answer)},
+      hasContractStarted = userAnswers.get(ContractStartedPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      provideServices = userAnswers.get(WorkerTypePage).fold(None: Option[WorkerType]){ answer => Some(answer.answer)},
+      officeHolder = userAnswers.get(OfficeHolderPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      workerSentActualSubstitute = userAnswers.get(ArrangedSubstitutePage).fold(None: Option[ArrangedSubstitute]){ answer => Some(answer.answer)},
+      workerPayActualSubstitute = userAnswers.get(DidPaySubstitutePage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      possibleSubstituteRejection = userAnswers.get(RejectSubstitutePage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      possibleSubstituteWorkerPay = userAnswers.get(WouldWorkerPaySubstitutePage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      wouldWorkerPayHelper = userAnswers.get(NeededToPayHelperPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      engagerMovingWorker = userAnswers.get(MoveWorkerPage).fold(None: Option[MoveWorker]){ answer => Some(answer.answer)},
+      workerDecidingHowWorkIsDone = userAnswers.get(HowWorkIsDonePage).fold(None: Option[HowWorkIsDone]){ answer => Some(answer.answer)},
+      whenWorkHasToBeDone = userAnswers.get(ScheduleOfWorkingHoursPage).fold(None: Option[ScheduleOfWorkingHours]){ answer => Some(answer.answer)},
+      workerDecideWhere = userAnswers.get(ChooseWhereWorkPage).fold(None: Option[ChooseWhereWork]){ answer => Some(answer.answer)},
+      workerProvidedMaterials = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerProvidedMaterials)),
+      workerProvidedEquipment = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerProvidedEquipment)),
+      workerUsedVehicle = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerUsedVehicle)),
+      workerHadOtherExpenses = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(WorkerHadOtherExpenses)),
+      expensesAreNotRelevantForRole = userAnswers.get(CannotClaimAsExpensePage).map(result => result.answer.contains(ExpensesAreNotRelevantForRole)),
+      workerMainIncome = userAnswers.get(HowWorkerIsPaidPage).fold(None: Option[HowWorkerIsPaid]){ answer => Some(answer.answer)},
+      paidForSubstandardWork = userAnswers.get(PutRightAtOwnCostPage).fold(None: Option[PutRightAtOwnCost]){ answer => Some(answer.answer)},
+      workerReceivesBenefits = userAnswers.get(BenefitsPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      workerAsLineManager = userAnswers.get(LineManagerDutiesPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      contactWithEngagerCustomer = userAnswers.get(InteractWithStakeholdersPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
+      workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold(None: Option[IdentifyToStakeholders]){ answer => Some(answer.answer)}
     )
 }

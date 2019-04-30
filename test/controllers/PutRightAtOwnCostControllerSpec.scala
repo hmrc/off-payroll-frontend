@@ -17,7 +17,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsString, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.PutRightAtOwnCostFormProvider
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
-import models.{ErrorTemplate, NormalMode, PutRightAtOwnCost, UserAnswers}
+import models._
 import pages.PutRightAtOwnCostPage
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
@@ -34,6 +34,7 @@ import views.html.PutRightAtOwnCostView
 import org.mockito.Mockito.when
 import org.mockito.Matchers.{eq => eqTo, _}
 import org.mockito.Matchers
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -71,7 +72,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(PutRightAtOwnCostPage.toString -> JsString(PutRightAtOwnCost.values.head.toString))
+      val validData = Map(PutRightAtOwnCostPage.toString -> Json.toJson(Answers(PutRightAtOwnCost.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -83,7 +84,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, OutsideOfHoursNoCharge)
+      val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("putRightAtOwnCost.title")))

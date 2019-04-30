@@ -17,14 +17,14 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsBoolean
+import play.api.libs.json.{JsBoolean, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.NeededToPayHelperFormProvider
-import models.{ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -70,7 +70,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(NeededToPayHelperPage.toString -> JsBoolean(true))
+      val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -82,7 +82,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(NeededToPayHelperPage, true)
+      val userAnswers = UserAnswers("id").set(NeededToPayHelperPage,0, true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("neededToPayHelper.title")))

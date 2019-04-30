@@ -17,14 +17,14 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsBoolean
+import play.api.libs.json.{JsBoolean, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.WouldWorkerPaySubstituteFormProvider
-import models.{ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -33,6 +33,7 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import views.html.WouldWorkerPaySubstituteView
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -70,7 +71,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(WouldWorkerPaySubstitutePage.toString -> JsBoolean(true))
+      val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -82,7 +83,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, true)
+      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0, true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("wouldWorkerPaySubstitute.title")))

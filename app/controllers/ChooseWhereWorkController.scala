@@ -21,14 +21,18 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
 import javax.inject.Inject
-import models.{Enumerable, ErrorTemplate, Mode}
+import models.Answers._
+
+import models.{ChooseWhereWork, Enumerable, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.ChooseWhereWorkPage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.ChooseWhereWorkView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -42,14 +46,14 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
                                           view: ChooseWhereWorkView,
                                           decisionService: DecisionService,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[ChooseWhereWork] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val form: Form[ChooseWhereWork] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(ChooseWhereWorkPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(ChooseWhereWorkPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -57,13 +61,12 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(ChooseWhereWorkPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = constructAnswers(request,value,ChooseWhereWorkPage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 
-            val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(updatedAnswers)
-            val exit = continue
-            decisionService.decide(updatedAnswers, continue, ErrorTemplate("chooseWhereWork.title"))
+            val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(answers)
+            decisionService.decide(answers, continue, ErrorTemplate("chooseWhereWork.title"))
           }
         )
       }

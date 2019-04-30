@@ -21,13 +21,17 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
 import javax.inject.Inject
-import models.{Enumerable, Mode}
+import models.Answers._
+
+import models.{Enumerable, Mode, ScheduleOfWorkingHours}
 import navigation.Navigator
 import pages.ScheduleOfWorkingHoursPage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.ScheduleOfWorkingHoursView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,14 +44,14 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: ScheduleOfWorkingHoursView,
                                                  implicit val appConfig: FrontendAppConfig
-                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[ScheduleOfWorkingHours] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val form: Form[ScheduleOfWorkingHours] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(ScheduleOfWorkingHoursPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(ScheduleOfWorkingHoursPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -55,9 +59,9 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(ScheduleOfWorkingHoursPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ScheduleOfWorkingHoursPage, mode)(updatedAnswers))
+        val answers = constructAnswers(request,value,ScheduleOfWorkingHoursPage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(ScheduleOfWorkingHoursPage, mode)(answers))
         )
       }
     )

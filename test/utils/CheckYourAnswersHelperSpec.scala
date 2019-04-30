@@ -39,7 +39,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is an answer in the cacheMap" should {
 
       "Return correctly formatted answer row" in {
-        val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, Seq(WorkerUsedVehicle))
+        val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
         new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense mustBe
           Some(AnswerRow(
             label = "cannotClaimAsExpense.checkYourAnswersLabel",
@@ -65,7 +65,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
       "the answer is yes" should {
 
         "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(OfficeHolderPage, true)
+          val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1,true)
           new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
             Some(AnswerRow(
               label = "officeHolder.checkYourAnswersLabel",
@@ -79,7 +79,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
       "the answer is no" should {
 
         "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(OfficeHolderPage, false)
+          val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
             Some(AnswerRow(
               label = "officeHolder.checkYourAnswersLabel",
@@ -104,7 +104,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is an answer in the cacheMap" should {
 
       "Return correctly formatted answer row" in {
-        val cacheMap = UserAnswers("id").set(WorkerTypePage, LimitedCompany)
+        val cacheMap = UserAnswers("id").set(WorkerTypePage, 1,LimitedCompany)
         new CheckYourAnswersHelper(cacheMap).workerType mustBe
           Some(AnswerRow(
             label = "workerType.checkYourAnswersLabel",
@@ -128,7 +128,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is an answer in the cacheMap" should {
 
       "Return correctly formatted answer row" in {
-        val cacheMap = UserAnswers("id").set(AboutYouPage, Worker)
+        val cacheMap = UserAnswers("id").set(AboutYouPage, 1,Worker)
         new CheckYourAnswersHelper(cacheMap).aboutYou mustBe
           Some(AnswerRow(
             label = "aboutYou.checkYourAnswersLabel",
@@ -154,7 +154,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
       "the answer is yes" should {
 
         "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(ContractStartedPage, true)
+          val cacheMap = UserAnswers("id").set(ContractStartedPage, 1,true)
           new CheckYourAnswersHelper(cacheMap).contractStarted mustBe
             Some(AnswerRow(
               label = "contractStarted.checkYourAnswersLabel",
@@ -168,7 +168,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
       "the answer is no" should {
 
         "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(ContractStartedPage, false)
+          val cacheMap = UserAnswers("id").set(ContractStartedPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).contractStarted mustBe
             Some(AnswerRow(
               label = "contractStarted.checkYourAnswersLabel",

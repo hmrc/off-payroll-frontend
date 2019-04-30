@@ -21,12 +21,14 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.AboutYouFormProvider
 import javax.inject.Inject
+import models.Answers._
 import models.{AboutYouAnswer, Enumerable, Mode}
 import navigation.Navigator
-import pages.AboutYouPage
+import pages.{AboutYouPage, ContractStartedPage, Page, QuestionPage}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.CompareAnswerService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.AboutYouView
 
@@ -41,23 +43,24 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
                                    controllerComponents: MessagesControllerComponents,
                                    view: AboutYouView,
                                    implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                  ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
+  with CompareAnswerService[AboutYouAnswer] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[AboutYouAnswer] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(AboutYouPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(AboutYouPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set[AboutYouAnswer](AboutYouPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(AboutYouPage, mode)(updatedAnswers))
+        val answers = constructAnswers(request,value,AboutYouPage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(AboutYouPage, mode)(answers))
         )
       }
     )
