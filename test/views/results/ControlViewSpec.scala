@@ -18,6 +18,8 @@ package views.results
 
 import akka.http.scaladsl.model.HttpMethods
 import forms.DeclarationFormProvider
+import models.AdditionalPdfDetails
+import pages.ResultPage
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
 import views.html.results.ControlView
@@ -36,11 +38,26 @@ class ControlViewSpec extends ViewBehaviours {
 
   val version = "1.0"
 
+  val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
+
   def createView = () => view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages)
+
+  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model))(fakeRequest, messages)
+
+  "result page" must {
+
+    "to string correctly" in {
+      ResultPage.toString mustBe "result"
+    }
+  }
 
   "ResultPage view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+  }
+
+  "ResultPage print view" must {
+    behave like printPage(createPrintView, model, messageKeyPrefix)
   }
 }

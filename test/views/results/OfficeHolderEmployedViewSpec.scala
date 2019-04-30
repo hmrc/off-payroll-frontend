@@ -18,6 +18,7 @@ package views.results
 
 import akka.http.scaladsl.model.HttpMethods
 import forms.DeclarationFormProvider
+import models.AdditionalPdfDetails
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
 import views.html.results.OfficeHolderEmployedView
@@ -37,6 +38,14 @@ class OfficeHolderEmployedViewSpec extends ViewBehaviours {
   val version = "1.0"
 
   def createView = () => view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages)
+
+  val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
+
+  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model))(fakeRequest, messages)
+
+  "ResultPrintPage view" must {
+    behave like printPage(createPrintView, model, messageKeyPrefix)
+  }
 
   "ResultPage view" must {
     behave like normalPage(createView, messageKeyPrefix)
