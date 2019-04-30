@@ -26,13 +26,6 @@ import scala.collection.immutable.Map
 
 trait CompareAnswerService[T] {
 
-  def getPagesToClear(currentPage: QuestionPage[T],allPages: List[String]): List[QuestionPage[_]] = {
-    val questionsToPages: List[QuestionPage[_]] = allPages.map(page => CompareAnswerService.questionToPage(page))
-    val currentPageIndex = questionsToPages.indexOf(currentPage)
-    val toBeRemoved = questionsToPages.splitAt(currentPageIndex)._2
-    toBeRemoved
-  }
-
   def constructAnswers(request: DataRequest[AnyContent], value: T,
                        page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]): UserAnswers = {
     val answerNumber = request.userAnswers.size
@@ -43,14 +36,13 @@ trait CompareAnswerService[T] {
         val allAnswers = request.userAnswers.cacheMap.data
         val allAnswersInOrder = allAnswers.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
         val pagesToRemove = allAnswersInOrder.splitAt(answer.answerNumber)._2.map(_._1)
-        val removedPages = recursivelyClearQuestions(pagesToRemove.map(pageName => CompareAnswerService.questionToPage(pageName)), request.userAnswers)
-        val updatedAnswerNumber = removedPages.size
-        removedPages.set(page, updatedAnswerNumber, value)
+        val updatedAnswers = recursivelyClearQuestions(pagesToRemove.map(pageName => CompareAnswerService.questionToPage(pageName)), request.userAnswers)
+        updatedAnswers.set(page, updatedAnswers.size, value)
       }
     }
   }
 
-  def recursivelyClearQuestions(pages: List[QuestionPage[_]], userAnswers: UserAnswers): UserAnswers = {
+  private def recursivelyClearQuestions(pages: List[QuestionPage[_]], userAnswers: UserAnswers): UserAnswers = {
     if(pages.isEmpty) userAnswers else {
       recursivelyClearQuestions(pages.tail,userAnswers.remove(pages.head))
     }
