@@ -17,7 +17,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsString, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.IdentifyToStakeholdersFormProvider
 import models.IdentifyToStakeholders.WorkForEndClient
-import models.{ErrorTemplate, IdentifyToStakeholders, NormalMode, UserAnswers}
+import models._
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -34,6 +34,7 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import views.html.IdentifyToStakeholdersView
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -71,7 +72,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(IdentifyToStakeholdersPage.toString -> JsString(IdentifyToStakeholders.values.head.toString))
+      val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -83,7 +84,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, WorkForEndClient)
+      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0, WorkForEndClient)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("identifyToStakeholders.title")))

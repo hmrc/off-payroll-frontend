@@ -30,6 +30,8 @@ import pages.RejectSubstitutePage
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.RejectSubstituteView
+import services.CompareAnswerService
+import models.Answers._
 
 import scala.concurrent.{Future, ExecutionContext}
 
@@ -42,14 +44,14 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
                                            controllerComponents: MessagesControllerComponents,
                                            view: RejectSubstituteView,
                                            implicit val appConfig: FrontendAppConfig
-                                          ) extends FrontendController(controllerComponents) with I18nSupport {
+                                          ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(RejectSubstitutePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(RejectSubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -57,9 +59,9 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(RejectSubstitutePage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(RejectSubstitutePage, mode)(updatedAnswers))
+        val answers = constructAnswers(request,value,RejectSubstitutePage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(RejectSubstitutePage, mode)(answers))
         )
       }
     )

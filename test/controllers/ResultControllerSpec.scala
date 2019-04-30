@@ -17,6 +17,7 @@
 package controllers
 
 import config.SessionKeys
+import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import models.{AboutYouAnswer, NormalMode, ResultEnum}
@@ -27,6 +28,11 @@ import play.api.test.Helpers._
 import services.DecisionService
 import viewmodels.AnswerSection
 import views.html.results.{IndeterminateView, _}
+import org.mockito.Mockito.when
+import org.mockito.Matchers.any
+import uk.gov.hmrc.http.cache.client.CacheMap
+
+import scala.concurrent.Future
 
 class ResultControllerSpec extends ControllerSpecBase {
 
@@ -59,6 +65,8 @@ class ResultControllerSpec extends ControllerSpecBase {
 
   val version = "1.5.0-final"
 
+  val dataConnector = mock[DataCacheConnector]
+
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ResultController(
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -67,6 +75,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     injector.instanceOf[DecisionService],
     formProvider,
     new FakeNavigator(onwardRoute),
+    dataConnector,
     frontendAppConfig
   )
 
@@ -76,6 +85,8 @@ class ResultControllerSpec extends ControllerSpecBase {
   "ResultPage Controller" must {
 
     "return OK and the correct view for a GET" in {
+
+      when(dataConnector.save(any())).thenReturn(Future.successful(CacheMap("id", Map())))
 
       val result = controller().onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
 

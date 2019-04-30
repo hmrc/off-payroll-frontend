@@ -21,14 +21,18 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
-import models.{Enumerable, ErrorTemplate, Mode}
+import models.Answers._
+
+import models.{Enumerable, ErrorTemplate, IdentifyToStakeholders, Mode}
 import navigation.Navigator
 import pages.IdentifyToStakeholdersPage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.IdentifyToStakeholdersView
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -42,14 +46,15 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
                                                  view: IdentifyToStakeholdersView,
                                                  decisionService: DecisionService,
                                                  implicit val appConfig: FrontendAppConfig
-                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
+  with CompareAnswerService[IdentifyToStakeholders] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
-  val form = formProvider()
+  val form: Form[IdentifyToStakeholders] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(IdentifyToStakeholdersPage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(IdentifyToStakeholdersPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -57,12 +62,12 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val updatedAnswers = request.userAnswers.set(IdentifyToStakeholdersPage, value)
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        val answers = constructAnswers(request,value,IdentifyToStakeholdersPage)
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-            val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, ErrorTemplate("identifyToStakeholders.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("identifyToStakeholders.title"))
           }
         )
       }

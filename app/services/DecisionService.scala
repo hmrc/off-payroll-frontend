@@ -22,6 +22,7 @@ import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+import models.Answers._
 import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
 import models._
@@ -34,7 +35,6 @@ import play.api.mvc.{Call, Request, Result}
 import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.cache.client.CacheMap
 import viewmodels.AnswerSection
 import views.html.results._
 
@@ -76,19 +76,18 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
-
     val interview = Interview(userAnswers)
 
-    decisionConnector.decide(interview).flatMap {
-      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Future.successful(Redirect(continueResult))
-      case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.INSIDE_IR35))
+    decisionConnector.decide(interview).map {
+      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
+      case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
       case Right(DecisionResponse(_, _, Score(_,_,_, control, financialRisk, _), ResultEnum.OUTSIDE_IR35)) =>
-        setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk))
-      case Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.SELF_EMPLOYED))
-      case Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.EMPLOYED))
-      case Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => setTimestamp(userAnswers).map(_ => redirectResultsPage(ResultEnum.UNKNOWN))
-      case Left(error) => Future.successful(redirectErrorPage(error.status, errorResult))
-      case _ => Future.successful(redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult))
+        redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
+      case Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
+      case Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => redirectResultsPage(ResultEnum.EMPLOYED)
+      case Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => redirectResultsPage(ResultEnum.UNKNOWN)
+      case Left(error) => redirectErrorPage(error.status, errorResult)
+      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
     }
   }
 
@@ -101,13 +100,6 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     )
 
     Status(status)(errorTemplate)
-  }
-
-  def setTimestamp(userAnswers: UserAnswers): Future[CacheMap] ={
-
-    val answers = userAnswers.set(ResultPage, Timestamp.timestamp)
-    dataCacheConnector.save(answers.cacheMap)
-
   }
 
   def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
@@ -136,29 +128,31 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val workerTypeAnswer = request.userAnswers.get(WorkerTypePage)
     val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
     val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
-    val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).getOrElse(false)
-
+    val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage) match {
+      case Some(answer) => answer.answer
+      case _ => false
+    }
     val action: Call = routes.ResultController.onSubmit()
     val form = formWithErrors.getOrElse(resultForm)
 
     def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, workerTypeAnswer) match {
-      case (_, Some(SoleTrader)) => employedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, Some(Answers(SoleTrader,_))) => employedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (true, _) => officeHolderInsideIR35View(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _) => insideIR35View(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
     }
-
     def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, workerTypeAnswer, control, financialRisk) match {
-      case (_, _, Some(SoleTrader), _, _) => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _, Some(Answers(SoleTrader,_)), _, _) => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
         financialRiskView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) =>
-        controlView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (Some(No), Some(true), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (Some(_), Some(true), _, _, _) => currentSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, Some(false), _, _, _) => futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (Some(Answers(No,_)), Some(Answers(true,_)), _, _, _) =>
+        futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (Some(_), Some(Answers(true,_)), _, _, _) =>
+        currentSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, Some(Answers(false,_)), _, _, _) =>
+        futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case _ => errorHandler.internalServerErrorTemplate
     }
-
     result match {
       case ResultEnum.OUTSIDE_IR35 => resultViewOutside
       case ResultEnum.INSIDE_IR35 => resultViewInside

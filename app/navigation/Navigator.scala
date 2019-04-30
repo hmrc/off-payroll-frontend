@@ -38,7 +38,7 @@ class Navigator @Inject()() {
 
     //Early Exit Section
     OfficeHolderPage -> (answers => answers.get(ContractStartedPage) match {
-      case Some(true) => routes.ArrangedSubstituteController.onPageLoad(NormalMode)
+      case Some(Answers(true,_)) => routes.ArrangedSubstituteController.onPageLoad(NormalMode)
       case Some(_) => routes.RejectSubstituteController.onPageLoad(NormalMode)
       case _ => routes.ContractStartedController.onPageLoad(NormalMode)
     }),
@@ -46,23 +46,23 @@ class Navigator @Inject()() {
     //Personal Service Section
     ArrangedSubstitutePage -> (answers =>
       answers.get(ArrangedSubstitutePage) match {
-        case Some(YesClientAgreed) => routes.DidPaySubstituteController.onPageLoad(NormalMode)
-        case Some(YesClientNotAgreed) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case Some(No) => routes.RejectSubstituteController.onPageLoad(NormalMode)
+        case Some(Answers(YesClientAgreed,_)) => routes.DidPaySubstituteController.onPageLoad(NormalMode)
+        case Some(Answers(YesClientNotAgreed,_)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case Some(Answers(No,_)) => routes.RejectSubstituteController.onPageLoad(NormalMode)
         case _ => routes.ArrangedSubstituteController.onPageLoad(NormalMode)
       }),
     DidPaySubstitutePage -> (_ => routes.NeededToPayHelperController.onPageLoad(NormalMode)),
     RejectSubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
-        case (Some(true), Some(true)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case (_, Some(false)) => routes.WouldWorkerPaySubstituteController.onPageLoad(NormalMode)
-        case (_, Some(true)) => routes.MoveWorkerController.onPageLoad(NormalMode)
+        case (Some(Answers(true,_)), Some(Answers(true,_))) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case (_, Some(Answers(false,_))) => routes.WouldWorkerPaySubstituteController.onPageLoad(NormalMode)
+        case (_, Some(Answers(true,_))) => routes.MoveWorkerController.onPageLoad(NormalMode)
         case (None, _) => routes.ContractStartedController.onPageLoad(NormalMode)
         case (_, None) => routes.RejectSubstituteController.onPageLoad(NormalMode)
       }),
     WouldWorkerPaySubstitutePage -> (answers =>
       answers.get(ContractStartedPage) match {
-        case Some(true) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case Some(Answers(true,_)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
         case Some(_) => routes.MoveWorkerController.onPageLoad(NormalMode)
         case _ => routes.ContractStartedController.onPageLoad(NormalMode)
     }),
@@ -81,17 +81,17 @@ class Navigator @Inject()() {
 
     //Part and Parcel Section
     BenefitsPage -> (answers => answers.get(BenefitsPage) match {
-      case Some(true) => routes.CheckYourAnswersController.onPageLoad()
+      case Some(Answers(true,_)) => routes.CheckYourAnswersController.onPageLoad()
       case Some(_) => routes.LineManagerDutiesController.onPageLoad(NormalMode)
       case _ => routes.BenefitsController.onPageLoad(NormalMode)
     }),
     LineManagerDutiesPage -> (answers => answers.get(LineManagerDutiesPage) match {
-      case Some(true) => routes.CheckYourAnswersController.onPageLoad()
+      case Some(Answers(true,_)) => routes.CheckYourAnswersController.onPageLoad()
       case Some(_) => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
       case _ => routes.LineManagerDutiesController.onPageLoad(NormalMode)
     }),
     InteractWithStakeholdersPage -> (answers => answers.get(InteractWithStakeholdersPage) match {
-      case Some(true) => routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
+      case Some(Answers(true,_)) => routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
       case Some(_) => routes.CheckYourAnswersController.onPageLoad()
       case _ => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
     }),

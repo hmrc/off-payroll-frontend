@@ -30,6 +30,8 @@ import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.DecisionService
 import views.html.WouldWorkerPaySubstituteView
+import services.CompareAnswerService
+import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -43,14 +45,14 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
                                                    view: WouldWorkerPaySubstituteView,
                                                    decisionService: DecisionService,
                                                    implicit val appConfig: FrontendAppConfig
-                                                  ) extends FrontendController(controllerComponents) with I18nSupport {
+                                                  ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(WouldWorkerPaySubstitutePage).fold(form)(form.fill), mode))
+    Ok(view(appConfig, request.userAnswers.get(WouldWorkerPaySubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -59,13 +61,13 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
 
-        val updatedAnswers = request.userAnswers.set(WouldWorkerPaySubstitutePage, value)
+        val answers = constructAnswers(request,value,WouldWorkerPaySubstitutePage)
 
-        dataCacheConnector.save(updatedAnswers.cacheMap).flatMap(
+        dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-            val continue = navigator.nextPage(WouldWorkerPaySubstitutePage, mode)(updatedAnswers)
+            val continue = navigator.nextPage(WouldWorkerPaySubstitutePage, mode)(answers)
             val exit = continue
-            decisionService.decide(updatedAnswers, continue, ErrorTemplate("wouldWorkerPaySubstitute.title"))
+            decisionService.decide(answers, continue, ErrorTemplate("wouldWorkerPaySubstitute.title"))
           }
         )
       }

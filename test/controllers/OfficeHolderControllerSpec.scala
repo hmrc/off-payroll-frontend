@@ -19,14 +19,14 @@ package controllers
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.OfficeHolderFormProvider
-import models.{ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import pages.OfficeHolderPage
 import play.api.data.Form
-import play.api.libs.json.JsBoolean
+import play.api.libs.json.{JsBoolean, Json}
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
@@ -70,7 +70,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(OfficeHolderPage.toString -> JsBoolean(true))
+      val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -82,7 +82,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(OfficeHolderPage, true)
+      val userAnswers = UserAnswers("id").set(OfficeHolderPage,0, true)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute), Matchers.eq(ErrorTemplate("officeHolder.title")))
       (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))

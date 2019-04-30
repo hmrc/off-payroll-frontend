@@ -17,18 +17,18 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsString, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.ScheduleOfWorkingHoursFormProvider
-import models.NormalMode
-import models.ScheduleOfWorkingHours
+import models.{Answers, NormalMode, ScheduleOfWorkingHours}
 import pages.ScheduleOfWorkingHoursPage
 import play.api.mvc.Call
 import views.html.ScheduleOfWorkingHoursView
+import models.Answers._
 
 class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase {
 
@@ -63,7 +63,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ScheduleOfWorkingHoursPage.toString -> JsString(ScheduleOfWorkingHours.values.head.toString))
+      val validData = Map(ScheduleOfWorkingHoursPage.toString -> Json.toJson(Answers(ScheduleOfWorkingHours.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

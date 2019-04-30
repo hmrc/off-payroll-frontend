@@ -21,13 +21,13 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
-import models.NormalMode
+import models.{NormalMode, Timestamp}
 import navigation.Navigator
 import pages.ResultPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
+import services.{CompareAnswerService, DecisionService}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.UserAnswersUtils
 
@@ -40,8 +40,9 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  decisionService: DecisionService,
                                  formProvider: DeclarationFormProvider,
                                  navigator: Navigator,
+                                 dataCacheConnector: DataCacheConnector,
                                  implicit val conf: FrontendAppConfig)
-  extends FrontendController(controllerComponents) with I18nSupport with UserAnswersUtils {
+  extends FrontendController(controllerComponents) with I18nSupport with UserAnswersUtils with CompareAnswerService[String] {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -49,8 +50,13 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   private val version = conf.decisionVersion
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(decisionService.determineResultView(answers))
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
+    val timestamp = constructAnswers(request,Timestamp.timestamp,ResultPage)
+
+    dataCacheConnector.save(timestamp.cacheMap).map(
+      _ => Ok(decisionService.determineResultView(answers))
+    )
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

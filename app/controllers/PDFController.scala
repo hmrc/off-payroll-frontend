@@ -25,7 +25,7 @@ import forms.CustomisePDFFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
 import models.requests.DataRequest
-import models.{AdditionalPdfDetails, Mode, Timestamp}
+import models.{AdditionalPdfDetails, Answers, Mode, Timestamp}
 import navigation.Navigator
 import pages.{CustomisePDFPage, ResultPage}
 import play.api.i18n.I18nSupport
@@ -34,6 +34,7 @@ import services.{DecisionService, PDFService}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.UserAnswersUtils
 import views.html.CustomisePDFView
+import models.Answers._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -56,15 +57,15 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(customisePdfView(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(form.fill), mode))
+    Ok(customisePdfView(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
       additionalData => {
-        val timestamp = request.userAnswers.get(ResultPage).getOrElse(Timestamp.timestamp)
-        printResult(additionalData, timestamp)
+        val timestamp = request.userAnswers.get(ResultPage)
+        printResult(additionalData, if(timestamp.isDefined) timestamp.get.answer else Timestamp.timestamp)
       }
     )
   }

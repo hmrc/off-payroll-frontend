@@ -17,7 +17,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
@@ -25,7 +25,7 @@ import controllers.actions._
 import play.api.test.Helpers._
 import forms.ChooseWhereWorkFormProvider
 import models.ChooseWhereWork.Workerchooses
-import models.{ChooseWhereWork, ErrorTemplate, NormalMode, UserAnswers}
+import models._
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -34,6 +34,7 @@ import play.api.mvc.Call
 import play.api.mvc.Results.Redirect
 import uk.gov.hmrc.http.HeaderCarrier
 import views.html.ChooseWhereWorkView
+import models.Answers._
 
 import scala.concurrent.Future
 
@@ -71,7 +72,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ChooseWhereWorkPage.toString -> JsString(ChooseWhereWork.values.head.toString))
+      val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(ChooseWhereWork.values.head,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -83,7 +84,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage, Workerchooses)
+      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, Workerchooses)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("chooseWhereWork.title")))
