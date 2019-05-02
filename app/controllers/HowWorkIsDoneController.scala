@@ -44,7 +44,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
                                         controllerComponents: MessagesControllerComponents,
                                         view: HowWorkIsDoneView,
                                         implicit val appConfig: FrontendAppConfig
-                                       ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[HowWorkIsDone] {
+                                       ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -59,7 +59,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,HowWorkIsDonePage)
+        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkIsDonePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(HowWorkIsDonePage, mode)(answers))
         )

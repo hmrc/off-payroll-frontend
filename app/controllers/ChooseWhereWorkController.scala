@@ -46,7 +46,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
                                           view: ChooseWhereWorkView,
                                           decisionService: DecisionService,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[ChooseWhereWork] {
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -61,7 +61,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,ChooseWhereWorkPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,ChooseWhereWorkPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 

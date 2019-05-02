@@ -45,7 +45,7 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
                                             view: NeededToPayHelperView,
                                             decisionService: DecisionService,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
+                                           ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -60,7 +60,7 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,NeededToPayHelperPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,NeededToPayHelperPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(NeededToPayHelperPage, mode)(answers)

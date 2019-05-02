@@ -43,8 +43,7 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
                                    controllerComponents: MessagesControllerComponents,
                                    view: AboutYouView,
                                    implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
-  with CompareAnswerService[AboutYouAnswer] {
+                                  ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -58,7 +57,7 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,AboutYouPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,AboutYouPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(AboutYouPage, mode)(answers))
         )
