@@ -15,10 +15,23 @@
  *@
 
 @import viewmodels.AnswerRow
+@import viewmodels.ResultPageHelper
 
-@(row: AnswerRow, printMode: Boolean = false)(implicit messages: Messages)
+@(row: (AnswerRow, Option[Html]), printMode: Boolean = false)(implicit messages: Messages)
 
-<li>
+        <ul>
+            <li class="divider--bottom" style="padding-bottom: 0.7pc;"><h3>@messages(row._1.label)</h3>
+
+                @if(row._2.isDefined){
+                    <div>@{row._2.get}</div>
+                }
+
+                <div id="answer" class="panel-indent">@row._1.answerHtml</div>
+            </li>
+        </ul>
+
+
+@*<li>
     <div class="cya-question">@messages(row.label)</div>
     <div class="cya-answer">
         @row.answerHtml
@@ -31,4 +44,4 @@
             </a>
         </div>
     }
-</li>
+</li> *@

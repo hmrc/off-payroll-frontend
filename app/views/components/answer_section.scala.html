@@ -23,6 +23,10 @@
     <h2>@messages(answerSection.headingKey.get)</h2>
 }
 
+@if(answerSection.whyResult.isDefined){
+    <p>@{answerSection.whyResult.get}<p>
+}
+
 @if(answerSection.useProgressiveDisclosure && !printMode) {
     @components.progressive_disclosure(messages("result.showAnswers"), content)
 } else {
@@ -30,7 +34,7 @@
 }
 
 @content = {
-    <ul role="list" class="govuk-check-your-answers cya-questions-long section">
+    <ul role="list" class="section">
         @for(row <- answerSection.rows){
             @components.answer_row(row, printMode)
         }

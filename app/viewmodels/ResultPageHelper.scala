@@ -16,9 +16,21 @@
 
 package viewmodels
 
+import play.api.i18n.Messages
 import play.twirl.api.Html
 
-case class AnswerSection(headingKey: Option[String], whyResult: Option[Html] = None,
-                         rows: Seq[(AnswerRow, Option[Html])], useProgressiveDisclosure: Boolean = false) extends Section {
-  val nonEmpty: Boolean = rows.nonEmpty
+object ResultPageHelper {
+
+  def getResultsPageHint(key: String)(implicit messages: Messages): Option[Html] = {
+
+    key match {
+      case key if key.contains("aboutYou") => Some(Html(messages("aboutYou.hint")))
+      case key if key.contains("sds") => None
+
+
+
+      case _ => None
+    }
+
+  }
 }

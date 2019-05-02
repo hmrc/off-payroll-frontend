@@ -46,11 +46,11 @@ class CheckYourAnswersController @Inject()(authenticate: IdentifierAction,
           checkYourAnswersHelper.aboutYou,
           checkYourAnswersHelper.contractStarted,
           checkYourAnswersHelper.workerType
-        ).flatten
+        ).flatten.map( s => (s, None))
       ),
       AnswerSection(
         headingKey = Some("Early Exit Section"),
-        rows = Seq(checkYourAnswersHelper.officeHolder).flatten
+        rows = Seq(checkYourAnswersHelper.officeHolder).flatten.map( s => (s, None))
       ),
       AnswerSection(
         headingKey = Some("Personal Service Section"),
@@ -60,7 +60,7 @@ class CheckYourAnswersController @Inject()(authenticate: IdentifierAction,
           checkYourAnswersHelper.rejectSubstitute,
           checkYourAnswersHelper.wouldWorkerPaySubstitute,
           checkYourAnswersHelper.neededToPayHelper
-        ).flatten
+        ).flatten.map( s => (s, None))
       ),
       AnswerSection(
         headingKey = Some("Control Section"),
@@ -69,7 +69,7 @@ class CheckYourAnswersController @Inject()(authenticate: IdentifierAction,
           checkYourAnswersHelper.howWorkIsDone,
           checkYourAnswersHelper.scheduleOfWorkingHours,
           checkYourAnswersHelper.chooseWhereWork
-        ).flatten
+        ).flatten.map( s => (s, None))
       ),
       AnswerSection(
         headingKey = Some("Financial Risk Section"),
@@ -77,7 +77,7 @@ class CheckYourAnswersController @Inject()(authenticate: IdentifierAction,
           checkYourAnswersHelper.cannotClaimAsExpense,
           checkYourAnswersHelper.howWorkerIsPaid,
           checkYourAnswersHelper.putRightAtOwnCost
-        ).flatten
+        ).flatten.map( s => (s, None))
       ),
       AnswerSection(
         headingKey = Some("Part and Parcel Section"),
@@ -86,7 +86,7 @@ class CheckYourAnswersController @Inject()(authenticate: IdentifierAction,
           checkYourAnswersHelper.lineManagerDuties,
           checkYourAnswersHelper.interactWithStakeholders,
           checkYourAnswersHelper.identifyToStakeholders
-        ).flatten
+        ).flatten.map( s => (s, None))
       )
     )
 

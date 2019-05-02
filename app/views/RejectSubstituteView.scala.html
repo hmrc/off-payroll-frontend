@@ -37,9 +37,7 @@
 
         @components.heading("rejectSubstitute.heading", Some("rejectSubstitute.subheading"))
 
-        @components.hint(hint)
-
-        @components.exclamation(Html(messages("rejectSubstitute.exclamation")))
+        @components.reject_substitute_text
 
         @components.input_yes_no(
             field = form("value"),
@@ -54,13 +52,3 @@
     }
 }
 
-@hint = {
-    <p>@messages("rejectSubstitute.hint.p1")</p>
-    @components.bulleted_list(Seq(
-        messages("rejectSubstitute.hint.bullet1"),
-        messages("rejectSubstitute.hint.bullet2"),
-        messages("rejectSubstitute.hint.bullet3"),
-        messages("rejectSubstitute.hint.bullet4"),
-        messages("rejectSubstitute.hint.bullet5")
-    ))
-}
