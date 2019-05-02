@@ -46,7 +46,7 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
                                             view: PutRightAtOwnCostView,
                                             decisionService: DecisionService,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[PutRightAtOwnCost] {
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -61,7 +61,7 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,PutRightAtOwnCostPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,PutRightAtOwnCostPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
 

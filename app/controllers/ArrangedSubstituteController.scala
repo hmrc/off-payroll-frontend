@@ -44,7 +44,7 @@ class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnec
                                              controllerComponents: MessagesControllerComponents,
                                              view: ArrangedSubstituteView,
                                              implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[ArrangedSubstitute]{
+                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
   val form: Form[ArrangedSubstitute] = formProvider()
@@ -58,7 +58,7 @@ class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnec
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,ArrangedSubstitutePage)
+        val answers = CompareAnswerService.constructAnswers(request,value,ArrangedSubstitutePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(ArrangedSubstitutePage, mode)(answers))
         )

@@ -48,8 +48,7 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
                                    view: BenefitsView,
                                    decisionService: DecisionService,
                                    implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport
-  with CompareAnswerService[Boolean] {
+                                  ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -66,12 +65,10 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,BenefitsPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,BenefitsPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-
             val continue = navigator.nextPage(BenefitsPage, mode)(answers)
-            val exit = continue
             decisionService.decide(answers, continue, ErrorTemplate("benefits.title"))
           }
         )

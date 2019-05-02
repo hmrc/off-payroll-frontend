@@ -44,8 +44,7 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
                                           controllerComponents: MessagesControllerComponents,
                                           view: HowWorkerIsPaidView,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
-  with CompareAnswerService[HowWorkerIsPaid] {
+                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -60,7 +59,7 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,HowWorkerIsPaidPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkerIsPaidPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(HowWorkerIsPaidPage, mode)(answers))
         )

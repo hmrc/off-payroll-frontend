@@ -44,8 +44,7 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
                                           controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
                                           implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport
-  with CompareAnswerService[Boolean] {
+                                         ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -59,7 +58,7 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,ContractStartedPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,ContractStartedPage)
         dataCacheConnector.save(answers.cacheMap).map(
             _ => Redirect(navigator.nextPage(ContractStartedPage, mode)(answers))
           )

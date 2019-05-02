@@ -45,8 +45,7 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
                                                view: CannotClaimAsExpenseView,
                                                decisionService: DecisionService,
                                                implicit val appConfig: FrontendAppConfig
-                                              ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
-  with CompareAnswerService[Seq[CannotClaimAsExpense]] {
+                                              ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -61,7 +60,7 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       values => {
-        val answers = constructAnswers(request,values,CannotClaimAsExpensePage)
+        val answers = CompareAnswerService.constructAnswers(request,values,CannotClaimAsExpensePage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(answers)

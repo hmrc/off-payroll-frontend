@@ -46,8 +46,7 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
                                                  view: IdentifyToStakeholdersView,
                                                  decisionService: DecisionService,
                                                  implicit val appConfig: FrontendAppConfig
-                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
-  with CompareAnswerService[IdentifyToStakeholders] {
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -62,7 +61,7 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,IdentifyToStakeholdersPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,IdentifyToStakeholdersPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(answers)

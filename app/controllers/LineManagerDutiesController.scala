@@ -45,7 +45,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
                                             view: LineManagerDutiesView,
                                             decisionService: DecisionService,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
+                                           ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -60,7 +60,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,LineManagerDutiesPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,LineManagerDutiesPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(LineManagerDutiesPage, mode)(answers)

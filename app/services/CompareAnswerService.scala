@@ -24,9 +24,9 @@ import play.api.mvc.AnyContent
 
 import scala.collection.immutable.Map
 
-trait CompareAnswerService[T] {
+object CompareAnswerService {
 
-  def constructAnswers(request: DataRequest[AnyContent], value: T,
+  def constructAnswers[T](request: DataRequest[AnyContent], value: T,
                        page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]): UserAnswers = {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
