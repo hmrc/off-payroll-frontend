@@ -16,24 +16,80 @@
 
 package controllers.errors
 
+import connectors.DataCacheConnector
 import controllers.ControllerSpecBase
+import controllers.actions.IdentifierAction
 import play.api.test.Helpers._
+import views.html.SessionDeletedView
 import views.html.errors.SessionExpiredView
 
 class SessionExpiredControllerSpec extends ControllerSpecBase {
 
-  val view = injector.instanceOf[SessionExpiredView]
+  val identify = injector.instanceOf[IdentifierAction]
+  val dataCacheConnector = injector.instanceOf[DataCacheConnector]
+  val expiredView = injector.instanceOf[SessionExpiredView]
+  val deletedView = injector.instanceOf[SessionDeletedView]
 
-  "SessionExpired Controller" must {
+  val controller = new SessionExpiredController(
+    frontendAppConfig,
+    identify,
+    messagesControllerComponents,
+    expiredView,
+    deletedView,
+    dataCacheConnector)
 
-    lazy val result = new SessionExpiredController(frontendAppConfig, messagesControllerComponents, view).onPageLoad()(fakeRequest)
+  "SessionExpiredController.onPageLoad" must {
+
+    lazy val result = controller.onPageLoad()(fakeRequest)
 
     "return 200 for a GET" in {
       status(result) mustBe OK
     }
 
     "return the correct view for a GET" in {
-      contentAsString(result) mustBe view(frontendAppConfig)(fakeRequest, messages).toString
+      contentAsString(result) mustBe expiredView(frontendAppConfig)(fakeRequest, messages).toString
+    }
+  }
+
+  "SessionExpiredController.onPageLoadDeleted" must {
+
+    lazy val result = controller.onPageLoadDeleted()(fakeRequest)
+
+    "return 200 for a GET" in {
+      status(result) mustBe OK
+    }
+
+    "return the correct view for a GET" in {
+      contentAsString(result) mustBe deletedView(frontendAppConfig)(fakeRequest, messages).toString
+    }
+  }
+
+  "SessionExpiredController.checkTimeout" when {
+
+    "the session has expired" must {
+
+      lazy val result = controller.checkTimeout()(fakeRequest)
+
+      "return 303 for a GET" in {
+        status(result) mustBe SEE_OTHER
+      }
+
+      "redirect to the correct url" in {
+        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      }
+    }
+
+    "SessionExpiredController.onSubmit" must {
+
+      lazy val result = controller.onSubmit()(fakeRequest)
+
+      "return 303 for a GET" in {
+        status(result) mustBe SEE_OTHER
+      }
+
+      "redirect to the correct url" in {
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
     }
   }
 }

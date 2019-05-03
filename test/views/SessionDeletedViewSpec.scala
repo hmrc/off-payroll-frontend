@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package views.errors
+package views
 
 import views.behaviours.ViewBehaviours
-import views.html.errors.SessionExpiredView
+import views.html.SessionDeletedView
 
-class SessionExpiredViewSpec extends ViewBehaviours {
+class SessionDeletedViewSpec extends ViewBehaviours {
 
-  val view = injector.instanceOf[SessionExpiredView]
+  val view = injector.instanceOf[SessionDeletedView]
 
   def createView = () => view(frontendAppConfig)(fakeRequest, messages)
 
-  "Session Expired view" must {
-    behave like normalPage(createView, "session.expired")
+  "Session Deleted view" must {
+    behave like normalPage(createView, "session.deleted")
   }
 }

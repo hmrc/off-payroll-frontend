@@ -20,9 +20,18 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
 
-session_expired.title = For your security, this service has been reset
-session_expired.heading = For your security, this service has been reset
-session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
+timeout.text = For your security, we will delete your answers in
+timeout.keep_alive = Please resume using the tool within 2 minutes, or this session will revert to the start and your answers will be removed.
+timeout.delete_answers = Delete your answers
+
+session.deleted.title = You deleted your answers
+session.deleted.heading = You deleted your answers
+session.deleted.start_again = Start again
+
+session.expired.title = For your security, we deleted your answers
+session.expired.heading = For your security, we deleted your answers
+session.expired.start_again = Start again
+
 
 site.back = Back
 site.delete = Remove

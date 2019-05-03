@@ -23,17 +23,17 @@
 @(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = messages("session.expired.title"),
+    title = messages("session.deleted.title"),
     appConfig = appConfig,
     bodyClasses = None,
     showSignout = false) {
 
-    @components.heading("session.expired.heading")
+    @components.heading("session.deleted.heading")
 
     @formWithCsrf(action = controllers.errors.routes.SessionExpiredController.onSubmit) {
         <div class="section">
             <button id="submit" class="button">
-                @messages("session.expired.start_again")
+                @messages("session.deleted.start_again")
             </button>
         </div>
     }
