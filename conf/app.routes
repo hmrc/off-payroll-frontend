@@ -8,8 +8,6 @@ GET        /language/:lang                              controllers.LanguageSwit
 
 GET        /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onPageLoad
 
-GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad
-
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 
 GET        /about-you                                   controllers.AboutYouController.onPageLoad(mode: Mode = NormalMode)
