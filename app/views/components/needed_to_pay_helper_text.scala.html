@@ -16,18 +16,9 @@
 
 @()(implicit messages: Messages)
 
-    @hint = {
-        <p>@messages("officeHolder.p1")</p>
-        <p>@messages("officeHolder.p2")</p>
-
-        <ul class="list-bullet">
-            <li>@messages("officeHolder.bullet1")</li>
-            <li>@messages("officeHolder.bullet2")</li>
-            <li>@messages("officeHolder.bullet3")</li>
-        </ul>
-    }
-
-    @components.hint(hint)
-
-    @components.exclamation(Html(messages("officeHolder.exclamation")))
-    
+    <p>@messages("neededToPayHelper.hint.p1")</p>
+    <p>@messages("neededToPayHelper.hint.p2")</p>
+    @components.bulleted_list(Seq(
+        messages("neededToPayHelper.hint.bullet1"),
+        messages("neededToPayHelper.hint.bullet2")
+    ))
