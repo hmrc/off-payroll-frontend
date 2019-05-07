@@ -64,6 +64,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
   def printPage(view: () => HtmlFormat.Appendable,
                 pdfDetails: AdditionalPdfDetails,
+                timestamp: String,
                  messageKeyPrefix: String,
                  expectedGuidanceKeys: String*) = {
     "behave like a normal page" when {
@@ -95,8 +96,6 @@ trait ViewBehaviours extends ViewSpecBase {
           if(pdfDetails.completedBy.isDefined) assertContainsText(doc, pdfDetails.completedBy.get)
           if(pdfDetails.job.isDefined) assertContainsText(doc, pdfDetails.job.get)
           if(pdfDetails.reference.isDefined) assertContainsText(doc, pdfDetails.reference.get)
-
-          val timestamp = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
 
           assertContainsText(doc, timestamp)
           assertContainsText(doc, "Date of result: ")

@@ -131,36 +131,22 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         nextPage(PutRightAtOwnCostPage) mustBe routes.BenefitsController.onPageLoad(NormalMode)
       }
 
-      "go to LineManagerDutiesPage page from the BenefitsPage page if they answer No" in {
+      "go to LineManagerDutiesPage page from the BenefitsPage page" in {
         nextPage(BenefitsPage, setAnswers(BenefitsPage -> false)) mustBe routes.LineManagerDutiesController.onPageLoad(NormalMode)
       }
 
-      "go to CheckYourAnswersController page from the BenefitsPage page if they answer Yes" in {
-        nextPage(BenefitsPage, setAnswers(BenefitsPage -> true)) mustBe routes.CheckYourAnswersController.onPageLoad()
-      }
-
-      "go to InteractWithStakeholders page from the LineManagerDuties page if they answer No" in {
+      "go to InteractWithStakeholders page from the LineManagerDuties page" in {
         nextPage(LineManagerDutiesPage, setAnswers(LineManagerDutiesPage -> false)) mustBe
           routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
       }
 
-      "go to CheckYourAnswersController page from the LineManagerDuties page if they answer Yes" in {
-        nextPage(LineManagerDutiesPage, setAnswers(LineManagerDutiesPage -> true)) mustBe
-          routes.CheckYourAnswersController.onPageLoad()
-      }
-
-      "go to IdentifyToStakeholders page from the InteractWithStakeholders page if they do interact with them" in {
+      "go to IdentifyToStakeholders page from the InteractWithStakeholders page" in {
         nextPage(InteractWithStakeholdersPage, setAnswers(InteractWithStakeholdersPage -> true)) mustBe
           routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
       }
 
-      "go to CheckYourAnswersController page from the InteractWithStakeholders page if they do not interact with them" in {
-        nextPage(InteractWithStakeholdersPage, setAnswers(InteractWithStakeholdersPage -> false)) mustBe
-          routes.CheckYourAnswersController.onPageLoad()
-      }
-
-      "go to CheckYourAnswersController page from the IdentifyToStakeholdersPage page" in {
-        nextPage(IdentifyToStakeholdersPage) mustBe routes.CheckYourAnswersController.onPageLoad()
+      "go to Result page from the IdentifyToStakeholdersPage page" in {
+        nextPage(IdentifyToStakeholdersPage) mustBe routes.ResultController.onPageLoad()
       }
 
       "go to CustomisePDFPage from the ResultPage" in {
@@ -170,10 +156,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
     "in Check mode" must {
 
-      "go to CheckYourAnswers from a page that doesn't exist in the edit route map" in {
+      "go to ResultController from a page that doesn't exist in the edit route map" in {
 
         case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode)(mock[UserAnswers]) mustBe routes.CheckYourAnswersController.onPageLoad()
+        navigator.nextPage(UnknownPage, CheckMode)(mock[UserAnswers]) mustBe routes.ResultController.onPageLoad()
       }
     }
   }

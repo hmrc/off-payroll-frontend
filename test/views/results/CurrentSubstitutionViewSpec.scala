@@ -50,6 +50,6 @@ class CurrentSubstitutionViewSpec extends ViewBehaviours {
   }
 
   "ResultPrintPage view" must {
-    behave like printPage(createPrintView, model, messageKeyPrefix)
+    behave like printPage(createPrintView, model, Timestamp.timestamp, messageKeyPrefix)
   }
 }

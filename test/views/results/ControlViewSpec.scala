@@ -58,6 +58,6 @@ class ControlViewSpec extends ViewBehaviours {
   }
 
   "ResultPage print view" must {
-    behave like printPage(createPrintView, model, messageKeyPrefix)
+    behave like printPage(createPrintView, model, Timestamp.timestamp, messageKeyPrefix)
   }
 }
