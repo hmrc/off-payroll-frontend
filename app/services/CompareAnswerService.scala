@@ -22,6 +22,7 @@ import play.api.libs.json.{JsString, Json, Reads, Writes}
 import models.requests.DataRequest
 import play.api.mvc.AnyContent
 
+import scala.annotation.tailrec
 import scala.collection.immutable.Map
 
 object CompareAnswerService {
@@ -44,6 +45,7 @@ object CompareAnswerService {
     }
   }
 
+  @tailrec
   private def recursivelyClearQuestions(pages: List[QuestionPage[_]], userAnswers: UserAnswers): UserAnswers = {
     if(pages.isEmpty) userAnswers else {
       recursivelyClearQuestions(pages.tail,userAnswers.remove(pages.head))

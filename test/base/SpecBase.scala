@@ -23,10 +23,12 @@ import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
 import play.api.i18n.{Lang, Messages, MessagesApi}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.{MessagesControllerComponents, Result}
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -38,17 +40,19 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.language.implicitConversions
 
 
-trait SpecBase extends PlaySpec with MaterializerSupport with MockitoSugar{
+trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with MaterializerSupport with MockitoSugar{
+
+  override def fakeApplication(): Application = GuiceApplicationBuilder()
+    .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
+    .build()
 
   implicit val defaultTimeout: FiniteDuration = 5.seconds
+
+  val injector = app.injector
 
   implicit def extractAwait[A](future: Future[A]): A = await[A](future)
 
   def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)
-
-  val injector = new GuiceApplicationBuilder()
-    .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
-    .injector()
 
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
