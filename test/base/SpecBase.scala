@@ -40,7 +40,7 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.language.implicitConversions
 
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with MaterializerSupport with MockitoSugar{
+trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with MaterializerSupport with MockitoSugar {
 
   override def fakeApplication(): Application = GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
@@ -48,11 +48,11 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with MaterializerSuppor
 
   implicit val defaultTimeout: FiniteDuration = 5.seconds
 
-  val injector = app.injector
-
   implicit def extractAwait[A](future: Future[A]): A = await[A](future)
 
   def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)
+
+  lazy val injector = app.injector
 
   implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
