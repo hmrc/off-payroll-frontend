@@ -38,11 +38,13 @@ class ControlViewSpec extends ViewBehaviours {
 
   val version = "1.0"
 
+  val timestamp = Timestamp.timestamp
+
   val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
 
   def createView = () => view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages)
 
-  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(Timestamp.timestamp))(fakeRequest, messages)
+  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages)
 
   "result page" must {
 
@@ -58,6 +60,6 @@ class ControlViewSpec extends ViewBehaviours {
   }
 
   "ResultPage print view" must {
-    behave like printPage(createPrintView, model, Timestamp.timestamp, messageKeyPrefix)
+    behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
   }
 }
