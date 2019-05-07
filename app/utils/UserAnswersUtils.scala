@@ -52,7 +52,7 @@ trait UserAnswersUtils {
       (checkYourAnswersHelper.didPaySubstitute, Some(exclamation(Html(messages("didPaySubstitute.exclamation"))))),
       (checkYourAnswersHelper.rejectSubstitute, Some(reject_substitute_text.apply())),
       (checkYourAnswersHelper.wouldWorkerPaySubstitute, Some(exclamation(Html(messages("wouldWorkerPaySubstitute.exclamation"))))),
-      (checkYourAnswersHelper.neededToPayHelper, Some(needed_to_pay_helper_text.apply()))
+      (checkYourAnswersHelper.neededToPayHelper, Some(hint(needed_to_pay_helper_text.apply())))
     ).filter(_._1.isDefined).map( answer => (answer._1.get, answer._2)),
     useProgressiveDisclosure = true
   )
@@ -84,8 +84,8 @@ trait UserAnswersUtils {
     headingKey = Some("result.partAndParcel.h2"),
     whyResult = Some(Html(messages("partParcelCluster.summary"))),
     rows = Seq(
-      (checkYourAnswersHelper.benefits, Some(benefits_text.apply())),
-      (checkYourAnswersHelper.lineManagerDuties, Some(line_manager_duties.apply())),
+      (checkYourAnswersHelper.benefits, Some(hint(benefits_text.apply()))),
+      (checkYourAnswersHelper.lineManagerDuties, Some(hint(line_manager_duties.apply()))),
       (checkYourAnswersHelper.interactWithStakeholders, Some(hint_p(Html(messages("interactWithStakeholders.hint"))))),
       (checkYourAnswersHelper.identifyToStakeholders, None)
     ).filter(_._1.isDefined).map( answer => (answer._1.get, answer._2)),

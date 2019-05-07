@@ -16,6 +16,8 @@
 
 @()(implicit messages: Messages)
 
+    @components.hint(hint)
+
     @hint = {
         <p>@messages("officeHolder.p1")</p>
         <p>@messages("officeHolder.p2")</p>
@@ -26,8 +28,6 @@
             <li>@messages("officeHolder.bullet3")</li>
         </ul>
     }
-
-    @components.hint(hint)
 
     @components.exclamation(Html(messages("officeHolder.exclamation")))
     
