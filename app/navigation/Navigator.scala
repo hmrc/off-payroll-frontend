@@ -80,22 +80,10 @@ class Navigator @Inject()() {
     PutRightAtOwnCostPage -> (_ => routes.BenefitsController.onPageLoad(NormalMode)),
 
     //Part and Parcel Section
-    BenefitsPage -> (answers => answers.get(BenefitsPage) match {
-      case Some(Answers(true,_)) => routes.CheckYourAnswersController.onPageLoad()
-      case Some(_) => routes.LineManagerDutiesController.onPageLoad(NormalMode)
-      case _ => routes.BenefitsController.onPageLoad(NormalMode)
-    }),
-    LineManagerDutiesPage -> (answers => answers.get(LineManagerDutiesPage) match {
-      case Some(Answers(true,_)) => routes.CheckYourAnswersController.onPageLoad()
-      case Some(_) => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
-      case _ => routes.LineManagerDutiesController.onPageLoad(NormalMode)
-    }),
-    InteractWithStakeholdersPage -> (answers => answers.get(InteractWithStakeholdersPage) match {
-      case Some(Answers(true,_)) => routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
-      case Some(_) => routes.CheckYourAnswersController.onPageLoad()
-      case _ => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)
-    }),
-    IdentifyToStakeholdersPage -> (_ => routes.CheckYourAnswersController.onPageLoad()),
+    BenefitsPage -> (_ => routes.LineManagerDutiesController.onPageLoad(NormalMode)),
+    LineManagerDutiesPage -> (_ => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)),
+    InteractWithStakeholdersPage -> (_ => routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)),
+    IdentifyToStakeholdersPage -> (_ => routes.ResultController.onPageLoad()),
 
     //Results Page
     ResultPage -> (_ => routes.PDFController.onPageLoad(NormalMode))
@@ -107,6 +95,6 @@ class Navigator @Inject()() {
     case NormalMode =>
       routeMap.getOrElse(page, _ => routes.IndexController.onPageLoad())
     case CheckMode =>
-      checkRouteMap.getOrElse(page, _ => routes.CheckYourAnswersController.onPageLoad())
+      checkRouteMap.getOrElse(page, _ => routes.ResultController.onPageLoad())
   }
 }

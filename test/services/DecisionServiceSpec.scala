@@ -48,6 +48,7 @@ import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.UserAnswersUtils
 import viewmodels.AnswerSection
 import views.html.results._
 
@@ -129,6 +130,7 @@ class DecisionServiceSpec extends SpecBase {
 
   def exitRoute = Call("GET", "/result")
 
+  object Section extends UserAnswersUtils
 
   "Calling the decide service" should {
 
@@ -158,12 +160,19 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("This engagement should be classed as self-employed for tax purposes")
       result.toString() must include(messagesApi("result.selfEmployed.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
+      result.toString() must include(messagesApi("officeHolder.exclamation"))
+      result.toString() must include(messagesApi("rejectSubstitute.exclamation"))
     }
 
     "determine the view when outside and financial risk" in {
@@ -193,12 +202,17 @@ class DecisionServiceSpec extends SpecBase {
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString,
         SessionKeys.financialRiskResult -> WeightedAnswerEnum.OUTSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("The intermediaries legislation does not apply to this engagement")
       result.toString() must include(messagesApi("result.financialRisk.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "determine the view when outside and control" in {
@@ -228,13 +242,17 @@ class DecisionServiceSpec extends SpecBase {
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString,
         SessionKeys.controlResult -> WeightedAnswerEnum.OUTSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("The intermediaries legislation does not apply to this engagement")
       result.toString() must include(messagesApi("result.control.whyResult.p1"))
-
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "determine the view when outside and current substitution" in {
@@ -263,12 +281,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("The intermediaries legislation does not apply to this engagement")
       result.toString() must include(messagesApi("result.currentSubstitution.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when outside and future substitution due to not yet arranged" in {
 
@@ -296,12 +319,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("The intermediaries legislation does not apply to this engagement")
       result.toString() must include(messagesApi("result.futureSubstitution.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "determine the view when outside and future substitution" in {
@@ -330,12 +358,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("The intermediaries legislation does not apply to this engagement")
       result.toString() must include(messagesApi("result.futureSubstitution.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "route to the error page if cannot route to a result page based on the information provided" in {
@@ -363,7 +396,7 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
@@ -396,12 +429,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("This engagement should be classed as employed for tax purposes")
       result.toString() must include(messagesApi("result.employed.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "determine the view when inside and route to office holder inside view" in {
@@ -429,12 +467,16 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("The intermediaries legislation applies to this engagement")
       result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "determine the view when inside and route to inside view" in {
@@ -462,12 +504,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("The intermediaries legislation applies to this engagement")
       result.toString() must include(messagesApi("result.insideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "determine the view when self employed and route to self employed view" in {
@@ -495,12 +542,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.SELF_EMPLOYED.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("This engagement should be classed as self-employed for tax purposes")
       result.toString() must include(messagesApi("result.selfEmployed.shouldNowDo.p1.beforeLink"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
 
     "determine the view when unknown and route to indeterminate view" in {
@@ -528,12 +580,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.UNKNOWN.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("We are unable to determine the tax status of this engagement")
       result.toString() must include(messagesApi("result.indeterminate.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when employed and route to office holder view" in {
 
@@ -560,12 +617,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("This engagement should be classed as employed for tax purposes")
       result.toString() must include(messagesApi("result.officeHolderEmployed.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when employed and route to employed view" in {
 
@@ -592,12 +654,17 @@ class DecisionServiceSpec extends SpecBase {
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString), "", userAnswers)
 
-      val answers: Seq[AnswerSection] = Seq()
+      val answers: Seq[AnswerSection] = Section.answers
 
       val result = service.determineResultView(answers, None, false, None)
 
       result.toString() must include("This engagement should be classed as employed for tax purposes")
       result.toString() must include(messagesApi("result.employed.whyResult.p1"))
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when employed and route to employed view with an error form" in {
 

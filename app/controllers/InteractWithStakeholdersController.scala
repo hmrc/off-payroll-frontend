@@ -45,7 +45,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
                                                    view: InteractWithStakeholdersView,
                                                    decisionService: DecisionService,
                                                    implicit val appConfig: FrontendAppConfig
-                                                  ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
+                                                  ) extends FrontendController(controllerComponents) with I18nSupport {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -60,7 +60,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,InteractWithStakeholdersPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,InteractWithStakeholdersPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(answers)

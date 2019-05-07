@@ -42,7 +42,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  navigator: Navigator,
                                  dataCacheConnector: DataCacheConnector,
                                  implicit val conf: FrontendAppConfig)
-  extends FrontendController(controllerComponents) with I18nSupport with UserAnswersUtils with CompareAnswerService[String] {
+  extends FrontendController(controllerComponents) with I18nSupport with UserAnswersUtils {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -52,7 +52,7 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val timestamp = constructAnswers(request,Timestamp.timestamp,ResultPage)
+    val timestamp = CompareAnswerService.constructAnswers(request,Timestamp.timestamp,ResultPage)
 
     dataCacheConnector.save(timestamp.cacheMap).map(
       _ => Ok(decisionService.determineResultView(answers))

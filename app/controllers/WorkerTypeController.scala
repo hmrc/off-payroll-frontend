@@ -46,7 +46,7 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
                                      view: WorkerTypeView,
                                      decisionService: DecisionService,
                                      implicit val appConfig: FrontendAppConfig
-                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[WorkerType] {
+                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -61,7 +61,7 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,WorkerTypePage)
+        val answers = CompareAnswerService.constructAnswers(request,value,WorkerTypePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(WorkerTypePage, mode)(answers))
         )

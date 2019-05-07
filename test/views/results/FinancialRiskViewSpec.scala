@@ -43,7 +43,7 @@ class FinancialRiskViewSpec extends ViewBehaviours {
   def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(Timestamp.timestamp))(fakeRequest, messages)
 
   "ResultPrintPage view" must {
-    behave like printPage(createPrintView, model, messageKeyPrefix)
+    behave like printPage(createPrintView, model, Timestamp.timestamp, messageKeyPrefix)
   }
 
   "ResultPage view" must {

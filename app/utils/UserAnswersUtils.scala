@@ -46,7 +46,7 @@ trait UserAnswersUtils {
 
   def substitutesHelpers(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
     headingKey = Some("result.substitutesHelpers.h2"),
-    whyResult = Some(Html(messages("personalServiceCluster.summary"))),
+    whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.arrangedSubstitute, Some(hint(arranged_substitute_text.apply()))),
       (checkYourAnswersHelper.didPaySubstitute, Some(exclamation(Html(messages("didPaySubstitute.exclamation"))))),
@@ -59,7 +59,7 @@ trait UserAnswersUtils {
 
   def workArrangements(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
     headingKey = Some("result.workArrangements.h2"),
-    whyResult = Some(Html(messages("controlCluster.summary"))),
+    whyResult = Some(Html(messages("result.workArrangements.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.moveWorker, Some(hint_p(Html(messages("moveWorker.hint"))))),
       (checkYourAnswersHelper.howWorkIsDone, Some(hint_p(Html(messages("howWorkIsDone.hint"))))),
@@ -71,7 +71,7 @@ trait UserAnswersUtils {
 
   def financialRisk(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
     headingKey = Some("result.financialRisk.h2"),
-     whyResult = Some(Html(messages("financialRiskCluster.summary"))),
+     whyResult = Some(Html(messages("result.financialRisk.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.cannotClaimAsExpense, None),
       (checkYourAnswersHelper.howWorkerIsPaid, None),
@@ -82,7 +82,7 @@ trait UserAnswersUtils {
 
   def partAndParcel(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
     headingKey = Some("result.partAndParcel.h2"),
-    whyResult = Some(Html(messages("partParcelCluster.summary"))),
+    whyResult = Some(Html(messages("result.partParcel.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.benefits, Some(hint(benefits_text.apply()))),
       (checkYourAnswersHelper.lineManagerDuties, Some(hint(line_manager_duties.apply()))),

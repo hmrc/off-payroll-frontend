@@ -44,7 +44,7 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: ScheduleOfWorkingHoursView,
                                                  implicit val appConfig: FrontendAppConfig
-                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits with CompareAnswerService[ScheduleOfWorkingHours] {
+                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
 
   implicit val ec: ExecutionContext = controllerComponents.executionContext
 
@@ -59,7 +59,7 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,ScheduleOfWorkingHoursPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,ScheduleOfWorkingHoursPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(ScheduleOfWorkingHoursPage, mode)(answers))
         )
