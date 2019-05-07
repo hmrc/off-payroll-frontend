@@ -21,6 +21,6 @@ import java.time.{ZoneOffset, ZonedDateTime}
 
 object Timestamp {
 
-  val timestamp: String = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
+  def timestamp: String = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
 
 }
