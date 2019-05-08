@@ -20,16 +20,16 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
 
-timeout.text = For your security, we will delete your answers in
-timeout.keep_alive = Please resume using the tool within 2 minutes, or this session will revert to the start and your answers will be removed.
+timeout.text = As this session has been inactive for a while, your answers will be deleted in
+timeout.keep_alive = Continue through tool
 timeout.delete_answers = Delete your answers
 
-session.deleted.title = You deleted your answers
-session.deleted.heading = You deleted your answers
+session.deleted.title = You have closed this session. For your security, we have deleted your answers.
+session.deleted.heading = You have closed this session. For your security, we have deleted your answers.
 session.deleted.start_again = Start again
 
-session.expired.title = For your security, we deleted your answers
-session.expired.heading = For your security, we deleted your answers
+session.expired.title = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
+session.expired.heading = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
 session.expired.start_again = Start again
 
 
