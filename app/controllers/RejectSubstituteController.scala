@@ -16,24 +16,21 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.I18nSupport
-import play.api.data.Form
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.RejectSubstituteFormProvider
-import models.Mode
-import pages.RejectSubstitutePage
-import navigation.Navigator
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.RejectSubstituteView
-import services.CompareAnswerService
+import javax.inject.Inject
 import models.Answers._
+import models.Mode
+import navigation.Navigator
+import pages.RejectSubstitutePage
+import play.api.data.Form
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.CompareAnswerService
+import views.html.RejectSubstituteView
 
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.Future
 
 class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
                                            navigator: Navigator,
@@ -43,10 +40,7 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
                                            formProvider: RejectSubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
                                            view: RejectSubstituteView,
-                                           implicit val appConfig: FrontendAppConfig
-                                          ) extends FrontendController(controllerComponents) with I18nSupport {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 

@@ -18,13 +18,12 @@ package controllers
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
-import play.api.i18n.{I18nSupport, Lang}
+import play.api.i18n.Lang
 import play.api.mvc._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 class LanguageSwitchController @Inject()(appConfig: FrontendAppConfig,
                                          controllerComponents: MessagesControllerComponents
-                                        ) extends FrontendController(controllerComponents) with I18nSupport {
+                                        ) extends BaseController(controllerComponents) {
 
   private def fallbackURL: String = routes.IndexController.onPageLoad().url
 

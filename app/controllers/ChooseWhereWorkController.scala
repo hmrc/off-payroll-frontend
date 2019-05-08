@@ -45,10 +45,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
                                           controllerComponents: MessagesControllerComponents,
                                           view: ChooseWhereWorkView,
                                           decisionService: DecisionService,
-                                          implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[ChooseWhereWork] = formProvider()
 

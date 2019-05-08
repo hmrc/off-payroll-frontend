@@ -20,7 +20,7 @@ import config.SessionKeys
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import forms.AboutYouFormProvider
-import models.{AboutYouAnswer, Answers, NormalMode}
+import models.{AboutYouAnswer, Answers, NormalMode, UserType}
 import navigation.FakeNavigator
 import pages.AboutYouPage
 import play.api.data.Form
@@ -80,7 +80,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-      session(result).getModel[AboutYouAnswer](SessionKeys.userType) mustBe Some(AboutYouAnswer.values.head)
+      session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values.head))
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

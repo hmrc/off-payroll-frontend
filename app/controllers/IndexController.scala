@@ -23,21 +23,15 @@ import javax.inject.Inject
 import models.{NormalMode, UserAnswers}
 import navigation.Navigator
 import pages.IndexPage
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-
-import scala.concurrent.ExecutionContext
 
 class IndexController @Inject()(navigator: Navigator,
                                 identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 cache: DataCacheConnector,
                                 controllerComponents: MessagesControllerComponents,
-                                implicit val appConfig: FrontendAppConfig) extends FrontendController(controllerComponents) with I18nSupport {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.fold(UserAnswers(new CacheMap(request.internalId, Map())))(x => x)

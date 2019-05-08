@@ -22,18 +22,15 @@ import controllers.actions._
 import forms.HowWorkIsDoneFormProvider
 import javax.inject.Inject
 import models.Answers._
-
-import models.{Enumerable, HowWorkIsDone, Mode}
+import models.{HowWorkIsDone, Mode}
 import navigation.Navigator
 import pages.HowWorkIsDonePage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.HowWorkIsDoneView
 import services.CompareAnswerService
+import views.html.HowWorkIsDoneView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
@@ -43,10 +40,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
                                         formProvider: HowWorkIsDoneFormProvider,
                                         controllerComponents: MessagesControllerComponents,
                                         view: HowWorkIsDoneView,
-                                        implicit val appConfig: FrontendAppConfig
-                                       ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[HowWorkIsDone] = formProvider()
 

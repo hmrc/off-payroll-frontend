@@ -21,19 +21,16 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.LineManagerDutiesFormProvider
 import javax.inject.Inject
+import models.Answers._
 import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.LineManagerDutiesPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.{CompareAnswerService, DecisionService}
 import views.html.LineManagerDutiesView
-import services.CompareAnswerService
-import models.Answers._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnector,
                                             navigator: Navigator,
@@ -45,9 +42,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
                                             view: LineManagerDutiesView,
                                             decisionService: DecisionService,
                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                           ) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 

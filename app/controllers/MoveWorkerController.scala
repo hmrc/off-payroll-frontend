@@ -44,9 +44,7 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
                                      controllerComponents: MessagesControllerComponents,
                                      view: MoveWorkerView,
                                      implicit val appConfig: FrontendAppConfig
-                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                    ) extends BaseController(controllerComponents) {
 
   val form: Form[MoveWorker] = formProvider()
 

@@ -43,9 +43,7 @@ class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnec
                                              formProvider: ArrangedSubstituteFormProvider,
                                              controllerComponents: MessagesControllerComponents,
                                              view: ArrangedSubstituteView,
-                                             implicit val appConfig: FrontendAppConfig
-                                           ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                             implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[ArrangedSubstitute] = formProvider()
 
