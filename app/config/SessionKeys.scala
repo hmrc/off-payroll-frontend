@@ -21,5 +21,6 @@ object SessionKeys {
   val result = "CEST_RESULT"
   val financialRiskResult = "CEST_FINANCIAL_RISK_RESULT"
   val controlResult = "CEST_CONTROL_RESULT"
+  val userType = "CEST_USER_TYPE"
 
 }
