@@ -19,12 +19,12 @@
 
 @(answerSection: AnswerSection, printMode: Boolean = false)(implicit messages: Messages)
 
-@if(answerSection.headingKey.isDefined){
-    <h2>@messages(answerSection.headingKey.get)</h2>
+@answerSection.headingKey.map { header =>
+    <h2>@messages(header)</h2>
 }
 
-@if(answerSection.whyResult.isDefined){
-    <p>@{answerSection.whyResult.get}<p>
+@answerSection.whyResult.map { html =>
+    <p>@html<p>
 }
 
 @if(answerSection.useProgressiveDisclosure && !printMode) {

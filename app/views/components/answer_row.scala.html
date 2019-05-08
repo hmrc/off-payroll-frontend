@@ -18,13 +18,13 @@
 
 @(row: (AnswerRow, Option[Html]), printMode: Boolean = false)(implicit messages: Messages)
 
-        <ul>
-            <li class="divider--bottom"><h3>@messages(row._1.label)</h3>
+<ul>
+    <li class="divider--bottom"><h3>@messages(row._1.label)</h3>
 
-                @if(row._2.isDefined){
-                    <div>@{row._2.get}</div>
-                }
+        @row._2.map { html =>
+            <div>@html</div>
+        }
 
-                <div id="answer" class="panel-indent">@row._1.answerHtml</div>
-            </li>
-        </ul>
+        <div id="answer" class="panel-indent">@row._1.answerHtml</div>
+    </li>
+</ul>
