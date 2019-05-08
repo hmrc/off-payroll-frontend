@@ -37,12 +37,7 @@
 
         @components.heading("lineManagerDuties.heading", Some("lineManagerDuties.subheading"))
 
-        @components.bulleted_list(Seq(
-            messages("lineManagerDuties.bullet1"),
-            messages("lineManagerDuties.bullet2"),
-            messages("lineManagerDuties.bullet3"),
-            messages("lineManagerDuties.bullet4")
-        ))
+        @components.details.line_manager_duties_details()
 
         @components.input_yes_no(
             field = form("value"),

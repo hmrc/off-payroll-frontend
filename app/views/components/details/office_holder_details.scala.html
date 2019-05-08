@@ -14,10 +14,20 @@
  * limitations under the License.
  *@
 
-@(content: Html)(implicit messages: Messages)
-<div class="notice form-group">
-    <i class="icon icon-important">
-        <span class="visually-hidden">@messages("site.warning")</span>
-    </i>
-    <strong class="bold-small">@content</strong>
-</div>
+@()(implicit messages: Messages)
+
+    @components.hint(hint)
+
+    @hint = {
+        <p>@messages("officeHolder.p1")</p>
+        <p>@messages("officeHolder.p2")</p>
+
+        <ul class="list-bullet">
+            <li>@messages("officeHolder.bullet1")</li>
+            <li>@messages("officeHolder.bullet2")</li>
+            <li>@messages("officeHolder.bullet3")</li>
+        </ul>
+    }
+
+    @components.exclamation(Html(messages("officeHolder.exclamation")))
+    

@@ -14,10 +14,5 @@
  * limitations under the License.
  *@
 
-@(content: Html)(implicit messages: Messages)
-<div class="notice form-group">
-    <i class="icon icon-important">
-        <span class="visually-hidden">@messages("site.warning")</span>
-    </i>
-    <strong class="bold-small">@content</strong>
-</div>
+@(content: Html)
+<p class="form-hint">@content</p>
