@@ -24,19 +24,17 @@ import controllers.actions._
 import forms.CustomisePDFFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
+import models.Answers._
 import models.requests.DataRequest
-import models.{AdditionalPdfDetails, Answers, Mode, Timestamp}
+import models.{AdditionalPdfDetails, Mode, Timestamp}
 import navigation.Navigator
 import pages.{CustomisePDFPage, ResultPage}
-import play.api.i18n.I18nSupport
 import play.api.mvc._
 import services.{DecisionService, PDFService}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.UserAnswersUtils
 import views.html.CustomisePDFView
-import models.Answers._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               navigator: Navigator,
@@ -49,10 +47,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               decisionService: DecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
-                              implicit val appConfig: FrontendAppConfig
-                             ) extends FrontendController(controllerComponents) with I18nSupport with FeatureSwitching with UserAnswersUtils {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching with UserAnswersUtils {
 
   val form = formProvider()
 

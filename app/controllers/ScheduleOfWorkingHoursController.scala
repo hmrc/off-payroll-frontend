@@ -22,18 +22,15 @@ import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
 import javax.inject.Inject
 import models.Answers._
-
-import models.{Enumerable, Mode, ScheduleOfWorkingHours}
+import models.{Mode, ScheduleOfWorkingHours}
 import navigation.Navigator
 import pages.ScheduleOfWorkingHoursPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import views.html.ScheduleOfWorkingHoursView
 import services.CompareAnswerService
+import views.html.ScheduleOfWorkingHoursView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheConnector,
                                                  navigator: Navigator,
@@ -43,10 +40,7 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
                                                  formProvider: ScheduleOfWorkingHoursFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: ScheduleOfWorkingHoursView,
-                                                 implicit val appConfig: FrontendAppConfig
-                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[ScheduleOfWorkingHours] = formProvider()
 

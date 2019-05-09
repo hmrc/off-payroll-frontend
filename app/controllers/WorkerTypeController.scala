@@ -22,19 +22,15 @@ import controllers.actions._
 import forms.WorkerTypeFormProvider
 import javax.inject.Inject
 import models.Answers._
-
-import models.{Enumerable, Mode, WorkerType}
+import models.{Mode, WorkerType}
 import navigation.Navigator
 import pages.WorkerTypePage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.{CompareAnswerService, DecisionService}
 import views.html.WorkerTypeView
-import services.CompareAnswerService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
                                      navigator: Navigator,
@@ -45,10 +41,7 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
                                      controllerComponents: MessagesControllerComponents,
                                      view: WorkerTypeView,
                                      decisionService: DecisionService,
-                                     implicit val appConfig: FrontendAppConfig
-                                    ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[WorkerType] = formProvider()
 

@@ -22,18 +22,14 @@ import controllers.actions._
 import forms.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
 import models.Answers._
-
-import models.{CannotClaimAsExpense, Enumerable, ErrorTemplate, Mode}
+import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.CannotClaimAsExpensePage
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.{CompareAnswerService, DecisionService}
 import views.html.CannotClaimAsExpenseView
-import services.CompareAnswerService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConnector,
                                                navigator: Navigator,
@@ -44,10 +40,7 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
                                                controllerComponents: MessagesControllerComponents,
                                                view: CannotClaimAsExpenseView,
                                                decisionService: DecisionService,
-                                               implicit val appConfig: FrontendAppConfig
-                                              ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                               implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form = formProvider()
 

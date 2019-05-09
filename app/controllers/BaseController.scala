@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package config
+package controllers
 
-object SessionKeys {
 
-  val result = "CEST_RESULT"
-  val financialRiskResult = "CEST_FINANCIAL_RISK_RESULT"
-  val controlResult = "CEST_CONTROL_RESULT"
-  val userType = "CEST_USER_TYPE"
+import models.Enumerable
+import play.api.i18n.I18nSupport
+import play.api.mvc.MessagesControllerComponents
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
+import scala.concurrent.ExecutionContext
+
+abstract class BaseController(mcc: MessagesControllerComponents) extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
+  implicit val ec: ExecutionContext = controllerComponents.executionContext
 }
