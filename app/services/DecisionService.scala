@@ -32,7 +32,7 @@ import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Call, Request, Result}
-import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
+import play.mvc.Http.Status._
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
@@ -77,7 +77,23 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
     val interview = Interview(userAnswers)
+    for {
+      decision <- decisionConnector.decide(interview)
+      _ <- logResult(decision,interview)
+      redirect <- redirectResult(interview,errorResult,continueResult)
+    } yield redirect
+  }
 
+  private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)
+                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
+    decision match {
+      case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,decision.right.get)
+      case _ => Future.successful(Left(ErrorResponse(NO_CONTENT,"No log needed")))
+    }
+  }
+
+  private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call)
+                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
     decisionConnector.decide(interview).map {
       case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
       case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
