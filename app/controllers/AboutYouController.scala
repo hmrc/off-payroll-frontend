@@ -16,23 +16,22 @@
 
 package controllers
 
-import config.FrontendAppConfig
+import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.AboutYouFormProvider
 import javax.inject.Inject
 import models.Answers._
-import models.{AboutYouAnswer, Enumerable, Mode}
+import models.{AboutYouAnswer, Mode, UserType}
 import navigation.Navigator
-import pages.{AboutYouPage, ContractStartedPage, Page, QuestionPage}
+import pages.AboutYouPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import utils.SessionUtils._
 import views.html.AboutYouView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
                                    navigator: Navigator,
@@ -42,12 +41,8 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
                                    formProvider: AboutYouFormProvider,
                                    controllerComponents: MessagesControllerComponents,
                                    view: AboutYouView,
-                                   implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
-  with CompareAnswerService[AboutYouAnswer] {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
-
+                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+  
   val form: Form[AboutYouAnswer] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
@@ -58,9 +53,9 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,AboutYouPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,AboutYouPage)
         dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(AboutYouPage, mode)(answers))
+          _ => Redirect(navigator.nextPage(AboutYouPage, mode)(answers)).addingToSession(SessionKeys.userType -> UserType(value))
         )
       }
     )

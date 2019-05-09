@@ -20,23 +20,17 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.BenefitsFormProvider
-import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Answers._
-
 import models._
 import navigation.Navigator
 import pages.BenefitsPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.{CompareAnswerService, DecisionService}
 import views.html.BenefitsView
-import services.CompareAnswerService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
                                    navigator: Navigator,
@@ -47,15 +41,9 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
                                    controllerComponents: MessagesControllerComponents,
                                    view: BenefitsView,
                                    decisionService: DecisionService,
-                                   implicit val appConfig: FrontendAppConfig
-                                  ) extends FrontendController(controllerComponents) with I18nSupport
-  with CompareAnswerService[Boolean] {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
-
-  implicit val headerCarrier = new HeaderCarrier()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(appConfig, request.userAnswers.get(BenefitsPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
@@ -66,12 +54,10 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,BenefitsPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,BenefitsPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-
             val continue = navigator.nextPage(BenefitsPage, mode)(answers)
-            val exit = continue
             decisionService.decide(answers, continue, ErrorTemplate("benefits.title"))
           }
         )

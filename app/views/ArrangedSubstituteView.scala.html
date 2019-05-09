@@ -41,22 +41,11 @@
         @components.input_radio(
             field = form("value"),
             legend = messages("arrangedSubstitute.heading"),
-            hint = Some(hint),
+            hint = Some(components.details.arranged_substitute_details()),
             legendClass = Some("visually-hidden"),
             inputs = ArrangedSubstitute.options
         )
 
         @components.submit_button()
     }
-}
-
-@hint = {
-    <p>@messages("arrangedSubstitute.p1")</p>
-    @components.bulleted_list(Seq(
-        "arrangedSubstitute.bullet1",
-        "arrangedSubstitute.bullet2",
-        "arrangedSubstitute.bullet3",
-        "arrangedSubstitute.bullet4",
-        "arrangedSubstitute.bullet5"
-    ))
 }

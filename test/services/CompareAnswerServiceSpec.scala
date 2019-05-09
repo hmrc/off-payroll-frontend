@@ -49,10 +49,11 @@ import scala.concurrent.Future
 
 class CompareAnswerServiceSpec extends SpecBase {
 
+  val service = CompareAnswerService
+
   "compare answer service (consecutive answer)" should {
 
     "add an About You Answer" in {
-      val service = new CompareAnswerService[AboutYouAnswer]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
 
@@ -67,7 +68,6 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "add a Contract Started Answer" in {
-      val service = new CompareAnswerService[Boolean]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -83,7 +83,6 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "add a Worker Type Answer" in {
-      val service = new CompareAnswerService[WorkerType]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -102,7 +101,6 @@ class CompareAnswerServiceSpec extends SpecBase {
 
   "compare answer service (change new answer)" should {
     "change an About You Answer if it's a new value" in {
-      val service = new CompareAnswerService[AboutYouAnswer]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -118,7 +116,6 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "change a Contract Started Answer if it's a new value" in {
-      val service = new CompareAnswerService[Boolean]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -135,7 +132,6 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "change all answers after current answer if it's changed to a new value" in {
-      val service = new CompareAnswerService[Boolean]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -175,7 +171,6 @@ class CompareAnswerServiceSpec extends SpecBase {
 
   "compare answer service (change same answer)" should {
     "not change an About You Answer if it's the same value" in {
-      val service = new CompareAnswerService[AboutYouAnswer]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -191,7 +186,6 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "not change a Contract Started Answer if it's the same value" in {
-      val service = new CompareAnswerService[Boolean]{}
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)

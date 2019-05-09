@@ -22,19 +22,15 @@ import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
 import models.Answers._
-
-import models.{Enumerable, ErrorTemplate, IdentifyToStakeholders, Mode}
+import models.{ErrorTemplate, IdentifyToStakeholders, Mode}
 import navigation.Navigator
 import pages.IdentifyToStakeholdersPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.{CompareAnswerService, DecisionService}
 import views.html.IdentifyToStakeholdersView
-import services.CompareAnswerService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheConnector,
                                                  navigator: Navigator,
@@ -46,10 +42,7 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
                                                  view: IdentifyToStakeholdersView,
                                                  decisionService: DecisionService,
                                                  implicit val appConfig: FrontendAppConfig
-                                                ) extends FrontendController(controllerComponents) with I18nSupport with Enumerable.Implicits
-  with CompareAnswerService[IdentifyToStakeholders] {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                                ) extends BaseController(controllerComponents) {
 
   val form: Form[IdentifyToStakeholders] = formProvider()
 
@@ -62,11 +55,10 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,IdentifyToStakeholdersPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,IdentifyToStakeholdersPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(answers)
-            val exit = continue
             decisionService.decide(answers, continue, ErrorTemplate("identifyToStakeholders.title"))
           }
         )

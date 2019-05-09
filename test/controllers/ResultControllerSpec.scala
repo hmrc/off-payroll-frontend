@@ -30,6 +30,7 @@ import viewmodels.AnswerSection
 import views.html.results.{IndeterminateView, _}
 import org.mockito.Mockito.when
 import org.mockito.Matchers.any
+import play.twirl.api.Html
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
@@ -55,12 +56,12 @@ class ResultControllerSpec extends ControllerSpecBase {
   val postAction = routes.ResultController.onSubmit() //TODO: this will need to go to the PDF controller
 
   val answers = Seq(
-    AnswerSection(Some(Messages("result.peopleInvolved.h2")), Seq()),
-    AnswerSection(Some(Messages("result.workersDuties.h2")), Seq()),
-    AnswerSection(Some(Messages("result.substitutesHelpers.h2")), Seq()),
-    AnswerSection(Some(Messages("result.workArrangements.h2")), Seq()),
-    AnswerSection(Some(Messages("result.financialRisk.h2")), Seq()),
-    AnswerSection(Some(Messages("result.partAndParcel.h2")), Seq())
+    AnswerSection(Some(Messages("result.peopleInvolved.h2")), None, Seq()),
+    AnswerSection(Some(Messages("result.workersDuties.h2")), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq()),
+    AnswerSection(Some(Messages("result.substitutesHelpers.h2")), whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))), Seq()),
+    AnswerSection(Some(Messages("result.workArrangements.h2")), whyResult = Some(Html(messages("result.workArrangements.summary"))), Seq()),
+    AnswerSection(Some(Messages("result.financialRisk.h2")), whyResult = Some(Html(messages("result.financialRisk.summary"))), Seq()),
+    AnswerSection(Some(Messages("result.partAndParcel.h2")), whyResult = Some(Html(messages("result.partParcel.summary"))), Seq())
   )
 
   val version = "1.5.0-final"
@@ -81,7 +82,6 @@ class ResultControllerSpec extends ControllerSpecBase {
 
   def viewAsString() = employedView(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
 
-  //TODO: Currently only renders the one view; this will need to cater for all views
   "ResultPage Controller" must {
 
     "return OK and the correct view for a GET" in {

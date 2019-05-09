@@ -33,7 +33,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
   }
 
   def rejectSubstitute: Option[AnswerRow] = userAnswers.get(RejectSubstitutePage) map {
-    x => AnswerRow("rejectSubstitute.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.RejectSubstituteController.onPageLoad(CheckMode).url)
+    x => AnswerRow("rejectSubstitute.checkYourAnswersLabel", if(x.answer) "rejectSubstitute.yes" else "rejectSubstitute.no", true, routes.RejectSubstituteController.onPageLoad(CheckMode).url)
   }
 
   def wouldWorkerPaySubstitute: Option[AnswerRow] = userAnswers.get(WouldWorkerPaySubstitutePage) map {

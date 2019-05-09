@@ -37,15 +37,7 @@
 
         @components.heading("benefits.heading", Some("benefits.subheading"))
 
-        @components.bulleted_list(Seq(
-            messages("benefits.bullet1"),
-            messages("benefits.bullet2"),
-            messages("benefits.bullet3"),
-            messages("benefits.bullet4"),
-            messages("benefits.bullet5")
-        ))
-
-        <p>@messages("benefits.p1")</p>
+        @components.details.benefits_details()
 
         @components.input_yes_no(
             field = form("value"),

@@ -26,7 +26,6 @@ class SessionExpiredViewSpec extends ViewBehaviours {
   def createView = () => view(frontendAppConfig)(fakeRequest, messages)
 
   "Session Expired view" must {
-
-    behave like normalPage(createView, "session_expired", "guidance")
+    behave like normalPage(createView, "session.expired")
   }
 }

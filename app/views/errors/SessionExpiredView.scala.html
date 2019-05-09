@@ -15,17 +15,26 @@
  *@
 
 @import config.FrontendAppConfig
+@import models.Mode
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 
-@this(mainTemplate: templates.MainTemplate)
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
 @(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = messages("session_expired.title"),
+    title = messages("session.expired.title"),
     appConfig = appConfig,
-    bodyClasses = None) {
+    bodyClasses = None,
+    showSignout = false) {
 
-    @components.heading("session_expired.heading")
+    @components.heading("session.expired.heading")
 
-    <p>@messages("session_expired.guidance")</p>
+    @formWithCsrf(action = controllers.errors.routes.SessionExpiredController.onSubmit) {
+        <div class="section">
+            <button id="submit" class="button">
+                @messages("session.expired.start_again")
+            </button>
+        </div>
+    }
 }

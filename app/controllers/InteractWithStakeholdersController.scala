@@ -21,19 +21,16 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.InteractWithStakeholdersFormProvider
 import javax.inject.Inject
+import models.Answers._
 import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.InteractWithStakeholdersPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.{CompareAnswerService, DecisionService}
 import views.html.InteractWithStakeholdersView
-import services.CompareAnswerService
-import models.Answers._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCacheConnector,
                                                    navigator: Navigator,
@@ -45,9 +42,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
                                                    view: InteractWithStakeholdersView,
                                                    decisionService: DecisionService,
                                                    implicit val appConfig: FrontendAppConfig
-                                                  ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                                  ) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 
@@ -60,7 +55,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
       formWithErrors =>
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,InteractWithStakeholdersPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,InteractWithStakeholdersPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(answers)

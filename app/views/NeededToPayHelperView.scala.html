@@ -41,18 +41,10 @@
             field = form("value"),
             label = messages("neededToPayHelper.heading"),
             labelClass = Some("visually-hidden"),
-            hint = Some(hint)
+            hint = Some(components.details.needed_to_pay_helper_details())
         )
 
         @components.submit_button()
     }
 }
 
-@hint = {
-    <p>@messages("neededToPayHelper.hint.p1")</p>
-    <p>@messages("neededToPayHelper.hint.p2")</p>
-    @components.bulleted_list(Seq(
-        messages("neededToPayHelper.hint.bullet1"),
-        messages("neededToPayHelper.hint.bullet2")
-    ))
-}

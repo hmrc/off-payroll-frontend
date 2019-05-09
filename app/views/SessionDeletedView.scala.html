@@ -15,27 +15,26 @@
  *@
 
 @import config.FrontendAppConfig
-@import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
+@import models.Mode
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 
-@this(mainTemplate: templates.MainTemplate)
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, answerSections: Seq[Section])(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = messages("checkYourAnswers.title"),
+    title = messages("session.deleted.title"),
     appConfig = appConfig,
     bodyClasses = None,
-    articleLayout = false) {
+    showSignout = false) {
 
-    @components.heading("checkYourAnswers.heading")</h1>
+    @components.heading("session.deleted.heading")
 
-    @for(section <- answerSections){
-        @{
-            section match {
-                case a: AnswerSection if a.nonEmpty => components.answer_section(a)
-                case a: AnswerSection => Html("")
-                case r: RepeaterAnswerSection => components.repeater_answer_section(r)
-            }
-        }
+    @formWithCsrf(action = controllers.errors.routes.SessionExpiredController.onSubmit) {
+        <div class="section">
+            <button id="submit" class="button">
+                @messages("session.deleted.start_again")
+            </button>
+        </div>
     }
 }

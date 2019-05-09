@@ -19,6 +19,7 @@ package forms
 import forms.mappings.Mappings
 import javax.inject.Inject
 import models.CannotClaimAsExpense
+import models.CannotClaimAsExpense.ExpensesAreNotRelevantForRole
 import play.api.data.Form
 import play.api.data.Forms.seq
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
@@ -27,20 +28,25 @@ class CannotClaimAsExpenseFormProvider @Inject() extends Mappings {
 
   def apply(): Form[Seq[CannotClaimAsExpense]] =
     Form(
-      "cannotClaimAsExpense" -> seq(enumerable[CannotClaimAsExpense]()).verifying(validField)
+      "cannotClaimAsExpense" -> seq(enumerable[CannotClaimAsExpense]())
+        .verifying(validField)
+        .transform[Seq[CannotClaimAsExpense]](
+          values => if (values.contains(ExpensesAreNotRelevantForRole)) Seq(ExpensesAreNotRelevantForRole) else values,
+          x => x
+      )
     )
 
   def validField: Constraint[Seq[CannotClaimAsExpense]] = {
 
-      Constraint("validCannotClaimAsExpense")({
-        claimAsExpense =>
-          val error =
-            if(claimAsExpense.nonEmpty) {
-              Nil
-            } else {
-              Seq(ValidationError("cannotClaimAsExpense.error.required"))
-            }
-          if(error.isEmpty) Valid else Invalid(error)
-      })
+    Constraint("validCannotClaimAsExpense")({
+      claimAsExpense =>
+        val error =
+          if(claimAsExpense.nonEmpty) {
+            Nil
+          } else {
+            Seq(ValidationError("cannotClaimAsExpense.error.required"))
+          }
+        if(error.isEmpty) Valid else Invalid(error)
+    })
   }
 }

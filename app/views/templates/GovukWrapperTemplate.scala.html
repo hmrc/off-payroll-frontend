@@ -47,7 +47,9 @@ hmrcGovUkTemplate: GovUkTemplate)
   contentHeader: Option[Html] = None,
   mainBody: Html = Html(""),
   serviceInfoContent: Html = Html(""),
-  scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
+  scriptElem: Option[Html] = None,
+  js: Option[String] = None,
+  showSignout: Boolean = true)(implicit request: Request[_], messages: Messages)
 
 @headContent = {
     @head(
@@ -69,14 +71,36 @@ hmrcGovUkTemplate: GovUkTemplate)
 
 @afterHeader = {}
 
+@scriptElement = {
+        <script>
+            @if(showSignout) {
+                $.timeoutDialog({
+                  title: '',
+                  message: '@messages("timeout.text")',
+                  timeout: @appConfig.timeoutPeriod,
+                  countdown: @appConfig.timeoutCountdown,
+                  keep_alive_url: '@controllers.routes.IndexController.onPageLoad.url',
+                  keep_alive_button_text: '@messages("timeout.keep_alive")',
+                  logout_url: '@controllers.errors.routes.SessionExpiredController.checkTimeout.url',
+                  sign_out_button_text: '@messages("timeout.delete_answers")'
+                });
+                var dialogOpen;
+            }
+        </script>
+    @scriptElem.map(x => x)
+}
+
 @bodyEnd = {
     @footer(
       analyticsToken = Some(appConfig.analyticsToken),
       analyticsHost = appConfig.analyticsHost,
       ssoUrl = None,
-      scriptElem = scriptElem,
+      scriptElem = Some(scriptElement),
       gaCalls = None)
       <script src='@routes.Assets.versioned("javascripts/offpayrollfrontend-app.min.js")'> </script>
+      @js.map { x =>
+        <script src='@routes.Assets.versioned(s"javascripts/$x")'> </script>
+      }
 }
 
 @footerTop = {}

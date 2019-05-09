@@ -22,37 +22,37 @@ import play.api.libs.json.{JsString, Json, Reads, Writes}
 import models.requests.DataRequest
 import play.api.mvc.AnyContent
 
+import scala.annotation.tailrec
 import scala.collection.immutable.Map
 
-trait CompareAnswerService[T] {
+object CompareAnswerService {
 
-  def constructAnswers(request: DataRequest[AnyContent], value: T,
+  def constructAnswers[T](request: DataRequest[AnyContent], value: T,
                        page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]): UserAnswers = {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
       case None => request.userAnswers.set(page, answerNumber, value)
       case Some(answer) if answer.answer == value => request.userAnswers
       case Some(answer) => {
-        val allAnswers = request.userAnswers.cacheMap.data
-        val allAnswersInOrder = allAnswers.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
-        val pagesToRemove = allAnswersInOrder.splitAt(answer.answerNumber)._2.map(_._1)
-        val updatedAnswers = recursivelyClearQuestions(pagesToRemove.map(pageName => CompareAnswerService.questionToPage(pageName)), request.userAnswers)
+        //get all answers, sort them in the order they were answered in, find the answers that came after the current answer,
+        // find what page they are associated with, then remove them
+        val updatedAnswers = recursivelyClearQuestions(
+          request.userAnswers.cacheMap.data.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
+            .splitAt(answer.answerNumber)._2.map(_._1).map(pageName => questionToPage(pageName))
+          , request.userAnswers)
         updatedAnswers.set(page, updatedAnswers.size, value)
       }
     }
   }
 
+  @tailrec
   private def recursivelyClearQuestions(pages: List[QuestionPage[_]], userAnswers: UserAnswers): UserAnswers = {
     if(pages.isEmpty) userAnswers else {
       recursivelyClearQuestions(pages.tail,userAnswers.remove(pages.head))
     }
   }
 
-}
-
-object CompareAnswerService {
-
-  lazy val questionToPage = Map(
+  private lazy val questionToPage = Map(
     "aboutYou" -> AboutYouPage,
     "contract_started" -> ContractStartedPage,
     "workerType" -> WorkerTypePage,
@@ -76,4 +76,5 @@ object CompareAnswerService {
     "customisePDF" -> CustomisePDFPage,
     "result" -> ResultPage
   )
+
 }

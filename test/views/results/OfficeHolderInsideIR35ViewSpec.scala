@@ -37,14 +37,16 @@ class OfficeHolderInsideIR35ViewSpec extends ViewBehaviours {
 
   val version = "1.0"
 
+  val timestamp = Timestamp.timestamp
+
   def createView = () => view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages)
 
   val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
 
-  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(Timestamp.timestamp))(fakeRequest, messages)
+  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages)
 
   "ResultPrintPage view" must {
-    behave like printPage(createPrintView, model, messageKeyPrefix)
+    behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
   }
 
   "ResultPage view" must {

@@ -22,7 +22,7 @@
 <h2>@messages(answerSection.headingKey)</h2>
 
 <ul role="list" class="govuk-check-your-answers cya-questions-long section">
-    @components.answer_row(answerSection.relevanceRow)
+    @components.answer_row((answerSection.relevanceRow, None))
 @for(row <- answerSection.rows){
     <li>
         <div class="cya-question">@row.answer</div>

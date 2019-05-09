@@ -1,6 +1,4 @@
 # cest-frontend
- 
-[![Build Status](https://travis-ci.org/hmrc/cest-frontend.svg)](https://travis-ci.org/hmrc/cest-frontend) [ ![Download](https://api.bintray.com/packages/hmrc/releases/cest-frontend/images/download.svg) ](https://bintray.com/hmrc/releases/cest-frontend/_latestVersion)
 
 
 ### License

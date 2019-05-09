@@ -25,13 +25,9 @@ import models.{NormalMode, Timestamp}
 import navigation.Navigator
 import pages.ResultPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.UserAnswersUtils
-
-import scala.concurrent.ExecutionContext
 
 class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
@@ -41,10 +37,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  formProvider: DeclarationFormProvider,
                                  navigator: Navigator,
                                  dataCacheConnector: DataCacheConnector,
-                                 implicit val conf: FrontendAppConfig)
-  extends FrontendController(controllerComponents) with I18nSupport with UserAnswersUtils with CompareAnswerService[String] {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                 implicit val conf: FrontendAppConfig) extends BaseController(controllerComponents) with UserAnswersUtils {
 
   val resultForm: Form[Boolean] = formProvider()
 
@@ -52,7 +45,7 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val timestamp = constructAnswers(request,Timestamp.timestamp,ResultPage)
+    val timestamp = CompareAnswerService.constructAnswers(request,Timestamp.timestamp,ResultPage)
 
     dataCacheConnector.save(timestamp.cacheMap).map(
       _ => Ok(decisionService.determineResultView(answers))

@@ -16,24 +16,21 @@
 
 package controllers
 
-import javax.inject.Inject
-import play.api.i18n.I18nSupport
-import play.api.data.Form
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.WouldWorkerPaySubstituteFormProvider
-import models.{ErrorTemplate, Mode}
-import pages.WouldWorkerPaySubstitutePage
-import navigation.Navigator
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import views.html.WouldWorkerPaySubstituteView
-import services.CompareAnswerService
+import javax.inject.Inject
 import models.Answers._
+import models.{ErrorTemplate, Mode}
+import navigation.Navigator
+import pages.WouldWorkerPaySubstitutePage
+import play.api.data.Form
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CompareAnswerService, DecisionService}
+import views.html.WouldWorkerPaySubstituteView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
                                                    navigator: Navigator,
@@ -44,10 +41,7 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
                                                    controllerComponents: MessagesControllerComponents,
                                                    view: WouldWorkerPaySubstituteView,
                                                    decisionService: DecisionService,
-                                                   implicit val appConfig: FrontendAppConfig
-                                                  ) extends FrontendController(controllerComponents) with I18nSupport with CompareAnswerService[Boolean] {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 
@@ -61,7 +55,7 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
         Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
 
-        val answers = constructAnswers(request,value,WouldWorkerPaySubstitutePage)
+        val answers = CompareAnswerService.constructAnswers(request,value,WouldWorkerPaySubstitutePage)
 
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {

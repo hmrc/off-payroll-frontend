@@ -22,18 +22,15 @@ import controllers.actions._
 import forms.ContractStartedFormProvider
 import javax.inject.Inject
 import models.Answers._
-
 import models.Mode
 import navigation.Navigator
 import pages.ContractStartedPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.ContractStartedView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector,
                                           navigator: Navigator,
@@ -43,11 +40,7 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
                                           formProvider: ContractStartedFormProvider,
                                           controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
-                                          implicit val appConfig: FrontendAppConfig
-                                         ) extends FrontendController(controllerComponents) with I18nSupport
-  with CompareAnswerService[Boolean] {
-
-  implicit val ec: ExecutionContext = controllerComponents.executionContext
+                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 
@@ -59,7 +52,7 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
       value => {
-        val answers = constructAnswers(request,value,ContractStartedPage)
+        val answers = CompareAnswerService.constructAnswers(request,value,ContractStartedPage)
         dataCacheConnector.save(answers.cacheMap).map(
             _ => Redirect(navigator.nextPage(ContractStartedPage, mode)(answers))
           )

@@ -74,7 +74,7 @@ timestamp: Option[String] = None)(implicit request: Request[_], messages: Messag
 @shouldNowDoContent = {
     <p>
         @messages("result.currentSubstitution.shouldNowDo.p1.beforeLink")
-        <a href="https://www.gov.uk/browse/business/business-tax">@messages("result.currentSubstitution.shouldNowDo.p1.link")</a>
+        <a href="https://www.gov.uk/browse/business/business-tax" rel="external">@messages("result.currentSubstitution.shouldNowDo.p1.link")</a>
         @messages("result.currentSubstitution.shouldNowDo.p1.afterLink")
     </p>
     <p>@messages("result.currentSubstitution.shouldNowDo.p2")</p>
