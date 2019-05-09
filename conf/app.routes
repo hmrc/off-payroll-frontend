@@ -6,7 +6,10 @@ GET        /assets/*file                                controllers.Assets.versi
 
 GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
+GET        /check-timeout                               controllers.errors.SessionExpiredController.checkTimeout
 GET        /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onPageLoad
+GET        /this-service-has-reset-answers              controllers.errors.SessionExpiredController.onPageLoadDeleted
+POST       /this-service-has-been-reset                 controllers.errors.SessionExpiredController.onSubmit
 
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 

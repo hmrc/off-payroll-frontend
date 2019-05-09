@@ -56,4 +56,7 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
 
   lazy val pdfGeneratorService = servicesConfig.baseUrl("pdf-generator-service")
 
+  lazy val timeoutPeriod: Int = servicesConfig.getInt("timeout.period")
+  lazy val timeoutCountdown: Int = servicesConfig.getInt("timeout.countdown")
+
 }
