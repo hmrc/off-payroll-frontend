@@ -47,7 +47,8 @@ hmrcGovUkTemplate: GovUkTemplate)
   contentHeader: Option[Html] = None,
   mainBody: Html = Html(""),
   serviceInfoContent: Html = Html(""),
-  scriptElem: Option[Html] = None)(implicit request: Request[_], messages: Messages)
+  scriptElem: Option[Html] = None,
+  js: Option[String] = None)(implicit request: Request[_], messages: Messages)
 
 @headContent = {
     @head(
@@ -77,6 +78,9 @@ hmrcGovUkTemplate: GovUkTemplate)
       scriptElem = scriptElem,
       gaCalls = None)
       <script src='@routes.Assets.versioned("javascripts/offpayrollfrontend-app.min.js")'> </script>
+      @js.map { x =>
+        <script src='@routes.Assets.versioned(s"javascripts/$x")'> </script>
+      }
 }
 
 @footerTop = {}

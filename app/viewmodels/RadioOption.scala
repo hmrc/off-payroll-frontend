@@ -16,12 +16,17 @@
 
 package viewmodels
 
-case class RadioOption(id: String, value: String, messageKey: String)
+sealed trait OptionType
+case object radio extends OptionType
+case object checkbox extends OptionType
+
+case class RadioOption(id: String, value: String, messageKey: String, optionType: OptionType)
 
 object RadioOption {
-  def apply(keyPrefix: String, option: String): RadioOption = RadioOption(
+  def apply(keyPrefix: String, option: String, optionType: OptionType = radio): RadioOption = RadioOption(
     s"$keyPrefix.$option",
     option,
-    s"$keyPrefix.$option"
+    s"$keyPrefix.$option",
+    optionType
   )
 }

@@ -18,6 +18,7 @@ package forms
 
 import forms.behaviours.OptionFieldBehaviours
 import models.CannotClaimAsExpense
+import models.CannotClaimAsExpense.{ExpensesAreNotRelevantForRole, WorkerProvidedEquipment, WorkerUsedVehicle}
 import play.api.data.FormError
 
 class CannotClaimAsExpenseFormProviderSpec extends OptionFieldBehaviours {
@@ -26,13 +27,22 @@ class CannotClaimAsExpenseFormProviderSpec extends OptionFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "cannotClaimAsExpense[0]"
+    def fieldName(i: Int = 0) = s"cannotClaimAsExpense[$i]"
 
     behave like optionsField[CannotClaimAsExpense](
       form,
-      fieldName,
+      fieldName(),
       validValues  = CannotClaimAsExpense.values,
-      invalidError = FormError(fieldName, "error.invalid")
+      invalidError = FormError(fieldName(), "error.invalid")
     )
+
+    "If Not Relevant is selected, remove any other ticked options that haven't been deselected by JavaScript" in {
+      val result = form.bind(Map(
+        fieldName() -> WorkerProvidedEquipment.toString,
+        fieldName(1) -> WorkerUsedVehicle.toString,
+        fieldName(2) -> ExpensesAreNotRelevantForRole.toString
+      ))
+      result.value.value shouldEqual Seq(ExpensesAreNotRelevantForRole)
+    }
   }
 }

@@ -41,7 +41,7 @@
         @for(input <- inputs) {
             <div class="multiple-choice">
                 <input id="@{input.id}"
-                       type="checkbox"
+                       type="@{input.optionType}"
                        name=@{s"${field.id}[]"}
                        value="@{input.value}"
                        @if(form.data.exists(_._2 == input.value)){checked="checked"}

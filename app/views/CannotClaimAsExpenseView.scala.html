@@ -28,7 +28,8 @@
 @mainTemplate(
     title = s"${errorPrefix(form)} ${messages("cannotClaimAsExpense.title")}",
     appConfig = appConfig,
-    bodyClasses = None) {
+    bodyClasses = None,
+    js = Some("cannot-claim-as-expense.js")) {
 
     @formWithCsrf(action = CannotClaimAsExpenseController.onSubmit(mode), 'autoComplete -> "off") {
 
