@@ -29,7 +29,7 @@ object UserType {
     case AboutYouAnswer.Agency => Agency
     case AboutYouAnswer.NoneOfAbove =>
       //TODO: This will be removed once the updated AboutYouAnswer model is changed to remove NoneOfAbove. Included for completeness.
-      throw new RuntimeException("UserType cannot be constructed as NoneOfAbove is invalid option")
+      Agency
   }
 
   val values = Seq(Worker, Hirer, Agency)
