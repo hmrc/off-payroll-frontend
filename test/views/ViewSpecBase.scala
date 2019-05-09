@@ -23,6 +23,14 @@ import base.SpecBase
 
 trait ViewSpecBase extends SpecBase {
 
+  trait BaseCSSSelectors {
+    val heading = "article h1"
+    val subheading = "article span.pre-heading"
+    val p = (i: Int) => s"article p:nth-of-type($i)"
+    val multichoice = (i: Int) => s"article div.multiple-choice:nth-of-type($i) label"
+    val continueButton = "article button"
+  }
+
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())
 
   def assertEqualsMessage(doc: Document, cssSelector: String, expectedMessageKey: String) =

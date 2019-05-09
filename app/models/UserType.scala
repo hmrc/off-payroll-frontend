@@ -27,9 +27,6 @@ object UserType {
     case AboutYouAnswer.Worker => Worker
     case AboutYouAnswer.Client => Hirer
     case AboutYouAnswer.Agency => Agency
-    case AboutYouAnswer.NoneOfAbove =>
-      //TODO: This will be removed once the updated AboutYouAnswer model is changed to remove NoneOfAbove. Included for completeness.
-      Agency
   }
 
   val values = Seq(Worker, Hirer, Agency)

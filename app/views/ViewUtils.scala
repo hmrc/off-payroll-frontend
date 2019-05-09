@@ -16,12 +16,22 @@
 
 package views
 
+import config.SessionKeys
+import models.UserType
+import models.UserType.Agency
 import play.api.data.Form
 import play.api.i18n.Messages
+import play.api.mvc.Request
+import utils.SessionUtils._
 
 object ViewUtils {
 
-  def errorPrefix(form: Form[_])(implicit messages: Messages): String = {
+  def errorPrefix(form: Form[_])(implicit messages: Messages): String =
     if (form.hasErrors || form.hasGlobalErrors) messages("error.browser.title.prefix") else ""
-  }
+
+  def tailorMsg(key: String)(implicit request: Request[_]): String =
+    request.session.getModel[UserType](SessionKeys.userType) match {
+      case Some(Agency) | None => key
+      case Some(user) => s"${user.toString}.$key"
+    }
 }

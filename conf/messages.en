@@ -56,7 +56,6 @@ aboutYou.title = Which of these describes you best?
 aboutYou.heading = Which of these describes you best?
 aboutYou.subheading = About the people involved
 aboutYou.checkYourAnswersLabel = Which of these describes you best?
-aboutYou.hint = The end client is the public body, corporation or business that the worker is providing services to.
 aboutYou.personDoingWork = The worker
 aboutYou.endClient = The end client
 aboutYou.placingAgency = The agency paying the worker
@@ -65,12 +64,30 @@ aboutYou.none = None of the above
 aboutYou.error.required = You need to select an answer
 aboutYou.error.invalid = You need to select an answer
 
+
+## Contract Started Page Questions
+## ===============================
 contractStarted.title = Has the worker already started this particular engagement for the end client?
 contractStarted.heading = Has the worker already started this particular engagement for the end client?
 contractStarted.subheading = About the people involved
 contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for the end client?
 contractStarted.error.required = You need to select an answer
 
+worker.contractStarted.title = Have you already started working on this contract?
+worker.contractStarted.heading = Have you already started working on this contract?
+worker.contractStarted.subheading = About the people involved
+worker.contractStarted.checkYourAnswersLabel = Have you already started working on this contract?
+
+hirer.contractStarted.title = Has the contractor already started working for your organisation?
+hirer.contractStarted.heading = Has the contractor already started working for your organisation?
+hirer.contractStarted.subheading = About the people involved
+hirer.contractStarted.checkYourAnswersLabel = Has the contractor already started working for your organisation?
+##-------------------------------
+
+
+
+## Way that the worker provides services page (Worker Type)
+## ========================================================
 workerType.title = How does the worker provide their services to the end client?
 workerType.heading = How does the worker provide their services to the end client?
 workerType.subheading = About the people involved
@@ -81,6 +98,26 @@ workerType.soleTrader = As a sole trader
 workerType.checkYourAnswersLabel = How does the worker provide their services to the end client?
 workerType.error.required = You need to select an answer
 workerType.error.invalid = You need to select an answer
+
+worker.workerType.title = How do you provide your services to the end client?
+worker.workerType.heading = How do you provide your services to the end client?
+worker.workerType.subheading = About the people involved
+worker.workerType.limitedCompany = As a limited company
+worker.workerType.partnership = As a partnership
+worker.workerType.throughIndividual = Through another individual (not an agency)
+worker.workerType.soleTrader = As a sole trader
+worker.workerType.checkYourAnswersLabel = How do you provide your services to the end client?
+
+hirer.workerType.title = How does the worker provide their services to the end client?
+hirer.workerType.heading = How does the worker provide their services to the end client?
+hirer.workerType.subheading = About the people involved
+hirer.workerType.limitedCompany = As a limited company
+hirer.workerType.partnership = As a partnership
+hirer.workerType.throughIndividual = Through another individual (not an agency)
+hirer.workerType.soleTrader = As a sole trader
+hirer.workerType.checkYourAnswersLabel = How does the worker provide their services to the end client?
+##-------------------------------
+
 
 
 officeHolder.title = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?

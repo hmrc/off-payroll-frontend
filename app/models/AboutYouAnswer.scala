@@ -26,31 +26,19 @@ object AboutYouAnswer {
   case object Worker extends WithName("personDoingWork") with AboutYouAnswer
   case object Client extends WithName("endClient") with AboutYouAnswer
   case object Agency extends WithName("placingAgency") with AboutYouAnswer
-  case object NoneOfAbove extends WithName("none") with AboutYouAnswer
 
-  val values: Seq[AboutYouAnswer] = Seq(
-    Worker, Client, Agency, NoneOfAbove
-  )
+  val values: Seq[AboutYouAnswer] = Seq(Worker, Client, Agency)
 
-  val options: Seq[RadioOption] = values.map {
-    value =>
-      RadioOption("aboutYou", value.toString)
-  }
+  val options: Seq[RadioOption] = values.map { value => RadioOption("aboutYou", value.toString) }
 
-  implicit val enumerable: Enumerable[AboutYouAnswer] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+  implicit val enumerable: Enumerable[AboutYouAnswer] = Enumerable(values.map(v => v.toString -> v): _*)
 
-  implicit object AboutYouAnswerWrites extends Writes[AboutYouAnswer] {
-    def writes(aboutYouAnswer: AboutYouAnswer): JsValue = Json.toJson(aboutYouAnswer.toString)
-  }
+  implicit val writes: Writes[AboutYouAnswer] = Writes { model => Json.toJson(model.toString) }
 
-  implicit object AboutYouAnswerReads extends Reads[AboutYouAnswer] {
-    override def reads(json: JsValue): JsResult[AboutYouAnswer] = json match {
-      case JsString(Worker.toString) => JsSuccess(Worker)
-      case JsString(Client.toString) => JsSuccess(Client)
-      case JsString(Agency.toString) => JsSuccess(Agency)
-      case JsString(NoneOfAbove.toString) => JsSuccess(NoneOfAbove)
-      case _                          => JsError("Unknown aboutYouAnswer")
-    }
+  implicit val reads: Reads[AboutYouAnswer] = Reads {
+    case JsString(Worker.toString) => JsSuccess(Worker)
+    case JsString(Client.toString) => JsSuccess(Client)
+    case JsString(Agency.toString) => JsSuccess(Agency)
+    case _                         => JsError("Unknown aboutYouAnswer")
   }
 }

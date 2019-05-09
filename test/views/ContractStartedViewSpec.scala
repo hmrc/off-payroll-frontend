@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.{BaseMessages, ContractStartedMessages}
+import config.SessionKeys
 import controllers.routes
 import forms.ContractStartedFormProvider
 import models.NormalMode
+import models.UserType._
 import play.api.data.Form
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.ContractStartedView
 
-class ContractStartedViewSpec extends YesNoViewBehaviours {
+class  ContractStartedViewSpec extends YesNoViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "contractStarted"
 
@@ -35,6 +42,8 @@ class ContractStartedViewSpec extends YesNoViewBehaviours {
 
   def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
 
+  def createViewWithRequest = (req: Request[_]) => view(frontendAppConfig, form, NormalMode)(req, messages)
+
   "ContractStarted view" must {
 
     behave like normalPage(createView, messageKeyPrefix)
@@ -42,5 +51,74 @@ class ContractStartedViewSpec extends YesNoViewBehaviours {
     behave like pageWithBackLink(createView)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ContractStartedController.onSubmit(NormalMode).url)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ContractStartedMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ContractStartedMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ContractStartedMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ContractStartedMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe ContractStartedMessages.no
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ContractStartedMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ContractStartedMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ContractStartedMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ContractStartedMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe ContractStartedMessages.no
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ContractStartedMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ContractStartedMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ContractStartedMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ContractStartedMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe ContractStartedMessages.no
+      }
+    }
   }
 }

@@ -16,13 +16,20 @@
 
 package views
 
+import assets.messages.{ContractStartedMessages, HowProvideServicesMessages}
+import config.SessionKeys
 import forms.WorkerTypeFormProvider
+import models.UserType.{Agency, Hirer, Worker}
 import models.{NormalMode, WorkerType}
 import play.api.data.Form
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.WorkerTypeView
 
 class WorkerTypeViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "workerType"
 
@@ -34,10 +41,87 @@ class WorkerTypeViewSpec extends ViewBehaviours {
 
   def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
 
+  def createViewWithRequest = (req: Request[_]) => view(frontendAppConfig, form, NormalMode)(req, messages)
+
   "WorkerType view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe HowProvideServicesMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe HowProvideServicesMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe HowProvideServicesMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowProvideServicesMessages.ltd
+        document.select(Selectors.multichoice(2)).text mustBe HowProvideServicesMessages.pship
+        document.select(Selectors.multichoice(3)).text mustBe HowProvideServicesMessages.thirdParty
+        document.select(Selectors.multichoice(4)).text mustBe HowProvideServicesMessages.soleTrader
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe HowProvideServicesMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe HowProvideServicesMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe HowProvideServicesMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowProvideServicesMessages.ltd
+        document.select(Selectors.multichoice(2)).text mustBe HowProvideServicesMessages.pship
+        document.select(Selectors.multichoice(3)).text mustBe HowProvideServicesMessages.thirdParty
+        document.select(Selectors.multichoice(4)).text mustBe HowProvideServicesMessages.soleTrader
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe HowProvideServicesMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe HowProvideServicesMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe HowProvideServicesMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowProvideServicesMessages.ltd
+        document.select(Selectors.multichoice(2)).text mustBe HowProvideServicesMessages.pship
+        document.select(Selectors.multichoice(3)).text mustBe HowProvideServicesMessages.thirdParty
+        document.select(Selectors.multichoice(4)).text mustBe HowProvideServicesMessages.soleTrader
+      }
+    }
   }
 
   "WorkerType view" when {
