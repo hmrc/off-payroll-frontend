@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
+import viewmodels.{RadioOption, checkbox, radio}
 
 sealed trait CannotClaimAsExpense
 
@@ -33,10 +33,13 @@ object CannotClaimAsExpense {
     WorkerProvidedMaterials, WorkerProvidedEquipment, WorkerUsedVehicle, WorkerHadOtherExpenses, ExpensesAreNotRelevantForRole
   )
 
-  val options: Seq[RadioOption] = values.map {
-    value =>
-      RadioOption("cannotClaimAsExpense", value.toString)
-  }
+  val options: Seq[RadioOption] = Seq(
+    RadioOption("cannotClaimAsExpense", WorkerProvidedMaterials.toString, checkbox),
+    RadioOption("cannotClaimAsExpense", WorkerProvidedEquipment.toString, checkbox),
+    RadioOption("cannotClaimAsExpense", WorkerUsedVehicle.toString, checkbox),
+    RadioOption("cannotClaimAsExpense", WorkerHadOtherExpenses.toString, checkbox),
+    RadioOption("cannotClaimAsExpense", ExpensesAreNotRelevantForRole.toString, radio)
+  )
 
   implicit val enumerable: Enumerable[CannotClaimAsExpense] =
     Enumerable(values.map(v => v.toString -> v): _*)
