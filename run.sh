@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-sbt -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes 'run 9843'
+sbt -Dlogger.resource=logback-test.xml -Dplay.http.router=testOnlyDoNotUseInAppConf.Routes run

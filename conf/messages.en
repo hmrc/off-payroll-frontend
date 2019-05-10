@@ -65,12 +65,30 @@ aboutYou.none = None of the above
 aboutYou.error.required = You need to select an answer
 aboutYou.error.invalid = You need to select an answer
 
+
+## Contract Started Page Questions
+## ===============================
 contractStarted.title = Has the worker already started this particular engagement for the end client?
 contractStarted.heading = Has the worker already started this particular engagement for the end client?
 contractStarted.subheading = About the people involved
 contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for the end client?
 contractStarted.error.required = You need to select an answer
 
+worker.contractStarted.title = Have you already started this particular engagement for the end client?
+worker.contractStarted.heading = Have you already started this particular engagement for the end client?
+worker.contractStarted.subheading = About the people involved
+worker.contractStarted.checkYourAnswersLabel = Have you already started this particular engagement for the end client?
+
+hirer.contractStarted.title = Has the worker already started this particular engagement for you?
+hirer.contractStarted.heading = Has the worker already started this particular engagement for you?
+hirer.contractStarted.subheading = About the people involved
+hirer.contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for you?
+##-------------------------------
+
+
+
+## Way that the worker provides services page (Worker Type)
+## ========================================================
 workerType.title = How does the worker provide their services to the end client?
 workerType.heading = How does the worker provide their services to the end client?
 workerType.subheading = About the people involved
@@ -82,7 +100,28 @@ workerType.checkYourAnswersLabel = How does the worker provide their services to
 workerType.error.required = You need to select an answer
 workerType.error.invalid = You need to select an answer
 
+worker.workerType.title = How do you provide your services to the end client?
+worker.workerType.heading = How do you provide your services to the end client?
+worker.workerType.subheading = About the people involved
+worker.workerType.limitedCompany = As a limited company
+worker.workerType.partnership = As a partnership
+worker.workerType.throughIndividual = Through another individual (not an agency)
+worker.workerType.soleTrader = As a sole trader
+worker.workerType.checkYourAnswersLabel = How do you provide your services to the end client?
 
+hirer.workerType.title = How does the worker provide their services to you?
+hirer.workerType.heading = How does the worker provide their services to you?
+hirer.workerType.subheading = About the people involved
+hirer.workerType.limitedCompany = As a limited company
+hirer.workerType.partnership = As a partnership
+hirer.workerType.throughIndividual = Through another individual (not an agency)
+hirer.workerType.soleTrader = As a sole trader
+hirer.workerType.checkYourAnswersLabel = How does the worker provide their services to you?
+##-------------------------------
+
+
+## Office Holder
+## ========================================================
 officeHolder.title = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 officeHolder.heading = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 officeHolder.subheading = About the worker’s duties
@@ -94,6 +133,30 @@ officeHolder.bullet3 = the role exists even if someone is not engaged to fill it
 officeHolder.exclamation =  If you are not sure if these things apply, please ask the end client’s management about their organisational structure.
 officeHolder.checkYourAnswersLabel = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 officeHolder.error.required = You need to select an answer
+
+worker.officeHolder.title = Will you perform office holder duties for the end client as part of this engagement?
+worker.officeHolder.heading = Will you perform office holder duties for the end client as part of this engagement?
+worker.officeHolder.checkYourAnswersLabel = Will you perform office holder duties for the end client as part of this engagement?
+worker.officeHolder.subheading = About the worker’s duties
+worker.officeHolder.p1 = Being an office holder is not about the physical place where the work is done, it’s about your responsibilities within the organisation. Office holders can be appointed on a permanent or temporary basis.
+worker.officeHolder.p2 = This engagement will include performing office holder duties for the end client, if:
+worker.officeHolder.bullet1 = You have a position of responsibility for the end client, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles.
+worker.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
+worker.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
+worker.officeHolder.exclamation = if you are not sure if these things apply, please ask the end client’s management about their organisational structure.
+
+hirer.officeHolder.title = Will the worker (or their business) perform office holder duties for you as part of this engagement?
+hirer.officeHolder.heading = Will the worker (or their business) perform office holder duties for you as part of this engagement?
+hirer.officeHolder.checkYourAnswersLabel = Will the worker (or their business) perform office holder duties for you as part of this engagement?
+hirer.officeHolder.subheading = About the worker’s duties
+hirer.officeHolder.p1 = Being an office holder is not about the physical place where the work is done, it’s about the worker’s responsibilities within your organisation. Office holders can be appointed on a permanent or temporary basis.
+hirer.officeHolder.p2 = This engagement will include performing office holder duties for you, if:
+hirer.officeHolder.bullet1 = The worker has a position of responsibility for you, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles.
+hirer.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
+hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
+hirer.officeHolder.exclamation = if you are not sure if these things apply, please ask your management about your organisational structure.
+##-------------------------------
+
 
 cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?

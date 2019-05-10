@@ -14,20 +14,23 @@
  * limitations under the License.
  *@
 
-@()(implicit messages: Messages)
+@import config.FrontendAppConfig
+@import _root_.views.ViewUtils._
+
+@()(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
     @components.hint(hint)
 
     @hint = {
-        <p>@messages("officeHolder.p1")</p>
-        <p>@messages("officeHolder.p2")</p>
+        <p>@messages(tailorMsg("officeHolder.p1"))</p>
+        <p>@messages(tailorMsg("officeHolder.p2"))</p>
 
         <ul class="list-bullet">
-            <li>@messages("officeHolder.bullet1")</li>
-            <li>@messages("officeHolder.bullet2")</li>
-            <li>@messages("officeHolder.bullet3")</li>
+            <li>@messages(tailorMsg("officeHolder.bullet1"))</li>
+            <li>@messages(tailorMsg("officeHolder.bullet2"))</li>
+            <li>@messages(tailorMsg("officeHolder.bullet3"))</li>
         </ul>
     }
 
-    @components.exclamation(Html(messages("officeHolder.exclamation")))
+    @components.exclamation(Html(messages(tailorMsg("officeHolder.exclamation"))))
     

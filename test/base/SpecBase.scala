@@ -17,10 +17,12 @@
 package base
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
+import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -40,11 +42,16 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.language.implicitConversions
 
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with MaterializerSupport with MockitoSugar {
+trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach with MaterializerSupport with MockitoSugar with FeatureSwitching {
 
   override def fakeApplication(): Application = GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
     .build()
+
+  override def beforeEach(): Unit = {
+    enable(TailoredContent)
+    super.beforeEach()
+  }
 
   implicit val defaultTimeout: FiniteDuration = 5.seconds
 

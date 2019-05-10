@@ -25,10 +25,10 @@ class AboutYouPageSpec extends PageBehaviours with Enumerable.Implicits {
 
   "AboutYouPage" must {
 
-    beRetrievable[AboutYouAnswer](AboutYouPage)(Arbitrary(Gen.oneOf(Worker, Client, Agency, NoneOfAbove)), implicitly,implicitly,implicitly)
+    beRetrievable[AboutYouAnswer](AboutYouPage)(Arbitrary(Gen.oneOf(Worker, Client, Agency)), implicitly,implicitly,implicitly)
 
-    beSettable[AboutYouAnswer](AboutYouPage)(Arbitrary(Gen.oneOf(Worker, Client, Agency, NoneOfAbove)), implicitly,implicitly,implicitly)
+    beSettable[AboutYouAnswer](AboutYouPage)(Arbitrary(Gen.oneOf(Worker, Client, Agency)), implicitly,implicitly,implicitly)
 
-    beRemovable[AboutYouAnswer](AboutYouPage)(Arbitrary(Gen.oneOf(Worker, Client, Agency, NoneOfAbove)), implicitly,implicitly,implicitly)
+    beRemovable[AboutYouAnswer](AboutYouPage)(Arbitrary(Gen.oneOf(Worker, Client, Agency)), implicitly,implicitly,implicitly)
   }
 }
