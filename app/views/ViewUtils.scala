@@ -16,7 +16,8 @@
 
 package views
 
-import config.SessionKeys
+import config.{FrontendAppConfig, SessionKeys}
+import config.featureSwitch.{FeatureSwitching, TailoredContent}
 import models.UserType
 import models.UserType.Agency
 import play.api.data.Form
@@ -24,14 +25,16 @@ import play.api.i18n.Messages
 import play.api.mvc.Request
 import utils.SessionUtils._
 
-object ViewUtils {
+object ViewUtils extends FeatureSwitching {
 
   def errorPrefix(form: Form[_])(implicit messages: Messages): String =
     if (form.hasErrors || form.hasGlobalErrors) messages("error.browser.title.prefix") else ""
 
-  def tailorMsg(key: String)(implicit request: Request[_]): String =
-    request.session.getModel[UserType](SessionKeys.userType) match {
-      case Some(Agency) | None => key
-      case Some(user) => s"${user.toString}.$key"
+  def tailorMsg(key: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
+    val userType = request.session.getModel[UserType](SessionKeys.userType)
+    (isEnabled(TailoredContent), userType) match {
+      case (false, _) | (true, Some(Agency)) | (true, None) => key
+      case (true, Some(user)) => s"${user.toString}.$key"
     }
+  }
 }

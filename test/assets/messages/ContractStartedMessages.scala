@@ -21,12 +21,12 @@ object ContractStartedMessages extends BaseMessages {
   val subheading = "About the people involved"
 
   object Worker {
-    val heading = "Have you already started working on this contract?"
+    val heading = "Have you already started this particular engagement for the end client?"
     val title = heading
   }
 
   object Hirer {
-    val heading = "Has the contractor already started working for your organisation?"
+    val heading = "Has the worker already started this particular engagement for you?"
     val title = heading
   }
 

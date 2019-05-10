@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.{BaseMessages, ContractStartedMessages}
+import assets.messages.ContractStartedMessages
 import config.SessionKeys
 import controllers.routes
 import forms.ContractStartedFormProvider
@@ -38,11 +38,11 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
 
   val view = injector.instanceOf[ContractStartedView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewWithRequest = (req: Request[_]) => view(frontendAppConfig, form, NormalMode)(req, messages)
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ContractStarted view" must {
 

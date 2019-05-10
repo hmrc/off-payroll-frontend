@@ -22,7 +22,7 @@ object FeatureSwitch {
 
   val prefix = "feature-switch"
 
-  val switches: Set[FeatureSwitch] = Set(PrintPDF)
+  val switches: Set[FeatureSwitch] = Set(PrintPDF, TailoredContent)
 
   def apply(str: String): FeatureSwitch =
     switches find (_.name == str) match {
@@ -42,4 +42,9 @@ sealed trait FeatureSwitch {
 case object PrintPDF extends FeatureSwitch {
   override val name: String = s"$prefix.printPdfEnabled"
   override val displayText: String = "Enable the Printing of the PDF"
+}
+
+case object TailoredContent extends FeatureSwitch {
+  override val name: String = s"$prefix.tailoredContent"
+  override val displayText: String = "Enable the Hirer/Worker Tailored Content"
 }
