@@ -14,19 +14,22 @@
  * limitations under the License.
  *@
 
-@()(implicit messages: Messages)
+@import config.FrontendAppConfig
+@import _root_.views.ViewUtils._
+
+@()(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 @components.hint(hint)
 
-@components.exclamation(Html(messages("rejectSubstitute.exclamation")))
+@components.exclamation(Html(messages(tailorMsg("rejectSubstitute.exclamation"))))
 
 @hint = {
-    <p>@messages("rejectSubstitute.hint.p1")</p>
-@components.bulleted_list(Seq(
-    messages("rejectSubstitute.hint.bullet1"),
-    messages("rejectSubstitute.hint.bullet2"),
-    messages("rejectSubstitute.hint.bullet3"),
-    messages("rejectSubstitute.hint.bullet4"),
-    messages("rejectSubstitute.hint.bullet5")
-))
+    <p>@messages(tailorMsg("rejectSubstitute.hint.p1"))</p>
+    @components.bulleted_list(Seq(
+        messages(tailorMsg("rejectSubstitute.hint.bullet1")),
+        messages(tailorMsg("rejectSubstitute.hint.bullet2")),
+        messages(tailorMsg("rejectSubstitute.hint.bullet3")),
+        messages(tailorMsg("rejectSubstitute.hint.bullet4")),
+        messages(tailorMsg("rejectSubstitute.hint.bullet5"))
+    ))
 }
