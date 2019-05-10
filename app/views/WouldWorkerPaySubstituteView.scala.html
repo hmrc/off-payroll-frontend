@@ -22,26 +22,26 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("wouldWorkerPaySubstitute.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("wouldWorkerPaySubstitute.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = WouldWorkerPaySubstituteController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = WouldWorkerPaySubstituteController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("wouldWorkerPaySubstitute.heading", Some("wouldWorkerPaySubstitute.subheading"))
+        @components.heading(tailorMsg("wouldWorkerPaySubstitute.heading"), Some(tailorMsg("wouldWorkerPaySubstitute.subheading")))
 
-        @components.exclamation(Html(messages("wouldWorkerPaySubstitute.exclamation")))
+        @components.exclamation(Html(messages(tailorMsg("wouldWorkerPaySubstitute.exclamation"))))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("wouldWorkerPaySubstitute.heading"),
+            label = messages(tailorMsg("wouldWorkerPaySubstitute.heading")),
             labelClass = Some("visually-hidden")
         )
 

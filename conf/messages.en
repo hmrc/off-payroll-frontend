@@ -343,12 +343,28 @@ neededToPayHelper.hint.bullet2 = a company the lecturer pays to print and bind m
 neededToPayHelper.checkYourAnswersLabel = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 neededToPayHelper.error.required = You need to select an answer
 
+
+## Would Pay Substitute
+## ========================================================
 wouldWorkerPaySubstitute.title = Would the worker’s business have to pay the person who did the work instead of them?
 wouldWorkerPaySubstitute.heading = Would the worker’s business have to pay the person who did the work instead of them?
+wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
 wouldWorkerPaySubstitute.subheading = About substitutes and helpers
 wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
-wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
 wouldWorkerPaySubstitute.error.required = You need to select an answer
+
+worker.wouldWorkerPaySubstitute.title = Would your business have to pay the person who did the work instead of you?
+worker.wouldWorkerPaySubstitute.heading = Would your business have to pay the person who did the work instead of you?
+worker.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would your business have to pay the person who did the work instead of you?
+worker.wouldWorkerPaySubstitute.subheading = About substitutes and helpers
+worker.wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
+
+hirer.wouldWorkerPaySubstitute.title = Would the worker’s business have to pay the person who did the work instead of them?
+hirer.wouldWorkerPaySubstitute.heading = Would the worker’s business have to pay the person who did the work instead of them?
+hirer.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
+hirer.wouldWorkerPaySubstitute.subheading = About substitutes and helpers
+hirer.wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
+##--------------------------------------------------------
 
 
 ## Reject Substitute
