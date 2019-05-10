@@ -365,12 +365,29 @@ rejectSubstitute.no = No - the end client would always accept a substitute who m
 rejectSubstitute.checkYourAnswersLabel = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
 rejectSubstitute.error.required = You need to select an answer
 
+
+
+## Did Pay Substitute
+## ========================================================
 didPaySubstitute.title = Did the worker’s business pay the person who did the work instead of them?
 didPaySubstitute.heading = Did the worker’s business pay the person who did the work instead of them?
+didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
 didPaySubstitute.subheading = About substitutes and helpers
 didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
-didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
 didPaySubstitute.error.required = You need to select an answer
+
+worker.didPaySubstitute.title = Did you pay the person who did the work instead of you?
+worker.didPaySubstitute.heading = Did you pay the person who did the work instead of you?
+worker.didPaySubstitute.checkYourAnswersLabel = Did you pay the person who did the work instead of you?
+worker.didPaySubstitute.subheading = About substitutes and helpers
+worker.didPaySubstitute.exclamation = if the substitute was paid by an agency, it does not count as substitution.
+
+hirer.didPaySubstitute.title = Did the worker’s business pay the person who did the work instead of them?
+hirer.didPaySubstitute.heading = Did the worker’s business pay the person who did the work instead of them?
+hirer.didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
+hirer.didPaySubstitute.subheading = About substitutes and helpers
+hirer.didPaySubstitute.exclamation = if the substitute was paid by an agency, it does not count as substitution.
+##-------------------------------
 
 
 # Common Result Page Messages
