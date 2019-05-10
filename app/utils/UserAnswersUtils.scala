@@ -16,8 +16,10 @@
 
 package utils
 
+import config.FrontendAppConfig
 import models.requests.DataRequest
 import play.api.i18n.Messages
+import play.api.mvc.Request
 import viewmodels.AnswerSection
 import play.twirl.api.Html
 import views.html.components._
@@ -36,7 +38,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def workersDuties(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
+  def workersDuties(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.workersDuties.h2"),
     whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))),
     rows = Seq(
@@ -93,7 +95,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def answers(implicit request: DataRequest[_], messages: Messages): Seq[AnswerSection] = {
+  def answers(implicit request: DataRequest[_], messages: Messages, frontendAppConfig: FrontendAppConfig): Seq[AnswerSection] = {
     implicit val checkYourAnswersHelper: CheckYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
     Seq(peopleInvolved,workersDuties,substitutesHelpers,workArrangements,financialRisk,partAndParcel)
   }
