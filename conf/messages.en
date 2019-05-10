@@ -333,15 +333,38 @@ moveWorker.checkYourAnswersLabel = Can the end client move the worker to a diffe
 moveWorker.error.required = You need to select an answer
 moveWorker.error.invalid = You need to select an answer
 
+
+
+## Needed to Pay Helper
+## ========================================================
 neededToPayHelper.title = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 neededToPayHelper.heading = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+neededToPayHelper.checkYourAnswersLabel = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 neededToPayHelper.subheading = About substitutes and helpers
 neededToPayHelper.hint.p1 = A helper is someone who does some of the job the worker is hired to do, either for or with them.
 neededToPayHelper.hint.p2 = For example, if a lecturer was hired by a university to write and deliver a study module:
 neededToPayHelper.hint.bullet1 = a researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
 neededToPayHelper.hint.bullet2 = a company the lecturer pays to print and bind materials for the module would not be classed as doing a significant amount of the work
-neededToPayHelper.checkYourAnswersLabel = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 neededToPayHelper.error.required = You need to select an answer
+
+worker.neededToPayHelper.title = Has your business needed to pay a helper to do a significant amount of the work for this engagement?
+worker.neededToPayHelper.heading = Has your business needed to pay a helper to do a significant amount of the work for this engagement?
+worker.neededToPayHelper.checkYourAnswersLabel = Has your business needed to pay a helper to do a significant amount of the work for this engagement?
+worker.neededToPayHelper.subheading = About substitutes and helpers
+worker.neededToPayHelper.hint.p1 = A helper is someone who does some of the job you are hired to do, either for or with you.
+worker.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a university to write and deliver a study module:
+worker.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
+worker.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work.
+
+hirer.neededToPayHelper.title = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+hirer.neededToPayHelper.heading = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+hirer.neededToPayHelper.checkYourAnswersLabel = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+hirer.neededToPayHelper.subheading = About substitutes and helpers
+hirer.neededToPayHelper.hint.p1 = A helper is someone who does some of the job the worker is hired to do, either for or with them.
+hirer.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a university to write and deliver a study module:
+hirer.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
+hirer.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work.
+##--------------------------------------------------------
 
 
 ## Would Pay Substitute

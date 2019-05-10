@@ -14,11 +14,14 @@
  * limitations under the License.
  *@
 
-@()(implicit messages: Messages)
+@import config.FrontendAppConfig
+@import _root_.views.ViewUtils._
 
-    <p>@messages("neededToPayHelper.hint.p1")</p>
-    <p>@messages("neededToPayHelper.hint.p2")</p>
-    @components.bulleted_list(Seq(
-        messages("neededToPayHelper.hint.bullet1"),
-        messages("neededToPayHelper.hint.bullet2")
-    ))
+@()(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+
+<p>@messages(tailorMsg("neededToPayHelper.hint.p1"))</p>
+<p>@messages(tailorMsg("neededToPayHelper.hint.p2"))</p>
+@components.bulleted_list(Seq(
+    messages(tailorMsg("neededToPayHelper.hint.bullet1")),
+    messages(tailorMsg("neededToPayHelper.hint.bullet2"))
+))
