@@ -46,12 +46,12 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
   val form: Form[AboutYouAnswer] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(AboutYouPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(request.userAnswers.get(AboutYouPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         val answers = CompareAnswerService.constructAnswers(request,value,AboutYouPage)
         dataCacheConnector.save(answers.cacheMap).map(

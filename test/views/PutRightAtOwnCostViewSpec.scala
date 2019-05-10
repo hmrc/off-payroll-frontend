@@ -31,9 +31,9 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
   "PutRightAtOwnCost view" must {
     behave like normalPage(createView, messageKeyPrefix)

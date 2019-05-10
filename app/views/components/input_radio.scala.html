@@ -15,6 +15,8 @@
  *@
 
 @import viewmodels.RadioOption
+@import config.FrontendAppConfig
+@import _root_.views.ViewUtils._
 
 @(
         field: Field,
@@ -23,7 +25,7 @@
         hint: Option[Html] = None,
         trackGa: Boolean = false,
         inputs: Seq[RadioOption]
-)(implicit messages: Messages)
+)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
     <fieldset id="@{field.id}">
@@ -41,7 +43,11 @@
                 <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="cest-frontend:click:@{input.id}"} />
 
                 <label class="block-label selection-button-radio" for="@{input.id}">
-                    @messages(input.messageKey)
+                    @if(input.hasTailoredMsgs) {
+                        @messages(tailorMsg(input.messageKey))
+                    } else {
+                        @messages(tailorMsg(input.messageKey))
+                    }
                 </label>
             </div>
         }

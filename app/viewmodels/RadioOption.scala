@@ -20,13 +20,14 @@ sealed trait OptionType
 case object radio extends OptionType
 case object checkbox extends OptionType
 
-case class RadioOption(id: String, value: String, messageKey: String, optionType: OptionType)
+case class RadioOption(id: String, value: String, messageKey: String, optionType: OptionType, hasTailoredMsgs: Boolean)
 
 object RadioOption {
-  def apply(keyPrefix: String, option: String, optionType: OptionType = radio): RadioOption = RadioOption(
+  def apply(keyPrefix: String, option: String, optionType: OptionType, hasTailoredMsgs: Boolean = false): RadioOption = RadioOption(
     s"$keyPrefix.$option",
     option,
     s"$keyPrefix.$option",
-    optionType
+    optionType,
+    hasTailoredMsgs
   )
 }

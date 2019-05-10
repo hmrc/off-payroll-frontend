@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
+import viewmodels.{RadioOption, radio}
 
 sealed trait HowWorkIsDone
 
@@ -34,7 +34,7 @@ object HowWorkIsDone {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("howWorkIsDone", value.toString)
+      RadioOption("howWorkIsDone", value.toString, radio)
   }
 
   implicit val enumerable: Enumerable[HowWorkIsDone] =

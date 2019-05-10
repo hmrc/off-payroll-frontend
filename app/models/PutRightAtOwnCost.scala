@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
+import viewmodels.{RadioOption, radio}
 
 sealed trait PutRightAtOwnCost
 
@@ -35,7 +35,7 @@ object PutRightAtOwnCost {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("putRightAtOwnCost", value.toString)
+      RadioOption("putRightAtOwnCost", value.toString, radio)
   }
 
   implicit val enumerable: Enumerable[PutRightAtOwnCost] =

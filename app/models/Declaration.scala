@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
+import viewmodels.{RadioOption, checkbox}
 
 sealed trait Declaration
 
@@ -29,7 +29,7 @@ object Declaration {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("declaration", value.toString)
+      RadioOption("declaration", value.toString, checkbox)
   }
 
   implicit val enumerable: Enumerable[Declaration] =
