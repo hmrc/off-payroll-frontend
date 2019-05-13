@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("scheduleOfWorkingHours.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("scheduleOfWorkingHours.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -36,11 +36,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("scheduleOfWorkingHours.heading", Some("scheduleOfWorkingHours.subheading"))
+        @components.heading(tailorMsg("scheduleOfWorkingHours.heading"), Some(tailorMsg("scheduleOfWorkingHours.subheading")))
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("scheduleOfWorkingHours.heading"),
+            legend = messages(tailorMsg("scheduleOfWorkingHours.heading")),
             legendClass = Some("visually-hidden"),
             inputs = ScheduleOfWorkingHours.options
         )

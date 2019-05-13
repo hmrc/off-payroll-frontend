@@ -299,16 +299,38 @@ chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
 chooseWhereWork.error.required = You need to select an answer
 chooseWhereWork.error.invalid = You need to select an answer
 
+
+## How Work Is Done
+## ========================================================
 scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.subheading = About the work arrangements
 scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides the worker’s schedule
 scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule
 scheduleOfWorkingHours.workerAgreeSchedule = Partly - the worker and the end client agree a schedule
 scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
-scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.error.required = You need to select an answer
 scheduleOfWorkingHours.error.invalid = You need to select an answer
+
+worker.scheduleOfWorkingHours.title = Can you decide the schedule of working hours?
+worker.scheduleOfWorkingHours.heading = Can you decide the schedule of working hours?
+worker.scheduleOfWorkingHours.checkYourAnswersLabel = Can you decide the schedule of working hours?
+worker.scheduleOfWorkingHours.subheading = About the work arrangements
+worker.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides my schedule
+worker.scheduleOfWorkingHours.workerDecideSchedule = No - I decide my own schedule
+worker.scheduleOfWorkingHours.workerAgreeSchedule = Partly - I agree a schedule with the end client
+worker.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as I meet any agreed deadlines.
+
+hirer.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.subheading = About the work arrangements
+hirer.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - we decide the worker’s schedule
+hirer.scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule
+hirer.scheduleOfWorkingHours.workerAgreeSchedule = Partly - we agree a schedule with the worker
+hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines.
+##--------------------------------------------------------
 
 
 ## How Work Is Done
@@ -344,6 +366,8 @@ hirer.howWorkIsDone.noWorkerInputAllowed = Yes - we decide how the work needs to
 hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without your input.
 hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - we cannot decide how the work needs to be done because it is a highly skilled role
 hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done.
+##--------------------------------------------------------
+
 
 
 ## Needed to Pay Helper
