@@ -26,24 +26,24 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("moveWorker.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("moveWorker.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = MoveWorkerController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = MoveWorkerController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("moveWorker.heading", Some("moveWorker.subheading"))
+        @components.heading(tailorMsg("moveWorker.heading"), Some(tailorMsg("moveWorker.subheading")))
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("moveWorker.heading"),
+            legend = messages(tailorMsg("moveWorker.heading")),
             legendClass = Some("visually-hidden"),
             inputs = MoveWorker.options,
-            hint = Some(Html(messages("moveWorker.hint")))
+            hint = Some(Html(messages(tailorMsg("moveWorker.hint"))))
         )
 
         @components.submit_button()

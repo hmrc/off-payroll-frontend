@@ -322,17 +322,38 @@ howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, doe
 howWorkIsDone.error.required = You need to select an answer
 howWorkIsDone.error.invalid = You need to select an answer
 
+
+## Needed to Pay Helper
+## ========================================================
 moveWorker.title = Can the end client move the worker to a different task than they originally agreed to do?
 moveWorker.heading = Can the end client move the worker to a different task than they originally agreed to do?
+moveWorker.checkYourAnswersLabel = Can the end client move the worker to a different task than they originally agreed to do?
 moveWorker.subheading = About the work arrangements
 moveWorker.hint = This includes moving project or location, or changing to another task at the same location.
 moveWorker.canMoveWorkerWithPermission = Yes - but only with the worker’s agreement
 moveWorker.canMoveWorkerWithoutPermission = Yes - without the worker’s agreement (if the worker does not want to change, the end client might end the engagement)
 moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
-moveWorker.checkYourAnswersLabel = Can the end client move the worker to a different task than they originally agreed to do?
 moveWorker.error.required = You need to select an answer
 moveWorker.error.invalid = You need to select an answer
 
+worker.moveWorker.title = Can the end client move you to a different task than you originally agreed to do?
+worker.moveWorker.heading = Can the end client move you to a different task than you originally agreed to do?
+worker.moveWorker.checkYourAnswersLabel = Can the end client move you to a different task than you originally agreed to do?
+worker.moveWorker.subheading = About the work arrangements
+worker.moveWorker.hint = This includes moving project or location, or changing to another task at the same location.
+worker.moveWorker.canMoveWorkerWithPermission = Yes - but only with my agreement
+worker.moveWorker.canMoveWorkerWithoutPermission = Yes - without my agreement (if I do not want to change, the end client might end the engagement)
+worker.moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
+
+hirer.moveWorker.title = Can you move the worker to a different task than they originally agreed to do?
+hirer.moveWorker.heading = Can you move the worker to a different task than they originally agreed to do?
+hirer.moveWorker.checkYourAnswersLabel = Can you move the worker to a different task than they originally agreed to do?
+hirer.moveWorker.subheading = About the work arrangements
+hirer.moveWorker.hint = This includes moving project or location, or changing to another task at the same location.
+hirer.moveWorker.canMoveWorkerWithPermission = Yes - but only with the worker’s agreement
+hirer.moveWorker.canMoveWorkerWithoutPermission = Yes - without the worker’s agreement (if the worker does not want to change, you might end the engagement)
+hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
+##--------------------------------------------------------
 
 
 ## Needed to Pay Helper

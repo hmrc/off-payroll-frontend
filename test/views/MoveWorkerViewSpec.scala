@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.MoveWorkerMessages
+import config.SessionKeys
 import play.api.data.Form
 import forms.MoveWorkerFormProvider
 import models.NormalMode
 import models.MoveWorker
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.MoveWorkerView
 
 class MoveWorkerViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "moveWorker"
 
@@ -35,10 +42,96 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
   def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
+
   "MoveWorker view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe MoveWorkerMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe MoveWorkerMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe MoveWorkerMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe MoveWorkerMessages.Worker.hint
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe MoveWorkerMessages.Worker.yesWithAgreement
+        document.select(Selectors.multichoice(2)).text mustBe MoveWorkerMessages.Worker.yesWithoutAgreement
+        document.select(Selectors.multichoice(3)).text mustBe MoveWorkerMessages.Worker.no
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe MoveWorkerMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe MoveWorkerMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe MoveWorkerMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe MoveWorkerMessages.Hirer.hint
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe MoveWorkerMessages.Hirer.yesWithAgreement
+        document.select(Selectors.multichoice(2)).text mustBe MoveWorkerMessages.Hirer.yesWithoutAgreement
+        document.select(Selectors.multichoice(3)).text mustBe MoveWorkerMessages.Hirer.no
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe MoveWorkerMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe MoveWorkerMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe MoveWorkerMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe MoveWorkerMessages.NonTailored.hint
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe MoveWorkerMessages.NonTailored.yesWithAgreement
+        document.select(Selectors.multichoice(2)).text mustBe MoveWorkerMessages.NonTailored.yesWithoutAgreement
+        document.select(Selectors.multichoice(3)).text mustBe MoveWorkerMessages.NonTailored.no
+      }
+    }
   }
 
   "MoveWorker view" when {
