@@ -17,7 +17,7 @@
 package connectors
 
 import base.SpecBase
-import connectors.mocks.MockWsClient
+import connectors.mocks.{MockHttp, MockWsClient}
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.Workerchooses
@@ -32,14 +32,14 @@ import models.logging.LogInterview
 import models._
 import play.api.http.Status
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
 
 import scala.concurrent.Future
 
 
-class DecisionConnectorSpec extends SpecBase with MockWsClient {
+class DecisionConnectorSpec extends SpecBase with MockHttp {
 
-  object TestDecisionConnector extends DecisionConnector(mockWsClient, servicesConfig, frontendAppConfig)
+  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig)
 
   val emptyInterviewModel: Interview = Interview(
     "12345"
@@ -168,13 +168,9 @@ class DecisionConnectorSpec extends SpecBase with MockWsClient {
 
   "Calling the decide connector" should {
     "return a decision based on the empty interview" in {
-      val logResponse = wsResponse(Status.NO_CONTENT, "")
-      val response = wsResponse(Status.OK, decisionResponseString)
-
-      val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
+      val response = HttpResponse(Status.OK, Some(Json.parse(decisionResponseString)))
 
       setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(emptyInterviewModel))(Future.successful(response))
-      setupMockHttpPost(TestDecisionConnector.logUrl,  Json.toJson(LogInterview.createFromInterview(interviewModel,decisionResponse)))(Future.successful(logResponse))
 
       import models.ResultEnum._
       import models.WeightedAnswerEnum._
@@ -187,30 +183,9 @@ class DecisionConnectorSpec extends SpecBase with MockWsClient {
     }
 
     "return a decision based on the populated interview" in {
-      val response = wsResponse(Status.OK, fullDecisionResponseString)
-      val logResponse = wsResponse(Status.NO_CONTENT, "")
-      val decisionResponse = Json.parse(fullDecisionResponseString).as[DecisionResponse]
+      val response = HttpResponse(Status.OK, Some(Json.parse(fullDecisionResponseString)))
 
       setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(interviewModel))(Future.successful(response))
-      setupMockHttpPost(TestDecisionConnector.logUrl, Json.toJson(LogInterview.createFromInterview(interviewModel,decisionResponse)))(Future.successful(logResponse))
-
-      import models.ResultEnum._
-      import models.WeightedAnswerEnum._
-
-      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(TestDecisionConnector.decide(interviewModel))
-      clientResponse mustBe Right(DecisionResponse("1.5.0-final", "12345",
-        Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
-        SELF_EMPLOYED
-      ))
-    }
-
-    "return a decision based on the populated interview even if logging fails" in {
-      val response = wsResponse(Status.OK, fullDecisionResponseString)
-      val fail = wsResponse(Status.IM_A_TEAPOT, "")
-      val decisionResponse = Json.parse(fullDecisionResponseString).as[DecisionResponse]
-
-      setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(interviewModel))(Future.successful(response))
-      setupMockHttpPost(TestDecisionConnector.logUrl, Json.toJson(LogInterview.createFromInterview(interviewModel,decisionResponse)))(Future.successful(fail))
 
       import models.ResultEnum._
       import models.WeightedAnswerEnum._
@@ -223,35 +198,49 @@ class DecisionConnectorSpec extends SpecBase with MockWsClient {
     }
 
     "return an error if a bad request is returned" in  {
-      val fail = wsResponse(Status.BAD_REQUEST, fullDecisionResponseString)
+      val fail = HttpResponse(Status.BAD_REQUEST, Some(Json.parse(fullDecisionResponseString)))
       setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(emptyInterviewModel))(Future.successful(fail))
 
       val clientResponse: Either[ErrorResponse, DecisionResponse] = await(TestDecisionConnector.decide(emptyInterviewModel))
-      clientResponse mustBe Left(ErrorResponse(400, "Unexpected Response. Response: "))
+      clientResponse mustBe Left(ErrorResponse(400, "Unexpected Response returned from decision API"))
     }
     "return an error if a 499 is returned" in  {
-      val fail = wsResponse(499, fullDecisionResponseString)
+      val fail = HttpResponse(499, Some(Json.parse(fullDecisionResponseString)))
       setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(emptyInterviewModel))(Future.successful(fail))
 
       val clientResponse: Either[ErrorResponse, DecisionResponse] = await(TestDecisionConnector.decide(emptyInterviewModel))
-      clientResponse mustBe Left(ErrorResponse(499, "Unexpected Response. Response: "))
+      clientResponse mustBe Left(ErrorResponse(499, "Unexpected Response returned from decision API"))
 
     }
     "return an error a 500 is returned" in  {
-      val fail = wsResponse(Status.INTERNAL_SERVER_ERROR, fullDecisionResponseString)
+      val fail = HttpResponse(Status.INTERNAL_SERVER_ERROR, Some(Json.parse(fullDecisionResponseString)))
       setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(emptyInterviewModel))(Future.successful(fail))
 
       val clientResponse: Either[ErrorResponse, DecisionResponse] = await(TestDecisionConnector.decide(emptyInterviewModel))
-      clientResponse mustBe Left(ErrorResponse(500, "Unexpected Response. Response: "))
+      clientResponse mustBe Left(ErrorResponse(500, "Unexpected Response returned from decision API"))
+    }
+  }
 
+  "Calling the log API" should {
+    "return a 204" in {
+      val logResponse = HttpResponse(Status.NO_CONTENT, None)
+
+      val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
+
+      setupMockHttpPost(TestDecisionConnector.logUrl,  Json.toJson(LogInterview.createFromInterview(interviewModel,decisionResponse)))(Future.successful(logResponse))
+
+      val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
+      clientResponse mustBe Right(true)
     }
 
-    "return an error an exception is returned" in  {
-      val fail = wsResponse(Status.OK, "chaz dingle")
-      setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(emptyInterviewModel))(Future.successful(fail))
+    "return an error a 500 is returned" in  {
+      val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
 
-      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(TestDecisionConnector.decide(emptyInterviewModel))
-      clientResponse.left.get.status mustBe 500
+      val fail = HttpResponse(Status.INTERNAL_SERVER_ERROR, Some(Json.parse(fullDecisionResponseString)))
+      setupMockHttpPost(TestDecisionConnector.logUrl,  Json.toJson(LogInterview.createFromInterview(interviewModel,decisionResponse)))(Future.successful(fail))
+
+      val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
+      clientResponse mustBe Left(ErrorResponse(500, "Unexpected Response returned from log API"))
 
     }
   }
