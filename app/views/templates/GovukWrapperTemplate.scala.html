@@ -25,6 +25,7 @@
 @import uk.gov.hmrc.play.views.html.layouts.Article
 @import uk.gov.hmrc.play.views.html.layouts.FooterLinks
 @import uk.gov.hmrc.play.views.html.helpers.ReportAProblemLink
+@import views.html.LanguageSelection
 
 @this(head: Head,
 headerNav: HeaderNav,
@@ -36,7 +37,8 @@ sidebar: Sidebar,
 article: Article,
 reportAProblemLink: ReportAProblemLink,
 footerLinks: FooterLinks,
-hmrcGovUkTemplate: GovUkTemplate)
+hmrcGovUkTemplate: GovUkTemplate,
+languageSelection: LanguageSelection)
 
 @(appConfig: config.FrontendAppConfig,
   title: String,
@@ -122,7 +124,7 @@ hmrcGovUkTemplate: GovUkTemplate)
 @serviceInfoHtml = {
     @serviceInfo(
       betaBanner = phaseBanner,
-      includeHMRCBranding = true,
+      includeHMRCBranding = false,
       includeGridWrapper = false,
       serviceInfoContent = Some(serviceInfoContent))
 }
@@ -130,7 +132,7 @@ hmrcGovUkTemplate: GovUkTemplate)
 @mainContentHeaderContent = {
 
     @if(appConfig.languageTranslationEnabled) {
-        @views.html.language_selection(
+        @languageSelection(
             appConfig.languageMap,
             appConfig.routeToSwitchLanguage,
             Some("translate u-align--right"))

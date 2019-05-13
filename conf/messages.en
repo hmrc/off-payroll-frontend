@@ -44,6 +44,8 @@ site.continue = Continue
 site.confirm_continue = Confirm and continue
 site.service_name = Check employment status for tax
 site.textarea.char_limit = (Limit is {0} characters)
+site.home = Home
+site.hmrc = HM Revenue & Customs
 
 feedback.before = This is a new service – your
 feedback.link = feedback
@@ -67,7 +69,7 @@ aboutYou.error.invalid = You need to select an answer
 
 
 ## Contract Started Page Questions
-## ===============================
+##
 contractStarted.title = Has the worker already started this particular engagement for the end client?
 contractStarted.heading = Has the worker already started this particular engagement for the end client?
 contractStarted.subheading = About the people involved
@@ -83,12 +85,12 @@ hirer.contractStarted.title = Has the worker already started this particular eng
 hirer.contractStarted.heading = Has the worker already started this particular engagement for you?
 hirer.contractStarted.subheading = About the people involved
 hirer.contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for you?
-##-------------------------------
+##
 
 
 
 ## Way that the worker provides services page (Worker Type)
-## ========================================================
+##
 workerType.title = How does the worker provide their services to the end client?
 workerType.heading = How does the worker provide their services to the end client?
 workerType.subheading = About the people involved
@@ -117,11 +119,11 @@ hirer.workerType.partnership = As a partnership
 hirer.workerType.throughIndividual = Through another individual (not an agency)
 hirer.workerType.soleTrader = As a sole trader
 hirer.workerType.checkYourAnswersLabel = How does the worker provide their services to you?
-##-------------------------------
+##
 
 
 ## Office Holder
-## ========================================================
+##
 officeHolder.title = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 officeHolder.heading = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 officeHolder.subheading = About the worker’s duties
@@ -155,7 +157,7 @@ hirer.officeHolder.bullet1 = The worker has a position of responsibility for you
 hirer.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
 hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
 hirer.officeHolder.exclamation = if you are not sure if these things apply, please ask your management about your organisational structure.
-##-------------------------------
+##
 
 
 cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
