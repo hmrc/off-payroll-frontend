@@ -74,7 +74,11 @@
 @shouldNowDoContent = {
     <p>
         @messages("result.control.shouldNowDo.p1.beforeLink")
-        <a href="https://www.gov.uk/browse/business/business-tax" rel="external">@messages("result.control.shouldNowDo.p1.link")</a>
+        @if(printView){
+            <a href="https://www.gov.uk/browse/business/business-tax">@messages("result.control.shouldNowDo.p1.link")</a>
+        } else {
+            <a href="https://www.gov.uk/browse/business/business-tax" rel="external">@messages("result.control.shouldNowDo.p1.link")</a>
+        }
         @messages("result.control.shouldNowDo.p1.afterLink")
     </p>
     <p>@messages("result.control.shouldNowDo.p2")</p>
@@ -88,7 +92,11 @@
 @aboutResultContent = {
     <p>
         @messages("result.control.aboutResult.p1.beforeLink")
-        <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040" rel="external">@messages("result.control.aboutResult.p1.link")</a>
+        @if(printView){
+            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040">@messages("result.control.aboutResult.p1.link")</a>
+        } else {
+            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040" rel="external">@messages("result.control.aboutResult.p1.link")</a>
+        }
         @messages("result.control.aboutResult.p1.afterLink")
     </p>
 }
