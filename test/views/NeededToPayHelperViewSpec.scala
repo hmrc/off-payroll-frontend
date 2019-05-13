@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.NeededToPayHelperMessages
+import config.SessionKeys
 import play.api.data.Form
 import controllers.routes
 import forms.NeededToPayHelperFormProvider
 import views.behaviours.YesNoViewBehaviours
 import models.NormalMode
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.html.NeededToPayHelperView
 
 class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "neededToPayHelper"
 
@@ -31,9 +38,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
 
   val view = injector.instanceOf[NeededToPayHelperView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "NeededToPayHelper view" must {
 
@@ -42,5 +51,95 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
     behave like pageWithBackLink(createView)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.NeededToPayHelperController.onSubmit(NormalMode).url)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe NeededToPayHelperMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe NeededToPayHelperMessages.Worker.p1
+        document.select(Selectors.p(2)).text mustBe NeededToPayHelperMessages.Worker.p2
+        document.select(Selectors.bullet(1)).text mustBe NeededToPayHelperMessages.Worker.b1
+        document.select(Selectors.bullet(2)).text mustBe NeededToPayHelperMessages.Worker.b2
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe NeededToPayHelperMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe NeededToPayHelperMessages.no
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe NeededToPayHelperMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe NeededToPayHelperMessages.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe NeededToPayHelperMessages.Hirer.p2
+        document.select(Selectors.bullet(1)).text mustBe NeededToPayHelperMessages.Hirer.b1
+        document.select(Selectors.bullet(2)).text mustBe NeededToPayHelperMessages.Hirer.b2
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe NeededToPayHelperMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe NeededToPayHelperMessages.no
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe NeededToPayHelperMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe NeededToPayHelperMessages.NonTailored.p1
+        document.select(Selectors.p(2)).text mustBe NeededToPayHelperMessages.NonTailored.p2
+        document.select(Selectors.bullet(1)).text mustBe NeededToPayHelperMessages.NonTailored.b1
+        document.select(Selectors.bullet(2)).text mustBe NeededToPayHelperMessages.NonTailored.b2
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe NeededToPayHelperMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe NeededToPayHelperMessages.no
+      }
+    }
   }
 }

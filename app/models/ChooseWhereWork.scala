@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
+import viewmodels.{RadioOption, radio}
 
 sealed trait ChooseWhereWork
 
@@ -34,7 +34,7 @@ object ChooseWhereWork {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("chooseWhereWork", value.toString)
+      RadioOption("chooseWhereWork", value.toString, radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[ChooseWhereWork] =

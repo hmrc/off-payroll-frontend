@@ -45,13 +45,13 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
   val form: Form[HowWorkIsDone] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         val answers = CompareAnswerService.constructAnswers(request,value,HowWorkIsDonePage)
         dataCacheConnector.save(answers.cacheMap).map(

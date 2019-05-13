@@ -31,9 +31,9 @@ class AboutYouViewSpec extends QuestionViewBehaviours[AboutYouAnswer] {
 
   val view = injector.instanceOf[AboutYouView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
   "AboutYou view" must {
 

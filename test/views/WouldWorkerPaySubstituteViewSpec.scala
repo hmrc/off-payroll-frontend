@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.WouldPaySubstituteMessages
+import config.SessionKeys
 import play.api.data.Form
 import controllers.routes
 import forms.WouldWorkerPaySubstituteFormProvider
 import views.behaviours.YesNoViewBehaviours
 import models.NormalMode
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.html.WouldWorkerPaySubstituteView
 
 class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "wouldWorkerPaySubstitute"
 
@@ -31,9 +38,11 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   val view = injector.instanceOf[WouldWorkerPaySubstituteView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "WouldWorkerPaySubstitute view" must {
 
@@ -42,5 +51,86 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
     behave like pageWithBackLink(createView)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.WouldWorkerPaySubstituteController.onSubmit(NormalMode).url)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe WouldPaySubstituteMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
+      }
+
+      "have the correct exclamation (warning)" in {
+        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Worker.exclamation
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe WouldPaySubstituteMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
+      }
+
+      "have the correct exclamation (warning)" in {
+        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Hirer.exclamation
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe WouldPaySubstituteMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
+      }
+
+      "have the correct exclamation (warning)" in {
+        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.NonTailored.exclamation
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
+      }
+    }
   }
 }

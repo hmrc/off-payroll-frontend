@@ -22,29 +22,29 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("rejectSubstitute.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("rejectSubstitute.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = RejectSubstituteController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = RejectSubstituteController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("rejectSubstitute.heading", Some("rejectSubstitute.subheading"))
+        @components.heading(tailorMsg("rejectSubstitute.heading"), Some(tailorMsg("rejectSubstitute.subheading")))
 
         @components.details.reject_substitute_details()
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("rejectSubstitute.heading"),
+            label = messages(tailorMsg("rejectSubstitute.heading")),
             labelClass = Some("visually-hidden"),
-            yesMessage = Some(messages("rejectSubstitute.yes")),
-            noMessage = Some(messages("rejectSubstitute.no")),
+            yesMessage = Some(messages(tailorMsg("rejectSubstitute.yes"))),
+            noMessage = Some(messages(tailorMsg("rejectSubstitute.no"))),
             inline = false
         )
 

@@ -46,13 +46,13 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
   val form: Form[PutRightAtOwnCost] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(PutRightAtOwnCostPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(request.userAnswers.get(PutRightAtOwnCostPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         val answers = CompareAnswerService.constructAnswers(request,value,PutRightAtOwnCostPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(

@@ -47,7 +47,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def substitutesHelpers(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
+  def substitutesHelpers(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.substitutesHelpers.h2"),
     whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(

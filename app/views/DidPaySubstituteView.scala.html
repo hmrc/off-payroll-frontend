@@ -22,10 +22,10 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("didPaySubstitute.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("didPaySubstitute.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -35,13 +35,13 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("didPaySubstitute.heading", Some("didPaySubstitute.subheading"))
+        @components.heading(tailorMsg("didPaySubstitute.heading"), Some(tailorMsg("didPaySubstitute.subheading")))
 
-        @components.exclamation(Html(messages("didPaySubstitute.exclamation")))
+        @components.exclamation(Html(messages(tailorMsg("didPaySubstitute.exclamation"))))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("didPaySubstitute.heading"),
+            label = messages(tailorMsg("didPaySubstitute.heading")),
             labelClass = Some("visually-hidden")
         )
 
