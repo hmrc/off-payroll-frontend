@@ -34,11 +34,11 @@ object CannotClaimAsExpense {
   )
 
   val options: Seq[RadioOption] = Seq(
-    RadioOption("cannotClaimAsExpense", WorkerProvidedMaterials.toString, checkbox),
-    RadioOption("cannotClaimAsExpense", WorkerProvidedEquipment.toString, checkbox),
-    RadioOption("cannotClaimAsExpense", WorkerUsedVehicle.toString, checkbox),
-    RadioOption("cannotClaimAsExpense", WorkerHadOtherExpenses.toString, checkbox),
-    RadioOption("cannotClaimAsExpense", ExpensesAreNotRelevantForRole.toString, radio)
+    RadioOption("cannotClaimAsExpense", WorkerProvidedMaterials.toString, checkbox, hasTailoredMsgs = true),
+    RadioOption("cannotClaimAsExpense", WorkerProvidedEquipment.toString, checkbox, hasTailoredMsgs = true),
+    RadioOption("cannotClaimAsExpense", WorkerUsedVehicle.toString, checkbox, hasTailoredMsgs = true),
+    RadioOption("cannotClaimAsExpense", WorkerHadOtherExpenses.toString, checkbox, hasTailoredMsgs = true),
+    RadioOption("cannotClaimAsExpense", ExpensesAreNotRelevantForRole.toString, radio, hasTailoredMsgs = true)
   )
 
   implicit val enumerable: Enumerable[CannotClaimAsExpense] =
