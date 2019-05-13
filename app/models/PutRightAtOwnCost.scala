@@ -35,7 +35,7 @@ object PutRightAtOwnCost {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("putRightAtOwnCost", value.toString, radio)
+      RadioOption("putRightAtOwnCost", value.toString, radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[PutRightAtOwnCost] =
