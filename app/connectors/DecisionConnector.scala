@@ -26,6 +26,7 @@ import play.api.libs.json.Json
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import play.mvc.Http.Status._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
@@ -41,6 +42,8 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
     httpClient.POST(decideUrl, Json.toJson(decisionRequest)).map {
       DecisionHttpParser.reads
+    }.recover {
+      case ex: Exception => Left(ErrorResponse(INTERNAL_SERVER_ERROR,s"HTTP exception returned from decision API: ${ex.getMessage}"))
     }
   }
 

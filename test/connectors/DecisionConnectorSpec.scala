@@ -219,6 +219,14 @@ class DecisionConnectorSpec extends SpecBase with MockHttp {
       val clientResponse: Either[ErrorResponse, DecisionResponse] = await(TestDecisionConnector.decide(emptyInterviewModel))
       clientResponse mustBe Left(ErrorResponse(500, "Unexpected Response returned from decision API"))
     }
+
+    "return an exception" in {
+      val response = HttpResponse(Status.OK, None)
+      setupMockHttpPost(TestDecisionConnector.decideUrl, Json.toJson(emptyInterviewModel))(Future.successful(response))
+
+      val clientResponse: Either[ErrorResponse, DecisionResponse] = await(TestDecisionConnector.decide(emptyInterviewModel))
+      clientResponse mustBe Left(ErrorResponse(500,"HTTP exception returned from decision API: null"))
+    }
   }
 
   "Calling the log API" should {
