@@ -312,17 +312,41 @@ putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied wit
 putRightAtOwnCost.error.required = You need to select an answer
 putRightAtOwnCost.error.invalid = You need to select an answer
 
+
+## How Worker is Paid
+## ========================================================
 howWorkerIsPaid.title = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.heading = What is the main way the worker is paid for this engagement?
+howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.subheading = About the worker’s financial risk
 howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
 howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
 howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
 howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
-howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.error.required = You need to select an answer
 howWorkerIsPaid.error.invalid = You need to select an answer
+
+worker.howWorkerIsPaid.title = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.heading = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.checkYourAnswersLabel = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.subheading = About the worker’s financial risk
+worker.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
+worker.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+worker.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+worker.howWorkerIsPaid.incomeCommission = A percentage of the sales you make
+worker.howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
+
+hirer.howWorkerIsPaid.title = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.heading = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.subheading = About the worker’s financial risk
+hirer.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
+hirer.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
+hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
+##--------------------------------------------------------
 
 
 ## How Work Is Done
@@ -355,6 +379,7 @@ hirer.chooseWhereWork.workerChooses = Yes - the worker decides
 hirer.chooseWhereWork.workerCannotChoose = No - we decide
 hirer.chooseWhereWork.noLocationRequired = No - the task determines the work location
 hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
+##--------------------------------------------------------
 
 
 ## How Work Is Done

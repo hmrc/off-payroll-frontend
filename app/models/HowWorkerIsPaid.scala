@@ -35,7 +35,7 @@ object HowWorkerIsPaid {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("howWorkerIsPaid", value.toString, radio)
+      RadioOption("howWorkerIsPaid", value.toString, radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[HowWorkerIsPaid] =
