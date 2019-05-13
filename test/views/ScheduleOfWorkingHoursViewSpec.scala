@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.ScheduleOfWorkingHoursMessages
+import config.SessionKeys
 import play.api.data.Form
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.NormalMode
 import models.ScheduleOfWorkingHours
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.ScheduleOfWorkingHoursView
 
 class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "scheduleOfWorkingHours"
 
@@ -35,10 +42,87 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
 
   def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
+
   "ScheduleOfWorkingHours view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ScheduleOfWorkingHoursMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ScheduleOfWorkingHoursMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ScheduleOfWorkingHoursMessages.Worker.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.Worker.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.Worker.partly
+        document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.Worker.notApplicable
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ScheduleOfWorkingHoursMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ScheduleOfWorkingHoursMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.partly
+        document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.notApplicable
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ScheduleOfWorkingHoursMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.partly
+        document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.notApplicable
+      }
+    }
   }
 
   "ScheduleOfWorkingHours view" when {

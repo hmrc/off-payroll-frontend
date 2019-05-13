@@ -25,8 +25,8 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
     val title = heading
     val yesClientDecides = "Yes - the end client decides my schedule"
     val noWorkerDecides = "No - I decide my own schedule"
-    val noSkilledRole = "Partly - I agree a schedule with the end client"
-    val partly = "Not applicable - no schedule is needed as long as I meet any agreed deadlines."
+    val partly = "Partly - I agree a schedule with the end client"
+    val notApplicable = "Not applicable - no schedule is needed as long as I meet any agreed deadlines."
   }
 
   object Hirer {
@@ -34,8 +34,8 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
     val title = heading
     val yesClientDecides = "Yes - we decide the worker’s schedule"
     val noWorkerDecides = "No - the worker decides their own schedule"
-    val noSkilledRole = "Partly - we agree a schedule with the worker"
-    val partly = "Not applicable - no schedule is needed as long as the worker meets any agreed deadlines."
+    val partly = "Partly - we agree a schedule with the worker"
+    val notApplicable = "Not applicable - no schedule is needed as long as the worker meets any agreed deadlines."
   }
 
   object NonTailored {

@@ -288,16 +288,37 @@ howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid 
 howWorkerIsPaid.error.required = You need to select an answer
 howWorkerIsPaid.error.invalid = You need to select an answer
 
+
+## How Work Is Done
+## ========================================================
 chooseWhereWork.title = Can the worker choose where they work?
 chooseWhereWork.heading = Can the worker choose where they work?
+chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
 chooseWhereWork.subheading = About the work arrangements
 chooseWhereWork.workerChooses = Yes - the worker decides
 chooseWhereWork.workerCannotChoose = No - the end client decides
 chooseWhereWork.noLocationRequired = No - the task determines the work location
 chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
-chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
 chooseWhereWork.error.required = You need to select an answer
 chooseWhereWork.error.invalid = You need to select an answer
+
+worker.chooseWhereWork.title = Can you choose where you work?
+worker.chooseWhereWork.heading = Can you choose where you work?
+worker.chooseWhereWork.checkYourAnswersLabel = Can you choose where you work?
+worker.chooseWhereWork.subheading = About the work arrangements
+worker.chooseWhereWork.workerChooses = Yes - I decide
+worker.chooseWhereWork.workerCannotChoose = No - the end client decides
+worker.chooseWhereWork.noLocationRequired = No - the task determines the work location
+worker.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever I choose
+
+hirer.chooseWhereWork.title = Can the worker choose where they work?
+hirer.chooseWhereWork.heading = Can the worker choose where they work?
+hirer.chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
+hirer.chooseWhereWork.subheading = About the work arrangements
+hirer.chooseWhereWork.workerChooses = Yes - the worker decides
+hirer.chooseWhereWork.workerCannotChoose = No - we decide
+hirer.chooseWhereWork.noLocationRequired = No - the task determines the work location
+hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
 
 
 ## How Work Is Done
@@ -313,18 +334,18 @@ scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no sch
 scheduleOfWorkingHours.error.required = You need to select an answer
 scheduleOfWorkingHours.error.invalid = You need to select an answer
 
-worker.scheduleOfWorkingHours.title = Can you decide the schedule of working hours?
-worker.scheduleOfWorkingHours.heading = Can you decide the schedule of working hours?
-worker.scheduleOfWorkingHours.checkYourAnswersLabel = Can you decide the schedule of working hours?
+worker.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
+worker.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+worker.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
 worker.scheduleOfWorkingHours.subheading = About the work arrangements
 worker.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides my schedule
 worker.scheduleOfWorkingHours.workerDecideSchedule = No - I decide my own schedule
 worker.scheduleOfWorkingHours.workerAgreeSchedule = Partly - I agree a schedule with the end client
 worker.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as I meet any agreed deadlines.
 
-hirer.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
-hirer.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
-hirer.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.title = Can you decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.heading = Can you decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.checkYourAnswersLabel = Can you decide the schedule of working hours?
 hirer.scheduleOfWorkingHours.subheading = About the work arrangements
 hirer.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - we decide the worker’s schedule
 hirer.scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule

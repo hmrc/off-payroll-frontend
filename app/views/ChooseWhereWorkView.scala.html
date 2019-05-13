@@ -26,21 +26,21 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("chooseWhereWork.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("chooseWhereWork.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = ChooseWhereWorkController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = ChooseWhereWorkController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("chooseWhereWork.heading", Some("chooseWhereWork.subheading"))
+        @components.heading(tailorMsg("chooseWhereWork.heading"), Some(tailorMsg("chooseWhereWork.subheading")))
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("chooseWhereWork.heading"),
+            legend = messages(tailorMsg("chooseWhereWork.heading")),
             legendClass = Some("visually-hidden"),
             inputs = ChooseWhereWork.options
         )
