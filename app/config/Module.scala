@@ -35,6 +35,5 @@ class Module extends AbstractModule {
     bind(classOf[DataCacheConnector]).to(classOf[MongoCacheConnector]).asEagerSingleton()
 
     bind(classOf[DecisionService]).to(classOf[DecisionServiceImpl]).asEagerSingleton()
-    bind(classOf[DecisionConnector]).to(classOf[DecisionConnectorImpl]).asEagerSingleton()
   }
 }
