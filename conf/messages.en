@@ -310,17 +310,40 @@ scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the sch
 scheduleOfWorkingHours.error.required = You need to select an answer
 scheduleOfWorkingHours.error.invalid = You need to select an answer
 
+
+## How Work Is Done
+## ========================================================
 howWorkIsDone.title = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
 howWorkIsDone.heading = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
+howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
 howWorkIsDone.subheading = About the work arrangements
 howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
 howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without input from the worker
 howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without input from the end client
 howWorkIsDone.workerFollowStrictEmployeeProcedures = No - the end client cannot decide how the work needs to be done because it is a highly skilled role
 howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done
-howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
 howWorkIsDone.error.required = You need to select an answer
 howWorkIsDone.error.invalid = You need to select an answer
+
+worker.howWorkIsDone.title = Once you start the engagement, does the end client have the right to decide how the work is done?
+worker.howWorkIsDone.heading = Once you start the engagement, does the end client have the right to decide how the work is done?
+worker.howWorkIsDone.checkYourAnswersLabel = Once you start the engagement, does the end client have the right to decide how the work is done?
+worker.howWorkIsDone.subheading = About the work arrangements
+worker.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
+worker.howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without my input.
+worker.howWorkIsDone.workerDecidesWithoutInput = No - I decide how the work needs to be done without input from the end client.
+worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - the end client cannot decide how the work needs to be done because it is a highly skilled role
+worker.howWorkIsDone.workerAgreeWithOthers = Partly - I and other people employed or engaged by the end client agree how the work needs to be done.
+
+hirer.howWorkIsDone.title = Once the worker starts the engagement, do you have the right to decide how the work is done?
+hirer.howWorkIsDone.heading = Once the worker starts the engagement, do you have the right to decide how the work is done?
+hirer.howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, do you have the right to decide how the work is done?
+hirer.howWorkIsDone.subheading = About the work arrangements
+hirer.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
+hirer.howWorkIsDone.noWorkerInputAllowed = Yes - we decide how the work needs to be done without input from the worker.
+hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without your input.
+hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - we cannot decide how the work needs to be done because it is a highly skilled role
+hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done.
 
 
 ## Needed to Pay Helper

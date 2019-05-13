@@ -26,23 +26,23 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("howWorkIsDone.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("howWorkIsDone.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = HowWorkIsDoneController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = HowWorkIsDoneController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("howWorkIsDone.heading", Some("howWorkIsDone.subheading"))
+        @components.heading(tailorMsg("howWorkIsDone.heading"), Some(tailorMsg("howWorkIsDone.subheading")))
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("howWorkIsDone.heading"),
+            legend = messages(tailorMsg("howWorkIsDone.heading")),
             legendClass = Some("visually-hidden"),
-            hint = Some(Html(messages("howWorkIsDone.hint"))),
+            hint = Some(Html(messages(tailorMsg("howWorkIsDone.hint")))),
             inputs = HowWorkIsDone.options
         )
 

@@ -34,7 +34,7 @@ object HowWorkIsDone {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("howWorkIsDone", value.toString, radio)
+      RadioOption("howWorkIsDone", value.toString, radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[HowWorkIsDone] =
