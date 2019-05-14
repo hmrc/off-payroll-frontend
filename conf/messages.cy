@@ -5,9 +5,11 @@ common.standardPageNotFoundErrorMessageContent2=Os gwnaethoch deipio''r cyfeiria
 common.standardPageNotFoundErrorMessageContent3=Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi''i deipio''n gywir.
 common.standardPageNotFoundErrorMessageHeader=Heb ddod o hyd i''r dudalen
 
-date.day = NEED WELSH FOR  Day
-date.month = NEED WELSH FOR  Month
-date.year = NEED WELSH FOR  Year
+##### TODO NEED WELSH FOR ####
+date.day = Day
+date.month = Month
+date.year = Year
+##### TODO NEED WELSH FOR ####
 date.january = Ionawr
 date.February = Chwefror
 date.March = Mawrth
@@ -21,43 +23,53 @@ date.October = Hydref
 date.November = Tachwedd
 date.December = Rhagfyr
 
-error.browser.title.prefix = NEED WELSH FOR  Error:
-error.boolean = NEED WELSH FOR  Please give an answer
-error.invalid_date = NEED WELSH FOR  Give a correct date
-error.date.day_blank = NEED WELSH FOR  Enter a day
-error.date.day_invalid = NEED WELSH FOR  Give a correct day using numbers 1 to 31
-error.date.month_blank = NEED WELSH FOR  Enter a month
-error.date.month_invalid = NEED WELSH FOR  Give a correct month using numbers 1 to 12
-error.date.year_blank = NEED WELSH FOR  Enter a year
-error.date.year_invalid = NEED WELSH FOR  Give a correct year
-error.integer = NEED WELSH FOR  Give an answer in whole numbers
-error.non_numeric = NEED WELSH FOR  Give a value using only numbers
-error.number = NEED WELSH FOR  Please enter a valid number
-error.required = NEED WELSH FOR  Please enter a value
+##### TODO NEED WELSH FOR ####
+error.browser.title.prefix =   Error:
+error.boolean =   Please give an answer
+error.invalid_date =   Give a correct date
+error.date.day_blank =   Enter a day
+error.date.day_invalid =   Give a correct day using numbers 1 to 31
+error.date.month_blank =   Enter a month
+error.date.month_invalid =   Give a correct month using numbers 1 to 12
+error.date.year_blank =   Enter a year
+error.date.year_invalid =   Give a correct year
+error.integer =   Give an answer in whole numbers
+error.non_numeric =   Give a value using only numbers
+error.number =   Please enter a valid number
+error.required =   Please enter a value
+##### TODO NEED WELSH FOR ####
 error.summary.title = Mae problem wedi codi
 
-timeout.text = NEED WELSH FOR As this session has been inactive for a while, your answers will be deleted in
-timeout.keep_alive = NEED WELSH FOR Continue through tool
-timeout.delete_answers = NEED WELSH FOR Delete your answers
+##### TODO NEED WELSH FOR ####
+timeout.text =  As this session has been inactive for a while, your answers will be deleted in
+timeout.keep_alive =  Continue through tool
+timeout.delete_answers =  Delete your answers
+##### TODO NEED WELSH FOR ####
 timeout.seconds = eiliad
 timeout.minute = munud
 timeout.minutes = munud
 timeout.minutes.two = funud
 
-session.deleted.title = NEED WELSH FOR You have closed this session. For your security, we have deleted your answers.
-session.deleted.heading =NEED WELSH FOR You have closed this session. For your security, we have deleted your answers.
+##### TODO NEED WELSH FOR ####
+session.deleted.title =  You have closed this session. For your security, we have deleted your answers.
+session.deleted.heading = You have closed this session. For your security, we have deleted your answers.
+##### TODO NEED WELSH FOR ####
 session.deleted.start_again = Dechrau eto
 
-session.expired.title = NEED WELSH FOR This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
-session.expired.heading =NEED WELSH FOR This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
+##### TODO NEED WELSH FOR ####
+session.expired.title =  This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
+session.expired.heading = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
+##### TODO NEED WELSH FOR ####
 session.expired.start_again =Dechrau eto
 
 
 site.back = Yn ôl
-site.delete = NEED WELSH FOR  Remove
-site.edit = NEED WELSH FOR  Change
-site.hidden-delete = NEED WELSH FOR  Delete {0}
-site.hidden-edit = NEED WELSH FOR  Change {0}
+##### TODO NEED WELSH FOR ####
+site.delete =   Remove
+site.edit =   Change
+site.hidden-delete =   Delete {0}
+site.hidden-edit =   Change {0}
+##### TODO NEED WELSH FOR ####
 site.no = Na
 site.yes = Iawn
 site.continue = Yn eich blaen
@@ -69,10 +81,10 @@ site.hmrc = Cyllid a Thollau EM
 feedback.before = Mae hwn yn wasanaeth newydd – bydd eich
 feedback.link = adborth
 feedback.after = yn ein helpu i’w wella.
-
-unauthorised.title = NEED WELSH FOR You can’t access this service with this account
-unauthorised.heading = NEED WELSH FOR You can’t access this service with this account
-
+##### TODO NEED WELSH FOR ####
+unauthorised.title =  You can’t access this service with this account
+unauthorised.heading =  You can’t access this service with this account
+##### TODO NEED WELSH FOR ####
 aboutYou.title = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.heading = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.subheading = Ynglŷn â’r bobl berthnasol
@@ -755,7 +767,8 @@ result.aboutResult.reviewTaxes =Gall CThEM adolygu’ch trethi am hyd at 20 mlyn
 result.aboutResult.exclamation =Ni fydd CThEM yn cadw cofnod o’r canlyniad hwn.
 
 result.decisionVersion =Fersiwn y Gwasanaeth Penderfyniadau:
-result.decisionVersion.hint =NEED WELSH FOR This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+##### TODO NEED WELSH FOR ####
+result.decisionVersion.hint = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
 
 result.declaration.checkbox =Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
 result.declaration.bullet1 =darllen yr arweiniad ar gyfer pob cwestiwn
@@ -862,11 +875,13 @@ result.indeterminate.title =Ni allwn bennu’r statws treth ar gyfer y swydd hon
 result.indeterminate.heading =Ni allwn bennu’r statws treth ar gyfer y swydd hon
 result.indeterminate.whyResult.p1 =Mae angen rhagor o wybodaeth arnom er mwyn deall arferion gwaith y swydd hon.
 result.indeterminate.whyResult.p2 =Gallwch adolygu’r atebion a roddwyd gennych, isod.
-result.indeterminate.shouldNowDo.p1 =Cysylltwch â llinell gymorth CThEM - Statws Cyflogaeth a Chyfryngwyr (NEED WELSH FOR ? Employment Status and Intermediaries) - os oes angen rhagor o gymorth arnoch:
+##### TODO NEED WELSH FOR ####
+result.indeterminate.shouldNowDo.p1 =Cysylltwch â llinell gymorth CThEM - Statws Cyflogaeth a Chyfryngwyr (Employment Status and Intermediaries) - os oes angen rhagor o gymorth arnoch:
 result.indeterminate.shouldNowDo.bullet1 =ar y ffôn ar 0300 123 2326
 result.indeterminate.shouldNowDo.bullet2 =drwy e-bost yn ir35@hmrc.gov.uk
 result.indeterminate.shouldNowDo.p2.beforeLink =Gallwch, hefyd, ddarllen yr
-result.indeterminate.shouldNowDo.p2.link = NEED WELSH FOR Employment status manual
+##### TODO NEED WELSH FOR ####
+result.indeterminate.shouldNowDo.p2.link = Employment status manual
 
 # Inside IR35
 result.insideIR35.title =Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
@@ -894,10 +909,12 @@ customisePDF.time = Dyddiad y canlyniad: {0} (UTC)
 customisePDF.client =Enw’r cleient terfynol
 customisePDF.job =Teitl y swydd
 customisePDF.reference =Cyfeirnod (enw’r gweithiwr neu rif y cytundeb, er enghraifft)
-customisePDF.completedBy.error.length = NEED WELSH FOR Name must be 100 characters or less
-customisePDF.client.error.length =NEED WELSH FOR Name must be 100 characters or less
-customisePDF.job.error.length =NEED WELSH FOR Job title must be 100 characters or less
-customisePDF.reference.error.length =NEED WELSH FOR Reference must be 100 characters or less
+##### TODO NEED WELSH FOR ####
+customisePDF.completedBy.error.length =  Name must be 100 characters or less
+customisePDF.client.error.length = Name must be 100 characters or less
+customisePDF.job.error.length = Job title must be 100 characters or less
+customisePDF.reference.error.length = Reference must be 100 characters or less
+##### TODO NEED WELSH FOR ####
 
 #Result summary text
 result.substitutesAndHelpers.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod a yw’r gweithiwr yn cael ei hurio fel busnes neu ar sail gwasanaeth personol. Os nad yw’r cleient terfynol wedi cytuno bod busnes y gweithiwr yn trefnu bod rhywun arall yn cael ei dalu i wneud y gwaith yn ei le, neu os na fyddai’n cytuno i hynny, mae’n awgrymu ei fod yn cael ei hurio ar sail gwasanaeth personol.
