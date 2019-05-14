@@ -47,19 +47,18 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(InteractWithStakeholdersPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(request.userAnswers.get(InteractWithStakeholdersPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         val answers = CompareAnswerService.constructAnswers(request,value,InteractWithStakeholdersPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
             val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(answers)
-            val exit = continue
             decisionService.decide(answers, continue, ErrorTemplate("interactWithStakeholders.title"))
           }
         )

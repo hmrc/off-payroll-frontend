@@ -210,9 +210,7 @@ hirer.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fue
 hirer.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
 ##-------------------------------
-
-
-
+        
 ## Arranged Substitute
 ## ========================================================
 arrangedSubstitute.title = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
@@ -258,9 +256,10 @@ hirer.arrangedSubstitute.bullet5 = Was substituted because the worker was unwill
 hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
 hirer.arrangedSubstitute.yesClientNotAgreed = Yes - but we did not agree
 hirer.arrangedSubstitute.no = No - it has not happened
-##-------------------------------
+##--------------------------------------------------------
 
-
+## Identify to stakeholders
+## ========================================================
 identifyToStakeholders.title = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
 identifyToStakeholders.heading = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
 identifyToStakeholders.subheading = About the worker’s integration into the organisation
@@ -271,6 +270,25 @@ identifyToStakeholders.checkYourAnswersLabel = When the worker interacts with th
 identifyToStakeholders.error.required = You need to select an answer
 identifyToStakeholders.error.invalid = You need to select an answer
 
+hirer.identifyToStakeholders.title = When the worker interacts with your customers, clients, audience or users, how do they identify themselves?
+hirer.identifyToStakeholders.heading = When the worker interacts with your customers, clients, audience or users, how do they identify themselves?
+hirer.identifyToStakeholders.subheading = About the worker’s integration into the organisation
+hirer.identifyToStakeholders.workForEndClient = They work for you
+hirer.identifyToStakeholders.workAsIndependent = They are an independent worker acting on your behalf
+hirer.identifyToStakeholders.workAsBusiness = They work for their own business
+hirer.identifyToStakeholders.checkYourAnswersLabel = When the worker interacts with your customers, clients, audience or users, how do they identify themselves?
+
+worker.identifyToStakeholders.title = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+worker.identifyToStakeholders.heading = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+worker.identifyToStakeholders.subheading = About the worker’s integration into the organisation
+worker.identifyToStakeholders.workForEndClient = I work for the end client
+worker.identifyToStakeholders.workAsIndependent = I am an independent worker acting on behalf of the end client
+worker.identifyToStakeholders.workAsBusiness = I work for my own business
+worker.identifyToStakeholders.checkYourAnswersLabel = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+##--------------------------------------------------------
+
+## Worker interact with stakeholders
+## ========================================================
 interactWithStakeholders.title = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.heading = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.subheading = About the worker’s integration into the organisation
@@ -278,6 +296,21 @@ interactWithStakeholders.hint = These are people who use or are affected by the 
 interactWithStakeholders.checkYourAnswersLabel = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.error.required = You need to select an answer
 
+hirer.interactWithStakeholders.title = Does the worker interact with your customers, clients, audience or users?
+hirer.interactWithStakeholders.heading = Does the worker interact with your customers, clients, audience or users?
+hirer.interactWithStakeholders.subheading = About the worker’s integration into the organisation
+hirer.interactWithStakeholders.hint = These are people who use or are affected by the service provided by your organisation. This would not include the worker’s colleagues or other employees.
+hirer.interactWithStakeholders.checkYourAnswersLabel = Does the worker interact with your customers, clients, audience or users
+
+worker.interactWithStakeholders.title = Do you interact with the end client’s customers, clients, audience or users?
+worker.interactWithStakeholders.heading = Do you interact with the end client’s customers, clients, audience or users?
+worker.interactWithStakeholders.subheading = About the worker’s integration into the organisation
+worker.interactWithStakeholders.hint = These are people who use or are affected by the service provided by the public body, corporation or business. This would not include your colleagues or other employees.
+worker.interactWithStakeholders.checkYourAnswersLabel = Do you interact with the end client’s customers, clients, audience or users?
+##--------------------------------------------------------
+
+## Line Manager responsible for duties
+## ========================================================
 lineManagerDuties.title = Is the worker responsible for any of these duties for the end client?
 lineManagerDuties.heading = Is the worker responsible for any of these duties for the end client?
 lineManagerDuties.subheading = About the worker’s integration into the organisation
@@ -286,8 +319,30 @@ lineManagerDuties.bullet2 = Dismissing workers
 lineManagerDuties.bullet3 = Delivering appraisals
 lineManagerDuties.bullet4 = Deciding how much to pay someone
 lineManagerDuties.checkYourAnswersLabel = Is the worker responsible for any of these duties for the end client?
-lineManagerDuties.error.required = You need to select an answer
 
+hirer.lineManagerDuties.title = Is the worker responsible for any of these duties for your organisation?
+hirer.lineManagerDuties.heading = Is the worker responsible for any of these duties for your organisation?
+hirer.lineManagerDuties.subheading = About the worker’s integration into the organisation
+hirer.lineManagerDuties.bullet1 = Hiring workers
+hirer.lineManagerDuties.bullet2 = Dismissing workers
+hirer.lineManagerDuties.bullet3 = Delivering appraisals
+hirer.lineManagerDuties.bullet4 = Deciding how much to pay someone
+hirer.lineManagerDuties.checkYourAnswersLabel = Is the worker responsible for any of these duties for your organisation?
+
+worker.lineManagerDuties.title = Are you responsible for any of these duties for the end client?
+worker.lineManagerDuties.heading = Are you responsible for any of these duties for the end client?
+worker.lineManagerDuties.subheading = About the worker’s integration into the organisation
+worker.lineManagerDuties.bullet1 = Hiring workers
+worker.lineManagerDuties.bullet2 = Dismissing workers
+worker.lineManagerDuties.bullet3 = Delivering appraisals
+worker.lineManagerDuties.bullet4 = Deciding how much to pay someone
+worker.lineManagerDuties.checkYourAnswersLabel = Are you responsible for any of these duties for the end client?
+        
+lineManagerDuties.error.required = You need to select an answer
+##--------------------------------------------------------
+
+## Benefits from end client
+## ========================================================
 benefits.title = Is the worker entitled to any of these benefits from the end client?
 benefits.heading = Is the worker entitled to any of these benefits from the end client?
 benefits.subheading = About the worker’s integration into the organisation
@@ -300,6 +355,28 @@ benefits.p1 = These do not include benefits provided by a third party or agency.
 benefits.checkYourAnswersLabel = Is the worker entitled to any of these benefits from the end client?
 benefits.error.required = You need to select an answer
 
+hirer.benefits.title = Is the worker entitled to any of these benefits from your organisation?
+hirer.benefits.heading = Is the worker entitled to any of these benefits from your organisation?
+hirer.benefits.subheading = About the worker’s integration into the organisation
+hirer.benefits.bullet1 = Sick pay
+hirer.benefits.bullet2 = Holiday pay
+hirer.benefits.bullet3 = A workplace pension
+hirer.benefits.bullet4 = Maternity/paternity pay
+hirer.benefits.bullet5 = Other benefits (such as gym membership and health insurance)
+hirer.benefits.p1 = These do not include benefits provided by a third party or agency.
+hirer.benefits.checkYourAnswersLabel = Is the worker entitled to any of these benefits from your organisation?
+
+worker.benefits.title = Are you entitled to any of these benefits from the end client?
+worker.benefits.heading = Are you entitled to any of these benefits from the end client?
+worker.benefits.subheading = About the worker’s integration into the organisation
+worker.benefits.bullet1 = Sick pay
+worker.benefits.bullet2 = Holiday pay
+worker.benefits.bullet3 = A workplace pension
+worker.benefits.bullet4 = Maternity/paternity pay
+worker.benefits.bullet5 = Other benefits (such as gym membership and health insurance)
+worker.benefits.p1 = These do not include benefits provided by a third party or agency.
+worker.benefits.checkYourAnswersLabel = Are you entitled to any of these benefits from the end client?
+##--------------------------------------------------------
 
 ## Put Right at Workers Own Cost
 ## ========================================================

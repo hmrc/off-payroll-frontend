@@ -33,7 +33,7 @@ object IdentifyToStakeholders {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("identifyToStakeholders", value.toString, radio)
+      RadioOption("identifyToStakeholders", value.toString, radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[IdentifyToStakeholders] =

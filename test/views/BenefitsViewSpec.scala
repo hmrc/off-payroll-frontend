@@ -16,14 +16,21 @@
 
 package views
 
-import play.api.data.Form
+import assets.messages.BenefitsMessages
+import config.SessionKeys
 import controllers.routes
 import forms.BenefitsFormProvider
-import views.behaviours.YesNoViewBehaviours
 import models.NormalMode
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.data.Form
+import play.api.libs.json.Json
+import play.api.mvc.Request
+import views.behaviours.YesNoViewBehaviours
 import views.html.BenefitsView
 
 class BenefitsViewSpec extends YesNoViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "benefits"
 
@@ -31,9 +38,11 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
 
   val view = injector.instanceOf[BenefitsView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "Benefits view" must {
 
@@ -42,5 +51,88 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
     behave like pageWithBackLink(createView)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.BenefitsController.onSubmit(NormalMode).url)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe BenefitsMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe BenefitsMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Worker.p1
+        document.select(Selectors.bullet(1)).text mustBe BenefitsMessages.Worker.b1
+        document.select(Selectors.bullet(2)).text mustBe BenefitsMessages.Worker.b2
+        document.select(Selectors.bullet(3)).text mustBe BenefitsMessages.Worker.b3
+        document.select(Selectors.bullet(4)).text mustBe BenefitsMessages.Worker.b4
+        document.select(Selectors.bullet(5)).text mustBe BenefitsMessages.Worker.b5
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe BenefitsMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe BenefitsMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe BenefitsMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Hirer.p1
+        document.select(Selectors.bullet(1)).text mustBe BenefitsMessages.Hirer.b1
+        document.select(Selectors.bullet(2)).text mustBe BenefitsMessages.Hirer.b2
+        document.select(Selectors.bullet(3)).text mustBe BenefitsMessages.Hirer.b3
+        document.select(Selectors.bullet(4)).text mustBe BenefitsMessages.Hirer.b4
+        document.select(Selectors.bullet(5)).text mustBe BenefitsMessages.Hirer.b5
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe BenefitsMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe BenefitsMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe BenefitsMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.NonTailored.p1
+        document.select(Selectors.bullet(1)).text mustBe BenefitsMessages.NonTailored.b1
+        document.select(Selectors.bullet(2)).text mustBe BenefitsMessages.NonTailored.b2
+        document.select(Selectors.bullet(3)).text mustBe BenefitsMessages.NonTailored.b3
+        document.select(Selectors.bullet(4)).text mustBe BenefitsMessages.NonTailored.b4
+        document.select(Selectors.bullet(5)).text mustBe BenefitsMessages.NonTailored.b5
+      }
+    }
   }
+
+
 }

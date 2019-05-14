@@ -16,14 +16,20 @@
 
 package views
 
-import play.api.data.Form
-import controllers.routes
+import assets.messages.LineManagerDutiesMessages
+import config.SessionKeys
 import forms.LineManagerDutiesFormProvider
-import views.behaviours.YesNoViewBehaviours
 import models.NormalMode
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.data.Form
+import play.api.libs.json.Json
+import play.api.mvc.Request
+import views.behaviours.YesNoViewBehaviours
 import views.html.LineManagerDutiesView
 
 class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "lineManagerDuties"
 
@@ -31,9 +37,11 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
 
   val view = injector.instanceOf[LineManagerDutiesView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "LineManagerDuties view" must {
 
@@ -41,6 +49,79 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(createView)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.LineManagerDutiesController.onSubmit(NormalMode).url)
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe LineManagerDutiesMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe LineManagerDutiesMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.bullet(1)).text mustBe LineManagerDutiesMessages.Worker.b1
+        document.select(Selectors.bullet(2)).text mustBe LineManagerDutiesMessages.Worker.b2
+        document.select(Selectors.bullet(3)).text mustBe LineManagerDutiesMessages.Worker.b3
+        document.select(Selectors.bullet(4)).text mustBe LineManagerDutiesMessages.Worker.b4
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe LineManagerDutiesMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe LineManagerDutiesMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.bullet(1)).text mustBe LineManagerDutiesMessages.Hirer.b1
+        document.select(Selectors.bullet(2)).text mustBe LineManagerDutiesMessages.Hirer.b2
+        document.select(Selectors.bullet(3)).text mustBe LineManagerDutiesMessages.Hirer.b3
+        document.select(Selectors.bullet(4)).text mustBe LineManagerDutiesMessages.Hirer.b4
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe LineManagerDutiesMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe LineManagerDutiesMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe LineManagerDutiesMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.bullet(1)).text mustBe LineManagerDutiesMessages.NonTailored.b1
+        document.select(Selectors.bullet(2)).text mustBe LineManagerDutiesMessages.NonTailored.b2
+        document.select(Selectors.bullet(3)).text mustBe LineManagerDutiesMessages.NonTailored.b3
+        document.select(Selectors.bullet(4)).text mustBe LineManagerDutiesMessages.NonTailored.b4
+      }
+    }
   }
 }
