@@ -58,7 +58,7 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages,frontendAppConfig).toString
 
   "InteractWithStakeholders Controller" must {
 

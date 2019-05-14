@@ -22,25 +22,25 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("interactWithStakeholders.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("interactWithStakeholders.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = InteractWithStakeholdersController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = InteractWithStakeholdersController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("interactWithStakeholders.heading", Some("interactWithStakeholders.subheading"))
+        @components.heading(tailorMsg("interactWithStakeholders.heading"), Some(tailorMsg("interactWithStakeholders.subheading")))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("interactWithStakeholders.heading"),
-            hint = Some(Html(messages("interactWithStakeholders.hint"))),
+            label = messages(tailorMsg("interactWithStakeholders.heading")),
+            hint = Some(Html(messages(tailorMsg("interactWithStakeholders.hint")))),
             labelClass = Some("visually-hidden")
         )
 
