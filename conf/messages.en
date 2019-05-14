@@ -1,5 +1,9 @@
 common.standardErrorMessageContent = Please try again in few moments
 common.standardErrorMessageHeader = Sorry we are experiencing technical problems
+common.standardPageNotFoundErrorMessageContent1 = Please check the address is correct
+common.standardPageNotFoundErrorMessageContent2 = If you typed the web address
+common.standardPageNotFoundErrorMessageContent3 = Check the address and make sure you typed it correctly.
+common.standardPageNotFoundErrorMessageHeader = Page not found
 
 date.day = Day
 date.month = Month

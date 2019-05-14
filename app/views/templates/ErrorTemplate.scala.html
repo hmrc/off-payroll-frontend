@@ -15,17 +15,26 @@
  *@
 
 @import config.FrontendAppConfig
+@import play.mvc.Http.Status.NOT_FOUND
+
 
 @this(govukWrapper: GovukWrapperTemplate)
 
-@(pageTitle: String, heading: String, message: String, appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(pageTitle: String, heading: String, message: String, appConfig: FrontendAppConfig, status: Option[Int] = None)(implicit request: Request[_], messages: Messages)
 
 @contentHeader = {
   <h1>@messages(heading)</h1>
 }
 
 @mainContent = {
-  <p>@messages(message)</p>
+
+   @if(status.contains(NOT_FOUND)){
+    <p>@messages("common.standardPageNotFoundErrorMessageContent1")</p>
+    <p>@messages("common.standardPageNotFoundErrorMessageContent2")</p>
+    <p>@messages("common.standardPageNotFoundErrorMessageContent3")</p>
+   } else {
+    <p>@messages(message)</p>
+   }
 }
 
-@govukWrapper(appConfig = appConfig, title = pageTitle, contentHeader = Some(contentHeader), mainBody = mainContent)
+@govukWrapper(appConfig = appConfig, title = messages(pageTitle), contentHeader = Some(contentHeader), mainBody = mainContent)
