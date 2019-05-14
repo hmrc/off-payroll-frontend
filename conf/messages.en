@@ -158,8 +158,11 @@ hirer.officeHolder.exclamation = if you are not sure if these things apply, plea
 ##-------------------------------
 
 
+## Cannot Claim as Expense
+## ========================================================
 cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
+cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.subheading = About the worker’s financial risk
 cannotClaimAsExpense.p1 = These are things that:
 cannotClaimAsExpense.bullet1 = the worker has to provide to complete this specific engagement
@@ -172,9 +175,42 @@ cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy machi
 cannotClaimAsExpense.workerUsedVehicle = Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
 cannotClaimAsExpense.workerHadOtherExpenses = Other expenses – including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
-cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.error.required = You need to select an answer
 cannotClaimAsExpense.error.invalid = You need to select an answer
+
+worker.cannotClaimAsExpense.title = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.heading = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.checkYourAnswersLabel = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.subheading = About the worker’s financial risk
+worker.cannotClaimAsExpense.p1 = These are things that:
+worker.cannotClaimAsExpense.bullet1 = You have to provide to complete this specific engagement
+worker.cannotClaimAsExpense.bullet2 = Are not provided by the end client
+worker.cannotClaimAsExpense.bullet3 = Could place you at financial risk if the cost is not regained.
+worker.cannotClaimAsExpense.p2 = They do not include expenses incurred by being based away from home for the engagement.
+worker.cannotClaimAsExpense.p3 = Select all that apply
+worker.cannotClaimAsExpense.workerProvidedMaterials = Materials - items that form a lasting part of the work, or an item bought for the work and left behind when you leave (not including stationary, and most likely to be relevant to substantial purchases in the construction industry)
+worker.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
+worker.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
+worker.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of your home
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+
+hirer.cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.subheading = About the worker’s financial risk
+hirer.cannotClaimAsExpense.p1 = These are things that:
+hirer.cannotClaimAsExpense.bullet1 = The worker has to provide to complete this specific engagement
+hirer.cannotClaimAsExpense.bullet2 = Are not provided by you
+hirer.cannotClaimAsExpense.bullet3 = Could place the worker at financial risk if the cost is not regained.
+hirer.cannotClaimAsExpense.p2 = They do not include expenses incurred by being based away from home for the engagement.
+hirer.cannotClaimAsExpense.p3 = Select all that apply
+hirer.cannotClaimAsExpense.workerProvidedMaterials = Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationary, and most likely to be relevant to substantial purchases in the construction industry)
+hirer.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
+hirer.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
+hirer.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
+hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+##-------------------------------
+
 
 
 ## Arranged Substitute
@@ -333,29 +369,76 @@ worker.benefits.bullet5 = Other benefits (such as gym membership and health insu
 worker.benefits.p1 = These do not include benefits provided by a third party or agency.
 worker.benefits.checkYourAnswersLabel = Are you entitled to any of these benefits from the end client?
 
+## Put Right at Workers Own Cost
+## ========================================================
 putRightAtOwnCost.title = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
 putRightAtOwnCost.heading = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
 putRightAtOwnCost.subheading = About the worker’s financial risk
 putRightAtOwnCost.outsideOfHoursNoCharge = Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
 putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to put it right without an additional charge, but would not incur any costs
 putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
 putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
-putRightAtOwnCost.noObligationToCorrect = No – they would not need to put it right
-putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
 putRightAtOwnCost.error.required = You need to select an answer
 putRightAtOwnCost.error.invalid = You need to select an answer
 
+worker.putRightAtOwnCost.title = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.heading = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.subheading = About the worker’s financial risk
+worker.putRightAtOwnCost.outsideOfHoursNoCharge = Yes - I would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+worker.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - I would have to put it right without an additional charge, but would not incur any costs
+worker.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - I would put it right in my usual hours at the usual rate of pay, or for an additional fee
+worker.putRightAtOwnCost.cannotBeCorrected = No - I would not be able to put it right because the work is time-specific or for a single event
+worker.putRightAtOwnCost.noObligationToCorrect = No - I would not need to put it right
+
+hirer.putRightAtOwnCost.title = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.heading = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.checkYourAnswersLabel = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.subheading = About the worker’s financial risk
+hirer.putRightAtOwnCost.outsideOfHoursNoCharge = Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+hirer.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to put it right without an additional charge, but would not incur any costs
+hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
+hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
+hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
+##--------------------------------------------------------
+
+
+## How Worker is Paid
+## ========================================================
 howWorkerIsPaid.title = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.heading = What is the main way the worker is paid for this engagement?
+howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.subheading = About the worker’s financial risk
 howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
 howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
 howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
 howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
-howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.error.required = You need to select an answer
 howWorkerIsPaid.error.invalid = You need to select an answer
+
+worker.howWorkerIsPaid.title = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.heading = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.checkYourAnswersLabel = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.subheading = About the worker’s financial risk
+worker.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
+worker.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+worker.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+worker.howWorkerIsPaid.incomeCommission = A percentage of the sales you make
+worker.howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
+
+hirer.howWorkerIsPaid.title = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.heading = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.subheading = About the worker’s financial risk
+hirer.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
+hirer.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
+hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
+##--------------------------------------------------------
 
 
 ## How Work Is Done
@@ -388,6 +471,7 @@ hirer.chooseWhereWork.workerChooses = Yes - the worker decides
 hirer.chooseWhereWork.workerCannotChoose = No - we decide
 hirer.chooseWhereWork.noLocationRequired = No - the task determines the work location
 hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
+##--------------------------------------------------------
 
 
 ## How Work Is Done
