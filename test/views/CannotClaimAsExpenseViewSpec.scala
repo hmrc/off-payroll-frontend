@@ -44,7 +44,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "CannotClaimAsExpense view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -54,7 +54,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe CannotClaimAsExpenseMessages.Worker.title
+        document.title mustBe title(CannotClaimAsExpenseMessages.Worker.title, Some(CannotClaimAsExpenseMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -89,7 +89,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe CannotClaimAsExpenseMessages.Hirer.title
+        document.title mustBe title(CannotClaimAsExpenseMessages.Hirer.title, Some(CannotClaimAsExpenseMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -124,7 +124,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe CannotClaimAsExpenseMessages.NonTailored.title
+        document.title mustBe title(CannotClaimAsExpenseMessages.NonTailored.title, Some(CannotClaimAsExpenseMessages.subheading))
       }
 
       "have the correct heading" in {

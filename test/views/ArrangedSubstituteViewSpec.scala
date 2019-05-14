@@ -45,7 +45,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ArrangedSubstitute view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -55,7 +55,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe ArrangedSubstituteMessages.Worker.title
+        document.title mustBe title(ArrangedSubstituteMessages.Worker.title, Some(ArrangedSubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -88,7 +88,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe ArrangedSubstituteMessages.Hirer.title
+        document.title mustBe title(ArrangedSubstituteMessages.Hirer.title, Some(ArrangedSubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -121,7 +121,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe ArrangedSubstituteMessages.NonTailored.title
+        document.title mustBe title(ArrangedSubstituteMessages.NonTailored.title, Some(ArrangedSubstituteMessages.subheading))
       }
 
       "have the correct heading" in {

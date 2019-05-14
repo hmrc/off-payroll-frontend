@@ -45,7 +45,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ScheduleOfWorkingHours view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -55,7 +55,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe ScheduleOfWorkingHoursMessages.Worker.title
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.Worker.title, Some(ScheduleOfWorkingHoursMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -80,7 +80,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe ScheduleOfWorkingHoursMessages.Hirer.title
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.Hirer.title, Some(ScheduleOfWorkingHoursMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -105,7 +105,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe ScheduleOfWorkingHoursMessages.NonTailored.title
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.NonTailored.title, Some(ScheduleOfWorkingHoursMessages.subheading))
       }
 
       "have the correct heading" in {

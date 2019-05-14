@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages(tailorMsg("moveWorker.title"))}",
+    title = title(form, tailorMsg("moveWorker.title"), Some(tailorMsg("moveWorker.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 

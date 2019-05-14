@@ -17,6 +17,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import viewmodels.Section
+@import views.ViewUtils._
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
@@ -31,9 +32,9 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 
 @defining(
     if(printView) {
-        printTemplate(messages("result.selfEmployed.title"), appConfig = appConfig)(_)
+        printTemplate(titleNoForm("result.selfEmployed.title"), appConfig = appConfig)(_)
     } else {
-        mainTemplate(messages("result.selfEmployed.title"), appConfig = appConfig)(_)
+        mainTemplate(titleNoForm("result.selfEmployed.title"), appConfig = appConfig)(_)
     }
 ) { template =>
 

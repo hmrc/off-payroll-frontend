@@ -18,14 +18,14 @@ package views
 
 import assets.messages.RejectSubstituteMessages
 import config.SessionKeys
-import play.api.data.Form
 import controllers.routes
 import forms.RejectSubstituteFormProvider
-import views.behaviours.YesNoViewBehaviours
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
+import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
+import views.behaviours.YesNoViewBehaviours
 import views.html.RejectSubstituteView
 
 class RejectSubstituteViewSpec extends YesNoViewBehaviours {
@@ -46,7 +46,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
   "RejectSubstitute view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -58,7 +58,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe RejectSubstituteMessages.Worker.title
+        document.title mustBe title(RejectSubstituteMessages.Worker.title, Some(RejectSubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -94,7 +94,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe RejectSubstituteMessages.Hirer.title
+        document.title mustBe title(RejectSubstituteMessages.Hirer.title, Some(RejectSubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -130,7 +130,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe RejectSubstituteMessages.NonTailored.title
+        document.title mustBe title(RejectSubstituteMessages.NonTailored.title, Some(RejectSubstituteMessages.subheading))
       }
 
       "have the correct heading" in {

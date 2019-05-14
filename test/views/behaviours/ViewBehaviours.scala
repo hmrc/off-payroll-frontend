@@ -16,18 +16,15 @@
 
 package views.behaviours
 
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-
 import models.AdditionalPdfDetails
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
-import java.time.{ZoneOffset, ZonedDateTime}
 
 trait ViewBehaviours extends ViewSpecBase {
 
   def normalPage(view: () => HtmlFormat.Appendable,
                  messageKeyPrefix: String,
+                 hasSubheading: Boolean,
                  expectedGuidanceKeys: String*) = {
 
     "behave like a normal page" when {
@@ -41,7 +38,12 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display the correct browser title" in {
           val doc = asDocument(view())
-          assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title")
+          val expected = if(hasSubheading) {
+            title(messages(s"$messageKeyPrefix.title"), Some(messages(s"$messageKeyPrefix.subheading")))
+          } else {
+            title(messages(s"$messageKeyPrefix.title"))
+          }
+          assertEqualsValue(doc, "title", expected)
         }
 
         "display the correct page title" in {
@@ -65,14 +67,15 @@ trait ViewBehaviours extends ViewSpecBase {
   def printPage(view: () => HtmlFormat.Appendable,
                 pdfDetails: AdditionalPdfDetails,
                 timestamp: String,
-                 messageKeyPrefix: String,
-                 expectedGuidanceKeys: String*) = {
+                messageKeyPrefix: String,
+                expectedGuidanceKeys: String*) = {
     "behave like a normal page" when {
       "rendered" must {
 
         "display the correct browser title" in {
           val doc = asDocument(view())
-          assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title")
+          val expected = title(messages(s"$messageKeyPrefix.title"))
+          assertEqualsValue(doc, "title", expected)
         }
 
         "display the correct page title" in {

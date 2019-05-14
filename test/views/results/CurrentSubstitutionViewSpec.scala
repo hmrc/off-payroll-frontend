@@ -46,7 +46,7 @@ class CurrentSubstitutionViewSpec extends ViewBehaviours {
   def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages)
 
   "ResultPage view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
   }

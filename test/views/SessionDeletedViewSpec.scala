@@ -26,6 +26,6 @@ class SessionDeletedViewSpec extends ViewBehaviours {
   def createView = () => view(frontendAppConfig)(fakeRequest, messages)
 
   "Session Deleted view" must {
-    behave like normalPage(createView, "session.deleted")
+    behave like normalPage(createView, "session.deleted", hasSubheading = false)
   }
 }
