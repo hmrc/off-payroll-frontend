@@ -43,7 +43,6 @@ site.yes = Yes
 site.continue = Continue
 site.confirm_continue = Confirm and continue
 site.service_name = Check employment status for tax
-site.textarea.char_limit = (Limit is {0} characters)
 site.home = Home
 site.hmrc = HM Revenue & Customs
 
@@ -355,8 +354,10 @@ result.financialRisk.h2 = About the worker’s financial risk
 result.partAndParcel.h2 = About the worker’s integration into the organisation
 
 result.shouldNowDo.h2 = You should now do the following:
-result.shouldNowDo.h3.public = Public sector engagements
-result.shouldNowDo.h3.private = Private sector engagements
+result.shouldNowDo.h3.public = Public sector
+result.shouldNowDo.h3.public.office = Public sector engagements
+result.shouldNowDo.h3.private = Private sector
+result.shouldNowDo.h3.private.office = Private sector engagements
 
 result.aboutResult.h2 = About this result
 result.aboutResult.willStandByResult = HMRC will stand by the result given unless a compliance check finds the information provided is not accurate.
@@ -422,9 +423,6 @@ result.currentSubstitution.shouldNowDo.p1.beforeLink = If you are the worker you
 result.currentSubstitution.shouldNowDo.p1.link = this guidance
 result.currentSubstitution.shouldNowDo.p1.afterLink = about your taxes.
 result.currentSubstitution.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
-result.currentSubstitution.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
-result.currentSubstitution.aboutResult.p1.link = these specific conditions of liability
-result.currentSubstitution.aboutResult.p1.afterLink = .
 
 # Self Employed Result
 result.selfEmployed.title = This engagement should be classed as self-employed for tax purposes
