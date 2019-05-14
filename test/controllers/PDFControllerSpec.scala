@@ -24,8 +24,7 @@ import connectors.httpParsers.PDFGeneratorHttpParser
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import controllers.actions._
 import forms.CustomisePDFFormProvider
-import models.Timestamp
-import models.{AdditionalPdfDetails, Answers, NormalMode}
+import models.{AdditionalPdfDetails, Answers, NormalMode, Timestamp}
 import navigation.FakeNavigator
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -157,7 +156,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
-      contentAsString(result) must include("Sorry, we’re experiencing technical difficulties")
+      contentAsString(result) must include("Sorry we are experiencing technical problems")
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
