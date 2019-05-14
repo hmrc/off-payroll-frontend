@@ -44,6 +44,7 @@ site.continue = Continue
 site.confirm_continue = Confirm and continue
 site.service_name = Check employment status for tax
 site.textarea.char_limit = (Limit is {0} characters)
+site.home = Home
 
 feedback.before = This is a new service – your
 feedback.link = feedback
