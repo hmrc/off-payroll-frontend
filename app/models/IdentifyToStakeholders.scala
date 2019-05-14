@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
+import viewmodels.{RadioOption, radio}
 
 sealed trait IdentifyToStakeholders
 
@@ -33,7 +33,7 @@ object IdentifyToStakeholders {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("identifyToStakeholders", value.toString)
+      RadioOption("identifyToStakeholders", value.toString, radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[IdentifyToStakeholders] =

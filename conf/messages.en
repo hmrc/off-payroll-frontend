@@ -88,7 +88,7 @@ aboutYou.error.invalid = You need to select an answer
 
 
 ## Contract Started Page Questions
-##
+#########################
 contractStarted.title = Has the worker already started this particular engagement for the end client?
 contractStarted.heading = Has the worker already started this particular engagement for the end client?
 contractStarted.subheading = About the people involved
@@ -104,12 +104,12 @@ hirer.contractStarted.title = Has the worker already started this particular eng
 hirer.contractStarted.heading = Has the worker already started this particular engagement for you?
 hirer.contractStarted.subheading = About the people involved
 hirer.contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for you?
-##
+#########################
 
 
 
 ## Way that the worker provides services page (Worker Type)
-##
+#########################
 workerType.title = How does the worker provide their services to the end client?
 workerType.heading = How does the worker provide their services to the end client?
 workerType.subheading = About the people involved
@@ -138,11 +138,11 @@ hirer.workerType.partnership = As a partnership
 hirer.workerType.throughIndividual = Through another individual (not an agency)
 hirer.workerType.soleTrader = As a sole trader
 hirer.workerType.checkYourAnswersLabel = How does the worker provide their services to you?
-##
+#########################
 
 
 ## Office Holder
-##
+#########################
 officeHolder.title = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 officeHolder.heading = Will the worker (or their business) perform office holder duties for the end client as part of this engagement?
 officeHolder.subheading = About the worker’s duties
@@ -176,11 +176,14 @@ hirer.officeHolder.bullet1 = The worker has a position of responsibility for you
 hirer.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
 hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
 hirer.officeHolder.exclamation = if you are not sure if these things apply, please ask your management about your organisational structure.
-##
+#########################
 
 
+## Cannot Claim as Expense
+#########################
 cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
+cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.subheading = About the worker’s financial risk
 cannotClaimAsExpense.p1 = These are things that:
 cannotClaimAsExpense.bullet1 = the worker has to provide to complete this specific engagement
@@ -193,10 +196,44 @@ cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy machi
 cannotClaimAsExpense.workerUsedVehicle = Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)
 cannotClaimAsExpense.workerHadOtherExpenses = Other expenses – including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
-cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.error.required = You need to select an answer
 cannotClaimAsExpense.error.invalid = You need to select an answer
 
+worker.cannotClaimAsExpense.title = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.heading = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.checkYourAnswersLabel = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.subheading = About the worker’s financial risk
+worker.cannotClaimAsExpense.p1 = These are things that:
+worker.cannotClaimAsExpense.bullet1 = You have to provide to complete this specific engagement
+worker.cannotClaimAsExpense.bullet2 = Are not provided by the end client
+worker.cannotClaimAsExpense.bullet3 = Could place you at financial risk if the cost is not regained.
+worker.cannotClaimAsExpense.p2 = They do not include expenses incurred by being based away from home for the engagement.
+worker.cannotClaimAsExpense.p3 = Select all that apply
+worker.cannotClaimAsExpense.workerProvidedMaterials = Materials - items that form a lasting part of the work, or an item bought for the work and left behind when you leave (not including stationary, and most likely to be relevant to substantial purchases in the construction industry)
+worker.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
+worker.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
+worker.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of your home
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+
+hirer.cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.subheading = About the worker’s financial risk
+hirer.cannotClaimAsExpense.p1 = These are things that:
+hirer.cannotClaimAsExpense.bullet1 = The worker has to provide to complete this specific engagement
+hirer.cannotClaimAsExpense.bullet2 = Are not provided by you
+hirer.cannotClaimAsExpense.bullet3 = Could place the worker at financial risk if the cost is not regained.
+hirer.cannotClaimAsExpense.p2 = They do not include expenses incurred by being based away from home for the engagement.
+hirer.cannotClaimAsExpense.p3 = Select all that apply
+hirer.cannotClaimAsExpense.workerProvidedMaterials = Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationary, and most likely to be relevant to substantial purchases in the construction industry)
+hirer.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy machinery, industrial vehicles or high-cost specialist equipment, but not including phones, tablets or laptops
+hirer.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
+hirer.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
+hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+#########################
+        
+## Arranged Substitute
+#########################
 arrangedSubstitute.title = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 arrangedSubstitute.heading = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 arrangedSubstitute.subheading = About substitutes and helpers
@@ -213,6 +250,37 @@ arrangedSubstitute.checkYourAnswersLabel = Has the worker’s business arranged 
 arrangedSubstitute.error.required = You need to select an answer
 arrangedSubstitute.error.invalid = You need to select an answer
 
+worker.arrangedSubstitute.title = Has your business arranged for someone else (a substitute) to do the work instead of you during this engagement?
+worker.arrangedSubstitute.heading = Has your business arranged for someone else (a substitute) to do the work instead of you during this engagement?
+worker.arrangedSubstitute.checkYourAnswersLabel = Has your business arranged for someone else (a substitute) to do the work instead of you during this engagement?
+worker.arrangedSubstitute.subheading = About substitutes and helpers
+worker.arrangedSubstitute.p1 = This means someone who:
+worker.arrangedSubstitute.bullet1 = Was equally skilled, qualified, security cleared and able to perform your duties
+worker.arrangedSubstitute.bullet2 = Was not interviewed by the end client before they started (except for any verification checks)
+worker.arrangedSubstitute.bullet3 = Was not from a pool or bank of workers regularly engaged by the end client
+worker.arrangedSubstitute.bullet4 = Did all of your tasks for that period of time
+worker.arrangedSubstitute.bullet5 = Was substituted because you were unwilling but not unable to do the work
+worker.arrangedSubstitute.yesClientAgreed = Yes - and the end client agreed
+worker.arrangedSubstitute.yesClientNotAgreed = Yes - but the end client did not agree
+worker.arrangedSubstitute.no = No - it has not happened
+
+hirer.arrangedSubstitute.title = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
+hirer.arrangedSubstitute.heading = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
+hirer.arrangedSubstitute.checkYourAnswersLabel = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
+hirer.arrangedSubstitute.subheading = About substitutes and helpers
+hirer.arrangedSubstitute.p1 = This means someone who:
+hirer.arrangedSubstitute.bullet1 = Was equally skilled, qualified, security cleared and able to perform the worker’s duties
+hirer.arrangedSubstitute.bullet2 = Was not interviewed by you before they started (except for any verification checks)
+hirer.arrangedSubstitute.bullet3 = Was not from a pool or bank of workers regularly engaged by you
+hirer.arrangedSubstitute.bullet4 = Did all of the worker’s tasks for that period of time
+hirer.arrangedSubstitute.bullet5 = Was substituted because the worker was unwilling but not unable to do the work
+hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
+hirer.arrangedSubstitute.yesClientNotAgreed = Yes - but we did not agree
+hirer.arrangedSubstitute.no = No - it has not happened
+#########################
+
+## Identify to stakeholders
+#########################
 identifyToStakeholders.title = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
 identifyToStakeholders.heading = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
 identifyToStakeholders.subheading = About the worker’s integration into the organisation
@@ -223,6 +291,25 @@ identifyToStakeholders.checkYourAnswersLabel = When the worker interacts with th
 identifyToStakeholders.error.required = You need to select an answer
 identifyToStakeholders.error.invalid = You need to select an answer
 
+hirer.identifyToStakeholders.title = When the worker interacts with your customers, clients, audience or users, how do they identify themselves?
+hirer.identifyToStakeholders.heading = When the worker interacts with your customers, clients, audience or users, how do they identify themselves?
+hirer.identifyToStakeholders.subheading = About the worker’s integration into the organisation
+hirer.identifyToStakeholders.workForEndClient = They work for you
+hirer.identifyToStakeholders.workAsIndependent = They are an independent worker acting on your behalf
+hirer.identifyToStakeholders.workAsBusiness = They work for their own business
+hirer.identifyToStakeholders.checkYourAnswersLabel = When the worker interacts with your customers, clients, audience or users, how do they identify themselves?
+
+worker.identifyToStakeholders.title = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+worker.identifyToStakeholders.heading = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+worker.identifyToStakeholders.subheading = About the worker’s integration into the organisation
+worker.identifyToStakeholders.workForEndClient = I work for the end client
+worker.identifyToStakeholders.workAsIndependent = I am an independent worker acting on behalf of the end client
+worker.identifyToStakeholders.workAsBusiness = I work for my own business
+worker.identifyToStakeholders.checkYourAnswersLabel = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+#########################
+
+## Worker interact with stakeholders
+#########################
 interactWithStakeholders.title = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.heading = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.subheading = About the worker’s integration into the organisation
@@ -230,6 +317,21 @@ interactWithStakeholders.hint = These are people who use or are affected by the 
 interactWithStakeholders.checkYourAnswersLabel = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.error.required = You need to select an answer
 
+hirer.interactWithStakeholders.title = Does the worker interact with your customers, clients, audience or users?
+hirer.interactWithStakeholders.heading = Does the worker interact with your customers, clients, audience or users?
+hirer.interactWithStakeholders.subheading = About the worker’s integration into the organisation
+hirer.interactWithStakeholders.hint = These are people who use or are affected by the service provided by your organisation. This would not include the worker’s colleagues or other employees.
+hirer.interactWithStakeholders.checkYourAnswersLabel = Does the worker interact with your customers, clients, audience or users
+
+worker.interactWithStakeholders.title = Do you interact with the end client’s customers, clients, audience or users?
+worker.interactWithStakeholders.heading = Do you interact with the end client’s customers, clients, audience or users?
+worker.interactWithStakeholders.subheading = About the worker’s integration into the organisation
+worker.interactWithStakeholders.hint = These are people who use or are affected by the service provided by the public body, corporation or business. This would not include your colleagues or other employees.
+worker.interactWithStakeholders.checkYourAnswersLabel = Do you interact with the end client’s customers, clients, audience or users?
+#########################
+
+## Line Manager responsible for duties
+#########################
 lineManagerDuties.title = Is the worker responsible for any of these duties for the end client?
 lineManagerDuties.heading = Is the worker responsible for any of these duties for the end client?
 lineManagerDuties.subheading = About the worker’s integration into the organisation
@@ -240,6 +342,27 @@ lineManagerDuties.bullet4 = Deciding how much to pay someone
 lineManagerDuties.checkYourAnswersLabel = Is the worker responsible for any of these duties for the end client?
 lineManagerDuties.error.required = You need to select an answer
 
+hirer.lineManagerDuties.title = Is the worker responsible for any of these duties for your organisation?
+hirer.lineManagerDuties.heading = Is the worker responsible for any of these duties for your organisation?
+hirer.lineManagerDuties.subheading = About the worker’s integration into the organisation
+hirer.lineManagerDuties.bullet1 = Hiring workers
+hirer.lineManagerDuties.bullet2 = Dismissing workers
+hirer.lineManagerDuties.bullet3 = Delivering appraisals
+hirer.lineManagerDuties.bullet4 = Deciding how much to pay someone
+hirer.lineManagerDuties.checkYourAnswersLabel = Is the worker responsible for any of these duties for your organisation?
+
+worker.lineManagerDuties.title = Are you responsible for any of these duties for the end client?
+worker.lineManagerDuties.heading = Are you responsible for any of these duties for the end client?
+worker.lineManagerDuties.subheading = About the worker’s integration into the organisation
+worker.lineManagerDuties.bullet1 = Hiring workers
+worker.lineManagerDuties.bullet2 = Dismissing workers
+worker.lineManagerDuties.bullet3 = Delivering appraisals
+worker.lineManagerDuties.bullet4 = Deciding how much to pay someone
+worker.lineManagerDuties.checkYourAnswersLabel = Are you responsible for any of these duties for the end client?
+#########################
+
+## Benefits from end client
+#########################
 benefits.title = Is the worker entitled to any of these benefits from the end client?
 benefits.heading = Is the worker entitled to any of these benefits from the end client?
 benefits.subheading = About the worker’s integration into the organisation
@@ -252,94 +375,296 @@ benefits.p1 = These do not include benefits provided by a third party or agency.
 benefits.checkYourAnswersLabel = Is the worker entitled to any of these benefits from the end client?
 benefits.error.required = You need to select an answer
 
+hirer.benefits.title = Is the worker entitled to any of these benefits from your organisation?
+hirer.benefits.heading = Is the worker entitled to any of these benefits from your organisation?
+hirer.benefits.subheading = About the worker’s integration into the organisation
+hirer.benefits.bullet1 = Sick pay
+hirer.benefits.bullet2 = Holiday pay
+hirer.benefits.bullet3 = A workplace pension
+hirer.benefits.bullet4 = Maternity/paternity pay
+hirer.benefits.bullet5 = Other benefits (such as gym membership and health insurance)
+hirer.benefits.p1 = These do not include benefits provided by a third party or agency.
+hirer.benefits.checkYourAnswersLabel = Is the worker entitled to any of these benefits from your organisation?
+
+worker.benefits.title = Are you entitled to any of these benefits from the end client?
+worker.benefits.heading = Are you entitled to any of these benefits from the end client?
+worker.benefits.subheading = About the worker’s integration into the organisation
+worker.benefits.bullet1 = Sick pay
+worker.benefits.bullet2 = Holiday pay
+worker.benefits.bullet3 = A workplace pension
+worker.benefits.bullet4 = Maternity/paternity pay
+worker.benefits.bullet5 = Other benefits (such as gym membership and health insurance)
+worker.benefits.p1 = These do not include benefits provided by a third party or agency.
+worker.benefits.checkYourAnswersLabel = Are you entitled to any of these benefits from the end client?
+#########################
+
+## Put Right at Workers Own Cost
+#########################
 putRightAtOwnCost.title = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
 putRightAtOwnCost.heading = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
 putRightAtOwnCost.subheading = About the worker’s financial risk
 putRightAtOwnCost.outsideOfHoursNoCharge = Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
 putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to put it right without an additional charge, but would not incur any costs
 putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
 putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
-putRightAtOwnCost.noObligationToCorrect = No – they would not need to put it right
-putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
 putRightAtOwnCost.error.required = You need to select an answer
 putRightAtOwnCost.error.invalid = You need to select an answer
 
+worker.putRightAtOwnCost.title = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.heading = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.subheading = About the worker’s financial risk
+worker.putRightAtOwnCost.outsideOfHoursNoCharge = Yes - I would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+worker.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - I would have to put it right without an additional charge, but would not incur any costs
+worker.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - I would put it right in my usual hours at the usual rate of pay, or for an additional fee
+worker.putRightAtOwnCost.cannotBeCorrected = No - I would not be able to put it right because the work is time-specific or for a single event
+worker.putRightAtOwnCost.noObligationToCorrect = No - I would not need to put it right
+
+hirer.putRightAtOwnCost.title = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.heading = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.checkYourAnswersLabel = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.subheading = About the worker’s financial risk
+hirer.putRightAtOwnCost.outsideOfHoursNoCharge = Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+hirer.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to put it right without an additional charge, but would not incur any costs
+hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
+hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
+hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
+#########################
+
+## How Worker is Paid
+#########################
 howWorkerIsPaid.title = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.heading = What is the main way the worker is paid for this engagement?
+howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.subheading = About the worker’s financial risk
 howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
 howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
 howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
 howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
-howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.error.required = You need to select an answer
 howWorkerIsPaid.error.invalid = You need to select an answer
 
+worker.howWorkerIsPaid.title = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.heading = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.checkYourAnswersLabel = What is the main way you are paid for this engagement?
+worker.howWorkerIsPaid.subheading = About the worker’s financial risk
+worker.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
+worker.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+worker.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+worker.howWorkerIsPaid.incomeCommission = A percentage of the sales you make
+worker.howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
+
+hirer.howWorkerIsPaid.title = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.heading = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
+hirer.howWorkerIsPaid.subheading = About the worker’s financial risk
+hirer.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
+hirer.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
+hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
+#########################
+
+
+## How Work Is Done
+#########################
 chooseWhereWork.title = Can the worker choose where they work?
 chooseWhereWork.heading = Can the worker choose where they work?
+chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
 chooseWhereWork.subheading = About the work arrangements
 chooseWhereWork.workerChooses = Yes - the worker decides
 chooseWhereWork.workerCannotChoose = No - the end client decides
 chooseWhereWork.noLocationRequired = No - the task determines the work location
 chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
-chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
 chooseWhereWork.error.required = You need to select an answer
 chooseWhereWork.error.invalid = You need to select an answer
 
+worker.chooseWhereWork.title = Can you choose where you work?
+worker.chooseWhereWork.heading = Can you choose where you work?
+worker.chooseWhereWork.checkYourAnswersLabel = Can you choose where you work?
+worker.chooseWhereWork.subheading = About the work arrangements
+worker.chooseWhereWork.workerChooses = Yes - I decide
+worker.chooseWhereWork.workerCannotChoose = No - the end client decides
+worker.chooseWhereWork.noLocationRequired = No - the task determines the work location
+worker.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever I choose
+
+hirer.chooseWhereWork.title = Can the worker choose where they work?
+hirer.chooseWhereWork.heading = Can the worker choose where they work?
+hirer.chooseWhereWork.checkYourAnswersLabel = Can the worker choose where they work?
+hirer.chooseWhereWork.subheading = About the work arrangements
+hirer.chooseWhereWork.workerChooses = Yes - the worker decides
+hirer.chooseWhereWork.workerCannotChoose = No - we decide
+hirer.chooseWhereWork.noLocationRequired = No - the task determines the work location
+hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
+#########################
+
+
+## How Work Is Done
+#########################
 scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.subheading = About the work arrangements
 scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides the worker’s schedule
 scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule
 scheduleOfWorkingHours.workerAgreeSchedule = Partly - the worker and the end client agree a schedule
 scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
-scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.error.required = You need to select an answer
 scheduleOfWorkingHours.error.invalid = You need to select an answer
 
+worker.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
+worker.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+worker.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
+worker.scheduleOfWorkingHours.subheading = About the work arrangements
+worker.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides my schedule
+worker.scheduleOfWorkingHours.workerDecideSchedule = No - I decide my own schedule
+worker.scheduleOfWorkingHours.workerAgreeSchedule = Partly - I agree a schedule with the end client
+worker.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as I meet any agreed deadlines.
+
+hirer.scheduleOfWorkingHours.title = Can you decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.heading = Can you decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.checkYourAnswersLabel = Can you decide the schedule of working hours?
+hirer.scheduleOfWorkingHours.subheading = About the work arrangements
+hirer.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - we decide the worker’s schedule
+hirer.scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule
+hirer.scheduleOfWorkingHours.workerAgreeSchedule = Partly - we agree a schedule with the worker
+hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines.
+#########################
+
+
+## How Work Is Done
+#########################
 howWorkIsDone.title = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
 howWorkIsDone.heading = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
+howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
 howWorkIsDone.subheading = About the work arrangements
 howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
 howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without input from the worker
 howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without input from the end client
 howWorkIsDone.workerFollowStrictEmployeeProcedures = No - the end client cannot decide how the work needs to be done because it is a highly skilled role
 howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done
-howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, does the end client have the right to decide how the work is done?
 howWorkIsDone.error.required = You need to select an answer
 howWorkIsDone.error.invalid = You need to select an answer
 
+worker.howWorkIsDone.title = Once you start the engagement, does the end client have the right to decide how the work is done?
+worker.howWorkIsDone.heading = Once you start the engagement, does the end client have the right to decide how the work is done?
+worker.howWorkIsDone.checkYourAnswersLabel = Once you start the engagement, does the end client have the right to decide how the work is done?
+worker.howWorkIsDone.subheading = About the work arrangements
+worker.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
+worker.howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without my input.
+worker.howWorkIsDone.workerDecidesWithoutInput = No - I decide how the work needs to be done without input from the end client.
+worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - the end client cannot decide how the work needs to be done because it is a highly skilled role
+worker.howWorkIsDone.workerAgreeWithOthers = Partly - I and other people employed or engaged by the end client agree how the work needs to be done.
+
+hirer.howWorkIsDone.title = Once the worker starts the engagement, do you have the right to decide how the work is done?
+hirer.howWorkIsDone.heading = Once the worker starts the engagement, do you have the right to decide how the work is done?
+hirer.howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, do you have the right to decide how the work is done?
+hirer.howWorkIsDone.subheading = About the work arrangements
+hirer.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
+hirer.howWorkIsDone.noWorkerInputAllowed = Yes - we decide how the work needs to be done without input from the worker.
+hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without your input.
+hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - we cannot decide how the work needs to be done because it is a highly skilled role
+hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done.
+#########################
+
+
+
+## Needed to Pay Helper
+#########################
 moveWorker.title = Can the end client move the worker to a different task than they originally agreed to do?
 moveWorker.heading = Can the end client move the worker to a different task than they originally agreed to do?
+moveWorker.checkYourAnswersLabel = Can the end client move the worker to a different task than they originally agreed to do?
 moveWorker.subheading = About the work arrangements
 moveWorker.hint = This includes moving project or location, or changing to another task at the same location.
 moveWorker.canMoveWorkerWithPermission = Yes - but only with the worker’s agreement
 moveWorker.canMoveWorkerWithoutPermission = Yes - without the worker’s agreement (if the worker does not want to change, the end client might end the engagement)
 moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
-moveWorker.checkYourAnswersLabel = Can the end client move the worker to a different task than they originally agreed to do?
 moveWorker.error.required = You need to select an answer
 moveWorker.error.invalid = You need to select an answer
 
+worker.moveWorker.title = Can the end client move you to a different task than you originally agreed to do?
+worker.moveWorker.heading = Can the end client move you to a different task than you originally agreed to do?
+worker.moveWorker.checkYourAnswersLabel = Can the end client move you to a different task than you originally agreed to do?
+worker.moveWorker.subheading = About the work arrangements
+worker.moveWorker.hint = This includes moving project or location, or changing to another task at the same location.
+worker.moveWorker.canMoveWorkerWithPermission = Yes - but only with my agreement
+worker.moveWorker.canMoveWorkerWithoutPermission = Yes - without my agreement (if I do not want to change, the end client might end the engagement)
+worker.moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
+
+hirer.moveWorker.title = Can you move the worker to a different task than they originally agreed to do?
+hirer.moveWorker.heading = Can you move the worker to a different task than they originally agreed to do?
+hirer.moveWorker.checkYourAnswersLabel = Can you move the worker to a different task than they originally agreed to do?
+hirer.moveWorker.subheading = About the work arrangements
+hirer.moveWorker.hint = This includes moving project or location, or changing to another task at the same location.
+hirer.moveWorker.canMoveWorkerWithPermission = Yes - but only with the worker’s agreement
+hirer.moveWorker.canMoveWorkerWithoutPermission = Yes - without the worker’s agreement (if the worker does not want to change, you might end the engagement)
+hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
+#########################
+
+
+## Needed to Pay Helper
+#########################
 neededToPayHelper.title = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 neededToPayHelper.heading = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+neededToPayHelper.checkYourAnswersLabel = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 neededToPayHelper.subheading = About substitutes and helpers
 neededToPayHelper.hint.p1 = A helper is someone who does some of the job the worker is hired to do, either for or with them.
 neededToPayHelper.hint.p2 = For example, if a lecturer was hired by a university to write and deliver a study module:
 neededToPayHelper.hint.bullet1 = a researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
 neededToPayHelper.hint.bullet2 = a company the lecturer pays to print and bind materials for the module would not be classed as doing a significant amount of the work
-neededToPayHelper.checkYourAnswersLabel = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 neededToPayHelper.error.required = You need to select an answer
 
+worker.neededToPayHelper.title = Has your business needed to pay a helper to do a significant amount of the work for this engagement?
+worker.neededToPayHelper.heading = Has your business needed to pay a helper to do a significant amount of the work for this engagement?
+worker.neededToPayHelper.checkYourAnswersLabel = Has your business needed to pay a helper to do a significant amount of the work for this engagement?
+worker.neededToPayHelper.subheading = About substitutes and helpers
+worker.neededToPayHelper.hint.p1 = A helper is someone who does some of the job you are hired to do, either for or with you.
+worker.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a university to write and deliver a study module:
+worker.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
+worker.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work.
+
+hirer.neededToPayHelper.title = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+hirer.neededToPayHelper.heading = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+hirer.neededToPayHelper.checkYourAnswersLabel = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
+hirer.neededToPayHelper.subheading = About substitutes and helpers
+hirer.neededToPayHelper.hint.p1 = A helper is someone who does some of the job the worker is hired to do, either for or with them.
+hirer.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a university to write and deliver a study module:
+hirer.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
+hirer.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work.
+#########################
+
+
+## Would Pay Substitute
+#########################
 wouldWorkerPaySubstitute.title = Would the worker’s business have to pay the person who did the work instead of them?
 wouldWorkerPaySubstitute.heading = Would the worker’s business have to pay the person who did the work instead of them?
+wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
 wouldWorkerPaySubstitute.subheading = About substitutes and helpers
 wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
-wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
 wouldWorkerPaySubstitute.error.required = You need to select an answer
 
+worker.wouldWorkerPaySubstitute.title = Would your business have to pay the person who did the work instead of you?
+worker.wouldWorkerPaySubstitute.heading = Would your business have to pay the person who did the work instead of you?
+worker.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would your business have to pay the person who did the work instead of you?
+worker.wouldWorkerPaySubstitute.subheading = About substitutes and helpers
+worker.wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
+
+hirer.wouldWorkerPaySubstitute.title = Would the worker’s business have to pay the person who did the work instead of them?
+hirer.wouldWorkerPaySubstitute.heading = Would the worker’s business have to pay the person who did the work instead of them?
+hirer.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
+hirer.wouldWorkerPaySubstitute.subheading = About substitutes and helpers
+hirer.wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
+#########################
+
+
+## Reject Substitute
+#########################
 rejectSubstitute.title = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
 rejectSubstitute.heading = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+rejectSubstitute.checkYourAnswersLabel = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
 rejectSubstitute.subheading = About substitutes and helpers
 rejectSubstitute.hint.p1 = The criteria would include:
 rejectSubstitute.hint.bullet1 = being equally skilled, qualified, security cleared and able to perform the worker’s duties
@@ -350,15 +675,59 @@ rejectSubstitute.hint.bullet5 = being substituted because the worker is unwillin
 rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in the worker’s contract.
 rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work
 rejectSubstitute.no = No - the end client would always accept a substitute who met these criteria
-rejectSubstitute.checkYourAnswersLabel = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
 rejectSubstitute.error.required = You need to select an answer
 
+worker.rejectSubstitute.title = If your business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+worker.rejectSubstitute.heading = If your business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+worker.rejectSubstitute.checkYourAnswersLabel = If your business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
+worker.rejectSubstitute.subheading = About substitutes and helpers
+worker.rejectSubstitute.hint.p1 = The criteria would include:
+worker.rejectSubstitute.hint.bullet1 = Being equally skilled, qualified, security cleared and able to perform your duties.
+worker.rejectSubstitute.hint.bullet2 = Not being interviewed by the end client before they start (except for verification checks)
+worker.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers regularly engaged by the end client
+worker.rejectSubstitute.hint.bullet4 = Doing all of your tasks for that period of time
+worker.rejectSubstitute.hint.bullet5 = Being substituted because you are unwilling or unable to do the work.
+worker.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in your contract.
+worker.rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work.
+worker.rejectSubstitute.no = No - the end client would always except a substitute who met these criteria.
+
+hirer.rejectSubstitute.title = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
+hirer.rejectSubstitute.heading = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
+hirer.rejectSubstitute.checkYourAnswersLabel = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
+hirer.rejectSubstitute.subheading = About substitutes and helpers
+hirer.rejectSubstitute.hint.p1 = The criteria would include:
+hirer.rejectSubstitute.hint.bullet1 = Being equally skilled, qualified, security cleared and able to perform the worker’s duties.
+hirer.rejectSubstitute.hint.bullet2 = Not being interviewed by you before they start (except for verification checks)
+hirer.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers regularly engaged by your organisation
+hirer.rejectSubstitute.hint.bullet4 = Doing all of the worker’s tasks for that period of time
+hirer.rejectSubstitute.hint.bullet5 = Being substituted because the worker is unwilling or unable to do the work.
+hirer.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in the worker’s contract.
+hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work.
+hirer.rejectSubstitute.no = No - we would always except a substitute who met these criteria.
+#########################
+
+
+## Did Pay Substitute
+#########################
 didPaySubstitute.title = Did the worker’s business pay the person who did the work instead of them?
 didPaySubstitute.heading = Did the worker’s business pay the person who did the work instead of them?
+didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
 didPaySubstitute.subheading = About substitutes and helpers
 didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
-didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
 didPaySubstitute.error.required = You need to select an answer
+
+worker.didPaySubstitute.title = Did you pay the person who did the work instead of you?
+worker.didPaySubstitute.heading = Did you pay the person who did the work instead of you?
+worker.didPaySubstitute.checkYourAnswersLabel = Did you pay the person who did the work instead of you?
+worker.didPaySubstitute.subheading = About substitutes and helpers
+worker.didPaySubstitute.exclamation = if the substitute was paid by an agency, it does not count as substitution.
+
+hirer.didPaySubstitute.title = Did the worker’s business pay the person who did the work instead of them?
+hirer.didPaySubstitute.heading = Did the worker’s business pay the person who did the work instead of them?
+hirer.didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
+hirer.didPaySubstitute.subheading = About substitutes and helpers
+hirer.didPaySubstitute.exclamation = if the substitute was paid by an agency, it does not count as substitution.
+#########################
 
 
 # Common Result Page Messages

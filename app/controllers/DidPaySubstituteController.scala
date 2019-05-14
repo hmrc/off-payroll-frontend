@@ -46,13 +46,13 @@ class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(appConfig, request.userAnswers.get(DidPaySubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(request.userAnswers.get(DidPaySubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(appConfig, formWithErrors, mode))),
+        Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
         val answers = CompareAnswerService.constructAnswers(request,value,DidPaySubstitutePage)
         dataCacheConnector.save(answers.cacheMap).flatMap(

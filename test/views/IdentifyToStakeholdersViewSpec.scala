@@ -16,14 +16,20 @@
 
 package views
 
-import play.api.data.Form
+import assets.messages.IdentifyToStakeholdersMessages
+import config.SessionKeys
 import forms.IdentifyToStakeholdersFormProvider
-import models.NormalMode
-import models.IdentifyToStakeholders
+import models.{IdentifyToStakeholders, NormalMode}
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.data.Form
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.IdentifyToStakeholdersView
 
 class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "identifyToStakeholders"
 
@@ -31,14 +37,88 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "IdentifyToStakeholders view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe IdentifyToStakeholdersMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe IdentifyToStakeholdersMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.multichoice(1)).text mustBe IdentifyToStakeholdersMessages.Worker.workForEndClient
+        document.select(Selectors.multichoice(2)).text mustBe IdentifyToStakeholdersMessages.Worker.workAsIndependent
+        document.select(Selectors.multichoice(3)).text mustBe IdentifyToStakeholdersMessages.Worker.workAsBusiness
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe IdentifyToStakeholdersMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe IdentifyToStakeholdersMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.multichoice(1)).text mustBe IdentifyToStakeholdersMessages.Hirer.workForEndClient
+        document.select(Selectors.multichoice(2)).text mustBe IdentifyToStakeholdersMessages.Hirer.workAsIndependent
+        document.select(Selectors.multichoice(3)).text mustBe IdentifyToStakeholdersMessages.Hirer.workAsBusiness
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe IdentifyToStakeholdersMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe IdentifyToStakeholdersMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.multichoice(1)).text mustBe IdentifyToStakeholdersMessages.NonTailored.workForEndClient
+        document.select(Selectors.multichoice(2)).text mustBe IdentifyToStakeholdersMessages.NonTailored.workAsIndependent
+        document.select(Selectors.multichoice(3)).text mustBe IdentifyToStakeholdersMessages.NonTailored.workAsBusiness
+      }
+    }
   }
 
   "IdentifyToStakeholders view" when {

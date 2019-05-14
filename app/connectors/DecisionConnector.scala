@@ -16,41 +16,40 @@
 
 package connectors
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DecisionHttpParser.DecisionReads
-import javax.inject.{Inject, Singleton}
-import models.{DecisionResponse, ErrorResponse, Interview}
-import play.api.Logger
+import connectors.httpParsers.{DecisionHttpParser, LogHttpParser}
+import models._
+import models.logging.LogInterview
+import play.api.libs.json.Json
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import play.mvc.Http.Status._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
-import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 
-trait DecisionConnector {
+class DecisionConnector @Inject()(httpClient: HttpClient,
+                                  servicesConfig: ServicesConfig,
+                                  conf: FrontendAppConfig) {
 
-  val baseUrl: String
-  val decideUrl: String
-
-  def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]]
-}
-
-@Singleton
-class DecisionConnectorImpl @Inject()(http: HttpClient,
-                                      servicesConfig: ServicesConfig,
-                                      conf: FrontendAppConfig) extends DecisionConnector {
-
-  override val baseUrl: String = servicesConfig.baseUrl("cest-decision")
-  override val decideUrl = s"$baseUrl/cest-decision/decide"
+  val baseUrl: String = servicesConfig.baseUrl("cest-decision")
+  val decideUrl = s"$baseUrl/cest-decision/decide"
+  val logUrl = s"$baseUrl/cest-decision/log"
 
   def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-
-    http.POST[Interview, Either[ErrorResponse, DecisionResponse]](decideUrl, decisionRequest).recover{
-      case e: Exception =>
-        Logger.error(s"Unexpected response from decide API - Response: ${e.getMessage}")
-        Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"Exception: ${e.getMessage}"))
+    httpClient.POST(decideUrl, Json.toJson(decisionRequest)).map {
+      DecisionHttpParser.reads
+    }.recover {
+      case ex: Exception => Left(ErrorResponse(INTERNAL_SERVER_ERROR,s"HTTP exception returned from decision API: ${ex.getMessage}"))
     }
   }
+
+  def log(decisionRequest: Interview,decisionResponse: DecisionResponse)
+         (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, Boolean]] = {
+    httpClient.POST(logUrl, Json.toJson(LogInterview.createFromInterview(decisionRequest,decisionResponse))) map LogHttpParser.reads
+  }
+
 }

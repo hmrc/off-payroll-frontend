@@ -19,3 +19,9 @@ To run the application with PDF Generation on:
 sbt "run 9843" -DoffPayrollPdf=true
 
 ```
+
+To check the latest dependency versions:
+```
+sbt dependencyUpdates
+
+```

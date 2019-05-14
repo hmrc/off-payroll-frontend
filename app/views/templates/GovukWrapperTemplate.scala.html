@@ -61,7 +61,9 @@ languageSelection: LanguageSelection)
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/offpayrollfrontend-app.css")' />
 }
 
-@headerNavLinks = {}
+@headerNavLinks = {
+    <a href="@routes.IndexController.onPageLoad().url">@messages("site.home")</a>
+}
 
 @insideHeader = {
     @headerNav(
@@ -76,19 +78,15 @@ languageSelection: LanguageSelection)
 @scriptElement = {
         <script>
             @if(showSignout) {
-                $.timeoutDialog({
-                  title: '',
+                window.GOVUK.timeoutDialog({
+                  title: '',
                   message: '@messages("timeout.text")',
                   timeout: @appConfig.timeoutPeriod,
                   countdown: @appConfig.timeoutCountdown,
-                  messageSeconds: "@messages("timeout.seconds")",
-                  messageMinutes: "@messages("timeout.minutes")",
-                  messageMinute: "@messages("timeout.minute")",
-                  messageMinutesTwo: "@messages("timeout.minutes.two")",
-                  keep_alive_url: '@controllers.routes.IndexController.onPageLoad.url',
-                  keep_alive_button_text: '@messages("timeout.keep_alive")',
-                  logout_url: '@controllers.errors.routes.SessionExpiredController.checkTimeout.url',
-                  sign_out_button_text: '@messages("timeout.delete_answers")'
+                  keepAliveUrl: '@controllers.routes.IndexController.onPageLoad.url',
+                  keepAliveButtonText: '@messages("timeout.keep_alive")',
+                  signOutUrl: '@controllers.errors.routes.SessionExpiredController.checkTimeout.url',
+                  signOutButtonText: '@messages("timeout.delete_answers")'
                 });
                 var dialogOpen;
             }

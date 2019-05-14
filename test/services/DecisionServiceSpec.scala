@@ -37,6 +37,7 @@ import models.WeightedAnswerEnum.{HIGH, LOW}
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models._
 import models.requests.DataRequest
+import org.mockito.Matchers
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import pages._
@@ -736,6 +737,7 @@ class DecisionServiceSpec extends SpecBase {
     "return a continue decision based on the interview when control is empty" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(riskResponse)))
+      when(connector.log(Interview(userAnswers),riskResponse)).thenReturn(Future.successful(Right(true)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -746,6 +748,7 @@ class DecisionServiceSpec extends SpecBase {
     "return a continue decision based on the interview when risk is empty" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(controlResponse)))
+      when(connector.log(Interview(userAnswers),controlResponse)).thenReturn(Future.successful(Right(true)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -756,6 +759,7 @@ class DecisionServiceSpec extends SpecBase {
     "return a decision based on the interview" in {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
+      when(connector.log(Interview(userAnswers),exitResponse)).thenReturn(Future.successful(Right(true)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 

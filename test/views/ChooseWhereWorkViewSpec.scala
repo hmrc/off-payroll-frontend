@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.ChooseWhereWorkMessages
+import config.SessionKeys
 import play.api.data.Form
 import forms.ChooseWhereWorkFormProvider
 import models.NormalMode
 import models.ChooseWhereWork
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.ChooseWhereWorkView
 
 class ChooseWhereWorkViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "chooseWhereWork"
 
@@ -31,14 +38,91 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[ChooseWhereWorkView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ChooseWhereWork view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ChooseWhereWorkMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ChooseWhereWorkMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.Worker.yesWorkerDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.Worker.noClientDecides
+        document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.Worker.noTaskDeterminate
+        document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.Worker.partly
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ChooseWhereWorkMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ChooseWhereWorkMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.Hirer.yesWorkerDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.Hirer.noClientDecides
+        document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.Hirer.noTaskDeterminate
+        document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.Hirer.partly
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe ChooseWhereWorkMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ChooseWhereWorkMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.NonTailored.yesWorkerDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.NonTailored.noClientDecides
+        document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.NonTailored.noTaskDeterminate
+        document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.NonTailored.partly
+      }
+    }
   }
 
   "ChooseWhereWork view" when {

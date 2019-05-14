@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.PutRightAtOwnCostsMessages
+import config.SessionKeys
 import play.api.data.Form
 import forms.PutRightAtOwnCostFormProvider
 import models.NormalMode
 import models.PutRightAtOwnCost
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.PutRightAtOwnCostView
 
 class PutRightAtOwnCostViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "putRightAtOwnCost"
 
@@ -31,14 +38,94 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "PutRightAtOwnCost view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe PutRightAtOwnCostsMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe PutRightAtOwnCostsMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe PutRightAtOwnCostsMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe PutRightAtOwnCostsMessages.Worker.yesAdditionalCost
+        document.select(Selectors.multichoice(2)).text mustBe PutRightAtOwnCostsMessages.Worker.yesAdditionalCharge
+        document.select(Selectors.multichoice(3)).text mustBe PutRightAtOwnCostsMessages.Worker.noUsualHours
+        document.select(Selectors.multichoice(4)).text mustBe PutRightAtOwnCostsMessages.Worker.noSingleEvent
+        document.select(Selectors.multichoice(5)).text mustBe PutRightAtOwnCostsMessages.Worker.no
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe PutRightAtOwnCostsMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe PutRightAtOwnCostsMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe PutRightAtOwnCostsMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe PutRightAtOwnCostsMessages.Hirer.yesAdditionalCost
+        document.select(Selectors.multichoice(2)).text mustBe PutRightAtOwnCostsMessages.Hirer.yesAdditionalCharge
+        document.select(Selectors.multichoice(3)).text mustBe PutRightAtOwnCostsMessages.Hirer.noUsualHours
+        document.select(Selectors.multichoice(4)).text mustBe PutRightAtOwnCostsMessages.Hirer.noSingleEvent
+        document.select(Selectors.multichoice(5)).text mustBe PutRightAtOwnCostsMessages.Hirer.no
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe PutRightAtOwnCostsMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe PutRightAtOwnCostsMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe PutRightAtOwnCostsMessages.subheading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe PutRightAtOwnCostsMessages.NonTailored.yesAdditionalCost
+        document.select(Selectors.multichoice(2)).text mustBe PutRightAtOwnCostsMessages.NonTailored.yesAdditionalCharge
+        document.select(Selectors.multichoice(3)).text mustBe PutRightAtOwnCostsMessages.NonTailored.noUsualHours
+        document.select(Selectors.multichoice(4)).text mustBe PutRightAtOwnCostsMessages.NonTailored.noSingleEvent
+        document.select(Selectors.multichoice(5)).text mustBe PutRightAtOwnCostsMessages.NonTailored.no
+      }
+    }
   }
 
   "PutRightAtOwnCost view" when {

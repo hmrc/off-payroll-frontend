@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.HowWorkIsDoneMessages
+import config.SessionKeys
 import play.api.data.Form
 import forms.HowWorkIsDoneFormProvider
 import models.NormalMode
 import models.HowWorkIsDone
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.HowWorkIsDoneView
 
 class HowWorkIsDoneViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "howWorkIsDone"
 
@@ -31,14 +38,103 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[HowWorkIsDoneView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "HowWorkIsDone view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe HowWorkIsDoneMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe HowWorkIsDoneMessages.Worker.hint
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.Worker.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.Worker.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.Worker.noSkilledRole
+        document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.Worker.partly
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe HowWorkIsDoneMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe HowWorkIsDoneMessages.Hirer.hint
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.Hirer.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.Hirer.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.Hirer.noSkilledRole
+        document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.Hirer.partly
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe HowWorkIsDoneMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe HowWorkIsDoneMessages.NonTailored.hint
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.NonTailored.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.NonTailored.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.NonTailored.noSkilledRole
+        document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.NonTailored.partly
+      }
+    }
   }
 
   "HowWorkIsDone view" when {

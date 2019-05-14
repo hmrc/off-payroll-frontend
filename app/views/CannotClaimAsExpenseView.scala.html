@@ -23,28 +23,28 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("cannotClaimAsExpense.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("cannotClaimAsExpense.title"))}",
     appConfig = appConfig,
     bodyClasses = None,
     js = Some("cannot-claim-as-expense.js")) {
 
-    @formWithCsrf(action = CannotClaimAsExpenseController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = CannotClaimAsExpenseController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("cannotClaimAsExpense.heading", Some("cannotClaimAsExpense.subheading"))
+        @components.heading(tailorMsg("cannotClaimAsExpense.heading"), Some(tailorMsg("cannotClaimAsExpense.subheading")))
 
         @components.hint(hintContent)
 
         @components.input_checkbox(
             form = form,
             field = form("cannotClaimAsExpense"),
-            legend = messages("cannotClaimAsExpense.heading"),
+            legend = messages(tailorMsg("cannotClaimAsExpense.heading")),
             legendClass = Some("visually-hidden"),
             inputs = CannotClaimAsExpense.options
         )
@@ -54,12 +54,12 @@
 }
 
 @hintContent = {
-    <p>@messages("cannotClaimAsExpense.p1")</p>
+    <p>@messages(tailorMsg("cannotClaimAsExpense.p1"))</p>
     @components.bulleted_list(Seq(
-        "cannotClaimAsExpense.bullet1",
-        "cannotClaimAsExpense.bullet2",
-        "cannotClaimAsExpense.bullet3"
+        tailorMsg("cannotClaimAsExpense.bullet1"),
+        tailorMsg("cannotClaimAsExpense.bullet2"),
+        tailorMsg("cannotClaimAsExpense.bullet3")
     ))
-    <p>@messages("cannotClaimAsExpense.p2")</p>
-    <p>@messages("cannotClaimAsExpense.p3")</p>
+    <p>@messages(tailorMsg("cannotClaimAsExpense.p2"))</p>
+    <p>@messages(tailorMsg("cannotClaimAsExpense.p3"))</p>
 }

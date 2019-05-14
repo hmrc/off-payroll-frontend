@@ -14,13 +14,17 @@
  * limitations under the License.
  *@
 
-@()(implicit messages: Messages)
+@import config.FrontendAppConfig
+@import _root_.views.ViewUtils._
 
-<p>@messages("arrangedSubstitute.p1")</p>
+@()(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+
+<p>@messages(tailorMsg("arrangedSubstitute.p1"))</p>
+
 @components.bulleted_list(Seq(
-    "arrangedSubstitute.bullet1",
-    "arrangedSubstitute.bullet2",
-    "arrangedSubstitute.bullet3",
-    "arrangedSubstitute.bullet4",
-    "arrangedSubstitute.bullet5"
+    tailorMsg("arrangedSubstitute.bullet1"),
+    tailorMsg("arrangedSubstitute.bullet2"),
+    tailorMsg("arrangedSubstitute.bullet3"),
+    tailorMsg("arrangedSubstitute.bullet4"),
+    tailorMsg("arrangedSubstitute.bullet5")
 ))

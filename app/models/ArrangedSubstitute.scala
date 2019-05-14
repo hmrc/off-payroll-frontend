@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
+import viewmodels.{RadioOption, radio}
 
 sealed trait ArrangedSubstitute
 
@@ -33,7 +33,7 @@ object ArrangedSubstitute {
 
   val options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("arrangedSubstitute", value.toString)
+      RadioOption("arrangedSubstitute", value.toString, radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[ArrangedSubstitute] =

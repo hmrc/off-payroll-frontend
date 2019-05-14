@@ -22,10 +22,10 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("lineManagerDuties.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("lineManagerDuties.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -35,13 +35,13 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("lineManagerDuties.heading", Some("lineManagerDuties.subheading"))
+        @components.heading(tailorMsg("lineManagerDuties.heading"), Some(tailorMsg("lineManagerDuties.subheading")))
 
         @components.details.line_manager_duties_details()
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("lineManagerDuties.heading"),
+            label = messages(tailorMsg("lineManagerDuties.heading")),
             labelClass = Some("visually-hidden")
         )
 

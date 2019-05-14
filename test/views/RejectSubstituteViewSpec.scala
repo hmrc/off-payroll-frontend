@@ -16,14 +16,21 @@
 
 package views
 
+import assets.messages.RejectSubstituteMessages
+import config.SessionKeys
 import play.api.data.Form
 import controllers.routes
 import forms.RejectSubstituteFormProvider
 import views.behaviours.YesNoViewBehaviours
 import models.NormalMode
+import models.UserType.{Agency, Hirer, Worker}
+import play.api.libs.json.Json
+import play.api.mvc.Request
 import views.html.RejectSubstituteView
 
 class RejectSubstituteViewSpec extends YesNoViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "rejectSubstitute"
 
@@ -31,9 +38,11 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
   val view = injector.instanceOf[RejectSubstituteView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "RejectSubstitute view" must {
 
@@ -42,5 +51,113 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
     behave like pageWithBackLink(createView)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.RejectSubstituteController.onSubmit(NormalMode).url)
+
+    "If the user type is of Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe RejectSubstituteMessages.Worker.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Worker.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe RejectSubstituteMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Worker.p1
+        document.select(Selectors.bullet(1)).text mustBe RejectSubstituteMessages.Worker.b1
+        document.select(Selectors.bullet(2)).text mustBe RejectSubstituteMessages.Worker.b2
+        document.select(Selectors.bullet(3)).text mustBe RejectSubstituteMessages.Worker.b3
+        document.select(Selectors.bullet(4)).text mustBe RejectSubstituteMessages.Worker.b4
+        document.select(Selectors.bullet(5)).text mustBe RejectSubstituteMessages.Worker.b5
+      }
+
+      "have the correct exclamation (warning)" in {
+        document.select(Selectors.exclamation).text mustBe RejectSubstituteMessages.Worker.exclamation
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe RejectSubstituteMessages.Worker.yes
+        document.select(Selectors.multichoice(2)).text mustBe RejectSubstituteMessages.Worker.no
+      }
+    }
+
+    "If the user type is of Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe RejectSubstituteMessages.Hirer.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Hirer.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe RejectSubstituteMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Hirer.p1
+        document.select(Selectors.bullet(1)).text mustBe RejectSubstituteMessages.Hirer.b1
+        document.select(Selectors.bullet(2)).text mustBe RejectSubstituteMessages.Hirer.b2
+        document.select(Selectors.bullet(3)).text mustBe RejectSubstituteMessages.Hirer.b3
+        document.select(Selectors.bullet(4)).text mustBe RejectSubstituteMessages.Hirer.b4
+        document.select(Selectors.bullet(5)).text mustBe RejectSubstituteMessages.Hirer.b5
+      }
+
+      "have the correct exclamation (warning)" in {
+        document.select(Selectors.exclamation).text mustBe RejectSubstituteMessages.Hirer.exclamation
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe RejectSubstituteMessages.Hirer.yes
+        document.select(Selectors.multichoice(2)).text mustBe RejectSubstituteMessages.Hirer.no
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe RejectSubstituteMessages.NonTailored.title
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe RejectSubstituteMessages.NonTailored.heading
+      }
+
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe RejectSubstituteMessages.subheading
+      }
+
+      "have the correct hints" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.NonTailored.p1
+        document.select(Selectors.bullet(1)).text mustBe RejectSubstituteMessages.NonTailored.b1
+        document.select(Selectors.bullet(2)).text mustBe RejectSubstituteMessages.NonTailored.b2
+        document.select(Selectors.bullet(3)).text mustBe RejectSubstituteMessages.NonTailored.b3
+        document.select(Selectors.bullet(4)).text mustBe RejectSubstituteMessages.NonTailored.b4
+        document.select(Selectors.bullet(5)).text mustBe RejectSubstituteMessages.NonTailored.b5
+      }
+
+      "have the correct exclamation (warning)" in {
+        document.select(Selectors.exclamation).text mustBe RejectSubstituteMessages.NonTailored.exclamation
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe RejectSubstituteMessages.NonTailored.yes
+        document.select(Selectors.multichoice(2)).text mustBe RejectSubstituteMessages.NonTailored.no
+      }
+    }
   }
 }

@@ -22,24 +22,24 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages("neededToPayHelper.title")}",
+    title = s"${errorPrefix(form)} ${messages(tailorMsg("neededToPayHelper.title"))}",
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = NeededToPayHelperController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = NeededToPayHelperController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("neededToPayHelper.heading", Some("neededToPayHelper.subheading"))
+        @components.heading(tailorMsg("neededToPayHelper.heading"), Some(tailorMsg("neededToPayHelper.subheading")))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("neededToPayHelper.heading"),
+            label = messages(tailorMsg("neededToPayHelper.heading")),
             labelClass = Some("visually-hidden"),
             hint = Some(components.details.needed_to_pay_helper_details())
         )
