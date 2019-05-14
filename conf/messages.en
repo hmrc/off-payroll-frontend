@@ -210,9 +210,7 @@ hirer.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fue
 hirer.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
 ##-------------------------------
-
-
-
+        
 ## Arranged Substitute
 ## ========================================================
 arrangedSubstitute.title = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
@@ -258,9 +256,10 @@ hirer.arrangedSubstitute.bullet5 = Was substituted because the worker was unwill
 hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
 hirer.arrangedSubstitute.yesClientNotAgreed = Yes - but we did not agree
 hirer.arrangedSubstitute.no = No - it has not happened
-##-------------------------------
+##--------------------------------------------------------
 
-
+## Identify to stakeholders
+## ========================================================
 identifyToStakeholders.title = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
 identifyToStakeholders.heading = When the worker interacts with the end client’s customers, clients, audience or users, how do they identify themselves?
 identifyToStakeholders.subheading = About the worker’s integration into the organisation
@@ -286,7 +285,10 @@ worker.identifyToStakeholders.workForEndClient = I work for the end client
 worker.identifyToStakeholders.workAsIndependent = I am an independent worker acting on behalf of the end client
 worker.identifyToStakeholders.workAsBusiness = I work for my own business
 worker.identifyToStakeholders.checkYourAnswersLabel = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+##--------------------------------------------------------
 
+## Worker interact with stakeholders
+## ========================================================
 interactWithStakeholders.title = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.heading = Does the worker interact with the end client’s customers, clients, audience or users?
 interactWithStakeholders.subheading = About the worker’s integration into the organisation
@@ -305,7 +307,10 @@ worker.interactWithStakeholders.heading = Do you interact with the end client’
 worker.interactWithStakeholders.subheading = About the worker’s integration into the organisation
 worker.interactWithStakeholders.hint = These are people who use or are affected by the service provided by the public body, corporation or business. This would not include your colleagues or other employees.
 worker.interactWithStakeholders.checkYourAnswersLabel = Do you interact with the end client’s customers, clients, audience or users?
+##--------------------------------------------------------
 
+## Line Manager responsible for duties
+## ========================================================
 lineManagerDuties.title = Is the worker responsible for any of these duties for the end client?
 lineManagerDuties.heading = Is the worker responsible for any of these duties for the end client?
 lineManagerDuties.subheading = About the worker’s integration into the organisation
@@ -334,7 +339,10 @@ worker.lineManagerDuties.bullet4 = Deciding how much to pay someone
 worker.lineManagerDuties.checkYourAnswersLabel = Are you responsible for any of these duties for the end client?
         
 lineManagerDuties.error.required = You need to select an answer
+##--------------------------------------------------------
 
+## Benefits from end client
+## ========================================================
 benefits.title = Is the worker entitled to any of these benefits from the end client?
 benefits.heading = Is the worker entitled to any of these benefits from the end client?
 benefits.subheading = About the worker’s integration into the organisation
@@ -368,6 +376,7 @@ worker.benefits.bullet4 = Maternity/paternity pay
 worker.benefits.bullet5 = Other benefits (such as gym membership and health insurance)
 worker.benefits.p1 = These do not include benefits provided by a third party or agency.
 worker.benefits.checkYourAnswersLabel = Are you entitled to any of these benefits from the end client?
+##--------------------------------------------------------
 
 ## Put Right at Workers Own Cost
 ## ========================================================
