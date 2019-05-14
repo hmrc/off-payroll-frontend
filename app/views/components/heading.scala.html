@@ -17,8 +17,8 @@
 @(headingKey: String, subHeading: Option[String] = None)(implicit messages: Messages)
 
 <header class="page-heading">
+    <h1 class="heading-large">@messages(headingKey)</h1>
     @subHeading.map { x =>
-        <span class="pre-heading">@messages(x)</span>
+        <span class="heading-secondary">@messages(x)</span>
     }
-    <h1>@messages(headingKey)</h1>
 </header>

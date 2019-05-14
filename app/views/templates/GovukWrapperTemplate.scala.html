@@ -59,7 +59,9 @@ hmrcGovUkTemplate: GovUkTemplate)
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/offpayrollfrontend-app.css")' />
 }
 
-@headerNavLinks = {}
+@headerNavLinks = {
+    <a href="@routes.IndexController.onPageLoad().url">@messages("site.home")</a>
+}
 
 @insideHeader = {
     @headerNav(
