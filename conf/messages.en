@@ -39,6 +39,10 @@ error.summary.title = There is a problem
 timeout.text = As this session has been inactive for a while, your answers will be deleted in
 timeout.keep_alive = Continue through tool
 timeout.delete_answers = Delete your answers
+timeout.seconds = seconds
+timeout.minute = minute
+timeout.minutes = minutes
+timeout.minutes.two = minutes
 
 session.deleted.title = You have closed this session. For your security, we have deleted your answers.
 session.deleted.heading = You have closed this session. For your security, we have deleted your answers.

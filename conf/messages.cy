@@ -39,14 +39,18 @@ error.summary.title = Mae problem wedi codi
 timeout.text = NEED WELSH FOR As this session has been inactive for a while, your answers will be deleted in
 timeout.keep_alive = NEED WELSH FOR Continue through tool
 timeout.delete_answers = NEED WELSH FOR Delete your answers
+timeout.seconds = eiliad
+timeout.minute = munud
+timeout.minutes = munud
+timeout.minutes.two = funud
 
 session.deleted.title = NEED WELSH FOR You have closed this session. For your security, we have deleted your answers.
 session.deleted.heading =NEED WELSH FOR You have closed this session. For your security, we have deleted your answers.
-session.deleted.start_again = NEED WELSH FOR Start again
+session.deleted.start_again = Dechrau eto
 
 session.expired.title = NEED WELSH FOR This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
 session.expired.heading =NEED WELSH FOR This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
-session.expired.start_again =NEED WELSH FOR Start again
+session.expired.start_again =Dechrau eto
 
 
 site.back = Yn ôl
