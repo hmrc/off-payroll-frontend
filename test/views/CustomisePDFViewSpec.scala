@@ -36,7 +36,7 @@ class CustomisePDFViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] 
   def createViewUsingForm = (form: Form[AdditionalPdfDetails]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
 
   "CustomisePDF view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 

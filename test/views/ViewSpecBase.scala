@@ -20,6 +20,7 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
 import base.SpecBase
+import play.api.i18n.Messages
 
 trait ViewSpecBase extends SpecBase {
 
@@ -34,6 +35,9 @@ trait ViewSpecBase extends SpecBase {
     val hint = (i: Int) => s"span.form-hint:nth-of-type($i)"
   }
 
+  def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
+    s"$heading - ${section.fold("")(_ + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
+
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())
 
   def assertEqualsMessage(doc: Document, cssSelector: String, expectedMessageKey: String) =
@@ -46,6 +50,15 @@ trait ViewSpecBase extends SpecBase {
 
     //<p> HTML elements are rendered out with a carriage return on some pages, so discount for comparison
     assert(elements.first().html().replace("\n", "") == expectedValue)
+  }
+
+  def assertContainsValue(doc : Document, cssSelector : String, expectedValue: String) = {
+    val elements = doc.select(cssSelector)
+
+    if(elements.isEmpty) throw new IllegalArgumentException(s"CSS Selector $cssSelector wasn't rendered.")
+
+    //<p> HTML elements are rendered out with a carriage return on some pages, so discount for comparison
+    assert(elements.first().html().replace("\n", "").contains(expectedValue))
   }
 
   def assertPageTitleEqualsMessage(doc: Document, expectedMessageKey: String, args: Any*) = {

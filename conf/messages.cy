@@ -77,6 +77,7 @@ site.confirm_continue =Cadarnhau a pharhau
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
+site.govuk = GOV.UK
 
 feedback.before = Mae hwn yn wasanaeth newydd – bydd eich
 feedback.link = adborth

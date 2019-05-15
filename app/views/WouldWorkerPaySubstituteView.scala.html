@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages(tailorMsg("wouldWorkerPaySubstitute.title"))}",
+    title = title(form, tailorMsg("wouldWorkerPaySubstitute.title"), Some(tailorMsg("wouldWorkerPaySubstitute.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 

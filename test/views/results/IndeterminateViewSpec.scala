@@ -50,7 +50,7 @@ class IndeterminateViewSpec extends ViewBehaviours {
   }
 
   "ResultPage view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
   }

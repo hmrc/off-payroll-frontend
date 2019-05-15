@@ -30,6 +30,12 @@ object ViewUtils extends FeatureSwitching {
   def errorPrefix(form: Form[_])(implicit messages: Messages): String =
     if (form.hasErrors || form.hasGlobalErrors) messages("error.browser.title.prefix") else ""
 
+  def title(form: Form[_], titleStr: String, section: Option[String] = None)(implicit messages: Messages): String =
+    titleNoForm(s"${errorPrefix(form)} ${messages(titleStr)}", section)
+
+  def titleNoForm(title: String, section: Option[String] = None)(implicit messages: Messages): String =
+    s"${messages(title)} - ${section.fold("")(messages(_) + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
+
   def tailorMsg(key: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
     val userType = request.session.getModel[UserType](SessionKeys.userType)
     (isEnabled(TailoredContent), userType) match {

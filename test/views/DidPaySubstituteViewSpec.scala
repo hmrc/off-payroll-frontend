@@ -46,7 +46,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   "DidPaySubstitute view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -58,7 +58,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe DidPaySubstituteMessages.Worker.title
+        document.title mustBe title(DidPaySubstituteMessages.Worker.title, Some(DidPaySubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -85,7 +85,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe DidPaySubstituteMessages.Hirer.title
+        document.title mustBe title(DidPaySubstituteMessages.Hirer.title, Some(DidPaySubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -112,7 +112,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe DidPaySubstituteMessages.NonTailored.title
+        document.title mustBe title(DidPaySubstituteMessages.NonTailored.title, Some(DidPaySubstituteMessages.subheading))
       }
 
       "have the correct heading" in {

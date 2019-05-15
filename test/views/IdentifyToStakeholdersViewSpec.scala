@@ -44,7 +44,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "IdentifyToStakeholders view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -54,7 +54,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe IdentifyToStakeholdersMessages.Worker.title
+        document.title mustBe title(IdentifyToStakeholdersMessages.Worker.title, Some(IdentifyToStakeholdersMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -78,7 +78,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe IdentifyToStakeholdersMessages.Hirer.title
+        document.title mustBe title(IdentifyToStakeholdersMessages.Hirer.title, Some(IdentifyToStakeholdersMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -102,7 +102,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe IdentifyToStakeholdersMessages.NonTailored.title
+        document.title mustBe title(IdentifyToStakeholdersMessages.NonTailored.title, Some(IdentifyToStakeholdersMessages.subheading))
       }
 
       "have the correct heading" in {

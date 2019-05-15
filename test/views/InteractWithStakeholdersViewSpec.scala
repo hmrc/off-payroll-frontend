@@ -46,7 +46,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
 
   "InteractWithStakeholders view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -58,7 +58,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe InteractWithStakeholdersMessages.Worker.title
+        document.title mustBe title(InteractWithStakeholdersMessages.Worker.title, Some(InteractWithStakeholdersMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -80,7 +80,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe InteractWithStakeholdersMessages.Hirer.title
+        document.title mustBe title(InteractWithStakeholdersMessages.Hirer.title, Some(InteractWithStakeholdersMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -102,7 +102,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe InteractWithStakeholdersMessages.NonTailored.title
+        document.title mustBe title(InteractWithStakeholdersMessages.NonTailored.title, Some(InteractWithStakeholdersMessages.subheading))
       }
 
       "have the correct heading" in {
