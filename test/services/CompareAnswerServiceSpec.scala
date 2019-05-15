@@ -24,7 +24,7 @@ import handlers.ErrorHandler
 import models.AboutYouAnswer.{Agency, Worker}
 import models.ArrangedSubstitute.{No, YesClientAgreed}
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.Workeragreewithothers
+import models.ChooseWhereWork.WorkerAgreeWithOthers
 import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
 import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkAsIndependent
@@ -146,7 +146,7 @@ class CompareAnswerServiceSpec extends SpecBase {
         .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
         .set(HowWorkIsDonePage, 10,WorkerFollowStrictEmployeeProcedures)
         .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12,Workeragreewithothers)
+        .set(ChooseWhereWorkPage,12,WorkerAgreeWithOthers)
         .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
         .set(HowWorkerIsPaidPage,14,Commission)
         .set(PutRightAtOwnCostPage,15,CannotBeCorrected)

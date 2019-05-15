@@ -152,33 +152,33 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val form = formWithErrors.getOrElse(resultForm)
 
     def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, workerTypeAnswer) match {
-      case (_, Some(Answers(SoleTrader,_))) => employedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (true, _) => officeHolderInsideIR35View(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, _) => insideIR35View(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, Some(Answers(SoleTrader,_))) => employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (true, _) => officeHolderInsideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _) => insideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
     }
     def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, workerTypeAnswer, control, financialRisk) match {
-      case (_, _, Some(Answers(SoleTrader,_)), _, _) => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _, Some(Answers(SoleTrader,_)), _, _) => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
-        financialRiskView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+        financialRiskView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (Some(Answers(No,_)), Some(Answers(true,_)), _, _, _) =>
-        futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+        futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (Some(_), Some(Answers(true,_)), _, _, _) =>
-        currentSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+        currentSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, Some(Answers(false,_)), _, _, _) =>
-        futureSubstitutionView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+        futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case _ => errorHandler.internalServerErrorTemplate
     }
     result match {
       case ResultEnum.OUTSIDE_IR35 => resultViewOutside
       case ResultEnum.INSIDE_IR35 => resultViewInside
-      case ResultEnum.SELF_EMPLOYED => selfEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case ResultEnum.UNKNOWN => indeterminateView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case ResultEnum.SELF_EMPLOYED => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case ResultEnum.UNKNOWN => indeterminateView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case ResultEnum.EMPLOYED =>
         if (officeHolderAnswer) {
-          officeHolderEmployedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+          officeHolderEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
         } else {
-          employedView(appConf,answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+          employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
         }
       case ResultEnum.NOT_MATCHED => errorHandler.internalServerErrorTemplate
     }

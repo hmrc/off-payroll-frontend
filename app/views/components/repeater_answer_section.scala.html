@@ -16,8 +16,9 @@
 
 @import viewmodels.RepeaterAnswerSection
 @import views.html._
+@import config.FrontendAppConfig
 
-@(answerSection: RepeaterAnswerSection)(implicit messages: Messages)
+@(answerSection: RepeaterAnswerSection)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 <h2>@messages(answerSection.headingKey)</h2>
 

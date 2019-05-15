@@ -80,7 +80,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     frontendAppConfig
   )
 
-  def viewAsString() = employedView(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages).toString
+  def viewAsString() = employedView(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig).toString
 
   "ResultPage Controller" must {
 

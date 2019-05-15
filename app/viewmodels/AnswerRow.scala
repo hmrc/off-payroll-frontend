@@ -16,14 +16,16 @@
 
 package viewmodels
 
+import config.FrontendAppConfig
 import play.api.i18n.Messages
+import play.api.mvc.Request
 import play.twirl.api.Html
 
 sealed trait AnswerRow {
   val label: String
   val answerIsMessageKey: Boolean
   val changeUrl: String
-  def answerHtml(implicit messages: Messages): Html
+  def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html
 }
 
 case class SingleAnswerRow(label: String,
@@ -31,7 +33,7 @@ case class SingleAnswerRow(label: String,
                            answerIsMessageKey: Boolean,
                            changeUrl: String) extends AnswerRow {
 
-  override def answerHtml(implicit messages: Messages): Html =
+  override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
     Html(if(answerIsMessageKey) messages(answer) else answer)
 }
 
@@ -40,7 +42,7 @@ case class MultiAnswerRow(label: String,
                           answerIsMessageKey: Boolean,
                           changeUrl: String) extends AnswerRow {
 
-  override def answerHtml(implicit messages: Messages): Html = {
+  override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html = {
     val listItems = answers.foldLeft(""){
       case (output, answer) => output + s"<li>${if(answerIsMessageKey) messages(answer) else answer}</li>"
     }
