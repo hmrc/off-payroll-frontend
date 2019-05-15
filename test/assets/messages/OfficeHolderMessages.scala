@@ -25,10 +25,10 @@ object OfficeHolderMessages extends BaseMessages {
     val title = heading
     val p1 = "Being an office holder is not about the physical place where the work is done, it’s about your responsibilities within the organisation. Office holders can be appointed on a permanent or temporary basis."
     val p2 = "This engagement will include performing office holder duties for the end client, if:"
-    val b1 = "You have a position of responsibility for the end client, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles."
+    val b1 = "You have a position of responsibility for the end client, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles"
     val b2 = "The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)"
     val b3 = "The role exists even if someone is not engaged to fill it (a club treasurer, for example)"
-    val exclamation = "if you are not sure if these things apply, please ask the end client’s management about their organisational structure."
+    val exclamation = "If you are not sure if these things apply, please ask the end client’s management about their organisational structure."
   }
 
   object Hirer {
@@ -36,10 +36,10 @@ object OfficeHolderMessages extends BaseMessages {
     val title = heading
     val p1 = "Being an office holder is not about the physical place where the work is done, it’s about the worker’s responsibilities within your organisation. Office holders can be appointed on a permanent or temporary basis."
     val p2 = "This engagement will include performing office holder duties for you, if:"
-    val b1 = "The worker has a position of responsibility for you, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles."
+    val b1 = "The worker has a position of responsibility for you, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles"
     val b2 = "The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)"
     val b3 = "The role exists even if someone is not engaged to fill it (a club treasurer, for example)"
-    val exclamation = "if you are not sure if these things apply, please ask your management about your organisational structure."
+    val exclamation = "If you are not sure if these things apply, please ask your management about your organisational structure."
   }
 
   object NonTailored {
