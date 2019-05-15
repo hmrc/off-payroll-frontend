@@ -18,12 +18,13 @@ package controllers
 
 import com.google.inject.Inject
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, WelshLanguage}
 import play.api.i18n.Lang
 import play.api.mvc._
 
 class LanguageSwitchController @Inject()(appConfig: FrontendAppConfig,
                                          controllerComponents: MessagesControllerComponents
-                                        ) extends BaseController(controllerComponents) {
+                                        ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   private def fallbackURL: String = routes.IndexController.onPageLoad().url
 
@@ -37,5 +38,5 @@ class LanguageSwitchController @Inject()(appConfig: FrontendAppConfig,
       Redirect(redirectURL).withLang(Lang.apply(lang.code)).flashing(Flash(Map("switching-language" -> "true")))
   }
 
-  protected def isWelshEnabled: Boolean = appConfig.servicesConfig.getBoolean("feature-switch.welsh-translation")
+  protected def isWelshEnabled: Boolean = isEnabled(WelshLanguage)(appConfig)
 }

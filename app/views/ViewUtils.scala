@@ -17,7 +17,7 @@
 package views
 
 import config.{FrontendAppConfig, SessionKeys}
-import config.featureSwitch.{FeatureSwitching, TailoredContent}
+import config.featureSwitch.{FeatureSwitching, TailoredContent, WelshLanguage}
 import models.UserType
 import models.UserType.Agency
 import play.api.data.Form
@@ -37,4 +37,6 @@ object ViewUtils extends FeatureSwitching {
       case (true, Some(user)) => s"${user.toString}.$key"
     }
   }
+
+  def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 }
