@@ -26,6 +26,7 @@
 @import uk.gov.hmrc.play.views.html.layouts.FooterLinks
 @import uk.gov.hmrc.play.views.html.helpers.ReportAProblemLink
 @import views.html.LanguageSelection
+@import _root_.views.ViewUtils._
 
 @this(head: Head,
 headerNav: HeaderNav,
@@ -133,7 +134,7 @@ languageSelection: LanguageSelection)
 
 @mainContentHeaderContent = {
 
-    @if(appConfig.languageTranslationEnabled) {
+    @if(isWelshEnabled(appConfig)) {
         @languageSelection(
             appConfig.languageMap,
             appConfig.routeToSwitchLanguage,
