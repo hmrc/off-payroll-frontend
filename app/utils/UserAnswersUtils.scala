@@ -24,10 +24,11 @@ import viewmodels.AnswerSection
 import play.twirl.api.Html
 import views.html.components._
 import views.html.components.details._
+import views.ViewUtils._
 
 trait UserAnswersUtils {
 
-  def peopleInvolved(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
+  def peopleInvolved(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.peopleInvolved.h2"),
     whyResult = None,
     rows = Seq(
@@ -52,27 +53,27 @@ trait UserAnswersUtils {
     whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.arrangedSubstitute, Some(hint(arranged_substitute_details.apply()))),
-      (checkYourAnswersHelper.didPaySubstitute, Some(exclamation(Html(messages("didPaySubstitute.exclamation"))))),
+      (checkYourAnswersHelper.didPaySubstitute, Some(exclamation(Html(tailorMsg(messages("didPaySubstitute.exclamation")))))),
       (checkYourAnswersHelper.rejectSubstitute, Some(reject_substitute_details.apply())),
-      (checkYourAnswersHelper.wouldWorkerPaySubstitute, Some(exclamation(Html(messages("wouldWorkerPaySubstitute.exclamation"))))),
+      (checkYourAnswersHelper.wouldWorkerPaySubstitute, Some(exclamation(Html(tailorMsg(messages("wouldWorkerPaySubstitute.exclamation")))))),
       (checkYourAnswersHelper.neededToPayHelper, Some(hint(needed_to_pay_helper_details.apply())))
     ).filter(_._1.isDefined).map( answer => (answer._1.get, answer._2)),
     useProgressiveDisclosure = true
   )
 
-  def workArrangements(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
+  def workArrangements(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.workArrangements.h2"),
     whyResult = Some(Html(messages("result.workArrangements.summary"))),
     rows = Seq(
-      (checkYourAnswersHelper.moveWorker, Some(hint_p(Html(messages("moveWorker.hint"))))),
-      (checkYourAnswersHelper.howWorkIsDone, Some(hint_p(Html(messages("howWorkIsDone.hint"))))),
+      (checkYourAnswersHelper.moveWorker, Some(hint_p(Html(messages(tailorMsg("moveWorker.hint")))))),
+      (checkYourAnswersHelper.howWorkIsDone, Some(hint_p(Html(messages(tailorMsg("howWorkIsDone.hint")))))),
       (checkYourAnswersHelper.scheduleOfWorkingHours, None),
       (checkYourAnswersHelper.chooseWhereWork, None)
     ).filter(_._1.isDefined).map( answer => (answer._1.get, answer._2)),
     useProgressiveDisclosure = true
   )
 
-  def financialRisk(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
+  def financialRisk(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.financialRisk.h2"),
      whyResult = Some(Html(messages("result.financialRisk.summary"))),
     rows = Seq(
@@ -83,13 +84,13 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def partAndParcel(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages) = AnswerSection(
+  def partAndParcel(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.partAndParcel.h2"),
     whyResult = Some(Html(messages("result.partParcel.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.benefits, Some(hint(benefits_details.apply()))),
       (checkYourAnswersHelper.lineManagerDuties, Some(hint(line_manager_duties_details.apply()))),
-      (checkYourAnswersHelper.interactWithStakeholders, Some(hint_p(Html(messages("interactWithStakeholders.hint"))))),
+      (checkYourAnswersHelper.interactWithStakeholders, Some(hint_p(Html(messages(tailorMsg("interactWithStakeholders.hint")))))),
       (checkYourAnswersHelper.identifyToStakeholders, None)
     ).filter(_._1.isDefined).map( answer => (answer._1.get, answer._2)),
     useProgressiveDisclosure = true

@@ -16,8 +16,9 @@
 
 @import viewmodels.AnswerSection
 @import views.html._
+@import config.FrontendAppConfig
 
-@(answerSection: AnswerSection, printMode: Boolean = false)(implicit messages: Messages)
+@(answerSection: AnswerSection, printMode: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 @answerSection.headingKey.map { header =>
     <h2>@messages(header)</h2>

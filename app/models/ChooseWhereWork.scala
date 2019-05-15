@@ -23,13 +23,13 @@ sealed trait ChooseWhereWork
 
 object ChooseWhereWork {
 
-  case object Workerchooses extends WithName("workerChooses") with ChooseWhereWork
-  case object Workercannotchoose extends WithName("workerCannotChoose") with ChooseWhereWork
-  case object Nolocationrequired extends WithName("noLocationRequired") with ChooseWhereWork
-  case object Workeragreewithothers extends WithName("workerAgreeWithOthers") with ChooseWhereWork
+  case object WorkerChooses extends WithName("workerChooses") with ChooseWhereWork
+  case object WorkerCannotChoose extends WithName("workerCannotChoose") with ChooseWhereWork
+  case object NoLocationRequired extends WithName("noLocationRequired") with ChooseWhereWork
+  case object WorkerAgreeWithOthers extends WithName("workerAgreeWithOthers") with ChooseWhereWork
 
   val values: Seq[ChooseWhereWork] = Seq(
-    Workerchooses, Workercannotchoose, Nolocationrequired, Workeragreewithothers
+    WorkerChooses, WorkerCannotChoose, NoLocationRequired, WorkerAgreeWithOthers
   )
 
   val options: Seq[RadioOption] = values.map {
@@ -46,10 +46,10 @@ object ChooseWhereWork {
 
   implicit object ChooseWhereWorkReads extends Reads[ChooseWhereWork] {
     override def reads(json: JsValue): JsResult[ChooseWhereWork] = json match {
-      case JsString(Workerchooses.toString) => JsSuccess(Workerchooses)
-      case JsString(Workercannotchoose.toString) => JsSuccess(Workercannotchoose)
-      case JsString(Nolocationrequired.toString) => JsSuccess(Nolocationrequired)
-      case JsString(Workeragreewithothers.toString) => JsSuccess(Workeragreewithothers)
+      case JsString(WorkerChooses.toString) => JsSuccess(WorkerChooses)
+      case JsString(WorkerCannotChoose.toString) => JsSuccess(WorkerCannotChoose)
+      case JsString(NoLocationRequired.toString) => JsSuccess(NoLocationRequired)
+      case JsString(WorkerAgreeWithOthers.toString) => JsSuccess(WorkerAgreeWithOthers)
       case _                          => JsError("Unknown chooseWhereWork")
     }
   }

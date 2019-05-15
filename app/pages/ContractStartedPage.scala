@@ -18,5 +18,5 @@ package pages
 
 case object ContractStartedPage extends QuestionPage[Boolean] {
 
-  override def toString: String = "contract_started"
+  override def toString: String = "contractStarted"
 }

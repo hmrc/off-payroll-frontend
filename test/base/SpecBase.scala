@@ -74,7 +74,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
 
   def errorHandler = injector.instanceOf[ErrorHandler]
 
-  def fakeRequest = FakeRequest("", "")
+  implicit def fakeRequest = FakeRequest("", "")
 
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
 

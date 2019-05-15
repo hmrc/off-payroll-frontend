@@ -16,100 +16,222 @@
 
 package utils
 
+import config.FrontendAppConfig
 import controllers.routes
 import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
 import viewmodels.AnswerRow
 import models.Answers._
+import play.api.i18n.Messages
+import play.api.mvc.Request
+import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
   def customisePDF: Option[AnswerRow] = userAnswers.get(CustomisePDFPage) map {
-    x => AnswerRow("customisePDF.checkYourAnswersLabel", s"${x.answer}", false, routes.PDFController.onPageLoad(CheckMode).url)
-  }
-
-  def didPaySubstitute: Option[AnswerRow] = userAnswers.get(DidPaySubstitutePage) map {
-    x => AnswerRow("didPaySubstitute.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.DidPaySubstituteController.onPageLoad(CheckMode).url)
-  }
-
-  def rejectSubstitute: Option[AnswerRow] = userAnswers.get(RejectSubstitutePage) map {
-    x => AnswerRow("rejectSubstitute.checkYourAnswersLabel", if(x.answer) "rejectSubstitute.yes" else "rejectSubstitute.no", true, routes.RejectSubstituteController.onPageLoad(CheckMode).url)
-  }
-
-  def wouldWorkerPaySubstitute: Option[AnswerRow] = userAnswers.get(WouldWorkerPaySubstitutePage) map {
-    x => AnswerRow("wouldWorkerPaySubstitute.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
-  }
-
-  def neededToPayHelper: Option[AnswerRow] = userAnswers.get(NeededToPayHelperPage) map {
-    x => AnswerRow("neededToPayHelper.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.NeededToPayHelperController.onPageLoad(CheckMode).url)
-  }
-
-  def moveWorker: Option[AnswerRow] = userAnswers.get(MoveWorkerPage) map {
-    x => AnswerRow("moveWorker.checkYourAnswersLabel", s"moveWorker.${x.answer}", true, routes.MoveWorkerController.onPageLoad(CheckMode).url)
-  }
-
-  def howWorkIsDone: Option[AnswerRow] = userAnswers.get(HowWorkIsDonePage) map {
-    x => AnswerRow("howWorkIsDone.checkYourAnswersLabel", s"howWorkIsDone.${x.answer}", true, routes.HowWorkIsDoneController.onPageLoad(CheckMode).url)
-  }
-
-  def scheduleOfWorkingHours: Option[AnswerRow] = userAnswers.get(ScheduleOfWorkingHoursPage) map {
-    x => AnswerRow("scheduleOfWorkingHours.checkYourAnswersLabel", s"scheduleOfWorkingHours.${x.answer}", true, routes.ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url)
-  }
-
-  def chooseWhereWork: Option[AnswerRow] = userAnswers.get(ChooseWhereWorkPage) map {
-    x => AnswerRow("chooseWhereWork.checkYourAnswersLabel", s"chooseWhereWork.${x.answer}", true, routes.ChooseWhereWorkController.onPageLoad(CheckMode).url)
-  }
-
-  def howWorkerIsPaid: Option[AnswerRow] = userAnswers.get(HowWorkerIsPaidPage) map {
-    x => AnswerRow("howWorkerIsPaid.checkYourAnswersLabel", s"howWorkerIsPaid.${x.answer}", true, routes.HowWorkerIsPaidController.onPageLoad(CheckMode).url)
-  }
-
-  def putRightAtOwnCost: Option[AnswerRow] = userAnswers.get(PutRightAtOwnCostPage) map {
-    x => AnswerRow("putRightAtOwnCost.checkYourAnswersLabel", s"putRightAtOwnCost.${x.answer}", true, routes.PutRightAtOwnCostController.onPageLoad(CheckMode).url)
-  }
-
-  def benefits: Option[AnswerRow] = userAnswers.get(BenefitsPage) map {
-    x => AnswerRow("benefits.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.BenefitsController.onPageLoad(CheckMode).url)
-  }
-
-  def lineManagerDuties: Option[AnswerRow] = userAnswers.get(LineManagerDutiesPage) map {
-    x => AnswerRow("lineManagerDuties.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.LineManagerDutiesController.onPageLoad(CheckMode).url)
-  }
-
-  def interactWithStakeholders: Option[AnswerRow] = userAnswers.get(InteractWithStakeholdersPage) map {
-    x => AnswerRow("interactWithStakeholders.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.InteractWithStakeholdersController.onPageLoad(CheckMode).url)
-  }
-
-  def identifyToStakeholders: Option[AnswerRow] = userAnswers.get(IdentifyToStakeholdersPage) map {
-    x => AnswerRow("identifyToStakeholders.checkYourAnswersLabel", s"identifyToStakeholders.${x.answer}", true, routes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url)
-  }
-
-  def arrangedSubstitute: Option[AnswerRow] = userAnswers.get(ArrangedSubstitutePage) map {
-    x => AnswerRow("arrangedSubstitute.checkYourAnswersLabel", s"arrangedSubstitute.${x.answer}", true, routes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
-  }
-
-  def cannotClaimAsExpense: Option[AnswerRow] = userAnswers.get(CannotClaimAsExpensePage) map {
     x => AnswerRow(
-      label = "cannotClaimAsExpense.checkYourAnswersLabel",
-      answer = x.answer.map(ans => s"cannotClaimAsExpense.$ans"),
-      answerIsMessageKey = true,
-      changeUrl = routes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+      "customisePDF.checkYourAnswersLabel",
+      s"${x.answer}",
+      answerIsMessageKey = false,
+      routes.PDFController.onPageLoad(CheckMode).url
     )
   }
 
-  def officeHolder: Option[AnswerRow] = userAnswers.get(OfficeHolderPage) map {
-    x => AnswerRow("officeHolder.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.OfficeHolderController.onPageLoad(CheckMode).url)
-  }
+  def didPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(DidPaySubstitutePage) map { x =>
+      AnswerRow(
+        tailorMsg("didPaySubstitute.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.DidPaySubstituteController.onPageLoad(CheckMode).url
+      )
+    }
 
-  def workerType: Option[AnswerRow] = userAnswers.get(WorkerTypePage) map {
-    x => AnswerRow("workerType.checkYourAnswersLabel", s"workerType.${x.answer}", true, routes.WorkerTypeController.onPageLoad(CheckMode).url)
-  }
+  def rejectSubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(RejectSubstitutePage) map { x =>
+      AnswerRow(
+        tailorMsg("rejectSubstitute.checkYourAnswersLabel"),
+        tailorMsg(if(x.answer) "rejectSubstitute.yes" else "rejectSubstitute.no"),
+        answerIsMessageKey = true,
+        routes.RejectSubstituteController.onPageLoad(CheckMode).url
+      )
+    }
 
-  def contractStarted: Option[AnswerRow] = userAnswers.get(ContractStartedPage) map {
-    x => AnswerRow("contractStarted.checkYourAnswersLabel", if(x.answer) "site.yes" else "site.no", true, routes.ContractStartedController.onPageLoad(CheckMode).url)
-  }
+  def wouldWorkerPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(WouldWorkerPaySubstitutePage) map { x =>
+      AnswerRow(
+        tailorMsg("wouldWorkerPaySubstitute.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
+      )
+    }
 
-  def aboutYou: Option[AnswerRow] = userAnswers.get(AboutYouPage) map {
-    x => AnswerRow("aboutYou.checkYourAnswersLabel", s"aboutYou.${x.answer}", answerIsMessageKey = true, routes.AboutYouController.onPageLoad(CheckMode).url)
+  def neededToPayHelper(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(NeededToPayHelperPage) map { x =>
+      AnswerRow(
+        tailorMsg("neededToPayHelper.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.NeededToPayHelperController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def moveWorker(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(MoveWorkerPage) map { x =>
+      AnswerRow(
+        tailorMsg("moveWorker.checkYourAnswersLabel"),
+        tailorMsg(s"moveWorker.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.MoveWorkerController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def howWorkIsDone(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(HowWorkIsDonePage) map { x =>
+      AnswerRow(
+        tailorMsg("howWorkIsDone.checkYourAnswersLabel"),
+        tailorMsg(s"howWorkIsDone.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.HowWorkIsDoneController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def scheduleOfWorkingHours(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(ScheduleOfWorkingHoursPage) map { x =>
+      AnswerRow(
+        tailorMsg("scheduleOfWorkingHours.checkYourAnswersLabel"),
+        tailorMsg(s"scheduleOfWorkingHours.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def chooseWhereWork(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(ChooseWhereWorkPage) map { x =>
+      AnswerRow(
+        tailorMsg("chooseWhereWork.checkYourAnswersLabel"),
+        tailorMsg(s"chooseWhereWork.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.ChooseWhereWorkController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def howWorkerIsPaid(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(HowWorkerIsPaidPage) map { x =>
+      AnswerRow(
+        tailorMsg("howWorkerIsPaid.checkYourAnswersLabel"),
+        tailorMsg(s"howWorkerIsPaid.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def putRightAtOwnCost(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(PutRightAtOwnCostPage) map { x =>
+      AnswerRow(
+        tailorMsg("putRightAtOwnCost.checkYourAnswersLabel"),
+        tailorMsg(s"putRightAtOwnCost.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.PutRightAtOwnCostController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def benefits(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(BenefitsPage) map { x =>
+      AnswerRow(
+        tailorMsg("benefits.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.BenefitsController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def lineManagerDuties(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(LineManagerDutiesPage) map { x =>
+      AnswerRow(
+        tailorMsg("lineManagerDuties.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.LineManagerDutiesController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def interactWithStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(InteractWithStakeholdersPage) map { x =>
+      AnswerRow(
+        tailorMsg("interactWithStakeholders.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def identifyToStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(IdentifyToStakeholdersPage) map { x =>
+      AnswerRow(
+        tailorMsg("identifyToStakeholders.checkYourAnswersLabel"),
+        tailorMsg(s"identifyToStakeholders.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def arrangedSubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(ArrangedSubstitutePage) map { x =>
+      AnswerRow(
+        tailorMsg("arrangedSubstitute.checkYourAnswersLabel"),
+        tailorMsg(s"arrangedSubstitute.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.ArrangedSubstituteController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def cannotClaimAsExpense(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(CannotClaimAsExpensePage) map { x =>
+      AnswerRow(
+        label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
+        answer = x.answer.map(ans => tailorMsg(s"cannotClaimAsExpense.$ans")),
+        answerIsMessageKey = true,
+        changeUrl = routes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def officeHolder(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(OfficeHolderPage) map { x =>
+      AnswerRow(
+        tailorMsg("officeHolder.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.OfficeHolderController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def workerType(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(WorkerTypePage) map { x =>
+      AnswerRow(
+        tailorMsg("workerType.checkYourAnswersLabel"),
+        tailorMsg(s"workerType.${x.answer}"),
+        answerIsMessageKey = true,
+        routes.WorkerTypeController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def contractStarted(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(ContractStartedPage) map { x =>
+      AnswerRow(
+        tailorMsg("contractStarted.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        routes.ContractStartedController.onPageLoad(CheckMode).url
+      )
+    }
+
+  def aboutYou: Option[AnswerRow] = userAnswers.get(AboutYouPage) map { x =>
+    AnswerRow(
+      "aboutYou.checkYourAnswersLabel",
+      s"aboutYou.${x.answer}", answerIsMessageKey = true,
+      routes.AboutYouController.onPageLoad(CheckMode).url
+    )
   }
 }

@@ -20,7 +20,7 @@ import base.SpecBase
 import connectors.mocks.{MockHttp, MockWsClient}
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
-import models.ChooseWhereWork.Workerchooses
+import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.WorkerAgreeWithOthers
 import models.HowWorkerIsPaid.HourlyDailyOrWeekly
 import models.IdentifyToStakeholders.WorkAsIndependent
@@ -58,7 +58,7 @@ class DecisionConnectorSpec extends SpecBase with MockHttp {
     Some(CanMoveWorkerWithPermission),
     Some(WorkerAgreeWithOthers),
     Some(WorkerAgreeSchedule),
-    Some(Workerchooses),
+    Some(WorkerChooses),
     Some(false),
     Some(false),
     Some(false),
