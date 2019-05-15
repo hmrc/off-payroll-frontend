@@ -19,8 +19,36 @@ package models
 import java.time.format.DateTimeFormatter
 import java.time.{ZoneOffset, ZonedDateTime}
 
+import play.api.i18n.Messages
+
 object Timestamp {
 
-  def timestamp: String = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
+  val months = Seq(
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  )
 
+  def timestamp(implicit messages: Messages): String = {
+
+    val dateTime = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
+
+    months.flatMap {
+      month =>
+        if (dateTime.contains(month)) {
+          Some(dateTime.replaceAllLiterally(month, messages(s"date.$month")))
+        } else {
+          None
+        }
+    }.headOption.getOrElse(dateTime)
+  }
 }

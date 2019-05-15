@@ -74,7 +74,11 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 @shouldNowDoContent = {
     <p>
         @messages("result.futureSubstitution.shouldNowDo.p1.beforeLink")
-        <a href="https://www.gov.uk/browse/business/business-tax" rel="external">@messages("result.futureSubstitution.shouldNowDo.p1.link")</a>
+        @if(printView){
+            <a href="https://www.gov.uk/browse/business/business-tax">@messages("result.futureSubstitution.shouldNowDo.p1.link")</a>
+        } else {
+            <a href="https://www.gov.uk/browse/business/business-tax" rel="external">@messages("result.futureSubstitution.shouldNowDo.p1.link")</a>
+        }
         @messages("result.futureSubstitution.shouldNowDo.p1.afterLink")
     </p>
     <p>@messages("result.futureSubstitution.shouldNowDo.p2")</p>
@@ -89,7 +93,11 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 @aboutResultContent = {
     <p>
         @messages("result.futureSubstitution.aboutResult.p1.beforeLink")
-        <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" rel="external">@messages("result.futureSubstitution.aboutResult.p1.link")</a>
+        @if(printView){
+            <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies">@messages("result.futureSubstitution.aboutResult.p1.link")</a>
+        } else {
+            <a href="https://www.gov.uk/guidance/ir35-what-to-do-if-it-applies" rel="external">@messages("result.futureSubstitution.aboutResult.p1.link")</a>
+        }
         @messages("result.futureSubstitution.aboutResult.p1.afterLink")
     </p>
 }

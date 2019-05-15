@@ -1,0 +1,40 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import utils.Link
+
+@this()
+
+@(langMap: Map[String, Lang], langToCall: String => Call, customClass: Option[String] = None, appName: Option[String] = None)(implicit messages: Messages)
+
+<p class="@if(customClass.isDefined) {@customClass.get}">
+
+  @langMap.map { case (key: String, value: Lang) =>
+    @if(messages.lang.code != value.code) {
+      @Link.toInternalPage(
+        id      = Some(s"$key-switch"),
+        url     = s"${langToCall(key)}",
+        value   = Some(key.capitalize),
+        dataAttributes = appName.map(name => Map("journey-click" -> s"$name:language: ${value.code}"))
+      ).toHtml
+    } else {
+      @key.capitalize
+    }
+    @if(key != langMap.last._1) {
+      @Html(" | ")
+    }
+  }
+</p>

@@ -25,6 +25,7 @@
 @import uk.gov.hmrc.play.views.html.layouts.Article
 @import uk.gov.hmrc.play.views.html.layouts.FooterLinks
 @import uk.gov.hmrc.play.views.html.helpers.ReportAProblemLink
+@import views.html.LanguageSelection
 
 @this(head: Head,
 headerNav: HeaderNav,
@@ -36,7 +37,8 @@ sidebar: Sidebar,
 article: Article,
 reportAProblemLink: ReportAProblemLink,
 footerLinks: FooterLinks,
-hmrcGovUkTemplate: GovUkTemplate)
+hmrcGovUkTemplate: GovUkTemplate,
+languageSelection: LanguageSelection)
 
 @(appConfig: config.FrontendAppConfig,
   title: String,
@@ -76,15 +78,15 @@ hmrcGovUkTemplate: GovUkTemplate)
 @scriptElement = {
         <script>
             @if(showSignout) {
-                $.timeoutDialog({
-                  title: '',
+                window.GOVUK.timeoutDialog({
+                  title: '',
                   message: '@messages("timeout.text")',
                   timeout: @appConfig.timeoutPeriod,
                   countdown: @appConfig.timeoutCountdown,
-                  keep_alive_url: '@controllers.routes.IndexController.onPageLoad.url',
-                  keep_alive_button_text: '@messages("timeout.keep_alive")',
-                  logout_url: '@controllers.errors.routes.SessionExpiredController.checkTimeout.url',
-                  sign_out_button_text: '@messages("timeout.delete_answers")'
+                  keepAliveUrl: '@controllers.routes.IndexController.onPageLoad.url',
+                  keepAliveButtonText: '@messages("timeout.keep_alive")',
+                  signOutUrl: '@controllers.errors.routes.SessionExpiredController.checkTimeout.url',
+                  signOutButtonText: '@messages("timeout.delete_answers")'
                 });
                 var dialogOpen;
             }
@@ -124,7 +126,7 @@ hmrcGovUkTemplate: GovUkTemplate)
 @serviceInfoHtml = {
     @serviceInfo(
       betaBanner = phaseBanner,
-      includeHMRCBranding = true,
+      includeHMRCBranding = false,
       includeGridWrapper = false,
       serviceInfoContent = Some(serviceInfoContent))
 }
@@ -132,10 +134,10 @@ hmrcGovUkTemplate: GovUkTemplate)
 @mainContentHeaderContent = {
 
     @if(appConfig.languageTranslationEnabled) {
-        @views.html.language_selection(
+        @languageSelection(
             appConfig.languageMap,
             appConfig.routeToSwitchLanguage,
-            Some("translate u-align--right"))
+            Some("translate float--right"))
     }
 
     @if(contentHeader.isDefined) {

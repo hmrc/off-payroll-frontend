@@ -74,7 +74,11 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 @shouldNowDoContent = {
     <p>
         @messages("result.financialRisk.shouldNowDo.p1.beforeLink")
-        <a href="https://www.gov.uk/browse/business/business-tax" rel="external">@messages("result.financialRisk.shouldNowDo.p1.link")</a>
+        @if(printView){
+            <a href="https://www.gov.uk/browse/business/business-tax">@messages("result.financialRisk.shouldNowDo.p1.link")</a>
+        } else {
+            <a href="https://www.gov.uk/browse/business/business-tax" rel="external">@messages("result.financialRisk.shouldNowDo.p1.link")</a>
+        }
         @messages("result.financialRisk.shouldNowDo.p1.afterLink")
     </p>
     <p>@messages("result.financialRisk.shouldNowDo.p2")</p>
@@ -88,7 +92,10 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 @aboutResultContent = {
     <p>
         @messages("result.financialRisk.aboutResult.p1.beforeLink")
-        <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040" rel="external">@messages("result.financialRisk.aboutResult.p1.link")</a>
-        @messages("result.financialRisk.aboutResult.p1.afterLink")
+        @if(printView){
+            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040">@messages("result.financialRisk.aboutResult.p1.link")</a>
+        } else {
+            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040" rel="external">@messages("result.financialRisk.aboutResult.p1.link")</a>
+        }@messages("result.financialRisk.aboutResult.p1.afterLink")
     </p>
 }

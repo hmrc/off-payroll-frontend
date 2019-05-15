@@ -20,7 +20,7 @@ import com.google.inject.{Inject, Singleton}
 import controllers.routes
 import play.api.Environment
 import play.api.i18n.Lang
-import play.api.mvc.Request
+import play.api.mvc.{Call, Request}
 import uk.gov.hmrc.play.binders.ContinueUrl
 import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 
@@ -48,7 +48,7 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
-  def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
+  def routeToSwitchLanguage: String => Call = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
   lazy val mongoTtl: Int = servicesConfig.getInt("mongodb.timeToLiveInSeconds")
 

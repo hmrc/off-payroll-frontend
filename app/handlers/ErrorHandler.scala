@@ -23,6 +23,7 @@ import play.twirl.api.Html
 import config.FrontendAppConfig
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 import views.html.templates.ErrorTemplate
+import play.mvc.Http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND}
 
 @Singleton
 class ErrorHandler @Inject()(appConfig: FrontendAppConfig,
@@ -36,6 +37,22 @@ class ErrorHandler @Inject()(appConfig: FrontendAppConfig,
                                     )(implicit rh: Request[_]): Html = {
 
     view(pageTitle, heading, message, appConfig)
+  }
+
+  override def badRequestTemplate(implicit request: Request[_]): Html = {
+
+    view("common.standardErrorMessageHeader", "common.standardErrorMessageHeader", "common.standardErrorMessageContent", appConfig, Some(BAD_REQUEST))
+  }
+
+  override def notFoundTemplate(implicit request: Request[_]): Html ={
+
+    view("common.standardPageNotFoundErrorMessageHeader", "common.standardPageNotFoundErrorMessageHeader",
+      "global.error.pageNotFound404.message", appConfig, Some(NOT_FOUND))
+  }
+
+  override def internalServerErrorTemplate(implicit request: Request[_]): Html ={
+
+    view("common.standardErrorMessageHeader", "common.standardErrorMessageHeader", "common.standardErrorMessageContent", appConfig, Some(INTERNAL_SERVER_ERROR))
   }
 }
 
