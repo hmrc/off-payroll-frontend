@@ -161,10 +161,10 @@ worker.officeHolder.checkYourAnswersLabel = Will you perform office holder dutie
 worker.officeHolder.subheading = About the worker’s duties
 worker.officeHolder.p1 = Being an office holder is not about the physical place where the work is done, it’s about your responsibilities within the organisation. Office holders can be appointed on a permanent or temporary basis.
 worker.officeHolder.p2 = This engagement will include performing office holder duties for the end client, if:
-worker.officeHolder.bullet1 = You have a position of responsibility for the end client, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles.
+worker.officeHolder.bullet1 = You have a position of responsibility for the end client, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles
 worker.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
 worker.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
-worker.officeHolder.exclamation = if you are not sure if these things apply, please ask the end client’s management about their organisational structure.
+worker.officeHolder.exclamation = If you are not sure if these things apply, please ask the end client’s management about their organisational structure.
 
 hirer.officeHolder.title = Will the worker (or their business) perform office holder duties for you as part of this engagement?
 hirer.officeHolder.heading = Will the worker (or their business) perform office holder duties for you as part of this engagement?
@@ -172,10 +172,10 @@ hirer.officeHolder.checkYourAnswersLabel = Will the worker (or their business) p
 hirer.officeHolder.subheading = About the worker’s duties
 hirer.officeHolder.p1 = Being an office holder is not about the physical place where the work is done, it’s about the worker’s responsibilities within your organisation. Office holders can be appointed on a permanent or temporary basis.
 hirer.officeHolder.p2 = This engagement will include performing office holder duties for you, if:
-hirer.officeHolder.bullet1 = The worker has a position of responsibility for you, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles.
+hirer.officeHolder.bullet1 = The worker has a position of responsibility for you, including board membership or statutory board membership, or being appointed as a treasurer, trustee, company director, company secretary, or other similar statutory roles
 hirer.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
 hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
-hirer.officeHolder.exclamation = if you are not sure if these things apply, please ask your management about your organisational structure.
+hirer.officeHolder.exclamation = If you are not sure if these things apply, please ask your management about your organisational structure.
 #########################
 
 
@@ -206,7 +206,7 @@ worker.cannotClaimAsExpense.subheading = About the worker’s financial risk
 worker.cannotClaimAsExpense.p1 = These are things that:
 worker.cannotClaimAsExpense.bullet1 = You have to provide to complete this specific engagement
 worker.cannotClaimAsExpense.bullet2 = Are not provided by the end client
-worker.cannotClaimAsExpense.bullet3 = Could place you at financial risk if the cost is not regained.
+worker.cannotClaimAsExpense.bullet3 = Could place you at financial risk if the cost is not regained
 worker.cannotClaimAsExpense.p2 = They do not include expenses incurred by being based away from home for the engagement.
 worker.cannotClaimAsExpense.p3 = Select all that apply
 worker.cannotClaimAsExpense.workerProvidedMaterials = Materials - items that form a lasting part of the work, or an item bought for the work and left behind when you leave (not including stationary, and most likely to be relevant to substantial purchases in the construction industry)
@@ -222,7 +222,7 @@ hirer.cannotClaimAsExpense.subheading = About the worker’s financial risk
 hirer.cannotClaimAsExpense.p1 = These are things that:
 hirer.cannotClaimAsExpense.bullet1 = The worker has to provide to complete this specific engagement
 hirer.cannotClaimAsExpense.bullet2 = Are not provided by you
-hirer.cannotClaimAsExpense.bullet3 = Could place the worker at financial risk if the cost is not regained.
+hirer.cannotClaimAsExpense.bullet3 = Could place the worker at financial risk if the cost is not regained
 hirer.cannotClaimAsExpense.p2 = They do not include expenses incurred by being based away from home for the engagement.
 hirer.cannotClaimAsExpense.p3 = Select all that apply
 hirer.cannotClaimAsExpense.workerProvidedMaterials = Materials - items that form a lasting part of the work, or an item bought for the work and left behind when the worker leaves (not including stationary, and most likely to be relevant to substantial purchases in the construction industry)
@@ -624,7 +624,7 @@ worker.neededToPayHelper.subheading = About substitutes and helpers
 worker.neededToPayHelper.hint.p1 = A helper is someone who does some of the job you are hired to do, either for or with you.
 worker.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a university to write and deliver a study module:
 worker.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
-worker.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work.
+worker.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work
 
 hirer.neededToPayHelper.title = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
 hirer.neededToPayHelper.heading = Has the worker’s business needed to pay a helper to do a significant amount of the work for this engagement?
@@ -633,7 +633,7 @@ hirer.neededToPayHelper.subheading = About substitutes and helpers
 hirer.neededToPayHelper.hint.p1 = A helper is someone who does some of the job the worker is hired to do, either for or with them.
 hirer.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a university to write and deliver a study module:
 hirer.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
-hirer.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work.
+hirer.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work
 #########################
 
 
@@ -682,11 +682,11 @@ worker.rejectSubstitute.heading = If your business sent someone else to do the w
 worker.rejectSubstitute.checkYourAnswersLabel = If your business sent someone else to do the work (a substitute) and they met all the necessary criteria, would the end client ever reject them?
 worker.rejectSubstitute.subheading = About substitutes and helpers
 worker.rejectSubstitute.hint.p1 = The criteria would include:
-worker.rejectSubstitute.hint.bullet1 = Being equally skilled, qualified, security cleared and able to perform your duties.
+worker.rejectSubstitute.hint.bullet1 = Being equally skilled, qualified, security cleared and able to perform your duties
 worker.rejectSubstitute.hint.bullet2 = Not being interviewed by the end client before they start (except for verification checks)
 worker.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers regularly engaged by the end client
 worker.rejectSubstitute.hint.bullet4 = Doing all of your tasks for that period of time
-worker.rejectSubstitute.hint.bullet5 = Being substituted because you are unwilling or unable to do the work.
+worker.rejectSubstitute.hint.bullet5 = Being substituted because you are unwilling or unable to do the work
 worker.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in your contract.
 worker.rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work.
 worker.rejectSubstitute.no = No - the end client would always except a substitute who met these criteria.
@@ -696,11 +696,11 @@ hirer.rejectSubstitute.heading = If the worker’s business sent someone else to
 hirer.rejectSubstitute.checkYourAnswersLabel = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
 hirer.rejectSubstitute.subheading = About substitutes and helpers
 hirer.rejectSubstitute.hint.p1 = The criteria would include:
-hirer.rejectSubstitute.hint.bullet1 = Being equally skilled, qualified, security cleared and able to perform the worker’s duties.
+hirer.rejectSubstitute.hint.bullet1 = Being equally skilled, qualified, security cleared and able to perform the worker’s duties
 hirer.rejectSubstitute.hint.bullet2 = Not being interviewed by you before they start (except for verification checks)
 hirer.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers regularly engaged by your organisation
 hirer.rejectSubstitute.hint.bullet4 = Doing all of the worker’s tasks for that period of time
-hirer.rejectSubstitute.hint.bullet5 = Being substituted because the worker is unwilling or unable to do the work.
+hirer.rejectSubstitute.hint.bullet5 = Being substituted because the worker is unwilling or unable to do the work
 hirer.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in the worker’s contract.
 hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work.
 hirer.rejectSubstitute.no = No - we would always except a substitute who met these criteria.
@@ -720,13 +720,13 @@ worker.didPaySubstitute.title = Did you pay the person who did the work instead 
 worker.didPaySubstitute.heading = Did you pay the person who did the work instead of you?
 worker.didPaySubstitute.checkYourAnswersLabel = Did you pay the person who did the work instead of you?
 worker.didPaySubstitute.subheading = About substitutes and helpers
-worker.didPaySubstitute.exclamation = if the substitute was paid by an agency, it does not count as substitution.
+worker.didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
 
 hirer.didPaySubstitute.title = Did the worker’s business pay the person who did the work instead of them?
 hirer.didPaySubstitute.heading = Did the worker’s business pay the person who did the work instead of them?
 hirer.didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
 hirer.didPaySubstitute.subheading = About substitutes and helpers
-hirer.didPaySubstitute.exclamation = if the substitute was paid by an agency, it does not count as substitution.
+hirer.didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
 #########################
 
 

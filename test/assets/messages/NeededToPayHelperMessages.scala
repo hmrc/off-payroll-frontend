@@ -26,7 +26,7 @@ object NeededToPayHelperMessages extends BaseMessages {
     val p1 = "A helper is someone who does some of the job you are hired to do, either for or with you."
     val p2 = "For example if a lecturer was hired by a university to write and deliver a study module:"
     val b1 = "A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work"
-    val b2 = "A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work."
+    val b2 = "A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work"
   }
 
   object Hirer {
@@ -35,7 +35,7 @@ object NeededToPayHelperMessages extends BaseMessages {
     val p1 = "A helper is someone who does some of the job the worker is hired to do, either for or with them."
     val p2 = "For example if a lecturer was hired by a university to write and deliver a study module:"
     val b1 = "A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work"
-    val b2 = "A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work."
+    val b2 = "A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work"
   }
 
   object NonTailored {

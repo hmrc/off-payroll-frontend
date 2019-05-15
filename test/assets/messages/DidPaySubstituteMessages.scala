@@ -23,13 +23,13 @@ object DidPaySubstituteMessages extends BaseMessages {
   object Worker {
     val heading = "Did you pay the person who did the work instead of you?"
     val title = heading
-    val exclamation = "if the substitute was paid by an agency, it does not count as substitution."
+    val exclamation = "If the substitute was paid by an agency, it does not count as substitution."
   }
 
   object Hirer {
     val heading = "Did the worker’s business pay the person who did the work instead of them?"
     val title = heading
-    val exclamation = "if the substitute was paid by an agency, it does not count as substitution."
+    val exclamation = "If the substitute was paid by an agency, it does not count as substitution."
   }
 
   object NonTailored {
