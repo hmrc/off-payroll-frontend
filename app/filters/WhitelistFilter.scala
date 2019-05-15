@@ -17,33 +17,21 @@
 package filters
 
 import akka.stream.Materializer
-import com.google.inject.Inject
-import play.api.Configuration
-import play.api.mvc.Call
+import config.FrontendAppConfig
+import javax.inject.{Inject, Singleton}
+import play.api.mvc.{Call, RequestHeader, Result}
 import uk.gov.hmrc.whitelist.AkamaiWhitelistFilter
 
-class WhitelistFilter @Inject()(config: Configuration,
-                                override val mat: Materializer
-                               ) extends AkamaiWhitelistFilter {
+import scala.concurrent.Future
 
-  override val whitelist: Seq[String] = {
-    config
-      .underlying
-      .getString("filters.whitelist.ips")
-      .split(",")
-      .map(_.trim)
-      .filter(_.nonEmpty)
-  }
+@Singleton
+class WhitelistFilter @Inject()(val appConfig: FrontendAppConfig, implicit val mat: Materializer) extends AkamaiWhitelistFilter {
 
-  override val destination: Call = {
-    val path = config.underlying.getString("filters.whitelist.destination")
-    Call("GET", path)
-  }
+  override lazy val whitelist: Seq[String] = appConfig.whitelistedIps
+  override lazy val destination: Call = Call("GET", appConfig.shutterPage)
+  override lazy val excludedPaths: Seq[Call] = appConfig.whitelistExcludedPaths
 
-  override val excludedPaths: Seq[Call] = {
-    config.underlying.getString("filters.whitelist.excluded").split(",").map {
-      path =>
-        Call("GET", path.trim)
-    }
+  override def apply(requestFunc: RequestHeader => Future[Result])(requestHeader: RequestHeader): Future[Result] = {
+    if(appConfig.whitelistEnabled) super.apply(requestFunc)(requestHeader) else requestFunc(requestHeader)
   }
 }

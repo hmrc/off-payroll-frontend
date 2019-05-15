@@ -16,6 +16,8 @@
 
 package config
 
+import java.util.Base64
+
 import com.google.inject.{Inject, Singleton}
 import controllers.routes
 import play.api.Environment
@@ -34,6 +36,16 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val analyticsHost = servicesConfig.getString(s"google-analytics.host")
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
+
+
+  private def whitelistConfig(key: String): Seq[String] =
+    Some(new String(Base64.getDecoder.decode(servicesConfig.getString(key)), "UTF-8"))
+      .map(_.split(",")).getOrElse(Array.empty).toSeq
+
+  lazy val whitelistEnabled: Boolean = servicesConfig.getBoolean("whitelist.enabled")
+  lazy val whitelistedIps: Seq[String] = whitelistConfig("whitelist.allowedIps")
+  lazy val whitelistExcludedPaths: Seq[Call] = whitelistConfig("whitelist.excludedPaths").map(path => Call("GET", path))
+  lazy val shutterPage: String = servicesConfig.getString("whitelist.shutter-page-url")
 
   private def requestUri(implicit request: Request[_]) = ContinueUrl(host + request.uri).encodedUrl
   def feedbackUrl(implicit request: Request[_]): String =
