@@ -29,20 +29,20 @@ class ViewUtilsSpec extends ViewSpecBase {
 
       "If the user is of type Worker, DO NOT prefix the supplied message key" in {
         disable(TailoredContent)
-        implicit val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-        ViewUtils.tailorMsg("key") mustBe "key"
+        val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+        ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "key"
       }
 
       "If the user is of type Hirer, DO NOT prefix the supplied message key" in {
         disable(TailoredContent)
-        implicit val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-        ViewUtils.tailorMsg("key") mustBe "key"
+        val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+        ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "key"
       }
 
       "If the user is of type Agency, DO NOT prefix the supplied message key" in {
         disable(TailoredContent)
-        implicit val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-        ViewUtils.tailorMsg("key") mustBe "key"
+        val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+        ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "key"
       }
 
       "If the user is unknown, DO NOT prefix the supplied message key" in {
@@ -54,18 +54,18 @@ class ViewUtilsSpec extends ViewSpecBase {
     "if the TailoredContent is enabled" should {
 
       "If the user is of type Worker, prefix the supplied message key" in {
-        implicit val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-        ViewUtils.tailorMsg("key") mustBe "worker.key"
+        val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+        ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "worker.key"
       }
 
       "If the user is of type Hirer, prefix the supplied message key" in {
-        implicit val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-        ViewUtils.tailorMsg("key") mustBe "hirer.key"
+        val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+        ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "hirer.key"
       }
 
       "If the user is of type Agency, do not prefix the supplied message key" in {
-        implicit val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-        ViewUtils.tailorMsg("key") mustBe "key"
+        val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+        ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "key"
       }
 
       "If the user is unknown, do not prefix the supplied message key" in {

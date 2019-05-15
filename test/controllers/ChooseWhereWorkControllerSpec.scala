@@ -24,7 +24,7 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.ChooseWhereWorkFormProvider
-import models.ChooseWhereWork.Workerchooses
+import models.ChooseWhereWork.WorkerChooses
 import models._
 import org.mockito.Matchers
 import org.mockito.Matchers.any
@@ -84,7 +84,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, Workerchooses)
+      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("chooseWhereWork.title")))

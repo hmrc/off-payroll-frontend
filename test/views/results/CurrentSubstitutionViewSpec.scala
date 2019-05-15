@@ -41,9 +41,9 @@ class CurrentSubstitutionViewSpec extends ViewBehaviours {
 
   val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
 
-  def createView = () => view(frontendAppConfig, answers, version, form, postAction)(fakeRequest, messages)
+  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
-  def createPrintView = () => view(frontendAppConfig, answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages)
+  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
 
   "ResultPage view" must {
     behave like normalPage(createView, messageKeyPrefix)
