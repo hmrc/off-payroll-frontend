@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.bootstrap.config.{RunMode, ServicesConfig}
 class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig: ServicesConfig, runMode: RunMode) {
 
   private lazy val contactHost = servicesConfig.getString("contact-frontend.host")
-  private val contactFormServiceIdentifier = "offpayrollfrontend"
+  private val contactFormServiceIdentifier = "off-payroll"
 
   lazy val analyticsToken = servicesConfig.getString(s"google-analytics.token")
   lazy val analyticsHost = servicesConfig.getString(s"google-analytics.host")
