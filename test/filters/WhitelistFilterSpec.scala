@@ -16,200 +16,70 @@
 
 package filters
 
-import akka.stream.Materializer
-import com.typesafe.config.ConfigException
-import generators.Generators
-import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.Gen
-import org.scalatestplus.mockito.MockitoSugar
-import org.scalatest.{FreeSpec, MustMatchers}
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.Configuration
-import play.api.mvc.Call
+import base.SpecBase
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.Results.Ok
+import play.api.mvc._
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import play.api.{Application, Configuration}
 
-class WhitelistFilterSpec extends FreeSpec with MustMatchers with ScalaCheckPropertyChecks with MockitoSugar with Generators {
+import scala.concurrent.{ExecutionContext, Future}
 
-  val mockMaterializer = mock[Materializer]
+class WhitelistFilterSpec extends SpecBase {
 
-  val otherConfigGen = Gen.mapOf[String, String](
-    for {
-      key   <- Gen.alphaNumStr suchThat (_.nonEmpty)
-      value <- arbitrary[String]
-    } yield (key, value)
-  )
-
-  "the list of whitelisted IP addresses" - {
-
-    "must throw an exception" - {
-
-      "when the underlying config value is not there" in {
-
-        forAll(otherConfigGen, arbitrary[String], arbitrary[String]) {
-          (otherConfig, destination, excluded) =>
-
-            whenever(!otherConfig.contains("filters.whitelist.ips")) {
-
-              val config = Configuration(
-                (otherConfig +
-                  ("filters.whitelist.destination" -> destination) +
-                  ("filters.whitelist.excluded"    -> excluded)
-                ).toSeq: _*
-              )
-
-              assertThrows[ConfigException] {
-                new WhitelistFilter(config, mockMaterializer)
-              }
-            }
-        }
-      }
-    }
-
-    "must be empty" - {
-
-      "when the underlying config value is empty" in {
-
-        forAll(otherConfigGen, arbitrary[String], arbitrary[String]) {
-          (otherConfig, destination, excluded) =>
-
-            val config = Configuration(
-              (otherConfig +
-                ("filters.whitelist.destination" -> destination) +
-                ("filters.whitelist.excluded"    -> excluded) +
-                ("filters.whitelist.ips"         -> "")
-              ).toSeq: _*
-            )
-
-            val whitelistFilter = new WhitelistFilter(config, mockMaterializer)
-
-            whitelistFilter.whitelist mustBe empty
-          }
-      }
-    }
-
-    "must contain all of the values" - {
-
-      "when given a comma-separated list of values" in {
-
-        val gen = Gen.nonEmptyListOf(Gen.alphaNumStr suchThat (_.nonEmpty))
-
-        forAll(gen, otherConfigGen, arbitrary[String], arbitrary[String]) {
-          (ips, otherConfig, destination, excluded) =>
-
-            val ipString = ips.mkString(",")
-
-            val config = Configuration(
-              (otherConfig +
-                ("filters.whitelist.destination" -> destination) +
-                ("filters.whitelist.excluded"    -> excluded) +
-                ("filters.whitelist.ips"         -> ipString)
-              ).toSeq: _*
-            )
-
-            val whitelistFilter = new WhitelistFilter(config, mockMaterializer)
-
-            whitelistFilter.whitelist must contain theSameElementsAs ips
-        }
-      }
-    }
+  object TestAction extends ActionBuilder[Request, AnyContent] {
+    override implicit protected def executionContext: ExecutionContext = messagesControllerComponents.executionContext
+    override def parser: BodyParser[AnyContent] = messagesControllerComponents.parsers.defaultBodyParser
+    override def invokeBlock[A](request: Request[A], block: Request[A] => Future[Result]): Future[Result] = block(request)
   }
 
-  "the destination for non-whitelisted visitors" - {
+  override implicit lazy val app: Application =
+    new GuiceApplicationBuilder()
+      .configure(Configuration(
+        "whitelist.enabled" -> true
+      ))
+      .routes({
+        case ("GET", "/hello-world") => TestAction(Ok("success"))
+        case _ => TestAction(Ok("err"))
+      })
+      .build()
 
-    "must throw an exception" - {
+  "WhitelistFilter" when {
 
-      "when the underlying config value is not there" in {
+    "supplied with a non-whitelisted IP" should {
 
-        forAll(otherConfigGen, arbitrary[String], arbitrary[String]) {
-          (otherConfig, destination, excluded) =>
+      lazy val fakeRequest = FakeRequest("GET", "/hello-world").withHeaders(
+        "True-Client-IP" -> "127.0.0.2"
+      )
 
-            whenever(!otherConfig.contains("filters.whitelist.destination")) {
+      Call(fakeRequest.method, fakeRequest.uri)
 
-              val config = Configuration(
-                (otherConfig +
-                  ("filters.whitelist.ips"      -> destination) +
-                  ("filters.whitelist.excluded" -> excluded)
-                  ).toSeq: _*
-              )
+      lazy val Some(result) = route(app, fakeRequest)
 
-              assertThrows[ConfigException] {
-                new WhitelistFilter(config, mockMaterializer)
-              }
-            }
-        }
+      "return status of 303" in {
+        status(result) mustBe 303
+      }
+
+      "redirect to shutter page" in {
+        redirectLocation(result) mustBe Some(frontendAppConfig.shutterPage)
       }
     }
 
-    "must return a Call to the destination" in {
+    "supplied with a whitelisted IP" should {
 
-      forAll(otherConfigGen, arbitrary[String], arbitrary[String], arbitrary[String]) {
-        (otherConfig, ips, destination, excluded) =>
+      lazy val fakeRequest = FakeRequest("GET", "/hello-world").withHeaders(
+        "True-Client-IP" -> "127.0.0.1"
+      )
 
-          val config = Configuration(
-            (otherConfig +
-              ("filters.whitelist.ips"         -> destination) +
-              ("filters.whitelist.excluded"    -> excluded) +
-              ("filters.whitelist.destination" -> destination)
-              ).toSeq: _*
-          )
+      lazy val Some(result) = route(app, fakeRequest)
 
-          val whitelistFilter = new WhitelistFilter(config, mockMaterializer)
-
-          whitelistFilter.destination mustEqual Call("GET", destination)
+      "return status of 200" in {
+        status(result) mustBe 200
       }
-    }
-  }
 
-  "the list of excluded paths" - {
-
-    "must throw an exception" - {
-
-      "when the underlying config value is not there" in {
-
-        forAll(otherConfigGen, arbitrary[String], arbitrary[String]) {
-          (otherConfig, destination, excluded) =>
-
-            whenever(!otherConfig.contains("filters.whitelist.excluded")) {
-
-              val config = Configuration(
-                (otherConfig +
-                  ("filters.whitelist.destination" -> destination) +
-                  ("filters.whitelist.ips"    -> excluded)
-                  ).toSeq: _*
-              )
-
-              assertThrows[ConfigException] {
-                new WhitelistFilter(config, mockMaterializer)
-              }
-            }
-        }
-      }
-    }
-
-    "must return Calls to all of the values" - {
-
-      "when given a comma-separated list of values" in {
-
-        val gen = Gen.nonEmptyListOf(Gen.alphaNumStr suchThat (_.nonEmpty))
-
-        forAll(gen, otherConfigGen, arbitrary[String], arbitrary[String]) {
-          (excludedPaths, otherConfig, destination, ips) =>
-
-            val excludedPathString = excludedPaths.mkString(",")
-
-            val config = Configuration(
-              (otherConfig +
-                ("filters.whitelist.destination" -> destination) +
-                ("filters.whitelist.excluded"    -> excludedPathString) +
-                ("filters.whitelist.ips"         -> ips)
-                ).toSeq: _*
-            )
-
-            val expectedCalls = excludedPaths.map(Call("GET", _))
-
-            val whitelistFilter = new WhitelistFilter(config, mockMaterializer)
-
-            whitelistFilter.excludedPaths must contain theSameElementsAs expectedCalls
-        }
+      "return success" in {
+        contentAsString(result) mustBe "success"
       }
     }
   }
