@@ -42,7 +42,7 @@ class FeatureSwitchController @Inject()(controllerComponents: MessagesController
     )
 
   def show: Action[AnyContent] = Action { implicit req =>
-    val featureSwitches = ListMap(switches.toSeq sortBy(_.displayText) map (switch => switch -> isEnabled(switch)):_*)
+    val featureSwitches = ListMap(switches map (switch => switch -> isEnabled(switch)):_*)
     Ok(view(featureSwitches))
   }
 
