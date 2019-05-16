@@ -24,15 +24,15 @@ import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
-import views.html.results.FutureSubstitutionView
+import views.html.results.SelfEmployedView
 
-class FutureSubstitutionView extends ResultViewFixture {
+class SelfEmployedViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.futureSubstitution"
+  val messageKeyPrefix = "result.selfEmployed"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[FutureSubstitutionView]
+  val view = injector.instanceOf[SelfEmployedView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -80,4 +80,5 @@ class FutureSubstitutionView extends ResultViewFixture {
     }
 
   }
+
 }

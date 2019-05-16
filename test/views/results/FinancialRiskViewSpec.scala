@@ -24,15 +24,15 @@ import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
-import views.html.results.EmployedView
+import views.html.results.FinancialRiskView
 
-class EmployedView extends ResultViewFixture {
+class FinancialRiskViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.employed"
+  val messageKeyPrefix = "result.financialRisk"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[EmployedView]
+  val view = injector.instanceOf[FinancialRiskView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -80,5 +80,4 @@ class EmployedView extends ResultViewFixture {
     }
 
   }
-
 }

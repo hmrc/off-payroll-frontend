@@ -24,15 +24,15 @@ import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
-import views.html.results.SelfEmployedView
+import views.html.results.InsideIR35View
 
-class SelfEmployedView extends ResultViewFixture {
+class InsideIR35ViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.selfEmployed"
+  val messageKeyPrefix = "result.insideIR35"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[SelfEmployedView]
+  val view = injector.instanceOf[InsideIR35View]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -80,5 +80,4 @@ class SelfEmployedView extends ResultViewFixture {
     }
 
   }
-
 }

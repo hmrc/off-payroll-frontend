@@ -26,7 +26,7 @@ import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
 import views.html.results.CurrentSubstitutionView
 
-class CurrentSubstitutionView extends ResultViewFixture {
+class CurrentSubstitutionViewSpec extends ResultViewFixture {
 
   val messageKeyPrefix = "result.currentSubstitution"
 

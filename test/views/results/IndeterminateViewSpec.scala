@@ -16,28 +16,29 @@
 
 package views.results
 
+import akka.http.scaladsl.model.HttpMethods
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
+import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
-import play.api.mvc.Request
-import play.twirl.api.Html
-import views.html.AboutYouView
-import views.html.results.OfficeHolderInsideIR35View
+import play.api.mvc.{Call, Request}
+import views.behaviours.ViewBehaviours
+import views.html.results.IndeterminateView
 
-class OfficeHolderInsideIR35View extends ResultViewFixture {
+class IndeterminateViewSpec extends ResultViewFixture {
 
-  val view = injector.instanceOf[OfficeHolderInsideIR35View]
-
-  val messageKeyPrefix = "result.officeHolderInsideIR35"
+  val messageKeyPrefix = "result.indeterminate"
 
   val form = new DeclarationFormProvider()()
 
-  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages,frontendAppConfig)
+  val view = injector.instanceOf[IndeterminateView]
+
+  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
+
+  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
-
-  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages,frontendAppConfig)
 
   "ResultPrintPage view" must {
     behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)

@@ -24,15 +24,15 @@ import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
-import views.html.results.InsideIR35View
+import views.html.results.FutureSubstitutionView
 
-class InsideIR35View extends ResultViewFixture {
+class FutureSubstitutionViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.insideIR35"
+  val messageKeyPrefix = "result.futureSubstitution"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[InsideIR35View]
+  val view = injector.instanceOf[FutureSubstitutionView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 

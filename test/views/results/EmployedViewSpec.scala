@@ -24,15 +24,15 @@ import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
-import views.html.results.OfficeHolderEmployedView
+import views.html.results.EmployedView
 
-class OfficeHolderEmployedView extends ResultViewFixture {
+class EmployedViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.officeHolderEmployed"
+  val messageKeyPrefix = "result.employed"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[OfficeHolderEmployedView]
+  val view = injector.instanceOf[EmployedView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -80,4 +80,5 @@ class OfficeHolderEmployedView extends ResultViewFixture {
     }
 
   }
+
 }
