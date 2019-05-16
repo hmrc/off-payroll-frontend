@@ -84,6 +84,16 @@ aboutYou.endClient = The end client
 aboutYou.placingAgency = The agency paying the worker
 aboutYou.none = None of the above
 
+whichDescribesYou.title = Which of these describes you best?
+whichDescribesYou.heading = Which of these describes you best?
+whichDescribesYou.subheading = Section 1: Who, what, when
+whichDescribesYou.checkYourAnswersLabel = Which of these describes you best?
+whichDescribesYou.worker.one = I want to find out if I am employed/self-employed
+whichDescribesYou.client.one = I want to find out if I need to apply PAYE to someone who is working for me
+whichDescribesYou.worker.two = I want to find out if a contract I’m working on, or could be working on, falls within IR35
+whichDescribesYou.client.two = I want to find out if a contract my organisation is recruiting for falls within IR35
+whichDescribesYou.agency = I want to find out if a contract I’m recruiting for, on behalf of another organisation, falls within IR35
+
 aboutYou.error.required = You need to select an answer
 aboutYou.error.invalid = You need to select an answer
 
