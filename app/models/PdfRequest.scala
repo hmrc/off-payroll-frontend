@@ -27,7 +27,12 @@ object PdfRequest {
 
   private implicit val writesHtml: Writes[Html] = Writes { html => JsString(removeScriptTags(html)) }
 
-  implicit val writes: Writes[PdfRequest] = Json.writes[PdfRequest]
+  implicit val writes: Writes[PdfRequest] = Writes { model =>
+    Json.obj(
+      "html" -> model.html,
+      "force-pdfa" -> "false"
+    )
+  }
 }
 
 
