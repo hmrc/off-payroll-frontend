@@ -24,15 +24,15 @@ import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
-import views.html.results.CurrentSubstitutionView
+import views.html.results.FinancialRiskView
 
-class CurrentSubstitutionResultView extends ResultViewFixture {
+class FinancialRiskView extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.currentSubstitution"
+  val messageKeyPrefix = "result.financialRisk"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[CurrentSubstitutionView]
+  val view = injector.instanceOf[FinancialRiskView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -40,14 +40,14 @@ class CurrentSubstitutionResultView extends ResultViewFixture {
 
   def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
-  "ResultPage view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-
-    behave like pageWithBackLink(createView)
-  }
-
   "ResultPrintPage view" must {
     behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
+  }
+
+  "ResultPage view" must {
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+
+    behave like pageWithBackLink(createView)
   }
 
   "The result page" should {

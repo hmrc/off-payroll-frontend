@@ -46,7 +46,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
 
   "NeededToPayHelper view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -58,7 +58,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe NeededToPayHelperMessages.Worker.title
+        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(NeededToPayHelperMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -88,7 +88,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe NeededToPayHelperMessages.Hirer.title
+        document.title mustBe title(NeededToPayHelperMessages.Hirer.title, Some(NeededToPayHelperMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -118,7 +118,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe NeededToPayHelperMessages.NonTailored.title
+        document.title mustBe title(NeededToPayHelperMessages.NonTailored.title, Some(NeededToPayHelperMessages.subheading))
       }
 
       "have the correct heading" in {

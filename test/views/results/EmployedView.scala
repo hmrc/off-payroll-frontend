@@ -26,7 +26,7 @@ import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
 import views.html.results.EmployedView
 
-class EmployedResultView extends ResultViewFixture {
+class EmployedView extends ResultViewFixture {
 
   val messageKeyPrefix = "result.employed"
 
@@ -45,7 +45,7 @@ class EmployedResultView extends ResultViewFixture {
   }
 
   "ResultPage view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
   }

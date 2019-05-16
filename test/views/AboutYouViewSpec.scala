@@ -37,7 +37,7 @@ class AboutYouViewSpec extends QuestionViewBehaviours[AboutYouAnswer] {
 
   "AboutYou view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 

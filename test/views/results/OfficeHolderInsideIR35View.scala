@@ -25,7 +25,7 @@ import play.twirl.api.Html
 import views.html.AboutYouView
 import views.html.results.OfficeHolderInsideIR35View
 
-class OfficeHolderInsideIR35ResultView extends ResultViewFixture {
+class OfficeHolderInsideIR35View extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderInsideIR35View]
 
@@ -44,7 +44,7 @@ class OfficeHolderInsideIR35ResultView extends ResultViewFixture {
   }
 
   "ResultPage view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
   }

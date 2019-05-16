@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"${errorPrefix(form)} ${messages(tailorMsg("cannotClaimAsExpense.title"))}",
+    title = title(form, tailorMsg("cannotClaimAsExpense.title"), Some(tailorMsg("cannotClaimAsExpense.subheading"))),
     appConfig = appConfig,
     bodyClasses = None,
     js = Some("cannot-claim-as-expense.js")) {

@@ -22,7 +22,7 @@ object FeatureSwitch {
 
   val prefix = "feature-switch"
 
-  val switches: Set[FeatureSwitch] = Set(PrintPDF, TailoredContent, WelshLanguage)
+  val switches: Seq[FeatureSwitch] = Seq(OptimisedFlow, TailoredContent, PrintPDF, WelshLanguage)
 
   def apply(str: String): FeatureSwitch =
     switches find (_.name == str) match {
@@ -52,4 +52,9 @@ case object TailoredContent extends FeatureSwitch {
 case object WelshLanguage extends FeatureSwitch {
   override val name: String = s"$prefix.welsh-translation"
   override val displayText: String = "Enable welsh translation"
+}
+
+case object OptimisedFlow extends FeatureSwitch {
+  override val name: String = s"$prefix.optimisedFlow"
+  override val displayText: String = "Enable the new Optimised Flow (♫ A whole new flow ♪)"
 }

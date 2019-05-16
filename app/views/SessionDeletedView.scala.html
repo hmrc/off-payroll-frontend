@@ -17,13 +17,14 @@
 @import config.FrontendAppConfig
 @import models.Mode
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import views.ViewUtils._
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
 @(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = messages("session.deleted.title"),
+    title = titleNoForm("session.deleted.title"),
     appConfig = appConfig,
     bodyClasses = None,
     showSignout = false) {

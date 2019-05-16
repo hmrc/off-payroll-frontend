@@ -45,7 +45,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "MoveWorker view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -55,7 +55,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe MoveWorkerMessages.Worker.title
+        document.title mustBe title(MoveWorkerMessages.Worker.title, Some(MoveWorkerMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -83,7 +83,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe MoveWorkerMessages.Hirer.title
+        document.title mustBe title(MoveWorkerMessages.Hirer.title, Some(MoveWorkerMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -111,7 +111,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe MoveWorkerMessages.NonTailored.title
+        document.title mustBe title(MoveWorkerMessages.NonTailored.title, Some(MoveWorkerMessages.subheading))
       }
 
       "have the correct heading" in {

@@ -24,15 +24,15 @@ import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
-import views.html.results.OfficeHolderEmployedView
+import views.html.results.IndeterminateView
 
-class OfficeHolderEmployedResultView extends ResultViewFixture {
+class IndeterminateView extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.officeHolderEmployed"
+  val messageKeyPrefix = "result.indeterminate"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[OfficeHolderEmployedView]
+  val view = injector.instanceOf[IndeterminateView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -45,7 +45,7 @@ class OfficeHolderEmployedResultView extends ResultViewFixture {
   }
 
   "ResultPage view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
   }

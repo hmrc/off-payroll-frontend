@@ -15,13 +15,14 @@
  *@
 
 @import config.FrontendAppConfig
+@import views.ViewUtils._
 
 @this(mainTemplate: templates.MainTemplate)
 
 @(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = messages("unauthorised.title"),
+    title = titleNoForm("unauthorised.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 

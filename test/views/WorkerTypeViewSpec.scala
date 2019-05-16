@@ -44,7 +44,7 @@ class WorkerTypeViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "WorkerType view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -54,7 +54,7 @@ class WorkerTypeViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe HowProvideServicesMessages.Worker.title
+        document.title mustBe title(HowProvideServicesMessages.Worker.title, Some(HowProvideServicesMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class WorkerTypeViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe HowProvideServicesMessages.Hirer.title
+        document.title mustBe title(HowProvideServicesMessages.Hirer.title, Some(HowProvideServicesMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -104,7 +104,7 @@ class WorkerTypeViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe HowProvideServicesMessages.NonTailored.title
+        document.title mustBe title(HowProvideServicesMessages.NonTailored.title, Some(HowProvideServicesMessages.subheading))
       }
 
       "have the correct heading" in {

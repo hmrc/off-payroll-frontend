@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import views.ViewUtils._
 @import play.mvc.Http.Status.NOT_FOUND
 
 
@@ -37,4 +38,4 @@
    }
 }
 
-@govukWrapper(appConfig = appConfig, title = messages(pageTitle), contentHeader = Some(contentHeader), mainBody = mainContent)
+@govukWrapper(appConfig = appConfig, title = titleNoForm(pageTitle), contentHeader = Some(contentHeader), mainBody = mainContent)

@@ -45,7 +45,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
 
   "LineManagerDuties view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -55,7 +55,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe LineManagerDutiesMessages.Worker.title
+        document.title mustBe title(LineManagerDutiesMessages.Worker.title, Some(LineManagerDutiesMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -80,7 +80,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe LineManagerDutiesMessages.Hirer.title
+        document.title mustBe title(LineManagerDutiesMessages.Hirer.title, Some(LineManagerDutiesMessages.subheading))
       }
 
       "have the correct heading" in {
@@ -105,7 +105,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe LineManagerDutiesMessages.NonTailored.title
+        document.title mustBe title(LineManagerDutiesMessages.NonTailored.title, Some(LineManagerDutiesMessages.subheading))
       }
 
       "have the correct heading" in {
