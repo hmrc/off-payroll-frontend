@@ -5,11 +5,11 @@ echo "Applying migration DidPaySubstitute"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /didPaySubstitute                        controllers.DidPaySubstituteController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /didPaySubstitute                        controllers.DidPaySubstituteController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /didPaySubstitute                        controllers.sections.personalService.DidPaySubstituteController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /didPaySubstitute                        controllers.sections.personalService.DidPaySubstituteController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeDidPaySubstitute                  controllers.DidPaySubstituteController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeDidPaySubstitute                  controllers.DidPaySubstituteController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeDidPaySubstitute                  controllers.sections.personalService.DidPaySubstituteController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeDidPaySubstitute                  controllers.sections.personalService.DidPaySubstituteController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

@@ -5,11 +5,11 @@ echo "Applying migration WorkerType"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /workerType               controllers.WorkerTypeController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /workerType               controllers.WorkerTypeController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /workerType               controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /workerType               controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeWorkerType                  controllers.WorkerTypeController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeWorkerType                  controllers.WorkerTypeController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeWorkerType                  controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeWorkerType                  controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en
