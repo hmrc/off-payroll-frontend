@@ -16,34 +16,28 @@
 
 package views.results
 
-import akka.http.scaladsl.model.HttpMethods
+import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.{AdditionalPdfDetails, Timestamp}
-import play.api.mvc.Call
-import views.behaviours.ViewBehaviours
+import models.AboutYouAnswer.Worker
+import play.api.libs.json.Json
+import play.api.mvc.Request
+import play.twirl.api.Html
+import views.html.AboutYouView
 import views.html.results.OfficeHolderInsideIR35View
 
-class OfficeHolderInsideIR35ViewSpec extends ViewBehaviours {
+class OfficeHolderInsideIR35ViewSpec extends ResultViewFixture {
+
+  val view = injector.instanceOf[OfficeHolderInsideIR35View]
 
   val messageKeyPrefix = "result.officeHolderInsideIR35"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[OfficeHolderInsideIR35View]
+  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages,frontendAppConfig)
 
-  val postAction = Call(HttpMethods.POST.value, "/")
+  def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
-  val answers = Seq()
-
-  val version = "1.0"
-
-  val timestamp = Timestamp.timestamp
-
-  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
-
-  val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
-
-  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages,frontendAppConfig)
 
   "ResultPrintPage view" must {
     behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
@@ -53,5 +47,36 @@ class OfficeHolderInsideIR35ViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
+  }
+
+  "The result page" should {
+
+    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+    lazy val document = asDocument(createViewWithRequest(request))
+
+    "include the 'what describes you best' question'" in {
+      document.toString must include("Which of these describes you best?")
+    }
+
+    "include the 'what describes you best' answer'" in {
+      document.toString must include("The worker")
+    }
+
+    "include the 'contract started' question'" in {
+      document.toString must include("Has the worker already started this particular engagement for the end client?")
+    }
+
+    "include the 'worker provides' question'" in {
+      document.toString must include("What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?")
+    }
+
+    "include the 'worker provides' answer'" in {
+      document.toString must include("Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)")
+    }
+
+    "include the 'office duty' question'" in {
+      document.toString must include("Will the worker (or their business) perform office holder duties for the end client as part of this engagement?")
+    }
+
   }
 }

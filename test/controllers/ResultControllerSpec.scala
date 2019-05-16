@@ -20,16 +20,19 @@ import config.SessionKeys
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
-import models.{AboutYouAnswer, NormalMode, ResultEnum}
+import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import services.DecisionService
-import viewmodels.AnswerSection
+import viewmodels.{AnswerRow, AnswerSection}
 import views.html.results.{IndeterminateView, _}
 import org.mockito.Mockito.when
 import org.mockito.Matchers.any
+import play.api.libs.json.Json
+import play.api.test.FakeRequest
 import play.twirl.api.Html
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -103,6 +106,7 @@ class ResultControllerSpec extends ControllerSpecBase {
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
+
     "handle errors" in {
 
       val postRequest = fakeRequest

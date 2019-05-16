@@ -17,14 +17,17 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
+import config.SessionKeys
 import forms.DeclarationFormProvider
+import models.AboutYouAnswer.Worker
 import models.{AdditionalPdfDetails, Timestamp}
 import pages.ResultPage
-import play.api.mvc.Call
+import play.api.libs.json.Json
+import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
 import views.html.results.ControlView
 
-class ControlViewSpec extends ViewBehaviours {
+class ControlViewSpec extends ResultViewFixture {
 
   val messageKeyPrefix = "result.control"
 
@@ -32,19 +35,11 @@ class ControlViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[ControlView]
 
-  val postAction = Call(HttpMethods.POST.value, "/")
-
-  val answers = Seq()
-
-  val version = "1.0"
-
-  val timestamp = Timestamp.timestamp
-
-  val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
-
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
   def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
   "result page" must {
 
@@ -61,5 +56,36 @@ class ControlViewSpec extends ViewBehaviours {
 
   "ResultPage print view" must {
     behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
+  }
+
+  "The result page" should {
+
+    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+    lazy val document = asDocument(createViewWithRequest(request))
+
+    "include the 'what describes you best' question'" in {
+      document.toString must include("Which of these describes you best?")
+    }
+
+    "include the 'what describes you best' answer'" in {
+      document.toString must include("The worker")
+    }
+
+    "include the 'contract started' question'" in {
+      document.toString must include("Has the worker already started this particular engagement for the end client?")
+    }
+
+    "include the 'worker provides' question'" in {
+      document.toString must include("What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?")
+    }
+
+    "include the 'worker provides' answer'" in {
+      document.toString must include("Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)")
+    }
+
+    "include the 'office duty' question'" in {
+      document.toString must include("Will the worker (or their business) perform office holder duties for the end client as part of this engagement?")
+    }
+
   }
 }
