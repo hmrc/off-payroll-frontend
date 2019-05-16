@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.sections.financialRisk
+package views.subOptimised.sections.financialRisk
 
 import assets.messages.CannotClaimAsExpenseMessages
 import config.SessionKeys
@@ -25,7 +25,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.sections.financialRisk.CannotClaimAsExpenseView
+import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
 class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
 

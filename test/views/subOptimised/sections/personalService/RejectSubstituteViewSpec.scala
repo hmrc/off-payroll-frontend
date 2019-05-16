@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.sections.personalService
+package views.subOptimised.sections.personalService
 
 import assets.messages.RejectSubstituteMessages
 import config.SessionKeys
@@ -26,7 +26,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.sections.personalService.RejectSubstituteView
+import views.html.subOptimised.sections.personalService.RejectSubstituteView
 
 class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 

@@ -29,7 +29,7 @@ import pages.IdentifyToStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.partParcel.IdentifyToStakeholdersView
+import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
 
 import scala.concurrent.Future
 

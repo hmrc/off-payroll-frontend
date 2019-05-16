@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.sections.setup
+package views.subOptimised.sections.setup
 
 import assets.messages.ContractStartedMessages
 import config.SessionKeys
@@ -26,7 +26,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.sections.setup.ContractStartedView
+import views.html.subOptimised.sections.setup.ContractStartedView
 
 class  ContractStartedViewSpec extends YesNoViewBehaviours {
 

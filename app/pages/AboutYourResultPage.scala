@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-package navigation
+package pages
 
-import config.FrontendAppConfig
-import play.api.mvc.Call
-import pages._
-import models.{Mode, NormalMode, UserAnswers}
-
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
+case object AboutYourResultPage extends Page {
+  override def toString: String = "aboutYourResult"
 }

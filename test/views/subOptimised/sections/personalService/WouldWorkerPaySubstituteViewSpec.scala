@@ -14,29 +14,29 @@
  * limitations under the License.
  */
 
-package views.sections.personalService
+package views.subOptimised.sections.personalService
 
-import assets.messages.DidPaySubstituteMessages
+import assets.messages.WouldPaySubstituteMessages
 import config.SessionKeys
 import controllers.sections.personalService.routes
-import forms.DidPaySubstituteFormProvider
+import forms.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.sections.personalService.DidPaySubstituteView
+import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
 
-class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
+class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "didPaySubstitute"
+  val messageKeyPrefix = "wouldWorkerPaySubstitute"
 
-  val form = new DidPaySubstituteFormProvider()()
+  val form = new WouldWorkerPaySubstituteFormProvider()()
 
-  val view = injector.instanceOf[DidPaySubstituteView]
+  val view = injector.instanceOf[WouldWorkerPaySubstituteView]
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
@@ -44,13 +44,13 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
-  "DidPaySubstitute view" must {
+  "WouldWorkerPaySubstitute view" must {
 
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.DidPaySubstituteController.onSubmit(NormalMode).url)
+    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.WouldWorkerPaySubstituteController.onSubmit(NormalMode).url)
 
     "If the user type is of Worker" should {
 
@@ -58,24 +58,24 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Worker.title, Some(DidPaySubstituteMessages.subheading))
+        document.title mustBe title(WouldPaySubstituteMessages.Worker.title, Some(WouldPaySubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Worker.heading
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Worker.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe DidPaySubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
       }
 
       "have the correct exclamation (warning)" in {
-        document.select(Selectors.exclamation).text mustBe DidPaySubstituteMessages.Worker.exclamation
+        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Worker.exclamation
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe DidPaySubstituteMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe DidPaySubstituteMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
       }
     }
 
@@ -85,24 +85,24 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Hirer.title, Some(DidPaySubstituteMessages.subheading))
+        document.title mustBe title(WouldPaySubstituteMessages.Hirer.title, Some(WouldPaySubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Hirer.heading
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Hirer.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe DidPaySubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
       }
 
       "have the correct exclamation (warning)" in {
-        document.select(Selectors.exclamation).text mustBe DidPaySubstituteMessages.Hirer.exclamation
+        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Hirer.exclamation
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe DidPaySubstituteMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe DidPaySubstituteMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
       }
     }
 
@@ -112,24 +112,24 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.NonTailored.title, Some(DidPaySubstituteMessages.subheading))
+        document.title mustBe title(WouldPaySubstituteMessages.NonTailored.title, Some(WouldPaySubstituteMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.NonTailored.heading
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.NonTailored.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe DidPaySubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
       }
 
       "have the correct exclamation (warning)" in {
-        document.select(Selectors.exclamation).text mustBe DidPaySubstituteMessages.NonTailored.exclamation
+        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.NonTailored.exclamation
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe DidPaySubstituteMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe DidPaySubstituteMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
       }
     }
   }

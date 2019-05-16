@@ -29,7 +29,7 @@ import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.control.MoveWorkerView
+import views.html.subOptimised.sections.control.MoveWorkerView
 
 class MoveWorkerControllerSpec extends ControllerSpecBase {
 

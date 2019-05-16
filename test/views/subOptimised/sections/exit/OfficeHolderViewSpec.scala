@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.sections.exit
+package views.subOptimised.sections.exit
 
 import assets.messages.OfficeHolderMessages
 import config.SessionKeys
@@ -26,7 +26,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.sections.exit.OfficeHolderView
+import views.html.subOptimised.sections.exit.OfficeHolderView
 
 class OfficeHolderViewSpec extends YesNoViewBehaviours {
 

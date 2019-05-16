@@ -29,7 +29,7 @@ import pages.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import views.html.sections.setup.ContractStartedView
+import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
 

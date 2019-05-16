@@ -16,6 +16,8 @@
 
 package navigation
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
@@ -30,14 +32,19 @@ import pages._
 import models._
 
 @Singleton
-class Navigator @Inject()() {
+class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends FeatureSwitching {
 
   private val routeMap: Map[Page, UserAnswers => Call] = Map(
 
     //Initialisation Section
-    IndexPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
+    IndexPage -> (_ => if (isEnabled(OptimisedFlow)) {
+      setupRoutes.AboutYourResultController.onPageLoad()
+    } else {
+      setupRoutes.AboutYouController.onPageLoad(NormalMode)
+    }),
 
     //Setup Section
+    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
     AboutYouPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     ContractStartedPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
     WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode)),

@@ -30,7 +30,7 @@ import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
 import utils.SessionUtils._
-import views.html.sections.setup.AboutYouView
+import views.html.subOptimised.sections.setup.AboutYouView
 
 import scala.concurrent.Future
 

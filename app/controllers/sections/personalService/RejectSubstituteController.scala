@@ -29,7 +29,7 @@ import pages.RejectSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import views.html.sections.personalService.RejectSubstituteView
+import views.html.subOptimised.sections.personalService.RejectSubstituteView
 
 import scala.concurrent.Future
 

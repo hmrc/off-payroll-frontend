@@ -14,6 +14,9 @@ POST       /service-reset                               controllers.errors.Sessi
 
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 
+GET        /about-your-result                           controllers.sections.setup.AboutYourResultController.onPageLoad
+POST       /about-your-result                           controllers.sections.setup.AboutYourResultController.onSubmit
+
 GET        /about-you                                   controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = NormalMode)
 POST       /about-you                                   controllers.sections.setup.AboutYouController.onSubmit(mode: Mode = NormalMode)
 GET        /about-you/edit                              controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = CheckMode)

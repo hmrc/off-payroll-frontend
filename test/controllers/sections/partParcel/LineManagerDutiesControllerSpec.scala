@@ -33,7 +33,7 @@ import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.partParcel.LineManagerDutiesView
+import views.html.subOptimised.sections.partParcel.LineManagerDutiesView
 
 import scala.concurrent.Future
 

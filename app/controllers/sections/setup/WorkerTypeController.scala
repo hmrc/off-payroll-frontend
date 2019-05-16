@@ -29,7 +29,7 @@ import pages.WorkerTypePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.setup.WorkerTypeView
+import views.html.subOptimised.sections.setup.WorkerTypeView
 
 import scala.concurrent.Future
 

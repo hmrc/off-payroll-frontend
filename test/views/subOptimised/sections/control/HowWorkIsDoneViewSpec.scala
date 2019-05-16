@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package views.sections.financialRisk
+package views.subOptimised.sections.control
 
-import assets.messages.HowWorkerIsPaidMessages
+import assets.messages.HowWorkIsDoneMessages
 import config.SessionKeys
-import forms.HowWorkerIsPaidFormProvider
-import models.{HowWorkerIsPaid, NormalMode}
+import forms.HowWorkIsDoneFormProvider
+import models.{HowWorkIsDone, NormalMode}
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.sections.financialRisk.HowWorkerIsPaidView
+import views.html.subOptimised.sections.control.HowWorkIsDoneView
 
-class HowWorkerIsPaidViewSpec extends ViewBehaviours {
+class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "howWorkerIsPaid"
+  val messageKeyPrefix = "howWorkIsDone"
 
-  val form = new HowWorkerIsPaidFormProvider()()
+  val form = new HowWorkIsDoneFormProvider()()
 
-  val view = injector.instanceOf[HowWorkerIsPaidView]
+  val view = injector.instanceOf[HowWorkIsDoneView]
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
@@ -43,7 +43,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
-  "HowWorkerIsPaid view" must {
+  "HowWorkIsDone view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
@@ -54,24 +54,26 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.Worker.title, Some(HowWorkerIsPaidMessages.subheading))
-
+        document.title mustBe title(HowWorkIsDoneMessages.Worker.title, Some(HowWorkIsDoneMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe HowWorkerIsPaidMessages.Worker.heading
+        document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.Worker.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkerIsPaidMessages.subheading
+        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe HowWorkIsDoneMessages.Worker.hint
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe HowWorkerIsPaidMessages.Worker.salary
-        document.select(Selectors.multichoice(2)).text mustBe HowWorkerIsPaidMessages.Worker.fixed
-        document.select(Selectors.multichoice(3)).text mustBe HowWorkerIsPaidMessages.Worker.proRata
-        document.select(Selectors.multichoice(4)).text mustBe HowWorkerIsPaidMessages.Worker.commision
-        document.select(Selectors.multichoice(5)).text mustBe HowWorkerIsPaidMessages.Worker.profits
+        document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.Worker.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.Worker.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.Worker.noSkilledRole
+        document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.Worker.partly
       }
     }
 
@@ -81,23 +83,26 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.Hirer.title, Some(HowWorkerIsPaidMessages.subheading))
+        document.title mustBe title(HowWorkIsDoneMessages.Hirer.title, Some(HowWorkIsDoneMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe HowWorkerIsPaidMessages.Hirer.heading
+        document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.Hirer.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkerIsPaidMessages.subheading
+        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe HowWorkIsDoneMessages.Hirer.hint
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe HowWorkerIsPaidMessages.Hirer.salary
-        document.select(Selectors.multichoice(2)).text mustBe HowWorkerIsPaidMessages.Hirer.fixed
-        document.select(Selectors.multichoice(3)).text mustBe HowWorkerIsPaidMessages.Hirer.proRata
-        document.select(Selectors.multichoice(4)).text mustBe HowWorkerIsPaidMessages.Hirer.commision
-        document.select(Selectors.multichoice(5)).text mustBe HowWorkerIsPaidMessages.Hirer.profits
+        document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.Hirer.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.Hirer.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.Hirer.noSkilledRole
+        document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.Hirer.partly
       }
     }
 
@@ -107,44 +112,47 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.NonTailored.title, Some(HowWorkerIsPaidMessages.subheading))
+        document.title mustBe title(HowWorkIsDoneMessages.NonTailored.title, Some(HowWorkIsDoneMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe HowWorkerIsPaidMessages.NonTailored.heading
+        document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.NonTailored.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkerIsPaidMessages.subheading
+        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+      }
+
+      "have the correct hint paragraph" in {
+        document.select(Selectors.hint(1)).text mustBe HowWorkIsDoneMessages.NonTailored.hint
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe HowWorkerIsPaidMessages.NonTailored.salary
-        document.select(Selectors.multichoice(2)).text mustBe HowWorkerIsPaidMessages.NonTailored.fixed
-        document.select(Selectors.multichoice(3)).text mustBe HowWorkerIsPaidMessages.NonTailored.proRata
-        document.select(Selectors.multichoice(4)).text mustBe HowWorkerIsPaidMessages.NonTailored.commision
-        document.select(Selectors.multichoice(5)).text mustBe HowWorkerIsPaidMessages.NonTailored.profits
+        document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.NonTailored.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.NonTailored.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.NonTailored.noSkilledRole
+        document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.NonTailored.partly
       }
     }
   }
 
-  "HowWorkerIsPaid view" when {
+  "HowWorkIsDone view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- HowWorkerIsPaid.options) {
+        for (option <- HowWorkIsDone.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- HowWorkerIsPaid.options) {
+    for(option <- HowWorkIsDone.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- HowWorkerIsPaid.options.filterNot(o => o == option)) {
+          for(unselectedOption <- HowWorkIsDone.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

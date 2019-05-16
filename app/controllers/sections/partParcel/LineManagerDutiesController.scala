@@ -29,7 +29,7 @@ import pages.LineManagerDutiesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.partParcel.LineManagerDutiesView
+import views.html.subOptimised.sections.partParcel.LineManagerDutiesView
 
 import scala.concurrent.Future
 

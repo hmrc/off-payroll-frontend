@@ -29,7 +29,7 @@ import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.personalService.ArrangedSubstituteView
+import views.html.subOptimised.sections.personalService.ArrangedSubstituteView
 
 class ArrangedSubstituteControllerSpec extends ControllerSpecBase {
 

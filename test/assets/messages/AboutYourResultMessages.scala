@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package navigation
+package assets.messages
 
-import config.FrontendAppConfig
-import play.api.mvc.Call
-import pages._
-import models.{Mode, NormalMode, UserAnswers}
+object AboutYourResultMessages extends BaseMessages {
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
+  val heading = "About your result"
+  val title = heading
+  val p1 = "HMRC will stand by the result given, unless a compliance check finds the information you’ve provided isn’t accurate."
+  val p2 = "HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties."
+
 }

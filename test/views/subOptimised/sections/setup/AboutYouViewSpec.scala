@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package views.sections.setup
+package views.subOptimised.sections.setup
 
 import controllers.sections.setup.routes
 import forms.AboutYouFormProvider
 import models.{AboutYouAnswer, NormalMode}
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
-import views.html.sections.setup.AboutYouView
+import views.html.subOptimised.sections.setup.AboutYouView
 
 class AboutYouViewSpec extends QuestionViewBehaviours[AboutYouAnswer] {
 

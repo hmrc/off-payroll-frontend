@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.sections.partParcel
+package views.subOptimised.sections.partParcel
 
 import assets.messages.LineManagerDutiesMessages
 import config.SessionKeys
@@ -25,7 +25,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.sections.partParcel.LineManagerDutiesView
+import views.html.subOptimised.sections.partParcel.LineManagerDutiesView
 
 class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
 

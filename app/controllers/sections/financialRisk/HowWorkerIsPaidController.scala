@@ -29,7 +29,7 @@ import pages.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import views.html.sections.financialRisk.HowWorkerIsPaidView
+import views.html.subOptimised.sections.financialRisk.HowWorkerIsPaidView
 
 import scala.concurrent.Future
 

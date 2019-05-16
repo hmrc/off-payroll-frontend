@@ -29,7 +29,7 @@ import pages.OfficeHolderPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.exit.OfficeHolderView
+import views.html.subOptimised.sections.exit.OfficeHolderView
 
 import scala.concurrent.Future
 

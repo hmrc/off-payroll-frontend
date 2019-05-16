@@ -29,7 +29,7 @@ import pages.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.financialRisk.PutRightAtOwnCostView
+import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 
 import scala.concurrent.Future
 

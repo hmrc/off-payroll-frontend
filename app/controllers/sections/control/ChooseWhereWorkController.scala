@@ -29,7 +29,7 @@ import pages.ChooseWhereWorkPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.control.ChooseWhereWorkView
+import views.html.subOptimised.sections.control.ChooseWhereWorkView
 
 import scala.concurrent.Future
 

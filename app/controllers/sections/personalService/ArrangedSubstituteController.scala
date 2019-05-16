@@ -29,7 +29,7 @@ import pages.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import views.html.sections.personalService.ArrangedSubstituteView
+import views.html.subOptimised.sections.personalService.ArrangedSubstituteView
 
 import scala.concurrent.Future
 

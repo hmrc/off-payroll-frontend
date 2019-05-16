@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.sections.personalService
+package views.subOptimised.sections.personalService
 
 import assets.messages.ArrangedSubstituteMessages
 import config.SessionKeys
@@ -25,7 +25,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.sections.personalService.ArrangedSubstituteView
+import views.html.subOptimised.sections.personalService.ArrangedSubstituteView
 
 class ArrangedSubstituteViewSpec extends ViewBehaviours {
 

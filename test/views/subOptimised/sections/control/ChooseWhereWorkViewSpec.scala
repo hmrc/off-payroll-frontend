@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package views.sections.control
+package views.subOptimised.sections.control
 
-import assets.messages.ScheduleOfWorkingHoursMessages
+import assets.messages.ChooseWhereWorkMessages
 import config.SessionKeys
-import forms.ScheduleOfWorkingHoursFormProvider
-import models.{NormalMode, ScheduleOfWorkingHours}
+import forms.ChooseWhereWorkFormProvider
+import models.{ChooseWhereWork, NormalMode}
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.sections.control.ScheduleOfWorkingHoursView
+import views.html.subOptimised.sections.control.ChooseWhereWorkView
 
-class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
+class ChooseWhereWorkViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "scheduleOfWorkingHours"
+  val messageKeyPrefix = "chooseWhereWork"
 
-  val form = new ScheduleOfWorkingHoursFormProvider()()
+  val form = new ChooseWhereWorkFormProvider()()
 
-  val view = injector.instanceOf[ScheduleOfWorkingHoursView]
+  val view = injector.instanceOf[ChooseWhereWorkView]
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
@@ -43,7 +43,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
-  "ScheduleOfWorkingHours view" must {
+  "ChooseWhereWork view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
@@ -54,22 +54,22 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.Worker.title, Some(ScheduleOfWorkingHoursMessages.subheading))
+        document.title mustBe title(ChooseWhereWorkMessages.Worker.title, Some(ChooseWhereWorkMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ScheduleOfWorkingHoursMessages.Worker.heading
+        document.select(Selectors.heading).text mustBe ChooseWhereWorkMessages.Worker.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ScheduleOfWorkingHoursMessages.Worker.yesClientDecides
-        document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.Worker.noWorkerDecides
-        document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.Worker.partly
-        document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.Worker.notApplicable
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.Worker.yesWorkerDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.Worker.noClientDecides
+        document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.Worker.noTaskDeterminate
+        document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.Worker.partly
       }
     }
 
@@ -79,22 +79,22 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.Hirer.title, Some(ScheduleOfWorkingHoursMessages.subheading))
+        document.title mustBe title(ChooseWhereWorkMessages.Hirer.title, Some(ChooseWhereWorkMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ScheduleOfWorkingHoursMessages.Hirer.heading
+        document.select(Selectors.heading).text mustBe ChooseWhereWorkMessages.Hirer.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.yesClientDecides
-        document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.noWorkerDecides
-        document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.partly
-        document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.Hirer.notApplicable
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.Hirer.yesWorkerDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.Hirer.noClientDecides
+        document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.Hirer.noTaskDeterminate
+        document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.Hirer.partly
       }
     }
 
@@ -104,43 +104,43 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.NonTailored.title, Some(ScheduleOfWorkingHoursMessages.subheading))
+        document.title mustBe title(ChooseWhereWorkMessages.NonTailored.title, Some(ChooseWhereWorkMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.heading
+        document.select(Selectors.heading).text mustBe ChooseWhereWorkMessages.NonTailored.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.yesClientDecides
-        document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.noWorkerDecides
-        document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.partly
-        document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.NonTailored.notApplicable
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.NonTailored.yesWorkerDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.NonTailored.noClientDecides
+        document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.NonTailored.noTaskDeterminate
+        document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.NonTailored.partly
       }
     }
   }
 
-  "ScheduleOfWorkingHours view" when {
+  "ChooseWhereWork view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- ScheduleOfWorkingHours.options) {
+        for (option <- ChooseWhereWork.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- ScheduleOfWorkingHours.options) {
+    for(option <- ChooseWhereWork.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- ScheduleOfWorkingHours.options.filterNot(o => o == option)) {
+          for(unselectedOption <- ChooseWhereWork.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

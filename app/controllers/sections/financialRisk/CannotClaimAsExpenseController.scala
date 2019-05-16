@@ -28,7 +28,7 @@ import navigation.Navigator
 import pages.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.financialRisk.CannotClaimAsExpenseView
+import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
 import scala.concurrent.Future
 

@@ -926,6 +926,15 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 
 
 
+
+########## OPTIMISED FLOW MESSAGES START ############
+# --------------------------------------------------#
+
+##### TODO NEED WELSH FOR ####
+aboutYourResult.heading = About your result
+aboutYourResult.p1 = HMRC will stand by the result given, unless a compliance check finds the information you’ve provided isn’t accurate.
+aboutYourResult.p2 = HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.
+
 ##### TODO NEED WELSH FOR ####
 whichDescribesYou.title = Which of these describes you best?
 whichDescribesYou.heading = Which of these describes you best?

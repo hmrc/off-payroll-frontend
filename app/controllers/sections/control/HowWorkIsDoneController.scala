@@ -29,7 +29,7 @@ import pages.HowWorkIsDonePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import views.html.sections.control.HowWorkIsDoneView
+import views.html.subOptimised.sections.control.HowWorkIsDoneView
 
 import scala.concurrent.Future
 

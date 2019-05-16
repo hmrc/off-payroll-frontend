@@ -910,7 +910,13 @@ result.partParcel.summary=We ask these questions to find out how integrated the 
 
 
 
+########## OPTIMISED FLOW MESSAGES START ############
+# --------------------------------------------------#
 
+aboutYourResult.title = About your result
+aboutYourResult.heading = About your result
+aboutYourResult.p1 = HMRC will stand by the result given, unless a compliance check finds the information you’ve provided isn’t accurate.
+aboutYourResult.p2 = HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.
 
 whichDescribesYou.title = Which of these describes you best?
 whichDescribesYou.heading = Which of these describes you best?

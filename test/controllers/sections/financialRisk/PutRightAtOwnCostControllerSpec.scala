@@ -35,7 +35,7 @@ import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.financialRisk.PutRightAtOwnCostView
+import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 
 import scala.concurrent.Future
 

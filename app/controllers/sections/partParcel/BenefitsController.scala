@@ -29,7 +29,7 @@ import pages.BenefitsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.partParcel.BenefitsView
+import views.html.subOptimised.sections.partParcel.BenefitsView
 
 import scala.concurrent.Future
 

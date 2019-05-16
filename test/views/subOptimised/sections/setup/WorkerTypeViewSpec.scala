@@ -14,28 +14,28 @@
  * limitations under the License.
  */
 
-package views.sections.partParcel
+package views.subOptimised.sections.setup
 
-import assets.messages.IdentifyToStakeholdersMessages
+import assets.messages.HowProvideServicesMessages
 import config.SessionKeys
-import forms.IdentifyToStakeholdersFormProvider
+import forms.WorkerTypeFormProvider
 import models.UserType.{Agency, Hirer, Worker}
-import models.{IdentifyToStakeholders, NormalMode}
+import models.{NormalMode, WorkerType}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.sections.partParcel.IdentifyToStakeholdersView
+import views.html.subOptimised.sections.setup.WorkerTypeView
 
-class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
+class WorkerTypeViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "identifyToStakeholders"
+  val messageKeyPrefix = "workerType"
 
-  val form = new IdentifyToStakeholdersFormProvider()()
+  val form = new WorkerTypeFormProvider()()
 
-  val view = injector.instanceOf[IdentifyToStakeholdersView]
+  val view = injector.instanceOf[WorkerTypeView]
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
@@ -43,7 +43,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
-  "IdentifyToStakeholders view" must {
+  "WorkerType view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
@@ -54,21 +54,22 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.Worker.title, Some(IdentifyToStakeholdersMessages.subheading))
+        document.title mustBe title(HowProvideServicesMessages.Worker.title, Some(HowProvideServicesMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe IdentifyToStakeholdersMessages.Worker.heading
+        document.select(Selectors.heading).text mustBe HowProvideServicesMessages.Worker.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe HowProvideServicesMessages.subheading
       }
 
-      "have the correct hints" in {
-        document.select(Selectors.multichoice(1)).text mustBe IdentifyToStakeholdersMessages.Worker.workForEndClient
-        document.select(Selectors.multichoice(2)).text mustBe IdentifyToStakeholdersMessages.Worker.workAsIndependent
-        document.select(Selectors.multichoice(3)).text mustBe IdentifyToStakeholdersMessages.Worker.workAsBusiness
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowProvideServicesMessages.ltd
+        document.select(Selectors.multichoice(2)).text mustBe HowProvideServicesMessages.pship
+        document.select(Selectors.multichoice(3)).text mustBe HowProvideServicesMessages.thirdParty
+        document.select(Selectors.multichoice(4)).text mustBe HowProvideServicesMessages.soleTrader
       }
     }
 
@@ -78,21 +79,22 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.Hirer.title, Some(IdentifyToStakeholdersMessages.subheading))
+        document.title mustBe title(HowProvideServicesMessages.Hirer.title, Some(HowProvideServicesMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe IdentifyToStakeholdersMessages.Hirer.heading
+        document.select(Selectors.heading).text mustBe HowProvideServicesMessages.Hirer.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe HowProvideServicesMessages.subheading
       }
 
-      "have the correct hints" in {
-        document.select(Selectors.multichoice(1)).text mustBe IdentifyToStakeholdersMessages.Hirer.workForEndClient
-        document.select(Selectors.multichoice(2)).text mustBe IdentifyToStakeholdersMessages.Hirer.workAsIndependent
-        document.select(Selectors.multichoice(3)).text mustBe IdentifyToStakeholdersMessages.Hirer.workAsBusiness
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowProvideServicesMessages.ltd
+        document.select(Selectors.multichoice(2)).text mustBe HowProvideServicesMessages.pship
+        document.select(Selectors.multichoice(3)).text mustBe HowProvideServicesMessages.thirdParty
+        document.select(Selectors.multichoice(4)).text mustBe HowProvideServicesMessages.soleTrader
       }
     }
 
@@ -102,42 +104,43 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.NonTailored.title, Some(IdentifyToStakeholdersMessages.subheading))
+        document.title mustBe title(HowProvideServicesMessages.NonTailored.title, Some(HowProvideServicesMessages.subheading))
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe IdentifyToStakeholdersMessages.NonTailored.heading
+        document.select(Selectors.heading).text mustBe HowProvideServicesMessages.NonTailored.heading
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe HowProvideServicesMessages.subheading
       }
 
-      "have the correct hints" in {
-        document.select(Selectors.multichoice(1)).text mustBe IdentifyToStakeholdersMessages.NonTailored.workForEndClient
-        document.select(Selectors.multichoice(2)).text mustBe IdentifyToStakeholdersMessages.NonTailored.workAsIndependent
-        document.select(Selectors.multichoice(3)).text mustBe IdentifyToStakeholdersMessages.NonTailored.workAsBusiness
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowProvideServicesMessages.ltd
+        document.select(Selectors.multichoice(2)).text mustBe HowProvideServicesMessages.pship
+        document.select(Selectors.multichoice(3)).text mustBe HowProvideServicesMessages.thirdParty
+        document.select(Selectors.multichoice(4)).text mustBe HowProvideServicesMessages.soleTrader
       }
     }
   }
 
-  "IdentifyToStakeholders view" when {
+  "WorkerType view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- IdentifyToStakeholders.options) {
+        for (option <- WorkerType.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- IdentifyToStakeholders.options) {
+    for(option <- WorkerType.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- IdentifyToStakeholders.options.filterNot(o => o == option)) {
+          for(unselectedOption <- WorkerType.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

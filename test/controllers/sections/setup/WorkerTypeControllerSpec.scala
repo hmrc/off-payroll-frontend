@@ -29,7 +29,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.setup.WorkerTypeView
+import views.html.subOptimised.sections.setup.WorkerTypeView
 
 class WorkerTypeControllerSpec extends ControllerSpecBase {
 

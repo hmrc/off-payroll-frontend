@@ -31,7 +31,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.SessionUtils._
-import views.html.sections.setup.AboutYouView
+import views.html.subOptimised.sections.setup.AboutYouView
 
 class AboutYouControllerSpec extends ControllerSpecBase {
 

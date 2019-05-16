@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package views.sections.partParcel
+package views.subOptimised.sections.partParcel
 
 import assets.messages.BenefitsMessages
 import config.SessionKeys
@@ -26,7 +26,7 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.sections.partParcel.BenefitsView
+import views.html.subOptimised.sections.partParcel.BenefitsView
 
 class BenefitsViewSpec extends YesNoViewBehaviours {
 

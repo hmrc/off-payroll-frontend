@@ -29,7 +29,7 @@ import pages.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.personalService.WouldWorkerPaySubstituteView
+import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
 
 import scala.concurrent.Future
 
