@@ -57,6 +57,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           enable(OptimisedFlow)
           nextPage(AboutYourResultPage) mustBe setupRoutes.AboutYouController.onPageLoad(NormalMode)
         }
+
+        "go to the About you page from the Agency Advisory page" in {
+          nextPage(AgencyAdvisoryPage) mustBe setupRoutes.AboutYouController.onPageLoad(NormalMode)
+        }
       }
 
       "for the sub-optimised flow" must {

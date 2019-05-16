@@ -16,12 +16,12 @@
 
 package assets.messages
 
-trait BaseMessages {
+object AgencyAdvisoryMessages extends BaseMessages {
 
-  val yes = "Yes"
-  val no = "No"
-  val continue = "Continue"
-  val back = "Back"
-  val finish = "Finish"
+  val heading = "You don’t need to determine if this work should be paid within IR35"
+  val title = heading
+  val p1 = "It’s the responsibility of the worker or end client to find out if this work is deemed employment for tax purposes."
+  val p2 = "However, if you are the fee-payer you may still be accountable for operating PAYE."
+  val p3 = "To understand if this work is inside or out of IR35, you can continue through the tool as if you were the worker."
 
 }

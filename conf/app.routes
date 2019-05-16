@@ -124,3 +124,6 @@ GET        /add-details-for-reference                   controllers.PDFControlle
 POST       /add-details-for-reference                   controllers.PDFController.onSubmit(mode: Mode = NormalMode)
 GET        /add-details-for-reference/edit              controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
 POST       /add-details-for-reference/edit              controllers.PDFController.onSubmit(mode: Mode = CheckMode)
+
+GET        /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
+POST       /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onSubmit()

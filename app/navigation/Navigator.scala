@@ -45,6 +45,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
     //Setup Section
     AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
+    AgencyAdvisoryPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
     AboutYouPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     ContractStartedPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
     WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode)),

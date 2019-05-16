@@ -72,6 +72,8 @@ site.hidden-edit =   Change {0}
 ##### TODO NEED WELSH FOR ####
 site.no = Na
 site.yes = Iawn
+##### TODO NEED WELSH FOR ####
+site.finish = Finish
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
@@ -931,6 +933,7 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 # --------------------------------------------------#
 
 ##### TODO NEED WELSH FOR ####
+aboutYourResult.title = About your result
 aboutYourResult.heading = About your result
 aboutYourResult.p1 = HMRC will stand by the result given, unless a compliance check finds the information you’ve provided isn’t accurate.
 aboutYourResult.p2 = HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.

@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-trait BaseMessages {
-
-  val yes = "Yes"
-  val no = "No"
-  val continue = "Continue"
-  val back = "Back"
-  val finish = "Finish"
-
+case object AgencyAdvisoryPage extends Page {
+  override def toString: String = "agencyAdvisoryPage"
 }
