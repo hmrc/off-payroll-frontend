@@ -17,53 +17,28 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
-import assets.messages.ArrangedSubstituteMessages
 import config.SessionKeys
-import controllers.routes
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
-import models.CannotClaimAsExpense.WorkerUsedVehicle
-import models.{AdditionalPdfDetails, CheckMode, Timestamp}
-import play.api.i18n.Messages
+import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
-import play.twirl.api.Html
-import viewmodels.{AnswerRow, AnswerSection}
 import views.behaviours.ViewBehaviours
-import views.html.results.OfficeHolderInsideIR35View
+import views.html.results.SelfEmployedView
 
-class OfficeHolderInsideIR35ViewSpec extends ViewBehaviours {
+class SelfEmployedResultView extends ResultViewFixture {
 
-  object Selectors extends BaseCSSSelectors
-
-  val messageKeyPrefix = "result.officeHolderInsideIR35"
+  val messageKeyPrefix = "result.selfEmployed"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[OfficeHolderInsideIR35View]
-
-  val postAction = Call(HttpMethods.POST.value, "/")
-
-  val answers = Seq(
-    AnswerSection(Some(Messages("result.workersDuties.h2")), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq(
-      (AnswerRow(
-        label = "contractStarted.checkYourAnswersLabel",
-        answer = "site.yes",
-        answerIsMessageKey = true,
-        changeUrl = routes.ContractStartedController.onPageLoad(CheckMode).url
-      ),None)
-    ))
-  )
-
-  val version = "1.0"
-
-  val timestamp = Timestamp.timestamp
+  val view = injector.instanceOf[SelfEmployedView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
-  val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
-
   def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
+
+  def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
   "ResultPrintPage view" must {
     behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
@@ -75,13 +50,35 @@ class OfficeHolderInsideIR35ViewSpec extends ViewBehaviours {
     behave like pageWithBackLink(createView)
   }
 
-  "If the user type is of Worker" should {
+  "The result page" should {
 
     lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
     lazy val document = asDocument(createViewWithRequest(request))
 
-    "have the correct label" in {
-      document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Worker.p1
+    "include the 'what describes you best' question'" in {
+      document.toString must include("Which of these describes you best?")
     }
+
+    "include the 'what describes you best' answer'" in {
+      document.toString must include("The worker")
+    }
+
+    "include the 'contract started' question'" in {
+      document.toString must include("Has the worker already started this particular engagement for the end client?")
+    }
+
+    "include the 'worker provides' question'" in {
+      document.toString must include("What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?")
+    }
+
+    "include the 'worker provides' answer'" in {
+      document.toString must include("Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)")
+    }
+
+    "include the 'office duty' question'" in {
+      document.toString must include("Will the worker (or their business) perform office holder duties for the end client as part of this engagement?")
+    }
+
   }
+
 }

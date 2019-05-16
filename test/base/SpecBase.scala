@@ -20,6 +20,8 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
+import models.UserAnswers
+import models.requests.DataRequest
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
