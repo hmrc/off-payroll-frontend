@@ -27,6 +27,9 @@ import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryBusinessSizePage: Arbitrary[BusinessSizePage.type] =
+    Arbitrary(BusinessSizePage)
+
   implicit lazy val arbitraryCustomisePDFPage: Arbitrary[CustomisePDFPage.type] =
     Arbitrary(CustomisePDFPage)
 

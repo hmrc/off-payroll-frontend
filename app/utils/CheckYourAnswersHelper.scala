@@ -40,6 +40,10 @@ import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
+  def businessSize: Option[AnswerRow] = userAnswers.get(BusinessSizePage) map {
+    x => AnswerRow("businessSize.checkYourAnswersLabel", s"businessSize.$x", true, routes.BusinessSizeController.onPageLoad(CheckMode).url)
+  }
+
   def customisePDF: Option[AnswerRow] = userAnswers.get(CustomisePDFPage) map {
     x => AnswerRow(
       "customisePDF.checkYourAnswersLabel",
