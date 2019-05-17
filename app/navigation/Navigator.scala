@@ -27,6 +27,7 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
+import models.AboutYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import models._
@@ -34,7 +35,23 @@ import models._
 @Singleton
 class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends FeatureSwitching {
 
-  private val routeMap: Map[Page, UserAnswers => Call] = Map(
+  private val optimisedSetupRouteMap: Map[Page, UserAnswers => Call] = Map(
+
+    //Initialisation Section
+    IndexPage -> (_ => setupRoutes.AboutYourResultController.onPageLoad()),
+
+    //Setup Section
+    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
+    AboutYouPage -> (answers => answers.get(AboutYouPage) match {
+      case Some(Answers(Agency, _)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
+      case _ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+    }),
+    AgencyAdvisoryPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
+    WorkerTypePage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
+    ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
+  )
+
+  private val setupRouteMap: Map[Page, UserAnswers => Call] = Map(
 
     //Initialisation Section
     IndexPage -> (_ => if (isEnabled(OptimisedFlow)) {
@@ -48,7 +65,10 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     AgencyAdvisoryPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
     AboutYouPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     ContractStartedPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
-    WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode)),
+    WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
+  )
+
+  private val routeMap:  Map[Page, UserAnswers => Call] = Map(
 
     //Early Exit Section
     OfficeHolderPage -> (answers => answers.get(ContractStartedPage) match {
@@ -105,9 +125,10 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
   private val checkRouteMap: Map[Page, UserAnswers => Call] = Map()
 
-  def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
+  def nextPage(page: Page, mode: Mode): UserAnswers => Call = (mode) match {
     case NormalMode =>
-      routeMap.getOrElse(page, _ => routes.IndexController.onPageLoad())
+      val routing = (if (isEnabled(OptimisedFlow)) optimisedSetupRouteMap else setupRouteMap) ++ routeMap
+      routing.getOrElse(page, _ => routes.IndexController.onPageLoad())
     case CheckMode =>
       checkRouteMap.getOrElse(page, _ => routes.ResultController.onPageLoad())
   }
