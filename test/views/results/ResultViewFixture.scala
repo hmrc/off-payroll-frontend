@@ -17,17 +17,17 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
-import controllers.routes
-import forms.DeclarationFormProvider
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.setup.{routes => setupRoutes}
 import models.AboutYouAnswer.Worker
 import models.CannotClaimAsExpense.WorkerUsedVehicle
 import models.{AdditionalPdfDetails, CheckMode, Timestamp}
 import play.api.i18n.Messages
-import play.api.mvc.{Call, Request}
+import play.api.mvc.Call
 import play.twirl.api.Html
 import viewmodels.{AnswerRow, AnswerSection}
 import views.behaviours.ViewBehaviours
-import views.html.results.OfficeHolderInsideIR35View
 
 trait ResultViewFixture extends ViewBehaviours {
 
@@ -47,7 +47,7 @@ trait ResultViewFixture extends ViewBehaviours {
         label = "aboutYou.checkYourAnswersLabel",
         answer = s"aboutYou.$Worker",
         answerIsMessageKey = true,
-        changeUrl = routes.AboutYouController.onPageLoad(CheckMode).url
+        changeUrl = setupRoutes.AboutYouController.onPageLoad(CheckMode).url
       ),None)
     )),
     AnswerSection(Some(Messages("result.workersDuties.h2")), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq(
@@ -55,7 +55,7 @@ trait ResultViewFixture extends ViewBehaviours {
         label = "contractStarted.checkYourAnswersLabel",
         answer = "site.yes",
         answerIsMessageKey = true,
-        changeUrl = routes.ContractStartedController.onPageLoad(CheckMode).url
+        changeUrl = setupRoutes.ContractStartedController.onPageLoad(CheckMode).url
       ),None)
     )),
     AnswerSection(Some(Messages("result.substitutesHelpers.h2")), whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))), Seq()),
@@ -64,13 +64,13 @@ trait ResultViewFixture extends ViewBehaviours {
         label = "cannotClaimAsExpense.checkYourAnswersLabel",
         answer = Seq(s"cannotClaimAsExpense.$WorkerUsedVehicle"),
         answerIsMessageKey = true,
-        changeUrl = routes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+        changeUrl = financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
       ),None),
       (AnswerRow(
         label = "officeHolder.checkYourAnswersLabel",
         answer = "site.yes",
         answerIsMessageKey = true,
-        changeUrl = routes.OfficeHolderController.onPageLoad(CheckMode).url
+        changeUrl = exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url
       ),None)
     )),
     AnswerSection(Some(Messages("result.financialRisk.h2")), whyResult = Some(Html(messages("result.financialRisk.summary"))), Seq()),
