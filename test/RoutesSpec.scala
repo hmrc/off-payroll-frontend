@@ -191,6 +191,10 @@ class RoutesSpec extends SpecBase {
       PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-details-for-reference")
       PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details-for-reference/edit")
     }
+
+    "Have the correct routes for the Leave page" in {
+      setupRoutes.LeaveController.onPageLoad().url mustBe fullPath("/you-have-left-the-tool")
+    }
   }
 
 }

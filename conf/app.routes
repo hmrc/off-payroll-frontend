@@ -127,3 +127,5 @@ POST       /add-details-for-reference/edit              controllers.PDFControlle
 
 GET        /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onSubmit()
+
+GET        /you-have-left-the-tool                      controllers.sections.setup.LeaveController.onPageLoad()
