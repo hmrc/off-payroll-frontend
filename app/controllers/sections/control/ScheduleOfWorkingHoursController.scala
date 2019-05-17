@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.{Mode, ScheduleOfWorkingHours}
 import navigation.Navigator
-import pages.ScheduleOfWorkingHoursPage
+import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService

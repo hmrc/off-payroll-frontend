@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.personalService
 
 import models.ArrangedSubstitute
+import pages.QuestionPage
 
 case object ArrangedSubstitutePage extends QuestionPage[ArrangedSubstitute] {
   override def toString: String = "arrangedSubstitute"

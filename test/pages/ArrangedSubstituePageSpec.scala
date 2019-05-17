@@ -18,6 +18,7 @@ package pages
 
 import models.ArrangedSubstitute
 import pages.behaviours.PageBehaviours
+import pages.sections.personalService.ArrangedSubstitutePage
 
 class ArrangedSubstituteSpec extends PageBehaviours {
 

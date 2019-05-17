@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.partParcel
 
-case object ContractStartedPage extends QuestionPage[Boolean] {
+import models.IdentifyToStakeholders
+import pages.QuestionPage
 
-  override def toString: String = "contractStarted"
+case object IdentifyToStakeholdersPage extends QuestionPage[IdentifyToStakeholders] {
+  override def toString: String = "identifyToStakeholders"
 }

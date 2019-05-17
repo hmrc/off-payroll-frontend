@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
-case object RejectSubstitutePage extends QuestionPage[Boolean] {
+import models.AboutYouAnswer
+import pages.QuestionPage
 
-  override def toString: String = "rejectSubstitute"
+case object AboutYouPage extends QuestionPage[AboutYouAnswer] {
+
+  override def toString: String = "aboutYou"
 }

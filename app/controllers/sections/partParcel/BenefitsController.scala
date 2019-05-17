@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models._
 import navigation.Navigator
-import pages.BenefitsPage
+import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}

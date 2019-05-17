@@ -31,6 +31,12 @@ import pages._
 import play.api.libs.json.Writes
 import models.Answers._
 import models.WhichDescribesYouAnswer.Agency
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService.{DidPaySubstitutePage, NeededToPayHelperPage, RejectSubstitutePage, WouldWorkerPaySubstitutePage}
+import pages.sections.setup._
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
   val navigator = new Navigator

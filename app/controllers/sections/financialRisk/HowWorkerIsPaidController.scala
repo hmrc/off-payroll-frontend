@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.{HowWorkerIsPaid, Mode}
 import navigation.Navigator
-import pages.HowWorkerIsPaidPage
+import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService

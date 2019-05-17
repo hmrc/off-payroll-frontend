@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.personalService
 
-import models.MoveWorker
+import pages.QuestionPage
 
-case object MoveWorkerPage extends QuestionPage[MoveWorker] {
-  override def toString: String = "moveWorker"
+case object NeededToPayHelperPage extends QuestionPage[Boolean] {
+
+  override def toString: String = "neededToPayHelper"
 }

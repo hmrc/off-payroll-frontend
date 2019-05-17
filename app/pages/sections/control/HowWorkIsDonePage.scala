@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.control
 
-case object BenefitsPage extends QuestionPage[Boolean] {
+import models.HowWorkIsDone
+import pages.QuestionPage
 
-  override def toString: String = "benefits"
+case object HowWorkIsDonePage extends QuestionPage[HowWorkIsDone] {
+  override def toString: String = "howWorkIsDone"
 }

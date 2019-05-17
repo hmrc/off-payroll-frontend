@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.{Mode, MoveWorker}
 import navigation.Navigator
-import pages.MoveWorkerPage
+import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService

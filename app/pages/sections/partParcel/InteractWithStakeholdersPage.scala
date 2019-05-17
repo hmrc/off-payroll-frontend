@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.partParcel
 
-import models.CannotClaimAsExpense
+import pages.QuestionPage
 
-case object CannotClaimAsExpensePage extends QuestionPage[Seq[CannotClaimAsExpense]] {
-  override def toString: String = "cannotClaimAsExpense"
+case object InteractWithStakeholdersPage extends QuestionPage[Boolean] {
+
+  override def toString: String = "interactWithStakeholders"
 }

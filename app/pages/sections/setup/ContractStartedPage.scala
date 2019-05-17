@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
-import models.HowWorkerIsPaid
+import pages.QuestionPage
 
-case object HowWorkerIsPaidPage extends QuestionPage[HowWorkerIsPaid] {
-  override def toString: String = "howWorkerIsPaid"
+case object ContractStartedPage extends QuestionPage[Boolean] {
+
+  override def toString: String = "contractStarted"
 }

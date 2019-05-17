@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.personalService
 
-case object DidPaySubstitutePage extends QuestionPage[Boolean] {
+import pages.QuestionPage
 
-  override def toString: String = "didPaySubstitute"
+case object WouldWorkerPaySubstitutePage extends QuestionPage[Boolean] {
+
+  override def toString: String = "wouldWorkerPaySubstitute"
 }

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.control
 
-import models.AboutYouAnswer
+import models.MoveWorker
+import pages.QuestionPage
 
-case object AboutYouPage extends QuestionPage[AboutYouAnswer] {
-
-  override def toString: String = "aboutYou"
+case object MoveWorkerPage extends QuestionPage[MoveWorker] {
+  override def toString: String = "moveWorker"
 }

@@ -22,7 +22,7 @@ import controllers.actions._
 import forms.RejectSubstituteFormProvider
 import models.{Answers, NormalMode}
 import navigation.FakeNavigator
-import pages.RejectSubstitutePage
+import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call

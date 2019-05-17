@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
-import models.ChooseWhereWork
+import pages.Page
 
-case object ChooseWhereWorkPage extends QuestionPage[ChooseWhereWork] {
-  override def toString: String = "chooseWhereWork"
+case object AboutYourResultPage extends Page {
+  override def toString: String = "aboutYourResult"
 }

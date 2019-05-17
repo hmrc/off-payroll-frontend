@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode, PutRightAtOwnCost}
 import navigation.Navigator
-import pages.PutRightAtOwnCostPage
+import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}

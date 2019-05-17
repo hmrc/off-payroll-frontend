@@ -17,6 +17,7 @@
 package pages
 
 import pages.behaviours.PageBehaviours
+import pages.sections.partParcel.BenefitsPage
 
 class BenefitsPageSpec extends PageBehaviours {
 

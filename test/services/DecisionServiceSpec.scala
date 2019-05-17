@@ -41,6 +41,12 @@ import org.mockito.Matchers
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import pages._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.data.Form
 import play.api.data.Forms.of
 import play.api.mvc.{Call, Result}

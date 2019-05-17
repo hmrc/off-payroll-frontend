@@ -23,7 +23,7 @@ import forms.MoveWorkerFormProvider
 import models.Answers._
 import models.{Answers, MoveWorker, NormalMode}
 import navigation.FakeNavigator
-import pages.MoveWorkerPage
+import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call

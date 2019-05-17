@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
-import models.WhichDescribesYouAnswer
+import models.WorkerType
+import pages.QuestionPage
 
-case object WhichDescribesYouPage extends QuestionPage[WhichDescribesYouAnswer] {
-  override def toString: String = "whichDescribesYou"
+case object WorkerTypePage extends QuestionPage[WorkerType] {
+
+  override def toString: String = "workerType"
 }

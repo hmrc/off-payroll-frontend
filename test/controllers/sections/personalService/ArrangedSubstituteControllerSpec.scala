@@ -23,7 +23,7 @@ import forms.ArrangedSubstituteFormProvider
 import models.Answers._
 import models.{Answers, ArrangedSubstitute, NormalMode}
 import navigation.FakeNavigator
-import pages.ArrangedSubstitutePage
+import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call

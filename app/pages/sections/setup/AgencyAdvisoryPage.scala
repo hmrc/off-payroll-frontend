@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
-import models.IdentifyToStakeholders
+import pages.Page
 
-case object IdentifyToStakeholdersPage extends QuestionPage[IdentifyToStakeholders] {
-  override def toString: String = "identifyToStakeholders"
+case object AgencyAdvisoryPage extends Page {
+  override def toString: String = "agencyAdvisoryPage"
 }

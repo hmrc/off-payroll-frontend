@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.control
 
-case object NeededToPayHelperPage extends QuestionPage[Boolean] {
+import models.ScheduleOfWorkingHours
+import pages.QuestionPage
 
-  override def toString: String = "neededToPayHelper"
+case object ScheduleOfWorkingHoursPage extends QuestionPage[ScheduleOfWorkingHours] {
+  override def toString: String = "scheduleOfWorkingHours"
 }

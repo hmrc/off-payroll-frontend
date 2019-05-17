@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode}
 import navigation.Navigator
-import pages.CannotClaimAsExpensePage
+import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView

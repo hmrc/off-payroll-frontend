@@ -25,7 +25,7 @@ import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
-import pages.BenefitsPage
+import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call

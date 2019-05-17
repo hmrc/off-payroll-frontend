@@ -23,7 +23,7 @@ import forms.HowWorkIsDoneFormProvider
 import models.Answers._
 import models.{Answers, HowWorkIsDone, NormalMode}
 import navigation.FakeNavigator
-import pages.HowWorkIsDonePage
+import pages.sections.control.HowWorkIsDonePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call

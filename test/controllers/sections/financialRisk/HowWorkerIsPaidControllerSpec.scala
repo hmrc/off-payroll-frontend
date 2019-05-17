@@ -23,7 +23,7 @@ import forms.HowWorkerIsPaidFormProvider
 import models.Answers._
 import models.{Answers, HowWorkerIsPaid, NormalMode}
 import navigation.FakeNavigator
-import pages.HowWorkerIsPaidPage
+import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call

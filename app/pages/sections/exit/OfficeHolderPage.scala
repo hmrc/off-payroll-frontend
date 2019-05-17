@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.exit
 
-case object LineManagerDutiesPage extends QuestionPage[Boolean] {
+import pages.QuestionPage
 
-  override def toString: String = "lineManagerDuties"
+case object OfficeHolderPage extends QuestionPage[Boolean] {
+
+  override def toString: String = "officeHolder"
 }

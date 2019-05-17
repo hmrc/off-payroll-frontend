@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.financialRisk
 
-import models.ScheduleOfWorkingHours
+import models.HowWorkerIsPaid
+import pages.QuestionPage
 
-case object ScheduleOfWorkingHoursPage extends QuestionPage[ScheduleOfWorkingHours] {
-  override def toString: String = "scheduleOfWorkingHours"
+case object HowWorkerIsPaidPage extends QuestionPage[HowWorkerIsPaid] {
+  override def toString: String = "howWorkerIsPaid"
 }

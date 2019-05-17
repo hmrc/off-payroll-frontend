@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.financialRisk
 
 import models.PutRightAtOwnCost
+import pages.QuestionPage
 
 case object PutRightAtOwnCostPage extends QuestionPage[PutRightAtOwnCost] {
   override def toString: String = "putRightAtOwnCost"

@@ -31,6 +31,12 @@ import models.WhichDescribesYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import models._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup._
 
 @Singleton
 class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends FeatureSwitching {

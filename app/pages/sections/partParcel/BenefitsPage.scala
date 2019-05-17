@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.partParcel
 
-case object AgencyAdvisoryPage extends Page {
-  override def toString: String = "agencyAdvisoryPage"
+import pages.QuestionPage
+
+case object BenefitsPage extends QuestionPage[Boolean] {
+
+  override def toString: String = "benefits"
 }

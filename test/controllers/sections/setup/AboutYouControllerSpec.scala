@@ -25,7 +25,7 @@ import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models.Answers._
 import models._
 import navigation.FakeNavigator
-import pages.{AboutYouPage, WhichDescribesYouPage}
+import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call

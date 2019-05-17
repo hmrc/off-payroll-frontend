@@ -22,7 +22,7 @@ import controllers.actions._
 import javax.inject.Inject
 import models.NormalMode
 import navigation.Navigator
-import pages.AboutYourResultPage
+import pages.sections.setup.AboutYourResultPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.sections.setup.AboutYourResultView
 

@@ -22,7 +22,7 @@ import controllers.actions._
 import forms.ContractStartedFormProvider
 import models.{Answers, NormalMode}
 import navigation.FakeNavigator
-import pages.ContractStartedPage
+import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call

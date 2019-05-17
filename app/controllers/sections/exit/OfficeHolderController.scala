@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode}
 import navigation.Navigator
-import pages.OfficeHolderPage
+import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}

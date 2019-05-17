@@ -25,7 +25,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.Mode
 import navigation.Navigator
-import pages.RejectSubstitutePage
+import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService

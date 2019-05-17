@@ -23,7 +23,7 @@ import forms.WorkerTypeFormProvider
 import models.Answers._
 import models.{Answers, NormalMode, WorkerType}
 import navigation.FakeNavigator
-import pages.WorkerTypePage
+import pages.sections.setup.WorkerTypePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call

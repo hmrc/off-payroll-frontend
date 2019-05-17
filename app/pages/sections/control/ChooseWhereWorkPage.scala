@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.control
 
-import models.WorkerType
+import models.ChooseWhereWork
+import pages.QuestionPage
 
-case object WorkerTypePage extends QuestionPage[WorkerType] {
-
-  override def toString: String = "workerType"
+case object ChooseWhereWorkPage extends QuestionPage[ChooseWhereWork] {
+  override def toString: String = "chooseWhereWork"
 }

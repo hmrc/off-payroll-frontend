@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.financialRisk
 
-case object AboutYourResultPage extends Page {
-  override def toString: String = "aboutYourResult"
+import models.CannotClaimAsExpense
+import pages.QuestionPage
+
+case object CannotClaimAsExpensePage extends QuestionPage[Seq[CannotClaimAsExpense]] {
+  override def toString: String = "cannotClaimAsExpense"
 }

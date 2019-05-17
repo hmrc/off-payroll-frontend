@@ -22,7 +22,7 @@ import controllers.actions._
 import javax.inject.Inject
 import models.NormalMode
 import navigation.Navigator
-import pages.AgencyAdvisoryPage
+import pages.sections.setup.AgencyAdvisoryPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.sections.setup.AgencyAdvisoryView
 

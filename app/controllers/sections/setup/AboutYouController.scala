@@ -27,7 +27,7 @@ import models.Answers._
 import models.requests.DataRequest
 import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
 import navigation.Navigator
-import pages.{AboutYouPage, WhichDescribesYouPage}
+import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.mvc._
 import services.CompareAnswerService

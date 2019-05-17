@@ -28,6 +28,12 @@ import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
 import viewmodels.AnswerRow
 import models.Answers._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.i18n.Messages
 import play.api.mvc.Request
 import views.ViewUtils._

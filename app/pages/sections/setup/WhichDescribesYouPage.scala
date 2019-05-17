@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
-case object InteractWithStakeholdersPage extends QuestionPage[Boolean] {
+import models.WhichDescribesYouAnswer
+import pages.QuestionPage
 
-  override def toString: String = "interactWithStakeholders"
+case object WhichDescribesYouPage extends QuestionPage[WhichDescribesYouAnswer] {
+  override def toString: String = "whichDescribesYou"
 }

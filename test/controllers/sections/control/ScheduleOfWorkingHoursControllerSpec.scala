@@ -23,7 +23,7 @@ import forms.ScheduleOfWorkingHoursFormProvider
 import models.Answers._
 import models.{Answers, NormalMode, ScheduleOfWorkingHours}
 import navigation.FakeNavigator
-import pages.ScheduleOfWorkingHoursPage
+import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
