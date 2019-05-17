@@ -5,11 +5,11 @@ echo "Applying migration NeededToPayHelper"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /neededToPayHelper                        controllers.NeededToPayHelperController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /neededToPayHelper                        controllers.NeededToPayHelperController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /neededToPayHelper                        controllers.sections.personalService.NeededToPayHelperController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /neededToPayHelper                        controllers.sections.personalService.NeededToPayHelperController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeNeededToPayHelper                  controllers.NeededToPayHelperController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeNeededToPayHelper                  controllers.NeededToPayHelperController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeNeededToPayHelper                  controllers.sections.personalService.NeededToPayHelperController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeNeededToPayHelper                  controllers.sections.personalService.NeededToPayHelperController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

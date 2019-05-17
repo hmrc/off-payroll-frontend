@@ -5,11 +5,11 @@ echo "Applying migration PutRightAtOwnCost"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /putRightAtOwnCost               controllers.PutRightAtOwnCostController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /putRightAtOwnCost               controllers.PutRightAtOwnCostController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /putRightAtOwnCost               controllers.sections.financialRisk.PutRightAtOwnCostController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /putRightAtOwnCost               controllers.sections.financialRisk.PutRightAtOwnCostController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changePutRightAtOwnCost                  controllers.PutRightAtOwnCostController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changePutRightAtOwnCost                  controllers.PutRightAtOwnCostController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changePutRightAtOwnCost                  controllers.sections.financialRisk.PutRightAtOwnCostController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changePutRightAtOwnCost                  controllers.sections.financialRisk.PutRightAtOwnCostController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

@@ -5,11 +5,11 @@ echo "Applying migration OfficeHolder"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /officeHolder                        controllers.OfficeHolderController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /officeHolder                        controllers.OfficeHolderController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /officeHolder                        controllers.sections.exit.OfficeHolderController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /officeHolder                        controllers.sections.exit.OfficeHolderController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeOfficeHolder                  controllers.OfficeHolderController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeOfficeHolder                  controllers.OfficeHolderController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeOfficeHolder                  controllers.sections.exit.OfficeHolderController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeOfficeHolder                  controllers.sections.exit.OfficeHolderController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

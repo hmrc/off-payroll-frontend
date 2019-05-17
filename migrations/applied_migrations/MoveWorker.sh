@@ -5,11 +5,11 @@ echo "Applying migration MoveWorker"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /moveWorker               controllers.MoveWorkerController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /moveWorker               controllers.MoveWorkerController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /moveWorker               controllers.sections.control.MoveWorkerController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /moveWorker               controllers.sections.control.MoveWorkerController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeMoveWorker                  controllers.MoveWorkerController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeMoveWorker                  controllers.MoveWorkerController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeMoveWorker                  controllers.sections.control.MoveWorkerController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeMoveWorker                  controllers.sections.control.MoveWorkerController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

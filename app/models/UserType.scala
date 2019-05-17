@@ -29,6 +29,14 @@ object UserType {
     case AboutYouAnswer.Agency => Agency
   }
 
+  def apply(aboutYouAnswer: WhichDescribesYouAnswer): UserType = aboutYouAnswer match {
+    case WhichDescribesYouAnswer.WorkerPAYE => Worker
+    case WhichDescribesYouAnswer.WorkerIR35 => Worker
+    case WhichDescribesYouAnswer.ClientPAYE => Hirer
+    case WhichDescribesYouAnswer.ClientIR35 => Hirer
+    case WhichDescribesYouAnswer.Agency => Agency
+  }
+
   val values = Seq(Worker, Hirer, Agency)
 
   case object Worker extends WithName("worker") with UserType

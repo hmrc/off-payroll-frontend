@@ -16,6 +16,12 @@
 
 import base.SpecBase
 import controllers.routes._
+import controllers.sections.setup.{routes => setupRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.{CheckMode, NormalMode}
 
 class RoutesSpec extends SpecBase {
@@ -24,144 +30,154 @@ class RoutesSpec extends SpecBase {
 
   "App.Routes" should {
 
+    "Have the correct routes for the About Your Result page" in {
+      setupRoutes.AboutYourResultController.onPageLoad().url mustBe fullPath("/about-your-result")
+      setupRoutes.AboutYourResultController.onSubmit().url mustBe fullPath("/about-your-result")
+    }
+
+    "Have the correct routes for the Agency Advisory page" in {
+      setupRoutes.AgencyAdvisoryController.onPageLoad().url mustBe fullPath("/agency-advisory")
+      setupRoutes.AgencyAdvisoryController.onSubmit().url mustBe fullPath("/agency-advisory")
+    }
+
     "Have the correct routes for the About You page" in {
-      AboutYouController.onPageLoad(NormalMode).url mustBe fullPath("/about-you")
-      AboutYouController.onPageLoad(CheckMode).url mustBe fullPath("/about-you/edit")
-      AboutYouController.onSubmit(NormalMode).url mustBe fullPath("/about-you")
-      AboutYouController.onSubmit(CheckMode).url mustBe fullPath("/about-you/edit")
+      setupRoutes.AboutYouController.onPageLoad(NormalMode).url mustBe fullPath("/about-you")
+      setupRoutes.AboutYouController.onPageLoad(CheckMode).url mustBe fullPath("/about-you/edit")
+      setupRoutes.AboutYouController.onSubmit(NormalMode).url mustBe fullPath("/about-you")
+      setupRoutes.AboutYouController.onSubmit(CheckMode).url mustBe fullPath("/about-you/edit")
     }
 
     "Have the correct routes for the Contract Started page" in {
-      ContractStartedController.onPageLoad(NormalMode).url mustBe fullPath("/work-started")
-      ContractStartedController.onPageLoad(CheckMode).url mustBe fullPath("/work-started/edit")
-      ContractStartedController.onSubmit(NormalMode).url mustBe fullPath("/work-started")
-      ContractStartedController.onSubmit(CheckMode).url mustBe fullPath("/work-started/edit")
+      setupRoutes.ContractStartedController.onPageLoad(NormalMode).url mustBe fullPath("/work-started")
+      setupRoutes.ContractStartedController.onPageLoad(CheckMode).url mustBe fullPath("/work-started/edit")
+      setupRoutes.ContractStartedController.onSubmit(NormalMode).url mustBe fullPath("/work-started")
+      setupRoutes.ContractStartedController.onSubmit(CheckMode).url mustBe fullPath("/work-started/edit")
     }
 
     "Have the correct routes for the Worker Type page" in {
-      WorkerTypeController.onPageLoad(NormalMode).url mustBe fullPath("/worker-trading-as")
-      WorkerTypeController.onPageLoad(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
-      WorkerTypeController.onSubmit(NormalMode).url mustBe fullPath("/worker-trading-as")
-      WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
+      setupRoutes.WorkerTypeController.onPageLoad(NormalMode).url mustBe fullPath("/worker-trading-as")
+      setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
+      setupRoutes.WorkerTypeController.onSubmit(NormalMode).url mustBe fullPath("/worker-trading-as")
+      setupRoutes.WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
     }
 
     "Have the correct routes for the Office Holder page" in {
-      OfficeHolderController.onPageLoad(NormalMode).url mustBe fullPath("/office-holder-duties")
-      OfficeHolderController.onPageLoad(CheckMode).url mustBe fullPath("/office-holder-duties/edit")
-      OfficeHolderController.onSubmit(NormalMode).url mustBe fullPath("/office-holder-duties")
-      OfficeHolderController.onSubmit(CheckMode).url mustBe fullPath("/office-holder-duties/edit")
+      exitRoutes.OfficeHolderController.onPageLoad(NormalMode).url mustBe fullPath("/office-holder-duties")
+      exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url mustBe fullPath("/office-holder-duties/edit")
+      exitRoutes.OfficeHolderController.onSubmit(NormalMode).url mustBe fullPath("/office-holder-duties")
+      exitRoutes.OfficeHolderController.onSubmit(CheckMode).url mustBe fullPath("/office-holder-duties/edit")
     }
 
     "Have the correct routes for the Arranged Substitute page" in {
-      ArrangedSubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/worker-sent-substitute")
-      ArrangedSubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/worker-sent-substitute/edit")
-      ArrangedSubstituteController.onSubmit(NormalMode).url mustBe fullPath("/worker-sent-substitute")
-      ArrangedSubstituteController.onSubmit(CheckMode).url mustBe fullPath("/worker-sent-substitute/edit")
+      personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/worker-sent-substitute")
+      personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/worker-sent-substitute/edit")
+      personalServiceRoutes.ArrangedSubstituteController.onSubmit(NormalMode).url mustBe fullPath("/worker-sent-substitute")
+      personalServiceRoutes.ArrangedSubstituteController.onSubmit(CheckMode).url mustBe fullPath("/worker-sent-substitute/edit")
     }
 
     "Have the correct routes for the Did Pay Substitute page" in {
-      DidPaySubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/worker-paid-substitute")
-      DidPaySubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/worker-paid-substitute/edit")
-      DidPaySubstituteController.onSubmit(NormalMode).url mustBe fullPath("/worker-paid-substitute")
-      DidPaySubstituteController.onSubmit(CheckMode).url mustBe fullPath("/worker-paid-substitute/edit")
+      personalServiceRoutes.DidPaySubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/worker-paid-substitute")
+      personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/worker-paid-substitute/edit")
+      personalServiceRoutes.DidPaySubstituteController.onSubmit(NormalMode).url mustBe fullPath("/worker-paid-substitute")
+      personalServiceRoutes.DidPaySubstituteController.onSubmit(CheckMode).url mustBe fullPath("/worker-paid-substitute/edit")
     }
 
     "Have the correct routes for the Reject Substitute page" in {
-      RejectSubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/substitute-rejected")
-      RejectSubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/substitute-rejected/edit")
-      RejectSubstituteController.onSubmit(NormalMode).url mustBe fullPath("/substitute-rejected")
-      RejectSubstituteController.onSubmit(CheckMode).url mustBe fullPath("/substitute-rejected/edit")
+      personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/substitute-rejected")
+      personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/substitute-rejected/edit")
+      personalServiceRoutes.RejectSubstituteController.onSubmit(NormalMode).url mustBe fullPath("/substitute-rejected")
+      personalServiceRoutes.RejectSubstituteController.onSubmit(CheckMode).url mustBe fullPath("/substitute-rejected/edit")
     }
 
     "Have the correct routes for the Would Pay Substitute page" in {
-      WouldWorkerPaySubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/worker-would-pay-substitute")
-      WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/worker-would-pay-substitute/edit")
-      WouldWorkerPaySubstituteController.onSubmit(NormalMode).url mustBe fullPath("/worker-would-pay-substitute")
-      WouldWorkerPaySubstituteController.onSubmit(CheckMode).url mustBe fullPath("/worker-would-pay-substitute/edit")
+      personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/worker-would-pay-substitute")
+      personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/worker-would-pay-substitute/edit")
+      personalServiceRoutes.WouldWorkerPaySubstituteController.onSubmit(NormalMode).url mustBe fullPath("/worker-would-pay-substitute")
+      personalServiceRoutes.WouldWorkerPaySubstituteController.onSubmit(CheckMode).url mustBe fullPath("/worker-would-pay-substitute/edit")
     }
 
     "Have the correct routes for the Needed to Pay Helper page" in {
-      NeededToPayHelperController.onPageLoad(NormalMode).url mustBe fullPath("/worker-paid-helper")
-      NeededToPayHelperController.onPageLoad(CheckMode).url mustBe fullPath("/worker-paid-helper/edit")
-      NeededToPayHelperController.onSubmit(NormalMode).url mustBe fullPath("/worker-paid-helper")
-      NeededToPayHelperController.onSubmit(CheckMode).url mustBe fullPath("/worker-paid-helper/edit")
+      personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode).url mustBe fullPath("/worker-paid-helper")
+      personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url mustBe fullPath("/worker-paid-helper/edit")
+      personalServiceRoutes.NeededToPayHelperController.onSubmit(NormalMode).url mustBe fullPath("/worker-paid-helper")
+      personalServiceRoutes.NeededToPayHelperController.onSubmit(CheckMode).url mustBe fullPath("/worker-paid-helper/edit")
     }
 
     "Have the correct routes for the Move Worker page" in {
-      MoveWorkerController.onPageLoad(NormalMode).url mustBe fullPath("/change-worker-role")
-      MoveWorkerController.onPageLoad(CheckMode).url mustBe fullPath("/change-worker-role/edit")
-      MoveWorkerController.onSubmit(NormalMode).url mustBe fullPath("/change-worker-role")
-      MoveWorkerController.onSubmit(CheckMode).url mustBe fullPath("/change-worker-role/edit")
+      controlRoutes.MoveWorkerController.onPageLoad(NormalMode).url mustBe fullPath("/change-worker-role")
+      controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url mustBe fullPath("/change-worker-role/edit")
+      controlRoutes.MoveWorkerController.onSubmit(NormalMode).url mustBe fullPath("/change-worker-role")
+      controlRoutes.MoveWorkerController.onSubmit(CheckMode).url mustBe fullPath("/change-worker-role/edit")
     }
 
     "Have the correct routes for the How Work is Done page" in {
-      HowWorkIsDoneController.onPageLoad(NormalMode).url mustBe fullPath("/change-how-work-is-done")
-      HowWorkIsDoneController.onPageLoad(CheckMode).url mustBe fullPath("/change-how-work-is-done/edit")
-      HowWorkIsDoneController.onSubmit(NormalMode).url mustBe fullPath("/change-how-work-is-done")
-      HowWorkIsDoneController.onSubmit(CheckMode).url mustBe fullPath("/change-how-work-is-done/edit")
+      controlRoutes.HowWorkIsDoneController.onPageLoad(NormalMode).url mustBe fullPath("/change-how-work-is-done")
+      controlRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url mustBe fullPath("/change-how-work-is-done/edit")
+      controlRoutes.HowWorkIsDoneController.onSubmit(NormalMode).url mustBe fullPath("/change-how-work-is-done")
+      controlRoutes.HowWorkIsDoneController.onSubmit(CheckMode).url mustBe fullPath("/change-how-work-is-done/edit")
     }
 
     "Have the correct routes for the Schedule of Working Hours page" in {
-      ScheduleOfWorkingHoursController.onPageLoad(NormalMode).url mustBe fullPath("/change-worker-hours")
-      ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url mustBe fullPath("/change-worker-hours/edit")
-      ScheduleOfWorkingHoursController.onSubmit(NormalMode).url mustBe fullPath("/change-worker-hours")
-      ScheduleOfWorkingHoursController.onSubmit(CheckMode).url mustBe fullPath("/change-worker-hours/edit")
+      controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode).url mustBe fullPath("/change-worker-hours")
+      controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url mustBe fullPath("/change-worker-hours/edit")
+      controlRoutes.ScheduleOfWorkingHoursController.onSubmit(NormalMode).url mustBe fullPath("/change-worker-hours")
+      controlRoutes.ScheduleOfWorkingHoursController.onSubmit(CheckMode).url mustBe fullPath("/change-worker-hours/edit")
     }
 
     "Have the correct routes for the Choose Where Work page" in {
-      ChooseWhereWorkController.onPageLoad(NormalMode).url mustBe fullPath("/change-worker-location")
-      ChooseWhereWorkController.onPageLoad(CheckMode).url mustBe fullPath("/change-worker-location/edit")
-      ChooseWhereWorkController.onSubmit(NormalMode).url mustBe fullPath("/change-worker-location")
-      ChooseWhereWorkController.onSubmit(CheckMode).url mustBe fullPath("/change-worker-location/edit")
+      controlRoutes.ChooseWhereWorkController.onPageLoad(NormalMode).url mustBe fullPath("/change-worker-location")
+      controlRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url mustBe fullPath("/change-worker-location/edit")
+      controlRoutes.ChooseWhereWorkController.onSubmit(NormalMode).url mustBe fullPath("/change-worker-location")
+      controlRoutes.ChooseWhereWorkController.onSubmit(CheckMode).url mustBe fullPath("/change-worker-location/edit")
     }
 
     "Have the correct routes for the Cannot Claim as Expense page" in {
-      CannotClaimAsExpenseController.onPageLoad(NormalMode).url mustBe fullPath("/worker-cannot-claim")
-      CannotClaimAsExpenseController.onPageLoad(CheckMode).url mustBe fullPath("/worker-cannot-claim/edit")
-      CannotClaimAsExpenseController.onSubmit(NormalMode).url mustBe fullPath("/worker-cannot-claim")
-      CannotClaimAsExpenseController.onSubmit(CheckMode).url mustBe fullPath("/worker-cannot-claim/edit")
+      financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode).url mustBe fullPath("/worker-cannot-claim")
+      financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url mustBe fullPath("/worker-cannot-claim/edit")
+      financialRiskRoutes.CannotClaimAsExpenseController.onSubmit(NormalMode).url mustBe fullPath("/worker-cannot-claim")
+      financialRiskRoutes.CannotClaimAsExpenseController.onSubmit(CheckMode).url mustBe fullPath("/worker-cannot-claim/edit")
     }
 
     "Have the correct routes for the How Worker is Paid page" in {
-      HowWorkerIsPaidController.onPageLoad(NormalMode).url mustBe fullPath("/worker-compensation")
-      HowWorkerIsPaidController.onPageLoad(CheckMode).url mustBe fullPath("/worker-compensation/edit")
-      HowWorkerIsPaidController.onSubmit(NormalMode).url mustBe fullPath("/worker-compensation")
-      HowWorkerIsPaidController.onSubmit(CheckMode).url mustBe fullPath("/worker-compensation/edit")
+      financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode).url mustBe fullPath("/worker-compensation")
+      financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url mustBe fullPath("/worker-compensation/edit")
+      financialRiskRoutes.HowWorkerIsPaidController.onSubmit(NormalMode).url mustBe fullPath("/worker-compensation")
+      financialRiskRoutes.HowWorkerIsPaidController.onSubmit(CheckMode).url mustBe fullPath("/worker-compensation/edit")
     }
 
     "Have the correct routes for the Put Right at Own Cost page" in {
-      PutRightAtOwnCostController.onPageLoad(NormalMode).url mustBe fullPath("/put-work-right")
-      PutRightAtOwnCostController.onPageLoad(CheckMode).url mustBe fullPath("/put-work-right/edit")
-      PutRightAtOwnCostController.onSubmit(NormalMode).url mustBe fullPath("/put-work-right")
-      PutRightAtOwnCostController.onSubmit(CheckMode).url mustBe fullPath("/put-work-right/edit")
+      financialRiskRoutes.PutRightAtOwnCostController.onPageLoad(NormalMode).url mustBe fullPath("/put-work-right")
+      financialRiskRoutes.PutRightAtOwnCostController.onPageLoad(CheckMode).url mustBe fullPath("/put-work-right/edit")
+      financialRiskRoutes.PutRightAtOwnCostController.onSubmit(NormalMode).url mustBe fullPath("/put-work-right")
+      financialRiskRoutes.PutRightAtOwnCostController.onSubmit(CheckMode).url mustBe fullPath("/put-work-right/edit")
     }
 
     "Have the correct routes for the Worker Benefits page" in {
-      BenefitsController.onPageLoad(NormalMode).url mustBe fullPath("/worker-benefits")
-      BenefitsController.onPageLoad(CheckMode).url mustBe fullPath("/worker-benefits/edit")
-      BenefitsController.onSubmit(NormalMode).url mustBe fullPath("/worker-benefits")
-      BenefitsController.onSubmit(CheckMode).url mustBe fullPath("/worker-benefits/edit")
+      partParcelRoutes.BenefitsController.onPageLoad(NormalMode).url mustBe fullPath("/worker-benefits")
+      partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url mustBe fullPath("/worker-benefits/edit")
+      partParcelRoutes.BenefitsController.onSubmit(NormalMode).url mustBe fullPath("/worker-benefits")
+      partParcelRoutes.BenefitsController.onSubmit(CheckMode).url mustBe fullPath("/worker-benefits/edit")
     }
 
     "Have the correct routes for the Line Manager Duties page" in {
-      LineManagerDutiesController.onPageLoad(NormalMode).url mustBe fullPath("/manager-duties")
-      LineManagerDutiesController.onPageLoad(CheckMode).url mustBe fullPath("/manager-duties/edit")
-      LineManagerDutiesController.onSubmit(NormalMode).url mustBe fullPath("/manager-duties")
-      LineManagerDutiesController.onSubmit(CheckMode).url mustBe fullPath("/manager-duties/edit")
+      partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode).url mustBe fullPath("/manager-duties")
+      partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url mustBe fullPath("/manager-duties/edit")
+      partParcelRoutes.LineManagerDutiesController.onSubmit(NormalMode).url mustBe fullPath("/manager-duties")
+      partParcelRoutes.LineManagerDutiesController.onSubmit(CheckMode).url mustBe fullPath("/manager-duties/edit")
     }
 
     "Have the correct routes for the Interact With Stakeholders page" in {
-      InteractWithStakeholdersController.onPageLoad(NormalMode).url mustBe fullPath("/external-interaction")
-      InteractWithStakeholdersController.onPageLoad(CheckMode).url mustBe fullPath("/external-interaction/edit")
-      InteractWithStakeholdersController.onSubmit(NormalMode).url mustBe fullPath("/external-interaction")
-      InteractWithStakeholdersController.onSubmit(CheckMode).url mustBe fullPath("/external-interaction/edit")
+      partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode).url mustBe fullPath("/external-interaction")
+      partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url mustBe fullPath("/external-interaction/edit")
+      partParcelRoutes.InteractWithStakeholdersController.onSubmit(NormalMode).url mustBe fullPath("/external-interaction")
+      partParcelRoutes.InteractWithStakeholdersController.onSubmit(CheckMode).url mustBe fullPath("/external-interaction/edit")
     }
 
     "Have the correct routes for the Identify to Stakeholders page" in {
-      IdentifyToStakeholdersController.onPageLoad(NormalMode).url mustBe fullPath("/identify-worker")
-      IdentifyToStakeholdersController.onPageLoad(CheckMode).url mustBe fullPath("/identify-worker/edit")
-      IdentifyToStakeholdersController.onSubmit(NormalMode).url mustBe fullPath("/identify-worker")
-      IdentifyToStakeholdersController.onSubmit(CheckMode).url mustBe fullPath("/identify-worker/edit")
+      partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode).url mustBe fullPath("/identify-worker")
+      partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url mustBe fullPath("/identify-worker/edit")
+      partParcelRoutes.IdentifyToStakeholdersController.onSubmit(NormalMode).url mustBe fullPath("/identify-worker")
+      partParcelRoutes.IdentifyToStakeholdersController.onSubmit(CheckMode).url mustBe fullPath("/identify-worker/edit")
     }
 
     "Have the correct routes for the Result page" in {
@@ -174,6 +190,10 @@ class RoutesSpec extends SpecBase {
       PDFController.onPageLoad(CheckMode).url mustBe fullPath("/add-details-for-reference/edit")
       PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-details-for-reference")
       PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details-for-reference/edit")
+    }
+
+    "Have the correct routes for the Leave page" in {
+      setupRoutes.LeaveController.onPageLoad().url mustBe fullPath("/you-have-left-the-tool")
     }
   }
 

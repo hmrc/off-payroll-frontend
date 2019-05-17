@@ -17,8 +17,7 @@
 package connectors
 
 import base.SpecBase
-import connectors.mocks.{MockHttp, MockWsClient}
-import models.AboutYouAnswer.Worker
+import connectors.mocks.MockHttp
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.WorkerAgreeWithOthers
@@ -27,12 +26,13 @@ import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.UserType.Worker
 import models.WorkerType.SoleTrader
-import models.logging.LogInterview
 import models._
+import models.logging.LogInterview
 import play.api.http.Status
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.http.HttpResponse
 
 import scala.concurrent.Future
 

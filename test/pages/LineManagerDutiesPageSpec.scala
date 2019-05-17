@@ -17,6 +17,7 @@
 package pages
 
 import pages.behaviours.PageBehaviours
+import pages.sections.partParcel.LineManagerDutiesPage
 
 class LineManagerDutiesPageSpec extends PageBehaviours {
 

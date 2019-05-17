@@ -5,11 +5,11 @@ echo "Applying migration WouldWorkerPaySubstitute"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /wouldWorkerPaySubstitute                        controllers.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /wouldWorkerPaySubstitute                        controllers.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /wouldWorkerPaySubstitute                        controllers.sections.personalService.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /wouldWorkerPaySubstitute                        controllers.sections.personalService.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeWouldWorkerPaySubstitute                  controllers.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeWouldWorkerPaySubstitute                  controllers.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeWouldWorkerPaySubstitute                  controllers.sections.personalService.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeWouldWorkerPaySubstitute                  controllers.sections.personalService.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

@@ -28,6 +28,9 @@ import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
 import pages._
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.personalService.ArrangedSubstitutePage
+import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
@@ -43,7 +46,7 @@ import scala.concurrent.{ExecutionContext, Future}
 trait DecisionService {
 
   def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result]
+            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result]
 
   def determineResultView(answerSections: Seq[AnswerSection],
                           formWithErrors: Option[Form[Boolean]] = None,
@@ -75,7 +78,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   val resultForm: Form[Boolean] = formProvider()
 
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
+                     (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
     for {
       decision <- decisionConnector.decide(interview)
