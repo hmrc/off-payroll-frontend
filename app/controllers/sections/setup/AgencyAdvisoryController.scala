@@ -37,8 +37,7 @@ class AgencyAdvisoryController @Inject()(navigator: Navigator,
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(
       postAction = routes.AgencyAdvisoryController.onSubmit(),
-      //TODO: Finish actions needs to be updated to redirect to the new finish controller (when it is created)
-      finishAction = routes.AboutYouController.onPageLoad(NormalMode)
+      finishAction = routes.LeaveController.onPageLoad()
     ))
   }
 

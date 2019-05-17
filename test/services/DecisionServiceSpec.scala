@@ -703,7 +703,6 @@ class DecisionServiceSpec extends SpecBase {
 
       val result = service.determineResultView(answers, Some(errorForm.form), false, None)
 
-      //TODO ADD ERROR FORM
       result.toString() must include("This engagement should be classed as employed for tax purposes")
       result.toString() must include(messagesApi("result.employed.whyResult.p1"))
     }

@@ -56,7 +56,7 @@ class ResultControllerSpec extends ControllerSpecBase {
   val indeterminateView = injector.instanceOf[IndeterminateView]
   val insideIR35 = injector.instanceOf[InsideIR35View]
 
-  val postAction = routes.ResultController.onSubmit() //TODO: this will need to go to the PDF controller
+  val postAction = routes.ResultController.onSubmit()
 
   val answers = Seq(
     AnswerSection(Some(Messages("result.peopleInvolved.h2")), None, Seq()),
