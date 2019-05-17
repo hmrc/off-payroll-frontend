@@ -129,3 +129,8 @@ GET        /agency-advisory                             controllers.sections.set
 POST       /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onSubmit()
 
 GET        /you-have-left-the-tool                      controllers.sections.setup.LeaveController.onPageLoad()
+
+GET        /businessSize               controllers.BusinessSizeController.onPageLoad(mode: Mode = NormalMode)
+POST       /businessSize               controllers.BusinessSizeController.onSubmit(mode: Mode = NormalMode)
+GET        /changeBusinessSize                  controllers.BusinessSizeController.onPageLoad(mode: Mode = CheckMode)
+POST       /changeBusinessSize                  controllers.BusinessSizeController.onSubmit(mode: Mode = CheckMode)

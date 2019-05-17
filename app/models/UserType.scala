@@ -16,6 +16,7 @@
 
 package models
 
+import config.SessionKeys
 import play.api.libs.json._
 
 sealed trait UserType
@@ -34,6 +35,12 @@ object UserType {
     case WhichDescribesYouAnswer.ClientPAYE => Hirer
     case WhichDescribesYouAnswer.ClientIR35 => Hirer
     case WhichDescribesYouAnswer.Agency => Agency
+  }
+
+  def apply(userType: Option[String]): UserType = userType match {
+    case Some("worker") => Worker
+    case Some("hirer") => Hirer
+    case Some("agency") => Agency
   }
 
   val values = Seq(Worker, Hirer, Agency)
