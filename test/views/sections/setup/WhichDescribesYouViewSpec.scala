@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package views
+package views.sections.setup
 
-import controllers.routes
+import controllers.sections.setup.routes
 import forms.WhichDescribesYouFormProvider
-import models.{WhichDescribesYouAnswer, NormalMode}
+import models.{NormalMode, WhichDescribesYouAnswer}
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
-import views.html.WhichDescribesYouView
+import views.html.sections.setup.WhichDescribesYouView
 
 class WhichDescribesYouViewSpec extends QuestionViewBehaviours[WhichDescribesYouAnswer] {
 
