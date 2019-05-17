@@ -922,3 +922,17 @@ result.substitutesAndHelpers.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cae
 result.workArrangements.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod faint o hawl sydd gan y cleient terfynol i reoli’r hyn y mae’r gweithiwr yn ei wneud yn ystod y swydd hon. Os oes gan y cleient terfynol yr hawl i reoli, byddai hynny’n awgrymu bod yr arferion gwaith yn debyg i’r rheiny a ddilynir gan gyflogai.
 result.financialRisk.summary=Rydym yn gofyn y cwestiynau hyn er mwyn canfod lefel y risg ariannol sy’n rhaid i’r gweithiwr fentro iddi yn ystod y swydd hon. Mae gweithwyr nad ydynt yn mentro’u harian eu hunain drwy, er enghraifft, brynu asedion neu dalu am orbenion a deunyddiau, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
 result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i ba raddau y mae’r gweithiwr wedi’i integreiddio i mewn i sefydliad y cleient terfynol. Mae gweithwyr sy’n cael buddiannau, sy’n gyfrifol am fod yn rheolwr llinell ar bobl eraill, ac sy’n rhoi’r argraff eu bod yn gweithio i’r cleient terfynol, yn fwy tebygol o fod yn gyflogedig at ddibenion treth.
+
+
+
+
+##### TODO NEED WELSH FOR ####
+whichDescribesYou.title = Which of these describes you best?
+whichDescribesYou.heading = Which of these describes you best?
+whichDescribesYou.subheading = Section 1: Who, what, when
+whichDescribesYou.checkYourAnswersLabel = Which of these describes you best?
+whichDescribesYou.worker.paye = I want to find out if I am employed/self-employed
+whichDescribesYou.client.paye = I want to find out if I need to apply PAYE to someone who is working for me
+whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within IR35
+whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is recruiting for falls within IR35
+whichDescribesYou.agency = I want to find out if a contract I’m recruiting for, on behalf of another organisation, falls within IR35

@@ -23,19 +23,19 @@ sealed trait WhichDescribesYouAnswer
 
 object WhichDescribesYouAnswer {
 
-  case object Worker1 extends WithName("worker.one") with WhichDescribesYouAnswer
-  case object Worker2 extends WithName("worker.two") with WhichDescribesYouAnswer
-  case object Client1 extends WithName("client.one") with WhichDescribesYouAnswer
-  case object Client2 extends WithName("client.two") with WhichDescribesYouAnswer
+  case object WorkerPAYE extends WithName("worker.paye") with WhichDescribesYouAnswer
+  case object WorkerIR35 extends WithName("worker.ir35") with WhichDescribesYouAnswer
+  case object ClientPAYE extends WithName("client.paye") with WhichDescribesYouAnswer
+  case object ClientIR35 extends WithName("client.ir35") with WhichDescribesYouAnswer
   case object Agency extends WithName("agency") with WhichDescribesYouAnswer
 
-  val values: Seq[WhichDescribesYouAnswer] = Seq(Worker1, Client1, Worker2, Client2, Agency)
+  val values: Seq[WhichDescribesYouAnswer] = Seq(WorkerPAYE, ClientPAYE, WorkerIR35, ClientIR35, Agency)
 
   val options: Seq[RadioOption] = Seq(
-    RadioOption("whichDescribesYou", Worker1.toString, radio),
-    RadioOption("whichDescribesYou", Worker2.toString, radio),
-    RadioOption("whichDescribesYou", Client1.toString, radio, hasTailoredMsgs = false, dividerPrefix = true),
-    RadioOption("whichDescribesYou", Client2.toString, radio),
+    RadioOption("whichDescribesYou", WorkerPAYE.toString, radio),
+    RadioOption("whichDescribesYou", WorkerIR35.toString, radio),
+    RadioOption("whichDescribesYou", ClientPAYE.toString, radio, hasTailoredMsgs = false, dividerPrefix = true),
+    RadioOption("whichDescribesYou", ClientIR35.toString, radio),
     RadioOption("whichDescribesYou", Agency.toString, radio)
   )
 
@@ -44,10 +44,10 @@ object WhichDescribesYouAnswer {
   implicit val writes: Writes[WhichDescribesYouAnswer] = Writes { model => Json.toJson(model.toString) }
 
   implicit val reads: Reads[WhichDescribesYouAnswer] = Reads {
-    case JsString(Worker1.toString) => JsSuccess(Worker1)
-    case JsString(Client1.toString) => JsSuccess(Client1)
-    case JsString(Worker2.toString) => JsSuccess(Worker2)
-    case JsString(Client2.toString) => JsSuccess(Client2)
+    case JsString(WorkerPAYE.toString) => JsSuccess(WorkerPAYE)
+    case JsString(ClientPAYE.toString) => JsSuccess(ClientPAYE)
+    case JsString(WorkerIR35.toString) => JsSuccess(WorkerIR35)
+    case JsString(ClientIR35.toString) => JsSuccess(ClientIR35)
     case JsString(Agency.toString) => JsSuccess(Agency)
     case _                         => JsError("Unknown whichDescribesYouAnswer")
   }
