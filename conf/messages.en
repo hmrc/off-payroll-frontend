@@ -928,6 +928,8 @@ whichDescribesYou.client.paye = I want to find out if I need to apply PAYE to so
 whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within IR35
 whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is recruiting for falls within IR35
 whichDescribesYou.agency = I want to find out if a contract I’m recruiting for, on behalf of another organisation, falls within IR35
+whichDescribesYou.error.required = You need to select an answer
+whichDescribesYou.error.invalid = You need to select an answer
 
 agencyAdvisory.title = You don’t need to determine if this work should be paid within IR35
 agencyAdvisory.heading = You don’t need to determine if this work should be paid within IR35

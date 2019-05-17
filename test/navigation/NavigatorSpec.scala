@@ -30,6 +30,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import pages._
 import play.api.libs.json.Writes
 import models.Answers._
+import models.WhichDescribesYouAnswer.Agency
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
   val navigator = new Navigator
@@ -58,8 +59,25 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           nextPage(AboutYourResultPage) mustBe setupRoutes.AboutYouController.onPageLoad(NormalMode)
         }
 
-        "go to the About you page from the Agency Advisory page" in {
-          nextPage(AgencyAdvisoryPage) mustBe setupRoutes.AboutYouController.onPageLoad(NormalMode)
+        "go to the Agent Advisory page from the About You page, if Agent" in {
+          enable(OptimisedFlow)
+          nextPage(WhichDescribesYouPage, setAnswers(WhichDescribesYouPage -> Agency)) mustBe
+            setupRoutes.AgencyAdvisoryController.onPageLoad()
+        }
+
+        "go to the Worker Type page from the About You page, if NOT Agent" in {
+          enable(OptimisedFlow)
+          nextPage(WhichDescribesYouPage) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+        }
+
+        "go to the Worker Type page from the Agency Advisory page" in {
+          enable(OptimisedFlow)
+          nextPage(AgencyAdvisoryPage) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+        }
+
+        "go to the Contract Started page from the Worker Type page" in {
+          enable(OptimisedFlow)
+          nextPage(WorkerTypePage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
       }
 

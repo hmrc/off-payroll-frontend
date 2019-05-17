@@ -43,7 +43,7 @@ import scala.concurrent.{ExecutionContext, Future}
 trait DecisionService {
 
   def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result]
+            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result]
 
   def determineResultView(answerSections: Seq[AnswerSection],
                           formWithErrors: Option[Form[Boolean]] = None,
@@ -75,7 +75,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   val resultForm: Form[Boolean] = formProvider()
 
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
-                     (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
+                     (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
     for {
       decision <- decisionConnector.decide(interview)

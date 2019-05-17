@@ -54,6 +54,7 @@ object CompareAnswerService {
 
   private lazy val questionToPage = Map(
     "aboutYou" -> AboutYouPage,
+    "whichDescribesYou" -> WhichDescribesYouPage,
     "contractStarted" -> ContractStartedPage,
     "workerType" -> WorkerTypePage,
     "officeHolder" -> OfficeHolderPage,

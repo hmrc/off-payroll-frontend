@@ -17,30 +17,35 @@
 package controllers.sections.setup
 
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.AboutYouFormProvider
+import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models.Answers._
-import models.{AboutYouAnswer, Answers, NormalMode, UserType}
+import models._
 import navigation.FakeNavigator
-import pages.AboutYouPage
+import pages.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.SessionUtils._
+import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
 
 class AboutYouControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = Call("GET", "/foo")
 
-  val formProvider = new AboutYouFormProvider()
-  val form = formProvider()
+  val aboutYouFormProvider = new AboutYouFormProvider()
+  val aboutYouForm = aboutYouFormProvider()
+  val whichDescribesYouFormProvider = new WhichDescribesYouFormProvider()
+  val whichDescribesYouForm = whichDescribesYouFormProvider()
 
-  val view = injector.instanceOf[AboutYouView]
+  val aboutYouview = injector.instanceOf[AboutYouView]
+  val whichDescribesYouview = injector.instanceOf[WhichDescribesYouView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new AboutYouController(
     appConfig = frontendAppConfig,
@@ -49,64 +54,132 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider = formProvider,
+    aboutYouFormProvider = new AboutYouFormProvider(),
+    whichDescribesYouFormProvider = new WhichDescribesYouFormProvider(),
     controllerComponents = messagesControllerComponents,
-    view = view
+    aboutYouView = aboutYouview,
+    whichDescribesYouView = whichDescribesYouview
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  "AboutYou Controller" must {
+  "AboutYou Controller" when {
 
-    "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
+    "Optimised Feature Switch is disabled" must {
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      def viewAsString(form: Form[_] = aboutYouForm) = aboutYouview(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+
+      "return OK and the correct view for a GET" in {
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
+
+      "populate the view correctly on a GET when the question has previously been answered" in {
+        val validData = Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0)))
+        val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+        contentAsString(result) mustBe viewAsString(aboutYouForm.fill(AboutYouAnswer.values.head))
+      }
+
+      "redirect to the next page when valid data is submitted" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+        session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values.head))
+      }
+
+      "return a Bad Request and errors when invalid data is submitted" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = aboutYouForm.bind(Map("value" -> "invalid value"))
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) mustBe viewAsString(boundForm)
+      }
+
+      "redirect to Session Expired for a GET if no existing data is found" in {
+        val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      }
+
+      "redirect to Session Expired for a POST if no existing data is found" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
+        val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      }
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+    "Optimised Feature Switch is enabled" must {
 
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+      def viewAsString(form: Form[_] = whichDescribesYouForm) = whichDescribesYouview(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-      contentAsString(result) mustBe viewAsString(form.fill(AboutYouAnswer.values.head))
-    }
+      "return OK and the correct view for a GET" in {
+        enable(OptimisedFlow)
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
-    "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+      "populate the view correctly on a GET when the question has previously been answered" in {
+        enable(OptimisedFlow)
+        val validData = Map(WhichDescribesYouPage.toString -> Json.toJson(Answers(WhichDescribesYouAnswer.values.head,0)))
+        val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-      session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values.head))
-    }
+        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
+        contentAsString(result) mustBe viewAsString(whichDescribesYouForm.fill(WhichDescribesYouAnswer.values.head))
+      }
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+      "redirect to the next page when valid data is submitted" in {
+        enable(OptimisedFlow)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
+        val result = controller().onSubmit(NormalMode)(postRequest)
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+        session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(WhichDescribesYouAnswer.values.head))
+      }
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
-    }
+      "return a Bad Request and errors when invalid data is submitted" in {
+        enable(OptimisedFlow)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = aboutYouForm.bind(Map("value" -> "invalid value"))
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+        val result = controller().onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) mustBe viewAsString(boundForm)
+      }
+
+      "redirect to Session Expired for a GET if no existing data is found" in {
+        enable(OptimisedFlow)
+        val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      }
+
+      "redirect to Session Expired for a POST if no existing data is found" in {
+        enable(OptimisedFlow)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
+        val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      }
     }
   }
 }

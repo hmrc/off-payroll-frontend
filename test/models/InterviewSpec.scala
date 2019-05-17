@@ -17,6 +17,7 @@
 package models
 
 import base.SpecBase
+import config.SessionKeys
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
@@ -28,8 +29,9 @@ import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WorkerType.SoleTrader
+import models.requests.DataRequest
 import pages._
-import play.api.libs.json.{JsNull, Json}
+import play.api.libs.json.{JsNull, JsString, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 class InterviewSpec extends SpecBase {
@@ -64,7 +66,7 @@ class InterviewSpec extends SpecBase {
 
         val expected = Interview(
           correlationId = "id",
-          endUserRole = Some(Worker),
+          endUserRole = Some(UserType.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(SoleTrader),
           officeHolder = Some(false),
@@ -90,7 +92,9 @@ class InterviewSpec extends SpecBase {
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
         )
 
-        val actual = Interview(userAnswers)
+        val dataRequest = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(UserType.Worker).toString), "id", userAnswers)
+
+        val actual = Interview(userAnswers)(frontendAppConfig, dataRequest)
 
         actual mustBe expected
 
@@ -102,7 +106,9 @@ class InterviewSpec extends SpecBase {
 
         val expected = Interview("id")
 
-        val actual = Interview(userAnswers)
+        val dataRequest = DataRequest(fakeRequest, "id", userAnswers)
+
+        val actual = Interview(userAnswers)(frontendAppConfig, dataRequest)
 
         actual mustBe expected
 
@@ -115,7 +121,7 @@ class InterviewSpec extends SpecBase {
 
         val model = Interview(
           correlationId = "id",
-          endUserRole = Some(Worker),
+          endUserRole = Some(UserType.Worker),
           hasContractStarted = Some(true),
           provideServices = Some(SoleTrader),
           officeHolder = Some(false),

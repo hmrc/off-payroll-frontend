@@ -14,25 +14,10 @@
  * limitations under the License.
  */
 
-package models
+package pages
 
-import play.api.libs.json._
-import play.api.libs.json.Reads._
-import play.api.libs.functional.syntax._
+import models.WhichDescribesYouAnswer
 
-case class Answers[T](answer: T, answerNumber: Int)
-
-object Answers {
-
-  implicit def reads[A](implicit reads: Reads[A]): Reads[Answers[A]] =
-    ((JsPath \ "answer").read[A] and
-      (JsPath \ "answerNumber").read[Int]
-      ) (Answers.apply[A] _)
-
-  implicit def writes[A](implicit reads: Writes[A]): Writes[Answers[A]] = Writes { model =>
-    Json.obj(
-      "answer" -> model.answer,
-      "answerNumber" -> model.answerNumber
-    )
-  }
+case object WhichDescribesYouPage extends QuestionPage[WhichDescribesYouAnswer] {
+  override def toString: String = "whichDescribesYou"
 }

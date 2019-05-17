@@ -27,7 +27,7 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import models.AboutYouAnswer.Agency
+import models.WhichDescribesYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import models._
@@ -42,7 +42,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
     //Setup Section
     AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
-    AboutYouPage -> (answers => answers.get(AboutYouPage) match {
+    WhichDescribesYouPage -> (answers => answers.get(WhichDescribesYouPage) match {
       case Some(Answers(Agency, _)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
       case _ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
     }),

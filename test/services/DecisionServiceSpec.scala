@@ -725,6 +725,8 @@ class DecisionServiceSpec extends SpecBase {
 
     "return a continue decision based on the interview" in {
 
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
+
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
@@ -734,6 +736,8 @@ class DecisionServiceSpec extends SpecBase {
 
     }
     "return a continue decision based on the interview when control is empty" in {
+
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(riskResponse)))
       when(connector.log(Interview(userAnswers),riskResponse)).thenReturn(Future.successful(Right(true)))
@@ -746,6 +750,8 @@ class DecisionServiceSpec extends SpecBase {
     }
     "return a continue decision based on the interview when risk is empty" in {
 
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
+
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(controlResponse)))
       when(connector.log(Interview(userAnswers),controlResponse)).thenReturn(Future.successful(Right(true)))
 
@@ -756,6 +762,8 @@ class DecisionServiceSpec extends SpecBase {
 
     }
     "return a decision based on the interview" in {
+
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
       when(connector.log(Interview(userAnswers),exitResponse)).thenReturn(Future.successful(Right(true)))
@@ -768,6 +776,8 @@ class DecisionServiceSpec extends SpecBase {
 
     "handle 400 errors" in {
 
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
+
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(400, "Bad"))))
 
       val result = service.decide(userAnswers, onwardRoute, error)
@@ -777,6 +787,8 @@ class DecisionServiceSpec extends SpecBase {
     }
 
     "handle 500 errors" in {
+
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(500, "Internal error"))))
 
