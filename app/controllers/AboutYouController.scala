@@ -45,7 +45,7 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
   
   val form: Form[AboutYouAnswer] = formProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def dfshvzjbzbjv(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(request.userAnswers.get(AboutYouPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
