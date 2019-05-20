@@ -959,3 +959,18 @@ agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can
 ##### TODO NEED WELSH FOR ####
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
+
+##### TODO NEED WELSH FOR ####
+hirer.businessSize.title = Does your organisation have more than:
+hirer.businessSize.heading = Does your organisation have more than:
+worker.businessSize.title = Does this client have more than:
+worker.businessSize.heading = Does this client have more than:
+businessSize.subheading = Section 1: Who, what, when
+businessSize.hint = Select any options that apply
+businessSize.turnover = £10.2 million annual turnover?
+businessSize.balanceSheet = £5.1 million on their balance sheet?
+businessSize.employees = 50 employees?
+businessSize.noneOfAbove = None of the above
+businessSize.checkYourAnswersLabel = Does this client have more than:
+businessSize.error.required = Select an option
+businessSize.error.invalid = Select a valid option

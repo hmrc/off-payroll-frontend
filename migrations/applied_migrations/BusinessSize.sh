@@ -5,11 +5,11 @@ echo "Applying migration BusinessSize"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /businessSize               controllers.BusinessSizeController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /businessSize               controllers.BusinessSizeController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /businessSize               controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /businessSize               controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeBusinessSize                  controllers.BusinessSizeController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeBusinessSize                  controllers.BusinessSizeController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeBusinessSize                  controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeBusinessSize                  controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en
