@@ -957,6 +957,12 @@ agencyAdvisory.p2 = However, if you are the fee-payer you may still be accountab
 agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can continue through the tool as if you were the worker.
 
 ##### TODO NEED WELSH FOR ####
+hirerAdvisory.title = You don’t need to answer any more questions
+hirerAdvisory.heading = You don’t need to answer any more questions
+hirerAdvisory.p1 = Until April 2020, workers are responsible for determining if roles like this should be in or out of IR35
+hirerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
+
+##### TODO NEED WELSH FOR ####
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
@@ -974,3 +980,9 @@ businessSize.noneOfAbove = None of the above
 businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
+
+##### TODO NEED WELSH FOR ####
+checkYourAnswers.title = Review your answers in each section below
+checkYourAnswers.heading = Review your answers in each section below
+checkYourAnswers.confirm.h2 = Confirm answers to get your result
+checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.

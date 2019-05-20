@@ -958,3 +958,8 @@ businessSize.noneOfAbove = None of the above
 businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
+
+checkYourAnswers.title = Review your answers in each section below
+checkYourAnswers.heading = Review your answers in each section below
+checkYourAnswers.confirm.h2 = Confirm answers to get your result
+checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.

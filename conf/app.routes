@@ -137,3 +137,5 @@ GET        /business-size                               controllers.sections.set
 POST       /business-size                               controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = NormalMode)
 GET        /business-size/edit                          controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = CheckMode)
 POST       /business-size/edit                          controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = CheckMode)
+
+GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad()
