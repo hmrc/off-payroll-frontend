@@ -24,7 +24,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.cache.client.CacheMap
 

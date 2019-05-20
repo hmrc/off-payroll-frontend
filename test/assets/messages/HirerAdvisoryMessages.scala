@@ -14,20 +14,13 @@
  * limitations under the License.
  */
 
-package pages
+package assets.messages
 
-import models.BusinessSize
-import pages.behaviours.PageBehaviours
-import pages.sections.setup.BusinessSizePage
+object HirerAdvisoryMessages extends BaseMessages {
 
-class BusinessSizePageSpec extends PageBehaviours {
+  val heading = "You don’t need to answer any more questions"
+  val title = heading
+  val p1 = "Until April 2020, workers are responsible for determining if roles like this should be in or out of IR35"
+  val p2 = "You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination."
 
-  "YourLocation" must {
-
-    beRetrievable[Seq[BusinessSize]](BusinessSizePage)
-
-    beSettable[Seq[BusinessSize]](BusinessSizePage)
-
-    beRemovable[Seq[BusinessSize]](BusinessSizePage)
-  }
 }
