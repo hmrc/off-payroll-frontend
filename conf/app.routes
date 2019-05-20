@@ -22,6 +22,9 @@ POST       /about-you                                   controllers.sections.set
 GET        /about-you/edit                              controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = CheckMode)
 POST       /about-you/edit                              controllers.sections.setup.AboutYouController.onSubmit(mode: Mode = CheckMode)
 
+GET        /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onPageLoad
+POST       /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onSubmit
+
 GET        /work-started                                controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = NormalMode)
 POST       /work-started                                controllers.sections.setup.ContractStartedController.onSubmit(mode: Mode = NormalMode)
 GET        /work-started/edit                           controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = CheckMode)
