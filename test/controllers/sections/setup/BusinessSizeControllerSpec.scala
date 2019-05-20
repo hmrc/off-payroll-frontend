@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.sections.setup
 
 import connectors.FakeDataCacheConnector
+import controllers.ControllerSpecBase
 import controllers.actions._
-import controllers.sections.setup.BusinessSizeController
 import forms.BusinessSizeFormProvider
 import models.{Answers, BusinessSize, NormalMode}
 import navigation.FakeNavigator
-import pages.BusinessSizePage
+import pages.sections.setup.BusinessSizePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call

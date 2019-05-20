@@ -128,6 +128,9 @@ POST       /add-details-for-reference/edit              controllers.PDFControlle
 GET        /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onSubmit()
 
+GET        /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onPageLoad()
+POST       /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onSubmit()
+
 GET        /you-have-left-the-tool                      controllers.sections.setup.LeaveController.onPageLoad()
 
 GET        /business-size                               controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = NormalMode)

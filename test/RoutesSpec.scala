@@ -40,6 +40,11 @@ class RoutesSpec extends SpecBase {
       setupRoutes.AgencyAdvisoryController.onSubmit().url mustBe fullPath("/agency-advisory")
     }
 
+    "Have the correct routes for the Hirer Advisory page" in {
+      setupRoutes.HirerAdvisoryController.onPageLoad().url mustBe fullPath("/hirer-advisory")
+      setupRoutes.HirerAdvisoryController.onSubmit().url mustBe fullPath("/hirer-advisory")
+    }
+
     "Have the correct routes for the About You page" in {
       setupRoutes.AboutYouController.onPageLoad(NormalMode).url mustBe fullPath("/about-you")
       setupRoutes.AboutYouController.onPageLoad(CheckMode).url mustBe fullPath("/about-you/edit")

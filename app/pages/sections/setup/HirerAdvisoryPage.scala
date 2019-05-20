@@ -14,20 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
-import models.BusinessSize
-import pages.behaviours.PageBehaviours
-import pages.sections.setup.BusinessSizePage
+import pages.Page
 
-class BusinessSizePageSpec extends PageBehaviours {
-
-  "YourLocation" must {
-
-    beRetrievable[Seq[BusinessSize]](BusinessSizePage)
-
-    beSettable[Seq[BusinessSize]](BusinessSizePage)
-
-    beRemovable[Seq[BusinessSize]](BusinessSizePage)
-  }
+case object HirerAdvisoryPage extends Page {
+  override def toString: String = "hirerAdvisoryPage"
 }

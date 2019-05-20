@@ -24,7 +24,7 @@ import forms.BusinessSizeFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.BusinessSizePage
+import pages.sections.setup.BusinessSizePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
 import views.html.sections.setup.BusinessSizeView
