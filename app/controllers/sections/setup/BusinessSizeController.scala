@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-package controllers
+package controllers.sections.setup
 
-import javax.inject.Inject
-import play.api.i18n.I18nSupport
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
-import config.{FrontendAppConfig, SessionKeys}
 import forms.BusinessSizeFormProvider
-import models.{Enumerable, Mode, UserType}
-import pages.BusinessSizePage
+import javax.inject.Inject
+import models.Mode
 import navigation.Navigator
-import pages.sections.setup.WorkerTypePage
+import pages.BusinessSizePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.CompareAnswerService
-import views.html.BusinessSizeView
+import views.html.sections.setup.BusinessSizeView
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 class BusinessSizeController @Inject()(
                                       dataCacheConnector: DataCacheConnector,
@@ -47,8 +45,7 @@ class BusinessSizeController @Inject()(
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val userType = UserType(request.session.get(SessionKeys.userType))
-    Ok(view(request.userAnswers.get(BusinessSizePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode, userType))
+    Ok(view(request.userAnswers.get(BusinessSizePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

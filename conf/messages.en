@@ -940,8 +940,8 @@ agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
-hirer.businessSize.title =
-hirer.businessSize.heading =
+hirer.businessSize.title = Does your organisation have more than:
+hirer.businessSize.heading = Does your organisation have more than:
 worker.businessSize.title = Does this client have more than:
 worker.businessSize.heading = Does this client have more than:
 businessSize.subheading = Section 1: Who, what, when

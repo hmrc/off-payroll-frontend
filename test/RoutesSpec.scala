@@ -61,6 +61,13 @@ class RoutesSpec extends SpecBase {
       setupRoutes.WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
     }
 
+    "Have the correct routes for the Business Size page" in {
+      setupRoutes.BusinessSizeController.onPageLoad(NormalMode).url mustBe fullPath("/business-size")
+      setupRoutes.BusinessSizeController.onPageLoad(CheckMode).url mustBe fullPath("/business-size/edit")
+      setupRoutes.BusinessSizeController.onSubmit(NormalMode).url mustBe fullPath("/business-size")
+      setupRoutes.BusinessSizeController.onSubmit(CheckMode).url mustBe fullPath("/business-size/edit")
+    }
+
     "Have the correct routes for the Office Holder page" in {
       exitRoutes.OfficeHolderController.onPageLoad(NormalMode).url mustBe fullPath("/office-holder-duties")
       exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url mustBe fullPath("/office-holder-duties/edit")

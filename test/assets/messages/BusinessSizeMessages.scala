@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package forms
+package assets.messages
 
-import forms.behaviours.OptionFieldBehaviours
-import models.BusinessSize
-import play.api.data.FormError
+object BusinessSizeMessages extends BaseMessages {
 
-class BusinessSizeFormProviderSpec extends OptionFieldBehaviours {
+  val subheading = "Section 1: Who, what, when"
+  val p1 = "Select any options that apply"
+  val option1 = "£10.2 million annual turnover?"
+  val option2 = "£5.1 million on their balance sheet?"
+  val option3 = "50 employees?"
+  val option4 = "None of the above"
 
-  val form = new BusinessSizeFormProvider()()
-
-  ".value" must {
-
-    val fieldName = "businessSize[0]"
-    val requiredKey = "businessSize.error.required"
-
-    behave like optionsField[BusinessSize](
-      form,
-      fieldName,
-      validValues  = BusinessSize.values,
-      invalidError = FormError(fieldName, "error.invalid")
-    )
+  object Worker {
+    val heading = "Does this client have more than:"
+    val title = heading
   }
+
+  object Hirer {
+    val heading = "Does your organisation have more than:"
+    val title = heading
+  }
+
 }
