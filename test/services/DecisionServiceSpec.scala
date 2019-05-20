@@ -41,6 +41,12 @@ import org.mockito.Matchers
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import pages._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.data.Form
 import play.api.data.Forms.of
 import play.api.mvc.{Call, Result}
@@ -703,7 +709,6 @@ class DecisionServiceSpec extends SpecBase {
 
       val result = service.determineResultView(answers, Some(errorForm.form), false, None)
 
-      //TODO ADD ERROR FORM
       result.toString() must include("This engagement should be classed as employed for tax purposes")
       result.toString() must include(messagesApi("result.employed.whyResult.p1"))
     }
@@ -726,6 +731,8 @@ class DecisionServiceSpec extends SpecBase {
 
     "return a continue decision based on the interview" in {
 
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
+
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
@@ -735,6 +742,8 @@ class DecisionServiceSpec extends SpecBase {
 
     }
     "return a continue decision based on the interview when control is empty" in {
+
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(riskResponse)))
       when(connector.log(Interview(userAnswers),riskResponse)).thenReturn(Future.successful(Right(true)))
@@ -747,6 +756,8 @@ class DecisionServiceSpec extends SpecBase {
     }
     "return a continue decision based on the interview when risk is empty" in {
 
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
+
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(controlResponse)))
       when(connector.log(Interview(userAnswers),controlResponse)).thenReturn(Future.successful(Right(true)))
 
@@ -757,6 +768,8 @@ class DecisionServiceSpec extends SpecBase {
 
     }
     "return a decision based on the interview" in {
+
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
       when(connector.log(Interview(userAnswers),exitResponse)).thenReturn(Future.successful(Right(true)))
@@ -769,6 +782,8 @@ class DecisionServiceSpec extends SpecBase {
 
     "handle 400 errors" in {
 
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
+
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(400, "Bad"))))
 
       val result = service.decide(userAnswers, onwardRoute, error)
@@ -778,6 +793,8 @@ class DecisionServiceSpec extends SpecBase {
     }
 
     "handle 500 errors" in {
+
+      implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(500, "Internal error"))))
 

@@ -5,11 +5,11 @@ echo "Applying migration HowWorkerIsPaid"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /howWorkerIsPaid               controllers.HowWorkerIsPaidController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /howWorkerIsPaid               controllers.HowWorkerIsPaidController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /howWorkerIsPaid               controllers.sections.financialRisk.HowWorkerIsPaidController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /howWorkerIsPaid               controllers.sections.financialRisk.HowWorkerIsPaidController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeHowWorkerIsPaid                  controllers.HowWorkerIsPaidController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeHowWorkerIsPaid                  controllers.HowWorkerIsPaidController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeHowWorkerIsPaid                  controllers.sections.financialRisk.HowWorkerIsPaidController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeHowWorkerIsPaid                  controllers.sections.financialRisk.HowWorkerIsPaidController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

@@ -18,6 +18,7 @@ package pages
 
 import models.HowWorkerIsPaid
 import pages.behaviours.PageBehaviours
+import pages.sections.financialRisk.HowWorkerIsPaidPage
 
 class HowWorkerIsPaidSpec extends PageBehaviours {
 

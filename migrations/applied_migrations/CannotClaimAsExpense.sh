@@ -5,11 +5,11 @@ echo "Applying migration CannotClaimAsExpense"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /cannotClaimAsExpense               controllers.CannotClaimAsExpenseController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /cannotClaimAsExpense               controllers.CannotClaimAsExpenseController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /cannotClaimAsExpense               controllers.sections.financialRisk.CannotClaimAsExpenseController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /cannotClaimAsExpense               controllers.sections.financialRisk.CannotClaimAsExpenseController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeCannotClaimAsExpense                  controllers.CannotClaimAsExpenseController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeCannotClaimAsExpense                  controllers.CannotClaimAsExpenseController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeCannotClaimAsExpense                  controllers.sections.financialRisk.CannotClaimAsExpenseController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeCannotClaimAsExpense                  controllers.sections.financialRisk.CannotClaimAsExpenseController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

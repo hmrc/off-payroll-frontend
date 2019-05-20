@@ -20,6 +20,7 @@ import models.AboutYouAnswer._
 import models.{AboutYouAnswer, Enumerable}
 import org.scalacheck.{Arbitrary, Gen}
 import pages.behaviours.PageBehaviours
+import pages.sections.setup.AboutYouPage
 
 class AboutYouPageSpec extends PageBehaviours with Enumerable.Implicits {
 

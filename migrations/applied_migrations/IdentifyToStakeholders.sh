@@ -5,11 +5,11 @@ echo "Applying migration IdentifyToStakeholders"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /identifyToStakeholders               controllers.IdentifyToStakeholdersController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /identifyToStakeholders               controllers.IdentifyToStakeholdersController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /identifyToStakeholders               controllers.sections.partParcel.IdentifyToStakeholdersController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /identifyToStakeholders               controllers.sections.partParcel.IdentifyToStakeholdersController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeIdentifyToStakeholders                  controllers.IdentifyToStakeholdersController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeIdentifyToStakeholders                  controllers.IdentifyToStakeholdersController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeIdentifyToStakeholders                  controllers.sections.partParcel.IdentifyToStakeholdersController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeIdentifyToStakeholders                  controllers.sections.partParcel.IdentifyToStakeholdersController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

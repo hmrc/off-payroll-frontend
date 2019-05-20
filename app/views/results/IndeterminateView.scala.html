@@ -47,7 +47,7 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 
         @components.error_summary(form.errors)
 
-        @sections.teal_result(Html(messages("result.indeterminate.title")))
+        @components.teal_result(Html(messages("result.indeterminate.title")))
 
         @sections.should_now_do(shouldNowDoContent)
 

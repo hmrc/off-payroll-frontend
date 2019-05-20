@@ -17,7 +17,7 @@
 package base
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, TailoredContent}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
 import models.UserAnswers
@@ -52,6 +52,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
 
   override def beforeEach(): Unit = {
     enable(TailoredContent)
+    disable(OptimisedFlow)
     super.beforeEach()
   }
 

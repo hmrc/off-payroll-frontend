@@ -5,11 +5,11 @@ echo "Applying migration AboutYou"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /aboutYou                        controllers.AboutYouController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /aboutYou                        controllers.AboutYouController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /aboutYou                        controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /aboutYou                        controllers.sections.setup.AboutYouController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeAboutYou                  controllers.AboutYouController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeAboutYou                  controllers.AboutYouController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeAboutYou                  controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeAboutYou                  controllers.sections.setup.AboutYouController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

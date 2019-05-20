@@ -72,6 +72,8 @@ site.hidden-edit =   Change {0}
 ##### TODO NEED WELSH FOR ####
 site.no = Na
 site.yes = Iawn
+##### TODO NEED WELSH FOR ####
+site.finish = Finish
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
@@ -926,6 +928,16 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 
 
 
+
+########## OPTIMISED FLOW MESSAGES START ############
+# --------------------------------------------------#
+
+##### TODO NEED WELSH FOR ####
+aboutYourResult.title = About your result
+aboutYourResult.heading = About your result
+aboutYourResult.p1 = HMRC will stand by the result given, unless a compliance check finds the information you’ve provided isn’t accurate.
+aboutYourResult.p2 = HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.
+
 ##### TODO NEED WELSH FOR ####
 whichDescribesYou.title = Which of these describes you best?
 whichDescribesYou.heading = Which of these describes you best?
@@ -936,3 +948,14 @@ whichDescribesYou.client.paye = I want to find out if I need to apply PAYE to so
 whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within IR35
 whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is recruiting for falls within IR35
 whichDescribesYou.agency = I want to find out if a contract I’m recruiting for, on behalf of another organisation, falls within IR35
+
+##### TODO NEED WELSH FOR ####
+agencyAdvisory.title = You don’t need to determine if this work should be paid within IR35
+agencyAdvisory.heading = You don’t need to determine if this work should be paid within IR35
+agencyAdvisory.p1 = It’s the responsibility of the worker or end client to find out if this work is deemed employment for tax purposes.
+agencyAdvisory.p2 = However, if you are the fee-payer you may still be accountable for operating PAYE.
+agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can continue through the tool as if you were the worker.
+
+##### TODO NEED WELSH FOR ####
+leave.title = You have now left the tool
+leave.heading = You have now left the tool

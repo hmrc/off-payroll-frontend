@@ -16,73 +16,113 @@
 
 package navigation
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
+import controllers.sections.setup.{routes => setupRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.partParcel.{routes => partParcelRoutes}
+import models.WhichDescribesYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import models._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup._
 
 @Singleton
-class Navigator @Inject()() {
+class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends FeatureSwitching {
 
-  private val routeMap: Map[Page, UserAnswers => Call] = Map(
+  private val optimisedSetupRouteMap: Map[Page, UserAnswers => Call] = Map(
 
     //Initialisation Section
-    IndexPage -> (_ => routes.AboutYouController.onPageLoad(NormalMode)),
+    IndexPage -> (_ => setupRoutes.AboutYourResultController.onPageLoad()),
 
     //Setup Section
-    AboutYouPage -> (_ => routes.ContractStartedController.onPageLoad(NormalMode)),
-    ContractStartedPage -> (_ => routes.WorkerTypeController.onPageLoad(NormalMode)),
-    WorkerTypePage -> (_ => routes.OfficeHolderController.onPageLoad(NormalMode)),
+    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
+    WhichDescribesYouPage -> (answers => answers.get(WhichDescribesYouPage) match {
+      case Some(Answers(Agency, _)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
+      case _ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+    }),
+    AgencyAdvisoryPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
+    WorkerUsingIntermediaryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
+    ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
+  )
+
+  private val setupRouteMap: Map[Page, UserAnswers => Call] = Map(
+
+    //Initialisation Section
+    IndexPage -> (_ => if (isEnabled(OptimisedFlow)) {
+      setupRoutes.AboutYourResultController.onPageLoad()
+    } else {
+      setupRoutes.AboutYouController.onPageLoad(NormalMode)
+    }),
+
+    //Setup Section
+    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
+    AgencyAdvisoryPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
+    AboutYouPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
+    ContractStartedPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
+    WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
+  )
+
+  private val routeMap:  Map[Page, UserAnswers => Call] = Map(
 
     //Early Exit Section
     OfficeHolderPage -> (answers => answers.get(ContractStartedPage) match {
-      case Some(Answers(true,_)) => routes.ArrangedSubstituteController.onPageLoad(NormalMode)
-      case Some(_) => routes.RejectSubstituteController.onPageLoad(NormalMode)
-      case _ => routes.ContractStartedController.onPageLoad(NormalMode)
+      case Some(Answers(true,_)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
+      case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
+      case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
     }),
 
     //Personal Service Section
     ArrangedSubstitutePage -> (answers =>
       answers.get(ArrangedSubstitutePage) match {
-        case Some(Answers(YesClientAgreed,_)) => routes.DidPaySubstituteController.onPageLoad(NormalMode)
-        case Some(Answers(YesClientNotAgreed,_)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case Some(Answers(No,_)) => routes.RejectSubstituteController.onPageLoad(NormalMode)
-        case _ => routes.ArrangedSubstituteController.onPageLoad(NormalMode)
+        case Some(Answers(YesClientAgreed,_)) => personalServiceRoutes.DidPaySubstituteController.onPageLoad(NormalMode)
+        case Some(Answers(YesClientNotAgreed,_)) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case Some(Answers(No,_)) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
+        case _ => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
       }),
-    DidPaySubstitutePage -> (_ => routes.NeededToPayHelperController.onPageLoad(NormalMode)),
+    DidPaySubstitutePage -> (_ => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)),
     RejectSubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
-        case (Some(Answers(true,_)), Some(Answers(true,_))) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case (_, Some(Answers(false,_))) => routes.WouldWorkerPaySubstituteController.onPageLoad(NormalMode)
-        case (_, Some(Answers(true,_))) => routes.MoveWorkerController.onPageLoad(NormalMode)
-        case (None, _) => routes.ContractStartedController.onPageLoad(NormalMode)
-        case (_, None) => routes.RejectSubstituteController.onPageLoad(NormalMode)
+        case (Some(Answers(true,_)), Some(Answers(true,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case (_, Some(Answers(false,_))) => personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(NormalMode)
+        case (_, Some(Answers(true,_))) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        case (None, _) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        case (_, None) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
       }),
     WouldWorkerPaySubstitutePage -> (answers =>
       answers.get(ContractStartedPage) match {
-        case Some(Answers(true,_)) => routes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case Some(_) => routes.MoveWorkerController.onPageLoad(NormalMode)
-        case _ => routes.ContractStartedController.onPageLoad(NormalMode)
+        case Some(Answers(true,_)) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case Some(_) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
     }),
-    NeededToPayHelperPage -> (_ => routes.MoveWorkerController.onPageLoad(NormalMode)),
+    NeededToPayHelperPage -> (_ => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)),
 
     //Control Section
-    MoveWorkerPage -> (_ => routes.HowWorkIsDoneController.onPageLoad(NormalMode)),
-    HowWorkIsDonePage -> (_ => routes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)),
-    ScheduleOfWorkingHoursPage -> (_ => routes.ChooseWhereWorkController.onPageLoad(NormalMode)),
-    ChooseWhereWorkPage -> (_ => routes.CannotClaimAsExpenseController.onPageLoad(NormalMode)),
+    MoveWorkerPage -> (_ => controlRoutes.HowWorkIsDoneController.onPageLoad(NormalMode)),
+    HowWorkIsDonePage -> (_ => controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)),
+    ScheduleOfWorkingHoursPage -> (_ => controlRoutes.ChooseWhereWorkController.onPageLoad(NormalMode)),
+    ChooseWhereWorkPage -> (_ => financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode)),
 
     //Financial Risk Section
-    CannotClaimAsExpensePage -> (_ => routes.HowWorkerIsPaidController.onPageLoad(NormalMode)),
-    HowWorkerIsPaidPage -> (_ => routes.PutRightAtOwnCostController.onPageLoad(NormalMode)),
-    PutRightAtOwnCostPage -> (_ => routes.BenefitsController.onPageLoad(NormalMode)),
+    CannotClaimAsExpensePage -> (_ => financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)),
+    HowWorkerIsPaidPage -> (_ => financialRiskRoutes.PutRightAtOwnCostController.onPageLoad(NormalMode)),
+    PutRightAtOwnCostPage -> (_ => partParcelRoutes.BenefitsController.onPageLoad(NormalMode)),
 
     //Part and Parcel Section
-    BenefitsPage -> (_ => routes.LineManagerDutiesController.onPageLoad(NormalMode)),
-    LineManagerDutiesPage -> (_ => routes.InteractWithStakeholdersController.onPageLoad(NormalMode)),
-    InteractWithStakeholdersPage -> (_ => routes.IdentifyToStakeholdersController.onPageLoad(NormalMode)),
+    BenefitsPage -> (_ => partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode)),
+    LineManagerDutiesPage -> (_ => partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode)),
+    InteractWithStakeholdersPage -> (_ => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)),
     IdentifyToStakeholdersPage -> (_ => routes.ResultController.onPageLoad()),
 
     //Results Page
@@ -91,9 +131,10 @@ class Navigator @Inject()() {
 
   private val checkRouteMap: Map[Page, UserAnswers => Call] = Map()
 
-  def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
+  def nextPage(page: Page, mode: Mode): UserAnswers => Call = (mode) match {
     case NormalMode =>
-      routeMap.getOrElse(page, _ => routes.IndexController.onPageLoad())
+      val routing = (if (isEnabled(OptimisedFlow)) optimisedSetupRouteMap else setupRouteMap) ++ routeMap
+      routing.getOrElse(page, _ => routes.IndexController.onPageLoad())
     case CheckMode =>
       checkRouteMap.getOrElse(page, _ => routes.ResultController.onPageLoad())
   }

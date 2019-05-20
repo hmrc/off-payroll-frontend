@@ -5,11 +5,11 @@ echo "Applying migration InteractWithStakeholders"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /interactWithStakeholders                        controllers.InteractWithStakeholdersController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /interactWithStakeholders                        controllers.InteractWithStakeholdersController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /interactWithStakeholders                        controllers.sections.partParcel.InteractWithStakeholdersController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /interactWithStakeholders                        controllers.sections.partParcel.InteractWithStakeholdersController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeInteractWithStakeholders                  controllers.InteractWithStakeholdersController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeInteractWithStakeholders                  controllers.InteractWithStakeholdersController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeInteractWithStakeholders                  controllers.sections.partParcel.InteractWithStakeholdersController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeInteractWithStakeholders                  controllers.sections.partParcel.InteractWithStakeholdersController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

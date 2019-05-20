@@ -5,11 +5,11 @@ echo "Applying migration ContractStarted"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /contract_started                        controllers.ContractStartedController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /contract_started                        controllers.ContractStartedController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /contract_started                        controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /contract_started                        controllers.sections.setup.ContractStartedController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeContractStarted                  controllers.ContractStartedController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeContractStarted                  controllers.ContractStartedController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeContractStarted                  controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeContractStarted                  controllers.sections.setup.ContractStartedController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

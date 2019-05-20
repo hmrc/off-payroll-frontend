@@ -5,11 +5,11 @@ echo "Applying migration ScheduleOfWorkingHours"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /scheduleOfWorkingHours               controllers.ScheduleOfWorkingHoursController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /scheduleOfWorkingHours               controllers.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /scheduleOfWorkingHours               controllers.sections.control.ScheduleOfWorkingHoursController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /scheduleOfWorkingHours               controllers.sections.control.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeScheduleOfWorkingHours                  controllers.ScheduleOfWorkingHoursController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeScheduleOfWorkingHours                  controllers.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeScheduleOfWorkingHours                  controllers.sections.control.ScheduleOfWorkingHoursController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeScheduleOfWorkingHours                  controllers.sections.control.ScheduleOfWorkingHoursController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

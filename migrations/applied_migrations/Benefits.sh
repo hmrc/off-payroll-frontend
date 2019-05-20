@@ -5,11 +5,11 @@ echo "Applying migration Benefits"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /benefits                        controllers.BenefitsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /benefits                        controllers.BenefitsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /benefits                        controllers.sections.partParcel.BenefitsController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /benefits                        controllers.sections.partParcel.BenefitsController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeBenefits                  controllers.BenefitsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeBenefits                  controllers.BenefitsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeBenefits                  controllers.sections.partParcel.BenefitsController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeBenefits                  controllers.sections.partParcel.BenefitsController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

@@ -18,6 +18,7 @@ package pages
 
 import models.MoveWorker
 import pages.behaviours.PageBehaviours
+import pages.sections.control.MoveWorkerPage
 
 class MoveWorkerSpec extends PageBehaviours {
 

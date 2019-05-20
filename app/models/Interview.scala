@@ -18,12 +18,20 @@ package models
 
 import config.FrontendAppConfig
 import models.CannotClaimAsExpense._
+import models.UserType._
+import models.requests.DataRequest
 import pages._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
 import play.api.libs.json._
 import utils.JsonObjectSugar
 
 case class Interview(correlationId: String,
-                     endUserRole: Option[AboutYouAnswer] = None,
+                     endUserRole: Option[UserType] = None,
                      hasContractStarted: Option[Boolean] = None,
                      provideServices: Option[WorkerType] = None,
                      officeHolder: Option[Boolean] = None,
@@ -61,13 +69,21 @@ object Interview extends JsonObjectSugar {
     case _ => JsNull
   }
 
+
+  private val interviewWrites: Writes[Option[UserType]] = Writes {
+    case Some(Worker) => JsString(AboutYouAnswer.Worker.toString)
+    case Some(Hirer) => JsString(AboutYouAnswer.Client.toString)
+    case Some(Agency) => JsString(AboutYouAnswer.Agency.toString)
+    case _ => JsNull
+  }
+
   implicit def writes: Writes[Interview] = Writes { model =>
     Json.obj(
       "version" -> model.appConfig.decisionVersion,
       "correlationID" -> model.correlationId,
       "interview" -> Json.obj(
         "setup" -> jsonObjNoNulls(
-          "endUserRole" -> model.endUserRole,
+          "endUserRole" -> Json.toJson(model.endUserRole)(interviewWrites),
           "hasContractStarted" -> model.hasContractStarted,
           "provideServices" -> model.provideServices
         ),
@@ -106,10 +122,10 @@ object Interview extends JsonObjectSugar {
     )
   }
 
-  def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig): Interview =
+  def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview =
     Interview(
       correlationId = userAnswers.cacheMap.id,
-      endUserRole = userAnswers.get(AboutYouPage).fold(None: Option[AboutYouAnswer]){ answer => Some(answer.answer)},
+      endUserRole = request.userType,
       hasContractStarted = userAnswers.get(ContractStartedPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
       provideServices = userAnswers.get(WorkerTypePage).fold(None: Option[WorkerType]){ answer => Some(answer.answer)},
       officeHolder = userAnswers.get(OfficeHolderPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},

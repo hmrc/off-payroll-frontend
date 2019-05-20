@@ -18,6 +18,7 @@ package pages
 
 import models.ChooseWhereWork
 import pages.behaviours.PageBehaviours
+import pages.sections.control.ChooseWhereWorkPage
 
 class ChooseWhereWorkSpec extends PageBehaviours {
 

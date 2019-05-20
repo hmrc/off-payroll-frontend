@@ -18,6 +18,7 @@ package pages
 
 import models.CannotClaimAsExpense
 import pages.behaviours.PageBehaviours
+import pages.sections.financialRisk.CannotClaimAsExpensePage
 
 class CannotClaimAsExpenseSpec extends PageBehaviours {
 
