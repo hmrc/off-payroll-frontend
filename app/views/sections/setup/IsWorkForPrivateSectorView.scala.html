@@ -17,7 +17,6 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import controllers.sections.setup.routes._
-@import models.WorkerType
 @import models.Mode
 @import views.ViewUtils._
 
@@ -26,21 +25,21 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("workerUsingIntermediary.title"), Some(tailorMsg("workerUsingIntermediary.subheading"))),
+    title = title(form, tailorMsg("isWorkForPrivateSector.title"), Some(tailorMsg("isWorkForPrivateSector.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = WorkerTypeController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = IsWorkForPrivateSectorController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.back_link()
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("workerUsingIntermediary.heading"), Some(tailorMsg("workerUsingIntermediary.subheading")))
+        @components.heading(tailorMsg("isWorkForPrivateSector.heading"), Some(tailorMsg("isWorkForPrivateSector.subheading")))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("workerUsingIntermediary.heading")),
+            label = messages(tailorMsg("isWorkForPrivateSector.heading")),
             labelClass = Some("visually-hidden")
         )
 

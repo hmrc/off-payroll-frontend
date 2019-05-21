@@ -959,3 +959,37 @@ agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can
 ##### TODO NEED WELSH FOR ####
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
+
+##### TODO NEED WELSH FOR ####
+workerUsingIntermediary.error.required = You need to select an answer
+workerUsingIntermediary.error.invalid = You need to select an answer
+worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.subheading = Section 1: Who, what, when
+worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
+
+##### TODO NEED WELSH FOR ####
+hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.subheading = Section 1: Who, what, when
+hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
+
+##### TODO NEED WELSH FOR ####
+isWorkForPrivateSector.error.required = You need to select an answer
+isWorkForPrivateSector.error.invalid = You need to select an answer
+worker.isWorkForPrivateSector.title = Is the work for a private sector client?
+worker.isWorkForPrivateSector.heading = Is the work for a private sector client?
+worker.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+worker.isWorkForPrivateSector.checkYourAnswersLabel = Is the work for a private sector client?
+
+##### TODO NEED WELSH FOR ####
+hirer.isWorkForPrivateSector.title = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.heading = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
+
+##### TODO NEED WELSH FOR ####
+workerAdvisory.title = You don’t need to answer any more questions
+workerAdvisory.heading = You don’t need to answer any more questions
+workerAdvisory.p1 = The organisation offering the work is responsible for determining if it should be in or out of IR35
+workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.

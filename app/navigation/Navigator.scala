@@ -16,7 +16,7 @@
 
 package navigation
 
-import config.FrontendAppConfig
+import config.{FrontendAppConfig, SessionKeys}
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
@@ -27,7 +27,7 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import models.WhichDescribesYouAnswer.Agency
+import models.WhichDescribesYouAnswer._
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import models._
@@ -53,7 +53,28 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
       case _ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
     }),
     AgencyAdvisoryPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
-    WorkerUsingIntermediaryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
+    WorkerUsingIntermediaryPage -> (answers => answers.get(WorkerUsingIntermediaryPage) match {
+      case Some(Answers(true, _)) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
+      case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+    }),
+    IsWorkForPrivateSectorPage -> (answers => {
+
+      val isWorker = answers.get(WhichDescribesYouPage).map {
+        case Answers(WorkerPAYE, _) => true
+        case Answers(WorkerIR35, _) => true
+        case Answers(ClientPAYE, _) => false
+        case Answers(ClientIR35, _) => false
+        case Answers(Agency, _) => true
+      }
+
+      (answers.get(IsWorkForPrivateSectorPage), isWorker) match {
+        case (Some(Answers(true, _)), _) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        case (Some(Answers(false, _)), Some(true)) => setupRoutes.WorkerAdvisoryController.onPageLoad()
+        case (Some(Answers(false, _)), Some(false)) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        case (_, _) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
+      }
+    }),
+    WorkerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )
 

@@ -64,6 +64,7 @@ object CompareAnswerService {
     "contractStarted" -> ContractStartedPage,
     "workerType" -> WorkerTypePage,
     "workerUsingIntermediary" -> WorkerUsingIntermediaryPage,
+    "isWorkForPrivateSector" -> IsWorkForPrivateSectorPage,
     "officeHolder" -> OfficeHolderPage,
     "arrangedSubstitute" -> ArrangedSubstitutePage,
     "didPaySubstitute" -> DidPaySubstitutePage,
