@@ -16,6 +16,7 @@
 
 package services
 
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.{DataCacheConnector, DecisionConnector}
 import controllers.routes
@@ -30,7 +31,7 @@ import models.requests.DataRequest
 import pages._
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.personalService.ArrangedSubstitutePage
-import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
@@ -71,7 +72,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                                     financialRiskView: FinancialRiskView,
                                     indeterminateView: IndeterminateView,
                                     insideIR35View: InsideIR35View,
-                                    implicit val appConf: FrontendAppConfig) extends DecisionService {
+                                    implicit val appConf: FrontendAppConfig) extends DecisionService with FeatureSwitching {
 
   lazy val version = appConf.decisionVersion
 
@@ -135,6 +136,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     financialRiskRedirect
   }
 
+  //scalastyle:off
   def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
                          (implicit request: DataRequest[_], messages: Messages): Html = {
@@ -144,7 +146,13 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val financialRiskSession = request.session.get(SessionKeys.financialRiskResult)
     val control = controlSession.map(WeightedAnswerEnum.withName)
     val financialRisk = financialRiskSession.map(WeightedAnswerEnum.withName)
-    val workerTypeAnswer = request.userAnswers.get(WorkerTypePage)
+
+    val isSoleTrader = if(isEnabled(OptimisedFlow)) {
+      request.userAnswers.get(WorkerUsingIntermediaryPage).exists(answer => answer.answer.equals(false))
+    } else {
+      request.userAnswers.get(WorkerTypePage).exists(answer => answer.answer.equals(SoleTrader))
+    }
+
     val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
     val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
     val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage) match {
@@ -154,13 +162,13 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val action: Call = routes.ResultController.onSubmit()
     val form = formWithErrors.getOrElse(resultForm)
 
-    def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, workerTypeAnswer) match {
-      case (_, Some(Answers(SoleTrader,_))) => employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+    def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, isSoleTrader) match {
+      case (_, true) => employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (true, _) => officeHolderInsideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _) => insideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
     }
-    def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, workerTypeAnswer, control, financialRisk) match {
-      case (_, _, Some(Answers(SoleTrader,_)), _, _) => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+    def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, isSoleTrader, control, financialRisk) match {
+      case (_, _, true, _, _) => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
         financialRiskView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
