@@ -81,8 +81,13 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
+
+    println(interview)
+    Thread.sleep(5455)
+
     for {
       decision <- decisionConnector.decide(interview)
+      e = println(decision)
       _ <- logResult(decision,interview)
       redirect <- redirectResult(interview,errorResult,continueResult)
     } yield redirect
