@@ -74,7 +74,7 @@ class CheckYourAnswersController @Inject()(identify: IdentifierAction,
       AnswerSection(
         headingKey = Some("checkYourAnswers.financialRisk.header"),
         rows = Seq(
-          checkYourAnswersHelper.cannotClaimAsExpense.map(_ -> None),
+          checkYourAnswersHelper.cannotClaimAsExpenseOptimised.map(_ -> None),
           checkYourAnswersHelper.howWorkerIsPaid.map(_ -> None),
           checkYourAnswersHelper.putRightAtOwnCost.map(_ -> None)
         ).flatten

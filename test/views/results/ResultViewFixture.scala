@@ -46,31 +46,30 @@ trait ResultViewFixture extends ViewBehaviours {
       (AnswerRow(
         label = "aboutYou.checkYourAnswersLabel",
         answer = s"aboutYou.$Worker",
-        answerIsMessageKey = true,
-        changeUrl = setupRoutes.AboutYouController.onPageLoad(CheckMode).url
+        answerIsMessageKey = true
       ),None)
     )),
     AnswerSection(Some(Messages("result.workersDuties.h2")), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq(
       (AnswerRow(
         label = "contractStarted.checkYourAnswersLabel",
         answer = "site.yes",
-        answerIsMessageKey = true,
-        changeUrl = setupRoutes.ContractStartedController.onPageLoad(CheckMode).url
+        answerIsMessageKey = true
       ),None)
     )),
     AnswerSection(Some(Messages("result.substitutesHelpers.h2")), whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))), Seq()),
     AnswerSection(Some(Messages("result.workArrangements.h2")), whyResult = Some(Html(messages("result.workArrangements.summary"))), Seq(
       (AnswerRow(
         label = "cannotClaimAsExpense.checkYourAnswersLabel",
-        answer = Seq(s"cannotClaimAsExpense.$WorkerUsedVehicle"),
-        answerIsMessageKey = true,
-        changeUrl = financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+        answers = Seq(AnswerRow(
+          label = "cannotClaimAsExpense.checkYourAnswersLabel",
+          answer = s"cannotClaimAsExpense.$WorkerUsedVehicle",
+          answerIsMessageKey = true
+        ))
       ),None),
       (AnswerRow(
         label = "officeHolder.checkYourAnswersLabel",
         answer = "site.yes",
-        answerIsMessageKey = true,
-        changeUrl = exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url
+        answerIsMessageKey = true
       ),None)
     )),
     AnswerSection(Some(Messages("result.financialRisk.h2")), whyResult = Some(Html(messages("result.financialRisk.summary"))), Seq()),

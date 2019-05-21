@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import viewmodels.AnswerRow
-@import config.FrontendAppConfig
+package assets.messages
 
-@(headingKey: String)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+object CheckYourAnswersMessages extends BaseMessages {
 
-<li>
-    <div class="cya-question"><span class="bold-medium">@messages(headingKey)</span></div>
-    <div class="cya-answer"></div>
-</li>
+  val heading = "Review your answers in each section below"
+  val title = heading
+
+}

@@ -14,16 +14,16 @@
  * limitations under the License.
  *@
 
-@import viewmodels._
+@import viewmodels.AnswerRow
 @import config.FrontendAppConfig
 
-@(row: (SingleAnswerRow, Option[Html]), printMode: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(row: (AnswerRow, Option[Html]), printMode: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 <ul>
     <li class="divider--bottom"><h3>@messages(row._1.label)</h3>
 
         @row._2.map { html =>
-            <div>@html</div>
+        <div>@html</div>
         }
 
         <div id="answer" class="panel-indent">@row._1.answerHtml</div>

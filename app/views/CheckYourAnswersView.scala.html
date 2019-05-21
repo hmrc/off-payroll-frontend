@@ -16,13 +16,14 @@
 
 @import config.FrontendAppConfig
 @import viewmodels._
+@import views.ViewUtils._
 
 @this(mainTemplate: templates.MainTemplate)
 
 @(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = messages("checkYourAnswers.title"),
+    title = titleNoForm("checkYourAnswers.title"),
     appConfig = appConfig,
     bodyClasses = None,
     articleLayout = false) {

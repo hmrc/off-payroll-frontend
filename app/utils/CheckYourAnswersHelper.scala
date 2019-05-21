@@ -198,7 +198,21 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
         answers = CannotClaimAsExpense.values.map ( expense =>
           AnswerRow(
-            label = s"cannotClaimAsExpense.$expense.checkYourAnswers",
+            label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
+            answer = tailorMsg(s"cannotClaimAsExpense.$expense"),
+            answerIsMessageKey = true
+          )
+        )
+      )
+    }
+
+  def cannotClaimAsExpenseOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(CannotClaimAsExpensePage) map { x =>
+      AnswerRow(
+        label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
+        answers = CannotClaimAsExpense.values.map ( expense =>
+          AnswerRow(
+            label = tailorMsg(s"cannotClaimAsExpense.$expense.checkYourAnswers"),
             if(x.answer.contains(expense)) "site.yes" else "site.no",
             answerIsMessageKey = true
           )

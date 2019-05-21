@@ -42,10 +42,17 @@ case class SingleAnswerRow(label: String,
 
 case class MultiAnswerRow(label: String,
                           answers: Seq[SingleAnswerRow],
-                          changeUrl: Option[String]) extends AnswerRow {
+                          changeUrl: Option[String]) extends AnswerRow with FeatureSwitching {
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html = {
-    views.html.components.accordion_row_multi(label, answers)
+    if(isEnabled(OptimisedFlow)) {
+      views.html.components.accordion_row_multi(label, answers)
+    } else {
+      val listItems = answers.foldLeft(""){
+        case (output, answer) => output + s"<li>${if(answer.answerIsMessageKey) messages(answer.answer) else answer.answer}</li>"
+      }
+      Html(s"<ul class='list-bullet'>$listItems</ul>")
+    }
   }
 
 }

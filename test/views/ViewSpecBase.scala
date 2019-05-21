@@ -35,9 +35,6 @@ trait ViewSpecBase extends SpecBase {
     val hint = (i: Int) => s".form-hint:nth-of-type($i)"
   }
 
-  def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
-    s"$heading - ${section.fold("")(_ + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
-
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())
 
   def assertEqualsMessage(doc: Document, cssSelector: String, expectedMessageKey: String) =

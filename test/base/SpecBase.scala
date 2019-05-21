@@ -16,6 +16,10 @@
 
 package base
 
+import java.nio.charset.Charset
+
+import akka.stream.Materializer
+import akka.util.ByteString
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
@@ -32,7 +36,7 @@ import play.api.Application
 import play.api.i18n.{Lang, Messages, MessagesApi}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{MessagesControllerComponents, Result}
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -55,6 +59,9 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
     disable(OptimisedFlow)
     super.beforeEach()
   }
+
+  def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
+    s"$heading - ${section.fold("")(_ + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
 
   implicit val defaultTimeout: FiniteDuration = 5.seconds
 
