@@ -14,17 +14,15 @@
  * limitations under the License.
  *@
 
-@import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
+@import viewmodels._
 @import config.FrontendAppConfig
 
-@(answerSections: Seq[Section], printMode: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(headerKey: String, row: Seq[SingleAnswerRow])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-@for(section <- answerSections){
-    @{
-        section match {
-            case a: AnswerSection if a.nonEmpty => components.answer_section(a, printMode)
-            case a: AnswerSection => Html("")
-        }
-    }
-}
+<div class="cya-row">
+    <span class="bold-medium">@messages(headerKey)</span>
+</div>
 
+<div class="panel-indent">
+    @row.map(_.answerHtml)
+</div>

@@ -41,53 +41,52 @@ class CheckYourAnswersController @Inject()(identify: IdentifierAction,
 
     val sections = Seq(
       AnswerSection(
-        headingKey = Some("Setup Section"),
+        headingKey = Some("checkYourAnswers.setup.header"),
         rows = Seq(
           checkYourAnswersHelper.aboutYou.map(_ -> None),
           checkYourAnswersHelper.contractStarted.map(_ -> None),
           checkYourAnswersHelper.workerType.map(_ -> None)
         ).flatten
-//      ),
-//      AnswerSection(
-//        headingKey = Some("Early Exit Section"),
-//        rows = Seq(checkYourAnswersHelper.officeHolder).flatten
-//      ),
-//      AnswerSection(
-//        headingKey = Some("Personal Service Section"),
-//        rows = Seq(
-//          checkYourAnswersHelper.arrangedSubstitute,
-//          checkYourAnswersHelper.didPaySubstitute,
-//          checkYourAnswersHelper.rejectSubstitute,
-//          checkYourAnswersHelper.wouldWorkerPaySubstitute,
-//          checkYourAnswersHelper.neededToPayHelper
-//        ).flatten
-//      ),
-//      AnswerSection(
-//        headingKey = Some("Control Section"),
-//        rows = Seq(
-//          checkYourAnswersHelper.moveWorker,
-//          checkYourAnswersHelper.howWorkIsDone,
-//          checkYourAnswersHelper.scheduleOfWorkingHours,
-//          checkYourAnswersHelper.chooseWhereWork
-//        ).flatten
-//      ),
-//      AnswerSection(
-//        headingKey = Some("Financial Risk Section"),
-//        rows = Seq(
-//          checkYourAnswersHelper.cannotClaimAsExpense,
-//          checkYourAnswersHelper.howWorkerIsPaid,
-//          checkYourAnswersHelper.putRightAtOwnCost
-//        ).flatten
-//      ),
-//      AnswerSection(
-//        headingKey = Some("Part and Parcel Section"),
-//        rows = Seq(
-//          checkYourAnswersHelper.benefits,
-//          checkYourAnswersHelper.lineManagerDuties,
-//          checkYourAnswersHelper.interactWithStakeholders,
-//          checkYourAnswersHelper.identifyToStakeholders
-//        ).flatten
-//      )
+      ),
+      AnswerSection(
+        headingKey = Some("checkYourAnswers.exit.header"),
+        rows = Seq(checkYourAnswersHelper.officeHolder.map(_ -> None)).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("checkYourAnswers.personalService.header"),
+        rows = Seq(
+          checkYourAnswersHelper.arrangedSubstitute.map(_ -> None),
+          checkYourAnswersHelper.didPaySubstitute.map(_ -> None),
+          checkYourAnswersHelper.rejectSubstitute.map(_ -> None),
+          checkYourAnswersHelper.wouldWorkerPaySubstitute.map(_ -> None),
+          checkYourAnswersHelper.neededToPayHelper.map(_ -> None)
+        ).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("checkYourAnswers.control.header"),
+        rows = Seq(
+          checkYourAnswersHelper.moveWorker.map(_ -> None),
+          checkYourAnswersHelper.howWorkIsDone.map(_ -> None),
+          checkYourAnswersHelper.scheduleOfWorkingHours.map(_ -> None),
+          checkYourAnswersHelper.chooseWhereWork.map(_ -> None)
+        ).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("checkYourAnswers.financialRisk.header"),
+        rows = Seq(
+          checkYourAnswersHelper.cannotClaimAsExpense.map(_ -> None),
+          checkYourAnswersHelper.howWorkerIsPaid.map(_ -> None),
+          checkYourAnswersHelper.putRightAtOwnCost.map(_ -> None)
+        ).flatten
+      ),
+      AnswerSection(
+        headingKey = Some("checkYourAnswers.partParcel.header"),
+        rows = Seq(
+          checkYourAnswersHelper.benefits.map(_ -> None),
+          checkYourAnswersHelper.lineManagerDuties.map(_ -> None),
+          checkYourAnswersHelper.interactWithStakeholders.map(_ -> None),
+          checkYourAnswersHelper.identifyToStakeholders.map(_ -> None)
+        ).flatten
     )
     )
 

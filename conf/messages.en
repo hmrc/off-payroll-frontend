@@ -200,6 +200,12 @@ cannotClaimAsExpense.workerHadOtherExpenses = Other expenses – including signi
 cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
 cannotClaimAsExpense.error.required = You need to select an answer
 cannotClaimAsExpense.error.invalid = You need to select an answer
+cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
+
 
 worker.cannotClaimAsExpense.title = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
 worker.cannotClaimAsExpense.heading = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
@@ -216,6 +222,11 @@ worker.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heav
 worker.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
 worker.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of your home
 worker.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+worker.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+worker.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+worker.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+worker.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 hirer.cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
 hirer.cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
@@ -232,6 +243,11 @@ hirer.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy
 hirer.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
 hirer.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+hirer.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+hirer.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+hirer.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+hirer.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 #########################
         
 ## Arranged Substitute
@@ -963,3 +979,9 @@ checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
 checkYourAnswers.confirm.h2 = Confirm answers to get your result
 checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.
+checkYourAnswers.setup.header = Section 1: Who, what, when
+checkYourAnswers.exit.header = Section 2: Worker’s Duties
+checkYourAnswers.personalService.header = Section 3: Worker’s substitution
+checkYourAnswers.control.header = Section 4: Worker’s arrangements
+checkYourAnswers.financialRisk.header = Section 5: Worker’s risk
+checkYourAnswers.partParcel.header = Section 6: Worker’s involvement

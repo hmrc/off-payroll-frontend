@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerSection
+@import viewmodels._
 @import views.html._
 @import config.FrontendAppConfig
 
@@ -37,7 +37,12 @@
 @content = {
     <ul role="list" class="section">
         @for(row <- answerSection.rows){
-            @components.answer_row(row, printMode)
+            @{
+                row match {
+                    case (a: SingleAnswerRow, b) => components.answer_row((a -> b), printMode)
+                    case _ => Html("")
+                }
+            }
         }
     </ul>
 }

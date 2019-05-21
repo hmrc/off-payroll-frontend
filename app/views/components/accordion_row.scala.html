@@ -14,14 +14,14 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerRow
+@import views.ViewUtils._
 @import config.FrontendAppConfig
 
-@(row: AnswerRow)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(question: String, answer: String, answerIsMessageKey: Boolean)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-<li class="accordion__body__row accordion__body__row--no-border">
-    <div class="cya-question">@messages(row.label)</div>
-    <div class="cya-answer">
-        @row.answerHtml
-    </div>
-</li>
+<ul class="govuk-check-your-answers cya-questions-long cya-row">
+    <li>
+        <div class="cya-question">@messages(question)</div>
+        <div class="cya-answer">@if(answerIsMessageKey){@messages(answer)} else {@answer}</div>
+    </li>
+</ul>

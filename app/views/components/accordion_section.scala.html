@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerSection
+@import viewmodels._
 @import views.html._
 @import config.FrontendAppConfig
 
@@ -36,10 +36,6 @@
         </div>
     </div>
     <div class="accordion__body hidden cya-row" data-accordion-body aria-hidden="true">
-        <ul role="list" class="govuk-check-your-answers cya-questions-long">
-            @for(row <- answerSection.rows){
-                @components.accordion_row(row._1)
-            }
-        </ul>
+        @answerSection.rows.map(_._1.answerHtml)
     </div>
 </div>
