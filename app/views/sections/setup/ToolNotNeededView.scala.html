@@ -29,9 +29,9 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = ToolNotNeededController.onSubmit(), 'autoComplete -> "off") {
+    @components.back_link()
 
-        @components.back_link()
+    @formWithCsrf(action = ToolNotNeededController.onSubmit(), 'autoComplete -> "off") {
 
         @components.heading(s"toolNotNeeded.$clientType.heading")
 

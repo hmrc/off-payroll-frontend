@@ -68,6 +68,11 @@ class RoutesSpec extends SpecBase {
       setupRoutes.BusinessSizeController.onSubmit(CheckMode).url mustBe fullPath("/business-size/edit")
     }
 
+    "Have the correct routes for the Tool Not Needed page" in {
+      setupRoutes.ToolNotNeededController.onPageLoad().url mustBe fullPath("/tool-not-needed")
+      setupRoutes.ToolNotNeededController.onSubmit().url mustBe fullPath("/tool-not-needed")
+    }
+
     "Have the correct routes for the Office Holder page" in {
       exitRoutes.OfficeHolderController.onPageLoad(NormalMode).url mustBe fullPath("/office-holder-duties")
       exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url mustBe fullPath("/office-holder-duties/edit")
