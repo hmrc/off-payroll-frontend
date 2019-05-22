@@ -16,11 +16,10 @@
 
 package models.logging
 
-import ai.x.play.json.Jsonx
 import play.api.libs.json.Json
 
 case class AnalyticsResponse(interviews: List[InterviewSearchResponse])
 
 object AnalyticsResponse {
-  implicit val analyticsResponseFormat = Jsonx.formatCaseClass[AnalyticsResponse]
+  implicit val analyticsResponseFormat = Json.format[AnalyticsResponse]
 }

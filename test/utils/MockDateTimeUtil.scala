@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package models.logging
+package utils
 
-import play.api.libs.json.Json
+import java.time.LocalDateTime
 
-case class Exit(officeHolder: Option[Boolean])
-
-object Exit extends WritesBooleanYesNo {
-  implicit val exitFormat = Json.format[Exit]
+object MockDateTimeUtil extends DateTimeUtil {
+  override def utc: LocalDateTime = LocalDateTime.parse("2019-05-22T10:15:30")
 }

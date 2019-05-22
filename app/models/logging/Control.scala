@@ -16,10 +16,13 @@
 
 package models.logging
 
+import models.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
 import play.api.libs.json.Json
 
-case class Control(engagerMovingWorker: Option[String], workerDecidingHowWorkIsDone: Option[String], workHasToBeDone: Option[String],
-                   workerDecideWhere: Option[String])
+case class Control(engagerMovingWorker: Option[MoveWorker],
+                   workerDecidingHowWorkIsDone: Option[HowWorkIsDone],
+                   workHasToBeDone: Option[ScheduleOfWorkingHours],
+                   workerDecideWhere: Option[ChooseWhereWork])
 
 object Control {
   implicit val controlFormat = Json.format[Control]

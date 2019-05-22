@@ -16,13 +16,17 @@
 
 package models.logging
 
+import models.{HowWorkerIsPaid, PutRightAtOwnCost}
 import play.api.libs.json.Json
 
-case class FinancialRisk(workerProvidedMaterials: Option[String], workerProvidedEquipment: Option[String],
-                         workerUsedVehicle: Option[String], workerHadOtherExpenses: Option[String],
-                         expensesAreNotRelevantForRole: Option[String],
-                         workerMainIncome: Option[String], paidForSubstandardWork: Option[String])
+case class FinancialRisk(workerProvidedMaterials: Option[Boolean],
+                         workerProvidedEquipment: Option[Boolean],
+                         workerUsedVehicle: Option[Boolean],
+                         workerHadOtherExpenses: Option[Boolean],
+                         expensesAreNotRelevantForRole: Option[Boolean],
+                         workerMainIncome: Option[HowWorkerIsPaid],
+                         paidForSubstandardWork: Option[PutRightAtOwnCost])
 
-object FinancialRisk {
+object FinancialRisk extends WritesBooleanYesNo {
   implicit val riskFormat = Json.format[FinancialRisk]
 }

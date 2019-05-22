@@ -16,10 +16,12 @@
 
 package models.logging
 
-import play.api.libs.json.Json
+import play.api.libs.json.{JsString, Writes}
 
-case class Exit(officeHolder: Option[Boolean])
+trait WritesBooleanYesNo {
 
-object Exit extends WritesBooleanYesNo {
-  implicit val exitFormat = Json.format[Exit]
+  implicit val writes: Writes[Boolean] = Writes {
+    case true => JsString("Yes")
+    case _ => JsString("No")
+  }
 }

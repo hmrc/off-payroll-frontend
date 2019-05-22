@@ -16,12 +16,13 @@
 
 package models.logging
 
+import models.ArrangedSubstitute
 import play.api.libs.json.Json
 
-case class PersonalService(workerSentActualSubstitute: Option[String], workerPayActualSubstitute: Option[String],
-                           possibleSubstituteRejection: Option[String], possibleSubstituteWorkerPay: Option[String],
-                           wouldWorkerPayHelper: Option[String])
+case class PersonalService(workerSentActualSubstitute: Option[ArrangedSubstitute], workerPayActualSubstitute: Option[Boolean],
+                           possibleSubstituteRejection: Option[Boolean], possibleSubstituteWorkerPay: Option[Boolean],
+                           wouldWorkerPayHelper: Option[Boolean])
 
-object PersonalService {
+object PersonalService extends WritesBooleanYesNo {
   implicit val personalFormat = Json.format[PersonalService]
 }
