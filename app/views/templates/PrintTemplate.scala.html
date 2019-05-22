@@ -21,15 +21,16 @@
 
 @(title: String, appConfig: FrontendAppConfig, bodyClasses: Option[String] = None)(content: Html)
 
+@import template._
+
 <!DOCTYPE html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <title>@title</title>
 
-        <link href='@appConfig.host@controllers.template.routes.Template.at("stylesheets/govuk-template.css")' media="screen" rel="stylesheet" type="text/css" />
-        <link href='@appConfig.host@controllers.template.routes.Template.at("stylesheets/govuk-template-print.css")' media="print" rel="stylesheet" type="text/css" />
-        <link href='@appConfig.host@controllers.template.routes.Template.at("stylesheets/fonts.css")' media="all" rel="stylesheet" type="text/css" />
-        <link rel="stylesheet" href="@{assetsConfig.assetsPrefix}/stylesheets/application.min.css">
+        <link href='@routes.Template.at("stylesheets/govuk-template.css")' media="screen" rel="stylesheet" type="text/css" />
+        <link href='@routes.Template.at("stylesheets/govuk-template-print.css")' media="print" rel="stylesheet" type="text/css" />
+        <link href='@routes.Template.at("stylesheets/fonts.css")' media="all" rel="stylesheet" type="text/css" />
     </head>
 
     <body class='@bodyClasses.getOrElse("")'>
