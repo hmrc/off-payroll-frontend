@@ -19,6 +19,8 @@ package models
 import config.FrontendAppConfig
 import models.CannotClaimAsExpense._
 import models.UserType._
+import models.WorkerType.{LimitedCompany, SoleTrader}
+import models.logging.LogInterview.isEnabled
 import models.requests.DataRequest
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -34,6 +36,7 @@ case class Interview(correlationId: String,
                      endUserRole: Option[UserType] = None,
                      hasContractStarted: Option[Boolean] = None,
                      provideServices: Option[WorkerType] = None,
+                     isUsingIntermediary : Option[Boolean] = None,
                      officeHolder: Option[Boolean] = None,
                      workerSentActualSubstitute: Option[ArrangedSubstitute] = None,
                      workerPayActualSubstitute: Option[Boolean] = None,
@@ -54,7 +57,29 @@ case class Interview(correlationId: String,
                      workerReceivesBenefits: Option[Boolean] = None,
                      workerAsLineManager: Option[Boolean] = None,
                      contactWithEngagerCustomer: Option[Boolean] = None,
-                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig)
+                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig){
+
+  def calculateProvideServices: Option[String] = {
+
+    (isUsingIntermediary, provideServices) match {
+
+      case (Some(usingIntermediary), _) => if(usingIntermediary){
+        Some(SoleTrader.toString)
+      } else {
+        Some(LimitedCompany.toString)
+      }
+      case (None, Some(providedServices)) => Some(providedServices.toString)
+      case _ => None
+    }
+  }
+
+  def route: String =
+    (isUsingIntermediary, provideServices) match {
+      case (Some(usingIntermediary), _) => if (usingIntermediary) "ESI" else "IR35"
+      case (_, Some(providedServices)) => if (providedServices == SoleTrader) "ESI" else "IR35"
+      case _ => "IR35"
+    }
+}
 
 object Interview extends JsonObjectSugar {
 
@@ -68,7 +93,6 @@ object Interview extends JsonObjectSugar {
     case Some(_) => JsString("wouldNotReject")
     case _ => JsNull
   }
-
 
   private val interviewWrites: Writes[Option[UserType]] = Writes {
     case Some(Worker) => JsString(AboutYouAnswer.Worker.toString)
@@ -85,7 +109,7 @@ object Interview extends JsonObjectSugar {
         "setup" -> jsonObjNoNulls(
           "endUserRole" -> Json.toJson(model.endUserRole)(interviewWrites),
           "hasContractStarted" -> model.hasContractStarted,
-          "provideServices" -> model.provideServices
+          "provideServices" -> model.calculateProvideServices
         ),
         "exit" -> jsonObjNoNulls(
           "officeHolder" -> model.officeHolder

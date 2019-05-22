@@ -16,6 +16,8 @@
 
 package models.logging
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import models.WorkerType.SoleTrader
 import models.{DecisionResponse, Interview}
 import org.joda.time.{DateTime, DateTimeZone}
@@ -26,24 +28,22 @@ case class LogInterview(version: String, compressedInterview: String, route: Str
                      exit: Exit, personalService: Option[PersonalService], control: Option[Control], financialRisk: Option[FinancialRisk],
                      partAndParcel: Option[PartAndParcel], completed: DateTime)
 
-object LogInterview extends DateTimeJsonFormat {
+object LogInterview extends DateTimeJsonFormat with FeatureSwitching {
 
   implicit val logInterviewFormat = Json.format[LogInterview]
 
-  def createFromInterview(decisionRequest: Interview, decisionResult: DecisionResponse): LogInterview = {
+  def createFromInterview(decisionRequest: Interview, decisionResult: DecisionResponse)(implicit config: FrontendAppConfig): LogInterview = {
+
     LogInterview(
       decisionResult.version,
       "",
-      decisionRequest.provideServices match {
-        case Some(workerType) if workerType == SoleTrader => "ESI"
-        case _ => "IR35"
-      },
+      decisionRequest.route,
       decisionResult.result.toString,
       None,
       Setup(
         decisionRequest.endUserRole.get.toString,
         booleanToYesNo(decisionRequest.hasContractStarted.get),
-        decisionRequest.provideServices.get.toString
+        decisionRequest.calculateProvideServices.getOrElse("")
       ),
       Exit(booleanToYesNo(decisionRequest.officeHolder.get)),
       Some(PersonalService(

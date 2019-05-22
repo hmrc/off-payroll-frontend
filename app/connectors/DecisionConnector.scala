@@ -48,7 +48,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   }
 
   def log(decisionRequest: Interview,decisionResponse: DecisionResponse)
-         (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, Boolean]] = {
+         (implicit hc: HeaderCarrier, ec: ExecutionContext, conf: FrontendAppConfig): Future[Either[ErrorResponse, Boolean]] = {
     httpClient.POST(logUrl, Json.toJson(LogInterview.createFromInterview(decisionRequest,decisionResponse))) map LogHttpParser.reads
   }
 

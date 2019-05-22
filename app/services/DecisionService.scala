@@ -82,19 +82,15 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
 
-    println(interview)
-    Thread.sleep(5455)
-
     for {
       decision <- decisionConnector.decide(interview)
-      e = println(decision)
       _ <- logResult(decision,interview)
       redirect <- redirectResult(interview,errorResult,continueResult)
     } yield redirect
   }
 
   private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)
-                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
+                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Either[ErrorResponse, Boolean]] = {
     decision match {
       case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,decision.right.get)
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT,"No log needed")))
@@ -102,7 +98,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   }
 
   private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call)
-                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
+                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
     decisionConnector.decide(interview).map {
       case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
       case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)

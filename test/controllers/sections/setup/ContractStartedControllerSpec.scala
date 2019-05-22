@@ -38,6 +38,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   val view = injector.instanceOf[ContractStartedView]
+  val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ContractStartedController(
     appConfig = frontendAppConfig,
@@ -48,7 +49,8 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    optimisedView = optimisedView
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

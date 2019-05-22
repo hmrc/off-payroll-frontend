@@ -19,7 +19,7 @@ package controllers.sections.setup
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.WorkerTypeFormProvider
+import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
 import models.{Answers, NormalMode, WorkerType}
 import navigation.FakeNavigator
@@ -29,6 +29,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
+import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
 class WorkerTypeControllerSpec extends ControllerSpecBase {
@@ -36,9 +37,11 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
   def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new WorkerTypeFormProvider()
+  val formProviderInt = new WorkerUsingIntermediaryFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[WorkerTypeView]
+  val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
     new WorkerTypeController(
@@ -48,8 +51,10 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
       dataRetrievalAction,
       new DataRequiredActionImpl(messagesControllerComponents),
       formProvider,
+      formProviderInt,
       messagesControllerComponents,
       view,
+      viewInt,
       decisionService,
       frontendAppConfig
     )
