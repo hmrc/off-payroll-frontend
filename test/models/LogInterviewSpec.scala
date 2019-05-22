@@ -292,7 +292,7 @@ class LogInterviewSpec extends SpecBase {
             "contactWithEngagerCustomer"-> "No",
             "workerRepresentsEngagerBusiness"-> "workAsIndependent"
           ),
-          "completed" -> "2019-05-22T10:15:30"
+          "completed" -> "2019-05-22 10:15:30"
         )
 
         val actual = Json.toJson(model)
@@ -358,7 +358,7 @@ class LogInterviewSpec extends SpecBase {
           "control"-> Json.obj(),
           "financialRisk"-> Json.obj(),
           "partAndParcel"-> Json.obj(),
-          "completed" -> "2019-05-22T10:15:30"
+          "completed" -> "2019-05-22 10:15:30"
         )
 
         val actual = Json.toJson(model)

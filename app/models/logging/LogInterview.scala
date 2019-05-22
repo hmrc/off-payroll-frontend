@@ -17,6 +17,7 @@
 package models.logging
 
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 import models.WorkerType.SoleTrader
 import models.{DecisionResponse, Interview}
@@ -38,6 +39,10 @@ case class LogInterview(version: String,
 
 object LogInterview extends DateTimeJsonFormat {
 
+  implicit val writesLocalDateTime: Writes[LocalDateTime] = Writes { date =>
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    JsString(date.format(formatter))
+  }
   implicit val logInterviewFormat = Json.format[LogInterview]
 
   def apply(decisionRequest: Interview, decisionResult: DecisionResponse, dateTimeUtil: DateTimeUtil): LogInterview = {
