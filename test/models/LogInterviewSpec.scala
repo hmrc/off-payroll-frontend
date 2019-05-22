@@ -153,46 +153,46 @@ class LogInterviewSpec extends SpecBase {
         val decisionRequest = Interview(userAnswers)
 
         val expected = LogInterview(
-          decisionResponse.version,
-          "",
-          "ESI",
-          decisionResponse.result.toString,
-          None,
-          Setup(
-            decisionRequest.endUserRole,
-            decisionRequest.hasContractStarted,
-            decisionRequest.provideServices
+          version = decisionResponse.version,
+          compressedInterview = "",
+          route = "IR35",
+          decision = decisionResponse.result.toString,
+          count = None,
+          setup = Setup(
+            endUserRole = decisionRequest.endUserRole,
+            hasContractStarted = decisionRequest.hasContractStarted,
+            provideServices = decisionRequest.provideServices
           ),
-          Exit(decisionRequest.officeHolder),
-          PersonalService(
-            decisionRequest.workerSentActualSubstitute,
-            decisionRequest.workerPayActualSubstitute,
-            decisionRequest.possibleSubstituteRejection,
-            decisionRequest.possibleSubstituteWorkerPay,
-            decisionRequest.wouldWorkerPayHelper
+          exit = Exit(decisionRequest.officeHolder),
+          personalService = PersonalService(
+            workerSentActualSubstitute = decisionRequest.workerSentActualSubstitute,
+            workerPayActualSubstitute = decisionRequest.workerPayActualSubstitute,
+            possibleSubstituteRejection = decisionRequest.possibleSubstituteRejection,
+            possibleSubstituteWorkerPay = decisionRequest.possibleSubstituteWorkerPay,
+            wouldWorkerPayHelper = decisionRequest.wouldWorkerPayHelper
           ),
-          Control(
-            decisionRequest.engagerMovingWorker,
-            decisionRequest.workerDecidingHowWorkIsDone,
-            decisionRequest.whenWorkHasToBeDone,
-            decisionRequest.workerDecideWhere
+          control = Control(
+            engagerMovingWorker = decisionRequest.engagerMovingWorker,
+            workerDecidingHowWorkIsDone = decisionRequest.workerDecidingHowWorkIsDone,
+            workHasToBeDone = decisionRequest.whenWorkHasToBeDone,
+            workerDecideWhere = decisionRequest.workerDecideWhere
           ),
-          FinancialRisk(
-            decisionRequest.workerProvidedMaterials,
-            decisionRequest.workerProvidedEquipment,
-            decisionRequest.workerUsedVehicle,
-            decisionRequest.workerHadOtherExpenses,
-            decisionRequest.expensesAreNotRelevantForRole,
-            decisionRequest.workerMainIncome,
-            decisionRequest.paidForSubstandardWork
+          financialRisk = FinancialRisk(
+            workerProvidedMaterials = decisionRequest.workerProvidedMaterials,
+            workerProvidedEquipment = decisionRequest.workerProvidedEquipment,
+            workerUsedVehicle = decisionRequest.workerUsedVehicle,
+            workerHadOtherExpenses = decisionRequest.workerHadOtherExpenses,
+            expensesAreNotRelevantForRole = decisionRequest.expensesAreNotRelevantForRole,
+            workerMainIncome = decisionRequest.workerMainIncome,
+            paidForSubstandardWork = decisionRequest.paidForSubstandardWork
           ),
-          PartAndParcel(
-            decisionRequest.workerReceivesBenefits,
-            decisionRequest.workerAsLineManager,
-            decisionRequest.contactWithEngagerCustomer,
-            decisionRequest.workerRepresentsEngagerBusiness
+          partAndParcel = PartAndParcel(
+            workerReceivesBenefits = decisionRequest.workerReceivesBenefits,
+            workerAsLineManager = decisionRequest.workerAsLineManager,
+            contactWithEngagerCustomer = decisionRequest.contactWithEngagerCustomer,
+            workerRepresentsEngagerBusiness = decisionRequest.workerRepresentsEngagerBusiness
           ),
-          MockDateTimeUtil.utc
+          completed = MockDateTimeUtil.utc
         )
 
         val actual = LogInterview(decisionRequest, decisionResponse, MockDateTimeUtil)
@@ -210,88 +210,89 @@ class LogInterviewSpec extends SpecBase {
           version = "1.5.0-final",
           compressedInterview = "",
           route = "ESI",
-          "OUT",
-          None,
+          decision = "OUT",
+          count = None,
           setup = Setup(
-            Some(Hirer),
-            Some(true),
-            Some(SoleTrader)
+            endUserRole = Some(UserType.Worker),
+            hasContractStarted = Some(true),
+            provideServices = Some(SoleTrader)
           ),
           exit = Exit(
-            Some(false)
+            officeHolder = Some(false)
           ),
           personalService = PersonalService(
-            Some(YesClientAgreed),
-            Some(false),
-            Some(true),
-            Some(true),
-            Some(false)
+            workerSentActualSubstitute = Some(YesClientAgreed),
+            workerPayActualSubstitute = Some(false),
+            possibleSubstituteRejection = Some(true),
+            possibleSubstituteWorkerPay = Some(true),
+            wouldWorkerPayHelper = Some(false)
           ),
           control = Control(
-            Some(CanMoveWorkerWithPermission),
-            Some(NoWorkerInputAllowed),
-            Some(WorkerAgreeSchedule),
-            Some(WorkerChooses)
+            engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+            workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+            workHasToBeDone = Some(WorkerAgreeSchedule),
+            workerDecideWhere = Some(WorkerAgreeWithOthers)
           ),
           financialRisk = FinancialRisk(
-            Some(true),
-            Some(false),
-            Some(true),
-            Some(false),
-            Some(false),
-            Some(HourlyDailyOrWeekly),
-            Some(OutsideOfHoursNoCosts)
+            workerProvidedMaterials = Some(false),
+            workerProvidedEquipment = Some(false),
+            workerUsedVehicle = Some(true),
+            workerHadOtherExpenses = Some(true),
+            expensesAreNotRelevantForRole = Some(false),
+            workerMainIncome = Some(Commission),
+            paidForSubstandardWork = Some(CannotBeCorrected)
           ),
           partAndParcel = PartAndParcel(
-            Some(false),
-            Some(false),
-            Some(false),
-            Some(WorkAsBusiness)
+            workerReceivesBenefits = Some(false),
+            workerAsLineManager = Some(false),
+            contactWithEngagerCustomer = Some(false),
+            workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
           ),
-          MockDateTimeUtil.utc
+          completed = MockDateTimeUtil.utc
         )
 
         val expected = Json.obj(
           "version"-> "1.5.0-final",
-          "correlationID"-> "id",
-          "interview"-> Json.obj(
-            "setup"-> Json.obj(
-              "endUserRole"-> "personDoingWork",
-              "hasContractStarted"-> "Yes",
-              "provideServices"-> "soleTrader"
-            ),
-            "exit"-> Json.obj(
-              "officeHolder"-> "No"
-            ),
-            "personalService"-> Json.obj(
-              "workerSentActualSubstitute"-> "yesClientAgreed",
-              "workerPayActualSubstitute"-> "No",
-              "possibleSubstituteRejection"-> "wouldNotReject",
-              "possibleSubstituteWorkerPay"-> "Yes",
-              "wouldWorkerPayHelper"-> "No"
-            ),
-            "control"-> Json.obj(
-              "engagerMovingWorker"-> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone"-> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone"-> "workerAgreeSchedule",
-              "workerDecideWhere"-> "workerAgreeWithOthers"
-            ),
-            "financialRisk"-> Json.obj(
-              "workerProvidedMaterials"-> "No",
-              "workerProvidedEquipment"-> "No",
-              "workerUsedVehicle"-> "Yes",
-              "workerHadOtherExpenses"-> "Yes",
-              "expensesAreNotRelevantForRole"-> "No",
-              "workerMainIncome"-> "incomeCommission",
-              "paidForSubstandardWork"-> "cannotBeCorrected"
-            ),
-            "partAndParcel"-> Json.obj(
-              "workerReceivesBenefits"-> "No",
-              "workerAsLineManager"-> "No",
-              "contactWithEngagerCustomer"-> "No",
-              "workerRepresentsEngagerBusiness"-> "workAsIndependent"
-            )
-          )
+          "compressedInterview"-> "",
+          "route"-> "ESI",
+          "decision"-> "OUT",
+          "setup"-> Json.obj(
+            "endUserRole"-> "personDoingWork",
+            "hasContractStarted"-> "Yes",
+            "provideServices"-> "soleTrader"
+          ),
+          "exit"-> Json.obj(
+            "officeHolder"-> "No"
+          ),
+          "personalService"-> Json.obj(
+            "workerSentActualSubstitute"-> "yesClientAgreed",
+            "workerPayActualSubstitute"-> "No",
+            "possibleSubstituteRejection"-> "Yes",
+            "possibleSubstituteWorkerPay"-> "Yes",
+            "wouldWorkerPayHelper"-> "No"
+          ),
+          "control"-> Json.obj(
+            "engagerMovingWorker"-> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone"-> "workerFollowStrictEmployeeProcedures",
+            "workHasToBeDone"-> "workerAgreeSchedule",
+            "workerDecideWhere"-> "workerAgreeWithOthers"
+          ),
+          "financialRisk"-> Json.obj(
+            "workerProvidedMaterials"-> "No",
+            "workerProvidedEquipment"-> "No",
+            "workerUsedVehicle"-> "Yes",
+            "workerHadOtherExpenses"-> "Yes",
+            "expensesAreNotRelevantForRole"-> "No",
+            "workerMainIncome"-> "incomeCommission",
+            "paidForSubstandardWork"-> "cannotBeCorrected"
+          ),
+          "partAndParcel"-> Json.obj(
+            "workerReceivesBenefits"-> "No",
+            "workerAsLineManager"-> "No",
+            "contactWithEngagerCustomer"-> "No",
+            "workerRepresentsEngagerBusiness"-> "workAsIndependent"
+          ),
+          "completed" -> "2019-05-22T10:15:30"
         )
 
         val actual = Json.toJson(model)
@@ -299,27 +300,71 @@ class LogInterviewSpec extends SpecBase {
         actual mustBe expected
       }
 
-//      "the minimum model is supplied" in {
-//
-//        val model = Interview("id")
-//
-//        val expected = Json.obj(
-//          "version"-> "1.5.0-final",
-//          "correlationID"-> "id",
-//          "interview"-> Json.obj(
-//            "setup"-> Json.obj(),
-//            "exit"-> Json.obj(),
-//            "personalService"-> Json.obj(),
-//            "control"-> Json.obj(),
-//            "financialRisk"-> Json.obj(),
-//            "partAndParcel"-> Json.obj()
-//          )
-//        )
-//
-//        val actual = Json.toJson(model)
-//
-//        actual mustBe expected
-//      }
+      "the minimum model is supplied" in {
+
+        val model = LogInterview(
+          version = "1.5.0-final",
+          compressedInterview = "",
+          route = "ESI",
+          decision = "OUT",
+          count = None,
+          setup = Setup(
+            endUserRole = None,
+            hasContractStarted = None,
+            provideServices = None
+          ),
+          exit = Exit(
+            officeHolder = None
+          ),
+          personalService = PersonalService(
+            workerSentActualSubstitute = None,
+            workerPayActualSubstitute = None,
+            possibleSubstituteRejection = None,
+            possibleSubstituteWorkerPay = None,
+            wouldWorkerPayHelper = None
+          ),
+          control = Control(
+            engagerMovingWorker = None,
+            workerDecidingHowWorkIsDone = None,
+            workHasToBeDone = None,
+            workerDecideWhere = None
+          ),
+          financialRisk = FinancialRisk(
+            workerProvidedMaterials = None,
+            workerProvidedEquipment = None,
+            workerUsedVehicle = None,
+            workerHadOtherExpenses = None,
+            expensesAreNotRelevantForRole = None,
+            workerMainIncome = None,
+            paidForSubstandardWork = None
+          ),
+          partAndParcel = PartAndParcel(
+            workerReceivesBenefits = None,
+            workerAsLineManager = None,
+            contactWithEngagerCustomer = None,
+            workerRepresentsEngagerBusiness = None
+          ),
+          completed = MockDateTimeUtil.utc
+        )
+
+        val expected = Json.obj(
+          "version"-> "1.5.0-final",
+          "compressedInterview"-> "",
+          "route"-> "ESI",
+          "decision"-> "OUT",
+          "setup"-> Json.obj(),
+          "exit"-> Json.obj(),
+          "personalService"-> Json.obj(),
+          "control"-> Json.obj(),
+          "financialRisk"-> Json.obj(),
+          "partAndParcel"-> Json.obj(),
+          "completed" -> "2019-05-22T10:15:30"
+        )
+
+        val actual = Json.toJson(model)
+
+        actual mustBe expected
+      }
     }
   }
 }
