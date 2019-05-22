@@ -23,6 +23,12 @@ import models.{Answers, UserAnswers}
 import pages._
 import play.api.libs.json.{JsString, Json, Reads, Writes}
 import models.requests.DataRequest
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage, WorkerTypePage}
 import play.api.mvc.AnyContent
 
 import scala.annotation.tailrec
@@ -62,6 +68,7 @@ class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
 
   private lazy val questionToPage = Map(
     "aboutYou" -> AboutYouPage,
+    "whichDescribesYou" -> WhichDescribesYouPage,
     "contractStarted" -> ContractStartedPage,
     "workerType" -> WorkerTypePage,
     "officeHolder" -> OfficeHolderPage,

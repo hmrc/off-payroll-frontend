@@ -5,11 +5,11 @@ echo "Applying migration ChooseWhereWork"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /chooseWhereWork               controllers.ChooseWhereWorkController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /chooseWhereWork               controllers.ChooseWhereWorkController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /chooseWhereWork               controllers.sections.control.ChooseWhereWorkController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /chooseWhereWork               controllers.sections.control.ChooseWhereWorkController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeChooseWhereWork                  controllers.ChooseWhereWorkController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeChooseWhereWork                  controllers.ChooseWhereWorkController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeChooseWhereWork                  controllers.sections.control.ChooseWhereWorkController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeChooseWhereWork                  controllers.sections.control.ChooseWhereWorkController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

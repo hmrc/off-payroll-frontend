@@ -17,7 +17,6 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.RadioOption
 
 sealed trait UserType
 
@@ -29,20 +28,30 @@ object UserType {
     case AboutYouAnswer.Agency => Agency
   }
 
+  def apply(aboutYouAnswer: WhichDescribesYouAnswer): UserType = aboutYouAnswer match {
+    case WhichDescribesYouAnswer.WorkerPAYE => Worker
+    case WhichDescribesYouAnswer.WorkerIR35 => Worker
+    case WhichDescribesYouAnswer.ClientPAYE => Hirer
+    case WhichDescribesYouAnswer.ClientIR35 => Hirer
+    case WhichDescribesYouAnswer.Agency => Agency
+  }
+
   val values = Seq(Worker, Hirer, Agency)
 
   case object Worker extends WithName("worker") with UserType
   case object Agency extends WithName("agency") with UserType
   case object Hirer extends WithName("hirer") with UserType
 
-  implicit val writes: Writes[UserType] = Writes { user =>
-    Json.toJson(user.toString)
+  implicit val writes: Writes[UserType] = Writes {
+    case Worker => JsString(AboutYouAnswer.Worker.toString)
+    case Hirer => JsString(AboutYouAnswer.Client.toString)
+    case Agency => JsString(AboutYouAnswer.Agency.toString)
   }
 
   implicit val reads: Reads[UserType] = Reads {
-    case JsString(Worker.toString) => JsSuccess(Worker)
-    case JsString(Hirer.toString) => JsSuccess(Hirer)
-    case JsString(Agency.toString) => JsSuccess(Agency)
+    case JsString(AboutYouAnswer.Worker.toString) => JsSuccess(Worker)
+    case JsString(AboutYouAnswer.Client.toString) => JsSuccess(Hirer)
+    case JsString(AboutYouAnswer.Agency.toString) => JsSuccess(Agency)
     case _ => JsError("Unknown UserType")
   }
 }

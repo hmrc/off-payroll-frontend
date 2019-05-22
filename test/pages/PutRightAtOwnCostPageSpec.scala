@@ -18,6 +18,7 @@ package pages
 
 import models.PutRightAtOwnCost
 import pages.behaviours.PageBehaviours
+import pages.sections.financialRisk.PutRightAtOwnCostPage
 
 class PutRightAtOwnCostSpec extends PageBehaviours {
 

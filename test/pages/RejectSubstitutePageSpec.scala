@@ -17,6 +17,7 @@
 package pages
 
 import pages.behaviours.PageBehaviours
+import pages.sections.personalService.RejectSubstitutePage
 
 class RejectSubstitutePageSpec extends PageBehaviours {
 

@@ -21,8 +21,6 @@ import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import play.api.libs.json.Json
 import play.api.mvc.Request
-import play.twirl.api.Html
-import views.html.AboutYouView
 import views.html.results.OfficeHolderInsideIR35View
 
 class OfficeHolderInsideIR35ViewSpec extends ResultViewFixture {

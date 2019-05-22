@@ -16,10 +16,15 @@
 
 package utils
 
+import _root_.models.UserType._
 import base.SpecBase
 import config.SessionKeys
-import controllers.routes
-import _root_.models.UserType._
+import controllers.sections.control.{routes => contolRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.partParcel.{routes => partParcelRoutes}
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.setup.{routes => setupRoutes}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.WorkerUsedVehicle
 import models.ChooseWhereWork.WorkerChooses
@@ -29,7 +34,12 @@ import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.WorkerType.LimitedCompany
 import models.{AboutYouAnswer, CheckMode, Enumerable, UserAnswers}
-import pages._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.Json
 import viewmodels.AnswerRow
 
@@ -58,7 +68,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answer = Seq(s"$Worker.$CannotClaimAsExpensePage.$WorkerUsedVehicle"),
               answerIsMessageKey = true,
-              changeUrl = routes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+              changeUrl = financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -72,7 +82,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answer = Seq(s"$Hirer.$CannotClaimAsExpensePage.$WorkerUsedVehicle"),
               answerIsMessageKey = true,
-              changeUrl = routes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+              changeUrl = financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -86,7 +96,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answer = Seq(s"$CannotClaimAsExpensePage.$WorkerUsedVehicle"),
               answerIsMessageKey = true,
-              changeUrl = routes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+              changeUrl = financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -115,7 +125,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Worker.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.OfficeHolderController.onPageLoad(CheckMode).url
+                changeUrl = exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -129,7 +139,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Hirer.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.OfficeHolderController.onPageLoad(CheckMode).url
+                changeUrl = exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -143,7 +153,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.OfficeHolderController.onPageLoad(CheckMode).url
+                changeUrl = exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -158,7 +168,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$OfficeHolderPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = routes.OfficeHolderController.onPageLoad(CheckMode).url
+              changeUrl = exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -185,7 +195,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$WorkerTypePage.checkYourAnswersLabel",
               answer = s"$Worker.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true,
-              changeUrl = routes.WorkerTypeController.onPageLoad(CheckMode).url
+              changeUrl = setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -199,7 +209,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$WorkerTypePage.checkYourAnswersLabel",
               answer = s"$Hirer.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true,
-              changeUrl = routes.WorkerTypeController.onPageLoad(CheckMode).url
+              changeUrl = setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -213,7 +223,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$WorkerTypePage.checkYourAnswersLabel",
               answer = s"$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true,
-              changeUrl = routes.WorkerTypeController.onPageLoad(CheckMode).url
+              changeUrl = setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -238,7 +248,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             label = s"$AboutYouPage.checkYourAnswersLabel",
             answer = s"$AboutYouPage.${AboutYouAnswer.Worker}",
             answerIsMessageKey = true,
-            changeUrl = routes.AboutYouController.onPageLoad(CheckMode).url
+            changeUrl = setupRoutes.AboutYouController.onPageLoad(CheckMode).url
           ))
       }
     }
@@ -266,7 +276,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Worker.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.ContractStartedController.onPageLoad(CheckMode).url
+                changeUrl = setupRoutes.ContractStartedController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -280,7 +290,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Hirer.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.ContractStartedController.onPageLoad(CheckMode).url
+                changeUrl = setupRoutes.ContractStartedController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -294,7 +304,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.ContractStartedController.onPageLoad(CheckMode).url
+                changeUrl = setupRoutes.ContractStartedController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -309,7 +319,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$ContractStartedPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = routes.ContractStartedController.onPageLoad(CheckMode).url
+              changeUrl = setupRoutes.ContractStartedController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -336,7 +346,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Worker.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true,
-              changeUrl = routes.ArrangedSubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -350,7 +360,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Hirer.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true,
-              changeUrl = routes.ArrangedSubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -364,7 +374,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true,
-              changeUrl = routes.ArrangedSubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -393,7 +403,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Worker.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.BenefitsController.onPageLoad(CheckMode).url
+                changeUrl = partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -407,7 +417,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Hirer.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.BenefitsController.onPageLoad(CheckMode).url
+                changeUrl = partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -421,7 +431,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = routes.BenefitsController.onPageLoad(CheckMode).url
+                changeUrl = partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url
               ))
           }
         }
@@ -436,7 +446,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$BenefitsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = routes.BenefitsController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -463,7 +473,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"$Worker.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true,
-              changeUrl = routes.ChooseWhereWorkController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -477,7 +487,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"$Hirer.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true,
-              changeUrl = routes.ChooseWhereWorkController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -491,7 +501,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true,
-              changeUrl = routes.ChooseWhereWorkController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -518,7 +528,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.DidPaySubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -532,7 +542,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.DidPaySubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -546,7 +556,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.DidPaySubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -573,7 +583,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"$Worker.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true,
-              changeUrl = routes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
+              changeUrl = financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -587,7 +597,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"$Hirer.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true,
-              changeUrl = routes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
+              changeUrl = financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -601,7 +611,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true,
-              changeUrl = routes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
+              changeUrl = financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -628,7 +638,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"$Worker.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true,
-              changeUrl = routes.HowWorkIsDoneController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -642,7 +652,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"$Hirer.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true,
-              changeUrl = routes.HowWorkIsDoneController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -656,7 +666,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true,
-              changeUrl = routes.HowWorkIsDoneController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -683,7 +693,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
               answer = s"$Worker.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true,
-              changeUrl = routes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -697,7 +707,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
               answer = s"$Hirer.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true,
-              changeUrl = routes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -711,7 +721,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$IdentifyToStakeholdersPage.checkYourAnswersLabel",
               answer = s"$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true,
-              changeUrl = routes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -738,7 +748,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -752,7 +762,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -766,7 +776,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -793,7 +803,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.LineManagerDutiesController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -807,7 +817,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.LineManagerDutiesController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -821,7 +831,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.LineManagerDutiesController.onPageLoad(CheckMode).url
+              changeUrl = partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -848,7 +858,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"$Worker.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true,
-              changeUrl = routes.MoveWorkerController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.MoveWorkerController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -862,7 +872,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"$Hirer.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true,
-              changeUrl = routes.MoveWorkerController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.MoveWorkerController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -876,7 +886,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true,
-              changeUrl = routes.MoveWorkerController.onPageLoad(CheckMode).url
+              changeUrl = contolRoutes.MoveWorkerController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -903,7 +913,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.NeededToPayHelperController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -917,7 +927,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.NeededToPayHelperController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -931,7 +941,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.NeededToPayHelperController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -958,7 +968,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = s"$Worker.$RejectSubstitutePage.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.RejectSubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -972,7 +982,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = s"$Hirer.$RejectSubstitutePage.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.RejectSubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -986,7 +996,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$RejectSubstitutePage.checkYourAnswersLabel",
               answer = s"$RejectSubstitutePage.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.RejectSubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -1013,7 +1023,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -1027,7 +1037,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }
@@ -1041,7 +1051,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
+              changeUrl = personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
             ))
         }
       }

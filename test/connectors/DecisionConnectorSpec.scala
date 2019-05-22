@@ -17,8 +17,7 @@
 package connectors
 
 import base.SpecBase
-import connectors.mocks.{MockHttp, MockWsClient}
-import models.AboutYouAnswer.Worker
+import connectors.mocks.MockHttp
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.WorkerAgreeWithOthers
@@ -27,19 +26,21 @@ import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.UserType.Worker
 import models.WorkerType.SoleTrader
-import models.logging.LogInterview
 import models._
+import models.logging.LogInterview
 import play.api.http.Status
 import play.api.libs.json.Json
-import uk.gov.hmrc.http.{HeaderCarrier, HttpResponse}
+import uk.gov.hmrc.http.HttpResponse
+import _root_.utils.MockDateTimeUtil
 
 import scala.concurrent.Future
 
 
 class DecisionConnectorSpec extends SpecBase with MockHttp {
 
-  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig)
+  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil)
 
   val emptyInterviewModel: Interview = Interview(
     "12345"
@@ -235,7 +236,9 @@ class DecisionConnectorSpec extends SpecBase with MockHttp {
 
       val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
 
-      setupMockHttpPost(TestDecisionConnector.logUrl,  Json.toJson(LogInterview.createFromInterview(interviewModel,decisionResponse)))(Future.successful(logResponse))
+      setupMockHttpPost(TestDecisionConnector.logUrl,  Json.toJson(
+        LogInterview(interviewModel,decisionResponse,MockDateTimeUtil)
+      ))(Future.successful(logResponse))
 
       val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
       clientResponse mustBe Right(true)
@@ -245,7 +248,9 @@ class DecisionConnectorSpec extends SpecBase with MockHttp {
       val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
 
       val fail = HttpResponse(Status.INTERNAL_SERVER_ERROR, Some(Json.parse(fullDecisionResponseString)))
-      setupMockHttpPost(TestDecisionConnector.logUrl,  Json.toJson(LogInterview.createFromInterview(interviewModel,decisionResponse)))(Future.successful(fail))
+      setupMockHttpPost(TestDecisionConnector.logUrl,  Json.toJson(
+        LogInterview(interviewModel,decisionResponse, MockDateTimeUtil)
+      ))(Future.successful(fail))
 
       val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
       clientResponse mustBe Left(ErrorResponse(500, "Unexpected Response returned from log API"))

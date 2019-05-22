@@ -47,7 +47,7 @@ timestamp: Option[String] = None)(implicit request: Request[_], messages: Messag
 
         @components.error_summary(form.errors)
 
-        @sections.teal_result(Html(messages("result.currentSubstitution.title")))
+        @components.teal_result(Html(messages("result.currentSubstitution.title")))
 
         @sections.why_result(whyResultContent)
 

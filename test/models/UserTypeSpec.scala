@@ -34,9 +34,9 @@ class UserTypeSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChe
     }
 
     "deserialise valid values" in {
-      forAll(Gen.oneOf(UserType.values)) { userType =>
-        JsString(userType.toString).validate[UserType].asOpt.value mustEqual userType
-      }
+      JsString(AboutYouAnswer.Worker.toString).validate[UserType].asOpt.value mustEqual Worker
+      JsString(AboutYouAnswer.Client.toString).validate[UserType].asOpt.value mustEqual Hirer
+      JsString(AboutYouAnswer.Agency.toString).validate[UserType].asOpt.value mustEqual Agency
     }
 
     "fail to deserialise invalid values" in {
@@ -47,9 +47,9 @@ class UserTypeSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChe
     }
 
     "serialise" in {
-      forAll(Gen.oneOf(UserType.values)) { userType =>
-        Json.toJson(userType) mustEqual JsString(userType.toString)
-      }
+      Json.toJson(Worker) mustEqual JsString(AboutYouAnswer.Worker.toString)
+      Json.toJson(Hirer) mustEqual JsString(AboutYouAnswer.Client.toString)
+      Json.toJson(Agency) mustEqual JsString(AboutYouAnswer.Agency.toString)
     }
   }
 }

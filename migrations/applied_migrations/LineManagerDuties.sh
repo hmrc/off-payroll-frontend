@@ -5,11 +5,11 @@ echo "Applying migration LineManagerDuties"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /lineManagerDuties                        controllers.LineManagerDutiesController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /lineManagerDuties                        controllers.LineManagerDutiesController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /lineManagerDuties                        controllers.sections.partParcel.LineManagerDutiesController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /lineManagerDuties                        controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeLineManagerDuties                  controllers.LineManagerDutiesController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeLineManagerDuties                  controllers.LineManagerDutiesController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeLineManagerDuties                  controllers.sections.partParcel.LineManagerDutiesController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeLineManagerDuties                  controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

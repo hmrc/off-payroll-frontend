@@ -5,11 +5,11 @@ echo "Applying migration RejectSubstitute"
 echo "Adding routes to conf/app.routes"
 
 echo "" >> ../conf/app.routes
-echo "GET        /rejectSubstitute                        controllers.RejectSubstituteController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
-echo "POST       /rejectSubstitute                        controllers.RejectSubstituteController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "GET        /rejectSubstitute                        controllers.sections.personalService.RejectSubstituteController.onPageLoad(mode: Mode = NormalMode)" >> ../conf/app.routes
+echo "POST       /rejectSubstitute                        controllers.sections.personalService.RejectSubstituteController.onSubmit(mode: Mode = NormalMode)" >> ../conf/app.routes
 
-echo "GET        /changeRejectSubstitute                  controllers.RejectSubstituteController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
-echo "POST       /changeRejectSubstitute                  controllers.RejectSubstituteController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "GET        /changeRejectSubstitute                  controllers.sections.personalService.RejectSubstituteController.onPageLoad(mode: Mode = CheckMode)" >> ../conf/app.routes
+echo "POST       /changeRejectSubstitute                  controllers.sections.personalService.RejectSubstituteController.onSubmit(mode: Mode = CheckMode)" >> ../conf/app.routes
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en

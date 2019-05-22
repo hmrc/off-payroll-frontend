@@ -17,7 +17,7 @@
 package base
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, TailoredContent}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
 import models.UserAnswers
@@ -46,12 +46,13 @@ import scala.language.implicitConversions
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach with MaterializerSupport with MockitoSugar with FeatureSwitching {
 
-  override def fakeApplication(): Application = GuiceApplicationBuilder()
+  override lazy val app: Application = GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
     .build()
 
   override def beforeEach(): Unit = {
     enable(TailoredContent)
+    disable(OptimisedFlow)
     super.beforeEach()
   }
 

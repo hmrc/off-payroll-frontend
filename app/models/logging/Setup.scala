@@ -16,10 +16,12 @@
 
 package models.logging
 
+import models.{UserType, WorkerType}
 import play.api.libs.json.Json
 
-case class Setup(endUserRole: String, hasContractStarted: String, provideServices: String)
+case class Setup(endUserRole: Option[UserType], hasContractStarted: Option[Boolean], provideServices: Option[WorkerType])
 
-object Setup {
+object Setup extends WritesBooleanYesNo {
+
   implicit val setupFormat = Json.format[Setup]
 }

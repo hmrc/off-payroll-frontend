@@ -38,7 +38,9 @@
         @field.errors.map { error =>
             <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
         }
+
         @for(input <- inputs) {
+            @if(input.dividerPrefix) { <div class="form-group divider--bottom"></div> }
             <div class="multiple-choice">
                 <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="cest-frontend:click:@{input.id}"} />
 
@@ -51,5 +53,6 @@
                 </label>
             </div>
         }
+
     </fieldset>
 </div>

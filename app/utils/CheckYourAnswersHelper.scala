@@ -18,10 +18,22 @@ package utils
 
 import config.FrontendAppConfig
 import controllers.routes
+import controllers.sections.setup.{routes => setupRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
 import viewmodels.AnswerRow
 import models.Answers._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.personalService._
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.i18n.Messages
 import play.api.mvc.Request
 import views.ViewUtils._
@@ -43,7 +55,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("didPaySubstitute.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.DidPaySubstituteController.onPageLoad(CheckMode).url
+        personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url
       )
     }
 
@@ -53,7 +65,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("rejectSubstitute.checkYourAnswersLabel"),
         tailorMsg(if(x.answer) "rejectSubstitute.yes" else "rejectSubstitute.no"),
         answerIsMessageKey = true,
-        routes.RejectSubstituteController.onPageLoad(CheckMode).url
+        personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url
       )
     }
 
@@ -63,7 +75,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("wouldWorkerPaySubstitute.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
+        personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url
       )
     }
 
@@ -73,7 +85,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("neededToPayHelper.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.NeededToPayHelperController.onPageLoad(CheckMode).url
+        personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url
       )
     }
 
@@ -83,7 +95,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("moveWorker.checkYourAnswersLabel"),
         tailorMsg(s"moveWorker.${x.answer}"),
         answerIsMessageKey = true,
-        routes.MoveWorkerController.onPageLoad(CheckMode).url
+        controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url
       )
     }
 
@@ -93,7 +105,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("howWorkIsDone.checkYourAnswersLabel"),
         tailorMsg(s"howWorkIsDone.${x.answer}"),
         answerIsMessageKey = true,
-        routes.HowWorkIsDoneController.onPageLoad(CheckMode).url
+        controlRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url
       )
     }
 
@@ -103,7 +115,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("scheduleOfWorkingHours.checkYourAnswersLabel"),
         tailorMsg(s"scheduleOfWorkingHours.${x.answer}"),
         answerIsMessageKey = true,
-        routes.ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url
+        controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url
       )
     }
 
@@ -113,7 +125,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("chooseWhereWork.checkYourAnswersLabel"),
         tailorMsg(s"chooseWhereWork.${x.answer}"),
         answerIsMessageKey = true,
-        routes.ChooseWhereWorkController.onPageLoad(CheckMode).url
+        controlRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url
       )
     }
 
@@ -123,7 +135,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("howWorkerIsPaid.checkYourAnswersLabel"),
         tailorMsg(s"howWorkerIsPaid.${x.answer}"),
         answerIsMessageKey = true,
-        routes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
+        financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url
       )
     }
 
@@ -133,7 +145,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("putRightAtOwnCost.checkYourAnswersLabel"),
         tailorMsg(s"putRightAtOwnCost.${x.answer}"),
         answerIsMessageKey = true,
-        routes.PutRightAtOwnCostController.onPageLoad(CheckMode).url
+        financialRiskRoutes.PutRightAtOwnCostController.onPageLoad(CheckMode).url
       )
     }
 
@@ -143,7 +155,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("benefits.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.BenefitsController.onPageLoad(CheckMode).url
+        partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url
       )
     }
 
@@ -153,7 +165,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("lineManagerDuties.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.LineManagerDutiesController.onPageLoad(CheckMode).url
+        partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url
       )
     }
 
@@ -163,7 +175,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("interactWithStakeholders.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
+        partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url
       )
     }
 
@@ -173,7 +185,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("identifyToStakeholders.checkYourAnswersLabel"),
         tailorMsg(s"identifyToStakeholders.${x.answer}"),
         answerIsMessageKey = true,
-        routes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
+        partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url
       )
     }
 
@@ -183,7 +195,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("arrangedSubstitute.checkYourAnswersLabel"),
         tailorMsg(s"arrangedSubstitute.${x.answer}"),
         answerIsMessageKey = true,
-        routes.ArrangedSubstituteController.onPageLoad(CheckMode).url
+        personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url
       )
     }
 
@@ -193,7 +205,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
         answer = x.answer.map(ans => tailorMsg(s"cannotClaimAsExpense.$ans")),
         answerIsMessageKey = true,
-        changeUrl = routes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
+        changeUrl = financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url
       )
     }
 
@@ -203,7 +215,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("officeHolder.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.OfficeHolderController.onPageLoad(CheckMode).url
+        exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url
       )
     }
 
@@ -213,7 +225,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("workerType.checkYourAnswersLabel"),
         tailorMsg(s"workerType.${x.answer}"),
         answerIsMessageKey = true,
-        routes.WorkerTypeController.onPageLoad(CheckMode).url
+        setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url
       )
     }
 
@@ -223,7 +235,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg("contractStarted.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        routes.ContractStartedController.onPageLoad(CheckMode).url
+        setupRoutes.ContractStartedController.onPageLoad(CheckMode).url
       )
     }
 
@@ -231,7 +243,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     AnswerRow(
       "aboutYou.checkYourAnswersLabel",
       s"aboutYou.${x.answer}", answerIsMessageKey = true,
-      routes.AboutYouController.onPageLoad(CheckMode).url
+      setupRoutes.AboutYouController.onPageLoad(CheckMode).url
     )
   }
 }
