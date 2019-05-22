@@ -69,21 +69,13 @@ object Interview extends JsonObjectSugar {
     case _ => JsNull
   }
 
-
-  private val interviewWrites: Writes[Option[UserType]] = Writes {
-    case Some(Worker) => JsString(AboutYouAnswer.Worker.toString)
-    case Some(Hirer) => JsString(AboutYouAnswer.Client.toString)
-    case Some(Agency) => JsString(AboutYouAnswer.Agency.toString)
-    case _ => JsNull
-  }
-
   implicit def writes: Writes[Interview] = Writes { model =>
     Json.obj(
       "version" -> model.appConfig.decisionVersion,
       "correlationID" -> model.correlationId,
       "interview" -> Json.obj(
         "setup" -> jsonObjNoNulls(
-          "endUserRole" -> Json.toJson(model.endUserRole)(interviewWrites),
+          "endUserRole" -> model.endUserRole,
           "hasContractStarted" -> model.hasContractStarted,
           "provideServices" -> model.provideServices
         ),

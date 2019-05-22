@@ -16,19 +16,12 @@
 
 package controllers
 
-import uk.gov.hmrc.http.cache.client.CacheMap
 import base.SpecBase
 import controllers.actions.FakeDataRetrievalAction
-import models.{DecisionResponse, ErrorResponse, Interview}
-import org.scalatestplus.mockito.MockitoSugar
 import services.DecisionService
-import org.mockito.Mockito.when
-import org.mockito.stubbing.OngoingStubbing
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.cache.client.CacheMap
 
-import scala.concurrent.{ExecutionContext, Future}
-
-trait ControllerSpecBase extends SpecBase with MockitoSugar {
+trait ControllerSpecBase extends SpecBase {
 
   val cacheMapId = "id"
 

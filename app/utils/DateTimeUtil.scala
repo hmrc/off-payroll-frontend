@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package models.logging
+package utils
 
-import play.api.libs.json.Json
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
-case class Exit(officeHolder: Option[Boolean])
+class DateTimeUtil {
 
-object Exit extends WritesBooleanYesNo {
-  implicit val exitFormat = Json.format[Exit]
+  def utc: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC)
+
+
 }

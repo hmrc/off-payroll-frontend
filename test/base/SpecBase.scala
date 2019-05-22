@@ -46,7 +46,7 @@ import scala.language.implicitConversions
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach with MaterializerSupport with MockitoSugar with FeatureSwitching {
 
-  override def fakeApplication(): Application = GuiceApplicationBuilder()
+  override lazy val app: Application = GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
     .build()
 
