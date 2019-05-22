@@ -24,6 +24,15 @@ case class Answers[T](answer: T, answerNumber: Int)
 
 object Answers {
 
+  implicit def optionFormat[T: Format]: Format[Option[T]] = new Format[Option[T]]{
+    override def reads(json: JsValue): JsResult[Option[T]] = json.validateOpt[T]
+
+    override def writes(o: Option[T]): JsValue = o match {
+      case Some(t) ⇒ implicitly[Writes[T]].writes(t)
+      case None ⇒ JsNull
+    }
+  }
+
   implicit val answersReadsBoolean: Reads[Answers[Boolean]] = (
     (JsPath \ "answer").read[Boolean] and
       (JsPath \ "answerNumber").read[Int]

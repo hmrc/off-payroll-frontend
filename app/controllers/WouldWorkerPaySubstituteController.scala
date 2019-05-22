@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.WouldWorkerPaySubstituteFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.WouldWorkerPaySubstituteView
 
 import scala.concurrent.Future
 
-class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                   navigator: Navigator,
-                                                   identify: IdentifierAction,
+class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
                                                    getData: DataRetrievalAction,
                                                    requireData: DataRequiredAction,
                                                    formProvider: WouldWorkerPaySubstituteFormProvider,
                                                    controllerComponents: MessagesControllerComponents,
                                                    view: WouldWorkerPaySubstituteView,
-                                                   decisionService: DecisionService,
+                                                   controllerHelper: ControllerHelper,
                                                    implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -54,14 +50,7 @@ class WouldWorkerPaySubstituteController @Inject()(dataCacheConnector: DataCache
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,WouldWorkerPaySubstitutePage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(WouldWorkerPaySubstitutePage, mode)(answers)
-            val exit = continue
-            decisionService.decide(answers, continue, ErrorTemplate("wouldWorkerPaySubstitute.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value, WouldWorkerPaySubstitutePage, Some(ErrorTemplate("wouldWorkerPaySubstitute.title")))
       }
     )
   }

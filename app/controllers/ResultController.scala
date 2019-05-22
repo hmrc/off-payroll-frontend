@@ -37,6 +37,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  formProvider: DeclarationFormProvider,
                                  navigator: Navigator,
                                  dataCacheConnector: DataCacheConnector,
+                                 compareAnswerService: CompareAnswerService,
                                  implicit val conf: FrontendAppConfig) extends BaseController(controllerComponents) with UserAnswersUtils {
 
   val resultForm: Form[Boolean] = formProvider()
@@ -44,12 +45,10 @@ class ResultController @Inject()(identify: IdentifierAction,
   private val version = conf.decisionVersion
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    val timestamp = CompareAnswerService.constructAnswers(request,Timestamp.timestamp,ResultPage)
-
-    dataCacheConnector.save(timestamp.cacheMap).map(
-      _ => Ok(decisionService.determineResultView(answers))
-    )
+      val updatedTimestamp = request.userAnswers.set(ResultPage,request.userAnswers.size,Timestamp.timestamp)
+      dataCacheConnector.save(updatedTimestamp.cacheMap).map(
+        _ => Ok(decisionService.determineResultView(answers))
+      )
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

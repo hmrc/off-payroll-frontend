@@ -30,6 +30,14 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
     sessionRepository.upsert(cacheMap).map{_ => cacheMap}
   }
 
+  def addDecision[A](id: String, decision: String): Future[Boolean] = {
+    sessionRepository.upsert(id,decision)
+  }
+
+  def clearDecision[A](id: String): Future[Boolean] = {
+    sessionRepository.update(id)
+  }
+
   def fetch(cacheId: String): Future[Option[CacheMap]] =
     sessionRepository.get(cacheId)
 
@@ -42,6 +50,10 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
 
 trait DataCacheConnector {
   def save[A](cacheMap: CacheMap): Future[CacheMap]
+
+  def addDecision[A](id: String, decision: String): Future[Boolean]
+
+  def clearDecision[A](id: String): Future[Boolean]
 
   def fetch(cacheId: String): Future[Option[CacheMap]]
 

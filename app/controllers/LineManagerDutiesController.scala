@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.LineManagerDutiesFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.LineManagerDutiesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.LineManagerDutiesView
 
 import scala.concurrent.Future
 
-class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnector,
-                                            navigator: Navigator,
-                                            identify: IdentifierAction,
+class LineManagerDutiesController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: LineManagerDutiesFormProvider,
                                             controllerComponents: MessagesControllerComponents,
                                             view: LineManagerDutiesView,
-                                            decisionService: DecisionService,
+                                            controllerHelper: ControllerHelper,
                                             implicit val appConfig: FrontendAppConfig
                                            ) extends BaseController(controllerComponents) {
 
@@ -55,13 +51,7 @@ class LineManagerDutiesController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,LineManagerDutiesPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(LineManagerDutiesPage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("lineManagerDuties.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value, LineManagerDutiesPage, Some(ErrorTemplate("lineManagerDuties.title")))
       }
     )
   }

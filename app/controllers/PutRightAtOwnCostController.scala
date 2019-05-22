@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.PutRightAtOwnCostFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode, PutRightAtOwnCost}
-import navigation.Navigator
 import pages.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.PutRightAtOwnCostView
 
 import scala.concurrent.Future
 
-class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnector,
-                                            navigator: Navigator,
-                                            identify: IdentifierAction,
+class PutRightAtOwnCostController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: PutRightAtOwnCostFormProvider,
                                             controllerComponents: MessagesControllerComponents,
                                             view: PutRightAtOwnCostView,
-                                            decisionService: DecisionService,
+                                            controllerHelper: ControllerHelper,
                                             implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[PutRightAtOwnCost] = formProvider()
@@ -54,15 +50,7 @@ class PutRightAtOwnCostController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,PutRightAtOwnCostPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-
-            val continue = navigator.nextPage(PutRightAtOwnCostPage, mode)(answers)
-            val exit = continue
-            decisionService.decide(answers, continue, ErrorTemplate("putRightAtOwnCost.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value, PutRightAtOwnCostPage, Some(ErrorTemplate("putRightAtOwnCost.title")))
       }
     )
   }

@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, IdentifyToStakeholders, Mode}
-import navigation.Navigator
 import pages.IdentifyToStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.IdentifyToStakeholdersView
 
 import scala.concurrent.Future
 
-class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                 navigator: Navigator,
-                                                 identify: IdentifierAction,
+class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: IdentifyToStakeholdersFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: IdentifyToStakeholdersView,
-                                                 decisionService: DecisionService,
+                                                 controllerHelper: ControllerHelper,
                                                  implicit val appConfig: FrontendAppConfig
                                                 ) extends BaseController(controllerComponents) {
 
@@ -55,13 +51,7 @@ class IdentifyToStakeholdersController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,IdentifyToStakeholdersPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(IdentifyToStakeholdersPage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("identifyToStakeholders.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value, IdentifyToStakeholdersPage, Some(ErrorTemplate("identifyToStakeholders.title")))
       }
     )
   }

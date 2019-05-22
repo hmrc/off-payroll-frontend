@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.OfficeHolderFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.OfficeHolderPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.OfficeHolderView
 
 import scala.concurrent.Future
 
-class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
-                                       navigator: Navigator,
-                                       identify: IdentifierAction,
+class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
                                        view: OfficeHolderView,
-                                       decisionService: DecisionService,
+                                       controllerHelper: ControllerHelper,
                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -54,14 +50,7 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,OfficeHolderPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(OfficeHolderPage, mode)(answers)
-            val exit = continue
-            decisionService.decide(answers, continue, ErrorTemplate("officeHolder.title"))
-          }
-        )
+        controllerHelper.redirect[Boolean](mode,value, OfficeHolderPage, Some(ErrorTemplate("officeHolder.title")))
       }
     )
   }

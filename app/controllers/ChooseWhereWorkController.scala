@@ -16,35 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
-import javax.inject.Inject
 import models.Answers._
-
-import models.{ChooseWhereWork, Enumerable, ErrorTemplate, Mode}
-import navigation.Navigator
+import models.{ChooseWhereWork, ErrorTemplate, Mode}
 import pages.ChooseWhereWorkPage
 import play.api.data.Form
-import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.DecisionService
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.ChooseWhereWorkView
-import services.CompareAnswerService
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector,
-                                          navigator: Navigator,
-                                          identify: IdentifierAction,
+class ChooseWhereWorkController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ChooseWhereWorkFormProvider,
                                           controllerComponents: MessagesControllerComponents,
                                           view: ChooseWhereWorkView,
-                                          decisionService: DecisionService,
+                                          controllerHelper: ControllerHelper,
                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[ChooseWhereWork] = formProvider()
@@ -58,14 +50,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,ChooseWhereWorkPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-
-            val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("chooseWhereWork.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value,ChooseWhereWorkPage,Some(ErrorTemplate("chooseWhereWork.title")))
       }
     )
   }

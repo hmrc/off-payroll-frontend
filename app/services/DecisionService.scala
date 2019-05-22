@@ -79,6 +79,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val interview = Interview(userAnswers)
     for {
       decision <- decisionConnector.decide(interview)
+      _ <- saveDecision(decision,userAnswers)
       _ <- logResult(decision,interview)
       redirect <- redirectResult(interview,errorResult,continueResult)
     } yield redirect
@@ -94,17 +95,45 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call)
                             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
+
     decisionConnector.decide(interview).map {
-      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
-      case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
-      case Right(DecisionResponse(_, _, Score(_,_,_, control, financialRisk, _), ResultEnum.OUTSIDE_IR35)) =>
-        redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
-      case Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
-      case Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => redirectResultsPage(ResultEnum.EMPLOYED)
-      case Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => redirectResultsPage(ResultEnum.UNKNOWN)
+      case Right(result) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result,errorResult)
+      //early exit
+      case Right(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result,errorResult,continueResult)
+      //only show results if last question was answered
+      case Right(_) => Redirect(continueResult)
       case Left(error) => redirectErrorPage(error.status, errorResult)
       case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
     }
+  }
+
+  private def saveDecision(decisionResponse: Either[ErrorResponse,DecisionResponse], userAnswers: UserAnswers) = {
+    decisionResponse match {
+      case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED =>
+        dataCacheConnector.addDecision(userAnswers.cacheMap.id,decisionResponse.right.get.result.toString)
+      case _ => Future.successful(true)
+    }
+  }
+
+  private def finalResultRedirect(decisionResponse: DecisionResponse,errorResult: ErrorTemplate,continueResult: Call)
+                                 (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
+    decisionResponse match {
+      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED) => Redirect(continueResult)
+      case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+      case DecisionResponse(_, _, Score(_, _, _, control, financialRisk, _), ResultEnum.OUTSIDE_IR35) =>
+        redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
+      case DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
+      case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
+      case DecisionResponse(_, _, _, ResultEnum.UNKNOWN) => redirectResultsPage(ResultEnum.UNKNOWN)
+      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
+    }
+  }
+
+  private def earlyExitRedirect(decisionResponse: DecisionResponse,errorResult: ErrorTemplate)
+                               (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
+    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
+    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+    case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
   }
 
   def redirectErrorPage(status: Int, errorResult: ErrorTemplate)(implicit rh: Request[_]): Result = {

@@ -16,30 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{HowWorkerIsPaid, Mode}
-import navigation.Navigator
 import pages.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
 import views.html.HowWorkerIsPaidView
 
 import scala.concurrent.Future
 
-class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector,
-                                          navigator: Navigator,
-                                          identify: IdentifierAction,
+class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: HowWorkerIsPaidFormProvider,
                                           controllerComponents: MessagesControllerComponents,
                                           view: HowWorkerIsPaidView,
+                                          controllerHelper: ControllerHelper,
                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[HowWorkerIsPaid] = formProvider()
@@ -52,12 +49,7 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkerIsPaidPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(HowWorkerIsPaidPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,HowWorkerIsPaidPage)
     )
   }
 }

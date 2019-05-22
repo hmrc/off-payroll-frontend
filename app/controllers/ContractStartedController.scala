@@ -16,30 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ContractStartedFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.Mode
-import navigation.Navigator
 import pages.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
 import views.html.ContractStartedView
 
 import scala.concurrent.Future
 
-class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector,
-                                          navigator: Navigator,
-                                          identify: IdentifierAction,
+class ContractStartedController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ContractStartedFormProvider,
                                           controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
+                                          controllerHelper: ControllerHelper,
                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -51,12 +48,7 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,ContractStartedPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-            _ => Redirect(navigator.nextPage(ContractStartedPage, mode)(answers))
-          )
-        }
+      value => controllerHelper.redirect(mode,value,ContractStartedPage)
     )
   }
 

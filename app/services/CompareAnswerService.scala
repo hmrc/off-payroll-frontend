@@ -16,6 +16,9 @@
 
 package services
 
+import javax.inject.Inject
+
+import connectors.DataCacheConnector
 import models.{Answers, UserAnswers}
 import pages._
 import play.api.libs.json.{JsString, Json, Reads, Writes}
@@ -24,15 +27,17 @@ import play.api.mvc.AnyContent
 
 import scala.annotation.tailrec
 import scala.collection.immutable.Map
+import scala.concurrent.{ExecutionContext, Future}
 
-object CompareAnswerService {
+class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
 
   def constructAnswers[T](request: DataRequest[AnyContent], value: T,
-                       page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]): UserAnswers = {
+                       page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],
+                                              aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): Future[UserAnswers] = {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
-      case None => request.userAnswers.set(page, answerNumber, value)
-      case Some(answer) if answer.answer == value => request.userAnswers
+      case None => Future.successful(request.userAnswers.set(page, answerNumber, value))
+      case Some(answer) if answer.answer == value => Future.successful(request.userAnswers)
       case Some(answer) => {
         //get all answers, sort them in the order they were answered in, find the answers that came after the current answer,
         // find what page they are associated with, then remove them
@@ -40,7 +45,10 @@ object CompareAnswerService {
           request.userAnswers.cacheMap.data.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
             .splitAt(answer.answerNumber)._2.map(_._1).map(pageName => questionToPage(pageName))
           , request.userAnswers)
-        updatedAnswers.set(page, updatedAnswers.size, value)
+        //if an answer is changed, the final decision will change too
+        dataCacheConnector.clearDecision(request.userAnswers.cacheMap.id).map { _ =>
+          updatedAnswers.set(page, updatedAnswers.size, value)
+        }
       }
     }
   }

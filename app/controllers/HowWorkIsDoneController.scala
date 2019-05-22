@@ -16,30 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.HowWorkIsDoneFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{HowWorkIsDone, Mode}
-import navigation.Navigator
 import pages.HowWorkIsDonePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
 import views.html.HowWorkIsDoneView
 
 import scala.concurrent.Future
 
-class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        identify: IdentifierAction,
+class HowWorkIsDoneController @Inject()(identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
                                         formProvider: HowWorkIsDoneFormProvider,
                                         controllerComponents: MessagesControllerComponents,
                                         view: HowWorkIsDoneView,
+                                        controllerHelper: ControllerHelper,
                                         implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[HowWorkIsDone] = formProvider()
@@ -52,12 +49,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkIsDonePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(HowWorkIsDonePage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,HowWorkIsDonePage)
     )
   }
 }

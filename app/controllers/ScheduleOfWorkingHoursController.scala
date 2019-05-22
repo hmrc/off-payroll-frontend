@@ -16,30 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{Mode, ScheduleOfWorkingHours}
-import navigation.Navigator
 import pages.ScheduleOfWorkingHoursPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
 import views.html.ScheduleOfWorkingHoursView
 
 import scala.concurrent.Future
 
-class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                 navigator: Navigator,
-                                                 identify: IdentifierAction,
+class ScheduleOfWorkingHoursController @Inject()(identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: ScheduleOfWorkingHoursFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: ScheduleOfWorkingHoursView,
+                                                 controllerHelper: ControllerHelper,
                                                  implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[ScheduleOfWorkingHours] = formProvider()
@@ -52,12 +49,7 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,ScheduleOfWorkingHoursPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ScheduleOfWorkingHoursPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,ScheduleOfWorkingHoursPage)
     )
   }
 }

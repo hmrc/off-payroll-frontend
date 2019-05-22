@@ -16,30 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.RejectSubstituteFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.Mode
-import navigation.Navigator
 import pages.RejectSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
 import views.html.RejectSubstituteView
 
 import scala.concurrent.Future
 
-class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
-                                           navigator: Navigator,
-                                           identify: IdentifierAction,
+class RejectSubstituteController @Inject()(identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: RejectSubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
                                            view: RejectSubstituteView,
+                                           controllerHelper: ControllerHelper,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -52,12 +49,7 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,RejectSubstitutePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(RejectSubstitutePage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,RejectSubstitutePage)
     )
   }
 }

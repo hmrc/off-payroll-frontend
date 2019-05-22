@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.WorkerTypeFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{Mode, WorkerType}
-import navigation.Navigator
 import pages.WorkerTypePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.WorkerTypeView
 
 import scala.concurrent.Future
 
-class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     identify: IdentifierAction,
+class WorkerTypeController @Inject()(identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
                                      formProvider: WorkerTypeFormProvider,
                                      controllerComponents: MessagesControllerComponents,
                                      view: WorkerTypeView,
-                                     decisionService: DecisionService,
+                                     controllerHelper: ControllerHelper,
                                      implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[WorkerType] = formProvider()
@@ -53,12 +49,7 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,WorkerTypePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(WorkerTypePage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,WorkerTypePage)
     )
   }
 }

@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DidPaySubstituteFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.DidPaySubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.DidPaySubstituteView
 
 import scala.concurrent.Future
 
-class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
-                                           navigator: Navigator,
-                                           identify: IdentifierAction,
+class DidPaySubstituteController @Inject()(identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: DidPaySubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
                                            view: DidPaySubstituteView,
-                                           decisionService: DecisionService,
+                                           controllerHelper: ControllerHelper,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -54,13 +50,7 @@ class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,DidPaySubstitutePage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(DidPaySubstitutePage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("didPaySubstitute.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value,DidPaySubstitutePage,Some(ErrorTemplate("didPaySubstitute.title")))
       }
     )
   }

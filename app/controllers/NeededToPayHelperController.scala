@@ -16,31 +16,27 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
 import forms.NeededToPayHelperFormProvider
-import javax.inject.Inject
 import models.Answers._
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.NeededToPayHelperPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.NeededToPayHelperView
 
 import scala.concurrent.Future
 
-class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnector,
-                                            navigator: Navigator,
-                                            identify: IdentifierAction,
+class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
                                             controllerComponents: MessagesControllerComponents,
                                             view: NeededToPayHelperView,
-                                            decisionService: DecisionService,
+                                            controllerHelper: ControllerHelper,
                                             implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -54,14 +50,7 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,NeededToPayHelperPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(NeededToPayHelperPage, mode)(answers)
-            val exit = continue
-            decisionService.decide(answers, continue, ErrorTemplate("neededToPayHelper.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value, NeededToPayHelperPage, Some(ErrorTemplate("neededToPayHelper.title")))
       }
     )
   }

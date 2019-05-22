@@ -18,31 +18,25 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api.i18n.I18nSupport
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import connectors.DataCacheConnector
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
 import forms.MoveWorkerFormProvider
-import models.{Enumerable, Mode, MoveWorker}
+import models.Answers._
+import models.{Mode, MoveWorker}
 import pages.MoveWorkerPage
-import navigation.Navigator
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.MoveWorkerView
-import services.CompareAnswerService
-import models.Answers._
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     identify: IdentifierAction,
+class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
                                      formProvider: MoveWorkerFormProvider,
                                      controllerComponents: MessagesControllerComponents,
                                      view: MoveWorkerView,
+                                     controllerHelper: ControllerHelper,
                                      implicit val appConfig: FrontendAppConfig
                                     ) extends BaseController(controllerComponents) {
 
@@ -56,12 +50,7 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,MoveWorkerPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(MoveWorkerPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,MoveWorkerPage)
     )
   }
 }

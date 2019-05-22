@@ -18,11 +18,12 @@ package repositories
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Named, Singleton}
+
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.bson.{BSONDocument, BSONObjectID}
+import reactivemongo.bson.{BSONBoolean, BSONDocument, BSONObjectID}
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
@@ -35,7 +36,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
-                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
+                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC),
+                         decision: Option[String] = None)
 
 object DatedCacheMap {
   implicit val dateFormat = ReactiveMongoFormats.dateTimeFormats
@@ -79,6 +81,24 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     val modifier = BSONDocument("$set" -> cmDocument)
 
     collection.update(selector, modifier, upsert = true).map { lastError =>
+      lastError.ok
+    }
+  }
+
+  def upsert(id: String, decision: String): Future[Boolean] = {
+    val selector = BSONDocument("id" -> id)
+    val modifier = BSONDocument("$exists" -> true, "$set" -> BSONDocument("decision" -> decision))
+
+    collection.update(selector, modifier).map { lastError =>
+      lastError.ok
+    }
+  }
+
+  def update(id: String): Future[Boolean] = {
+    val selector = BSONDocument("id" -> id)
+    val modifier = BSONDocument("$unset" -> BSONDocument("decision" -> ""))
+
+    collection.update(selector, modifier).map { lastError =>
       lastError.ok
     }
   }
