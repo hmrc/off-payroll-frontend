@@ -84,7 +84,13 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         //TODO ADD NEW FLOW TESTS
         "go to the Contract Started page from the Worker Type page" in {
           enable(OptimisedFlow)
-          nextPage(WorkerTypePage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+          nextPage(WorkerUsingIntermediaryPage, setAnswers(WorkerUsingIntermediaryPage -> false)) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        //TODO ADD NEW FLOW TESTS
+        "go to the Contract Started page fromd the Worker Type page" in {
+          enable(OptimisedFlow)
+          nextPage(WorkerUsingIntermediaryPage, setAnswers(WorkerUsingIntermediaryPage -> true)) mustBe setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
         }
       }
 
