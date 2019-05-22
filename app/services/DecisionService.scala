@@ -28,10 +28,10 @@ import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
-import pages._
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.personalService.ArrangedSubstitutePage
-import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
+import pages.sections.setup.WorkerUsingIntermediaryPage
+import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._

@@ -26,6 +26,7 @@ import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPa
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage, WorkerTypePage}
 import play.api.mvc.AnyContent
 
 import scala.annotation.tailrec

@@ -17,6 +17,7 @@
 package navigation
 
 import config.{FrontendAppConfig, SessionKeys}
+import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
@@ -28,6 +29,7 @@ import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.WhichDescribesYouAnswer._
+import models.WhichDescribesYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import pages._
 import models._
