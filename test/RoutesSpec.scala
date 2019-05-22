@@ -26,7 +26,7 @@ import models.{CheckMode, NormalMode}
 
 class RoutesSpec extends SpecBase {
 
-  def fullPath(path: String) = s"/check-employment-status-for-tax$path"
+  def fullPath(path: String) = s"/cest-frontend$path"
 
   "App.Routes" should {
 
