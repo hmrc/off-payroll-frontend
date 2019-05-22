@@ -32,7 +32,7 @@ trait ViewSpecBase extends SpecBase {
     val multichoice = (i: Int) => s"article form div.multiple-choice:nth-of-type($i) label"
     val exclamation = s"article form .notice strong"
     val continueButton = "article form button"
-    val hint = (i: Int) => s"span.form-hint:nth-of-type($i)"
+    val hint = (i: Int) => s".form-hint:nth-of-type($i)"
   }
 
   def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
