@@ -119,6 +119,16 @@ hirer.contractStarted.title =A yw’r gweithiwr wedi dechrau’r swydd benodol h
 hirer.contractStarted.heading =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
 hirer.contractStarted.subheading = Ynglŷn â’r bobl berthnasol
 hirer.contractStarted.checkYourAnswersLabel =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
+
+worker.optimised.contractStarted.title = Have you already started working for this client?
+worker.optimised.contractStarted.heading = Have you already started working for this client?
+worker.optimised.contractStarted.subheading = Section 1: Who, what, when
+worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
+
+hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.subheading = Section 1: Who, what, when
+hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
 #########################
 
 

@@ -106,7 +106,6 @@ hirer.contractStarted.title = Has the worker already started this particular eng
 hirer.contractStarted.heading = Has the worker already started this particular engagement for you?
 hirer.contractStarted.subheading = About the people involved
 hirer.contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for you?
-#########################
 
 worker.optimised.contractStarted.title = Have you already started working for this client?
 worker.optimised.contractStarted.heading = Have you already started working for this client?
@@ -117,7 +116,7 @@ hirer.optimised.contractStarted.title = Has the worker already started working f
 hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.subheading = Section 1: Who, what, when
 hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
-
+#########################
 
 ## Way that the worker provides services page (Worker Type)
 #########################
