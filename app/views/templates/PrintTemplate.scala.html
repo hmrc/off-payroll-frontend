@@ -21,19 +21,144 @@
 
 @(title: String, appConfig: FrontendAppConfig, bodyClasses: Option[String] = None)(content: Html)
 
-@import template._
-
 <!DOCTYPE html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <title>@title</title>
 
-        <link href='@routes.Template.at("stylesheets/govuk-template.css")' media="screen" rel="stylesheet" type="text/css" />
-        <link href='@routes.Template.at("stylesheets/govuk-template-print.css")' media="print" rel="stylesheet" type="text/css" />
-        <link href='@routes.Template.at("stylesheets/fonts.css")' media="all" rel="stylesheet" type="text/css" />
+        <link href='@template.routes.Template.at("stylesheets/govuk-template.css")' media="screen" rel="stylesheet" type="text/css" />
+        <link href='@template.routes.Template.at("stylesheets/govuk-template-print.css")' media="print" rel="stylesheet" type="text/css" />
+        <link href='@template.routes.Template.at("stylesheets/fonts.css")' media="all" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/offpayrollfrontend-print.css")' />
+        <style>
+
+        #content {
+            display: block;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0em .78947em 1.68421em .78947em;
+            line-height: 1.5;
+            font-family: "nta",Arial,sans-serif;
+            font-size: 19px;
+            line-height: 1.31579;
+            font-weight: 400;
+            text-transform: none;
+        }
+
+        #skiplink-container{
+            display: none;
+        }
+
+        .govuk-box-highlight {
+            background-color: #28a197;
+            color: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 24px;
+            line-height: 1.11111;
+            font-weight: 400;
+            text-transform: none;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+
+        .govuk-check-your-answers li {
+            border-bottom: 1px solid #bfc1c3;
+        }
+
+        .divider--bottom {
+            border-bottom: 1px solid #bfc1c3;
+        }
+        .section, .section--branded {
+            margin-bottom: 1em;
+            padding: 1em 0;
+        }
+
+        .panel-indent {
+            margin: 0;
+            clear: both;
+            border-left: 4px solid #bfc1c3;
+            padding: 10px 0 10px 15px;
+        }
+
+        a{
+            text-decoration: none;
+            color: #0b0c0c ;
+        }
+
+        a:after{content:" (" attr(href) ") ";font-size:0.8em;font-weight:normal;}
+
+        .form-hint{
+            color: #6f777b;
+        }
+
+        .notice {
+            background: transparent no-repeat 0 0;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAQAAAC00HvSAAABZklEQVR4Aa3WsWoTUBTG8V9v4yQElywRAlYzJVCQdMrgmKVDce3m3mfI0ofoY7QQfAOngmQIOGgzOGRpQYhLUynHZjb3JtL7/+8f53DhfmfPZlqGjvR1tTUtLXw3c+2LWzsycG4qNjp1bmArHWM3ouiNsY4CIxOxkxMjGU7NxM7OnG4OmYv/cv5v0KgwSWmiEdAAHWd6NvLeHsJXG+g5881PgLHI+RBrHkLOMcCg9MS/Y82y9PwDEk4cyHIPVrIcOCFpOVZgtS2GY61k6PCZMYeGyRFsW+pekaOkzzOnoZ90K8R0k3aFpdpJs8I0zWRZIWaZLCosteBKlNyPF0/uh5JXyUyRR3+efFRk1nCtyBufrFy4U+CalqnI+Tp+xZof8TLknGoltyayfPQKvPVBlonbhEtzGe4A8kvNXW79/RrxOdZc7PD70cn301704l2przoVm6FCT1VozQodXuuiqH/fVLq2/gLNMwwtCpJpLgAAAABJRU5ErkJggg==);
+            padding-left: 2.36842em;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            overflow: hidden;
+            clip: rect(0 0 0 0);
+            height: 1px;
+            width: 1px;
+            margin: -1px;
+            padding: 0;
+            border: 0;
+        }
+
+        h2 {
+            margin-top:50px;
+            font-size: 30px;
+        }
+
+        ul.section {
+            margin: 0;
+            padding:0;
+        }
+
+        ul.section ul {
+            margin: 0;
+            padding:0;
+            margin-top: 30px;
+        }
+
+        ul.section > li{
+            list-style-type: none;
+            margin-bottom: 1em;
+        }
+
+        ul.section > ul > li {
+            list-style-type: none;
+            margin-bottom: 1em;
+        }
+
+        .print-bullet {
+            list-style-type: circle !important;
+            margin-left: 2em !important;
+            margin-bottom: 2em !important;
+        }
+
+        .cya-question {
+            font-weight: 700;
+        }
+
+        ul.section ul + h2 {
+            margin-top: 2.5em;
+        }
+        p.form-hint{
+            margin: 0 0 0.5em 0;
+        }
+        .notice {
+            min-height: 2em;
+        }
+        </style>
     </head>
 
-    <body class='@bodyClasses.getOrElse("")'>
+    <body id="content" class='@bodyClasses.getOrElse("")'>
         @content
     </body>
 </html>
