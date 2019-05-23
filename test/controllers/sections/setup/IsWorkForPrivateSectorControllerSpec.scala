@@ -16,32 +16,31 @@
 
 package controllers.sections.setup
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.ContractStartedFormProvider
+import forms.{ContractStartedFormProvider, IsWorkForPrivateSectorFormProvider}
 import models.{Answers, NormalMode}
 import navigation.FakeNavigator
-import pages.sections.setup.ContractStartedPage
+import pages.sections.setup.{ContractStartedPage, IsWorkForPrivateSectorPage}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
+import views.html.sections.setup.IsWorkForPrivateSectorView
 import views.html.subOptimised.sections.setup.ContractStartedView
 
-class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitching {
+class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = Call("GET", "/foo")
 
-  val formProvider = new ContractStartedFormProvider()
+  val formProvider = new IsWorkForPrivateSectorFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[ContractStartedView]
-  val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]
+  val view = injector.instanceOf[IsWorkForPrivateSectorView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ContractStartedController(
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new IsWorkForPrivateSectorController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
@@ -50,14 +49,12 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    optimisedView = optimisedView
+    view = view
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-  def viewAsStringOptimised(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  "ContractStarted Controller" must {
+  "IsWorkForPrivateSector Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
@@ -66,16 +63,8 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
       contentAsString(result) mustBe viewAsString()
     }
 
-    "return OK and the correct view for a GET for the optimised flow" in {
-      enable(OptimisedFlow)
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
-
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsStringOptimised()
-    }
-
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(IsWorkForPrivateSectorPage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)

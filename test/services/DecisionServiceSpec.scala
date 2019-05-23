@@ -18,6 +18,7 @@ package services
 
 import base.SpecBase
 import config.SessionKeys
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.{DataCacheConnector, DecisionConnector}
 import forms.mappings.Mappings
 import forms.{DeclarationFormProvider, InteractWithStakeholdersFormProvider}
@@ -34,6 +35,7 @@ import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ResultEnum._
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WeightedAnswerEnum.{HIGH, LOW}
+import models.WhichDescribesYouAnswer.{ClientPAYE, WorkerPAYE}
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models._
 import models.requests.DataRequest
@@ -46,7 +48,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup._
 import play.api.data.Form
 import play.api.data.Forms.of
 import play.api.mvc.{Call, Result}
@@ -61,7 +63,7 @@ import views.html.results._
 
 import scala.concurrent.Future
 
-class DecisionServiceSpec extends SpecBase {
+class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
   implicit val headerCarrier = new HeaderCarrier()
   implicit val request = FakeRequest("", "")
@@ -454,6 +456,46 @@ class DecisionServiceSpec extends SpecBase {
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
+        .set(OfficeHolderPage,3, true)
+        .set(ArrangedSubstitutePage,4, YesClientAgreed)
+        .set(DidPaySubstitutePage,5, false)
+        .set(WouldWorkerPaySubstitutePage,6, true)
+        .set(RejectSubstitutePage,7, false)
+        .set(NeededToPayHelperPage,8, false)
+        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
+        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
+        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
+        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
+        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+        .set(HowWorkerIsPaidPage,14, Commission)
+        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
+        .set(BenefitsPage,16, false)
+        .set(LineManagerDutiesPage,17, false)
+        .set(InteractWithStakeholdersPage,18, false)
+        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
+
+      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
+
+      val answers: Seq[AnswerSection] = Section.answers
+
+      val result = service.determineResultView(answers, None, false, None)
+
+      result.toString() must include("The intermediaries legislation applies to this engagement")
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
+    }
+
+    "determine the view when inside and route to office holder inside view when using the optimised view" in {
+
+      enable(OptimisedFlow)
+
+      val userAnswers: UserAnswers = UserAnswers("id")
+        .set(WhichDescribesYouPage,0, ClientPAYE)
+        .set(IsWorkForPrivateSectorPage,1, false)
+        .set(WorkerUsingIntermediaryPage,2, true)
         .set(OfficeHolderPage,3, true)
         .set(ArrangedSubstitutePage,4, YesClientAgreed)
         .set(DidPaySubstitutePage,5, false)

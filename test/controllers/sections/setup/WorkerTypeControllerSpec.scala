@@ -16,6 +16,7 @@
 
 package controllers.sections.setup
 
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
@@ -32,13 +33,14 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
-class WorkerTypeControllerSpec extends ControllerSpecBase {
+class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new WorkerTypeFormProvider()
   val formProviderInt = new WorkerUsingIntermediaryFormProvider()
   val form = formProvider()
+  val formInt = formProvider()
 
   val view = injector.instanceOf[WorkerTypeView]
   val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
@@ -60,6 +62,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
     )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsStringInt(form: Form[_] = formInt) = viewInt(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   "WorkerType Controller" must {
 
@@ -68,6 +71,15 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
+    }
+
+    "return OK and the correct view for a GET in the optimised view" in {
+
+      enable(OptimisedFlow)
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsStringInt()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -81,6 +93,17 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
+
+      val result = controller().onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect to the next page when valid data is submitted for the optimised flow" in {
+
+      enable(OptimisedFlow)
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
