@@ -96,9 +96,9 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
 
   val compareAnswerService = new CompareAnswerService(mockDataCacheConnector)
 
-  val testNavigator = new Navigator()
+  val mockNavigator = mock[Navigator]
 
   val mockDecisionService = mock[DecisionService]
 
-  val controllerHelper = new ControllerHelper(compareAnswerService,mockDataCacheConnector,testNavigator,messagesControllerComponents,mockDecisionService)
+  val controllerHelper = new ControllerHelper(compareAnswerService,mockDataCacheConnector,mockNavigator,messagesControllerComponents,mockDecisionService)
 }

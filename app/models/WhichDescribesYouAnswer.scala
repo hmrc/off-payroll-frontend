@@ -33,8 +33,8 @@ object WhichDescribesYouAnswer {
 
   val options: Seq[RadioOption] = Seq(
     RadioOption("whichDescribesYou", WorkerPAYE.toString, radio),
-    RadioOption("whichDescribesYou", WorkerIR35.toString, radio),
-    RadioOption("whichDescribesYou", ClientPAYE.toString, radio, hasTailoredMsgs = false, dividerPrefix = true),
+    RadioOption("whichDescribesYou", ClientPAYE.toString, radio),
+    RadioOption("whichDescribesYou", WorkerIR35.toString, radio, hasTailoredMsgs = false, dividerPrefix = true),
     RadioOption("whichDescribesYou", ClientIR35.toString, radio),
     RadioOption("whichDescribesYou", Agency.toString, radio)
   )

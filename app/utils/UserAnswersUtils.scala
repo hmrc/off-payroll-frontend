@@ -53,9 +53,9 @@ trait UserAnswersUtils {
     whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.arrangedSubstitute, Some(hint(arranged_substitute_details.apply()))),
-      (checkYourAnswersHelper.didPaySubstitute, Some(exclamation(Html(tailorMsg(messages("didPaySubstitute.exclamation")))))),
+      (checkYourAnswersHelper.didPaySubstitute, Some(exclamation(Html(messages(tailorMsg("didPaySubstitute.exclamation")))))),
       (checkYourAnswersHelper.rejectSubstitute, Some(reject_substitute_details.apply())),
-      (checkYourAnswersHelper.wouldWorkerPaySubstitute, Some(exclamation(Html(tailorMsg(messages("wouldWorkerPaySubstitute.exclamation")))))),
+      (checkYourAnswersHelper.wouldWorkerPaySubstitute, Some(exclamation(Html(messages(tailorMsg("wouldWorkerPaySubstitute.exclamation")))))),
       (checkYourAnswersHelper.neededToPayHelper, Some(hint(needed_to_pay_helper_details.apply())))
     ).filter(_._1.isDefined).map( answer => (answer._1.get, answer._2)),
     useProgressiveDisclosure = true

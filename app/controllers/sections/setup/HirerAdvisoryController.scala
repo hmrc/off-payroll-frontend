@@ -17,42 +17,31 @@
 package controllers.sections.setup
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import controllers.actions._
-import forms.BusinessSizeFormProvider
 import javax.inject.Inject
-
-import models.Mode
+import models.NormalMode
 import navigation.Navigator
-import pages.sections.setup.BusinessSizePage
+import pages.sections.setup.HirerAdvisoryPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
-import views.html.sections.setup.BusinessSizeView
+import views.html.sections.setup.HirerAdvisoryView
 
-import scala.concurrent.Future
-
-class BusinessSizeController @Inject()(
+class HirerAdvisoryController @Inject()(navigator: Navigator,
                                         identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
-                                        formProvider: BusinessSizeFormProvider,
                                         controllerComponents: MessagesControllerComponents,
-                                        view: BusinessSizeView,
-                                        controllerHelper: ControllerHelper,
+                                        view: HirerAdvisoryView,
                                         implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
-  val form = formProvider()
-
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(BusinessSizePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(view(
+      postAction = routes.HirerAdvisoryController.onSubmit(),
+      finishAction = routes.LeaveController.onPageLoad()
+    ))
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      values => controllerHelper.redirect(mode,values,BusinessSizePage)
-
-    )
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Redirect(navigator.nextPage(HirerAdvisoryPage, NormalMode)(request.userAnswers))
   }
 }

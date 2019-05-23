@@ -504,8 +504,8 @@ hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done 
 #########################
 
 
-## How Work Is Done
-#########################
+## Schedule of working hours
+############################
 scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
@@ -524,7 +524,7 @@ worker.scheduleOfWorkingHours.subheading = About the work arrangements
 worker.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides my schedule
 worker.scheduleOfWorkingHours.workerDecideSchedule = No - I decide my own schedule
 worker.scheduleOfWorkingHours.workerAgreeSchedule = Partly - I agree a schedule with the end client
-worker.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as I meet any agreed deadlines.
+worker.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as I meet any agreed deadlines
 
 hirer.scheduleOfWorkingHours.title = Can you decide the schedule of working hours?
 hirer.scheduleOfWorkingHours.heading = Can you decide the schedule of working hours?
@@ -533,7 +533,7 @@ hirer.scheduleOfWorkingHours.subheading = About the work arrangements
 hirer.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - we decide the worker’s schedule
 hirer.scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule
 hirer.scheduleOfWorkingHours.workerAgreeSchedule = Partly - we agree a schedule with the worker
-hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines.
+hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
 #########################
 
 
@@ -556,20 +556,20 @@ worker.howWorkIsDone.heading = Once you start the engagement, does the end clien
 worker.howWorkIsDone.checkYourAnswersLabel = Once you start the engagement, does the end client have the right to decide how the work is done?
 worker.howWorkIsDone.subheading = About the work arrangements
 worker.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
-worker.howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without my input.
-worker.howWorkIsDone.workerDecidesWithoutInput = No - I decide how the work needs to be done without input from the end client.
+worker.howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without my input
+worker.howWorkIsDone.workerDecidesWithoutInput = No - I decide how the work needs to be done without input from the end client
 worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - the end client cannot decide how the work needs to be done because it is a highly skilled role
-worker.howWorkIsDone.workerAgreeWithOthers = Partly - I and other people employed or engaged by the end client agree how the work needs to be done.
+worker.howWorkIsDone.workerAgreeWithOthers = Partly - I and other people employed or engaged by the end client agree how the work needs to be done
 
 hirer.howWorkIsDone.title = Once the worker starts the engagement, do you have the right to decide how the work is done?
 hirer.howWorkIsDone.heading = Once the worker starts the engagement, do you have the right to decide how the work is done?
 hirer.howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, do you have the right to decide how the work is done?
 hirer.howWorkIsDone.subheading = About the work arrangements
 hirer.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
-hirer.howWorkIsDone.noWorkerInputAllowed = Yes - we decide how the work needs to be done without input from the worker.
-hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without your input.
+hirer.howWorkIsDone.noWorkerInputAllowed = Yes - we decide how the work needs to be done without input from the worker
+hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without your input
 hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - we cannot decide how the work needs to be done because it is a highly skilled role
-hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done.
+hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done
 #########################
 
 
@@ -690,8 +690,8 @@ worker.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers 
 worker.rejectSubstitute.hint.bullet4 = Doing all of your tasks for that period of time
 worker.rejectSubstitute.hint.bullet5 = Being substituted because you are unwilling or unable to do the work
 worker.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in your contract.
-worker.rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work.
-worker.rejectSubstitute.no = No - the end client would always except a substitute who met these criteria.
+worker.rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work
+worker.rejectSubstitute.no = No - the end client would always except a substitute who met these criteria
 
 hirer.rejectSubstitute.title = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
 hirer.rejectSubstitute.heading = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
@@ -704,8 +704,8 @@ hirer.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers r
 hirer.rejectSubstitute.hint.bullet4 = Doing all of the worker’s tasks for that period of time
 hirer.rejectSubstitute.hint.bullet5 = Being substituted because the worker is unwilling or unable to do the work
 hirer.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in the worker’s contract.
-hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work.
-hirer.rejectSubstitute.no = No - we would always except a substitute who met these criteria.
+hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work
+hirer.rejectSubstitute.no = No - we would always except a substitute who met these criteria
 #########################
 
 
@@ -937,6 +937,11 @@ agencyAdvisory.p1 = It’s the responsibility of the worker or end client to fin
 agencyAdvisory.p2 = However, if you are the fee-payer you may still be accountable for operating PAYE.
 agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can continue through the tool as if you were the worker.
 
+hirerAdvisory.title = You don’t need to answer any more questions
+hirerAdvisory.heading = You don’t need to answer any more questions
+hirerAdvisory.p1 = Until April 2020, workers are responsible for determining if roles like this should be in or out of IR35
+hirerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
+
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
@@ -953,3 +958,10 @@ businessSize.noneOfAbove = None of the above
 businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
+
+toolNotNeeded.client.ir35.title = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.heading = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.text = Workers are responsible for determining if roles like this should be in or out of IR35
+toolNotNeeded.client.paye.title = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include the income from this work in their self-assessment return

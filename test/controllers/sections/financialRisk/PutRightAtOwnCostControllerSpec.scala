@@ -16,6 +16,7 @@
 
 package controllers.sections.financialRisk
 
+import akka.util.ByteString
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
@@ -27,10 +28,11 @@ import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
-import pages.sections.financialRisk.PutRightAtOwnCostPage
+import pages.sections.financialRisk.{HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
@@ -40,8 +42,6 @@ import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 import scala.concurrent.Future
 
 class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
-
-  def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new PutRightAtOwnCostFormProvider()
   val form = formProvider()
@@ -80,21 +80,17 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-
-      implicit val hc = new HeaderCarrier()
-
-      val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
-        Matchers.eq(ErrorTemplate("putRightAtOwnCost.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
-
+      val validCacheMap = CacheMap(cacheMapId, Map(PutRightAtOwnCostPage.toString -> Json.toJson(Answers("",0))))
+      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
+      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
+      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
+      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
+        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -107,19 +103,19 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "redirect to Index Controller for a GET if no existing data is found" in {
       val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
+    "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
       val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
   }
 }

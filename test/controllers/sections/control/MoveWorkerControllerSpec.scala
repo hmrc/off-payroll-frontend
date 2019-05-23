@@ -16,24 +16,28 @@
 
 package controllers.sections.control
 
+import akka.util.ByteString
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.MoveWorkerFormProvider
 import models.Answers._
-import models.{Answers, MoveWorker, NormalMode}
+import models._
 import navigation.FakeNavigator
-import pages.sections.control.MoveWorkerPage
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import pages.sections.control.{HowWorkIsDonePage, MoveWorkerPage}
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json._
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.MoveWorkerView
 
-class MoveWorkerControllerSpec extends ControllerSpecBase {
+import scala.concurrent.Future
 
-  def onwardRoute = Call("GET", "/foo")
+class MoveWorkerControllerSpec extends ControllerSpecBase {
 
   val formProvider = new MoveWorkerFormProvider()
   val form = formProvider()
@@ -72,12 +76,17 @@ class MoveWorkerControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+      val validCacheMap = CacheMap(cacheMapId, Map(MoveWorkerPage.toString -> Json.toJson(Answers("",0))))
+      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
+      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
+      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
+      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
+        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -90,19 +99,19 @@ class MoveWorkerControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "redirect to Index Controller for a GET if no existing data is found" in {
       val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
+    "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
       val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
   }
 }

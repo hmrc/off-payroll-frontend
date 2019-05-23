@@ -26,7 +26,7 @@ import models.{CheckMode, NormalMode}
 
 class RoutesSpec extends SpecBase {
 
-  def fullPath(path: String) = s"/cest-frontend$path"
+  def fullPath(path: String) = s"/check-employment-status-for-tax$path"
 
   "App.Routes" should {
 
@@ -38,6 +38,11 @@ class RoutesSpec extends SpecBase {
     "Have the correct routes for the Agency Advisory page" in {
       setupRoutes.AgencyAdvisoryController.onPageLoad().url mustBe fullPath("/agency-advisory")
       setupRoutes.AgencyAdvisoryController.onSubmit().url mustBe fullPath("/agency-advisory")
+    }
+
+    "Have the correct routes for the Hirer Advisory page" in {
+      setupRoutes.HirerAdvisoryController.onPageLoad().url mustBe fullPath("/hirer-advisory")
+      setupRoutes.HirerAdvisoryController.onSubmit().url mustBe fullPath("/hirer-advisory")
     }
 
     "Have the correct routes for the About You page" in {
@@ -66,6 +71,11 @@ class RoutesSpec extends SpecBase {
       setupRoutes.BusinessSizeController.onPageLoad(CheckMode).url mustBe fullPath("/business-size/edit")
       setupRoutes.BusinessSizeController.onSubmit(NormalMode).url mustBe fullPath("/business-size")
       setupRoutes.BusinessSizeController.onSubmit(CheckMode).url mustBe fullPath("/business-size/edit")
+    }
+
+    "Have the correct routes for the Tool Not Needed page" in {
+      setupRoutes.ToolNotNeededController.onPageLoad().url mustBe fullPath("/tool-not-needed")
+      setupRoutes.ToolNotNeededController.onSubmit().url mustBe fullPath("/tool-not-needed")
     }
 
     "Have the correct routes for the Office Holder page" in {

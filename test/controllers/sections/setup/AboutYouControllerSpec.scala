@@ -16,32 +16,27 @@
 
 package controllers.sections.setup
 
+import akka.util.ByteString
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models._
-import models.requests.DataRequest
-import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
-import org.scalatest.concurrent.{Futures, PatienceConfiguration}
-import org.scalatest.time.Span
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json._
-import play.api.mvc.{AnyContent, Call, ResponseHeader, Result}
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
 
-import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Future
 
 class AboutYouControllerSpec extends ControllerSpecBase {
 
@@ -90,14 +85,16 @@ class AboutYouControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to the next page when valid data is submitted" in {
+        val validCacheMap = CacheMap(cacheMapId, Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0))))
+        when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
+        val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
+        when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
+        when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
+          .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
         val result = controller().onSubmit(NormalMode)(postRequest)
 
-        val validCacheMap = CacheMap(cacheMapId, Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0))))
-        when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("/cest-frontend/work-started")
         session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values.head))
       }
 
@@ -111,19 +108,19 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(boundForm)
       }
 
-      "redirect to Session Expired for a GET if no existing data is found" in {
+      "redirect to Index Controller for a GET if no existing data is found" in {
         val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
       }
 
-      "redirect to Session Expired for a POST if no existing data is found" in {
+      "redirect to Index Controller for a POST if no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
         val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
       }
     }
 
@@ -156,7 +153,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("/cest-frontend/worker-trading-as")
+        redirectLocation(result) mustBe Some("/check-employment-status-for-tax/worker-trading-as")
         session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(WhichDescribesYouAnswer.values.head))
       }
 
@@ -171,21 +168,21 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(boundForm)
       }
 
-      "redirect to Session Expired for a GET if no existing data is found" in {
+      "redirect to Index Controller for a GET if no existing data is found" in {
         enable(OptimisedFlow)
         val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
       }
 
-      "redirect to Session Expired for a POST if no existing data is found" in {
+      "redirect to Index Controller for a POST if no existing data is found" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
         val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
       }
     }
   }

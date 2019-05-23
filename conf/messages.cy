@@ -957,6 +957,12 @@ agencyAdvisory.p2 = However, if you are the fee-payer you may still be accountab
 agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can continue through the tool as if you were the worker.
 
 ##### TODO NEED WELSH FOR ####
+hirerAdvisory.title = You don’t need to answer any more questions
+hirerAdvisory.heading = You don’t need to answer any more questions
+hirerAdvisory.p1 = Until April 2020, workers are responsible for determining if roles like this should be in or out of IR35
+hirerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
+
+##### TODO NEED WELSH FOR ####
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
@@ -974,3 +980,11 @@ businessSize.noneOfAbove = None of the above
 businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
+
+##### TODO NEED WELSH FOR ####
+toolNotNeeded.client.ir35.title = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.heading = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.text = Workers are responsible for determining if roles like this should be in or out of IR35
+toolNotNeeded.client.paye.title = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include the income from this work in their self-assessment return

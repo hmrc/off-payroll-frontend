@@ -21,27 +21,30 @@ import controllers.actions._
 import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import views.html.sections.setup.AboutYourResultView
+import views.html.sections.setup.HirerAdvisoryView
 
-class AboutYourResultControllerSpec extends ControllerSpecBase {
+class HirerAdvisoryControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = Call("POST", "/foo")
 
-  val view = injector.instanceOf[AboutYourResultView]
+  val view = injector.instanceOf[HirerAdvisoryView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new AboutYourResultController(
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new HirerAdvisoryController(
     navigator = new FakeNavigator(onwardRoute),
-    identify = FakeIdentifierAction,
-    getData = dataRetrievalAction,
-    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    FakeIdentifierAction,
+    dataRetrievalAction,
+    new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     view = view,
-    appConfig = frontendAppConfig
+    frontendAppConfig
   )
 
-  def viewAsString = view(routes.AboutYourResultController.onSubmit())(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString = view(
+    postAction = routes.HirerAdvisoryController.onSubmit(),
+    finishAction = routes.LeaveController.onPageLoad()
+  )(fakeRequest, messages, frontendAppConfig).toString
 
-  "AboutYou Controller" must {
+  "HirerAdvisory Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
@@ -68,3 +71,7 @@ class AboutYourResultControllerSpec extends ControllerSpecBase {
     }
   }
 }
+
+
+
+
