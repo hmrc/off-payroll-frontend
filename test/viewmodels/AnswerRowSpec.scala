@@ -41,7 +41,7 @@ class AnswerRowSpec extends SpecBase with ModelGenerators {
           lazy val result = AnswerRow("label", answers, url)
 
           result mustBe MultiAnswerRow("label", answers, url)
-          result.answerHtml mustBe Html(s"<ul class='list-bullet'>${answers.foldLeft("")((o,x) => o + s"<li>${x.answer}</li>")}</ul>")
+          result.answerHtml mustBe Html(s"<ul>${answers.foldLeft("")((o,x) => o + s"<li>${x.answer}</li>")}</ul>")
         }
       }
     }

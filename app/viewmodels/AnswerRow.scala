@@ -51,7 +51,7 @@ case class MultiAnswerRow(label: String,
       val listItems = answers.foldLeft(""){
         case (output, answer) => output + s"<li>${if(answer.answerIsMessageKey) messages(answer.answer) else answer.answer}</li>"
       }
-      Html(s"<ul class='list-bullet'>$listItems</ul>")
+      Html(s"<ul>$listItems</ul>")
     }
   }
 

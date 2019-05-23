@@ -18,6 +18,7 @@ package pages
 
 import models.BusinessSize
 import pages.behaviours.PageBehaviours
+import pages.sections.setup.BusinessSizePage
 
 class BusinessSizePageSpec extends PageBehaviours {
 
