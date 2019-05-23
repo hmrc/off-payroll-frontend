@@ -83,6 +83,16 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
       contentAsString(result) mustBe viewAsString(form.fill(true))
     }
 
+    "populate the view correctly on a GET when the question has previously been answered for optimised flow" in {
+      enable(OptimisedFlow)
+      val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+      contentAsString(result) mustBe viewAsStringOptimised(form.fill(true))
+    }
+
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

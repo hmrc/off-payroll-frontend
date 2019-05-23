@@ -64,9 +64,9 @@ case class Interview(correlationId: String,
     (isUsingIntermediary, provideServices) match {
 
       case (Some(usingIntermediary), _) => if(usingIntermediary){
-        Some(SoleTrader.toString)
-      } else {
         Some(LimitedCompany.toString)
+      } else {
+        Some(SoleTrader.toString)
       }
       case (None, Some(providedServices)) => Some(providedServices.toString)
       case _ => None
@@ -75,7 +75,7 @@ case class Interview(correlationId: String,
 
   def route: String =
     (isUsingIntermediary, provideServices) match {
-      case (Some(usingIntermediary), _) => if (usingIntermediary) "ESI" else "IR35"
+      case (Some(usingIntermediary), _) => if (usingIntermediary) "IR35" else "ESI"
       case (_, Some(providedServices)) => if (providedServices == SoleTrader) "ESI" else "IR35"
       case _ => "IR35"
     }

@@ -24,7 +24,7 @@ import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
 import models.{Answers, NormalMode, WorkerType}
 import navigation.FakeNavigator
-import pages.sections.setup.WorkerTypePage
+import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -40,7 +40,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
   val formProvider = new WorkerTypeFormProvider()
   val formProviderInt = new WorkerUsingIntermediaryFormProvider()
   val form = formProvider()
-  val formInt = formProvider()
+  val formInt = formProviderInt()
 
   val view = injector.instanceOf[WorkerTypeView]
   val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
@@ -91,6 +91,17 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
       contentAsString(result) mustBe viewAsString(form.fill(WorkerType.values.head))
     }
 
+    "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
+
+      enable(OptimisedFlow)
+      val validData = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+      contentAsString(result) mustBe viewAsStringInt(formInt.fill(true))
+    }
+
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
 
@@ -119,6 +130,18 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
+    }
+
+    "return a Bad Request and errors when invalid data is submitted for the optimised flow" in {
+      enable(OptimisedFlow)
+
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val boundForm = formInt.bind(Map("value" -> "invalid value"))
+
+      val result = controller().onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe BAD_REQUEST
+      contentAsString(result) mustBe viewAsStringInt(boundForm)
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
