@@ -25,17 +25,28 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
+import models.AboutYouAnswer.Worker
+import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
 import models._
 import org.scalatestplus.mockito.MockitoSugar
 import pages._
 import play.api.libs.json.Writes
 import models.Answers._
-import models.WhichDescribesYouAnswer.Agency
+import models.ArrangedSubstitute.YesClientAgreed
+import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.ChooseWhereWork.WorkerAgreeWithOthers
+import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.HowWorkerIsPaid.Commission
+import models.IdentifyToStakeholders.WorkAsIndependent
+import models.MoveWorker.CanMoveWorkerWithPermission
+import models.PutRightAtOwnCost.CannotBeCorrected
+import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.WorkerType.SoleTrader
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
-import pages.sections.personalService.{DidPaySubstitutePage, NeededToPayHelperPage, RejectSubstitutePage, WouldWorkerPaySubstitutePage}
+import pages.sections.personalService._
 import pages.sections.setup._
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
@@ -81,16 +92,103 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           nextPage(AgencyAdvisoryPage) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
         }
 
-        //TODO ADD NEW FLOW TESTS
-        "go to the Contract Started page from the Worker Type page" in {
+        "go to the Contract Started page from the WorkerUsingIntermediary page" in {
           enable(OptimisedFlow)
-          nextPage(WorkerUsingIntermediaryPage, setAnswers(WorkerUsingIntermediaryPage -> false)) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+          nextPage(WorkerUsingIntermediaryPage,
+            setAnswers(WorkerUsingIntermediaryPage -> false))mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
 
-        //TODO ADD NEW FLOW TESTS
-        "go to the Contract Started page fromd the Worker Type page" in {
+        "go to the IsWorkForPrivateSector page from the WorkerUsingIntermediary page" in {
           enable(OptimisedFlow)
-          nextPage(WorkerUsingIntermediaryPage, setAnswers(WorkerUsingIntermediaryPage -> true)) mustBe setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
+          nextPage(WorkerUsingIntermediaryPage,
+            setAnswers(WorkerUsingIntermediaryPage -> true)) mustBe setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
+        }
+
+        "go to the ContractStarted page from the IsWorkForPrivateSector page" in {
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage,
+            setAnswers(IsWorkForPrivateSectorPage -> true)) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to the WorkerAdvisory page from the IsWorkForPrivateSector page" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerPAYE)
+            .set(IsWorkForPrivateSectorPage,1, false)
+
+          val userAnswersIR35: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerIR35)
+            .set(IsWorkForPrivateSectorPage,1, false)
+
+          val userAnswersAgency: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, Agency)
+            .set(IsWorkForPrivateSectorPage,1, false)
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.WorkerAdvisoryController.onPageLoad()
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.WorkerAdvisoryController.onPageLoad()
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswersAgency) mustBe setupRoutes.WorkerAdvisoryController.onPageLoad()
+        }
+
+        "go to the contract started page from the IsWorkForPrivateSector page" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(IsWorkForPrivateSectorPage,1, false)
+
+          val userAnswersIR35: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientIR35)
+            .set(IsWorkForPrivateSectorPage,1, false)
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+
+        }
+
+        "go to the worker advisory page from the IsWorkForPrivateSector page" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+
+          val userAnswersIR35: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientIR35)
+            .set(IsWorkForPrivateSectorPage,1, true)
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+
+        }
+
+        "go to the same page from the IsWorkForPrivateSector page if nothing is supplied" in {
+
+          val userAnswersIR35: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientIR35)
+
+          enable(OptimisedFlow)
+          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
+        }
+
+        "go to the ContractStarted page from the worker advisory page" in {
+
+          enable(OptimisedFlow)
+          nextPage(WorkerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to the OfficeHolder page from the ContractStarted page" in {
+
+          enable(OptimisedFlow)
+          nextPage(ContractStartedPage) mustBe exitRoutes.OfficeHolderController.onPageLoad(NormalMode)
         }
       }
 
