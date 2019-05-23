@@ -22,10 +22,10 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.WorkerTypeFormProvider
-import models._
+import models.{Mode, WorkerType}
 import pages.sections.setup.WorkerTypePage
 import play.api.data.Form
-import play.api.mvc._
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
 import scala.concurrent.Future

@@ -19,8 +19,8 @@ package controllers.sections.control
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
+import controllers.actions._
 import forms.MoveWorkerFormProvider
 import models.{Mode, MoveWorker}
 import pages.sections.control.MoveWorkerPage

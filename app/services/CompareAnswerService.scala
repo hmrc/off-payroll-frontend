@@ -70,6 +70,7 @@ class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
     "aboutYou" -> AboutYouPage,
     "whichDescribesYou" -> WhichDescribesYouPage,
     "contractStarted" -> ContractStartedPage,
+    "businessSize" -> BusinessSizePage,
     "workerType" -> WorkerTypePage,
     "officeHolder" -> OfficeHolderPage,
     "arrangedSubstitute" -> ArrangedSubstitutePage,

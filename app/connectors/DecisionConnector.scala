@@ -27,6 +27,7 @@ import play.mvc.Http.Status._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
+import play.mvc.Http.Status._
 import utils.DateTimeUtil
 
 import scala.concurrent.ExecutionContext.Implicits.global

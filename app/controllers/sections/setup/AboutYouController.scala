@@ -20,8 +20,8 @@ import javax.inject.Inject
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
-import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
+import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models.requests.DataRequest
 import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
