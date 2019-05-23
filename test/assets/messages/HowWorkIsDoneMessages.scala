@@ -24,20 +24,20 @@ object HowWorkIsDoneMessages extends BaseMessages {
     val heading = "Once you start the engagement, does the end client have the right to decide how the work is done?"
     val title = heading
     val hint = "This does not include general induction, or the need to follow statutory requirements like health and safety."
-    val yesClientDecides = "Yes - the end client decides how the work needs to be done without my input."
-    val noWorkerDecides = "No - I decide how the work needs to be done without input from the end client."
+    val yesClientDecides = "Yes - the end client decides how the work needs to be done without my input"
+    val noWorkerDecides = "No - I decide how the work needs to be done without input from the end client"
     val noSkilledRole = "No - the end client cannot decide how the work needs to be done because it is a highly skilled role"
-    val partly = "Partly - I and other people employed or engaged by the end client agree how the work needs to be done."
+    val partly = "Partly - I and other people employed or engaged by the end client agree how the work needs to be done"
   }
 
   object Hirer {
     val heading = "Once the worker starts the engagement, do you have the right to decide how the work is done?"
     val title = heading
     val hint = "This does not include general induction, or the need to follow statutory requirements like health and safety."
-    val yesClientDecides = "Yes - we decide how the work needs to be done without input from the worker."
-    val noWorkerDecides = "No - the worker decides how the work needs to be done without your input."
+    val yesClientDecides = "Yes - we decide how the work needs to be done without input from the worker"
+    val noWorkerDecides = "No - the worker decides how the work needs to be done without your input"
     val noSkilledRole = "No - we cannot decide how the work needs to be done because it is a highly skilled role"
-    val partly = "Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done."
+    val partly = "Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done"
   }
 
   object NonTailored {
