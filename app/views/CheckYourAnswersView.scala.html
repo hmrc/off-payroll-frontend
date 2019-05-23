@@ -17,8 +17,11 @@
 @import config.FrontendAppConfig
 @import viewmodels._
 @import views.ViewUtils._
+@import controllers.routes._
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 
-@this(mainTemplate: templates.MainTemplate)
+
+@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
 @(answerSections: Seq[Section])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
@@ -30,21 +33,24 @@
 
     @components.back_link()
 
-    @components.heading("checkYourAnswers.heading")
+    @formWithCsrf(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 
-    @for(section <- answerSections){
-        @{
-            section match {
-                case a: AnswerSection if a.nonEmpty => components.accordion_section(a)
-                case _ => Html("")
+        @components.heading("checkYourAnswers.heading")
+
+        @for(section <- answerSections){
+            @{
+                section match {
+                    case a: AnswerSection if a.nonEmpty => components.accordion_section(a)
+                    case _ => Html("")
+                }
             }
         }
+
+        <h2>@messages("checkYourAnswers.confirm.h2")</h2>
+
+        <p>@messages("checkYourAnswers.confirm.p1")</p>
+
+        @components.submit_button()
     }
-
-    <h2>@messages("checkYourAnswers.confirm.h2")</h2>
-
-    <p>@messages("checkYourAnswers.confirm.p1")</p>
-
-    @components.submit_button()
 
 }

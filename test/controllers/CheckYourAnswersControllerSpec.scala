@@ -18,14 +18,19 @@ package controllers
 
 import assets.messages.CheckYourAnswersMessages
 import controllers.actions._
+import navigation.FakeNavigator
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
+  def onwardRoute = Call("GET", "/foo")
+
   val view = injector.instanceOf[CheckYourAnswersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new CheckYourAnswersController(
+    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),

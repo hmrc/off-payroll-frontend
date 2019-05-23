@@ -90,6 +90,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           enable(OptimisedFlow)
           nextPage(HirerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
+
+        "go to the Result page from the Check Your Answers page" in {
+          enable(OptimisedFlow)
+          nextPage(CheckYourAnswersPage) mustBe routes.ResultController.onPageLoad()
+        }
       }
 
       "for the sub-optimised flow" must {

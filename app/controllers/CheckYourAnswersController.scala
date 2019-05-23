@@ -16,19 +16,19 @@
 
 package controllers
 
-import javax.inject.Inject
-import play.api.i18n.I18nSupport
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
-import views.html.CheckYourAnswersView
+import controllers.actions._
+import javax.inject.Inject
+import models.NormalMode
+import navigation.Navigator
+import pages.CheckYourAnswersPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
+import views.html.CheckYourAnswersView
 
-import scala.concurrent.{ExecutionContext, Future}
-
-class CheckYourAnswersController @Inject()(identify: IdentifierAction,
+class CheckYourAnswersController @Inject()(navigator: Navigator,
+                                           identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            controllerComponents: MessagesControllerComponents,
@@ -87,9 +87,13 @@ class CheckYourAnswersController @Inject()(identify: IdentifierAction,
           checkYourAnswersHelper.interactWithStakeholders.map(_ -> None),
           checkYourAnswersHelper.identifyToStakeholders.map(_ -> None)
         ).flatten
-    )
+      )
     )
 
     Ok(view(sections))
+  }
+
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Redirect(navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers))
   }
 }

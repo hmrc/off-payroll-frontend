@@ -139,3 +139,4 @@ GET        /business-size/edit                          controllers.sections.set
 POST       /business-size/edit                          controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = CheckMode)
 
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad()
+POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit()

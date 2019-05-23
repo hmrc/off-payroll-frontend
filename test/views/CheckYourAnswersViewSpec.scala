@@ -16,10 +16,15 @@
 
 package views
 
+import assets.messages.CheckYourAnswersMessages
 import views.behaviours.ViewBehaviours
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersViewSpec extends ViewBehaviours {
+
+  object Selectors extends BaseCSSSelectors {
+    val h2 = (i: Int) => s"h2:nth-of-type($i)"
+  }
 
   val messageKeyPrefix = "checkYourAnswers"
 
@@ -31,5 +36,22 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
+
+    lazy val document = asDocument(createView())
+
+    "have the correct title" in {
+      document.title mustBe title(CheckYourAnswersMessages.title)
+    }
+
+    "have the correct heading" in {
+      document.select(Selectors.heading).text mustBe CheckYourAnswersMessages.heading
+    }
+
+    "have the correct h2" in {
+      document.select(Selectors.h2(1)).text mustBe CheckYourAnswersMessages.h2
+    }
+    "have the correct p1" in {
+      document.select(Selectors.p(1)).text mustBe CheckYourAnswersMessages.p1
+    }
   }
 }

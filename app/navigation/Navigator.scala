@@ -127,6 +127,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     IdentifyToStakeholdersPage -> (_ => routes.ResultController.onPageLoad()),
 
     //Results Page
+    CheckYourAnswersPage -> (_ => routes.ResultController.onPageLoad()),
     ResultPage -> (_ => routes.PDFController.onPageLoad(NormalMode))
   )
 
