@@ -47,15 +47,13 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[InteractWithStakeholdersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new InteractWithStakeholdersController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    controllerHelper,
     frontendAppConfig
   )
 

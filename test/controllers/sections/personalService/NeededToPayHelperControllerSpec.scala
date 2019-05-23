@@ -47,15 +47,13 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[NeededToPayHelperView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new NeededToPayHelperController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    controllerHelper,
     frontendAppConfig
   )
 

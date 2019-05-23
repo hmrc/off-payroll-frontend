@@ -47,15 +47,13 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[LineManagerDutiesView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new LineManagerDutiesController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    controllerHelper,
     frontendAppConfig
   )
 

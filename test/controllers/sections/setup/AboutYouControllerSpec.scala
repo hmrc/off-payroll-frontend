@@ -22,22 +22,28 @@ import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
-import models.Answers._
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import org.scalatest.concurrent.{Futures, PatienceConfiguration}
+import org.scalatest.time.Span
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json._
-import play.api.mvc.Call
+import play.api.mvc.{AnyContent, Call, ResponseHeader, Result}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
 
-class AboutYouControllerSpec extends ControllerSpecBase {
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
 
-  def onwardRoute = Call("GET", "/foo")
+class AboutYouControllerSpec extends ControllerSpecBase {
 
   val aboutYouFormProvider = new AboutYouFormProvider()
   val aboutYouForm = aboutYouFormProvider()
@@ -49,8 +55,6 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new AboutYouController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
@@ -58,7 +62,8 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     whichDescribesYouFormProvider = new WhichDescribesYouFormProvider(),
     controllerComponents = messagesControllerComponents,
     aboutYouView = aboutYouview,
-    whichDescribesYouView = whichDescribesYouview
+    whichDescribesYouView = whichDescribesYouview,
+    controllerHelper = controllerHelper
   )
 
 
@@ -86,11 +91,13 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
-
         val result = controller().onSubmit(NormalMode)(postRequest)
 
+        val validCacheMap = CacheMap(cacheMapId, Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0))))
+        when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
+
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(onwardRoute.url)
+        redirectLocation(result) mustBe Some("/cest-frontend/work-started")
         session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values.head))
       }
 
@@ -149,7 +156,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(onwardRoute.url)
+        redirectLocation(result) mustBe Some("/cest-frontend/worker-trading-as")
         session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(WhichDescribesYouAnswer.values.head))
       }
 

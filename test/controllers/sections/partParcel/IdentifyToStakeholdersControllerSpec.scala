@@ -49,15 +49,13 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new IdentifyToStakeholdersController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    controllerHelper,
     frontendAppConfig
   )
 

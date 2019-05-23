@@ -59,8 +59,6 @@ class RoutesSpec extends SpecBase {
       setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
       setupRoutes.WorkerTypeController.onSubmit(NormalMode).url mustBe fullPath("/worker-trading-as")
       setupRoutes.WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
-<<<<<<< HEAD
-=======
     }
 
     "Have the correct routes for the Business Size page" in {
@@ -68,7 +66,6 @@ class RoutesSpec extends SpecBase {
       setupRoutes.BusinessSizeController.onPageLoad(CheckMode).url mustBe fullPath("/business-size/edit")
       setupRoutes.BusinessSizeController.onSubmit(NormalMode).url mustBe fullPath("/business-size")
       setupRoutes.BusinessSizeController.onSubmit(CheckMode).url mustBe fullPath("/business-size/edit")
->>>>>>> 9484f955ed744673b2bb32404cac2d72b7a3a6e6
     }
 
     "Have the correct routes for the Office Holder page" in {

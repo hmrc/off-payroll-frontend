@@ -49,16 +49,14 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[CannotClaimAsExpenseView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new CannotClaimAsExpenseController(
-    dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
-    identify = FakeIdentifierAction,
-    getData = dataRetrievalAction,
-    requireData = new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider = formProvider,
+    FakeIdentifierAction,
+    dataRetrievalAction,
+    new DataRequiredActionImpl(messagesControllerComponents),
+    formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
-    appConfig = frontendAppConfig
+    controllerHelper,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

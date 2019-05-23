@@ -40,15 +40,14 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[ContractStartedView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ContractStartedController(
-    appConfig = frontendAppConfig,
-    dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
-    identify = FakeIdentifierAction,
-    getData = dataRetrievalAction,
-    requireData = new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider = formProvider,
+    FakeIdentifierAction,
+    dataRetrievalAction,
+    new DataRequiredActionImpl(messagesControllerComponents),
+    formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    controllerHelper,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

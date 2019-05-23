@@ -41,14 +41,13 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[ScheduleOfWorkingHoursView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ScheduleOfWorkingHoursController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    controllerHelper,
     frontendAppConfig
   )
 

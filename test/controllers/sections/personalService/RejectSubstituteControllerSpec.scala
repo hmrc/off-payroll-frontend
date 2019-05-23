@@ -40,14 +40,13 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[RejectSubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new RejectSubstituteController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    controllerHelper,
     frontendAppConfig
   )
 

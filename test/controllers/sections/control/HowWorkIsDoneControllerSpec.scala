@@ -41,14 +41,13 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[HowWorkIsDoneView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new HowWorkIsDoneController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    controllerHelper,
     frontendAppConfig
   )
 

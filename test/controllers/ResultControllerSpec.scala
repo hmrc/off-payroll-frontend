@@ -26,7 +26,7 @@ import navigation.FakeNavigator
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.DecisionService
+import services.{CompareAnswerService, DecisionService}
 import viewmodels.{AnswerRow, AnswerSection}
 import views.html.results.{IndeterminateView, _}
 import org.mockito.Mockito.when
@@ -70,6 +70,7 @@ class ResultControllerSpec extends ControllerSpecBase {
   val version = "1.5.0-final"
 
   val dataConnector = mock[DataCacheConnector]
+  val answerService = mock[CompareAnswerService]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ResultController(
     FakeIdentifierAction,
@@ -80,6 +81,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     formProvider,
     new FakeNavigator(onwardRoute),
     dataConnector,
+    answerService,
     frontendAppConfig
   )
 

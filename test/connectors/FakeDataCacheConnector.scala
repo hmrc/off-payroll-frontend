@@ -30,4 +30,8 @@ class FakeDataCacheConnector extends DataCacheConnector {
   override def fetch(cacheId: String): Future[Option[CacheMap]] = Future(Some(CacheMap(cacheId, Map())))
 
   override def getEntry[A](cacheId: String, key: String)(implicit fmt: Format[A]): Future[Option[A]] = ???
+
+  override def addDecision[A](id: String, decision: String): Future[Boolean] = Future.successful(true)
+
+  override def clearDecision[A](id: String): Future[Boolean] = Future.successful(true)
 }

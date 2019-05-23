@@ -49,15 +49,13 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[ChooseWhereWorkView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ChooseWhereWorkController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    controllerHelper,
     frontendAppConfig
   )
 

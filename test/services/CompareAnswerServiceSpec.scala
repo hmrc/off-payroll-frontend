@@ -18,7 +18,7 @@ package services
 
 import base.SpecBase
 import config.SessionKeys
-import connectors.DecisionConnector
+import connectors.{DataCacheConnector, DecisionConnector}
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import models.AboutYouAnswer.{Agency, Worker}
@@ -34,6 +34,7 @@ import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models._
 import models.requests.DataRequest
+import org.mockito.Matchers
 import org.mockito.Matchers._
 import org.mockito.Mockito.when
 import pages._
@@ -55,7 +56,9 @@ import scala.concurrent.Future
 
 class CompareAnswerServiceSpec extends SpecBase {
 
-  val service = CompareAnswerService
+  val dataCache = mock[DataCacheConnector]
+
+  val service = new CompareAnswerService(dataCache)
 
   "compare answer service (consecutive answer)" should {
 
@@ -106,7 +109,9 @@ class CompareAnswerServiceSpec extends SpecBase {
   }
 
   "compare answer service (change new answer)" should {
-    "change an About You Answer if it's a new value" in {
+    "change an About You Answer if it's a new value (and clear any decisions)" in {
+
+      when(dataCache.clearDecision(Matchers.eq("id"))).thenReturn(Future.successful(true))
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -121,7 +126,9 @@ class CompareAnswerServiceSpec extends SpecBase {
       result.answerNumber mustBe 0
     }
 
-    "change a Contract Started Answer if it's a new value" in {
+    "change a Contract Started Answer if it's a new value (and clear any decisions)" in {
+
+      when(dataCache.clearDecision(Matchers.eq("id"))).thenReturn(Future.successful(true))
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)

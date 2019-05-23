@@ -41,14 +41,13 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[ArrangedSubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ArrangedSubstituteController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    controllerHelper,
     frontendAppConfig
   )
 

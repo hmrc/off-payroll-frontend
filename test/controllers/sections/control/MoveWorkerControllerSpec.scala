@@ -41,14 +41,13 @@ class MoveWorkerControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[MoveWorkerView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new MoveWorkerController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    controllerHelper,
     frontendAppConfig
   )
 

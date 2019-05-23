@@ -49,15 +49,13 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new PutRightAtOwnCostController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    controllerHelper,
     frontendAppConfig
   )
 

@@ -48,15 +48,13 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[WouldWorkerPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new WouldWorkerPaySubstituteController(
-    new FakeDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    controllerHelper,
     frontendAppConfig
   )
 

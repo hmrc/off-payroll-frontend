@@ -958,9 +958,6 @@ agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can
 
 ##### TODO NEED WELSH FOR ####
 leave.title = You have now left the tool
-<<<<<<< HEAD
-leave.heading = You have now left the tool
-=======
 leave.heading = You have now left the tool
 
 ##### TODO NEED WELSH FOR ####
@@ -977,4 +974,3 @@ businessSize.noneOfAbove = None of the above
 businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
->>>>>>> 9484f955ed744673b2bb32404cac2d72b7a3a6e6

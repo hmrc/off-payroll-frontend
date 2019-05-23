@@ -47,16 +47,14 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[OfficeHolderView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new OfficeHolderController(
-    dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
-    identify = FakeIdentifierAction,
-    getData = dataRetrievalAction,
-    requireData = new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider = formProvider,
+    FakeIdentifierAction,
+    dataRetrievalAction,
+    new DataRequiredActionImpl(messagesControllerComponents),
+    formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
-    appConfig = frontendAppConfig
+    controllerHelper,
+    frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

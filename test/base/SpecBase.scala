@@ -19,9 +19,11 @@ package base
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
+import controllers.ControllerHelper
 import handlers.ErrorHandler
 import models.UserAnswers
 import models.requests.DataRequest
+import navigation.Navigator
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
@@ -34,6 +36,7 @@ import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
+import services.{CompareAnswerService, DecisionService}
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
@@ -89,4 +92,13 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
 
   when(servicesConfig.baseUrl(any())).thenReturn(s"http://localhost:$stubPort")
 
+  val mockDataCacheConnector = mock[DataCacheConnector]
+
+  val compareAnswerService = new CompareAnswerService(mockDataCacheConnector)
+
+  val testNavigator = new Navigator()
+
+  val mockDecisionService = mock[DecisionService]
+
+  val controllerHelper = new ControllerHelper(compareAnswerService,mockDataCacheConnector,testNavigator,messagesControllerComponents,mockDecisionService)
 }
