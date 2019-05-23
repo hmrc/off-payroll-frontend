@@ -186,6 +186,7 @@ hirer.officeHolder.exclamation = If you are not sure if these things apply, plea
 cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
+cannotClaimAsExpense.checkYourAnswersLabel.optimised = What will the worker provide at their own cost?
 cannotClaimAsExpense.subheading = About the worker’s financial risk
 cannotClaimAsExpense.p1 = These are things that:
 cannotClaimAsExpense.bullet1 = the worker has to provide to complete this specific engagement
@@ -209,7 +210,8 @@ cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not releva
 
 worker.cannotClaimAsExpense.title = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
 worker.cannotClaimAsExpense.heading = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
-worker.cannotClaimAsExpense.checkYourAnswersLabel = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.checkYourAnswersLabel = What will the worker provide at their own cost?
+cannotClaimAsExpense.checkYourAnswersLabel.optimised = What will the worker provide at their own cost?
 worker.cannotClaimAsExpense.subheading = About the worker’s financial risk
 worker.cannotClaimAsExpense.p1 = These are things that:
 worker.cannotClaimAsExpense.bullet1 = You have to provide to complete this specific engagement
@@ -230,7 +232,8 @@ worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not
 
 hirer.cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
 hirer.cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
-hirer.cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.checkYourAnswersLabel = What will the worker provide at their own cost?
+cannotClaimAsExpense.checkYourAnswersLabel.optimised = What will the worker provide at their own cost?
 hirer.cannotClaimAsExpense.subheading = About the worker’s financial risk
 hirer.cannotClaimAsExpense.p1 = These are things that:
 hirer.cannotClaimAsExpense.bullet1 = The worker has to provide to complete this specific engagement
@@ -520,8 +523,8 @@ hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done 
 #########################
 
 
-## How Work Is Done
-#########################
+## Schedule of working hours
+############################
 scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
 scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
@@ -540,7 +543,7 @@ worker.scheduleOfWorkingHours.subheading = About the work arrangements
 worker.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - the end client decides my schedule
 worker.scheduleOfWorkingHours.workerDecideSchedule = No - I decide my own schedule
 worker.scheduleOfWorkingHours.workerAgreeSchedule = Partly - I agree a schedule with the end client
-worker.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as I meet any agreed deadlines.
+worker.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as I meet any agreed deadlines
 
 hirer.scheduleOfWorkingHours.title = Can you decide the schedule of working hours?
 hirer.scheduleOfWorkingHours.heading = Can you decide the schedule of working hours?
@@ -549,7 +552,7 @@ hirer.scheduleOfWorkingHours.subheading = About the work arrangements
 hirer.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes - we decide the worker’s schedule
 hirer.scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides their own schedule
 hirer.scheduleOfWorkingHours.workerAgreeSchedule = Partly - we agree a schedule with the worker
-hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines.
+hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
 #########################
 
 
@@ -572,20 +575,20 @@ worker.howWorkIsDone.heading = Once you start the engagement, does the end clien
 worker.howWorkIsDone.checkYourAnswersLabel = Once you start the engagement, does the end client have the right to decide how the work is done?
 worker.howWorkIsDone.subheading = About the work arrangements
 worker.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
-worker.howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without my input.
-worker.howWorkIsDone.workerDecidesWithoutInput = No - I decide how the work needs to be done without input from the end client.
+worker.howWorkIsDone.noWorkerInputAllowed = Yes - the end client decides how the work needs to be done without my input
+worker.howWorkIsDone.workerDecidesWithoutInput = No - I decide how the work needs to be done without input from the end client
 worker.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - the end client cannot decide how the work needs to be done because it is a highly skilled role
-worker.howWorkIsDone.workerAgreeWithOthers = Partly - I and other people employed or engaged by the end client agree how the work needs to be done.
+worker.howWorkIsDone.workerAgreeWithOthers = Partly - I and other people employed or engaged by the end client agree how the work needs to be done
 
 hirer.howWorkIsDone.title = Once the worker starts the engagement, do you have the right to decide how the work is done?
 hirer.howWorkIsDone.heading = Once the worker starts the engagement, do you have the right to decide how the work is done?
 hirer.howWorkIsDone.checkYourAnswersLabel = Once the worker starts the engagement, do you have the right to decide how the work is done?
 hirer.howWorkIsDone.subheading = About the work arrangements
 hirer.howWorkIsDone.hint = This does not include general induction, or the need to follow statutory requirements like health and safety.
-hirer.howWorkIsDone.noWorkerInputAllowed = Yes - we decide how the work needs to be done without input from the worker.
-hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without your input.
+hirer.howWorkIsDone.noWorkerInputAllowed = Yes - we decide how the work needs to be done without input from the worker
+hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the work needs to be done without your input
 hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - we cannot decide how the work needs to be done because it is a highly skilled role
-hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done.
+hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done
 #########################
 
 
@@ -706,8 +709,8 @@ worker.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers 
 worker.rejectSubstitute.hint.bullet4 = Doing all of your tasks for that period of time
 worker.rejectSubstitute.hint.bullet5 = Being substituted because you are unwilling or unable to do the work
 worker.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in your contract.
-worker.rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work.
-worker.rejectSubstitute.no = No - the end client would always except a substitute who met these criteria.
+worker.rejectSubstitute.yes = Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work
+worker.rejectSubstitute.no = No - the end client would always except a substitute who met these criteria
 
 hirer.rejectSubstitute.title = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
 hirer.rejectSubstitute.heading = If the worker’s business sent someone else to do the work (a substitute) and they met all the necessary criteria, would you ever reject them?
@@ -720,8 +723,8 @@ hirer.rejectSubstitute.hint.bullet3 = Not being from a pool or bank of workers r
 hirer.rejectSubstitute.hint.bullet4 = Doing all of the worker’s tasks for that period of time
 hirer.rejectSubstitute.hint.bullet5 = Being substituted because the worker is unwilling or unable to do the work
 hirer.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in the worker’s contract.
-hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work.
-hirer.rejectSubstitute.no = No - we would always except a substitute who met these criteria.
+hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work
+hirer.rejectSubstitute.no = No - we would always except a substitute who met these criteria
 #########################
 
 
@@ -985,3 +988,10 @@ checkYourAnswers.personalService.header = Section 3: Worker’s substitution
 checkYourAnswers.control.header = Section 4: Worker’s arrangements
 checkYourAnswers.financialRisk.header = Section 5: Worker’s risk
 checkYourAnswers.partParcel.header = Section 6: Worker’s involvement
+
+toolNotNeeded.client.ir35.title = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.heading = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.text = Workers are responsible for determining if roles like this should be in or out of IR35
+toolNotNeeded.client.paye.title = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include the income from this work in their self-assessment return

@@ -1,4 +1,4 @@
-Thanks for helping make cest-frontend better!
+Thanks for helping make check-employment-status-for-tax better!
 
 **Before** you open an issue, please check whether a similar issue already exists or has been closed before.  Please also come and talk to us in our [Slack channel](https://hmrcdigital.slack.com/archives/team-ddct-liveservices).
 

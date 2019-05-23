@@ -59,16 +59,16 @@ class AgencyAdvisoryControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
+    "redirect to Index Controller for a GET if no existing data is found" in {
       val result = controller(dontGetAnyData).onPageLoad(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
-    "redirect to Session Expired for a POST if no existing data is found" in {
+    "redirect to Index Controller for a POST if no existing data is found" in {
       val result = controller(dontGetAnyData).onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.errors.routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
   }
 }

@@ -50,6 +50,67 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
   lazy val workerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
   lazy val hirerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
 
+  ".cannotClaimAsExpense" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).cannotClaimAsExpense mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" should {
+
+      "if the user is of type Worker" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
+          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              answers = Seq(AnswerRow(
+                label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$Worker.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                answerIsMessageKey = true
+              ))
+            ))
+        }
+      }
+
+      "if the user is of type Hirer" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
+          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, hirerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              answers = Seq(AnswerRow(
+                label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$Hirer.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                answerIsMessageKey = true
+              ))
+            ))
+        }
+      }
+
+      "if the user is not set" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
+          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense mustBe
+            Some(AnswerRow(
+              label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              answers = Seq(AnswerRow(
+                label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                answerIsMessageKey = true
+              ))
+            ))
+        }
+      }
+    }
+  }
+
   ".cannotClaimAsExpenseOptimised" when {
 
     "there is no answer in the cacheMap" should {
@@ -61,18 +122,13 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
     "there is an answer in the cacheMap" should {
 
-      "If the optimised flow is enabled" should {
-      }
-
-      "If the optimised flow is disabled" should {
-
         "if the user is of type Worker" should {
 
           "Return correctly formatted answer row" in {
             val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
             new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
                 answers = CannotClaimAsExpense.values.map( x => AnswerRow(
                   label = s"$Worker.$CannotClaimAsExpensePage.$x.checkYourAnswers",
                   answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
@@ -88,7 +144,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
             new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised(messages, hirerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
                 answers = CannotClaimAsExpense.values.map( x => AnswerRow(
                   label = s"$Hirer.$CannotClaimAsExpensePage.$x.checkYourAnswers",
                   answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
@@ -104,7 +160,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
             new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised mustBe
               Some(AnswerRow(
-                label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
                 answers = CannotClaimAsExpense.values.map( x => AnswerRow(
                   label = s"$CannotClaimAsExpensePage.$x.checkYourAnswers",
                   answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
@@ -114,7 +170,6 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           }
         }
       }
-    }
   }
 
   ".officeHolder" when {

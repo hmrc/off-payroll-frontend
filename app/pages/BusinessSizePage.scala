@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,17 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import viewmodels._
-@import config.FrontendAppConfig
+package pages
 
-@(headerKey: String, row: Seq[SingleAnswerRow])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+import models.BusinessSize
 
-<div class="cya-row divider--bottom">
-    <span class="bold-medium">@messages(headerKey)</span>
-</div>
-
-<div>
-    @row.map(_.answerHtml)
-</div>
+case object BusinessSizePage extends QuestionPage[Seq[BusinessSize]] {
+  override def toString: String = "businessSize"
+}

@@ -17,17 +17,8 @@
 package utils
 
 import config.FrontendAppConfig
-import controllers.routes
-import controllers.sections.setup.{routes => setupRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
-import controllers.sections.control.{routes => controlRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.partParcel.{routes => partParcelRoutes}
-import models.{CannotClaimAsExpense, CheckMode, Enumerable, UserAnswers}
+import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
 import pages._
-import viewmodels.AnswerRow
-import models.Answers._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -36,7 +27,7 @@ import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
 import play.api.i18n.Messages
 import play.api.mvc.Request
-import play.twirl.api.Html
+import viewmodels.AnswerRow
 import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
@@ -196,10 +187,10 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     userAnswers.get(CannotClaimAsExpensePage) map { x =>
       AnswerRow(
         label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
-        answers = CannotClaimAsExpense.values.map ( expense =>
+        answers = x.answer.map(ans =>
           AnswerRow(
-            label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
-            answer = tailorMsg(s"cannotClaimAsExpense.$expense"),
+            label = tailorMsg(s"cannotClaimAsExpense.checkYourAnswersLabel"),
+            answer = tailorMsg(s"cannotClaimAsExpense.$ans"),
             answerIsMessageKey = true
           )
         )
@@ -209,7 +200,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
   def cannotClaimAsExpenseOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(CannotClaimAsExpensePage) map { x =>
       AnswerRow(
-        label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel"),
+        label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel.optimised"),
         answers = CannotClaimAsExpense.values.map ( expense =>
           AnswerRow(
             label = tailorMsg(s"cannotClaimAsExpense.$expense.checkYourAnswers"),

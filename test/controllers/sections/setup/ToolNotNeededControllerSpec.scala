@@ -18,19 +18,15 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import navigation.FakeNavigator
-import play.api.mvc.Call
+import models.WhichDescribesYouAnswer.ClientPAYE
 import play.api.test.Helpers._
-import views.html.sections.setup.AboutYourResultView
+import views.html.sections.setup.ToolNotNeededView
 
-class AboutYourResultControllerSpec extends ControllerSpecBase {
+class ToolNotNeededControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = Call("POST", "/foo")
+  val view = injector.instanceOf[ToolNotNeededView]
 
-  val view = injector.instanceOf[AboutYourResultView]
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new AboutYourResultController(
-    navigator = new FakeNavigator(onwardRoute),
+  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ToolNotNeededController(
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
@@ -39,7 +35,7 @@ class AboutYourResultControllerSpec extends ControllerSpecBase {
     appConfig = frontendAppConfig
   )
 
-  def viewAsString = view(routes.AboutYourResultController.onSubmit())(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString = view(ClientPAYE)(fakeRequest, messages, frontendAppConfig).toString
 
   "AboutYou Controller" must {
 
@@ -52,7 +48,7 @@ class AboutYourResultControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val result = controller().onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      redirectLocation(result) mustBe Some(controllers.sections.setup.routes.LeaveController.onPageLoad().url)
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {

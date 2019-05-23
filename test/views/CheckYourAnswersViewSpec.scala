@@ -48,7 +48,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
     }
 
     "have the correct h2" in {
-      document.select(Selectors.h2(1)).text mustBe CheckYourAnswersMessages.h2
+      document.select(Selectors.h2(1)).text.trim mustBe CheckYourAnswersMessages.h2
     }
     "have the correct p1" in {
       document.select(Selectors.p(1)).text mustBe CheckYourAnswersMessages.p1
