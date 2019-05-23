@@ -49,7 +49,7 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 
         @components.teal_result(Html(messages("result.officeHolderEmployed.title")))
 
-        @sections.why_result(Html(messages("result.officeHolderEmployed.whyResult.p1")))
+        @sections.why_result(whyResultContent)
 
         @sections.answers(answerSections, printView)
 
@@ -69,6 +69,10 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
             }
         }
     }
+}
+
+@whyResultContent = {
+    <p>@messages("result.officeHolderEmployed.whyResult.p1")</p>
 }
 
 @shouldNowDoContent = {
