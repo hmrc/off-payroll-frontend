@@ -741,12 +741,13 @@ class DecisionServiceSpec extends SpecBase {
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
     }
-    "return a continue decision based on the interview when control is empty" in {
+    "return a continue decision based on the interview when control is empty (and save decision in db)" in {
 
       implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(riskResponse)))
       when(connector.log(Interview(userAnswers),riskResponse)).thenReturn(Future.successful(Right(true)))
+      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(true))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -760,6 +761,7 @@ class DecisionServiceSpec extends SpecBase {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(controlResponse)))
       when(connector.log(Interview(userAnswers),controlResponse)).thenReturn(Future.successful(Right(true)))
+      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(true))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -773,6 +775,7 @@ class DecisionServiceSpec extends SpecBase {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
       when(connector.log(Interview(userAnswers),exitResponse)).thenReturn(Future.successful(Right(true)))
+      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(true))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 

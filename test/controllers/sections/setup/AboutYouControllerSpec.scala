@@ -149,11 +149,15 @@ class AboutYouControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
-
+        val validCacheMap = CacheMap(cacheMapId, Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0))))
+        when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
+        val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
+        when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
+        when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
+          .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("/check-employment-status-for-tax/worker-trading-as")
         session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(WhichDescribesYouAnswer.values.head))
       }
 
