@@ -40,7 +40,7 @@ class AnswerRowSpec extends SpecBase {
           lazy val result = AnswerRow("label", answers, isMessageKey, "/change")
 
           result mustBe MultiAnswerRow("label", answers, isMessageKey, "/change")
-          result.answerHtml mustBe Html(s"<ul class='list-bullet'>${answers.foldLeft("")((o,x) => o + s"<li>$x</li>")}</ul>")
+          result.answerHtml mustBe Html(s"<ul>${answers.foldLeft("")((o,x) => o + s"<li>$x</li>")}</ul>")
         }
       }
     }
