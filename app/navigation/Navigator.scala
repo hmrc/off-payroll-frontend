@@ -53,6 +53,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
       case _ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
     }),
     AgencyAdvisoryPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
+    HirerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     WorkerTypePage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )

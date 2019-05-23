@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.setup
 
 import models.BusinessSize
+import pages.QuestionPage
 
 case object BusinessSizePage extends QuestionPage[Seq[BusinessSize]] {
   override def toString: String = "businessSize"
