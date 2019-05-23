@@ -31,7 +31,7 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
   }
 
   def addDecision[A](id: String, decision: String): Future[Boolean] = {
-    sessionRepository.upsert(id,decision)
+    sessionRepository.addDecision(id,decision)
   }
 
   def clearDecision[A](id: String): Future[Boolean] = {

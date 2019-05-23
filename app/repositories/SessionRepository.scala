@@ -85,16 +85,7 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     }
   }
 
-//  def upsert(id: String, decision: String): Future[Boolean] = {
-//    val selector = BSONDocument("id" -> id)
-//    val modifier = BSONDocument("$set" -> BSONDocument("decision" -> decision))
-//
-//    collection.update(selector, modifier).map { lastError =>
-//      lastError.ok
-//    }
-//  }
-
-  def upsert(id: String,decision: String) = {
+  def addDecision(id: String,decision: String) = {
     val selector = BSONDocument("id" -> id,"decision" -> BSONDocument("$exists" -> false))
     val modifier = BSONDocument("$set" -> BSONDocument("decision" -> decision))
 
