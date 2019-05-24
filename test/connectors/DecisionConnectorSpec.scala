@@ -50,6 +50,7 @@ class DecisionConnectorSpec extends SpecBase with MockHttp {
     Some(Worker),
     Some(false),
     Some(SoleTrader),
+    None,
     Some(false),
     Some(YesClientAgreed),
     Some(false),

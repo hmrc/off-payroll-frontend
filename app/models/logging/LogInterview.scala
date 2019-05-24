@@ -16,9 +16,10 @@
 
 package models.logging
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 import models.WorkerType.SoleTrader
 import models.{DecisionResponse, Interview}
 import play.api.libs.json._
@@ -37,7 +38,7 @@ case class LogInterview(version: String,
                         partAndParcel: PartAndParcel,
                         completed: LocalDateTime)
 
-object LogInterview extends DateTimeJsonFormat {
+object LogInterview extends DateTimeJsonFormat with FeatureSwitching {
 
   implicit val writesLocalDateTime: Writes[LocalDateTime] = Writes { date =>
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -49,16 +50,13 @@ object LogInterview extends DateTimeJsonFormat {
     LogInterview(
       decisionResult.version,
       "",
-      decisionRequest.provideServices match {
-        case Some(workerType) if workerType == SoleTrader => "ESI"
-        case _ => "IR35"
-      },
+      decisionRequest.route,
       decisionResult.result.toString,
       None,
       Setup(
         decisionRequest.endUserRole,
         decisionRequest.hasContractStarted,
-        decisionRequest.provideServices
+        decisionRequest.calculateProvideServices
       ),
       Exit(decisionRequest.officeHolder),
       PersonalService(

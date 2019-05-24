@@ -28,7 +28,7 @@ import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.WorkerType.SoleTrader
+import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -44,31 +44,362 @@ class InterviewSpec extends SpecBase {
 
   "Interview" must {
 
+    "find the route" when {
+      "provideServices is supplied" in {
+
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          provideServices = Some(SoleTrader),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).route mustBe "ESI"
+
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          provideServices = Some(LimitedCompany),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).route mustBe "IR35"
+      }
+      "use the optimised flow is both are provided" in {
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          provideServices = Some(LimitedCompany),
+          isUsingIntermediary = Some(true),
+          hasContractStarted = Some(true),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).route mustBe "IR35"
+      }
+      "default to IR35 when no values are supplied" in {
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).route mustBe "IR35"
+
+      }
+      "isUsingIntermediary is supplied" in {
+
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          isUsingIntermediary = Some(false),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).route mustBe "ESI"
+
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          isUsingIntermediary = Some(true),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).route mustBe "IR35"
+      }
+    }
+
+    "calculate provide services" when {
+
+      "provide services is populated" in {
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          provideServices = Some(SoleTrader),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).calculateProvideServices mustBe Some(SoleTrader)
+      }
+
+      "isUsingIntermediary is populated" in {
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          isUsingIntermediary = Some(true),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).calculateProvideServices mustBe Some(LimitedCompany)
+      }
+
+      "isUsingIntermediary is false" in {
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          isUsingIntermediary = Some(false),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).calculateProvideServices mustBe Some(SoleTrader)
+      }
+
+      "use the optimised is both are supplied" in {
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          provideServices = Some(SoleTrader),
+          isUsingIntermediary = Some(true),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).calculateProvideServices mustBe Some(LimitedCompany)
+      }
+
+      "none is supplied" in {
+        Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        ).calculateProvideServices mustBe None
+      }
+    }
+
     "construct correctly from a UserAnswers model" when {
 
       "all values are supplied" in {
 
         val userAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0,Worker)
-          .set(ContractStartedPage,1, true)
-          .set(WorkerTypePage, 2,SoleTrader)
-          .set(OfficeHolderPage, 3,false)
-          .set(ArrangedSubstitutePage, 4,YesClientAgreed)
-          .set(DidPaySubstitutePage, 5,false)
-          .set(WouldWorkerPaySubstitutePage,6, true)
-          .set(RejectSubstitutePage, 7,false)
-          .set(NeededToPayHelperPage, 8,false)
-          .set(MoveWorkerPage, 9,CanMoveWorkerWithPermission)
-          .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-          .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-          .set(ChooseWhereWorkPage, 12,WorkerAgreeWithOthers)
-          .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-          .set(HowWorkerIsPaidPage, 14,Commission)
-          .set(PutRightAtOwnCostPage, 15,CannotBeCorrected)
-          .set(BenefitsPage, 16,false)
-          .set(LineManagerDutiesPage,17, false)
-          .set(InteractWithStakeholdersPage,18, false)
-          .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
+          .set(AboutYouPage, 0, Worker)
+          .set(ContractStartedPage, 1, true)
+          .set(WorkerTypePage, 2, SoleTrader)
+          .set(OfficeHolderPage, 3, false)
+          .set(ArrangedSubstitutePage, 4, YesClientAgreed)
+          .set(DidPaySubstitutePage, 5, false)
+          .set(WouldWorkerPaySubstitutePage, 6, true)
+          .set(RejectSubstitutePage, 7, false)
+          .set(NeededToPayHelperPage, 8, false)
+          .set(MoveWorkerPage, 9, CanMoveWorkerWithPermission)
+          .set(HowWorkIsDonePage, 10, WorkerFollowStrictEmployeeProcedures)
+          .set(ScheduleOfWorkingHoursPage, 11, WorkerAgreeSchedule)
+          .set(ChooseWhereWorkPage, 12, WorkerAgreeWithOthers)
+          .set(CannotClaimAsExpensePage, 13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+          .set(HowWorkerIsPaidPage, 14, Commission)
+          .set(PutRightAtOwnCostPage, 15, CannotBeCorrected)
+          .set(BenefitsPage, 16, false)
+          .set(LineManagerDutiesPage, 17, false)
+          .set(InteractWithStakeholdersPage, 18, false)
+          .set(IdentifyToStakeholdersPage, 19, WorkAsIndependent)
 
         val expected = Interview(
           correlationId = "id",
@@ -138,60 +469,60 @@ class InterviewSpec extends SpecBase {
           wouldWorkerPayHelper = Some(false),
           engagerMovingWorker = Some(CanMoveWorkerWithPermission),
           workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
-          whenWorkHasToBeDone =Some(WorkerAgreeSchedule),
-          workerDecideWhere =Some(WorkerAgreeWithOthers),
-          workerProvidedMaterials =Some(false),
-          workerProvidedEquipment =Some(false),
-          workerUsedVehicle =Some(true),
-          workerHadOtherExpenses =Some(true),
-          expensesAreNotRelevantForRole =Some(false),
-          workerMainIncome =Some(Commission),
-          paidForSubstandardWork =Some(CannotBeCorrected),
-          workerReceivesBenefits =Some(false),
-          workerAsLineManager =Some(false),
-          contactWithEngagerCustomer =Some(false),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
         )
 
         val expected = Json.obj(
-          "version"-> "1.5.0-final",
-          "correlationID"-> "id",
-          "interview"-> Json.obj(
-            "setup"-> Json.obj(
-              "endUserRole"-> "personDoingWork",
-              "hasContractStarted"-> "Yes",
-              "provideServices"-> "soleTrader"
+          "version" -> "1.5.0-final",
+          "correlationID" -> "id",
+          "interview" -> Json.obj(
+            "setup" -> Json.obj(
+              "endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
             ),
-            "exit"-> Json.obj(
-              "officeHolder"-> "No"
+            "exit" -> Json.obj(
+              "officeHolder" -> "No"
             ),
-            "personalService"-> Json.obj(
-              "workerSentActualSubstitute"-> "yesClientAgreed",
-              "workerPayActualSubstitute"-> "No",
-              "possibleSubstituteRejection"-> "wouldNotReject",
-              "possibleSubstituteWorkerPay"-> "Yes",
-              "wouldWorkerPayHelper"-> "No"
+            "personalService" -> Json.obj(
+              "workerSentActualSubstitute" -> "yesClientAgreed",
+              "workerPayActualSubstitute" -> "No",
+              "possibleSubstituteRejection" -> "wouldNotReject",
+              "possibleSubstituteWorkerPay" -> "Yes",
+              "wouldWorkerPayHelper" -> "No"
             ),
-            "control"-> Json.obj(
-              "engagerMovingWorker"-> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone"-> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone"-> "workerAgreeSchedule",
-              "workerDecideWhere"-> "workerAgreeWithOthers"
+            "control" -> Json.obj(
+              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+              "workerDecideWhere" -> "workerAgreeWithOthers"
             ),
-            "financialRisk"-> Json.obj(
-              "workerProvidedMaterials"-> "No",
-              "workerProvidedEquipment"-> "No",
-              "workerUsedVehicle"-> "Yes",
-              "workerHadOtherExpenses"-> "Yes",
-              "expensesAreNotRelevantForRole"-> "No",
-              "workerMainIncome"-> "incomeCommission",
-              "paidForSubstandardWork"-> "cannotBeCorrected"
+            "financialRisk" -> Json.obj(
+              "workerProvidedMaterials" -> "No",
+              "workerProvidedEquipment" -> "No",
+              "workerUsedVehicle" -> "Yes",
+              "workerHadOtherExpenses" -> "Yes",
+              "expensesAreNotRelevantForRole" -> "No",
+              "workerMainIncome" -> "incomeCommission",
+              "paidForSubstandardWork" -> "cannotBeCorrected"
             ),
-            "partAndParcel"-> Json.obj(
-              "workerReceivesBenefits"-> "No",
-              "workerAsLineManager"-> "No",
-              "contactWithEngagerCustomer"-> "No",
-              "workerRepresentsEngagerBusiness"-> "workAsIndependent"
+            "partAndParcel" -> Json.obj(
+              "workerReceivesBenefits" -> "No",
+              "workerAsLineManager" -> "No",
+              "contactWithEngagerCustomer" -> "No",
+              "workerRepresentsEngagerBusiness" -> "workAsIndependent"
             )
           )
         )
@@ -206,15 +537,15 @@ class InterviewSpec extends SpecBase {
         val model = Interview("id")
 
         val expected = Json.obj(
-          "version"-> "1.5.0-final",
-          "correlationID"-> "id",
-          "interview"-> Json.obj(
-            "setup"-> Json.obj(),
-            "exit"-> Json.obj(),
-            "personalService"-> Json.obj(),
-            "control"-> Json.obj(),
-            "financialRisk"-> Json.obj(),
-            "partAndParcel"-> Json.obj()
+          "version" -> "1.5.0-final",
+          "correlationID" -> "id",
+          "interview" -> Json.obj(
+            "setup" -> Json.obj(),
+            "exit" -> Json.obj(),
+            "personalService" -> Json.obj(),
+            "control" -> Json.obj(),
+            "financialRisk" -> Json.obj(),
+            "partAndParcel" -> Json.obj()
           )
         )
 

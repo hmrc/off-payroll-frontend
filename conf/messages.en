@@ -106,9 +106,17 @@ hirer.contractStarted.title = Has the worker already started this particular eng
 hirer.contractStarted.heading = Has the worker already started this particular engagement for you?
 hirer.contractStarted.subheading = About the people involved
 hirer.contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for you?
+
+worker.optimised.contractStarted.title = Have you already started working for this client?
+worker.optimised.contractStarted.heading = Have you already started working for this client?
+worker.optimised.contractStarted.subheading = Section 1: Who, what, when
+worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
+
+hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.subheading = Section 1: Who, what, when
+hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
 #########################
-
-
 
 ## Way that the worker provides services page (Worker Type)
 #########################
@@ -944,6 +952,36 @@ hirerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how
 
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
+
+
+workerUsingIntermediary.error.required = You need to select an answer
+workerUsingIntermediary.error.invalid = You need to select an answer
+worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.subheading = Section 1: Who, what, when
+worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
+
+hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.subheading = Section 1: Who, what, when
+hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
+
+isWorkForPrivateSector.error.required = You need to select an answer
+isWorkForPrivateSector.error.invalid = You need to select an answer
+worker.isWorkForPrivateSector.title = Is the work for a private sector client?
+worker.isWorkForPrivateSector.heading = Is the work for a private sector client?
+worker.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+worker.isWorkForPrivateSector.checkYourAnswersLabel = Is the work for a private sector client?
+
+hirer.isWorkForPrivateSector.title = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.heading = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
+
+workerAdvisory.title = You don’t need to answer any more questions
+workerAdvisory.heading = You don’t need to answer any more questions
+workerAdvisory.p1 = The organisation offering the work is responsible for determining if it should be in or out of IR35
+workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
 
 hirer.businessSize.title = Does your organisation have more than:
 hirer.businessSize.heading = Does your organisation have more than:

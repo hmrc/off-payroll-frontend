@@ -16,45 +16,23 @@
 
 package assets.messages
 
-object ContractStartedMessages extends BaseMessages {
-
-  val subheading = "About the people involved"
-
-  object Worker {
-    val heading = "Have you already started this particular engagement for the end client?"
-    val title = heading
-  }
-
-  object Hirer {
-    val heading = "Has the worker already started this particular engagement for you?"
-    val title = heading
-  }
-
-  object NonTailored {
-    val heading = "Has the worker already started this particular engagement for the end client?"
-    val title = heading
-  }
-
-}
-
-object ContractStartedOptimisedMessages extends BaseMessages {
+object WorkerUsingIntermediaryMessages extends BaseMessages {
 
   val subheading = "Section 1: Who, what, when"
 
   object Worker {
-    val heading = "Have you already started working for this client?"
+    val heading = "Are you trading through a limited company, partnership or unincorporated body?"
     val title = heading
   }
 
   object Hirer {
-    val heading = "Has the worker already started working for your organisation?"
+    val heading = "Is the worker trading through a limited company, partnership or unincorporated body?"
     val title = heading
   }
 
   object NonTailored {
-    val heading = "Have you already started working for this client?"
+    val heading = "Are you trading through a limited company, partnership or unincorporated body?"
     val title = heading
   }
 
 }
-
