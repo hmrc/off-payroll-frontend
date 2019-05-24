@@ -137,7 +137,6 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     financialRiskRedirect
   }
 
-  //scalastyle:off
   def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
                          (implicit request: DataRequest[_], messages: Messages): Html = {
