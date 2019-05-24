@@ -251,7 +251,7 @@ class InterviewSpec extends SpecBase {
           workerAsLineManager = Some(false),
           contactWithEngagerCustomer = Some(false),
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).calculateProvideServices mustBe Some("soleTrader")
+        ).calculateProvideServices mustBe Some(SoleTrader)
       }
 
       "isUsingIntermediary is populated" in {
@@ -281,7 +281,7 @@ class InterviewSpec extends SpecBase {
           workerAsLineManager = Some(false),
           contactWithEngagerCustomer = Some(false),
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).calculateProvideServices mustBe Some("limitedCompany")
+        ).calculateProvideServices mustBe Some(LimitedCompany)
       }
 
       "isUsingIntermediary is false" in {
@@ -311,7 +311,7 @@ class InterviewSpec extends SpecBase {
           workerAsLineManager = Some(false),
           contactWithEngagerCustomer = Some(false),
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).calculateProvideServices mustBe Some("soleTrader")
+        ).calculateProvideServices mustBe Some(SoleTrader)
       }
 
       "use the optimised is both are supplied" in {
@@ -342,7 +342,7 @@ class InterviewSpec extends SpecBase {
           workerAsLineManager = Some(false),
           contactWithEngagerCustomer = Some(false),
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
-        ).calculateProvideServices mustBe Some("limitedCompany")
+        ).calculateProvideServices mustBe Some(LimitedCompany)
       }
 
       "none is supplied" in {
