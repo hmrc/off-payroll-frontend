@@ -38,6 +38,9 @@ case class SingleAnswerRow(label: String,
     } else {
       Html(if(answerIsMessageKey) messages(answer) else answer)
     }
+
+  def panelIndentHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
+    views.html.components.accordion_row(label, answer, answerIsMessageKey, panelIndent = true)
 }
 
 case class MultiAnswerRow(label: String,
