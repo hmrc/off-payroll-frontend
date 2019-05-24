@@ -71,7 +71,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
   val dataConnector = mock[DataCacheConnector]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ResultController(
+  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new ResultController(
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),

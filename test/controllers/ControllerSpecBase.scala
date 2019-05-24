@@ -21,7 +21,6 @@ import java.nio.charset.Charset
 import akka.stream.Materializer
 import akka.util.ByteString
 import base.SpecBase
-import controllers.actions.FakeDataRetrievalAction
 import org.jsoup.Jsoup
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Result
@@ -35,10 +34,6 @@ trait ControllerSpecBase extends SpecBase with MockitoSugar {
   val cacheMapId = "id"
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
-
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
-
-  def dontGetAnyData = new FakeDataRetrievalAction(None)
 
   val decisionService = mock[DecisionService]
 

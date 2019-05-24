@@ -8,7 +8,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[$className$View]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new $className$Controller(
+  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new $className$Controller(
     frontendAppConfig,
     FakeIdentifierAction,
     dataRetrievalAction,

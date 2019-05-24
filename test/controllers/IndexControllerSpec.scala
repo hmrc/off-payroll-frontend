@@ -16,13 +16,14 @@
 
 package controllers
 
-import connectors.FakeDataCacheConnector
-import controllers.actions.{DataRetrievalAction, FakeIdentifierAction}
-import navigation.FakeNavigator
+import connectors.mocks.MockMongoCacheConnector
+import controllers.actions.{FakeIdentifierAction, MockDontGetDataDataRetrievalAction, MockEmptyCacheMapDataRetrievalAction}
+import navigation.{FakeNavigator, MockNavigator}
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
 
-class IndexControllerSpec extends ControllerSpecBase {
+class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnector with MockNavigator {
 
   val onwardRoute = Call("GET", "/foo")
 
@@ -30,18 +31,28 @@ class IndexControllerSpec extends ControllerSpecBase {
 
     "has an existing cacheMap in session" should {
 
-      def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new IndexController(
+      object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
-        getData = dataRetrievalAction,
-        cache = new FakeDataCacheConnector,
+        getData = MockEmptyCacheMapDataRetrievalAction,
+        cache = mockMongoCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 
-      lazy val result = controller().onPageLoad()(fakeRequest)
+//      def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new IndexController(
+//        appConfig = frontendAppConfig,
+//        navigator = new FakeNavigator(onwardRoute),
+//        identify = FakeIdentifierAction,
+//        getData = dataRetrievalAction,
+//        cache = mockMongoCacheConnector,
+//        controllerComponents = messagesControllerComponents
+//      )
+
+      lazy val result = TestIndexController.onPageLoad()(fakeRequest)
 
       "return SEE_OTHER for a GET" in {
+        mockSave(emptyCacheMap)(emptyCacheMap)
         status(result) mustBe SEE_OTHER
       }
 
@@ -52,18 +63,28 @@ class IndexControllerSpec extends ControllerSpecBase {
 
     "does not have an existing cacheMap in session" should {
 
-      def controller(dataRetrievalAction: DataRetrievalAction = dontGetAnyData) = new IndexController(
+      object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
-        getData = dataRetrievalAction,
-        cache = new FakeDataCacheConnector,
+        getData = MockDontGetDataDataRetrievalAction,
+        cache = mockMongoCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 
-      lazy val result = controller().onPageLoad()(fakeRequest)
+//      def controller(dataRetrievalAction: DataRetrievalAction = MockDontGetDataDataRetrievalAction) = new IndexController(
+//        appConfig = frontendAppConfig,
+//        navigator = new FakeNavigator(onwardRoute),
+//        identify = FakeIdentifierAction,
+//        getData = dataRetrievalAction,
+//        cache = mockMongoCacheConnector,
+//        controllerComponents = messagesControllerComponents
+//      )
+
+      lazy val result = TestIndexController.onPageLoad()(fakeRequest)
 
       "return SEE_OTHER for a GET" in {
+        mockSave(emptyCacheMap)(emptyCacheMap)
         status(result) mustBe SEE_OTHER
       }
 

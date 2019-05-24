@@ -29,7 +29,7 @@ class AboutYourResultControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[AboutYourResultView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new AboutYourResultController(
+  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new AboutYourResultController(
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -56,13 +56,13 @@ class AboutYourResultControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(fakeRequest)
+      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val result = controller(dontGetAnyData).onSubmit(fakeRequest)
+      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }

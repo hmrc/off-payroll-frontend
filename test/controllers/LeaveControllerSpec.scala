@@ -25,7 +25,7 @@ class LeaveControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[LeaveView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new LeaveController(
+  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new LeaveController(
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),

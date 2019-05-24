@@ -17,6 +17,7 @@
 package controllers.actions
 
 import base.SpecBase
+import controllers.ControllerSpecBase
 import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -24,7 +25,9 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class FakeDataRetrievalAction(cacheMapToReturn: Option[CacheMap]) extends SpecBase with DataRetrievalAction {
+trait MockDataRetrievalAction extends SpecBase with DataRetrievalAction with ControllerSpecBase {
+
+  val cacheMapToReturn: Option[CacheMap]
 
   override implicit protected def executionContext: ExecutionContext = ec
 
@@ -32,4 +35,16 @@ class FakeDataRetrievalAction(cacheMapToReturn: Option[CacheMap]) extends SpecBa
     case None => Future(OptionalDataRequest(request.request, request.identifier, None))
     case Some(cacheMap)=> Future(OptionalDataRequest(request.request, request.identifier, Some(new UserAnswers(cacheMap))))
   }
+}
+
+object MockEmptyCacheMapDataRetrievalAction extends MockDataRetrievalAction {
+  override val cacheMapToReturn: Option[CacheMap] = Some(emptyCacheMap)
+}
+
+object MockDontGetDataDataRetrievalAction extends MockDataRetrievalAction {
+  override val cacheMapToReturn: Option[CacheMap] = None
+}
+
+case class FakeDataRetrievalAction(cacheMap: Option[CacheMap]) extends MockDataRetrievalAction {
+  override val cacheMapToReturn: Option[CacheMap] = cacheMap
 }

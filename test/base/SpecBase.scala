@@ -71,22 +71,22 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
 
   lazy val injector = app.injector
 
-  implicit def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+  implicit lazy val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
-  def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+  lazy val messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
-  implicit def lang: Lang = Lang("en")
+  implicit lazy val lang: Lang = Lang("en")
 
-  def messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  lazy val messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
-  implicit def ec: ExecutionContext = injector.instanceOf[ExecutionContext]
-  implicit def hc: HeaderCarrier = HeaderCarrier()
+  implicit lazy val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
+  implicit lazy val hc: HeaderCarrier = HeaderCarrier()
 
-  def errorHandler = injector.instanceOf[ErrorHandler]
+  val errorHandler = injector.instanceOf[ErrorHandler]
 
-  implicit def fakeRequest = FakeRequest("", "")
+  implicit lazy val fakeRequest = FakeRequest("", "")
 
-  implicit def messages: Messages = messagesApi.preferred(fakeRequest)
+  implicit lazy val messages: Messages = messagesApi.preferred(fakeRequest)
 
   val stubPort = 8080
   val wireMock = new Wiremock
