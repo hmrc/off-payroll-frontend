@@ -1,9 +1,9 @@
 common.standardErrorMessageContent =Rhowch gynnig arall arni mewn ychydig o eiliadau
 common.standardErrorMessageHeader =Mae’n ddrwg gennym, rydym yn wynebu problemau technegol
 common.standardPageNotFoundErrorMessageContent1=Gwnewch yn siŵr fod y cyfeiriad yn gywir
-common.standardPageNotFoundErrorMessageContent2=Os gwnaethoch deipio''r cyfeiriad gwe
-common.standardPageNotFoundErrorMessageContent3=Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi''i deipio''n gywir.
-common.standardPageNotFoundErrorMessageHeader=Heb ddod o hyd i''r dudalen
+common.standardPageNotFoundErrorMessageContent2=Os gwnaethoch deipio’r cyfeiriad gwe
+common.standardPageNotFoundErrorMessageContent3=Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi’i deipio’n gywir.
+common.standardPageNotFoundErrorMessageHeader=Heb ddod o hyd i’r dudalen
 
 ##### TODO NEED WELSH FOR ####
 date.day = Day
@@ -862,10 +862,10 @@ result.control.title =Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthna
 result.control.heading =Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
 result.control.whyResult.p1 =Mae’ch atebion yn awgrymu nad oes gan y cleient terfynol hawl i reoli’r gwaith er mwyn i’r swydd hon gael ei hystyried i fod yn un gyflogedig at ddibenion treth.
 result.control.whyResult.exclamation =Petai CThEM yn ymchwilio i’r swydd hon, byddai’n rhaid i’r cleient terfynol gytuno a dangos na allai fynnu’i hawl i reoli’r gweithiwr, neu os na wnaeth hynny.
-result.control.shouldNowDo.p1.beforeLink =Os mai chi yw'r gweithiwr, dylai'ch busnes gael swm gros a dilyn
+result.control.shouldNowDo.p1.beforeLink =Os mai chi yw’r gweithiwr, dylai’ch busnes gael swm gros a dilyn
 result.control.shouldNowDo.p1.link =yr arweiniad hwn
 result.control.shouldNowDo.p1.afterLink =ynghych eich treth.
-result.control.shouldNowDo.p2 =Os mai chi sy'n talu'r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
+result.control.shouldNowDo.p2 =Os mai chi sy’n talu’r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
 result.control.aboutResult.p1.beforeLink =Ni fydd y ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon pan fo busnes y gweithiwr (y cyfryngwr) yn bodloni
 result.control.aboutResult.p1.link =amodau penodol y rhwymedigaeth
 result.control.aboutResult.p1.afterLink =.
