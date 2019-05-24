@@ -44,9 +44,9 @@ case class MultiAnswerRow(label: String,
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html = {
     val listItems = answers.foldLeft(""){
-      case (output, answer) => output + s"<li class='no-bullet-pdf'>${if(answerIsMessageKey) messages(answer) else answer}</li>"
+      case (output, answer) => output + s"<li>${if(answerIsMessageKey) messages(answer) else answer}</li>"
     }
-    Html(s"<ul>$listItems</ul>")
+    Html(s"<ul class='no-bullet-pdf'>$listItems</ul>")
   }
 }
 
