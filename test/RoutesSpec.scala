@@ -40,6 +40,11 @@ class RoutesSpec extends SpecBase {
       setupRoutes.AgencyAdvisoryController.onSubmit().url mustBe fullPath("/agency-advisory")
     }
 
+    "Have the correct routes for the Hirer Advisory page" in {
+      setupRoutes.HirerAdvisoryController.onPageLoad().url mustBe fullPath("/hirer-advisory")
+      setupRoutes.HirerAdvisoryController.onSubmit().url mustBe fullPath("/hirer-advisory")
+    }
+
     "Have the correct routes for the About You page" in {
       setupRoutes.AboutYouController.onPageLoad(NormalMode).url mustBe fullPath("/about-you")
       setupRoutes.AboutYouController.onPageLoad(CheckMode).url mustBe fullPath("/about-you/edit")
@@ -59,6 +64,18 @@ class RoutesSpec extends SpecBase {
       setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
       setupRoutes.WorkerTypeController.onSubmit(NormalMode).url mustBe fullPath("/worker-trading-as")
       setupRoutes.WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/worker-trading-as/edit")
+    }
+
+    "Have the correct routes for the Business Size page" in {
+      setupRoutes.BusinessSizeController.onPageLoad(NormalMode).url mustBe fullPath("/business-size")
+      setupRoutes.BusinessSizeController.onPageLoad(CheckMode).url mustBe fullPath("/business-size/edit")
+      setupRoutes.BusinessSizeController.onSubmit(NormalMode).url mustBe fullPath("/business-size")
+      setupRoutes.BusinessSizeController.onSubmit(CheckMode).url mustBe fullPath("/business-size/edit")
+    }
+
+    "Have the correct routes for the Tool Not Needed page" in {
+      setupRoutes.ToolNotNeededController.onPageLoad().url mustBe fullPath("/tool-not-needed")
+      setupRoutes.ToolNotNeededController.onSubmit().url mustBe fullPath("/tool-not-needed")
     }
 
     "Have the correct routes for the Office Holder page" in {

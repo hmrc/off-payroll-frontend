@@ -22,6 +22,9 @@ POST       /about-you                                   controllers.sections.set
 GET        /about-you/edit                              controllers.sections.setup.AboutYouController.onPageLoad(mode: Mode = CheckMode)
 POST       /about-you/edit                              controllers.sections.setup.AboutYouController.onSubmit(mode: Mode = CheckMode)
 
+GET        /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onPageLoad
+POST       /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onSubmit
+
 GET        /work-started                                controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = NormalMode)
 POST       /work-started                                controllers.sections.setup.ContractStartedController.onSubmit(mode: Mode = NormalMode)
 GET        /work-started/edit                           controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = CheckMode)
@@ -136,4 +139,12 @@ POST       /agency-advisory                             controllers.sections.set
 GET        /worker-advisory                             controllers.sections.setup.WorkerAdvisoryController.onPageLoad()
 POST       /worker-advisory                             controllers.sections.setup.WorkerAdvisoryController.onSubmit()
 
+GET        /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onPageLoad()
+POST       /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onSubmit()
+
 GET        /you-have-left-the-tool                      controllers.sections.setup.LeaveController.onPageLoad()
+
+GET        /business-size                               controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = NormalMode)
+POST       /business-size                               controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = NormalMode)
+GET        /business-size/edit                          controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = CheckMode)
+POST       /business-size/edit                          controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = CheckMode)

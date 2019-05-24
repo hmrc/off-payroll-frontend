@@ -190,6 +190,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           enable(OptimisedFlow)
           nextPage(ContractStartedPage) mustBe exitRoutes.OfficeHolderController.onPageLoad(NormalMode)
         }
+
+        "go to the Contract Started page from the Hirer Advisory page" in {
+          enable(OptimisedFlow)
+          nextPage(HirerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
       }
 
       "for the sub-optimised flow" must {

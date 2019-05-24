@@ -25,10 +25,18 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
+
+  implicit lazy val arbitraryBusinessSizeUserAnswersEntry: Arbitrary[(BusinessSizePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[BusinessSizePage.type]
+        value <- arbitrary[BusinessSize].map(Json.toJson(_))
+      } yield (page, value)
+    }
 
   implicit lazy val arbitraryCustomisePDFUserAnswersEntry: Arbitrary[(CustomisePDFPage.type, JsValue)] =
     Arbitrary {

@@ -16,16 +16,15 @@
 
 package utils
 
+import _root_.models.UserType._
 import base.SpecBase
 import config.SessionKeys
-import controllers.routes
-import controllers.sections.setup.{routes => setupRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => contolRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import _root_.models.UserType._
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.setup.{routes => setupRoutes}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.WorkerUsedVehicle
 import models.ChooseWhereWork.WorkerChooses
@@ -35,7 +34,6 @@ import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.WorkerType.LimitedCompany
 import models.{AboutYouAnswer, CheckMode, Enumerable, UserAnswers}
-import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}

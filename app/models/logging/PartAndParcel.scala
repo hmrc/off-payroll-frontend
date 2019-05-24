@@ -16,11 +16,14 @@
 
 package models.logging
 
+import models.IdentifyToStakeholders
 import play.api.libs.json.Json
 
-case class PartAndParcel(workerReceivesBenefits: Option[String], workerAsLineManager: Option[String],
-                         contactWithEngagerCustomer: Option[String],  workerRepresentsEngagerBusiness: Option[String])
+case class PartAndParcel(workerReceivesBenefits: Option[Boolean],
+                         workerAsLineManager: Option[Boolean],
+                         contactWithEngagerCustomer: Option[Boolean],
+                         workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders])
 
-object PartAndParcel {
+object PartAndParcel extends WritesBooleanYesNo {
   implicit val parcelFormat = Json.format[PartAndParcel]
 }

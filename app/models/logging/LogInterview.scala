@@ -18,22 +18,35 @@ package models.logging
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import models.WorkerType.SoleTrader
 import models.{DecisionResponse, Interview}
-import org.joda.time.{DateTime, DateTimeZone}
 import play.api.libs.json._
-import utils.DateTimeJsonFormat
+import utils.{DateTimeJsonFormat, DateTimeUtil}
 
-case class LogInterview(version: String, compressedInterview: String, route: String, decision:String, count: Option[String], setup: Setup,
-                     exit: Exit, personalService: Option[PersonalService], control: Option[Control], financialRisk: Option[FinancialRisk],
-                     partAndParcel: Option[PartAndParcel], completed: DateTime)
+case class LogInterview(version: String,
+                        compressedInterview: String,
+                        route: String,
+                        decision:String,
+                        count: Option[String],
+                        setup: Setup,
+                        exit: Exit,
+                        personalService: PersonalService,
+                        control: Control,
+                        financialRisk: FinancialRisk,
+                        partAndParcel: PartAndParcel,
+                        completed: LocalDateTime)
 
 object LogInterview extends DateTimeJsonFormat with FeatureSwitching {
 
+  implicit val writesLocalDateTime: Writes[LocalDateTime] = Writes { date =>
+    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+    JsString(date.format(formatter))
+  }
   implicit val logInterviewFormat = Json.format[LogInterview]
 
-  def createFromInterview(decisionRequest: Interview, decisionResult: DecisionResponse)(implicit config: FrontendAppConfig): LogInterview = {
-
+  def apply(decisionRequest: Interview, decisionResult: DecisionResponse, dateTimeUtil: DateTimeUtil): LogInterview = {
     LogInterview(
       decisionResult.version,
       "",
@@ -41,42 +54,40 @@ object LogInterview extends DateTimeJsonFormat with FeatureSwitching {
       decisionResult.result.toString,
       None,
       Setup(
-        decisionRequest.endUserRole.get.toString,
-        booleanToYesNo(decisionRequest.hasContractStarted.get),
-        decisionRequest.calculateProvideServices.getOrElse("")
+        decisionRequest.endUserRole,
+        decisionRequest.hasContractStarted,
+        decisionRequest.calculateProvideServices
       ),
-      Exit(booleanToYesNo(decisionRequest.officeHolder.get)),
-      Some(PersonalService(
-        decisionRequest.workerSentActualSubstitute.fold(None: Option[String]){sub => Some(sub.toString)},
-        decisionRequest.workerPayActualSubstitute.fold(None: Option[String]){pay => Some(pay.toString)},
-        decisionRequest.possibleSubstituteRejection.fold(None: Option[String]){reject => Some(reject.toString)},
-        decisionRequest.possibleSubstituteWorkerPay.fold(None: Option[String]){possible => Some(possible.toString)},
-        decisionRequest.wouldWorkerPayHelper.fold(None: Option[String]){helper => Some(helper.toString)}
-      )),
-      Some(Control(decisionRequest.engagerMovingWorker.fold(None: Option[String]){move => Some(move.toString)},
-        decisionRequest.workerDecidingHowWorkIsDone.fold(None: Option[String]){decide => Some(decide.toString)},
-        decisionRequest.whenWorkHasToBeDone.fold(None: Option[String]){done => Some(done.toString)},
-        decisionRequest.workerDecideWhere.fold(None: Option[String]){where => Some(where.toString)}
-      )),
-      Some(FinancialRisk(
-        decisionRequest.workerProvidedMaterials.fold(None: Option[String]){material => Some(booleanToYesNo(material))},
-        decisionRequest.workerProvidedEquipment.fold(None: Option[String]){equip => Some(booleanToYesNo(equip))},
-        decisionRequest.workerUsedVehicle.fold(None: Option[String]){vehicle => Some(booleanToYesNo(vehicle))},
-        decisionRequest.workerHadOtherExpenses.fold(None: Option[String]){expense => Some(booleanToYesNo(expense))},
-        decisionRequest.expensesAreNotRelevantForRole.fold(None: Option[String]){relevant => Some(booleanToYesNo(relevant))},
-        decisionRequest.workerMainIncome.fold(None: Option[String]){income => Some(income.toString)},
-        decisionRequest.paidForSubstandardWork.fold(None: Option[String]){paid => Some(paid.toString)}
-      )),
-      Some(PartAndParcel(
-        decisionRequest.workerReceivesBenefits.fold(None: Option[String]){benefit => Some(booleanToYesNo(benefit))},
-        decisionRequest.workerAsLineManager.fold(None: Option[String]){manager => Some(booleanToYesNo(manager))},
-        decisionRequest.contactWithEngagerCustomer.fold(None: Option[String]){customer => Some(booleanToYesNo(customer))},
-        decisionRequest.workerRepresentsEngagerBusiness.fold(None: Option[String]){business => Some(business.toString)}
-      )),
-      new DateTime(DateTimeZone.UTC)
+      Exit(decisionRequest.officeHolder),
+      PersonalService(
+        decisionRequest.workerSentActualSubstitute,
+        decisionRequest.workerPayActualSubstitute,
+        decisionRequest.possibleSubstituteRejection,
+        decisionRequest.possibleSubstituteWorkerPay,
+        decisionRequest.wouldWorkerPayHelper
+      ),
+      Control(
+        decisionRequest.engagerMovingWorker,
+        decisionRequest.workerDecidingHowWorkIsDone,
+        decisionRequest.whenWorkHasToBeDone,
+        decisionRequest.workerDecideWhere
+      ),
+      FinancialRisk(
+        decisionRequest.workerProvidedMaterials,
+        decisionRequest.workerProvidedEquipment,
+        decisionRequest.workerUsedVehicle,
+        decisionRequest.workerHadOtherExpenses,
+        decisionRequest.expensesAreNotRelevantForRole,
+        decisionRequest.workerMainIncome,
+        decisionRequest.paidForSubstandardWork
+      ),
+      PartAndParcel(
+        decisionRequest.workerReceivesBenefits,
+        decisionRequest.workerAsLineManager,
+        decisionRequest.contactWithEngagerCustomer,
+        decisionRequest.workerRepresentsEngagerBusiness
+      ),
+      dateTimeUtil.utc
     )
   }
-
-  private def booleanToYesNo(value: Boolean): String =
-    if (value) "Yes" else "No"
 }

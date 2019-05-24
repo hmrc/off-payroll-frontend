@@ -967,6 +967,12 @@ agencyAdvisory.p2 = However, if you are the fee-payer you may still be accountab
 agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can continue through the tool as if you were the worker.
 
 ##### TODO NEED WELSH FOR ####
+hirerAdvisory.title = You don’t need to answer any more questions
+hirerAdvisory.heading = You don’t need to answer any more questions
+hirerAdvisory.p1 = Until April 2020, workers are responsible for determining if roles like this should be in or out of IR35
+hirerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
+
+##### TODO NEED WELSH FOR ####
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
@@ -1004,3 +1010,24 @@ workerAdvisory.heading = You don’t need to answer any more questions
 workerAdvisory.p1 = The organisation offering the work is responsible for determining if it should be in or out of IR35
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
 
+hirer.businessSize.title = Does your organisation have more than:
+hirer.businessSize.heading = Does your organisation have more than:
+worker.businessSize.title = Does this client have more than:
+worker.businessSize.heading = Does this client have more than:
+businessSize.subheading = Section 1: Who, what, when
+businessSize.hint = Select any options that apply
+businessSize.turnover = £10.2 million annual turnover?
+businessSize.balanceSheet = £5.1 million on their balance sheet?
+businessSize.employees = 50 employees?
+businessSize.noneOfAbove = None of the above
+businessSize.checkYourAnswersLabel = Does this client have more than:
+businessSize.error.required = Select an option
+businessSize.error.invalid = Select a valid option
+
+##### TODO NEED WELSH FOR ####
+toolNotNeeded.client.ir35.title = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.heading = You don’t need to answer any more questions
+toolNotNeeded.client.ir35.text = Workers are responsible for determining if roles like this should be in or out of IR35
+toolNotNeeded.client.paye.title = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be taxed at source (PAYE)
+toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include the income from this work in their self-assessment return

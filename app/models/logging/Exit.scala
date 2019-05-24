@@ -18,8 +18,8 @@ package models.logging
 
 import play.api.libs.json.Json
 
-case class Exit(officeHolder: String)
+case class Exit(officeHolder: Option[Boolean])
 
-object Exit {
+object Exit extends WritesBooleanYesNo {
   implicit val exitFormat = Json.format[Exit]
 }

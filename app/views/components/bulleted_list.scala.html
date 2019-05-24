@@ -16,7 +16,7 @@
 
 @(messageKeys: Seq[String])(implicit messages: Messages)
 
-<ul class="list-bullet">
+<ul class="list-bullet print-bullet">
     @for(bullet <- messageKeys) {
         <li>@messages(bullet)</li>
     }

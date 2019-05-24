@@ -39,12 +39,8 @@ object ViewUtils extends FeatureSwitching {
   def tailorMsg(key: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
     val userType = request.session.getModel[UserType](SessionKeys.userType)
 
-    println(userType)
-    println(isEnabled(OptimisedFlow))
-
     (isEnabled(OptimisedFlow), isEnabled(TailoredContent), userType) match {
-      case (true, _, Some(Agency)) => {println(23123)
-        s"${Worker.toString}.$key"}
+      case (true, _, Some(Agency)) | (true, _, None) => s"${Worker.toString}.$key"
       case (true, _, Some(user)) => s"${user.toString}.$key"
       case (_, false, _) | (_, true, Some(Agency)) | (_, true, None) => key
       case (_, true, Some(user)) => s"${user.toString}.$key"

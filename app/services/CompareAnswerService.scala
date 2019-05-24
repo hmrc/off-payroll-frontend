@@ -63,6 +63,7 @@ object CompareAnswerService {
     "aboutYou" -> AboutYouPage,
     "whichDescribesYou" -> WhichDescribesYouPage,
     "contractStarted" -> ContractStartedPage,
+    "businessSize" -> BusinessSizePage,
     "workerType" -> WorkerTypePage,
     "workerUsingIntermediary" -> WorkerUsingIntermediaryPage,
     "isWorkForPrivateSector" -> IsWorkForPrivateSectorPage,

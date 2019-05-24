@@ -28,7 +28,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.libs.json._
 import utils.JsonObjectSugar
 
@@ -59,16 +59,16 @@ case class Interview(correlationId: String,
                      contactWithEngagerCustomer: Option[Boolean] = None,
                      workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig){
 
-  def calculateProvideServices: Option[String] = {
+  def calculateProvideServices: Option[WorkerType] = {
 
     (isUsingIntermediary, provideServices) match {
 
       case (Some(usingIntermediary), _) => if(usingIntermediary){
-        Some(LimitedCompany.toString)
+        Some(LimitedCompany)
       } else {
-        Some(SoleTrader.toString)
+        Some(SoleTrader)
       }
-      case (None, Some(providedServices)) => Some(providedServices.toString)
+      case (None, Some(providedServices)) => Some(providedServices)
       case _ => None
     }
   }
@@ -94,20 +94,13 @@ object Interview extends JsonObjectSugar {
     case _ => JsNull
   }
 
-  private val interviewWrites: Writes[Option[UserType]] = Writes {
-    case Some(Worker) => JsString(AboutYouAnswer.Worker.toString)
-    case Some(Hirer) => JsString(AboutYouAnswer.Client.toString)
-    case Some(Agency) => JsString(AboutYouAnswer.Agency.toString)
-    case _ => JsNull
-  }
-
   implicit def writes: Writes[Interview] = Writes { model =>
     Json.obj(
       "version" -> model.appConfig.decisionVersion,
       "correlationID" -> model.correlationId,
       "interview" -> Json.obj(
         "setup" -> jsonObjNoNulls(
-          "endUserRole" -> Json.toJson(model.endUserRole)(interviewWrites),
+          "endUserRole" -> model.endUserRole,
           "hasContractStarted" -> model.hasContractStarted,
           "provideServices" -> model.calculateProvideServices
         ),
@@ -152,6 +145,7 @@ object Interview extends JsonObjectSugar {
       endUserRole = request.userType,
       hasContractStarted = userAnswers.get(ContractStartedPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
       provideServices = userAnswers.get(WorkerTypePage).fold(None: Option[WorkerType]){ answer => Some(answer.answer)},
+      isUsingIntermediary = userAnswers.get(WorkerUsingIntermediaryPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
       officeHolder = userAnswers.get(OfficeHolderPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
       workerSentActualSubstitute = userAnswers.get(ArrangedSubstitutePage).fold(None: Option[ArrangedSubstitute]){ answer => Some(answer.answer)},
       workerPayActualSubstitute = userAnswers.get(DidPaySubstitutePage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},

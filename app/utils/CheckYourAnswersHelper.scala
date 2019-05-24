@@ -33,12 +33,16 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
 import play.api.i18n.Messages
 import play.api.mvc.Request
 import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
+
+  def businessSize: Option[AnswerRow] = userAnswers.get(BusinessSizePage) map {
+    x => AnswerRow("businessSize.checkYourAnswersLabel", s"businessSize.$x", true, setupRoutes.BusinessSizeController.onPageLoad(CheckMode).url)
+  }
 
   def customisePDF: Option[AnswerRow] = userAnswers.get(CustomisePDFPage) map {
     x => AnswerRow(
