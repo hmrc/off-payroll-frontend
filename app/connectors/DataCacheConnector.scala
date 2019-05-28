@@ -17,6 +17,8 @@
 package connectors
 
 import javax.inject.Inject
+
+import models.DecisionResponse
 import play.api.libs.json.Format
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -30,8 +32,8 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
     sessionRepository.upsert(cacheMap).map{_ => cacheMap}
   }
 
-  def addDecision[A](id: String, decision: String): Future[Boolean] = {
-    sessionRepository.addDecision(id,decision)
+  def addDecision[A](id: String, decisionResponse: DecisionResponse): Future[Option[DecisionResponse]] = {
+    sessionRepository.addDecision(id,decisionResponse)
   }
 
   def clearDecision[A](id: String): Future[Boolean] = {
@@ -39,7 +41,7 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
   }
 
   def fetch(cacheId: String): Future[Option[CacheMap]] =
-    sessionRepository.get(cacheId)
+    sessionRepository.getCacheMap(cacheId)
 
   def getEntry[A](cacheId: String, key: String)(implicit fmt: Format[A]): Future[Option[A]] = {
     fetch(cacheId).map { optionalCacheMap =>
@@ -51,7 +53,7 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
 trait DataCacheConnector {
   def save[A](cacheMap: CacheMap): Future[CacheMap]
 
-  def addDecision[A](id: String, decision: String): Future[Boolean]
+  def addDecision[A](id: String, decisionResponse: DecisionResponse): Future[Option[DecisionResponse]]
 
   def clearDecision[A](id: String): Future[Boolean]
 

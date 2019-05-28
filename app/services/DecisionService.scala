@@ -81,40 +81,40 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
     for {
-      decision <- decisionConnector.decide(interview)
-      _ <- saveDecision(decision,userAnswers)
-      _ <- logResult(decision,interview)
-      redirect <- redirectResult(interview,errorResult,continueResult)
+      decisionServiceResult <- decisionConnector.decide(interview)
+      firstDecision <- saveDecision(decisionServiceResult,userAnswers)
+      _ <- logResult(firstDecision,interview)
+      redirect <- redirectResult(interview,errorResult,continueResult,firstDecision)
     } yield redirect
   }
 
-  private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)
+  private def logResult(decision: Option[DecisionResponse],interview: Interview)
                        (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
     decision match {
-      case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,decision.right.get)
+      case Some(response) if response.result != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,response)
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT,"No log needed")))
     }
   }
 
-  private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call)
-                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
+  private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call,decisionResponse: Option[DecisionResponse])
+                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= Future {
 
-    decisionConnector.decide(interview).map {
-      case Right(result) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result,errorResult)
-      //early exit
-      case Right(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result,errorResult,continueResult)
+    decisionResponse match {
+      case Some(result) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result,errorResult)
+      //Some exit
+      case Some(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result,errorResult,continueResult)
       //only show results if last question was answered
-      case Right(_) => Redirect(continueResult)
-      case Left(error) => redirectErrorPage(error.status, errorResult)
-      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
+      case Some(_) => Redirect(continueResult)
+      case None => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
     }
   }
 
   private def saveDecision(decisionResponse: Either[ErrorResponse,DecisionResponse], userAnswers: UserAnswers) = {
     decisionResponse match {
       case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED =>
-        dataCacheConnector.addDecision(userAnswers.cacheMap.id,decisionResponse.right.get.result.toString)
-      case _ => Future.successful(true)
+        dataCacheConnector.addDecision(userAnswers.cacheMap.id,decisionResponse.right.get)
+      case Right(notMatched) => Future.successful(Some(notMatched))
+      case _ => Future.successful(None)
     }
   }
 
