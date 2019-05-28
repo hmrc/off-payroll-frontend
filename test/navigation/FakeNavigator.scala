@@ -17,25 +17,10 @@
 package navigation
 
 import config.FrontendAppConfig
-import play.api.mvc.Call
-import pages._
 import models.{Mode, NormalMode, UserAnswers}
-import org.scalamock.scalatest.MockFactory
+import pages._
+import play.api.mvc.Call
 
 class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
-}
-
-
-
-trait MockNavigator extends MockFactory {
-
-  lazy val mockNavigator = mock[Navigator]
-
-  def mockNextPage(call: Call): Unit = {
-    mockNavigator.nextPage(_: Page, _: Mode)
-      .expects(*)
-      .returns(call)
-  }
-
 }

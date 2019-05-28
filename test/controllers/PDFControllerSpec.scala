@@ -49,7 +49,7 @@ class PDFControllerSpec extends ControllerSpecBase {
   val customisePdfView = injector.instanceOf[CustomisePDFView]
   val pdf = mock[PDFService]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new PDFController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -66,7 +66,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     override def isEnabled(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): Boolean = true
   }
 
-  def controllerFeature(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new PDFController(
+  def controllerFeature(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
     new FakeDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -96,7 +96,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer")),0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -107,7 +107,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
       val validData = Map(ResultPage.toString -> Json.toJson(Answers(Timestamp.timestamp,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
@@ -136,7 +136,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
       val validData = Map(ResultPage.toString -> Json.toJson(Answers(Timestamp.timestamp,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controllerFeature(getRelevantData).onSubmit(NormalMode)(postRequest)
 
@@ -149,7 +149,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       val response: PDFGeneratorHttpParser.Response = Left(BadRequest)
 
       val validData = Map(ResultPage.toString -> Json.toJson(Answers(Timestamp.timestamp,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       when(pdf.generatePdf(any())(any(),any())).thenReturn(Future.successful(response))
 
@@ -164,7 +164,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       val boundForm = form.bind(Map("completedBy" -> "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
 
       val validData = Map(ResultPage.toString -> JsString(Timestamp.timestamp))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
 
@@ -173,7 +173,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -181,7 +181,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", testAnswer))
-      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

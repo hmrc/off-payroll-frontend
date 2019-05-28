@@ -25,7 +25,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new $className$Controller(
     appConfig = frontendAppConfig,
-    dataCacheConnector = new FakeDataCacheConnector,
+    dataCacheConnector = mockMongoCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,

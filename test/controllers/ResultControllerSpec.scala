@@ -71,9 +71,9 @@ class ResultControllerSpec extends ControllerSpecBase {
 
   val dataConnector = mock[DataCacheConnector]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new ResultController(
+  object TestResultController extends ResultController(
     FakeIdentifierAction,
-    dataRetrievalAction,
+    FakeEmptyCacheMapDataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     injector.instanceOf[DecisionService],
@@ -91,7 +91,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
       when(dataConnector.save(any())).thenReturn(Future.successful(CacheMap("id", Map())))
 
-      val result = controller().onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
+      val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -101,7 +101,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(postRequest)
+      val result = TestResultController.onSubmit(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -111,7 +111,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
       val postRequest = fakeRequest
 
-      val result = controller().onSubmit(postRequest)
+      val result = TestResultController.onSubmit(postRequest)
 
       status(result) mustBe BAD_REQUEST
     }

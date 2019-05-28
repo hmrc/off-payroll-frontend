@@ -17,6 +17,7 @@
 package controllers.sections.financialRisk
 
 import connectors.FakeDataCacheConnector
+import connectors.mocks.MockMongoCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.PutRightAtOwnCostFormProvider
@@ -39,7 +40,7 @@ import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 
 import scala.concurrent.Future
 
-class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
+class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -48,8 +49,8 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new PutRightAtOwnCostController(
-    new FakeDataCacheConnector,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PutRightAtOwnCostController(
+    mockMongoCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -63,6 +64,8 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(PutRightAtOwnCostPage.toString -> Json.toJson(Answers(PutRightAtOwnCost.values.head,0)))
+
   "PutRightAtOwnCost Controller" must {
 
     "return OK and the correct view for a GET" in {
@@ -73,8 +76,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(PutRightAtOwnCostPage.toString -> Json.toJson(Answers(PutRightAtOwnCost.values.head,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,6 +88,8 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
       implicit val hc = new HeaderCarrier()
 
       val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("putRightAtOwnCost.title")))
@@ -110,7 +114,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -118,7 +122,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
-      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

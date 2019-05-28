@@ -25,7 +25,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockDataRetrievalAction extends SpecBase with DataRetrievalAction with ControllerSpecBase {
+trait FakeDataRetrievalAction extends SpecBase with DataRetrievalAction with ControllerSpecBase {
 
   val cacheMapToReturn: Option[CacheMap]
 
@@ -37,14 +37,14 @@ trait MockDataRetrievalAction extends SpecBase with DataRetrievalAction with Con
   }
 }
 
-object MockEmptyCacheMapDataRetrievalAction extends MockDataRetrievalAction {
+object FakeEmptyCacheMapDataRetrievalAction extends FakeDataRetrievalAction {
   override val cacheMapToReturn: Option[CacheMap] = Some(emptyCacheMap)
 }
 
-object MockDontGetDataDataRetrievalAction extends MockDataRetrievalAction {
+object FakeDontGetDataDataRetrievalAction extends FakeDataRetrievalAction {
   override val cacheMapToReturn: Option[CacheMap] = None
 }
 
-case class FakeDataRetrievalAction(cacheMap: Option[CacheMap]) extends MockDataRetrievalAction {
+case class FakeGeneralDataRetrievalAction(cacheMap: Option[CacheMap]) extends FakeDataRetrievalAction {
   override val cacheMapToReturn: Option[CacheMap] = cacheMap
 }

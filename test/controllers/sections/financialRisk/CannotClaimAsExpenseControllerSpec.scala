@@ -17,6 +17,7 @@
 package controllers.sections.financialRisk
 
 import connectors.FakeDataCacheConnector
+import connectors.mocks.MockMongoCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.CannotClaimAsExpenseFormProvider
@@ -39,7 +40,7 @@ import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
 import scala.concurrent.Future
 
-class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
+class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -48,8 +49,8 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[CannotClaimAsExpenseView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new CannotClaimAsExpenseController(
-    dataCacheConnector = new FakeDataCacheConnector,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new CannotClaimAsExpenseController(
+    dataCacheConnector = mockMongoCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -63,18 +64,19 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(CannotClaimAsExpensePage.toString -> Json.toJson(Answers(Seq(CannotClaimAsExpense.values.head),0)))
+
   "CannotClaimAsExpense Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(CannotClaimAsExpensePage.toString -> Json.toJson(Answers(Seq(CannotClaimAsExpense.values.head),0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,6 +88,8 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
       implicit val hc = new HeaderCarrier()
 
       val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("cannotClaimAsExpense.title")))
@@ -111,7 +115,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -119,7 +123,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("cannotClaimAsExpense[0]", CannotClaimAsExpense.options.head.value))
-      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

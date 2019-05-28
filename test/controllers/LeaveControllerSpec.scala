@@ -25,21 +25,21 @@ class LeaveControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[LeaveView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new LeaveController(
+
+  object TestLeaveController extends LeaveController(
     FakeIdentifierAction,
-    dataRetrievalAction,
+    FakeEmptyCacheMapDataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
-    controllerComponents = messagesControllerComponents,
+    messagesControllerComponents,
     view = view,
     frontendAppConfig
   )
-
   def viewAsString() = view()(fakeRequest, messages, frontendAppConfig).toString
 
   "LeaveController" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val result = TestLeaveController.onPageLoad(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }

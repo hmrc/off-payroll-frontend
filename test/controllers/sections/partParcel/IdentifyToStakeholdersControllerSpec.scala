@@ -17,6 +17,7 @@
 package controllers.sections.partParcel
 
 import connectors.FakeDataCacheConnector
+import connectors.mocks.MockMongoCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
@@ -39,7 +40,7 @@ import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
 
 import scala.concurrent.Future
 
-class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
+class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -48,8 +49,8 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
-    new FakeDataCacheConnector,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
+    mockMongoCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -63,6 +64,8 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values.head,0)))
+
   "IdentifyToStakeholders Controller" must {
 
     "return OK and the correct view for a GET" in {
@@ -73,8 +76,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values.head,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -87,6 +89,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
       val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0, WorkForEndClient)
 
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
         Matchers.eq(ErrorTemplate("identifyToStakeholders.title")))
       (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
@@ -110,7 +113,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -118,7 +121,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
-      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

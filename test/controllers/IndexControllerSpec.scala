@@ -17,13 +17,12 @@
 package controllers
 
 import connectors.mocks.MockMongoCacheConnector
-import controllers.actions.{FakeIdentifierAction, MockDontGetDataDataRetrievalAction, MockEmptyCacheMapDataRetrievalAction}
-import navigation.{FakeNavigator, MockNavigator}
+import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeEmptyCacheMapDataRetrievalAction, FakeIdentifierAction}
+import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
 
-class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnector with MockNavigator {
+class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
 
   val onwardRoute = Call("GET", "/foo")
 
@@ -35,19 +34,10 @@ class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnecto
         appConfig = frontendAppConfig,
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
-        getData = MockEmptyCacheMapDataRetrievalAction,
+        getData = FakeEmptyCacheMapDataRetrievalAction,
         cache = mockMongoCacheConnector,
         controllerComponents = messagesControllerComponents
       )
-
-//      def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new IndexController(
-//        appConfig = frontendAppConfig,
-//        navigator = new FakeNavigator(onwardRoute),
-//        identify = FakeIdentifierAction,
-//        getData = dataRetrievalAction,
-//        cache = mockMongoCacheConnector,
-//        controllerComponents = messagesControllerComponents
-//      )
 
       lazy val result = TestIndexController.onPageLoad()(fakeRequest)
 
@@ -67,19 +57,10 @@ class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnecto
         appConfig = frontendAppConfig,
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
-        getData = MockDontGetDataDataRetrievalAction,
+        getData = FakeDontGetDataDataRetrievalAction,
         cache = mockMongoCacheConnector,
         controllerComponents = messagesControllerComponents
       )
-
-//      def controller(dataRetrievalAction: DataRetrievalAction = MockDontGetDataDataRetrievalAction) = new IndexController(
-//        appConfig = frontendAppConfig,
-//        navigator = new FakeNavigator(onwardRoute),
-//        identify = FakeIdentifierAction,
-//        getData = dataRetrievalAction,
-//        cache = mockMongoCacheConnector,
-//        controllerComponents = messagesControllerComponents
-//      )
 
       lazy val result = TestIndexController.onPageLoad()(fakeRequest)
 

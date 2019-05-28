@@ -17,7 +17,7 @@
 package controllers.sections.setup
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.FakeDataCacheConnector
+import connectors.mocks.MockMongoCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ContractStartedFormProvider
@@ -31,7 +31,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.setup.ContractStartedView
 
-class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitching {
+class ContractStartedControllerSpec extends ControllerSpecBase with MockMongoCacheConnector with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -41,9 +41,9 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
   val view = injector.instanceOf[ContractStartedView]
   val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = new FakeDataCacheConnector,
+    dataCacheConnector = mockMongoCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -57,11 +57,13 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def viewAsStringOptimised(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+
   "ContractStarted Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
@@ -75,8 +77,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -96,6 +97,8 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
@@ -113,7 +116,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -121,7 +124,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

@@ -26,7 +26,7 @@ class ToolNotNeededControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[ToolNotNeededView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new ToolNotNeededController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ToolNotNeededController(
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
@@ -52,13 +52,13 @@ class ToolNotNeededControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
