@@ -1,9 +1,9 @@
 common.standardErrorMessageContent =Rhowch gynnig arall arni mewn ychydig o eiliadau
 common.standardErrorMessageHeader =Mae’n ddrwg gennym, rydym yn wynebu problemau technegol
 common.standardPageNotFoundErrorMessageContent1=Gwnewch yn siŵr fod y cyfeiriad yn gywir
-common.standardPageNotFoundErrorMessageContent2=Os gwnaethoch deipio''r cyfeiriad gwe
-common.standardPageNotFoundErrorMessageContent3=Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi''i deipio''n gywir.
-common.standardPageNotFoundErrorMessageHeader=Heb ddod o hyd i''r dudalen
+common.standardPageNotFoundErrorMessageContent2=Os gwnaethoch deipio’r cyfeiriad gwe
+common.standardPageNotFoundErrorMessageContent3=Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi’i deipio’n gywir.
+common.standardPageNotFoundErrorMessageHeader=Heb ddod o hyd i’r dudalen
 
 ##### TODO NEED WELSH FOR ####
 date.day = Day
@@ -119,6 +119,16 @@ hirer.contractStarted.title =A yw’r gweithiwr wedi dechrau’r swydd benodol h
 hirer.contractStarted.heading =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
 hirer.contractStarted.subheading = Ynglŷn â’r bobl berthnasol
 hirer.contractStarted.checkYourAnswersLabel =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
+
+worker.optimised.contractStarted.title = Have you already started working for this client?
+worker.optimised.contractStarted.heading = Have you already started working for this client?
+worker.optimised.contractStarted.subheading = Section 1: Who, what, when
+worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
+
+hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.subheading = Section 1: Who, what, when
+hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
 #########################
 
 
@@ -854,10 +864,10 @@ result.control.title =Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthna
 result.control.heading =Nid yw’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
 result.control.whyResult.p1 =Mae’ch atebion yn awgrymu nad oes gan y cleient terfynol hawl i reoli’r gwaith er mwyn i’r swydd hon gael ei hystyried i fod yn un gyflogedig at ddibenion treth.
 result.control.whyResult.exclamation =Petai CThEM yn ymchwilio i’r swydd hon, byddai’n rhaid i’r cleient terfynol gytuno a dangos na allai fynnu’i hawl i reoli’r gweithiwr, neu os na wnaeth hynny.
-result.control.shouldNowDo.p1.beforeLink =Os mai chi yw'r gweithiwr, dylai'ch busnes gael swm gros a dilyn
+result.control.shouldNowDo.p1.beforeLink =Os mai chi yw’r gweithiwr, dylai’ch busnes gael swm gros a dilyn
 result.control.shouldNowDo.p1.link =yr arweiniad hwn
 result.control.shouldNowDo.p1.afterLink =ynghych eich treth.
-result.control.shouldNowDo.p2 =Os mai chi sy'n talu'r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
+result.control.shouldNowDo.p2 =Os mai chi sy’n talu’r ffi, gallwch dalu swm gros i fusnes y gweithiwr heb ddidynnu treth nac Yswiriant Gwladol.
 result.control.aboutResult.p1.beforeLink =Ni fydd y ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon pan fo busnes y gweithiwr (y cyfryngwr) yn bodloni
 result.control.aboutResult.p1.link =amodau penodol y rhwymedigaeth
 result.control.aboutResult.p1.afterLink =.
@@ -969,6 +979,39 @@ leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
 ##### TODO NEED WELSH FOR ####
+workerUsingIntermediary.error.required = You need to select an answer
+workerUsingIntermediary.error.invalid = You need to select an answer
+worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.subheading = Section 1: Who, what, when
+worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
+
+##### TODO NEED WELSH FOR ####
+hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.subheading = Section 1: Who, what, when
+hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
+
+##### TODO NEED WELSH FOR ####
+isWorkForPrivateSector.error.required = You need to select an answer
+isWorkForPrivateSector.error.invalid = You need to select an answer
+worker.isWorkForPrivateSector.title = Is the work for a private sector client?
+worker.isWorkForPrivateSector.heading = Is the work for a private sector client?
+worker.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+worker.isWorkForPrivateSector.checkYourAnswersLabel = Is the work for a private sector client?
+
+##### TODO NEED WELSH FOR ####
+hirer.isWorkForPrivateSector.title = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.heading = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
+
+##### TODO NEED WELSH FOR ####
+workerAdvisory.title = You don’t need to answer any more questions
+workerAdvisory.heading = You don’t need to answer any more questions
+workerAdvisory.p1 = The organisation offering the work is responsible for determining if it should be in or out of IR35
+workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
+
 hirer.businessSize.title = Does your organisation have more than:
 hirer.businessSize.heading = Does your organisation have more than:
 worker.businessSize.title = Does this client have more than:

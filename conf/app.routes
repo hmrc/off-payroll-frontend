@@ -35,6 +35,11 @@ POST       /worker-trading-as                           controllers.sections.set
 GET        /worker-trading-as/edit                      controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = CheckMode)
 POST       /worker-trading-as/edit                      controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = CheckMode)
 
+GET        /is-private-sector                           controllers.sections.setup.IsWorkForPrivateSectorController.onPageLoad(mode: Mode = NormalMode)
+POST       /is-private-sector                           controllers.sections.setup.IsWorkForPrivateSectorController.onSubmit(mode: Mode = NormalMode)
+GET        /is-private-sector/edit                      controllers.sections.setup.IsWorkForPrivateSectorController.onPageLoad(mode: Mode = CheckMode)
+POST       /is-private-sector/edit                      controllers.sections.setup.IsWorkForPrivateSectorController.onSubmit(mode: Mode = CheckMode)
+
 GET        /office-holder-duties                        controllers.sections.exit.OfficeHolderController.onPageLoad(mode: Mode = NormalMode)
 POST       /office-holder-duties                        controllers.sections.exit.OfficeHolderController.onSubmit(mode: Mode = NormalMode)
 GET        /office-holder-duties/edit                   controllers.sections.exit.OfficeHolderController.onPageLoad(mode: Mode = CheckMode)
@@ -130,6 +135,9 @@ POST       /add-details-for-reference/edit              controllers.PDFControlle
 
 GET        /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onSubmit()
+
+GET        /worker-advisory                             controllers.sections.setup.WorkerAdvisoryController.onPageLoad()
+POST       /worker-advisory                             controllers.sections.setup.WorkerAdvisoryController.onSubmit()
 
 GET        /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onPageLoad()
 POST       /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onSubmit()

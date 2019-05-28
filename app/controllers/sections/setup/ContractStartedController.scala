@@ -17,6 +17,7 @@
 package controllers.sections.setup
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
@@ -41,12 +42,18 @@ class ContractStartedController @Inject()(dataCacheConnector: DataCacheConnector
                                           formProvider: ContractStartedFormProvider,
                                           controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                          optimisedView: views.html.sections.setup.ContractStartedView,
+                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+
+    if(isEnabled(OptimisedFlow)) {
+      Ok(optimisedView(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    } else {
+      Ok(view(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    }
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
