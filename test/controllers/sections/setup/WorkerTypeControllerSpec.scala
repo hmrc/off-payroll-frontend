@@ -124,7 +124,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("chaz")
+        redirectLocation(result) mustBe Some("/foo")
       }
 
       "return a Bad Request and errors when invalid data is submitted" in {
