@@ -18,6 +18,7 @@ package services
 
 import base.SpecBase
 import config.SessionKeys
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.{DataCacheConnector, DecisionConnector}
 import forms.mappings.Mappings
 import forms.{DeclarationFormProvider, InteractWithStakeholdersFormProvider}
@@ -34,6 +35,7 @@ import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ResultEnum._
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WeightedAnswerEnum.{HIGH, LOW}
+import models.WhichDescribesYouAnswer.{ClientPAYE, WorkerPAYE}
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models._
 import models.requests.DataRequest
@@ -46,7 +48,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup._
 import play.api.data.Form
 import play.api.data.Forms.of
 import play.api.mvc.{Call, Result}
@@ -61,7 +63,7 @@ import views.html.results._
 
 import scala.concurrent.Future
 
-class DecisionServiceSpec extends SpecBase {
+class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
   implicit val headerCarrier = new HeaderCarrier()
   implicit val request = FakeRequest("", "")
@@ -411,39 +413,6 @@ class DecisionServiceSpec extends SpecBase {
 
     }
 
-    "return a 500 if by some magical means, the decision string vanishes" in {
-
-      val userAnswers: UserAnswers = UserAnswers("id")
-        .set(AboutYouPage,0, Worker)
-        .set(WorkerTypePage,2, LimitedCompany)
-        .set(OfficeHolderPage,3, false)
-        .set(ArrangedSubstitutePage,4, YesClientAgreed)
-        .set(DidPaySubstitutePage,5, false)
-        .set(WouldWorkerPaySubstitutePage,6, true)
-        .set(RejectSubstitutePage,7, false)
-        .set(NeededToPayHelperPage,8, false)
-        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
-        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
-        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
-        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
-        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-        .set(HowWorkerIsPaidPage,14, Commission)
-        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
-        .set(BenefitsPage,16, false)
-        .set(LineManagerDutiesPage,17, false)
-        .set(InteractWithStakeholdersPage,18, false)
-        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
-
-      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ""), "", userAnswers)
-
-      val answers: Seq[AnswerSection] = Section.answers
-
-      val result = service.determineResultView(answers, None, false, None)
-
-      result.toString() mustBe "Error page"
-
-    }
-
     "determine the view when inside and route to employed view" in {
 
       val userAnswers: UserAnswers = UserAnswers("id")
@@ -487,6 +456,46 @@ class DecisionServiceSpec extends SpecBase {
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
+        .set(OfficeHolderPage,3, true)
+        .set(ArrangedSubstitutePage,4, YesClientAgreed)
+        .set(DidPaySubstitutePage,5, false)
+        .set(WouldWorkerPaySubstitutePage,6, true)
+        .set(RejectSubstitutePage,7, false)
+        .set(NeededToPayHelperPage,8, false)
+        .set(MoveWorkerPage,9, CanMoveWorkerWithPermission)
+        .set(HowWorkIsDonePage,10, WorkerFollowStrictEmployeeProcedures)
+        .set(ScheduleOfWorkingHoursPage,11, WorkerAgreeSchedule)
+        .set(ChooseWhereWorkPage,12, WorkerAgreeWithOthers)
+        .set(CannotClaimAsExpensePage,13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
+        .set(HowWorkerIsPaidPage,14, Commission)
+        .set(PutRightAtOwnCostPage,15, CannotBeCorrected)
+        .set(BenefitsPage,16, false)
+        .set(LineManagerDutiesPage,17, false)
+        .set(InteractWithStakeholdersPage,18, false)
+        .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
+
+      implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.INSIDE_IR35.toString), "", userAnswers)
+
+      val answers: Seq[AnswerSection] = Section.answers
+
+      val result = service.determineResultView(answers, None, false, None)
+
+      result.toString() must include("The intermediaries legislation applies to this engagement")
+      result.toString() must include(messagesApi("result.officeHolderInsideIR35.whyResult.p1"))
+      result.toString() must include(messagesApi("result.substitutesAndHelpers.summary"))
+      result.toString() must include(messagesApi("result.workArrangements.summary"))
+      result.toString() must include(messagesApi("result.financialRisk.summary"))
+      result.toString() must include(messagesApi("result.partParcel.summary"))
+    }
+
+    "determine the view when inside and route to office holder inside view when using the optimised view" in {
+
+      enable(OptimisedFlow)
+
+      val userAnswers: UserAnswers = UserAnswers("id")
+        .set(WhichDescribesYouPage,0, ClientPAYE)
+        .set(IsWorkForPrivateSectorPage,1, false)
+        .set(WorkerUsingIntermediaryPage,2, true)
         .set(OfficeHolderPage,3, true)
         .set(ArrangedSubstitutePage,4, YesClientAgreed)
         .set(DidPaySubstitutePage,5, false)
@@ -774,18 +783,18 @@ class DecisionServiceSpec extends SpecBase {
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
     }
-    "return a continue decision based on the interview when control is empty (and save decision in db)" in {
+    "return a continue decision based on the interview when control is empty" in {
 
       implicit val dataRequest = DataRequest(request, "", userAnswers)
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(riskResponse)))
       when(connector.log(Interview(userAnswers),riskResponse)).thenReturn(Future.successful(Right(true)))
-      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(true))
+      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Right(response)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
+      redirectLocation(result) mustBe Some("/continue")
 
     }
     "return a continue decision based on the interview when risk is empty" in {
@@ -794,7 +803,7 @@ class DecisionServiceSpec extends SpecBase {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(controlResponse)))
       when(connector.log(Interview(userAnswers),controlResponse)).thenReturn(Future.successful(Right(true)))
-      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(true))
+      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Right(riskResponse)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -808,12 +817,12 @@ class DecisionServiceSpec extends SpecBase {
 
       when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
       when(connector.log(Interview(userAnswers),exitResponse)).thenReturn(Future.successful(Right(true)))
-      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(true))
+      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Right(response)))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
+      redirectLocation(result) mustBe Some("/continue")
     }
 
     "handle 400 errors" in {

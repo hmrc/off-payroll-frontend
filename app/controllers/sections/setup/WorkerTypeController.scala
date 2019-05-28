@@ -19,13 +19,17 @@ package controllers.sections.setup
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import controllers.actions._
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.{BaseController, ControllerHelper}
-import forms.WorkerTypeFormProvider
+import controllers.actions._
+import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
+import models.requests.DataRequest
 import models.{Mode, WorkerType}
-import pages.sections.setup.WorkerTypePage
+import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
+import play.twirl.api.Html
+import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
 import scala.concurrent.Future
@@ -33,23 +37,41 @@ import scala.concurrent.Future
 class WorkerTypeController @Inject()(identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
-                                     formProvider: WorkerTypeFormProvider,
+                                     workerTypeFormProvider: WorkerTypeFormProvider,
+                                     newFormProvider: WorkerUsingIntermediaryFormProvider,
                                      controllerComponents: MessagesControllerComponents,
-                                     view: WorkerTypeView,
+                                     workerTypeView: WorkerTypeView,
+                                     workerUsingIntermediaryView: WorkerUsingIntermediaryView,
                                      controllerHelper: ControllerHelper,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
 
-  val form: Form[WorkerType] = formProvider()
+  val workerTypeForm: Form[WorkerType] = workerTypeFormProvider()
+  val workerUsingIntermediaryForm: Form[Boolean] = newFormProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(WorkerTypePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+    if (isEnabled(OptimisedFlow)) submitWorkerUsingIntermediary(mode) else submitWorkerType(mode)
+  }
+
+  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]): Html = if (isEnabled(OptimisedFlow)) {
+    workerUsingIntermediaryView(request.userAnswers.get(WorkerUsingIntermediaryPage).fold(workerUsingIntermediaryForm)
+    (answerModel => workerUsingIntermediaryForm.fill(answerModel.answer)), mode)
+  } else {
+    workerTypeView(request.userAnswers.get(WorkerTypePage).fold(workerTypeForm)(answerModel => workerTypeForm.fill(answerModel.answer)), mode)
+  }
+
+  private[controllers] def submitWorkerType(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
+    workerTypeForm.bindFromRequest().fold(
+      formWithErrors => Future.successful(BadRequest(workerTypeView(formWithErrors, mode))),
       value => controllerHelper.redirect(mode,value,WorkerTypePage)
     )
-  }
+
+  private[controllers] def submitWorkerUsingIntermediary(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
+    workerUsingIntermediaryForm.bindFromRequest().fold(
+      formWithErrors => Future.successful(BadRequest(workerUsingIntermediaryView(formWithErrors, mode))),
+      value => controllerHelper.redirect(mode,value,WorkerUsingIntermediaryPage)
+    )
 }

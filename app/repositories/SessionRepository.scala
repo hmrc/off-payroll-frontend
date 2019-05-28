@@ -19,11 +19,12 @@ package repositories
 import config.FrontendAppConfig
 import javax.inject.{Inject, Named, Singleton}
 
-import models.DecisionResponse
+import models.{DecisionResponse, ErrorResponse}
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
+import play.mvc.Http
 import reactivemongo.bson.{BSONBoolean, BSONDocument, BSONObjectID}
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -86,22 +87,22 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     }
   }
 
-  def addDecision(id: String,decisionResponse: DecisionResponse): Future[Option[DecisionResponse]] = {
+  def addDecision(id: String,decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
     val selector = BSONDocument("id" -> id,"decisionResponse" -> BSONDocument("$exists" -> false))
     val modifier = BSONDocument("$set" -> BSONDocument("decisionResponse" -> Json.toJson(decisionResponse)))
 
     collection.findAndUpdate(selector,modifier).flatMap { res =>
       res.result[DatedCacheMap] match {
-        case Some(_) => Future.successful(Some(decisionResponse))
+        case Some(_) => Future.successful(Right(decisionResponse))
         case None => getEarlierDecision(id)
       }
     }
   }
 
   private def getEarlierDecision(id: String) = {
-    collection.find(BSONDocument("id" -> id),None).one[DatedCacheMap].map {
-      case Some(DatedCacheMap(_,_,_,Some(decision))) => Some(Json.parse(decision).as[DecisionResponse])
-      case _ => None
+    collection.find(BSONDocument("id" -> id),None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap].map {
+      case Some(DatedCacheMap(_,_,_,Some(decision))) => Right(Json.parse(decision).as[DecisionResponse])
+      case _ => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,"Empty Database"))
     }
   }
 

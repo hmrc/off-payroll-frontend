@@ -16,11 +16,11 @@
 
 package connectors
 
+import models.{DecisionResponse, ErrorResponse}
 import play.api.libs.json.Format
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
-
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class FakeDataCacheConnector extends DataCacheConnector {
@@ -31,7 +31,7 @@ class FakeDataCacheConnector extends DataCacheConnector {
 
   override def getEntry[A](cacheId: String, key: String)(implicit fmt: Format[A]): Future[Option[A]] = ???
 
-  override def addDecision[A](id: String, decision: String): Future[Boolean] = Future.successful(true)
+  override def addDecision[A](id: String, decision: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = ???
 
   override def clearDecision[A](id: String): Future[Boolean] = Future.successful(true)
 }

@@ -66,7 +66,7 @@ class MongoCacheConnectorSpec
 
         val mockSessionRepository = mock[SessionRepository]
 
-        when(mockSessionRepository.getCacheMap(any())) thenReturn Future.successful(None)
+        when(mockSessionRepository.get(any())) thenReturn Future.successful(None)
 
         val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
 
@@ -95,7 +95,7 @@ class MongoCacheConnectorSpec
         forAll(arbitrary[CacheMap]) {
           cacheMap =>
 
-            when(mockSessionRepository.getCacheMap(eqTo(cacheMap.id))) thenReturn Future.successful(Some(cacheMap))
+            when(mockSessionRepository.get(eqTo(cacheMap.id))) thenReturn Future.successful(Some(cacheMap))
 
             val result = mongoCacheConnector.fetch(cacheMap.id)
 
@@ -117,7 +117,7 @@ class MongoCacheConnectorSpec
 
         val mockSessionRepository = mock[SessionRepository]
 
-        when(mockSessionRepository.getCacheMap(any())) thenReturn Future.successful(None)
+        when(mockSessionRepository.get(any())) thenReturn Future.successful(None)
 
         val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
 
@@ -151,7 +151,7 @@ class MongoCacheConnectorSpec
         forAll(gen) {
           case (key, cacheMap) =>
 
-            when(mockSessionRepository.getCacheMap(eqTo(cacheMap.id))) thenReturn Future.successful(Some(cacheMap))
+            when(mockSessionRepository.get(eqTo(cacheMap.id))) thenReturn Future.successful(Some(cacheMap))
 
             val result = mongoCacheConnector.getEntry[String](cacheMap.id, key)
 
@@ -181,7 +181,7 @@ class MongoCacheConnectorSpec
         forAll(gen) {
           case (key, value, cacheMap) =>
 
-            when(mockSessionRepository.getCacheMap(eqTo(cacheMap.id))) thenReturn Future.successful(Some(cacheMap))
+            when(mockSessionRepository.get(eqTo(cacheMap.id))) thenReturn Future.successful(Some(cacheMap))
 
             val result = mongoCacheConnector.getEntry[String](cacheMap.id, key)
 

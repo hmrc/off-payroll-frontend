@@ -19,6 +19,8 @@ package models
 import config.FrontendAppConfig
 import models.CannotClaimAsExpense._
 import models.UserType._
+import models.WorkerType.{LimitedCompany, SoleTrader}
+import models.logging.LogInterview.isEnabled
 import models.requests.DataRequest
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -26,7 +28,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.libs.json._
 import utils.JsonObjectSugar
 
@@ -34,6 +36,7 @@ case class Interview(correlationId: String,
                      endUserRole: Option[UserType] = None,
                      hasContractStarted: Option[Boolean] = None,
                      provideServices: Option[WorkerType] = None,
+                     isUsingIntermediary : Option[Boolean] = None,
                      officeHolder: Option[Boolean] = None,
                      workerSentActualSubstitute: Option[ArrangedSubstitute] = None,
                      workerPayActualSubstitute: Option[Boolean] = None,
@@ -54,7 +57,29 @@ case class Interview(correlationId: String,
                      workerReceivesBenefits: Option[Boolean] = None,
                      workerAsLineManager: Option[Boolean] = None,
                      contactWithEngagerCustomer: Option[Boolean] = None,
-                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig)
+                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig){
+
+  def calculateProvideServices: Option[WorkerType] = {
+
+    (isUsingIntermediary, provideServices) match {
+
+      case (Some(usingIntermediary), _) => if(usingIntermediary){
+        Some(LimitedCompany)
+      } else {
+        Some(SoleTrader)
+      }
+      case (None, Some(providedServices)) => Some(providedServices)
+      case _ => None
+    }
+  }
+
+  def route: String =
+    (isUsingIntermediary, provideServices) match {
+      case (Some(usingIntermediary), _) => if (usingIntermediary) "IR35" else "ESI"
+      case (_, Some(providedServices)) => if (providedServices == SoleTrader) "ESI" else "IR35"
+      case _ => "IR35"
+    }
+}
 
 object Interview extends JsonObjectSugar {
 
@@ -77,7 +102,7 @@ object Interview extends JsonObjectSugar {
         "setup" -> jsonObjNoNulls(
           "endUserRole" -> model.endUserRole,
           "hasContractStarted" -> model.hasContractStarted,
-          "provideServices" -> model.provideServices
+          "provideServices" -> model.calculateProvideServices
         ),
         "exit" -> jsonObjNoNulls(
           "officeHolder" -> model.officeHolder
@@ -120,6 +145,7 @@ object Interview extends JsonObjectSugar {
       endUserRole = request.userType,
       hasContractStarted = userAnswers.get(ContractStartedPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
       provideServices = userAnswers.get(WorkerTypePage).fold(None: Option[WorkerType]){ answer => Some(answer.answer)},
+      isUsingIntermediary = userAnswers.get(WorkerUsingIntermediaryPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
       officeHolder = userAnswers.get(OfficeHolderPage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
       workerSentActualSubstitute = userAnswers.get(ArrangedSubstitutePage).fold(None: Option[ArrangedSubstitute]){ answer => Some(answer.answer)},
       workerPayActualSubstitute = userAnswers.get(DidPaySubstitutePage).fold(None: Option[Boolean]){ answer => Some(answer.answer)},
