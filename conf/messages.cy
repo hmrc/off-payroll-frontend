@@ -1012,10 +1012,13 @@ workerAdvisory.heading = You don’t need to answer any more questions
 workerAdvisory.p1 = The organisation offering the work is responsible for determining if it should be in or out of IR35
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
 
+##### TODO NEED WELSH FOR ####
 hirer.businessSize.title = Does your organisation have more than:
 hirer.businessSize.heading = Does your organisation have more than:
+hirer.businessSize.checkYourAnswersLabel = Does your organisation have more than:
 worker.businessSize.title = Does this client have more than:
 worker.businessSize.heading = Does this client have more than:
+worker.businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.subheading = Section 1: Who, what, when
 businessSize.hint = Select any options that apply
 businessSize.turnover = £10.2 million annual turnover?

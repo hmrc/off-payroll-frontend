@@ -21,6 +21,7 @@ import controllers.actions._
 import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.CheckYourAnswersService
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
@@ -36,6 +37,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     view = view,
+    app.injector.instanceOf[CheckYourAnswersService],
     frontendAppConfig
   )
 
@@ -43,10 +45,26 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
-
       status(result) mustBe OK
-
       titleOf(result) mustBe title(CheckYourAnswersMessages.title)
+    }
+
+    "redirect to the next page when valid data is submitted" in {
+      val result = controller().onSubmit(fakeRequest)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect to Index for a GET if no existing data is found" in {
+      val result = controller(dontGetAnyData).onPageLoad(fakeRequest)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+    }
+
+    "redirect to Index for a POST if no existing data is found" in {
+      val result = controller(dontGetAnyData).onSubmit(fakeRequest)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
   }
 }

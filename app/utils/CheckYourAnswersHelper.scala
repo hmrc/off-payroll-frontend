@@ -17,28 +17,20 @@
 package utils
 
 import config.FrontendAppConfig
-import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
+import models.{BusinessSize, CannotClaimAsExpense, Enumerable, UserAnswers}
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup._
 import play.api.i18n.Messages
 import play.api.mvc.Request
 import viewmodels.AnswerRow
 import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
-
-  def businessSize: Option[AnswerRow] = userAnswers.get(BusinessSizePage) map { x =>
-    AnswerRow(
-      label = "businessSize.checkYourAnswersLabel",
-      answer = s"businessSize.$x",
-      answerIsMessageKey = true
-    )
-  }
 
   def customisePDF: Option[AnswerRow] = userAnswers.get(CustomisePDFPage) map { x =>
     AnswerRow(
@@ -211,6 +203,19 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       )
     }
 
+  def businessSize(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(BusinessSizePage).map { x =>
+    AnswerRow(
+      label = tailorMsg(s"$BusinessSizePage.checkYourAnswersLabel"),
+      answers = BusinessSize.values.map ( value =>
+        AnswerRow(
+          label = s"$BusinessSizePage.$value",
+          if(x.answer.contains(value)) "site.yes" else "site.no",
+          answerIsMessageKey = true
+        )
+      )
+    )
+  }
+
   def officeHolder(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(OfficeHolderPage) map { x =>
       AnswerRow(
@@ -229,6 +234,15 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       )
     }
 
+  def workerTypeOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(WorkerUsingIntermediaryPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
   def contractStarted(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(ContractStartedPage) map { x =>
       AnswerRow(
@@ -242,6 +256,22 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     AnswerRow(
       "aboutYou.checkYourAnswersLabel",
       s"aboutYou.${x.answer}", answerIsMessageKey = true
+    )
+  }
+
+  def aboutYouOptimised: Option[AnswerRow] = userAnswers.get(WhichDescribesYouPage) map { x =>
+    AnswerRow(
+      s"$WhichDescribesYouPage.checkYourAnswersLabel",
+      s"$WhichDescribesYouPage.${x.answer}",
+      answerIsMessageKey = true
+    )
+  }
+
+  def isWorkForPrivateSector(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(IsWorkForPrivateSectorPage) map { x =>
+    AnswerRow(
+      tailorMsg(s"$IsWorkForPrivateSectorPage.checkYourAnswersLabel"),
+      if(x.answer) "site.yes" else "site.no",
+      answerIsMessageKey = true
     )
   }
 }
