@@ -16,30 +16,23 @@
 
 package controllers.sections.personalService
 
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.Answers._
-import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
 
-import scala.concurrent.Future
-
-class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -49,7 +42,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
   val view = injector.instanceOf[WouldWorkerPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -57,7 +50,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    mockDecisionService,
     frontendAppConfig
   )
 
@@ -89,11 +82,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
       val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0, true)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
-        Matchers.eq(ErrorTemplate("wouldWorkerPaySubstitute.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
-
+      mockDecide(userAnswers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

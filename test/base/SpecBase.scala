@@ -24,12 +24,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
-import models.UserAnswers
-import models.requests.DataRequest
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import org.scalatest.BeforeAndAfterEach
-import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
@@ -39,7 +34,6 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{MessagesControllerComponents, Result}
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.Wiremock
 
@@ -48,7 +42,7 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.language.implicitConversions
 
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach with MaterializerSupport with MockitoSugar with FeatureSwitching {
+trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach with MaterializerSupport with FeatureSwitching {
 
   override lazy val app: Application = GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
@@ -88,12 +82,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
 
   implicit lazy val messages: Messages = messagesApi.preferred(fakeRequest)
 
-  val stubPort = 8080
   val wireMock = new Wiremock
 
   val client = injector.instanceOf[HttpClient]
-  val servicesConfig = mock[ServicesConfig]
-
-  when(servicesConfig.baseUrl(any())).thenReturn(s"http://localhost:$stubPort")
 
 }

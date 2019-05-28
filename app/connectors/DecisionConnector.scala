@@ -36,9 +36,9 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
                                   conf: FrontendAppConfig,
                                   dateTimeUtil: DateTimeUtil) {
 
-  val baseUrl: String = servicesConfig.baseUrl("cest-decision")
-  val decideUrl = s"$baseUrl/cest-decision/decide"
-  val logUrl = s"$baseUrl/cest-decision/log"
+  lazy val baseUrl: String = servicesConfig.baseUrl("cest-decision")
+  lazy val decideUrl = s"$baseUrl/cest-decision/decide"
+  lazy val logUrl = s"$baseUrl/cest-decision/log"
 
   def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
     httpClient.POST(decideUrl, Json.toJson(decisionRequest)).map {

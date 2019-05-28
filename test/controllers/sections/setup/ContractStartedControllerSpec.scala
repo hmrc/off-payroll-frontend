@@ -17,7 +17,7 @@
 package controllers.sections.setup
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ContractStartedFormProvider
@@ -31,7 +31,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.setup.ContractStartedView
 
-class ContractStartedControllerSpec extends ControllerSpecBase with MockMongoCacheConnector with FeatureSwitching {
+class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -43,7 +43,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockMongoCac
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = mockMongoCacheConnector,
+    dataCacheConnector = mockDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,

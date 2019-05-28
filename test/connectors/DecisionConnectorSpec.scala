@@ -16,7 +16,7 @@
 
 package connectors
 
-import base.SpecBase
+import base.{MockServicesConfig, SpecBase}
 import connectors.mocks.MockHttp
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
@@ -38,7 +38,7 @@ import _root_.utils.MockDateTimeUtil
 import scala.concurrent.Future
 
 
-class DecisionConnectorSpec extends SpecBase with MockHttp {
+class DecisionConnectorSpec extends SpecBase with MockHttp with MockServicesConfig {
 
   object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil)
 

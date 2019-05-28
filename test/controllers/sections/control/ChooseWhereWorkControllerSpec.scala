@@ -16,8 +16,7 @@
 
 package controllers.sections.control
 
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
@@ -25,22 +24,16 @@ import models.Answers._
 import models.ChooseWhereWork.WorkerChooses
 import models._
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.ChooseWhereWorkView
 
-import scala.concurrent.Future
-
-class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -50,7 +43,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockMongoCac
   val view = injector.instanceOf[ChooseWhereWorkView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -58,7 +51,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockMongoCac
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    mockDecisionService,
     frontendAppConfig
   )
 
@@ -90,11 +83,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockMongoCac
       val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
-        Matchers.eq(ErrorTemplate("chooseWhereWork.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
-
+      mockDecide(userAnswers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options.head.value))
 

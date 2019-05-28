@@ -22,17 +22,18 @@ import play.api.i18n.{Lang, Messages, MessagesApi}
 
 class TimestampSpec extends SpecBase {
 
-
   "Timestamp" must {
 
     def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
+
+    val testTimestamp = new Timestamp()
 
     "correctly display in english" in {
 
       implicit def messages: Messages = messagesApi.preferred(Seq(lang))
       implicit def lang: Lang = Lang("en")
 
-      Timestamp.months.map(month => Timestamp.timestamp(messages).contains(messages(s"date.$month"))) must contain(true)
+      testTimestamp.months.map(month => testTimestamp.timestamp(messages).contains(messages(s"date.$month"))) must contain(true)
     }
 
     "convert to welsh" in {
@@ -40,7 +41,7 @@ class TimestampSpec extends SpecBase {
       implicit def messages: Messages = messagesApi.preferred(Seq(lang))
       implicit def lang: Lang = Lang("cy")
 
-      Timestamp.months.map(month => Timestamp.timestamp(messages).contains(messages(s"date.$month"))) must contain(true)
+      testTimestamp.months.map(month => testTimestamp.timestamp(messages).contains(messages(s"date.$month"))) must contain(true)
     }
   }
 }

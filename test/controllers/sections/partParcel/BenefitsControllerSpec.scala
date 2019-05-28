@@ -16,29 +16,22 @@
 
 package controllers.sections.partParcel
 
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.BenefitsFormProvider
-import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.BenefitsView
 
-import scala.concurrent.Future
-
-class BenefitsControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class BenefitsControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -48,7 +41,7 @@ class BenefitsControllerSpec extends ControllerSpecBase with MockMongoCacheConne
   val view = injector.instanceOf[BenefitsView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BenefitsController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -56,7 +49,7 @@ class BenefitsControllerSpec extends ControllerSpecBase with MockMongoCacheConne
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    mockDecisionService,
     frontendAppConfig
   )
 
@@ -88,9 +81,7 @@ class BenefitsControllerSpec extends ControllerSpecBase with MockMongoCacheConne
       val userAnswers = UserAnswers("id").set(BenefitsPage, 0,true)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute), Matchers.eq(ErrorTemplate("benefits.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      mockDecide(userAnswers)(onwardRoute)
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))

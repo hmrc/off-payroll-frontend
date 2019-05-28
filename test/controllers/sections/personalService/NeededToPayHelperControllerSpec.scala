@@ -16,29 +16,22 @@
 
 package controllers.sections.personalService
 
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.NeededToPayHelperFormProvider
-import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.NeededToPayHelperView
 
-import scala.concurrent.Future
-
-class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -48,7 +41,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockMongoC
   val view = injector.instanceOf[NeededToPayHelperView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new NeededToPayHelperController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -56,7 +49,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockMongoC
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    mockDecisionService,
     frontendAppConfig
   )
 
@@ -88,10 +81,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockMongoC
       val userAnswers = UserAnswers("id").set(NeededToPayHelperPage,0, true)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
-        Matchers.eq(ErrorTemplate("neededToPayHelper.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      mockDecide(userAnswers)(onwardRoute)
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))

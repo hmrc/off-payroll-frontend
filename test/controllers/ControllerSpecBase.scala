@@ -22,20 +22,17 @@ import akka.stream.Materializer
 import akka.util.ByteString
 import base.SpecBase
 import org.jsoup.Jsoup
-import org.scalatestplus.mockito.MockitoSugar
 import play.api.mvc.Result
-import services.DecisionService
+import services.mocks.MockDecisionService
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
-trait ControllerSpecBase extends SpecBase with MockitoSugar {
+trait ControllerSpecBase extends SpecBase with MockDecisionService {
 
   val cacheMapId = "id"
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
-
-  val decisionService = mock[DecisionService]
 
   def bodyOf(result: Result)(implicit mat: Materializer): String = {
     val bodyBytes: ByteString = await(result.body.consumeData)

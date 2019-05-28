@@ -18,7 +18,7 @@ package controllers.sections.setup
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
@@ -34,7 +34,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
-class WorkerTypeControllerSpec extends ControllerSpecBase with MockMongoCacheConnector with FeatureSwitching {
+class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -48,7 +48,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockMongoCacheCon
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
     new WorkerTypeController(
-      mockMongoCacheConnector,
+      mockDataCacheConnector,
       new FakeNavigator(onwardRoute),
       FakeIdentifierAction,
       dataRetrievalAction,
@@ -58,7 +58,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockMongoCacheCon
       messagesControllerComponents,
       view,
       viewInt,
-      decisionService,
+      mockDecisionService,
       frontendAppConfig
     )
 

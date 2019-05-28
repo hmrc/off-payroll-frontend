@@ -21,7 +21,7 @@ import java.time.{ZoneOffset, ZonedDateTime}
 
 import play.api.i18n.Messages
 
-object Timestamp {
+class Timestamp {
 
   val months = Seq(
     "January",

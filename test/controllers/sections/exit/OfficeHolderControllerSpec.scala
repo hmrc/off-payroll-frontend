@@ -16,29 +16,22 @@
 
 package controllers.sections.exit
 
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.OfficeHolderFormProvider
-import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.exit.OfficeHolderView
 
-import scala.concurrent.Future
-
-class OfficeHolderControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class OfficeHolderControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -48,7 +41,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase with MockMongoCacheC
   val view = injector.instanceOf[OfficeHolderView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new OfficeHolderController(
-    dataCacheConnector = mockMongoCacheConnector,
+    dataCacheConnector = mockDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -56,7 +49,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase with MockMongoCacheC
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    mockDecisionService,
     appConfig = frontendAppConfig
   )
 
@@ -88,9 +81,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase with MockMongoCacheC
       val userAnswers = UserAnswers("id").set(OfficeHolderPage,0, true)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute), Matchers.eq(ErrorTemplate("officeHolder.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      mockDecide(userAnswers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

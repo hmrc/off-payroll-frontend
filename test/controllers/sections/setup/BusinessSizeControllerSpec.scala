@@ -17,7 +17,7 @@
 package controllers.sections.setup
 
 import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.BusinessSizeFormProvider
@@ -31,7 +31,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.BusinessSizeView
 
-class BusinessSizeControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class BusinessSizeControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -42,7 +42,7 @@ class BusinessSizeControllerSpec extends ControllerSpecBase with MockMongoCacheC
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BusinessSizeController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = mockMongoCacheConnector,
+    dataCacheConnector = mockDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,

@@ -14,30 +14,23 @@
  * limitations under the License.
  */
 
-package connectors.mocks
+package services.mocks
 
-import connectors.MongoCacheConnector
+import connectors.httpParsers.PDFGeneratorHttpParser
 import org.scalamock.scalatest.MockFactory
-import uk.gov.hmrc.http.cache.client.CacheMap
+import play.twirl.api.Html
+import services.PDFService
+import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-trait MockMongoCacheConnector extends MockFactory {
+trait MockPDFService extends MockFactory {
 
-  lazy val mockMongoCacheConnector: MongoCacheConnector = mock[MongoCacheConnector]
+  val mockPDFService = mock[PDFService]
 
-  def mockSave(cacheMap: CacheMap)(response: CacheMap): Unit = {
-    (mockMongoCacheConnector.save(_: CacheMap))
-        .expects(cacheMap)
-        .returns(Future.successful(response))
-  }
-
-  def mockFetch(cacheId: String)(response: Option[CacheMap]): Unit = {
-    (mockMongoCacheConnector.fetch(_: String))
-      .expects(cacheId)
+  def mockGeneratePdf(response: PDFGeneratorHttpParser.Response): Unit = {
+    (mockPDFService.generatePdf(_: Html)(_: HeaderCarrier, _: ExecutionContext))
+      .expects(*, *, *)
       .returns(Future.successful(response))
   }
-
-  def mockGetEntry[A](cacheId: String, key: String)(response: Option[A]): Unit = ???
-
 }

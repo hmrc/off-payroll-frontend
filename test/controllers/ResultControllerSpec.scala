@@ -17,28 +17,24 @@
 package controllers
 
 import config.SessionKeys
-import connectors.DataCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import models._
-import models.requests.DataRequest
 import navigation.FakeNavigator
+import pages.ResultPage
 import play.api.i18n.Messages
+import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.DecisionService
-import viewmodels.{AnswerRow, AnswerSection}
-import views.html.results.{IndeterminateView, _}
-import org.mockito.Mockito.when
-import org.mockito.Matchers.any
-import play.api.libs.json.Json
-import play.api.test.FakeRequest
 import play.twirl.api.Html
+import services.DecisionService
 import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.FakeTimestamp
+import viewmodels.AnswerSection
+import views.html.results.{IndeterminateView, _}
 
-import scala.concurrent.Future
-
-class ResultControllerSpec extends ControllerSpecBase {
+class ResultControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -69,8 +65,6 @@ class ResultControllerSpec extends ControllerSpecBase {
 
   val version = "1.5.0-final"
 
-  val dataConnector = mock[DataCacheConnector]
-
   object TestResultController extends ResultController(
     FakeIdentifierAction,
     FakeEmptyCacheMapDataRetrievalAction,
@@ -79,7 +73,8 @@ class ResultControllerSpec extends ControllerSpecBase {
     injector.instanceOf[DecisionService],
     formProvider,
     new FakeNavigator(onwardRoute),
-    dataConnector,
+    mockDataCacheConnector,
+    FakeTimestamp,
     frontendAppConfig
   )
 
@@ -89,7 +84,9 @@ class ResultControllerSpec extends ControllerSpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      when(dataConnector.save(any())).thenReturn(Future.successful(CacheMap("id", Map())))
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp,0)))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
 

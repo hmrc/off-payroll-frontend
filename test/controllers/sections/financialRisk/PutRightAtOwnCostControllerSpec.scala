@@ -16,8 +16,7 @@
 
 package controllers.sections.financialRisk
 
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.PutRightAtOwnCostFormProvider
@@ -25,22 +24,16 @@ import models.Answers._
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers._
-import org.mockito.Mockito.when
 import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 
-import scala.concurrent.Future
-
-class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -50,7 +43,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockMongoC
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PutRightAtOwnCostController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -58,7 +51,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockMongoC
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    mockDecisionService,
     frontendAppConfig
   )
 
@@ -90,10 +83,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockMongoC
       val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
-        Matchers.eq(ErrorTemplate("putRightAtOwnCost.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      mockDecide(userAnswers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 

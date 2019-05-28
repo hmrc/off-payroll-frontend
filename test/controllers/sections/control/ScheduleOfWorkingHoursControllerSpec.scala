@@ -17,7 +17,7 @@
 package controllers.sections.control
 
 import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
@@ -32,7 +32,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.ScheduleOfWorkingHoursView
 
-class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -42,7 +42,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockM
   val view = injector.instanceOf[ScheduleOfWorkingHoursView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ScheduleOfWorkingHoursController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,

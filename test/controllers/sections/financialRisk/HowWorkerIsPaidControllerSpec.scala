@@ -17,7 +17,7 @@
 package controllers.sections.financialRisk
 
 import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
@@ -32,7 +32,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.HowWorkerIsPaidView
 
-class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -42,7 +42,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockMongoCac
   val view = injector.instanceOf[HowWorkerIsPaidView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkerIsPaidController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,

@@ -16,13 +16,13 @@
 
 package controllers
 
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeEmptyCacheMapDataRetrievalAction, FakeIdentifierAction}
 import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
 
-class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class IndexControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val onwardRoute = Call("GET", "/foo")
 
@@ -35,7 +35,7 @@ class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnecto
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
         getData = FakeEmptyCacheMapDataRetrievalAction,
-        cache = mockMongoCacheConnector,
+        cache = mockDataCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 
@@ -58,7 +58,7 @@ class IndexControllerSpec extends ControllerSpecBase with MockMongoCacheConnecto
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
         getData = FakeDontGetDataDataRetrievalAction,
-        cache = mockMongoCacheConnector,
+        cache = mockDataCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 

@@ -19,7 +19,7 @@ package controllers.sections.setup
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
@@ -36,7 +36,7 @@ import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
 
-class AboutYouControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -50,7 +50,7 @@ class AboutYouControllerSpec extends ControllerSpecBase with MockMongoCacheConne
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new AboutYouController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = mockMongoCacheConnector,
+    dataCacheConnector = mockDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,

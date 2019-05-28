@@ -16,8 +16,7 @@
 
 package controllers.sections.financialRisk
 
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.CannotClaimAsExpenseFormProvider
@@ -25,22 +24,16 @@ import models.Answers._
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models._
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
-import scala.concurrent.Future
-
-class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -50,7 +43,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockMon
   val view = injector.instanceOf[CannotClaimAsExpenseView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new CannotClaimAsExpenseController(
-    dataCacheConnector = mockMongoCacheConnector,
+    dataCacheConnector = mockDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -58,7 +51,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockMon
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    decisionService,
+    mockDecisionService,
     appConfig = frontendAppConfig
   )
 
@@ -90,10 +83,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockMon
       val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
-      when(decisionService.decide(Matchers.eq(userAnswers),Matchers.eq(onwardRoute),
-        Matchers.eq(ErrorTemplate("cannotClaimAsExpense.title")))
-      (any(),any(),any())).thenReturn(Future.successful(Redirect(onwardRoute)))
+      mockDecide(userAnswers)(onwardRoute)
 
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("cannotClaimAsExpense[0]", CannotClaimAsExpense.options.head.value))

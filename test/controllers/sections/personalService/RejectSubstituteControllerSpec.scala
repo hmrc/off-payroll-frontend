@@ -17,7 +17,7 @@
 package controllers.sections.personalService
 
 import connectors.FakeDataCacheConnector
-import connectors.mocks.MockMongoCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.RejectSubstituteFormProvider
@@ -31,7 +31,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.RejectSubstituteView
 
-class RejectSubstituteControllerSpec extends ControllerSpecBase with MockMongoCacheConnector {
+class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -41,7 +41,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockMongoCa
   val view = injector.instanceOf[RejectSubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new RejectSubstituteController(
-    mockMongoCacheConnector,
+    mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
