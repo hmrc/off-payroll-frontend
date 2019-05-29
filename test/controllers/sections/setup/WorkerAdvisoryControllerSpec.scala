@@ -29,7 +29,7 @@ class WorkerAdvisoryControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[WorkerAdvisoryView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new WorkerAdvisoryController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WorkerAdvisoryController(
     navigator = new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
@@ -59,13 +59,13 @@ class WorkerAdvisoryControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
     "redirect to Index for a POST if no existing data is found" in {
-      val result = controller(dontGetAnyData).onSubmit(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }

@@ -40,7 +40,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[IsWorkForPrivateSectorView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new IsWorkForPrivateSectorController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IsWorkForPrivateSectorController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
@@ -65,7 +65,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(IsWorkForPrivateSectorPage.toString -> Json.toJson(Answers(true,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -92,7 +92,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -100,7 +100,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
     "redirect to Index for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

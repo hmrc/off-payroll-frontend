@@ -66,6 +66,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConn
   def viewAsStringInt(form: Form[_] = formInt) = viewInt(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
+  val validDataInt = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
 
   "WorkerType Controller" must {
 
@@ -96,8 +97,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConn
     "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
 
       enable(OptimisedFlow)
-      val validData = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validDataInt)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -120,7 +120,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConn
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockSave(CacheMap(cacheMapId, validDataInt))(CacheMap(cacheMapId, validDataInt))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
