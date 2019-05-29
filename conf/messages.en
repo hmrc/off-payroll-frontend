@@ -194,6 +194,7 @@ hirer.officeHolder.exclamation = If you are not sure if these things apply, plea
 cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
 cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from the end client or an agency?
+cannotClaimAsExpense.checkYourAnswersLabel.optimised = What will the worker provide at their own cost?
 cannotClaimAsExpense.subheading = About the worker’s financial risk
 cannotClaimAsExpense.p1 = These are things that:
 cannotClaimAsExpense.bullet1 = the worker has to provide to complete this specific engagement
@@ -208,10 +209,17 @@ cannotClaimAsExpense.workerHadOtherExpenses = Other expenses – including signi
 cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
 cannotClaimAsExpense.error.required = You need to select an answer
 cannotClaimAsExpense.error.invalid = You need to select an answer
+cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
+
 
 worker.cannotClaimAsExpense.title = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
 worker.cannotClaimAsExpense.heading = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
-worker.cannotClaimAsExpense.checkYourAnswersLabel = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
+worker.cannotClaimAsExpense.checkYourAnswersLabel = What will the worker provide at their own cost?
+worker.cannotClaimAsExpense.checkYourAnswersLabel.optimised = What will the worker provide at their own cost?
 worker.cannotClaimAsExpense.subheading = About the worker’s financial risk
 worker.cannotClaimAsExpense.p1 = These are things that:
 worker.cannotClaimAsExpense.bullet1 = You have to provide to complete this specific engagement
@@ -224,10 +232,16 @@ worker.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heav
 worker.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
 worker.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of your home
 worker.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+worker.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+worker.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+worker.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+worker.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 hirer.cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
 hirer.cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
-hirer.cannotClaimAsExpense.checkYourAnswersLabel = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
+hirer.cannotClaimAsExpense.checkYourAnswersLabel = What will the worker provide at their own cost?
+hirer.cannotClaimAsExpense.checkYourAnswersLabel.optimised = What will the worker provide at their own cost?
 hirer.cannotClaimAsExpense.subheading = About the worker’s financial risk
 hirer.cannotClaimAsExpense.p1 = These are things that:
 hirer.cannotClaimAsExpense.bullet1 = The worker has to provide to complete this specific engagement
@@ -240,6 +254,11 @@ hirer.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy
 hirer.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
 hirer.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+hirer.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+hirer.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+hirer.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+hirer.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 #########################
         
 ## Arranged Substitute
@@ -985,17 +1004,29 @@ workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see ho
 
 hirer.businessSize.title = Does your organisation have more than:
 hirer.businessSize.heading = Does your organisation have more than:
+hirer.businessSize.checkYourAnswersLabel = Does your organisation have more than:
 worker.businessSize.title = Does this client have more than:
 worker.businessSize.heading = Does this client have more than:
+worker.businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.subheading = Section 1: Who, what, when
 businessSize.hint = Select any options that apply
 businessSize.turnover = £10.2 million annual turnover?
 businessSize.balanceSheet = £5.1 million on their balance sheet?
 businessSize.employees = 50 employees?
 businessSize.noneOfAbove = None of the above
-businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
+
+checkYourAnswers.title = Review your answers in each section below
+checkYourAnswers.heading = Review your answers in each section below
+checkYourAnswers.confirm.h2 = Confirm answers to get your result
+checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.
+checkYourAnswers.setup.header = Section 1: Who, what, when
+checkYourAnswers.exit.header = Section 2: Worker’s Duties
+checkYourAnswers.personalService.header = Section 3: Worker’s substitution
+checkYourAnswers.control.header = Section 4: Worker’s arrangements
+checkYourAnswers.financialRisk.header = Section 5: Worker’s risk
+checkYourAnswers.partParcel.header = Section 6: Worker’s involvement
 
 toolNotNeeded.client.ir35.title = You don’t need to answer any more questions
 toolNotNeeded.client.ir35.heading = You don’t need to answer any more questions

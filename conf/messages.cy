@@ -209,7 +209,7 @@ hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch 
 cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.checkYourAnswersLabel =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
-cannotClaimAsExpense.subheading = Ynglŷn â risg ariannol y gweithiwr
+cannotClaimAsExpense.checkYourAnswersLabel.optimised = Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.p1 =Dyma restr o bethau:
 cannotClaimAsExpense.bullet1 =y mae’n rhaid i’r gweithiwr eu darparu er mwyn cyflawni’r swydd benodol hon
 cannotClaimAsExpense.bullet2 =nad ydynt yn cael eu darparu gan y cleient terfynol
@@ -227,6 +227,7 @@ cannotClaimAsExpense.error.invalid = Mae angen i chi ddewis ateb
 worker.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 worker.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 worker.cannotClaimAsExpense.checkYourAnswersLabel =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
+worker.cannotClaimAsExpense.checkYourAnswersLabel.optimised = Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 worker.cannotClaimAsExpense.subheading = Ynglŷn â risg ariannol y gweithiwr
 worker.cannotClaimAsExpense.p1 =Dyma restr o bethau:
 worker.cannotClaimAsExpense.bullet1 =y mae’n rhaid i’r gweithiwr eu darparu er mwyn cyflawni’r swydd benodol hon
@@ -243,6 +244,7 @@ worker.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
 hirer.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 hirer.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 hirer.cannotClaimAsExpense.checkYourAnswersLabel =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
+hirer.cannotClaimAsExpense.checkYourAnswersLabel.optimised = Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 hirer.cannotClaimAsExpense.subheading = Ynglŷn â risg ariannol y gweithiwr
 hirer.cannotClaimAsExpense.p1 =Dyma restr o bethau:
 hirer.cannotClaimAsExpense.bullet1 =y mae’n rhaid i’r gweithiwr eu darparu er mwyn cyflawni’r swydd benodol hon
@@ -1010,10 +1012,13 @@ workerAdvisory.heading = You don’t need to answer any more questions
 workerAdvisory.p1 = The organisation offering the work is responsible for determining if it should be in or out of IR35
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
 
+##### TODO NEED WELSH FOR ####
 hirer.businessSize.title = Does your organisation have more than:
 hirer.businessSize.heading = Does your organisation have more than:
+hirer.businessSize.checkYourAnswersLabel = Does your organisation have more than:
 worker.businessSize.title = Does this client have more than:
 worker.businessSize.heading = Does this client have more than:
+worker.businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.subheading = Section 1: Who, what, when
 businessSize.hint = Select any options that apply
 businessSize.turnover = £10.2 million annual turnover?
@@ -1023,6 +1028,12 @@ businessSize.noneOfAbove = None of the above
 businessSize.checkYourAnswersLabel = Does this client have more than:
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
+
+##### TODO NEED WELSH FOR ####
+checkYourAnswers.title = Review your answers in each section below
+checkYourAnswers.heading = Review your answers in each section below
+checkYourAnswers.confirm.h2 = Confirm answers to get your result
+checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.
 
 ##### TODO NEED WELSH FOR ####
 toolNotNeeded.client.ir35.title = You don’t need to answer any more questions

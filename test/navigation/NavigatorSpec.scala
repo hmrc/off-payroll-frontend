@@ -195,6 +195,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           enable(OptimisedFlow)
           nextPage(HirerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
+
+        "go to the Result page from the Check Your Answers page" in {
+          enable(OptimisedFlow)
+          nextPage(CheckYourAnswersPage) mustBe routes.ResultController.onPageLoad()
+        }
       }
 
       "for the sub-optimised flow" must {
@@ -303,8 +308,13 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
             partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
         }
 
-        "go to Result page from the IdentifyToStakeholdersPage page" in {
+        "go to Result page from the IdentifyToStakeholdersPage page, if suboptimised" in {
           nextPage(IdentifyToStakeholdersPage) mustBe routes.ResultController.onPageLoad()
+        }
+
+        "go to CheckYourAnswers page from the IdentifyToStakeholdersPage page, if optimised" in {
+          enable(OptimisedFlow)
+          nextPage(IdentifyToStakeholdersPage) mustBe routes.CheckYourAnswersController.onPageLoad()
         }
 
         "go to CustomisePDFPage from the ResultPage" in {

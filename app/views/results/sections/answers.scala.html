@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import viewmodels.{Section, AnswerSection, RepeaterAnswerSection}
+@import viewmodels.{Section, AnswerSection}
 @import config.FrontendAppConfig
 
 @(answerSections: Seq[Section], printMode: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
@@ -24,7 +24,6 @@
         section match {
             case a: AnswerSection if a.nonEmpty => components.answer_section(a, printMode)
             case a: AnswerSection => Html("")
-            case r: RepeaterAnswerSection => components.repeater_answer_section(r)
         }
     }
 }

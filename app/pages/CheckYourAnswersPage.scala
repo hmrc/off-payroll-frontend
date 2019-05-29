@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
-package viewmodels
+package pages
 
-case class RepeaterAnswerRow (answer: String, changeUrl: String, deleteUrl: String)
+case object CheckYourAnswersPage extends Page {
+  override def toString: String = "checkYourAnswers"
+}

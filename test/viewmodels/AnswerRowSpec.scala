@@ -17,12 +17,13 @@
 package viewmodels
 
 import base.SpecBase
+import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks._
 import play.twirl.api.Html
 
 
-class AnswerRowSpec extends SpecBase {
+class AnswerRowSpec extends SpecBase with ModelGenerators {
 
   "AnswerRow" should {
 
@@ -31,16 +32,16 @@ class AnswerRowSpec extends SpecBase {
       s"return a MultiAnswerRow with correctly formatted HTML" in {
 
         val gen = for {
-          answers <- arbitrary[Seq[String]]
-          isMessageKey <- arbitrary[Boolean]
-        } yield (answers, isMessageKey)
+          answers <- arbitrary[Seq[SingleAnswerRow]]
+          url <- arbitrary[Option[String]]
+        } yield (answers, url)
 
-        forAll(gen) { case (answers, isMessageKey) =>
+        forAll(gen) { case (answers, url) =>
 
-          lazy val result = AnswerRow("label", answers, isMessageKey, "/change")
+          lazy val result = AnswerRow("label", answers, url)
 
-          result mustBe MultiAnswerRow("label", answers, isMessageKey, "/change")
-          result.answerHtml mustBe Html(s"<ul class='no-bullet-pdf'>${answers.foldLeft("")((o,x) => o + s"<li>$x</li>")}</ul>")
+          result mustBe MultiAnswerRow("label", answers, url)
+          result.answerHtml mustBe Html(s"<ul class='no-bullet-pdf'>${answers.foldLeft("")((o,x) => o + s"<li>${x.answer}</li>")}</ul>")
         }
       }
     }
@@ -52,13 +53,14 @@ class AnswerRowSpec extends SpecBase {
         val gen = for {
           answer <- arbitrary[String]
           isMessageKey <- arbitrary[Boolean]
-        } yield (answer, isMessageKey)
+          url <- arbitrary[Option[String]]
+        } yield (answer, isMessageKey, url)
 
-        forAll(gen) { case (answer, isMessageKey) =>
+        forAll(gen) { case (answer, isMessageKey, url) =>
 
-          lazy val result = AnswerRow("label", answer, isMessageKey, "/change")
+          lazy val result = AnswerRow("label", answer, isMessageKey, url)
 
-          result mustBe SingleAnswerRow("label", answer, isMessageKey, "/change")
+          result mustBe SingleAnswerRow("label", answer, isMessageKey, url)
           result.answerHtml mustBe Html(answer)
         }
       }

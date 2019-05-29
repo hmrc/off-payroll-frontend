@@ -14,18 +14,14 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerRow
+@import views.ViewUtils._
 @import config.FrontendAppConfig
 
-@(row: (AnswerRow, Option[Html]), printMode: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(question: String, answer: String, answerIsMessageKey: Boolean, panelIndent: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-<ul>
-    <li class="divider--bottom"><h3>@messages(row._1.label)</h3>
-
-        @row._2.map { html =>
-        <div>@html</div>
-        }
-
-        <div id="answer" class="panel-indent">@row._1.answerHtml</div>
-    </li>
-</ul>
+<dl class="govuk-check-your-answers cya-questions-long @if(panelIndent){panel-indent}">
+    <div>
+        <dt class="cya-question">@messages(question)</dt>
+        <dd class="cya-answer">@if(answerIsMessageKey){@messages(answer)} else {@answer}</dd>
+    </div>
+</dl>
