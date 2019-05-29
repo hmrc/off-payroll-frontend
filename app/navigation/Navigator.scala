@@ -31,7 +31,7 @@ import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.WhichDescribesYouAnswer._
 import models.WhichDescribesYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.BusinessSize.Noneofabove
+import models.BusinessSize.NoneOfAbove
 import pages._
 import models._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -78,7 +78,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     }),
     BusinessSizePage -> (answers => {
       (answers.get(BusinessSizePage), isWorker(answers)) match {
-        case (Some(Answers(Seq(Noneofabove), _)), Some(false)) => setupRoutes.ToolNotNeededController.onPageLoad()
+        case (Some(Answers(x, _)), Some(false)) if BusinessSize.isSmallBusiness(x) => setupRoutes.ToolNotNeededController.onPageLoad()
         case (Some(Answers(_, _)), Some(false)) => setupRoutes.HirerAdvisoryController.onPageLoad()
         case (Some(Answers(_, _)), Some(true)) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         case (_,_) => setupRoutes.BusinessSizeController.onPageLoad(NormalMode)

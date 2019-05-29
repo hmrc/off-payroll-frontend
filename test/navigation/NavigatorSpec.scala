@@ -25,7 +25,7 @@ import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
-import models.BusinessSize.{Noneofabove, Turnover}
+import models.BusinessSize.{BalanceSheet, NoneOfAbove, Turnover}
 import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
 import models._
 import pages._
@@ -185,7 +185,7 @@ class NavigatorSpec extends SpecBase {
 
           val userAnswers: UserAnswers = UserAnswers("id")
             .set(WhichDescribesYouPage,0, ClientPAYE)
-            .set(BusinessSizePage,1, Seq(Noneofabove))
+            .set(BusinessSizePage,1, Seq(Turnover))
 
           enable(OptimisedFlow)
           nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
@@ -195,7 +195,7 @@ class NavigatorSpec extends SpecBase {
 
           val userAnswers: UserAnswers = UserAnswers("id")
             .set(WhichDescribesYouPage,0, ClientPAYE)
-            .set(BusinessSizePage,1, Seq(Turnover))
+            .set(BusinessSizePage,1, Seq(Turnover, BalanceSheet))
 
           enable(OptimisedFlow)
           nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
@@ -205,7 +205,7 @@ class NavigatorSpec extends SpecBase {
 
           val userAnswers: UserAnswers = UserAnswers("id")
             .set(WhichDescribesYouPage,0, WorkerPAYE)
-            .set(BusinessSizePage,1, Seq(Noneofabove))
+            .set(BusinessSizePage,1, Seq(Turnover))
 
           enable(OptimisedFlow)
           nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
@@ -215,7 +215,7 @@ class NavigatorSpec extends SpecBase {
 
           val userAnswers: UserAnswers = UserAnswers("id")
             .set(WhichDescribesYouPage,0, WorkerPAYE)
-            .set(BusinessSizePage,1, Seq(Turnover))
+            .set(BusinessSizePage,1, Seq(Turnover, BalanceSheet))
 
           enable(OptimisedFlow)
           nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
