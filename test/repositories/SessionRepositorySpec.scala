@@ -27,8 +27,12 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.json.{JsString, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import play.mvc.Http
+import reactivemongo.bson.{BSONDocument, BSONObjectID}
+import reactivemongo.bson.DefaultBSONHandlers.BSONDocumentIdentity
+import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.MongoConnector
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
@@ -86,6 +90,23 @@ class SessionRepositorySpec extends WordSpec with MustMatchers with MockitoSugar
 
         whenReady(repository.addDecision("id",response)) { res =>
           res.left.get.status mustBe Http.Status.INTERNAL_SERVER_ERROR
+      }
+    }
+  }
+
+  "clear decision" must {
+    "remove a saved decision" in {
+      val data = DatedCacheMap("id", Map.empty)
+
+      whenReady(repository.insert(data)) { _ =>
+        whenReady(repository.get("id")) { initialInsert =>
+          initialInsert mustBe Some(CacheMap("id",Map.empty))
+          whenReady(repository.clearDecision("id")) { _ =>
+            whenReady(repository.find("id" -> JsString("id"))) { res =>
+              res.head.decisionResponse mustBe None
+            }
+          }
+        }
       }
     }
   }
