@@ -31,7 +31,7 @@ object RejectSubstituteMessages extends BaseMessages {
     val b5 = "Being substituted because you are unwilling or unable to do the work"
     val exclamation = "We need to know what would happen in practice, not just what it says in your contract."
     val yes = "Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work"
-    val no = "No - the end client would always except a substitute who met these criteria"
+    val no = "No - the end client would always accept a substitute who met these criteria"
   }
 
   object Hirer {
@@ -45,7 +45,7 @@ object RejectSubstituteMessages extends BaseMessages {
     val b5 = "Being substituted because the worker is unwilling or unable to do the work"
     val exclamation = "We need to know what would happen in practice, not just what it says in the worker’s contract."
     val yes = "Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work"
-    val no = "No - we would always except a substitute who met these criteria"
+    val no = "No - we would always accept a substitute who met these criteria"
   }
 
   object NonTailored {
