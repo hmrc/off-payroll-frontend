@@ -19,12 +19,23 @@ package generators
 import models._
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
+import viewmodels.SingleAnswerRow
 
 trait ModelGenerators {
 
   implicit lazy val arbitraryBusinessSize: Arbitrary[BusinessSize] =
     Arbitrary {
-      Gen.oneOf(BusinessSize.values.toSeq)
+      Gen.oneOf(BusinessSize.values)
+    }
+
+  implicit lazy val arbitrarySingleAnswerRowModel: Arbitrary[SingleAnswerRow] =
+    Arbitrary {
+      for {
+        label <- arbitrary[String]
+        answer <- arbitrary[String]
+        isMessageKey <- arbitrary[Boolean]
+        changeUrl <- arbitrary[Option[String]]
+      } yield SingleAnswerRow(label, answer, isMessageKey, changeUrl)
     }
 
   implicit lazy val arbitraryAdditionalPdfDetails: Arbitrary[AdditionalPdfDetails] =

@@ -18,7 +18,8 @@ package controllers.sections.financialRisk
 
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
+import connectors.mocks.MockDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import models.Answers._
@@ -37,39 +38,40 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.HowWorkerIsPaidView
 
 import scala.concurrent.Future
-
-class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
+class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new HowWorkerIsPaidFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[HowWorkerIsPaidView]
+  val mockControllerHelper = mock[ControllerHelper]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new HowWorkerIsPaidController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkerIsPaidController(
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper,
+    mockControllerHelper,
     frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(HowWorkerIsPaidPage.toString -> Json.toJson(Answers(HowWorkerIsPaid.values.head,0)))
+
   "HowWorkerIsPaid Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(HowWorkerIsPaidPage.toString -> Json.toJson(Answers(HowWorkerIsPaid.values.head,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -77,13 +79,9 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(HowWorkerIsPaidPage.toString -> Json.toJson(Answers("",0))))
-      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
-      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -101,7 +99,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -109,7 +107,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

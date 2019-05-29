@@ -18,60 +18,65 @@ package controllers.sections.personalService
 
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
+import connectors.mocks.MockDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.Answers._
-import models.{Answers, ErrorTemplate, NormalMode, UserAnswers}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import pages.sections.personalService.{RejectSubstitutePage, WouldWorkerPaySubstitutePage}
+import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json.Json
 import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.mvc.Results.Redirect
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
 
-import scala.concurrent.Future
-
-class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
+class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[WouldWorkerPaySubstituteView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new WouldWorkerPaySubstituteController(
+  val mockControllerHelper = mock[ControllerHelper]
+  def onwardRoute = Call("POST", "/foo")
+
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper,
+    mockControllerHelper,
     frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(Answers(true,0)))
+
   "WouldWorkerPaySubstitute Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(Answers(true,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -80,12 +85,13 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
 
-      val validCacheMap = CacheMap(cacheMapId, Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(Answers("",0))))
-      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
-      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0, true)
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockDecide(userAnswers)(onwardRoute)
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
@@ -104,7 +110,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -112,7 +118,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

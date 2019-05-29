@@ -18,32 +18,32 @@ package controllers
 
 import config.SessionKeys
 import connectors.DataCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import models._
-import models.requests.DataRequest
 import navigation.FakeNavigator
+import pages.ResultPage
 import play.api.i18n.Messages
+import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.{CompareAnswerService, DecisionService}
-import viewmodels.{AnswerRow, AnswerSection}
-import views.html.results.{IndeterminateView, _}
-import org.mockito.Mockito.when
-import org.mockito.Matchers.any
-import play.api.libs.json.Json
-import play.api.test.FakeRequest
 import play.twirl.api.Html
+import services.DecisionService
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.FakeTimestamp
+import viewmodels.AnswerSection
+import views.html.results.{IndeterminateView, _}
 
-import scala.concurrent.Future
-
-class ResultControllerSpec extends ControllerSpecBase {
+class ResultControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
 
   def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
+
+  val controllerHelper = injector.instanceOf[ControllerHelper]
 
   val officeHolderInsideIR35View = injector.instanceOf[OfficeHolderInsideIR35View]
   val officeHolderEmployedView = injector.instanceOf[OfficeHolderEmployedView]
@@ -69,19 +69,17 @@ class ResultControllerSpec extends ControllerSpecBase {
 
   val version = "1.5.0-final"
 
-  val dataConnector = mock[DataCacheConnector]
-  val answerService = mock[CompareAnswerService]
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ResultController(
+  object TestResultController extends ResultController(
     FakeIdentifierAction,
-    dataRetrievalAction,
+    FakeEmptyCacheMapDataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     injector.instanceOf[DecisionService],
     formProvider,
     new FakeNavigator(onwardRoute),
-    dataConnector,
-    answerService,
+    mockDataCacheConnector,
+    FakeTimestamp,
+    mockCompareAnswerService,
     frontendAppConfig
   )
 
@@ -91,9 +89,12 @@ class ResultControllerSpec extends ControllerSpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      when(dataConnector.save(any())).thenReturn(Future.successful(CacheMap("id", Map())))
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp,0)))
 
-      val result = controller().onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
+      mockConstructAnswers(UserAnswers("id"))(UserAnswers("id"))
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
+      val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
@@ -103,7 +104,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(postRequest)
+      val result = TestResultController.onSubmit(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -113,7 +114,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
       val postRequest = fakeRequest
 
-      val result = controller().onSubmit(postRequest)
+      val result = TestResultController.onSubmit(postRequest)
 
       status(result) mustBe BAD_REQUEST
     }

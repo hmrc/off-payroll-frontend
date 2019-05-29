@@ -17,6 +17,8 @@
 package filters
 
 import base.SpecBase
+import connectors.{DataCacheConnector, FakeDataCacheConnector}
+import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.Results.Ok
 import play.api.mvc._
@@ -36,6 +38,7 @@ class WhitelistFilterSpec extends SpecBase {
 
   override implicit lazy val app: Application =
     new GuiceApplicationBuilder()
+      .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
       .configure(Configuration(
         "whitelist.enabled" -> true
       ))

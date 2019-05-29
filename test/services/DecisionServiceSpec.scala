@@ -19,10 +19,9 @@ package services
 import base.SpecBase
 import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.{DataCacheConnector, DecisionConnector}
-import forms.mappings.Mappings
-import forms.{DeclarationFormProvider, InteractWithStakeholdersFormProvider}
-import handlers.ErrorHandler
+import connectors.mocks.{MockDecisionConnector, MockDataCacheConnector}
+import forms.DeclarationFormProvider
+import handlers.mocks.MockErrorHandler
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.{No, YesClientAgreed}
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
@@ -39,45 +38,29 @@ import models.WhichDescribesYouAnswer.{ClientPAYE, WorkerPAYE}
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models._
 import models.requests.DataRequest
-import org.mockito.Matchers
-import org.mockito.Matchers._
-import org.mockito.Mockito.when
-import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import play.api.data.Form
-import play.api.data.Forms.of
-import play.api.mvc.{Call, Result}
+import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, redirectLocation, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswersUtils
 import viewmodels.AnswerSection
 import views.html.results._
 
-import scala.concurrent.Future
-
-class DecisionServiceSpec extends SpecBase with FeatureSwitching{
+class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockDataCacheConnector with MockErrorHandler with FeatureSwitching {
 
   implicit val headerCarrier = new HeaderCarrier()
   implicit val request = FakeRequest("", "")
 
   val formProvider = new DeclarationFormProvider()
 
-  val connector = mock[DecisionConnector]
-  val dataConnector = mock[DataCacheConnector]
-  override val errorHandler: ErrorHandler = mock[ErrorHandler]
-
-  when(errorHandler.standardErrorTemplate(any(), any(), any())(any())).thenReturn(Html("Error page"))
-  when(errorHandler.internalServerErrorTemplate(any())).thenReturn(Html("Error page"))
-
-  val service: DecisionService = new DecisionServiceImpl(connector, dataConnector, errorHandler, formProvider,
+  val service: DecisionService = new DecisionServiceImpl(mockDecisionConnector, mockDataCacheConnector, mockErrorHandler, formProvider,
     injector.instanceOf[OfficeHolderInsideIR35View],
     injector.instanceOf[OfficeHolderEmployedView],
     injector.instanceOf[CurrentSubstitutionView],
@@ -138,6 +121,8 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
   def onwardRoute = Call("GET", "/continue")
 
   def exitRoute = Call("GET", "/result")
+
+  implicit val dataRequest = DataRequest(request, "", userAnswers)
 
   object Section extends UserAnswersUtils
 
@@ -404,6 +389,8 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
         .set(IdentifyToStakeholdersPage,19, WorkAsIndependent)
 
       implicit val dataRequest = DataRequest(request.withSession(SessionKeys.result -> ResultEnum.OUTSIDE_IR35.toString), "", userAnswers)
+
+      mockInternalServerError(Html("Error page"))
 
       val answers: Seq[AnswerSection] = Section.answers
 
@@ -757,9 +744,9 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
     "determine the view when no answers or sessionkeys are populated" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
       val answers: Seq[AnswerSection] = Seq()
+
+      mockInternalServerError(Html("Error page"))
 
       val result = service.determineResultView(answers, None, false, None)
 
@@ -769,13 +756,9 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
   "Calling the decide service" should {
 
-    when(dataConnector.save(any())).thenReturn(Future.successful(CacheMap("id", Map())))
-
     "return a continue decision based on the interview" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(response)))
+      mockDecide(Interview(userAnswers))(Right(response))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -784,12 +767,10 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
     }
     "return a continue decision based on the interview when control is empty" in {
-
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(riskResponse)))
-      when(connector.log(Interview(userAnswers),riskResponse)).thenReturn(Future.successful(Right(true)))
-      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Right(response)))
+      
+      mockDecide(Interview(userAnswers))(Right(riskResponse))
+      mockLog(Interview(userAnswers), riskResponse)(Right(true))
+      mockAddDecision(userAnswers.cacheMap.id,riskResponse)(Right(riskResponse))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -798,12 +779,10 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
     }
     "return a continue decision based on the interview when risk is empty" in {
-
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(controlResponse)))
-      when(connector.log(Interview(userAnswers),controlResponse)).thenReturn(Future.successful(Right(true)))
-      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Right(riskResponse)))
+      
+      mockDecide(Interview(userAnswers))(Right(controlResponse))
+      mockLog(Interview(userAnswers), controlResponse)(Right(true))
+      mockAddDecision(userAnswers.cacheMap.id,controlResponse)(Right(controlResponse))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -813,11 +792,9 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
     }
     "return a decision based on the interview" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Right(exitResponse)))
-      when(connector.log(Interview(userAnswers),exitResponse)).thenReturn(Future.successful(Right(true)))
-      when(dataConnector.addDecision(Matchers.any(),Matchers.any())).thenReturn(Future.successful(Right(response)))
+      mockDecide(Interview(userAnswers))(Right(exitResponse))
+      mockLog(Interview(userAnswers), exitResponse)(Right(true))
+      mockAddDecision(userAnswers.cacheMap.id,exitResponse)(Right(exitResponse))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -827,9 +804,8 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
     "handle 400 errors" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(400, "Bad"))))
+      mockDecide(Interview(userAnswers))(Left(ErrorResponse(400, "Bad")))
+      mockStandardError(Html("Error page"))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 
@@ -839,9 +815,9 @@ class DecisionServiceSpec extends SpecBase with FeatureSwitching{
 
     "handle 500 errors" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      when(connector.decide(Interview(userAnswers))).thenReturn(Future.successful(Left(ErrorResponse(500, "Internal error"))))
+      
+      mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "Internal error")))
+      mockStandardError(Html("Error page"))
 
       val result = service.decide(userAnswers, onwardRoute, error)
 

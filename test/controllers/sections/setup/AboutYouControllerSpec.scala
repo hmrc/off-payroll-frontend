@@ -19,7 +19,8 @@ package controllers.sections.setup
 import akka.util.ByteString
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import controllers.ControllerSpecBase
+import connectors.mocks.MockDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models._
@@ -38,7 +39,9 @@ import views.html.subOptimised.sections.setup.AboutYouView
 
 import scala.concurrent.Future
 
-class AboutYouControllerSpec extends ControllerSpecBase {
+class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+
+  def onwardRoute = Call("GET", "/foo")
 
   val aboutYouFormProvider = new AboutYouFormProvider()
   val aboutYouForm = aboutYouFormProvider()
@@ -48,7 +51,9 @@ class AboutYouControllerSpec extends ControllerSpecBase {
   val aboutYouview = injector.instanceOf[AboutYouView]
   val whichDescribesYouview = injector.instanceOf[WhichDescribesYouView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new AboutYouController(
+  val mockControllerHelper = mock[ControllerHelper]
+
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new AboutYouController(
     appConfig = frontendAppConfig,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -58,9 +63,8 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     aboutYouView = aboutYouview,
     whichDescribesYouView = whichDescribesYouview,
-    controllerHelper = controllerHelper
+    controllerHelper = mockControllerHelper
   )
-
 
   "AboutYou Controller" when {
 
@@ -68,16 +72,17 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       def viewAsString(form: Form[_] = aboutYouForm) = aboutYouview(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-      "return OK and the correct view for a GET" in {
-        val result = controller().onPageLoad(NormalMode)(fakeRequest)
+      val validData = Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0)))
 
+      "return OK and the correct view for a GET" in {
+
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
       }
 
       "populate the view correctly on a GET when the question has previously been answered" in {
-        val validData = Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0)))
-        val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -88,13 +93,16 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         val validCacheMap = CacheMap(cacheMapId, Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0))))
         when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
         val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-        when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
         when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
           .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
+
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
         session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values.head))
       }
 
@@ -109,7 +117,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to Index Controller for a GET if no existing data is found" in {
-        val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+        val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -117,7 +125,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       "redirect to Index Controller for a POST if no existing data is found" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
-        val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+        val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -127,6 +135,8 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     "Optimised Feature Switch is enabled" must {
 
       def viewAsString(form: Form[_] = whichDescribesYouForm) = whichDescribesYouview(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+
+      val validData = Map(WhichDescribesYouPage.toString -> Json.toJson(Answers(WhichDescribesYouAnswer.values.head,0)))
 
       "return OK and the correct view for a GET" in {
         enable(OptimisedFlow)
@@ -138,8 +148,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       "populate the view correctly on a GET when the question has previously been answered" in {
         enable(OptimisedFlow)
-        val validData = Map(WhichDescribesYouPage.toString -> Json.toJson(Answers(WhichDescribesYouAnswer.values.head,0)))
-        val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -149,15 +158,11 @@ class AboutYouControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
-        val validCacheMap = CacheMap(cacheMapId, Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0))))
-        when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-        val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-        when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
-        when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-          .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
+
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
         session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(WhichDescribesYouAnswer.values.head))
       }
 
@@ -174,7 +179,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       "redirect to Index Controller for a GET if no existing data is found" in {
         enable(OptimisedFlow)
-        val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+        val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -183,7 +188,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
       "redirect to Index Controller for a POST if no existing data is found" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "worker"))
-        val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+        val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

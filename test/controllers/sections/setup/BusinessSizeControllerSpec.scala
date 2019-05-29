@@ -18,7 +18,8 @@ package controllers.sections.setup
 
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
+import connectors.mocks.MockDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.BusinessSizeFormProvider
 import models.{Answers, BusinessSize, NormalMode, UserAnswers}
@@ -35,15 +36,17 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.BusinessSizeView
 
 import scala.concurrent.Future
+class BusinessSizeControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
-class BusinessSizeControllerSpec extends ControllerSpecBase {
 
   val formProvider = new BusinessSizeFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[BusinessSizeView]
+  val mockControllerHelper = mock[ControllerHelper]
+  def onwardRoute = Call("POST", "/foo")
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new BusinessSizeController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BusinessSizeController(
     appConfig = frontendAppConfig,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -51,23 +54,24 @@ class BusinessSizeControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper = controllerHelper
+    controllerHelper = mockControllerHelper
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(BusinessSizePage.toString -> Json.toJson(Answers(Seq(BusinessSize.values.head),0)))
+
   "BusinessSize Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(BusinessSizePage.toString -> Json.toJson(Answers(Seq(BusinessSize.values.head),0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -78,10 +82,11 @@ class BusinessSizeControllerSpec extends ControllerSpecBase {
       val validCacheMap = CacheMap(cacheMapId, Map(BusinessSizePage.toString -> Json.toJson(Answers("",0))))
       when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
       val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
       when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
         .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("businessSize[0]", BusinessSize.options.head.value))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -98,16 +103,16 @@ class BusinessSizeControllerSpec extends ControllerSpecBase {
       contentAsString(result) mustBe viewAsString(boundForm)
     }
 
-    "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+    "redirect to Session Expired for a GET if no existing data is found" in {
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
 
-    "redirect to Index Controller for a POST if no existing data is found" in {
+    "redirect to Session Expired for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("businessSize[0]", BusinessSize.options.head.value))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

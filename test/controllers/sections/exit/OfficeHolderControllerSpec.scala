@@ -16,49 +16,42 @@
 
 package controllers.sections.exit
 
-import akka.util.ByteString
-import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
+import connectors.mocks.MockDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.OfficeHolderFormProvider
-import models._
-import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
-import pages.sections.control.ScheduleOfWorkingHoursPage
+import models.{Answers, NormalMode, UserAnswers}
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
-import play.api.mvc.Results.Redirect
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.exit.OfficeHolderView
 
-import scala.concurrent.Future
-
-class OfficeHolderControllerSpec extends ControllerSpecBase {
+class OfficeHolderControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new OfficeHolderFormProvider()
   val form = formProvider()
+  val mockControllerHelper = mock[ControllerHelper]
 
   val view = injector.instanceOf[OfficeHolderView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new OfficeHolderController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new OfficeHolderController(
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper,
-    frontendAppConfig
+    mockControllerHelper,
+    appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+
+  val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true,0)))
 
   "OfficeHolder Controller" must {
 
@@ -70,8 +63,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -79,13 +71,14 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+      def onwardRoute = Call("POST", "/foo")
 
-      val validCacheMap = CacheMap(cacheMapId, Map(OfficeHolderPage.toString -> Json.toJson(Answers("",0))))
-      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
-      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
+      implicit val hc = new HeaderCarrier()
+
+      val userAnswers = UserAnswers("id").set(OfficeHolderPage,0, true)
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockDecide(userAnswers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
@@ -105,7 +98,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -113,7 +106,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

@@ -16,38 +16,41 @@
 
 package controllers.sections.setup
 
-import akka.util.ByteString
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import controllers.ControllerSpecBase
+import connectors.FakeDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
-import models.{Answers, NormalMode, UserAnswers, WorkerType}
-import org.mockito.Matchers
-import org.mockito.Mockito.when
+import models.{Answers, NormalMode, WorkerType}
+import navigation.FakeNavigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
+import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
+import connectors.FakeDataCacheConnector
+import connectors.mocks.MockDataCacheConnector
 
-import scala.concurrent.Future
-class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching {
+class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching with MockDataCacheConnector {
 
-    val formProvider = new WorkerTypeFormProvider()
-    val formProviderInt = new WorkerUsingIntermediaryFormProvider()
+  def onwardRoute = Call("GET", "/foo")
 
-    val form = formProvider()
-    val formInt = formProviderInt()
+  val formProvider = new WorkerTypeFormProvider()
+  val formProviderInt = new WorkerUsingIntermediaryFormProvider()
+  val form = formProvider()
+  val formInt = formProviderInt()
 
-    val view = injector.instanceOf[WorkerTypeView]
-    val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
+  val view = injector.instanceOf[WorkerTypeView]
+  val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
 
-    def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new WorkerTypeController(
+  val mockControllerHelper = mock[ControllerHelper]
+
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
+    new WorkerTypeController(
       FakeIdentifierAction,
       dataRetrievalAction,
       new DataRequiredActionImpl(messagesControllerComponents),
@@ -56,112 +59,111 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
       messagesControllerComponents,
       view,
       viewInt,
-      controllerHelper,
+      mockControllerHelper,
       frontendAppConfig
     )
 
+  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsStringInt(form: Form[_] = formInt) = viewInt(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-    def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-    def viewAsStringInt(form: Form[_] = formInt) = viewInt(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
+  val validDataInt = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
 
-    "WorkerType Controller" must {
+  "WorkerType Controller" must {
 
-      "return OK and the correct view for a GET" in {
-        val result = controller().onPageLoad(NormalMode)(fakeRequest)
+    "return OK and the correct view for a GET" in {
 
-        status(result) mustBe OK
-        contentAsString(result) mustBe viewAsString()
-      }
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsString()
+    }
 
-      "return OK and the correct view for a GET in the optimised view" in {
+    "return OK and the correct view for a GET in the optimised view" in {
 
-        enable(OptimisedFlow)
-        val result = controller().onPageLoad(NormalMode)(fakeRequest)
+      enable(OptimisedFlow)
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
-        status(result) mustBe OK
-        contentAsString(result) mustBe viewAsStringInt()
-      }
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsStringInt()
+    }
 
-      "populate the view correctly on a GET when the question has previously been answered" in {
-        val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
-        val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+    "populate the view correctly on a GET when the question has previously been answered" in {
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-        contentAsString(result) mustBe viewAsString(form.fill(WorkerType.values.head))
-      }
+      contentAsString(result) mustBe viewAsString(form.fill(WorkerType.values.head))
+    }
 
-      "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
+    "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
 
-        enable(OptimisedFlow)
-        val validData = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
-        val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      enable(OptimisedFlow)
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validDataInt)))
 
-        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-        contentAsString(result) mustBe viewAsStringInt(formInt.fill(true))
-      }
+      contentAsString(result) mustBe viewAsStringInt(formInt.fill(true))
+    }
 
-      "redirect to the next page when valid data is submitted" in {
-        val validCacheMap = CacheMap(cacheMapId, Map(WorkerTypePage.toString -> Json.toJson(Answers("",0))))
-        when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-        val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-        when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
-        when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-          .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
+    "redirect to the next page when valid data is submitted" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
 
-        val result = controller().onSubmit(NormalMode)(postRequest)
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-        status(result) mustBe SEE_OTHER
-      }
+      val result = controller().onSubmit(NormalMode)(postRequest)
 
-      "redirect to the next page when valid data is submitted for the optimised flow" in {
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
 
-        enable(OptimisedFlow)
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+    "redirect to the next page when valid data is submitted for the optimised flow" in {
 
-        val result = controller().onSubmit(NormalMode)(postRequest)
+      enable(OptimisedFlow)
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some("/foo")
-      }
+      mockSave(CacheMap(cacheMapId, validDataInt))(CacheMap(cacheMapId, validDataInt))
 
-      "return a Bad Request and errors when invalid data is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val boundForm = form.bind(Map("value" -> "invalid value"))
+      val result = controller().onSubmit(NormalMode)(postRequest)
 
-        val result = controller().onSubmit(NormalMode)(postRequest)
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
 
-        status(result) mustBe BAD_REQUEST
-        contentAsString(result) mustBe viewAsString(boundForm)
-      }
+    "return a Bad Request and errors when invalid data is submitted" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      "return a Bad Request and errors when invalid data is submitted for the optimised flow" in {
-        enable(OptimisedFlow)
+      val result = controller().onSubmit(NormalMode)(postRequest)
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val boundForm = formInt.bind(Map("value" -> "invalid value"))
+      status(result) mustBe BAD_REQUEST
+      contentAsString(result) mustBe viewAsString(boundForm)
+    }
 
-        val result = controller().onSubmit(NormalMode)(postRequest)
+    "return a Bad Request and errors when invalid data is submitted for the optimised flow" in {
+      enable(OptimisedFlow)
 
-        status(result) mustBe BAD_REQUEST
-        contentAsString(result) mustBe viewAsStringInt(boundForm)
-      }
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val boundForm = formInt.bind(Map("value" -> "invalid value"))
 
-      "redirect to Index Controller for a GET if no existing data is found" in {
-        val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller().onSubmit(NormalMode)(postRequest)
 
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
-      }
+      status(result) mustBe BAD_REQUEST
+      contentAsString(result) mustBe viewAsStringInt(boundForm)
+    }
 
-      "redirect to Index Controller for a POST if no existing data is found" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
-        val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+    "redirect to Index Controller for a GET if no existing data is found" in {
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
-        status(result) mustBe SEE_OTHER
-        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
-      }
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+    }
+
+    "redirect to Index Controller for a POST if no existing data is found" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
   }
+}

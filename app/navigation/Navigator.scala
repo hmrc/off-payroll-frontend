@@ -147,9 +147,15 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     BenefitsPage -> (_ => partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode)),
     LineManagerDutiesPage -> (_ => partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode)),
     InteractWithStakeholdersPage -> (_ => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)),
-    IdentifyToStakeholdersPage -> (_ => routes.ResultController.onPageLoad()),
+    IdentifyToStakeholdersPage -> (_ =>
+      if (isEnabled(OptimisedFlow)) {
+        routes.CheckYourAnswersController.onPageLoad()
+      } else {
+        routes.ResultController.onPageLoad()
+    }),
 
-    //Results Page
+    //CYA/Results Page
+    CheckYourAnswersPage -> (_ => routes.ResultController.onPageLoad()),
     ResultPage -> (_ => routes.PDFController.onPageLoad(NormalMode))
   )
 

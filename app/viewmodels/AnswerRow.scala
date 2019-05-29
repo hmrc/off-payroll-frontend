@@ -17,44 +17,60 @@
 package viewmodels
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import play.api.i18n.Messages
 import play.api.mvc.Request
 import play.twirl.api.Html
 
 sealed trait AnswerRow {
   val label: String
-  val answerIsMessageKey: Boolean
-  val changeUrl: String
   def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html
 }
 
 case class SingleAnswerRow(label: String,
                            answer: String,
                            answerIsMessageKey: Boolean,
-                           changeUrl: String) extends AnswerRow {
+                           changeUrl: Option[String]) extends AnswerRow with FeatureSwitching {
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
-    Html(if(answerIsMessageKey) messages(answer) else answer)
+    if(isEnabled(OptimisedFlow)) {
+      views.html.components.accordion_row(label, answer, answerIsMessageKey)
+    } else {
+      Html(if(answerIsMessageKey) messages(answer) else answer)
+    }
+
+  def panelIndentHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
+    views.html.components.accordion_row(label, answer, answerIsMessageKey, panelIndent = true)
 }
 
 case class MultiAnswerRow(label: String,
-                          answers: Seq[String],
-                          answerIsMessageKey: Boolean,
-                          changeUrl: String) extends AnswerRow {
+                          answers: Seq[SingleAnswerRow],
+                          changeUrl: Option[String]) extends AnswerRow with FeatureSwitching {
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html = {
-    val listItems = answers.foldLeft(""){
-      case (output, answer) => output + s"<li>${if(answerIsMessageKey) messages(answer) else answer}</li>"
+    if(isEnabled(OptimisedFlow)) {
+      views.html.components.accordion_row_multi(label, answers)
+    } else {
+      val listItems = answers.foldLeft(""){
+        case (output, answer) => output + s"<li>${if(answer.answerIsMessageKey) messages(answer.answer) else answer.answer}</li>"
+      }
+      Html(s"<ul class='no-bullet-pdf'>$listItems</ul>")
     }
-    Html(s"<ul class='no-bullet-pdf'>$listItems</ul>")
   }
+
 }
 
 object AnswerRow {
 
-  def apply(label: String, answer: String, answerIsMessageKey: Boolean, changeUrl: String) =
+  def apply(label: String, answer: String, answerIsMessageKey: Boolean) =
+    SingleAnswerRow(label, answer, answerIsMessageKey, None)
+
+  def apply(label: String, answer: String, answerIsMessageKey: Boolean, changeUrl: Option[String]) =
     SingleAnswerRow(label, answer, answerIsMessageKey, changeUrl)
 
-  def apply(label: String, answer: Seq[String], answerIsMessageKey: Boolean, changeUrl: String) =
-    MultiAnswerRow(label, answer, answerIsMessageKey, changeUrl)
+  def apply(label: String, answers: Seq[SingleAnswerRow], changeUrl: Option[String]) =
+    MultiAnswerRow(label, answers, changeUrl)
+
+  def apply(label: String, answers: Seq[SingleAnswerRow]) =
+    MultiAnswerRow(label, answers, None)
 }

@@ -25,18 +25,15 @@ import play.api.i18n.Messages
 trait ViewSpecBase extends SpecBase {
 
   trait BaseCSSSelectors {
-    val heading = "article form h1"
-    val subheading = "article header span.heading-secondary"
-    val p = (i: Int) => s"article form p:nth-of-type($i)"
-    val bullet = (i: Int) => s"article form ul li:nth-of-type($i)"
-    val multichoice = (i: Int) => s"article form div.multiple-choice:nth-of-type($i) label"
-    val exclamation = s"article form .notice strong"
-    val continueButton = "article form button"
+    val heading = "#content h1"
+    val subheading = "#content header span.heading-secondary"
+    val p = (i: Int) => s"#content form p:nth-of-type($i)"
+    val bullet = (i: Int) => s"#content form ul li:nth-of-type($i)"
+    val multichoice = (i: Int) => s"#content form div.multiple-choice:nth-of-type($i) label"
+    val exclamation = s"#content form .notice strong"
+    val continueButton = "#content form button"
     val hint = (i: Int) => s".form-hint:nth-of-type($i)"
   }
-
-  def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
-    s"$heading - ${section.fold("")(_ + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
 
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())
 

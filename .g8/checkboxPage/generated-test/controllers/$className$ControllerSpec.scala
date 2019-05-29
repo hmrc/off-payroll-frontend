@@ -23,9 +23,9 @@ class $className$ControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[$className$View]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new $className$Controller(
+  def controller(dataRetrievalAction: DataRetrievalAction = MockEmptyCacheMapDataRetrievalAction) = new $className$Controller(
     appConfig = frontendAppConfig,
-    dataCacheConnector = new FakeDataCacheConnector,
+    dataCacheConnector = mockMongoCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
@@ -75,7 +75,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(MockDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -83,7 +83,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("$checkboxKey$[0]", $className$.options.head.value))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(MockDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

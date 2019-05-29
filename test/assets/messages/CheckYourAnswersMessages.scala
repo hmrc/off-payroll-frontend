@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package viewmodels
+package assets.messages
 
-case class RepeaterAnswerSection (headingKey: String,
-                                  relevanceRow: AnswerRow,
-                                  rows: Seq[RepeaterAnswerRow],
-                                  addLinkKey: String,
-                                  addLinkUrl: String) extends Section
+object CheckYourAnswersMessages extends BaseMessages {
+
+  val heading = "Review your answers in each section below"
+  val title = heading
+  val h2 = "Confirm answers to get your result"
+  val p1 = "By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold."
+
+}

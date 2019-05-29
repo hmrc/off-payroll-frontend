@@ -18,7 +18,8 @@ package controllers.sections.setup
 
 import akka.util.ByteString
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import controllers.ControllerSpecBase
+import connectors.mocks.MockDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.ContractStartedFormProvider
 import models.{Answers, NormalMode, UserAnswers}
@@ -34,7 +35,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
-class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitching {
+class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
   val formProvider = new ContractStartedFormProvider()
   val form = formProvider()
@@ -42,26 +43,32 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
   val view = injector.instanceOf[ContractStartedView]
   val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new ContractStartedController(
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+
+  val mockControllerHelper = mock[ControllerHelper]
+  def onwardRoute = Call("POST", "/foo")
+
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
+    appConfig = frontendAppConfig,
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
     optimisedView = optimisedView,
-    controllerHelper,
-    frontendAppConfig
+    controllerHelper = mockControllerHelper
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def viewAsStringOptimised(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+
   "ContractStarted Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
@@ -75,8 +82,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -86,7 +92,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
     "populate the view correctly on a GET when the question has previously been answered for optimised flow" in {
       enable(OptimisedFlow)
       val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -97,10 +103,11 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
       val validCacheMap = CacheMap(cacheMapId, Map(ContractStartedPage.toString -> Json.toJson(Answers("",0))))
       when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
       val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
       when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
         .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -118,7 +125,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -126,7 +133,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with FeatureSwitc
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

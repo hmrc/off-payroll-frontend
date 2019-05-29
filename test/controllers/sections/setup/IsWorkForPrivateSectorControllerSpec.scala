@@ -18,7 +18,7 @@ package controllers.sections.setup
 
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{ContractStartedFormProvider, IsWorkForPrivateSectorFormProvider}
 import models.{AboutYouAnswer, Answers, NormalMode, UserAnswers}
@@ -46,7 +46,9 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[IsWorkForPrivateSectorView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new IsWorkForPrivateSectorController(
+  val mockControllerHelper = mock[ControllerHelper]
+
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IsWorkForPrivateSectorController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
@@ -56,7 +58,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper = controllerHelper
+    controllerHelper = mockControllerHelper
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -72,7 +74,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(IsWorkForPrivateSectorPage.toString -> Json.toJson(Answers(true,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -81,9 +83,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val validCacheMap = CacheMap(cacheMapId, Map(IsWorkForPrivateSectorPage.toString -> Json.toJson(Answers(true,0))))
-      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
       val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockNavigator.nextPage(Matchers.any(),Matchers.any())).thenReturn(userAnswers)
       when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
         .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
 
@@ -106,7 +106,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Index for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -114,7 +114,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
     "redirect to Index for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
