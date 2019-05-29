@@ -87,6 +87,9 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     }
   }
 
+  def get(id: String): Future[Option[CacheMap]] =
+    collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap]
+
   def addDecision(id: String,decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
     val selector = BSONDocument("id" -> id)
     collection.find(selector,None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap].flatMap {
@@ -109,7 +112,7 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     }
   }
 
-  def update(id: String): Future[Boolean] = {
+  def clearDecision(id: String): Future[Boolean] = {
     val selector = BSONDocument("id" -> id)
     val modifier = BSONDocument("$unset" -> BSONDocument("decisionResponse" -> ""))
 
@@ -117,7 +120,4 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
       lastError.ok
     }
   }
-
-  def get(id: String): Future[Option[CacheMap]] =
-    collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap]
 }

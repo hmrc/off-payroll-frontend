@@ -37,7 +37,7 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
   }
 
   def clearDecision[A](id: String): Future[Boolean] = {
-    sessionRepository.update(id)
+    sessionRepository.clearDecision(id)
   }
 
   def fetch(cacheId: String): Future[Option[CacheMap]] =

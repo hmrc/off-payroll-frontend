@@ -17,6 +17,7 @@
 package connectors
 
 import generators.Generators
+import models.{DecisionResponse, ResultEnum, Score}
 import org.mockito.Matchers.{eq => eqTo, _}
 import org.mockito.Mockito._
 import org.scalacheck.Arbitrary.arbitrary
@@ -33,11 +34,11 @@ import scala.concurrent.Future
 class MongoCacheConnectorSpec
   extends WordSpec with MustMatchers with ScalaCheckPropertyChecks with Generators with MockitoSugar with ScalaFutures with OptionValues {
 
+  val mockSessionRepository = mock[SessionRepository]
+
   ".save" must {
 
     "save the cache map to the Mongo repository" in {
-
-      val mockSessionRepository = mock[SessionRepository]
 
       when(mockSessionRepository.upsert(any[CacheMap])) thenReturn Future.successful(true)
 
@@ -64,8 +65,6 @@ class MongoCacheConnectorSpec
 
       "return None" in {
 
-        val mockSessionRepository = mock[SessionRepository]
-
         when(mockSessionRepository.get(any())) thenReturn Future.successful(None)
 
         val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
@@ -87,8 +86,6 @@ class MongoCacheConnectorSpec
     "a record exists for this key" must {
 
       "return the record" in {
-
-        val mockSessionRepository = mock[SessionRepository]
 
         val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
 
@@ -115,8 +112,6 @@ class MongoCacheConnectorSpec
 
       "return None" in {
 
-        val mockSessionRepository = mock[SessionRepository]
-
         when(mockSessionRepository.get(any())) thenReturn Future.successful(None)
 
         val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
@@ -138,8 +133,6 @@ class MongoCacheConnectorSpec
     "a record exists in Mongo but this key is not present" must {
 
       "return None" in {
-
-        val mockSessionRepository = mock[SessionRepository]
 
         val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
 
@@ -168,8 +161,6 @@ class MongoCacheConnectorSpec
 
       "return the key's value" in {
 
-        val mockSessionRepository = mock[SessionRepository]
-
         val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
 
         val gen = for {
@@ -192,6 +183,35 @@ class MongoCacheConnectorSpec
             }
         }
       }
+    }
+  }
+
+  "addDecision" must {
+    "add a decision" in {
+      val response = DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.EMPLOYED)
+
+      when(mockSessionRepository.addDecision(eqTo("id"),eqTo(response))) thenReturn Future.successful(Right(response))
+
+      val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
+
+      whenReady(mongoCacheConnector.addDecision("id",response)) { res =>
+        res.right.get mustEqual response
+      }
+
+    }
+  }
+
+  "clearDecision" must {
+    "clear a decision" in {
+
+      when(mockSessionRepository.clearDecision(eqTo("id"))) thenReturn Future.successful(true)
+
+      val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
+
+      whenReady(mongoCacheConnector.clearDecision("id")) { res =>
+        res mustEqual true
+      }
+
     }
   }
 }
