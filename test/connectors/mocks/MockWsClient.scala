@@ -17,19 +17,30 @@
 package connectors.mocks
 
 import connectors.utils.WsUtils
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
+import org.scalamock.scalatest.MockFactory
 import play.api.libs.ws.{BodyWritable, WSClient, WSRequest, WSResponse}
 
 import scala.concurrent.Future
 
-trait MockWsClient extends WsUtils with MockitoSugar {
+trait MockWsClient extends WsUtils with MockFactory {
 
   val mockWsClient: WSClient = mock[WSClient]
   val mockWsRequest: WSRequest = mock[WSRequest]
 
   def setupMockHttpPost[I,O](url: String, model: I)(response: Future[WSResponse])(implicit writesI: BodyWritable[I]): Unit = {
-    when(mockWsClient.url(url)).thenReturn(mockWsRequest)
-    when(mockWsRequest.post(model)).thenReturn(response)
+    mockClientUrl(url)
+    mockRequestPost(model)(response)
+  }
+
+  private def mockClientUrl(url: String): Unit = {
+    (mockWsClient.url(_: String))
+      .expects(url)
+      .returns(mockWsRequest)
+  }
+
+  private def mockRequestPost[I](model: I)(response: Future[WSResponse]): Unit = {
+    (mockWsRequest.post(_: I)(_: BodyWritable[I]))
+      .expects(model, *)
+      .returns(response)
   }
 }

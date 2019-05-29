@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-package navigation
+package services.mocks
 
-import config.FrontendAppConfig
-import models.{Mode, NormalMode, UserAnswers}
-import pages._
-import play.api.mvc.Call
+import connectors.httpParsers.PDFGeneratorHttpParser
+import org.scalamock.scalatest.MockFactory
+import play.twirl.api.Html
+import services.PDFService
+import uk.gov.hmrc.http.HeaderCarrier
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
+import scala.concurrent.{ExecutionContext, Future}
+
+trait MockPDFService extends MockFactory {
+
+  val mockPDFService = mock[PDFService]
+
+  def mockGeneratePdf(response: PDFGeneratorHttpParser.Response): Unit = {
+    (mockPDFService.generatePdf(_: Html)(_: HeaderCarrier, _: ExecutionContext))
+      .expects(*, *, *)
+      .returns(Future.successful(response))
+  }
 }

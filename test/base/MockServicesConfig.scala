@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package navigation
+package base
 
-import config.FrontendAppConfig
-import models.{Mode, NormalMode, UserAnswers}
-import pages._
-import play.api.mvc.Call
+import org.scalamock.scalatest.MockFactory
+import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
+trait MockServicesConfig extends MockFactory {
+
+  val servicesConfig = mock[ServicesConfig]
+
+  val stubPort = 8080
+
+  (servicesConfig.baseUrl(_: String)).expects(*).returns(s"http://localhost:$stubPort")
 }

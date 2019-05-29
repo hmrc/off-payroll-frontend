@@ -26,6 +26,7 @@ import models.{AdditionalPdfDetails, CheckMode, Timestamp}
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.twirl.api.Html
+import utils.FakeTimestamp
 import viewmodels.{AnswerRow, AnswerSection}
 import views.behaviours.ViewBehaviours
 
@@ -37,7 +38,7 @@ trait ResultViewFixture extends ViewBehaviours {
 
   val version = "1.0"
 
-  val timestamp = Timestamp.timestamp
+  val timestamp = FakeTimestamp.timestamp
 
   val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
 

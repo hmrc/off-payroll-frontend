@@ -16,13 +16,13 @@
 
 package controllers
 
-import connectors.FakeDataCacheConnector
-import controllers.actions.{DataRetrievalAction, FakeIdentifierAction}
+import connectors.mocks.MockDataCacheConnector
+import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeEmptyCacheMapDataRetrievalAction, FakeIdentifierAction}
 import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
 
-class IndexControllerSpec extends ControllerSpecBase {
+class IndexControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val onwardRoute = Call("GET", "/foo")
 
@@ -30,18 +30,19 @@ class IndexControllerSpec extends ControllerSpecBase {
 
     "has an existing cacheMap in session" should {
 
-      def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) = new IndexController(
+      object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
-        getData = dataRetrievalAction,
-        cache = new FakeDataCacheConnector,
+        getData = FakeEmptyCacheMapDataRetrievalAction,
+        cache = mockDataCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 
-      lazy val result = controller().onPageLoad()(fakeRequest)
+      lazy val result = TestIndexController.onPageLoad()(fakeRequest)
 
       "return SEE_OTHER for a GET" in {
+        mockSave(emptyCacheMap)(emptyCacheMap)
         status(result) mustBe SEE_OTHER
       }
 
@@ -52,18 +53,19 @@ class IndexControllerSpec extends ControllerSpecBase {
 
     "does not have an existing cacheMap in session" should {
 
-      def controller(dataRetrievalAction: DataRetrievalAction = dontGetAnyData) = new IndexController(
+      object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
         navigator = new FakeNavigator(onwardRoute),
         identify = FakeIdentifierAction,
-        getData = dataRetrievalAction,
-        cache = new FakeDataCacheConnector,
+        getData = FakeDontGetDataDataRetrievalAction,
+        cache = mockDataCacheConnector,
         controllerComponents = messagesControllerComponents
       )
 
-      lazy val result = controller().onPageLoad()(fakeRequest)
+      lazy val result = TestIndexController.onPageLoad()(fakeRequest)
 
       "return SEE_OTHER for a GET" in {
+        mockSave(emptyCacheMap)(emptyCacheMap)
         status(result) mustBe SEE_OTHER
       }
 

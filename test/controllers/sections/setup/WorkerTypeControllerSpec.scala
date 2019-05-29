@@ -18,6 +18,7 @@ package controllers.sections.setup
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.FakeDataCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
@@ -33,7 +34,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
-class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching {
+class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -45,9 +46,9 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
   val view = injector.instanceOf[WorkerTypeView]
   val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
     new WorkerTypeController(
-      new FakeDataCacheConnector,
+      mockDataCacheConnector,
       new FakeNavigator(onwardRoute),
       FakeIdentifierAction,
       dataRetrievalAction,
@@ -57,18 +58,21 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
       messagesControllerComponents,
       view,
       viewInt,
-      decisionService,
+      mockDecisionService,
       frontendAppConfig
     )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def viewAsStringInt(form: Form[_] = formInt) = viewInt(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
+  val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
+  val validDataInt = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
+
   "WorkerType Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsString()
     }
@@ -83,8 +87,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -94,8 +97,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
     "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
 
       enable(OptimisedFlow)
-      val validData = Map(WorkerUsingIntermediaryPage.toString -> Json.toJson(Answers(true, 0)))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validDataInt)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
@@ -104,6 +106,8 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -115,6 +119,8 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
 
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      mockSave(CacheMap(cacheMapId, validDataInt))(CacheMap(cacheMapId, validDataInt))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -145,7 +151,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad(NormalMode)(fakeRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
@@ -153,7 +159,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
 
     "redirect to Index Controller for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
-      val result = controller(dontGetAnyData).onSubmit(NormalMode)(postRequest)
+      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)

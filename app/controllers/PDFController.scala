@@ -47,6 +47,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               decisionService: DecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
+                              time: Timestamp,
                               implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching with UserAnswersUtils {
 
   val form = formProvider()
@@ -60,7 +61,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
       additionalData => {
         val timestamp = request.userAnswers.get(ResultPage)
-        printResult(additionalData, if(timestamp.isDefined) timestamp.get.answer else Timestamp.timestamp)
+        printResult(additionalData, if(timestamp.isDefined) timestamp.get.answer else time.timestamp)
       }
     )
   }

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package navigation
+package utils
 
-import config.FrontendAppConfig
-import models.{Mode, NormalMode, UserAnswers}
-import pages._
-import play.api.mvc.Call
+import models.Timestamp
+import play.api.i18n.Messages
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
+object FakeTimestamp extends Timestamp {
+
+  override def timestamp(implicit messages: Messages): String = s"01 ${months.head} 2019, 00:00:00"
+
 }
