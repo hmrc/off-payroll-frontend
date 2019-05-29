@@ -19,13 +19,13 @@ package repositories
 import config.FrontendAppConfig
 import javax.inject.{Inject, Named, Singleton}
 
-import models.{DecisionResponse, ErrorResponse}
+import models.{DecisionResponse, ErrorResponse, ResultEnum}
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import play.mvc.Http
-import reactivemongo.bson.{BSONBoolean, BSONDocument, BSONObjectID}
+import reactivemongo.bson.{BSONBoolean, BSONDocument, BSONDocumentReader, BSONObjectID}
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
@@ -39,7 +39,7 @@ import scala.concurrent.{ExecutionContext, Future}
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
                          lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC),
-                         decision: Option[String] = None)
+                         decisionResponse: Option[DecisionResponse] = None)
 
 object DatedCacheMap {
   implicit val dateFormat = ReactiveMongoFormats.dateTimeFormats
@@ -88,21 +88,24 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
   }
 
   def addDecision(id: String,decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
-    val selector = BSONDocument("id" -> id,"decisionResponse" -> BSONDocument("$exists" -> false))
-    val modifier = BSONDocument("$set" -> BSONDocument("decisionResponse" -> Json.toJson(decisionResponse)))
-
-    collection.findAndUpdate(selector,modifier).flatMap { res =>
-      res.result[DatedCacheMap] match {
-        case Some(_) => Future.successful(Right(decisionResponse))
-        case None => getEarlierDecision(id)
-      }
+    val selector = BSONDocument("id" -> id)
+    collection.find(selector,None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap].flatMap {
+      case Some(DatedCacheMap(_,_,_,Some(decision))) => Future.successful(Right(decision))
+      case Some(_) => updateDecision(id,decisionResponse)
+      case None => Future.successful(Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,"Missing record")))
+    }.recover {
+      case ex: Exception => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,ex.getMessage))
     }
   }
 
-  private def getEarlierDecision(id: String) = {
-    collection.find(BSONDocument("id" -> id),None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap].map {
-      case Some(DatedCacheMap(_,_,_,Some(decision))) => Right(Json.parse(decision).as[DecisionResponse])
-      case _ => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,"Empty Database"))
+  private def updateDecision(id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
+    val selector = BSONDocument("id" -> id)
+    val modifier = BSONDocument("$set" -> BSONDocument("decisionResponse" -> Json.toJson(decisionResponse)))
+
+    collection.update(selector,modifier).map { _ =>
+      Right(decisionResponse)
+    }.recover {
+      case ex: Exception => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,ex.getMessage))
     }
   }
 
