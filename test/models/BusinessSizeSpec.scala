@@ -16,6 +16,7 @@
 
 package models
 
+import models.BusinessSize.{BalanceSheet, Employees, NoneOfAbove, Turnover}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
@@ -57,6 +58,17 @@ class BusinessSizeSpec extends WordSpec with MustMatchers with ScalaCheckPropert
 
           Json.toJson(businessSize) mustEqual JsString(businessSize.toString)
       }
+    }
+
+    "calculate if it's a small business correctly" in {
+      BusinessSize.isSmallBusiness(Seq(Turnover)) mustBe true
+      BusinessSize.isSmallBusiness(Seq(BalanceSheet)) mustBe true
+      BusinessSize.isSmallBusiness(Seq(Employees)) mustBe true
+      BusinessSize.isSmallBusiness(Seq(NoneOfAbove)) mustBe true
+      BusinessSize.isSmallBusiness(Seq(Turnover, BalanceSheet)) mustBe false
+      BusinessSize.isSmallBusiness(Seq(BalanceSheet, Employees)) mustBe false
+      BusinessSize.isSmallBusiness(Seq(Turnover, Employees)) mustBe false
+      BusinessSize.isSmallBusiness(Seq(Turnover, BalanceSheet, Employees)) mustBe false
     }
   }
 }
