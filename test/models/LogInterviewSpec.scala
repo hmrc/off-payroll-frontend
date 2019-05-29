@@ -16,27 +16,21 @@
 
 package models
 
-import java.time.LocalDateTime
-
 import base.SpecBase
 import config.SessionKeys
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.{WorkerAgreeWithOthers, WorkerChooses}
-import models.HowWorkIsDone.{NoWorkerInputAllowed, WorkerFollowStrictEmployeeProcedures}
-import models.HowWorkerIsPaid.{Commission, HourlyDailyOrWeekly}
-import models.IdentifyToStakeholders.{WorkAsBusiness, WorkAsIndependent}
+import models.ChooseWhereWork.WorkerAgreeWithOthers
+import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.HowWorkerIsPaid.Commission
+import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.{CannotBeCorrected, OutsideOfHoursNoCosts}
+import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.UserType.Hirer
 import models.WorkerType.SoleTrader
 import models.logging._
 import models.requests.DataRequest
-import org.joda.time.{DateTime, DateTimeZone}
-import org.mockito.Mockito.when
-import org.scalatestplus.mockito.MockitoSugar
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -44,7 +38,7 @@ import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, Inte
 import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.Json
-import utils.{DateTimeUtil, MockDateTimeUtil}
+import utils.MockDateTimeUtil
 
 class LogInterviewSpec extends SpecBase {
 
