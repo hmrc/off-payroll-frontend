@@ -19,39 +19,28 @@ package navigation
 import base.SpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.routes
-import controllers.sections.setup.{routes => setupRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import models.AboutYouAnswer.Worker
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.setup.{routes => setupRoutes}
 import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
 import models._
-import org.scalatestplus.mockito.MockitoSugar
 import pages._
-import play.api.libs.json.Writes
-import models.Answers._
-import models.ArrangedSubstitute.YesClientAgreed
-import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.WorkerAgreeWithOthers
-import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.WorkerType.SoleTrader
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-class NavigatorSpec extends SpecBase with MockitoSugar {
+import play.api.libs.json.Writes
+class NavigatorSpec extends SpecBase {
+
+  val emptyUserAnswers = UserAnswers("id")
 
   val navigator = new Navigator
-  def nextPage(fromPage: Page, userAnswers: UserAnswers = mock[UserAnswers]) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
+  def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
   def setAnswers[A](answers: (QuestionPage[A], A)*)(implicit writes: Writes[A],aWrites: Writes[Answers[A]]) =
     answers.foldLeft(UserAnswers.apply("id"))((o, a) => o.set(a._1,0, a._2))
 
@@ -328,7 +317,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "go to ResultController from a page that doesn't exist in the edit route map" in {
 
         case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode)(mock[UserAnswers]) mustBe routes.ResultController.onPageLoad()
+        navigator.nextPage(UnknownPage, CheckMode)(emptyUserAnswers) mustBe routes.ResultController.onPageLoad()
       }
     }
   }

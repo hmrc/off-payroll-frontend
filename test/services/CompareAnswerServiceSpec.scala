@@ -17,12 +17,8 @@
 package services
 
 import base.SpecBase
-import config.SessionKeys
-import connectors.DecisionConnector
-import forms.DeclarationFormProvider
-import handlers.ErrorHandler
 import models.AboutYouAnswer.{Agency, Worker}
-import models.ArrangedSubstitute.{No, YesClientAgreed}
+import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.ChooseWhereWork.WorkerAgreeWithOthers
 import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
@@ -31,27 +27,17 @@ import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.WorkerType.{LimitedCompany, SoleTrader}
+import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
-import org.mockito.Matchers._
-import org.mockito.Mockito.when
-import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
-import play.api.mvc.{AnyContent, Call}
+import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{contentAsString, redirectLocation, _}
-import play.twirl.api.Html
-import uk.gov.hmrc.http.HeaderCarrier
-import viewmodels.AnswerSection
-import views.html.results._
-
-import scala.concurrent.Future
 
 class CompareAnswerServiceSpec extends SpecBase {
 
