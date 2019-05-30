@@ -32,12 +32,10 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.exit.OfficeHolderView
 
-class OfficeHolderControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService{
-  def onwardRoute = Call("POST", "/foo")
+class OfficeHolderControllerSpec extends ControllerSpecBase {
 
   val formProvider = new OfficeHolderFormProvider()
   val form = formProvider()
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   val view = injector.instanceOf[OfficeHolderView]
 

@@ -37,17 +37,13 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
-class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class ContractStartedControllerSpec extends ControllerSpecBase {
 
   val formProvider = new ContractStartedFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[ContractStartedView]
   val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]
-
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
     appConfig = frontendAppConfig,

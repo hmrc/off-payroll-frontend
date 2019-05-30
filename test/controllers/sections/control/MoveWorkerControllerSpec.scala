@@ -31,14 +31,12 @@ import play.api.test.Helpers._
 import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.MoveWorkerView
-class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService{
-  def onwardRoute = Call("POST", "/foo")
+class MoveWorkerControllerSpec extends ControllerSpecBase {
 
   val formProvider = new MoveWorkerFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[MoveWorkerView]
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
     FakeIdentifierAction,

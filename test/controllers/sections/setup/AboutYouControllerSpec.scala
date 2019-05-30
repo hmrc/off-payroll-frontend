@@ -41,9 +41,7 @@ import views.html.subOptimised.sections.setup.AboutYouView
 
 import scala.concurrent.Future
 
-class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-
-  def onwardRoute = Call("GET", "/foo")
+class AboutYouControllerSpec extends ControllerSpecBase {
 
   val aboutYouFormProvider = new AboutYouFormProvider()
   val aboutYouForm = aboutYouFormProvider()
@@ -52,8 +50,6 @@ class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnec
 
   val aboutYouview = injector.instanceOf[AboutYouView]
   val whichDescribesYouview = injector.instanceOf[WhichDescribesYouView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new AboutYouController(
     appConfig = frontendAppConfig,

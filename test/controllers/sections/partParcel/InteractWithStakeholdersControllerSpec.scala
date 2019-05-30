@@ -45,15 +45,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.InteractWithStakeholdersView
 
-class InteractWithStakeholdersControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
 
   val formProvider = new InteractWithStakeholdersFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[InteractWithStakeholdersView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new InteractWithStakeholdersController(
     FakeIdentifierAction,

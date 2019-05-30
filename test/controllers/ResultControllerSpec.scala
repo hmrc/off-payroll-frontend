@@ -36,9 +36,9 @@ import utils.FakeTimestamp
 import viewmodels.AnswerSection
 import views.html.results.{IndeterminateView, _}
 
-class ResultControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
+class ResultControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = Call("GET", "/foo")
+  override def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()

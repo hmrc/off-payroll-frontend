@@ -39,14 +39,12 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.ScheduleOfWorkingHoursView
 
 import scala.concurrent.Future
-class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService{
-  def onwardRoute = Call("POST", "/foo")
+class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase {
 
   val formProvider = new ScheduleOfWorkingHoursFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[ScheduleOfWorkingHoursView]
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ScheduleOfWorkingHoursController(
     FakeIdentifierAction,

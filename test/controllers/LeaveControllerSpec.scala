@@ -25,7 +25,6 @@ class LeaveControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[LeaveView]
 
-
   object TestLeaveController extends LeaveController(
     FakeIdentifierAction,
     FakeEmptyCacheMapDataRetrievalAction,

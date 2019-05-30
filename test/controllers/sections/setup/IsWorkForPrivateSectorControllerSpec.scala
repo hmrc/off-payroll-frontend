@@ -39,16 +39,12 @@ import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
 
-class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase with MockCompareAnswerService with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
   val formProvider = new IsWorkForPrivateSectorFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[IsWorkForPrivateSectorView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IsWorkForPrivateSectorController(
     appConfig = frontendAppConfig,

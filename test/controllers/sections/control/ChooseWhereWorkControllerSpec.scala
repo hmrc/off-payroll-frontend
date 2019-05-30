@@ -40,16 +40,12 @@ import views.html.subOptimised.sections.control.ChooseWhereWorkView
 
 import scala.concurrent.Future
 
-class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockFactory with MockCompareAnswerService{
+class ChooseWhereWorkControllerSpec extends ControllerSpecBase {
 
   val formProvider = new ChooseWhereWorkFormProvider()
   val form = formProvider()
-  def onwardRoute = Call("POST", "/foo")
 
   val view = injector.instanceOf[ChooseWhereWorkView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
     FakeIdentifierAction,
@@ -84,9 +80,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val userAnswers = UserAnswers("id")
 
-      implicit val hc = new HeaderCarrier()
       mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)

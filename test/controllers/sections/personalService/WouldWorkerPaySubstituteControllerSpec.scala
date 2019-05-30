@@ -42,15 +42,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
 
-class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
 
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[WouldWorkerPaySubstituteView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
     FakeIdentifierAction,

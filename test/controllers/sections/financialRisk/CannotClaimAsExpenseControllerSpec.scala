@@ -34,12 +34,10 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
-class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
   val formProvider = new CannotClaimAsExpenseFormProvider()
   val form = formProvider()
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   val view = injector.instanceOf[CannotClaimAsExpenseView]
 

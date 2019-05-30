@@ -39,15 +39,12 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.ArrangedSubstituteView
 
 import scala.concurrent.Future
-class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class ArrangedSubstituteControllerSpec extends ControllerSpecBase {
 
   val formProvider = new ArrangedSubstituteFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[ArrangedSubstituteView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ArrangedSubstituteController(
     FakeIdentifierAction,

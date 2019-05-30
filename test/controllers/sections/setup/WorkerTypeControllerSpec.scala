@@ -17,28 +17,20 @@
 package controllers.sections.setup
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.FakeDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
 import models.{Answers, NormalMode, UserAnswers, WorkerType}
-import navigation.FakeNavigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockDataCacheConnector
-import services.mocks.MockCompareAnswerService
 
-class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching with MockDataCacheConnector with MockCompareAnswerService {
-
-  def onwardRoute = Call("GET", "/foo")
+class WorkerTypeControllerSpec extends ControllerSpecBase {
 
   val formProvider = new WorkerTypeFormProvider()
   val formProviderInt = new WorkerUsingIntermediaryFormProvider()
@@ -47,8 +39,6 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with FeatureSwitching 
 
   val view = injector.instanceOf[WorkerTypeView]
   val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
     new WorkerTypeController(

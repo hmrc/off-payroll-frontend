@@ -37,15 +37,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.LineManagerDutiesView
 
-class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
+class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
   val formProvider = new LineManagerDutiesFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[LineManagerDutiesView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
-  def onwardRoute = Call("POST", "/foo")
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new LineManagerDutiesController(
     FakeIdentifierAction,

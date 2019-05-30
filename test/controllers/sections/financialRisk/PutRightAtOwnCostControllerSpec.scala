@@ -34,15 +34,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 
-class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
   val formProvider = new PutRightAtOwnCostFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PutRightAtOwnCostController(
     FakeIdentifierAction,

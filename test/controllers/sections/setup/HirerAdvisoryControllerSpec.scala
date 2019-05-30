@@ -25,8 +25,6 @@ import views.html.sections.setup.HirerAdvisoryView
 
 class HirerAdvisoryControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = Call("POST", "/foo")
-
   val view = injector.instanceOf[HirerAdvisoryView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HirerAdvisoryController(

@@ -21,14 +21,24 @@ import java.nio.charset.Charset
 import akka.stream.Materializer
 import akka.util.ByteString
 import base.SpecBase
+import connectors.mocks.MockDataCacheConnector
+import models.UserAnswers
+import navigation.FakeNavigator
 import org.jsoup.Jsoup
-import play.api.mvc.Result
-import services.mocks.MockDecisionService
+import play.api.mvc.{Call, Result}
+import services.mocks.{MockCompareAnswerService, MockDecisionService, MockPDFService}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
-trait ControllerSpecBase extends SpecBase with MockDecisionService {
+trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService with MockDataCacheConnector with MockPDFService{
+
+  def onwardRoute = Call("POST", "/foo")
+  val userAnswers = UserAnswers("id")
+
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector,
+    new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   val cacheMapId = "id"
 

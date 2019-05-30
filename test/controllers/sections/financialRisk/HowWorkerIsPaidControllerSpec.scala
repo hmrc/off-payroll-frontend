@@ -39,14 +39,12 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.HowWorkerIsPaidView
 
 import scala.concurrent.Future
-class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
   val formProvider = new HowWorkerIsPaidFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[HowWorkerIsPaidView]
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkerIsPaidController(
     FakeIdentifierAction,

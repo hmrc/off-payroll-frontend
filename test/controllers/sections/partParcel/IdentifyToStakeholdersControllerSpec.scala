@@ -40,15 +40,12 @@ import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
 
 import scala.concurrent.Future
 
-class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
   val formProvider = new IdentifyToStakeholdersFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
     FakeIdentifierAction,

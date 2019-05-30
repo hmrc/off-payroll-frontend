@@ -41,16 +41,12 @@ import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.NeededToPayHelperView
 
-class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
-  def onwardRoute = Call("POST", "/foo")
+class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
   val formProvider = new NeededToPayHelperFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[NeededToPayHelperView]
-
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
-
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new NeededToPayHelperController(
     FakeIdentifierAction,
