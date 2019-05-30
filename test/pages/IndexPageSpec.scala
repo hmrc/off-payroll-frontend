@@ -16,10 +16,9 @@
 
 package pages
 
-import models.Enumerable
 import pages.behaviours.PageBehaviours
 
-class IndexPageSpec extends PageBehaviours with Enumerable.Implicits {
+class IndexPageSpec extends PageBehaviours {
 
   "IndexPage" should {
 

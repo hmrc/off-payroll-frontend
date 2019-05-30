@@ -18,7 +18,9 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import models.WhichDescribesYouAnswer.ClientPAYE
+import models.WhichDescribesYouAnswer.{ClientPAYE, WorkerIR35}
+import models.{UserAnswers, WhichDescribesYouAnswer}
+import pages.sections.setup.WhichDescribesYouPage
 import play.api.test.Helpers._
 import views.html.sections.setup.ToolNotNeededView
 
@@ -35,14 +37,23 @@ class ToolNotNeededControllerSpec extends ControllerSpecBase {
     appConfig = frontendAppConfig
   )
 
-  def viewAsString = view(ClientPAYE)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(clientType: WhichDescribesYouAnswer = ClientPAYE) = view(clientType)(fakeRequest, messages, frontendAppConfig).toString
 
   "AboutYou Controller" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(fakeRequest)
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString
+      contentAsString(result) mustBe viewAsString()
+    }
+
+    "return OK and the correct view for a GET with ClientTypeStored" in {
+      val cacheMap = UserAnswers("id").set(WhichDescribesYouPage, 0, WorkerIR35).cacheMap
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(cacheMap))
+
+      val result = controller(getRelevantData).onPageLoad(fakeRequest)
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsString(WorkerIR35)
     }
 
     "redirect to the next page when valid data is submitted" in {

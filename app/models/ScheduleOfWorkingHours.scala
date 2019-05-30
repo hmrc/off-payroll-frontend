@@ -23,13 +23,13 @@ sealed trait ScheduleOfWorkingHours
 
 object ScheduleOfWorkingHours {
 
-  case object Scheduledecidedforworker extends WithName("scheduleDecidedForWorker") with ScheduleOfWorkingHours
-  case object Workerdecideschedule extends WithName("workerDecideSchedule") with ScheduleOfWorkingHours
+  case object ScheduleDecidedForWorker extends WithName("scheduleDecidedForWorker") with ScheduleOfWorkingHours
+  case object WorkerDecideSchedule extends WithName("workerDecideSchedule") with ScheduleOfWorkingHours
   case object WorkerAgreeSchedule extends WithName("workerAgreeSchedule") with ScheduleOfWorkingHours
-  case object Noschedulerequiredonlydeadlines extends WithName("noScheduleRequiredOnlyDeadlines") with ScheduleOfWorkingHours
+  case object NoScheduleRequiredOnlyDeadlines extends WithName("noScheduleRequiredOnlyDeadlines") with ScheduleOfWorkingHours
 
   val values: Seq[ScheduleOfWorkingHours] = Seq(
-    Scheduledecidedforworker, Workerdecideschedule, WorkerAgreeSchedule, Noschedulerequiredonlydeadlines
+    ScheduleDecidedForWorker, WorkerDecideSchedule, WorkerAgreeSchedule, NoScheduleRequiredOnlyDeadlines
   )
 
   val options: Seq[RadioOption] = values.map {
@@ -46,10 +46,10 @@ object ScheduleOfWorkingHours {
 
   implicit object ScheduleOfWorkingHoursReads extends Reads[ScheduleOfWorkingHours] {
     override def reads(json: JsValue): JsResult[ScheduleOfWorkingHours] = json match {
-      case JsString(Scheduledecidedforworker.toString) => JsSuccess(Scheduledecidedforworker)
-      case JsString(Workerdecideschedule.toString) => JsSuccess(Workerdecideschedule)
+      case JsString(ScheduleDecidedForWorker.toString) => JsSuccess(ScheduleDecidedForWorker)
+      case JsString(WorkerDecideSchedule.toString) => JsSuccess(WorkerDecideSchedule)
       case JsString(WorkerAgreeSchedule.toString) => JsSuccess(WorkerAgreeSchedule)
-      case JsString(Noschedulerequiredonlydeadlines.toString) => JsSuccess(Noschedulerequiredonlydeadlines)
+      case JsString(NoScheduleRequiredOnlyDeadlines.toString) => JsSuccess(NoScheduleRequiredOnlyDeadlines)
       case _                          => JsError("Unknown scheduleOfWorkingHours")
     }
   }

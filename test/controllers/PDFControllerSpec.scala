@@ -18,7 +18,7 @@ package controllers
 
 import akka.util.ByteString
 import config.FrontendAppConfig
-import config.featureSwitch.FeatureSwitch
+import config.featureSwitch.{FeatureSwitch, PrintPDF}
 import connectors.httpParsers.PDFGeneratorHttpParser
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import connectors.mocks.MockDataCacheConnector
@@ -39,6 +39,11 @@ import views.html.CustomisePDFView
 
 class PDFControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockPDFService {
 
+  override def beforeEach = {
+    super.beforeEach()
+    enable(PrintPDF)
+  }
+
   def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new CustomisePDFFormProvider()
@@ -47,24 +52,6 @@ class PDFControllerSpec extends ControllerSpecBase with MockDataCacheConnector w
   val customisePdfView = injector.instanceOf[CustomisePDFView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
-    controllerComponents = messagesControllerComponents,
-    customisePdfView,
-    injector.instanceOf[DecisionService],
-    mockPDFService,
-    errorHandler,
-    FakeTimestamp,
-    frontendAppConfig
-  ){
-    override def isEnabled(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): Boolean = true
-  }
-
-  def controllerFeature(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
     mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -131,7 +118,8 @@ class PDFControllerSpec extends ControllerSpecBase with MockDataCacheConnector w
       contentAsString(result) mustBe "PDF"
     }
 
-    "show the PDF view when the feature defaults" in {
+    "show the PDF view when the feature is disabled" in {
+      disable(PrintPDF)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
       val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp,0)))
@@ -139,9 +127,7 @@ class PDFControllerSpec extends ControllerSpecBase with MockDataCacheConnector w
 
       val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
-      mockGeneratePdf(response)
-
-      val result = controllerFeature(getRelevantData).onSubmit(NormalMode)(postRequest)
+      val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe OK
     }

@@ -16,18 +16,18 @@
 
 package pages
 
-import models.CannotClaimAsExpense
+import models.ArrangedSubstitute
 import pages.behaviours.PageBehaviours
-import pages.sections.financialRisk.CannotClaimAsExpensePage
+import pages.sections.personalService.ArrangedSubstitutePage
 
-class CannotClaimAsExpensePageSpec extends PageBehaviours {
+class ArrangedSubstitutePageSpec extends PageBehaviours {
 
   "YourLocation" must {
 
-    beRetrievable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
+    beRetrievable[ArrangedSubstitute](ArrangedSubstitutePage)
 
-    beSettable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
+    beSettable[ArrangedSubstitute](ArrangedSubstitutePage)
 
-    beRemovable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
+    beRemovable[ArrangedSubstitute](ArrangedSubstitutePage)
   }
 }

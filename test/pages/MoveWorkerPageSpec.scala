@@ -20,7 +20,7 @@ import models.MoveWorker
 import pages.behaviours.PageBehaviours
 import pages.sections.control.MoveWorkerPage
 
-class MoveWorkerSpec extends PageBehaviours {
+class MoveWorkerPageSpec extends PageBehaviours {
 
   "YourLocation" must {
 

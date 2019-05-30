@@ -20,7 +20,7 @@ import models.IdentifyToStakeholders
 import pages.behaviours.PageBehaviours
 import pages.sections.partParcel.IdentifyToStakeholdersPage
 
-class IdentifyToStakeholdersSpec extends PageBehaviours {
+class IdentifyToStakeholdersPageSpec extends PageBehaviours {
 
   "YourLocation" must {
 

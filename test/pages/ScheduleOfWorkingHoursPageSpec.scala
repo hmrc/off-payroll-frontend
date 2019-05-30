@@ -20,7 +20,7 @@ import models.ScheduleOfWorkingHours
 import pages.behaviours.PageBehaviours
 import pages.sections.control.ScheduleOfWorkingHoursPage
 
-class ScheduleOfWorkingHoursSpec extends PageBehaviours {
+class ScheduleOfWorkingHoursPageSpec extends PageBehaviours {
 
   "YourLocation" must {
 
