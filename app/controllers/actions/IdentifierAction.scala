@@ -62,7 +62,7 @@ class SessionIdentifierAction @Inject()(config: FrontendAppConfig,
   override def invokeBlock[A](request: Request[A], block: IdentifierRequest[A] => Future[Result]): Future[Result] = {
     hc(request).sessionId match {
       case Some(session) => block(IdentifierRequest(request, session.value))
-      case None => Future.successful(Redirect(controllers.routes.IndexController.onPageLoad()))
+      case None => Future.successful(Redirect(controllers.errors.routes.SessionExpiredController.onPageLoad()))
     }
   }
 }

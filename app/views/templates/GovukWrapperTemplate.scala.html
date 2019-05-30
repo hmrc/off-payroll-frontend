@@ -86,7 +86,7 @@ languageSelection: LanguageSelection)
                   countdown: @appConfig.timeoutCountdown,
                   keepAliveUrl: '@controllers.routes.IndexController.onPageLoad.url',
                   keepAliveButtonText: '@messages("timeout.keep_alive")',
-                  signOutUrl: '@controllers.errors.routes.SessionExpiredController.checkTimeout.url',
+                  signOutUrl: '@controllers.errors.routes.SessionExpiredController.onPageLoad.url',
                   signOutButtonText: '@messages("timeout.delete_answers")'
                 });
                 var dialogOpen;

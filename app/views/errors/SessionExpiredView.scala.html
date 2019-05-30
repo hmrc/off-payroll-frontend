@@ -31,11 +31,7 @@
 
     @components.heading("session.expired.heading")
 
-    @formWithCsrf(action = controllers.errors.routes.SessionExpiredController.onSubmit) {
-        <div class="section">
-            <button id="submit" class="button">
-                @messages("session.expired.start_again")
-            </button>
-        </div>
-    }
+    <div class="section">
+        <a href="@{controllers.routes.IndexController.onPageLoad.url}" class="button">@messages("session.expired.start_again")</a>
+    </div>
 }

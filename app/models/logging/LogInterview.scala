@@ -44,7 +44,7 @@ object LogInterview extends DateTimeJsonFormat with FeatureSwitching {
     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     JsString(date.format(formatter))
   }
-  implicit val logInterviewFormat = Json.format[LogInterview]
+  implicit val writes = Json.writes[LogInterview]
 
   def apply(decisionRequest: Interview, decisionResult: DecisionResponse, dateTimeUtil: DateTimeUtil): LogInterview = {
     LogInterview(

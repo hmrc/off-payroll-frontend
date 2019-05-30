@@ -19,15 +19,18 @@ package connectors.httpParsers
 import models.ErrorResponse
 import play.api.Logger
 import play.mvc.Http.Status.NO_CONTENT
-import uk.gov.hmrc.http.HttpResponse
+import uk.gov.hmrc.http.{HttpReads, HttpResponse}
 
 object LogHttpParser {
 
-  val reads: HttpResponse => Either[ErrorResponse, Boolean] = response =>
-    response.status match {
-      case NO_CONTENT => Right(true)
-      case unexpectedStatus@_ => Logger.error(s"Unexpected response from log API - Response: $unexpectedStatus")
-        Left(ErrorResponse(response.status,"Unexpected Response returned from log API"))
-    }
+  implicit object LogReads extends HttpReads[Either[ErrorResponse, Boolean]] {
 
+    override def read(method: String, url: String, response: HttpResponse): Either[ErrorResponse, Boolean] = {
+      response.status match {
+        case NO_CONTENT => Right(true)
+        case unexpectedStatus@_ => Logger.error(s"Unexpected response from log API - Response: $unexpectedStatus")
+          Left(ErrorResponse(response.status,"Unexpected Response returned from log API"))
+      }
+    }
+  }
 }
