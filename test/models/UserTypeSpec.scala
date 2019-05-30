@@ -33,6 +33,14 @@ class UserTypeSpec extends WordSpec with MustMatchers with ScalaCheckPropertyChe
       UserType(AboutYouAnswer.Client) mustBe Hirer
     }
 
+    "be able to be constructed from a WhichDescribesYouBest value" in {
+      UserType(WhichDescribesYouAnswer.WorkerPAYE) mustBe Worker
+      UserType(WhichDescribesYouAnswer.WorkerIR35) mustBe Worker
+      UserType(WhichDescribesYouAnswer.ClientIR35) mustBe Hirer
+      UserType(WhichDescribesYouAnswer.ClientPAYE) mustBe Hirer
+      UserType(WhichDescribesYouAnswer.Agency) mustBe Agency
+    }
+
     "deserialise valid values" in {
       JsString(AboutYouAnswer.Worker.toString).validate[UserType].asOpt.value mustEqual Worker
       JsString(AboutYouAnswer.Client.toString).validate[UserType].asOpt.value mustEqual Hirer

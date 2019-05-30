@@ -20,7 +20,7 @@ import models.HowWorkIsDone
 import pages.behaviours.PageBehaviours
 import pages.sections.control.HowWorkIsDonePage
 
-class HowWorkIsDoneSpec extends PageBehaviours {
+class HowWorkIsDonePageSpec extends PageBehaviours {
 
   "YourLocation" must {
 

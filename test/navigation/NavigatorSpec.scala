@@ -25,6 +25,7 @@ import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
+import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models.BusinessSize.{BalanceSheet, NoneOfAbove, Turnover}
 import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
 import models._
@@ -221,6 +222,13 @@ class NavigatorSpec extends SpecBase {
           nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
 
+        "go to the BusinessSize page from Business Size if no answer is held" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+          enable(OptimisedFlow)
+          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
+        }
+
         "go to the Result page from the Check Your Answers page" in {
           enable(OptimisedFlow)
           nextPage(CheckYourAnswersPage) mustBe routes.ResultController.onPageLoad()
@@ -253,6 +261,29 @@ class NavigatorSpec extends SpecBase {
           nextPage(OfficeHolderPage, setAnswers(ContractStartedPage -> false)) mustBe personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
         }
 
+        "go to ContractStartedPage page from the Office Holder page if answer" in {
+          nextPage(OfficeHolderPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to DidPaySubstitute page from the ArrangeSubstitute page if YesClientAgreed" in {
+          nextPage(ArrangedSubstitutePage, setAnswers(ArrangedSubstitutePage -> YesClientAgreed)) mustBe
+            personalServiceRoutes.DidPaySubstituteController.onPageLoad(NormalMode)
+        }
+
+        "go to NeededToPayHelper page from the ArrangeSubstitute page if YesClientNotAgreed" in {
+          nextPage(ArrangedSubstitutePage, setAnswers(ArrangedSubstitutePage -> YesClientNotAgreed)) mustBe
+            personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        }
+
+        "go to RejectSubstitute page from the ArrangeSubstitute page if No" in {
+          nextPage(ArrangedSubstitutePage, setAnswers(ArrangedSubstitutePage -> No)) mustBe
+            personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
+        }
+
+        "go to ArrangeSubstitute page from the ArrangeSubstitute page if no answer" in {
+          nextPage(ArrangedSubstitutePage) mustBe personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
+        }
+
         "go to NeededToPayHelperPage from the RejectSubstitutePage if Contract Started and would NOT reject" in {
           nextPage(DidPaySubstitutePage) mustBe personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
         }
@@ -277,6 +308,15 @@ class NavigatorSpec extends SpecBase {
             personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
         }
 
+        "go to ContractStarted page from the RejectSubstitutePage if no answer for Contract Started" in {
+          nextPage(RejectSubstitutePage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to RejectSubstitute page from the RejectSubstitutePage if no answer for RejectSubstitute" in {
+          nextPage(RejectSubstitutePage, setAnswers(ContractStartedPage -> false)) mustBe
+            personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
+        }
+
         "go to NeededToPayHelperPage from the WouldWorkerPaySubstitutePage if Contract Started" in {
           nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> true)) mustBe
             personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
@@ -285,6 +325,10 @@ class NavigatorSpec extends SpecBase {
         "go to MoveWorkerPage from the WouldWorkerPaySubstitutePage if Contract Started not started" in {
           nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> false)) mustBe
             controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        }
+
+        "go to ContractStarted from the WouldWorkerPaySubstitutePage if no answer" in {
+          nextPage(WouldWorkerPaySubstitutePage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
 
         "go to MoveWorkerPage from the NeededToPayHelperPage" in {

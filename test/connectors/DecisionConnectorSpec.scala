@@ -34,6 +34,7 @@ import models.WorkerType.SoleTrader
 import models._
 import models.logging.LogInterview
 import play.api.libs.json.Json
+import play.mvc.Http.Status
 
 import scala.concurrent.Future
 
@@ -216,12 +217,11 @@ class DecisionConnectorSpec extends SpecBase with MockHttp with MockServicesConf
       clientResponse mustBe fail
     }
 
-    "return an exception" in {
-      val response = Left(ErrorResponse(500,"HTTP exception returned from decision API: null"))
-      setupMockHttpPost(TestDecisionConnector.decideUrl, emptyInterviewModel)(Future.successful(response))
+    "handle and return an exception" in {
+      setupMockHttpPost(TestDecisionConnector.decideUrl, emptyInterviewModel)(Future.failed(new Exception("ohno")))
 
       val clientResponse = await(TestDecisionConnector.decide(emptyInterviewModel))
-      clientResponse mustBe response
+      clientResponse mustBe Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ohno"))
     }
   }
 
@@ -246,6 +246,15 @@ class DecisionConnectorSpec extends SpecBase with MockHttp with MockServicesConf
       val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
       clientResponse mustBe fail
 
+    }
+
+    "handle and return an exception" in {
+      val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
+
+      setupMockHttpPost(TestDecisionConnector.logUrl, LogInterview(interviewModel,decisionResponse, MockDateTimeUtil))(Future.failed(new Exception("ohno")))
+
+      val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
+      clientResponse mustBe Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ohno"))
     }
   }
 }
