@@ -50,7 +50,7 @@ class ChooseWhereWorkController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value,ChooseWhereWorkPage,Some(ErrorTemplate("chooseWhereWork.title")))
+        controllerHelper.redirect(mode,value,ChooseWhereWorkPage,callDecisionService = true)
       }
     )
   }

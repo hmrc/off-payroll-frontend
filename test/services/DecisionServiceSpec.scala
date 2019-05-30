@@ -115,9 +115,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), Some(LOW), None, Some(LOW)),
     OUTSIDE_IR35
   )
-
-  val error = ErrorTemplate("error.title")
-
+  
   def onwardRoute = Call("GET", "/continue")
 
   def exitRoute = Call("GET", "/result")
@@ -760,7 +758,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
       mockDecide(Interview(userAnswers))(Right(response))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -773,7 +771,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       mockLog(Interview(userAnswers), riskResponse)(Right(true))
       mockAddDecision(userAnswers.cacheMap.id,riskResponse)(Right(riskResponse))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       Some(controllers.routes.ResultController.onPageLoad().url)
@@ -785,7 +783,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       mockLog(Interview(userAnswers), controlResponse)(Right(true))
       mockAddDecision(userAnswers.cacheMap.id,controlResponse)(Right(controlResponse))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
@@ -797,7 +795,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       mockDecide(Interview(userAnswers))(Right(controlResponse))
       mockLog(Interview(userAnswers), controlResponse)(Right(true))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
@@ -808,7 +806,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       mockDecide(Interview(userAnswers))(Right(exitResponse))
       mockLog(Interview(userAnswers), exitResponse)(Right(true))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
@@ -817,11 +815,11 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     "handle 400 errors" in {
 
       mockDecide(Interview(userAnswers))(Left(ErrorResponse(400, "Bad")))
-      mockStandardError(Html("Error page"))
+      mockInternalServerError(Html("Error page"))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
-      status(result) mustBe BAD_REQUEST
+      status(result) mustBe INTERNAL_SERVER_ERROR
       contentAsString(result) mustBe "Error page"
     }
 
@@ -829,9 +827,9 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
       
       mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "Internal error")))
-      mockStandardError(Html("Error page"))
+      mockInternalServerError(Html("Error page"))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
       contentAsString(result) mustBe "Error page"

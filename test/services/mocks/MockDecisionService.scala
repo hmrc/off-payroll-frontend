@@ -31,8 +31,8 @@ trait MockDecisionService extends MockFactory {
   val mockDecisionService = mock[DecisionService]
 
   def mockDecide(userAnswers: UserAnswers)(call: Call): Unit = {
-    (mockDecisionService.decide(_: UserAnswers, _: Call, _: ErrorTemplate)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
-      .expects(userAnswers, *, *, *, *, *)
+    (mockDecisionService.decide(_: UserAnswers, _: Call)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
+      .expects(userAnswers, *, *, *, *)
       .returns(Future.successful(Redirect(call)))
 
   }

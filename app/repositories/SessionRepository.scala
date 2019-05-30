@@ -90,18 +90,18 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
   def get(id: String): Future[Option[CacheMap]] =
     collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap]
 
-  def addDecision(id: String,decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
+  def checkDecision(id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
     val selector = BSONDocument("id" -> id)
     collection.find(selector,None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap].flatMap {
       case Some(DatedCacheMap(_,_,_,Some(decision))) => Future.successful(Right(decision))
-      case Some(_) => updateDecision(id,decisionResponse)
+      case Some(_) => addNewDecision(id,decisionResponse)
       case None => Future.successful(Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,"Missing record")))
     }.recover {
       case ex: Exception => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,ex.getMessage))
     }
   }
 
-  private def updateDecision(id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
+  private def addNewDecision(id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
     val selector = BSONDocument("id" -> id)
     val modifier = BSONDocument("$set" -> BSONDocument("decisionResponse" -> Json.toJson(decisionResponse)))
 

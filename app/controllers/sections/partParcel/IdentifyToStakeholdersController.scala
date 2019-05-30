@@ -51,7 +51,7 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, IdentifyToStakeholdersPage, Some(ErrorTemplate("identifyToStakeholders.title")))
+        controllerHelper.redirect(mode,value, IdentifyToStakeholdersPage, callDecisionService = true)
       }
     )
   }

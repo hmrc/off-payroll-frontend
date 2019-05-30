@@ -33,7 +33,7 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
   }
 
   def addDecision[A](id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
-    sessionRepository.addDecision(id,decisionResponse)
+    sessionRepository.checkDecision(id,decisionResponse)
   }
 
   def clearDecision[A](id: String): Future[Boolean] = {

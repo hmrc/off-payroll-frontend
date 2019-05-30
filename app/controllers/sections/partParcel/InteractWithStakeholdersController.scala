@@ -51,7 +51,7 @@ class InteractWithStakeholdersController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, InteractWithStakeholdersPage, Some(ErrorTemplate("interactWithStakeholders.title")))
+        controllerHelper.redirect(mode,value, InteractWithStakeholdersPage, callDecisionService = true)
       }
     )
   }

@@ -51,7 +51,7 @@ class LineManagerDutiesController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, LineManagerDutiesPage, Some(ErrorTemplate("lineManagerDuties.title")))
+        controllerHelper.redirect(mode,value, LineManagerDutiesPage, callDecisionService = true)
       }
     )
   }

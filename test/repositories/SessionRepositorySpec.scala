@@ -68,7 +68,7 @@ class SessionRepositorySpec extends WordSpec with MustMatchers with MockitoSugar
       val response = DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.EMPLOYED)
 
       whenReady(repository.insert(data)) { _ =>
-        whenReady(repository.addDecision("id",response)) { res =>
+        whenReady(repository.checkDecision("id",response)) { res =>
           res.right.get.result mustBe ResultEnum.EMPLOYED
         }
       }
@@ -79,7 +79,7 @@ class SessionRepositorySpec extends WordSpec with MustMatchers with MockitoSugar
       val response = DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.INSIDE_IR35)
 
       whenReady(repository.insert(data)) { _ =>
-        whenReady(repository.addDecision("id",response)) { res =>
+        whenReady(repository.checkDecision("id",response)) { res =>
           res.right.get.result mustBe ResultEnum.EMPLOYED
         }
       }
@@ -88,7 +88,7 @@ class SessionRepositorySpec extends WordSpec with MustMatchers with MockitoSugar
     "return an error if the record doesn't exist when trying to update decision" in {
       val response = DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.EMPLOYED)
 
-        whenReady(repository.addDecision("id",response)) { res =>
+        whenReady(repository.checkDecision("id",response)) { res =>
           res.left.get.status mustBe Http.Status.INTERNAL_SERVER_ERROR
       }
     }

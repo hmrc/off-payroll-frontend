@@ -36,7 +36,7 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
                                  decisionService: DecisionService
                                 ) extends BaseController(controllerComponents) {
 
-  def redirect[T](mode: Mode,value: T,page: QuestionPage[T], decisionTemplate: Option[ErrorTemplate] = None)
+  def redirect[T](mode: Mode, value: T, page: QuestionPage[T], callDecisionService: Boolean = false)
                  (implicit request: DataRequest[AnyContent],reads: Reads[T],writes: Writes[T],
                   aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]) = {
     (for {
@@ -45,12 +45,11 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
     } yield {
       answers
     }).flatMap { answers =>
-      decisionTemplate match {
-        case Some(errorTemplate) => {
-          val continue = navigator.nextPage(page, mode)(answers)
-          decisionService.decide(answers, continue, errorTemplate)
-        }
-        case None => Future.successful(Redirect(navigator.nextPage(page, mode)(answers)))
+      if(callDecisionService){
+        val continue = navigator.nextPage(page, mode)(answers)
+        decisionService.decide(answers, continue)
+      } else {
+        Future.successful(Redirect(navigator.nextPage(page, mode)(answers)))
       }
     }
   }

@@ -48,7 +48,7 @@ class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       values => {
-        controllerHelper.redirect(mode,values,CannotClaimAsExpensePage,Some(ErrorTemplate("cannotClaimAsExpense.title")))
+        controllerHelper.redirect(mode,values,CannotClaimAsExpensePage,callDecisionService = true)
       }
     )
   }

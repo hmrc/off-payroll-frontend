@@ -46,7 +46,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 trait DecisionService {
 
-  def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
+  def decide(userAnswers: UserAnswers, continueResult: Call)
             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result]
 
   def determineResultView(answerSections: Seq[AnswerSection],
@@ -78,14 +78,14 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   val resultForm: Form[Boolean] = formProvider()
 
-  override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
+  override def decide(userAnswers: UserAnswers, continueResult: Call)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
     for {
       decisionServiceResult <- decisionConnector.decide(interview)
       firstDecision <- saveDecision(decisionServiceResult,userAnswers)
       _ <- logResult(firstDecision,interview)
-      redirect <- redirectResult(interview,errorResult,continueResult,firstDecision)
+      redirect <- redirectResult(interview,continueResult,firstDecision)
     } yield redirect
   }
 
@@ -97,21 +97,20 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])
+  private def redirectResult(interview: Interview,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])
                             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= Future {
     if(isEnabled(OptimisedFlow)) {
       decisionResponse match {
-        case Right(result) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result, errorResult)
-        //Some exit
-        case Right(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result, errorResult, continueResult)
+        case Right(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result, continueResult)
         //only show results if last question was answered
         case Right(_) => Redirect(continueResult)
-        case Left(error) => redirectErrorPage(error.status, errorResult)
+        case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
       }
     } else {
       decisionResponse match {
-        case Right(result) => finalResultRedirect(result,errorResult,continueResult)
-        case Left(error) => redirectErrorPage(error.status, errorResult)
+        case Right(result) => finalResultRedirect(result,continueResult)
+        case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+
       }
     }
   }
@@ -129,7 +128,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  private def finalResultRedirect(decisionResponse: DecisionResponse,errorResult: ErrorTemplate,continueResult: Call)
+  private def finalResultRedirect(decisionResponse: DecisionResponse,continueResult: Call)
                                  (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
     decisionResponse match {
       case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED) => Redirect(continueResult)
@@ -138,27 +137,9 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
         redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
       case DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
       case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
-      case DecisionResponse(_, _, _, ResultEnum.UNKNOWN) => redirectResultsPage(ResultEnum.UNKNOWN)
-      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
+      case DecisionResponse(_, _, _, unknown) => redirectResultsPage(unknown)
+      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
-  }
-
-  private def earlyExitRedirect(decisionResponse: DecisionResponse,errorResult: ErrorTemplate)
-                               (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
-    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
-    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
-    case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
-  }
-
-  def redirectErrorPage(status: Int, errorResult: ErrorTemplate)(implicit rh: Request[_]): Result = {
-
-    val errorTemplate = errorHandler.standardErrorTemplate(
-      errorResult.pageTitle,
-      errorResult.heading.getOrElse(errorResult.defaultErrorHeading),
-      errorResult.message.getOrElse(errorResult.defaultErrorMessage)
-    )
-
-    Status(status)(errorTemplate)
   }
 
   def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
