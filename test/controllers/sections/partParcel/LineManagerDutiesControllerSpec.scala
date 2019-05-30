@@ -32,18 +32,19 @@ import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.mvc.Results.Redirect
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.LineManagerDutiesView
 
-class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
 
   val formProvider = new LineManagerDutiesFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[LineManagerDutiesView]
 
-  val mockControllerHelper = mock[ControllerHelper]
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
   def onwardRoute = Call("POST", "/foo")
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new LineManagerDutiesController(
@@ -82,8 +83,8 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCa
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, 0,true)
-
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

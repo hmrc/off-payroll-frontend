@@ -24,12 +24,17 @@ sealed trait BusinessSize
 object BusinessSize {
 
   case object Turnover extends WithName("turnover") with BusinessSize
-  case object Balancesheet extends WithName("balanceSheet") with BusinessSize
+  case object BalanceSheet extends WithName("balanceSheet") with BusinessSize
   case object Employees extends WithName("employees") with BusinessSize
-  case object Noneofabove extends WithName("noneOfAbove") with BusinessSize
+  case object NoneOfAbove extends WithName("noneOfAbove") with BusinessSize
+
+  val isSmallBusiness: Seq[BusinessSize] => Boolean = {
+    case Seq(Turnover) | Seq(BalanceSheet) | Seq(Employees) | Seq(NoneOfAbove) => true
+    case _ => false
+  }
 
   val values: Seq[BusinessSize] = Seq(
-    Turnover, Balancesheet, Employees, Noneofabove
+    Turnover, BalanceSheet, Employees, NoneOfAbove
   )
 
   val options: Seq[RadioOption] = values.map {
@@ -47,9 +52,9 @@ object BusinessSize {
   implicit object BusinessSizeReads extends Reads[BusinessSize] {
     override def reads(json: JsValue): JsResult[BusinessSize] = json match {
       case JsString(Turnover.toString) => JsSuccess(Turnover)
-      case JsString(Balancesheet.toString) => JsSuccess(Balancesheet)
+      case JsString(BalanceSheet.toString) => JsSuccess(BalanceSheet)
       case JsString(Employees.toString) => JsSuccess(Employees)
-      case JsString(Noneofabove.toString) => JsSuccess(Noneofabove)
+      case JsString(NoneOfAbove.toString) => JsSuccess(NoneOfAbove)
       case _                          => JsError("Unknown businessSize")
     }
   }

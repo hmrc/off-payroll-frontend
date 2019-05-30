@@ -31,6 +31,7 @@ import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.WhichDescribesYouAnswer._
 import models.WhichDescribesYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
+import models.BusinessSize.NoneOfAbove
 import pages._
 import models._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -42,6 +43,14 @@ import pages.sections.setup._
 
 @Singleton
 class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends FeatureSwitching {
+
+  val isWorker: UserAnswers => Option[Boolean] = _.get(WhichDescribesYouPage).map {
+    case Answers(WorkerPAYE, _) => true
+    case Answers(WorkerIR35, _) => true
+    case Answers(ClientPAYE, _) => false
+    case Answers(ClientIR35, _) => false
+    case Answers(Agency, _) => true
+  }
 
   private val optimisedSetupRouteMap: Map[Page, UserAnswers => Call] = Map(
 
@@ -60,20 +69,19 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
       case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
     }),
     IsWorkForPrivateSectorPage -> (answers => {
-
-      val isWorker = answers.get(WhichDescribesYouPage).map {
-        case Answers(WorkerPAYE, _) => true
-        case Answers(WorkerIR35, _) => true
-        case Answers(ClientPAYE, _) => false
-        case Answers(ClientIR35, _) => false
-        case Answers(Agency, _) => true
-      }
-
-      (answers.get(IsWorkForPrivateSectorPage), isWorker) match {
-        case (Some(Answers(true, _)), _) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+      (answers.get(IsWorkForPrivateSectorPage), isWorker(answers)) match {
+        case (Some(Answers(true, _)), _) => setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
         case (Some(Answers(false, _)), Some(true)) => setupRoutes.WorkerAdvisoryController.onPageLoad()
         case (Some(Answers(false, _)), Some(false)) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         case (_, _) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
+      }
+    }),
+    BusinessSizePage -> (answers => {
+      (answers.get(BusinessSizePage), isWorker(answers)) match {
+        case (Some(Answers(x, _)), Some(false)) if BusinessSize.isSmallBusiness(x) => setupRoutes.ToolNotNeededController.onPageLoad()
+        case (Some(Answers(_, _)), Some(false)) => setupRoutes.HirerAdvisoryController.onPageLoad()
+        case (Some(Answers(_, _)), Some(true)) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        case (_,_) => setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
       }
     }),
     WorkerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),

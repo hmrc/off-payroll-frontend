@@ -45,6 +45,12 @@ trait MockDataCacheConnector extends MockFactory {
       .returns(Future.successful(response))
   }
 
+  def mockClearDecision(id: String): Unit ={
+    (mockDataCacheConnector.clearDecision(_: String))
+      .expects(id)
+      .returns(Future.successful(true))
+  }
+
   def mockGetEntry[A](cacheId: String, key: String)(response: Option[A]): Unit = ???
 
 }

@@ -23,6 +23,7 @@ import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.ContractStartedFormProvider
 import models.{Answers, NormalMode, UserAnswers}
+import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import pages.sections.setup.ContractStartedPage
@@ -31,11 +32,13 @@ import play.api.http.HttpEntity
 import play.api.libs.json.Json
 import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
-class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
+class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching with MockCompareAnswerService {
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new ContractStartedFormProvider()
   val form = formProvider()
@@ -44,8 +47,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCach
   val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]
 
 
-  val mockControllerHelper = mock[ControllerHelper]
-  def onwardRoute = Call("POST", "/foo")
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
     appConfig = frontendAppConfig,
@@ -100,13 +102,10 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(ContractStartedPage.toString -> Json.toJson(Answers("",0))))
-      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

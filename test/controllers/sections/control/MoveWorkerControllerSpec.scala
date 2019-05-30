@@ -22,19 +22,23 @@ import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.MoveWorkerFormProvider
 import models.Answers._
 import models._
+import navigation.FakeNavigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.libs.json._
+import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.MoveWorkerView
-class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService{
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new MoveWorkerFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[MoveWorkerView]
-  val mockControllerHelper = mock[ControllerHelper]
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
     FakeIdentifierAction,
@@ -71,6 +75,8 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
 
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

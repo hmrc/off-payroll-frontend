@@ -32,19 +32,20 @@ import play.api.http.HttpEntity
 import play.api.libs.json.Json
 import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.BusinessSizeView
 
 import scala.concurrent.Future
-class BusinessSizeControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class BusinessSizeControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
 
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new BusinessSizeFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[BusinessSizeView]
-  val mockControllerHelper = mock[ControllerHelper]
-  def onwardRoute = Call("POST", "/foo")
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BusinessSizeController(
     appConfig = frontendAppConfig,
@@ -79,13 +80,10 @@ class BusinessSizeControllerSpec extends ControllerSpecBase with MockDataCacheCo
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(BusinessSizePage.toString -> Json.toJson(Answers("",0))))
-      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
       val postRequest = fakeRequest.withFormUrlEncodedBody(("businessSize[0]", BusinessSize.options.head.value))
 
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

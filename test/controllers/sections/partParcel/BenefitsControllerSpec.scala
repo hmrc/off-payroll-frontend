@@ -21,24 +21,26 @@ import controllers.actions._
 import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.BenefitsFormProvider
 import models.{Answers, NormalMode, UserAnswers}
+import navigation.FakeNavigator
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.BenefitsView
 
-class BenefitsControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class BenefitsControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new BenefitsFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[BenefitsView]
 
-  val mockControllerHelper = mock[ControllerHelper]
-  def onwardRoute = Call("POST", "/foo")
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BenefitsController(
     FakeIdentifierAction,
@@ -76,8 +78,8 @@ class BenefitsControllerSpec extends ControllerSpecBase with MockDataCacheConnec
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(BenefitsPage, 0,true)
-
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

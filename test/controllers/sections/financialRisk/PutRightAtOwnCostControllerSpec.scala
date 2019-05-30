@@ -23,24 +23,26 @@ import forms.PutRightAtOwnCostFormProvider
 import models.Answers._
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
+import navigation.FakeNavigator
 import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 
-class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new PutRightAtOwnCostFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
-  val mockControllerHelper = mock[ControllerHelper]
-  def onwardRoute = Call("POST", "/foo")
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PutRightAtOwnCostController(
     FakeIdentifierAction,
@@ -78,8 +80,8 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCa
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
-
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

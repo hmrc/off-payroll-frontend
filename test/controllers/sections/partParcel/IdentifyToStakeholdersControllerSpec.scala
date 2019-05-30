@@ -24,6 +24,7 @@ import forms.IdentifyToStakeholdersFormProvider
 import models.Answers._
 import models.IdentifyToStakeholders.WorkForEndClient
 import models._
+import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import pages.sections.partParcel.IdentifyToStakeholdersPage
@@ -32,21 +33,22 @@ import play.api.http.HttpEntity
 import play.api.libs.json.Json
 import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
 
 import scala.concurrent.Future
 
-class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new IdentifyToStakeholdersFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
-  val mockControllerHelper = mock[ControllerHelper]
-  def onwardRoute = Call("POST", "/foo")
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
     FakeIdentifierAction,
@@ -84,14 +86,12 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockD
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0, WorkForEndClient)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      val userAnswers = UserAnswers("id")
       mockDecide(userAnswers)(onwardRoute)
+      mockConstructAnswers(userAnswers)(userAnswers)
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
-      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

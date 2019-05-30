@@ -18,6 +18,7 @@ package services
 
 import base.SpecBase
 import connectors.DataCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import models.AboutYouAnswer.{Agency, Worker}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
@@ -45,11 +46,9 @@ import play.api.test.FakeRequest
 
 import scala.concurrent.Future
 
-class CompareAnswerServiceSpec extends SpecBase with MockFactory {
+class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCacheConnector {
 
-  val dataCache = mock[DataCacheConnector]
-
-  val service = new CompareAnswerService(dataCache)
+  val service = new CompareAnswerService(mockDataCacheConnector)
 
   "compare answer service (consecutive answer)" should {
 
@@ -102,8 +101,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory {
   "compare answer service (change new answer)" should {
     "change an About You Answer if it's a new value (and clear any decisions)" in {
 
-      when(dataCache.clearDecision(Matchers.eq("id"))).thenReturn(Future.successful(true))
-
+      mockClearDecision("id")
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
 
@@ -119,7 +117,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory {
 
     "change a Contract Started Answer if it's a new value (and clear any decisions)" in {
 
-      when(dataCache.clearDecision(Matchers.eq("id"))).thenReturn(Future.successful(true))
+      mockClearDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -136,6 +134,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory {
     }
 
     "change all answers after current answer if it's changed to a new value" in {
+      mockClearDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -175,6 +174,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory {
 
   "compare answer service (change same answer)" should {
     "not change an About You Answer if it's the same value" in {
+      mockClearDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -190,6 +190,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory {
     }
 
     "not change a Contract Started Answer if it's the same value" in {
+      mockClearDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)

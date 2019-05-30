@@ -23,25 +23,33 @@ import forms.ChooseWhereWorkFormProvider
 import models.Answers._
 import models.ChooseWhereWork.WorkerChooses
 import models._
+import models.requests.DataRequest
+import navigation.FakeNavigator
+import org.scalamock.scalatest.MockFactory
+import pages.QuestionPage
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json._
-import play.api.mvc.Call
+import play.api.mvc.{AnyContent, Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.ChooseWhereWorkView
 
-class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+import scala.concurrent.Future
+
+class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockFactory with MockCompareAnswerService{
 
   val formProvider = new ChooseWhereWorkFormProvider()
   val form = formProvider()
+  def onwardRoute = Call("POST", "/foo")
 
   val view = injector.instanceOf[ChooseWhereWorkView]
 
-  val mockControllerHelper = app.injector.instanceOf[ControllerHelper]
-
-  def onwardRoute = Call("POST", "/foo")
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector,
+    new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
     FakeIdentifierAction,
@@ -76,11 +84,10 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "redirect to the next page when valid data is submitted" in {
+      val userAnswers = UserAnswers("id")
 
       implicit val hc = new HeaderCarrier()
-
-      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
-
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

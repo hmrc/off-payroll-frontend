@@ -81,7 +81,6 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
-
     for {
       decisionServiceResult <- decisionConnector.decide(interview)
       firstDecision <- saveDecision(decisionServiceResult,userAnswers)
@@ -100,23 +99,33 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])
                             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= Future {
-
-    decisionResponse match {
-      case Right(result) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result,errorResult)
-      //Some exit
-      case Right(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result,errorResult,continueResult)
-      //only show results if last question was answered
-      case Right(_) => Redirect(continueResult)
-      case Left(error) => redirectErrorPage(error.status, errorResult)
+    if(isEnabled(OptimisedFlow)) {
+      decisionResponse match {
+        case Right(result) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result, errorResult)
+        //Some exit
+        case Right(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result, errorResult, continueResult)
+        //only show results if last question was answered
+        case Right(_) => Redirect(continueResult)
+        case Left(error) => redirectErrorPage(error.status, errorResult)
+      }
+    } else {
+      decisionResponse match {
+        case Right(result) => finalResultRedirect(result,errorResult,continueResult)
+        case Left(error) => redirectErrorPage(error.status, errorResult)
+      }
     }
   }
 
   private def saveDecision(decisionResponse: Either[ErrorResponse,DecisionResponse], userAnswers: UserAnswers) = {
-    decisionResponse match {
-      case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED =>
-        dataCacheConnector.addDecision(userAnswers.cacheMap.id,decisionResponse.right.get)
-      case Right(notMatched) => Future.successful(Right(notMatched))
-      case Left(error) => Future.successful(Left(error))
+    if(isEnabled(OptimisedFlow)) {
+      decisionResponse match {
+        case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED =>
+          dataCacheConnector.addDecision(userAnswers.cacheMap.id, decisionResponse.right.get)
+        case Right(notMatched) => Future.successful(Right(notMatched))
+        case Left(error) => Future.successful(Left(error))
+      }
+    } else {
+      Future.successful(decisionResponse)
     }
   }
 

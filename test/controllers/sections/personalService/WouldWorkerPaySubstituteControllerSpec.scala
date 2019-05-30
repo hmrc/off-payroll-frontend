@@ -37,19 +37,20 @@ import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.mvc.Results.Redirect
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
 
-class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[WouldWorkerPaySubstituteView]
 
-  val mockControllerHelper = mock[ControllerHelper]
-  def onwardRoute = Call("POST", "/foo")
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
     FakeIdentifierAction,
@@ -87,8 +88,8 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0, true)
-
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

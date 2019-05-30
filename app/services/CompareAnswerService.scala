@@ -44,7 +44,6 @@ class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
       case None => Future.successful(request.userAnswers.set(page, answerNumber, value))
-      case Some(answer) if answer.answer == value => Future.successful(request.userAnswers)
       case Some(answer) => {
         //get all answers, sort them in the order they were answered in, find the answers that came after the current answer,
         // find what page they are associated with, then remove them

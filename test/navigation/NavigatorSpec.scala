@@ -25,6 +25,7 @@ import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
+import models.BusinessSize.{BalanceSheet, NoneOfAbove, Turnover}
 import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
 import models._
 import pages._
@@ -35,6 +36,7 @@ import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, Inte
 import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.libs.json.Writes
+
 class NavigatorSpec extends SpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
@@ -93,12 +95,6 @@ class NavigatorSpec extends SpecBase {
             setAnswers(WorkerUsingIntermediaryPage -> true)) mustBe setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
         }
 
-        "go to the ContractStarted page from the IsWorkForPrivateSector page" in {
-          enable(OptimisedFlow)
-          nextPage(IsWorkForPrivateSectorPage,
-            setAnswers(IsWorkForPrivateSectorPage -> true)) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-        }
-
         "go to the WorkerAdvisory page from the IsWorkForPrivateSector page" in {
 
           val userAnswers: UserAnswers = UserAnswers("id")
@@ -141,7 +137,7 @@ class NavigatorSpec extends SpecBase {
 
         }
 
-        "go to the worker advisory page from the IsWorkForPrivateSector page" in {
+        "go to the Business Size page from the IsWorkForPrivateSector page, if work is for Private Sector" in {
 
           val userAnswers: UserAnswers = UserAnswers("id")
             .set(WhichDescribesYouPage,0, ClientPAYE)
@@ -152,10 +148,10 @@ class NavigatorSpec extends SpecBase {
             .set(IsWorkForPrivateSectorPage,1, true)
 
           enable(OptimisedFlow)
-          nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+          nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
 
           enable(OptimisedFlow)
-          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
 
         }
 
@@ -183,6 +179,46 @@ class NavigatorSpec extends SpecBase {
         "go to the Contract Started page from the Hirer Advisory page" in {
           enable(OptimisedFlow)
           nextPage(HirerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to the ToolNotNeeded page from Business Size if Hirer and Small Business" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(BusinessSizePage,1, Seq(Turnover))
+
+          enable(OptimisedFlow)
+          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
+        }
+
+        "go to the HirerAdvisory page from Business Size if Hirer and Medium-Large Business" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(BusinessSizePage,1, Seq(Turnover, BalanceSheet))
+
+          enable(OptimisedFlow)
+          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
+        }
+
+        "go to the ContractStarted page from Business Size if Worker and Small Business" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerPAYE)
+            .set(BusinessSizePage,1, Seq(Turnover))
+
+          enable(OptimisedFlow)
+          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to the ContractStarted page from Business Size if Worker and Medium-Large Business" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerPAYE)
+            .set(BusinessSizePage,1, Seq(Turnover, BalanceSheet))
+
+          enable(OptimisedFlow)
+          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
 
         "go to the Result page from the Check Your Answers page" in {

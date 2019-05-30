@@ -18,6 +18,7 @@ package controllers.sections.setup
 
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{ContractStartedFormProvider, IsWorkForPrivateSectorFormProvider}
@@ -31,13 +32,14 @@ import play.api.http.HttpEntity
 import play.api.libs.json.Json
 import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.IsWorkForPrivateSectorView
 import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
 
-class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
+class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase with MockCompareAnswerService with MockDataCacheConnector {
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -46,7 +48,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[IsWorkForPrivateSectorView]
 
-  val mockControllerHelper = mock[ControllerHelper]
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IsWorkForPrivateSectorController(
     appConfig = frontendAppConfig,
@@ -82,12 +84,12 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(IsWorkForPrivateSectorPage.toString -> Json.toJson(Answers(true,0))))
-      val userAnswers: UserAnswers => Call = UserAnswers => Call("/POST","/foo")
-      when(mockDecisionService.decide(Matchers.any(),Matchers.any(),Matchers.any())(Matchers.any(),Matchers.any(),Matchers.any()))
-        .thenReturn(Future.successful(Result(ResponseHeader(SEE_OTHER),HttpEntity.Strict(ByteString(""),None))))
-
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

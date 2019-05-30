@@ -21,22 +21,27 @@ import controllers.actions._
 import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.HowWorkIsDoneFormProvider
 import models.Answers._
+import models.ChooseWhereWork.WorkerChooses
 import models._
+import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
-import pages.sections.control.HowWorkIsDonePage
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage}
 import play.api.data.Form
 import play.api.libs.json.Json
+import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.HowWorkIsDoneView
 
 import scala.concurrent.Future
-class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService {
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new HowWorkIsDoneFormProvider()
   val form = formProvider()
-  val mockControllerHelper = mock[ControllerHelper]
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   val view = injector.instanceOf[HowWorkIsDoneView]
 
@@ -73,11 +78,10 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(HowWorkIsDonePage.toString -> Json.toJson(Answers("", 0))))
-      when(mockDataCacheConnector.save(Matchers.any())).thenReturn(Future.successful(validCacheMap))
-
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options.head.value))
 
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

@@ -34,17 +34,19 @@ import play.api.http.HttpEntity
 import play.api.libs.json.Json
 import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.ScheduleOfWorkingHoursView
 
 import scala.concurrent.Future
-class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService{
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new ScheduleOfWorkingHoursFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[ScheduleOfWorkingHoursView]
-  val mockControllerHelper = mock[ControllerHelper]
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ScheduleOfWorkingHoursController(
     FakeIdentifierAction,
@@ -81,6 +83,8 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options.head.value))
 
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

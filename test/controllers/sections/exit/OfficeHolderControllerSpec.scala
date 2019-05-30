@@ -21,20 +21,23 @@ import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.OfficeHolderFormProvider
 import models.{Answers, NormalMode, UserAnswers}
+import navigation.FakeNavigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.exit.OfficeHolderView
 
-class OfficeHolderControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class OfficeHolderControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockCompareAnswerService{
+  def onwardRoute = Call("POST", "/foo")
 
   val formProvider = new OfficeHolderFormProvider()
   val form = formProvider()
-  val mockControllerHelper = mock[ControllerHelper]
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector, new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService)
 
   val view = injector.instanceOf[OfficeHolderView]
 
@@ -75,8 +78,8 @@ class OfficeHolderControllerSpec extends ControllerSpecBase with MockDataCacheCo
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id").set(OfficeHolderPage,0, true)
-
+      val userAnswers = UserAnswers("id")
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
