@@ -23,6 +23,11 @@ import viewmodels.SingleAnswerRow
 
 trait ModelGenerators {
 
+  implicit lazy val arbitraryAboutYou: Arbitrary[AboutYouAnswer] =
+    Arbitrary {
+      Gen.oneOf(AboutYouAnswer.values)
+    }
+
   implicit lazy val arbitraryBusinessSize: Arbitrary[BusinessSize] =
     Arbitrary {
       Gen.oneOf(BusinessSize.values)

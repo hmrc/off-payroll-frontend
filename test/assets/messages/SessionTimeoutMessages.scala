@@ -14,20 +14,10 @@
  * limitations under the License.
  */
 
-package pages
+package assets.messages
 
-import models.CannotClaimAsExpense
-import pages.behaviours.PageBehaviours
-import pages.sections.financialRisk.CannotClaimAsExpensePage
+object SessionTimeoutMessages extends BaseMessages {
 
-class CannotClaimAsExpensePageSpec extends PageBehaviours {
+  val startAgain = "Start again"
 
-  "YourLocation" must {
-
-    beRetrievable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
-
-    beSettable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
-
-    beRemovable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
-  }
 }

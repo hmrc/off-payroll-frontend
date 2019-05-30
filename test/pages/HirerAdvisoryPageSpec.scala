@@ -16,18 +16,15 @@
 
 package pages
 
-import models.ArrangedSubstitute
 import pages.behaviours.PageBehaviours
-import pages.sections.personalService.ArrangedSubstitutePage
+import pages.sections.setup.HirerAdvisoryPage
 
-class ArrangedSubstituteSpec extends PageBehaviours {
+class HirerAdvisoryPageSpec extends PageBehaviours {
 
-  "YourLocation" must {
+  "HirerAdvisoryPage" should {
 
-    beRetrievable[ArrangedSubstitute](ArrangedSubstitutePage)
-
-    beSettable[ArrangedSubstitute](ArrangedSubstitutePage)
-
-    beRemovable[ArrangedSubstitute](ArrangedSubstitutePage)
+    "have the correct name" in {
+      HirerAdvisoryPage.toString mustBe "hirerAdvisoryPage"
+    }
   }
 }

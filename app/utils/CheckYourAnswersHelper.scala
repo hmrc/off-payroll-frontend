@@ -32,14 +32,6 @@ import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
-  def customisePDF: Option[AnswerRow] = userAnswers.get(CustomisePDFPage) map { x =>
-    AnswerRow(
-      label = "customisePDF.checkYourAnswersLabel",
-      answer = s"${x.answer}",
-      answerIsMessageKey = false
-    )
-  }
-
   def didPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(DidPaySubstitutePage) map { x =>
       AnswerRow(

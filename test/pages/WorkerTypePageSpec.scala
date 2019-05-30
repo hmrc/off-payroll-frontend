@@ -20,7 +20,7 @@ import models.WorkerType
 import pages.behaviours.PageBehaviours
 import pages.sections.setup.WorkerTypePage
 
-class WorkerTypeSpec extends PageBehaviours {
+class WorkerTypePageSpec extends PageBehaviours {
 
   "YourLocation" must {
 

@@ -92,15 +92,9 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
   private val setupRouteMap: Map[Page, UserAnswers => Call] = Map(
 
     //Initialisation Section
-    IndexPage -> (_ => if (isEnabled(OptimisedFlow)) {
-      setupRoutes.AboutYourResultController.onPageLoad()
-    } else {
-      setupRoutes.AboutYouController.onPageLoad(NormalMode)
-    }),
+    IndexPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
 
     //Setup Section
-    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
-    AgencyAdvisoryPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
     AboutYouPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     ContractStartedPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
     WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))

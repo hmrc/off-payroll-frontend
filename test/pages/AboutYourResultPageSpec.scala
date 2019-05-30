@@ -16,18 +16,15 @@
 
 package pages
 
-import models.CannotClaimAsExpense
 import pages.behaviours.PageBehaviours
-import pages.sections.financialRisk.CannotClaimAsExpensePage
+import pages.sections.setup.AboutYourResultPage
 
-class CannotClaimAsExpensePageSpec extends PageBehaviours {
+class AboutYourResultPageSpec extends PageBehaviours {
 
-  "YourLocation" must {
+  "AboutYourResultPage" should {
 
-    beRetrievable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
-
-    beSettable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
-
-    beRemovable[Seq[CannotClaimAsExpense]](CannotClaimAsExpensePage)
+    "have the correct name" in {
+      AboutYourResultPage.toString mustBe "aboutYourResult"
+    }
   }
 }

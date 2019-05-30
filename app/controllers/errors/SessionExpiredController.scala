@@ -35,16 +35,8 @@ class SessionExpiredController @Inject()(val appConfig: FrontendAppConfig,
                                          dataCacheConnector: DataCacheConnector
                                         ) extends FrontendController(controllerComponents) with I18nSupport {
 
-  def checkTimeout = identify { implicit request =>
-    Redirect(controllers.errors.routes.SessionExpiredController.onPageLoadDeleted()).withSession()
-  }
-
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
     Ok(expiredView(appConfig))
-  }
-
-  def onPageLoadDeleted: Action[AnyContent] = Action { implicit request =>
-    Ok(deletedView(appConfig))
   }
 
   def onSubmit: Action[AnyContent] = Action { implicit request =>

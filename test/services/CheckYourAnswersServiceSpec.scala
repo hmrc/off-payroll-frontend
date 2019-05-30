@@ -26,7 +26,7 @@ import models.HowWorkerIsPaid.HourlyDailyOrWeekly
 import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.OutsideOfHoursNoCosts
-import models.ScheduleOfWorkingHours.Scheduledecidedforworker
+import models.ScheduleOfWorkingHours.ScheduleDecidedForWorker
 import models.WhichDescribesYouAnswer.WorkerPAYE
 import models._
 import models.requests.DataRequest
@@ -66,7 +66,7 @@ class CheckYourAnswersServiceSpec extends SpecBase {
         .set(ChooseWhereWorkPage, 10, WorkerChooses)
         .set(HowWorkIsDonePage, 11, NoWorkerInputAllowed)
         .set(MoveWorkerPage, 12, CanMoveWorkerWithPermission)
-        .set(ScheduleOfWorkingHoursPage, 13, Scheduledecidedforworker)
+        .set(ScheduleOfWorkingHoursPage, 13, ScheduleDecidedForWorker)
         //Financial Risk section
         .set(CannotClaimAsExpensePage, 14, Seq(WorkerProvidedMaterials))
         .set(HowWorkerIsPaidPage, 15, HourlyDailyOrWeekly)
