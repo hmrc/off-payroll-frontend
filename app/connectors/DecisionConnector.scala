@@ -47,12 +47,14 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
   def decide(decisionRequest: Interview)
             (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-    Logger.debug("[DecisionConnector][decide] ")
+    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)}")
     httpClient.POST(decideUrl, decisionRequest)(Interview.writes, DecisionReads, hc, ec) recover handleUnexpectedError
   }
 
   def log(decisionRequest: Interview,decisionResponse: DecisionResponse)
-         (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, Boolean]] =
+         (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, Boolean]] = {
+    Logger.debug(s"[DecisionConnector][log] ${Json.toJson(decisionRequest)}")
     httpClient.POST(logUrl, LogInterview(decisionRequest, decisionResponse, dateTimeUtil))(LogInterview.writes, LogReads, hc, ec) recover handleUnexpectedError
+  }
 
 }

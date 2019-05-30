@@ -28,7 +28,8 @@ object LogHttpParser {
     override def read(method: String, url: String, response: HttpResponse): Either[ErrorResponse, Boolean] = {
       response.status match {
         case NO_CONTENT => Right(true)
-        case unexpectedStatus@_ => Logger.error(s"Unexpected response from log API - Response: $unexpectedStatus")
+        case unexpectedStatus@_ =>
+          Logger.error(s"[LogHttpParser][LogReads] Unexpected response from log API - Response: $unexpectedStatus: ${response.body}")
           Left(ErrorResponse(response.status,"Unexpected Response returned from log API"))
       }
     }

@@ -28,12 +28,15 @@ object DecisionHttpParser {
     override def read(method: String, url: String, response: HttpResponse): Either[ErrorResponse, DecisionResponse] = {
 
       response.status match {
-        case OK => response.json.validate[DecisionResponse].asOpt.fold {
-          Logger.error(s"Invalid Json received from decision connector from decision API")
-          Left(ErrorResponse(INTERNAL_SERVER_ERROR,"Invalid Json received from decision API")): Either[ErrorResponse,DecisionResponse]}{ validJson =>
-          Right(validJson)
-        }
-        case unexpectedStatus@_ => Logger.error(s"Unexpected response from decision API - Response: $unexpectedStatus")
+        case OK => response.json.validate[DecisionResponse].fold(
+          invalid => {
+            Logger.error(s"[DecisionHttpParser][DecisionReads] Invalid Json received from decision connector from decision API. $invalid")
+            Left(ErrorResponse(INTERNAL_SERVER_ERROR, "Invalid Json received from decision API")): Either[ErrorResponse, DecisionResponse]
+          }
+          ,validJson => Right(validJson)
+        )
+        case unexpectedStatus@_ =>
+          Logger.error(s"[DecisionHttpParser][DecisionReads] Unexpected response from decision API - Response: $unexpectedStatus")
           Left(ErrorResponse(response.status,"Unexpected Response returned from decision API"))
       }
     }
