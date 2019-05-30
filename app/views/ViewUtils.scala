@@ -36,14 +36,16 @@ object ViewUtils extends FeatureSwitching {
   def titleNoForm(title: String, section: Option[String] = None)(implicit messages: Messages): String =
     s"${messages(title)} - ${section.fold("")(messages(_) + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
 
-  def tailorMsg(key: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
+  def tailorMsg(key: String, optimisedContent: Boolean = false)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
     val userType = request.session.getModel[UserType](SessionKeys.userType)
 
+    val msgKey = if(optimisedContent) s"optimised.$key" else key
+
     (isEnabled(OptimisedFlow), isEnabled(TailoredContent), userType) match {
-      case (true, _, Some(Agency)) | (true, _, None) => s"${Worker.toString}.$key"
-      case (true, _, Some(user)) => s"${user.toString}.$key"
-      case (_, false, _) | (_, true, Some(Agency)) | (_, true, None) => key
-      case (_, true, Some(user)) => s"${user.toString}.$key"
+      case (true, _, Some(Agency)) | (true, _, None) => s"${Worker.toString}.$msgKey"
+      case (true, _, Some(user)) => s"${user.toString}.$msgKey"
+      case (_, false, _) | (_, true, Some(Agency)) | (_, true, None) => msgKey
+      case (_, true, Some(user)) => s"${user.toString}.$msgKey"
     }
   }
 

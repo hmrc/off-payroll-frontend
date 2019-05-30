@@ -445,6 +445,77 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     }
   }
 
+  ".contractStartedOptimised" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).contractStartedOptimised mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).contractStartedOptimised(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).contractStartedOptimised(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, false)
+            new CheckYourAnswersHelper(cacheMap).contractStartedOptimised(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                answer = "site.no",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, false)
+            new CheckYourAnswersHelper(cacheMap).contractStartedOptimised(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                answer = "site.no",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+      }
+    }
+  }
+
   ".arrangedSubstitute" when {
 
     "there is no answer in the cacheMap" should {

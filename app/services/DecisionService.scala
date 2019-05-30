@@ -99,27 +99,18 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   private def redirectResult(interview: Interview,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])
                             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= Future {
-    if(isEnabled(OptimisedFlow)) {
-      decisionResponse match {
-        case Right(result) if interview.workerRepresentsEngagerBusiness.isDefined => finalResultRedirect(result, continueResult)
-        //only show results if last question was answered
-        case Right(_) => Redirect(continueResult)
-        case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
-      }
-    } else {
-      decisionResponse match {
-        case Right(result) => finalResultRedirect(result,continueResult)
-        case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
-
-      }
+    (isEnabled(OptimisedFlow), decisionResponse) match {
+      case (true, Right(result)) if interview.hasAnsweredFinalQuestion => finalResultRedirect(result, continueResult)
+      case (false, Right(result)) => finalResultRedirect(result, continueResult)
+      case (_, Right(_)) => Redirect(continueResult)
+      case (_, Left(_)) => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
   }
 
   private def saveDecision(decisionResponse: Either[ErrorResponse,DecisionResponse], userAnswers: UserAnswers) = {
     if(isEnabled(OptimisedFlow)) {
       decisionResponse match {
-        case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED =>
-          dataCacheConnector.addDecision(userAnswers.cacheMap.id, decisionResponse.right.get)
+        case Right(response) if response.result != ResultEnum.NOT_MATCHED => dataCacheConnector.addDecision(userAnswers.cacheMap.id, response)
         case Right(notMatched) => Future.successful(Right(notMatched))
         case Left(error) => Future.successful(Left(error))
       }
@@ -132,18 +123,14 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                                  (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
     decisionResponse match {
       case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED) => Redirect(continueResult)
-      case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
-      case DecisionResponse(_, _, Score(_, _, _, control, financialRisk, _), ResultEnum.OUTSIDE_IR35) =>
-        redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
-      case DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
-      case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
-      case DecisionResponse(_, _, _, unknown) => redirectResultsPage(unknown)
+      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
+      case DecisionResponse(_, _, _, result) => redirectResultsPage(result)
       case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
   }
 
-  def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
-                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
+  private def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
+                                  financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
 
     val result: (String, String) = SessionKeys.result -> resultValue.toString
     val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)

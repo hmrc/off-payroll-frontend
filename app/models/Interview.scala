@@ -59,6 +59,8 @@ case class Interview(correlationId: String,
                      contactWithEngagerCustomer: Option[Boolean] = None,
                      workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig){
 
+  val hasAnsweredFinalQuestion = workerRepresentsEngagerBusiness.isDefined
+
   def calculateProvideServices: Option[WorkerType] = {
 
     (isUsingIntermediary, provideServices) match {

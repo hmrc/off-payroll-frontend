@@ -17,14 +17,13 @@
 package controllers
 
 import javax.inject.Inject
-
 import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{Answers, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.QuestionPage
 import play.api.libs.json.{Reads, Writes}
-import play.api.mvc.{AnyContent, MessagesControllerComponents}
+import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
 import services.{CompareAnswerService, DecisionService}
 
 import scala.concurrent.Future
@@ -36,20 +35,22 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
                                  decisionService: DecisionService
                                 ) extends BaseController(controllerComponents) {
 
-  def redirect[T](mode: Mode, value: T, page: QuestionPage[T], callDecisionService: Boolean = false)
-                 (implicit request: DataRequest[AnyContent],reads: Reads[T],writes: Writes[T],
-                  aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]) = {
-    (for {
-      answers <- compareAnswerService.constructAnswers(request,value,page)
-      _ <- dataCacheConnector.save(answers.cacheMap)
-    } yield {
-      answers
-    }).flatMap { answers =>
-      if(callDecisionService){
-        val continue = navigator.nextPage(page, mode)(answers)
-        decisionService.decide(answers, continue)
-      } else {
-        Future.successful(Redirect(navigator.nextPage(page, mode)(answers)))
+  def redirect[T](mode: Mode,
+                  value: T,
+                  page: QuestionPage[T],
+                  callDecisionService: Boolean = false)(implicit request: DataRequest[AnyContent],
+                                                        reads: Reads[T],
+                                                        writes: Writes[T],
+                                                        aWrites: Writes[Answers[T]],
+                                                        aReads: Reads[Answers[T]]): Future[Result] = {
+
+    compareAnswerService.constructAnswers(request,value,page).flatMap { answers =>
+      dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
+        if (callDecisionService) {
+          decisionService.decide(answers, navigator.nextPage(page, mode)(answers))
+        } else {
+          Future.successful(Redirect(navigator.nextPage(page, mode)(answers)))
+        }
       }
     }
   }
