@@ -59,7 +59,7 @@ class DecisionHttpParserSpec extends SpecBase {
   "Http parser" should {
     "parse json to model" in {
 
-      DecisionHttpParser.reads(HttpResponse(OK, Some(json))) mustBe
+      DecisionHttpParser.DecisionReads.read("","", HttpResponse(OK, Some(json))) mustBe
         Right(DecisionResponse("1.5.0-final", "12345",
           Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(MEDIUM),Some(MEDIUM),Some(NOT_VALID_USE_CASE),Some(NOT_VALID_USE_CASE)),
           SELF_EMPLOYED
@@ -67,15 +67,15 @@ class DecisionHttpParserSpec extends SpecBase {
     }
 
     "handle invalid json" in {
-      DecisionHttpParser.reads(HttpResponse(OK, Some(invalidJson))) mustBe
+      DecisionHttpParser.DecisionReads.read("","", HttpResponse(OK, Some(invalidJson))) mustBe
         Left(ErrorResponse(INTERNAL_SERVER_ERROR, "Invalid Json received from decision API"))
     }
 
     "handle errors" in {
-      DecisionHttpParser.reads(HttpResponse(BAD_REQUEST, None)) mustBe
+      DecisionHttpParser.DecisionReads.read("","",HttpResponse(BAD_REQUEST, None)) mustBe
         Left(ErrorResponse(BAD_REQUEST,"Unexpected Response returned from decision API"))
 
-      DecisionHttpParser.reads(
+      DecisionHttpParser.DecisionReads.read("","",
         HttpResponse(BAD_REQUEST, Some(Json.parse("""{"error":"bad request"}""")))) mustBe
         Left(ErrorResponse(BAD_REQUEST,"Unexpected Response returned from decision API"))
     }

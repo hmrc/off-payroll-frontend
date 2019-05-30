@@ -16,19 +16,20 @@
 
 package connectors
 
-import javax.inject.Inject
 import config.FrontendAppConfig
-import connectors.httpParsers.{DecisionHttpParser, LogHttpParser}
+import connectors.httpParsers.DecisionHttpParser.DecisionReads
+import connectors.httpParsers.LogHttpParser.LogReads
+import javax.inject.Inject
 import models._
 import models.logging.LogInterview
+import play.api.Logger
 import play.api.libs.json.Json
+import play.mvc.Http.Status._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import play.mvc.Http.Status._
 import utils.DateTimeUtil
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class DecisionConnector @Inject()(httpClient: HttpClient,
@@ -40,17 +41,20 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   lazy val decideUrl = s"$baseUrl/cest-decision/decide"
   lazy val logUrl = s"$baseUrl/cest-decision/log"
 
-  def decide(decisionRequest: Interview)(implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-    httpClient.POST(decideUrl, Json.toJson(decisionRequest)).map {
-      DecisionHttpParser.reads
-    }.recover {
-      case ex: Exception => Left(ErrorResponse(INTERNAL_SERVER_ERROR,s"HTTP exception returned from decision API: ${ex.getMessage}"))
-    }
+  private[connectors] val handleUnexpectedError: PartialFunction[Throwable, Left[ErrorResponse, Nothing]] = {
+    case ex: Exception => Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
+  }
+
+  def decide(decisionRequest: Interview)
+            (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
+    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)}")
+    httpClient.POST(decideUrl, decisionRequest)(Interview.writes, DecisionReads, hc, ec) recover handleUnexpectedError
   }
 
   def log(decisionRequest: Interview,decisionResponse: DecisionResponse)
          (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, Boolean]] = {
-    httpClient.POST(logUrl, Json.toJson(LogInterview(decisionRequest, decisionResponse, dateTimeUtil))) map LogHttpParser.reads
+    Logger.debug(s"[DecisionConnector][log] ${Json.toJson(decisionRequest)}")
+    httpClient.POST(logUrl, LogInterview(decisionRequest, decisionResponse, dateTimeUtil))(LogInterview.writes, LogReads, hc, ec) recover handleUnexpectedError
   }
 
 }

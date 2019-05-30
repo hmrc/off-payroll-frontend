@@ -51,45 +51,16 @@ class SessionExpiredControllerSpec extends ControllerSpecBase {
     }
   }
 
-  "SessionExpiredController.onPageLoadDeleted" must {
+  "SessionExpiredController.onSubmit" must {
 
-    lazy val result = controller.onPageLoadDeleted()(fakeRequest)
+    lazy val result = controller.onSubmit()(fakeRequest)
 
-    "return 200 for a GET" in {
-      status(result) mustBe OK
+    "return 303 for a GET" in {
+      status(result) mustBe SEE_OTHER
     }
 
-    "return the correct view for a GET" in {
-      contentAsString(result) mustBe deletedView(frontendAppConfig)(fakeRequest, messages).toString
-    }
-  }
-
-  "SessionExpiredController.checkTimeout" when {
-
-    "the session has expired" must {
-
-      lazy val result = controller.checkTimeout()(fakeRequest)
-
-      "return 303 for a GET" in {
-        status(result) mustBe SEE_OTHER
-      }
-
-      "redirect to the correct url" in {
-        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
-      }
-    }
-
-    "SessionExpiredController.onSubmit" must {
-
-      lazy val result = controller.onSubmit()(fakeRequest)
-
-      "return 303 for a GET" in {
-        status(result) mustBe SEE_OTHER
-      }
-
-      "redirect to the correct url" in {
-        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
-      }
+    "redirect to the correct url" in {
+      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
     }
   }
 }
