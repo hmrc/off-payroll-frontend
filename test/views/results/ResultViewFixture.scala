@@ -38,7 +38,7 @@ trait ResultViewFixture extends ViewBehaviours {
 
   val version = "1.0"
 
-  val timestamp = FakeTimestamp.timestamp
+  val timestamp = FakeTimestamp.timestamp()
 
   val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
 

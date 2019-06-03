@@ -18,6 +18,7 @@ package forms
 
 import forms.behaviours.OptionFieldBehaviours
 import models.BusinessSize
+import models.BusinessSize.{BalanceSheet, Employees, NoneOfAbove, Turnover}
 import play.api.data.FormError
 
 class BusinessSizeFormProviderSpec extends OptionFieldBehaviours {
@@ -26,14 +27,25 @@ class BusinessSizeFormProviderSpec extends OptionFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "businessSize[0]"
+    def fieldName(i: Int = 0) = s"businessSize[$i]"
+
     val requiredKey = "businessSize.error.required"
 
     behave like optionsField[BusinessSize](
       form,
-      fieldName,
+      fieldName(),
       validValues  = BusinessSize.values,
-      invalidError = FormError(fieldName, "error.invalid")
+      invalidError = FormError(fieldName(), "error.invalid")
     )
+
+    "If None Of Above is selected, remove any other ticked options that haven't been deselected by JavaScript" in {
+      val result = form.bind(Map(
+        fieldName() -> Turnover.toString,
+        fieldName(1) -> BalanceSheet.toString,
+        fieldName(2) -> Employees.toString,
+        fieldName(3) -> NoneOfAbove.toString
+      ))
+      result.value.value shouldEqual Seq(NoneOfAbove)
+    }
   }
 }

@@ -89,7 +89,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp,0)))
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
 
       mockConstructAnswers(UserAnswers("id"))(UserAnswers("id"))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

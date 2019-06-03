@@ -308,31 +308,31 @@ hirer.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
 
 ## Identify to stakeholders
 #########################
-identifyToStakeholders.title =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
-identifyToStakeholders.heading =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
+identifyToStakeholders.title =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
+identifyToStakeholders.heading =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
+identifyToStakeholders.checkYourAnswersLabel =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
 identifyToStakeholders.subheading =Ynglŷn ag integreiddio’r gweithiwr i mewn i’r sefydliad
 identifyToStakeholders.workForEndClient =Mae’n gweithio i’r cleient terfynol
 identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy’n gweithio ar ran y cleient terfynol
 identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
-identifyToStakeholders.checkYourAnswersLabel =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
 identifyToStakeholders.error.required = Mae angen i chi ddewis ateb
 identifyToStakeholders.error.invalid = Mae angen i chi ddewis ateb
 
-hirer.identifyToStakeholders.title =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
-hirer.identifyToStakeholders.heading =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
+hirer.identifyToStakeholders.title =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
+hirer.identifyToStakeholders.heading =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
+hirer.identifyToStakeholders.checkYourAnswersLabel =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
 hirer.identifyToStakeholders.subheading =Ynglŷn ag integreiddio’r gweithiwr i mewn i’r sefydliad
 hirer.identifyToStakeholders.workForEndClient =Mae’n gweithio i’r cleient terfynol
 hirer.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy’n gweithio ar ran y cleient terfynol
 hirer.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
-hirer.identifyToStakeholders.checkYourAnswersLabel =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
 
-worker.identifyToStakeholders.title =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
-worker.identifyToStakeholders.heading =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
+worker.identifyToStakeholders.title =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
+worker.identifyToStakeholders.heading =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
+worker.identifyToStakeholders.checkYourAnswersLabel =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut mae’n ystyried ei hun?
 worker.identifyToStakeholders.subheading =Ynglŷn ag integreiddio’r gweithiwr i mewn i’r sefydliad
 worker.identifyToStakeholders.workForEndClient =Mae’n gweithio i’r cleient terfynol
 worker.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy’n gweithio ar ran y cleient terfynol
 worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
-worker.identifyToStakeholders.checkYourAnswersLabel =Pan fydd y gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol, sut y mae’n rhoi gwybod pwy ydyw?
 #########################
 
 ## Worker interact with stakeholders
@@ -782,8 +782,6 @@ result.aboutResult.reviewTaxes =Gall CThEM adolygu’ch trethi am hyd at 20 mlyn
 result.aboutResult.exclamation =Ni fydd CThEM yn cadw cofnod o’r canlyniad hwn.
 
 result.decisionVersion =Fersiwn y Gwasanaeth Penderfyniadau:
-##### TODO NEED WELSH FOR ####
-result.decisionVersion.hint = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
 
 result.declaration.checkbox =Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
 result.declaration.bullet1 =darllen yr arweiniad ar gyfer pob cwestiwn

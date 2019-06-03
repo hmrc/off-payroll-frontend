@@ -17,14 +17,13 @@
 package controllers
 
 import akka.util.ByteString
-import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitch, PrintPDF}
+import config.featureSwitch.PrintPDF
 import connectors.httpParsers.PDFGeneratorHttpParser
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import forms.CustomisePDFFormProvider
-import models.{AdditionalPdfDetails, Answers, NormalMode, Timestamp}
+import models.{AdditionalPdfDetails, Answers, NormalMode}
 import navigation.FakeNavigator
 import pages.{CustomisePDFPage, ResultPage}
 import play.api.data.Form
@@ -92,7 +91,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     "show the PDF view" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
-      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp,0)))
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
@@ -122,7 +121,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       disable(PrintPDF)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
-      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp,0)))
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
@@ -137,7 +136,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       val response: PDFGeneratorHttpParser.Response = Left(BadRequest)
 
-      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp,0)))
+      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       mockGeneratePdf(response)
@@ -152,7 +151,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
       val boundForm = form.bind(Map("completedBy" -> "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
 
-      val validData = Map(ResultPage.toString -> JsString(FakeTimestamp.timestamp))
+      val validData = Map(ResultPage.toString -> JsString(FakeTimestamp.timestamp()))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)

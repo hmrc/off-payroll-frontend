@@ -16,17 +16,30 @@
 
 package forms
 
-import javax.inject.Inject
-
 import forms.mappings.Mappings
-import play.api.data.Forms.seq
-import play.api.data.Form
+import javax.inject.Inject
 import models.BusinessSize
+import models.BusinessSize.NoneOfAbove
+import play.api.data.Form
+import play.api.data.Forms.seq
+import play.api.data.validation.{Constraint, Invalid, Valid}
 
 class BusinessSizeFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Seq[BusinessSize]] =
+  def apply(): Form[Seq[BusinessSize]] = {
     Form(
       "businessSize" -> seq(enumerable[BusinessSize]("businessSize.error.required"))
+        .verifying(validFields)
+        .transform[Seq[BusinessSize]](
+          values => if(values.contains(NoneOfAbove)) Seq(NoneOfAbove) else values,
+          x => x
+        )
     )
+  }
+
+  def validFields: Constraint[Seq[BusinessSize]] = {
+    Constraint[Seq[BusinessSize]]("validBusinessSize") {
+      answers => if (answers.nonEmpty) Valid else Invalid("businessSize.error.required")
+    }
+  }
 }

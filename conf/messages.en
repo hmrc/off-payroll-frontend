@@ -784,7 +784,6 @@ result.aboutResult.reviewTaxes = HMRC can review your taxes for up to 20 years.
 result.aboutResult.exclamation = HMRC will not keep a record of this result.
 
 result.decisionVersion = Decision Service Version:
-result.decisionVersion.hint = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
 
 result.declaration.checkbox = Before you rely on this result, please confirm that you have:
 result.declaration.bullet1 = read the guidance for each question
@@ -1014,8 +1013,8 @@ businessSize.turnover = £10.2 million annual turnover?
 businessSize.balanceSheet = £5.1 million on their balance sheet?
 businessSize.employees = 50 employees?
 businessSize.noneOfAbove = None of the above
-businessSize.error.required = Select an option
-businessSize.error.invalid = Select a valid option
+businessSize.error.required = You need to select an answer
+businessSize.error.invalid = You need to select an answer
 
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
