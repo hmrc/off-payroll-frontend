@@ -40,6 +40,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
   val form = formProvider()
 
   val view = injector.instanceOf[MoveWorkerView]
+  val optimisedView = injector.instanceOf[views.html.sections.control.MoveWorkerView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
     mockDataCacheConnector,
@@ -50,12 +51,13 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    optimisedView = optimisedView,
     frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.values.head,0)))
+  val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.values().head,0)))
 
   "MoveWorker Controller" must {
 
@@ -71,11 +73,11 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(MoveWorker.values.head))
+      contentAsString(result) mustBe viewAsString(form.fill(MoveWorker.values().head))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -103,7 +105,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options().head.value))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER

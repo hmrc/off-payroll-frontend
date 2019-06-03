@@ -42,7 +42,7 @@
             field = form("value"),
             legend = messages(tailorMsg("scheduleOfWorkingHours.heading")),
             legendClass = Some("visually-hidden"),
-            inputs = ScheduleOfWorkingHours.options
+            inputs = ScheduleOfWorkingHours.options(false)
         )
 
         @components.submit_button()

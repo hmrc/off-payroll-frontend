@@ -27,17 +27,25 @@ object MoveWorker {
   case object CanMoveWorkerWithoutPermission extends WithName("canMoveWorkerWithoutPermission") with MoveWorker
   case object CannotMoveWorkerWithoutNewAgreement extends WithName("cannotMoveWorkerWithoutNewAgreement") with MoveWorker
 
-  val values: Seq[MoveWorker] = Seq(
-    CanMoveWorkerWithPermission, CanMoveWorkerWithoutPermission, CannotMoveWorkerWithoutNewAgreement
-  )
+  def values(optimised: Boolean = false): Seq[MoveWorker] =
 
-  val options: Seq[RadioOption] = values.map {
+    if (optimised) {
+      Seq(CanMoveWorkerWithoutPermission, CanMoveWorkerWithPermission, CannotMoveWorkerWithoutNewAgreement)
+    } else {
+      Seq(CanMoveWorkerWithPermission, CanMoveWorkerWithoutPermission, CannotMoveWorkerWithoutNewAgreement)
+    }
+
+  def options(optimised: Boolean = false): Seq[RadioOption] = values(optimised).map {
     value =>
-      RadioOption("moveWorker", value.toString, radio, hasTailoredMsgs = true)
+      if(optimised) {
+        RadioOption("optimised.moveWorker", value.toString, radio, hasTailoredMsgs = true)
+      } else {
+        RadioOption("moveWorker", value.toString, radio, hasTailoredMsgs = true)
+      }
   }
 
   implicit val enumerable: Enumerable[MoveWorker] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values().map(v => v.toString -> v): _*)
 
   implicit object MoveWorkerWrites extends Writes[MoveWorker] {
     def writes(moveWorker: MoveWorker) = Json.toJson(moveWorker.toString)

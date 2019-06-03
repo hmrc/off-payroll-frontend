@@ -40,6 +40,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
   val form = formProvider()
 
   val view = injector.instanceOf[HowWorkIsDoneView]
+  val optimisedView = injector.instanceOf[views.html.sections.control.HowWorkIsDoneView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkIsDoneController(
     mockDataCacheConnector,
@@ -50,6 +51,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    optimisedView = optimisedView,
     frontendAppConfig
   )
 
@@ -75,7 +77,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -103,7 +105,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER

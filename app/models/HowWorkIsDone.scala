@@ -32,9 +32,14 @@ object HowWorkIsDone {
     NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerFollowStrictEmployeeProcedures, WorkerAgreeWithOthers
   )
 
-  val options: Seq[RadioOption] = values.map {
+  def options(optimised: Boolean = false): Seq[RadioOption] = values.map {
     value =>
-      RadioOption("howWorkIsDone", value.toString, radio, hasTailoredMsgs = true)
+
+      if(optimised){
+        RadioOption("optimised.howWorkIsDone", value.toString, radio, hasTailoredMsgs = true)
+      } else {
+        RadioOption("howWorkIsDone", value.toString, radio, hasTailoredMsgs = true)
+      }
   }
 
   implicit val enumerable: Enumerable[HowWorkIsDone] =

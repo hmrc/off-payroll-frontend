@@ -43,7 +43,7 @@
             legend = messages(tailorMsg("howWorkIsDone.heading")),
             legendClass = Some("visually-hidden"),
             hint = Some(Html(messages(tailorMsg("howWorkIsDone.hint")))),
-            inputs = HowWorkIsDone.options
+            inputs = HowWorkIsDone.options()
         )
 
         @components.submit_button()

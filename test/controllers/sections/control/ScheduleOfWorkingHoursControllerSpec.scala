@@ -40,6 +40,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
   val form = formProvider()
 
   val view = injector.instanceOf[ScheduleOfWorkingHoursView]
+  val optimisedView = injector.instanceOf[views.html.sections.control.ScheduleOfWorkingHoursView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ScheduleOfWorkingHoursController(
     mockDataCacheConnector,
@@ -50,6 +51,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    optimisedView = optimisedView,
     frontendAppConfig
   )
 
@@ -75,7 +77,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -103,7 +105,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER

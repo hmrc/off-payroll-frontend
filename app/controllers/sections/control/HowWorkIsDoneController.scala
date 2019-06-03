@@ -17,17 +17,20 @@
 package controllers.sections.control
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.HowWorkIsDoneFormProvider
 import javax.inject.Inject
 import models.Answers._
+import models.requests.DataRequest
 import models.{HowWorkIsDone, Mode}
 import navigation.Navigator
-import pages.sections.control.HowWorkIsDonePage
+import pages.sections.control.{HowWorkIsDonePage, MoveWorkerPage}
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
+import play.twirl.api.Html
 import services.CompareAnswerService
 import views.html.subOptimised.sections.control.HowWorkIsDoneView
 
@@ -41,15 +44,27 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
                                         formProvider: HowWorkIsDoneFormProvider,
                                         controllerComponents: MessagesControllerComponents,
                                         view: HowWorkIsDoneView,
-                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                        optimisedView: views.html.sections.control.HowWorkIsDoneView,
+                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[HowWorkIsDone] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    if(isEnabled(OptimisedFlow)) optimisedSubmit(mode) else submit(mode)
+  }
+
+  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]):Html = if(isEnabled(OptimisedFlow)) {
+
+    optimisedView(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
+  } else {
+    view(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
+  }
+
+  private[controllers] def submit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
@@ -60,5 +75,16 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
         )
       }
     )
-  }
+
+  private[controllers] def optimisedSubmit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
+    form.bindFromRequest().fold(
+      formWithErrors =>
+        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
+      value => {
+        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkIsDonePage)
+        dataCacheConnector.save(answers.cacheMap).map(
+          _ => Redirect(navigator.nextPage(HowWorkIsDonePage, mode)(answers))
+        )
+      }
+    )
 }

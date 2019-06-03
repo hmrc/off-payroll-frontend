@@ -41,6 +41,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
   val form = formProvider()
 
   val view = injector.instanceOf[ChooseWhereWorkView]
+  val optimisedView = injector.instanceOf[views.html.sections.control.ChooseWhereWorkView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
     mockDataCacheConnector,
@@ -51,6 +52,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    optimisedView = optimisedView,
     mockDecisionService,
     frontendAppConfig
   )
@@ -85,7 +87,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -111,7 +113,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
       val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
