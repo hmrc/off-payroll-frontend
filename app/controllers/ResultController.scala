@@ -46,7 +46,7 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val timestamp = CompareAnswerService.constructAnswers(request,time.timestamp,ResultPage)
+    val timestamp = CompareAnswerService.constructAnswers(request, time.timestamp(), ResultPage)
 
     dataCacheConnector.save(timestamp.cacheMap).map(
       _ => Ok(decisionService.determineResultView(answers))

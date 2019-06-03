@@ -61,7 +61,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
       additionalData => {
         val timestamp = request.userAnswers.get(ResultPage)
-        printResult(additionalData, if(timestamp.isDefined) timestamp.get.answer else time.timestamp)
+        printResult(additionalData, time.timestamp(timestamp.map(_.answer)))
       }
     )
   }
