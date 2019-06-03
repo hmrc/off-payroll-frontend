@@ -306,6 +306,20 @@ hirer.arrangedSubstitute.bullet5 = Was substituted because the worker was unwill
 hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
 hirer.arrangedSubstitute.yesClientNotAgreed = Yes - but we did not agree
 hirer.arrangedSubstitute.no = No - it has not happened
+
+worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client didn’t accept your substitute.
+worker.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but the substitute wasn’t accepted.
+hirer.optimised.arrangedSubstitute.no = No, it hasn’t happened.
 #########################
 
 ## Identify to stakeholders
@@ -686,6 +700,14 @@ hirer.wouldWorkerPaySubstitute.heading = Would the worker’s business have to p
 hirer.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
 hirer.wouldWorkerPaySubstitute.subheading = About substitutes and helpers
 hirer.wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
+
+worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute directly?
+
+hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute directly?
 #########################
 
 

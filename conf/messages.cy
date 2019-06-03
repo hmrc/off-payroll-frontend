@@ -304,6 +304,22 @@ hirer.arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y g
 hirer.arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
 hirer.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
 hirer.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+
+## TODO: Need Welsh
+worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client didn’t accept your substitute.
+worker.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+
+## TODO: Need Welsh
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but the substitute wasn’t accepted.
+hirer.optimised.arrangedSubstitute.no = No, it hasn’t happened.
 #########################
 
 ## Identify to stakeholders
@@ -684,6 +700,16 @@ hirer.wouldWorkerPaySubstitute.heading =A fyddai busnes y gweithiwr yn gorfod ta
 hirer.wouldWorkerPaySubstitute.checkYourAnswersLabel =A fyddai busnes y gweithiwr yn gorfod talu’r person a wnaeth y gwaith yn ei le?
 hirer.wouldWorkerPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.wouldWorkerPaySubstitute.exclamation =Os byddai’r eilydd yn cael ei dalu gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
+
+## TODO: Need Welsh
+worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute directly?
+
+## TODO: Need Welsh
+hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute directly?
 #########################
 
 

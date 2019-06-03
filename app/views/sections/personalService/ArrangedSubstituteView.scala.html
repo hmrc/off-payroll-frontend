@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("arrangedSubstitute.title"), Some(tailorMsgOptimised("arrangedSubstitute.subheading"))),
+    title = title(form, tailorMsgOptimised("arrangedSubstitute.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -36,12 +36,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("arrangedSubstitute.heading"), Some(tailorMsgOptimised("arrangedSubstitute.subheading")))
+        @components.heading(tailorMsgOptimised("arrangedSubstitute.heading"))
 
         @components.input_radio(
             field = form("value"),
             legend = messages(tailorMsgOptimised("arrangedSubstitute.heading")),
-            hint = Some(components.details.arranged_substitute_details()),
             legendClass = Some("visually-hidden"),
             inputs = ArrangedSubstitute.options
         )

@@ -18,6 +18,7 @@ package views.sections.personalService
 
 import assets.messages.WouldPaySubstituteMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode
@@ -26,13 +27,18 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
+import views.html.sections.personalService.WouldWorkerPaySubstituteView
 
 class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
+  override def beforeEach = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "wouldWorkerPaySubstitute"
+  val messageKeyPrefix = "worker.optimised.wouldWorkerPaySubstitute"
 
   val form = new WouldWorkerPaySubstituteFormProvider()()
 
@@ -46,7 +52,7 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   "WouldWorkerPaySubstitute view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
@@ -58,19 +64,11 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Worker.title, Some(WouldPaySubstituteMessages.subheading))
+        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Worker.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
-      }
-
-      "have the correct exclamation (warning)" in {
-        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Worker.exclamation
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
       }
 
       "have the correct radio option messages" in {
@@ -85,19 +83,11 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Hirer.title, Some(WouldPaySubstituteMessages.subheading))
+        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Hirer.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Hirer.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
-      }
-
-      "have the correct exclamation (warning)" in {
-        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Hirer.exclamation
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Hirer.heading
       }
 
       "have the correct radio option messages" in {
@@ -112,19 +102,11 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.NonTailored.title, Some(WouldPaySubstituteMessages.subheading))
+        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.NonTailored.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe WouldPaySubstituteMessages.subheading
-      }
-
-      "have the correct exclamation (warning)" in {
-        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.NonTailored.exclamation
+        document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
       }
 
       "have the correct radio option messages" in {

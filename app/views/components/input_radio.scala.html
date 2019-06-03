@@ -46,7 +46,7 @@
 
                 <label class="block-label selection-button-radio" for="@{input.id}">
                     @if(input.hasTailoredMsgs) {
-                        @messages(tailorMsg(input.messageKey))
+                        @messages(tailorMsg(input.messageKey, input.hasOptimisedMsgs))
                     } else {
                         @messages(input.messageKey)
                     }

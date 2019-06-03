@@ -18,6 +18,7 @@ package views.sections.personalService
 
 import assets.messages.ArrangedSubstituteMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import forms.ArrangedSubstituteFormProvider
 import models.UserType.{Agency, Hirer, Worker}
 import models.{ArrangedSubstitute, NormalMode}
@@ -25,13 +26,18 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.subOptimised.sections.personalService.ArrangedSubstituteView
+import views.html.sections.personalService.ArrangedSubstituteView
 
 class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
+  override def beforeEach = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "arrangedSubstitute"
+  val messageKeyPrefix = "worker.optimised.arrangedSubstitute"
 
   val form = new ArrangedSubstituteFormProvider()()
 
@@ -44,7 +50,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ArrangedSubstitute view" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
@@ -54,30 +60,17 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Worker.title, Some(ArrangedSubstituteMessages.subheading))
+        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Worker.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ArrangedSubstituteMessages.subheading
-      }
-
-      "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Worker.p1
-        document.select(Selectors.bullet(1)).text mustBe ArrangedSubstituteMessages.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe ArrangedSubstituteMessages.Worker.b2
-        document.select(Selectors.bullet(3)).text mustBe ArrangedSubstituteMessages.Worker.b3
-        document.select(Selectors.bullet(4)).text mustBe ArrangedSubstituteMessages.Worker.b4
-        document.select(Selectors.bullet(5)).text mustBe ArrangedSubstituteMessages.Worker.b5
+        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Worker.heading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Worker.yesClientAgreed
-        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Worker.yesClientNotAgreed
-        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Worker.no
+        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientAgreed
+        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientNotAgreed
+        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.no
       }
     }
 
@@ -87,30 +80,17 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Hirer.title, Some(ArrangedSubstituteMessages.subheading))
+        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Hirer.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Hirer.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ArrangedSubstituteMessages.subheading
-      }
-
-      "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Hirer.p1
-        document.select(Selectors.bullet(1)).text mustBe ArrangedSubstituteMessages.Hirer.b1
-        document.select(Selectors.bullet(2)).text mustBe ArrangedSubstituteMessages.Hirer.b2
-        document.select(Selectors.bullet(3)).text mustBe ArrangedSubstituteMessages.Hirer.b3
-        document.select(Selectors.bullet(4)).text mustBe ArrangedSubstituteMessages.Hirer.b4
-        document.select(Selectors.bullet(5)).text mustBe ArrangedSubstituteMessages.Hirer.b5
+        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.heading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Hirer.yesClientAgreed
-        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Hirer.yesClientNotAgreed
-        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Hirer.no
+        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.yesClientAgreed
+        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.yesClientNotAgreed
+        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.no
       }
     }
 
@@ -120,30 +100,17 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.NonTailored.title, Some(ArrangedSubstituteMessages.subheading))
+        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.NonTailored.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ArrangedSubstituteMessages.subheading
-      }
-
-      "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.NonTailored.p1
-        document.select(Selectors.bullet(1)).text mustBe ArrangedSubstituteMessages.NonTailored.b1
-        document.select(Selectors.bullet(2)).text mustBe ArrangedSubstituteMessages.NonTailored.b2
-        document.select(Selectors.bullet(3)).text mustBe ArrangedSubstituteMessages.NonTailored.b3
-        document.select(Selectors.bullet(4)).text mustBe ArrangedSubstituteMessages.NonTailored.b4
-        document.select(Selectors.bullet(5)).text mustBe ArrangedSubstituteMessages.NonTailored.b5
+        document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Worker.heading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.NonTailored.yesClientAgreed
-        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.NonTailored.yesClientNotAgreed
-        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.NonTailored.no
+        document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientAgreed
+        document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientNotAgreed
+        document.select(Selectors.multichoice(3)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.no
       }
     }
   }

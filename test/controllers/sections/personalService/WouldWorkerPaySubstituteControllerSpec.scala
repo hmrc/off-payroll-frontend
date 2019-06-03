@@ -16,6 +16,7 @@
 
 package controllers.sections.personalService
 
+import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
@@ -30,7 +31,8 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
+import views.html.sections.personalService.WouldWorkerPaySubstituteView
+import views.html.subOptimised.sections.personalService.{WouldWorkerPaySubstituteView => SubOptimisedWouldWorkerPaySubstituteView}
 
 class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
@@ -39,7 +41,8 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[WouldWorkerPaySubstituteView]
+  val optimisedView = injector.instanceOf[WouldWorkerPaySubstituteView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedWouldWorkerPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
     mockDataCacheConnector,
@@ -49,72 +52,141 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
+    optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
     mockDecisionService,
     frontendAppConfig
   )
-
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(Answers(true,0)))
 
   "WouldWorkerPaySubstitute Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "For the OptimisedJourney" should {
 
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+
+      "return OK and the correct view for a GET" in {
+        enable(OptimisedFlow)
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
+
+      "populate the view correctly on a GET when the question has previously been answered" in {
+        enable(OptimisedFlow)
+        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+        contentAsString(result) mustBe viewAsString(form.fill(true))
+      }
+
+      "redirect to the next page when valid data is submitted" in {
+        enable(OptimisedFlow)
+
+        val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 0, true)
+
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockDecide(userAnswers)(onwardRoute)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
+
+      "return a Bad Request and errors when invalid data is submitted" in {
+        enable(OptimisedFlow)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) mustBe viewAsString(boundForm)
+      }
+
+      "redirect to Index Controller for a GET if no existing data is found" in {
+        enable(OptimisedFlow)
+        val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
+
+      "redirect to Index Controller for a POST if no existing data is found" in {
+        enable(OptimisedFlow)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+    "For the SubOptimisedJourney" should {
 
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+      def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-      contentAsString(result) mustBe viewAsString(form.fill(true))
-    }
+      "return OK and the correct view for a GET" in {
 
-    "redirect to the next page when valid data is submitted" in {
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
 
-      implicit val hc = new HeaderCarrier()
+      "populate the view correctly on a GET when the question has previously been answered" in {
+        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0, true)
+        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
+        contentAsString(result) mustBe viewAsString(form.fill(true))
+      }
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      "redirect to the next page when valid data is submitted" in {
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+        implicit val hc = new HeaderCarrier()
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
+        val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 0, true)
 
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockDecide(userAnswers)(onwardRoute)
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
+        val result = controller().onSubmit(NormalMode)(postRequest)
 
-    "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
-    }
+      "return a Bad Request and errors when invalid data is submitted" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
 
-    "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+        val result = controller().onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) mustBe viewAsString(boundForm)
+      }
+
+      "redirect to Index Controller for a GET if no existing data is found" in {
+        val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
+
+      "redirect to Index Controller for a POST if no existing data is found" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
     }
   }
 }

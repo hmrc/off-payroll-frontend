@@ -17,7 +17,6 @@
 package controllers.sections.personalService
 
 import config.featureSwitch.OptimisedFlow
-import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
@@ -30,8 +29,8 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 import views.html.sections.personalService.RejectSubstituteView
+import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
