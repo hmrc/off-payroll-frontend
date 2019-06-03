@@ -39,7 +39,8 @@ import scala.concurrent.{ExecutionContext, Future}
 class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
 
   def constructAnswers[T](request: DataRequest[AnyContent], value: T,
-                       page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],
+                       page: QuestionPage[T],removeOldDecision: Boolean = false,
+                          officeHolder: Boolean = false)(implicit reads: Reads[T],writes: Writes[T],
                                               aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): Future[UserAnswers] = {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
@@ -51,9 +52,13 @@ class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
           request.userAnswers.cacheMap.data.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
             .splitAt(answer.answerNumber)._2.map(_._1).map(pageName => questionToPage(pageName))
           , request.userAnswers)
-        //if an answer is changed, the final decision will change too
-        dataCacheConnector.clearDecision(request.userAnswers.cacheMap.id).map { _ =>
-          updatedAnswers.set(page, updatedAnswers.size, value)
+//        we keep the first decision, except if it's office holder
+        if(officeHolder){
+          dataCacheConnector.clearDecision(request.userAnswers.cacheMap.id).map { _ =>
+            updatedAnswers.set(page, updatedAnswers.size, value)
+          }
+        } else {
+            Future.successful(updatedAnswers.set(page, updatedAnswers.size, value))
         }
       }
     }

@@ -92,6 +92,9 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
 
   def checkDecision(id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
     val selector = BSONDocument("id" -> id)
+    println("*****************")
+    println("checking")
+    println("*****************")
     collection.find(selector,None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap].flatMap {
       case Some(DatedCacheMap(_,_,_,Some(decision))) => Future.successful(Right(decision))
       case Some(_) => addNewDecision(id,decisionResponse)
@@ -106,6 +109,9 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     val modifier = BSONDocument("$set" -> BSONDocument("decisionResponse" -> Json.toJson(decisionResponse)))
 
     collection.update(selector,modifier).map { _ =>
+      println("*****************")
+      println("added")
+      println("*****************")
       Right(decisionResponse)
     }.recover {
       case ex: Exception => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,ex.getMessage))
@@ -117,6 +123,9 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     val modifier = BSONDocument("$unset" -> BSONDocument("decisionResponse" -> ""))
 
     collection.update(selector, modifier).map { lastError =>
+      println("*****************")
+      println("removed")
+      println("*****************")
       lastError.ok
     }
   }

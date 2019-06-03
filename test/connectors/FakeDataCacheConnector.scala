@@ -16,7 +16,7 @@
 
 package connectors
 
-import models.{DecisionResponse, ErrorResponse}
+import models.{DecisionResponse, ErrorResponse, ResultEnum}
 import play.api.libs.json.Format
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -34,4 +34,6 @@ class FakeDataCacheConnector extends DataCacheConnector {
   override def addDecision[A](id: String, decision: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = ???
 
   override def clearDecision[A](id: String): Future[Boolean] = Future.successful(true)
+
+  override def getDecision[A](id: String): Future[ResultEnum.Value] = Future.successful(ResultEnum.NOT_MATCHED)
 }

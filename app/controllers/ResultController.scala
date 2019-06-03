@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
+
 import models.{NormalMode, Timestamp}
 import navigation.Navigator
 import pages.ResultPage
@@ -28,6 +29,8 @@ import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
 import utils.UserAnswersUtils
+
+import scala.concurrent.Future
 
 class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
@@ -48,23 +51,23 @@ class ResultController @Inject()(identify: IdentifierAction,
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage).flatMap { timestamp =>
       dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
-        dataCacheConnector.getDecision(request.internalId).map { decision =>
-          Ok(decisionService.determineResultView(answerSections = answers, resultEnum = decision))
+        decisionService.determineResultView(answers).map { result =>
+          Ok(result)
         }
       }
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    dataCacheConnector.getDecision(request.internalId).map { decision =>
-      resultForm.bindFromRequest().fold(
-        formWithErrors => {
-          BadRequest(decisionService.determineResultView(answers,decision, Some(formWithErrors)))
-        },
-        _ => {
-          Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
+    resultForm.bindFromRequest().fold(
+      formWithErrors => {
+        decisionService.determineResultView(answers, Some(formWithErrors)).map { result =>
+          BadRequest(result)
         }
-      )
-    }
+      },
+      _ => Future.successful {
+        Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
+      }
+    )
   }
 }

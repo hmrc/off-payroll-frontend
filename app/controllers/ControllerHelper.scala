@@ -38,13 +38,14 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
   def redirect[T](mode: Mode,
                   value: T,
                   page: QuestionPage[T],
-                  callDecisionService: Boolean = false)(implicit request: DataRequest[AnyContent],
+                  callDecisionService: Boolean = false,
+                  officeHolder: Boolean = false)(implicit request: DataRequest[AnyContent],
                                                         reads: Reads[T],
                                                         writes: Writes[T],
                                                         aWrites: Writes[Answers[T]],
                                                         aReads: Reads[Answers[T]]): Future[Result] = {
 
-    compareAnswerService.constructAnswers(request,value,page).flatMap { answers =>
+    compareAnswerService.constructAnswers(request,value,page,callDecisionService,officeHolder).flatMap { answers =>
       dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
         if (callDecisionService) {
           decisionService.decide(answers, navigator.nextPage(page, mode)(answers))

@@ -50,7 +50,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect[Boolean](mode,value, OfficeHolderPage, callDecisionService = true)
+        controllerHelper.redirect[Boolean](mode,value, OfficeHolderPage, callDecisionService = true, officeHolder = true)
       }
     )
   }
