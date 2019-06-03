@@ -23,7 +23,9 @@ import views.html.sections.setup.AboutYourResultView
 
 class AboutYourResultViewSpec extends ViewBehaviours {
 
-  object Selectors extends BaseCSSSelectors
+  object Selectors extends BaseCSSSelectors {
+    val p1 = "#content > article > form > p"
+  }
 
   val messageKeyPrefix = "aboutYourResult"
 
@@ -52,11 +54,11 @@ class AboutYourResultViewSpec extends ViewBehaviours {
     }
 
     "have the correct p1" in {
-      document.select(Selectors.p(1)).text mustBe AboutYourResultMessages.p1
+      document.select(Selectors.p1).text mustBe AboutYourResultMessages.p1
     }
 
-    "have the correct p2" in {
-      document.select(Selectors.p(2)).text mustBe AboutYourResultMessages.p2
+    "have the correct warning" in {
+      document.select(Selectors.exclamation).text mustBe s"${AboutYourResultMessages.p2} ${AboutYourResultMessages.p3}"
     }
   }
 }

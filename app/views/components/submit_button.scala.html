@@ -14,14 +14,10 @@
  * limitations under the License.
  *@
 
-@(resultPage: Boolean = false)(implicit messages: Messages)
+@(key: String = "site.continue")(implicit messages: Messages)
 
 <div class="section">
     <button id="submit" class="button">
-     @if(resultPage){
-      @messages("site.confirm_continue")
-     } else {
-      @messages("site.continue")
-     }
+     @messages(key)
     </button>
 </div>

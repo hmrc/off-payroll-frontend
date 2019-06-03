@@ -949,10 +949,10 @@ aboutYourResult.p1 = HMRC will stand by the result given, unless a compliance ch
 aboutYourResult.p2 = HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.
 
 ##### TODO NEED WELSH FOR ####
-whichDescribesYou.title = Which of these describes you best?
-whichDescribesYou.heading = Which of these describes you best?
+whichDescribesYou.title = Please tell us why you’re here, to help us give you the most relevant result?
+whichDescribesYou.heading = Please tell us why you’re here, to help us give you the most relevant result?
 whichDescribesYou.subheading = Section 1: Who, what, when
-whichDescribesYou.checkYourAnswersLabel = Which of these describes you best?
+whichDescribesYou.checkYourAnswersLabel = Please tell us why you’re here, to help us give you the most relevant result?
 whichDescribesYou.worker.paye = I want to find out if I am employed/self-employed
 whichDescribesYou.client.paye = I want to find out if I need to apply PAYE to someone who is working for me
 whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within IR35
