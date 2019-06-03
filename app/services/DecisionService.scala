@@ -50,6 +50,7 @@ trait DecisionService {
             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result]
 
   def determineResultView(answerSections: Seq[AnswerSection],
+                          resultEnum: ResultEnum.Value,
                           formWithErrors: Option[Form[Boolean]] = None,
                           printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None,
@@ -151,11 +152,10 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   }
 
   //TODO REFACTOR FOR SCALASTYLE
-  def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
+  def determineResultView(answerSections: Seq[AnswerSection],resultEnum: ResultEnum.Value, formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
                          (implicit request: DataRequest[_], messages: Messages): Html = {
 
-    val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
     val controlSession = request.session.get(SessionKeys.controlResult)
     val financialRiskSession = request.session.get(SessionKeys.financialRiskResult)
     val control = controlSession.map(WeightedAnswerEnum.withName)
@@ -194,7 +194,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
         futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case _ => errorHandler.internalServerErrorTemplate
     }
-    result match {
+    resultEnum match {
       case ResultEnum.OUTSIDE_IR35 => resultViewOutside
       case ResultEnum.INSIDE_IR35 => resultViewInside
       case ResultEnum.SELF_EMPLOYED => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)

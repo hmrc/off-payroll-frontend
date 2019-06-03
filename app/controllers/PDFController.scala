@@ -67,22 +67,23 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
+    dataCacheConnector.getDecision(request.internalId).flatMap { decision =>
+      lazy val view = decisionService.determineResultView(answers, decision,printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
+        timestamp = Some(timestamp))
+      if (isEnabled(PrintPDF)) {
 
-    lazy val view = decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
-      timestamp = Some(timestamp))
-    if (isEnabled(PrintPDF)) {
-
-      pdfService.generatePdf(view) map {
-        case Right(result: SuccessfulPDF) => {
-          val fileName = additionalPdfDetails.reference.getOrElse("result")
-          Ok(result.pdf.toArray)
-            .as("application/pdf")
-            .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
+        pdfService.generatePdf(view) map {
+          case Right(result: SuccessfulPDF) => {
+            val fileName = additionalPdfDetails.reference.getOrElse("result")
+            Ok(result.pdf.toArray)
+              .as("application/pdf")
+              .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
+          }
+          case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
         }
-        case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+      } else {
+        Future.successful(Ok(view))
       }
-    } else {
-      Future.successful(Ok(view))
     }
   }
 }

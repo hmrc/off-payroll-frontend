@@ -47,20 +47,24 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage).flatMap { timestamp =>
-      dataCacheConnector.save(timestamp.cacheMap).map(
-        _ => Ok(decisionService.determineResultView(answers))
-      )
+      dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
+        dataCacheConnector.getDecision(request.internalId).map { decision =>
+          Ok(decisionService.determineResultView(answerSections = answers, resultEnum = decision))
+        }
+      }
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    resultForm.bindFromRequest().fold(
-      formWithErrors => {
-        BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
-      },
-      _ => {
-        Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
-      }
-    )
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    dataCacheConnector.getDecision(request.internalId).map { decision =>
+      resultForm.bindFromRequest().fold(
+        formWithErrors => {
+          BadRequest(decisionService.determineResultView(answers,decision, Some(formWithErrors)))
+        },
+        _ => {
+          Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
+        }
+      )
+    }
   }
 }

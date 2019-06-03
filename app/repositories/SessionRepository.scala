@@ -120,4 +120,11 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
       lastError.ok
     }
   }
+
+  def getDecision(id: String): Future[ResultEnum.Value] = {
+    val selector = BSONDocument("id" -> id)
+    collection.find(selector,None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap]
+      .map(_.fold(ResultEnum.NOT_MATCHED: ResultEnum.Value){decision =>
+        decision.decisionResponse.fold(ResultEnum.NOT_MATCHED: ResultEnum.Value){result => result.result}})
+  }
 }

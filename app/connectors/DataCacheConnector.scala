@@ -18,7 +18,7 @@ package connectors
 
 import javax.inject.Inject
 
-import models.{DecisionResponse, ErrorResponse}
+import models.{DecisionResponse, ErrorResponse, ResultEnum}
 import play.api.libs.json.Format
 import repositories.SessionRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -40,6 +40,10 @@ class MongoCacheConnector @Inject()(sessionRepository: SessionRepository) extend
     sessionRepository.clearDecision(id)
   }
 
+  def getDecision[A](id: String): Future[ResultEnum.Value] = {
+    sessionRepository.getDecision(id)
+  }
+
   def fetch(cacheId: String): Future[Option[CacheMap]] =
     sessionRepository.get(cacheId)
 
@@ -56,6 +60,8 @@ trait DataCacheConnector {
   def addDecision[A](id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]]
 
   def clearDecision[A](id: String): Future[Boolean]
+
+  def getDecision[A](id: String): Future[ResultEnum.Value]
 
   def fetch(cacheId: String): Future[Option[CacheMap]]
 
