@@ -45,7 +45,7 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
                                                         aWrites: Writes[Answers[T]],
                                                         aReads: Reads[Answers[T]]): Future[Result] = {
 
-    compareAnswerService.constructAnswers(request,value,page,callDecisionService,officeHolder).flatMap { answers =>
+    compareAnswerService.constructAnswers(request,value,page,officeHolder).flatMap { answers =>
       dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
         if (callDecisionService) {
           decisionService.decide(answers, navigator.nextPage(page, mode)(answers))

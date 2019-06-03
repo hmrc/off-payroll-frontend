@@ -39,7 +39,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
 
   def constructAnswers[T](request: DataRequest[AnyContent], value: T,
-                       page: QuestionPage[T],removeOldDecision: Boolean = false,
+                       page: QuestionPage[T],
                           officeHolder: Boolean = false)(implicit reads: Reads[T],writes: Writes[T],
                                               aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): Future[UserAnswers] = {
     val answerNumber = request.userAnswers.size
