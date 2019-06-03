@@ -33,7 +33,7 @@ class TimestampSpec extends SpecBase {
       implicit def messages: Messages = messagesApi.preferred(Seq(lang))
       implicit def lang: Lang = Lang("en")
 
-      testTimestamp.months.map(month => testTimestamp.timestamp(messages).contains(messages(s"date.$month"))) must contain(true)
+      testTimestamp.months.map(month => testTimestamp.timestamp()(messages).contains(messages(s"date.$month"))) must contain(true)
     }
 
     "convert to welsh" in {
@@ -41,7 +41,7 @@ class TimestampSpec extends SpecBase {
       implicit def messages: Messages = messagesApi.preferred(Seq(lang))
       implicit def lang: Lang = Lang("cy")
 
-      testTimestamp.months.map(month => testTimestamp.timestamp(messages).contains(messages(s"date.$month"))) must contain(true)
+      testTimestamp.months.map(month => testTimestamp.timestamp()(messages).contains(messages(s"date.$month"))) must contain(true)
     }
   }
 }

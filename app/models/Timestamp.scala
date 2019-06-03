@@ -38,10 +38,10 @@ class Timestamp {
     "December"
   )
 
-  def timestamp(implicit messages: Messages): String = {
+  def timestamp(time: Option[String] = None)(implicit messages: Messages): String =
+    monthToMessages(time.getOrElse(ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))))
 
-    val dateTime = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))
-
+  private def monthToMessages(dateTime: String)(implicit messages: Messages): String =
     months.flatMap {
       month =>
         if (dateTime.contains(month)) {
@@ -50,5 +50,5 @@ class Timestamp {
           None
         }
     }.headOption.getOrElse(dateTime)
-  }
+
 }
