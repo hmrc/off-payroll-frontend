@@ -59,7 +59,13 @@ case class Interview(correlationId: String,
                      contactWithEngagerCustomer: Option[Boolean] = None,
                      workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig){
 
-  val hasAnsweredFinalQuestion = workerRepresentsEngagerBusiness.isDefined
+  val hasAnsweredFinalQuestion = {
+    (contactWithEngagerCustomer,workerRepresentsEngagerBusiness) match {
+      case (Some(_),Some(_)) => true
+      case (Some(secondLastQuestion),None) if !secondLastQuestion => true
+      case _ => false
+    }
+  }
 
   def calculateProvideServices: Option[WorkerType] = {
 

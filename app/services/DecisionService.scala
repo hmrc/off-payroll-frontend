@@ -100,11 +100,18 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   private def redirectResult(interview: Interview,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])
                             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= Future {
     (isEnabled(OptimisedFlow), decisionResponse) match {
-      case (true, Right(result)) if interview.hasAnsweredFinalQuestion => finalResultRedirect(result, continueResult)
+      case (_,Right(result)) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result)
       case (false, Right(result)) => finalResultRedirect(result, continueResult)
       case (_, Right(_)) => Redirect(continueResult)
       case (_, Left(_)) => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
+  }
+
+  private def earlyExitRedirect(decisionResponse: DecisionResponse)
+                               (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
+    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
+    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+    case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
   }
 
   private def saveDecision(decisionResponse: Either[ErrorResponse,DecisionResponse], userAnswers: UserAnswers) = {

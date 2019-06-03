@@ -786,7 +786,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
+      redirectLocation(result) mustBe Some("/continue")
 
     }
 

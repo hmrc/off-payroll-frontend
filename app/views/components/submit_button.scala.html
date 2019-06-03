@@ -14,14 +14,16 @@
  * limitations under the License.
  *@
 
-@(resultPage: Boolean = false)(implicit messages: Messages)
+@(resultPage: Boolean = false,customText: Option[String] = None)(implicit messages: Messages)
 
 <div class="section">
-    <button id="submit" class="button">
-     @if(resultPage){
-      @messages("site.confirm_continue")
-     } else {
-      @messages("site.continue")
-     }
-    </button>
+ <button id="submit" class="button">
+  @{
+   (resultPage,customText) match {
+    case (true,_) => messages("site.confirm_continue")
+    case (false,None) => messages("site.continue")
+    case (false,Some(text)) => messages(text)
+   }
+  }
+ </button>
 </div>

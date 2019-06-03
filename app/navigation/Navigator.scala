@@ -148,7 +148,12 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     //Part and Parcel Section
     BenefitsPage -> (_ => partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode)),
     LineManagerDutiesPage -> (_ => partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode)),
-    InteractWithStakeholdersPage -> (_ => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)),
+    InteractWithStakeholdersPage -> { answer =>
+      answer.get(InteractWithStakeholdersPage) match {
+        case Some(ans) if ans.answer => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
+        case Some(ans) if !ans.answer && isEnabled(OptimisedFlow) => routes.CheckYourAnswersController.onPageLoad()
+        case _ => routes.ResultController.onPageLoad()
+      }},
     IdentifyToStakeholdersPage -> (_ =>
       if (isEnabled(OptimisedFlow)) {
         routes.CheckYourAnswersController.onPageLoad()
