@@ -1014,8 +1014,8 @@ businessSize.turnover = £10.2 million annual turnover?
 businessSize.balanceSheet = £5.1 million on their balance sheet?
 businessSize.employees = 50 employees?
 businessSize.noneOfAbove = None of the above
-businessSize.error.required = Select an option
-businessSize.error.invalid = Select a valid option
+businessSize.error.required = You need to select an answer
+businessSize.error.invalid = You need to select an answer
 
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
