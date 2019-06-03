@@ -731,6 +731,16 @@ hirer.rejectSubstitute.hint.bullet5 =rhywun sy’n cael ei eilyddio gan nad yw�
 hirer.rejectSubstitute.exclamation =Rydym am wybod beth fyddai’n digwydd yn ymarferol, nid dim ond yr hyn sydd wedi’i gynnwys yng nghontract y gweithiwr.
 hirer.rejectSubstitute.yes =Iawn - mae gan y cleient terfynol yr hawl i wrthod eilydd am ba bynnag reswm, gan gynnwys os byddai’n effeithio’n negyddol ar y gwaith
 hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn eilydd a fyddai’n bodloni’r meini prawf hyn
+
+## TODO: Welsh Needed
+worker.optimised.rejectSubstitute.title = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.heading = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+
+## TODO: Welsh Needed
+hirer.optimised.rejectSubstitute.title = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.heading = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 #########################
 
 

@@ -17,19 +17,22 @@
 package controllers.sections.personalService
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.RejectSubstituteFormProvider
 import javax.inject.Inject
-import models.Answers._
 import models.Mode
 import navigation.Navigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.i18n.Messages
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
 import services.CompareAnswerService
-import views.html.subOptimised.sections.personalService.RejectSubstituteView
+import views.html.sections.personalService.RejectSubstituteView
+import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 import scala.concurrent.Future
 
@@ -40,10 +43,14 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
                                            requireData: DataRequiredAction,
                                            formProvider: RejectSubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
-                                           view: RejectSubstituteView,
-                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                           optimisedView: RejectSubstituteView,
+                                           subOptimisedView: SubOptimisedRejectSubstituteView,
+                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
+
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(request.userAnswers.get(RejectSubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))

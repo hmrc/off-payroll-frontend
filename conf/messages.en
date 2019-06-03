@@ -733,6 +733,14 @@ hirer.rejectSubstitute.hint.bullet5 = Being substituted because the worker is un
 hirer.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in the worker’s contract.
 hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work
 hirer.rejectSubstitute.no = No - we would always accept a substitute who met these criteria
+
+worker.optimised.rejectSubstitute.title = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.heading = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+
+hirer.optimised.rejectSubstitute.title = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.heading = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 #########################
 
 
