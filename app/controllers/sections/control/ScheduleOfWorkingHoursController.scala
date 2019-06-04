@@ -17,19 +17,21 @@
 package controllers.sections.control
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
 import javax.inject.Inject
-import models.Answers._
 import models.{Mode, ScheduleOfWorkingHours}
 import navigation.Navigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc._
+import play.twirl.api.HtmlFormat
 import services.CompareAnswerService
-import views.html.subOptimised.sections.control.ScheduleOfWorkingHoursView
+import views.html.sections.control.ScheduleOfWorkingHoursView
+import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
 import scala.concurrent.Future
 
@@ -40,10 +42,15 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
                                                  requireData: DataRequiredAction,
                                                  formProvider: ScheduleOfWorkingHoursFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
-                                                 view: ScheduleOfWorkingHoursView,
-                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                                 optimisedView: ScheduleOfWorkingHoursView,
+                                                 subOptimisedView: SubOptimisedScheduleOfWorkingHoursView,
+                                                 implicit val appConfig: FrontendAppConfig
+                                                ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[ScheduleOfWorkingHours] = formProvider()
+
+  private def view(form: Form[ScheduleOfWorkingHours], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if (isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(request.userAnswers.get(ScheduleOfWorkingHoursPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
@@ -54,7 +61,7 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,ScheduleOfWorkingHoursPage)
+        val answers = CompareAnswerService.constructAnswers(request, value, ScheduleOfWorkingHoursPage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(ScheduleOfWorkingHoursPage, mode)(answers))
         )

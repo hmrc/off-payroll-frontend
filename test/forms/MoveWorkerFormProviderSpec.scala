@@ -32,7 +32,7 @@ class MoveWorkerFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[MoveWorker](
       form,
       fieldName,
-      validValues  = MoveWorker.values,
+      validValues  = MoveWorker.values(),
       invalidError = FormError(fieldName, "error.invalid")
     )
 

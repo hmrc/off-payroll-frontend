@@ -128,19 +128,19 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- ScheduleOfWorkingHours.options) {
+        for (option <- ScheduleOfWorkingHours.options()) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- ScheduleOfWorkingHours.options) {
+    for(option <- ScheduleOfWorkingHours.options()) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- ScheduleOfWorkingHours.options.filterNot(o => o == option)) {
+          for(unselectedOption <- ScheduleOfWorkingHours.options().filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

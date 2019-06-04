@@ -17,19 +17,21 @@
 package controllers.sections.control
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.MoveWorkerFormProvider
 import javax.inject.Inject
-import models.Answers._
 import models.{Mode, MoveWorker}
 import navigation.Navigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc._
+import play.twirl.api.HtmlFormat
 import services.CompareAnswerService
-import views.html.subOptimised.sections.control.MoveWorkerView
+import views.html.sections.control.MoveWorkerView
+import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future
 
@@ -40,11 +42,15 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
                                      requireData: DataRequiredAction,
                                      formProvider: MoveWorkerFormProvider,
                                      controllerComponents: MessagesControllerComponents,
-                                     view: MoveWorkerView,
+                                     optimisedView: MoveWorkerView,
+                                     subOptimisedView: SubOptimisedMoveWorkerView,
                                      implicit val appConfig: FrontendAppConfig
-                                    ) extends BaseController(controllerComponents) {
+                                    ) extends BaseController(controllerComponents) with FeatureSwitching{
 
   val form: Form[MoveWorker] = formProvider()
+
+  private def view(form: Form[MoveWorker], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(request.userAnswers.get(MoveWorkerPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))

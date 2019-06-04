@@ -38,6 +38,22 @@ object MoveWorkerMessages extends BaseMessages {
     val no = "No - that would need to be arranged under a new contract or formal agreement"
   }
 
+  object OptimisedWorker {
+    val heading = "Could your client move you from your original task, project or location without your agreement?"
+    val title = heading
+    val yesWithAgreement = "Yes"
+    val yesWithoutAgreement = "No, you would have to agree."
+    val no = "No, that would require a new contract or formal working arrangement."
+  }
+
+  object OptimisedHirer {
+    val heading = "Could your team move the worker from their original task, project or location without their agreement?"
+    val title = heading
+    val yesWithAgreement = "Yes"
+    val yesWithoutAgreement = "No, the worker would have to agree."
+    val no = "No, that would require a new contract or formal working arrangement."
+  }
+
   object NonTailored {
     val heading = "Can the end client move the worker to a different task than they originally agreed to do?"
     val title = heading

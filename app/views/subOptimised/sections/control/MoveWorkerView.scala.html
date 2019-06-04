@@ -42,7 +42,7 @@
             field = form("value"),
             legend = messages(tailorMsg("moveWorker.heading")),
             legendClass = Some("visually-hidden"),
-            inputs = MoveWorker.options,
+            inputs = MoveWorker.options(),
             hint = Some(Html(messages(tailorMsg("moveWorker.hint"))))
         )
 

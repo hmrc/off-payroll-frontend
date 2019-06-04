@@ -1040,3 +1040,66 @@ toolNotNeeded.client.ir35.text = Workers are responsible for determining if role
 toolNotNeeded.client.paye.title = You don’t need to determine if this work should be taxed at source (PAYE)
 toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be taxed at source (PAYE)
 toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include the income from this work in their self-assessment return
+
+
+hirer.optimised.moveWorker.title = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.heading = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.checkYourAnswersLabel = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
+hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker would have to agree.
+hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
+
+worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
+worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree.
+worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
+
+hirer.optimised.howWorkIsDone.title = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.heading = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
+hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides.
+hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work.
+hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your team and the worker agree together.
+
+worker.optimised.howWorkIsDone.title = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.heading = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
+worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide.
+worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, your client and you agree together.
+
+worker.optimised.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
+worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide.
+worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your own schedule.
+worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+
+hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
+hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your team and the worker agree their own schedule.
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+
+worker.optimised.chooseWhereWork.title = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.heading = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.workerChooses = Yes
+worker.optimised.chooseWhereWork.workerCannotChoose = No, you decide.
+worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
+worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
+
+hirer.optimised.chooseWhereWork.title = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.heading = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.workerChooses = Yes
+hirer.optimised.chooseWhereWork.workerCannotChoose = No, the worker decides.
+hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
+hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice.

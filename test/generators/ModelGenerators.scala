@@ -55,7 +55,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryMoveWorker: Arbitrary[MoveWorker] =
     Arbitrary {
-      Gen.oneOf(MoveWorker.values)
+      Gen.oneOf(MoveWorker.values())
     }
 
   implicit lazy val arbitraryHowWorkIsDone: Arbitrary[HowWorkIsDone] =

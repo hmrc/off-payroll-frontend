@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("chooseWhereWork.title"), Some(tailorMsg("chooseWhereWork.subheading"))),
+    title = title(form, tailorMsg("optimised.chooseWhereWork.title"), None),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -36,13 +36,13 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("chooseWhereWork.heading"), Some(tailorMsg("chooseWhereWork.subheading")))
+        @components.heading(tailorMsg("optimised.chooseWhereWork.heading"), None)
 
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("chooseWhereWork.heading")),
+            legend = messages(tailorMsg("optimised.chooseWhereWork.heading")),
             legendClass = Some("visually-hidden"),
-            inputs = ChooseWhereWork.options()
+            inputs = ChooseWhereWork.options(true)
         )
 
         @components.submit_button()
