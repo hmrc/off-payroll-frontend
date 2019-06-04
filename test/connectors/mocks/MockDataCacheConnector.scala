@@ -17,7 +17,7 @@
 package connectors.mocks
 
 import connectors.DataCacheConnector
-import models.{DecisionResponse, ErrorResponse}
+import models.{DecisionResponse, ErrorResponse, ResultEnum}
 import org.scalamock.scalatest.MockFactory
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -49,6 +49,12 @@ trait MockDataCacheConnector extends MockFactory {
     (mockDataCacheConnector.clearDecision(_: String))
       .expects(id)
       .returns(Future.successful(true))
+  }
+
+  def mockGetDecision(id: String)(response: ResultEnum.Value = ResultEnum.INSIDE_IR35): Unit ={
+    (mockDataCacheConnector.getDecision(_: String))
+      .expects(id)
+      .returns(Future.successful(response))
   }
 
   def mockGetEntry[A](cacheId: String, key: String)(response: Option[A]): Unit = ???

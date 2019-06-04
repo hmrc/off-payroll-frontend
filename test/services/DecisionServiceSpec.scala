@@ -128,6 +128,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when outside and soletrader" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(ContractStartedPage,1, true)
@@ -169,6 +171,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when outside and financial risk" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(ContractStartedPage,1, true)
@@ -208,6 +212,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
 
     "determine the view when outside and control" in {
+
+      mockGetDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -249,6 +255,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when outside and current substitution" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(ContractStartedPage,1, true)
@@ -286,6 +294,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when outside and future substitution due to not yet arranged" in {
+
+      mockGetDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -326,6 +336,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when outside and future substitution" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(ContractStartedPage,1, false)
@@ -365,6 +377,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "route to the error page if cannot route to a result page based on the information provided" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
@@ -399,6 +413,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
 
     "determine the view when inside and route to employed view" in {
+
+      mockGetDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -438,6 +454,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when inside and route to office holder inside view" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
@@ -475,6 +493,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when inside and route to office holder inside view when using the optimised view" in {
 
+      mockGetDecision("id")
       enable(OptimisedFlow)
 
       val userAnswers: UserAnswers = UserAnswers("id")
@@ -515,6 +534,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when inside and route to inside view" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
@@ -552,6 +573,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
 
     "determine the view when self employed and route to self employed view" in {
+
+      mockGetDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -591,6 +614,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when unknown and route to indeterminate view" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, SoleTrader)
@@ -627,6 +652,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when employed and route to office holder view" in {
+
+      mockGetDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -665,6 +692,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
     "determine the view when employed and route to employed view" in {
 
+      mockGetDecision("id")
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
@@ -701,6 +730,8 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when employed and route to employed view with an error form" in {
+
+      mockGetDecision("id")
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
