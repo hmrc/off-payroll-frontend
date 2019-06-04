@@ -131,7 +131,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
         case Some(Answers(true,_)) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
         case Some(_) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
         case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-    }),
+      }),
     NeededToPayHelperPage -> (_ => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)),
 
     //Control Section
@@ -154,7 +154,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
         routes.CheckYourAnswersController.onPageLoad()
       } else {
         routes.ResultController.onPageLoad()
-    }),
+      }),
 
     //CYA/Results Page
     CheckYourAnswersPage -> (_ => routes.ResultController.onPageLoad()),

@@ -16,30 +16,66 @@
 
 package forms
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import forms.behaviours.BooleanFieldBehaviours
+import org.scalamock.scalatest.MockFactory
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.FormError
 
-class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours {
+class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with MockFactory with FeatureSwitching {
 
   val requiredKey = "rejectSubstitute.error.required"
   val invalidKey = "error.boolean"
+  val mockConfig = mock[FrontendAppConfig]
 
-  val form = new RejectSubstituteFormProvider()()
+  val form = new RejectSubstituteFormProvider()(mockConfig)()
+  val fieldName = "value"
 
   ".value" must {
-
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, invalidKey)
-    )
 
     behave like mandatoryField(
       form,
       fieldName,
       requiredError = FormError(fieldName, requiredKey)
     )
+
+    "if OptimisedFlow is enabled" must {
+
+      "bind true as false" in {
+        enable(OptimisedFlow)
+        val result = form.bind(Map(fieldName -> "true"))
+        result.value.value shouldBe false
+      }
+
+      "bind false as true" in {
+        enable(OptimisedFlow)
+        val result = form.bind(Map(fieldName -> "false"))
+        result.value.value shouldBe true
+      }
+    }
+
+    "if OptimisedFlow is disabled" must {
+
+      "bind true as true" in {
+        disable(OptimisedFlow)
+        val result = form.bind(Map(fieldName -> "true"))
+        result.value.value shouldBe true
+      }
+
+      "bind false as false" in {
+        disable(OptimisedFlow)
+        val result = form.bind(Map(fieldName -> "false"))
+        result.value.value shouldBe false
+      }
+    }
+
+    "not bind non-booleans" in {
+      forAll(nonBooleans -> "nonBoolean") {
+        nonBoolean =>
+          val result = form.bind(Map(fieldName -> nonBoolean)).apply(fieldName)
+          result.errors shouldEqual Seq(FormError(fieldName, invalidKey))
+      }
+    }
   }
 }

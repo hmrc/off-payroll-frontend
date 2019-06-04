@@ -202,6 +202,28 @@ hirer.officeHolder.bullet1 =mae’r gweithiwr yn dal swydd o gyfrifoldeb ar gyfe
 hirer.officeHolder.bullet2 =caiff y swyddogaeth ei chreu gan statud, erthyglau cwmni, gweithred ymddiried neu o ddogfennau sy’n sefydlu sefydliad (er enghraifft, cyfarwyddwr neu ysgrifennydd cwmni)
 hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes neb yn ei chyflawni (er enghraifft, trysorydd clwb)
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
+
+## TODO: Need Welsh
+worker.optimised.officeHolder.title = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.heading = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.b1 = A board member
+worker.optimised.officeHolder.b2 = A treasurer
+worker.optimised.officeHolder.b3 = A trustee
+worker.optimised.officeHolder.b4 = Company director
+worker.optimised.officeHolder.b5 = Company secretary
+worker.optimised.officeHolder.b6 = Other office holder position
+
+## TODO: Need Welsh
+hirer.optimised.officeHolder.title = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.heading = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.b1 = A board member
+hirer.optimised.officeHolder.b2 = A treasurer
+hirer.optimised.officeHolder.b3 = A trustee
+hirer.optimised.officeHolder.b4 = Company director
+hirer.optimised.officeHolder.b5 = Company secretary
+hirer.optimised.officeHolder.b6 = Other office holder position
 #########################
 
 
@@ -305,6 +327,22 @@ hirer.arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y g
 hirer.arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
 hirer.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
 hirer.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+
+## TODO: Need Welsh
+worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client didn’t accept your substitute.
+worker.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+
+## TODO: Need Welsh
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but the substitute wasn’t accepted.
+hirer.optimised.arrangedSubstitute.no = No, it hasn’t happened.
 #########################
 
 ## Identify to stakeholders
@@ -662,6 +700,16 @@ hirer.neededToPayHelper.hint.p1 = Mae helpwr yn rhywun sy’n gwneud peth o’r 
 hirer.neededToPayHelper.hint.p2 = Er enghraifft - os huriwyd darlithydd gan brifysgol i ysgrifennu a chyflwyno modiwl astudio:
 hirer.neededToPayHelper.hint.bullet1 = gellir ystyried ymchwilydd a huriwyd i ddod o hyd i wybodaeth, fel bod yn gwneud llwyth sylweddol o waith y darlithydd
 hirer.neededToPayHelper.hint.bullet2 = ni fyddai cwmni y mae’r darlithydd yn ei dalu i argraffu a rhwymo llyfrau ar gyfer y modiwl, yn cael ei ystyried fel bod yn gwneud llwyth sylweddol o’r gwaith
+
+## TODO: Need Welsh
+worker.optimised.neededToPayHelper.title = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.heading = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.checkYourAnswersLabel = Have you paid another person to do a significant amount of this work?
+
+## TODO: Need Welsh
+hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.checkYourAnswersLabel = Has the worker paid another person to do a significant amount of this work?
 #########################
 
 
@@ -685,6 +733,16 @@ hirer.wouldWorkerPaySubstitute.heading =A fyddai busnes y gweithiwr yn gorfod ta
 hirer.wouldWorkerPaySubstitute.checkYourAnswersLabel =A fyddai busnes y gweithiwr yn gorfod talu’r person a wnaeth y gwaith yn ei le?
 hirer.wouldWorkerPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.wouldWorkerPaySubstitute.exclamation =Os byddai’r eilydd yn cael ei dalu gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
+
+## TODO: Need Welsh
+worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute directly?
+
+## TODO: Need Welsh
+hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute directly?
 #########################
 
 
@@ -732,6 +790,16 @@ hirer.rejectSubstitute.hint.bullet5 =rhywun sy’n cael ei eilyddio gan nad yw�
 hirer.rejectSubstitute.exclamation =Rydym am wybod beth fyddai’n digwydd yn ymarferol, nid dim ond yr hyn sydd wedi’i gynnwys yng nghontract y gweithiwr.
 hirer.rejectSubstitute.yes =Iawn - mae gan y cleient terfynol yr hawl i wrthod eilydd am ba bynnag reswm, gan gynnwys os byddai’n effeithio’n negyddol ar y gwaith
 hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn eilydd a fyddai’n bodloni’r meini prawf hyn
+
+## TODO: Welsh Needed
+worker.optimised.rejectSubstitute.title = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.heading = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+
+## TODO: Welsh Needed
+hirer.optimised.rejectSubstitute.title = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.heading = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 #########################
 
 
@@ -755,6 +823,16 @@ hirer.didPaySubstitute.heading = A wnaeth busnes y gweithiwr dalu’r person a w
 hirer.didPaySubstitute.checkYourAnswersLabel = A wnaeth busnes y gweithiwr dalu’r person a wnaeth y gwaith yn ei le?
 hirer.didPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.didPaySubstitute.exclamation = Os talwyd yr eilydd gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
+
+## TODO: Welsh Needed
+worker.optimised.didPaySubstitute.title = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.heading = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute directly?
+
+## TODO: Welsh Needed
+hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute directly?
 #########################
 
 

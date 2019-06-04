@@ -20,6 +20,18 @@ object WouldPaySubstituteMessages extends BaseMessages {
 
   val subheading = "About substitutes and helpers"
 
+  object Optimised {
+    object Worker {
+      val heading = "Would you have to pay your substitute directly?"
+      val title = heading
+    }
+
+    object Hirer {
+      val heading = "Would the worker have to pay their substitute directly?"
+      val title = heading
+    }
+  }
+
   object Worker {
     val heading = "Would your business have to pay the person who did the work instead of you?"
     val title = heading

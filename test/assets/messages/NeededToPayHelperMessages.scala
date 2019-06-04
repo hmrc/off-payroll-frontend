@@ -20,6 +20,18 @@ object NeededToPayHelperMessages extends BaseMessages {
 
   val subheading = "About substitutes and helpers"
 
+  object Optimised {
+    object Worker {
+      val heading = "Have you paid another person to do a significant amount of this work?"
+      val title = heading
+    }
+
+    object Hirer {
+      val heading = "Has the worker paid another person to do a significant amount of this work?"
+      val title = heading
+    }
+  }
+
   object Worker {
     val heading = "Has your business needed to pay a helper to do a significant amount of the work for this engagement?"
     val title = heading

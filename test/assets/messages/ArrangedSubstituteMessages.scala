@@ -20,6 +20,25 @@ object ArrangedSubstituteMessages extends BaseMessages {
 
   val subheading = "About substitutes and helpers"
 
+  object Optimised {
+
+    object Worker {
+      val heading = "Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?"
+      val title = heading
+      val yesClientAgreed = "Yes, it was agreed."
+      val yesClientNotAgreed = "Yes, but your client didn’t accept your substitute."
+      val no = "No, it hasn’t happened."
+    }
+
+    object Hirer {
+      val heading = "Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?"
+      val title = heading
+      val yesClientAgreed = "Yes, it was agreed."
+      val yesClientNotAgreed = "Yes, but the substitute wasn’t accepted."
+      val no = "No, it hasn’t happened."
+    }
+  }
+
   object Worker {
     val heading = "Has your business arranged for someone else (a substitute) to do the work instead of you during this engagement?"
     val title = heading
