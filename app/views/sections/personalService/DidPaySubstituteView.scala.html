@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("didPaySubstitute.title"), Some(tailorMsgOptimised("didPaySubstitute.subheading"))),
+    title = title(form, tailorMsgOptimised("didPaySubstitute.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -35,9 +35,7 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("didPaySubstitute.heading"), Some(tailorMsgOptimised("didPaySubstitute.subheading")))
-
-        @components.exclamation(Html(messages(tailorMsgOptimised("didPaySubstitute.exclamation"))))
+        @components.heading(tailorMsgOptimised("didPaySubstitute.heading"))
 
         @components.input_yes_no(
             field = form("value"),

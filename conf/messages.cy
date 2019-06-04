@@ -677,6 +677,16 @@ hirer.neededToPayHelper.hint.p1 = Mae helpwr yn rhywun sy’n gwneud peth o’r 
 hirer.neededToPayHelper.hint.p2 = Er enghraifft - os huriwyd darlithydd gan brifysgol i ysgrifennu a chyflwyno modiwl astudio:
 hirer.neededToPayHelper.hint.bullet1 = gellir ystyried ymchwilydd a huriwyd i ddod o hyd i wybodaeth, fel bod yn gwneud llwyth sylweddol o waith y darlithydd
 hirer.neededToPayHelper.hint.bullet2 = ni fyddai cwmni y mae’r darlithydd yn ei dalu i argraffu a rhwymo llyfrau ar gyfer y modiwl, yn cael ei ystyried fel bod yn gwneud llwyth sylweddol o’r gwaith
+
+## TODO: Need Welsh
+worker.optimised.neededToPayHelper.title = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.heading = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.checkYourAnswersLabel = Have you paid another person to do a significant amount of this work?
+
+## TODO: Need Welsh
+hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.checkYourAnswersLabel = Has the worker paid another person to do a significant amount of this work?
 #########################
 
 
@@ -790,6 +800,16 @@ hirer.didPaySubstitute.heading = A wnaeth busnes y gweithiwr dalu’r person a w
 hirer.didPaySubstitute.checkYourAnswersLabel = A wnaeth busnes y gweithiwr dalu’r person a wnaeth y gwaith yn ei le?
 hirer.didPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.didPaySubstitute.exclamation = Os talwyd yr eilydd gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
+
+## TODO: Welsh Needed
+worker.optimised.didPaySubstitute.title = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.heading = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute directly?
+
+## TODO: Welsh Needed
+hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute directly?
 #########################
 
 

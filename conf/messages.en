@@ -794,6 +794,14 @@ hirer.didPaySubstitute.heading = Did the worker’s business pay the person who 
 hirer.didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
 hirer.didPaySubstitute.subheading = About substitutes and helpers
 hirer.didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
+
+worker.optimised.didPaySubstitute.title = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.heading = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute directly?
+
+hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute directly?
 #########################
 
 
