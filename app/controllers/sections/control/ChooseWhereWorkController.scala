@@ -23,16 +23,15 @@ import controllers.BaseController
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
 import javax.inject.Inject
-import models.Answers._
-import models.requests.DataRequest
 import models.{ChooseWhereWork, ErrorTemplate, Mode}
 import navigation.Navigator
-import pages.sections.control.{ChooseWhereWorkPage, ScheduleOfWorkingHoursPage}
+import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import play.twirl.api.Html
+import play.api.mvc._
+import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService}
-import views.html.subOptimised.sections.control.ChooseWhereWorkView
+import views.html.sections.control.ChooseWhereWorkView
+import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 
 import scala.concurrent.Future
 
@@ -43,28 +42,22 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
                                           requireData: DataRequiredAction,
                                           formProvider: ChooseWhereWorkFormProvider,
                                           controllerComponents: MessagesControllerComponents,
-                                          view: ChooseWhereWorkView,
-                                          optimisedView: views.html.sections.control.ChooseWhereWorkView,
+                                          optimisedView: ChooseWhereWorkView,
+                                          subOptimisedView: SubOptimisedChooseWhereWorkView,
                                           decisionService: DecisionService,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
+                                          implicit val appConfig: FrontendAppConfig
+                                         ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[ChooseWhereWork] = formProvider()
 
+  private def view(form: Form[ChooseWhereWork], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(mode))
+    Ok(view(request.userAnswers.get(ChooseWhereWorkPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if(isEnabled(OptimisedFlow)) optimisedSubmit(mode) else submit(mode)
-  }
-
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]):Html = if(isEnabled(OptimisedFlow)) {
-    optimisedView(request.userAnswers.get(ChooseWhereWorkPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
-  } else {
-    view(request.userAnswers.get(ChooseWhereWorkPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
-  }
-
-  private[controllers] def submit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
@@ -72,27 +65,11 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
         val answers = CompareAnswerService.constructAnswers(request,value,ChooseWhereWorkPage)
         dataCacheConnector.save(answers.cacheMap).flatMap(
           _ => {
-
             val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(answers)
             decisionService.decide(answers, continue, ErrorTemplate("chooseWhereWork.title"))
           }
         )
       }
     )
-
-  private[controllers] def optimisedSubmit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,ChooseWhereWorkPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-
-            val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("chooseWhereWork.title"))
-          }
-        )
-      }
-    )
+  }
 }

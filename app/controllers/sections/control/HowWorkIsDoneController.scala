@@ -23,16 +23,15 @@ import controllers.BaseController
 import controllers.actions._
 import forms.HowWorkIsDoneFormProvider
 import javax.inject.Inject
-import models.Answers._
-import models.requests.DataRequest
 import models.{HowWorkIsDone, Mode}
 import navigation.Navigator
-import pages.sections.control.{HowWorkIsDonePage, MoveWorkerPage}
+import pages.sections.control.HowWorkIsDonePage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import play.twirl.api.Html
+import play.api.mvc._
+import play.twirl.api.HtmlFormat
 import services.CompareAnswerService
-import views.html.subOptimised.sections.control.HowWorkIsDoneView
+import views.html.sections.control.HowWorkIsDoneView
+import views.html.subOptimised.sections.control.{HowWorkIsDoneView => SubOptimisedHowWorkIsDoneView}
 
 import scala.concurrent.Future
 
@@ -43,48 +42,30 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
                                         requireData: DataRequiredAction,
                                         formProvider: HowWorkIsDoneFormProvider,
                                         controllerComponents: MessagesControllerComponents,
-                                        view: HowWorkIsDoneView,
-                                        optimisedView: views.html.sections.control.HowWorkIsDoneView,
-                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
+                                        optimisedView: HowWorkIsDoneView,
+                                        subOptimisedView: SubOptimisedHowWorkIsDoneView,
+                                        implicit val appConfig: FrontendAppConfig
+                                       ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[HowWorkIsDone] = formProvider()
 
+  private def view(form: Form[HowWorkIsDone], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(mode))
+    Ok(view(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if(isEnabled(OptimisedFlow)) optimisedSubmit(mode) else submit(mode)
-  }
-
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]):Html = if(isEnabled(OptimisedFlow)) {
-
-    optimisedView(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
-  } else {
-    view(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
-  }
-
-  private[controllers] def submit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkIsDonePage)
+        val answers = CompareAnswerService.constructAnswers(request, value, HowWorkIsDonePage)
         dataCacheConnector.save(answers.cacheMap).map(
           _ => Redirect(navigator.nextPage(HowWorkIsDonePage, mode)(answers))
         )
       }
     )
-
-  private[controllers] def optimisedSubmit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkIsDonePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(HowWorkIsDonePage, mode)(answers))
-        )
-      }
-    )
+  }
 }

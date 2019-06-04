@@ -17,7 +17,6 @@
 package controllers.sections.control
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
@@ -31,7 +30,8 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.control.ScheduleOfWorkingHoursView
+import views.html.sections.control.ScheduleOfWorkingHoursView
+import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
 class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
@@ -40,8 +40,8 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
   val formProvider = new ScheduleOfWorkingHoursFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[ScheduleOfWorkingHoursView]
-  val optimisedView = injector.instanceOf[views.html.sections.control.ScheduleOfWorkingHoursView]
+  val optimisedView = injector.instanceOf[ScheduleOfWorkingHoursView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedScheduleOfWorkingHoursView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ScheduleOfWorkingHoursController(
     mockDataCacheConnector,
@@ -51,12 +51,12 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
     optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
     frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(ScheduleOfWorkingHoursPage.toString -> Json.toJson(Answers(ScheduleOfWorkingHours.values.head,0)))

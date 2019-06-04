@@ -17,7 +17,6 @@
 package controllers.sections.control
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
@@ -31,7 +30,8 @@ import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.control.MoveWorkerView
+import views.html.sections.control.MoveWorkerView
+import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
@@ -40,8 +40,8 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
   val formProvider = new MoveWorkerFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[MoveWorkerView]
-  val optimisedView = injector.instanceOf[views.html.sections.control.MoveWorkerView]
+  val optimisedView = injector.instanceOf[MoveWorkerView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedMoveWorkerView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
     mockDataCacheConnector,
@@ -51,12 +51,12 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
     optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
     frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(MoveWorkerPage.toString -> Json.toJson(Answers(MoveWorker.values().head,0)))

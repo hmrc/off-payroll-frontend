@@ -31,7 +31,8 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.control.HowWorkIsDoneView
+import views.html.sections.control.HowWorkIsDoneView
+import views.html.subOptimised.sections.control.{HowWorkIsDoneView => SubOptimisedHowWorkIsDoneView}
 
 class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
 
@@ -40,8 +41,8 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
   val formProvider = new HowWorkIsDoneFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[HowWorkIsDoneView]
-  val optimisedView = injector.instanceOf[views.html.sections.control.HowWorkIsDoneView]
+  val optimisedView = injector.instanceOf[HowWorkIsDoneView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedHowWorkIsDoneView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkIsDoneController(
     mockDataCacheConnector,
@@ -51,12 +52,12 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
     optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
     frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(Answers(HowWorkIsDone.values.head,0)))

@@ -23,15 +23,15 @@ import controllers.BaseController
 import controllers.actions._
 import forms.MoveWorkerFormProvider
 import javax.inject.Inject
-import models.requests.DataRequest
 import models.{Mode, MoveWorker}
 import navigation.Navigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
-import play.twirl.api.Html
+import play.api.mvc._
+import play.twirl.api.HtmlFormat
 import services.CompareAnswerService
-import views.html.subOptimised.sections.control.MoveWorkerView
+import views.html.sections.control.MoveWorkerView
+import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future
 
@@ -42,28 +42,21 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
                                      requireData: DataRequiredAction,
                                      formProvider: MoveWorkerFormProvider,
                                      controllerComponents: MessagesControllerComponents,
-                                     view: MoveWorkerView,
-                                     optimisedView: views.html.sections.control.MoveWorkerView,
+                                     optimisedView: MoveWorkerView,
+                                     subOptimisedView: SubOptimisedMoveWorkerView,
                                      implicit val appConfig: FrontendAppConfig
                                     ) extends BaseController(controllerComponents) with FeatureSwitching{
 
   val form: Form[MoveWorker] = formProvider()
 
+  private def view(form: Form[MoveWorker], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(mode))
+    Ok(view(request.userAnswers.get(MoveWorkerPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if(isEnabled(OptimisedFlow)) optimisedSubmit(mode) else submit(mode)
-  }
-
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]):Html = if(isEnabled(OptimisedFlow)) {
-    optimisedView(request.userAnswers.get(MoveWorkerPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
-  } else {
-    view(request.userAnswers.get(MoveWorkerPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode)
-  }
-
-  private[controllers] def submit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
@@ -74,17 +67,5 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
         )
       }
     )
-
-  private[controllers] def optimisedSubmit(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
-    form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,MoveWorkerPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(MoveWorkerPage, mode)(answers))
-        )
-      }
-    )
-
+  }
 }

@@ -32,7 +32,8 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.control.ChooseWhereWorkView
+import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
+import views.html.sections.control.ChooseWhereWorkView
 
 class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
 
@@ -41,8 +42,8 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
   val formProvider = new ChooseWhereWorkFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[ChooseWhereWorkView]
-  val optimisedView = injector.instanceOf[views.html.sections.control.ChooseWhereWorkView]
+  val optimisedView = injector.instanceOf[ChooseWhereWorkView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedChooseWhereWorkView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
     mockDataCacheConnector,
@@ -52,13 +53,13 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
     optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
     mockDecisionService,
     frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(ChooseWhereWorkPage.toString -> Json.toJson(Answers(ChooseWhereWork.values.head,0)))
