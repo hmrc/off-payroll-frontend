@@ -39,8 +39,6 @@ object ContractStartedMessages extends BaseMessages {
 
 object ContractStartedOptimisedMessages extends BaseMessages {
 
-  val subheading = "Section 1: Who, what, when"
-
   object Worker {
     val heading = "Have you already started working for this client?"
     val title = heading

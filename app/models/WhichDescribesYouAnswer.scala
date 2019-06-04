@@ -32,11 +32,11 @@ object WhichDescribesYouAnswer {
   val values: Seq[WhichDescribesYouAnswer] = Seq(WorkerPAYE, ClientPAYE, WorkerIR35, ClientIR35, Agency)
 
   val options: Seq[RadioOption] = Seq(
-    RadioOption("whichDescribesYou", WorkerPAYE.toString, radio),
-    RadioOption("whichDescribesYou", ClientPAYE.toString, radio),
-    RadioOption("whichDescribesYou", WorkerIR35.toString, radio, hasTailoredMsgs = false, dividerPrefix = true),
+    RadioOption("whichDescribesYou", WorkerIR35.toString, radio),
     RadioOption("whichDescribesYou", ClientIR35.toString, radio),
-    RadioOption("whichDescribesYou", Agency.toString, radio)
+    RadioOption("whichDescribesYou", Agency.toString, radio),
+    RadioOption("whichDescribesYou", WorkerPAYE.toString, radio),
+    RadioOption("whichDescribesYou", ClientPAYE.toString, radio)
   )
 
   implicit val enumerable: Enumerable[WhichDescribesYouAnswer] = Enumerable(values.map(v => v.toString -> v): _*)

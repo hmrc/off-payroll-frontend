@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("isWorkForPrivateSector.title"), Some(tailorMsg("isWorkForPrivateSector.subheading"))),
+    title = title(form, tailorMsg("isWorkForPrivateSector.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -35,12 +35,15 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("isWorkForPrivateSector.heading"), Some(tailorMsg("isWorkForPrivateSector.subheading")))
+        @components.heading(tailorMsg("isWorkForPrivateSector.heading"))
 
         @components.input_yes_no(
             field = form("value"),
             label = messages(tailorMsg("isWorkForPrivateSector.heading")),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("visually-hidden"),
+            yesMessage = Some(messages("isWorkForPrivateSector.private")),
+            noMessage = Some(messages("isWorkForPrivateSector.public")),
+            inline = false
         )
 
         @components.submit_button()

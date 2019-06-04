@@ -47,7 +47,7 @@ class IsWorkForPrivateSectorViewSpec extends YesNoViewBehaviours with FeatureSwi
 
   "IsWorkForPrivateSector view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
@@ -60,7 +60,7 @@ class IsWorkForPrivateSectorViewSpec extends YesNoViewBehaviours with FeatureSwi
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(IsWorkForPrivateSectorMessages.Worker.title, Some(IsWorkForPrivateSectorMessages.subheading))
+        document.title mustBe title(IsWorkForPrivateSectorMessages.Worker.title)
       }
 
       "have the correct heading" in {
@@ -68,15 +68,10 @@ class IsWorkForPrivateSectorViewSpec extends YesNoViewBehaviours with FeatureSwi
         document.select(Selectors.heading).text mustBe IsWorkForPrivateSectorMessages.Worker.heading
       }
 
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-        document.select(Selectors.subheading).text mustBe IsWorkForPrivateSectorMessages.subheading
-      }
-
       "have the correct radio option messages" in {
         enable(OptimisedFlow)
-        document.select(Selectors.multichoice(1)).text mustBe IsWorkForPrivateSectorMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe IsWorkForPrivateSectorMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe IsWorkForPrivateSectorMessages.privateOption
+        document.select(Selectors.multichoice(2)).text mustBe IsWorkForPrivateSectorMessages.publicOption
       }
     }
 
@@ -87,7 +82,7 @@ class IsWorkForPrivateSectorViewSpec extends YesNoViewBehaviours with FeatureSwi
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(IsWorkForPrivateSectorMessages.Hirer.title, Some(IsWorkForPrivateSectorMessages.subheading))
+        document.title mustBe title(IsWorkForPrivateSectorMessages.Hirer.title)
       }
 
       "have the correct heading" in {
@@ -95,15 +90,10 @@ class IsWorkForPrivateSectorViewSpec extends YesNoViewBehaviours with FeatureSwi
         document.select(Selectors.heading).text mustBe IsWorkForPrivateSectorMessages.Hirer.heading
       }
 
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-        document.select(Selectors.subheading).text mustBe IsWorkForPrivateSectorMessages.subheading
-      }
-
       "have the correct radio option messages" in {
         enable(OptimisedFlow)
-        document.select(Selectors.multichoice(1)).text mustBe IsWorkForPrivateSectorMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe IsWorkForPrivateSectorMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe IsWorkForPrivateSectorMessages.privateOption
+        document.select(Selectors.multichoice(2)).text mustBe IsWorkForPrivateSectorMessages.publicOption
       }
     }
 
@@ -114,7 +104,7 @@ class IsWorkForPrivateSectorViewSpec extends YesNoViewBehaviours with FeatureSwi
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(IsWorkForPrivateSectorMessages.NonTailored.title, Some(IsWorkForPrivateSectorMessages.subheading))
+        document.title mustBe title(IsWorkForPrivateSectorMessages.NonTailored.title)
       }
 
       "have the correct heading" in {
@@ -122,15 +112,10 @@ class IsWorkForPrivateSectorViewSpec extends YesNoViewBehaviours with FeatureSwi
         document.select(Selectors.heading).text mustBe IsWorkForPrivateSectorMessages.NonTailored.heading
       }
 
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-        document.select(Selectors.subheading).text mustBe IsWorkForPrivateSectorMessages.subheading
-      }
-
       "have the correct radio option messages" in {
         enable(OptimisedFlow)
-        document.select(Selectors.multichoice(1)).text mustBe IsWorkForPrivateSectorMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe IsWorkForPrivateSectorMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe IsWorkForPrivateSectorMessages.privateOption
+        document.select(Selectors.multichoice(2)).text mustBe IsWorkForPrivateSectorMessages.publicOption
       }
     }
   }
