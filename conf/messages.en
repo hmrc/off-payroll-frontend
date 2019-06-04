@@ -186,6 +186,26 @@ hirer.officeHolder.bullet1 = The worker has a position of responsibility for you
 hirer.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
 hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
 hirer.officeHolder.exclamation = If you are not sure if these things apply, please ask your management about your organisational structure.
+
+worker.optimised.officeHolder.title = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.heading = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.b1 = A board member
+worker.optimised.officeHolder.b2 = A treasurer
+worker.optimised.officeHolder.b3 = A trustee
+worker.optimised.officeHolder.b4 = Company director
+worker.optimised.officeHolder.b5 = Company secretary
+worker.optimised.officeHolder.b6 = Other office holder position
+
+hirer.optimised.officeHolder.title = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.heading = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.b1 = A board member
+hirer.optimised.officeHolder.b2 = A treasurer
+hirer.optimised.officeHolder.b3 = A trustee
+hirer.optimised.officeHolder.b4 = Company director
+hirer.optimised.officeHolder.b5 = Company secretary
+hirer.optimised.officeHolder.b6 = Other office holder position
 #########################
 
 

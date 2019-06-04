@@ -201,6 +201,28 @@ hirer.officeHolder.bullet1 =mae’r gweithiwr yn dal swydd o gyfrifoldeb ar gyfe
 hirer.officeHolder.bullet2 =caiff y swyddogaeth ei chreu gan statud, erthyglau cwmni, gweithred ymddiried neu o ddogfennau sy’n sefydlu sefydliad (er enghraifft, cyfarwyddwr neu ysgrifennydd cwmni)
 hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes neb yn ei chyflawni (er enghraifft, trysorydd clwb)
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
+
+## TODO: Need Welsh
+worker.optimised.officeHolder.title = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.heading = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.b1 = A board member
+worker.optimised.officeHolder.b2 = A treasurer
+worker.optimised.officeHolder.b3 = A trustee
+worker.optimised.officeHolder.b4 = Company director
+worker.optimised.officeHolder.b5 = Company secretary
+worker.optimised.officeHolder.b6 = Other office holder position
+
+## TODO: Need Welsh
+hirer.optimised.officeHolder.title = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.heading = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.b1 = A board member
+hirer.optimised.officeHolder.b2 = A treasurer
+hirer.optimised.officeHolder.b3 = A trustee
+hirer.optimised.officeHolder.b4 = Company director
+hirer.optimised.officeHolder.b5 = Company secretary
+hirer.optimised.officeHolder.b6 = Other office holder position
 #########################
 
 
