@@ -54,7 +54,7 @@ trait DecisionService {
                           formWithErrors: Option[Form[Boolean]] = None,
                           printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None,
-                          timestamp: Option[String] = None)(implicit request: DataRequest[_], messages: Messages): Future[Html]
+                          timestamp: Option[String] = None)(implicit request: DataRequest[_], messages: Messages): Html
 
 }
 
@@ -84,9 +84,8 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val interview = Interview(userAnswers)
     for {
       decisionServiceResult <- decisionConnector.decide(interview)
-      firstDecision <- saveDecision(decisionServiceResult,userAnswers)
-      _ <- logResult(firstDecision,interview)
-      redirect <- redirectResult(interview,continueResult,firstDecision)
+      _ <- logResult(decisionServiceResult,interview)
+      redirect <- redirectResult(interview,continueResult,decisionServiceResult)
     } yield redirect
   }
 
@@ -110,25 +109,17 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   private def earlyExitRedirect(decisionResponse: DecisionResponse)
                                (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
-    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED,_) => redirectResultsPage(ResultEnum.EMPLOYED)
-    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35,_) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
+    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
     case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
-  }
-
-  private def saveDecision(decisionResponse: Either[ErrorResponse,DecisionResponse], userAnswers: UserAnswers) = {
-      decisionResponse match {
-        case Right(response) if response.result != ResultEnum.NOT_MATCHED => dataCacheConnector.addDecision(userAnswers.cacheMap.id, response)
-        case Right(notMatched) => Future.successful(Right(notMatched))
-        case Left(error) => Future.successful(Left(error))
-      }
   }
 
   private def finalResultRedirect(decisionResponse: DecisionResponse,continueResult: Call)
                                  (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
     decisionResponse match {
-      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED,_) => Redirect(continueResult)
-      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35,_) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
-      case DecisionResponse(_, _, _, result,_) => redirectResultsPage(result)
+      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED) => Redirect(continueResult)
+      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
+      case DecisionResponse(_, _, _, result) => redirectResultsPage(result)
       case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
   }
@@ -150,62 +141,59 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   //TODO REFACTOR FOR SCALASTYLE
   def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
-                         (implicit request: DataRequest[_], messages: Messages): Future[Html] = {
-    dataCacheConnector.getDecision(request.internalId).map { result =>
-      val controlSession = request.session.get(SessionKeys.controlResult)
-      val financialRiskSession = request.session.get(SessionKeys.financialRiskResult)
-      val control = controlSession.map(WeightedAnswerEnum.withName)
-      val financialRisk = financialRiskSession.map(WeightedAnswerEnum.withName)
+                         (implicit request: DataRequest[_], messages: Messages): Html = {
 
-      val isSoleTrader = if (isEnabled(OptimisedFlow)) {
-        request.userAnswers.get(WorkerUsingIntermediaryPage).exists(answer => answer.answer.equals(false))
-      } else {
-        request.userAnswers.get(WorkerTypePage).exists(answer => answer.answer.equals(SoleTrader))
-      }
+    val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
+    val controlSession = request.session.get(SessionKeys.controlResult)
+    val financialRiskSession = request.session.get(SessionKeys.financialRiskResult)
+    val control = controlSession.map(WeightedAnswerEnum.withName)
+    val financialRisk = financialRiskSession.map(WeightedAnswerEnum.withName)
 
-      val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
-      val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
-      val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage) match {
-        case Some(answer) => answer.answer
-        case _ => false
-      }
-      val action: Call = routes.ResultController.onSubmit()
-      val form = formWithErrors.getOrElse(resultForm)
+    val isSoleTrader = if(isEnabled(OptimisedFlow)) {
+      request.userAnswers.get(WorkerUsingIntermediaryPage).exists(answer => answer.answer.equals(false))
+    } else {
+      request.userAnswers.get(WorkerTypePage).exists(answer => answer.answer.equals(SoleTrader))
+    }
 
-      def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, isSoleTrader) match {
-        case (_, true) => employedView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case (true, _) => officeHolderInsideIR35View(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case (_, _) => insideIR35View(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-      }
+    val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
+    val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
+    val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage) match {
+      case Some(answer) => answer.answer
+      case _ => false
+    }
+    val action: Call = routes.ResultController.onSubmit()
+    val form = formWithErrors.getOrElse(resultForm)
 
-      def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, isSoleTrader, control, financialRisk) match {
-        case (_, _, true, _, _) => selfEmployedView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
-          financialRiskView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case (Some(Answers(No, _)), Some(Answers(true, _)), _, _, _) =>
-          futureSubstitutionView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case (Some(_), Some(Answers(true, _)), _, _, _) =>
-          currentSubstitutionView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case (_, Some(Answers(false, _)), _, _, _) =>
-          futureSubstitutionView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case _ => errorHandler.internalServerErrorTemplate
-      }
-
-      result match {
-        case ResultEnum.OUTSIDE_IR35 => resultViewOutside
-        case ResultEnum.INSIDE_IR35 => resultViewInside
-        case ResultEnum.SELF_EMPLOYED => selfEmployedView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case ResultEnum.UNKNOWN => indeterminateView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-        case ResultEnum.EMPLOYED =>
-          if (officeHolderAnswer) {
-            officeHolderEmployedView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-          } else {
-            employedView(answerSections, version, form, action, printMode, additionalPdfDetails, timestamp)
-          }
-        case ResultEnum.NOT_MATCHED => errorHandler.internalServerErrorTemplate
-      }
+    def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, isSoleTrader) match {
+      case (_, true) => employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (true, _) => officeHolderInsideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _) => insideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+    }
+    def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, isSoleTrader, control, financialRisk) match {
+      case (_, _, true, _, _) => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
+        financialRiskView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (Some(Answers(No,_)), Some(Answers(true,_)), _, _, _) =>
+        futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (Some(_), Some(Answers(true,_)), _, _, _) =>
+        currentSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, Some(Answers(false,_)), _, _, _) =>
+        futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case _ => errorHandler.internalServerErrorTemplate
+    }
+    result match {
+      case ResultEnum.OUTSIDE_IR35 => resultViewOutside
+      case ResultEnum.INSIDE_IR35 => resultViewInside
+      case ResultEnum.SELF_EMPLOYED => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case ResultEnum.UNKNOWN => indeterminateView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case ResultEnum.EMPLOYED =>
+        if (officeHolderAnswer) {
+          officeHolderEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+        } else {
+          employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+        }
+      case ResultEnum.NOT_MATCHED => errorHandler.internalServerErrorTemplate
     }
   }
 }
-

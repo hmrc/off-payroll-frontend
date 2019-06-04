@@ -67,22 +67,20 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
-    decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
-      timestamp = Some(timestamp)).flatMap { view =>
-      if (isEnabled(PrintPDF)) {
-
-        pdfService.generatePdf(view) map {
-          case Right(result: SuccessfulPDF) => {
-            val fileName = additionalPdfDetails.reference.getOrElse("result")
-            Ok(result.pdf.toArray)
-              .as("application/pdf")
-              .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
-          }
-          case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+    val view = decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
+      timestamp = Some(timestamp))
+    if (isEnabled(PrintPDF)) {
+      pdfService.generatePdf(view) map {
+        case Right(result: SuccessfulPDF) => {
+          val fileName = additionalPdfDetails.reference.getOrElse("result")
+          Ok(result.pdf.toArray)
+            .as("application/pdf")
+            .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
         }
-      } else {
-        Future.successful(Ok(view))
+        case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
       }
+    } else {
+      Future.successful(Ok(view))
     }
   }
 }

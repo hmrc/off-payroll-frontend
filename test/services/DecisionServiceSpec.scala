@@ -60,7 +60,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
   val formProvider = new DeclarationFormProvider()
 
-  val service: DecisionService = new DecisionServiceImpl(mockDecisionConnector, mockDataCacheConnector, mockErrorHandler, formProvider,
+  val service: DecisionService = new OptimisedDecisionService(mockDecisionConnector, mockDataCacheConnector, mockErrorHandler, formProvider,
     injector.instanceOf[OfficeHolderInsideIR35View],
     injector.instanceOf[OfficeHolderEmployedView],
     injector.instanceOf[CurrentSubstitutionView],

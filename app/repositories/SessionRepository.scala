@@ -38,8 +38,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
-                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC),
-                         decisionResponse: Option[DecisionResponse] = None)
+                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
 
 object DatedCacheMap {
   implicit val dateFormat = ReactiveMongoFormats.dateTimeFormats
@@ -90,50 +89,4 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
   def get(id: String): Future[Option[CacheMap]] =
     collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap]
 
-  def checkDecision(id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
-    val selector = BSONDocument("id" -> id)
-    println("*****************")
-    println("checking")
-    println("*****************")
-    collection.find(selector,None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap].flatMap {
-      case Some(DatedCacheMap(_,_,_,Some(decision))) => Future.successful(Right(decision))
-      case Some(_) => addNewDecision(id,decisionResponse)
-      case None => Future.successful(Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,"Missing record")))
-    }.recover {
-      case ex: Exception => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,ex.getMessage))
-    }
-  }
-
-  private def addNewDecision(id: String, decisionResponse: DecisionResponse): Future[Either[ErrorResponse,DecisionResponse]] = {
-    val selector = BSONDocument("id" -> id)
-    val modifier = BSONDocument("$set" -> BSONDocument("decisionResponse" -> Json.toJson(decisionResponse)))
-
-    collection.update(selector,modifier).map { _ =>
-      println("*****************")
-      println("added")
-      println("*****************")
-      Right(decisionResponse)
-    }.recover {
-      case ex: Exception => Left(ErrorResponse(Http.Status.INTERNAL_SERVER_ERROR,ex.getMessage))
-    }
-  }
-
-  def clearDecision(id: String): Future[Boolean] = {
-    val selector = BSONDocument("id" -> id)
-    val modifier = BSONDocument("$unset" -> BSONDocument("decisionResponse" -> ""))
-
-    collection.update(selector, modifier).map { lastError =>
-      println("*****************")
-      println("removed")
-      println("*****************")
-      lastError.ok
-    }
-  }
-
-  def getDecision(id: String): Future[ResultEnum.Value] = {
-    val selector = BSONDocument("id" -> id)
-    collection.find(selector,None)(BSONDocumentWrites, BSONDocumentWrites).one[DatedCacheMap]
-      .map(_.fold(ResultEnum.NOT_MATCHED: ResultEnum.Value){decision =>
-        decision.decisionResponse.fold(ResultEnum.NOT_MATCHED: ResultEnum.Value){result => result.result}})
-  }
 }

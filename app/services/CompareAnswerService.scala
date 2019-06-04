@@ -39,12 +39,11 @@ import scala.concurrent.{ExecutionContext, Future}
 class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
 
   def constructAnswers[T](request: DataRequest[AnyContent], value: T,
-                       page: QuestionPage[T],
-                          officeHolder: Boolean = false)(implicit reads: Reads[T],writes: Writes[T],
-                                              aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): Future[UserAnswers] = {
+                          page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],
+                                                         aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): UserAnswers = {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
-      case None => Future.successful(request.userAnswers.set(page, answerNumber, value))
+      case None => request.userAnswers.set(page, answerNumber, value)
       case Some(answer) => {
         //get all answers, sort them in the order they were answered in, find the answers that came after the current answer,
         // find what page they are associated with, then remove them
@@ -52,10 +51,8 @@ class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
           request.userAnswers.cacheMap.data.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
             .splitAt(answer.answerNumber)._2.map(_._1).map(pageName => questionToPage(pageName))
           , request.userAnswers)
-//        if a question was changed, we remove any decisions
-          dataCacheConnector.clearDecision(request.userAnswers.cacheMap.id).map { _ =>
-            updatedAnswers.set(page, updatedAnswers.size, value)
-          }
+        //        if a question was changed, we remove any decisions
+        updatedAnswers.set(page, updatedAnswers.size, value)
       }
     }
   }
