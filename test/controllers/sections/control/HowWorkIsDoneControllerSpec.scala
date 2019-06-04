@@ -16,6 +16,7 @@
 
 package controllers.sections.control
 
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
@@ -32,7 +33,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.HowWorkIsDoneView
 
-class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
 
   def onwardRoute = Call("GET", "/foo")
 
@@ -56,6 +57,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(Answers(HowWorkIsDone.values.head,0)))
 
@@ -68,6 +70,15 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       contentAsString(result) mustBe viewAsString()
     }
 
+    "return OK and the correct view for a GET for optimised view" in {
+
+      enable(OptimisedFlow)
+
+      val result = controller().onPageLoad(NormalMode)(fakeRequest)
+      status(result) mustBe OK
+      contentAsString(result) mustBe optimisedViewAsString()
+    }
+
     "populate the view correctly on a GET when the question has previously been answered" in {
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
@@ -76,7 +87,30 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       contentAsString(result) mustBe viewAsString(form.fill(HowWorkIsDone.values.head))
     }
 
+    "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
+
+      enable(OptimisedFlow)
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+      contentAsString(result) mustBe optimisedViewAsString(form.fill(HowWorkIsDone.values.head))
+    }
+
     "redirect to the next page when valid data is submitted" in {
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
+      val result = controller().onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
+    "redirect to the next page when valid data is submitted for optimised view" in {
+
+      enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
@@ -95,6 +129,18 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
+    }
+
+    "return a Bad Request and errors when invalid data is submitted for optimised view" in {
+
+      enable(OptimisedFlow)
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val boundForm = form.bind(Map("value" -> "invalid value"))
+
+      val result = controller().onSubmit(NormalMode)(postRequest)
+
+      status(result) mustBe BAD_REQUEST
+      contentAsString(result) mustBe optimisedViewAsString(boundForm)
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
