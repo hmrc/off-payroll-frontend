@@ -988,14 +988,16 @@ hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading thro
 
 isWorkForPrivateSector.error.required = You need to select an answer
 isWorkForPrivateSector.error.invalid = You need to select an answer
-worker.isWorkForPrivateSector.title = Is the work for a private sector client?
-worker.isWorkForPrivateSector.heading = Is the work for a private sector client?
-worker.isWorkForPrivateSector.subheading = Section 1: Who, what, when
-worker.isWorkForPrivateSector.checkYourAnswersLabel = Is the work for a private sector client?
 
-hirer.isWorkForPrivateSector.title = Is your organisation a private sector business?
-hirer.isWorkForPrivateSector.heading = Is your organisation a private sector business?
-hirer.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+isWorkForPrivateSector.private = The private sector.
+isWorkForPrivateSector.public = The public sector.
+
+worker.isWorkForPrivateSector.title = In which sector do you work?
+worker.isWorkForPrivateSector.heading = In which sector do you work?
+worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector do you work?
+
+hirer.isWorkForPrivateSector.title = In which sector do you work?
+hirer.isWorkForPrivateSector.heading = In which sector do you work?
 hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
 
 workerAdvisory.title = You don’t need to answer any more questions
