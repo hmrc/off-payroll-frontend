@@ -18,6 +18,7 @@ package views.sections.personalService
 
 import assets.messages.NeededToPayHelperMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
 import forms.NeededToPayHelperFormProvider
 import models.NormalMode
@@ -26,13 +27,18 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.subOptimised.sections.personalService.NeededToPayHelperView
+import views.html.sections.personalService.NeededToPayHelperView
 
 class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
 
+  override def beforeEach = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "neededToPayHelper"
+  val messageKeyPrefix = "worker.optimised.neededToPayHelper"
 
   val form = new NeededToPayHelperFormProvider()()
 
@@ -46,7 +52,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
 
   "NeededToPayHelper view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
@@ -58,22 +64,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(NeededToPayHelperMessages.subheading))
+        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Worker.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
-      }
-
-      "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe NeededToPayHelperMessages.Worker.p1
-        document.select(Selectors.p(2)).text mustBe NeededToPayHelperMessages.Worker.p2
-        document.select(Selectors.bullet(1)).text mustBe NeededToPayHelperMessages.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe NeededToPayHelperMessages.Worker.b2
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Worker.heading
       }
 
       "have the correct radio option messages" in {
@@ -88,22 +83,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Hirer.title, Some(NeededToPayHelperMessages.subheading))
+        document.title mustBe title(NeededToPayHelperMessages.Optimised.Hirer.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Hirer.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
-      }
-
-      "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe NeededToPayHelperMessages.Hirer.p1
-        document.select(Selectors.p(2)).text mustBe NeededToPayHelperMessages.Hirer.p2
-        document.select(Selectors.bullet(1)).text mustBe NeededToPayHelperMessages.Hirer.b1
-        document.select(Selectors.bullet(2)).text mustBe NeededToPayHelperMessages.Hirer.b2
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Hirer.heading
       }
 
       "have the correct radio option messages" in {
@@ -118,22 +102,11 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.NonTailored.title, Some(NeededToPayHelperMessages.subheading))
+        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.NonTailored.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
-      }
-
-      "have the correct hints" in {
-        document.select(Selectors.p(1)).text mustBe NeededToPayHelperMessages.NonTailored.p1
-        document.select(Selectors.p(2)).text mustBe NeededToPayHelperMessages.NonTailored.p2
-        document.select(Selectors.bullet(1)).text mustBe NeededToPayHelperMessages.NonTailored.b1
-        document.select(Selectors.bullet(2)).text mustBe NeededToPayHelperMessages.NonTailored.b2
+        document.select(Selectors.heading).text mustBe NeededToPayHelperMessages.Optimised.Worker.heading
       }
 
       "have the correct radio option messages" in {

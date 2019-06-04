@@ -17,19 +17,22 @@
 package controllers.sections.personalService
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.NeededToPayHelperFormProvider
 import javax.inject.Inject
 import models.Answers._
-import models.{ErrorTemplate, Mode}
+import models.{ArrangedSubstitute, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService}
-import views.html.subOptimised.sections.personalService.NeededToPayHelperView
+import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
+import views.html.sections.personalService.NeededToPayHelperView
 
 import scala.concurrent.Future
 
@@ -40,11 +43,16 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
                                             controllerComponents: MessagesControllerComponents,
-                                            view: NeededToPayHelperView,
+                                            optimisedView: NeededToPayHelperView,
+                                            subOptimisedView: SubOptimisedNeededToPayHelperView,
                                             decisionService: DecisionService,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                            implicit val appConfig: FrontendAppConfig)
+  extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
+
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(request.userAnswers.get(NeededToPayHelperPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))

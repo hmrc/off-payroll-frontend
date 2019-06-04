@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("neededToPayHelper.title"), Some(tailorMsgOptimised("neededToPayHelper.subheading"))),
+    title = title(form, tailorMsgOptimised("neededToPayHelper.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -35,13 +35,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("neededToPayHelper.heading"), Some(tailorMsgOptimised("neededToPayHelper.subheading")))
+        @components.heading(tailorMsgOptimised("neededToPayHelper.heading"))
 
         @components.input_yes_no(
             field = form("value"),
             label = messages(tailorMsgOptimised("neededToPayHelper.heading")),
-            labelClass = Some("visually-hidden"),
-            hint = Some(components.details.needed_to_pay_helper_details())
+            labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
