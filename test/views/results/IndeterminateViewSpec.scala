@@ -55,8 +55,8 @@ class IndeterminateViewSpec extends ResultViewFixture {
     lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
     lazy val document = asDocument(createViewWithRequest(request))
 
-    "include the 'Please tell us why you’re here, to help us give you the most relevant result' question" in {
-      document.toString must include("Please tell us why you’re here, to help us give you the most relevant result")
+    "include the 'Which of these describes you best?' question" in {
+      document.toString must include("Which of these describes you best?")
     }
 
     "include the 'what describes you best' answer'" in {

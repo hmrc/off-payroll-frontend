@@ -76,10 +76,10 @@ feedback.after = will help us to improve it.
 unauthorised.title = You can’t access this service with this account
 unauthorised.heading = You can’t access this service with this account
 
-aboutYou.title = Please tell us why you’re here, to help us give you the most relevant result
-aboutYou.heading = Please tell us why you’re here, to help us give you the most relevant result
+aboutYou.title = Which of these describes you best?
+aboutYou.heading = Which of these describes you best?
 aboutYou.subheading = About the people involved
-aboutYou.checkYourAnswersLabel = Please tell us why you’re here, to help us give you the most relevant result
+aboutYou.checkYourAnswersLabel = Which of these describes you best?
 aboutYou.hint = The end client is the public body, corporation or business that the worker is providing services to.
 aboutYou.personDoingWork = The worker
 aboutYou.endClient = The end client
