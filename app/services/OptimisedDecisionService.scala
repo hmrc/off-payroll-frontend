@@ -59,10 +59,18 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       financialRisk <- decisionConnector.decideSection(interview,Interview.writesFinancialRisk)
       partAndParcel <- decisionConnector.decideSection(interview,Interview.writesPartAndParcel)
       wholeInterview <- decisionConnector.decideSection(interview,Interview.writes)
-    } yield wholeInterview).value.map {
-      case Left(Right(decision)) => Right(decision)
-      case Left(Left(error)) => Left(error)
-      case Right(_) => Left(ErrorResponse(INTERNAL_SERVER_ERROR,"No decision reached"))
+    } yield wholeInterview).value.flatMap {
+      case Left(Right(decision)) => logResult(decision,interview).map(_ => Right(decision))
+      case Left(Left(error)) => Future.successful(Left(error))
+      case Right(_) => Future.successful(Left(ErrorResponse(INTERNAL_SERVER_ERROR,"No decision reached")))
+    }
+  }
+
+  private def logResult(decision: DecisionResponse,interview: Interview)
+                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
+    decision match {
+      case response if response.result != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,response)
+      case _ => Future.successful(Left(ErrorResponse(NO_CONTENT,"No log needed")))
     }
   }
 
