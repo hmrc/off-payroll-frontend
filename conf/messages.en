@@ -566,16 +566,16 @@ hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done 
 worker.optimised.chooseWhereWork.title = Will your client decide where the worker does the work?
 worker.optimised.chooseWhereWork.heading = Will your client decide where the worker does the work?
 worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where the worker does the work?
-worker.optimised.chooseWhereWork.workerChooses = Yes
-worker.optimised.chooseWhereWork.workerCannotChoose = No, you decide.
+worker.optimised.chooseWhereWork.workerCannotChoose = Yes
+worker.optimised.chooseWhereWork.workerChooses = No, you decide.
 worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
 worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
 
 hirer.optimised.chooseWhereWork.title = Will your team decide where the worker does the work?
 hirer.optimised.chooseWhereWork.heading = Will your team decide where the worker does the work?
 hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your team decide where the worker does the work?
-hirer.optimised.chooseWhereWork.workerChooses = Yes
-hirer.optimised.chooseWhereWork.workerCannotChoose = No, the worker decides.
+hirer.optimised.chooseWhereWork.workerCannotChoose = Yes
+hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides.
 hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
 hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice.
 #########################

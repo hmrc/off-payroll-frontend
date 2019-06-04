@@ -565,6 +565,24 @@ hirer.chooseWhereWork.workerChooses = Iawn - y gweithiwr sy’n penderfynu
 hirer.chooseWhereWork.workerCannotChoose =Na - y cleient terfynol sy’n dewis
 hirer.chooseWhereWork.noLocationRequired =Na - y dasg sy’n pennu lleoliad y gwaith
 hirer.chooseWhereWork.workerAgreeWithOthers = Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno, a rhaid i beth ohono gael ei wneud lle bynnag y mae’r gweithiwr yn dewis
+
+## TODO: Need Welsh
+worker.optimised.chooseWhereWork.title = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.heading = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.workerCannotChoose = Yes
+worker.optimised.chooseWhereWork.workerChooses = No, you decide.
+worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
+worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
+
+## TODO: Need Welsh
+hirer.optimised.chooseWhereWork.title = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.heading = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.workerCannotChoose = Yes
+hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides.
+hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
+hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice.
 #########################
 
 
@@ -598,6 +616,24 @@ hirer.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn - mae’r cleient t
 hirer.scheduleOfWorkingHours.workerDecideSchedule = Na - mae’r gweithiwr yn penderfynu amserlen ei hun
 hirer.scheduleOfWorkingHours.workerAgreeSchedule = Yn rhannol - mae’r gweithiwr a’r cleient terfynol yn cytuno ar amserlen
 hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Ddim yn gymwys - nid oes angen amserlen cyn belled â bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
+
+## TODO: Need Welsh
+worker.optimised.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
+worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide.
+worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your own schedule.
+worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+
+## TODO: Need Welsh
+hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
+hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your team and the worker agree their own schedule.
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
 #########################
 
 
@@ -634,11 +670,29 @@ hirer.howWorkIsDone.noWorkerInputAllowed = Iawn - y cleient terfynol sy’n pend
 hirer.howWorkIsDone.workerDecidesWithoutInput = Na - y gweithiwr sy’n penderfynu sut y mae gwneud y gwaith heb ymyrraeth gan y cleient terfynol
 hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures =Na - ni all y cleient terfynol penderfynu sut y mae angen i’r gwaith cael ei wneud oherwydd ei fod yn swyddogaeth dra medrus
 hirer.howWorkIsDone.workerAgreeWithOthers = Yn rhannol - mae’r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o’r gwaith sydd angen ei wneud
+
+## TODO: Need Welsh
+hirer.optimised.howWorkIsDone.title = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.heading = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
+hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides.
+hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work.
+hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your team and the worker agree together.
+
+## TODO: Need Welsh
+worker.optimised.howWorkIsDone.title = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.heading = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
+worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide.
+worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, your client and you agree together.
 #########################
 
 
 
-## Needed to Pay Helper
+## Move Worker
 #########################
 moveWorker.title = A all y cleient terfynol symud y gweithiwr i dasg sy’n wahanol i’r hyn a gytunwyd yn wreiddiol?
 moveWorker.heading = A all y cleient terfynol symud y gweithiwr i dasg sy’n wahanol i’r hyn a gytunwyd yn wreiddiol?
@@ -668,6 +722,22 @@ hirer.moveWorker.hint = Mae hyn yn cynnwys symud prosiect neu leoliad, neu newid
 hirer.moveWorker.canMoveWorkerWithPermission =Iawn - ond dim ond gyda chytundeb y gweithiwr
 hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiwr (os nad yw’r gweithiwr am newid, gall y cleient terfynol ddod â’r huriad i ben)
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
+
+## TODO: Need Welsh
+hirer.optimised.moveWorker.title = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.heading = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.checkYourAnswersLabel = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
+hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker would have to agree.
+hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
+
+## TODO: Need Welsh
+worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
+worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree.
+worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
 #########################
 
 
@@ -1018,8 +1088,8 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 
 
 
-########## OPTIMISED FLOW MESSAGES START ############
-# --------------------------------------------------#
+########## OPTIMISED ONLY FLOW MESSAGES START ############
+# -------------------------------------------------------#
 
 ##### TODO NEED WELSH FOR ####
 aboutYourResult.title = Disclaimer

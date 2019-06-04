@@ -50,8 +50,8 @@ object ChooseWhereWorkMessages extends BaseMessages {
   object OptimisedWorker {
     val heading = "Will your client decide where the worker does the work?"
     val title = heading
-    val yesWorkerDecides = "Yes"
-    val noClientDecides = "No, you decide."
+    val clientDecides = "Yes"
+    val workerDecides = "No, you decide."
     val noTaskDeterminate = "No, the task determines the location."
     val partly = "No, some work has to be done in an agreed location and some can be your choice."
   }
@@ -59,8 +59,8 @@ object ChooseWhereWorkMessages extends BaseMessages {
   object OptimisedHirer {
     val heading = "Will your team decide where the worker does the work?"
     val title = heading
-    val yesWorkerDecides = "Yes"
-    val noClientDecides = "No, the worker decides."
+    val clientDecides = "Yes"
+    val workerDecides = "No, the worker decides."
     val noTaskDeterminate = "No, the task determines the location."
     val partly = "No, some work has to be done in an agreed location and some can be the worker’s choice."
   }

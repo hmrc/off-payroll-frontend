@@ -18,9 +18,10 @@ package views.sections.control
 
 import assets.messages.ScheduleOfWorkingHoursMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.{NormalMode, ScheduleOfWorkingHours}
-import models.UserType.{Hirer, Worker}
+import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
@@ -29,9 +30,14 @@ import views.html.sections.control.ScheduleOfWorkingHoursView
 
 class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
 
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "optimised.scheduleOfWorkingHours"
+  val messageKeyPrefix = "worker.optimised.scheduleOfWorkingHours"
 
   val form = new ScheduleOfWorkingHoursFormProvider()()
 
@@ -87,6 +93,27 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
         document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.OptimisedHirer.noWorkerDecides
         document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.OptimisedHirer.partly
         document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.OptimisedHirer.notApplicable
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, None)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ScheduleOfWorkingHoursMessages.OptimisedWorker.heading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ScheduleOfWorkingHoursMessages.OptimisedWorker.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe ScheduleOfWorkingHoursMessages.OptimisedWorker.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe ScheduleOfWorkingHoursMessages.OptimisedWorker.partly
+        document.select(Selectors.multichoice(4)).text mustBe ScheduleOfWorkingHoursMessages.OptimisedWorker.notApplicable
       }
     }
   }
