@@ -21,7 +21,7 @@ import java.nio.charset.Charset
 import akka.stream.Materializer
 import akka.util.ByteString
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
 import org.scalatest.BeforeAndAfterEach
@@ -49,7 +49,6 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
     .build()
 
   override def beforeEach(): Unit = {
-    enable(TailoredContent)
     disable(OptimisedFlow)
     super.beforeEach()
   }

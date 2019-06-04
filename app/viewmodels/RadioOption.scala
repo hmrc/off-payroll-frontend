@@ -22,7 +22,13 @@ sealed trait OptionType
 case object radio extends OptionType
 case object checkbox extends OptionType
 
-case class RadioOption(id: String, value: String, messageKey: String, optionType: OptionType, hasTailoredMsgs: Boolean, dividerPrefix: Boolean)
+case class RadioOption(id: String,
+                       value: String,
+                       messageKey: String,
+                       optionType: OptionType,
+                       hasTailoredMsgs: Boolean,
+                       dividerPrefix: Boolean,
+                       hasOptimisedMsgs: Boolean)
 
 object RadioOption {
 
@@ -32,24 +38,45 @@ object RadioOption {
     s"$keyPrefix.$option",
     optionType,
     hasTailoredMsgs = false,
-    dividerPrefix =  false
+    dividerPrefix =  false,
+    hasOptimisedMsgs = false
   )
 
-  def apply(keyPrefix: String, option: String, optionType: OptionType, hasTailoredMsgs: Boolean): RadioOption = RadioOption(
-    s"$keyPrefix.$option",
-    option,
-    s"$keyPrefix.$option",
-    optionType,
-    hasTailoredMsgs,
-    dividerPrefix = false
-  )
+  def apply(keyPrefix: String, option: String, optionType: OptionType, hasTailoredMsgs: Boolean): RadioOption =
+    RadioOption(
+      s"$keyPrefix.$option",
+      option,
+      s"$keyPrefix.$option",
+      optionType,
+      hasTailoredMsgs,
+      dividerPrefix = false,
+      hasOptimisedMsgs = false
+    )
 
-  def apply(keyPrefix: String, option: String, optionType: OptionType, dividerPrefix: Boolean, hasTailoredMsgs: Boolean): RadioOption = RadioOption(
-    s"$keyPrefix.$option",
-    option,
-    s"$keyPrefix.$option",
-    optionType,
-    hasTailoredMsgs,
-    dividerPrefix
-  )
+  def apply(keyPrefix: String, option: String, optionType: OptionType, dividerPrefix: Boolean, hasTailoredMsgs: Boolean): RadioOption =
+    RadioOption(
+      s"$keyPrefix.$option",
+      option,
+      s"$keyPrefix.$option",
+      optionType,
+      hasTailoredMsgs,
+      dividerPrefix,
+      hasOptimisedMsgs = false
+    )
+
+  def apply(keyPrefix: String,
+            option: String,
+            optionType: OptionType,
+            dividerPrefix: Boolean,
+            hasTailoredMsgs: Boolean,
+            hasOptimisedMsgs: Boolean): RadioOption =
+    RadioOption(
+      s"$keyPrefix.$option",
+      option,
+      s"$keyPrefix.$option",
+      optionType,
+      hasTailoredMsgs,
+      dividerPrefix,
+      hasOptimisedMsgs
+    )
 }

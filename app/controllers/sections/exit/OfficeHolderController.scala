@@ -17,19 +17,21 @@
 package controllers.sections.exit
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
-import models.Answers._
 import models.{ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService}
-import views.html.subOptimised.sections.exit.OfficeHolderView
+import views.html.sections.exit.OfficeHolderView
+import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
 import scala.concurrent.Future
 
@@ -40,14 +42,19 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
-                                       view: OfficeHolderView,
+                                       optimisedView: OfficeHolderView,
+                                       subOptimisedView: SubOptimisedOfficeHolderView,
                                        decisionService: DecisionService,
-                                       implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                       implicit val appConfig: FrontendAppConfig)
+  extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(OfficeHolderPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(OfficeHolderPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

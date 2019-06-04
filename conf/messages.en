@@ -187,6 +187,26 @@ hirer.officeHolder.bullet1 = The worker has a position of responsibility for you
 hirer.officeHolder.bullet2 = The role is created by statute, articles of association, trust deed or from documents that establish your organisation (a director or company secretary, for example)
 hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
 hirer.officeHolder.exclamation = If you are not sure if these things apply, please ask your management about your organisational structure.
+
+worker.optimised.officeHolder.title = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.heading = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.b1 = A board member
+worker.optimised.officeHolder.b2 = A treasurer
+worker.optimised.officeHolder.b3 = A trustee
+worker.optimised.officeHolder.b4 = Company director
+worker.optimised.officeHolder.b5 = Company secretary
+worker.optimised.officeHolder.b6 = Other office holder position
+
+hirer.optimised.officeHolder.title = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.heading = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.b1 = A board member
+hirer.optimised.officeHolder.b2 = A treasurer
+hirer.optimised.officeHolder.b3 = A trustee
+hirer.optimised.officeHolder.b4 = Company director
+hirer.optimised.officeHolder.b5 = Company secretary
+hirer.optimised.officeHolder.b6 = Other office holder position
 #########################
 
 
@@ -307,6 +327,20 @@ hirer.arrangedSubstitute.bullet5 = Was substituted because the worker was unwill
 hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
 hirer.arrangedSubstitute.yesClientNotAgreed = Yes - but we did not agree
 hirer.arrangedSubstitute.no = No - it has not happened
+
+worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client didn’t accept your substitute.
+worker.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but the substitute wasn’t accepted.
+hirer.optimised.arrangedSubstitute.no = No, it hasn’t happened.
 #########################
 
 ## Identify to stakeholders
@@ -726,6 +760,14 @@ hirer.neededToPayHelper.hint.p1 = A helper is someone who does some of the job t
 hirer.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a university to write and deliver a study module:
 hirer.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
 hirer.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work
+
+worker.optimised.neededToPayHelper.title = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.heading = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.checkYourAnswersLabel = Have you paid another person to do a significant amount of this work?
+
+hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.checkYourAnswersLabel = Has the worker paid another person to do a significant amount of this work?
 #########################
 
 
@@ -749,6 +791,14 @@ hirer.wouldWorkerPaySubstitute.heading = Would the worker’s business have to p
 hirer.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker’s business have to pay the person who did the work instead of them?
 hirer.wouldWorkerPaySubstitute.subheading = About substitutes and helpers
 hirer.wouldWorkerPaySubstitute.exclamation = If the substitute would be paid by an agency, it will not count as substitution.
+
+worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute directly?
+
+hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute directly?
 #########################
 
 
@@ -796,6 +846,14 @@ hirer.rejectSubstitute.hint.bullet5 = Being substituted because the worker is un
 hirer.rejectSubstitute.exclamation = We need to know what would happen in practice, not just what it says in the worker’s contract.
 hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work
 hirer.rejectSubstitute.no = No - we would always accept a substitute who met these criteria
+
+worker.optimised.rejectSubstitute.title = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.heading = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+
+hirer.optimised.rejectSubstitute.title = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.heading = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 #########################
 
 
@@ -819,6 +877,14 @@ hirer.didPaySubstitute.heading = Did the worker’s business pay the person who 
 hirer.didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay the person who did the work instead of them?
 hirer.didPaySubstitute.subheading = About substitutes and helpers
 hirer.didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
+
+worker.optimised.didPaySubstitute.title = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.heading = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute directly?
+
+hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute directly?
 #########################
 
 

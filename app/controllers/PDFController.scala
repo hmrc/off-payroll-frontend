@@ -53,7 +53,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   val form = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(customisePdfView(appConfig, request.userAnswers.get(CustomisePDFPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(customisePdfView(appConfig, fillForm(CustomisePDFPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

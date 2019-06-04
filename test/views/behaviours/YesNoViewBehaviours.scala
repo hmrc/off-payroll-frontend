@@ -23,7 +23,8 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
 
   def yesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable,
                 messageKeyPrefix: String,
-                expectedFormAction: String) = {
+                expectedFormAction: String,
+                invertedAnswer: Boolean = false) = {
 
     "behave like a page with a Yes/No question" when {
       "rendered" must {
@@ -53,11 +54,11 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
       }
 
       "rendered with a value of true" must {
-        behave like answeredYesNoPage(createView, true)
+        behave like answeredYesNoPage(createView, true, invertedAnswer)
       }
 
       "rendered with a value of false" must {
-        behave like answeredYesNoPage(createView, false)
+        behave like answeredYesNoPage(createView, false, invertedAnswer)
       }
 
       "rendered with an error" must {
@@ -81,12 +82,17 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
   }
 
 
-  def answeredYesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable, answer: Boolean) = {
+  def answeredYesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable, answer: Boolean, invertedAnswer: Boolean = false) = {
 
     "have only the correct value checked" in {
       val doc = asDocument(createView(form.fill(answer)))
-      assert(doc.getElementById("value-yes").hasAttr("checked") == answer)
-      assert(doc.getElementById("value-no").hasAttr("checked") != answer)
+      if(invertedAnswer) {
+        assert(doc.getElementById("value-yes").hasAttr("checked") != answer)
+        assert(doc.getElementById("value-no").hasAttr("checked") == answer)
+      } else {
+        assert(doc.getElementById("value-yes").hasAttr("checked") == answer)
+        assert(doc.getElementById("value-no").hasAttr("checked") != answer)
+      }
     }
 
     "not render an error summary" in {

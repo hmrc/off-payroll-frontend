@@ -20,6 +20,30 @@ object OfficeHolderMessages extends BaseMessages {
 
   val subheading = "About the worker’s duties"
 
+  object Optimised {
+    object Worker {
+      val heading = "During the course of this work, will you ever have to act for your client as any of the following?"
+      val title = heading
+      val b1 = "A board member"
+      val b2 = "A treasurer"
+      val b3 = "A trustee"
+      val b4 = "Company director"
+      val b5 = "Company secretary"
+      val b6 = "Other office holder position"
+    }
+
+    object Hirer {
+      val heading = "During the course of this work, will the worker ever have to act for your organisation as any of the following:"
+      val title = heading
+      val b1 = "A board member"
+      val b2 = "A treasurer"
+      val b3 = "A trustee"
+      val b4 = "Company director"
+      val b5 = "Company secretary"
+      val b6 = "Other office holder position"
+    }
+  }
+
   object Worker {
     val heading = "Will you perform office holder duties for the end client as part of this engagement?"
     val title = heading

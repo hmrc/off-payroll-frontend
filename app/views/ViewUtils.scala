@@ -17,7 +17,7 @@
 package views
 
 import config.{FrontendAppConfig, SessionKeys}
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent, WelshLanguage}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow, WelshLanguage}
 import models.UserType
 import models.UserType._
 import play.api.data.Form
@@ -36,16 +36,20 @@ object ViewUtils extends FeatureSwitching {
   def titleNoForm(title: String, section: Option[String] = None)(implicit messages: Messages): String =
     s"${messages(title)} - ${section.fold("")(messages(_) + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"
 
-  def tailorMsg(key: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
-    val userType = request.session.getModel[UserType](SessionKeys.userType)
+  def tailorMsg(msgKey: String, optimisedContent: Boolean = false)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
 
-    (isEnabled(OptimisedFlow), isEnabled(TailoredContent), userType) match {
-      case (true, _, Some(Agency)) | (true, _, None) => s"${Worker.toString}.$key"
-      case (true, _, Some(user)) => s"${user.toString}.$key"
-      case (_, false, _) | (_, true, Some(Agency)) | (_, true, None) => key
-      case (_, true, Some(user)) => s"${user.toString}.$key"
+    val userType = (isEnabled(OptimisedFlow), request.session.getModel[UserType](SessionKeys.userType)) match {
+      case (true, Some(Agency)) | (true, None) => s"${Worker.toString}."
+      case (false, Some(Agency)) | (_, None) => ""
+      case (_, Some(user)) => s"${user.toString}."
     }
+    val optimised = if (optimisedContent) "optimised." else ""
+
+    userType + optimised + msgKey
   }
+
+  def tailorMsgOptimised(msgKey: String)(implicit request: Request[_], appConfig: FrontendAppConfig): String =
+    tailorMsg(msgKey, optimisedContent = true)
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 }
