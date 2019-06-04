@@ -46,7 +46,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
   val form: Form[HowWorkIsDone] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(HowWorkIsDonePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(HowWorkIsDonePage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

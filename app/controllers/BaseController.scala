@@ -18,7 +18,11 @@ package controllers
 
 
 import models.Enumerable
+import models.requests.DataRequest
+import pages.QuestionPage
+import play.api.data.Form
 import play.api.i18n.I18nSupport
+import play.api.libs.json.Format
 import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
@@ -26,4 +30,7 @@ import scala.concurrent.ExecutionContext
 
 abstract class BaseController(mcc: MessagesControllerComponents) extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits {
   implicit val ec: ExecutionContext = controllerComponents.executionContext
+
+  def fillForm[A](page: QuestionPage[A], form: Form[A])(implicit request: DataRequest[_], format: Format[A]): Form[A] =
+    request.userAnswers.get(page).fold(form)(answerModel => form.fill(answerModel.answer))
 }
