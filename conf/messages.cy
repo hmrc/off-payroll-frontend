@@ -76,6 +76,7 @@ site.yes = Iawn
 site.finish = Finish
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
+site.accept_continue = Accept and continue
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
@@ -943,21 +944,24 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 # --------------------------------------------------#
 
 ##### TODO NEED WELSH FOR ####
-aboutYourResult.title = About your result
-aboutYourResult.heading = About your result
-aboutYourResult.p1 = HMRC will stand by the result given, unless a compliance check finds the information you’ve provided isn’t accurate.
-aboutYourResult.p2 = HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.
+aboutYourResult.title = Disclaimer
+aboutYourResult.heading = Disclaimer
+aboutYourResult.p1 = HMRC will stand by the result you get from this tool, provided the information you have given is accurate.
+aboutYourResult.p2 = However, if your information was checked and found to be inaccurate, HMRC will not stand by the result.
+aboutYourResult.p3 = Neither will HMRC stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties.
+
 
 ##### TODO NEED WELSH FOR ####
-whichDescribesYou.title = Please tell us why you’re here, to help us give you the most relevant result?
-whichDescribesYou.heading = Please tell us why you’re here, to help us give you the most relevant result?
-whichDescribesYou.subheading = Section 1: Who, what, when
-whichDescribesYou.checkYourAnswersLabel = Please tell us why you’re here, to help us give you the most relevant result?
-whichDescribesYou.worker.paye = I want to find out if I am employed/self-employed
-whichDescribesYou.client.paye = I want to find out if I need to apply PAYE to someone who is working for me
-whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within IR35
-whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is recruiting for falls within IR35
-whichDescribesYou.agency = I want to find out if a contract I’m recruiting for, on behalf of another organisation, falls within IR35
+whichDescribesYou.title = Please tell us why you’re here, to help us give you the most relevant result
+whichDescribesYou.heading = Please tell us why you’re here, to help us give you the most relevant result
+whichDescribesYou.checkYourAnswersLabel = Please tell us why you’re here, to help us give you the most relevant result
+whichDescribesYou.worker.paye = I want to find out if I am employed, or self-employed, for tax purposes.
+whichDescribesYou.client.paye = I want to find out if a job I am hiring for is classed as employed, or self-employed, for tax purposes.
+whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within the off-payroll working rules (IR35).
+whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is offering falls within the off-payroll working rules (IR35).
+whichDescribesYou.agency = I want to find out if a contract my agency is recruiting for falls within the off-payroll working rules (IR35).
+whichDescribesYou.error.required = You need to select an answer
+whichDescribesYou.error.invalid = You need to select an answer
 
 ##### TODO NEED WELSH FOR ####
 agencyAdvisory.title = You don’t need to determine if this work should be paid within IR35
@@ -981,27 +985,26 @@ workerUsingIntermediary.error.required = You need to select an answer
 workerUsingIntermediary.error.invalid = You need to select an answer
 worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
-worker.workerUsingIntermediary.subheading = Section 1: Who, what, when
 worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
 hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
-hirer.workerUsingIntermediary.subheading = Section 1: Who, what, when
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
+
+isWorkForPrivateSector.private = The private sector.
+isWorkForPrivateSector.public = The public sector.
 isWorkForPrivateSector.error.required = You need to select an answer
 isWorkForPrivateSector.error.invalid = You need to select an answer
-worker.isWorkForPrivateSector.title = Is the work for a private sector client?
-worker.isWorkForPrivateSector.heading = Is the work for a private sector client?
-worker.isWorkForPrivateSector.subheading = Section 1: Who, what, when
-worker.isWorkForPrivateSector.checkYourAnswersLabel = Is the work for a private sector client?
+worker.isWorkForPrivateSector.title = In which sector is the organisation you’ll be doing the work for?
+worker.isWorkForPrivateSector.heading = In which sector is the organisation you’ll be doing the work for?
+worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector do you work?
 
 ##### TODO NEED WELSH FOR ####
-hirer.isWorkForPrivateSector.title = Is your organisation a private sector business?
-hirer.isWorkForPrivateSector.heading = Is your organisation a private sector business?
-hirer.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+hirer.isWorkForPrivateSector.title = In which sector do you work?
+hirer.isWorkForPrivateSector.heading = In which sector do you work?
 hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
 
 ##### TODO NEED WELSH FOR ####
@@ -1011,19 +1014,16 @@ workerAdvisory.p1 = The organisation offering the work is responsible for determ
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
 
 ##### TODO NEED WELSH FOR ####
-hirer.businessSize.title = Does your organisation have more than:
-hirer.businessSize.heading = Does your organisation have more than:
+hirer.businessSize.title = How large is your organisation? Tick all that apply
+hirer.businessSize.heading = How large is your organisation? Tick all that apply
 hirer.businessSize.checkYourAnswersLabel = Does your organisation have more than:
-worker.businessSize.title = Does this client have more than:
-worker.businessSize.heading = Does this client have more than:
+worker.businessSize.title = How large is this organisation? Tick all that apply
+worker.businessSize.heading = How large is this organisation? Tick all that apply
 worker.businessSize.checkYourAnswersLabel = Does this client have more than:
-businessSize.subheading = Section 1: Who, what, when
-businessSize.hint = Select any options that apply
-businessSize.turnover = £10.2 million annual turnover?
-businessSize.balanceSheet = £5.1 million on their balance sheet?
-businessSize.employees = 50 employees?
-businessSize.noneOfAbove = None of the above
-businessSize.checkYourAnswersLabel = Does this client have more than:
+businessSize.turnover = More than £10.2 million annual turnover.
+businessSize.balanceSheet = More than £5.1 million on their balance sheet.
+businessSize.employees = More than 50 employees.
+businessSize.noneOfAbove = None of the above.
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
 

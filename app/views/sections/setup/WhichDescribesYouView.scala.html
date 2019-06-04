@@ -27,7 +27,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, "whichDescribesYou.title", Some("whichDescribesYou.subheading")),
+    title = title(form, "whichDescribesYou.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 

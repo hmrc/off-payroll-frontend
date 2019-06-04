@@ -47,7 +47,7 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
 
   "ContractStarted view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
@@ -60,17 +60,12 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(ContractStartedOptimisedMessages.Worker.title, Some(ContractStartedOptimisedMessages.subheading))
+        document.title mustBe title(ContractStartedOptimisedMessages.Worker.title)
       }
 
       "have the correct heading" in {
         enable(OptimisedFlow)
         document.select(Selectors.heading).text mustBe ContractStartedOptimisedMessages.Worker.heading
-      }
-
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-        document.select(Selectors.subheading).text mustBe ContractStartedOptimisedMessages.subheading
       }
 
       "have the correct radio option messages" in {
@@ -87,17 +82,12 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(ContractStartedOptimisedMessages.Hirer.title, Some(ContractStartedOptimisedMessages.subheading))
+        document.title mustBe title(ContractStartedOptimisedMessages.Hirer.title)
       }
 
       "have the correct heading" in {
         enable(OptimisedFlow)
         document.select(Selectors.heading).text mustBe ContractStartedOptimisedMessages.Hirer.heading
-      }
-
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-        document.select(Selectors.subheading).text mustBe ContractStartedOptimisedMessages.subheading
       }
 
       "have the correct radio option messages" in {
@@ -114,17 +104,12 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(ContractStartedOptimisedMessages.NonTailored.title, Some(ContractStartedOptimisedMessages.subheading))
+        document.title mustBe title(ContractStartedOptimisedMessages.NonTailored.title)
       }
 
       "have the correct heading" in {
         enable(OptimisedFlow)
         document.select(Selectors.heading).text mustBe ContractStartedOptimisedMessages.NonTailored.heading
-      }
-
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-        document.select(Selectors.subheading).text mustBe ContractStartedOptimisedMessages.subheading
       }
 
       "have the correct radio option messages" in {

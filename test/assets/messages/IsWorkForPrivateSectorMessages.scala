@@ -22,7 +22,7 @@ object IsWorkForPrivateSectorMessages extends BaseMessages {
   val publicOption = "The public sector."
 
   object Worker {
-    val heading = "In which sector do you work?"
+    val heading = "In which sector is the organisation you’ll be doing the work for?"
     val title = heading
   }
 
@@ -32,7 +32,7 @@ object IsWorkForPrivateSectorMessages extends BaseMessages {
   }
 
   object NonTailored {
-    val heading = "In which sector do you work?"
+    val heading = "In which sector is the organisation you’ll be doing the work for?"
     val title = heading
   }
 
