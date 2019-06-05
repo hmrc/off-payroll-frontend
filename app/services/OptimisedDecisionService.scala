@@ -18,10 +18,10 @@ package services
 
 import javax.inject.{Inject, Singleton}
 
+import cats.implicits._
 import config.{FrontendAppConfig, SessionKeys}
-import connectors.{DataCacheConnector, DecisionConnector}
+import connectors.DecisionConnector
 import controllers.routes
-import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import models._
 import models.requests.DataRequest
@@ -29,26 +29,13 @@ import play.api.mvc.Results._
 import play.api.mvc.{AnyContent, Call, Request, Result}
 import play.mvc.Http.Status._
 import uk.gov.hmrc.http.HeaderCarrier
-import views.html.results._
-import cats.implicits._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
-                                         dataCacheConnector: DataCacheConnector,
                                          errorHandler: ErrorHandler,
-                                         formProvider: DeclarationFormProvider,
-                                         officeHolderInsideIR35View: OfficeHolderInsideIR35View,
-                                         officeHolderEmployedView: OfficeHolderEmployedView,
-                                         currentSubstitutionView: CurrentSubstitutionView,
-                                         futureSubstitutionView: FutureSubstitutionView,
-                                         selfEmployedView: SelfEmployedView,
-                                         employedView: EmployedView,
-                                         controlView: ControlView,
-                                         financialRiskView: FinancialRiskView,
-                                         indeterminateView: IndeterminateView,
-                                         insideIR35View: InsideIR35View,
                                          implicit val appConf: FrontendAppConfig) {
 
   def multipleDecisionCall()(implicit request: DataRequest[AnyContent],hc: HeaderCarrier): Future[Either[ErrorResponse,DecisionResponse]] = {

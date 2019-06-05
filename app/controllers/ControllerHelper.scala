@@ -55,22 +55,17 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
     dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
       val call = navigator.nextPage(page, mode)(answers)
       (callDecisionService,isEnabled(OptimisedFlow)) match {
-        case _ if officeHolder => decisionService.decide(answers, navigator.nextPage(page, mode)(answers))
+        case _ if officeHolder => decisionService.decide(answers, call)
         case (true,true) => Future.successful(Redirect(call))
-        case _ => decisionService.decide(answers, navigator.nextPage(page, mode)(answers))
+        case _ => decisionService.decide(answers, call)
       }
     }
   }
 
   def result(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] = {
     val call = navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers)
-    if(isEnabled(OptimisedFlow)){
       optimisedDecisionService.multipleDecisionCall().map { decision =>
         optimisedDecisionService.result(decision, call)
-      }
-    } else {
-      Future.successful(Redirect(call))
-    }
   }
 
 }
