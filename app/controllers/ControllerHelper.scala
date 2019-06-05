@@ -55,9 +55,13 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
     dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
       val call = navigator.nextPage(page, mode)(answers)
       (callDecisionService,isEnabled(OptimisedFlow)) match {
+          //early exit office holder
         case _ if officeHolder => decisionService.decide(answers, call)
+          //don't call decision every time, only once at the end (opt flow)
         case (true,true) => Future.successful(Redirect(call))
+          //if not calling decision, carry on
         case (false,_) => Future.successful(Redirect(call))
+          //anything else calls decision
         case _ => decisionService.decide(answers, call)
       }
     }
