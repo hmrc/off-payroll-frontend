@@ -372,6 +372,24 @@ worker.identifyToStakeholders.subheading =Ynglŷn ag integreiddio’r gweithiwr 
 worker.identifyToStakeholders.workForEndClient =Mae’n gweithio i’r cleient terfynol
 worker.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy’n gweithio ar ran y cleient terfynol
 worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
+
+##TODO: Need Welsh
+hirer.optimised.identifyToStakeholders.title = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
+hirer.optimised.identifyToStakeholders.heading = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
+hirer.optimised.identifyToStakeholders.checkYourAnswersLabel = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
+hirer.optimised.identifyToStakeholders.workForEndClient = They work for you
+hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independent worker acting on your behalf
+hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
+hirer.optimised.identifyToStakeholders.wouldNotHappen = This wouldn’t happen - they wouldn’t interact formally
+
+##TODO: Need Welsh
+worker.optimised.identifyToStakeholders.title = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
+worker.optimised.identifyToStakeholders.heading = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
+worker.optimised.identifyToStakeholders.checkYourAnswersLabel = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
+worker.optimised.identifyToStakeholders.workForEndClient = You work for your client’s organisation
+worker.optimised.identifyToStakeholders.workAsIndependent = You are an independent worker acting on behalf of your client
+worker.optimised.identifyToStakeholders.workAsBusiness = You work for your own business
+worker.optimised.identifyToStakeholders.wouldNotHappen = This wouldn’t happen - you wouldn’t interact formally
 #########################
 
 ## Worker interact with stakeholders

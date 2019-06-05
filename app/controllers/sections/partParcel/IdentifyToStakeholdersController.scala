@@ -16,18 +16,20 @@
 
 package controllers.sections.partParcel
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
-import models.{ErrorTemplate, IdentifyToStakeholders, Mode}
+import models.{IdentifyToStakeholders, Mode}
 import pages.sections.partParcel.IdentifyToStakeholdersPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
+import services.DecisionService
+import views.html.sections.partParcel.IdentifyToStakeholdersView
+import views.html.subOptimised.sections.partParcel.{IdentifyToStakeholdersView => SubOptimisedIdentifyToStakeholdersView}
 
 import scala.concurrent.Future
 
@@ -36,12 +38,17 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: IdentifyToStakeholdersFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
-                                                 view: IdentifyToStakeholdersView,
+                                                 optimisedView: IdentifyToStakeholdersView,
+                                                 subOptimisedView: SubOptimisedIdentifyToStakeholdersView,
+                                                 decisionService: DecisionService,
                                                  controllerHelper: ControllerHelper,
                                                  implicit val appConfig: FrontendAppConfig
-                                                ) extends BaseController(controllerComponents) {
+                                                ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[IdentifyToStakeholders] = formProvider()
+
+  private def view(form: Form[IdentifyToStakeholders], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(IdentifyToStakeholdersPage, form), mode))
