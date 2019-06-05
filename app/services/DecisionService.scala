@@ -130,11 +130,12 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)
     val financialRisk = financialRiskOption.map(financialRisk => SessionKeys.financialRiskResult -> financialRisk.toString)
 
-    val redirect = Redirect(routes.ResultController.onPageLoad()).addingToSession(result)
-    val controlRedirect = if(control.nonEmpty) redirect.addingToSession(control.get) else redirect
-    val financialRiskRedirect = if(financialRisk.nonEmpty) controlRedirect.addingToSession(financialRisk.get) else controlRedirect
+    val redirect = Redirect(routes.ResultController.onPageLoad())
+      .removingFromSession(SessionKeys.result, SessionKeys.financialRiskResult, SessionKeys.controlResult)
+      .addingToSession(result)
+    val controlRedirect = control.fold(redirect)(redirect.addingToSession(_))
 
-    financialRiskRedirect
+    financialRisk.fold(controlRedirect)(controlRedirect.addingToSession(_))
   }
 
   //TODO REFACTOR FOR SCALASTYLE
@@ -170,9 +171,9 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     }
     def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, isSoleTrader, control, financialRisk) match {
       case (_, _, true, _, _) => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
+      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
         financialRiskView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
-      case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (Some(Answers(No,_)), Some(Answers(true,_)), _, _, _) =>
         futureSubstitutionView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (Some(_), Some(Answers(true,_)), _, _, _) =>
