@@ -18,6 +18,7 @@ package controllers
 
 import assets.messages.CheckYourAnswersMessages
 import controllers.actions._
+import models.{DecisionResponse, ResultEnum, Score}
 import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
@@ -52,7 +53,8 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      mockMultipleCall()()
+      mockMultipleCall()(Right(DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.INSIDE_IR35)))
+      mockResult()(Call("/POST","/foo"))
       val result = controller().onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
