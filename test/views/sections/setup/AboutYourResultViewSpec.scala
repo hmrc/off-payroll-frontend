@@ -41,7 +41,7 @@ class AboutYourResultViewSpec extends ViewBehaviours {
       hasSubheading = false
     )
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView, frontendAppConfig.govUkStartPageUrl)
 
     lazy val document = asDocument(createView())
 
