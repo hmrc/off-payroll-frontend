@@ -39,6 +39,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     view = view,
     mockCheckAnswerService,
+    mockControllerHelper,
     frontendAppConfig
   )
 
@@ -51,6 +52,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+      mockMultipleCall()()
       val result = controller().onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)

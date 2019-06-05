@@ -39,24 +39,6 @@ trait MockDataCacheConnector extends MockFactory {
       .returns(Future.successful(response))
   }
 
-  def mockAddDecision(id: String, decisionResponse: DecisionResponse)(response: Either[ErrorResponse, DecisionResponse]): Unit ={
-    (mockDataCacheConnector.addDecision(_: String, _: DecisionResponse))
-      .expects(id, decisionResponse)
-      .returns(Future.successful(response))
-  }
-
-  def mockClearDecision(id: String): Unit ={
-    (mockDataCacheConnector.clearDecision(_: String))
-      .expects(id)
-      .returns(Future.successful(true))
-  }
-
-  def mockGetDecision(id: String)(response: ResultEnum.Value = ResultEnum.INSIDE_IR35): Unit ={
-    (mockDataCacheConnector.getDecision(_: String))
-      .expects(id)
-      .returns(Future.successful(response))
-  }
-
   def mockGetEntry[A](cacheId: String, key: String)(response: Option[A]): Unit = ???
 
 }

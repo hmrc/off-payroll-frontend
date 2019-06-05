@@ -57,6 +57,7 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
       (callDecisionService,isEnabled(OptimisedFlow)) match {
         case _ if officeHolder => decisionService.decide(answers, call)
         case (true,true) => Future.successful(Redirect(call))
+        case (false,_) => Future.successful(Redirect(call))
         case _ => decisionService.decide(answers, call)
       }
     }

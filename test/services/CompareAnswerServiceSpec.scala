@@ -101,7 +101,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
   "compare answer service (change new answer)" should {
     "change an About You Answer if it's a new value (and clear any decisions)" in {
 
-      mockClearDecision("id")
+      
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
 
@@ -117,7 +117,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
 
     "change a Contract Started Answer if it's a new value (and clear any decisions)" in {
 
-      mockClearDecision("id")
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -134,7 +134,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
     }
 
     "change all answers after current answer if it's changed to a new value" in {
-      mockClearDecision("id")
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -174,7 +174,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
 
   "compare answer service (change same answer)" should {
     "not change an About You Answer if it's the same value" in {
-      mockClearDecision("id")
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -190,7 +190,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
     }
 
     "not change a Contract Started Answer if it's the same value" in {
-      mockClearDecision("id")
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)

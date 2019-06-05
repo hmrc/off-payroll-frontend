@@ -186,32 +186,4 @@ class MongoCacheConnectorSpec extends SpecBase with ScalaCheckPropertyChecks wit
     }
   }
 
-  "addDecision" must {
-    "add a decision" in {
-      val response = DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.EMPLOYED)
-
-      when(mockSessionRepository.checkDecision(eqTo("id"),eqTo(response))) thenReturn Future.successful(Right(response))
-
-      val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
-
-      whenReady(mongoCacheConnector.addDecision("id",response)) { res =>
-        res.right.get mustEqual response
-      }
-
-    }
-  }
-
-  "clearDecision" must {
-    "clear a decision" in {
-
-      when(mockSessionRepository.clearDecision(eqTo("id"))) thenReturn Future.successful(true)
-
-      val mongoCacheConnector = new MongoCacheConnector(mockSessionRepository)
-
-      whenReady(mongoCacheConnector.clearDecision("id")) { res =>
-        res mustEqual true
-      }
-
-    }
-  }
 }

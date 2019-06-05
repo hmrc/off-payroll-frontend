@@ -71,7 +71,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
+  private def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
                           financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
 
     val result: (String, String) = SessionKeys.result -> resultValue.toString
