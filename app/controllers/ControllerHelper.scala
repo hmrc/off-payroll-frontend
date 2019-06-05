@@ -64,8 +64,9 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
 
   def result(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] = {
     val call = navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers)
-      optimisedDecisionService.multipleDecisionCall().map { decision =>
-        optimisedDecisionService.result(decision, call)
+    optimisedDecisionService.multipleDecisionCall().map { decision =>
+      optimisedDecisionService.result(decision, call)
+    }
   }
 
 }
