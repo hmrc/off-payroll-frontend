@@ -22,6 +22,7 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.IdentifyToStakeholdersFormProvider
+import javax.inject.Inject
 import models.{ErrorTemplate, IdentifyToStakeholders, Mode}
 import pages.sections.partParcel.IdentifyToStakeholdersPage
 import play.api.data.Form

@@ -425,6 +425,24 @@ worker.lineManagerDuties.bullet2 =Diswyddo gweithwyr
 worker.lineManagerDuties.bullet3 =Darparu gwerthusiadau
 worker.lineManagerDuties.bullet4 =Penderfynu ar faint i dalu rhywun
 worker.lineManagerDuties.checkYourAnswersLabel =A yw’r gweithiwr yn gyfrifol am unrhyw un o’r dyletswyddau canlynol ar gyfer y cleient terfynol?
+
+##TODO: Need Welsh
+hirer.optimised.lineManagerDuties.title = Will the worker be responsible for any of these duties for your organisation?
+hirer.optimised.lineManagerDuties.heading = Will the worker be responsible for any of these duties for your organisation?
+hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker be responsible for any of these duties for your organisation?
+hirer.optimised.lineManagerDuties.bullet1 = Hiring workers
+hirer.optimised.lineManagerDuties.bullet2 = Dismissing workers
+hirer.optimised.lineManagerDuties.bullet3 = Delivering appraisals
+hirer.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
+
+##TODO: Need Welsh
+worker.optimised.lineManagerDuties.title = Will you be responsible for any of these duties for your client?
+worker.optimised.lineManagerDuties.heading = Will you be responsible for any of these duties for your client?
+worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you be responsible for any of these duties for your client?
+worker.optimised.lineManagerDuties.bullet1 = Hiring workers
+worker.optimised.lineManagerDuties.bullet2 = Dismissing workers
+worker.optimised.lineManagerDuties.bullet3 = Delivering appraisals
+worker.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
 #########################
 
 ## Benefits from end client
@@ -462,6 +480,26 @@ worker.benefits.bullet4 =Tâl mamolaeth/tadolaeth
 worker.benefits.bullet5 =Buddiannau eraill (megis aelodaeth i gampfa, yswiriant iechyd, etc.)
 worker.benefits.p1 =Nid yw’r rhain yn cynnwys buddiannau a ddarparwyd gan drydydd parti neu asiantaeth.
 worker.benefits.checkYourAnswersLabel =A oes gan y gweithiwr hawl i unrhyw un o’r buddiannau canlynol oddi wrth y cleient terfynol?
+
+##TODO: Need Welsh
+worker.optimised.benefits.title = Will your client provide you with any of the following benefits?
+worker.optimised.benefits.heading = Will your client provide you with any of the following benefits?
+worker.optimised.benefits.checkYourAnswersLabel = Will your client provide you with any of the following benefits?
+worker.optimised.benefits.bullet1 = Sick pay
+worker.optimised.benefits.bullet2 = Holiday pay
+worker.optimised.benefits.bullet3 = Workplace pension
+worker.optimised.benefits.bullet4 = Maternity/paternity pay
+worker.optimised.benefits.bullet5 = Other significant benefits, like health insurance
+
+##TODO: Need Welsh
+hirer.optimised.benefits.title = Will your organisation provide the worker with any of the following benefits?
+hirer.optimised.benefits.heading = Will your organisation provide the worker with any of the following benefits?
+hirer.optimised.benefits.checkYourAnswersLabel = Will your organisation provide the worker with any of the following benefits?
+hirer.optimised.benefits.bullet1 = Sick pay
+hirer.optimised.benefits.bullet2 = Holiday pay
+hirer.optimised.benefits.bullet3 = Workplace pension
+hirer.optimised.benefits.bullet4 = Maternity/paternity pay
+hirer.optimised.benefits.bullet5 = Other significant benefits, like health insurance
 #########################
 
 ## Put Right at Workers Own Cost
