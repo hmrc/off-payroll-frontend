@@ -58,13 +58,8 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
             (implicit hc: HeaderCarrier, ec: ExecutionContext): Result[Boolean] = EitherT {
     Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(writer)}")
     (httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError).map {
-      case Right(decision) if decision.result != ResultEnum.NOT_MATCHED =>
-        println("RES")
-        Left(Right(decision))
-      case Right(_) =>
-        println("SKIPPED")
-
-        Right(true)
+      case Right(decision) if decision.result != ResultEnum.NOT_MATCHED => Left(Right(decision))
+      case Right(_) => Right(true)
       case Left(error) => Left(Left(error))
     }
   }

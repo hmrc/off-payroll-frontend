@@ -16,10 +16,14 @@
 
 package base
 
+import MultiDecision.Result
+import cats.data.EitherT
+import cats.implicits._
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
+import models.{DecisionResponse, ErrorResponse}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -81,5 +85,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
   val wireMock = new Wiremock
 
   val client = injector.instanceOf[HttpClient]
+
+  def createRightType(value: Boolean): Result[Boolean] = EitherT.right(Future(value))
+  def createLeftType(value: Either[ErrorResponse,DecisionResponse]): Result[Boolean] = EitherT.left(Future(value))
 
 }
