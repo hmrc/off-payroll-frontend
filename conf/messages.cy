@@ -82,7 +82,7 @@ site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
 
-feedback.before = Mae hwn yn wasanaeth newydd – bydd eich
+feedback.before = Mae hwn yn wasanaeth newydd - bydd eich
 feedback.link = adborth
 feedback.after = yn ein helpu i’w wella.
 ##### TODO NEED WELSH FOR ####

@@ -69,7 +69,7 @@ site.home = Home
 site.govuk = GOV.UK
 site.hmrc = HM Revenue & Customs
 
-feedback.before = This is a new service – your
+feedback.before = This is a new service - your
 feedback.link = feedback
 feedback.after = will help us to improve it.
 

@@ -80,7 +80,7 @@ class ControlViewSpec extends ResultViewFixture {
     }
 
     "include the 'worker provides' answer'" in {
-      document.toString must include("Vehicle – including purchase, fuel and all running costs (used for work tasks, not commuting)")
+      document.toString must include("Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)")
     }
 
     "include the 'office duty' question'" in {
