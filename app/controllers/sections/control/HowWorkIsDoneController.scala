@@ -30,7 +30,7 @@ import models.{HowWorkIsDone, Mode}
 import pages.sections.control.HowWorkIsDonePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.control.HowWorkIsDoneView
+import views.html.sections.control.HowWorkIsDoneView
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
 import services.CompareAnswerService

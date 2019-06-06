@@ -30,7 +30,7 @@ import models.Mode
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.personalService.RejectSubstituteView
+import views.html.sections.personalService.RejectSubstituteView
 import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
