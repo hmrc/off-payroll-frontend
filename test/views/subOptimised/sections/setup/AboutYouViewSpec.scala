@@ -39,7 +39,7 @@ class AboutYouViewSpec extends QuestionViewBehaviours[AboutYouAnswer] {
 
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView, frontendAppConfig.govUkStartPageUrl)
 
     behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.AboutYouController.onSubmit(NormalMode).url)
   }
