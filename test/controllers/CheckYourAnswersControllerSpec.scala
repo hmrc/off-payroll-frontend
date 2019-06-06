@@ -27,8 +27,6 @@ import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
-  override def onwardRoute = Call("GET", "/foo")
-
   val view = injector.instanceOf[CheckYourAnswersView]
   val mockCheckAnswerService = app.injector.instanceOf[CheckYourAnswersService]
 

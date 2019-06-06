@@ -51,16 +51,14 @@ class ResultController @Inject()(identify: IdentifierAction,
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage)
     dataCacheConnector.save(timestamp.cacheMap).map { _ =>
-      val result = decisionService.determineResultView(answers)
-      Ok(result)
+      Ok(decisionService.determineResultView(answers))
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     resultForm.bindFromRequest().fold(
       formWithErrors => {
-        val result = decisionService.determineResultView(answers, Some(formWithErrors))
-        BadRequest(result)
+        BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
       },
       _ => {
         Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))

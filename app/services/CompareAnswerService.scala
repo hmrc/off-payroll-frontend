@@ -51,7 +51,6 @@ class CompareAnswerService @Inject()(dataCacheConnector: DataCacheConnector) {
           request.userAnswers.cacheMap.data.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
             .splitAt(answer.answerNumber)._2.map(_._1).map(pageName => questionToPage(pageName))
           , request.userAnswers)
-        //        if a question was changed, we remove any decisions
         updatedAnswers.set(page, updatedAnswers.size, value)
       }
     }

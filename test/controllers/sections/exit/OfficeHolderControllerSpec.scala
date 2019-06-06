@@ -16,6 +16,7 @@
 
 package controllers.sections.exit
 
+import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
@@ -30,6 +31,7 @@ import play.api.test.Helpers._
 import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
+import views.html.sections.exit.OfficeHolderView
 import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
 class OfficeHolderControllerSpec extends ControllerSpecBase {
@@ -37,7 +39,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
   val formProvider = new OfficeHolderFormProvider()
   val form = formProvider()
 
-  val optimisedView = injector.instanceOf[SubOptimisedOfficeHolderView]
+  val optimisedView = injector.instanceOf[OfficeHolderView]
   val subOptimisedView = injector.instanceOf[SubOptimisedOfficeHolderView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new OfficeHolderController(
@@ -58,22 +60,34 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
   "OfficeHolder Controller" must {
 
-    "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
+    "If the OptimisedFlow is enabled" should {
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
-    }
+      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      "return OK and the correct view for a GET" in {
+        enable(OptimisedFlow)
 
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(true))
-    }
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
 
-    "redirect to the next page when valid data is submitted" in {
+      "populate the view correctly on a GET when the question has previously been answered" in {
+        enable(OptimisedFlow)
+
+        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        val userAnswers = UserAnswers("id")
+        mockConstructAnswers(userAnswers)(userAnswers)
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockDecide(userAnswers)(onwardRoute)
+        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+        contentAsString(result) mustBe viewAsString(form.fill(true))
+      }
+
+      "redirect to the next page when valid data is submitted" in {
+        enable(OptimisedFlow)
 
       val userAnswers = UserAnswers("id").set(OfficeHolderPage,0, true)
 

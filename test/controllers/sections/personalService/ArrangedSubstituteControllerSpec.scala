@@ -36,8 +36,6 @@ import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView 
 
 class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
-  override def onwardRoute = Call("GET", "/foo")
-
   val formProvider = new ArrangedSubstituteFormProvider()
   val form = formProvider()
 

@@ -31,13 +31,14 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
+import views.html.sections.control.MoveWorkerView
 
 class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
   val formProvider = new MoveWorkerFormProvider()
   val form = formProvider()
 
-  val optimisedView = injector.instanceOf[SubOptimisedMoveWorkerView]
+  val optimisedView = injector.instanceOf[MoveWorkerView]
   val subOptimisedView = injector.instanceOf[SubOptimisedMoveWorkerView]
 
   def controller(dataRetrievalAction: DataRetrievalAction =

@@ -29,7 +29,7 @@ trait MockDataCacheConnector extends MockFactory {
 
   def mockSave(cacheMap: CacheMap)(response: CacheMap): Unit = {
     (mockDataCacheConnector.save(_: CacheMap))
-        .expects(*)
+        .expects(cacheMap)
         .returns(Future.successful(response))
   }
 

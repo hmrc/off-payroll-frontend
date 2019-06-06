@@ -94,7 +94,7 @@ class CheckYourAnswersServiceSpec extends SpecBase {
               CheckYourAnswersHelper.workerTypeOptimised.map(_ -> None),
               CheckYourAnswersHelper.isWorkForPrivateSector.map(_ -> None),
               CheckYourAnswersHelper.businessSize.map(_ -> None),
-              CheckYourAnswersHelper.contractStartedOptimised.map(_ -> None)
+              CheckYourAnswersHelper.contractStarted.map(_ -> None)
             ).flatten
           ),
           AnswerSection(

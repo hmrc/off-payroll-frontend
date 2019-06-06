@@ -67,7 +67,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
-    val view = decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
+    lazy val view = decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
       timestamp = Some(timestamp))
     if (isEnabled(PrintPDF)) {
       pdfService.generatePdf(view) map {

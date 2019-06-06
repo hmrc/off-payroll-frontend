@@ -38,8 +38,6 @@ import views.html.results.{IndeterminateView, _}
 
 class ResultControllerSpec extends ControllerSpecBase {
 
-  override def onwardRoute = Call("GET", "/foo")
-
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
 

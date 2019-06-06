@@ -38,6 +38,7 @@ import play.api.test.Helpers._
 import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
+import views.html.sections.personalService.NeededToPayHelperView
 import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
 
 class NeededToPayHelperControllerSpec extends ControllerSpecBase {
@@ -45,7 +46,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
   val formProvider = new NeededToPayHelperFormProvider()
   val form = formProvider()
 
-  val optimisedView = injector.instanceOf[SubOptimisedNeededToPayHelperView]
+  val optimisedView = injector.instanceOf[NeededToPayHelperView]
   val subOptimisedView = injector.instanceOf[SubOptimisedNeededToPayHelperView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new NeededToPayHelperController(

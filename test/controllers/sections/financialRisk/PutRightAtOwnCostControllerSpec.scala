@@ -77,7 +77,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id")
+      val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
       mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)

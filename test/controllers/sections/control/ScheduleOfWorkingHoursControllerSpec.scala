@@ -35,8 +35,6 @@ import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => S
 
 class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
-  override def onwardRoute = Call("GET", "/foo")
-
   val formProvider = new ScheduleOfWorkingHoursFormProvider()
   val form = formProvider()
 

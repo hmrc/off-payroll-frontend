@@ -99,7 +99,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
   }
 
   "compare answer service (change new answer)" should {
-    "change an About You Answer if it's a new value (and clear any decisions)" in {
+    "change an About You Answer if it's a new value" in {
 
       
       val userAnswers: UserAnswers = UserAnswers("id")
@@ -115,7 +115,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
       result.answerNumber mustBe 0
     }
 
-    "change a Contract Started Answer if it's a new value (and clear any decisions)" in {
+    "change a Contract Started Answer if it's a new value" in {
 
       
 

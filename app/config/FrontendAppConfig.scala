@@ -62,7 +62,6 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   def routeToSwitchLanguage: String => Call = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
   lazy val mongoTtl: Int = servicesConfig.getInt("mongodb.timeToLiveInSeconds")
-  lazy val mongoUri: String = servicesConfig.getString("mongodb.uri")
 
   lazy val decisionVersion = servicesConfig.getString("decisionServiceVersion")
 

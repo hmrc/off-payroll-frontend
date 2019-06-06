@@ -33,7 +33,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.subOptimised.sections.control.MoveWorkerView
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
-import services.CompareAnswerService
 import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future

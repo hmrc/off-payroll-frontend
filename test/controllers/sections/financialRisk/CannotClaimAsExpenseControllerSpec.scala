@@ -77,7 +77,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
       implicit val hc = new HeaderCarrier()
       def onwardRoute = Call("POST", "/foo")
 
-      val userAnswers = UserAnswers("id")
+      val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
       mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)

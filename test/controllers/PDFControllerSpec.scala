@@ -43,8 +43,6 @@ class PDFControllerSpec extends ControllerSpecBase {
     enable(PrintPDF)
   }
 
-  override def onwardRoute = Call("GET", "/foo")
-
   val formProvider = new CustomisePDFFormProvider()
   val form = formProvider()
 

@@ -24,8 +24,6 @@ import play.api.test.Helpers._
 
 class IndexControllerSpec extends ControllerSpecBase {
 
-  override val onwardRoute = Call("GET", "/foo")
-
   "Index Controller" when {
 
     "has an existing cacheMap in session" should {
