@@ -26,6 +26,7 @@ import models.{Answers, BusinessSize, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
+import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import pages.sections.setup.{BusinessSizePage, ContractStartedPage}
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -78,8 +79,8 @@ class BusinessSizeControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("businessSize[0]", BusinessSize.options.head.value))
 
-      val userAnswers = UserAnswers("id")
-      mockConstructAnswers(userAnswers)(userAnswers)
+      mockConstructAnswers()(userAnswers.set(BusinessSizePage,0,Seq(BusinessSize.Turnover)))
+
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

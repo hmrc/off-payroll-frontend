@@ -74,11 +74,9 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      implicit val hc = new HeaderCarrier()
-      def onwardRoute = Call("POST", "/foo")
 
       val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
-      mockConstructAnswers(userAnswers)(userAnswers)
+      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

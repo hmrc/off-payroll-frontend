@@ -22,10 +22,11 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{ContractStartedFormProvider, IsWorkForPrivateSectorFormProvider}
-import models.{AboutYouAnswer, Answers, NormalMode, UserAnswers}
+import models._
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
+import pages.sections.personalService.ArrangedSubstitutePage
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, IsWorkForPrivateSectorPage}
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -83,8 +84,8 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
 
-      val userAnswers = UserAnswers("id")
-      mockConstructAnswers(userAnswers)(userAnswers)
+      mockConstructAnswers()(userAnswers.set(ContractStartedPage,0,true))
+
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

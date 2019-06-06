@@ -89,7 +89,7 @@ class ResultControllerSpec extends ControllerSpecBase {
 
       val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
 
-      mockConstructAnswers(UserAnswers("id"))(UserAnswers("id"))
+      mockConstructAnswers()(UserAnswers("id").set(ResultPage,0,FakeTimestamp.timestamp()))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))

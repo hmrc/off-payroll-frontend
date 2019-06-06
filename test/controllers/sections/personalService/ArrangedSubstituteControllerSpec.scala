@@ -82,7 +82,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
 
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -143,7 +143,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

@@ -27,7 +27,7 @@ import models._
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
-import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json._
@@ -91,7 +91,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
 
         val userAnswers = UserAnswers("id")
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers.set(AboutYouPage,0,AboutYouAnswer.Worker))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -154,8 +154,8 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
 
-        val userAnswers = UserAnswers("id")
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers.set(WhichDescribesYouPage,0,WhichDescribesYouAnswer.WorkerPAYE))
+
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)

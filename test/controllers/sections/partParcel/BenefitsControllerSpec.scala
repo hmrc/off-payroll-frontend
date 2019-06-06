@@ -20,8 +20,10 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.BenefitsFormProvider
+import models.ChooseWhereWork.WorkerChooses
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import pages.sections.control.ChooseWhereWorkPage
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json._
@@ -73,12 +75,9 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
-
-      val userAnswers = UserAnswers("id")
-      mockConstructAnswers(userAnswers)(userAnswers)
+      mockConstructAnswers()(UserAnswers("id")set(BenefitsPage,0, true))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
+      mockDecide(UserAnswers("id")set(BenefitsPage,0, true))(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

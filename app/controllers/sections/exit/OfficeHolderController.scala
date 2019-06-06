@@ -30,7 +30,7 @@ import models.{ErrorTemplate, Mode}
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.exit.OfficeHolderView
+import views.html.sections.exit.OfficeHolderView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService}

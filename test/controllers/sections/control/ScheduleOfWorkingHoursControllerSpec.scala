@@ -22,9 +22,10 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.Answers._
-import models.{Answers, NormalMode, ScheduleOfWorkingHours}
+import models.{Answers, HowWorkerIsPaid, NormalMode, ScheduleOfWorkingHours}
 import navigation.FakeNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
+import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -98,7 +99,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockConstructAnswers(userAnswers)(userAnswers)
+      mockConstructAnswers()(userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -112,6 +113,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers()(userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

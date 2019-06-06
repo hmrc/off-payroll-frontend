@@ -26,6 +26,7 @@ import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
+import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -100,8 +101,8 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val userAnswers = UserAnswers("id")
-      mockConstructAnswers(userAnswers)(userAnswers)
+      mockConstructAnswers()(userAnswers.set(ContractStartedPage,0,true))
+
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

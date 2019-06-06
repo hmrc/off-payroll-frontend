@@ -33,7 +33,7 @@ import navigation.Navigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.personalService.NeededToPayHelperView
+import views.html.sections.personalService.NeededToPayHelperView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService}

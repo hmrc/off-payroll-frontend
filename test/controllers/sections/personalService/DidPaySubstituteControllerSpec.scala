@@ -29,8 +29,7 @@ import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
-import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage}
-import pages.sections.personalService.DidPaySubstitutePage
+import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, WouldWorkerPaySubstitutePage}
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json.Json
@@ -92,7 +91,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
 
-        val userAnswers = UserAnswers("id").set(DidPaySubstitutePage, 0, true)
+        mockConstructAnswers()(userAnswers.set(DidPaySubstitutePage,0,true))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
@@ -161,7 +160,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

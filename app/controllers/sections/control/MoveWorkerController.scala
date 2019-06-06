@@ -30,7 +30,7 @@ import models.{Mode, MoveWorker}
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.control.MoveWorkerView
+import views.html.sections.control.MoveWorkerView
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
 import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}

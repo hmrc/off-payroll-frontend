@@ -28,6 +28,7 @@ import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import pages.sections.partParcel.IdentifyToStakeholdersPage
+import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json.Json
@@ -83,9 +84,9 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
       implicit val hc = new HeaderCarrier()
 
-      val userAnswers = UserAnswers("id")
+      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0,true)
       mockDecide(userAnswers)(onwardRoute)
-      mockConstructAnswers(userAnswers)(userAnswers)
+      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))

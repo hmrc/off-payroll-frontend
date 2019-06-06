@@ -21,11 +21,12 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.NeededToPayHelperFormProvider
-import models.{Answers, NormalMode, UserAnswers}
+import models.{Answers, HowWorkerIsPaid, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
+import pages.sections.financialRisk.HowWorkerIsPaidPage
 import pages.sections.personalService.{DidPaySubstitutePage, NeededToPayHelperPage}
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
@@ -89,6 +90,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
 
         val userAnswers = UserAnswers("id").set(NeededToPayHelperPage, 0, true)
+        mockConstructAnswers()(userAnswers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
@@ -160,7 +162,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers)
 
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))

@@ -32,6 +32,7 @@ import controllers.actions._
 import forms.InteractWithStakeholdersFormProvider
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import pages.sections.control.ScheduleOfWorkingHoursPage
 import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -86,10 +87,8 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
+      mockConstructAnswers()(userAnswers.set(InteractWithStakeholdersPage,0,true))
 
-      val userAnswers = UserAnswers("id")
-      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

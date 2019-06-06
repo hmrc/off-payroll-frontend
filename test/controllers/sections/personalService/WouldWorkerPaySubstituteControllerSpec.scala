@@ -22,8 +22,9 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.Answers._
-import models.{Answers, NormalMode, UserAnswers}
+import models.{Answers, HowWorkIsDone, NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import pages.sections.control.HowWorkIsDonePage
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -84,9 +85,8 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
         val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 0, true)
 
         enable(OptimisedFlow)
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
@@ -151,6 +151,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
         val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockConstructAnswers()(userAnswers.set(WouldWorkerPaySubstitutePage,0,true))
         mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))

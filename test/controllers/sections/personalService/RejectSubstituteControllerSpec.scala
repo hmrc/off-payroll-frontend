@@ -22,7 +22,7 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.RejectSubstituteFormProvider
-import models.{Answers, NormalMode}
+import models.{Answers, BusinessSize, NormalMode}
 import navigation.FakeNavigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
@@ -32,6 +32,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.personalService.RejectSubstituteView
 import config.featureSwitch.OptimisedFlow
+import pages.sections.setup.BusinessSizePage
 import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
@@ -81,6 +82,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+        mockConstructAnswers()(userAnswers.set(RejectSubstitutePage,0,true))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -141,7 +143,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockConstructAnswers(userAnswers)(userAnswers)
+        mockConstructAnswers()(userAnswers.set(RejectSubstitutePage,0,true))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
