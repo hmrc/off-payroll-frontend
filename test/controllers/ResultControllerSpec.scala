@@ -34,7 +34,7 @@ import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
 import viewmodels.AnswerSection
-import views.html.results.{IndeterminateView, _}
+import views.html.subOptimised.results._
 
 class ResultControllerSpec extends ControllerSpecBase {
 

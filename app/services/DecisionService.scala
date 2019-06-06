@@ -40,7 +40,7 @@ import play.mvc.Http.Status._
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
-import views.html.results._
+import views.html.subOptimised.results._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.{ExecutionContext, Future}

@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-package views.results
+package views.subOptimised.results
 
 import akka.http.scaladsl.model.HttpMethods
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
 import models.AboutYouAnswer.Worker
+import models.AdditionalPdfDetails
 import models.CannotClaimAsExpense.WorkerUsedVehicle
-import models.{AdditionalPdfDetails, CheckMode, Timestamp}
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.twirl.api.Html
