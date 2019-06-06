@@ -19,15 +19,17 @@ package controllers.sections.personalService
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.WouldWorkerPaySubstituteFormProvider
-import models.{ErrorTemplate, Mode}
+import models.Mode
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
-
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
+import views.html.subOptimised.sections.personalService.{WouldWorkerPaySubstituteView => SubOptimisedWouldWorkerPaySubstituteView}
+import views.html.sections.personalService.WouldWorkerPaySubstituteView
 import scala.concurrent.Future
 
 class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
@@ -35,14 +37,19 @@ class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
                                                    requireData: DataRequiredAction,
                                                    formProvider: WouldWorkerPaySubstituteFormProvider,
                                                    controllerComponents: MessagesControllerComponents,
-                                                   view: WouldWorkerPaySubstituteView,
                                                    controllerHelper: ControllerHelper,
-                                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                                   optimisedView: WouldWorkerPaySubstituteView,
+                                                   subOptimisedView: SubOptimisedWouldWorkerPaySubstituteView,
+                                                   implicit val appConfig: FrontendAppConfig)
+  extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(WouldWorkerPaySubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(WouldWorkerPaySubstitutePage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

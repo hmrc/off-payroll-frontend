@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("workerUsingIntermediary.title"), Some(tailorMsg("workerUsingIntermediary.subheading"))),
+    title = title(form, tailorMsg("workerUsingIntermediary.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -36,7 +36,7 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("workerUsingIntermediary.heading"), Some(tailorMsg("workerUsingIntermediary.subheading")))
+        @components.heading(tailorMsg("workerUsingIntermediary.heading"))
 
         @components.input_yes_no(
             field = form("value"),

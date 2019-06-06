@@ -32,9 +32,14 @@ object ChooseWhereWork {
     WorkerChooses, WorkerCannotChoose, NoLocationRequired, WorkerAgreeWithOthers
   )
 
-  val options: Seq[RadioOption] = values.map {
+  def options(optimised: Boolean = false): Seq[RadioOption] = values.map {
     value =>
-      RadioOption("chooseWhereWork", value.toString, radio, hasTailoredMsgs = true)
+
+      if(optimised){
+        RadioOption("optimised.chooseWhereWork", value.toString, radio, hasTailoredMsgs = true)
+      } else {
+        RadioOption("chooseWhereWork", value.toString, radio, hasTailoredMsgs = true)
+      }
   }
 
   implicit val enumerable: Enumerable[ChooseWhereWork] =

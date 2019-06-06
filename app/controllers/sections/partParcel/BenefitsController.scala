@@ -42,7 +42,7 @@ class BenefitsController @Inject()(identify: IdentifierAction,
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(BenefitsPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(BenefitsPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

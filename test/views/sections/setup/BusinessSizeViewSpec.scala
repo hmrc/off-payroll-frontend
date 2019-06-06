@@ -44,7 +44,7 @@ class BusinessSizeViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "BusinessSize view" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
@@ -54,19 +54,11 @@ class BusinessSizeViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(BusinessSizeMessages.Worker.title, Some(BusinessSizeMessages.subheading))
+        document.title mustBe title(BusinessSizeMessages.Worker.title)
       }
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe BusinessSizeMessages.Worker.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe BusinessSizeMessages.subheading
-      }
-
-      "have the correct p1" in {
-        document.select(Selectors.hint(1)).text mustBe BusinessSizeMessages.p1
       }
 
       "have the correct radio option messages" in {
@@ -83,19 +75,11 @@ class BusinessSizeViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(BusinessSizeMessages.Hirer.title, Some(BusinessSizeMessages.subheading))
+        document.title mustBe title(BusinessSizeMessages.Hirer.title)
       }
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe BusinessSizeMessages.Hirer.heading
-      }
-
-      "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe BusinessSizeMessages.subheading
-      }
-
-      "have the correct p1" in {
-        document.select(Selectors.hint(1)).text mustBe BusinessSizeMessages.p1
       }
 
       "have the correct radio option messages" in {

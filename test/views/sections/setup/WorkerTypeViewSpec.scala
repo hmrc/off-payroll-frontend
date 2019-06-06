@@ -46,7 +46,7 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
   "WorkerType view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
@@ -57,17 +57,12 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(WorkerUsingIntermediaryMessages.Worker.title, Some(WorkerUsingIntermediaryMessages.subheading))
+        document.title mustBe title(WorkerUsingIntermediaryMessages.Worker.title)
       }
 
       "have the correct heading" in {
         enable(OptimisedFlow)
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Worker.heading
-      }
-
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-        document.select(Selectors.subheading).text mustBe WorkerUsingIntermediaryMessages.subheading
       }
 
       "have the correct radio option messages" in {
@@ -85,19 +80,13 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       "have the correct title" in {
         enable(OptimisedFlow)
 
-        document.title mustBe title(WorkerUsingIntermediaryMessages.Hirer.title, Some(WorkerUsingIntermediaryMessages.subheading))
+        document.title mustBe title(WorkerUsingIntermediaryMessages.Hirer.title)
       }
 
       "have the correct heading" in {
         enable(OptimisedFlow)
 
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Hirer.heading
-      }
-
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-
-        document.select(Selectors.subheading).text mustBe WorkerUsingIntermediaryMessages.subheading
       }
 
       "have the correct radio option messages" in {
@@ -115,19 +104,13 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
       "have the correct title" in {
         enable(OptimisedFlow)
-        document.title mustBe title(WorkerUsingIntermediaryMessages.NonTailored.title, Some(WorkerUsingIntermediaryMessages.subheading))
+        document.title mustBe title(WorkerUsingIntermediaryMessages.NonTailored.title)
       }
 
       "have the correct heading" in {
         enable(OptimisedFlow)
 
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.NonTailored.heading
-      }
-
-      "have the correct subheading" in {
-        enable(OptimisedFlow)
-
-        document.select(Selectors.subheading).text mustBe WorkerUsingIntermediaryMessages.subheading
       }
 
       "have the correct radio option messages" in {
@@ -155,7 +138,6 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"true"))))
         assertContainsRadioButton(doc, "value-yes", "value", "true", true)
         assertContainsRadioButton(doc, "value-no", "value", "false", false)
-
       }
     }
   }

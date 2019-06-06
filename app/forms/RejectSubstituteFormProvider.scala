@@ -16,15 +16,18 @@
 
 package forms
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import javax.inject.Inject
-
 import forms.mappings.Mappings
 import play.api.data.Form
 
-class RejectSubstituteFormProvider @Inject() extends Mappings {
+class RejectSubstituteFormProvider @Inject()(implicit val appConfig: FrontendAppConfig) extends Mappings with FeatureSwitching {
+
+  private def flipBool: Boolean => Boolean = bool => if(isEnabled(OptimisedFlow)) !bool else bool
 
   def apply(): Form[Boolean] =
     Form(
-      "value" -> boolean("rejectSubstitute.error.required")
+      "value" -> boolean("rejectSubstitute.error.required").transform(flipBool, flipBool)
     )
 }

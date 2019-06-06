@@ -52,7 +52,7 @@ class OfficeHolderInsideIR35ViewSpec extends ResultViewFixture {
     lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
     lazy val document = asDocument(createViewWithRequest(request))
 
-    "include the 'what describes you best' question'" in {
+    "include the 'Which of these describes you best?' question" in {
       document.toString must include("Which of these describes you best?")
     }
 

@@ -16,38 +16,31 @@
 
 package controllers.sections.personalService
 
-import akka.util.ByteString
-import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.Answers._
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
-import pages.sections.personalService.{RejectSubstitutePage, WouldWorkerPaySubstitutePage}
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
-import play.api.mvc.Results.Redirect
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.personalService.WouldWorkerPaySubstituteView
+import views.html.subOptimised.sections.personalService.{WouldWorkerPaySubstituteView => SubOptimisedWouldWorkerPaySubstituteView}
 
-class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
+class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+
+  override def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[WouldWorkerPaySubstituteView]
+  val optimisedView = injector.instanceOf[SubOptimisedWouldWorkerPaySubstituteView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedWouldWorkerPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
     FakeIdentifierAction,
@@ -55,12 +48,13 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockControllerHelper,
-    frontendAppConfig
+    controllerHelper = mockControllerHelper,
+    optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
+    appConfig = frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(WouldWorkerPaySubstitutePage.toString -> Json.toJson(Answers(true,0)))
 
@@ -83,10 +77,8 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
+      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0, true)
 
-      val userAnswers = UserAnswers("id")
-      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
@@ -95,6 +87,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase {
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

@@ -19,15 +19,17 @@ package controllers.sections.personalService
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.DidPaySubstituteFormProvider
-import models.{ErrorTemplate, Mode}
+import models.Mode
 import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.personalService.DidPaySubstituteView
-
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
+import views.html.subOptimised.sections.personalService.{DidPaySubstituteView => SubOptimisedDidPaySubstituteView}
+import views.html.sections.personalService.DidPaySubstituteView
 import scala.concurrent.Future
 
 class DidPaySubstituteController @Inject()(identify: IdentifierAction,
@@ -35,14 +37,19 @@ class DidPaySubstituteController @Inject()(identify: IdentifierAction,
                                            requireData: DataRequiredAction,
                                            formProvider: DidPaySubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
-                                           view: DidPaySubstituteView,
                                            controllerHelper: ControllerHelper,
-                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                           optimisedView: DidPaySubstituteView,
+                                           subOptimisedView: SubOptimisedDidPaySubstituteView,
+                                           implicit val appConfig: FrontendAppConfig)
+  extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(DidPaySubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(DidPaySubstitutePage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

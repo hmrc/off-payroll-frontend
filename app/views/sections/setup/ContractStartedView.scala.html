@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("contractStarted.title", true), Some(tailorMsg("contractStarted.subheading", true))),
+    title = title(form, tailorMsg("optimised.contractStarted.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -35,11 +35,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("contractStarted.heading", true), Some(tailorMsg("contractStarted.subheading", true)))
+        @components.heading(tailorMsg("optimised.contractStarted.heading"))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("contractStarted.heading", true)),
+            label = messages(tailorMsg("optimised.contractStarted.heading")),
             labelClass = Some("visually-hidden")
         )
 

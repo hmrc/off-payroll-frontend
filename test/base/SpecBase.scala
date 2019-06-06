@@ -20,7 +20,7 @@ import MultiDecision.Result
 import cats.data.EitherT
 import cats.implicits._
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow, TailoredContent}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
 import models.{DecisionResponse, ErrorResponse}
@@ -49,7 +49,6 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
     .build()
 
   override def beforeEach(): Unit = {
-    enable(TailoredContent)
     disable(OptimisedFlow)
     super.beforeEach()
   }

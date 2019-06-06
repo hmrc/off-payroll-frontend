@@ -19,14 +19,17 @@ package controllers.sections.control
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.{BaseController, ControllerHelper}
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
-import models.{ChooseWhereWork, ErrorTemplate, Mode}
+import models.{ChooseWhereWork, Mode}
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.control.ChooseWhereWorkView
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
+import play.twirl.api.HtmlFormat
+import views.html.sections.control.ChooseWhereWorkView
+import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 
 import scala.concurrent.Future
 
@@ -35,14 +38,19 @@ class ChooseWhereWorkController @Inject()(identify: IdentifierAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ChooseWhereWorkFormProvider,
                                           controllerComponents: MessagesControllerComponents,
-                                          view: ChooseWhereWorkView,
                                           controllerHelper: ControllerHelper,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                          optimisedView: ChooseWhereWorkView,
+                                          subOptimisedView: SubOptimisedChooseWhereWorkView,
+                                          implicit val appConfig: FrontendAppConfig
+                                         ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[ChooseWhereWork] = formProvider()
 
+  private def view(form: Form[ChooseWhereWork], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(ChooseWhereWorkPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(ChooseWhereWorkPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

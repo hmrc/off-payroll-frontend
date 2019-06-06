@@ -40,6 +40,24 @@ object HowWorkIsDoneMessages extends BaseMessages {
     val partly = "Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done"
   }
 
+  object OptimisedWorker {
+    val heading = "Will your client decide how they want the work done?"
+    val title = heading
+    val yesClientDecides = "Yes"
+    val noWorkerDecides = "No, you solely decide."
+    val noSkilledRole = "No, because it is highly skilled work"
+    val partly = "No, your client and you agree together."
+  }
+
+  object OptimisedHirer {
+    val heading = "Will your team decide how the work should be done?"
+    val title = heading
+    val yesClientDecides = "Yes"
+    val noWorkerDecides = "No, the worker solely decides."
+    val noSkilledRole = "No, because it is highly skilled work."
+    val partly = "No, your team and the worker agree together."
+  }
+
   object NonTailored {
     val heading = "Once the worker starts the engagement, does the end client have the right to decide how the work is done?"
     val title = heading

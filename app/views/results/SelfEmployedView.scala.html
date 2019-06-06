@@ -66,7 +66,7 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
             @formWithCsrf(postAction, 'autoComplete -> "off") {
                 @sections.declaration(form)
 
-                @components.submit_button(true)
+                @components.submit_button("site.confirm_continue")
             }
         }
     }

@@ -23,7 +23,7 @@ $(document).ready(function() {
     window.history.replaceState(null, null, window.location.href);
   }
   // back click handle, dependent upon presence of referrer & no host change
-  $('#back-link').on('click', function(e){
+  $('#back-link[href="#"]').on('click', function(e){
     e.preventDefault();
     if (window.history && window.history.back && typeof window.history.back === 'function' &&
        (docReferrer !== "" && docReferrer.indexOf(window.location.host) !== -1)) {

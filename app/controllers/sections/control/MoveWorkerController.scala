@@ -20,13 +20,21 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import controllers.{BaseController, ControllerHelper}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
 import forms.MoveWorkerFormProvider
+import javax.inject.Inject
 import models.{Mode, MoveWorker}
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.subOptimised.sections.control.MoveWorkerView
+import play.api.mvc._
+import play.twirl.api.HtmlFormat
+import services.CompareAnswerService
+import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future
 
@@ -35,15 +43,19 @@ class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      requireData: DataRequiredAction,
                                      formProvider: MoveWorkerFormProvider,
                                      controllerComponents: MessagesControllerComponents,
-                                     view: MoveWorkerView,
                                      controllerHelper: ControllerHelper,
+                                     optimisedView: MoveWorkerView,
+                                     subOptimisedView: SubOptimisedMoveWorkerView,
                                      implicit val appConfig: FrontendAppConfig
-                                    ) extends BaseController(controllerComponents) {
+                                    ) extends BaseController(controllerComponents) with FeatureSwitching{
 
   val form: Form[MoveWorker] = formProvider()
 
+  private def view(form: Form[MoveWorker], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(MoveWorkerPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(MoveWorkerPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

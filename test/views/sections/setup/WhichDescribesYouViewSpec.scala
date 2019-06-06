@@ -37,7 +37,7 @@ class WhichDescribesYouViewSpec extends QuestionViewBehaviours[WhichDescribesYou
 
   "WhichDescribesYou view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 

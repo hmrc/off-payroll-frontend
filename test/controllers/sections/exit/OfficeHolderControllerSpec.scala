@@ -30,14 +30,15 @@ import play.api.test.Helpers._
 import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.exit.OfficeHolderView
+import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
 class OfficeHolderControllerSpec extends ControllerSpecBase {
 
   val formProvider = new OfficeHolderFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[OfficeHolderView]
+  val optimisedView = injector.instanceOf[SubOptimisedOfficeHolderView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedOfficeHolderView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new OfficeHolderController(
     identify = FakeIdentifierAction,
@@ -45,12 +46,13 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
-    mockControllerHelper,
-    appConfig = frontendAppConfig
+    appConfig = frontendAppConfig,
+    controllerHelper = mockControllerHelper,
+    optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true,0)))
 
@@ -72,12 +74,9 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      def onwardRoute = Call("POST", "/foo")
 
-      implicit val hc = new HeaderCarrier()
+      val userAnswers = UserAnswers("id").set(OfficeHolderPage,0, true)
 
-      val userAnswers = UserAnswers("id")
-      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
@@ -86,6 +85,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

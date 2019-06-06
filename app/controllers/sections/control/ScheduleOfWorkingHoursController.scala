@@ -19,14 +19,17 @@ package controllers.sections.control
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.{Mode, ScheduleOfWorkingHours}
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.control.ScheduleOfWorkingHoursView
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
+import play.twirl.api.HtmlFormat
+import views.html.sections.control.ScheduleOfWorkingHoursView
+import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
 import scala.concurrent.Future
 
@@ -35,14 +38,19 @@ class ScheduleOfWorkingHoursController @Inject()(identify: IdentifierAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: ScheduleOfWorkingHoursFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
-                                                 view: ScheduleOfWorkingHoursView,
                                                  controllerHelper: ControllerHelper,
-                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                                 optimisedView: ScheduleOfWorkingHoursView,
+                                                 subOptimisedView: SubOptimisedScheduleOfWorkingHoursView,
+                                                 implicit val appConfig: FrontendAppConfig
+                                                ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[ScheduleOfWorkingHours] = formProvider()
 
+  private def view(form: Form[ScheduleOfWorkingHours], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if (isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(ScheduleOfWorkingHoursPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(ScheduleOfWorkingHoursPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

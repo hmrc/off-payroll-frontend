@@ -43,7 +43,7 @@ class LineManagerDutiesController @Inject()(identify: IdentifierAction,
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(LineManagerDutiesPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(LineManagerDutiesPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

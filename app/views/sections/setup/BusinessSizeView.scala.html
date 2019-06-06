@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, messages(tailorMsg("businessSize.title")), Some("businessSize.subheading")),
+    title = title(form, messages(tailorMsg("businessSize.title"))),
     appConfig = appConfig,
     bodyClasses = None,
     js = Some("business-size.js")) {
@@ -37,9 +37,7 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("businessSize.heading"), Some("businessSize.subheading"))
-
-        @components.hint(Html(messages("businessSize.hint")))
+        @components.heading(tailorMsg("businessSize.heading"))
 
         @components.input_checkbox(
             form = form,

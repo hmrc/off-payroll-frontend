@@ -27,16 +27,19 @@
               appConfig = appConfig,
               bodyClasses = None) {
 
-    @components.back_link()
+    @components.back_link(appConfig.govUkStartPageUrl)
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
         @components.heading("aboutYourResult.heading")
 
         <p>@messages("aboutYourResult.p1")</p>
-
-        <p>@messages("aboutYourResult.p2")</p>
-
-        @components.submit_button()
+        @components.exclamation(exclamationBlock)
+        @components.submit_button("site.accept_continue")
     }
+}
+
+@exclamationBlock = {
+    <p class="bold">@messages("aboutYourResult.p2")</p>
+    <p class="bold">@messages("aboutYourResult.p3")</p>
 }

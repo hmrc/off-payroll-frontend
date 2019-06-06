@@ -42,7 +42,7 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
   val form: Form[HowWorkerIsPaid] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(HowWorkerIsPaidPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(HowWorkerIsPaidPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

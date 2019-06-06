@@ -19,14 +19,25 @@ package controllers.sections.personalService
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.NeededToPayHelperFormProvider
 import models.{ErrorTemplate, Mode}
+import javax.inject.Inject
+import models.Answers._
+import models.{ArrangedSubstitute, ErrorTemplate, Mode}
+import navigation.Navigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.subOptimised.sections.personalService.NeededToPayHelperView
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
+import services.{CompareAnswerService, DecisionService}
+import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
 
 import scala.concurrent.Future
 
@@ -34,15 +45,20 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
-                                            controllerComponents: MessagesControllerComponents,
-                                            view: NeededToPayHelperView,
                                             controllerHelper: ControllerHelper,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                            optimisedView: NeededToPayHelperView,
+                                            subOptimisedView: SubOptimisedNeededToPayHelperView,
+                                            controllerComponents: MessagesControllerComponents,
+                                            implicit val appConfig: FrontendAppConfig)
+  extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(NeededToPayHelperPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(NeededToPayHelperPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

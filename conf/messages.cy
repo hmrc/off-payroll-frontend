@@ -76,6 +76,7 @@ site.yes = Iawn
 site.finish = Finish
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
+site.accept_continue = Accept and continue
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
@@ -201,6 +202,28 @@ hirer.officeHolder.bullet1 =mae’r gweithiwr yn dal swydd o gyfrifoldeb ar gyfe
 hirer.officeHolder.bullet2 =caiff y swyddogaeth ei chreu gan statud, erthyglau cwmni, gweithred ymddiried neu o ddogfennau sy’n sefydlu sefydliad (er enghraifft, cyfarwyddwr neu ysgrifennydd cwmni)
 hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes neb yn ei chyflawni (er enghraifft, trysorydd clwb)
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
+
+## TODO: Need Welsh
+worker.optimised.officeHolder.title = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.heading = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will you ever have to act for your client as any of the following?
+worker.optimised.officeHolder.b1 = A board member
+worker.optimised.officeHolder.b2 = A treasurer
+worker.optimised.officeHolder.b3 = A trustee
+worker.optimised.officeHolder.b4 = Company director
+worker.optimised.officeHolder.b5 = Company secretary
+worker.optimised.officeHolder.b6 = Other office holder position
+
+## TODO: Need Welsh
+hirer.optimised.officeHolder.title = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.heading = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will the worker ever have to act for your organisation as any of the following:
+hirer.optimised.officeHolder.b1 = A board member
+hirer.optimised.officeHolder.b2 = A treasurer
+hirer.optimised.officeHolder.b3 = A trustee
+hirer.optimised.officeHolder.b4 = Company director
+hirer.optimised.officeHolder.b5 = Company secretary
+hirer.optimised.officeHolder.b6 = Other office holder position
 #########################
 
 
@@ -304,6 +327,22 @@ hirer.arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y g
 hirer.arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
 hirer.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
 hirer.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+
+## TODO: Need Welsh
+worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
+worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client didn’t accept your substitute.
+worker.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+
+## TODO: Need Welsh
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
+hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but the substitute wasn’t accepted.
+hirer.optimised.arrangedSubstitute.no = No, it hasn’t happened.
 #########################
 
 ## Identify to stakeholders
@@ -661,6 +700,16 @@ hirer.neededToPayHelper.hint.p1 = Mae helpwr yn rhywun sy’n gwneud peth o’r 
 hirer.neededToPayHelper.hint.p2 = Er enghraifft - os huriwyd darlithydd gan brifysgol i ysgrifennu a chyflwyno modiwl astudio:
 hirer.neededToPayHelper.hint.bullet1 = gellir ystyried ymchwilydd a huriwyd i ddod o hyd i wybodaeth, fel bod yn gwneud llwyth sylweddol o waith y darlithydd
 hirer.neededToPayHelper.hint.bullet2 = ni fyddai cwmni y mae’r darlithydd yn ei dalu i argraffu a rhwymo llyfrau ar gyfer y modiwl, yn cael ei ystyried fel bod yn gwneud llwyth sylweddol o’r gwaith
+
+## TODO: Need Welsh
+worker.optimised.neededToPayHelper.title = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.heading = Have you paid another person to do a significant amount of this work?
+worker.optimised.neededToPayHelper.checkYourAnswersLabel = Have you paid another person to do a significant amount of this work?
+
+## TODO: Need Welsh
+hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.checkYourAnswersLabel = Has the worker paid another person to do a significant amount of this work?
 #########################
 
 
@@ -684,6 +733,16 @@ hirer.wouldWorkerPaySubstitute.heading =A fyddai busnes y gweithiwr yn gorfod ta
 hirer.wouldWorkerPaySubstitute.checkYourAnswersLabel =A fyddai busnes y gweithiwr yn gorfod talu’r person a wnaeth y gwaith yn ei le?
 hirer.wouldWorkerPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.wouldWorkerPaySubstitute.exclamation =Os byddai’r eilydd yn cael ei dalu gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
+
+## TODO: Need Welsh
+worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute directly?
+
+## TODO: Need Welsh
+hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute directly?
 #########################
 
 
@@ -731,6 +790,16 @@ hirer.rejectSubstitute.hint.bullet5 =rhywun sy’n cael ei eilyddio gan nad yw�
 hirer.rejectSubstitute.exclamation =Rydym am wybod beth fyddai’n digwydd yn ymarferol, nid dim ond yr hyn sydd wedi’i gynnwys yng nghontract y gweithiwr.
 hirer.rejectSubstitute.yes =Iawn - mae gan y cleient terfynol yr hawl i wrthod eilydd am ba bynnag reswm, gan gynnwys os byddai’n effeithio’n negyddol ar y gwaith
 hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn eilydd a fyddai’n bodloni’r meini prawf hyn
+
+## TODO: Welsh Needed
+worker.optimised.rejectSubstitute.title = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.heading = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+
+## TODO: Welsh Needed
+hirer.optimised.rejectSubstitute.title = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.heading = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 #########################
 
 
@@ -754,6 +823,16 @@ hirer.didPaySubstitute.heading = A wnaeth busnes y gweithiwr dalu’r person a w
 hirer.didPaySubstitute.checkYourAnswersLabel = A wnaeth busnes y gweithiwr dalu’r person a wnaeth y gwaith yn ei le?
 hirer.didPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.didPaySubstitute.exclamation = Os talwyd yr eilydd gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
+
+## TODO: Welsh Needed
+worker.optimised.didPaySubstitute.title = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.heading = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute directly?
+
+## TODO: Welsh Needed
+hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute directly?
 #########################
 
 
@@ -943,21 +1022,24 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 # --------------------------------------------------#
 
 ##### TODO NEED WELSH FOR ####
-aboutYourResult.title = About your result
-aboutYourResult.heading = About your result
-aboutYourResult.p1 = HMRC will stand by the result given, unless a compliance check finds the information you’ve provided isn’t accurate.
-aboutYourResult.p2 = HMRC won’t stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance with associated higher penalties.
+aboutYourResult.title = Disclaimer
+aboutYourResult.heading = Disclaimer
+aboutYourResult.p1 = HMRC will stand by the result you get from this tool, provided the information you have given is accurate.
+aboutYourResult.p2 = However, if your information was checked and found to be inaccurate, HMRC will not stand by the result.
+aboutYourResult.p3 = Neither will HMRC stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties.
+
 
 ##### TODO NEED WELSH FOR ####
-whichDescribesYou.title = Which of these describes you best?
-whichDescribesYou.heading = Which of these describes you best?
-whichDescribesYou.subheading = Section 1: Who, what, when
-whichDescribesYou.checkYourAnswersLabel = Which of these describes you best?
-whichDescribesYou.worker.paye = I want to find out if I am employed/self-employed
-whichDescribesYou.client.paye = I want to find out if I need to apply PAYE to someone who is working for me
-whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within IR35
-whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is recruiting for falls within IR35
-whichDescribesYou.agency = I want to find out if a contract I’m recruiting for, on behalf of another organisation, falls within IR35
+whichDescribesYou.title = Please tell us why you’re here, to help us give you the most relevant result
+whichDescribesYou.heading = Please tell us why you’re here, to help us give you the most relevant result
+whichDescribesYou.checkYourAnswersLabel = Please tell us why you’re here, to help us give you the most relevant result
+whichDescribesYou.worker.paye = I want to find out if I am employed, or self-employed, for tax purposes.
+whichDescribesYou.client.paye = I want to find out if a job I am hiring for is classed as employed, or self-employed, for tax purposes.
+whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within the off-payroll working rules (IR35).
+whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is offering falls within the off-payroll working rules (IR35).
+whichDescribesYou.agency = I want to find out if a contract my agency is recruiting for falls within the off-payroll working rules (IR35).
+whichDescribesYou.error.required = You need to select an answer
+whichDescribesYou.error.invalid = You need to select an answer
 
 ##### TODO NEED WELSH FOR ####
 agencyAdvisory.title = You don’t need to determine if this work should be paid within IR35
@@ -981,27 +1063,26 @@ workerUsingIntermediary.error.required = You need to select an answer
 workerUsingIntermediary.error.invalid = You need to select an answer
 worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
-worker.workerUsingIntermediary.subheading = Section 1: Who, what, when
 worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
 hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
-hirer.workerUsingIntermediary.subheading = Section 1: Who, what, when
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
+
+isWorkForPrivateSector.private = The private sector.
+isWorkForPrivateSector.public = The public sector.
 isWorkForPrivateSector.error.required = You need to select an answer
 isWorkForPrivateSector.error.invalid = You need to select an answer
-worker.isWorkForPrivateSector.title = Is the work for a private sector client?
-worker.isWorkForPrivateSector.heading = Is the work for a private sector client?
-worker.isWorkForPrivateSector.subheading = Section 1: Who, what, when
-worker.isWorkForPrivateSector.checkYourAnswersLabel = Is the work for a private sector client?
+worker.isWorkForPrivateSector.title = In which sector is the organisation you’ll be doing the work for?
+worker.isWorkForPrivateSector.heading = In which sector is the organisation you’ll be doing the work for?
+worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector do you work?
 
 ##### TODO NEED WELSH FOR ####
-hirer.isWorkForPrivateSector.title = Is your organisation a private sector business?
-hirer.isWorkForPrivateSector.heading = Is your organisation a private sector business?
-hirer.isWorkForPrivateSector.subheading = Section 1: Who, what, when
+hirer.isWorkForPrivateSector.title = In which sector do you work?
+hirer.isWorkForPrivateSector.heading = In which sector do you work?
 hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
 
 ##### TODO NEED WELSH FOR ####
@@ -1011,19 +1092,16 @@ workerAdvisory.p1 = The organisation offering the work is responsible for determ
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
 
 ##### TODO NEED WELSH FOR ####
-hirer.businessSize.title = Does your organisation have more than:
-hirer.businessSize.heading = Does your organisation have more than:
+hirer.businessSize.title = How large is your organisation? Tick all that apply
+hirer.businessSize.heading = How large is your organisation? Tick all that apply
 hirer.businessSize.checkYourAnswersLabel = Does your organisation have more than:
-worker.businessSize.title = Does this client have more than:
-worker.businessSize.heading = Does this client have more than:
+worker.businessSize.title = How large is this organisation? Tick all that apply
+worker.businessSize.heading = How large is this organisation? Tick all that apply
 worker.businessSize.checkYourAnswersLabel = Does this client have more than:
-businessSize.subheading = Section 1: Who, what, when
-businessSize.hint = Select any options that apply
-businessSize.turnover = £10.2 million annual turnover?
-businessSize.balanceSheet = £5.1 million on their balance sheet?
-businessSize.employees = 50 employees?
-businessSize.noneOfAbove = None of the above
-businessSize.checkYourAnswersLabel = Does this client have more than:
+businessSize.turnover = More than £10.2 million annual turnover.
+businessSize.balanceSheet = More than £5.1 million on their balance sheet.
+businessSize.employees = More than 50 employees.
+businessSize.noneOfAbove = None of the above.
 businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
 
@@ -1040,3 +1118,66 @@ toolNotNeeded.client.ir35.text = Workers are responsible for determining if role
 toolNotNeeded.client.paye.title = You don’t need to determine if this work should be taxed at source (PAYE)
 toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be taxed at source (PAYE)
 toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include the income from this work in their self-assessment return
+
+
+hirer.optimised.moveWorker.title = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.heading = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.checkYourAnswersLabel = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
+hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker would have to agree.
+hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
+
+worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
+worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree.
+worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
+
+hirer.optimised.howWorkIsDone.title = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.heading = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
+hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides.
+hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work.
+hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your team and the worker agree together.
+
+worker.optimised.howWorkIsDone.title = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.heading = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
+worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide.
+worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, your client and you agree together.
+
+worker.optimised.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
+worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide.
+worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your own schedule.
+worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+
+hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
+hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your team and the worker agree their own schedule.
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+
+worker.optimised.chooseWhereWork.title = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.heading = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.workerChooses = Yes
+worker.optimised.chooseWhereWork.workerCannotChoose = No, you decide.
+worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
+worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
+
+hirer.optimised.chooseWhereWork.title = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.heading = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.workerChooses = Yes
+hirer.optimised.chooseWhereWork.workerCannotChoose = No, the worker decides.
+hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
+hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice.

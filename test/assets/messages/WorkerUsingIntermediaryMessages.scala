@@ -18,8 +18,6 @@ package assets.messages
 
 object WorkerUsingIntermediaryMessages extends BaseMessages {
 
-  val subheading = "Section 1: Who, what, when"
-
   object Worker {
     val heading = "Are you trading through a limited company, partnership or unincorporated body?"
     val title = heading

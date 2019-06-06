@@ -19,14 +19,17 @@ package controllers.sections.personalService
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.ArrangedSubstituteFormProvider
 import models.{ArrangedSubstitute, Mode}
 import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.personalService.ArrangedSubstituteView
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
+import views.html.sections.personalService.ArrangedSubstituteView
+import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView => SubOptimisedArrangedSubstituteView}
 
 import scala.concurrent.Future
 
@@ -35,13 +38,19 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
                                              requireData: DataRequiredAction,
                                              formProvider: ArrangedSubstituteFormProvider,
                                              controllerComponents: MessagesControllerComponents,
-                                             view: ArrangedSubstituteView,
                                              controllerHelper: ControllerHelper,
-                                             implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                             optimisedView: ArrangedSubstituteView,
+                                             subOptimisedView: SubOptimisedArrangedSubstituteView,
+                                             implicit val appConfig: FrontendAppConfig)
+  extends BaseController(controllerComponents) with FeatureSwitching {
+
   val form: Form[ArrangedSubstitute] = formProvider()
 
+  private def view(form: Form[ArrangedSubstitute], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(request.userAnswers.get(ArrangedSubstitutePage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
+    Ok(view(fillForm(ArrangedSubstitutePage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>

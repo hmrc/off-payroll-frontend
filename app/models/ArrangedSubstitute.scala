@@ -16,12 +16,14 @@
 
 package models
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import play.api.libs.json._
 import viewmodels.{RadioOption, radio}
 
 sealed trait ArrangedSubstitute
 
-object ArrangedSubstitute {
+object ArrangedSubstitute extends FeatureSwitching {
 
   case object YesClientAgreed extends WithName("yesClientAgreed") with ArrangedSubstitute
   case object YesClientNotAgreed extends WithName("yesClientNotAgreed") with ArrangedSubstitute
@@ -31,9 +33,16 @@ object ArrangedSubstitute {
     YesClientAgreed, YesClientNotAgreed, No
   )
 
-  val options: Seq[RadioOption] = values.map {
+  def options(implicit appConfig: FrontendAppConfig): Seq[RadioOption] = values.map {
     value =>
-      RadioOption("arrangedSubstitute", value.toString, radio, hasTailoredMsgs = true)
+      RadioOption(
+        "arrangedSubstitute",
+        value.toString,
+        radio,
+        hasTailoredMsgs = true,
+        hasOptimisedMsgs = isEnabled(OptimisedFlow),
+        dividerPrefix = false
+      )
   }
 
   implicit val enumerable: Enumerable[ArrangedSubstitute] =
