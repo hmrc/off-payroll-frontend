@@ -20,11 +20,13 @@ import assets.messages.PutRightAtOwnCostsMessages
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.PutRightAtOwnCostFormProvider
+import models.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
 import models.UserType.{Agency, Hirer, Worker}
 import models.{NormalMode, PutRightAtOwnCost}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
+import viewmodels.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.sections.financialRisk.PutRightAtOwnCostView
 
@@ -100,6 +102,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
   }
 
   "PutRightAtOwnCost view" when {
+
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
@@ -109,17 +112,16 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- PutRightAtOwnCost.options) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+    PutRightAtOwnCost.options.foreach(option => testOption(option.value))
 
-          for(unselectedOption <- PutRightAtOwnCost.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
-          }
-        }
+    def testOption(value: String) = {
+      s"option $value is selected" in {
+        val (selected, unselected) = PutRightAtOwnCost.options.partition(a => a.value == value)
+        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> value))))
+        assertContainsRadioButton(doc, selected.head.id, "value", selected.head.value, true)
+        unselected.foreach(option => assertContainsRadioButton(doc, option.id, "value", option.value, false))
       }
     }
   }
 }
+

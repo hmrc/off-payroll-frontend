@@ -35,11 +35,6 @@ object HowWorkerIsPaid extends FeatureSwitching {
     HourlyDailyOrWeekly, FixedPrice, PieceRate, Commission, ProfitOrLosses
   )
 
-//  val options: Seq[RadioOption] = values.map {
-//    value =>
-//      RadioOption("howWorkerIsPaid", value.toString, radio, hasTailoredMsgs = true)
-//  }
-
   def options(implicit frontendAppConfig: FrontendAppConfig): Seq[RadioOption] = values.map {
     value => RadioOption(
       keyPrefix = "howWorkerIsPaid",

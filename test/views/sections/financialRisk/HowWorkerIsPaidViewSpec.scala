@@ -111,24 +111,14 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       }
     }
 
-//    val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${HowWorkerIsPaid.options.head.value}"))))
-//    assertContainsRadioButton(doc, HowWorkerIsPaid.options.head.id, "value", HowWorkerIsPaid.options.head.value, true)
-//    assertContainsRadioButton(doc, HowWorkerIsPaid.options(implicitly)(1).id, "value", HowWorkerIsPaid.options(implicitly)(1).value, false)
-//    assertContainsRadioButton(doc, HowWorkerIsPaid.options(implicitly)(2).id, "value", HowWorkerIsPaid.options(implicitly)(2).value, false)
-//    assertContainsRadioButton(doc, HowWorkerIsPaid.options(implicitly)(3).id, "value", HowWorkerIsPaid.options(implicitly)(3).value, false)
-//    assertContainsRadioButton(doc, HowWorkerIsPaid.options(implicitly)(4).id, "value", HowWorkerIsPaid.options(implicitly)(4).value, false)
+    HowWorkerIsPaid.options.foreach(option => testOption(option.value))
 
-    for(option <- HowWorkerIsPaid.options) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
-
-
-          for(unselectedOption <- HowWorkerIsPaid.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
-          }
-        }
+    def testOption(value: String) = {
+      s"option $value is selected" in {
+        val (selected, unselected) = HowWorkerIsPaid.options.partition(a => a.value == value)
+        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> value))))
+        assertContainsRadioButton(doc, selected.head.id, "value", selected.head.value, true)
+        unselected.foreach(option => assertContainsRadioButton(doc, option.id, "value", option.value, false))
       }
     }
   }
