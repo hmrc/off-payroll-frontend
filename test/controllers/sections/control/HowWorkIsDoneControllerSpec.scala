@@ -51,7 +51,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     controllerHelper = mockControllerHelper,
     appConfig = frontendAppConfig,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView,
+    subOptimisedView = subOptimisedView
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -99,6 +99,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers(userAnswers)(userAnswers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -112,6 +113,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers(userAnswers)(userAnswers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

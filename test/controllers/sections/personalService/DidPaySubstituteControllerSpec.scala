@@ -41,7 +41,7 @@ import play.api.test.Helpers._
 import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-
+import views.html.sections.personalService.DidPaySubstituteView
 import views.html.subOptimised.sections.personalService.{DidPaySubstituteView => SubOpimisedDidPaySubstituteView}
 
 class DidPaySubstituteControllerSpec extends ControllerSpecBase {
@@ -49,7 +49,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
   val formProvider = new DidPaySubstituteFormProvider()
   val form = formProvider()
 
-  val optimisedView = injector.instanceOf[SubOpimisedDidPaySubstituteView]
+  val optimisedView = injector.instanceOf[DidPaySubstituteView]
   val subOptimisedView = injector.instanceOf[SubOpimisedDidPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new DidPaySubstituteController(
@@ -66,7 +66,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(DidPaySubstitutePage.toString -> Json.toJson(Answers(true,0)))
+  val validData = Map(DidPaySubstitutePage.toString -> Json.toJson(Answers(true, 0)))
 
   "DidPaySubstitute Controller" must {
 
@@ -161,38 +161,40 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
+        mockConstructAnswers(userAnswers)(userAnswers)
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+        val result = controller().onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
 
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
+      "return a Bad Request and errors when invalid data is submitted" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+        val result = controller().onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) mustBe viewAsString(boundForm)
+      }
 
-    "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+      "redirect to Index Controller for a GET if no existing data is found" in {
+        val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
-    }
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
 
-    "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+      "redirect to Index Controller for a POST if no existing data is found" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
     }
   }
 }

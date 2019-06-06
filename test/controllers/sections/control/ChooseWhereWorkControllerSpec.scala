@@ -33,13 +33,14 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
+import views.html.sections.control.ChooseWhereWorkView
 
 class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
 
   val formProvider = new ChooseWhereWorkFormProvider()
   val form = formProvider()
 
-  val optimisedView = injector.instanceOf[SubOptimisedChooseWhereWorkView]
+  val optimisedView = injector.instanceOf[ChooseWhereWorkView]
   val subOptimisedView = injector.instanceOf[SubOptimisedChooseWhereWorkView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
@@ -98,6 +99,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
       val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
 
+      mockConstructAnswers(userAnswers)(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 

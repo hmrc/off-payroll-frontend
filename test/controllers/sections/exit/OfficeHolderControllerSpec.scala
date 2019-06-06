@@ -49,7 +49,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     appConfig = frontendAppConfig,
     controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView,
+    subOptimisedView = subOptimisedView
   )
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -79,6 +79,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
+      mockConstructAnswers(userAnswers)(userAnswers)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

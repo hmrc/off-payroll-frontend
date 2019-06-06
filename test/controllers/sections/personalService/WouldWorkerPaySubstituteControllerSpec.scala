@@ -30,6 +30,7 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
+import views.html.sections.personalService.WouldWorkerPaySubstituteView
 import views.html.subOptimised.sections.personalService.{WouldWorkerPaySubstituteView => SubOptimisedWouldWorkerPaySubstituteView}
 
 class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
@@ -39,7 +40,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
   val form = formProvider()
 
-  val optimisedView = injector.instanceOf[SubOptimisedWouldWorkerPaySubstituteView]
+  val optimisedView = injector.instanceOf[WouldWorkerPaySubstituteView]
   val subOptimisedView = injector.instanceOf[SubOptimisedWouldWorkerPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WouldWorkerPaySubstituteController(
@@ -81,6 +82,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
+      mockConstructAnswers(userAnswers)(userAnswers)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

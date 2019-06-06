@@ -30,6 +30,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
+import views.html.sections.control.ScheduleOfWorkingHoursView
 import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
 class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
@@ -39,7 +40,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
   val formProvider = new ScheduleOfWorkingHoursFormProvider()
   val form = formProvider()
 
-  val optimisedView = injector.instanceOf[SubOptimisedScheduleOfWorkingHoursView]
+  val optimisedView = injector.instanceOf[ScheduleOfWorkingHoursView]
   val subOptimisedView = injector.instanceOf[SubOptimisedScheduleOfWorkingHoursView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ScheduleOfWorkingHoursController(
@@ -51,7 +52,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     appConfig = frontendAppConfig,
     controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView,
+    subOptimisedView = subOptimisedView
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -99,6 +100,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers(userAnswers)(userAnswers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
