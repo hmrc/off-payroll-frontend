@@ -93,7 +93,6 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
         mockConstructAnswers()(userAnswers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

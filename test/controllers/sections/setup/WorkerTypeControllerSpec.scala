@@ -114,9 +114,9 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockConstructAnswers()(userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission))
+      mockConstructAnswers()(userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany))
 
-      mockSave(CacheMap(cacheMapId, validDataInt))(CacheMap(cacheMapId, validDataInt))
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

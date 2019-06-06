@@ -119,7 +119,6 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
       val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
       mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
 

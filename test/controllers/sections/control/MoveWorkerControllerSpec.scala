@@ -111,6 +111,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options().head.value))
+      mockConstructAnswers()(userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

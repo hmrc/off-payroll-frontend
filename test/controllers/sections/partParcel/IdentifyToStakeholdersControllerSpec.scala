@@ -82,9 +82,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
-
-      val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage,0,true)
+      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0,IdentifyToStakeholders.WorkForEndClient)
       mockDecide(userAnswers)(onwardRoute)
       mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

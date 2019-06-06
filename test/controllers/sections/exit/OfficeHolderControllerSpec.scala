@@ -100,6 +100,8 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
       }
 
       "return a Bad Request and errors when invalid data is submitted" in {
+        enable(OptimisedFlow)
+
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
         val boundForm = form.bind(Map("value" -> "invalid value"))
 

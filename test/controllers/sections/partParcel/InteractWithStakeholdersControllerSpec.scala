@@ -90,7 +90,7 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
       mockConstructAnswers()(userAnswers.set(InteractWithStakeholdersPage,0,true))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
+      mockDecide(userAnswers.set(InteractWithStakeholdersPage,0,true))(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

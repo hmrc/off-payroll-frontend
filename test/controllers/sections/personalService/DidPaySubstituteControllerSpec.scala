@@ -94,7 +94,6 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
         mockConstructAnswers()(userAnswers.set(DidPaySubstitutePage,0,true))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
