@@ -16,12 +16,14 @@
 
 package models
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import play.api.libs.json._
 import viewmodels.{RadioOption, radio}
 
 sealed trait HowWorkerIsPaid
 
-object HowWorkerIsPaid {
+object HowWorkerIsPaid extends FeatureSwitching {
 
   case object HourlyDailyOrWeekly extends WithName("incomeCalendarPeriods") with HowWorkerIsPaid
   case object FixedPrice extends WithName("incomeFixed") with HowWorkerIsPaid
@@ -33,9 +35,20 @@ object HowWorkerIsPaid {
     HourlyDailyOrWeekly, FixedPrice, PieceRate, Commission, ProfitOrLosses
   )
 
-  val options: Seq[RadioOption] = values.map {
-    value =>
-      RadioOption("howWorkerIsPaid", value.toString, radio, hasTailoredMsgs = true)
+//  val options: Seq[RadioOption] = values.map {
+//    value =>
+//      RadioOption("howWorkerIsPaid", value.toString, radio, hasTailoredMsgs = true)
+//  }
+
+  def options(implicit frontendAppConfig: FrontendAppConfig): Seq[RadioOption] = values.map {
+    value => RadioOption(
+      keyPrefix = "howWorkerIsPaid",
+      option = value.toString,
+      optionType = radio,
+      hasTailoredMsgs = true,
+      dividerPrefix = false,
+      hasOptimisedMsgs = isEnabled(OptimisedFlow)
+    )
   }
 
   implicit val enumerable: Enumerable[HowWorkerIsPaid] =

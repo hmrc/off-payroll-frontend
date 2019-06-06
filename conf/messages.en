@@ -494,6 +494,24 @@ hirer.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to p
 hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
 hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
 hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
+
+worker.optimised.putRightAtOwnCost.title = If your client wasn’t happy with the work, would you have to put it right at your cost?
+worker.optimised.putRightAtOwnCost.heading = If your client wasn’t happy with the work, would you have to put it right at your cost?
+worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your client wasn’t happy with the work, would you have to put it right at your cost?
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right, for no additional income, and would incur extra outgoings in doing so.
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right, for no additional income, with no extra outgoings, but would incur an opportunity cost.
+worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, you would put it right in your usual hours at your usual rate or fee.
+worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, you couldn’t put it right because it was time-specific or for a single event.
+worker.optimised.putRightAtOwnCost.noObligationToCorrect = No, you wouldn’t need to put it right.
+
+hirer.optimised.putRightAtOwnCost.title = If your team weren’t happy with the work, would the worker have to put it right at their cost?
+hirer.optimised.putRightAtOwnCost.heading = If your team weren’t happy with the work, would the worker have to put it right at their cost?
+hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your team weren’t happy with the work, would the worker have to put it right at their cost?
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, the worker would have to put it right, for no additional income, and would incur extra outgoings in doing so.
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, the worker would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost.
+hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, the worker would put it right in their usual hours at their usual rate or fee.
+hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the worker couldn’t put it right because it was time-specific or for a single event.
+hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No, they wouldn’t need to put it right.
 #########################
 
 ## How Worker is Paid
@@ -529,6 +547,24 @@ hirer.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
 hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
 hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
+
+worker.optimised.howWorkerIsPaid.title = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.heading = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.incomeCalendarPeriods = By an hourly, daily or weekly rate.
+worker.optimised.howWorkerIsPaid.incomeFixed = By a fixed price for a specific project.
+worker.optimised.howWorkerIsPaid.incomePieceRate = By the amount of work completed.
+worker.optimised.howWorkerIsPaid.incomeCommission = By a percentage of the sales you generate.
+worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = By a percentage of your client’s profits or savings.
+
+hirer.optimised.howWorkerIsPaid.title = On what basis will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.heading = On what basis will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = By an hourly, daily or weekly rate.
+hirer.optimised.howWorkerIsPaid.incomeFixed = By a fixed price for a specific project.
+hirer.optimised.howWorkerIsPaid.incomePieceRate = By the amount of work completed.
+hirer.optimised.howWorkerIsPaid.incomeCommission = By a percentage of the sales the worker generates.
+hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = By a percentage of your organisation’s profits or savings.
 #########################
 
 

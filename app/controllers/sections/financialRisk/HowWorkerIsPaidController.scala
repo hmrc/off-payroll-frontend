@@ -16,17 +16,19 @@
 
 package controllers.sections.financialRisk
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.HowWorkerIsPaidFormProvider
+import javax.inject.Inject
+import models.requests.DataRequest
 import models.{HowWorkerIsPaid, Mode}
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.financialRisk.HowWorkerIsPaidView
+import play.twirl.api.HtmlFormat
+import views.html.subOptimised.sections.financialRisk.{HowWorkerIsPaidView, HowWorkerIsPaidView => SubOptimisedHowWorkerIsPaidView}
 
 import scala.concurrent.Future
 
@@ -35,11 +37,16 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           requireData: DataRequiredAction,
                                           formProvider: HowWorkerIsPaidFormProvider,
                                           controllerComponents: MessagesControllerComponents,
-                                          view: HowWorkerIsPaidView,
+                                          subOptimisedView: SubOptimisedHowWorkerIsPaidView,
+                                          optimisedView: HowWorkerIsPaidView,
                                           controllerHelper: ControllerHelper,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching{
 
   val form: Form[HowWorkerIsPaid] = formProvider()
+
+  private def view(form: Form[HowWorkerIsPaid], mode: Mode)(implicit request: DataRequest[_]): HtmlFormat.Appendable = {
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+  }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(HowWorkerIsPaidPage, form), mode))
