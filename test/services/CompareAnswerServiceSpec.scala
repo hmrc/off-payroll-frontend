@@ -48,7 +48,7 @@ import scala.concurrent.Future
 
 class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCacheConnector {
 
-  val service = new CompareAnswerService(mockDataCacheConnector)
+  val service = new CompareAnswerService()
 
   "compare answer service (consecutive answer)" should {
 

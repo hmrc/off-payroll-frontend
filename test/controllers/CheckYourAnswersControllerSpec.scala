@@ -38,7 +38,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     view = view,
     mockCheckAnswerService,
-    mockControllerHelper,
+    mockOptimisedDecisionService,
     frontendAppConfig
   )
 

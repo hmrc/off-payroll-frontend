@@ -25,6 +25,7 @@ import connectors.{DataCacheConnector, DecisionConnector}
 import models.requests.DataRequest
 import models._
 import navigation.Navigator
+import pages.sections.exit.OfficeHolderPage
 import pages.{CheckYourAnswersPage, QuestionPage}
 import play.api.libs.json.{Reads, Writes}
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
@@ -44,8 +45,7 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
   def redirect[T](mode: Mode,
                   value: T,
                   page: QuestionPage[T],
-                  callDecisionService: Boolean = false,
-                  officeHolder: Boolean = false)(implicit request: DataRequest[AnyContent],
+                  callDecisionService: Boolean = false)(implicit request: DataRequest[AnyContent],
                                                  reads: Reads[T],
                                                  writes: Writes[T],
                                                  aWrites: Writes[Answers[T]],
@@ -56,7 +56,7 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
       val call = navigator.nextPage(page, mode)(answers)
       (callDecisionService,isEnabled(OptimisedFlow)) match {
           //early exit office holder
-        case _ if officeHolder => decisionService.decide(answers, call)
+        case _ if page == OfficeHolderPage => decisionService.decide(answers, call)
           //don't call decision every time, only once at the end (opt flow)
         case (true,true) => Future.successful(Redirect(call))
           //if not calling decision, carry on
@@ -67,11 +67,5 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
     }
   }
 
-  def result(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] = {
-    val call = navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers)
-    optimisedDecisionService.multipleDecisionCall().map { decision =>
-      optimisedDecisionService.result(decision, call)
-    }
-  }
 
 }

@@ -154,7 +154,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     LineManagerDutiesPage -> (_ => partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode)),
     InteractWithStakeholdersPage -> { answer =>
       answer.get(InteractWithStakeholdersPage) match {
-        case Some(ans) if ans.answer => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
+        case Some(Answers(true,_)) => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
         case Some(ans) if !ans.answer && isEnabled(OptimisedFlow) => routes.CheckYourAnswersController.onPageLoad()
         case _ => routes.ResultController.onPageLoad()
       }},

@@ -244,15 +244,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       )
     }
 
-  def contractStartedOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(ContractStartedPage) map { x =>
-      AnswerRow(
-        tailorMsg("contractStarted.checkYourAnswersLabel", optimisedContent = true),
-        if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
-      )
-    }
-
   def aboutYou: Option[AnswerRow] = userAnswers.get(AboutYouPage) map { x =>
     AnswerRow(
       "aboutYou.checkYourAnswersLabel",

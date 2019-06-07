@@ -59,14 +59,6 @@ case class Interview(correlationId: String,
                      contactWithEngagerCustomer: Option[Boolean] = None,
                      workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig){
 
-  val hasAnsweredFinalQuestion = {
-    (contactWithEngagerCustomer,workerRepresentsEngagerBusiness) match {
-      case (Some(_),Some(_)) => true
-      case (Some(secondLastQuestion),None) if !secondLastQuestion => true
-      case _ => false
-    }
-  }
-
   def calculateProvideServices: Option[WorkerType] = {
 
     (isUsingIntermediary, provideServices) match {
@@ -199,9 +191,6 @@ object Interview extends JsonObjectSugar {
           "endUserRole" -> model.endUserRole,
           "hasContractStarted" -> model.hasContractStarted,
           "provideServices" -> model.calculateProvideServices
-        ),
-        "exit" -> jsonObjNoNulls(
-          "officeHolder" -> model.officeHolder
         ),
         "control" -> jsonObjNoNulls(
           "engagerMovingWorker" -> model.engagerMovingWorker,
