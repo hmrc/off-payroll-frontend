@@ -16,24 +16,25 @@
 
 package services.mocks
 
+import models.{Answers, UserAnswers}
 import models.requests.DataRequest
-import models.{ErrorTemplate, UserAnswers}
 import org.scalamock.scalatest.MockFactory
-import play.api.mvc.Call
-import play.api.mvc.Results.Redirect
-import services.DecisionService
-import uk.gov.hmrc.http.HeaderCarrier
+import pages.QuestionPage
+import play.api.libs.json.{Reads, Writes}
+import play.api.mvc.AnyContent
+import services.CompareAnswerService
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockDecisionService extends MockFactory {
+trait MockCompareAnswerService extends MockFactory {
 
-  val mockDecisionService = mock[DecisionService]
+  val mockCompareAnswerService = mock[CompareAnswerService]
 
-  def mockDecide(userAnswers: UserAnswers)(call: Call): Unit = {
-    (mockDecisionService.decide(_: UserAnswers, _: Call)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
-      .expects(userAnswers, *, *, *, *)
-      .returns(Future.successful(Redirect(call)))
+  def mockConstructAnswers()(result: UserAnswers): Unit = {
+    (mockCompareAnswerService.constructAnswers( _: DataRequest[AnyContent],_: Any, _: QuestionPage[Any])
+    (_: Reads[Any],_: Writes[Any],_: Writes[Answers[Any]],_: Reads[Answers[Any]],_: ExecutionContext))
+      .expects(*,*,*,*,*,*,*,*)
+      .returns(result)
 
   }
 }

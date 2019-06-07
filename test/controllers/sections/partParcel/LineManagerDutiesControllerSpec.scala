@@ -16,24 +16,28 @@
 
 package controllers.sections.partParcel
 
+import akka.util.ByteString
+import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.LineManagerDutiesFormProvider
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.sections.partParcel.LineManagerDutiesPage
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
+import play.api.mvc.{Call, ResponseHeader, Result}
+import play.api.mvc.Results.Redirect
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.LineManagerDutiesView
 
-class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
   val formProvider = new LineManagerDutiesFormProvider()
   val form = formProvider()
@@ -41,15 +45,13 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCa
   val view = injector.instanceOf[LineManagerDutiesView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new LineManagerDutiesController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockDecisionService,
+    mockControllerHelper,
     frontendAppConfig
   )
 
@@ -76,10 +78,8 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCa
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
-
       val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, 0,true)
-
+      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
@@ -88,7 +88,6 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase with MockDataCa
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

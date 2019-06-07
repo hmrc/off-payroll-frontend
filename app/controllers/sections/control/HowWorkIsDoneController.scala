@@ -16,32 +16,34 @@
 
 package controllers.sections.control
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.HowWorkIsDoneFormProvider
 import javax.inject.Inject
 import models.{HowWorkIsDone, Mode}
-import navigation.Navigator
 import pages.sections.control.HowWorkIsDonePage
 import play.api.data.Form
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import views.html.sections.control.HowWorkIsDoneView
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
 import services.CompareAnswerService
-import views.html.sections.control.HowWorkIsDoneView
 import views.html.subOptimised.sections.control.{HowWorkIsDoneView => SubOptimisedHowWorkIsDoneView}
 
 import scala.concurrent.Future
 
-class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        identify: IdentifierAction,
+class HowWorkIsDoneController @Inject()(identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
                                         formProvider: HowWorkIsDoneFormProvider,
                                         controllerComponents: MessagesControllerComponents,
+                                        controllerHelper: ControllerHelper,
                                         optimisedView: HowWorkIsDoneView,
                                         subOptimisedView: SubOptimisedHowWorkIsDoneView,
                                         implicit val appConfig: FrontendAppConfig
@@ -60,12 +62,7 @@ class HowWorkIsDoneController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request, value, HowWorkIsDonePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(HowWorkIsDonePage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,HowWorkIsDonePage)
     )
   }
 }

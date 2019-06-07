@@ -139,6 +139,90 @@ object Interview extends JsonObjectSugar {
     )
   }
 
+  def writesPartAndParcel: Writes[Interview] = Writes { model =>
+    Json.obj(
+      "version" -> model.appConfig.decisionVersion,
+      "correlationID" -> model.correlationId,
+      "interview" -> Json.obj(
+        "setup" -> jsonObjNoNulls(
+          "endUserRole" -> model.endUserRole,
+          "hasContractStarted" -> model.hasContractStarted,
+          "provideServices" -> model.calculateProvideServices
+        ),
+        "partAndParcel" -> jsonObjNoNulls(
+          "workerReceivesBenefits" -> model.workerReceivesBenefits,
+          "workerAsLineManager" -> model.workerAsLineManager,
+          "contactWithEngagerCustomer" -> model.contactWithEngagerCustomer,
+          "workerRepresentsEngagerBusiness" -> model.workerRepresentsEngagerBusiness
+        )
+      )
+    )
+  }
+
+  def writesFinancialRisk: Writes[Interview] = Writes { model =>
+    Json.obj(
+      "version" -> model.appConfig.decisionVersion,
+      "correlationID" -> model.correlationId,
+      "interview" -> Json.obj(
+        "setup" -> jsonObjNoNulls(
+          "endUserRole" -> model.endUserRole,
+          "hasContractStarted" -> model.hasContractStarted,
+          "provideServices" -> model.calculateProvideServices
+        ),
+        "financialRisk" -> jsonObjNoNulls(
+          "workerProvidedMaterials" -> model.workerProvidedMaterials,
+          "workerProvidedEquipment" -> model.workerProvidedEquipment,
+          "workerUsedVehicle" -> model.workerUsedVehicle,
+          "workerHadOtherExpenses" -> model.workerHadOtherExpenses,
+          "expensesAreNotRelevantForRole" -> model.expensesAreNotRelevantForRole,
+          "workerMainIncome" -> model.workerMainIncome,
+          "paidForSubstandardWork" -> model.paidForSubstandardWork
+        )
+      )
+    )
+  }
+
+  def writesControl: Writes[Interview] = Writes { model =>
+    Json.obj(
+      "version" -> model.appConfig.decisionVersion,
+      "correlationID" -> model.correlationId,
+      "interview" -> Json.obj(
+        "setup" -> jsonObjNoNulls(
+          "endUserRole" -> model.endUserRole,
+          "hasContractStarted" -> model.hasContractStarted,
+          "provideServices" -> model.calculateProvideServices
+        ),
+        "control" -> jsonObjNoNulls(
+          "engagerMovingWorker" -> model.engagerMovingWorker,
+          "workerDecidingHowWorkIsDone" -> model.workerDecidingHowWorkIsDone,
+          "whenWorkHasToBeDone" -> model.whenWorkHasToBeDone,
+          "workerDecideWhere" -> model.workerDecideWhere
+        )
+      )
+    )
+  }
+
+  def writesPersonalService: Writes[Interview] = Writes { model =>
+    Json.obj(
+      "version" -> model.appConfig.decisionVersion,
+      "correlationID" -> model.correlationId,
+      "interview" -> Json.obj(
+        "setup" -> jsonObjNoNulls(
+          "endUserRole" -> model.endUserRole,
+          "hasContractStarted" -> model.hasContractStarted,
+          "provideServices" -> model.calculateProvideServices
+        ),
+        "personalService" -> jsonObjNoNulls(
+          "workerSentActualSubstitute" -> model.workerSentActualSubstitute,
+          "workerPayActualSubstitute" -> model.workerPayActualSubstitute,
+          "possibleSubstituteRejection" -> Json.toJson(model.possibleSubstituteRejection)(writesPossibleSubstituteRejection),
+          "possibleSubstituteWorkerPay" -> model.possibleSubstituteWorkerPay,
+          "wouldWorkerPayHelper" -> model.wouldWorkerPayHelper
+        )
+      )
+    )
+  }
+
   def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview =
     Interview(
       correlationId = userAnswers.cacheMap.id,

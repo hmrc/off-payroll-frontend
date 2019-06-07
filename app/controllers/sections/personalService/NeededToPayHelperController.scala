@@ -16,36 +16,39 @@
 
 package controllers.sections.personalService
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.NeededToPayHelperFormProvider
+import models.{ErrorTemplate, Mode}
 import javax.inject.Inject
 import models.Answers._
 import models.{ArrangedSubstitute, ErrorTemplate, Mode}
 import navigation.Navigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import views.html.sections.personalService.NeededToPayHelperView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
-import views.html.sections.personalService.NeededToPayHelperView
 
 import scala.concurrent.Future
 
-class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnector,
-                                            navigator: Navigator,
-                                            identify: IdentifierAction,
+class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
-                                            controllerComponents: MessagesControllerComponents,
+                                            controllerHelper: ControllerHelper,
                                             optimisedView: NeededToPayHelperView,
                                             subOptimisedView: SubOptimisedNeededToPayHelperView,
-                                            decisionService: DecisionService,
+                                            controllerComponents: MessagesControllerComponents,
                                             implicit val appConfig: FrontendAppConfig)
   extends BaseController(controllerComponents) with FeatureSwitching {
 
@@ -63,14 +66,7 @@ class NeededToPayHelperController @Inject()(dataCacheConnector: DataCacheConnect
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,NeededToPayHelperPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(NeededToPayHelperPage, mode)(answers)
-            val exit = continue
-            decisionService.decide(answers, continue, ErrorTemplate("neededToPayHelper.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value, NeededToPayHelperPage, callDecisionService = true)
       }
     )
   }

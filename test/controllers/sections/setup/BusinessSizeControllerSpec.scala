@@ -16,40 +16,43 @@
 
 package controllers.sections.setup
 
+import akka.util.ByteString
 import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.BusinessSizeFormProvider
-import models.{Answers, BusinessSize, NormalMode}
+import models.{Answers, BusinessSize, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import pages.sections.setup.BusinessSizePage
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import pages.sections.personalService.WouldWorkerPaySubstitutePage
+import pages.sections.setup.{BusinessSizePage, ContractStartedPage}
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.BusinessSizeView
 
-class BusinessSizeControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+import scala.concurrent.Future
+class BusinessSizeControllerSpec extends ControllerSpecBase {
 
   val formProvider = new BusinessSizeFormProvider()
   val form = formProvider()
 
   val view = injector.instanceOf[BusinessSizeView]
-
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BusinessSizeController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = mockDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    controllerHelper = mockControllerHelper
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -76,12 +79,13 @@ class BusinessSizeControllerSpec extends ControllerSpecBase with MockDataCacheCo
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("businessSize[0]", BusinessSize.options.head.value))
 
+      mockConstructAnswers()(userAnswers.set(BusinessSizePage,0,Seq(BusinessSize.Turnover)))
+
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

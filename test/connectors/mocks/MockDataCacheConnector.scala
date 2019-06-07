@@ -17,6 +17,7 @@
 package connectors.mocks
 
 import connectors.DataCacheConnector
+import models.{DecisionResponse, ErrorResponse, ResultEnum}
 import org.scalamock.scalatest.MockFactory
 import uk.gov.hmrc.http.cache.client.CacheMap
 

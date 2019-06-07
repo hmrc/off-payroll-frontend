@@ -115,18 +115,19 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     Score(Some(SetupEnum.CONTINUE), Some(ExitEnum.CONTINUE), Some(HIGH), Some(LOW), None, Some(LOW)),
     OUTSIDE_IR35
   )
-
-  val error = ErrorTemplate("error.title")
-
+  
   def onwardRoute = Call("GET", "/continue")
 
   def exitRoute = Call("GET", "/result")
+
+  implicit val dataRequest = DataRequest(request, "", userAnswers)
 
   object Section extends UserAnswersUtils
 
   "Calling the decide service" should {
 
     "determine the view when outside and soletrader" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -169,6 +170,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when outside and financial risk" in {
 
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(ContractStartedPage,1, true)
@@ -208,6 +210,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
 
     "determine the view when outside and control" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -249,6 +252,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when outside and current substitution" in {
 
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(ContractStartedPage,1, true)
@@ -286,6 +290,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when outside and future substitution due to not yet arranged" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -326,6 +331,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when outside and future substitution" in {
 
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(ContractStartedPage,1, false)
@@ -365,6 +371,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "route to the error page if cannot route to a result page based on the information provided" in {
 
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
@@ -399,6 +406,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
 
     "determine the view when inside and route to employed view" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -437,6 +445,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
 
     "determine the view when inside and route to office holder inside view" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -515,6 +524,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when inside and route to inside view" in {
 
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
@@ -552,6 +562,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
 
     "determine the view when self employed and route to self employed view" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -591,6 +602,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when unknown and route to indeterminate view" in {
 
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, SoleTrader)
@@ -627,6 +639,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when employed and route to office holder view" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -665,6 +678,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
     "determine the view when employed and route to employed view" in {
 
+
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
         .set(WorkerTypePage,2, LimitedCompany)
@@ -701,6 +715,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       result.toString() must include(messagesApi("result.partParcel.summary"))
     }
     "determine the view when employed and route to employed view with an error form" in {
+
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -742,8 +757,6 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "determine the view when no answers or sessionkeys are populated" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
       val answers: Seq[AnswerSection] = Seq()
 
       mockInternalServerError(Html("Error page"))
@@ -758,40 +771,44 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "return a continue decision based on the interview" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      mockDecide(Interview(userAnswers))(Right(response))
       mockDecide(Interview(userAnswers))(Right(response))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
     }
-    "return a continue decision based on the interview when control is empty" in {
+    "return a continue decision based on the interview when control is empty (and add decision if optimised is on)" in {
+      enable(OptimisedFlow)
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      mockDecide(Interview(userAnswers))(Right(riskResponse))
       mockDecide(Interview(userAnswers))(Right(riskResponse))
       mockLog(Interview(userAnswers), riskResponse)(Right(true))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
-
+      Some(controllers.routes.ResultController.onPageLoad().url)
     }
     "return a continue decision based on the interview when risk is empty" in {
+      enable(OptimisedFlow)
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      mockDecide(Interview(userAnswers))(Right(controlResponse))
       mockDecide(Interview(userAnswers))(Right(controlResponse))
       mockLog(Interview(userAnswers), controlResponse)(Right(true))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/continue")
+
+    }
+
+    "return a continue decision based on the interview when risk is empty (and not add a decision if optimised flow is off)" in {
+
+      mockDecide(Interview(userAnswers))(Right(controlResponse))
+      mockLog(Interview(userAnswers), controlResponse)(Right(true))
+
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
@@ -799,13 +816,10 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
     }
     "return a decision based on the interview" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
-      mockDecide(Interview(userAnswers))(Right(exitResponse))
       mockDecide(Interview(userAnswers))(Right(exitResponse))
       mockLog(Interview(userAnswers), exitResponse)(Right(true))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(controllers.routes.ResultController.onPageLoad().url)
@@ -813,31 +827,27 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     "handle 400 errors" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
       mockDecide(Interview(userAnswers))(Left(ErrorResponse(400, "Bad")))
-      mockDecide(Interview(userAnswers))(Left(ErrorResponse(400, "Bad")))
-      mockStandardError(Html("Error page"))
+      mockInternalServerError(Html("Error page"))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
-      status(result) mustBe BAD_REQUEST
+      status(result) mustBe INTERNAL_SERVER_ERROR
       contentAsString(result) mustBe "Error page"
     }
 
     "handle 500 errors" in {
 
-      implicit val dataRequest = DataRequest(request, "", userAnswers)
-
+      
       mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "Internal error")))
-      mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "Internal error")))
-      mockStandardError(Html("Error page"))
+      mockInternalServerError(Html("Error page"))
 
-      val result = service.decide(userAnswers, onwardRoute, error)
+      val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
       contentAsString(result) mustBe "Error page"
     }
+
   }
 
 }

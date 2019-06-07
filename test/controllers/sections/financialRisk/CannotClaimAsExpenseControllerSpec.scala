@@ -17,8 +17,8 @@
 package controllers.sections.financialRisk
 
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
 import controllers.actions._
+import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.CannotClaimAsExpenseFormProvider
 import models.Answers._
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
@@ -29,13 +29,12 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
-class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
 
   val formProvider = new CannotClaimAsExpenseFormProvider()
   val form = formProvider()
@@ -43,15 +42,13 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockDat
   val view = injector.instanceOf[CannotClaimAsExpenseView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new CannotClaimAsExpenseController(
-    dataCacheConnector = mockDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockDecisionService,
+    mockControllerHelper,
     appConfig = frontendAppConfig
   )
 
@@ -78,10 +75,8 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockDat
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
-
       val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
-
+      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
@@ -91,7 +86,6 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase with MockDat
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

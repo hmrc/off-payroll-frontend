@@ -16,36 +16,30 @@
 
 package controllers.sections.personalService
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.DidPaySubstituteFormProvider
-import javax.inject.Inject
-import models.Answers._
-import models.{ArrangedSubstitute, ErrorTemplate, Mode}
-import navigation.Navigator
+import models.Mode
 import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.{CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.personalService.{DidPaySubstituteView => SubOptimisedDidPaySubstituteView}
 import views.html.sections.personalService.DidPaySubstituteView
-
 import scala.concurrent.Future
 
-class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
-                                           navigator: Navigator,
-                                           identify: IdentifierAction,
+class DidPaySubstituteController @Inject()(identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: DidPaySubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
+                                           controllerHelper: ControllerHelper,
                                            optimisedView: DidPaySubstituteView,
                                            subOptimisedView: SubOptimisedDidPaySubstituteView,
-                                           decisionService: DecisionService,
                                            implicit val appConfig: FrontendAppConfig)
   extends BaseController(controllerComponents) with FeatureSwitching {
 
@@ -63,13 +57,7 @@ class DidPaySubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,DidPaySubstitutePage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(DidPaySubstitutePage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("didPaySubstitute.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value,DidPaySubstitutePage,callDecisionService = true)
       }
     )
   }

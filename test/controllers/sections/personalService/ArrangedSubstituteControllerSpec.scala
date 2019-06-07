@@ -36,8 +36,6 @@ import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView 
 
 class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
-  def onwardRoute = Call("GET", "/foo")
-
   val formProvider = new ArrangedSubstituteFormProvider()
   val form = formProvider()
 
@@ -45,25 +43,24 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
   val subOptimisedView = injector.instanceOf[SubOptimisedArrangedSubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ArrangedSubstituteController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
-    formProvider,
+    formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
+    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
-  val validData = Map(ArrangedSubstitutePage.toString -> Json.toJson(Answers(ArrangedSubstitute.values.head,0)))
+  def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+
+  val validData = Map(ArrangedSubstitutePage.toString -> Json.toJson(Answers(ArrangedSubstitute.values.head, 0)))
 
   "ArrangedSubstitute Controller" must {
 
     "For the OptimisedJourney" should {
-
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
         enable(OptimisedFlow)
@@ -85,6 +82,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
 
+        mockConstructAnswers()(userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -145,6 +143,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockConstructAnswers()(userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

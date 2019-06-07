@@ -25,6 +25,7 @@ import models.Answers._
 import models.ChooseWhereWork.WorkerChooses
 import models._
 import navigation.FakeNavigator
+import pages.ResultPage
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
 import play.api.libs.json._
@@ -32,12 +33,11 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.FakeTimestamp
 import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 import views.html.sections.control.ChooseWhereWorkView
 
 class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
-
-  def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new ChooseWhereWorkFormProvider()
   val form = formProvider()
@@ -46,17 +46,15 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
   val subOptimisedView = injector.instanceOf[SubOptimisedChooseWhereWorkView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ChooseWhereWorkController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
+    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    mockDecisionService,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -101,10 +99,9 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
-
       val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
 
+      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
@@ -119,12 +116,9 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     "redirect to the next page when valid data is submitted for optimised view" in {
       enable(OptimisedFlow)
 
-      implicit val hc = new HeaderCarrier()
-
       val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
-
+      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
 

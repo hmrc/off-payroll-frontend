@@ -41,12 +41,13 @@ import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
 import views.html.results._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.{ExecutionContext, Future}
 
 trait DecisionService {
 
-  def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
+  def decide(userAnswers: UserAnswers, continueResult: Call)
             (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result]
 
   def determineResultView(answerSections: Seq[AnswerSection],
@@ -78,53 +79,53 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   val resultForm: Form[Boolean] = formProvider()
 
-  override def decide(userAnswers: UserAnswers, continueResult: Call, errorResult: ErrorTemplate)
+  override def decide(userAnswers: UserAnswers, continueResult: Call)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
-
     for {
-      decision <- decisionConnector.decide(interview)
-      _ <- logResult(decision,interview)
-      redirect <- redirectResult(interview,errorResult,continueResult)
+      decisionServiceResult <- decisionConnector.decide(interview)
+      _ <- logResult(decisionServiceResult,interview)
+      redirect <- redirectResult(interview,continueResult,decisionServiceResult)
     } yield redirect
   }
 
   private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)
-                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Either[ErrorResponse, Boolean]] = {
+                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
     decision match {
-      case Right(DecisionResponse(_, _, _, enum)) if enum != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,decision.right.get)
+      case Right(response) if response.result != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,response)
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT,"No log needed")))
     }
   }
 
-  private def redirectResult(interview: Interview,errorResult: ErrorTemplate,continueResult: Call)
-                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Result] = {
-    decisionConnector.decide(interview).map {
-      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => Redirect(continueResult)
-      case Right(DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35)) => redirectResultsPage(ResultEnum.INSIDE_IR35)
-      case Right(DecisionResponse(_, _, Score(_,_,_, control, financialRisk, _), ResultEnum.OUTSIDE_IR35)) =>
-        redirectResultsPage(ResultEnum.OUTSIDE_IR35, control, financialRisk)
-      case Right(DecisionResponse(_, _, _, ResultEnum.SELF_EMPLOYED)) => redirectResultsPage(ResultEnum.SELF_EMPLOYED)
-      case Right(DecisionResponse(_, _, _, ResultEnum.EMPLOYED)) => redirectResultsPage(ResultEnum.EMPLOYED)
-      case Right(DecisionResponse(_, _, _, ResultEnum.UNKNOWN)) => redirectResultsPage(ResultEnum.UNKNOWN)
-      case Left(error) => redirectErrorPage(error.status, errorResult)
-      case _ => redirectErrorPage(INTERNAL_SERVER_ERROR, errorResult)
+  private def redirectResult(interview: Interview,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])
+                            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= Future {
+    (isEnabled(OptimisedFlow), decisionResponse) match {
+      case (_,Right(result)) if interview.officeHolder.getOrElse(false) => earlyExitRedirect(result)
+      case (false, Right(result)) => finalResultRedirect(result, continueResult)
+      case (_, Right(_)) => Redirect(continueResult)
+      case (_, Left(_)) => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
   }
 
-  def redirectErrorPage(status: Int, errorResult: ErrorTemplate)(implicit rh: Request[_]): Result = {
-
-    val errorTemplate = errorHandler.standardErrorTemplate(
-      errorResult.pageTitle,
-      errorResult.heading.getOrElse(errorResult.defaultErrorHeading),
-      errorResult.message.getOrElse(errorResult.defaultErrorMessage)
-    )
-
-    Status(status)(errorTemplate)
+  private def earlyExitRedirect(decisionResponse: DecisionResponse)
+                               (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
+    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
+    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+    case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
   }
 
-  def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
-                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
+  private def finalResultRedirect(decisionResponse: DecisionResponse,continueResult: Call)
+                                 (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
+    decisionResponse match {
+      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED) => Redirect(continueResult)
+      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
+      case DecisionResponse(_, _, _, result) => redirectResultsPage(result)
+      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+    }
+  }
+
+  private def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
+                                  financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
 
     val result: (String, String) = SessionKeys.result -> resultValue.toString
     val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)
@@ -197,4 +198,3 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     }
   }
 }
-

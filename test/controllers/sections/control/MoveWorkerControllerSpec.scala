@@ -30,12 +30,10 @@ import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.control.MoveWorkerView
 import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
+import views.html.sections.control.MoveWorkerView
 
 class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
-
-  def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new MoveWorkerFormProvider()
   val form = formProvider()
@@ -43,17 +41,17 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
   val optimisedView = injector.instanceOf[MoveWorkerView]
   val subOptimisedView = injector.instanceOf[SubOptimisedMoveWorkerView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
+  def controller(dataRetrievalAction: DataRetrievalAction =
+                 FakeEmptyCacheMapDataRetrievalAction) = new MoveWorkerController(
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
+    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -101,6 +99,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers()(userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -112,6 +111,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options().head.value))
+      mockConstructAnswers()(userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

@@ -36,14 +36,12 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
 import views.html.CustomisePDFView
 
-class PDFControllerSpec extends ControllerSpecBase with MockDataCacheConnector with MockPDFService {
+class PDFControllerSpec extends ControllerSpecBase {
 
   override def beforeEach = {
     super.beforeEach()
     enable(PrintPDF)
   }
-
-  def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new CustomisePDFFormProvider()
   val form = formProvider()

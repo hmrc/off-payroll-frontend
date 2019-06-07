@@ -25,8 +25,6 @@ import views.html.sections.setup.WorkerAdvisoryView
 
 class WorkerAdvisoryControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = Call("POST", "/foo")
-
   val view = injector.instanceOf[WorkerAdvisoryView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WorkerAdvisoryController(

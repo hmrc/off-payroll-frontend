@@ -117,7 +117,11 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
         case Some(Answers(No,_)) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
         case _ => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
       }),
-    DidPaySubstitutePage -> (_ => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)),
+    DidPaySubstitutePage -> (answers =>
+      answers.get(DidPaySubstitutePage) match {
+        case Some(Answers(true,_)) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        case _ => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+      }),
     RejectSubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
         case (Some(Answers(true,_)), Some(Answers(true,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
@@ -148,7 +152,12 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     //Part and Parcel Section
     BenefitsPage -> (_ => partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode)),
     LineManagerDutiesPage -> (_ => partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode)),
-    InteractWithStakeholdersPage -> (_ => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)),
+    InteractWithStakeholdersPage -> { answer =>
+      answer.get(InteractWithStakeholdersPage) match {
+        case Some(Answers(true,_)) => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
+        case Some(ans) if !ans.answer && isEnabled(OptimisedFlow) => routes.CheckYourAnswersController.onPageLoad()
+        case _ => routes.ResultController.onPageLoad()
+      }},
     IdentifyToStakeholdersPage -> (_ =>
       if (isEnabled(OptimisedFlow)) {
         routes.CheckYourAnswersController.onPageLoad()

@@ -17,8 +17,8 @@
 package controllers.sections.financialRisk
 
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
 import controllers.actions._
+import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.PutRightAtOwnCostFormProvider
 import models.Answers._
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
@@ -29,13 +29,12 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
 
-class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
   val formProvider = new PutRightAtOwnCostFormProvider()
   val form = formProvider()
@@ -43,15 +42,13 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCa
   val view = injector.instanceOf[PutRightAtOwnCostView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PutRightAtOwnCostController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockDecisionService,
+    mockControllerHelper,
     frontendAppConfig
   )
 
@@ -81,7 +78,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCa
       implicit val hc = new HeaderCarrier()
 
       val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
-
+      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers)(onwardRoute)
 
@@ -90,7 +87,6 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase with MockDataCa
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

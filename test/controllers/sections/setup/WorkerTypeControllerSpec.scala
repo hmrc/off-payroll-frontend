@@ -17,26 +17,21 @@
 package controllers.sections.setup
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
-import models.{Answers, NormalMode, WorkerType}
-import navigation.FakeNavigator
+import models._
+import pages.sections.control.MoveWorkerPage
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
-class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
-
-  def onwardRoute = Call("GET", "/foo")
+class WorkerTypeControllerSpec extends ControllerSpecBase {
 
   val formProvider = new WorkerTypeFormProvider()
   val formProviderInt = new WorkerUsingIntermediaryFormProvider()
@@ -48,8 +43,6 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
     new WorkerTypeController(
-      mockDataCacheConnector,
-      new FakeNavigator(onwardRoute),
       FakeIdentifierAction,
       dataRetrievalAction,
       new DataRequiredActionImpl(messagesControllerComponents),
@@ -58,7 +51,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConn
       messagesControllerComponents,
       view,
       viewInt,
-      mockDecisionService,
+      mockControllerHelper,
       frontendAppConfig
     )
 
@@ -107,6 +100,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConn
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
 
+      mockConstructAnswers()(userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
@@ -120,7 +114,9 @@ class WorkerTypeControllerSpec extends ControllerSpecBase with MockDataCacheConn
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockSave(CacheMap(cacheMapId, validDataInt))(CacheMap(cacheMapId, validDataInt))
+      mockConstructAnswers()(userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

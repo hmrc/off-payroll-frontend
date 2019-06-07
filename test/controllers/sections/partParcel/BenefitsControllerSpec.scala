@@ -17,23 +17,24 @@
 package controllers.sections.partParcel
 
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
 import controllers.actions._
+import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.BenefitsFormProvider
+import models.ChooseWhereWork.WorkerChooses
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import pages.sections.control.ChooseWhereWorkPage
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.BenefitsView
 
-class BenefitsControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class BenefitsControllerSpec extends ControllerSpecBase {
 
   val formProvider = new BenefitsFormProvider()
   val form = formProvider()
@@ -41,15 +42,13 @@ class BenefitsControllerSpec extends ControllerSpecBase with MockDataCacheConnec
   val view = injector.instanceOf[BenefitsView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BenefitsController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockDecisionService,
+    mockControllerHelper,
     frontendAppConfig
   )
 
@@ -76,20 +75,15 @@ class BenefitsControllerSpec extends ControllerSpecBase with MockDataCacheConnec
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
-
-      val userAnswers = UserAnswers("id").set(BenefitsPage, 0,true)
-
+      mockConstructAnswers()(UserAnswers("id")set(BenefitsPage,0, true))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
-
+      mockDecide(UserAnswers("id")set(BenefitsPage,0, true))(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

@@ -18,17 +18,17 @@ package controllers
 
 import assets.messages.CheckYourAnswersMessages
 import controllers.actions._
+import models.{DecisionResponse, ResultEnum, Score}
 import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.CheckYourAnswersService
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = Call("GET", "/foo")
-
   val view = injector.instanceOf[CheckYourAnswersView]
+  val mockCheckAnswerService = app.injector.instanceOf[CheckYourAnswersService]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new CheckYourAnswersController(
     new FakeNavigator(onwardRoute),
@@ -37,7 +37,8 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     view = view,
-    app.injector.instanceOf[CheckYourAnswersService],
+    mockCheckAnswerService,
+    mockOptimisedDecisionService,
     frontendAppConfig
   )
 
@@ -50,6 +51,8 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+      mockMultipleCall()(Right(DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.INSIDE_IR35)))
+      mockResult()(Call("/POST","/foo"))
       val result = controller().onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)

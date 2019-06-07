@@ -20,10 +20,13 @@ import config.FrontendAppConfig
 import connectors.httpParsers.DecisionHttpParser.DecisionReads
 import connectors.httpParsers.LogHttpParser.LogReads
 import javax.inject.Inject
+
+import MultiDecision.Result
+import cats.data.EitherT
 import models._
 import models.logging.LogInterview
 import play.api.Logger
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Writes}
 import play.mvc.Http.Status._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
@@ -47,8 +50,18 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
   def decide(decisionRequest: Interview)
             (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)}")
+    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(Interview.writes)}")
     httpClient.POST(decideUrl, decisionRequest)(Interview.writes, DecisionReads, hc, ec) recover handleUnexpectedError
+  }
+
+  def decideSection(decisionRequest: Interview,writer: Writes[Interview] = Interview.writes)
+            (implicit hc: HeaderCarrier, ec: ExecutionContext): Result[Boolean] = EitherT {
+    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(writer)}")
+    (httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError).map {
+      case Right(decision) if decision.result != ResultEnum.NOT_MATCHED => Left(Right(decision))
+      case Right(_) => Right(true)
+      case Left(error) => Left(Left(error))
+    }
   }
 
   def log(decisionRequest: Interview,decisionResponse: DecisionResponse)

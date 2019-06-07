@@ -21,6 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
+
 import models.{NormalMode, Timestamp}
 import navigation.Navigator
 import pages.ResultPage
@@ -28,6 +29,8 @@ import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
 import utils.UserAnswersUtils
+
+import scala.concurrent.Future
 
 class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
@@ -38,6 +41,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  navigator: Navigator,
                                  dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
+                                 compareAnswerService: CompareAnswerService,
                                  implicit val conf: FrontendAppConfig) extends BaseController(controllerComponents) with UserAnswersUtils {
 
   val resultForm: Form[Boolean] = formProvider()
@@ -45,12 +49,10 @@ class ResultController @Inject()(identify: IdentifierAction,
   private val version = conf.decisionVersion
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-
-    val timestamp = CompareAnswerService.constructAnswers(request, time.timestamp(), ResultPage)
-
-    dataCacheConnector.save(timestamp.cacheMap).map(
-      _ => Ok(decisionService.determineResultView(answers))
-    )
+    val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage)
+    dataCacheConnector.save(timestamp.cacheMap).map { _ =>
+      Ok(decisionService.determineResultView(answers))
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
@@ -63,4 +65,5 @@ class ResultController @Inject()(identify: IdentifierAction,
       }
     )
   }
+
 }

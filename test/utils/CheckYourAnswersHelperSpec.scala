@@ -34,9 +34,7 @@ import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.WorkerType.LimitedCompany
-import models.{AboutYouAnswer, CheckMode, Enumerable, UserAnswers}
-import models._
-import pages._
+import models.{AboutYouAnswer, Enumerable, UserAnswers, _}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}

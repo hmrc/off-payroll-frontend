@@ -16,31 +16,27 @@
 
 package controllers.sections.financialRisk
 
-import config.FrontendAppConfig
-import connectors.DataCacheConnector
-import controllers.BaseController
-import controllers.actions._
-import forms.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
-import models.Answers._
+
+import config.FrontendAppConfig
+import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
+import forms.HowWorkerIsPaidFormProvider
 import models.{HowWorkerIsPaid, Mode}
-import navigation.Navigator
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
 import views.html.subOptimised.sections.financialRisk.HowWorkerIsPaidView
 
 import scala.concurrent.Future
 
-class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector,
-                                          navigator: Navigator,
-                                          identify: IdentifierAction,
+class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: HowWorkerIsPaidFormProvider,
                                           controllerComponents: MessagesControllerComponents,
                                           view: HowWorkerIsPaidView,
+                                          controllerHelper: ControllerHelper,
                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[HowWorkerIsPaid] = formProvider()
@@ -53,12 +49,7 @@ class HowWorkerIsPaidController @Inject()(dataCacheConnector: DataCacheConnector
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,HowWorkerIsPaidPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(HowWorkerIsPaidPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,HowWorkerIsPaidPage)
     )
   }
 }

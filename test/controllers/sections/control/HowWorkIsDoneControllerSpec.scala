@@ -16,16 +16,17 @@
 
 package controllers.sections.control
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.HowWorkIsDoneFormProvider
 import models.Answers._
-import models.{Answers, HowWorkIsDone, NormalMode}
+import models.{AboutYouAnswer, Answers, HowWorkIsDone, NormalMode}
 import navigation.FakeNavigator
 import pages.sections.control.HowWorkIsDonePage
+import pages.sections.setup.AboutYouPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -34,9 +35,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.control.HowWorkIsDoneView
 import views.html.subOptimised.sections.control.{HowWorkIsDoneView => SubOptimisedHowWorkIsDoneView}
 
-class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
-
-  def onwardRoute = Call("GET", "/foo")
+class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new HowWorkIsDoneFormProvider()
   val form = formProvider()
@@ -45,16 +44,15 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
   val subOptimisedView = injector.instanceOf[SubOptimisedHowWorkIsDoneView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkIsDoneController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
+    controllerHelper = mockControllerHelper,
+    appConfig = frontendAppConfig,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView,
-    frontendAppConfig
+    subOptimisedView = subOptimisedView
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -102,6 +100,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers()(userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -115,6 +114,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers()(userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

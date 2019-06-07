@@ -16,32 +16,27 @@
 
 package controllers.sections.partParcel
 
-import config.FrontendAppConfig
-import connectors.DataCacheConnector
-import controllers.BaseController
-import controllers.actions._
-import forms.InteractWithStakeholdersFormProvider
 import javax.inject.Inject
-import models.Answers._
+
+import config.FrontendAppConfig
+import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
+import forms.InteractWithStakeholdersFormProvider
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.partParcel.InteractWithStakeholdersView
 
 import scala.concurrent.Future
 
-class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                   navigator: Navigator,
-                                                   identify: IdentifierAction,
+class InteractWithStakeholdersController @Inject()(identify: IdentifierAction,
                                                    getData: DataRetrievalAction,
                                                    requireData: DataRequiredAction,
                                                    formProvider: InteractWithStakeholdersFormProvider,
                                                    controllerComponents: MessagesControllerComponents,
                                                    view: InteractWithStakeholdersView,
-                                                   decisionService: DecisionService,
+                                                   controllerHelper: ControllerHelper,
                                                    implicit val appConfig: FrontendAppConfig
                                                   ) extends BaseController(controllerComponents) {
 
@@ -56,13 +51,7 @@ class InteractWithStakeholdersController @Inject()(dataCacheConnector: DataCache
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,InteractWithStakeholdersPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(InteractWithStakeholdersPage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("interactWithStakeholders.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value, InteractWithStakeholdersPage, callDecisionService = true)
       }
     )
   }

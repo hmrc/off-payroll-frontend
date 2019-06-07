@@ -22,9 +22,10 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.Answers._
-import models.{Answers, NormalMode, ScheduleOfWorkingHours}
+import models.{Answers, HowWorkerIsPaid, NormalMode, ScheduleOfWorkingHours}
 import navigation.FakeNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
+import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -33,9 +34,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.control.ScheduleOfWorkingHoursView
 import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
-class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
-
-  def onwardRoute = Call("GET", "/foo")
+class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new ScheduleOfWorkingHoursFormProvider()
   val form = formProvider()
@@ -44,16 +43,15 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
   val subOptimisedView = injector.instanceOf[SubOptimisedScheduleOfWorkingHoursView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ScheduleOfWorkingHoursController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
+    appConfig = frontendAppConfig,
+    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView,
-    frontendAppConfig
+    subOptimisedView = subOptimisedView
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -101,6 +99,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers()(userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -114,6 +113,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockConstructAnswers()(userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

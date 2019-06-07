@@ -16,26 +16,32 @@
 
 package controllers.sections.partParcel
 
+import akka.util.ByteString
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
 import controllers.actions._
+import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.IdentifyToStakeholdersFormProvider
 import models.Answers._
 import models.IdentifyToStakeholders.WorkForEndClient
 import models._
 import navigation.FakeNavigator
+import org.mockito.Matchers
+import org.mockito.Mockito.when
 import pages.sections.partParcel.IdentifyToStakeholdersPage
+import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
 
-class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+import scala.concurrent.Future
 
-  def onwardRoute = Call("GET", "/foo")
+class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
   val formProvider = new IdentifyToStakeholdersFormProvider()
   val form = formProvider()
@@ -43,15 +49,13 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockD
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockDecisionService,
+    mockControllerHelper,
     frontendAppConfig
   )
 
@@ -78,19 +82,16 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase with MockD
 
     "redirect to the next page when valid data is submitted" in {
 
-      implicit val hc = new HeaderCarrier()
-
-      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0, WorkForEndClient)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0,IdentifyToStakeholders.WorkForEndClient)
       mockDecide(userAnswers)(onwardRoute)
+      mockConstructAnswers()(userAnswers)
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

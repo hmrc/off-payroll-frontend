@@ -16,6 +16,9 @@
 
 package controllers.sections.personalService
 
+import akka.util.ByteString
+import connectors.FakeDataCacheConnector
+import controllers.ControllerHelper
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
@@ -23,19 +26,24 @@ import controllers.actions._
 import forms.DidPaySubstituteFormProvider
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import pages.sections.personalService.DidPaySubstitutePage
+import org.mockito.Matchers
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
+import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, WouldWorkerPaySubstitutePage}
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
+import play.api.mvc.{Call, ResponseHeader, Result}
+import play.api.mvc.Results.Redirect
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.personalService.DidPaySubstituteView
 import views.html.subOptimised.sections.personalService.{DidPaySubstituteView => SubOpimisedDidPaySubstituteView}
 
-class DidPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DidPaySubstituteFormProvider()
   val form = formProvider()
@@ -44,26 +52,24 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCac
   val subOptimisedView = injector.instanceOf[SubOpimisedDidPaySubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new DidPaySubstituteController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
+    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    mockDecisionService,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
-  val validData = Map(DidPaySubstitutePage.toString -> Json.toJson(Answers(true,0)))
+  def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+
+  val validData = Map(DidPaySubstitutePage.toString -> Json.toJson(Answers(true, 0)))
 
   "DidPaySubstitute Controller" must {
 
     "If the OptimisedFlow is enabled" should {
-
-      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
       "return OK and the correct view for a GET" in {
         enable(OptimisedFlow)
@@ -85,10 +91,9 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCac
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
 
-        val userAnswers = UserAnswers("id").set(DidPaySubstitutePage, 0, true)
+        mockConstructAnswers()(userAnswers.set(DidPaySubstitutePage,0,true))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
@@ -154,6 +159,7 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCac
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
+        mockConstructAnswers()(userAnswers)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

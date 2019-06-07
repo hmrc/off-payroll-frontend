@@ -15,32 +15,26 @@
  */
 
 package controllers.sections.financialRisk
+import javax.inject.Inject
 
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.CannotClaimAsExpenseFormProvider
-import javax.inject.Inject
-import models.Answers._
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
 import scala.concurrent.Future
 
-class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConnector,
-                                               navigator: Navigator,
-                                               identify: IdentifierAction,
+class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
                                                getData: DataRetrievalAction,
                                                requireData: DataRequiredAction,
                                                formProvider: CannotClaimAsExpenseFormProvider,
                                                controllerComponents: MessagesControllerComponents,
                                                view: CannotClaimAsExpenseView,
-                                               decisionService: DecisionService,
+                                               controllerHelper: ControllerHelper,
                                                implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form = formProvider()
@@ -54,13 +48,7 @@ class CannotClaimAsExpenseController @Inject()(dataCacheConnector: DataCacheConn
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       values => {
-        val answers = CompareAnswerService.constructAnswers(request,values,CannotClaimAsExpensePage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(CannotClaimAsExpensePage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("cannotClaimAsExpense.title"))
-          }
-        )
+        controllerHelper.redirect(mode,values,CannotClaimAsExpensePage,callDecisionService = true)
       }
     )
   }

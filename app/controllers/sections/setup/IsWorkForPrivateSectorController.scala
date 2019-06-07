@@ -18,10 +18,11 @@ package controllers.sections.setup
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.{BaseController, ControllerHelper}
 import controllers.actions._
 import forms.IsWorkForPrivateSectorFormProvider
 import javax.inject.Inject
+
 import models.Mode
 import navigation.Navigator
 import pages.sections.setup.IsWorkForPrivateSectorPage
@@ -40,6 +41,7 @@ class IsWorkForPrivateSectorController @Inject()(dataCacheConnector: DataCacheCo
                                                  formProvider: IsWorkForPrivateSectorFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: IsWorkForPrivateSectorView,
+                                                 controllerHelper: ControllerHelper,
                                                  implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -51,12 +53,7 @@ class IsWorkForPrivateSectorController @Inject()(dataCacheConnector: DataCacheCo
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,IsWorkForPrivateSectorPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(IsWorkForPrivateSectorPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,IsWorkForPrivateSectorPage)
     )
   }
 

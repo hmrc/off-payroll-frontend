@@ -16,30 +16,25 @@
 
 package controllers.sections.setup
 
+import javax.inject.Inject
+
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
-import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.{BaseController, ControllerHelper}
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
-import javax.inject.Inject
-import models.Answers._
 import models.requests.DataRequest
 import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
-import navigation.Navigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.mvc._
-import services.CompareAnswerService
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
 
 import scala.concurrent.Future
 
-class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
-                                   navigator: Navigator,
-                                   identify: IdentifierAction,
+class AboutYouController @Inject()(identify: IdentifierAction,
                                    getData: DataRetrievalAction,
                                    requireData: DataRequiredAction,
                                    aboutYouFormProvider: AboutYouFormProvider,
@@ -47,6 +42,7 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
                                    controllerComponents: MessagesControllerComponents,
                                    aboutYouView: AboutYouView,
                                    whichDescribesYouView: WhichDescribesYouView,
+                                   controllerHelper: ControllerHelper,
                                    implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
   
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()
@@ -72,10 +68,7 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
     whichDescribedForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(whichDescribesYouView(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value, WhichDescribesYouPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(WhichDescribesYouPage, mode)(answers)).addingToSession(SessionKeys.userType -> UserType(value))
-        )
+        controllerHelper.redirect(mode,value,WhichDescribesYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
     )
 
@@ -83,10 +76,7 @@ class AboutYouController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(aboutYouView(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,AboutYouPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(AboutYouPage, mode)(answers)).addingToSession(SessionKeys.userType -> UserType(value))
-        )
+        controllerHelper.redirect(mode,value,AboutYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
     )
 }

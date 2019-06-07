@@ -16,32 +16,29 @@
 
 package controllers.sections.control
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.ScheduleOfWorkingHoursFormProvider
-import javax.inject.Inject
 import models.{Mode, ScheduleOfWorkingHours}
-import navigation.Navigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
-import play.api.mvc._
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
 import play.twirl.api.HtmlFormat
-import services.CompareAnswerService
 import views.html.sections.control.ScheduleOfWorkingHoursView
 import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
 import scala.concurrent.Future
 
-class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                 navigator: Navigator,
-                                                 identify: IdentifierAction,
+class ScheduleOfWorkingHoursController @Inject()(identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: ScheduleOfWorkingHoursFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
+                                                 controllerHelper: ControllerHelper,
                                                  optimisedView: ScheduleOfWorkingHoursView,
                                                  subOptimisedView: SubOptimisedScheduleOfWorkingHoursView,
                                                  implicit val appConfig: FrontendAppConfig
@@ -60,12 +57,7 @@ class ScheduleOfWorkingHoursController @Inject()(dataCacheConnector: DataCacheCo
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request, value, ScheduleOfWorkingHoursPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ScheduleOfWorkingHoursPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,ScheduleOfWorkingHoursPage)
     )
   }
 }

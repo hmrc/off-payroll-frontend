@@ -18,11 +18,14 @@ package repositories
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Named, Singleton}
+
+import models.{DecisionResponse, ErrorResponse, ResultEnum}
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.bson.{BSONDocument, BSONObjectID}
+import play.mvc.Http
+import reactivemongo.bson.{BSONBoolean, BSONDocument, BSONDocumentReader, BSONObjectID}
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
@@ -85,4 +88,5 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
 
   def get(id: String): Future[Option[CacheMap]] =
     collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap]
+
 }

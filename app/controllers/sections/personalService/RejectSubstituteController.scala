@@ -16,33 +16,35 @@
 
 package controllers.sections.personalService
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.RejectSubstituteFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import views.html.sections.personalService.RejectSubstituteView
 import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
 import services.CompareAnswerService
-import views.html.sections.personalService.RejectSubstituteView
 import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 import scala.concurrent.Future
 
-class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
-                                           navigator: Navigator,
-                                           identify: IdentifierAction,
+class RejectSubstituteController @Inject()(identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            formProvider: RejectSubstituteFormProvider,
                                            controllerComponents: MessagesControllerComponents,
+                                           controllerHelper: ControllerHelper,
                                            optimisedView: RejectSubstituteView,
                                            subOptimisedView: SubOptimisedRejectSubstituteView,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
@@ -60,12 +62,7 @@ class RejectSubstituteController @Inject()(dataCacheConnector: DataCacheConnecto
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,RejectSubstitutePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(RejectSubstitutePage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,RejectSubstitutePage)
     )
   }
 }

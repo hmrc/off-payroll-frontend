@@ -16,10 +16,11 @@
 
 package controllers.sections.setup
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import controllers.BaseController
 import controllers.actions._
-import javax.inject.Inject
 import models.NormalMode
 import navigation.Navigator
 import pages.sections.setup.AboutYourResultPage

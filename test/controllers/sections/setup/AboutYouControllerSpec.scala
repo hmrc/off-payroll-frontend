@@ -16,29 +16,32 @@
 
 package controllers.sections.setup
 
+import akka.util.ByteString
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
-import models.Answers._
 import models._
 import navigation.FakeNavigator
-import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage}
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json._
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
 
-class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
+import scala.concurrent.Future
 
-  def onwardRoute = Call("GET", "/foo")
+class AboutYouControllerSpec extends ControllerSpecBase {
 
   val aboutYouFormProvider = new AboutYouFormProvider()
   val aboutYouForm = aboutYouFormProvider()
@@ -50,8 +53,6 @@ class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnec
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new AboutYouController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = mockDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
@@ -59,7 +60,8 @@ class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnec
     whichDescribesYouFormProvider = new WhichDescribesYouFormProvider(),
     controllerComponents = messagesControllerComponents,
     aboutYouView = aboutYouview,
-    whichDescribesYouView = whichDescribesYouview
+    whichDescribesYouView = whichDescribesYouview,
+    controllerHelper = mockControllerHelper
   )
 
   "AboutYou Controller" when {
@@ -88,6 +90,8 @@ class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnec
       "redirect to the next page when valid data is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
 
+        val userAnswers = UserAnswers("id")
+        mockConstructAnswers()(userAnswers.set(AboutYouPage,0,AboutYouAnswer.Worker))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -149,6 +153,8 @@ class AboutYouControllerSpec extends ControllerSpecBase with MockDataCacheConnec
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
+
+        mockConstructAnswers()(userAnswers.set(WhichDescribesYouPage,0,WhichDescribesYouAnswer.WorkerPAYE))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

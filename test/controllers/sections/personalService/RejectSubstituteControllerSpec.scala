@@ -17,11 +17,12 @@
 package controllers.sections.personalService
 
 import config.featureSwitch.OptimisedFlow
+import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.RejectSubstituteFormProvider
-import models.{Answers, NormalMode}
+import models.{Answers, BusinessSize, NormalMode}
 import navigation.FakeNavigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
@@ -30,11 +31,11 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.personalService.RejectSubstituteView
+import config.featureSwitch.OptimisedFlow
+import pages.sections.setup.BusinessSizePage
 import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
 
   val formProvider = new RejectSubstituteFormProvider()
   val form = formProvider()
@@ -43,19 +44,18 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
   val optimisedView = injector.instanceOf[RejectSubstituteView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new RejectSubstituteController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
+    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
-  val validData = Map(RejectSubstitutePage.toString -> Json.toJson(Answers(true,0)))
+  val validData = Map(RejectSubstitutePage.toString -> Json.toJson(Answers(true, 0)))
 
   "RejectSubstitute Controller" must {
 
@@ -82,6 +82,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+        mockConstructAnswers()(userAnswers.set(RejectSubstitutePage,0,true))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -142,6 +143,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockConstructAnswers()(userAnswers.set(RejectSubstitutePage,0,true))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -175,4 +177,5 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
       }
     }
   }
+
 }

@@ -25,8 +25,6 @@ import views.html.sections.setup.AboutYourResultView
 
 class AboutYourResultControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = Call("POST", "/foo")
-
   val view = injector.instanceOf[AboutYourResultView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new AboutYourResultController(

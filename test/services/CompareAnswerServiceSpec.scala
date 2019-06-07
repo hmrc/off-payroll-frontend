@@ -17,6 +17,8 @@
 package services
 
 import base.SpecBase
+import connectors.DataCacheConnector
+import connectors.mocks.MockDataCacheConnector
 import models.AboutYouAnswer.{Agency, Worker}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
@@ -30,6 +32,9 @@ import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import org.scalamock.scalatest.MockFactory
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -39,9 +44,11 @@ import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 
-class CompareAnswerServiceSpec extends SpecBase {
+import scala.concurrent.Future
 
-  val service = CompareAnswerService
+class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCacheConnector {
+
+  val service = new CompareAnswerService()
 
   "compare answer service (consecutive answer)" should {
 
@@ -94,6 +101,7 @@ class CompareAnswerServiceSpec extends SpecBase {
   "compare answer service (change new answer)" should {
     "change an About You Answer if it's a new value" in {
 
+      
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
 
@@ -108,6 +116,8 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "change a Contract Started Answer if it's a new value" in {
+
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -124,6 +134,7 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "change all answers after current answer if it's changed to a new value" in {
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -163,6 +174,7 @@ class CompareAnswerServiceSpec extends SpecBase {
 
   "compare answer service (change same answer)" should {
     "not change an About You Answer if it's the same value" in {
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)
@@ -178,6 +190,7 @@ class CompareAnswerServiceSpec extends SpecBase {
     }
 
     "not change a Contract Started Answer if it's the same value" in {
+      
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(AboutYouPage,0, Worker)

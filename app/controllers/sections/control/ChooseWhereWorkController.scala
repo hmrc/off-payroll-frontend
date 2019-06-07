@@ -16,35 +16,31 @@
 
 package controllers.sections.control
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.{BaseController, ControllerHelper}
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
-import javax.inject.Inject
-import models.{ChooseWhereWork, ErrorTemplate, Mode}
-import navigation.Navigator
+import models.{ChooseWhereWork, Mode}
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
-import play.api.mvc._
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
 import play.twirl.api.HtmlFormat
-import services.{CompareAnswerService, DecisionService}
 import views.html.sections.control.ChooseWhereWorkView
 import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 
 import scala.concurrent.Future
 
-class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector,
-                                          navigator: Navigator,
-                                          identify: IdentifierAction,
+class ChooseWhereWorkController @Inject()(identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ChooseWhereWorkFormProvider,
                                           controllerComponents: MessagesControllerComponents,
+                                          controllerHelper: ControllerHelper,
                                           optimisedView: ChooseWhereWorkView,
                                           subOptimisedView: SubOptimisedChooseWhereWorkView,
-                                          decisionService: DecisionService,
                                           implicit val appConfig: FrontendAppConfig
                                          ) extends BaseController(controllerComponents) with FeatureSwitching {
 
@@ -62,13 +58,7 @@ class ChooseWhereWorkController @Inject()(dataCacheConnector: DataCacheConnector
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,ChooseWhereWorkPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(ChooseWhereWorkPage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("chooseWhereWork.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value,ChooseWhereWorkPage,callDecisionService = true)
       }
     )
   }

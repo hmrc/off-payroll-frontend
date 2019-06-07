@@ -16,14 +16,15 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import controllers.actions._
-import javax.inject.Inject
 import models.NormalMode
 import navigation.Navigator
 import pages.CheckYourAnswersPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CheckYourAnswersService
+import services.{CheckYourAnswersService, OptimisedDecisionService}
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersController @Inject()(navigator: Navigator,
@@ -33,13 +34,18 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            controllerComponents: MessagesControllerComponents,
                                            view: CheckYourAnswersView,
                                            checkYourAnswersService: CheckYourAnswersService,
+                                           optimisedDecisionService: OptimisedDecisionService,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(checkYourAnswersService.sections))
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers))
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    val call = navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers)
+    optimisedDecisionService.multipleDecisionCall().map { decision =>
+      optimisedDecisionService.result(decision, call)
+    }
   }
+
 }

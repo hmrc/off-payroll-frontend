@@ -16,35 +16,36 @@
 
 package controllers.sections.exit
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
 import models.{ErrorTemplate, Mode}
-import navigation.Navigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import views.html.sections.exit.OfficeHolderView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.exit.OfficeHolderView
 import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
 import scala.concurrent.Future
 
-class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
-                                       navigator: Navigator,
-                                       identify: IdentifierAction,
+class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
+                                       controllerHelper: ControllerHelper,
                                        optimisedView: OfficeHolderView,
                                        subOptimisedView: SubOptimisedOfficeHolderView,
-                                       decisionService: DecisionService,
                                        implicit val appConfig: FrontendAppConfig)
   extends BaseController(controllerComponents) with FeatureSwitching {
 
@@ -62,14 +63,7 @@ class OfficeHolderController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,OfficeHolderPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(OfficeHolderPage, mode)(answers)
-            val exit = continue
-            decisionService.decide(answers, continue, ErrorTemplate("officeHolder.title"))
-          }
-        )
+        controllerHelper.redirect[Boolean](mode,value, OfficeHolderPage, callDecisionService = true)
       }
     )
   }

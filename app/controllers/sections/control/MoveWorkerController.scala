@@ -16,7 +16,10 @@
 
 package controllers.sections.control
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
+import controllers.{BaseController, ControllerHelper}
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
@@ -24,24 +27,22 @@ import controllers.actions._
 import forms.MoveWorkerFormProvider
 import javax.inject.Inject
 import models.{Mode, MoveWorker}
-import navigation.Navigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import views.html.sections.control.MoveWorkerView
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
-import services.CompareAnswerService
-import views.html.sections.control.MoveWorkerView
 import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future
 
-class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     identify: IdentifierAction,
+class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
                                      formProvider: MoveWorkerFormProvider,
                                      controllerComponents: MessagesControllerComponents,
+                                     controllerHelper: ControllerHelper,
                                      optimisedView: MoveWorkerView,
                                      subOptimisedView: SubOptimisedMoveWorkerView,
                                      implicit val appConfig: FrontendAppConfig
@@ -60,12 +61,7 @@ class MoveWorkerController @Inject()(dataCacheConnector: DataCacheConnector,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,MoveWorkerPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(MoveWorkerPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,MoveWorkerPage)
     )
   }
 }

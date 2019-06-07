@@ -18,24 +18,31 @@ package controllers.sections.personalService
 
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.NeededToPayHelperFormProvider
-import models.{Answers, NormalMode, UserAnswers}
+import models.{Answers, HowWorkerIsPaid, NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import org.mockito.Matchers
+import org.mockito.Matchers.any
+import org.mockito.Mockito.when
+import pages.sections.financialRisk.HowWorkerIsPaidPage
+import pages.sections.personalService.{DidPaySubstitutePage, NeededToPayHelperPage}
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
+import play.api.mvc.{Call, ResponseHeader, Result}
+import play.api.mvc.Results.Redirect
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.personalService.NeededToPayHelperView
 import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
 
-class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
   val formProvider = new NeededToPayHelperFormProvider()
   val form = formProvider()
@@ -44,20 +51,18 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockDataCa
   val subOptimisedView = injector.instanceOf[SubOptimisedNeededToPayHelperView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new NeededToPayHelperController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
+    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    mockDecisionService,
-    frontendAppConfig
+    appConfig = frontendAppConfig
   )
 
-  val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(Answers(true,0)))
+  val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(Answers(true, 0)))
 
   "NeededToPayHelper Controller" must {
 
@@ -85,9 +90,9 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockDataCa
         enable(OptimisedFlow)
 
         val userAnswers = UserAnswers("id").set(NeededToPayHelperPage, 0, true)
+        mockConstructAnswers()(userAnswers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
@@ -156,6 +161,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase with MockDataCa
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
+        mockConstructAnswers()(userAnswers)
 
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))

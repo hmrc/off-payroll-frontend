@@ -17,23 +17,28 @@
 package services.mocks
 
 import models.requests.DataRequest
-import models.{ErrorTemplate, UserAnswers}
+import models.{DecisionResponse, ErrorResponse, UserAnswers}
 import org.scalamock.scalatest.MockFactory
-import play.api.mvc.Call
+import play.api.mvc.{AnyContent, Call}
 import play.api.mvc.Results.Redirect
-import services.DecisionService
+import services.OptimisedDecisionService
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-trait MockDecisionService extends MockFactory {
+trait MockOptimisedDecisionService extends MockFactory {
 
-  val mockDecisionService = mock[DecisionService]
+  val mockOptimisedDecisionService = mock[OptimisedDecisionService]
 
-  def mockDecide(userAnswers: UserAnswers)(call: Call): Unit = {
-    (mockDecisionService.decide(_: UserAnswers, _: Call)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
-      .expects(userAnswers, *, *, *, *)
-      .returns(Future.successful(Redirect(call)))
+  def mockResult()(call: Call): Unit = {
+    (mockOptimisedDecisionService.result(_: Either[ErrorResponse,DecisionResponse], _: Call)(_: HeaderCarrier, _: ExecutionContext, _: DataRequest[_]))
+      .expects(*,*,*,*,*)
+      .returns(Redirect(call))
+  }
 
+  def mockMultipleCall()(response: Either[ErrorResponse,DecisionResponse]): Unit = {
+    (mockOptimisedDecisionService.multipleDecisionCall()( _: DataRequest[AnyContent],_: HeaderCarrier))
+      .expects(*,*)
+      .returns(Future.successful(response))
   }
 }

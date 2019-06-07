@@ -22,9 +22,7 @@ import navigation.FakeNavigator
 import play.api.mvc.Call
 import play.api.test.Helpers._
 
-class IndexControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  val onwardRoute = Call("GET", "/foo")
+class IndexControllerSpec extends ControllerSpecBase {
 
   "Index Controller" when {
 

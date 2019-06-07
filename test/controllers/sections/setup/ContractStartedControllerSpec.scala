@@ -16,24 +16,29 @@
 
 package controllers.sections.setup
 
+import akka.util.ByteString
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.ContractStartedFormProvider
-import models.{Answers, NormalMode}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.setup.ContractStartedView
 
-class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
-
-  def onwardRoute = Call("GET", "/foo")
+import scala.concurrent.Future
+class ContractStartedControllerSpec extends ControllerSpecBase {
 
   val formProvider = new ContractStartedFormProvider()
   val form = formProvider()
@@ -43,15 +48,14 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCach
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ContractStartedController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = mockDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    optimisedView = optimisedView
+    optimisedView = optimisedView,
+    controllerHelper = mockControllerHelper
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -97,12 +101,13 @@ class ContractStartedControllerSpec extends ControllerSpecBase with MockDataCach
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
+      mockConstructAnswers()(userAnswers.set(ContractStartedPage,0,true))
+
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

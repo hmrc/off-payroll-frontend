@@ -16,29 +16,25 @@
 
 package controllers.sections.setup
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.{BaseController, ControllerHelper}
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
-import javax.inject.Inject
 import models.requests.DataRequest
 import models.{Mode, WorkerType}
-import navigation.Navigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import play.twirl.api.Html
-import services.{CompareAnswerService, DecisionService}
-import views.html.subOptimised.sections.setup.WorkerTypeView
 import views.html.sections.setup.WorkerUsingIntermediaryView
+import views.html.subOptimised.sections.setup.WorkerTypeView
 
 import scala.concurrent.Future
 
-class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     identify: IdentifierAction,
+class WorkerTypeController @Inject()(identify: IdentifierAction,
                                      getData: DataRetrievalAction,
                                      requireData: DataRequiredAction,
                                      workerTypeFormProvider: WorkerTypeFormProvider,
@@ -46,8 +42,8 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
                                      controllerComponents: MessagesControllerComponents,
                                      workerTypeView: WorkerTypeView,
                                      workerUsingIntermediaryView: WorkerUsingIntermediaryView,
-                                     decisionService: DecisionService,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching{
+                                     controllerHelper: ControllerHelper,
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val workerTypeForm: Form[WorkerType] = workerTypeFormProvider()
   val workerUsingIntermediaryForm: Form[Boolean] = newFormProvider()
@@ -57,10 +53,10 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if(isEnabled(OptimisedFlow)) submitWorkerUsingIntermediary(mode) else submitWorkerType(mode)
+    if (isEnabled(OptimisedFlow)) submitWorkerUsingIntermediary(mode) else submitWorkerType(mode)
   }
 
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]):Html = if(isEnabled(OptimisedFlow)) {
+  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]): Html = if (isEnabled(OptimisedFlow)) {
     workerUsingIntermediaryView(request.userAnswers.get(WorkerUsingIntermediaryPage).fold(workerUsingIntermediaryForm)
     (answerModel => workerUsingIntermediaryForm.fill(answerModel.answer)), mode)
   } else {
@@ -70,22 +66,12 @@ class WorkerTypeController @Inject()(dataCacheConnector: DataCacheConnector,
   private[controllers] def submitWorkerType(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     workerTypeForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(workerTypeView(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value, WorkerTypePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(WorkerTypePage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,WorkerTypePage)
     )
 
   private[controllers] def submitWorkerUsingIntermediary(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     workerUsingIntermediaryForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(workerUsingIntermediaryView(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value, WorkerUsingIntermediaryPage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(WorkerUsingIntermediaryPage, mode)(answers))
-        )
-      }
+      value => controllerHelper.redirect(mode,value,WorkerUsingIntermediaryPage)
     )
 }

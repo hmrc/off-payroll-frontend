@@ -17,6 +17,7 @@
 package controllers
 
 import config.SessionKeys
+import connectors.DataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
@@ -29,17 +30,18 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import services.DecisionService
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
 import viewmodels.AnswerSection
 import views.html.results.{IndeterminateView, _}
 
-class ResultControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+class ResultControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
+
+  val controllerHelper = injector.instanceOf[ControllerHelper]
 
   val officeHolderInsideIR35View = injector.instanceOf[OfficeHolderInsideIR35View]
   val officeHolderEmployedView = injector.instanceOf[OfficeHolderEmployedView]
@@ -75,6 +77,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockDataCacheConnecto
     new FakeNavigator(onwardRoute),
     mockDataCacheConnector,
     FakeTimestamp,
+    mockCompareAnswerService,
     frontendAppConfig
   )
 
@@ -86,6 +89,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockDataCacheConnecto
 
       val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
 
+      mockConstructAnswers()(UserAnswers("id").set(ResultPage,0,FakeTimestamp.timestamp()))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))

@@ -16,24 +16,31 @@
 
 package controllers.sections.setup
 
+import akka.util.ByteString
 import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
+import connectors.mocks.MockDataCacheConnector
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{ContractStartedFormProvider, IsWorkForPrivateSectorFormProvider}
-import models.{Answers, NormalMode}
+import models._
 import navigation.FakeNavigator
-import pages.sections.setup.{ContractStartedPage, IsWorkForPrivateSectorPage}
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import pages.sections.personalService.ArrangedSubstitutePage
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, IsWorkForPrivateSectorPage}
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.IsWorkForPrivateSectorView
 import views.html.subOptimised.sections.setup.ContractStartedView
 
-class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
+import scala.concurrent.Future
 
-  def onwardRoute = Call("GET", "/foo")
+class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
   val formProvider = new IsWorkForPrivateSectorFormProvider()
   val form = formProvider()
@@ -49,7 +56,8 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view
+    view = view,
+    controllerHelper = mockControllerHelper
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -74,6 +82,11 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
+
+      mockConstructAnswers()(userAnswers.set(ContractStartedPage,0,true))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

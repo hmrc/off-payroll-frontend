@@ -16,25 +16,31 @@
 
 package controllers.sections.financialRisk
 
+import akka.util.ByteString
 import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
-import controllers.ControllerSpecBase
+import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import models.Answers._
-import models.{Answers, HowWorkerIsPaid, NormalMode}
+import models.CannotClaimAsExpense.WorkerProvidedMaterials
+import models.{Answers, HowWorkerIsPaid, NormalMode, UserAnswers}
 import navigation.FakeNavigator
-import pages.sections.financialRisk.HowWorkerIsPaidPage
+import org.mockito.Matchers
+import org.mockito.Mockito.when
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}
+import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
+import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.Call
+import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
+import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.HowWorkerIsPaidView
 
-class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
-
-  def onwardRoute = Call("GET", "/foo")
+import scala.concurrent.Future
+class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
   val formProvider = new HowWorkerIsPaidFormProvider()
   val form = formProvider()
@@ -42,14 +48,13 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockDataCach
   val view = injector.instanceOf[HowWorkerIsPaidView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new HowWorkerIsPaidController(
-    mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
+    mockControllerHelper,
     frontendAppConfig
   )
 
@@ -77,12 +82,13 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase with MockDataCach
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
 
+      mockConstructAnswers()(userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly))
+
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {

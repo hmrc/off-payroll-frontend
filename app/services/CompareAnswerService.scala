@@ -16,26 +16,27 @@
 
 package services
 
+import models.requests.DataRequest
 import models.{Answers, UserAnswers}
 import pages._
-import play.api.libs.json.{JsString, Json, Reads, Writes}
-import models.requests.DataRequest
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage, WorkerTypePage, _}
+import play.api.libs.json.{Reads, Writes}
 import play.api.mvc.AnyContent
 
 import scala.annotation.tailrec
 import scala.collection.immutable.Map
+import scala.concurrent.ExecutionContext
 
-object CompareAnswerService {
+class CompareAnswerService {
 
   def constructAnswers[T](request: DataRequest[AnyContent], value: T,
-                       page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]]): UserAnswers = {
+                          page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],
+                                                         aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): UserAnswers = {
     val answerNumber = request.userAnswers.size
     request.userAnswers.get(page) match {
       case None => request.userAnswers.set(page, answerNumber, value)

@@ -18,10 +18,11 @@ package controllers.sections.setup
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.{BaseController, ControllerHelper}
 import controllers.actions._
 import forms.BusinessSizeFormProvider
 import javax.inject.Inject
+
 import models.Mode
 import navigation.Navigator
 import pages.sections.setup.BusinessSizePage
@@ -32,15 +33,14 @@ import views.html.sections.setup.BusinessSizeView
 import scala.concurrent.Future
 
 class BusinessSizeController @Inject()(
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      identify: IdentifierAction,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: BusinessSizeFormProvider,
-                                      controllerComponents: MessagesControllerComponents,
-                                      view: BusinessSizeView,
-                                      implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                        identify: IdentifierAction,
+                                        getData: DataRetrievalAction,
+                                        requireData: DataRequiredAction,
+                                        formProvider: BusinessSizeFormProvider,
+                                        controllerComponents: MessagesControllerComponents,
+                                        view: BusinessSizeView,
+                                        controllerHelper: ControllerHelper,
+                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form = formProvider()
 
@@ -50,14 +50,9 @@ class BusinessSizeController @Inject()(
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      values => {
-        val answers = CompareAnswerService.constructAnswers(request, values, BusinessSizePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(BusinessSizePage, mode)(answers))
-        )
-      }
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      values => controllerHelper.redirect(mode,values,BusinessSizePage)
+
     )
   }
 }

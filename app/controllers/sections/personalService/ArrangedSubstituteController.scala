@@ -16,32 +16,29 @@
 
 package controllers.sections.personalService
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
 import forms.ArrangedSubstituteFormProvider
-import javax.inject.Inject
 import models.{ArrangedSubstitute, Mode}
-import navigation.Navigator
 import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.CompareAnswerService
 import views.html.sections.personalService.ArrangedSubstituteView
 import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView => SubOptimisedArrangedSubstituteView}
 
 import scala.concurrent.Future
 
-class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnector,
-                                             navigator: Navigator,
-                                             identify: IdentifierAction,
+class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
                                              formProvider: ArrangedSubstituteFormProvider,
                                              controllerComponents: MessagesControllerComponents,
+                                             controllerHelper: ControllerHelper,
                                              optimisedView: ArrangedSubstituteView,
                                              subOptimisedView: SubOptimisedArrangedSubstituteView,
                                              implicit val appConfig: FrontendAppConfig)
@@ -58,14 +55,8 @@ class ArrangedSubstituteController @Inject()(dataCacheConnector: DataCacheConnec
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,ArrangedSubstitutePage)
-        dataCacheConnector.save(answers.cacheMap).map(
-          _ => Redirect(navigator.nextPage(ArrangedSubstitutePage, mode)(answers))
-        )
-      }
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      value => controllerHelper.redirect(mode,value,ArrangedSubstitutePage)
     )
   }
 }

@@ -26,8 +26,6 @@ import views.html.sections.setup.AgencyAdvisoryView
 
 class AgencyAdvisoryControllerSpec extends ControllerSpecBase {
 
-  def onwardRoute = Call("POST", "/foo")
-
   val view = injector.instanceOf[AgencyAdvisoryView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new AgencyAdvisoryController(

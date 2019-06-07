@@ -16,32 +16,27 @@
 
 package controllers.sections.partParcel
 
-import config.FrontendAppConfig
-import connectors.DataCacheConnector
-import controllers.BaseController
-import controllers.actions._
-import forms.BenefitsFormProvider
 import javax.inject.Inject
-import models.Answers._
-import models._
-import navigation.Navigator
+
+import config.FrontendAppConfig
+import controllers.actions._
+import controllers.{BaseController, ControllerHelper}
+import forms.BenefitsFormProvider
+import models.{ErrorTemplate, Mode}
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.partParcel.BenefitsView
 
 import scala.concurrent.Future
 
-class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                   navigator: Navigator,
-                                   identify: IdentifierAction,
+class BenefitsController @Inject()(identify: IdentifierAction,
                                    getData: DataRetrievalAction,
                                    requireData: DataRequiredAction,
                                    formProvider: BenefitsFormProvider,
                                    controllerComponents: MessagesControllerComponents,
                                    view: BenefitsView,
-                                   decisionService: DecisionService,
+                                   controllerHelper: ControllerHelper,
                                    implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
@@ -55,13 +50,7 @@ class BenefitsController @Inject()(dataCacheConnector: DataCacheConnector,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        val answers = CompareAnswerService.constructAnswers(request,value,BenefitsPage)
-        dataCacheConnector.save(answers.cacheMap).flatMap(
-          _ => {
-            val continue = navigator.nextPage(BenefitsPage, mode)(answers)
-            decisionService.decide(answers, continue, ErrorTemplate("benefits.title"))
-          }
-        )
+        controllerHelper.redirect(mode,value,BenefitsPage,callDecisionService = true)
       }
     )
   }
