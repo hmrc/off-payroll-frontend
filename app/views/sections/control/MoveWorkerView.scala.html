@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("optimised.moveWorker.title"), None),
+    title = title(form, tailorMsgOptimised("moveWorker.title"), None),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -36,11 +36,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("optimised.moveWorker.heading"), None)
+        @components.heading(tailorMsgOptimised("moveWorker.heading"), None)
 
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("optimised.moveWorker.heading")),
+            legend = messages(tailorMsgOptimised("moveWorker.heading")),
             legendClass = Some("visually-hidden"),
             inputs = MoveWorker.options(true)
         )

@@ -28,7 +28,7 @@ class ChooseWhereWorkSpec extends WordSpec with MustMatchers with ScalaCheckProp
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(ChooseWhereWork.values)
+      val gen = Gen.oneOf(ChooseWhereWork.values())
 
       forAll(gen) {
         chooseWhereWork =>
@@ -39,7 +39,7 @@ class ChooseWhereWorkSpec extends WordSpec with MustMatchers with ScalaCheckProp
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!ChooseWhereWork.values.map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!ChooseWhereWork.values().map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
@@ -50,7 +50,7 @@ class ChooseWhereWorkSpec extends WordSpec with MustMatchers with ScalaCheckProp
 
     "serialise" in {
 
-      val gen = Gen.oneOf(ChooseWhereWork.values)
+      val gen = Gen.oneOf(ChooseWhereWork.values())
 
       forAll(gen) {
         chooseWhereWork =>

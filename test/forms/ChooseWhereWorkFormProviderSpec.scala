@@ -32,7 +32,7 @@ class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[ChooseWhereWork](
       form,
       fieldName,
-      validValues  = ChooseWhereWork.values,
+      validValues  = ChooseWhereWork.values(),
       invalidError = FormError(fieldName, "error.invalid")
     )
 

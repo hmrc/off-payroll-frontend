@@ -18,6 +18,7 @@ package views.sections.control
 
 import assets.messages.MoveWorkerMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import forms.MoveWorkerFormProvider
 import models.{MoveWorker, NormalMode}
 import models.UserType.{Agency, Hirer, Worker}
@@ -29,9 +30,14 @@ import views.html.sections.control.MoveWorkerView
 
 class MoveWorkerViewSpec extends ViewBehaviours {
 
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "optimised.moveWorker"
+  val messageKeyPrefix = "worker.optimised.moveWorker"
 
   val form = new MoveWorkerFormProvider()()
 
@@ -85,6 +91,26 @@ class MoveWorkerViewSpec extends ViewBehaviours {
         document.select(Selectors.multichoice(1)).text mustBe MoveWorkerMessages.OptimisedHirer.yesWithAgreement
         document.select(Selectors.multichoice(2)).text mustBe MoveWorkerMessages.OptimisedHirer.yesWithoutAgreement
         document.select(Selectors.multichoice(3)).text mustBe MoveWorkerMessages.OptimisedHirer.no
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, None)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe MoveWorkerMessages.OptimisedWorker.heading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe MoveWorkerMessages.OptimisedWorker.yesWithAgreement
+        document.select(Selectors.multichoice(2)).text mustBe MoveWorkerMessages.OptimisedWorker.yesWithoutAgreement
+        document.select(Selectors.multichoice(3)).text mustBe MoveWorkerMessages.OptimisedWorker.no
       }
     }
   }
