@@ -14,11 +14,8 @@
  * limitations under the License.
  *@
 
-@(message: Html, subMessage: Option[Html] = None)
+@(content: Html)(implicit messages: Messages)
 
-<div class="govuk-box-highlight">
-    <h1 class="bold-xlarge">@message</h1>
-    @subMessage.map { msg =>
-        <p class="font-large">@msg</p>
-    }
-</div>
+<h2>@messages("optimised.result.whyResult.h2")</h2>
+@content
+

@@ -1181,3 +1181,65 @@ hirer.optimised.chooseWhereWork.workerChooses = Yes
 hirer.optimised.chooseWhereWork.workerCannotChoose = No, the worker decides.
 hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
 hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice.
+
+
+
+#### New Optimised Result Pages ####
+#----------------------------------#
+
+## Common Result Messages
+## ----------------------
+##TODO: Need Welsh
+optimised.result.whyResult.h2 = Why you are getting this result
+optimised.result.doNext.h2 = What to do next
+optimised.result.download.h2 = Download a copy of this result
+optimised.result.download.p1 = You can download a copy of your answers and this result to keep for your records.
+
+
+## Office Holder PAYE
+## ------------------
+##TODO: Need Welsh
+worker.optimised.result.officeHolder.paye.title = Employed. Tax earnings within PAYE
+worker.optimised.result.officeHolder.paye.heading = Employed.
+worker.optimised.result.officeHolder.paye.subHeading = Tax earnings within PAYE
+worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘worker’s duties’ section, you answered that you will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
+worker.optimised.result.officeHolder.paye.doNext.p1 = Show this to the person hiring you and tell them they should operate PAYE for you.
+
+##TODO: Need Welsh
+hirer.optimised.result.officeHolder.paye.title = Employed. Tax earnings within PAYE
+hirer.optimised.result.officeHolder.paye.heading = Employed.
+hirer.optimised.result.officeHolder.paye.subHeading = Tax earnings within PAYE
+hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ’worker’s duties’ section, you answered that the worker will act in an official position for you. Workers that perform office holder duties are classed as employed for tax purposes.
+hirer.optimised.result.officeHolder.paye.doNext.p1 = Ensure that any earnings from this work are paid net of tax within PAYE.
+## ------------------
+
+## Office Holder IR35
+## ------------------
+##TODO: Need Welsh
+worker.optimised.result.officeHolder.ir35.title = IR35 applies. Tax earnings within PAYE
+worker.optimised.result.officeHolder.ir35.heading = IR35 applies.
+worker.optimised.result.officeHolder.ir35.subHeading = Tax earnings within PAYE
+worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘worker’s duties’ section, you answered that you will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
+worker.optimised.result.officeHolder.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
+worker.optimised.result.officeHolder.ir35.public.doNext.p1 = Show this to the fee payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
+
+##TODO: Need Welsh
+hirer.optimised.result.officeHolder.ir35.title = IR35 applies. Tax earnings within PAYE
+hirer.optimised.result.officeHolder.ir35.heading = IR35 applies.
+hirer.optimised.result.officeHolder.ir35.subHeading = Tax earnings within PAYE
+hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘worker’s duties’ section, you answered that the worker will act in an official position for you. Workers that perform office holder duties are classed as employed for tax purposes.
+hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
+hirer.optimised.result.officeHolder.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker.
+hirer.optimised.result.officeHolder.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
+## ------------------
+
+## Office Holder Agent
+## -------------------
+##TODO: Need Welsh
+agent.optimised.result.officeHolder.title = IR35 applies. Tax earnings within PAYE
+agent.optimised.result.officeHolder.heading = IR35 applies.
+agent.optimised.result.officeHolder.subHeading = Tax earnings within PAYE
+agent.optimised.result.officeHolder.whyResult.p1 = In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
+agent.optimised.result.officeHolder.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+## ------------------
