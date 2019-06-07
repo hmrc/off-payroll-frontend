@@ -31,7 +31,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
   }
 
   object Selectors extends BaseCSSSelectors {
-    val h2 = (i: Int) => s"h2:nth-of-type($i)"
+    override val h2 = (i: Int) => s"h2:nth-of-type($i)"
     val accordionHeader = (i: Int) => s".accordion:nth-of-type($i) > .accordion__row a"
     val sectionQuestion = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dt.cya-question"
     val sectionSingleAnswer = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dd.cya-answer"

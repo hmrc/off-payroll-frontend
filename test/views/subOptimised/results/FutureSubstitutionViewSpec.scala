@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package views.results
+package views.subOptimised.results
 
-import akka.http.scaladsl.model.HttpMethods
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
-import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.behaviours.ViewBehaviours
-import views.html.results.EmployedView
+import play.api.mvc.Request
+import views.html.subOptimised.results.FutureSubstitutionView
 
-class EmployedViewSpec extends ResultViewFixture {
+class FutureSubstitutionViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.employed"
+  val messageKeyPrefix = "result.futureSubstitution"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[EmployedView]
+  val view = injector.instanceOf[FutureSubstitutionView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -80,5 +77,4 @@ class EmployedViewSpec extends ResultViewFixture {
     }
 
   }
-
 }

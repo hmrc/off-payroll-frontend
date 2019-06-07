@@ -28,6 +28,7 @@ trait ViewSpecBase extends SpecBase {
     val heading = "#content h1"
     val subheading = "#content header span.heading-secondary"
     val p = (i: Int) => s"#content form p:nth-of-type($i)"
+    val h2 = (i: Int) => s"#content form h2:nth-of-type($i)"
     val bullet = (i: Int) => s"#content form ul li:nth-of-type($i)"
     val multichoice = (i: Int) => s"#content form div.multiple-choice:nth-of-type($i) label"
     val exclamation = s"#content form .notice strong"

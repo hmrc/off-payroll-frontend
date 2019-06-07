@@ -1,0 +1,50 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import views.ViewUtils._
+
+@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+
+@(form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@mainTemplate(titleNoForm("agent.optimised.result.officeHolder.title"), appConfig = appConfig) {
+
+    @components.teal_result(
+        Html(messages("agent.optimised.result.officeHolder.heading")),
+        Some(Html(messages("agent.optimised.result.officeHolder.subHeading")))
+    )
+
+    @formWithCsrf(postAction, 'autoComplete -> "off") {
+
+        @sections.why_result(whyResult)
+
+        @sections.do_next(doNext)
+
+        @sections.download()
+
+        @components.submit_button("site.continue")
+    }
+}
+
+@whyResult = {
+    <p>@messages("agent.optimised.result.officeHolder.whyResult.p1")</p>
+}
+
+@doNext = {
+    <p>@messages("agent.optimised.result.officeHolder.doNext.p1")</p>
+}

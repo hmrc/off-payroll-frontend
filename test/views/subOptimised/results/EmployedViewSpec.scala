@@ -14,26 +14,22 @@
  * limitations under the License.
  */
 
-package views.results
+package views.subOptimised.results
 
-import akka.http.scaladsl.model.HttpMethods
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
-import models.{AdditionalPdfDetails, Timestamp}
-import pages.ResultPage
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.behaviours.ViewBehaviours
-import views.html.results.ControlView
+import play.api.mvc.Request
+import views.html.subOptimised.results.EmployedView
 
-class ControlViewSpec extends ResultViewFixture {
+class EmployedViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.control"
+  val messageKeyPrefix = "result.employed"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[ControlView]
+  val view = injector.instanceOf[EmployedView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -41,21 +37,14 @@ class ControlViewSpec extends ResultViewFixture {
 
   def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
-  "result page" must {
-
-    "to string correctly" in {
-      ResultPage.toString mustBe "result"
-    }
+  "ResultPrintPage view" must {
+    behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
   }
 
   "ResultPage view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
-  }
-
-  "ResultPage print view" must {
-    behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
   }
 
   "The result page" should {
@@ -88,4 +77,5 @@ class ControlViewSpec extends ResultViewFixture {
     }
 
   }
+
 }

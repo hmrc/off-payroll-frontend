@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package views.results
+package views.subOptimised.results
 
-import akka.http.scaladsl.model.HttpMethods
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
-import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.behaviours.ViewBehaviours
-import views.html.results.InsideIR35View
+import play.api.mvc.Request
+import views.html.subOptimised.results.FinancialRiskView
 
-class InsideIR35ViewSpec extends ResultViewFixture {
+class FinancialRiskViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.insideIR35"
+  val messageKeyPrefix = "result.financialRisk"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[InsideIR35View]
+  val view = injector.instanceOf[FinancialRiskView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
