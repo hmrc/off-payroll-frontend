@@ -89,31 +89,104 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     .set(InteractWithStakeholdersPage,18, false)
     .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
 
-//  "multipleDecisionCall" should {
-//    "call decision once if a decision is reached" in {
-//      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-//
-//      mockDecideSection(Interview.writes)(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
-//      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
-//
-//
-//      whenReady(service.multipleDecisionCall()) { res =>
-//       res.right.get.result mustBe ResultEnum.INSIDE_IR35
-//      }
-//    }
-//
-//    "call decision twice if the first call is unmatched" in {
-//      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-//
-//      mockDecideSection(Interview.writesPersonalService)(createRightType(true))
-//      mockDecideSection(Interview.writesPersonalService)(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
-//      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
-//
-//
-//      whenReady(service.multipleDecisionCall()) { res =>
-//        res.right.get.result mustBe ResultEnum.INSIDE_IR35
-//      }
-//    }
-//  }
+  "multipleDecisionCall" should {
+    "call decision once if a decision is reached" in {
+      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
+
+
+      whenReady(service.multipleDecisionCall()) { res =>
+       res.right.get.result mustBe ResultEnum.INSIDE_IR35
+      }
+    }
+
+    "call decision twice if the first call is unmatched" in {
+      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
+
+
+      whenReady(service.multipleDecisionCall()) { res =>
+        res.right.get.result mustBe ResultEnum.INSIDE_IR35
+      }
+    }
+
+    "call decision thrice if the first 2 calls are unmatched" in {
+      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+
+      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
+
+
+      whenReady(service.multipleDecisionCall()) { res =>
+        res.right.get.result mustBe ResultEnum.INSIDE_IR35
+      }
+    }
+
+    "call decision fourice if the first 3 calls are unmatched" in {
+      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+
+      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
+
+
+      whenReady(service.multipleDecisionCall()) { res =>
+        res.right.get.result mustBe ResultEnum.INSIDE_IR35
+      }
+    }
+
+    "do the big decision if no matches" in {
+      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+
+      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
+
+
+      whenReady(service.multipleDecisionCall()) { res =>
+        res.right.get.result mustBe ResultEnum.INSIDE_IR35
+      }
+    }
+
+    "return an error given no decision" in {
+      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+
+      whenReady(service.multipleDecisionCall()) { res =>
+        res.left.get mustBe an[ErrorResponse]
+      }
+    }
+
+    "return an error given an exception" in {
+      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Left(ErrorResponse(500,"ma name Jeff"))))
+
+      whenReady(service.multipleDecisionCall()) { res =>
+        res.left.get mustBe an[ErrorResponse]
+      }
+    }
+
+  }
 
 }
