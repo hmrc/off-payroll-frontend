@@ -83,15 +83,15 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(form.fill(PutRightAtOwnCost.values.head))
       }
 
-      "redirect to the next page when valid data is submitted" in {
+      "redirect to the next page when valid data is submitted 1111111111111111111" in {
 
         implicit val hc = new HeaderCarrier()
         enable(OptimisedFlow)
 
         val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, 0, OutsideOfHoursNoCharge)
 
+        mockConstructAnswers()(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 
@@ -149,12 +149,11 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(form.fill(PutRightAtOwnCost.values.head))
       }
 
-      "redirect to the next page when valid data is submitted" in {
-
+      "redirect to the next page when valid data is submitted 22222222222222222" in {
 
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
-val answers = userAnswers.set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
+        val answers = userAnswers.set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         mockConstructAnswers(DataRequest(postRequest,"id",answers),PutRightAtOwnCost)(answers)

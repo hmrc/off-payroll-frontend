@@ -93,6 +93,8 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
 
+        mockConstructAnswers()(userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly))
+
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -154,7 +156,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
         val answers = userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

@@ -28,7 +28,8 @@ import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import play.twirl.api.HtmlFormat
-import views.html.subOptimised.sections.financialRisk.{HowWorkerIsPaidView, HowWorkerIsPaidView => SubOptimisedHowWorkerIsPaidView}
+import views.html.sections.financialRisk.HowWorkerIsPaidView
+import views.html.subOptimised.sections.financialRisk.{HowWorkerIsPaidView => SubOptimisedHowWorkerIsPaidView}
 
 import scala.concurrent.Future
 

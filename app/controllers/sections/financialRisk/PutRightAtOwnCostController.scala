@@ -28,7 +28,8 @@ import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import play.twirl.api.HtmlFormat
-import views.html.subOptimised.sections.financialRisk.{PutRightAtOwnCostView, PutRightAtOwnCostView => SubOptimisedPutRightAtOwnCostView}
+import views.html.sections.financialRisk.PutRightAtOwnCostView
+import views.html.subOptimised.sections.financialRisk.{PutRightAtOwnCostView => SubOptimisedPutRightAtOwnCostView}
 
 import scala.concurrent.Future
 
