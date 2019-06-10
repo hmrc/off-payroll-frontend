@@ -21,9 +21,12 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.OfficeHolderFormProvider
+import models.CannotClaimAsExpense.WorkerProvidedMaterials
+import models.requests.DataRequest
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -84,14 +87,14 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
-
-        val userAnswers = UserAnswers("id").set(OfficeHolderPage, 0, true)
+        val answers = userAnswers.set(OfficeHolderPage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
-        mockConstructAnswers()(userAnswers)
+        mockDecide(answers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

@@ -22,9 +22,11 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.Answers._
+import models.requests.DataRequest
 import models.{Answers, HowWorkerIsPaid, NormalMode, ScheduleOfWorkingHours}
 import navigation.FakeNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
+import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -98,8 +100,9 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
+      val answers = userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),ScheduleOfWorkingHours)(answers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockConstructAnswers()(userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -113,7 +116,9 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ScheduleOfWorkingHours.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockConstructAnswers()(userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker))
+
+      val answers = userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),ScheduleOfWorkingHours)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

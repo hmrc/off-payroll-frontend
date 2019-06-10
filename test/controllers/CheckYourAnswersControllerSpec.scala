@@ -18,11 +18,14 @@ package controllers
 
 import assets.messages.CheckYourAnswersMessages
 import controllers.actions._
+import models.requests.DataRequest
 import models.{DecisionResponse, ResultEnum, Score}
 import navigation.FakeNavigator
+import pages.ResultPage
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import services.{CheckYourAnswersService, CompareAnswerService}
+import utils.FakeTimestamp
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase {
@@ -51,8 +54,12 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      mockMultipleCall()(Right(DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.INSIDE_IR35)))
-      mockResult()(Call("/POST","/foo"))
+      val postRequest = fakeRequest
+      val answers = userAnswers.set(ResultPage,0,FakeTimestamp.timestamp())
+      val decision = DecisionResponse("","",Score(None,None,None,None,None,None),ResultEnum.INSIDE_IR35)
+
+      mockMultipleCall(DataRequest(postRequest,"id",answers))(Right(decision))
+      mockResult(Right(decision))(Call("/POST","/foo"))
       val result = controller().onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)

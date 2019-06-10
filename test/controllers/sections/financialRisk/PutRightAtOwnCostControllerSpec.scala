@@ -23,8 +23,10 @@ import forms.PutRightAtOwnCostFormProvider
 import models.Answers._
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import pages.sections.financialRisk.PutRightAtOwnCostPage
+import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -74,17 +76,13 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-
-      implicit val hc = new HeaderCarrier()
-
-      val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
-      mockConstructAnswers()(userAnswers)
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
-
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
-
+      val answers = userAnswers.set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
       val result = controller().onSubmit(NormalMode)(postRequest)
+
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),PutRightAtOwnCost)(answers)
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockDecide(answers)(onwardRoute)
 
       status(result) mustBe SEE_OTHER
     }

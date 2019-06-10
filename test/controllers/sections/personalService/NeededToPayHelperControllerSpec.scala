@@ -21,14 +21,14 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.NeededToPayHelperFormProvider
+import models.requests.DataRequest
 import models.{Answers, HowWorkerIsPaid, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
 import pages.sections.financialRisk.HowWorkerIsPaidPage
-import pages.sections.personalService.{DidPaySubstitutePage, NeededToPayHelperPage}
-import pages.sections.personalService.NeededToPayHelperPage
+import pages.sections.personalService.{DidPaySubstitutePage, NeededToPayHelperPage, RejectSubstitutePage}
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json.Json
@@ -89,12 +89,12 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
 
-        val userAnswers = UserAnswers("id").set(NeededToPayHelperPage, 0, true)
-        mockConstructAnswers()(userAnswers)
-
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        val answers = userAnswers.set(NeededToPayHelperPage, 0, true)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -154,17 +154,13 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to the next page when valid data is submitted" in {
-
-        implicit val hc = new HeaderCarrier()
-
-        val userAnswers = UserAnswers("id").set(NeededToPayHelperPage, 0, true)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val answers = userAnswers.set(NeededToPayHelperPage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
-        mockConstructAnswers()(userAnswers)
+        mockDecide(answers)(onwardRoute)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
-
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

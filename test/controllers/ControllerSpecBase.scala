@@ -17,6 +17,7 @@
 package controllers
 
 import java.nio.charset.Charset
+import javax.inject.Singleton
 
 import akka.stream.Materializer
 import akka.util.ByteString
@@ -33,17 +34,17 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.Future
 
 trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService
-  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector {
+  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector{
 
   def onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")
 
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService,mockDecisionConnector,mockOptimisedDecisionService)
-
   val cacheMapId = "id"
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
+
+  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector,
+    new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService,mockDecisionConnector,mockOptimisedDecisionService)
 
   def bodyOf(result: Result)(implicit mat: Materializer): String = {
     val bodyBytes: ByteString = await(result.body.consumeData)
@@ -62,3 +63,4 @@ trait ControllerSpecBase extends SpecBase with MockDecisionService with MockComp
   def titleOf(result: Future[Result]): String = Jsoup.parse(bodyOf(result)).title
 
 }
+

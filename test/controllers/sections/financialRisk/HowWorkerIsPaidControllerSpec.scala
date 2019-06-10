@@ -24,11 +24,13 @@ import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import models.Answers._
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
-import models.{Answers, HowWorkerIsPaid, NormalMode, UserAnswers}
+import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
+import models.requests.DataRequest
+import models._
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -82,8 +84,8 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
 
-      mockConstructAnswers()(userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly))
-
+      val answers = userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

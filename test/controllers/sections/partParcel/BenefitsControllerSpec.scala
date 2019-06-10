@@ -21,10 +21,11 @@ import controllers.actions._
 import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.BenefitsFormProvider
 import models.ChooseWhereWork.WorkerChooses
-import models.{Answers, NormalMode, UserAnswers}
+import models.requests.DataRequest
+import models.{Answers, IdentifyToStakeholders, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.sections.control.ChooseWhereWorkPage
-import pages.sections.partParcel.BenefitsPage
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage}
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
@@ -75,11 +76,13 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
 
-      mockConstructAnswers()(UserAnswers("id")set(BenefitsPage,0, true))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(UserAnswers("id")set(BenefitsPage,0, true))(onwardRoute)
+      mockDecide(userAnswers.set(BenefitsPage,0, true))(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val answers = userAnswers.set(BenefitsPage,0, true)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

@@ -22,6 +22,7 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.ContractStartedFormProvider
+import models.requests.DataRequest
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
@@ -101,7 +102,8 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      mockConstructAnswers()(userAnswers.set(ContractStartedPage,0,true))
+      val answers = userAnswers.set(ContractStartedPage,0,true)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

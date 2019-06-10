@@ -24,7 +24,7 @@ import controllers.actions._
 import forms.RejectSubstituteFormProvider
 import models.{Answers, BusinessSize, NormalMode}
 import navigation.FakeNavigator
-import pages.sections.personalService.RejectSubstitutePage
+import pages.sections.personalService.{RejectSubstitutePage, WouldWorkerPaySubstitutePage}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -32,6 +32,7 @@ import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.personalService.RejectSubstituteView
 import config.featureSwitch.OptimisedFlow
+import models.requests.DataRequest
 import pages.sections.setup.BusinessSizePage
 import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
@@ -82,8 +83,8 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
-        mockConstructAnswers()(userAnswers.set(RejectSubstitutePage,0,true))
-
+        val answers = userAnswers.set(RejectSubstitutePage,0,true)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -143,7 +144,9 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockConstructAnswers()(userAnswers.set(RejectSubstitutePage,0,true))
+
+        val answers = userAnswers.set(RejectSubstitutePage,0,true)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
