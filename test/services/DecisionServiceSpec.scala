@@ -790,7 +790,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some("/continue")
     }
-    "return a continue decision based on the interview when risk is empty" in {
+    "return a continue decision based on the interview when risk is empty optimised" in {
       enable(OptimisedFlow)
 
       mockDecide(Interview(userAnswers))(Right(controlResponse))
