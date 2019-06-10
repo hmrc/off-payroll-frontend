@@ -18,14 +18,19 @@ package controllers
 
 import javax.inject.Inject
 
-import config.FrontendAppConfig
+import config.{FrontendAppConfig, SessionKeys}
 import controllers.actions._
-import models.NormalMode
+import handlers.ErrorHandler
+import models._
 import navigation.Navigator
 import pages.CheckYourAnswersPage
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.Results.{InternalServerError, Redirect}
+import play.api.mvc._
 import services.{CheckYourAnswersService, OptimisedDecisionService}
+import uk.gov.hmrc.http.HeaderCarrier
 import views.html.CheckYourAnswersView
+
+import scala.concurrent.ExecutionContext
 
 class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            identify: IdentifierAction,
@@ -35,6 +40,7 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            view: CheckYourAnswersView,
                                            checkYourAnswersService: CheckYourAnswersService,
                                            optimisedDecisionService: OptimisedDecisionService,
+                                           errorHandler: ErrorHandler,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
@@ -44,8 +50,32 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val call = navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers)
     optimisedDecisionService.multipleDecisionCall().map { decision =>
-      optimisedDecisionService.result(decision, call)
+      result(decision, call)
     }
+  }
+
+  private def result(decisionResponse: Either[ErrorResponse,DecisionResponse],continueResult: Call)
+            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Result = {
+    decisionResponse match {
+      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => InternalServerError(errorHandler.internalServerErrorTemplate)
+      case Right(DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35)) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
+      case Right(DecisionResponse(_, _, _, result)) => redirectResultsPage(result)
+      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+    }
+  }
+
+  private def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
+                                  financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
+
+    val result: (String, String) = SessionKeys.result -> resultValue.toString
+    val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)
+    val financialRisk = financialRiskOption.map(financialRisk => SessionKeys.financialRiskResult -> financialRisk.toString)
+
+    val redirect = Redirect(routes.ResultController.onPageLoad()).addingToSession(result)
+    val controlRedirect = if(control.nonEmpty) redirect.addingToSession(control.get) else redirect
+    val financialRiskRedirect = if(financialRisk.nonEmpty) controlRedirect.addingToSession(financialRisk.get) else controlRedirect
+
+    financialRiskRedirect
   }
 
 }

@@ -23,6 +23,7 @@ import akka.stream.Materializer
 import akka.util.ByteString
 import base.SpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
+import handlers.mocks.MockErrorHandler
 import models.UserAnswers
 import navigation.FakeNavigator
 import org.jsoup.Jsoup
@@ -34,7 +35,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.Future
 
 trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService
-  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector{
+  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler {
 
   def onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")
