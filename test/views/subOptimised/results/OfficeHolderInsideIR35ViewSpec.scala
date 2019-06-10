@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package views.results
+package views.subOptimised.results
 
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import play.api.libs.json.Json
 import play.api.mvc.Request
-import views.html.results.OfficeHolderInsideIR35View
+import views.html.subOptimised.results.OfficeHolderInsideIR35View
 
 class OfficeHolderInsideIR35ViewSpec extends ResultViewFixture {
 

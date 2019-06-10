@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package views.results
+package views.subOptimised.results
 
-import akka.http.scaladsl.model.HttpMethods
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
-import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.behaviours.ViewBehaviours
-import views.html.results.OfficeHolderEmployedView
+import play.api.mvc.Request
+import views.html.subOptimised.results.SelfEmployedView
 
-class OfficeHolderEmployedViewSpec extends ResultViewFixture {
+class SelfEmployedViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.officeHolderEmployed"
+  val messageKeyPrefix = "result.selfEmployed"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[OfficeHolderEmployedView]
+  val view = injector.instanceOf[SelfEmployedView]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -80,4 +77,5 @@ class OfficeHolderEmployedViewSpec extends ResultViewFixture {
     }
 
   }
+
 }

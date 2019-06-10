@@ -23,18 +23,19 @@ sealed trait ChooseWhereWork
 
 object ChooseWhereWork {
 
-  case object WorkerChooses extends WithName("workerChooses") with ChooseWhereWork
   case object WorkerCannotChoose extends WithName("workerCannotChoose") with ChooseWhereWork
+  case object WorkerChooses extends WithName("workerChooses") with ChooseWhereWork
   case object NoLocationRequired extends WithName("noLocationRequired") with ChooseWhereWork
   case object WorkerAgreeWithOthers extends WithName("workerAgreeWithOthers") with ChooseWhereWork
 
-  val values: Seq[ChooseWhereWork] = Seq(
-    WorkerChooses, WorkerCannotChoose, NoLocationRequired, WorkerAgreeWithOthers
-  )
+  def values(isOptimisedFlow: Boolean = false): Seq[ChooseWhereWork] = if (isOptimisedFlow) {
+    Seq(WorkerCannotChoose, WorkerChooses, NoLocationRequired, WorkerAgreeWithOthers)
+  } else {
+    Seq(WorkerChooses, WorkerCannotChoose, NoLocationRequired, WorkerAgreeWithOthers)
+  }
 
-  def options(optimised: Boolean = false): Seq[RadioOption] = values.map {
+  def options(optimised: Boolean = false): Seq[RadioOption] = values(optimised).map {
     value =>
-
       if(optimised){
         RadioOption("optimised.chooseWhereWork", value.toString, radio, hasTailoredMsgs = true)
       } else {
@@ -43,7 +44,7 @@ object ChooseWhereWork {
   }
 
   implicit val enumerable: Enumerable[ChooseWhereWork] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values().map(v => v.toString -> v): _*)
 
   implicit object ChooseWhereWorkWrites extends Writes[ChooseWhereWork] {
     def writes(chooseWhereWork: ChooseWhereWork) = Json.toJson(chooseWhereWork.toString)

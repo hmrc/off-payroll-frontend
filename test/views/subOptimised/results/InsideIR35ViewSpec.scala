@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package views.results
+package views.subOptimised.results
 
-import akka.http.scaladsl.model.HttpMethods
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
-import models.{AdditionalPdfDetails, Timestamp}
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.behaviours.ViewBehaviours
-import views.html.results.CurrentSubstitutionView
+import play.api.mvc.Request
+import views.html.subOptimised.results.InsideIR35View
 
-class CurrentSubstitutionViewSpec extends ResultViewFixture {
+class InsideIR35ViewSpec extends ResultViewFixture {
 
-  val messageKeyPrefix = "result.currentSubstitution"
+  val messageKeyPrefix = "result.insideIR35"
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[CurrentSubstitutionView]
+  val view = injector.instanceOf[InsideIR35View]
 
   def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
 
@@ -40,14 +37,14 @@ class CurrentSubstitutionViewSpec extends ResultViewFixture {
 
   def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
+  "ResultPrintPage view" must {
+    behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
+  }
+
   "ResultPage view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
-  }
-
-  "ResultPrintPage view" must {
-    behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
   }
 
   "The result page" should {

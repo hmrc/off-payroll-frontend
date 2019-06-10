@@ -51,7 +51,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import utils.UserAnswersUtils
 import viewmodels.AnswerSection
-import views.html.results._
+import views.html.subOptimised.results._
 
 class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockDataCacheConnector with MockErrorHandler with FeatureSwitching {
 
