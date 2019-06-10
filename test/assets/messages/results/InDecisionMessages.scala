@@ -28,6 +28,7 @@ object InDecisionMessages extends BaseResultMessages {
     val doNext_public_p1 = "Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings."
     val doNext_private_p1 = "Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings."
   }
+
   object HirerPAYE {
     val title = "Employed. Tax earnings within PAYE"
     val heading = "Employed."
