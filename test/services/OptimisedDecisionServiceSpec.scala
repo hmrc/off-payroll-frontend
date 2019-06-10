@@ -57,10 +57,6 @@ import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, Inte
 import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.mvc.AnyContent
-import MultiDecision.Result
-import cats.data.EitherT
-
-import scala.concurrent.Future
 
 class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
   with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures {
