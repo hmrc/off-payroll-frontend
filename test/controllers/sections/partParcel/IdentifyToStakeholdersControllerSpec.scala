@@ -25,10 +25,11 @@ import forms.IdentifyToStakeholdersFormProvider
 import models.Answers._
 import models.IdentifyToStakeholders.WorkForEndClient
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
-import pages.sections.partParcel.IdentifyToStakeholdersPage
+import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage}
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -94,11 +95,11 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
 
         val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, 0, WorkForEndClient)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
-        mockConstructAnswers()(userAnswers)
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -163,12 +164,11 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
         val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, 0, WorkForEndClient)
 
-        mockConstructAnswers()(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(userAnswers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
-
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER

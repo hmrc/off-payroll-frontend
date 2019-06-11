@@ -24,10 +24,11 @@ import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage}
+import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json._
@@ -90,8 +91,8 @@ class AboutYouControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
 
-        val userAnswers = UserAnswers("id")
-        mockConstructAnswers()(userAnswers.set(AboutYouPage,0,AboutYouAnswer.Worker))
+        val answers = userAnswers.set(AboutYouPage,0,AboutYouAnswer.Worker)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),AboutYouAnswer)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -154,8 +155,8 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
 
-        mockConstructAnswers()(userAnswers.set(WhichDescribesYouPage,0,WhichDescribesYouAnswer.WorkerPAYE))
-
+        val answers = userAnswers.set(WhichDescribesYouPage,0,WhichDescribesYouAnswer.WorkerPAYE)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),AboutYouAnswer)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)

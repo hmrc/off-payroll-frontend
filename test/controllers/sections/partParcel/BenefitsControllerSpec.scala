@@ -20,8 +20,9 @@ import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.BenefitsFormProvider
-import models.{Answers, NormalMode, UserAnswers}
-import pages.sections.partParcel.BenefitsPage
+import models.requests.DataRequest
+import models.{Answers, IdentifyToStakeholders, NormalMode, UserAnswers}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage}
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.test.Helpers._
@@ -77,14 +78,13 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
-        implicit val hc = new HeaderCarrier()
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val userAnswers = UserAnswers("id").set(BenefitsPage, 0, true)
 
-        mockConstructAnswers()(UserAnswers("id")set(BenefitsPage,0, true))
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),true)(UserAnswers("id")set(BenefitsPage,0, true))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -142,13 +142,16 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
 
-        mockConstructAnswers()(UserAnswers("id")set(BenefitsPage,0, true))
+
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(UserAnswers("id")set(BenefitsPage,0, true))(onwardRoute)
+        mockDecide(userAnswers.set(BenefitsPage,0, true))(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        val result = controller().onSubmit(NormalMode)(postRequest)
+        val answers = userAnswers.set(BenefitsPage,0, true)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+
+      val result = controller().onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)

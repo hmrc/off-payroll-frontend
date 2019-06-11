@@ -70,7 +70,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryChooseWhereWork: Arbitrary[ChooseWhereWork] =
     Arbitrary {
-      Gen.oneOf(ChooseWhereWork.values)
+      Gen.oneOf(ChooseWhereWork.values())
     }
 
   implicit lazy val arbitraryHowWorkerIsPaid: Arbitrary[HowWorkerIsPaid] =

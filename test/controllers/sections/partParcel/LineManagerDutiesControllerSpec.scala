@@ -20,8 +20,10 @@ import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.LineManagerDutiesFormProvider
-import models.{Answers, NormalMode, UserAnswers}
+import models.requests.DataRequest
+import models.{Answers, ArrangedSubstitute, NormalMode, UserAnswers}
 import pages.sections.partParcel.LineManagerDutiesPage
+import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
@@ -79,10 +81,11 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
         val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, 0,true)
 
-        mockConstructAnswers()(userAnswers)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),Boolean)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -139,15 +142,13 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
 
-        implicit val hc = new HeaderCarrier()
-
         val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, 0, true)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        mockConstructAnswers()(userAnswers)
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),Boolean)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(UserAnswers("id")set(LineManagerDutiesPage,0, true))(onwardRoute)
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

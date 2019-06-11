@@ -18,6 +18,7 @@ package views.sections.control
 
 import assets.messages.HowWorkIsDoneMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import forms.HowWorkIsDoneFormProvider
 import models.{HowWorkIsDone, NormalMode}
 import models.UserType.{Agency, Hirer, Worker}
@@ -29,9 +30,14 @@ import views.html.sections.control.HowWorkIsDoneView
 
 class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "optimised.howWorkIsDone"
+  val messageKeyPrefix = "worker.optimised.howWorkIsDone"
 
   val form = new HowWorkIsDoneFormProvider()()
 
@@ -87,6 +93,27 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
         document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.noWorkerDecides
         document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.noSkilledRole
         document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.partly
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, None)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.OptimisedWorker.heading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.yesClientDecides
+        document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.noWorkerDecides
+        document.select(Selectors.multichoice(3)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.noSkilledRole
+        document.select(Selectors.multichoice(4)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.partly
       }
     }
   }

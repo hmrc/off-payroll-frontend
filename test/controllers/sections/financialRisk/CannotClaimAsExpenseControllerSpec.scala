@@ -22,9 +22,11 @@ import controllers.{ControllerHelper, ControllerSpecBase}
 import forms.CannotClaimAsExpenseFormProvider
 import models.Answers._
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
+import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
-import pages.sections.financialRisk.CannotClaimAsExpensePage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, PutRightAtOwnCostPage}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -74,14 +76,14 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+      val answers = userAnswers.set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
 
-      val userAnswers = UserAnswers("id").set(CannotClaimAsExpensePage, 0,Seq(WorkerProvidedMaterials))
-      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
-
-
+      mockDecide(answers)(onwardRoute)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("cannotClaimAsExpense[0]", CannotClaimAsExpense.options.head.value))
+
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),CannotClaimAsExpense)(answers)
+
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

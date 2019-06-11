@@ -20,6 +20,26 @@ object HowWorkerIsPaidMessages extends BaseMessages {
 
   val subheading = "About the worker’s financial risk"
 
+  object WorkerOptimised {
+    val heading = "On what basis will you be compensated for this work?"
+    val title = heading
+    val salary = "By an hourly, daily or weekly rate."
+    val fixed = "By a fixed price for a specific project."
+    val proRata = "By the amount of work completed."
+    val commision = "By a percentage of the sales you generate."
+    val profits = "By a percentage of your client’s profits or savings."
+  }
+
+  object HirerOptimised {
+    val heading = "On what basis will the worker be compensated for this work?"
+    val title = heading
+    val salary = "By an hourly, daily or weekly rate."
+    val fixed = "By a fixed price for a specific project."
+    val proRata = "By the amount of work completed."
+    val commision = "By a percentage of the sales the worker generates."
+    val profits = "By a percentage of your organisation’s profits or savings."
+  }
+
   object Worker {
     val heading = "What is the main way you are paid for this engagement?"
     val title = heading

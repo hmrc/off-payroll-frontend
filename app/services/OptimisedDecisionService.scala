@@ -61,28 +61,4 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  def result(decisionResponse: Either[ErrorResponse,DecisionResponse],continueResult: Call)
-                                 (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Result = {
-    decisionResponse match {
-      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => InternalServerError(errorHandler.internalServerErrorTemplate)
-      case Right(DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35)) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
-      case Right(DecisionResponse(_, _, _, result)) => redirectResultsPage(result)
-      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
-    }
-  }
-
-  private def redirectResultsPage(resultValue: ResultEnum.Value, controlOption: Option[WeightedAnswerEnum.Value] = None,
-                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
-
-    val result: (String, String) = SessionKeys.result -> resultValue.toString
-    val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)
-    val financialRisk = financialRiskOption.map(financialRisk => SessionKeys.financialRiskResult -> financialRisk.toString)
-
-    val redirect = Redirect(routes.ResultController.onPageLoad()).addingToSession(result)
-    val controlRedirect = if(control.nonEmpty) redirect.addingToSession(control.get) else redirect
-    val financialRiskRedirect = if(financialRisk.nonEmpty) controlRedirect.addingToSession(financialRisk.get) else controlRedirect
-
-    financialRiskRedirect
-  }
-
 }

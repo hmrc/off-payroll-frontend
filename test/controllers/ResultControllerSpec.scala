@@ -21,9 +21,12 @@ import connectors.DataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
+import models.ChooseWhereWork.WorkerChooses
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import pages.ResultPage
+import pages.sections.control.ChooseWhereWorkPage
 import play.api.i18n.Messages
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -88,9 +91,13 @@ class ResultControllerSpec extends ControllerSpecBase {
     "return OK and the correct view for a GET" in {
 
       val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
+      val postRequest = fakeRequest
+      val answers = userAnswers.set(ResultPage,0,FakeTimestamp.timestamp())
 
-      mockConstructAnswers()(UserAnswers("id").set(ResultPage,0,FakeTimestamp.timestamp()))
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),FakeTimestamp.timestamp())(answers)
+
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
 
       val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
 

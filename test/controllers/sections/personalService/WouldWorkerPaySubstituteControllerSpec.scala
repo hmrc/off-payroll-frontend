@@ -22,10 +22,12 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.Answers._
-import models.{Answers, HowWorkIsDone, NormalMode, UserAnswers}
+import models.requests.DataRequest
+import models._
 import navigation.FakeNavigator
 import pages.sections.control.HowWorkIsDonePage
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
+import pages.sections.setup.AboutYouPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Call
@@ -82,13 +84,14 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
       }
 
       "redirect to the next page when valid data is submitted" in {
-        val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 0, true)
 
         enable(OptimisedFlow)
-        mockConstructAnswers()(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        val answers = userAnswers.set(WouldWorkerPaySubstitutePage, 0, true)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -146,15 +149,14 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
 
       "redirect to the next page when valid data is submitted" in {
 
-        implicit val hc = new HeaderCarrier()
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        val userAnswers = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 0, true)
+        val answers = userAnswers.set(WouldWorkerPaySubstitutePage, 0, true)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockConstructAnswers()(userAnswers.set(WouldWorkerPaySubstitutePage,0,true))
-        mockDecide(userAnswers)(onwardRoute)
+        mockDecide(answers)(onwardRoute)
 
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

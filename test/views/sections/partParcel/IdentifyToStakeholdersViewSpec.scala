@@ -128,16 +128,14 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       }
     }
 
-    for(option <- IdentifyToStakeholders.options) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+    IdentifyToStakeholders.options.foreach(option => testOption(option.value))
 
-          for(unselectedOption <- IdentifyToStakeholders.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
-          }
-        }
+    def testOption(value: String) = {
+      s"option $value is selected" in {
+        val (selected, unselected) = IdentifyToStakeholders.options.partition(a => a.value == value)
+        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> value))))
+        assertContainsRadioButton(doc, selected.head.id, "value", selected.head.value, true)
+        unselected.foreach(option => assertContainsRadioButton(doc, option.id, "value", option.value, false))
       }
     }
   }

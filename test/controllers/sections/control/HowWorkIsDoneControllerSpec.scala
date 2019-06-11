@@ -23,9 +23,10 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.HowWorkIsDoneFormProvider
 import models.Answers._
-import models.{AboutYouAnswer, Answers, HowWorkIsDone, NormalMode}
+import models.requests.DataRequest
+import models._
 import navigation.FakeNavigator
-import pages.sections.control.HowWorkIsDonePage
+import pages.sections.control.{HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.setup.AboutYouPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -100,7 +101,9 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockConstructAnswers()(userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed))
+
+      val answers = userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -114,7 +117,9 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkIsDone.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockConstructAnswers()(userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed))
+
+      val answers = userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

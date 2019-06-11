@@ -225,6 +225,73 @@ class DecisionConnectorSpec extends SpecBase with MockHttp with MockServicesConf
     }
   }
 
+  "Calling the decide section connector" should {
+    "return a decision based on the personal service section" in {
+      val response = Right(DecisionResponse("1.0.0-beta", "12345",
+        Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
+        UNKNOWN
+      ))
+
+      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
+
+      val clientResponse = await(TestDecisionConnector.decideSection(interviewModel,Interview.writesPersonalService).value)
+      clientResponse mustBe Left(response)
+    }
+
+    "return a decision based on the control section" in {
+      val response = Right(DecisionResponse("1.0.0-beta", "12345",
+        Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
+        UNKNOWN
+      ))
+
+      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
+
+      val clientResponse = await(TestDecisionConnector.decideSection(interviewModel,Interview.writesControl).value)
+      clientResponse mustBe Left(response)
+    }
+
+    "return an error if a bad request is returned" in  {
+      val fail = Left(ErrorResponse(400, "Unexpected Response returned from decision API"))
+      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(fail))
+
+      val clientResponse = await(TestDecisionConnector.decideSection(interviewModel,Interview.writesPartAndParcel).value)
+      clientResponse mustBe Left(fail)
+    }
+    "return an error if a 499 is returned" in  {
+      val fail = Left(ErrorResponse(499, "Unexpected Response returned from decision API"))
+      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(fail))
+
+      val clientResponse = await(TestDecisionConnector.decideSection(interviewModel,Interview.writesPartAndParcel).value)
+      clientResponse mustBe Left(fail)
+
+    }
+    "return an error a 500 is returned" in  {
+      val fail = Left(ErrorResponse(500, "Unexpected Response returned from decision API"))
+      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(fail))
+
+      val clientResponse = await(TestDecisionConnector.decideSection(interviewModel,Interview.writesPartAndParcel).value)
+      clientResponse mustBe Left(fail)
+    }
+
+    "handle and return an exception" in {
+      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.failed(new Exception("ohno")))
+
+      val clientResponse = await(TestDecisionConnector.decideSection(interviewModel,Interview.writesPartAndParcel).value)
+      clientResponse mustBe Left(Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ohno")))
+    }
+
+    "return a boolean if no decision was reached" in  {
+      val response = Right(DecisionResponse("1.0.0-beta", "12345",
+        Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
+        ResultEnum.NOT_MATCHED
+      ))
+      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
+
+      val clientResponse = await(TestDecisionConnector.decideSection(interviewModel,Interview.writesPartAndParcel).value)
+      clientResponse mustBe Right(true)
+    }
+  }
+
   "Calling the log API" should {
     "return a 204" in {
       val logResponse = Right(true)

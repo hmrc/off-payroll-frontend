@@ -22,9 +22,10 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.MoveWorkerFormProvider
 import models.Answers._
-import models.{Answers, MoveWorker, NormalMode}
+import models.requests.DataRequest
+import models.{Answers, MoveWorker, NormalMode, ScheduleOfWorkingHours}
 import navigation.FakeNavigator
-import pages.sections.control.MoveWorkerPage
+import pages.sections.control.{MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
@@ -99,7 +100,9 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options().head.value))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockConstructAnswers()(userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission))
+
+      val answers = userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -111,7 +114,9 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
 
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options().head.value))
-      mockConstructAnswers()(userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission))
+
+      val answers = userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

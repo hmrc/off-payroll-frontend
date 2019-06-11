@@ -16,8 +16,8 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
-@import controllers.sections.control.routes._
-@import models.MoveWorker
+@import controllers.sections.financialRisk.routes._
+@import models.HowWorkerIsPaid
 @import models.Mode
 @import views.ViewUtils._
 
@@ -26,23 +26,23 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("moveWorker.title"), None),
+    title = title(form, tailorMsgOptimised("howWorkerIsPaid.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
     @components.back_link()
 
-    @formWithCsrf(action = MoveWorkerController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = HowWorkerIsPaidController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("moveWorker.heading"), None)
+        @components.heading(tailorMsgOptimised("howWorkerIsPaid.heading"))
 
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsgOptimised("moveWorker.heading")),
+            legend = messages(tailorMsgOptimised("howWorkerIsPaid.heading")),
             legendClass = Some("visually-hidden"),
-            inputs = MoveWorker.options(true)
+            inputs = HowWorkerIsPaid.options
         )
 
         @components.submit_button()

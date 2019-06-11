@@ -16,12 +16,12 @@
 
 package views.sections.control
 
-import assets.messages.{ChooseWhereWorkMessages, WorkerUsingIntermediaryMessages}
+import assets.messages.ChooseWhereWorkMessages
 import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import forms.ChooseWhereWorkFormProvider
-import models.{ChooseWhereWork, NormalMode}
 import models.UserType.{Agency, Hirer, Worker}
+import models.{ChooseWhereWork, NormalMode}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
@@ -30,9 +30,14 @@ import views.html.sections.control.ChooseWhereWorkView
 
 class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
 
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "optimised.chooseWhereWork"
+  val messageKeyPrefix = "worker.optimised.chooseWhereWork"
 
   val form = new ChooseWhereWorkFormProvider()()
 
@@ -63,8 +68,8 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.yesWorkerDecides
-        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.noClientDecides
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.clientDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.workerDecides
         document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.noTaskDeterminate
         document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.partly
       }
@@ -84,10 +89,31 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.OptimisedHirer.yesWorkerDecides
-        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.OptimisedHirer.noClientDecides
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.OptimisedHirer.clientDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.OptimisedHirer.workerDecides
         document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.OptimisedHirer.noTaskDeterminate
         document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.OptimisedHirer.partly
+      }
+    }
+
+    "If the user type is of Agency" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      lazy val document = asDocument(createViewWithRequest(request))
+
+      "have the correct title" in {
+        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, None)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ChooseWhereWorkMessages.OptimisedWorker.heading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.clientDecides
+        document.select(Selectors.multichoice(2)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.workerDecides
+        document.select(Selectors.multichoice(3)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.noTaskDeterminate
+        document.select(Selectors.multichoice(4)).text mustBe ChooseWhereWorkMessages.OptimisedWorker.partly
       }
     }
   }

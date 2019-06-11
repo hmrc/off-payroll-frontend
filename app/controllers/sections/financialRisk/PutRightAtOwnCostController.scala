@@ -16,17 +16,20 @@
 
 package controllers.sections.financialRisk
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.PutRightAtOwnCostFormProvider
-import models.{ErrorTemplate, Mode, PutRightAtOwnCost}
+import javax.inject.Inject
+import models.requests.DataRequest
+import models.{Mode, PutRightAtOwnCost}
 import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.financialRisk.PutRightAtOwnCostView
+import play.twirl.api.HtmlFormat
+import views.html.sections.financialRisk.PutRightAtOwnCostView
+import views.html.subOptimised.sections.financialRisk.{PutRightAtOwnCostView => SubOptimisedPutRightAtOwnCostView}
 
 import scala.concurrent.Future
 
@@ -35,14 +38,19 @@ class PutRightAtOwnCostController @Inject()(identify: IdentifierAction,
                                             requireData: DataRequiredAction,
                                             formProvider: PutRightAtOwnCostFormProvider,
                                             controllerComponents: MessagesControllerComponents,
-                                            view: PutRightAtOwnCostView,
+                                            subOptimisedView: SubOptimisedPutRightAtOwnCostView,
+                                            optimisedView: PutRightAtOwnCostView,
                                             controllerHelper: ControllerHelper,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[PutRightAtOwnCost] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(PutRightAtOwnCostPage, form), mode))
+  }
+
+  private def view(form: Form[PutRightAtOwnCost], mode: Mode)(implicit request: DataRequest[_]): HtmlFormat.Appendable = {
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
