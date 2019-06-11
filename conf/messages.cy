@@ -1387,3 +1387,24 @@ hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information
 hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
 hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual
 ## ------------------
+
+
+## Inside Agent
+## ------------------
+##TODO: Need Welsh
+agent.optimised.result.inside.title = IR35 applies. Tax earnings within PAYE
+agent.optimised.result.inside.heading = IR35 applies.
+agent.optimised.result.inside.subHeading = Tax earnings within PAYE
+agent.optimised.result.inside.whyResult.p1 = The answers you’ve given tell us your client is  directly hiring your candidate, and the working practices of this engagement mean that your candidate is classed as employed for tax purposes.
+agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+## ------------------
+
+## Undetermined Agent
+## ------------------
+##TODO: Need Welsh
+agent.optimised.result.undetermined.title = Undetermined employment status
+agent.optimised.result.undetermined.heading = Undetermined employment status
+agent.optimised.result.undetermined.whyResult.p1 = We need more information to understand the working practices of this engagement.
+agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
+agent.optimised.result.undetermined.doNext.p2 = You could also read through the Employment status manual
+## ------------------
