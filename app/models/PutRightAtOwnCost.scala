@@ -16,6 +16,9 @@
 
 package models
 
+import config.FrontendAppConfig
+import config.featureSwitch.OptimisedFlow
+import models.HowWorkerIsPaid.{isEnabled, values}
 import play.api.libs.json._
 import viewmodels.{RadioOption, radio}
 
@@ -33,11 +36,16 @@ object PutRightAtOwnCost {
     OutsideOfHoursNoCharge, OutsideOfHoursNoCosts, AsPartOfUsualRateInWorkingHours, CannotBeCorrected, NoObligationToCorrect
   )
 
-  val options: Seq[RadioOption] = values.map {
-    value =>
-      RadioOption("putRightAtOwnCost", value.toString, radio, hasTailoredMsgs = true)
+  def options(implicit frontendAppConfig: FrontendAppConfig): Seq[RadioOption] = values.map {
+    value => RadioOption(
+      keyPrefix = "putRightAtOwnCost",
+      option = value.toString,
+      optionType = radio,
+      hasTailoredMsgs = true,
+      dividerPrefix = false,
+      hasOptimisedMsgs = isEnabled(OptimisedFlow)
+    )
   }
-
   implicit val enumerable: Enumerable[PutRightAtOwnCost] =
     Enumerable(values.map(v => v.toString -> v): _*)
 

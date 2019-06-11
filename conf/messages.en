@@ -494,6 +494,24 @@ hirer.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to p
 hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
 hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
 hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
+
+worker.optimised.putRightAtOwnCost.title = If your client wasn’t happy with the work, would you have to put it right at your cost?
+worker.optimised.putRightAtOwnCost.heading = If your client wasn’t happy with the work, would you have to put it right at your cost?
+worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your client wasn’t happy with the work, would you have to put it right at your cost?
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right, for no additional income, and would incur extra outgoings in doing so.
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right, for no additional income, with no extra outgoings, but would incur an opportunity cost.
+worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, you would put it right in your usual hours at your usual rate or fee.
+worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, you couldn’t put it right because it was time-specific or for a single event.
+worker.optimised.putRightAtOwnCost.noObligationToCorrect = No, you wouldn’t need to put it right.
+
+hirer.optimised.putRightAtOwnCost.title = If your team weren’t happy with the work, would the worker have to put it right at their cost?
+hirer.optimised.putRightAtOwnCost.heading = If your team weren’t happy with the work, would the worker have to put it right at their cost?
+hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your team weren’t happy with the work, would the worker have to put it right at their cost?
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, the worker would have to put it right, for no additional income, and would incur extra outgoings in doing so.
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, the worker would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost.
+hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, the worker would put it right in their usual hours at their usual rate or fee.
+hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the worker couldn’t put it right because it was time-specific or for a single event.
+hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No, they wouldn’t need to put it right.
 #########################
 
 ## How Worker is Paid
@@ -529,6 +547,24 @@ hirer.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
 hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
 hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
+
+worker.optimised.howWorkerIsPaid.title = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.heading = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.incomeCalendarPeriods = By an hourly, daily or weekly rate.
+worker.optimised.howWorkerIsPaid.incomeFixed = By a fixed price for a specific project.
+worker.optimised.howWorkerIsPaid.incomePieceRate = By the amount of work completed.
+worker.optimised.howWorkerIsPaid.incomeCommission = By a percentage of the sales you generate.
+worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = By a percentage of your client’s profits or savings.
+
+hirer.optimised.howWorkerIsPaid.title = On what basis will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.heading = On what basis will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = By an hourly, daily or weekly rate.
+hirer.optimised.howWorkerIsPaid.incomeFixed = By a fixed price for a specific project.
+hirer.optimised.howWorkerIsPaid.incomePieceRate = By the amount of work completed.
+hirer.optimised.howWorkerIsPaid.incomeCommission = By a percentage of the sales the worker generates.
+hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = By a percentage of your organisation’s profits or savings.
 #########################
 
 
@@ -1232,4 +1268,45 @@ hirer.optimised.result.undetermined.ir35.public.whyResult.p1 = We need more info
 hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk. You could also read through the Employment status manual.
 
 hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+## In IR35 Decision Worker
+## -------------------
+worker.optimised.result.in.ir35.title = IR35 applies. Tax earnings within PAYE
+worker.optimised.result.in.ir35.heading = IR35 applies.
+worker.optimised.result.in.ir35.subHeading = Tax earnings within PAYE
+worker.optimised.result.in.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are classed as employed for tax purposes.
+worker.optimised.result.in.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
+worker.optimised.result.in.ir35.public.doNext.p1 = Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
+## ------------------
+
+## Undetermined IR35 Decision Worker
+## -------------------
+worker.optimised.result.undetermined.ir35.title = Undetermined employment status
+worker.optimised.result.undetermined.ir35.heading = Undetermined employment status
+worker.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
+worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, you can contact us for more information.
+worker.optimised.result.undetermined.ir35.private.doNext.bullet1 = call HMRC’s Employment Status and Intermediaries helpline: 0300 123 2326
+worker.optimised.result.undetermined.ir35.private.doNext.bullet2 = email us: ir35@hmrc.gov.uk.
+worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
+worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, you can contact us for more information.
+worker.optimised.result.undetermined.ir35.public.doNext.bullet1 = call HMRC’s Employment Status and Intermediaries helpline: 0300 123 2326
+worker.optimised.result.undetermined.ir35.public.doNext.bullet2 = email us: ir35@hmrc.gov.uk.
+worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
+## ------------------
+
+## Inside PAYE Hirer
+## ------------------
+hirer.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
+hirer.optimised.result.inside.paye.heading = Employed.
+hirer.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
+hirer.optimised.result.inside.paye.whyResult.p1 = The answers you’ve given tell us you’re directly engaging the worker. The working practices of this role indicate that the worker is employed for tax purposes.
+hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE for this worker.
+## ------------------
+
+## Undetermined PAYE Hirer
+## ------------------
+hirer.optimised.result.undetermined.paye.title = Undetermined employment status
+hirer.optimised.result.undetermined.paye.heading = Undetermined employment status
+hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
+hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
+hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual
 ## ------------------
