@@ -18,6 +18,20 @@ package assets.messages.results
 
 object UndeterminedDecisionMessages extends BaseResultMessages {
 
+  object WorkerIR35 {
+    val title = "Undetermined employment status"
+    val heading = "Undetermined employment status"
+    val whyResult = "We need more information to understand the working practices of this contract."
+    val doNextPrivateP1 = "If you need help, you can contact us for more information."
+    val doNextPrivateBullet1 = "call HMRC’s Employment Status and Intermediaries helpline: 0300 123 2326"
+    val doNextPrivateBullet2 = "email us: ir35@hmrc.gov.uk."
+    val doNextPrivateP2 = "You could also read through the Employment status manual."
+    val doNextPublicP1 = "If you need help, you can contact us for more information."
+    val doNextPublicBullet1 = "call HMRC’s Employment Status and Intermediaries helpline: 0300 123 2326"
+    val doNextPublicBullet2 = "email us: ir35@hmrc.gov.uk."
+    val doNextPublicP2 = "You could also read through the Employment status manual."
+  }
+
   object HirerPAYE {
     val title = "Undetermined employment status"
     val heading = "Undetermined employment status"

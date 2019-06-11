@@ -18,6 +18,17 @@ package assets.messages.results
 
 object InDecisionMessages extends BaseResultMessages {
 
+  object WorkerIR35 {
+    val title = "IR35 applies. Tax earnings within PAYE"
+    val heading = "IR35 applies."
+    val subHeading = "Tax earnings within PAYE"
+    val whyResult = "Your answers indicate that you are providing a service to your client. This means you are classed as employed for tax purposes."
+    val doNextPrivate = "Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings."
+    val doNextPublic = "Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings."
+    val doNext_public_p1 = "Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings."
+    val doNext_private_p1 = "Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings."
+  }
+
   object HirerPAYE {
     val title = "Employed. Tax earnings within PAYE"
     val heading = "Employed."
