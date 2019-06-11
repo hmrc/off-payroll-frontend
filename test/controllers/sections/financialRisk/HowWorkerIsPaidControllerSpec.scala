@@ -92,8 +92,8 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
-
-        mockConstructAnswers()(userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly))
+        val answers = userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -155,7 +155,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
 
         val answers = userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)

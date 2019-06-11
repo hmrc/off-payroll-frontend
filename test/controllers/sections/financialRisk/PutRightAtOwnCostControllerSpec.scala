@@ -83,17 +83,17 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(form.fill(PutRightAtOwnCost.values.head))
       }
 
-      "redirect to the next page when valid data is submitted 1111111111111111111" in {
+      "redirect to the next page when valid data is submitted" in {
 
         implicit val hc = new HeaderCarrier()
         enable(OptimisedFlow)
 
         val userAnswers = UserAnswers("id").set(PutRightAtOwnCostPage, 0, OutsideOfHoursNoCharge)
 
-        mockConstructAnswers()(userAnswers)
-        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
+
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),PutRightAtOwnCost)(userAnswers)
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -149,7 +149,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
         contentAsString(result) mustBe viewAsString(form.fill(PutRightAtOwnCost.values.head))
       }
 
-      "redirect to the next page when valid data is submitted 22222222222222222" in {
+      "redirect to the next page when valid data is submitted" in {
 
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
@@ -157,8 +157,9 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
         val result = controller().onSubmit(NormalMode)(postRequest)
 
         mockConstructAnswers(DataRequest(postRequest,"id",answers),PutRightAtOwnCost)(answers)
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(answers)(onwardRoute)status(result) mustBe SEE_OTHER
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockDecide(answers)(onwardRoute)
+        status(result) mustBe SEE_OTHER
 
       }
 
