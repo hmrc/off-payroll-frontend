@@ -24,10 +24,11 @@ import forms.IdentifyToStakeholdersFormProvider
 import models.Answers._
 import models.IdentifyToStakeholders.WorkForEndClient
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
-import pages.sections.partParcel.IdentifyToStakeholdersPage
+import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage}
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -81,14 +82,13 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
+      val answers = userAnswers.set(IdentifyToStakeholdersPage,0,IdentifyToStakeholders.WorkForEndClient)
 
-      val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0,IdentifyToStakeholders.WorkForEndClient)
-      mockDecide(userAnswers)(onwardRoute)
-      mockConstructAnswers()(userAnswers)
+      mockDecide(answers)(onwardRoute)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
-
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),IdentifyToStakeholders)(answers)
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER

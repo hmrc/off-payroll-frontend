@@ -22,6 +22,7 @@ import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
 import models._
+import models.requests.DataRequest
 import pages.sections.control.MoveWorkerPage
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
@@ -99,8 +100,9 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
+      val answers = userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
 
-      mockConstructAnswers()(userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany))
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
@@ -113,8 +115,8 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
 
       enable(OptimisedFlow)
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-
-      mockConstructAnswers()(userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany))
+      val answers = userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

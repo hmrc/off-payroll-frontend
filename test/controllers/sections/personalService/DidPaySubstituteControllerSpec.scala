@@ -24,12 +24,13 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.DidPaySubstituteFormProvider
+import models.requests.DataRequest
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
-import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, WouldWorkerPaySubstitutePage}
+import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, WouldWorkerPaySubstitutePage}
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json.Json
@@ -91,11 +92,12 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
       "redirect to the next page when valid data is submitted" in {
         enable(OptimisedFlow)
 
-        mockConstructAnswers()(userAnswers.set(DidPaySubstitutePage,0,true))
-
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        val answers = userAnswers.set(DidPaySubstitutePage,0,true)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -155,13 +157,12 @@ class DidPaySubstituteControllerSpec extends ControllerSpecBase {
       }
 
       "redirect to the next page when valid data is submitted" in {
-        val userAnswers = UserAnswers("id").set(DidPaySubstitutePage, 0, true)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        val answers = userAnswers.set(DidPaySubstitutePage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(userAnswers)(onwardRoute)
-        mockConstructAnswers()(userAnswers)
-
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+        mockDecide(answers)(onwardRoute)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

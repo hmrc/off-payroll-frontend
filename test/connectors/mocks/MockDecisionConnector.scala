@@ -36,9 +36,9 @@ trait MockDecisionConnector extends MockFactory {
       .returns(Future.successful(response))
   }
 
-  def mockDecideSection(writes: Writes[Interview])(response: Result[Boolean]): Unit = {
+  def mockDecideSection(interview: Interview)(response: Result[Boolean]): Unit = {
     (mockDecisionConnector.decideSection(_: Interview,_: Writes[Interview])(_: HeaderCarrier, _: ExecutionContext))
-      .expects(*,writes, *, *)
+      .expects(interview,*, *, *)
       .returns(response)
   }
 

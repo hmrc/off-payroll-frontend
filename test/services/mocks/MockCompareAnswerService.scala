@@ -30,9 +30,11 @@ trait MockCompareAnswerService extends MockFactory {
 
   val mockCompareAnswerService = mock[CompareAnswerService]
 
-  def mockConstructAnswers()(result: UserAnswers): Unit = {
-    (mockCompareAnswerService.constructAnswers( _: DataRequest[AnyContent],_: Any, _: QuestionPage[Any])
-    (_: Reads[Any],_: Writes[Any],_: Writes[Answers[Any]],_: Reads[Answers[Any]],_: ExecutionContext))
+
+  //TODO make mocks work
+  def mockConstructAnswers[T](dataRequest: DataRequest[AnyContent],dataType: T)(result: UserAnswers): Unit = {
+    (mockCompareAnswerService.constructAnswers(_: DataRequest[AnyContent],_: T, _: QuestionPage[T])
+    (_: Reads[T],_: Writes[T],_: Writes[Answers[T]],_: Reads[Answers[T]],_: ExecutionContext))
       .expects(*,*,*,*,*,*,*,*)
       .returns(result)
 

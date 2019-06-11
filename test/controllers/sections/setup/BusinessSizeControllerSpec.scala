@@ -22,6 +22,7 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.BusinessSizeFormProvider
+import models.requests.DataRequest
 import models.{Answers, BusinessSize, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import org.mockito.Matchers
@@ -79,7 +80,8 @@ class BusinessSizeControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("businessSize[0]", BusinessSize.options.head.value))
 
-      mockConstructAnswers()(userAnswers.set(BusinessSizePage,0,Seq(BusinessSize.Turnover)))
+      val answers = userAnswers.set(BusinessSizePage,0,Seq(BusinessSize.Turnover))
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),BusinessSize)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

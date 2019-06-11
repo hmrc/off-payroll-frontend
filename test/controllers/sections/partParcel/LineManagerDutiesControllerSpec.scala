@@ -22,9 +22,11 @@ import connectors.mocks.MockDataCacheConnector
 import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.LineManagerDutiesFormProvider
-import models.{Answers, NormalMode, UserAnswers}
+import models.requests.DataRequest
+import models.{Answers, ArrangedSubstitute, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.sections.partParcel.LineManagerDutiesPage
+import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json.Json
@@ -77,13 +79,13 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-
-      val userAnswers = UserAnswers("id").set(LineManagerDutiesPage, 0,true)
-      mockConstructAnswers()(userAnswers)
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
-
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val answers = userAnswers.set(LineManagerDutiesPage, 0,true)
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockDecide(answers)(onwardRoute)
+
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

@@ -24,9 +24,10 @@ import forms.ChooseWhereWorkFormProvider
 import models.Answers._
 import models.ChooseWhereWork.WorkerChooses
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import pages.ResultPage
-import pages.sections.control.ChooseWhereWorkPage
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage}
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
@@ -98,14 +99,14 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     }
 
     "redirect to the next page when valid data is submitted" in {
+      val answers = userAnswers.set(ChooseWhereWorkPage,0, WorkerChooses)
 
-      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
-
-      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(userAnswers)(onwardRoute)
+      mockDecide(answers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
+
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -116,11 +117,12 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     "redirect to the next page when valid data is submitted for optimised view" in {
       enable(OptimisedFlow)
 
-      val userAnswers = UserAnswers("id").set(ChooseWhereWorkPage,0, WorkerChooses)
-      mockConstructAnswers()(userAnswers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ChooseWhereWork.options().head.value))
+
+      val answers = userAnswers.set(ChooseWhereWorkPage,0, WorkerChooses)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),ChooseWhereWork)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

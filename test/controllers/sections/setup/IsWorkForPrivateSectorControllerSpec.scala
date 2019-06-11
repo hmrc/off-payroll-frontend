@@ -23,6 +23,7 @@ import controllers.{ControllerHelper, ControllerSpecBase}
 import controllers.actions._
 import forms.{ContractStartedFormProvider, IsWorkForPrivateSectorFormProvider}
 import models._
+import models.requests.DataRequest
 import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
@@ -84,7 +85,8 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
 
-      mockConstructAnswers()(userAnswers.set(ContractStartedPage,0,true))
+      val answers = userAnswers.set(ContractStartedPage,0,true)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

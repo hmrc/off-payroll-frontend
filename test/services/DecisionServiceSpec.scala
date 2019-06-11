@@ -779,7 +779,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
     }
-    "return a continue decision based on the interview when control is empty (and add decision if optimised is on)" in {
+    "return a continue decision based on the interview when control is empty" in {
       enable(OptimisedFlow)
 
       mockDecide(Interview(userAnswers))(Right(riskResponse))
@@ -788,9 +788,9 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
       val result = service.decide(userAnswers, onwardRoute)
 
       status(result) mustBe SEE_OTHER
-      Some(controllers.routes.ResultController.onPageLoad().url)
+      redirectLocation(result) mustBe Some("/continue")
     }
-    "return a continue decision based on the interview when risk is empty" in {
+    "return a continue decision based on the interview when risk is empty optimised" in {
       enable(OptimisedFlow)
 
       mockDecide(Interview(userAnswers))(Right(controlResponse))
@@ -803,7 +803,7 @@ class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockD
 
     }
 
-    "return a continue decision based on the interview when risk is empty (and not add a decision if optimised flow is off)" in {
+    "return a continue decision based on the interview when risk is empty" in {
 
       mockDecide(Interview(userAnswers))(Right(controlResponse))
       mockLog(Interview(userAnswers), controlResponse)(Right(true))

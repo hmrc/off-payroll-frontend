@@ -23,9 +23,10 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ArrangedSubstituteFormProvider
 import models.Answers._
+import models.requests.DataRequest
 import models.{Answers, ArrangedSubstitute, NormalMode}
 import navigation.FakeNavigator
-import pages.sections.personalService.ArrangedSubstitutePage
+import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage}
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.mvc.Call
@@ -82,8 +83,10 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
 
-        mockConstructAnswers()(userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
+        val answers = userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),ArrangedSubstitute)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
@@ -143,7 +146,9 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ArrangedSubstitute.options.head.value))
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockConstructAnswers()(userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed))
+
+        val answers = userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed)
+        mockConstructAnswers(DataRequest(postRequest,"id",answers),ArrangedSubstitute)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

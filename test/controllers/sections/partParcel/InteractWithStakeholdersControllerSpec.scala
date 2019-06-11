@@ -25,15 +25,15 @@ import navigation.FakeNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
-import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage}
+import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.InteractWithStakeholdersFormProvider
+import models.requests.DataRequest
 import models.{Answers, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
-import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.http.HttpEntity
 import play.api.libs.json.Json
@@ -87,13 +87,13 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
 
-      mockConstructAnswers()(userAnswers.set(InteractWithStakeholdersPage,0,true))
-
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
       mockDecide(userAnswers.set(InteractWithStakeholdersPage,0,true))(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
+      val answers = userAnswers.set(InteractWithStakeholdersPage,0,true)
+      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
