@@ -41,7 +41,7 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
                                  decisionConnector: DecisionConnector,
                                  optimisedDecisionService: OptimisedDecisionService
                                 )(implicit val appConf: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
-
+  //scalastyle:off
   def redirect[T](mode: Mode,
                   value: T,
                   page: QuestionPage[T],

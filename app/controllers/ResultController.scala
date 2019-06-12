@@ -17,17 +17,17 @@
 package controllers
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
-
 import models.{NormalMode, Timestamp}
 import navigation.Navigator
 import pages.ResultPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService, DecisionService, OptimisedDecisionService}
 import utils.UserAnswersUtils
 
 import scala.concurrent.Future
@@ -42,7 +42,9 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,
-                                 implicit val conf: FrontendAppConfig) extends BaseController(controllerComponents) with UserAnswersUtils {
+                                 optimisedDecisionService: OptimisedDecisionService,
+                                 implicit val conf: FrontendAppConfig) extends BaseController(controllerComponents)
+  with UserAnswersUtils with FeatureSwitching {
 
   val resultForm: Form[Boolean] = formProvider()
 
@@ -51,7 +53,15 @@ class ResultController @Inject()(identify: IdentifierAction,
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage)
     dataCacheConnector.save(timestamp.cacheMap).map { _ =>
-      Ok(decisionService.determineResultView(answers))
+
+      if(isEnabled(OptimisedFlow)){
+
+        Ok(optimisedDecisionService.determineResultView(answers))
+
+      } else {
+
+        Ok(decisionService.determineResultView(answers))
+      }
     }
   }
 
