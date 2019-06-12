@@ -17,6 +17,7 @@
 package controllers.sections.partParcel
 
 import akka.util.ByteString
+import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import controllers.{ControllerHelper, ControllerSpecBase}
@@ -38,7 +39,8 @@ import play.api.test.Helpers._
 import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
+import views.html.sections.partParcel.IdentifyToStakeholdersView
+import views.html.subOptimised.sections.partParcel.{IdentifyToStakeholdersView => SubOptimisedIdentifyToStakeholdersView}
 
 import scala.concurrent.Future
 
@@ -47,7 +49,8 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
   val formProvider = new IdentifyToStakeholdersFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[IdentifyToStakeholdersView]
+  val optimisedView = injector.instanceOf[IdentifyToStakeholdersView]
+  val subOptimisedView = injector.instanceOf[SubOptimisedIdentifyToStakeholdersView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IdentifyToStakeholdersController(
     FakeIdentifierAction,
@@ -55,68 +58,147 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    view = view,
+    optimisedView = optimisedView,
+    subOptimisedView = subOptimisedView,
+    mockDecisionService,
     mockControllerHelper,
     frontendAppConfig
   )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
-
-  val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values.head,0)))
+  val validData = Map(IdentifyToStakeholdersPage.toString -> Json.toJson(Answers(IdentifyToStakeholders.values(true).head,0)))
 
   "IdentifyToStakeholders Controller" must {
 
-    "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
+    "If the OptimisedFlow is enabled" should {
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
+
+      "return OK and the correct view for a GET" in {
+        enable(OptimisedFlow)
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
+
+      "populate the view correctly on a GET when the question has previously been answered" in {
+        enable(OptimisedFlow)
+        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+        val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage,0,IdentifyToStakeholders.WorkForEndClient)
+        contentAsString(result) mustBe viewAsString(form.fill(IdentifyToStakeholders.values(true).head))
+      }
+
+      "redirect to the next page when valid data is submitted" in {
+        enable(OptimisedFlow)
+
+        val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, 0, WorkForEndClient)
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
+
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
+
+      "return a Bad Request and errors when invalid data is submitted" in {
+        enable(OptimisedFlow)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) mustBe viewAsString(boundForm)
+      }
+
+      "redirect to Index Controller for a GET if no existing data is found" in {
+        enable(OptimisedFlow)
+
+        val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
+
+      "redirect to Index Controller for a POST if no existing data is found" in {
+        enable(OptimisedFlow)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
+        val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+    "If the OptimisedFlow is disabled" should {
 
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+      def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-      contentAsString(result) mustBe viewAsString(form.fill(IdentifyToStakeholders.values.head))
-    }
+      "return OK and the correct view for a GET" in {
+        val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
-    "redirect to the next page when valid data is submitted" in {
-      val answers = userAnswers.set(IdentifyToStakeholdersPage,0,IdentifyToStakeholders.WorkForEndClient)
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
 
-      mockDecide(answers)(onwardRoute)
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      "populate the view correctly on a GET when the question has previously been answered" in {
+        val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),IdentifyToStakeholders)(answers)
-      val result = controller().onSubmit(NormalMode)(postRequest)
+        val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      status(result) mustBe SEE_OTHER
-    }
+        contentAsString(result) mustBe viewAsString(form.fill(IdentifyToStakeholders.values().head))
+      }
 
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
+      "redirect to the next page when valid data is submitted" in {
 
-      val result = controller().onSubmit(NormalMode)(postRequest)
+        implicit val hc = new HeaderCarrier()
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
+        val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, 0, WorkForEndClient)
 
-    "redirect to Index Controller for a GET if no existing data is found" in {
-      val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockDecide(userAnswers)(onwardRoute)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
-    }
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
+        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
+        val result = controller().onSubmit(NormalMode)(postRequest)
 
-    "redirect to Index Controller for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
-      val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      "return a Bad Request and errors when invalid data is submitted" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+        val boundForm = form.bind(Map("value" -> "invalid value"))
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe BAD_REQUEST
+        contentAsString(result) mustBe viewAsString(boundForm)
+      }
+
+      "redirect to Index Controller for a GET if no existing data is found" in {
+        val result = controller(FakeDontGetDataDataRetrievalAction).onPageLoad(NormalMode)(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
+
+      "redirect to Index Controller for a POST if no existing data is found" in {
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
+        val result = controller(FakeDontGetDataDataRetrievalAction).onSubmit(NormalMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
+      }
     }
   }
 }

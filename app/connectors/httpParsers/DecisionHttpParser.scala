@@ -33,7 +33,10 @@ object DecisionHttpParser {
             Logger.error(s"[DecisionHttpParser][DecisionReads] Invalid Json received from decision connector from decision API. $invalid")
             Left(ErrorResponse(INTERNAL_SERVER_ERROR, "Invalid Json received from decision API")): Either[ErrorResponse, DecisionResponse]
           }
-          ,validJson => Right(validJson)
+          ,validJson => {
+            Logger.debug(s"[DecisionHttpParser][DecisionReads] Decision service response: $validJson")
+            Right(validJson)
+          }
         )
         case unexpectedStatus@_ =>
           Logger.error(s"[DecisionHttpParser][DecisionReads] Unexpected response from decision API - Response: $unexpectedStatus")

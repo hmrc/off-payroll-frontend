@@ -20,6 +20,25 @@ object IdentifyToStakeholdersMessages extends BaseMessages {
 
   val subheading = "About the worker’s integration into the organisation"
 
+  object Optimised {
+    object Worker {
+      val heading = "If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?"
+      val title = heading
+      val workForEndClient = "You work for your client’s organisation"
+      val workAsIndependent = "You are an independent worker acting on behalf of your client"
+      val workAsBusiness = "You work for your own business"
+      val wouldNotHappen = "This wouldn’t happen - you wouldn’t interact formally"
+    }
+    object Hirer {
+      val heading = "If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?"
+      val title = heading
+      val workForEndClient = "They work for you"
+      val workAsIndependent = "They are an independent worker acting on your behalf"
+      val workAsBusiness = "They work for their own business"
+      val wouldNotHappen = "This wouldn’t happen - they wouldn’t interact formally"
+    }
+  }
+
   object Worker {
     val heading = "When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?"
     val title = heading

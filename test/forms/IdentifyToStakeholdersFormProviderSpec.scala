@@ -32,7 +32,7 @@ class IdentifyToStakeholdersFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[IdentifyToStakeholders](
       form,
       fieldName,
-      validValues  = IdentifyToStakeholders.values,
+      validValues  = IdentifyToStakeholders.values(true),
       invalidError = FormError(fieldName, "error.invalid")
     )
 

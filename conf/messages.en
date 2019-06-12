@@ -369,6 +369,22 @@ worker.identifyToStakeholders.workForEndClient = I work for the end client
 worker.identifyToStakeholders.workAsIndependent = I am an independent worker acting on behalf of the end client
 worker.identifyToStakeholders.workAsBusiness = I work for my own business
 worker.identifyToStakeholders.checkYourAnswersLabel = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
+
+hirer.optimised.identifyToStakeholders.title = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
+hirer.optimised.identifyToStakeholders.heading = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
+hirer.optimised.identifyToStakeholders.checkYourAnswersLabel = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
+hirer.optimised.identifyToStakeholders.workForEndClient = They work for you
+hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independent worker acting on your behalf
+hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
+hirer.optimised.identifyToStakeholders.wouldNotHappen = This wouldn’t happen - they wouldn’t interact formally
+
+worker.optimised.identifyToStakeholders.title = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
+worker.optimised.identifyToStakeholders.heading = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
+worker.optimised.identifyToStakeholders.checkYourAnswersLabel = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
+worker.optimised.identifyToStakeholders.workForEndClient = You work for your client’s organisation
+worker.optimised.identifyToStakeholders.workAsIndependent = You are an independent worker acting on behalf of your client
+worker.optimised.identifyToStakeholders.workAsBusiness = You work for your own business
+worker.optimised.identifyToStakeholders.wouldNotHappen = This wouldn’t happen - you wouldn’t interact formally
 #########################
 
 ## Worker interact with stakeholders
@@ -422,6 +438,22 @@ worker.lineManagerDuties.bullet2 = Dismissing workers
 worker.lineManagerDuties.bullet3 = Delivering appraisals
 worker.lineManagerDuties.bullet4 = Deciding how much to pay someone
 worker.lineManagerDuties.checkYourAnswersLabel = Are you responsible for any of these duties for the end client?
+
+hirer.optimised.lineManagerDuties.title = Will the worker be responsible for any of these duties for your organisation?
+hirer.optimised.lineManagerDuties.heading = Will the worker be responsible for any of these duties for your organisation?
+hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker be responsible for any of these duties for your organisation?
+hirer.optimised.lineManagerDuties.bullet1 = Hiring workers
+hirer.optimised.lineManagerDuties.bullet2 = Dismissing workers
+hirer.optimised.lineManagerDuties.bullet3 = Delivering appraisals
+hirer.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
+
+worker.optimised.lineManagerDuties.title = Will you be responsible for any of these duties for your client?
+worker.optimised.lineManagerDuties.heading = Will you be responsible for any of these duties for your client?
+worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you be responsible for any of these duties for your client?
+worker.optimised.lineManagerDuties.bullet1 = Hiring workers
+worker.optimised.lineManagerDuties.bullet2 = Dismissing workers
+worker.optimised.lineManagerDuties.bullet3 = Delivering appraisals
+worker.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
 #########################
 
 ## Benefits from end client
@@ -451,6 +483,7 @@ hirer.benefits.checkYourAnswersLabel = Is the worker entitled to any of these be
 
 worker.benefits.title = Are you entitled to any of these benefits from the end client?
 worker.benefits.heading = Are you entitled to any of these benefits from the end client?
+worker.benefits.checkYourAnswersLabel = Are you entitled to any of these benefits from the end client?
 worker.benefits.subheading = About the worker’s integration into the organisation
 worker.benefits.bullet1 = Sick pay
 worker.benefits.bullet2 = Holiday pay
@@ -458,7 +491,24 @@ worker.benefits.bullet3 = A workplace pension
 worker.benefits.bullet4 = Maternity/paternity pay
 worker.benefits.bullet5 = Other benefits (such as gym membership and health insurance)
 worker.benefits.p1 = These do not include benefits provided by a third party or agency.
-worker.benefits.checkYourAnswersLabel = Are you entitled to any of these benefits from the end client?
+
+worker.optimised.benefits.title = Will your client provide you with any of the following benefits?
+worker.optimised.benefits.heading = Will your client provide you with any of the following benefits?
+worker.optimised.benefits.checkYourAnswersLabel = Will your client provide you with any of the following benefits?
+worker.optimised.benefits.bullet1 = Sick pay
+worker.optimised.benefits.bullet2 = Holiday pay
+worker.optimised.benefits.bullet3 = Workplace pension
+worker.optimised.benefits.bullet4 = Maternity/paternity pay
+worker.optimised.benefits.bullet5 = Other significant benefits, like health insurance
+
+hirer.optimised.benefits.title = Will your organisation provide the worker with any of the following benefits?
+hirer.optimised.benefits.heading = Will your organisation provide the worker with any of the following benefits?
+hirer.optimised.benefits.checkYourAnswersLabel = Will your organisation provide the worker with any of the following benefits?
+hirer.optimised.benefits.bullet1 = Sick pay
+hirer.optimised.benefits.bullet2 = Holiday pay
+hirer.optimised.benefits.bullet3 = Workplace pension
+hirer.optimised.benefits.bullet4 = Maternity/paternity pay
+hirer.optimised.benefits.bullet5 = Other significant benefits, like health insurance
 #########################
 
 ## Put Right at Workers Own Cost

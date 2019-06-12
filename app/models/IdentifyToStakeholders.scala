@@ -16,28 +16,40 @@
 
 package models
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import play.api.libs.json._
 import viewmodels.{RadioOption, radio}
 
 sealed trait IdentifyToStakeholders
 
-object IdentifyToStakeholders {
+object IdentifyToStakeholders extends FeatureSwitching {
 
   case object WorkForEndClient extends WithName("workForEndClient") with IdentifyToStakeholders
   case object WorkAsIndependent extends WithName("workAsIndependent") with IdentifyToStakeholders
   case object WorkAsBusiness extends WithName("workAsBusiness") with IdentifyToStakeholders
+  case object WouldNotHappen extends WithName("wouldNotHappen") with IdentifyToStakeholders
 
-  val values: Seq[IdentifyToStakeholders] = Seq(
-    WorkForEndClient, WorkAsIndependent, WorkAsBusiness
-  )
+  def values(optimised: Boolean = false): Seq[IdentifyToStakeholders] =
+    if (optimised) {
+      Seq(WorkForEndClient, WorkAsIndependent, WorkAsBusiness, WouldNotHappen)
+    } else {
+      Seq(WorkForEndClient, WorkAsIndependent, WorkAsBusiness)
+    }
 
-  val options: Seq[RadioOption] = values.map {
-    value =>
-      RadioOption("identifyToStakeholders", value.toString, radio, hasTailoredMsgs = true)
+  def options(implicit appConfig: FrontendAppConfig): Seq[RadioOption] = values(isEnabled(OptimisedFlow)).map { value =>
+    RadioOption(
+      keyPrefix = "identifyToStakeholders",
+      option = value.toString,
+      optionType = radio,
+      dividerPrefix = false,
+      hasTailoredMsgs = true,
+      hasOptimisedMsgs = isEnabled(OptimisedFlow)
+    )
   }
 
   implicit val enumerable: Enumerable[IdentifyToStakeholders] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values(true).map(v => v.toString -> v): _*)
 
   implicit object IdentifyToStakeholdersWrites extends Writes[IdentifyToStakeholders] {
     def writes(identifyToStakeholders: IdentifyToStakeholders) = Json.toJson(identifyToStakeholders.toString)
@@ -48,6 +60,7 @@ object IdentifyToStakeholders {
       case JsString(WorkForEndClient.toString) => JsSuccess(WorkForEndClient)
       case JsString(WorkAsIndependent.toString) => JsSuccess(WorkAsIndependent)
       case JsString(WorkAsBusiness.toString) => JsSuccess(WorkAsBusiness)
+      case JsString(WouldNotHappen.toString) => JsSuccess(WouldNotHappen)
       case _                          => JsError("Unknown identifyToStakeholders")
     }
   }
