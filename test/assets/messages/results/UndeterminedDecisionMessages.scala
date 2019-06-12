@@ -47,4 +47,23 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val doNext_p1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk"
     val doNext_p2 = "You could also read through the Employment status manual"
   }
+
+
+  object HirerIR35 {
+    val title = "Undetermined employment status"
+    val heading = "Undetermined employment status"
+    val subHeading = "Undetermined employment status"
+    val whyResult = "We need more information to understand the working practices of this contract."
+    val doNextPrivate = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
+    val doNextPublic = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk. You could also read through the Employment status manual."
+  }
+
+
+  object WorkerPAYE {
+    val title = "Undetermined employment status"
+    val heading = "Undetermined employment status"
+    val whyResult = "We need more information to understand the working practices of this engagement."
+    val doNextP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk"
+    val doNextP2 = "You could also read through the Employment status manual"
+  }
 }
