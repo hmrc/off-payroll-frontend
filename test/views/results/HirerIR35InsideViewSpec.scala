@@ -17,7 +17,7 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
-import assets.messages.results.HirerIR35Messages
+import assets.messages.results.{HirerIR35Messages, InDecisionMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.DeclarationFormProvider
@@ -25,6 +25,7 @@ import models.UserType.Hirer
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
+import views.html.results.HirerIR35UndeterminedView
 import views.html.results.HirerIR35InsideView
 
 class HirerIR35InsideViewSpec extends ViewSpecBase {
@@ -40,15 +41,13 @@ class HirerIR35InsideViewSpec extends ViewSpecBase {
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[HirerIR35InsideView]
-
-  val postAction = Call(HttpMethods.POST.value, "/")
-
-  lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-  def createPublicView(req: Request[_],public: Boolean) = view(form, postAction, !public)(req, messages, frontendAppConfig)
-  def document(public: Boolean = true) = asDocument(createPublicView(request,public))
-
   "The Hirer IR35 Inside page" should {
+
+    val view = injector.instanceOf[HirerIR35InsideView]
+    val postAction = Call(HttpMethods.POST.value, "/")
+    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+    def createPublicView(req: Request[_],public: Boolean) = view(form, postAction, !public)(req, messages, frontendAppConfig)
+    def document(public: Boolean = true) = asDocument(createPublicView(request,public))
 
     "Have the correct title" in {
       document().title mustBe title(HirerIR35Messages.HirerInside.title)
@@ -63,15 +62,55 @@ class HirerIR35InsideViewSpec extends ViewSpecBase {
     }
 
     "Have the correct Why Result section" in {
-      document().select(Selectors.h2(1)).text mustBe HirerIR35Messages.HirerInside.whyResult
+      document().select(Selectors.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+      document().select(Selectors.p(1)).text mustBe HirerIR35Messages.HirerInside.whyResult
     }
 
     "Have the correct Do Next public section" in {
-      document().select(Selectors.h2(2)).text mustBe HirerIR35Messages.HirerInside.doNextPublic
+      document().select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
+      document().select(Selectors.p(2)).text mustBe HirerIR35Messages.HirerInside.doNextPublic
     }
 
     "Have the correct Do Next private section" in {
-      document(public = false).select(Selectors.h2(2)).text mustBe HirerIR35Messages.HirerInside.doNextPrivate
+      document().select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
+      document(public = false).select(Selectors.p(2)).text mustBe HirerIR35Messages.HirerInside.doNextPrivate
+    }
+
+  }
+
+  "The Hirer IR35 Undetermined page" should {
+
+    val view = injector.instanceOf[HirerIR35UndeterminedView]
+    val postAction = Call(HttpMethods.POST.value, "/")
+    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+    def createPublicView(req: Request[_],public: Boolean) = view(form, postAction, !public)(req, messages, frontendAppConfig)
+    def document(public: Boolean = true) = asDocument(createPublicView(request,public))
+
+    "Have the correct title" in {
+      document().title mustBe title(HirerIR35Messages.HirerUndetermined.title)
+    }
+
+    "Have the correct heading" in {
+      document().select(Selectors.heading).text mustBe HirerIR35Messages.HirerUndetermined.heading
+    }
+
+    "Have the correct subheading" in {
+      document().select(Selectors.subheading).text mustBe HirerIR35Messages.HirerUndetermined.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document().select(Selectors.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+      document().select(Selectors.p(1)).text mustBe HirerIR35Messages.HirerUndetermined.whyResult
+    }
+
+    "Have the correct Do Next public section" in {
+      document().select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
+      document().select(Selectors.p(2)).text mustBe HirerIR35Messages.HirerUndetermined.doNextPublic
+    }
+
+    "Have the correct Do Next private section" in {
+      document().select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
+      document(public = false).select(Selectors.p(2)).text mustBe HirerIR35Messages.HirerUndetermined.doNextPrivate
     }
 
   }

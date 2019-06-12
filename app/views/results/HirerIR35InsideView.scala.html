@@ -23,11 +23,11 @@
 
 @(form: Form[_], postAction: Call, isPrivateSector: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm(tailorMsgOptimised("result.in.ir35.public.title")), appConfig = appConfig) {
+@mainTemplate(titleNoForm(tailorMsgOptimised("result.inside.ir35.public.title")), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.in.ir35.public.heading"))),
-        Some(Html(messages(tailorMsgOptimised("result.in.ir35.public.subHeading"))))
+        Html(messages(tailorMsgOptimised("result.inside.ir35.public.heading"))),
+        Some(Html(messages(tailorMsgOptimised("result.inside.ir35.public.subHeading"))))
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
@@ -43,14 +43,14 @@
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.in.ir35.public.whyResult.p1"))</p>
+    <p>@messages(tailorMsgOptimised("result.inside.ir35.public.whyResult.p1"))</p>
 }
 
 @doNext = {
 
     @if(isPrivateSector) {
-        <p>@messages(tailorMsgOptimised("result.in.ir35.private.doNext.p1"))</p>
+        <p>@messages(tailorMsgOptimised("result.inside.ir35.private.doNext.p1"))</p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.in.ir35.public.doNext.p1"))</p>
+        <p>@messages(tailorMsgOptimised("result.inside.ir35.public.doNext.p1"))</p>
     }
 }
