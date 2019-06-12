@@ -19,6 +19,9 @@ package controllers.sections.partParcel
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.BenefitsFormProvider
@@ -26,7 +29,11 @@ import models.{ErrorTemplate, Mode}
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.subOptimised.sections.partParcel.BenefitsView
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
+import play.twirl.api.HtmlFormat
+import services.{CompareAnswerService, DecisionService}
+import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimisedBenefitsView}
+import views.html.sections.partParcel.BenefitsView
 
 import scala.concurrent.Future
 
@@ -35,11 +42,17 @@ class BenefitsController @Inject()(identify: IdentifierAction,
                                    requireData: DataRequiredAction,
                                    formProvider: BenefitsFormProvider,
                                    controllerComponents: MessagesControllerComponents,
-                                   view: BenefitsView,
+                                   optimisedView: BenefitsView,
+                                   subOptimisedView: SubOptimisedBenefitsView,
                                    controllerHelper: ControllerHelper,
-                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                   decisionService: DecisionService,
+                                   implicit val appConfig: FrontendAppConfig
+                                  ) extends BaseController(controllerComponents) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
+
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(BenefitsPage, form), mode))
