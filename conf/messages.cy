@@ -1387,3 +1387,43 @@ hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information
 hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
 hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual
 ## ------------------
+
+
+## Inside Agent
+## ------------------
+##TODO: Need Welsh
+agent.optimised.result.inside.title = IR35 applies. Tax earnings within PAYE
+agent.optimised.result.inside.heading = IR35 applies.
+agent.optimised.result.inside.subHeading = Tax earnings within PAYE
+agent.optimised.result.inside.whyResult.p1 = The answers you’ve given tell us your client is  directly hiring your candidate, and the working practices of this engagement mean that your candidate is classed as employed for tax purposes.
+agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+## ------------------
+
+## Undetermined Agent
+## ------------------
+##TODO: Need Welsh
+agent.optimised.result.undetermined.title = Undetermined employment status
+agent.optimised.result.undetermined.heading = Undetermined employment status
+agent.optimised.result.undetermined.whyResult.p1 = We need more information to understand the working practices of this engagement.
+agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
+agent.optimised.result.undetermined.doNext.p2 = You could also read through the Employment status manual
+## ------------------
+
+## Hirer IR35
+## ------------------
+##TODO: Need Welsh
+hirer.optimised.result.inside.ir35.public.title = IR35 applies. Tax earnings within PAYE
+hirer.optimised.result.inside.ir35.public.heading = IR35 applies.
+hirer.optimised.result.inside.ir35.public.subHeading = Tax earnings within PAYE
+hirer.optimised.result.inside.ir35.public.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are classed as employed for tax purposes.
+hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker. If the fee payer is someone else,  you need to show them this determination.
+
+hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you don't need to determine the employment status for tax of this contract. It is the worker's responsibility.
+
+hirer.optimised.result.undetermined.ir35.public.title = Undetermined employment status
+hirer.optimised.result.undetermined.ir35.public.heading = Undetermined.
+hirer.optimised.result.undetermined.ir35.public.subHeading = Undetermined employment status
+hirer.optimised.result.undetermined.ir35.public.whyResult.p1 = We need more information to understand the working practices of this contract.
+hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk. You could also read through the Employment status manual.
+
+hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
