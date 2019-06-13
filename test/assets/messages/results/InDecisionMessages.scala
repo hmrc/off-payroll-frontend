@@ -33,8 +33,6 @@ object InDecisionMessages extends BaseResultMessages {
     val whyResult = "Your answers indicate that you are providing a service to your client. This means you are classed as employed for tax purposes."
     val doNextPrivate = "Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings."
     val doNextPublic = "Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings."
-    val doNext_public_p1 = "Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings."
-    val doNext_private_p1 = "Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings."
   }
 
   object HirerPAYE {
@@ -50,8 +48,10 @@ object InDecisionMessages extends BaseResultMessages {
     val heading = "IR35 applies."
     val subHeading = "Tax earnings within PAYE"
     val whyResult = "Your answers indicate that the worker is providing a service to your organisation. This means they are classed as employed for tax purposes."
-    val doNextPrivate = "Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility."
-    val doNextPublic = "If you’re the fee payer, you need to operate PAYE for this worker. If the fee payer is someone else, you need to show them this determination."
+    val doNextPrivateP1 = "Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility."
+    val doNextPrivateP2 = "From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them."
+    val doNextPublicP1 = "If you’re the fee payer, you need to operate PAYE for this worker."
+    val doNextPublicP2 = "If the fee payer is someone else, you need to show them this determination."
   }
 
   object WorkerPAYE {

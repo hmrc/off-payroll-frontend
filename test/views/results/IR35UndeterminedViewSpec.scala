@@ -21,7 +21,6 @@ import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.DeclarationFormProvider
-import models.AboutYouAnswer.{Worker, Client}
 import models.UserAnswers
 import models.requests.DataRequest
 import play.api.libs.json.Json
@@ -29,6 +28,8 @@ import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
 import views.html.results.IR35UndeterminedView
+import models.UserType.{Hirer, Worker}
+
 
 class IR35UndeterminedViewSpec extends ViewSpecBase {
 
@@ -97,9 +98,9 @@ class IR35UndeterminedViewSpec extends ViewSpecBase {
       }
     }
 
-    "If the UserType is Client" should {
+    "If the UserType is Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Client).toString)
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
       lazy val document = asDocument(createView(dataRequest))
 
