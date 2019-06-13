@@ -1456,3 +1456,24 @@ hirer.optimised.result.undetermined.ir35.public.whyResult.p1 = We need more info
 hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk. You could also read through the Employment status manual.
 
 hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+
+
+## Inside PAYE Worker
+## ------------------
+##TODO: Need Welsh
+worker.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
+worker.optimised.result.inside.paye.heading = Employed.
+worker.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
+worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given tell us you are directly engaged by your client. The working practices of this role indicate that you are employed for tax purposes.
+worker.optimised.result.inside.paye.doNext.p1 = Show this to the person hiring you and tell them they should operate PAYE for you.
+## ------------------
+
+## Undetermined PAYE Worker
+## ------------------
+##TODO: Need Welsh
+worker.optimised.result.undetermined.paye.title = Undetermined employment status
+worker.optimised.result.undetermined.paye.heading = Undetermined employment status
+worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
+worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
+worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual
+## --------------
