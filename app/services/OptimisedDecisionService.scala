@@ -38,6 +38,7 @@ import viewmodels.AnswerSection
 import views.html.results.inside.{HirerIR35InsideView, InIR35View, InsideAgentView, InsidePAYEView}
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.undetermined.{UndeterminedAgentView, UndeterminedIR35View, UndeterminedPAYEView}
+import views.html.subOptimised.results.{ControlView, SelfEmployedView}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
@@ -56,9 +57,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val insideIR35Worker: InIR35View,
                                          val insideIR35Hirer: HirerIR35InsideView,
                                          val insidePAYE: InsidePAYEView,
-                                         val outsideAgentView: InsideAgentView,
-                                         val outsideIR35View: InIR35View,
-                                         val outsidePAYEView: InsidePAYEView,
+                                         val outsideAgentView: ControlView,
+                                         val outsideIR35View: ControlView,
+                                         val outsidePAYEView: SelfEmployedView,
                                          implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
   def multipleDecisionCall()(implicit request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
@@ -86,8 +87,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   val resultForm: Form[Boolean] = formProvider()
 
-  def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
-                          additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
+  def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None)
                          (implicit request: DataRequest[_], messages: Messages): Html = {
 
     val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
@@ -132,10 +132,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     (result.usingIntermediary, result.isAgent) match {
 
       case (_, true) => outsideAgentView(result.form, result.action) /** AGENT **/
-      case (true, _) => outsidePAYEView(result.form, result.action) /** PAYE **/
-      case (false, _) => outsideIR35View(result.form, result.action, result.privateSector) /** IR35 **/
-      case _ => errorHandler.internalServerErrorTemplate
-
+      case (true, _) => outsideIR35View(result.form, result.action, result.privateSector) /** IR35 **/
+      case _ => outsidePAYEView(result.form, result.action) /** PAYE **/
     }
   }
 
