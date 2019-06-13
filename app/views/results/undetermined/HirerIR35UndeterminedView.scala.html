@@ -22,42 +22,36 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call, isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], postAction: Call, isPrivateSector: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm(tailorMsgOptimised("result.officeHolder.ir35.title")), appConfig = appConfig) {
+@mainTemplate(titleNoForm(tailorMsgOptimised("result.undetermined.ir35.public.title")), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.officeHolder.ir35.heading"))),
-        Some(Html(messages(tailorMsgOptimised("result.officeHolder.ir35.subHeading"))))
+        Html(messages(tailorMsgOptimised("result.undetermined.ir35.public.heading"))),
+        Some(Html(messages(tailorMsgOptimised("result.undetermined.ir35.public.subHeading"))))
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @sections.why_result(whyResult)
+        @results.sections.why_result(whyResult)
 
-        @sections.do_next(doNext)
+        @results.sections.do_next(doNext)
 
-        @sections.download()
+        @results.sections.download()
 
         @components.submit_button("site.continue")
     }
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.whyResult.p1"))</p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.ir35.public.whyResult.p1"))</p>
 }
 
 @doNext = {
 
     @if(isPrivateSector) {
-        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.private.doNext.p1"))</p>
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.private.doNext.p2"))</p>
-        }
+        <p>@messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p1"))</p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.public.doNext.p1"))</p>
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.public.doNext.p2"))</p>
-        }
+        <p>@messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p1"))</p>
     }
 }

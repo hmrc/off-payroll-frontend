@@ -18,39 +18,33 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 
-
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call, isPrivateSector: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm(tailorMsgOptimised("result.inside.ir35.public.title")), appConfig = appConfig) {
+@mainTemplate(titleNoForm("agent.optimised.result.inside.title"), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.inside.ir35.public.heading"))),
-        Some(Html(messages(tailorMsgOptimised("result.inside.ir35.public.subHeading"))))
+        Html(messages("agent.optimised.result.inside.heading")),
+        Some(Html(messages("agent.optimised.result.inside.subHeading")))
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @sections.why_result(whyResult)
+        @results.sections.why_result(whyResult)
 
-        @sections.do_next(doNext)
+        @results.sections.do_next(doNext)
 
-        @sections.download()
+        @results.sections.download()
 
         @components.submit_button("site.continue")
     }
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.inside.ir35.public.whyResult.p1"))</p>
+    <p>@messages("agent.optimised.result.inside.whyResult.p1")</p>
 }
 
 @doNext = {
-
-    @if(isPrivateSector) {
-        <p>@messages(tailorMsgOptimised("result.inside.ir35.private.doNext.p1"))</p>
-    } else {
-        <p>@messages(tailorMsgOptimised("result.inside.ir35.public.doNext.p1"))</p>
-    }
+    <p>@messages("agent.optimised.result.inside.doNext.p1")</p>
 }
