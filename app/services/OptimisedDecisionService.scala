@@ -85,9 +85,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
+  lazy val version = appConf.decisionVersion
   val resultForm: Form[Boolean] = formProvider()
 
-  def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None)
+  def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
                          (implicit request: DataRequest[_], messages: Messages): Html = {
 
     val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
@@ -110,8 +112,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     result match {
       case ResultEnum.INSIDE_IR35 => resultViewInside
       case ResultEnum.EMPLOYED => resultViewInside
-      case ResultEnum.OUTSIDE_IR35 => resultViewOutside
-      case ResultEnum.SELF_EMPLOYED => resultViewOutside
+      case ResultEnum.OUTSIDE_IR35 => resultViewOutside(answerSections, formWithErrors, printMode, additionalPdfDetails, timestamp)
+      case ResultEnum.SELF_EMPLOYED => resultViewOutside(answerSections, formWithErrors, printMode, additionalPdfDetails, timestamp)
       case ResultEnum.UNKNOWN => undetermined
       case ResultEnum.NOT_MATCHED => errorHandler.internalServerErrorTemplate
     }
@@ -127,13 +129,14 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  def resultViewOutside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
+  def resultViewOutside(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
+                        additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
+                       (implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
 
     (result.usingIntermediary, result.isAgent) match {
-
-      case (_, true) => outsideAgentView(result.form, result.action) /** AGENT **/
-      case (true, _) => outsideIR35View(result.form, result.action, result.privateSector) /** IR35 **/
-      case _ => outsidePAYEView(result.form, result.action) /** PAYE **/
+      case (_, true) => outsideAgentView(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** AGENT **/
+      case (true, _) => outsideIR35View(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** IR35 **/
+      case _ => outsidePAYEView(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** PAYE **/
     }
   }
 
