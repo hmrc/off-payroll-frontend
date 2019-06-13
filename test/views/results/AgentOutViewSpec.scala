@@ -67,34 +67,40 @@ class AgentOutViewSpec extends ViewSpecBase {
       document.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
       document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
       document.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
-      document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p2
+      document.select(Selectors.p(2)).text mustBe AgentResultMessages.Out.p2
     }
 
     "Have the correct Why Result section for 2 reasons" in {
-      document.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
-      document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
-      document.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
-      document.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason2
-      document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p2
+      def createView2(req: Request[_]) = view(form, postAction,true,true,false)(req, messages, frontendAppConfig)
+      lazy val document2 = asDocument(createView2(request))
+
+      document2.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
+      document2.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
+      document2.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
+      document2.select(Selectors.bullet(2)).text mustBe AgentResultMessages.Out.reason2
+      document2.select(Selectors.p(2)).text mustBe AgentResultMessages.Out.p2
     }
 
     "Have the correct Why Result section for 3 reasons" in {
-      document.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
-      document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
-      document.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
-      document.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason2
-      document.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason3
-      document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p2
+      def createView3(req: Request[_]) = view(form, postAction,true,true,true)(req, messages, frontendAppConfig)
+      lazy val document3 = asDocument(createView3(request))
+
+      document3.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
+      document3.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
+      document3.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
+      document3.select(Selectors.bullet(2)).text mustBe AgentResultMessages.Out.reason2
+      document3.select(Selectors.bullet(3)).text mustBe AgentResultMessages.Out.reason3
+      document3.select(Selectors.p(2)).text mustBe AgentResultMessages.Out.p2
     }
 
     "Have the correct Do Next section" in {
       document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
-      document.select(Selectors.p(2)).text mustBe AgentResultMessages.Out.doNext
+      document.select(Selectors.p(3)).text mustBe AgentResultMessages.Out.doNext
     }
 
     "Have the correct Download section" in {
       document.select(Selectors.h2(3)).text mustBe UndeterminedDecisionMessages.downloadHeading
-      document.select(Selectors.p(3)).text mustBe UndeterminedDecisionMessages.download_p1
+      document.select(Selectors.p(4)).text mustBe UndeterminedDecisionMessages.download_p1
     }
   }
 }
