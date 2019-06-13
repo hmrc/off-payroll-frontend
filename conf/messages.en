@@ -1315,8 +1315,8 @@ hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE for this
 hirer.optimised.result.undetermined.paye.title = Undetermined employment status
 hirer.optimised.result.undetermined.paye.heading = Undetermined employment status
 hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
-hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual
+hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
 ## ------------------
 
 
@@ -1335,13 +1335,9 @@ worker.optimised.result.in.ir35.public.doNext.p1 = Show this to the payer and te
 worker.optimised.result.undetermined.ir35.title = Undetermined employment status
 worker.optimised.result.undetermined.ir35.heading = Undetermined employment status
 worker.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
-worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, you can contact us for more information.
-worker.optimised.result.undetermined.ir35.private.doNext.bullet1 = call HMRC’s Employment Status and Intermediaries helpline: 0300 123 2326
-worker.optimised.result.undetermined.ir35.private.doNext.bullet2 = email us: ir35@hmrc.gov.uk.
+worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
 worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
-worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, you can contact us for more information.
-worker.optimised.result.undetermined.ir35.public.doNext.bullet1 = call HMRC’s Employment Status and Intermediaries helpline: 0300 123 2326
-worker.optimised.result.undetermined.ir35.public.doNext.bullet2 = email us: ir35@hmrc.gov.uk.
+worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
 worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
 ## ------------------
 
@@ -1359,8 +1355,8 @@ agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should 
 agent.optimised.result.undetermined.title = Undetermined employment status
 agent.optimised.result.undetermined.heading = Undetermined employment status
 agent.optimised.result.undetermined.whyResult.p1 = We need more information to understand the working practices of this engagement.
-agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
-agent.optimised.result.undetermined.doNext.p2 = You could also read through the Employment status manual
+agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+agent.optimised.result.undetermined.doNext.p2 = You could also read through the Employment status manual.
 
 ## ------------------
 ## Hirer IR35
@@ -1372,12 +1368,13 @@ hirer.optimised.result.inside.ir35.public.whyResult.p1 = Your answers indicate t
 hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker. If the fee payer is someone else,  you need to show them this determination.
 hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
 
-hirer.optimised.result.undetermined.ir35.public.title = Undetermined employment status
-hirer.optimised.result.undetermined.ir35.public.heading =  Undetermined employment status
-hirer.optimised.result.undetermined.ir35.public.subHeading = Undetermined employment status
-hirer.optimised.result.undetermined.ir35.public.whyResult.p1 = We need more information to understand the working practices of this contract.
-hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk. You could also read through the Employment status manual.
+hirer.optimised.result.undetermined.ir35.title = Undetermined employment status
+hirer.optimised.result.undetermined.ir35.heading = Undetermined employment status
+hirer.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
 hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
+hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
 
 ## Inside PAYE Worker
 ## ------------------
@@ -1393,6 +1390,6 @@ worker.optimised.result.inside.paye.doNext.p1 = Show this to the person hiring y
 worker.optimised.result.undetermined.paye.title = Undetermined employment status
 worker.optimised.result.undetermined.paye.heading = Undetermined employment status
 worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk
-worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual
+worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
 ## ------------------
