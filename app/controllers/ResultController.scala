@@ -66,19 +66,19 @@ class ResultController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    resultForm.bindFromRequest().fold(
-      formWithErrors => {
 
-        if(isEnabled(OptimisedFlow)){
-          BadRequest(optimisedDecisionService.determineResultView(answers, Some(formWithErrors)))
-        } else {
+    if(isEnabled(OptimisedFlow)){
+      Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
+    } else {
+      resultForm.bindFromRequest().fold(
+        formWithErrors => {
           BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
+        },
+        _ => {
+          Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
         }
-      },
-      _ => {
-        Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
-      }
-    )
+      )
+    }
   }
 
 }
