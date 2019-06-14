@@ -1442,7 +1442,9 @@ hirer.optimised.result.inside.ir35.heading = IR35 applies.
 hirer.optimised.result.inside.ir35.subHeading = Tax earnings within PAYE
 hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are classed as employed for tax purposes.
 hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
-hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker. If the fee payer is someone else,  you need to show them this determination.
+hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker.
+hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee payer is someone else,  you need to show them this determination.
 
 ##TODO: Need Welsh
 hirer.optimised.result.undetermined.ir35.title = Undetermined employment status
