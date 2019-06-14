@@ -23,14 +23,15 @@ import config.featureSwitch.OptimisedFlow
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserAnswers
+import models.UserType.Hirer
 import models.requests.DataRequest
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
-import views.html.results.WorkerIR35InsideView
+import views.html.results.IR35InsideView
 
-class WorkerIR35InsideViewSpec extends ViewSpecBase {
+class IR35InsideViewSpec extends ViewSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -43,7 +44,7 @@ class WorkerIR35InsideViewSpec extends ViewSpecBase {
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[WorkerIR35InsideView]
+  val view = injector.instanceOf[IR35InsideView]
 
   val postAction = Call(HttpMethods.POST.value, "/")
 
@@ -79,7 +80,7 @@ class WorkerIR35InsideViewSpec extends ViewSpecBase {
 
         "Have the correct Do Next section which" in {
           document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe InDecisionMessages.WorkerIR35.doNext_public_p1
+          document.select(Selectors.p(2)).text mustBe InDecisionMessages.WorkerIR35.doNextPublic
         }
       }
 
@@ -89,13 +90,62 @@ class WorkerIR35InsideViewSpec extends ViewSpecBase {
 
         "Have the correct Do Next section which" in {
           document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe InDecisionMessages.WorkerIR35.doNext_private_p1
+          document.select(Selectors.p(2)).text mustBe InDecisionMessages.WorkerIR35.doNextPrivate
         }
       }
 
       "Have the correct Download section" in {
         document.select(Selectors.h2(3)).text mustBe InDecisionMessages.downloadHeading
         document.select(Selectors.p(3)).text mustBe InDecisionMessages.download_p1
+      }
+    }
+
+    "If the UserType is Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+      lazy val document = asDocument(createView(dataRequest))
+
+      "Have the correct title" in {
+        document.title mustBe title(InDecisionMessages.HirerIR35.title)
+      }
+
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
+      }
+
+      "Have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe InDecisionMessages.HirerIR35.subHeading
+      }
+
+      "Have the correct Why Result section" in {
+        document.select(Selectors.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+        document.select(Selectors.p(1)).text mustBe InDecisionMessages.HirerIR35.whyResult
+      }
+
+      "For a Public Sector contract" should {
+
+        "Have the correct Do Next section which" in {
+          document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
+          document.select(Selectors.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextPublicP1
+          document.select(Selectors.p(3)).text mustBe InDecisionMessages.HirerIR35.doNextPublicP2
+        }
+      }
+
+      "For a Private Sector contract" should {
+
+        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
+
+        "Have the correct Do Next section which" in {
+          document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
+          document.select(Selectors.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP1
+          document.select(Selectors.p(3)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP2
+        }
+      }
+
+      "Have the correct Download section" in {
+        document.select(Selectors.h2(3)).text mustBe InDecisionMessages.downloadHeading
+        document.select(Selectors.p(4)).text mustBe InDecisionMessages.download_p1
       }
     }
   }
