@@ -21,7 +21,6 @@ object AgentResultMessages extends BaseResultMessages {
   object Out {
     val heading = "The off-payroll working rules (IR35) do not apply to this contract"
     val title = heading
-    val subHeading = heading
     val p1 = "Your answers told us:"
     val reason1 = "Your candidate’s client has accepted, or would accept, a substitute to do this work"
     val reason2 = "Your candidate’s client does not have control over this work"
