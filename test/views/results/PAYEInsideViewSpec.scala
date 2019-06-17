@@ -46,7 +46,7 @@ class PAYEInsideViewSpec extends ViewSpecBase {
 
   def createView(req: Request[_]) = view(form, postAction)(req, messages, frontendAppConfig)
 
-  "The OfficeHolderPAYEView page" should {
+  "The PAYEInsideView page" should {
 
     "The UserType is a Worker" should {
 

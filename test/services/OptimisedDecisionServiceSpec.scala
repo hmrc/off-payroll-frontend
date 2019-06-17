@@ -58,9 +58,9 @@ import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, Inte
 import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.mvc.AnyContent
-import views.html.results.inside.{HirerIR35InsideView, InIR35View, InsideAgentView, InsidePAYEView}
+import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
-import views.html.results.undetermined.{UndeterminedAgentView, UndeterminedIR35View, UndeterminedPAYEView}
+import views.html.results.undetermined._
 import views.html.subOptimised.results.{ControlView, SelfEmployedView}
 
 class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
@@ -72,13 +72,13 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     injector.instanceOf[OfficeHolderAgentView],
     injector.instanceOf[OfficeHolderIR35View],
     injector.instanceOf[OfficeHolderPAYEView],
-    injector.instanceOf[UndeterminedAgentView],
-    injector.instanceOf[UndeterminedIR35View],
-    injector.instanceOf[UndeterminedPAYEView],
-    injector.instanceOf[InsideAgentView],
-    injector.instanceOf[InIR35View],
-    injector.instanceOf[HirerIR35InsideView],
-    injector.instanceOf[InsidePAYEView],
+    injector.instanceOf[AgentUndeterminedView],
+    injector.instanceOf[IR35UndeterminedView],
+    injector.instanceOf[PAYEUndeterminedView],
+    injector.instanceOf[AgentInsideView],
+    injector.instanceOf[IR35InsideView],
+    injector.instanceOf[IR35InsideView],
+    injector.instanceOf[PAYEInsideView],
     injector.instanceOf[ControlView],
     injector.instanceOf[ControlView],
     injector.instanceOf[SelfEmployedView],

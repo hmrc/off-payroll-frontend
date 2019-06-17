@@ -35,9 +35,9 @@ import play.mvc.Http.Status._
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
-import views.html.results.inside.{HirerIR35InsideView, InIR35View, InsideAgentView, InsidePAYEView}
+import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
-import views.html.results.undetermined.{UndeterminedAgentView, UndeterminedIR35View, UndeterminedPAYEView}
+import views.html.results.undetermined._
 import views.html.subOptimised.results.{ControlView, SelfEmployedView}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -50,13 +50,13 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val officeAgency: OfficeHolderAgentView,
                                          val officeIR35: OfficeHolderIR35View,
                                          val officePAYE: OfficeHolderPAYEView,
-                                         val undeterminedAgency: UndeterminedAgentView,
-                                         val undeterminedIR35: UndeterminedIR35View,
-                                         val undeterminedPAYE: UndeterminedPAYEView,
-                                         val insideIR35Agent: InsideAgentView,
-                                         val insideIR35Worker: InIR35View,
-                                         val insideIR35Hirer: HirerIR35InsideView,
-                                         val insidePAYE: InsidePAYEView,
+                                         val undeterminedAgency: AgentUndeterminedView,
+                                         val undeterminedIR35: IR35UndeterminedView,
+                                         val undeterminedPAYE: PAYEUndeterminedView,
+                                         val insideIR35Agent: AgentInsideView,
+                                         val insideIR35Worker: IR35InsideView,
+                                         val insideIR35Hirer: IR35InsideView,
+                                         val insidePAYE: PAYEInsideView,
                                          val outsideAgentView: ControlView,
                                          val outsideIR35View: ControlView,
                                          val outsidePAYEView: SelfEmployedView,

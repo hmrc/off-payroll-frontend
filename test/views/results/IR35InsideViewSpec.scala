@@ -51,7 +51,7 @@ class IR35InsideViewSpec extends ViewSpecBase {
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
     view(form, postAction, isPrivateSector)(req, messages, frontendAppConfig)
 
-  "The OfficeHolderIR35View page" should {
+  "The IR35InsideView page" should {
 
     "If the UserType is Worker" should {
 

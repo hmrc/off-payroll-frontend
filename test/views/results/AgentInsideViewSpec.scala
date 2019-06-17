@@ -25,7 +25,7 @@ import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.inside.{AgentInsideView, InsideAgentView}
+import views.html.results.inside.AgentInsideView
 
 class AgentInsideViewSpec extends ViewSpecBase {
 

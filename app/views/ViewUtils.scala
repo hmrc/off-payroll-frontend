@@ -52,4 +52,13 @@ object ViewUtils extends FeatureSwitching {
     tailorMsg(msgKey, optimisedContent = true)
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
+
+  def allOutReasons(isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
+                   (implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
+    Seq(
+      if(isSubstituteToDoWork) Some(tailorMsgOptimised("result.outside.ir35.whyResult.substituteToDoWork")) else None,
+      if(isClientNotControlWork) Some(tailorMsgOptimised("result.outside.ir35.whyResult.clientNotControlWork")) else None,
+      if(isIncurCostNoReclaim) Some(tailorMsgOptimised("result.outside.ir35.whyResult.incurCostNoReclaim")) else None
+    ).flatten
+  }
 }
