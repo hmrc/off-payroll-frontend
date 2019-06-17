@@ -22,10 +22,10 @@
 
 @(form: Form[_], postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm("agent.optimised.result.out.title"), appConfig = appConfig) {
+@mainTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages("agent.optimised.result.out.heading")),
+        Html(messages("agent.optimised.result.outside.heading")),
         None
     )
 
@@ -42,20 +42,13 @@
 }
 
 @whyResult = {
-    <p>@messages("agent.optimised.result.out.whyResult.p1")</p>
+    <p>@messages("agent.optimised.result.outside.whyResult.p1")</p>
 
-    @{
-        val sub = if(substituteToDoWork) "agent.optimised.result.out.reason.p1" else ""
-        val client = if(clientNotControlWork) "agent.optimised.result.out.reason.p2" else ""
-        val cost = if(incurCostNoReclaim) "agent.optimised.result.out.reason.p3" else ""
+    @components.bulleted_list(allOutReasons(None, substituteToDoWork, clientNotControlWork, incurCostNoReclaim))
 
-        components.bulleted_list(Seq(sub,client,cost))
-    }
-
-
-    <p>@messages("agent.optimised.result.out.whyResult.p2")</p>
+    <p>@messages("agent.optimised.result.outside.whyResult.p2")</p>
 }
 
 @doNext = {
-    <p>@messages("agent.optimised.result.out.doNext.p1")</p>
+    <p>@messages("agent.optimised.result.outside.doNext.p1")</p>
 }

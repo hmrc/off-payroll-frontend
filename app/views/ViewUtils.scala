@@ -53,12 +53,19 @@ object ViewUtils extends FeatureSwitching {
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 
-  def allOutReasons(isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
+  def allOutReasons(outType: Option[String], isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
                    (implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
+
+    val messageBase = {
+      outType.fold("agent.optimised.result.outside.reason"){
+        key => tailorMsgOptimised(s"result.outside.$key.whyResult")
+      }
+    }
+
     Seq(
-      if(isSubstituteToDoWork) Some(tailorMsgOptimised("result.outside.ir35.whyResult.substituteToDoWork")) else None,
-      if(isClientNotControlWork) Some(tailorMsgOptimised("result.outside.ir35.whyResult.clientNotControlWork")) else None,
-      if(isIncurCostNoReclaim) Some(tailorMsgOptimised("result.outside.ir35.whyResult.incurCostNoReclaim")) else None
+      if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWork") else None,
+      if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWork") else None,
+      if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None
     ).flatten
   }
 }

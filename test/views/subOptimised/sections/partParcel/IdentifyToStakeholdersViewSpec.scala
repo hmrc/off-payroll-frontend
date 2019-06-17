@@ -18,6 +18,7 @@ package views.subOptimised.sections.partParcel
 
 import assets.messages.IdentifyToStakeholdersMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import forms.IdentifyToStakeholdersFormProvider
 import models.UserType.{Agency, Hirer, Worker}
 import models.{IdentifyToStakeholders, NormalMode}
@@ -131,7 +132,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       }
     }
 
-    //TODO Randomly fails
+    disable(OptimisedFlow)
     for(option <- IdentifyToStakeholders.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
