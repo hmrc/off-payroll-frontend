@@ -17,17 +17,17 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
+@import models.requests.DataRequest
+@import models.UserType.{Worker, Hirer}
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call, substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurInvestmentNoReclaim: Boolean)
-(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm(tailorMsgOptimised("result.out.paye.title")), appConfig = appConfig) {
+@mainTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.out.paye.heading"))),
-        Some(Html(messages(tailorMsgOptimised("result.out.paye.subHeading"))))
+        Html(messages(tailorMsgOptimised("result.outside.paye.heading")))
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
@@ -43,12 +43,12 @@
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.out.paye.whyResult.p1"))</p>
+    <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1"))</p>
 
-    @components.bulleted_list(allOutReasons(substituteToDoWork,clientNotControlWork,incurInvestmentNoReclaim))
-    <p>@messages(tailorMsgOptimised("result.out.paye.whyResult.p2"))</p>
+    @components.bulleted_list(allOutReasons(Some("paye"), isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
+    <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
 }
 
 @doNext = {
-    <p>@messages(tailorMsgOptimised("result.out.paye.doNext.p1"))</p>
+    <p>@messages(tailorMsgOptimised("result.outside.paye.doNext.p1"))</p>
 }

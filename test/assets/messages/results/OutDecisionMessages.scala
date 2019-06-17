@@ -44,8 +44,7 @@ object OutDecisionMessages extends BaseResultMessages {
 
   object WorkerPAYE {
     val title = "Self-employed. Earnings paid gross"
-    val heading = "Self-employed."
-    val subHeading = "Earnings paid gross"
+    val heading = "Self-employed. Earnings paid gross"
     val whyResultP1 = "You told us the following information:"
     val whyResultB1 = "you have or could provide a substitute to do this work and your client would accept it"
     val whyResultB2 = "your client does not have a right of control over the work"
@@ -56,9 +55,8 @@ object OutDecisionMessages extends BaseResultMessages {
 
   object HirerPAYE {
     val title = "Self-employed. Earnings paid gross"
-    val heading = "Self-employed."
-    val subHeading = "Earnings paid gross"
-    val whyResultP1 = "Why you are getting this result:"
+    val heading = "Self-employed. Earnings paid gross"
+    val whyResultP1 = "You told us the following information:"
     val whyResultB1 = "the worker has or could provide a substitute to do this work and your organisation would accept it"
     val whyResultB2 = "your organisation does not have a right of control over the work"
     val whyResultB3 = "the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency"
