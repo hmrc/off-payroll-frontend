@@ -1432,7 +1432,6 @@ agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should 
 ## ------------------
 agent.optimised.result.out.title = The off-payroll working rules (IR35) do not apply to this contract
 agent.optimised.result.out.heading = The off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.out.subHeading = The off-payroll working rules (IR35) do not apply to this contract
 agent.optimised.result.out.whyResult.p1 = Your answers told us:
 agent.optimised.result.out.reason.p1 = Your candidate’s client has accepted, or would accept, a substitute to do this work
 agent.optimised.result.out.reason.p2 = Your candidate’s client does not have control over this work

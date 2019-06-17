@@ -59,10 +59,6 @@ class AgentOutViewSpec extends ViewSpecBase {
       document.select(Selectors.heading).text mustBe AgentResultMessages.Out.heading
     }
 
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe AgentResultMessages.Out.subHeading
-    }
-
     "Have the correct Why Result section for 1 reason" in {
       document.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
       document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
