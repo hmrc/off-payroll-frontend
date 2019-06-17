@@ -36,6 +36,7 @@ import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
 import views.html.results.inside._
+import views.html.results.outside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.undetermined._
 import views.html.subOptimised.results.{ControlView, SelfEmployedView}
@@ -53,13 +54,12 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val undeterminedAgency: AgentUndeterminedView,
                                          val undeterminedIR35: IR35UndeterminedView,
                                          val undeterminedPAYE: PAYEUndeterminedView,
-                                         val insideIR35Agent: AgentInsideView,
-                                         val insideIR35Worker: IR35InsideView,
-                                         val insideIR35Hirer: IR35InsideView,
+                                         val insideAgent: AgentInsideView,
+                                         val insideIR35View: IR35InsideView,
                                          val insidePAYE: PAYEInsideView,
-                                         val outsideAgentView: ControlView,
-                                         val outsideIR35View: ControlView,
-                                         val outsidePAYEView: SelfEmployedView,
+                                         val outsideAgent: ControlView,
+                                         val outsideIR35: IR35OutsideView,
+                                         val outsidePAYE: SelfEmployedView,
                                          implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
   def multipleDecisionCall()(implicit request: DataRequest[AnyContent], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
@@ -110,16 +110,16 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     implicit val resultsDetails: ResultsDetails = ResultsDetails(form, action, officeHolderAnswer, privateSector, usingIntermediary, userType)
 
     result match {
-      case ResultEnum.INSIDE_IR35 => resultViewInside
-      case ResultEnum.EMPLOYED => resultViewInside
-      case ResultEnum.OUTSIDE_IR35 => resultViewOutside(answerSections, formWithErrors, printMode, additionalPdfDetails, timestamp)
-      case ResultEnum.SELF_EMPLOYED => resultViewOutside(answerSections, formWithErrors, printMode, additionalPdfDetails, timestamp)
-      case ResultEnum.UNKNOWN => undetermined
+      case ResultEnum.INSIDE_IR35 => routeInside
+      case ResultEnum.EMPLOYED => routeInside
+      case ResultEnum.OUTSIDE_IR35 => routeOutside(answerSections, formWithErrors, printMode, additionalPdfDetails, timestamp)
+      case ResultEnum.SELF_EMPLOYED => routeOutside(answerSections, formWithErrors, printMode, additionalPdfDetails, timestamp)
+      case ResultEnum.UNKNOWN => routeUndetermined
       case ResultEnum.NOT_MATCHED => errorHandler.internalServerErrorTemplate
     }
   }
 
-  def undetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
+  def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
 
     (result.usingIntermediary, result.isAgent) match {
 
@@ -129,34 +129,33 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  def resultViewOutside(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
-                        additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
-                       (implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
+  def routeOutside(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
+                   additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
+                  (implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
 
     (result.usingIntermediary, result.isAgent) match {
-      case (_, true) => outsideAgentView(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** AGENT **/
-      case (true, _) => outsideIR35View(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** IR35 **/
-      case _ => outsidePAYEView(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** PAYE **/
+      case (_, true) => outsideAgent(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** AGENT **/
+      case (true, _) => outsideIR35(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** IR35 **/
+      case _ => outsidePAYE(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** PAYE **/
     }
   }
 
-  def resultViewInside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
+  def routeInside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
 
-    if (result.officeHolderAnswer) officeHolder else insideIR35
+    if (result.officeHolderAnswer) routeOfficeHolder else routeInsideIR35
   }
 
-  def insideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
+  def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
 
     (result.usingIntermediary, result.userType) match {
 
-      case (_, Some(UserType.Agency)) => insideIR35Agent(result.form, result.action) /** AGENT **/
-      case (true, Some(UserType.Worker)) => insideIR35Worker(result.form, result.action, result.privateSector) /** WORKER **/
-      case (true, _) => insideIR35Hirer(result.form, result.action, result.privateSector) /** HIRER **/
+      case (_, Some(UserType.Agency)) => insideAgent(result.form, result.action) /** AGENT **/
+      case (true, _) => insideIR35View(result.form, result.action, result.privateSector) /** HIRER **/
       case _ => insidePAYE(result.form, result.action) /** PAYE **/
     }
   }
 
-  def officeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
+  def routeOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
 
     (result.usingIntermediary, result.isAgent) match {
 
