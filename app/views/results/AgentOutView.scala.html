@@ -43,17 +43,16 @@
 
 @whyResult = {
     <p>@messages("agent.optimised.result.out.whyResult.p1")</p>
-    <ul>
-        @if(substituteToDoWork){
-            <li>@messages("agent.optimised.result.out.reason.p1")</li>
-        }
-        @if(clientNotControlWork){
-            <li>@messages("agent.optimised.result.out.reason.p2")</li>
-        }
-        @if(incurCostNoReclaim){
-            <li>@messages("agent.optimised.result.out.reason.p3")</li>
-        }
-    </ul>
+
+    @{
+        val sub = if(substituteToDoWork) "agent.optimised.result.out.reason.p1" else ""
+        val client = if(clientNotControlWork) "agent.optimised.result.out.reason.p2" else ""
+        val cost = if(incurCostNoReclaim) "agent.optimised.result.out.reason.p3" else ""
+
+        components.bulleted_list(Seq(sub,client,cost))
+    }
+
+
     <p>@messages("agent.optimised.result.out.whyResult.p2")</p>
 }
 

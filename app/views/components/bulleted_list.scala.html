@@ -18,6 +18,8 @@
 
 <ul class="list-bullet print-bullet">
     @for(bullet <- messageKeys) {
-        <li>@messages(bullet)</li>
+     @if(bullet.nonEmpty) {
+      <li>@messages(bullet)</li>
+     }
     }
 </ul>
