@@ -60,6 +60,7 @@ import pages.sections.setup._
 import play.api.mvc.AnyContent
 import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
+import views.html.results.outside.IR35OutsideView
 import views.html.results.undetermined._
 import views.html.subOptimised.results.{ControlView, SelfEmployedView}
 
@@ -77,10 +78,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     injector.instanceOf[PAYEUndeterminedView],
     injector.instanceOf[AgentInsideView],
     injector.instanceOf[IR35InsideView],
-    injector.instanceOf[IR35InsideView],
     injector.instanceOf[PAYEInsideView],
     injector.instanceOf[ControlView],
-    injector.instanceOf[ControlView],
+    injector.instanceOf[IR35OutsideView],
     injector.instanceOf[SelfEmployedView],
     frontendAppConfig)
 

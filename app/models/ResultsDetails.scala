@@ -21,7 +21,10 @@ import play.api.mvc.Call
 
 case class ResultsDetails(form: Form[Boolean], action: Call,
                           officeHolderAnswer: Boolean, privateSector: Boolean, usingIntermediary: Boolean,
-                          userType: Option[UserType]) {
+                          userType: Option[UserType],
+                          personalServiceOption: Option[WeightedAnswerEnum.Value] = None,
+                          controlOption: Option[WeightedAnswerEnum.Value] = None,
+                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None) {
 
   def isAgent: Boolean = userType.contains(UserType.Agency)
 }

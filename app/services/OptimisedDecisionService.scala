@@ -55,7 +55,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val undeterminedIR35: IR35UndeterminedView,
                                          val undeterminedPAYE: PAYEUndeterminedView,
                                          val insideAgent: AgentInsideView,
-                                         val insideIR35View: IR35InsideView,
+                                         val insideIR35: IR35InsideView,
                                          val insidePAYE: PAYEInsideView,
                                          val outsideAgent: ControlView,
                                          val outsideIR35: IR35OutsideView,
@@ -94,6 +94,10 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
 
+    val personalService = request.session.get(SessionKeys.personalServiceResult).map(WeightedAnswerEnum.withName)
+    val control = request.session.get(SessionKeys.controlResult).map(WeightedAnswerEnum.withName)
+    val financialRisk = request.session.get(SessionKeys.financialRiskResult).map(WeightedAnswerEnum.withName)
+
     val form: Form[Boolean] = formWithErrors.getOrElse(resultForm)
     val action: Call = routes.ResultController.onSubmit()
 
@@ -107,7 +111,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case _ => false
     }
 
-    implicit val resultsDetails: ResultsDetails = ResultsDetails(form, action, officeHolderAnswer, privateSector, usingIntermediary, userType)
+    implicit val resultsDetails: ResultsDetails = ResultsDetails(form, action, officeHolderAnswer, privateSector, usingIntermediary, userType,
+      personalService, control, financialRisk)
 
     result match {
       case ResultEnum.INSIDE_IR35 => routeInside
@@ -133,9 +138,14 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                    additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
                   (implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
 
+    val isSubstituteToDoWork: Boolean = result.personalServiceOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
+    val isClientNotControlWork: Boolean = result.controlOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
+    val isIncurCostNoReclaim: Boolean = result.financialRiskOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
+
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) => outsideAgent(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** AGENT **/
-      case (true, _) => outsideIR35(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** IR35 **/
+      case (true, _) => outsideIR35(result.form, result.action, result.privateSector,
+        isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** IR35 **/
       case _ => outsidePAYE(answerSections,version,result.form,result.action,printMode,additionalPdfDetails,timestamp) /** PAYE **/
     }
   }
@@ -150,7 +160,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     (result.usingIntermediary, result.userType) match {
 
       case (_, Some(UserType.Agency)) => insideAgent(result.form, result.action) /** AGENT **/
-      case (true, _) => insideIR35View(result.form, result.action, result.privateSector) /** IR35 **/
+      case (true, _) => insideIR35(result.form, result.action, result.privateSector) /** IR35 **/
       case _ => insidePAYE(result.form, result.action) /** PAYE **/
     }
   }
