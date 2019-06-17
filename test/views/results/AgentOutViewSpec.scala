@@ -49,7 +49,7 @@ class AgentOutViewSpec extends ViewSpecBase {
   def createView(req: Request[_]) = view(form, postAction,true,false,false)(req, messages, frontendAppConfig)
   lazy val document = asDocument(createView(request))
 
-  "The InsideAgentView page" should {
+  "The OutAgentView page" should {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.Agent.title)

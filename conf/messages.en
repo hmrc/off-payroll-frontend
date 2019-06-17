@@ -1317,18 +1317,41 @@ hirer.optimised.result.undetermined.paye.heading = Undetermined employment statu
 hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
 hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
 hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
+
+hirer.optimised.result.out.paye.title = Self-employed. Earnings paid gross
+hirer.optimised.result.out.paye.heading = Self-employed.
+hirer.optimised.result.out.paye.subHeading = Earnings paid gross
+hirer.optimised.result.out.paye.whyResult.p1 = Why you are getting this result:
+hirer.optimised.result.out.paye.whyResult.b1 = the worker has or could provide a substitute to do this work and your organisation would accept it
+hirer.optimised.result.out.paye.whyResult.b2 = your organisation does not have a right of control over the work
+hirer.optimised.result.out.paye.whyResult.b3 = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
+hirer.optimised.result.out.paye.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
+hirer.optimised.result.out.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 ## ------------------
 
 ## Outside PAYE Hirer
 ## ------------------
-hirer.optimised.result.outside.paye.title = Self-employed. Earnings paid gross
-hirer.optimised.result.outside.paye.heading = Self-employed. Earnings paid gross
-hirer.optimised.result.outside.paye.whyResult.p1 = You told us the following information:
-hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-hirer.optimised.result.outside.paye.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
-hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
+worker.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
+worker.optimised.result.inside.paye.heading = Employed.
+worker.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
+worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given tell us you are directly engaged by your client. The working practices of this role indicate that you are employed for tax purposes.
+worker.optimised.result.inside.paye.doNext.p1 = Show this to the person hiring you and tell them they should operate PAYE for you.
+
+worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
+worker.optimised.result.out.paye.heading = Self-employed.
+worker.optimised.result.out.paye.subHeading = Earnings paid gross
+worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
+worker.optimised.result.out.paye.whyResult.b1 = you have or could provide a substitute to do this work and your client would accept it
+worker.optimised.result.out.paye.whyResult.b2 = your client does not have a right of control over the work
+worker.optimised.result.out.paye.whyResult.b3 = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
+worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
+worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
+
+worker.optimised.result.undetermined.paye.title = Undetermined employment status
+worker.optimised.result.undetermined.paye.heading = Undetermined employment status
+worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
+worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
+worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
 ## ------------------
 
 
@@ -1357,9 +1380,9 @@ worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read
 worker.optimised.result.outside.ir35.title = IR35 does not apply. Earnings paid gross
 worker.optimised.result.outside.ir35.heading = IR35 does not apply. Earnings paid gross
 worker.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
+worker.optimised.result.outside.ir35.whyResult.b1 = you have or could provide a substitute to do this work and your client would accept it
+worker.optimised.result.outside.ir35.whyResult.b2 = your client does not have a right of control over the work
+worker.optimised.result.outside.ir35.whyResult.b3 = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
 worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means that you are classed as self-employed for tax purposes.
 worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
@@ -1384,14 +1407,14 @@ agent.optimised.result.undetermined.doNext.p2 = You could also read through the 
 ## ------------------
 ## Out Agent
 ## ------------------
-agent.optimised.result.outside.title = The off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.outside.heading = The off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.outside.whyResult.p1 = Your answers told us:
-agent.optimised.result.outside.reason.substituteToDoWork = Your candidate’s client has accepted, or would accept, a substitute to do this work
-agent.optimised.result.outside.reason.clientNotControlWork = Your candidate’s client does not have control over this work
-agent.optimised.result.outside.reason.incurCostNoReclaim = Your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged
-agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business-to-business basis.
-agent.optimised.result.outside.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+agent.optimised.result.out.title = The off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.out.heading = The off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.out.whyResult.p1 = Your answers told us:
+agent.optimised.result.out.whyResult.b1 = Your candidate’s client has accepted, or would accept, a substitute to do this work
+agent.optimised.result.out.whyResult.b2 = Your candidate’s client does not have control over this work
+agent.optimised.result.out.whyResult.b3 = Your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged
+agent.optimised.result.out.whyResult.p2 = This indicates the working arrangements for this contract are on a business-to-business basis.
+agent.optimised.result.out.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
 
 ## ------------------
 ## Hirer IR35
@@ -1416,9 +1439,9 @@ hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read 
 hirer.optimised.result.outside.ir35.title = IR35 does not apply
 hirer.optimised.result.outside.ir35.heading = IR35 does not apply
 hirer.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
+hirer.optimised.result.outside.ir35.whyResult.b1 = the worker has or could provide a substitute to do this work and your organisation would accept it
+hirer.optimised.result.outside.ir35.whyResult.b2 = your organisation does not have a right of control over the work
+hirer.optimised.result.outside.ir35.whyResult.b3 = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
 hirer.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
 hirer.optimised.result.outside.ir35.private.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 hirer.optimised.result.outside.ir35.public.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
