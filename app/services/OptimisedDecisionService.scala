@@ -150,7 +150,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     (result.usingIntermediary, result.userType) match {
 
       case (_, Some(UserType.Agency)) => insideAgent(result.form, result.action) /** AGENT **/
-      case (true, _) => insideIR35View(result.form, result.action, result.privateSector) /** HIRER **/
+      case (true, _) => insideIR35View(result.form, result.action, result.privateSector) /** IR35 **/
       case _ => insidePAYE(result.form, result.action) /** PAYE **/
     }
   }
