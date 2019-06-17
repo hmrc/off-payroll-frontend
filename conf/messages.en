@@ -1339,7 +1339,18 @@ worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, 
 worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
 worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
 worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
+
+## Outside IR35 Decision Worker
 ## ------------------
+worker.optimised.result.outside.ir35.title = IR35 does not apply. Earnings paid gross
+worker.optimised.result.outside.ir35.heading = IR35 does not apply. Earnings paid gross
+worker.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have a right of control over the work
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
+worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means that you are classed as self-employed for tax purposes.
+worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
+worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 
 ## Inside Agent
 ## ------------------
@@ -1377,6 +1388,17 @@ hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, e
 hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
 hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
 hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
+
+hirer.optimised.result.outside.ir35.title = IR35 does not apply
+hirer.optimised.result.outside.ir35.heading = IR35 does not apply
+hirer.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
+hirer.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
+hirer.optimised.result.outside.ir35.private.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.public.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
 
 ## Inside PAYE Worker
 ## ------------------
