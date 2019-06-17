@@ -16,9 +16,9 @@
 
 package assets.messages.results
 
-object AgentResultMessages extends BaseResultMessages {
+object OutDecisionMessages extends BaseResultMessages {
 
-  object Out {
+  object Agent {
     val heading = "The off-payroll working rules (IR35) do not apply to this contract"
     val title = heading
     val p1 = "Your answers told us:"

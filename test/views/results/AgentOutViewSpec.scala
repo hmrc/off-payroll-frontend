@@ -17,7 +17,7 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
-import assets.messages.results.{AgentResultMessages, InDecisionMessages, UndeterminedDecisionMessages}
+import assets.messages.results.{OutDecisionMessages, InDecisionMessages, UndeterminedDecisionMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.DeclarationFormProvider
@@ -52,46 +52,46 @@ class AgentOutViewSpec extends ViewSpecBase {
   "The InsideAgentView page" should {
 
     "Have the correct title" in {
-      document.title mustBe title(AgentResultMessages.Out.title)
+      document.title mustBe title(OutDecisionMessages.Agent.title)
     }
 
     "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe AgentResultMessages.Out.heading
+      document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
     }
 
     "Have the correct Why Result section for 1 reason" in {
-      document.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
-      document.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
-      document.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
-      document.select(Selectors.p(2)).text mustBe AgentResultMessages.Out.p2
+      document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.p(1)).text mustBe OutDecisionMessages.Agent.p1
+      document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
+      document.select(Selectors.p(2)).text mustBe OutDecisionMessages.Agent.p2
     }
 
     "Have the correct Why Result section for 2 reasons" in {
       def createView2(req: Request[_]) = view(form, postAction,true,true,false)(req, messages, frontendAppConfig)
       lazy val document2 = asDocument(createView2(request))
 
-      document2.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
-      document2.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
-      document2.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
-      document2.select(Selectors.bullet(2)).text mustBe AgentResultMessages.Out.reason2
-      document2.select(Selectors.p(2)).text mustBe AgentResultMessages.Out.p2
+      document2.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+      document2.select(Selectors.p(1)).text mustBe OutDecisionMessages.Agent.p1
+      document2.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
+      document2.select(Selectors.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
+      document2.select(Selectors.p(2)).text mustBe OutDecisionMessages.Agent.p2
     }
 
     "Have the correct Why Result section for 3 reasons" in {
       def createView3(req: Request[_]) = view(form, postAction,true,true,true)(req, messages, frontendAppConfig)
       lazy val document3 = asDocument(createView3(request))
 
-      document3.select(Selectors.h2(1)).text mustBe AgentResultMessages.whyResultHeading
-      document3.select(Selectors.p(1)).text mustBe AgentResultMessages.Out.p1
-      document3.select(Selectors.bullet(1)).text mustBe AgentResultMessages.Out.reason1
-      document3.select(Selectors.bullet(2)).text mustBe AgentResultMessages.Out.reason2
-      document3.select(Selectors.bullet(3)).text mustBe AgentResultMessages.Out.reason3
-      document3.select(Selectors.p(2)).text mustBe AgentResultMessages.Out.p2
+      document3.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+      document3.select(Selectors.p(1)).text mustBe OutDecisionMessages.Agent.p1
+      document3.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
+      document3.select(Selectors.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
+      document3.select(Selectors.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
+      document3.select(Selectors.p(2)).text mustBe OutDecisionMessages.Agent.p2
     }
 
     "Have the correct Do Next section" in {
       document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
-      document.select(Selectors.p(3)).text mustBe AgentResultMessages.Out.doNext
+      document.select(Selectors.p(3)).text mustBe OutDecisionMessages.Agent.doNext
     }
 
     "Have the correct Download section" in {
