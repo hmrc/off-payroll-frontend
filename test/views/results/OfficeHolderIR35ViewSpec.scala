@@ -29,7 +29,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
-import views.html.results.OfficeHolderIR35View
+import views.html.results.inside.officeHolder.OfficeHolderIR35View
 
 class OfficeHolderIR35ViewSpec extends ViewSpecBase {
 

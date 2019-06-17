@@ -35,6 +35,7 @@ package services
 import base.SpecBase
 import config.featureSwitch.FeatureSwitching
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
+import forms.DeclarationFormProvider
 import handlers.mocks.MockErrorHandler
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
@@ -57,11 +58,31 @@ import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, Inte
 import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.mvc.AnyContent
+import views.html.results.inside.{HirerIR35InsideView, InIR35View, InsideAgentView, InsidePAYEView}
+import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
+import views.html.results.undetermined.{UndeterminedAgentView, UndeterminedIR35View, UndeterminedPAYEView}
+import views.html.subOptimised.results.{ControlView, SelfEmployedView}
 
 class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
   with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures {
 
-  val service: OptimisedDecisionService = new OptimisedDecisionService(mockDecisionConnector, mockErrorHandler,frontendAppConfig)
+  val formProvider = new DeclarationFormProvider()
+
+  val service: OptimisedDecisionService = new OptimisedDecisionService(mockDecisionConnector, mockErrorHandler, formProvider,
+    injector.instanceOf[OfficeHolderAgentView],
+    injector.instanceOf[OfficeHolderIR35View],
+    injector.instanceOf[OfficeHolderPAYEView],
+    injector.instanceOf[UndeterminedAgentView],
+    injector.instanceOf[UndeterminedIR35View],
+    injector.instanceOf[UndeterminedPAYEView],
+    injector.instanceOf[InsideAgentView],
+    injector.instanceOf[InIR35View],
+    injector.instanceOf[HirerIR35InsideView],
+    injector.instanceOf[InsidePAYEView],
+    injector.instanceOf[ControlView],
+    injector.instanceOf[ControlView],
+    injector.instanceOf[SelfEmployedView],
+    frontendAppConfig)
 
   val userAnswers: UserAnswers = UserAnswers("id")
     .set(AboutYouPage,0, Worker)

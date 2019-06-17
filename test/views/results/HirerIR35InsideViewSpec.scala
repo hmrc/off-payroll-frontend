@@ -25,8 +25,8 @@ import models.UserType.Hirer
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.HirerIR35UndeterminedView
-import views.html.results.HirerIR35InsideView
+import views.html.results.undetermined.HirerIR35UndeterminedView
+import views.html.results.inside.HirerIR35InsideView
 
 class HirerIR35InsideViewSpec extends ViewSpecBase {
 

@@ -86,7 +86,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   }
 
   lazy val version = appConf.decisionVersion
-  val resultForm: Form[Boolean] = formProvider()
+  lazy val resultForm: Form[Boolean] = formProvider()
 
   def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)

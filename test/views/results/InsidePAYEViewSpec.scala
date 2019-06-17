@@ -25,7 +25,7 @@ import models.UserType.Hirer
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.InsidePAYEView
+import views.html.results.inside.InsidePAYEView
 
 class InsidePAYEViewSpec extends ViewSpecBase {
 

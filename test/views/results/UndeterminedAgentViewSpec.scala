@@ -25,7 +25,7 @@ import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.UndeterminedAgentView
+import views.html.results.undetermined.UndeterminedAgentView
 
 class UndeterminedAgentViewSpec extends ViewSpecBase {
 

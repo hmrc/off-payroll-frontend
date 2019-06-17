@@ -25,7 +25,7 @@ import models.UserType.Hirer
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.UndeterminedPAYEView
+import views.html.results.undetermined.UndeterminedPAYEView
 
 class UndeterminedPAYEViewSpec extends ViewSpecBase {
 

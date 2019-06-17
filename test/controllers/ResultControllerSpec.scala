@@ -32,7 +32,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import services.DecisionService
+import services.{DecisionService, OptimisedDecisionService}
 import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
@@ -81,6 +81,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     mockDataCacheConnector,
     FakeTimestamp,
     mockCompareAnswerService,
+    injector.instanceOf[OptimisedDecisionService],
     frontendAppConfig
   )
 

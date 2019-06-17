@@ -28,7 +28,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
-import views.html.results.InIR35View
+import views.html.results.inside.InIR35View
 
 class InIR35ViewSpec extends ViewSpecBase {
 

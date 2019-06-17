@@ -26,7 +26,7 @@ import models.UserType.Hirer
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.OfficeHolderPAYEView
+import views.html.results.inside.officeHolder.OfficeHolderPAYEView
 
 class OfficeHolderPAYEViewSpec extends ViewSpecBase {
 

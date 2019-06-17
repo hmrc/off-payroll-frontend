@@ -28,7 +28,7 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
-import views.html.results.UndeterminedIR35View
+import views.html.results.undetermined.UndeterminedIR35View
 
 class UndeterminedIR35ViewSpec extends ViewSpecBase {
 
