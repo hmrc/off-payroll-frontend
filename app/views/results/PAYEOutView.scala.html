@@ -20,7 +20,8 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], postAction: Call, substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurInvestmentNoReclaim: Boolean)
+(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(titleNoForm(tailorMsgOptimised("result.out.paye.title")), appConfig = appConfig) {
 
