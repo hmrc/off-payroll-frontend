@@ -76,13 +76,14 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
     val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)
     val financialRisk = financialRiskOption.map(financialRisk => SessionKeys.financialRiskResult -> financialRisk.toString)
 
-    val redirect = Redirect(routes.ResultController.onPageLoad()).addingToSession(result)
+    val redirect = Redirect(routes.ResultController.onPageLoad())
+      .removingFromSession(SessionKeys.result, SessionKeys.personalServiceResult, SessionKeys.controlResult, SessionKeys.financialRiskResult)
+      .addingToSession(result)
 
-    val personalServiceRedirect = if(personalService.nonEmpty) redirect.addingToSession(personalService.get) else redirect
-    val controlRedirect = if(control.nonEmpty) personalServiceRedirect.addingToSession(control.get) else personalServiceRedirect
-    val financialRiskRedirect = if(financialRisk.nonEmpty) controlRedirect.addingToSession(financialRisk.get) else controlRedirect
+    val personalServiceRedirect = personalService.fold(redirect)(redirect.addingToSession(_))
+    val controlRedirect = control.fold(personalServiceRedirect)(personalServiceRedirect.addingToSession(_))
+    val financialRiskRedirect = financialRisk.fold(controlRedirect)(controlRedirect.addingToSession(_))
 
     financialRiskRedirect
   }
-
 }

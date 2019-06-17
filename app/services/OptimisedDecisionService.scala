@@ -93,7 +93,6 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                          (implicit request: DataRequest[_], messages: Messages): Html = {
 
     val result = request.session.get(SessionKeys.result).map(ResultEnum.withName).getOrElse(ResultEnum.NOT_MATCHED)
-
     val personalService = request.session.get(SessionKeys.personalServiceResult).map(WeightedAnswerEnum.withName)
     val control = request.session.get(SessionKeys.controlResult).map(WeightedAnswerEnum.withName)
     val financialRisk = request.session.get(SessionKeys.financialRiskResult).map(WeightedAnswerEnum.withName)
