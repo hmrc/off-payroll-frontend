@@ -47,20 +47,11 @@
 }
 
 @doNext = {
-
     @if(isPrivateSector) {
         <p>@messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p1"))</p>
-        @components.bulleted_list(Seq(
-            messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.bullet1")),
-            messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.bullet2"))
-        ))
         <p>@messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p2"))</p>
     } else {
         <p>@messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p1"))</p>
-        @components.bulleted_list(Seq(
-            messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.bullet1")),
-            messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.bullet2"))
-        ))
         <p>@messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p2"))</p>
     }
 }

@@ -25,9 +25,9 @@ import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.inside.InsideAgentView
+import views.html.results.inside.{AgentInsideView, InsideAgentView}
 
-class InsideAgentViewSpec extends ViewSpecBase {
+class AgentInsideViewSpec extends ViewSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -40,7 +40,7 @@ class InsideAgentViewSpec extends ViewSpecBase {
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[InsideAgentView]
+  val view = injector.instanceOf[AgentInsideView]
 
   val postAction = Call(HttpMethods.POST.value, "/")
 

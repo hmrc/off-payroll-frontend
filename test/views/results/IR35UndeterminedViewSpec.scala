@@ -21,16 +21,17 @@ import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.DeclarationFormProvider
-import models.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.requests.DataRequest
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
-import views.html.results.undetermined.UndeterminedIR35View
+import views.html.results.undetermined.IR35UndeterminedView
+import models.UserType.{Hirer, Worker}
 
-class UndeterminedIR35ViewSpec extends ViewSpecBase {
+
+class IR35UndeterminedViewSpec extends ViewSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -43,14 +44,14 @@ class UndeterminedIR35ViewSpec extends ViewSpecBase {
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[UndeterminedIR35View]
+  val view = injector.instanceOf[IR35UndeterminedView]
 
   val postAction = Call(HttpMethods.POST.value, "/")
 
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
     view(form, postAction, isPrivateSector)(req, messages, frontendAppConfig)
 
-  "The OfficeHolderIR35View page" should {
+  "The IR35UndeterminedView page" should {
 
     "If the UserType is Worker" should {
 
@@ -76,8 +77,6 @@ class UndeterminedIR35ViewSpec extends ViewSpecBase {
         "Have the correct Do Next section which" in {
           document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
           document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP1
-          document.select(Selectors.bullet(1)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicBullet1
-          document.select(Selectors.bullet(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicBullet2
           document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP2
         }
       }
@@ -89,9 +88,52 @@ class UndeterminedIR35ViewSpec extends ViewSpecBase {
         "Have the correct Do Next section which" in {
           document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
           document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP1
-          document.select(Selectors.bullet(1)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateBullet1
-          document.select(Selectors.bullet(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateBullet2
           document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP2
+        }
+      }
+
+      "Have the correct Download section" in {
+        document.select(Selectors.h2(3)).text mustBe UndeterminedDecisionMessages.downloadHeading
+        document.select(Selectors.p(4)).text mustBe UndeterminedDecisionMessages.download_p1
+      }
+    }
+
+    "If the UserType is Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+      lazy val document = asDocument(createView(dataRequest))
+
+      "Have the correct title" in {
+        document.title mustBe title(UndeterminedDecisionMessages.HirerIR35.title)
+      }
+
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
+      }
+
+      "Have the correct Why Result section" in {
+        document.select(Selectors.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
+        document.select(Selectors.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult
+      }
+
+      "For a Public Sector contract" should {
+
+        "Have the correct Do Next section which" in {
+          document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
+          document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP1
+          document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP2
+        }
+      }
+
+      "For a Private Sector contract" should {
+
+        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
+
+        "Have the correct Do Next section which" in {
+          document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
+          document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP1
+          document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP2
         }
       }
 

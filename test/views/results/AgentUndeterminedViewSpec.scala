@@ -17,17 +17,17 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
-import assets.messages.results.InDecisionMessages
+import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.DeclarationFormProvider
-import models.UserType.Hirer
+import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.{Call, Request}
 import views.ViewSpecBase
-import views.html.results.inside.InsidePAYEView
+import views.html.results.undetermined.AgentUndeterminedView
 
-class InsidePAYEViewSpec extends ViewSpecBase {
+class AgentUndeterminedViewSpec extends ViewSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -40,42 +40,39 @@ class InsidePAYEViewSpec extends ViewSpecBase {
 
   val form = new DeclarationFormProvider()()
 
-  val view = injector.instanceOf[InsidePAYEView]
+  val view = injector.instanceOf[AgentUndeterminedView]
 
   val postAction = Call(HttpMethods.POST.value, "/")
 
   def createView(req: Request[_]) = view(form, postAction)(req, messages, frontendAppConfig)
 
-  "The OfficeHolderPAYEView page" should {
+  "The InsideAgentView page" should {
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
     lazy val document = asDocument(createView(request))
 
     "Have the correct title" in {
-      document.title mustBe title(InDecisionMessages.HirerPAYE.title)
+      document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
     }
 
     "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
-    }
-
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe InDecisionMessages.HirerPAYE.subHeading
+      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
     }
 
     "Have the correct Why Result section" in {
-      document.select(Selectors.h2(1)).text mustBe InDecisionMessages.whyResultHeading
-      document.select(Selectors.p(1)).text mustBe InDecisionMessages.HirerPAYE.whyResult
+      document.select(Selectors.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
+      document.select(Selectors.p(1)).text mustBe UndeterminedDecisionMessages.Agent.whyResult_p1
     }
 
     "Have the correct Do Next section" in {
-      document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
-      document.select(Selectors.p(2)).text mustBe InDecisionMessages.HirerPAYE.doNext
+      document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
+      document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.Agent.doNext_p1
+      document.select(Selectors.p(3)).text mustBe UndeterminedDecisionMessages.Agent.doNext_p2
     }
 
     "Have the correct Download section" in {
-      document.select(Selectors.h2(3)).text mustBe InDecisionMessages.downloadHeading
-      document.select(Selectors.p(3)).text mustBe InDecisionMessages.download_p1
+      document.select(Selectors.h2(3)).text mustBe UndeterminedDecisionMessages.downloadHeading
+      document.select(Selectors.p(4)).text mustBe UndeterminedDecisionMessages.download_p1
     }
   }
 }
