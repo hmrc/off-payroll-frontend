@@ -45,13 +45,7 @@
 @whyResult = {
     <p>@messages(tailorMsgOptimised("result.out.paye.whyResult.p1"))</p>
 
-@{
-    val sub = if(substituteToDoWork) "result.out.paye.reason.p1" else ""
-    val client = if(clientNotControlWork) "result.out.paye.reason.p2" else ""
-    val cost = if(incurInvestmentNoReclaim) "result.out.paye.reason.p3" else ""
-
-    components.bulleted_list(Seq(sub,client,cost))
-}
+    @components.bulleted_list(allOutReasons(substituteToDoWork,clientNotControlWork,incurInvestmentNoReclaim))
     <p>@messages(tailorMsgOptimised("result.out.paye.whyResult.p2"))</p>
 }
 
