@@ -70,18 +70,18 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
   val formProvider = new DeclarationFormProvider()
 
   val service: OptimisedDecisionService = new OptimisedDecisionService(mockDecisionConnector, mockErrorHandler, formProvider,
-    injector.instanceOf[OfficeHolderAgentView],
-    injector.instanceOf[OfficeHolderIR35View],
-    injector.instanceOf[OfficeHolderPAYEView],
-    injector.instanceOf[AgentUndeterminedView],
-    injector.instanceOf[IR35UndeterminedView],
-    injector.instanceOf[PAYEUndeterminedView],
-    injector.instanceOf[AgentInsideView],
-    injector.instanceOf[IR35InsideView],
-    injector.instanceOf[PAYEInsideView],
-    injector.instanceOf[ControlView],
-    injector.instanceOf[IR35OutsideView],
-    injector.instanceOf[SelfEmployedView],
+    officeAgency = injector.instanceOf[OfficeHolderAgentView],
+    officeIR35 = injector.instanceOf[OfficeHolderIR35View],
+    officePAYE = injector.instanceOf[OfficeHolderPAYEView],
+    undeterminedAgency = injector.instanceOf[AgentUndeterminedView],
+    undeterminedIR35 = injector.instanceOf[IR35UndeterminedView],
+    undeterminedPAYE = injector.instanceOf[PAYEUndeterminedView],
+    insideAgent = injector.instanceOf[AgentInsideView],
+    insideIR35 = injector.instanceOf[IR35InsideView],
+    insidePAYE = injector.instanceOf[PAYEInsideView],
+    outsideAgent = injector.instanceOf[IR35OutsideView], //TODO: Update with AgentOutsideView
+    outsideIR35 = injector.instanceOf[IR35OutsideView],
+    outsidePAYE = injector.instanceOf[IR35OutsideView], //TODO: Update with PAYEOutsideView
     frontendAppConfig)
 
   val userAnswers: UserAnswers = UserAnswers("id")

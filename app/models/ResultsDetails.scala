@@ -16,11 +16,12 @@
 
 package models
 
-import play.api.data.Form
 import play.api.mvc.Call
 
-case class ResultsDetails(form: Form[Boolean], action: Call,
-                          officeHolderAnswer: Boolean, privateSector: Boolean, usingIntermediary: Boolean,
+case class ResultsDetails(action: Call,
+                          officeHolderAnswer: Boolean,
+                          privateSector: Boolean,
+                          usingIntermediary: Boolean,
                           userType: Option[UserType],
                           personalServiceOption: Option[WeightedAnswerEnum.Value] = None,
                           controlOption: Option[WeightedAnswerEnum.Value] = None,

@@ -47,43 +47,7 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
     Ok(view(checkYourAnswersService.sections))
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val call = navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers)
-    optimisedDecisionService.multipleDecisionCall().map { decision =>
-      result(decision, call)
-    }
-  }
-
-  private def result(decisionResponse: Either[ErrorResponse,DecisionResponse],continueResult: Call)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Result = {
-    decisionResponse match {
-      case Right(DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED)) => InternalServerError(errorHandler.internalServerErrorTemplate)
-      case Right(DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35)) => redirectResultsPage(ResultEnum.OUTSIDE_IR35,
-        score.personalService, score.control, score.financialRisk)
-      case Right(DecisionResponse(_, _, _, result)) => redirectResultsPage(result)
-      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
-    }
-  }
-
-  private def redirectResultsPage(resultValue: ResultEnum.Value,
-                                  personalServiceOption: Option[WeightedAnswerEnum.Value] = None,
-                                  controlOption: Option[WeightedAnswerEnum.Value] = None,
-                                  financialRiskOption: Option[WeightedAnswerEnum.Value] = None)(implicit rh: Request[_]): Result = {
-
-    val result: (String, String) = SessionKeys.result -> resultValue.toString
-
-    val personalService = personalServiceOption.map(personalService => SessionKeys.personalServiceResult -> personalService.toString)
-    val control = controlOption.map(control => SessionKeys.controlResult -> control.toString)
-    val financialRisk = financialRiskOption.map(financialRisk => SessionKeys.financialRiskResult -> financialRisk.toString)
-
-    val redirect = Redirect(routes.ResultController.onPageLoad())
-      .removingFromSession(SessionKeys.result, SessionKeys.personalServiceResult, SessionKeys.controlResult, SessionKeys.financialRiskResult)
-      .addingToSession(result)
-
-    val personalServiceRedirect = personalService.fold(redirect)(redirect.addingToSession(_))
-    val controlRedirect = control.fold(personalServiceRedirect)(personalServiceRedirect.addingToSession(_))
-    val financialRiskRedirect = financialRisk.fold(controlRedirect)(controlRedirect.addingToSession(_))
-
-    financialRiskRedirect
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Redirect(navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers))
   }
 }

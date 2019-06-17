@@ -48,25 +48,21 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   val resultForm: Form[Boolean] = formProvider()
 
-  private val version = conf.decisionVersion
-
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage)
-    dataCacheConnector.save(timestamp.cacheMap).map { _ =>
-
+    dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
       if(isEnabled(OptimisedFlow)){
-
-        Ok(optimisedDecisionService.determineResultView(answers))
-
+        optimisedDecisionService.determineResultView().map {
+          case Right(result) => Ok(result)
+          case Left(err) => InternalServerError(err)
+        }
       } else {
-
-        Ok(decisionService.determineResultView(answers))
+        Future.successful(Ok(decisionService.determineResultView(answers)))
       }
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-
     if(isEnabled(OptimisedFlow)){
       Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
     } else {
@@ -80,5 +76,4 @@ class ResultController @Inject()(identify: IdentifierAction,
       )
     }
   }
-
 }
