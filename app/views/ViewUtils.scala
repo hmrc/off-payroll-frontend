@@ -18,7 +18,7 @@ package views
 
 import config.{FrontendAppConfig, SessionKeys}
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow, WelshLanguage}
-import models.UserType
+import models.{ResultType, UserType}
 import models.UserType._
 import play.api.data.Form
 import play.api.i18n.Messages
@@ -53,12 +53,21 @@ object ViewUtils extends FeatureSwitching {
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 
-  def allOutReasons(isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
+  def allOutReasons(outType: ResultType, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
                    (implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
+
+    val messageBase = {
+      outType match {
+        case ResultType.Agent => "agent.optimised.result.outside.whyResult"
+        case ResultType.IR35 => tailorMsgOptimised(s"result.outside.ir35.whyResult")
+        case ResultType.PAYE => tailorMsgOptimised(s"result.outside.paye.whyResult")
+      }
+    }
+
     Seq(
-      if(isSubstituteToDoWork) Some(tailorMsgOptimised("result.outside.ir35.whyResult.substituteToDoWork")) else None,
-      if(isClientNotControlWork) Some(tailorMsgOptimised("result.outside.ir35.whyResult.clientNotControlWork")) else None,
-      if(isIncurCostNoReclaim) Some(tailorMsgOptimised("result.outside.ir35.whyResult.incurCostNoReclaim")) else None
+      if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWork") else None,
+      if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWork") else None,
+      if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None
     ).flatten
   }
 }
