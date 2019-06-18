@@ -133,7 +133,6 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
     }
 
     disable(OptimisedFlow)
-
     for(option <- IdentifyToStakeholders.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {

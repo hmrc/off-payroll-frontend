@@ -18,6 +18,7 @@ package views.subOptimised.sections.financialRisk
 
 import assets.messages.HowWorkerIsPaidMessages
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import forms.HowWorkerIsPaidFormProvider
 import models.{HowWorkerIsPaid, NormalMode}
 import models.UserType.{Agency, Hirer, Worker}
@@ -138,14 +139,17 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       }
     }
 
-    HowWorkerIsPaid.options.foreach(option => testOption(option.value))
+    disable(OptimisedFlow)
+    for(option <- HowWorkerIsPaid.options) {
+      s"rendered with a value of '${option.value}'" must {
+        s"have the '${option.value}' radio button selected" in {
+          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+          assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-    def testOption(value: String) = {
-      s"option $value is selected" in {
-        val (selected, unselected) = HowWorkerIsPaid.options.partition(a => a.value == value)
-        val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> value))))
-        assertContainsRadioButton(doc, selected.head.id, "value", selected.head.value, true)
-        unselected.foreach(option => assertContainsRadioButton(doc, option.id, "value", option.value, false))
+          for(unselectedOption <- HowWorkerIsPaid.options.filterNot(o => o == option)) {
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+          }
+        }
       }
     }
   }

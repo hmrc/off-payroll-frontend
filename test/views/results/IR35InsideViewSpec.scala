@@ -16,19 +16,14 @@
 
 package views.results
 
-import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
-import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.UserType.Hirer
 import models.requests.DataRequest
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
-import views.ViewSpecBase
 import views.html.results.inside.IR35InsideView
 
 class IR35InsideViewSpec extends ResultViewFixture {
