@@ -57,7 +57,7 @@ object ViewUtils extends FeatureSwitching {
                    (implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
 
     val messageBase = {
-      outType.fold("agent.optimised.result.outside.reason"){
+      outType.fold("agent.optimised.result.outside.whyResult"){
         key => tailorMsgOptimised(s"result.outside.$key.whyResult")
       }
     }
