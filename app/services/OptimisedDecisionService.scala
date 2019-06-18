@@ -55,9 +55,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val insideAgent: AgentInsideView,
                                          val insideIR35: IR35InsideView,
                                          val insidePAYE: PAYEInsideView,
-                                         val outsideAgent: IR35OutsideView,
+                                         val outsideAgent: AgentOutsideView,
                                          val outsideIR35: IR35OutsideView,
-                                         val outsidePAYE: IR35OutsideView,
+                                         val outsidePAYE: PAYEOutsideView,
                                          implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
   private[services] def collateDecisions(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
@@ -139,13 +139,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
-        //TODO: Update with the OutsideAgentView when created
-        outsideIR35(result.action,result.privateSector, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim) /** AGENT **/
+        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** AGENT **/
       case (true, _) =>
         outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** IR35 **/
       case _ =>
-        //TODO: Update with the OutsidePAYEView when created
-        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** PAYE **/
+        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** PAYE **/
     }
   }
 

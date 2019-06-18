@@ -21,11 +21,11 @@ import config.SessionKeys
 import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.Request
-import views.html.results.AgentOutView
+import views.html.results.outside.AgentOutsideView
 
-class AgentOutViewSpec extends ResultViewFixture {
+class AgentOutsideViewSpec extends ResultViewFixture {
 
-  val view = injector.instanceOf[AgentOutView]
+  val view = injector.instanceOf[AgentOutsideView]
 
   lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
 

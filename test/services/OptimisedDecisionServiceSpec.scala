@@ -64,7 +64,7 @@ import play.api.mvc.{AnyContent, Call}
 import play.twirl.api.Html
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.inside.{AgentInsideView, IR35InsideView, PAYEInsideView}
-import views.html.results.outside.IR35OutsideView
+import views.html.results.outside.{AgentOutsideView, IR35OutsideView, PAYEOutsideView}
 import views.html.results.undetermined.{AgentUndeterminedView, IR35UndeterminedView, PAYEUndeterminedView}
 
 class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
@@ -82,9 +82,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
   val AgentInsideView = injector.instanceOf[AgentInsideView]
   val IR35InsideView = injector.instanceOf[IR35InsideView]
   val PAYEInsideView = injector.instanceOf[PAYEInsideView]
-  val IR35OutsideView = injector.instanceOf[IR35OutsideView] //TODO: Update with AgentOutsideView
-  val AgentOutsideView = injector.instanceOf[IR35OutsideView]
-  val PAYEOutsideView = injector.instanceOf[IR35OutsideView] //TODO: Update with PAYEOutsideView
+  val AgentOutsideView = injector.instanceOf[AgentOutsideView]
+  val IR35OutsideView = injector.instanceOf[IR35OutsideView]
+  val PAYEOutsideView = injector.instanceOf[PAYEOutsideView]
 
   val service: OptimisedDecisionService = new OptimisedDecisionService(
     mockDecisionConnector,
@@ -99,8 +99,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     AgentInsideView,
     IR35InsideView,
     PAYEInsideView,
-    IR35OutsideView,
     AgentOutsideView,
+    IR35OutsideView,
     PAYEOutsideView,
     frontendAppConfig
   )
@@ -477,10 +477,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
             val expected: Html = AgentOutsideView(
               postAction = postAction,
-              isPrivateSector = false,
-              isSubstituteToDoWork = true,
-              isClientNotControlWork = true,
-              isIncurCostNoReclaim = true
+              substituteToDoWork = true,
+              clientNotControlWork = true,
+              incurCostNoReclaim = true
             )(dataRequest, messages, frontendAppConfig)
 
             val actual = await(service.determineResultView(postAction))
@@ -494,7 +493,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
           "render the IR35OutsideView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WorkerUsingIntermediaryPage, 2, false)
+              .set(WorkerUsingIntermediaryPage, 2, true)
 
             implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
@@ -533,7 +532,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
           "render the PAYEOutsideView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WorkerUsingIntermediaryPage, 2, true)
+              .set(WorkerUsingIntermediaryPage, 2, false)
 
             implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
@@ -555,7 +554,6 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
             val expected: Html = PAYEOutsideView(
               postAction = postAction,
-              isPrivateSector = false,
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
               isIncurCostNoReclaim = true

@@ -24,11 +24,11 @@ import models.UserType.Hirer
 import models.requests.DataRequest
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import views.html.results.PAYEOutView
+import views.html.results.outside.PAYEOutsideView
 
 class PAYEOutsideViewSpec extends ResultViewFixture {
 
-  val view = injector.instanceOf[PAYEOutView]
+  val view = injector.instanceOf[PAYEOutsideView]
 
   def createView(req: DataRequest[_],
                  isSubstituteToDoWork: Boolean = true,
