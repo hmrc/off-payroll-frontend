@@ -16,37 +16,20 @@
 
 package views.results
 
-import akka.http.scaladsl.model.HttpMethods
-import assets.messages.results.{OutDecisionMessages, InDecisionMessages, UndeterminedDecisionMessages}
+import assets.messages.results.{InDecisionMessages, OutDecisionMessages, UndeterminedDecisionMessages}
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
-import forms.DeclarationFormProvider
 import models.UserType.Agency
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.ViewSpecBase
+import play.api.mvc.Request
 import views.html.results.AgentOutView
 
-class AgentOutViewSpec extends ViewSpecBase {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
-  object Selectors extends BaseCSSSelectors {
-    override val subheading = "p.font-large"
-  }
-
-  val form = new DeclarationFormProvider()()
+class AgentOutViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentOutView]
 
-  val postAction = Call(HttpMethods.POST.value, "/")
-
   lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
 
-  def createView(req: Request[_]) = view(form, postAction,true,false,false)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction,true,false,false)(req, messages, frontendAppConfig)
   lazy val document = asDocument(createView(request))
 
   "The OutAgentView page" should {
@@ -67,7 +50,7 @@ class AgentOutViewSpec extends ViewSpecBase {
     }
 
     "Have the correct Why Result section for 2 reasons" in {
-      def createView2(req: Request[_]) = view(form, postAction,true,true,false)(req, messages, frontendAppConfig)
+      def createView2(req: Request[_]) = view(postAction,true,true,false)(req, messages, frontendAppConfig)
       lazy val document2 = asDocument(createView2(request))
 
       document2.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
@@ -78,7 +61,7 @@ class AgentOutViewSpec extends ViewSpecBase {
     }
 
     "Have the correct Why Result section for 3 reasons" in {
-      def createView3(req: Request[_]) = view(form, postAction,true,true,true)(req, messages, frontendAppConfig)
+      def createView3(req: Request[_]) = view(postAction,true,true,true)(req, messages, frontendAppConfig)
       lazy val document3 = asDocument(createView3(request))
 
       document3.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading

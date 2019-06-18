@@ -16,36 +16,19 @@
 
 package views.results
 
-import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
-import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserType.Hirer
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.ViewSpecBase
+import play.api.mvc.Request
 import views.html.results.OfficeHolderPAYEView
 
-class OfficeHolderPAYEViewSpec extends ViewSpecBase {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
-  object Selectors extends BaseCSSSelectors {
-    override val subheading = "p.font-large"
-  }
-
-  val form = new DeclarationFormProvider()()
+class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderPAYEView]
 
-  val postAction = Call(HttpMethods.POST.value, "/")
-
-  def createView(req: Request[_]) = view(form, postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
 
   "The OfficeHolderPAYEView page" should {
 

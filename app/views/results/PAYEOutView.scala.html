@@ -19,10 +19,11 @@
 @import views.ViewUtils._
 @import models.requests.DataRequest
 @import models.UserType.{Worker, Hirer}
+@import models.ResultType.PAYE
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig) {
 
@@ -45,7 +46,7 @@
 @whyResult = {
     <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1"))</p>
 
-    @components.bulleted_list(allOutReasons(Some("paye"), isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
+    @components.bulleted_list(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
     <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
 }
 

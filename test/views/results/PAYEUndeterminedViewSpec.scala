@@ -16,35 +16,18 @@
 
 package views.results
 
-import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
-import forms.DeclarationFormProvider
 import models.UserType.{Hirer, Worker}
 import play.api.libs.json.Json
-import play.api.mvc.{Call, Request}
-import views.ViewSpecBase
+import play.api.mvc.Request
 import views.html.results.PAYEUndeterminedView
 
-class PAYEUndeterminedViewSpec extends ViewSpecBase {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
-  object Selectors extends BaseCSSSelectors {
-    override val subheading = "p.font-large"
-  }
-
-  val form = new DeclarationFormProvider()()
+class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEUndeterminedView]
 
-  val postAction = Call(HttpMethods.POST.value, "/")
-
-  def createView(req: Request[_]) = view(form, postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
 
   "The PAYEUndeterminedView page" should {
 

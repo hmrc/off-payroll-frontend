@@ -18,7 +18,7 @@ package views
 
 import config.{FrontendAppConfig, SessionKeys}
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow, WelshLanguage}
-import models.UserType
+import models.{ResultType, UserType}
 import models.UserType._
 import play.api.data.Form
 import play.api.i18n.Messages
@@ -53,12 +53,14 @@ object ViewUtils extends FeatureSwitching {
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 
-  def allOutReasons(outType: Option[String], isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
+  def allOutReasons(outType: ResultType, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
                    (implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
 
     val messageBase = {
-      outType.fold("agent.optimised.result.outside.whyResult"){
-        key => tailorMsgOptimised(s"result.outside.$key.whyResult")
+      outType match {
+        case ResultType.Agent => "agent.optimised.result.outside.whyResult"
+        case ResultType.IR35 => tailorMsgOptimised(s"result.outside.ir35.whyResult")
+        case ResultType.PAYE => tailorMsgOptimised(s"result.outside.paye.whyResult")
       }
     }
 

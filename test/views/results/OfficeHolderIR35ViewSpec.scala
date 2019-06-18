@@ -16,40 +16,22 @@
 
 package views.results
 
-import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
-import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.UserType.Hirer
 import models.requests.DataRequest
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.twirl.api.HtmlFormat
-import views.ViewSpecBase
 import views.html.results.OfficeHolderIR35View
 
-class OfficeHolderIR35ViewSpec extends ViewSpecBase {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
-  object Selectors extends BaseCSSSelectors {
-    override val subheading = "p.font-large"
-  }
-
-  val form = new DeclarationFormProvider()()
+class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderIR35View]
 
-  val postAction = Call(HttpMethods.POST.value, "/")
-
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(form, postAction, isPrivateSector)(req, messages, frontendAppConfig)
+    view( postAction, isPrivateSector)(req, messages, frontendAppConfig)
 
   "The OfficeHolderIR35View page" should {
 

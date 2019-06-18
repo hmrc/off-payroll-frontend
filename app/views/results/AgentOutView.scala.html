@@ -17,10 +17,11 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
+@import models.ResultType.Agent
     
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig) {
 
@@ -44,7 +45,7 @@
 @whyResult = {
     <p>@messages("agent.optimised.result.outside.whyResult.p1")</p>
 
-    @components.bulleted_list(allOutReasons(None, substituteToDoWork, clientNotControlWork, incurCostNoReclaim))
+    @components.bulleted_list(allOutReasons(Agent, substituteToDoWork, clientNotControlWork, incurCostNoReclaim))
 
     <p>@messages("agent.optimised.result.outside.whyResult.p2")</p>
 }
