@@ -22,11 +22,12 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
-import models.{NormalMode, Timestamp}
+import models.requests.DataRequest
+import models.{NormalMode, Timestamp, UserAnswers}
 import navigation.Navigator
 import pages.ResultPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService, OptimisedDecisionService}
 import utils.UserAnswersUtils
 
@@ -43,16 +44,17 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,
                                  optimisedDecisionService: OptimisedDecisionService,
-                                 implicit val conf: FrontendAppConfig) extends BaseController(controllerComponents)
-  with UserAnswersUtils with FeatureSwitching {
+                                 implicit val conf: FrontendAppConfig
+                                ) extends BaseController(controllerComponents) with UserAnswersUtils with FeatureSwitching {
 
-  val resultForm: Form[Boolean] = formProvider()
+  private val resultForm: Form[Boolean] = formProvider()
+  private def nextPage(implicit request: DataRequest[_]): Call = navigator.nextPage(ResultPage, NormalMode)(request.userAnswers)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage)
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
       if(isEnabled(OptimisedFlow)){
-        optimisedDecisionService.determineResultView().map {
+        optimisedDecisionService.determineResultView(nextPage).map {
           case Right(result) => Ok(result)
           case Left(err) => InternalServerError(err)
         }
@@ -64,14 +66,14 @@ class ResultController @Inject()(identify: IdentifierAction,
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     if(isEnabled(OptimisedFlow)){
-      Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
+      Redirect(nextPage)
     } else {
       resultForm.bindFromRequest().fold(
         formWithErrors => {
           BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
         },
         _ => {
-          Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
+          Redirect(nextPage)
         }
       )
     }

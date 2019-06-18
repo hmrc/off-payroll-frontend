@@ -30,9 +30,8 @@ trait MockOptimisedDecisionService extends MockFactory {
 
   val mockOptimisedDecisionService = mock[OptimisedDecisionService]
 
-  //TODO make mock work
-  def mockMultipleCall(request: DataRequest[AnyContent])(response: Either[ErrorResponse,DecisionResponse]): Unit = {
-    (mockOptimisedDecisionService.multipleDecisionCall()( _: DataRequest[AnyContent],_: HeaderCarrier))
+  def mockCollateDecisions(request: DataRequest[AnyContent])(response: Either[ErrorResponse,DecisionResponse]): Unit = {
+    (mockOptimisedDecisionService.collateDecisions( _: DataRequest[AnyContent],_: HeaderCarrier))
       .expects(*,*)
       .returns(Future.successful(response))
   }

@@ -31,25 +31,12 @@ import play.twirl.api.HtmlFormat
 import views.ViewSpecBase
 import views.html.results.inside.IR35InsideView
 
-class IR35InsideViewSpec extends ViewSpecBase {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
-
-  object Selectors extends BaseCSSSelectors {
-    override val subheading = "p.font-large"
-  }
-
-  val form = new DeclarationFormProvider()()
+class IR35InsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IR35InsideView]
 
-  val postAction = Call(HttpMethods.POST.value, "/")
-
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(form, postAction, isPrivateSector)(req, messages, frontendAppConfig)
+    view(postAction, isPrivateSector)(req, messages, frontendAppConfig)
 
   "The IR35InsideView page" should {
 

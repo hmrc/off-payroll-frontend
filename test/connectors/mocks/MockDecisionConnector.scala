@@ -16,12 +16,9 @@
 
 package connectors.mocks
 
-import MultiDecision.Result
-import cats.data.EitherT
-import connectors.{DataCacheConnector, DecisionConnector}
+import connectors.DecisionConnector
 import models.{DecisionResponse, ErrorResponse, Interview}
 import org.scalamock.scalatest.MockFactory
-import play.api.libs.json.Writes
 import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -34,12 +31,6 @@ trait MockDecisionConnector extends MockFactory {
     (mockDecisionConnector.decide(_: Interview)(_: HeaderCarrier, _: ExecutionContext))
       .expects(decisionRequest, *, *)
       .returns(Future.successful(response))
-  }
-
-  def mockDecideSection(interview: Interview)(response: Result[Boolean]): Unit = {
-    (mockDecisionConnector.decide(_: Interview,_: Writes[Interview])(_: HeaderCarrier, _: ExecutionContext))
-      .expects(interview,*, *, *)
-      .returns(response)
   }
 
   def mockLog(decisionRequest: Interview, decisionResponse: DecisionResponse)(response: Either[ErrorResponse, Boolean]): Unit ={

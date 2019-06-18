@@ -60,7 +60,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val outsidePAYE: IR35OutsideView,
                                          implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
-  private def collateDecisions()(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
+  private[services] def collateDecisions(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
     val interview = Interview(request.userAnswers)
     (for {
       personalService <- EitherT(decisionConnector.decide(interview, Interview.writesPersonalService))
@@ -68,7 +68,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       financialRisk <- EitherT(decisionConnector.decide(interview, Interview.writesFinancialRisk))
       wholeInterview <- EitherT(decisionConnector.decide(interview, Interview.writes))
     } yield collatedDecisionResponse(personalService, control, financialRisk, wholeInterview)).value.flatMap {
-      case Right(decision) => logResult(decision, interview).map(_ => Right(decision))
+      case Right(collatedDecision) => logResult(collatedDecision, interview).map(_ => Right(collatedDecision))
       case Left(err) => Future.successful(Left(err))
     }
   }
@@ -83,9 +83,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       score = Score(
         setup = wholeInterview.score.setup,
         exit = wholeInterview.score.exit,
-        personalService = personalService.score.personalService,
-        control = control.score.control,
-        financialRisk = financialRisk.score.financialRisk,
+        personalService = personalService.score.personalService,    /** Score from isolated Personal Service call **/
+        control = control.score.control,                            /** Score from isolated Control call **/
+        financialRisk = financialRisk.score.financialRisk,          /** Score from isolated Financial Risk call **/
         partAndParcel = wholeInterview.score.partAndParcel
       ),
       result = wholeInterview.result
@@ -99,20 +99,19 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT, "No log needed")))
     }
 
-  def determineResultView()(implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
-    collateDecisions().map {
+  def determineResultView(postAction: Call)(implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
+    collateDecisions.map {
       case Right(decision) => {
         val result = decision.result
         val personalService = decision.score.personalService
         val control = decision.score.control
         val financialRisk = decision.score.financialRisk
-        val action: Call = routes.ResultController.onSubmit()
-        val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).exists(answer => answer.answer)
-        val privateSector = request.userAnswers.get(IsWorkForPrivateSectorPage).exists(answer => answer.answer)
+        val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
+        val privateSector = request.userAnswers.get(IsWorkForPrivateSectorPage).fold(false)(_.answer)
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
 
         implicit val resultsDetails: ResultsDetails =
-          ResultsDetails(action, officeHolderAnswer, privateSector, usingIntermediary, request.userType, personalService, control, financialRisk)
+          ResultsDetails(postAction, officeHolderAnswer, privateSector, usingIntermediary, request.userType, personalService, control, financialRisk)
 
         result match {
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
@@ -166,6 +165,4 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case (true, _) => officeIR35(result.action, result.privateSector) /** IR35 **/
       case _ => officePAYE(result.action) /** PAYE **/
     }
-
-
 }

@@ -39,8 +39,6 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            controllerComponents: MessagesControllerComponents,
                                            view: CheckYourAnswersView,
                                            checkYourAnswersService: CheckYourAnswersService,
-                                           optimisedDecisionService: OptimisedDecisionService,
-                                           errorHandler: ErrorHandler,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

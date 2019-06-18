@@ -29,7 +29,9 @@ import views.behaviours.ViewBehaviours
 
 trait ResultViewFixture extends ViewBehaviours {
 
-  object Selectors extends BaseCSSSelectors
+  object Selectors extends BaseCSSSelectors {
+    override val subheading = "p.font-large"
+  }
 
   val postAction = Call(HttpMethods.POST.value, "/")
 

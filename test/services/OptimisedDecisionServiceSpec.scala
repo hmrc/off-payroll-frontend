@@ -110,11 +110,11 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     "call decision once if a decision is reached" in {
       implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
       mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
 
 
-      whenReady(service.multipleDecisionCall()) { res =>
+      whenReady(service.collateDecisions) { res =>
        res.right.get.result mustBe ResultEnum.INSIDE_IR35
       }
     }
@@ -122,12 +122,12 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     "call decision twice if the first call is unmatched" in {
       implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
       mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
 
 
-      whenReady(service.multipleDecisionCall()) { res =>
+      whenReady(service.collateDecisions) { res =>
         res.right.get.result mustBe ResultEnum.INSIDE_IR35
       }
     }
@@ -135,14 +135,14 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     "call decision thrice if the first 2 calls are unmatched" in {
       implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
 
       mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
 
 
-      whenReady(service.multipleDecisionCall()) { res =>
+      whenReady(service.collateDecisions) { res =>
         res.right.get.result mustBe ResultEnum.INSIDE_IR35
       }
     }
@@ -150,15 +150,15 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     "call decision fourice if the first 3 calls are unmatched" in {
       implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
 
       mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
 
 
-      whenReady(service.multipleDecisionCall()) { res =>
+      whenReady(service.collateDecisions) { res =>
         res.right.get.result mustBe ResultEnum.INSIDE_IR35
       }
     }
@@ -166,16 +166,16 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     "do the big decision if no matches" in {
       implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
 
       mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
 
 
-      whenReady(service.multipleDecisionCall()) { res =>
+      whenReady(service.collateDecisions) { res =>
         res.right.get.result mustBe ResultEnum.INSIDE_IR35
       }
     }
@@ -183,13 +183,13 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     "return an error given no decision" in {
       implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
-      mockDecideSection(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
+      mockDecide(Interview.apply(userAnswers))(createRightType(true))
 
-      whenReady(service.multipleDecisionCall()) { res =>
+      whenReady(service.collateDecisions) { res =>
         res.left.get mustBe an[ErrorResponse]
       }
     }
@@ -197,9 +197,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     "return an error given an exception" in {
       implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecideSection(Interview.apply(userAnswers))(createLeftType(Left(ErrorResponse(500,"ma name Jeff"))))
+      mockDecide(Interview.apply(userAnswers))(createLeftType(Left(ErrorResponse(500,"ma name Jeff"))))
 
-      whenReady(service.multipleDecisionCall()) { res =>
+      whenReady(service.collateDecisions) { res =>
         res.left.get mustBe an[ErrorResponse]
       }
     }
