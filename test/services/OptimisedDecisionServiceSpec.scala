@@ -107,103 +107,91 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
     .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
 
   "multipleDecisionCall" should {
-    "call decision once if a decision is reached" in {
-      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
-      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
+    "give a valid result" when {
+
+      "every decision call is successful" in {
+
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
 
-      whenReady(service.collateDecisions) { res =>
-       res.right.get.result mustBe ResultEnum.INSIDE_IR35
+        whenReady(service.collateDecisions) { res =>
+          res.right.get.result mustBe ResultEnum.INSIDE_IR35
+        }
+      }
+
+      "decision log returns a Left" in {
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Left(ErrorResponse(500, "ma name Jeff")))
+
+        whenReady(service.collateDecisions) { res =>
+          res.right.get.result mustBe ResultEnum.INSIDE_IR35
+        }
       }
     }
 
-    "call decision twice if the first call is unmatched" in {
-      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
-      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
+    "return an error" when {
+
+      "personal service decision call returns a Left" in {
+
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Left(ErrorResponse(500, "ma name Jeff")))
+
+        whenReady(service.collateDecisions) { res =>
+          res.left.get mustBe an[ErrorResponse]
+        }
+      }
+
+      "control decision call returns a Left" in {
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Left(ErrorResponse(500, "ma name Jeff")))
+
+        whenReady(service.collateDecisions) { res =>
+          res.left.get mustBe an[ErrorResponse]
+        }
+      }
+
+      "financial risk decision call returns a Left" in {
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Left(ErrorResponse(500, "ma name Jeff")))
+
+        whenReady(service.collateDecisions) { res =>
+          res.left.get mustBe an[ErrorResponse]
+        }
+      }
 
 
-      whenReady(service.collateDecisions) { res =>
-        res.right.get.result mustBe ResultEnum.INSIDE_IR35
+      "whole decision call returns a Left" in {
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview.apply(userAnswers))(Left(ErrorResponse(500, "ma name Jeff")))
+
+        whenReady(service.collateDecisions) { res =>
+          res.left.get mustBe an[ErrorResponse]
+        }
       }
     }
-
-    "call decision thrice if the first 2 calls are unmatched" in {
-      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
-
-      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
-
-
-      whenReady(service.collateDecisions) { res =>
-        res.right.get.result mustBe ResultEnum.INSIDE_IR35
-      }
-    }
-
-    "call decision fourice if the first 3 calls are unmatched" in {
-      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
-
-      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
-
-
-      whenReady(service.collateDecisions) { res =>
-        res.right.get.result mustBe ResultEnum.INSIDE_IR35
-      }
-    }
-
-    "do the big decision if no matches" in {
-      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createLeftType(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))))
-
-      mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Right(true))
-
-
-      whenReady(service.collateDecisions) { res =>
-        res.right.get.result mustBe ResultEnum.INSIDE_IR35
-      }
-    }
-
-    "return an error given no decision" in {
-      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-      mockDecide(Interview.apply(userAnswers))(createRightType(true))
-
-      whenReady(service.collateDecisions) { res =>
-        res.left.get mustBe an[ErrorResponse]
-      }
-    }
-
-    "return an error given an exception" in {
-      implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-      mockDecide(Interview.apply(userAnswers))(createLeftType(Left(ErrorResponse(500,"ma name Jeff"))))
-
-      whenReady(service.collateDecisions) { res =>
-        res.left.get mustBe an[ErrorResponse]
-      }
-    }
-
   }
 
 }

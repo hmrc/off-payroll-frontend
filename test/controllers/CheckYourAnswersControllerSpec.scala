@@ -57,7 +57,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     "redirect to the result page" in {
       val result = controller().onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/check-employment-status-for-tax/your-result")
+      redirectLocation(result) mustBe Some("/foo")
     }
   }
 }
