@@ -15,13 +15,12 @@
  */
 
 package controllers.sections.financialRisk
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.CannotClaimAsExpenseFormProvider
-import models.{ErrorTemplate, Mode}
+import javax.inject.Inject
+import models.Mode
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView

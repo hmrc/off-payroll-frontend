@@ -16,24 +16,18 @@
 
 package controllers.sections.exit
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
-import models.{ErrorTemplate, Mode}
+import models.Mode
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.sections.exit.OfficeHolderView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.{CompareAnswerService, DecisionService}
+import views.html.sections.exit.OfficeHolderView
 import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
 import scala.concurrent.Future

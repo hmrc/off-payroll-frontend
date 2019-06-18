@@ -16,24 +16,20 @@
 
 package controllers.sections.partParcel
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.BenefitsFormProvider
-import models.{ErrorTemplate, Mode}
+import javax.inject.Inject
+import models.Mode
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.{CompareAnswerService, DecisionService}
-import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimisedBenefitsView}
+import services.DecisionService
 import views.html.sections.partParcel.BenefitsView
+import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimisedBenefitsView}
 
 import scala.concurrent.Future
 

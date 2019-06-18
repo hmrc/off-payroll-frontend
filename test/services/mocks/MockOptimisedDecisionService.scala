@@ -17,22 +17,22 @@
 package services.mocks
 
 import models.requests.DataRequest
-import models.{DecisionResponse, ErrorResponse, UserAnswers}
 import org.scalamock.scalatest.MockFactory
-import play.api.mvc.{AnyContent, Call}
-import play.api.mvc.Results.Redirect
+import play.api.i18n.Messages
+import play.api.mvc.Call
+import play.twirl.api.Html
 import services.OptimisedDecisionService
 import uk.gov.hmrc.http.HeaderCarrier
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 trait MockOptimisedDecisionService extends MockFactory {
 
   val mockOptimisedDecisionService = mock[OptimisedDecisionService]
 
-  def mockCollateDecisions(request: DataRequest[AnyContent])(response: Either[ErrorResponse,DecisionResponse]): Unit = {
-    (mockOptimisedDecisionService.collateDecisions( _: DataRequest[AnyContent],_: HeaderCarrier))
-      .expects(*,*)
+  def mockDetermineResultView(call: Call)(response: Either[Html, Html]): Unit = {
+    (mockOptimisedDecisionService.determineResultView(_: Call)( _: DataRequest[_],_: HeaderCarrier, _: Messages))
+      .expects(call, *, *, *)
       .returns(Future.successful(response))
   }
 }
