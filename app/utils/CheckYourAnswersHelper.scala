@@ -196,7 +196,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
 
   def businessSize(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(BusinessSizePage).map { x =>
     AnswerRow(
-      label = tailorMsg(s"$BusinessSizePage.checkYourAnswersLabel"),
+      label = tailorMsgOptimised(s"$BusinessSizePage.checkYourAnswersLabel"),
       answers = BusinessSize.values.map ( value =>
         AnswerRow(
           label = tailorMsg(s"$BusinessSizePage.$value"),
@@ -260,7 +260,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
 
   def isWorkForPrivateSector(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(IsWorkForPrivateSectorPage) map { x =>
     AnswerRow(
-      tailorMsg(s"$IsWorkForPrivateSectorPage.checkYourAnswersLabel"),
+      tailorMsgOptimised(s"$IsWorkForPrivateSectorPage.checkYourAnswersLabel"),
       if(x.answer) "site.yes" else "site.no",
       answerIsMessageKey = true
     )

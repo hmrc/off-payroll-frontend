@@ -158,6 +158,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB1
         document.select(Selectors.bullet(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultB2
         document.select(Selectors.bullet(3)).text mustBe OutDecisionMessages.HirerIR35.whyResultB3
+        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isSubstituteToDoWork reason is given" in {
@@ -174,6 +175,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB1
         document.select(Selectors.bullet(2)).isEmpty mustBe true
         document.select(Selectors.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isClientNotControlWork reason is given" in {
@@ -190,6 +192,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB2
         document.select(Selectors.bullet(2)).isEmpty mustBe true
         document.select(Selectors.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isIncurCostNoReclaim reason is given" in {
@@ -206,14 +209,15 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB3
         document.select(Selectors.bullet(2)).isEmpty mustBe true
         document.select(Selectors.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "For a Public Sector contract" should {
 
         "Have the correct Do Next section which" in {
           document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP1
-          document.select(Selectors.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP2
+          document.select(Selectors.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP1
+          document.select(Selectors.p(4)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP2
         }
       }
 
@@ -223,13 +227,13 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
         "Have the correct Do Next section which" in {
           document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivate
+          document.select(Selectors.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivate
         }
       }
 
       "Have the correct Download section" in {
         document.select(Selectors.h2(3)).text mustBe OutDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe OutDecisionMessages.download_p1
+        document.select(Selectors.p(5)).text mustBe OutDecisionMessages.download_p1
       }
     }
   }
