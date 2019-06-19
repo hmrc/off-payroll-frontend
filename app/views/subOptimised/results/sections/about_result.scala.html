@@ -16,13 +16,15 @@
 
 @(content: Option[Html] = None)(implicit messages: Messages)
 
-<h2>@messages("result.aboutResult.h2")</h2>
-@content
+<div id="aboutResult">
+  <h2>@messages("result.aboutResult.h2")</h2>
+  @content
 
-<p>@messages("result.aboutResult.willStandByResult")</p>
+  <p>@messages("result.aboutResult.willStandByResult")</p>
 
-<p>@messages("result.aboutResult.willNotStandByResult")</p>
+  <p>@messages("result.aboutResult.willNotStandByResult")</p>
 
-<p>@messages("result.aboutResult.reviewTaxes")</p>
+  <p>@messages("result.aboutResult.reviewTaxes")</p>
 
-@components.exclamation(Html(messages("result.aboutResult.exclamation")))
+  @components.exclamation(Html(messages("result.aboutResult.exclamation")))
+</div>

@@ -54,15 +54,15 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.whyResult_p1
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.whyResult_p1
       }
 
       "For a Public Sector contract" should {
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_public_p1
+          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_public_p1
         }
       }
 
@@ -71,14 +71,14 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_private_p1
+          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_private_p1
         }
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.p(3)).text mustBe OfficeHolderMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
       }
     }
 
@@ -101,16 +101,16 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.whyResult_p1
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.whyResult_p1
       }
 
       "For a Public Sector contract" should {
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p1
-          document.select(Selectors.p(3)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p2
+          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p1
+          document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p2
         }
       }
 
@@ -119,15 +119,15 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p1
-          document.select(Selectors.p(3)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p2
+          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p1
+          document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p2
         }
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe OfficeHolderMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
       }
     }
   }

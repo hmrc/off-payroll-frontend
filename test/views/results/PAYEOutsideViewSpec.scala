@@ -53,12 +53,12 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section when all reasons are given" in {
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
-        document.select(Selectors.bullet(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
-        document.select(Selectors.bullet(3)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
+        document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
       }
 
       "Have the correct Why Result section when isSubstituteToDoWork reason is given" in {
@@ -69,12 +69,12 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
       }
 
       "Have the correct Why Result section when isClientNotControlWork reason is given" in {
@@ -85,12 +85,12 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
       }
 
       "Have the correct Why Result section when isIncurCostNoReclaim reason is given" in {
@@ -101,22 +101,22 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
           isClientNotControlWork = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
       }
 
       "Have the correct Do Next section which" in {
-        document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-        document.select(Selectors.p(3)).text mustBe OutDecisionMessages.WorkerPAYE.doNext
+        document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.doNext
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OutDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe OutDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OutDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.download_p1
       }
     }
 
@@ -135,12 +135,12 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section when all reasons are given" in {
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
-        document.select(Selectors.bullet(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
-        document.select(Selectors.bullet(3)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
+        document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
       }
 
       "Have the correct Why Result section when isSubstituteToDoWork reason is given" in {
@@ -151,12 +151,12 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
       }
 
       "Have the correct Why Result section when isClientNotControlWork reason is given" in {
@@ -167,12 +167,12 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
       }
 
       "Have the correct Why Result section when isIncurCostNoReclaim reason is given" in {
@@ -183,23 +183,23 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
           isClientNotControlWork = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
 
       }
 
       "Have the correct Do Next section which" in {
-        document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-        document.select(Selectors.p(3)).text mustBe OutDecisionMessages.HirerPAYE.doNext
+        document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerPAYE.doNext
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OutDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe OutDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OutDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.download_p1
       }
     }
   }
