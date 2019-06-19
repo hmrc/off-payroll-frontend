@@ -55,12 +55,12 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section when all reasons are given" in {
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB1
-        document.select(Selectors.bullet(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB2
-        document.select(Selectors.bullet(3)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB3
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB2
+        document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB3
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isSubstituteToDoWork reason is given" in {
@@ -72,12 +72,12 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB1
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isClientNotControlWork reason is given" in {
@@ -89,12 +89,12 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB2
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB2
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isIncurCostNoReclaim reason is given" in {
@@ -106,19 +106,19 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           isClientNotControlWork = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB3
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB3
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
       }
 
       "For a Public Sector contract" should {
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.p(3)).text mustBe OutDecisionMessages.WorkerIR35.doNextPublic
+          document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.doNextPublic
         }
       }
 
@@ -127,14 +127,14 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.p(3)).text mustBe OutDecisionMessages.WorkerIR35.doNextPrivate
+          document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.doNextPrivate
         }
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OutDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe OutDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OutDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.download_p1
       }
     }
 
@@ -153,11 +153,12 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section when all reasons are given" in {
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB1
-        document.select(Selectors.bullet(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultB2
-        document.select(Selectors.bullet(3)).text mustBe OutDecisionMessages.HirerIR35.whyResultB3
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultB2
+        document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.HirerIR35.whyResultB3
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isSubstituteToDoWork reason is given" in {
@@ -169,11 +170,12 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB1
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB1
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isClientNotControlWork reason is given" in {
@@ -185,11 +187,12 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           isIncurCostNoReclaim = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB2
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB2
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "Have the correct Why Result section when isIncurCostNoReclaim reason is given" in {
@@ -201,19 +204,20 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           isClientNotControlWork = false
         ))
 
-        document.select(Selectors.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
-        document.select(Selectors.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB3
-        document.select(Selectors.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultP1
+        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerIR35.whyResultB3
+        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
+        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
       }
 
       "For a Public Sector contract" should {
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP1
-          document.select(Selectors.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP2
+          document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP1
+          document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP2
         }
       }
 
@@ -222,14 +226,14 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivate
+          document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivate
         }
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OutDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe OutDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OutDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.download_p1
       }
     }
   }

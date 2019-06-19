@@ -37,6 +37,19 @@ trait ResultViewFixture extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors {
     override val subheading = "p.font-large"
+    object WhyResult {
+      val h2 = (i: Int) => s"#whyResult h2:nth-of-type($i)"
+      val bullet = (i: Int) => s"#whyResult ul li:nth-of-type($i)"
+      val p = (i: Int) => s"#whyResult p:nth-of-type($i)"
+    }
+    object DoNext {
+      val h2 = (i: Int) => s"#doNext h2:nth-of-type($i)"
+      val p = (i: Int) => s"#doNext p:nth-of-type($i)"
+    }
+    object Download {
+      val h2 = (i: Int) => s"#download h2:nth-of-type($i)"
+      val p = (i: Int) => s"#download p:nth-of-type($i)"
+    }
   }
 
   val postAction = Call(HttpMethods.POST.value, "/")

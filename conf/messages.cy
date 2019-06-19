@@ -1449,9 +1449,9 @@ agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should 
 agent.optimised.result.out.title = The off-payroll working rules (IR35) do not apply to this contract
 agent.optimised.result.out.heading = The off-payroll working rules (IR35) do not apply to this contract
 agent.optimised.result.out.whyResult.p1 = Your answers told us:
-agent.optimised.result.out.reason.p1 = Your candidate’s client has accepted, or would accept, a substitute to do this work
-agent.optimised.result.out.reason.p2 = Your candidate’s client does not have control over this work
-agent.optimised.result.out.reason.p3 = Your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged
+agent.optimised.result.out.reason.p1 = your candidate’s client has accepted, or would accept, a substitute to do this work
+agent.optimised.result.out.reason.p2 = your candidate’s client does not have control over this work
+agent.optimised.result.out.reason.p3 = your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged.
 agent.optimised.result.out.whyResult.p2 = This indicates the working arrangements for this contract are on a business-to-business basis.
 agent.optimised.result.out.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
 
