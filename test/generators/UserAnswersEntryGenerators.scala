@@ -30,6 +30,14 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+  implicit lazy val arbitraryBalanceSheetOverUserAnswersEntry: Arbitrary[(BalanceSheetOverPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[BalanceSheetOverPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryTurnoverOverControllerUserAnswersEntry: Arbitrary[(TurnoverOverPage.type, JsValue)] =
     Arbitrary {
       for {

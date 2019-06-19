@@ -19,25 +19,25 @@ package controllers.sections.setup
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.TurnoverOverFormProvider
+import forms.BalanceSheetOverFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.FakeNavigator
-import pages.TurnoverOverPage
+import pages.BalanceSheetOverPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.setup.TurnoverOverView
+import views.html.sections.setup.BalanceSheetOverView
 
-class TurnoverOverControllerSpec extends ControllerSpecBase {
+class BalanceSheetOverControllerSpec extends ControllerSpecBase {
 
-  val formProvider = new TurnoverOverFormProvider()
+  val formProvider = new BalanceSheetOverFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[TurnoverOverView]
+  val view = injector.instanceOf[BalanceSheetOverView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new TurnoverOverController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BalanceSheetOverController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
@@ -52,7 +52,7 @@ class TurnoverOverControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  "TurnoverOverController" must {
+  "BalanceSheetOverController" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
@@ -62,7 +62,7 @@ class TurnoverOverControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(TurnoverOverPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(BalanceSheetOverPage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -72,9 +72,9 @@ class TurnoverOverControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val validData = Map(TurnoverOverPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(BalanceSheetOverPage.toString -> Json.toJson(Answers(true,0)))
 
-      val answers = userAnswers.set(TurnoverOverPage,0,true)
+      val answers = userAnswers.set(BalanceSheetOverPage,0,true)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

@@ -20,39 +20,39 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
-import forms.TurnoverOverFormProvider
+import forms.BalanceSheetOverFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.TurnoverOverPage
+import pages.BalanceSheetOverPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.sections.setup.TurnoverOverView
+import views.html.sections.setup.BalanceSheetOverView
 
 import scala.concurrent.Future
 
-class TurnoverOverController @Inject()(dataCacheConnector: DataCacheConnector,
-                                       navigator: Navigator,
-                                       identify: IdentifierAction,
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       formProvider: TurnoverOverFormProvider,
-                                       controllerComponents: MessagesControllerComponents,
-                                       controllerHelper: ControllerHelper,
-                                       view: TurnoverOverView,
-                                       implicit val appConfig: FrontendAppConfig
-                                      ) extends BaseController(controllerComponents) {
+class BalanceSheetOverController @Inject()(dataCacheConnector: DataCacheConnector,
+                                           navigator: Navigator,
+                                           identify: IdentifierAction,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           formProvider: BalanceSheetOverFormProvider,
+                                           controllerComponents: MessagesControllerComponents,
+                                           controllerHelper: ControllerHelper,
+                                           view: BalanceSheetOverView,
+                                           implicit val appConfig: FrontendAppConfig
+                                          ) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(TurnoverOverPage, form), mode))
+    Ok(view(fillForm(BalanceSheetOverPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode, value, TurnoverOverPage)
+      value => controllerHelper.redirect(mode, value, BalanceSheetOverPage)
     )
   }
 }

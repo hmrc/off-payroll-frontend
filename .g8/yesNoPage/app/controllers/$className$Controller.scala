@@ -2,21 +2,19 @@ package controllers
 
 import javax.inject.Inject
 
-import play.api.i18n.I18nSupport
-import play.api.data.Form
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
-import config.FrontendAppConfig
 import forms.$className$FormProvider
+import javax.inject.Inject
 import models.Mode
-import pages.$className$Page
 import navigation.Navigator
+import pages.$className$Page
+import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.$className$View
 
-import scala.concurrent.{Future, ExecutionContext}
+import scala.concurrent.Future
 
 class $className;format="cap"$Controller @Inject()(dataCacheConnector: DataCacheConnector,
                                          navigator: Navigator,

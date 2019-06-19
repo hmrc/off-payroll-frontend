@@ -14,32 +14,18 @@
  * limitations under the License.
  */
 
-package forms
+package assets.messages
 
-import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+object BalanceSheetOverMessages extends BaseMessages {
 
-class TurnoverOverControllerFormProviderSpec extends BooleanFieldBehaviours {
-
-  val requiredKey = "turnoverOverController.error.required"
-  val invalidKey = "error.boolean"
-
-  val form = new TurnoverOverControllerFormProvider()()
-
-  ".value" must {
-
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, invalidKey)
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+  object Worker {
+    val heading = "Does this organisation have more than £5.1 million on its balance sheet?"
+    val title = heading
   }
+
+  object Hirer {
+    val heading = "Does your organisation have more than £5.1 million on its balance sheet?"
+    val title = heading
+  }
+
 }

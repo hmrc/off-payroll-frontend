@@ -1232,6 +1232,24 @@ businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
 
 ##### TODO NEED WELSH FOR ####
+hirer.turnoverOver.title = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.heading = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.checkYourAnswersLabel = Does your organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.title = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.heading = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.checkYourAnswersLabel = Does this organisation have an annual turnover of more than £10.2 million?
+turnoverOver.error.required = You need to select an answer
+
+##### TODO NEED WELSH FOR ####
+hirer.balanceSheetOver.title = Does your organisation have more than £5.1 million on its balance sheet?
+hirer.balanceSheetOver.heading = Does your organisation have more than £5.1 million on its balance sheet?
+hirer.balanceSheetOver.checkYourAnswersLabel = Does your organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.title = Does this organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.heading = Does this organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.checkYourAnswersLabel = Does this organisation have more than £5.1 million on its balance sheet?
+balanceSheetOver.error.required = You need to select an answer
+
+##### TODO NEED WELSH FOR ####
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
 checkYourAnswers.confirm.h2 = Confirm answers to get your result

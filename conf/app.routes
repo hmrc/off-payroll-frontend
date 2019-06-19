@@ -154,3 +154,8 @@ GET        /turnover-over                               controllers.sections.set
 POST       /turnover-over                               controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = NormalMode)
 GET        /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = CheckMode)
 POST       /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = CheckMode)
+
+GET        /balance-sheet-over                          controllers.sections.setup.BalanceSheetOverController.onPageLoad(mode: Mode = NormalMode)
+POST       /balance-sheet-over                          controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = NormalMode)
+GET        /balance-sheet-over/edit                     controllers.sections.setup.BalanceSheetOverController.onPageLoad(mode: Mode = CheckMode)
+POST       /balance-sheet-over/edit                     controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = CheckMode)

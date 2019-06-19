@@ -16,20 +16,20 @@
 
 package views.sections.setup
 
-import assets.messages.TurnoverOverMessages
+import assets.messages.BalanceSheetOverMessages
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.setup.routes
-import forms.TurnoverOverFormProvider
+import forms.BalanceSheetOverFormProvider
 import models.NormalMode
 import models.UserType.{Hirer, Worker}
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
-import views.html.sections.setup.TurnoverOverView
+import views.html.sections.setup.BalanceSheetOverView
 
-class TurnoverOverViewSpec extends YesNoViewBehaviours {
+class BalanceSheetOverViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
@@ -38,11 +38,11 @@ class TurnoverOverViewSpec extends YesNoViewBehaviours {
     enable(OptimisedFlow)
   }
 
-  val messageKeyPrefix = "worker.turnoverOver"
+  val messageKeyPrefix = "worker.balanceSheetOver"
 
-  val form = new TurnoverOverFormProvider()()
+  val form = new BalanceSheetOverFormProvider()()
 
-  val view = injector.instanceOf[TurnoverOverView]
+  val view = injector.instanceOf[BalanceSheetOverView]
 
   def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
@@ -50,13 +50,13 @@ class TurnoverOverViewSpec extends YesNoViewBehaviours {
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
-  "TurnoverOverController view" must {
+  "BalanceSheetOver view" must {
 
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.TurnoverOverController.onSubmit(NormalMode).url)
+    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.BalanceSheetOverController.onSubmit(NormalMode).url)
 
     "If the user type is of Worker" should {
 
@@ -64,16 +64,16 @@ class TurnoverOverViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(TurnoverOverMessages.Worker.title)
+        document.title mustBe title(BalanceSheetOverMessages.Worker.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe TurnoverOverMessages.Worker.heading
+        document.select(Selectors.heading).text mustBe BalanceSheetOverMessages.Worker.heading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe TurnoverOverMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe TurnoverOverMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe BalanceSheetOverMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe BalanceSheetOverMessages.no
       }
     }
 
@@ -83,16 +83,16 @@ class TurnoverOverViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(request))
 
       "have the correct title" in {
-        document.title mustBe title(TurnoverOverMessages.Hirer.title)
+        document.title mustBe title(BalanceSheetOverMessages.Hirer.title)
       }
 
       "have the correct heading" in {
-        document.select(Selectors.heading).text mustBe TurnoverOverMessages.Hirer.heading
+        document.select(Selectors.heading).text mustBe BalanceSheetOverMessages.Hirer.heading
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe TurnoverOverMessages.yes
-        document.select(Selectors.multichoice(2)).text mustBe TurnoverOverMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe BalanceSheetOverMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe BalanceSheetOverMessages.no
       }
     }
   }
