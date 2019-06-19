@@ -68,9 +68,9 @@ object OutDecisionMessages extends BaseResultMessages {
     val heading = "The off-payroll working rules (IR35) do not apply to this contract"
     val title = heading
     val p1 = "Your answers told us:"
-    val reason1 = "Your candidate’s client has accepted, or would accept, a substitute to do this work"
-    val reason2 = "Your candidate’s client does not have control over this work"
-    val reason3 = "Your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged"
+    val reason1 = "your candidate’s client has accepted, or would accept, a substitute to do this work"
+    val reason2 = "your candidate’s client does not have control over this work"
+    val reason3 = "your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged"
     val p2 = "This indicates the working arrangements for this contract are on a business-to-business basis."
     val doNext = "If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance."
   }

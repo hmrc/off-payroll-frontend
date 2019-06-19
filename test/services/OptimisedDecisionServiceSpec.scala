@@ -135,10 +135,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
         mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
 
@@ -150,10 +150,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
       "decision log returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers))(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
         mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Left(ErrorResponse(500, "ma name Jeff")))
 
         whenReady(service.collateDecisions) { res =>
@@ -169,7 +169,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Left(ErrorResponse(500, "ma name Jeff")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -179,8 +179,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
       "control decision call returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesControl)(Left(ErrorResponse(500, "ma name Jeff")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -190,9 +190,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
       "financial risk decision call returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Left(ErrorResponse(500, "ma name Jeff")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -203,10 +203,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
       "whole decision call returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview.apply(userAnswers))(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "ma name Jeff")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -234,10 +234,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               implicit val dataRequest: DataRequest[AnyContent] =
                 DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "", userAnswers)
 
-              mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
               val expected: Html = OfficeHolderAgentView(postAction)(dataRequest, messages, frontendAppConfig)
@@ -259,10 +259,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
               implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-              mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
               val expected: Html = OfficeHolderIR35View(postAction, isPrivateSector = true)
@@ -283,10 +283,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
               implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-              mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
               val expected: Html = OfficeHolderPAYEView(postAction)(dataRequest, messages, frontendAppConfig)
@@ -311,10 +311,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               implicit val dataRequest: DataRequest[AnyContent] =
                 DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "", userAnswers)
 
-              mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
               val expected: Html = AgentInsideView(postAction)(dataRequest, messages, frontendAppConfig)
@@ -335,10 +335,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
               implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-              mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
               val expected: Html = IR35InsideView(postAction, isPrivateSector = false)
@@ -359,10 +359,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
               implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-              mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-              mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)))
+              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.EMPLOYED))(Right(true))
 
               val expected: Html = PAYEInsideView(postAction)(dataRequest, messages, frontendAppConfig)
@@ -387,10 +387,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             implicit val dataRequest: DataRequest[AnyContent] =
               DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "", userAnswers)
 
-            mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
             val expected: Html = AgentUndeterminedView(postAction)(dataRequest, messages, frontendAppConfig)
@@ -410,10 +410,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
             implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-            mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
             val expected: Html = IR35UndeterminedView(postAction, isPrivateSector = false)
@@ -433,10 +433,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
             implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-            mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-            mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
             val expected: Html = PAYEUndeterminedView(postAction)(dataRequest, messages, frontendAppConfig)
@@ -459,16 +459,16 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             implicit val dataRequest: DataRequest[AnyContent] =
               DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "", userAnswers)
 
-            mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(
+            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(
               Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers), Interview.writesControl)(
+            mockDecide(Interview(userAnswers), Interview.writesControl)(
               Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(
+            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(
               Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
@@ -497,16 +497,16 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
             implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-            mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(
+            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(
               Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers), Interview.writesControl)(
+            mockDecide(Interview(userAnswers), Interview.writesControl)(
               Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(
+            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(
               Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
@@ -536,16 +536,16 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
             implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-            mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(
+            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(
               Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers), Interview.writesControl)(
+            mockDecide(Interview(userAnswers), Interview.writesControl)(
               Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(
+            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(
               Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
             )
-            mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
@@ -575,10 +575,10 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
           implicit val dataRequest: DataRequest[AnyContent] =
             DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "", userAnswers)
 
-          mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-          mockDecide(Interview.apply(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-          mockDecide(Interview.apply(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-          mockDecide(Interview.apply(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+          mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+          mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+          mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+          mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
           mockInternalServerError(Html("Err"))
 
           await(service.determineResultView(postAction)) mustBe Left(Html("Err"))
@@ -595,7 +595,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
         implicit val dataRequest: DataRequest[AnyContent] =
           DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "", userAnswers)
 
-        mockDecide(Interview.apply(userAnswers), Interview.writesPersonalService)(Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, "Oh noes")))
+        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, "Oh noes")))
         mockInternalServerError(Html("Err"))
 
         await(service.determineResultView(postAction)) mustBe Left(Html("Err"))
