@@ -44,7 +44,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     userAnswers.get(RejectSubstitutePage) map { x =>
       AnswerRow(
         tailorMsgOptimised("rejectSubstitute.checkYourAnswersLabel"),
-        tailorMsgOptimised(if(x.answer) "rejectSubstitute.yes" else "rejectSubstitute.no"),
+        tailorMsg(if(x.answer) "rejectSubstitute.yes" else "rejectSubstitute.no"),
         answerIsMessageKey = true
       )
     }
