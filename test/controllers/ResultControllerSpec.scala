@@ -17,6 +17,7 @@
 package controllers
 
 import config.SessionKeys
+import config.featureSwitch.OptimisedFlow
 import connectors.DataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
@@ -32,14 +33,14 @@ import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import services.DecisionService
-import services.mocks.MockCompareAnswerService
+import services.{DecisionService, OptimisedDecisionService}
+import services.mocks.{MockCompareAnswerService, MockDecisionService, MockOptimisedDecisionService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
 import viewmodels.AnswerSection
 import views.html.subOptimised.results._
 
-class ResultControllerSpec extends ControllerSpecBase {
+class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService {
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
@@ -81,6 +82,7 @@ class ResultControllerSpec extends ControllerSpecBase {
     mockDataCacheConnector,
     FakeTimestamp,
     mockCompareAnswerService,
+    mockOptimisedDecisionService,
     frontendAppConfig
   )
 
@@ -88,40 +90,98 @@ class ResultControllerSpec extends ControllerSpecBase {
 
   "ResultPage Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "If the Optimised Flow is enabled" should {
 
-      val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(),0)))
-      val postRequest = fakeRequest
-      val answers = userAnswers.set(ResultPage,0,FakeTimestamp.timestamp())
+      "If a success response is returned from the Optimised Decision Service" should {
 
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),FakeTimestamp.timestamp())(answers)
+        "return OK and the HTML returned from the Decision Service" in {
 
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+          enable(OptimisedFlow)
 
+          val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+          val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+          val dataRequest = DataRequest(fakeRequest, "id", answers)
 
-      val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
+          mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
+          mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+          mockDetermineResultView(onwardRoute)(Right(Html("Success")))
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+          val result = TestResultController.onPageLoad(dataRequest)
+
+          status(result) mustBe OK
+          contentAsString(result) mustBe "Success"
+        }
+      }
+
+      "If an error response is returned from the Optimised Decision Service" should {
+
+        "return ISE and the HTML returned from the Decision Service" in {
+
+          enable(OptimisedFlow)
+
+          val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+          val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+          val dataRequest = DataRequest(fakeRequest, "id", answers)
+
+          mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
+          mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+          mockDetermineResultView(onwardRoute)(Left(Html("Error")))
+
+          val result = TestResultController.onPageLoad(dataRequest)
+
+          status(result) mustBe INTERNAL_SERVER_ERROR
+          contentAsString(result) mustBe "Error"
+        }
+      }
+
+      "redirect to next page" in {
+
+        enable(OptimisedFlow)
+
+        val result = TestResultController.onSubmit(fakeRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
     }
 
-    "redirect to next page" in {
+    "If the Optimised Flow is disabled" should {
 
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      "return OK and the correct view for a GET" in {
 
-      val result = TestResultController.onSubmit(postRequest)
+        val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+        val postRequest = fakeRequest
+        val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-    }
+        mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
 
-    "handle errors" in {
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
-      val postRequest = fakeRequest
 
-      val result = TestResultController.onSubmit(postRequest)
+        val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
 
-      status(result) mustBe BAD_REQUEST
+        status(result) mustBe OK
+        contentAsString(result) mustBe viewAsString()
+      }
+
+      "redirect to next page" in {
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        val result = TestResultController.onSubmit(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
+
+      "handle errors" in {
+
+        val postRequest = fakeRequest
+
+        val result = TestResultController.onSubmit(postRequest)
+
+        status(result) mustBe BAD_REQUEST
+      }
     }
   }
 }

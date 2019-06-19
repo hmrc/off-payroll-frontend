@@ -20,31 +20,31 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm("agent.optimised.result.officeHolder.title"), appConfig = appConfig) {
+@mainTemplate(titleNoForm("agent.optimised.result.undetermined.title"), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages("agent.optimised.result.officeHolder.heading")),
-        Some(Html(messages("agent.optimised.result.officeHolder.subHeading")))
+        Html(messages("agent.optimised.result.undetermined.heading"))
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @sections.why_result(whyResult)
+        @results.sections.why_result(whyResult)
 
-        @sections.do_next(doNext)
+        @results.sections.do_next(doNext)
 
-        @sections.download()
+        @results.sections.download()
 
         @components.submit_button("site.continue")
     }
 }
 
 @whyResult = {
-    <p>@messages("agent.optimised.result.officeHolder.whyResult.p1")</p>
+    <p>@messages("agent.optimised.result.undetermined.whyResult.p1")</p>
 }
 
 @doNext = {
-    <p>@messages("agent.optimised.result.officeHolder.doNext.p1")</p>
+    <p>@messages("agent.optimised.result.undetermined.doNext.p1")</p>
+    <p>@messages("agent.optimised.result.undetermined.doNext.p2")</p>
 }

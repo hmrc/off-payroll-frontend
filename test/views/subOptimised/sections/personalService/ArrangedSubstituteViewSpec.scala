@@ -164,7 +164,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- ArrangedSubstitute.options.filterNot(o => o == option)) {
+          for(unselectedOption <- ArrangedSubstitute.options.filterNot(o => o.value == option.value)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

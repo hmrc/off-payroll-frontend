@@ -34,7 +34,7 @@ import scala.concurrent.ExecutionContext
 
 class CompareAnswerService {
 
-  def constructAnswers[T](request: DataRequest[AnyContent], value: T,
+  def constructAnswers[T](request: DataRequest[_], value: T,
                           page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],
                                                          aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): UserAnswers = {
     val answerNumber = request.userAnswers.size

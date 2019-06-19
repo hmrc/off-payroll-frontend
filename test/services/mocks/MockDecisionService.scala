@@ -16,8 +16,8 @@
 
 package services.mocks
 
+import models.UserAnswers
 import models.requests.DataRequest
-import models.{ErrorTemplate, UserAnswers}
 import org.scalamock.scalatest.MockFactory
 import play.api.mvc.Call
 import play.api.mvc.Results.Redirect

@@ -17,6 +17,7 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
+import config.featureSwitch.OptimisedFlow
 import models.AboutYouAnswer.Worker
 import models.AdditionalPdfDetails
 import models.CannotClaimAsExpense.WorkerUsedVehicle
@@ -29,7 +30,14 @@ import views.behaviours.ViewBehaviours
 
 trait ResultViewFixture extends ViewBehaviours {
 
-  object Selectors extends BaseCSSSelectors
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
+  object Selectors extends BaseCSSSelectors {
+    override val subheading = "p.font-large"
+  }
 
   val postAction = Call(HttpMethods.POST.value, "/")
 

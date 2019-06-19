@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-package config
+package models
 
-object SessionKeys {
+sealed trait ResultType
 
-  val result = "CEST_RESULT"
-  val financialRiskResult = "CEST_FINANCIAL_RISK_RESULT"
-  val controlResult = "CEST_CONTROL_RESULT"
-  val personalServiceResult = "CEST_PERSONAL_SERVICE_RESULT"
-  val userType = "CEST_USER_TYPE"
-
+object ResultType {
+  case object Agent extends ResultType
+  case object IR35 extends ResultType
+  case object PAYE extends ResultType
 }

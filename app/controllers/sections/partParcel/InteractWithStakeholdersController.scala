@@ -16,13 +16,12 @@
 
 package controllers.sections.partParcel
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.InteractWithStakeholdersFormProvider
-import models.{ErrorTemplate, Mode}
+import javax.inject.Inject
+import models.Mode
 import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

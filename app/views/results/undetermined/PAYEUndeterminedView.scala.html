@@ -20,31 +20,31 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm("agent.optimised.result.undetermined.title"), appConfig = appConfig) {
+@mainTemplate(titleNoForm(tailorMsgOptimised("result.undetermined.paye.title")), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages("agent.optimised.result.undetermined.heading"))
+        Html(messages(tailorMsgOptimised("result.undetermined.paye.heading")))
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @sections.why_result(whyResult)
+        @results.sections.why_result(whyResult)
 
-        @sections.do_next(doNext)
+        @results.sections.do_next(doNext)
 
-        @sections.download()
+        @results.sections.download()
 
         @components.submit_button("site.continue")
     }
 }
 
 @whyResult = {
-    <p>@messages("agent.optimised.result.undetermined.whyResult.p1")</p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.paye.whyResult.p1"))</p>
 }
 
 @doNext = {
-    <p>@messages("agent.optimised.result.undetermined.doNext.p1")</p>
-    <p>@messages("agent.optimised.result.undetermined.doNext.p2")</p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1"))</p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p2"))</p>
 }

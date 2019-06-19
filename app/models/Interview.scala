@@ -138,26 +138,6 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
     )
   }
 
-  def writesPartAndParcel: Writes[Interview] = Writes { model =>
-    Json.obj(
-      "version" -> model.appConfig.decisionVersion,
-      "correlationID" -> model.correlationId,
-      "interview" -> Json.obj(
-        "setup" -> jsonObjNoNulls(
-          "endUserRole" -> model.endUserRole,
-          "hasContractStarted" -> model.hasContractStarted,
-          "provideServices" -> model.calculateProvideServices
-        ),
-        "partAndParcel" -> jsonObjNoNulls(
-          "workerReceivesBenefits" -> model.workerReceivesBenefits,
-          "workerAsLineManager" -> model.workerAsLineManager,
-          "contactWithEngagerCustomer" -> model.contactWithEngagerCustomer,
-          "workerRepresentsEngagerBusiness" -> model.workerRepresentsEngagerBusiness
-        )
-      )
-    )
-  }
-
   def writesFinancialRisk: Writes[Interview] = Writes { model =>
     Json.obj(
       "version" -> model.appConfig.decisionVersion,

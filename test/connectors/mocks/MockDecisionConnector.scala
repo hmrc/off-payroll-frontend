@@ -16,9 +16,7 @@
 
 package connectors.mocks
 
-import MultiDecision.Result
-import cats.data.EitherT
-import connectors.{DataCacheConnector, DecisionConnector}
+import connectors.DecisionConnector
 import models.{DecisionResponse, ErrorResponse, Interview}
 import org.scalamock.scalatest.MockFactory
 import play.api.libs.json.Writes
@@ -30,16 +28,10 @@ trait MockDecisionConnector extends MockFactory {
 
   lazy val mockDecisionConnector = mock[DecisionConnector]
 
-  def mockDecide(decisionRequest: Interview)(response: Either[ErrorResponse, DecisionResponse]): Unit = {
-    (mockDecisionConnector.decide(_: Interview)(_: HeaderCarrier, _: ExecutionContext))
-      .expects(decisionRequest, *, *)
+  def mockDecide(decisionRequest: Interview, writes: Writes[Interview] = Interview.writes)(response: Either[ErrorResponse, DecisionResponse]): Unit = {
+    (mockDecisionConnector.decide(_: Interview, _: Writes[Interview])(_: HeaderCarrier, _: ExecutionContext))
+      .expects(decisionRequest, *,  *, *)
       .returns(Future.successful(response))
-  }
-
-  def mockDecideSection(interview: Interview)(response: Result[Boolean]): Unit = {
-    (mockDecisionConnector.decideSection(_: Interview,_: Writes[Interview])(_: HeaderCarrier, _: ExecutionContext))
-      .expects(interview,*, *, *)
-      .returns(response)
   }
 
   def mockLog(decisionRequest: Interview, decisionResponse: DecisionResponse)(response: Either[ErrorResponse, Boolean]): Unit ={
