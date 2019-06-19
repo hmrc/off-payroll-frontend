@@ -199,7 +199,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       label = tailorMsg(s"$BusinessSizePage.checkYourAnswersLabel"),
       answers = BusinessSize.values.map ( value =>
         AnswerRow(
-          label = tailorMsg(s"$BusinessSizePage.$value"),
+          label = s"$BusinessSizePage.$value",
           if(x.answer.contains(value)) "site.yes" else "site.no",
           answerIsMessageKey = true
         )

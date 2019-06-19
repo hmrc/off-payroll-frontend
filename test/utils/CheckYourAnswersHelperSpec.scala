@@ -190,7 +190,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
-                label = s"$Worker.$BusinessSizePage.$x",
+                label = s"$BusinessSizePage.$x",
                 answer = if(x==Turnover) "site.yes" else "site.no",
                 answerIsMessageKey = true
               ))
@@ -206,7 +206,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
-                label = s"$Hirer.$BusinessSizePage.$x",
+                label = s"$BusinessSizePage.$x",
                 answer = if(x==Turnover) "site.yes" else "site.no",
                 answerIsMessageKey = true
               ))
