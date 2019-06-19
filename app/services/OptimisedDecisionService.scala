@@ -83,9 +83,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       score = Score(
         setup = wholeInterview.score.setup,
         exit = wholeInterview.score.exit,
-        personalService = personalService.score.personalService,    /** Score from isolated Personal Service call **/
-        control = control.score.control,                            /** Score from isolated Control call **/
-        financialRisk = financialRisk.score.financialRisk,          /** Score from isolated Financial Risk call **/
+        personalService = personalService.score.personalService,    // Score from isolated Personal Service call 
+        control = control.score.control,                            // Score from isolated Control call 
+        financialRisk = financialRisk.score.financialRisk,          // Score from isolated Financial Risk call 
         partAndParcel = wholeInterview.score.partAndParcel
       ),
       result = wholeInterview.result
@@ -126,9 +126,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
-      case (_, true) => undeterminedAgency(result.action) /** AGENT **/
-      case (true, _) => undeterminedIR35(result.action, result.privateSector) /** IR35 **/
-      case _ => undeterminedPAYE(result.action) /** PAYE **/
+      case (_, true) => undeterminedAgency(result.action) // AGENT
+      case (true, _) => undeterminedIR35(result.action, result.privateSector) // IR35
+      case _ => undeterminedPAYE(result.action) // PAYE
     }
   }
 
@@ -139,11 +139,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
-        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** AGENT **/
+        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
       case (true, _) =>
-        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** IR35 **/
+        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
       case _ =>
-        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) /** PAYE **/
+        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
     }
   }
 
@@ -152,15 +152,15 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
     (result.usingIntermediary, result.userType) match {
-      case (_, Some(UserType.Agency)) => insideAgent(result.action) /** AGENT **/
-      case (true, _) => insideIR35(result.action, result.privateSector) /** IR35 **/
-      case _ => insidePAYE(result.action) /** PAYE **/
+      case (_, Some(UserType.Agency)) => insideAgent(result.action) // AGENT
+      case (true, _) => insideIR35(result.action, result.privateSector) // IR35
+      case _ => insidePAYE(result.action) // PAYE
     }
 
   private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
     (result.usingIntermediary, result.isAgent) match {
-      case (_, true) => officeAgency(result.action) /** AGENT **/
-      case (true, _) => officeIR35(result.action, result.privateSector) /** IR35 **/
-      case _ => officePAYE(result.action) /** PAYE **/
+      case (_, true) => officeAgency(result.action) // AGENT
+      case (true, _) => officeIR35(result.action, result.privateSector) // IR35
+      case _ => officePAYE(result.action) // PAYE
     }
 }
