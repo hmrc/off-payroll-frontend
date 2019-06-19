@@ -188,7 +188,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
           new CheckYourAnswersHelper(cacheMap).businessSize(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$BusinessSizePage.checkYourAnswersLabel",
+              label = s"$Worker.$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
                 label = s"$Worker.$BusinessSizePage.$x",
                 answer = if(x==Turnover) "site.yes" else "site.no",
@@ -204,7 +204,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
           new CheckYourAnswersHelper(cacheMap).businessSize(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$BusinessSizePage.checkYourAnswersLabel",
+              label = s"$Hirer.$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
                 label = s"$Hirer.$BusinessSizePage.$x",
                 answer = if(x==Turnover) "site.yes" else "site.no",
@@ -220,7 +220,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
           new CheckYourAnswersHelper(cacheMap).businessSize(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$BusinessSizePage.checkYourAnswersLabel",
+              label = s"$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
                 label = s"$BusinessSizePage.$x",
                 answer = if(x==Turnover) "site.yes" else "site.no",
