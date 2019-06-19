@@ -1228,6 +1228,15 @@ businessSize.noneOfAbove = None of the above.
 businessSize.error.required = You need to select an answer
 businessSize.error.invalid = You need to select an answer
 
+hirer.turnoverOver.title = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.heading = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.checkYourAnswersLabel = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.error.required = You need to select an answer
+worker.turnoverOver.title = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.heading = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.checkYourAnswersLabel = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.error.required = You need to select an answer
+
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
 checkYourAnswers.confirm.h2 = Confirm answers to get your result
