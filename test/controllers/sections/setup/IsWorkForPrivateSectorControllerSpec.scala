@@ -50,15 +50,17 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new IsWorkForPrivateSectorController(
     appConfig = frontendAppConfig,
-    dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper = mockControllerHelper
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

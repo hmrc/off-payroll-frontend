@@ -56,10 +56,14 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    appConfig = frontendAppConfig
+    appConfig = frontendAppConfig,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(Answers(true, 0)))

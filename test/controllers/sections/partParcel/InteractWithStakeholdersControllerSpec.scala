@@ -60,7 +60,11 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockControllerHelper,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
     frontendAppConfig
   )
 

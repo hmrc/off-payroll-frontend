@@ -52,9 +52,13 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
-    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView
+    subOptimisedView = subOptimisedView,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true, 0)))

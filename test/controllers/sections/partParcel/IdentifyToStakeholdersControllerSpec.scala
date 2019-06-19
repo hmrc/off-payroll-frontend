@@ -60,8 +60,11 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    mockDecisionService,
-    mockControllerHelper,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
     frontendAppConfig
   )
 

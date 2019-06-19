@@ -26,7 +26,7 @@ trait MockCheckYourAnswersService extends MockFactory {
 
   val mockCheckYourAnswersService = mock[CheckYourAnswersService]
 
-  def mockCheckYourAnswers[T](dataRequest: DataRequest[_],dataType: T)(result: Seq[AnswerSection]): Unit = {
+  def mockCheckYourAnswers[T]()(result: Seq[AnswerSection]): Unit = {
     (mockCheckYourAnswersService.sections(_: DataRequest[_],_: Messages))
       .expects(*,*)
       .returns(result)

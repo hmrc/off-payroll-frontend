@@ -31,6 +31,11 @@ class LeaveControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     messagesControllerComponents,
     view = view,
+    mockCheckYourAnswersService,
+    mockCompareAnswerService,
+    mockDataCacheConnector,
+    mockDecisionService,
+    fakeNavigator,
     frontendAppConfig
   )
   def viewAsString() = view()(fakeRequest, messages, frontendAppConfig).toString

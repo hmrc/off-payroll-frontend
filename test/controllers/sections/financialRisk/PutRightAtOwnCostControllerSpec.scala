@@ -54,7 +54,11 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     subOptimisedView = subOptimisedView,
     optimisedView = optimisedView,
-    mockControllerHelper,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
     frontendAppConfig
   )
 

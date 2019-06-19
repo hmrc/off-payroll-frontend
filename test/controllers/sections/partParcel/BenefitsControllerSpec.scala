@@ -47,8 +47,11 @@ class BenefitsControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    mockControllerHelper,
-    mockDecisionService,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    fakeNavigator,
     frontendAppConfig
   )
 

@@ -50,10 +50,14 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    controllerHelper = mockControllerHelper,
     appConfig = frontendAppConfig,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView
+    subOptimisedView = subOptimisedView,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

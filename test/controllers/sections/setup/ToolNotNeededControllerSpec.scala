@@ -34,7 +34,12 @@ class ToolNotNeededControllerSpec extends ControllerSpecBase {
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     view = view,
-    appConfig = frontendAppConfig
+    appConfig = frontendAppConfig,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   def viewAsString(clientType: WhichDescribesYouAnswer = ClientPAYE) = view(clientType)(fakeRequest, messages, frontendAppConfig).toString
