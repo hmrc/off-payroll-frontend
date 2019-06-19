@@ -159,3 +159,8 @@ GET        /balance-sheet-over                          controllers.sections.set
 POST       /balance-sheet-over                          controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = NormalMode)
 GET        /balance-sheet-over/edit                     controllers.sections.setup.BalanceSheetOverController.onPageLoad(mode: Mode = CheckMode)
 POST       /balance-sheet-over/edit                     controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = CheckMode)
+
+GET        /employees-over                              controllers.sections.setup.EmployeesOverController.onPageLoad(mode: Mode = NormalMode)
+POST       /employees-over                              controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = NormalMode)
+GET        /employees-over/edit                         controllers.sections.setup.EmployeesOverController.onPageLoad(mode: Mode = CheckMode)
+POST       /employees-over/edit                         controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = CheckMode)
