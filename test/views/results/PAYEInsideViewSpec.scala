@@ -49,18 +49,18 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe InDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe InDecisionMessages.WorkerPAYE.whyResult
+        document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerPAYE.whyResult
       }
 
       "Have the correct Do Next section" in {
-        document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
-        document.select(Selectors.p(2)).text mustBe InDecisionMessages.WorkerPAYE.doNext
+        document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerPAYE.doNext
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe InDecisionMessages.downloadHeading
-        document.select(Selectors.p(3)).text mustBe InDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
       }
     }
 
@@ -82,18 +82,18 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe InDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe InDecisionMessages.HirerPAYE.whyResult
+        document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerPAYE.whyResult
       }
 
       "Have the correct Do Next section" in {
-        document.select(Selectors.h2(2)).text mustBe InDecisionMessages.doNextHeading
-        document.select(Selectors.p(2)).text mustBe InDecisionMessages.HirerPAYE.doNext
+        document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerPAYE.doNext
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe InDecisionMessages.downloadHeading
-        document.select(Selectors.p(3)).text mustBe InDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
       }
     }
   }

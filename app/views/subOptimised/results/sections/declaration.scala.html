@@ -16,7 +16,7 @@
 
 @(form: Form[_])(implicit messages: Messages)
 
-<div class="box--shaded">
+<div id="declaration" class="box--shaded">
     @components.input_single_checkbox(
         field = form("value"),
         label = messages("result.declaration.checkbox"),

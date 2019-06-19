@@ -50,18 +50,18 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.whyResult_p1
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.whyResult_p1
       }
 
       "Have the correct Do Next section" in {
-        document.select(Selectors.h2(2)).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Worker.PAYE.doNext_p1
+        document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.doNext_p1
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.p(3)).text mustBe OfficeHolderMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
       }
     }
 
@@ -83,18 +83,18 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.whyResult_p1
+        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.whyResult_p1
       }
 
       "Have the correct Do Next section" in {
-        document.select(Selectors.h2(2)).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p1
+        document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p1
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.p(3)).text mustBe OfficeHolderMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
       }
     }
 

@@ -50,16 +50,16 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult
+        document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult
       }
 
       "For a Public Sector contract" should {
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP1
-          document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP2
+          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP1
+          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP2
         }
       }
 
@@ -68,15 +68,15 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP1
-          document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP2
+          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP1
+          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP2
         }
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe UndeterminedDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe UndeterminedDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
       }
     }
 
@@ -95,16 +95,16 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult
+        document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult
       }
 
       "For a Public Sector contract" should {
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP1
-          document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP2
+          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP1
+          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP2
         }
       }
 
@@ -113,15 +113,15 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
 
         "Have the correct Do Next section which" in {
-          document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP1
-          document.select(Selectors.p(3)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP2
+          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP1
+          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP2
         }
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe UndeterminedDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe UndeterminedDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
       }
     }
   }

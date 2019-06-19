@@ -45,19 +45,19 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-        document.select(Selectors.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult
+        document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult
       }
 
       "Have the correct Do Next section" in {
-        document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
-        document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP1
-        document.select(Selectors.p(3)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP2
+        document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP1
+        document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP2
       }
 
       "Have the correct Download section" in {
-        document.select(Selectors.h2(3)).text mustBe UndeterminedDecisionMessages.downloadHeading
-        document.select(Selectors.p(4)).text mustBe UndeterminedDecisionMessages.download_p1
+        document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
+        document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
       }
 
       "The UserType is a Hirer" should {
@@ -74,19 +74,19 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         }
 
         "Have the correct Why Result section" in {
-          document.select(Selectors.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-          document.select(Selectors.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult
+          document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
+          document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult
         }
 
         "Have the correct Do Next section" in {
-          document.select(Selectors.h2(2)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP1
-          document.select(Selectors.p(3)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
+          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP1
+          document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
         }
 
         "Have the correct Download section" in {
-          document.select(Selectors.h2(3)).text mustBe UndeterminedDecisionMessages.downloadHeading
-          document.select(Selectors.p(4)).text mustBe UndeterminedDecisionMessages.download_p1
+          document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
         }
       }
     }
