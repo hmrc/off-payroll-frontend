@@ -1204,11 +1204,11 @@ isWorkForPrivateSector.public = The public sector.
 
 worker.isWorkForPrivateSector.title = In which sector is the organisation you’ll be doing the work for?
 worker.isWorkForPrivateSector.heading = In which sector is the organisation you’ll be doing the work for?
-worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector do you work?
+worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is the organisation you’ll be doing the work for?
 
 hirer.isWorkForPrivateSector.title = In which sector do you work?
 hirer.isWorkForPrivateSector.heading = In which sector do you work?
-hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector do you work?
 
 workerAdvisory.title = You don’t need to answer any more questions
 workerAdvisory.heading = You don’t need to answer any more questions
