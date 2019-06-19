@@ -17,39 +17,34 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
-@import models.ResultType.Agent
-    
+
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig) {
+@mainTemplate(titleNoForm(tailorMsgOptimised("result.inside.paye.title")), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages("agent.optimised.result.outside.heading")),
-        None
+        Html(messages(tailorMsgOptimised("result.inside.paye.heading"))),
+        Some(Html(messages(tailorMsgOptimised("result.inside.paye.subHeading"))))
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @sections.why_result(whyResult)
+        @results.sections.why_result(whyResult)
 
-        @sections.do_next(doNext)
+        @results.sections.do_next(doNext)
 
-        @sections.download()
+        @results.sections.download()
 
         @components.submit_button("site.continue")
     }
 }
 
 @whyResult = {
-    <p>@messages("agent.optimised.result.outside.whyResult.p1")</p>
-
-    @components.bulleted_list(allOutReasons(Agent, substituteToDoWork, clientNotControlWork, incurCostNoReclaim))
-
-    <p>@messages("agent.optimised.result.outside.whyResult.p2")</p>
+    <p>@messages(tailorMsgOptimised("result.inside.paye.whyResult.p1"))</p>
 }
 
 @doNext = {
-    <p>@messages("agent.optimised.result.outside.doNext.p1")</p>
+    <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.p1"))</p>
 }

@@ -16,10 +16,16 @@
 
 package models
 
-case class ErrorTemplate(pageTitle: String,
-                         heading: Option[String] = None,
-                         message: Option[String] = None) {
+import play.api.mvc.Call
 
-  val defaultErrorHeading = "common.standardErrorMessageHeader"
-  val defaultErrorMessage = "common.standardErrorMessageContent"
+case class ResultsDetails(action: Call,
+                          officeHolderAnswer: Boolean,
+                          privateSector: Boolean,
+                          usingIntermediary: Boolean,
+                          userType: Option[UserType],
+                          personalServiceOption: Option[WeightedAnswerEnum.Value] = None,
+                          controlOption: Option[WeightedAnswerEnum.Value] = None,
+                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None) {
+
+  def isAgent: Boolean = userType.contains(UserType.Agency)
 }

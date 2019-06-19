@@ -17,17 +17,18 @@
 package controllers
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
 import javax.inject.Inject
-
-import models.{NormalMode, Timestamp}
+import models.requests.DataRequest
+import models.{NormalMode, Timestamp, UserAnswers}
 import navigation.Navigator
 import pages.ResultPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import services.{CompareAnswerService, DecisionService, OptimisedDecisionService}
 import utils.UserAnswersUtils
 
 import scala.concurrent.Future
@@ -42,28 +43,39 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,
-                                 implicit val conf: FrontendAppConfig) extends BaseController(controllerComponents) with UserAnswersUtils {
+                                 optimisedDecisionService: OptimisedDecisionService,
+                                 implicit val conf: FrontendAppConfig
+                                ) extends BaseController(controllerComponents) with UserAnswersUtils with FeatureSwitching {
 
-  val resultForm: Form[Boolean] = formProvider()
-
-  private val version = conf.decisionVersion
+  private val resultForm: Form[Boolean] = formProvider()
+  private def nextPage(implicit request: DataRequest[_]): Call = navigator.nextPage(ResultPage, NormalMode)(request.userAnswers)
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage)
-    dataCacheConnector.save(timestamp.cacheMap).map { _ =>
-      Ok(decisionService.determineResultView(answers))
+    dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
+      if(isEnabled(OptimisedFlow)){
+        optimisedDecisionService.determineResultView(nextPage).map {
+          case Right(result) => Ok(result)
+          case Left(err) => InternalServerError(err)
+        }
+      } else {
+        Future.successful(Ok(decisionService.determineResultView(answers)))
+      }
     }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    resultForm.bindFromRequest().fold(
-      formWithErrors => {
-        BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
-      },
-      _ => {
-        Redirect(navigator.nextPage(ResultPage, NormalMode)(request.userAnswers))
-      }
-    )
+    if(isEnabled(OptimisedFlow)){
+      Redirect(nextPage)
+    } else {
+      resultForm.bindFromRequest().fold(
+        formWithErrors => {
+          BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
+        },
+        _ => {
+          Redirect(nextPage)
+        }
+      )
+    }
   }
-
 }

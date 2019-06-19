@@ -18,7 +18,7 @@ package views.subOptimised.sections.partParcel
 
 import assets.messages.IdentifyToStakeholdersMessages
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import forms.IdentifyToStakeholdersFormProvider
 import models.UserType.{Agency, Hirer, Worker}
 import models.{IdentifyToStakeholders, NormalMode}
@@ -28,7 +28,7 @@ import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.subOptimised.sections.partParcel.IdentifyToStakeholdersView
 
-class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
+class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitching {
 
   object Selectors extends BaseCSSSelectors
 
@@ -139,7 +139,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- IdentifyToStakeholders.options.filterNot(o => o == option)) {
+          for(unselectedOption <- IdentifyToStakeholders.options.filterNot(o => o.value == option.value)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

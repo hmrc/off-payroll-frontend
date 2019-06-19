@@ -22,7 +22,7 @@ import models.AboutYouAnswer.Worker
 import models.UserType.Hirer
 import play.api.libs.json.Json
 import play.api.mvc.Request
-import views.html.results.OfficeHolderPAYEView
+import views.html.results.inside.officeHolder.OfficeHolderPAYEView
 
 class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 

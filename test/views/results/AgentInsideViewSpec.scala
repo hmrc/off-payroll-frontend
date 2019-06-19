@@ -21,7 +21,7 @@ import config.SessionKeys
 import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.Request
-import views.html.results.AgentInsideView
+import views.html.results.inside.AgentInsideView
 
 class AgentInsideViewSpec extends ResultViewFixture {
 

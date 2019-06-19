@@ -24,7 +24,8 @@ import models.UserType.Hirer
 import models.requests.DataRequest
 import play.api.libs.json.Json
 import play.twirl.api.HtmlFormat
-import views.html.results.IR35OutsideView
+import views.ViewSpecBase
+import views.html.results.outside.IR35OutsideView
 
 class IR35OutsideViewSpec extends ResultViewFixture {
 

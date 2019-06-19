@@ -48,20 +48,10 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     case ex: Exception => Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
   }
 
-  def decide(decisionRequest: Interview)
+  def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)
             (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(Interview.writes)}")
-    httpClient.POST(decideUrl, decisionRequest)(Interview.writes, DecisionReads, hc, ec) recover handleUnexpectedError
-  }
-
-  def decideSection(decisionRequest: Interview,writer: Writes[Interview] = Interview.writes)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext): Result[Boolean] = EitherT {
     Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(writer)}")
-    (httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError).map {
-      case Right(decision) if decision.result != ResultEnum.NOT_MATCHED => Left(Right(decision))
-      case Right(_) => Right(true)
-      case Left(error) => Left(Left(error))
-    }
+    httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
   }
 
   def log(decisionRequest: Interview,decisionResponse: DecisionResponse)

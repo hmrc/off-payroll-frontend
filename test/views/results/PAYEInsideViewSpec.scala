@@ -21,12 +21,11 @@ import config.SessionKeys
 import models.UserType.{Hirer, Worker}
 import play.api.libs.json.Json
 import play.api.mvc.Request
-import views.html.results.PAYEInsideView
+import views.html.results.inside.PAYEInsideView
 
 class PAYEInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEInsideView]
-
 
   def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
 

@@ -31,11 +31,11 @@
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @sections.why_result(whyResult)
+        @results.sections.why_result(whyResult)
 
-        @sections.do_next(doNext)
+        @results.sections.do_next(doNext)
 
-        @sections.download()
+        @results.sections.download()
 
         @components.submit_button("site.continue")
     }

@@ -21,7 +21,7 @@ import config.SessionKeys
 import models.UserType.{Hirer, Worker}
 import play.api.libs.json.Json
 import play.api.mvc.Request
-import views.html.results.PAYEUndeterminedView
+import views.html.results.undetermined.PAYEUndeterminedView
 
 class PAYEUndeterminedViewSpec extends ResultViewFixture {
 

@@ -16,27 +16,18 @@
 
 package controllers.sections.personalService
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.NeededToPayHelperFormProvider
-import models.{ErrorTemplate, Mode}
 import javax.inject.Inject
-import models.Answers._
-import models.{ArrangedSubstitute, ErrorTemplate, Mode}
-import navigation.Navigator
+import models.Mode
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.sections.personalService.NeededToPayHelperView
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.{CompareAnswerService, DecisionService}
+import views.html.sections.personalService.NeededToPayHelperView
 import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
 
 import scala.concurrent.Future
