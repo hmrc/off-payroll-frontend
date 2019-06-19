@@ -19,15 +19,18 @@ package controllers.sections.partParcel
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
+
+import connectors.DataCacheConnector
 import models.{IdentifyToStakeholders, Mode}
+import navigation.Navigator
 import pages.sections.partParcel.IdentifyToStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.DecisionService
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.partParcel.IdentifyToStakeholdersView
 import views.html.subOptimised.sections.partParcel.{IdentifyToStakeholdersView => SubOptimisedIdentifyToStakeholdersView}
 
@@ -40,10 +43,13 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
                                                  controllerComponents: MessagesControllerComponents,
                                                  optimisedView: IdentifyToStakeholdersView,
                                                  subOptimisedView: SubOptimisedIdentifyToStakeholdersView,
+                                                 checkYourAnswersService: CheckYourAnswersService,
+                                                 compareAnswerService: CompareAnswerService,
+                                                 dataCacheConnector: DataCacheConnector,
                                                  decisionService: DecisionService,
-                                                 controllerHelper: ControllerHelper,
-                                                 implicit val appConfig: FrontendAppConfig
-                                                ) extends BaseController(controllerComponents) with FeatureSwitching {
+                                                 navigator: Navigator,
+                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[IdentifyToStakeholders] = formProvider()
 
@@ -59,7 +65,7 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, IdentifyToStakeholdersPage, callDecisionService = true)
+        redirect(mode,value, IdentifyToStakeholdersPage, callDecisionService = true)
       }
     )
   }

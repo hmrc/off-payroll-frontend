@@ -18,16 +18,17 @@ package controllers.sections.setup
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import controllers.actions._
 import forms.BusinessSizeFormProvider
 import javax.inject.Inject
 
+import config.featureSwitch.FeatureSwitching
 import models.Mode
 import navigation.Navigator
 import pages.sections.setup.BusinessSizePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.BusinessSizeView
 
 import scala.concurrent.Future
@@ -39,8 +40,13 @@ class BusinessSizeController @Inject()(
                                         formProvider: BusinessSizeFormProvider,
                                         controllerComponents: MessagesControllerComponents,
                                         view: BusinessSizeView,
-                                        controllerHelper: ControllerHelper,
-                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                        checkYourAnswersService: CheckYourAnswersService,
+                                        compareAnswerService: CompareAnswerService,
+                                        dataCacheConnector: DataCacheConnector,
+                                        decisionService: DecisionService,
+                                        navigator: Navigator,
+                                        implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form = formProvider()
 
@@ -51,8 +57,7 @@ class BusinessSizeController @Inject()(
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      values => controllerHelper.redirect(mode,values,BusinessSizePage)
-
+      values => redirect(mode,values,BusinessSizePage)
     )
   }
 }

@@ -20,14 +20,17 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.ArrangedSubstituteFormProvider
 import models.{ArrangedSubstitute, Mode}
+import navigation.Navigator
 import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.personalService.ArrangedSubstituteView
 import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView => SubOptimisedArrangedSubstituteView}
 
@@ -38,11 +41,15 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
                                              requireData: DataRequiredAction,
                                              formProvider: ArrangedSubstituteFormProvider,
                                              controllerComponents: MessagesControllerComponents,
-                                             controllerHelper: ControllerHelper,
                                              optimisedView: ArrangedSubstituteView,
                                              subOptimisedView: SubOptimisedArrangedSubstituteView,
-                                             implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+                                             checkYourAnswersService: CheckYourAnswersService,
+                                             compareAnswerService: CompareAnswerService,
+                                             dataCacheConnector: DataCacheConnector,
+                                             decisionService: DecisionService,
+                                             navigator: Navigator,
+                                             implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[ArrangedSubstitute] = formProvider()
 
@@ -56,7 +63,7 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,ArrangedSubstitutePage)
+      value => redirect(mode,value,ArrangedSubstitutePage)
     )
   }
 }

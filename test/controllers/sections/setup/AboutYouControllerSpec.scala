@@ -20,7 +20,7 @@ import akka.util.ByteString
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models._
@@ -62,7 +62,11 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     aboutYouView = aboutYouview,
     whichDescribesYouView = whichDescribesYouview,
-    controllerHelper = mockControllerHelper
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   "AboutYou Controller" when {

@@ -19,15 +19,19 @@ package controllers.sections.financialRisk
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
+
+import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{HowWorkerIsPaid, Mode}
+import navigation.Navigator
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import play.twirl.api.HtmlFormat
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.financialRisk.HowWorkerIsPaidView
 import views.html.subOptimised.sections.financialRisk.{HowWorkerIsPaidView => SubOptimisedHowWorkerIsPaidView}
 
@@ -40,8 +44,13 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           controllerComponents: MessagesControllerComponents,
                                           subOptimisedView: SubOptimisedHowWorkerIsPaidView,
                                           optimisedView: HowWorkerIsPaidView,
-                                          controllerHelper: ControllerHelper,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching{
+                                          checkYourAnswersService: CheckYourAnswersService,
+                                          compareAnswerService: CompareAnswerService,
+                                          dataCacheConnector: DataCacheConnector,
+                                          decisionService: DecisionService,
+                                          navigator: Navigator,
+                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[HowWorkerIsPaid] = formProvider()
 
@@ -57,7 +66,7 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,HowWorkerIsPaidPage)
+      value => redirect(mode,value,HowWorkerIsPaidPage)
     )
   }
 }

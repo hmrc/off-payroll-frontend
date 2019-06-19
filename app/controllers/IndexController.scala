@@ -20,10 +20,13 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions.{DataRetrievalAction, IdentifierAction}
 import javax.inject.Inject
+
+import config.featureSwitch.FeatureSwitching
 import models.{NormalMode, UserAnswers}
 import navigation.Navigator
 import pages.IndexPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 class IndexController @Inject()(navigator: Navigator,
@@ -31,7 +34,12 @@ class IndexController @Inject()(navigator: Navigator,
                                 getData: DataRetrievalAction,
                                 cache: DataCacheConnector,
                                 controllerComponents: MessagesControllerComponents,
-                                implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                checkYourAnswersService: CheckYourAnswersService,
+                                compareAnswerService: CompareAnswerService,
+                                dataCacheConnector: DataCacheConnector,
+                                decisionService: DecisionService,
+                                implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData).async { implicit request =>
     val userAnswers = request.userAnswers.fold(UserAnswers(new CacheMap(request.internalId, Map())))(x => x)

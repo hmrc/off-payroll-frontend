@@ -18,13 +18,18 @@ package controllers.sections.partParcel
 
 import config.FrontendAppConfig
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.InteractWithStakeholdersFormProvider
 import javax.inject.Inject
+
+import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import models.Mode
+import navigation.Navigator
 import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.partParcel.InteractWithStakeholdersView
 
 import scala.concurrent.Future
@@ -35,9 +40,13 @@ class InteractWithStakeholdersController @Inject()(identify: IdentifierAction,
                                                    formProvider: InteractWithStakeholdersFormProvider,
                                                    controllerComponents: MessagesControllerComponents,
                                                    view: InteractWithStakeholdersView,
-                                                   controllerHelper: ControllerHelper,
-                                                   implicit val appConfig: FrontendAppConfig
-                                                  ) extends BaseController(controllerComponents) {
+                                                   checkYourAnswersService: CheckYourAnswersService,
+                                                   compareAnswerService: CompareAnswerService,
+                                                   dataCacheConnector: DataCacheConnector,
+                                                   decisionService: DecisionService,
+                                                   navigator: Navigator,
+                                                   implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -50,7 +59,7 @@ class InteractWithStakeholdersController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, InteractWithStakeholdersPage, callDecisionService = true)
+        redirect(mode,value, InteractWithStakeholdersPage, callDecisionService = true)
       }
     )
   }

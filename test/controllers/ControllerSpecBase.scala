@@ -28,13 +28,13 @@ import models.UserAnswers
 import navigation.FakeNavigator
 import org.jsoup.Jsoup
 import play.api.mvc.{Call, Result}
-import services.mocks.{MockCompareAnswerService, MockDecisionService, MockOptimisedDecisionService, MockPDFService}
+import services.mocks._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
-trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService
+trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
   with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler {
 
   def onwardRoute = Call("POST", "/foo")
@@ -42,10 +42,9 @@ trait ControllerSpecBase extends SpecBase with MockDecisionService with MockComp
 
   val cacheMapId = "id"
 
-  def emptyCacheMap = CacheMap(cacheMapId, Map())
+  val fakeNavigator = new FakeNavigator(onwardRoute)
 
-  val mockControllerHelper = new ControllerHelper(mockCompareAnswerService,mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),messagesControllerComponents,mockDecisionService,mockDecisionConnector,mockOptimisedDecisionService)
+  def emptyCacheMap = CacheMap(cacheMapId, Map())
 
   def bodyOf(result: Result)(implicit mat: Materializer): String = {
     val bodyBytes: ByteString = await(result.body.consumeData)

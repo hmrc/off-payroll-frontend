@@ -18,7 +18,6 @@ package controllers.sections.personalService
 
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
-import controllers.ControllerHelper
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase

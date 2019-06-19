@@ -23,12 +23,14 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.ContractStartedFormProvider
 import models.Mode
+import navigation.Navigator
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
@@ -40,8 +42,13 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           controllerComponents: MessagesControllerComponents,
                                           view: ContractStartedView,
                                           optimisedView: views.html.sections.setup.ContractStartedView,
-                                          controllerHelper: ControllerHelper,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching{
+                                          checkYourAnswersService: CheckYourAnswersService,
+                                          compareAnswerService: CompareAnswerService,
+                                          dataCacheConnector: DataCacheConnector,
+                                          decisionService: DecisionService,
+                                          navigator: Navigator,
+                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -57,7 +64,7 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,ContractStartedPage)
+      value => redirect(mode,value,ContractStartedPage)
     )
   }
 

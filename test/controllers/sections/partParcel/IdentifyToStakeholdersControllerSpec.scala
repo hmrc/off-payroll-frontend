@@ -20,7 +20,7 @@ import akka.util.ByteString
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import forms.IdentifyToStakeholdersFormProvider
 import models.Answers._
 import models.IdentifyToStakeholders.WorkForEndClient

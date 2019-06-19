@@ -20,14 +20,17 @@ import javax.inject.Inject
 
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
-import controllers.{BaseController, ControllerHelper}
+import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models.requests.DataRequest
 import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
+import navigation.Navigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.mvc._
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
@@ -42,8 +45,13 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    controllerComponents: MessagesControllerComponents,
                                    aboutYouView: AboutYouView,
                                    whichDescribesYouView: WhichDescribesYouView,
-                                   controllerHelper: ControllerHelper,
-                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
+                                   checkYourAnswersService: CheckYourAnswersService,
+                                   compareAnswerService: CompareAnswerService,
+                                   dataCacheConnector: DataCacheConnector,
+                                   decisionService: DecisionService,
+                                   navigator: Navigator,
+                                   implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
   
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()
   val whichDescribedForm: Form[WhichDescribesYouAnswer] = whichDescribesYouFormProvider()
@@ -68,7 +76,7 @@ class AboutYouController @Inject()(identify: IdentifierAction,
     whichDescribedForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(whichDescribesYouView(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value,WhichDescribesYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
+        redirect(mode,value,WhichDescribesYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
     )
 
@@ -76,7 +84,7 @@ class AboutYouController @Inject()(identify: IdentifierAction,
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(aboutYouView(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value,AboutYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
+        redirect(mode,value,AboutYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
     )
 }

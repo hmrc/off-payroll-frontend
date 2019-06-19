@@ -20,14 +20,17 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.{Mode, ScheduleOfWorkingHours}
+import navigation.Navigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
 import play.twirl.api.HtmlFormat
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.control.ScheduleOfWorkingHoursView
 import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
@@ -38,11 +41,15 @@ class ScheduleOfWorkingHoursController @Inject()(identify: IdentifierAction,
                                                  requireData: DataRequiredAction,
                                                  formProvider: ScheduleOfWorkingHoursFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
-                                                 controllerHelper: ControllerHelper,
                                                  optimisedView: ScheduleOfWorkingHoursView,
                                                  subOptimisedView: SubOptimisedScheduleOfWorkingHoursView,
-                                                 implicit val appConfig: FrontendAppConfig
-                                                ) extends BaseController(controllerComponents) with FeatureSwitching {
+                                                 checkYourAnswersService: CheckYourAnswersService,
+                                                 compareAnswerService: CompareAnswerService,
+                                                 dataCacheConnector: DataCacheConnector,
+                                                 decisionService: DecisionService,
+                                                 navigator: Navigator,
+                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[ScheduleOfWorkingHours] = formProvider()
 
@@ -57,7 +64,7 @@ class ScheduleOfWorkingHoursController @Inject()(identify: IdentifierAction,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,ScheduleOfWorkingHoursPage)
+      value => redirect(mode,value,ScheduleOfWorkingHoursPage)
     )
   }
 }

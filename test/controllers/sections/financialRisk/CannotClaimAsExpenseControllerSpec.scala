@@ -18,7 +18,7 @@ package controllers.sections.financialRisk
 
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import forms.CannotClaimAsExpenseFormProvider
 import models.Answers._
 import models.CannotClaimAsExpense.WorkerProvidedMaterials

@@ -18,7 +18,7 @@ package controllers.sections.exit
 
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.OfficeHolderFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials

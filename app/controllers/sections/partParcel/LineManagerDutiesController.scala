@@ -19,15 +19,18 @@ package controllers.sections.partParcel
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.LineManagerDutiesFormProvider
 import javax.inject.Inject
+
+import connectors.DataCacheConnector
 import models.Mode
+import navigation.Navigator
 import pages.sections.partParcel.LineManagerDutiesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.DecisionService
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.partParcel.LineManagerDutiesView
 import views.html.subOptimised.sections.partParcel.{LineManagerDutiesView => SubOptimisedLineManagerDutiesView}
 
@@ -41,9 +44,12 @@ class LineManagerDutiesController @Inject()(identify: IdentifierAction,
                                             optimisedView: LineManagerDutiesView,
                                             subOptimisedView: SubOptimisedLineManagerDutiesView,
                                             decisionService: DecisionService,
-                                            controllerHelper: ControllerHelper,
-                                            implicit val appConfig: FrontendAppConfig
-                                           ) extends BaseController(controllerComponents) with FeatureSwitching {
+                                            checkYourAnswersService: CheckYourAnswersService,
+                                            compareAnswerService: CompareAnswerService,
+                                            dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -59,7 +65,7 @@ class LineManagerDutiesController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, LineManagerDutiesPage, callDecisionService = true)
+        redirect(mode,value, LineManagerDutiesPage, callDecisionService = true)
       }
     )
   }

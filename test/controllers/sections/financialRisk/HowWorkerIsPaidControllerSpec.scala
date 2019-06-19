@@ -20,7 +20,7 @@ import config.featureSwitch.OptimisedFlow
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import models.Answers._
