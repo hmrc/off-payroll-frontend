@@ -1049,7 +1049,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Worker.$RejectSubstitutePage.yes",
+              answer = "site.no",
               answerIsMessageKey = true
             ))
         }
@@ -1062,7 +1062,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Hirer.$RejectSubstitutePage.yes",
+              answer = "site.no",
               answerIsMessageKey = true
             ))
         }
@@ -1075,7 +1075,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"optimised.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = s"$RejectSubstitutePage.yes",
+              answer = "site.no",
               answerIsMessageKey = true
             ))
         }
