@@ -1228,6 +1228,30 @@ businessSize.noneOfAbove = None of the above.
 businessSize.error.required = You need to select an answer
 businessSize.error.invalid = You need to select an answer
 
+hirer.turnoverOver.title = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.heading = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.checkYourAnswersLabel = Does your organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.title = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.heading = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.checkYourAnswersLabel = Does this organisation have an annual turnover of more than £10.2 million?
+turnoverOver.error.required = You need to select an answer
+
+hirer.balanceSheetOver.title = Does your organisation have more than £5.1 million on its balance sheet?
+hirer.balanceSheetOver.heading = Does your organisation have more than £5.1 million on its balance sheet?
+hirer.balanceSheetOver.checkYourAnswersLabel = Does your organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.title = Does this organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.heading = Does this organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.checkYourAnswersLabel = Does this organisation have more than £5.1 million on its balance sheet?
+balanceSheetOver.error.required = You need to select an answer
+
+hirer.employeesOver.title = Does your organisation employ more than 50 people?
+hirer.employeesOver.heading = Does your organisation employ more than 50 people?
+hirer.employeesOver.checkYourAnswersLabel = Does your organisation employ more than 50 people?
+worker.employeesOver.title = Does this organisation employ more than 50 people?
+worker.employeesOver.heading = Does this organisation employ more than 50 people?
+worker.employeesOver.checkYourAnswersLabel = this your organisation employ more than 50 people?
+employeesOver.error.required = You need to select an answer
+
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
 checkYourAnswers.confirm.h2 = Confirm answers to get your result
