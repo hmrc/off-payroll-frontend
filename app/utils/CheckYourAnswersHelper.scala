@@ -18,6 +18,7 @@ package utils
 
 import config.FrontendAppConfig
 import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
+import pages.{BalanceSheetOverPage, EmployeesOverPage, TurnoverOverPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -30,6 +31,33 @@ import viewmodels.AnswerRow
 import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
+
+  def turnoverOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(TurnoverOverPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$TurnoverOverPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def employeesOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(EmployeesOverPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$EmployeesOverPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def balanceSheetOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(BalanceSheetOverPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$BalanceSheetOverPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
 
   def didPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(DidPaySubstitutePage) map { x =>

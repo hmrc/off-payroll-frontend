@@ -1249,7 +1249,7 @@ hirer.employeesOver.heading = Does your organisation employ more than 50 people?
 hirer.employeesOver.checkYourAnswersLabel = Does your organisation employ more than 50 people?
 worker.employeesOver.title = Does this organisation employ more than 50 people?
 worker.employeesOver.heading = Does this organisation employ more than 50 people?
-worker.employeesOver.checkYourAnswersLabel = this your organisation employ more than 50 people?
+worker.employeesOver.checkYourAnswersLabel = Does this organisation employ more than 50 people?
 employeesOver.error.required = You need to select an answer
 
 checkYourAnswers.title = Review your answers in each section below

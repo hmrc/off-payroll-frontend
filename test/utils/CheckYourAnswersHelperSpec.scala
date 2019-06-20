@@ -28,6 +28,7 @@ import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.WorkerType.LimitedCompany
 import models.{AboutYouAnswer, Enumerable, UserAnswers, _}
+import pages.{BalanceSheetOverPage, EmployeesOverPage, TurnoverOverPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}
@@ -1067,4 +1068,168 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     }
   }
 
+  ".turnoverOver" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).turnoverOver mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(TurnoverOverPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).turnoverOver(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(TurnoverOverPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).turnoverOver(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$TurnoverOverPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(TurnoverOverPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).turnoverOver(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true
+            ))
+        }
+      }
+    }
+  }
+
+  ".employeesOver" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).employeesOver mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(EmployeesOverPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).employeesOver(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(EmployeesOverPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).employeesOver(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$EmployeesOverPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(EmployeesOverPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).employeesOver(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true
+            ))
+        }
+      }
+    }
+  }
+
+  ".equipmentOver" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).balanceSheetOver mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(BalanceSheetOverPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).balanceSheetOver(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(BalanceSheetOverPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).balanceSheetOver(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$BalanceSheetOverPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(BalanceSheetOverPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).balanceSheetOver(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true
+            ))
+        }
+      }
+    }
+  }
 }
