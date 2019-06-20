@@ -16,17 +16,19 @@
 
 package controllers.sections.setup
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
 import forms.BalanceSheetOverFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
 import pages.BalanceSheetOverPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.BalanceSheetOverView
 
 import scala.concurrent.Future
@@ -38,10 +40,12 @@ class BalanceSheetOverController @Inject()(dataCacheConnector: DataCacheConnecto
                                            requireData: DataRequiredAction,
                                            formProvider: BalanceSheetOverFormProvider,
                                            controllerComponents: MessagesControllerComponents,
-                                           controllerHelper: ControllerHelper,
                                            view: BalanceSheetOverView,
+                                           checkYourAnswersService: CheckYourAnswersService,
+                                           compareAnswerService: CompareAnswerService,
+                                           decisionService: DecisionService,
                                            implicit val appConfig: FrontendAppConfig
-                                          ) extends BaseController(controllerComponents) {
+                                          ) extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 
@@ -52,7 +56,7 @@ class BalanceSheetOverController @Inject()(dataCacheConnector: DataCacheConnecto
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode, value, BalanceSheetOverPage)
+      value => redirect(mode, value, BalanceSheetOverPage)
     )
   }
 }
