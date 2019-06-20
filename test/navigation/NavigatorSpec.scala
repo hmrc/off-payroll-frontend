@@ -238,6 +238,31 @@ class NavigatorSpec extends SpecBase {
           enable(OptimisedFlow)
           nextPage(CheckYourAnswersPage) mustBe routes.ResultController.onPageLoad()
         }
+
+        "go to the EquipmentExpenses page from the ChooseWhereWork page" in {
+          enable(OptimisedFlow)
+          nextPage(ChooseWhereWorkPage) mustBe financialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode)
+        }
+
+        "go to the VehicleExpenses page from the EquipmentExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(EquipmentExpensesPage) mustBe financialRiskRoutes.VehicleController.onPageLoad(NormalMode)
+        }
+
+        "go to the MaterialExpenses page from the VehicleExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(VehiclePage) mustBe financialRiskRoutes.MaterialsController.onPageLoad(NormalMode)
+        }
+
+        "go to the OtherExpenses page from the MaterialExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(MaterialsPage) mustBe financialRiskRoutes.OtherExpensesController.onPageLoad(NormalMode)
+        }
+
+        "go to the HowWorkerIsPaid page from the OtherExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(OtherExpensesPage) mustBe financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)
+        }
       }
 
       "for the sub-optimised flow" must {

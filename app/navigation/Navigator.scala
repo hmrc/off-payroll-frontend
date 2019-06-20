@@ -142,10 +142,20 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     MoveWorkerPage -> (_ => controlRoutes.HowWorkIsDoneController.onPageLoad(NormalMode)),
     HowWorkIsDonePage -> (_ => controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)),
     ScheduleOfWorkingHoursPage -> (_ => controlRoutes.ChooseWhereWorkController.onPageLoad(NormalMode)),
-    ChooseWhereWorkPage -> (_ => financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode)),
+    ChooseWhereWorkPage -> (_ => {
+      if(isEnabled(OptimisedFlow)) {
+        financialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode)
+      } else {
+        financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode)
+      }
+    }),
 
     //Financial Risk Section
     CannotClaimAsExpensePage -> (_ => financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)),
+    EquipmentExpensesPage -> (_ => financialRiskRoutes.VehicleController.onPageLoad(NormalMode)),
+    VehiclePage -> (_ => financialRiskRoutes.MaterialsController.onPageLoad(NormalMode)),
+    MaterialsPage -> (_ => financialRiskRoutes.OtherExpensesController.onPageLoad(NormalMode)),
+    OtherExpensesPage -> (_ => financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)),
     HowWorkerIsPaidPage -> (_ => financialRiskRoutes.PutRightAtOwnCostController.onPageLoad(NormalMode)),
     PutRightAtOwnCostPage -> (_ => partParcelRoutes.BenefitsController.onPageLoad(NormalMode)),
 
