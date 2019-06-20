@@ -179,3 +179,8 @@ GET        /other-expenses                              controllers.sections.fin
 POST       /other-expenses                              controllers.sections.financialRisk.OtherExpensesController.onSubmit(mode: Mode = NormalMode)
 GET        /other-expenses/edit                         controllers.sections.financialRisk.OtherExpensesController.onPageLoad(mode: Mode = CheckMode)
 POST       /other-expenses/edit                         controllers.sections.financialRisk.OtherExpensesController.onSubmit(mode: Mode = CheckMode)
+
+GET        /equipment-expenses                          controllers.sections.financialRisk.EquipmentExpensesController.onPageLoad(mode: Mode = NormalMode)
+POST       /equipment-expenses                          controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = NormalMode)
+GET        /equipment-expenses/edit                     controllers.sections.financialRisk.EquipmentExpensesController.onPageLoad(mode: Mode = CheckMode)
+POST       /equipment-expenses/edit                     controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = CheckMode)
