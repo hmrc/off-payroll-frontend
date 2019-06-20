@@ -20,15 +20,18 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import controllers.{BaseController, ControllerHelper}
+import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.requests.DataRequest
 import models.{Mode, WorkerType}
+import navigation.Navigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import play.twirl.api.Html
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
@@ -42,8 +45,13 @@ class WorkerTypeController @Inject()(identify: IdentifierAction,
                                      controllerComponents: MessagesControllerComponents,
                                      workerTypeView: WorkerTypeView,
                                      workerUsingIntermediaryView: WorkerUsingIntermediaryView,
-                                     controllerHelper: ControllerHelper,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
+                                     checkYourAnswersService: CheckYourAnswersService,
+                                     compareAnswerService: CompareAnswerService,
+                                     dataCacheConnector: DataCacheConnector,
+                                     decisionService: DecisionService,
+                                     navigator: Navigator,
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val workerTypeForm: Form[WorkerType] = workerTypeFormProvider()
   val workerUsingIntermediaryForm: Form[Boolean] = newFormProvider()
@@ -66,12 +74,12 @@ class WorkerTypeController @Inject()(identify: IdentifierAction,
   private[controllers] def submitWorkerType(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     workerTypeForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(workerTypeView(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,WorkerTypePage)
+      value => redirect(mode,value,WorkerTypePage)
     )
 
   private[controllers] def submitWorkerUsingIntermediary(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     workerUsingIntermediaryForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(workerUsingIntermediaryView(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,WorkerUsingIntermediaryPage)
+      value => redirect(mode,value,WorkerUsingIntermediaryPage)
     )
 }

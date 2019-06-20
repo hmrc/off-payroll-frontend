@@ -18,17 +18,18 @@ package controllers.sections.setup
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import controllers.actions._
 import forms.IsWorkForPrivateSectorFormProvider
 import javax.inject.Inject
 
+import config.featureSwitch.FeatureSwitching
 import models.Mode
 import navigation.Navigator
 import pages.sections.setup.IsWorkForPrivateSectorPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.CompareAnswerService
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.IsWorkForPrivateSectorView
 
 import scala.concurrent.Future
@@ -41,8 +42,11 @@ class IsWorkForPrivateSectorController @Inject()(dataCacheConnector: DataCacheCo
                                                  formProvider: IsWorkForPrivateSectorFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
                                                  view: IsWorkForPrivateSectorView,
-                                                 controllerHelper: ControllerHelper,
-                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                                 checkYourAnswersService: CheckYourAnswersService,
+                                                 compareAnswerService: CompareAnswerService,
+                                                 decisionService: DecisionService,
+                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -53,7 +57,7 @@ class IsWorkForPrivateSectorController @Inject()(dataCacheConnector: DataCacheCo
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,IsWorkForPrivateSectorPage)
+      value => redirect(mode,value,IsWorkForPrivateSectorPage)
     )
   }
 

@@ -17,12 +17,17 @@
 package controllers.sections.financialRisk
 import config.FrontendAppConfig
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
+
+import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import models.Mode
+import navigation.Navigator
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
 import scala.concurrent.Future
@@ -33,8 +38,13 @@ class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
                                                formProvider: CannotClaimAsExpenseFormProvider,
                                                controllerComponents: MessagesControllerComponents,
                                                view: CannotClaimAsExpenseView,
-                                               controllerHelper: ControllerHelper,
-                                               implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                               checkYourAnswersService: CheckYourAnswersService,
+                                               compareAnswerService: CompareAnswerService,
+                                               dataCacheConnector: DataCacheConnector,
+                                               decisionService: DecisionService,
+                                               navigator: Navigator,
+                                               implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form = formProvider()
 
@@ -47,7 +57,7 @@ class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       values => {
-        controllerHelper.redirect(mode,values,CannotClaimAsExpensePage,callDecisionService = true)
+        redirect(mode,values,CannotClaimAsExpensePage,callDecisionService = true)
       }
     )
   }

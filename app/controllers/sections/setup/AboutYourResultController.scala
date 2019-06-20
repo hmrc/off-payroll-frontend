@@ -19,12 +19,15 @@ package controllers.sections.setup
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import models.NormalMode
 import navigation.Navigator
 import pages.sections.setup.AboutYourResultPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.AboutYourResultView
 
 class AboutYourResultController @Inject()(navigator: Navigator,
@@ -33,7 +36,12 @@ class AboutYourResultController @Inject()(navigator: Navigator,
                                           requireData: DataRequiredAction,
                                           controllerComponents: MessagesControllerComponents,
                                           view: AboutYourResultView,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                          checkYourAnswersService: CheckYourAnswersService,
+                                          compareAnswerService: CompareAnswerService,
+                                          dataCacheConnector: DataCacheConnector,
+                                          decisionService: DecisionService,
+                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.AboutYourResultController.onSubmit()))

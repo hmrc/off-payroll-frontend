@@ -1555,3 +1555,42 @@ worker.optimised.result.out.paye.whyResult.b3 = your business must make a signif
 worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
 worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
 ## ------------------
+
+
+##TODO: Need Welsh
+materials.error.required = You need to select an answer
+hirer.materials.title = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.heading = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.checkYourAnswersLabel = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
+hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
+worker.materials.title = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.heading = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.checkYourAnswersLabel = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.p1 = This can include items that form a lasting part of the work, or are left behind when you leave. Stationery is not included.
+worker.materials.p2 = This question is most likely to be relevant to the construction industry.
+
+
+##TODO: Need Welsh
+vehicle.error.required = You need to select an answer
+hirer.vehicle.title = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.heading = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.checkYourAnswersLabel = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+worker.vehicle.title = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.heading = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.checkYourAnswersLabel = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+
+
+##TODO: Need Welsh
+otherExpenses.error.required = You need to select an answer
+hirer.otherExpenses.title = Will the worker incur any other substantial costs that your organisation will not pay for?
+hirer.otherExpenses.heading = Will the worker incur any other substantial costs that your organisation will not pay for?
+hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other substantial costs that your organisation will not pay for?
+hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
+worker.otherExpenses.title = Will you incur any other substantial costs that your client will not pay for?
+worker.otherExpenses.heading = Will you incur any other substantial costs that your client will not pay for?
+worker.otherExpenses.checkYourAnswersLabel = Will you incur any other substantial costs that your client will not pay for?
+worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
+

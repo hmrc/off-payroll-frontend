@@ -27,6 +27,15 @@ import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryOtherExpensesPage: Arbitrary[OtherExpensesPage.type] =
+    Arbitrary(OtherExpensesPage)
+
+  implicit lazy val arbitraryVehiclePage: Arbitrary[VehiclePage.type] =
+    Arbitrary(VehiclePage)
+
+  implicit lazy val arbitraryMaterialsPage: Arbitrary[MaterialsPage.type] =
+    Arbitrary(MaterialsPage)
+
   implicit lazy val arbitraryEmployeesOverPage: Arbitrary[EmployeesOverPage.type] =
     Arbitrary(EmployeesOverPage)
 

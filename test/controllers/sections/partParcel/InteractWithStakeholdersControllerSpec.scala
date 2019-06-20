@@ -18,7 +18,7 @@ package controllers.sections.partParcel
 
 import akka.util.ByteString
 import connectors.FakeDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import forms.InteractWithStakeholdersFormProvider
 import models._
 import navigation.FakeNavigator
@@ -60,7 +60,11 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
     formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockControllerHelper,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
     frontendAppConfig
   )
 

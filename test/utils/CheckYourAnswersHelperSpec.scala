@@ -59,10 +59,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
           new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
-                label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"$Worker.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                label = s"$Worker.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$Worker.optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
                 answerIsMessageKey = true
               ))
             ))
@@ -75,10 +75,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
           new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              label = s"$Hirer.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
-                label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"$Hirer.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                label = s"$Hirer.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$Hirer.optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
                 answerIsMessageKey = true
               ))
             ))
@@ -91,10 +91,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
           new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense mustBe
             Some(AnswerRow(
-              label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              label = s"optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
-                label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                label = s"optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
                 answerIsMessageKey = true
               ))
             ))
@@ -183,7 +183,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).officeHolder(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.$OfficeHolderPage.checkYourAnswersLabel",
+                label = s"$Worker.optimised.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -196,7 +196,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).officeHolder(messages, hirerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Hirer.$OfficeHolderPage.checkYourAnswersLabel",
+                label = s"$Hirer.optimised.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -209,7 +209,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
               Some(AnswerRow(
-                label = s"$OfficeHolderPage.checkYourAnswersLabel",
+                label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -223,7 +223,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
             Some(AnswerRow(
-              label = s"$OfficeHolderPage.checkYourAnswersLabel",
+              label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true
             ))
@@ -249,8 +249,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
           new CheckYourAnswersHelper(cacheMap).workerType(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$Worker.$WorkerTypePage.$LimitedCompany",
+              label = s"$Worker.optimised.$WorkerTypePage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true
             ))
         }
@@ -262,8 +262,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
           new CheckYourAnswersHelper(cacheMap).workerType(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$Hirer.$WorkerTypePage.$LimitedCompany",
+              label = s"$Hirer.optimised.$WorkerTypePage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true
             ))
         }
@@ -275,8 +275,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
           new CheckYourAnswersHelper(cacheMap).workerType(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$WorkerTypePage.$LimitedCompany",
+              label = s"optimised.$WorkerTypePage.checkYourAnswersLabel",
+              answer = s"optimised.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true
             ))
         }
@@ -326,7 +326,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).contractStarted(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.$ContractStartedPage.checkYourAnswersLabel",
+                label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -339,7 +339,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).contractStarted(messages, hirerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Hirer.$ContractStartedPage.checkYourAnswersLabel",
+                label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -352,7 +352,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).contractStarted(messages, fakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$ContractStartedPage.checkYourAnswersLabel",
+                label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -366,7 +366,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(ContractStartedPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).contractStarted mustBe
             Some(AnswerRow(
-              label = s"$ContractStartedPage.checkYourAnswersLabel",
+              label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true
             ))
@@ -392,8 +392,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
           new CheckYourAnswersHelper(cacheMap).arrangedSubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Worker.$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"$Worker.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true
             ))
         }
@@ -405,8 +405,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
           new CheckYourAnswersHelper(cacheMap).arrangedSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Hirer.$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"$Hirer.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true
             ))
         }
@@ -418,8 +418,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
           new CheckYourAnswersHelper(cacheMap).arrangedSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"optimised.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true
             ))
         }
@@ -446,7 +446,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).benefits(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.$BenefitsPage.checkYourAnswersLabel",
+                label = s"$Worker.optimised.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -459,7 +459,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).benefits(messages, hirerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Hirer.$BenefitsPage.checkYourAnswersLabel",
+                label = s"$Hirer.optimised.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -472,7 +472,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).benefits mustBe
               Some(AnswerRow(
-                label = s"$BenefitsPage.checkYourAnswersLabel",
+                label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -486,7 +486,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(BenefitsPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).benefits mustBe
             Some(AnswerRow(
-              label = s"$BenefitsPage.checkYourAnswersLabel",
+              label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true
             ))
@@ -512,8 +512,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
           new CheckYourAnswersHelper(cacheMap).chooseWhereWork(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"$Worker.$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"$Worker.optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true
             ))
         }
@@ -525,8 +525,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
           new CheckYourAnswersHelper(cacheMap).chooseWhereWork(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"$Hirer.$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"$Hirer.optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true
             ))
         }
@@ -538,8 +538,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
           new CheckYourAnswersHelper(cacheMap).chooseWhereWork(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"optimised.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true
             ))
         }
@@ -564,7 +564,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).didPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -577,7 +577,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).didPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Hirer.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -590,7 +590,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).didPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -616,8 +616,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
           new CheckYourAnswersHelper(cacheMap).howWorkerIsPaid(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"$Worker.$HowWorkerIsPaidPage.$Commission",
+              label = s"$Worker.optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true
             ))
         }
@@ -629,8 +629,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
           new CheckYourAnswersHelper(cacheMap).howWorkerIsPaid(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"$Hirer.$HowWorkerIsPaidPage.$Commission",
+              label = s"$Hirer.optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true
             ))
         }
@@ -642,8 +642,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
           new CheckYourAnswersHelper(cacheMap).howWorkerIsPaid(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"$HowWorkerIsPaidPage.$Commission",
+              label = s"optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"optimised.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true
             ))
         }
@@ -668,8 +668,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
           new CheckYourAnswersHelper(cacheMap).howWorkIsDone(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"$Worker.$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"$Worker.optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true
             ))
         }
@@ -681,8 +681,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
           new CheckYourAnswersHelper(cacheMap).howWorkIsDone(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"$Hirer.$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"$Hirer.optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true
             ))
         }
@@ -694,8 +694,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
           new CheckYourAnswersHelper(cacheMap).howWorkIsDone(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true
             ))
         }
@@ -720,8 +720,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
           new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$Worker.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"$Worker.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true
             ))
         }
@@ -733,8 +733,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
           new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$Hirer.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"$Hirer.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true
             ))
         }
@@ -746,8 +746,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
           new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true
             ))
         }
@@ -772,7 +772,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).interactWithStakeholders(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$InteractWithStakeholdersPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -785,7 +785,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).interactWithStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$InteractWithStakeholdersPage.checkYourAnswersLabel",
+              label = s"$Hirer.optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -798,7 +798,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).interactWithStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$InteractWithStakeholdersPage.checkYourAnswersLabel",
+              label = s"optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -824,7 +824,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).lineManagerDuties(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -837,7 +837,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).lineManagerDuties(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"$Hirer.optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -850,7 +850,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).lineManagerDuties(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -876,8 +876,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
           new CheckYourAnswersHelper(cacheMap).moveWorker(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"$Worker.$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"$Worker.optimised.$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true
             ))
         }
@@ -889,8 +889,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
           new CheckYourAnswersHelper(cacheMap).moveWorker(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"$Hirer.$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"$Hirer.optimised.$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true
             ))
         }
@@ -902,8 +902,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
           new CheckYourAnswersHelper(cacheMap).moveWorker(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"optimised.$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true
             ))
         }
@@ -928,7 +928,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).neededToPayHelper(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -941,7 +941,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).neededToPayHelper(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"$Hirer.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -954,7 +954,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).neededToPayHelper(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -980,8 +980,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Worker.$RejectSubstitutePage.yes",
+              label = s"$Worker.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
+              answer = "site.no",
               answerIsMessageKey = true
             ))
         }
@@ -993,8 +993,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Hirer.$RejectSubstitutePage.yes",
+              label = s"$Hirer.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
+              answer = "site.no",
               answerIsMessageKey = true
             ))
         }
@@ -1006,8 +1006,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = s"$RejectSubstitutePage.yes",
+              label = s"optimised.$RejectSubstitutePage.checkYourAnswersLabel",
+              answer = "site.no",
               answerIsMessageKey = true
             ))
         }
@@ -1032,7 +1032,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).wouldWorkerPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -1045,7 +1045,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).wouldWorkerPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Hirer.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -1058,7 +1058,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).wouldWorkerPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))

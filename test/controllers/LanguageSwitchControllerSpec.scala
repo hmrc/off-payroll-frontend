@@ -25,7 +25,8 @@ import play.api.test.Helpers._
 
 class LanguageSwitchControllerSpec extends ControllerSpecBase {
 
-  object TestController extends LanguageSwitchController(frontendAppConfig, messagesControllerComponents) {
+  object TestController extends LanguageSwitchController(messagesControllerComponents,mockCheckYourAnswersService,mockCompareAnswerService,
+    mockDataCacheConnector,mockDecisionService,fakeNavigator,frontendAppConfig) {
     override def isWelshEnabled = true
   }
 

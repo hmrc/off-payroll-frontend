@@ -20,16 +20,20 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.Mode
+import navigation.Navigator
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.personalService.{WouldWorkerPaySubstituteView => SubOptimisedWouldWorkerPaySubstituteView}
 import views.html.sections.personalService.WouldWorkerPaySubstituteView
+
 import scala.concurrent.Future
 
 class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
@@ -37,11 +41,15 @@ class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
                                                    requireData: DataRequiredAction,
                                                    formProvider: WouldWorkerPaySubstituteFormProvider,
                                                    controllerComponents: MessagesControllerComponents,
-                                                   controllerHelper: ControllerHelper,
                                                    optimisedView: WouldWorkerPaySubstituteView,
                                                    subOptimisedView: SubOptimisedWouldWorkerPaySubstituteView,
-                                                   implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+                                                   checkYourAnswersService: CheckYourAnswersService,
+                                                   compareAnswerService: CompareAnswerService,
+                                                   dataCacheConnector: DataCacheConnector,
+                                                   decisionService: DecisionService,
+                                                   navigator: Navigator,
+                                                   implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -57,7 +65,7 @@ class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, WouldWorkerPaySubstitutePage, callDecisionService = true)
+        redirect(mode,value, WouldWorkerPaySubstitutePage, callDecisionService = true)
       }
     )
   }

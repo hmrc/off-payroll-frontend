@@ -34,18 +34,16 @@ import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import services.{DecisionService, OptimisedDecisionService}
-import services.mocks.{MockCompareAnswerService, MockDecisionService, MockOptimisedDecisionService}
+import services.mocks.{MockCheckYourAnswersService, MockCompareAnswerService, MockDecisionService, MockOptimisedDecisionService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
 import viewmodels.AnswerSection
 import views.html.subOptimised.results._
 
-class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService {
+class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService with MockCheckYourAnswersService {
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
-
-  val controllerHelper = injector.instanceOf[ControllerHelper]
 
   val officeHolderInsideIR35View = injector.instanceOf[OfficeHolderInsideIR35View]
   val officeHolderEmployedView = injector.instanceOf[OfficeHolderEmployedView]
@@ -83,6 +81,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
     FakeTimestamp,
     mockCompareAnswerService,
     mockOptimisedDecisionService,
+    mockCheckYourAnswersService,
     frontendAppConfig
   )
 

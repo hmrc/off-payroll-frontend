@@ -18,7 +18,7 @@ package controllers.sections.exit
 
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.OfficeHolderFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
@@ -52,9 +52,13 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
-    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView
+    subOptimisedView = subOptimisedView,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true, 0)))

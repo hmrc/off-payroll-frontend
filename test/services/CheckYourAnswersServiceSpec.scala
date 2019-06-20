@@ -35,7 +35,7 @@ import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPa
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import utils.CheckYourAnswersHelper
+import utils.{CheckYourAnswersHelper, ResultPageHelper}
 import viewmodels.AnswerSection
 
 class CheckYourAnswersServiceSpec extends SpecBase {
@@ -147,7 +147,7 @@ class CheckYourAnswersServiceSpec extends SpecBase {
 
       lazy val request = DataRequest(fakeRequest, "id", userAnswers)
 
-      object CheckYourAnswersHelper extends CheckYourAnswersHelper(userAnswers)
+      object CheckYourAnswersHelper extends ResultPageHelper(userAnswers)
 
       "Return no AnswerSections" in {
 

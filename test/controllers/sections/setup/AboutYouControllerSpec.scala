@@ -52,7 +52,11 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     aboutYouView = aboutYouview,
     whichDescribesYouView = whichDescribesYouview,
-    controllerHelper = mockControllerHelper
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   "AboutYou Controller" when {

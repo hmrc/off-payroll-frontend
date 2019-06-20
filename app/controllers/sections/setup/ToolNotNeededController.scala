@@ -20,10 +20,15 @@ import config.FrontendAppConfig
 import controllers.BaseController
 import controllers.actions._
 import javax.inject.Inject
+
+import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import models.WhichDescribesYouAnswer.ClientPAYE
 import models.{Answers, WhichDescribesYouAnswer}
+import navigation.Navigator
 import pages.sections.setup.WhichDescribesYouPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.ToolNotNeededView
 
 class ToolNotNeededController @Inject()(identify: IdentifierAction,
@@ -31,7 +36,13 @@ class ToolNotNeededController @Inject()(identify: IdentifierAction,
                                         requireData: DataRequiredAction,
                                         controllerComponents: MessagesControllerComponents,
                                         view: ToolNotNeededView,
-                                        implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                        checkYourAnswersService: CheckYourAnswersService,
+                                        compareAnswerService: CompareAnswerService,
+                                        dataCacheConnector: DataCacheConnector,
+                                        decisionService: DecisionService,
+                                        navigator: Navigator,
+                                        implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(request.userAnswers.get(WhichDescribesYouPage).fold[WhichDescribesYouAnswer](ClientPAYE){ answerModel =>

@@ -19,12 +19,20 @@ package controllers
 import com.google.inject.Inject
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, WelshLanguage}
+import connectors.DataCacheConnector
+import navigation.Navigator
 import play.api.i18n.Lang
 import play.api.mvc._
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 
-class LanguageSwitchController @Inject()(appConfig: FrontendAppConfig,
-                                         controllerComponents: MessagesControllerComponents
-                                        ) extends BaseController(controllerComponents) with FeatureSwitching {
+class LanguageSwitchController @Inject()(controllerComponents: MessagesControllerComponents,
+                                         checkYourAnswersService: CheckYourAnswersService,
+                                         compareAnswerService: CompareAnswerService,
+                                         dataCacheConnector: DataCacheConnector,
+                                         decisionService: DecisionService,
+                                         navigator: Navigator,
+                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   private def fallbackURL: String = routes.IndexController.onPageLoad().url
 

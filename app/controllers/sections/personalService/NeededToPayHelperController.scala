@@ -19,14 +19,18 @@ package controllers.sections.personalService
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.NeededToPayHelperFormProvider
 import javax.inject.Inject
+
+import connectors.DataCacheConnector
 import models.Mode
+import navigation.Navigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.personalService.NeededToPayHelperView
 import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
 
@@ -36,12 +40,16 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
-                                            controllerHelper: ControllerHelper,
                                             optimisedView: NeededToPayHelperView,
                                             subOptimisedView: SubOptimisedNeededToPayHelperView,
                                             controllerComponents: MessagesControllerComponents,
-                                            implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+                                            checkYourAnswersService: CheckYourAnswersService,
+                                            compareAnswerService: CompareAnswerService,
+                                            dataCacheConnector: DataCacheConnector,
+                                            decisionService: DecisionService,
+                                            navigator: Navigator,
+                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -57,7 +65,7 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value, NeededToPayHelperPage, callDecisionService = true)
+        redirect(mode,value, NeededToPayHelperPage, callDecisionService = true)
       }
     )
   }
