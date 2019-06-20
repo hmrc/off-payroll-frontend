@@ -170,7 +170,12 @@ POST       /materials                                   controllers.sections.fin
 GET        /materials/edit                              controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = CheckMode)
 POST       /materials/edit                              controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = CheckMode)
 
-GET        /vehicle                        controllers.sections.financialRisk.VehicleController.onPageLoad(mode: Mode = NormalMode)
-POST       /vehicle                        controllers.sections.financialRisk.VehicleController.onSubmit(mode: Mode = NormalMode)
-GET        /vehicle/edit                   controllers.sections.financialRisk.VehicleController.onPageLoad(mode: Mode = CheckMode)
-POST       /vehicle/edit                   controllers.sections.financialRisk.VehicleController.onSubmit(mode: Mode = CheckMode)
+GET        /vehicle                                     controllers.sections.financialRisk.VehicleController.onPageLoad(mode: Mode = NormalMode)
+POST       /vehicle                                     controllers.sections.financialRisk.VehicleController.onSubmit(mode: Mode = NormalMode)
+GET        /vehicle/edit                                controllers.sections.financialRisk.VehicleController.onPageLoad(mode: Mode = CheckMode)
+POST       /vehicle/edit                                controllers.sections.financialRisk.VehicleController.onSubmit(mode: Mode = CheckMode)
+
+GET        /other-expenses                              controllers.sections.financialRisk.OtherExpensesController.onPageLoad(mode: Mode = NormalMode)
+POST       /other-expenses                              controllers.sections.financialRisk.OtherExpensesController.onSubmit(mode: Mode = NormalMode)
+GET        /other-expenses/edit                         controllers.sections.financialRisk.OtherExpensesController.onPageLoad(mode: Mode = CheckMode)
+POST       /other-expenses/edit                         controllers.sections.financialRisk.OtherExpensesController.onSubmit(mode: Mode = CheckMode)
