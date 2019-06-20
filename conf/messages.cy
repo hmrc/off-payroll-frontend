@@ -1594,3 +1594,14 @@ worker.otherExpenses.heading = Will you incur any other substantial costs that y
 worker.otherExpenses.checkYourAnswersLabel = Will you incur any other substantial costs that your client will not pay for?
 worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
 
+##TODO: Need Welsh
+equipmentExpenses.error.required = You need to select an answer
+hirer.equipmentExpenses.title = Will the worker incur substantial equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.heading = Will the worker incur substantial equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker incur substantial equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+worker.equipmentExpenses.title = Will you incur substantial equipment costs that your client will not pay for?
+worker.equipmentExpenses.heading = Will you incur substantial equipment costs that your client will not pay for?
+worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
+worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+
