@@ -25,7 +25,7 @@
 @mainTemplate(titleNoForm("agent.optimised.result.undetermined.title"), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages("agent.optimised.result.undetermined.heading"))
+        Html(messages("agent.optimised.result.undetermined.heading")),"result.undetermined"
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {

@@ -25,7 +25,7 @@
 @mainTemplate(titleNoForm(tailorMsgOptimised("result.undetermined.paye.title")), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.undetermined.paye.heading")))
+        Html(messages(tailorMsgOptimised("result.undetermined.paye.heading"))),"result.undetermined"
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {

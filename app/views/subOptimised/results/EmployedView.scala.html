@@ -47,7 +47,7 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 
         @components.error_summary(form.errors)
 
-        @components.teal_result(Html(messages("result.employed.title")))
+        @components.teal_result(Html(messages("result.employed.title")),"result.inside")
 
         @sections.why_result(whyResultContent)
 
