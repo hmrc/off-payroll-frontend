@@ -18,7 +18,6 @@ package services
 
 import base.SpecBase
 import models.ArrangedSubstitute.YesClientAgreed
-import models.BusinessSize.Turnover
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.NoWorkerInputAllowed
@@ -30,6 +29,7 @@ import models.ScheduleOfWorkingHours.ScheduleDecidedForWorker
 import models.WhichDescribesYouAnswer.WorkerPAYE
 import models._
 import models.requests.DataRequest
+import pages.{EmployeesOverPage, TurnoverOverPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -52,30 +52,32 @@ class CheckYourAnswersServiceSpec extends SpecBase {
         .set(WhichDescribesYouPage,0, WorkerPAYE)
         .set(WorkerUsingIntermediaryPage,1, true)
         .set(IsWorkForPrivateSectorPage,2, true)
-        .set(BusinessSizePage,3, Seq(Turnover))
-        .set(ContractStartedPage, 4, true)
+        .set(TurnoverOverPage, 3, true)
+        .set(EmployeesOverPage, 4, true)
+        .set(TurnoverOverPage, 5, true)
+        .set(ContractStartedPage, 6, true)
         //Exit Section
-        .set(OfficeHolderPage, 5, true)
+        .set(OfficeHolderPage, 7, true)
         //Personal Service section
-        .set(ArrangedSubstitutePage, 6, YesClientAgreed)
-        .set(DidPaySubstitutePage, 7, true)
-        .set(RejectSubstitutePage, 8, true)
-        .set(WouldWorkerPaySubstitutePage, 9, true)
-        .set(NeededToPayHelperPage, 10, true)
+        .set(ArrangedSubstitutePage, 8, YesClientAgreed)
+        .set(DidPaySubstitutePage, 9, true)
+        .set(RejectSubstitutePage, 10, true)
+        .set(WouldWorkerPaySubstitutePage, 11, true)
+        .set(NeededToPayHelperPage, 12, true)
         //Control section
-        .set(ChooseWhereWorkPage, 10, WorkerChooses)
-        .set(HowWorkIsDonePage, 11, NoWorkerInputAllowed)
-        .set(MoveWorkerPage, 12, CanMoveWorkerWithPermission)
-        .set(ScheduleOfWorkingHoursPage, 13, ScheduleDecidedForWorker)
+        .set(ChooseWhereWorkPage, 13, WorkerChooses)
+        .set(HowWorkIsDonePage, 14, NoWorkerInputAllowed)
+        .set(MoveWorkerPage, 15, CanMoveWorkerWithPermission)
+        .set(ScheduleOfWorkingHoursPage, 16, ScheduleDecidedForWorker)
         //Financial Risk section
-        .set(CannotClaimAsExpensePage, 14, Seq(WorkerProvidedMaterials))
-        .set(HowWorkerIsPaidPage, 15, HourlyDailyOrWeekly)
-        .set(PutRightAtOwnCostPage, 16, OutsideOfHoursNoCosts)
+        .set(CannotClaimAsExpensePage, 17, Seq(WorkerProvidedMaterials))
+        .set(HowWorkerIsPaidPage, 18, HourlyDailyOrWeekly)
+        .set(PutRightAtOwnCostPage, 19, OutsideOfHoursNoCosts)
         //Part and Parcel section
-        .set(BenefitsPage, 17, false)
-        .set(LineManagerDutiesPage, 18, false)
-        .set(InteractWithStakeholdersPage, 19, true)
-        .set(IdentifyToStakeholdersPage, 20, WorkForEndClient)
+        .set(BenefitsPage, 20, false)
+        .set(LineManagerDutiesPage, 21, false)
+        .set(InteractWithStakeholdersPage, 22, true)
+        .set(IdentifyToStakeholdersPage, 23, WorkForEndClient)
 
 
       lazy val request = DataRequest(fakeRequest, "id", userAnswers)
@@ -93,7 +95,9 @@ class CheckYourAnswersServiceSpec extends SpecBase {
               CheckYourAnswersHelper.aboutYouOptimised.map(_ -> None),
               CheckYourAnswersHelper.workerTypeOptimised.map(_ -> None),
               CheckYourAnswersHelper.isWorkForPrivateSector.map(_ -> None),
-              CheckYourAnswersHelper.businessSize.map(_ -> None),
+              CheckYourAnswersHelper.turnoverOver.map(_ -> None),
+              CheckYourAnswersHelper.employeesOver.map(_ -> None),
+              CheckYourAnswersHelper.balanceSheetOver.map(_ -> None),
               CheckYourAnswersHelper.contractStarted.map(_ -> None)
             ).flatten
           ),
