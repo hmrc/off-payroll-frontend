@@ -22,26 +22,30 @@ import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.MaterialsFormProvider
 import javax.inject.Inject
+
 import models.Mode
 import navigation.Navigator
 import pages.MaterialsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.financialRisk.MaterialsView
 
 import scala.concurrent.Future
 
 class MaterialsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: MaterialsFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         controllerHelper: ControllerHelper,
-                                         view: MaterialsView,
-                                         implicit val appConfig: FrontendAppConfig
-                                         ) extends BaseController(controllerComponents) {
+                                    navigator: Navigator,
+                                    identify: IdentifierAction,
+                                    getData: DataRetrievalAction,
+                                    requireData: DataRequiredAction,
+                                    formProvider: MaterialsFormProvider,
+                                    controllerComponents: MessagesControllerComponents,
+                                    view: MaterialsView,
+                                    checkYourAnswersService: CheckYourAnswersService,
+                                    compareAnswerService: CompareAnswerService,
+                                    decisionService: DecisionService,
+                                    implicit val appConfig: FrontendAppConfig
+                                   ) extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 
@@ -52,7 +56,7 @@ class MaterialsController @Inject()(dataCacheConnector: DataCacheConnector,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode, value, MaterialsPage)
+      value => redirect(mode, value, MaterialsPage)
     )
   }
 }
