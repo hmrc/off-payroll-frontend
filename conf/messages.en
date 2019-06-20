@@ -1513,3 +1513,16 @@ worker.materials.heading = Will you incur substantial costs for materials that y
 worker.materials.checkYourAnswersLabel = Will you incur substantial costs for materials that your client will not pay for?
 worker.materials.p1 = This can include items that form a lasting part of the work, or are left behind when you leave. Stationery is not included.
 worker.materials.p2 = This question is most likely to be relevant to the construction industry.
+
+
+vehicle.error.required = You need to select an answer
+
+hirer.vehicle.title = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.heading = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.checkYourAnswersLabel = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+
+worker.vehicle.title = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.heading = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.checkYourAnswersLabel = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
