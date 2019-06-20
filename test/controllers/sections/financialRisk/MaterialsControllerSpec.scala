@@ -79,8 +79,6 @@ class MaterialsControllerSpec extends ControllerSpecBase {
       val answers = userAnswers.set(MaterialsPage,0,true)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-
       val result = controller().onSubmit(NormalMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
