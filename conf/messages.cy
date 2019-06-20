@@ -1250,6 +1250,15 @@ worker.balanceSheetOver.checkYourAnswersLabel = Does this organisation have more
 balanceSheetOver.error.required = You need to select an answer
 
 ##### TODO NEED WELSH FOR ####
+hirer.employeesOver.title = Does your organisation employ more than 50 people?
+hirer.employeesOver.heading = Does your organisation employ more than 50 people?
+hirer.employeesOver.checkYourAnswersLabel = Does your organisation employ more than 50 people?
+worker.employeesOver.title = Does this organisation employ more than 50 people?
+worker.employeesOver.heading = Does this organisation employ more than 50 people?
+worker.employeesOver.checkYourAnswersLabel = this your organisation employ more than 50 people?
+employeesOver.error.required = You need to select an answer
+
+##### TODO NEED WELSH FOR ####
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
 checkYourAnswers.confirm.h2 = Confirm answers to get your result

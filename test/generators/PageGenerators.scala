@@ -27,6 +27,9 @@ import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryEmployeesOverPage: Arbitrary[EmployeesOverPage.type] =
+    Arbitrary(EmployeesOverPage)
+
   implicit lazy val arbitraryBalanceSheetOverPage: Arbitrary[BalanceSheetOverPage.type] =
     Arbitrary(BalanceSheetOverPage)
 
