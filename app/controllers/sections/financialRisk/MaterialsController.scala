@@ -16,13 +16,13 @@
 
 package controllers.sections.financialRisk
 
-import config.FrontendAppConfig
-import connectors.DataCacheConnector
-import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
-import forms.MaterialsFormProvider
 import javax.inject.Inject
 
+import config.FrontendAppConfig
+import connectors.DataCacheConnector
+import controllers.BaseController
+import controllers.actions._
+import forms.MaterialsFormProvider
 import models.Mode
 import navigation.Navigator
 import pages.MaterialsPage

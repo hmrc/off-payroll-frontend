@@ -49,9 +49,7 @@ class MaterialsControllerSpec extends ControllerSpecBase {
     view = view,
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
-    dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    decisionService = mockDecisionService
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
