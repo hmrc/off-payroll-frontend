@@ -51,9 +51,13 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     formProvider,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
-    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
-    subOptimisedView = subOptimisedView
+    subOptimisedView = subOptimisedView,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

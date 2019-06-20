@@ -19,7 +19,7 @@ package controllers.sections.financialRisk
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import forms.PutRightAtOwnCostFormProvider
 import models.Answers._
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
@@ -54,7 +54,11 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     subOptimisedView = subOptimisedView,
     optimisedView = optimisedView,
-    mockControllerHelper,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
     frontendAppConfig
   )
 

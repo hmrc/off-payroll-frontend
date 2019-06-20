@@ -47,7 +47,9 @@ class MaterialsControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper = mockControllerHelper
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    decisionService = mockDecisionService
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -76,8 +78,6 @@ class MaterialsControllerSpec extends ControllerSpecBase {
 
       val answers = userAnswers.set(MaterialsPage,0,true)
       mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

@@ -23,17 +23,19 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.HowWorkIsDoneFormProvider
 import javax.inject.Inject
+
 import models.{HowWorkIsDone, Mode}
+import navigation.Navigator
 import pages.sections.control.HowWorkIsDonePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.sections.control.HowWorkIsDoneView
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
-import services.CompareAnswerService
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.control.{HowWorkIsDoneView => SubOptimisedHowWorkIsDoneView}
 
 import scala.concurrent.Future
@@ -43,11 +45,15 @@ class HowWorkIsDoneController @Inject()(identify: IdentifierAction,
                                         requireData: DataRequiredAction,
                                         formProvider: HowWorkIsDoneFormProvider,
                                         controllerComponents: MessagesControllerComponents,
-                                        controllerHelper: ControllerHelper,
                                         optimisedView: HowWorkIsDoneView,
                                         subOptimisedView: SubOptimisedHowWorkIsDoneView,
-                                        implicit val appConfig: FrontendAppConfig
-                                       ) extends BaseController(controllerComponents) with FeatureSwitching {
+                                        checkYourAnswersService: CheckYourAnswersService,
+                                        compareAnswerService: CompareAnswerService,
+                                        dataCacheConnector: DataCacheConnector,
+                                        decisionService: DecisionService,
+                                        navigator: Navigator,
+                                        implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[HowWorkIsDone] = formProvider()
 
@@ -62,7 +68,7 @@ class HowWorkIsDoneController @Inject()(identify: IdentifierAction,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,HowWorkIsDonePage)
+      value => redirect(mode,value,HowWorkIsDonePage)
     )
   }
 }

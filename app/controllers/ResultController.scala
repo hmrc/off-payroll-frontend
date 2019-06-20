@@ -16,19 +16,20 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.DeclarationFormProvider
-import javax.inject.Inject
 import models.requests.DataRequest
-import models.{NormalMode, Timestamp, UserAnswers}
+import models.{NormalMode, Timestamp}
 import navigation.Navigator
 import pages.ResultPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService, OptimisedDecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, OptimisedDecisionService}
 import utils.UserAnswersUtils
 
 import scala.concurrent.Future
@@ -44,8 +45,9 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,
                                  optimisedDecisionService: OptimisedDecisionService,
-                                 implicit val conf: FrontendAppConfig
-                                ) extends BaseController(controllerComponents) with UserAnswersUtils with FeatureSwitching {
+                                 checkYourAnswersService: CheckYourAnswersService,
+                                 implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
 
   private val resultForm: Form[Boolean] = formProvider()
   private def nextPage(implicit request: DataRequest[_]): Call = navigator.nextPage(ResultPage, NormalMode)(request.userAnswers)

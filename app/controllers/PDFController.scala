@@ -24,13 +24,14 @@ import controllers.actions._
 import forms.CustomisePDFFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
+
 import models.Answers._
 import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Mode, Timestamp}
 import navigation.Navigator
 import pages.{CustomisePDFPage, ResultPage}
 import play.api.mvc._
-import services.{DecisionService, PDFService}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, PDFService}
 import utils.UserAnswersUtils
 import views.html.CustomisePDFView
 
@@ -48,7 +49,10 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
                               time: Timestamp,
-                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching with UserAnswersUtils {
+                              checkYourAnswersService: CheckYourAnswersService,
+                              compareAnswerService: CompareAnswerService,
+                              implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
 
   val form = formProvider()
 

@@ -19,9 +19,13 @@ package controllers.sections.setup
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
+import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.LeaveView
 
 class LeaveController @Inject()(identify: IdentifierAction,
@@ -29,7 +33,13 @@ class LeaveController @Inject()(identify: IdentifierAction,
                                 requireData: DataRequiredAction,
                                 controllerComponents: MessagesControllerComponents,
                                 view: LeaveView,
-                                implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                checkYourAnswersService: CheckYourAnswersService,
+                                compareAnswerService: CompareAnswerService,
+                                dataCacheConnector: DataCacheConnector,
+                                decisionService: DecisionService,
+                                navigator: Navigator,
+                                implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view())

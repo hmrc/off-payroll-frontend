@@ -19,14 +19,18 @@ package controllers.sections.exit
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
+
+import connectors.DataCacheConnector
 import models.Mode
+import navigation.Navigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.exit.OfficeHolderView
 import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
@@ -37,11 +41,15 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        requireData: DataRequiredAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
-                                       controllerHelper: ControllerHelper,
                                        optimisedView: OfficeHolderView,
                                        subOptimisedView: SubOptimisedOfficeHolderView,
-                                       implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+                                       checkYourAnswersService: CheckYourAnswersService,
+                                       compareAnswerService: CompareAnswerService,
+                                       dataCacheConnector: DataCacheConnector,
+                                       decisionService: DecisionService,
+                                       navigator: Navigator,
+                                       implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -57,7 +65,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect[Boolean](mode,value, OfficeHolderPage, callDecisionService = true)
+        redirect[Boolean](mode,value, OfficeHolderPage, callDecisionService = true)
       }
     )
   }

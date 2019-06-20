@@ -48,9 +48,12 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    mockDecisionService,
-    mockControllerHelper,
-    frontendAppConfig
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
+    appConfig = frontendAppConfig
   )
 
   val validData = Map(LineManagerDutiesPage.toString -> Json.toJson(Answers(true,0)))

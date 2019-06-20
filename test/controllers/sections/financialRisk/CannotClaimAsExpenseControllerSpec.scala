@@ -18,7 +18,7 @@ package controllers.sections.financialRisk
 
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import forms.CannotClaimAsExpenseFormProvider
 import models.Answers._
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
@@ -50,7 +50,11 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockControllerHelper,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
     appConfig = frontendAppConfig
   )
 

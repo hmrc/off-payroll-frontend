@@ -16,17 +16,19 @@
 
 package controllers.sections.setup
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
 import forms.EmployeesOverFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
 import pages.EmployeesOverPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.EmployeesOverView
 
 import scala.concurrent.Future
@@ -38,10 +40,12 @@ class EmployeesOverController @Inject()(dataCacheConnector: DataCacheConnector,
                                         requireData: DataRequiredAction,
                                         formProvider: EmployeesOverFormProvider,
                                         controllerComponents: MessagesControllerComponents,
-                                        controllerHelper: ControllerHelper,
                                         view: EmployeesOverView,
+                                        checkYourAnswersService: CheckYourAnswersService,
+                                        compareAnswerService: CompareAnswerService,
+                                        decisionService: DecisionService,
                                         implicit val appConfig: FrontendAppConfig
-                                       ) extends BaseController(controllerComponents) {
+                                       ) extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 
@@ -52,7 +56,7 @@ class EmployeesOverController @Inject()(dataCacheConnector: DataCacheConnector,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode, value, EmployeesOverPage)
+      value => redirect(mode, value, EmployeesOverPage)
     )
   }
 }
