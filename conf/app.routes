@@ -164,3 +164,8 @@ GET        /employees-over                              controllers.sections.set
 POST       /employees-over                              controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = NormalMode)
 GET        /employees-over/edit                         controllers.sections.setup.EmployeesOverController.onPageLoad(mode: Mode = CheckMode)
 POST       /employees-over/edit                         controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = CheckMode)
+
+GET        /materials                                   controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = NormalMode)
+POST       /materials                                   controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = NormalMode)
+GET        /materials/edit                              controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = CheckMode)
+POST       /materials/edit                              controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = CheckMode)
