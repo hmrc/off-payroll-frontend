@@ -44,7 +44,7 @@ import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage
 import play.api.libs.json.Json
 import viewmodels.AnswerRow
 
-class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
+class ResultPageHelperSpec extends SpecBase with Enumerable.Implicits {
 
   lazy val workerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
   lazy val hirerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
@@ -54,7 +54,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).cannotClaimAsExpense mustBe None
+        new ResultPageHelper(UserAnswers("id")).cannotClaimAsExpense mustBe None
       }
     }
 
@@ -64,12 +64,12 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).cannotClaimAsExpense(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
-                label = s"$Worker.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"$Worker.optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$Worker.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
                 answerIsMessageKey = true
               ))
             ))
@@ -80,12 +80,12 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).cannotClaimAsExpense(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
-                label = s"$Hirer.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"$Hirer.optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$Hirer.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
                 answerIsMessageKey = true
               ))
             ))
@@ -96,12 +96,12 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense mustBe
+          new ResultPageHelper(cacheMap).cannotClaimAsExpense mustBe
             Some(AnswerRow(
-              label = s"optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
+              label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
               answers = Seq(AnswerRow(
-                label = s"optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
+                label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
+                answer = s"$CannotClaimAsExpensePage.$WorkerUsedVehicle",
                 answerIsMessageKey = true
               ))
             ))
@@ -110,73 +110,12 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     }
   }
 
-  ".cannotClaimAsExpenseOptimised" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).cannotClaimAsExpenseOptimised mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" should {
-
-        "if the user is of type Worker" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-            new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised(messages, workerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
-                answers = CannotClaimAsExpense.values.map( x => AnswerRow(
-                  label = s"$Worker.$CannotClaimAsExpensePage.$x.checkYourAnswers",
-                  answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
-                  answerIsMessageKey = true
-                ))
-              ))
-          }
-        }
-
-        "if the user is of type Hirer" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-            new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised(messages, hirerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
-                answers = CannotClaimAsExpense.values.map( x => AnswerRow(
-                  label = s"$Hirer.$CannotClaimAsExpensePage.$x.checkYourAnswers",
-                  answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
-                  answerIsMessageKey = true
-                ))
-              ))
-          }
-        }
-
-        "if the user is not set" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-            new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised mustBe
-              Some(AnswerRow(
-                label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
-                answers = CannotClaimAsExpense.values.map( x => AnswerRow(
-                  label = s"$CannotClaimAsExpensePage.$x.checkYourAnswers",
-                  answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
-                  answerIsMessageKey = true
-                ))
-              ))
-          }
-        }
-      }
-  }
-
   ".businessSize" when {
 
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).businessSize mustBe None
+        new ResultPageHelper(UserAnswers("id")).businessSize mustBe None
       }
     }
 
@@ -186,7 +125,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
-          new CheckYourAnswersHelper(cacheMap).businessSize(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).businessSize(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Worker.$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
@@ -202,7 +141,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
-          new CheckYourAnswersHelper(cacheMap).businessSize(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).businessSize(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$Hirer.$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
@@ -218,7 +157,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
-          new CheckYourAnswersHelper(cacheMap).businessSize(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).businessSize(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$BusinessSizePage.checkYourAnswersLabel",
               answers = BusinessSize.values.map( x => AnswerRow(
@@ -237,7 +176,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).officeHolder mustBe None
+        new ResultPageHelper(UserAnswers("id")).officeHolder mustBe None
       }
     }
 
@@ -249,9 +188,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Worker answer row" in {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).officeHolder(messages, workerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).officeHolder(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.optimised.$OfficeHolderPage.checkYourAnswersLabel",
+                label = s"$Worker.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -262,9 +201,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Hirer answer row" in {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).officeHolder(messages, hirerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).officeHolder(messages, hirerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Hirer.optimised.$OfficeHolderPage.checkYourAnswersLabel",
+                label = s"$Hirer.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -275,9 +214,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Hirer answer row" in {
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
+            new ResultPageHelper(cacheMap).officeHolder mustBe
               Some(AnswerRow(
-                label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
+                label = s"$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -289,9 +228,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1,false)
-          new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
+          new ResultPageHelper(cacheMap).officeHolder mustBe
             Some(AnswerRow(
-              label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
+              label = s"$OfficeHolderPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true
             ))
@@ -305,7 +244,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).workerType mustBe None
+        new ResultPageHelper(UserAnswers("id")).workerType mustBe None
       }
     }
 
@@ -315,10 +254,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new CheckYourAnswersHelper(cacheMap).workerType(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).workerType(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$WorkerTypePage.$LimitedCompany",
+              label = s"$Worker.$WorkerTypePage.checkYourAnswersLabel",
+              answer = s"$Worker.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true
             ))
         }
@@ -328,10 +267,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new CheckYourAnswersHelper(cacheMap).workerType(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).workerType(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$WorkerTypePage.$LimitedCompany",
+              label = s"$Hirer.$WorkerTypePage.checkYourAnswersLabel",
+              answer = s"$Hirer.$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true
             ))
         }
@@ -341,10 +280,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new CheckYourAnswersHelper(cacheMap).workerType(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).workerType(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"optimised.$WorkerTypePage.$LimitedCompany",
+              label = s"$WorkerTypePage.checkYourAnswersLabel",
+              answer = s"$WorkerTypePage.$LimitedCompany",
               answerIsMessageKey = true
             ))
         }
@@ -357,7 +296,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).aboutYou mustBe None
+        new ResultPageHelper(UserAnswers("id")).aboutYou mustBe None
       }
     }
 
@@ -365,7 +304,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
       "Return correctly formatted answer row" in {
         val cacheMap = UserAnswers("id").set(AboutYouPage, 1, AboutYouAnswer.Worker)
-        new CheckYourAnswersHelper(cacheMap).aboutYou mustBe
+        new ResultPageHelper(cacheMap).aboutYou mustBe
           Some(AnswerRow(
             label = s"$AboutYouPage.checkYourAnswersLabel",
             answer = s"$AboutYouPage.${AboutYouAnswer.Worker}",
@@ -380,7 +319,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).contractStarted mustBe None
+        new ResultPageHelper(UserAnswers("id")).contractStarted mustBe None
       }
     }
 
@@ -392,9 +331,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted answer row" in {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, workerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).contractStarted(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                label = s"$Worker.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -405,9 +344,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted answer row" in {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, hirerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).contractStarted(messages, hirerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                label = s"$Hirer.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -418,9 +357,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted answer row" in {
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, fakeRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).contractStarted(messages, fakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
+                label = s"$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -432,9 +371,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ContractStartedPage, 1,false)
-          new CheckYourAnswersHelper(cacheMap).contractStarted mustBe
+          new ResultPageHelper(cacheMap).contractStarted mustBe
             Some(AnswerRow(
-              label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
+              label = s"$ContractStartedPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true
             ))
@@ -448,7 +387,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).arrangedSubstitute mustBe None
+        new ResultPageHelper(UserAnswers("id")).arrangedSubstitute mustBe None
       }
     }
 
@@ -458,10 +397,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
-          new CheckYourAnswersHelper(cacheMap).arrangedSubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"$Worker.$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Worker.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true
             ))
         }
@@ -471,10 +410,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
-          new CheckYourAnswersHelper(cacheMap).arrangedSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"$Hirer.$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Hirer.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true
             ))
         }
@@ -484,10 +423,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
-          new CheckYourAnswersHelper(cacheMap).arrangedSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).arrangedSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"optimised.$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true
             ))
         }
@@ -500,7 +439,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).benefits mustBe None
+        new ResultPageHelper(UserAnswers("id")).benefits mustBe None
       }
     }
 
@@ -512,9 +451,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Worker answer row" in {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).benefits(messages, workerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).benefits(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.optimised.$BenefitsPage.checkYourAnswersLabel",
+                label = s"$Worker.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -525,9 +464,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Hirer answer row" in {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).benefits(messages, hirerRequest, frontendAppConfig) mustBe
+            new ResultPageHelper(cacheMap).benefits(messages, hirerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Hirer.optimised.$BenefitsPage.checkYourAnswersLabel",
+                label = s"$Hirer.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -538,9 +477,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
           "Return correctly formatted Hirer answer row" in {
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).benefits mustBe
+            new ResultPageHelper(cacheMap).benefits mustBe
               Some(AnswerRow(
-                label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
+                label = s"$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true
               ))
@@ -552,9 +491,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(BenefitsPage, 1,false)
-          new CheckYourAnswersHelper(cacheMap).benefits mustBe
+          new ResultPageHelper(cacheMap).benefits mustBe
             Some(AnswerRow(
-              label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
+              label = s"$BenefitsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true
             ))
@@ -568,7 +507,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).chooseWhereWork mustBe None
+        new ResultPageHelper(UserAnswers("id")).chooseWhereWork mustBe None
       }
     }
 
@@ -578,10 +517,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
-          new CheckYourAnswersHelper(cacheMap).chooseWhereWork(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).chooseWhereWork(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"$Worker.$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"$Worker.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true
             ))
         }
@@ -591,10 +530,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
-          new CheckYourAnswersHelper(cacheMap).chooseWhereWork(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).chooseWhereWork(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"$Hirer.$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"$Hirer.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true
             ))
         }
@@ -604,10 +543,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
-          new CheckYourAnswersHelper(cacheMap).chooseWhereWork(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).chooseWhereWork(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"optimised.$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true
             ))
         }
@@ -620,7 +559,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).didPaySubstitute mustBe None
+        new ResultPageHelper(UserAnswers("id")).didPaySubstitute mustBe None
       }
     }
 
@@ -630,9 +569,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).didPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).didPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -643,9 +582,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).didPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).didPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Hirer.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -656,9 +595,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).didPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).didPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -672,7 +611,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).howWorkerIsPaid mustBe None
+        new ResultPageHelper(UserAnswers("id")).howWorkerIsPaid mustBe None
       }
     }
 
@@ -682,10 +621,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
-          new CheckYourAnswersHelper(cacheMap).howWorkerIsPaid(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$HowWorkerIsPaidPage.$Commission",
+              label = s"$Worker.$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"$Worker.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true
             ))
         }
@@ -695,10 +634,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
-          new CheckYourAnswersHelper(cacheMap).howWorkerIsPaid(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$HowWorkerIsPaidPage.$Commission",
+              label = s"$Hirer.$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"$Hirer.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true
             ))
         }
@@ -708,10 +647,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
-          new CheckYourAnswersHelper(cacheMap).howWorkerIsPaid(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkerIsPaid(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"optimised.$HowWorkerIsPaidPage.$Commission",
+              label = s"$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true
             ))
         }
@@ -724,7 +663,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).howWorkIsDone mustBe None
+        new ResultPageHelper(UserAnswers("id")).howWorkIsDone mustBe None
       }
     }
 
@@ -734,10 +673,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
-          new CheckYourAnswersHelper(cacheMap).howWorkIsDone(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkIsDone(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"$Worker.$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"$Worker.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true
             ))
         }
@@ -747,10 +686,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
-          new CheckYourAnswersHelper(cacheMap).howWorkIsDone(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkIsDone(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"$Hirer.$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"$Hirer.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true
             ))
         }
@@ -760,10 +699,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
-          new CheckYourAnswersHelper(cacheMap).howWorkIsDone(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).howWorkIsDone(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true
             ))
         }
@@ -776,7 +715,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).identifyToStakeholders mustBe None
+        new ResultPageHelper(UserAnswers("id")).identifyToStakeholders mustBe None
       }
     }
 
@@ -786,10 +725,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"$Worker.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Worker.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true
             ))
         }
@@ -799,10 +738,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"$Hirer.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Hirer.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true
             ))
         }
@@ -812,10 +751,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).identifyToStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true
             ))
         }
@@ -828,7 +767,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).interactWithStakeholders mustBe None
+        new ResultPageHelper(UserAnswers("id")).interactWithStakeholders mustBe None
       }
     }
 
@@ -838,9 +777,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).interactWithStakeholders(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
+              label = s"$Worker.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -851,9 +790,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).interactWithStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
+              label = s"$Hirer.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -864,9 +803,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(InteractWithStakeholdersPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).interactWithStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).interactWithStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
+              label = s"$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -880,7 +819,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).lineManagerDuties mustBe None
+        new ResultPageHelper(UserAnswers("id")).lineManagerDuties mustBe None
       }
     }
 
@@ -890,9 +829,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).lineManagerDuties(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).lineManagerDuties(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"$Worker.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -903,9 +842,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).lineManagerDuties(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).lineManagerDuties(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"$Hirer.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -916,9 +855,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).lineManagerDuties(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).lineManagerDuties(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -932,7 +871,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).moveWorker mustBe None
+        new ResultPageHelper(UserAnswers("id")).moveWorker mustBe None
       }
     }
 
@@ -942,10 +881,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
-          new CheckYourAnswersHelper(cacheMap).moveWorker(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).moveWorker(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"$Worker.$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"$Worker.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true
             ))
         }
@@ -955,10 +894,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
-          new CheckYourAnswersHelper(cacheMap).moveWorker(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).moveWorker(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"$Hirer.$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"$Hirer.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true
             ))
         }
@@ -968,10 +907,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
-          new CheckYourAnswersHelper(cacheMap).moveWorker(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).moveWorker(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true
             ))
         }
@@ -984,7 +923,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).neededToPayHelper mustBe None
+        new ResultPageHelper(UserAnswers("id")).neededToPayHelper mustBe None
       }
     }
 
@@ -994,9 +933,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).neededToPayHelper(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).neededToPayHelper(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"$Worker.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -1007,9 +946,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).neededToPayHelper(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).neededToPayHelper(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"$Hirer.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -1020,9 +959,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).neededToPayHelper(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).neededToPayHelper(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -1036,7 +975,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).rejectSubstitute mustBe None
+        new ResultPageHelper(UserAnswers("id")).rejectSubstitute mustBe None
       }
     }
 
@@ -1046,10 +985,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).rejectSubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = "site.no",
+              label = s"$Worker.$RejectSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Worker.$RejectSubstitutePage.yes",
               answerIsMessageKey = true
             ))
         }
@@ -1059,10 +998,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).rejectSubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = "site.no",
+              label = s"$Hirer.$RejectSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Hirer.$RejectSubstitutePage.yes",
               answerIsMessageKey = true
             ))
         }
@@ -1072,10 +1011,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).rejectSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$RejectSubstitutePage.checkYourAnswersLabel",
-              answer = "site.no",
+              label = s"$RejectSubstitutePage.checkYourAnswersLabel",
+              answer = s"$RejectSubstitutePage.yes",
               answerIsMessageKey = true
             ))
         }
@@ -1088,7 +1027,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).wouldWorkerPaySubstitute mustBe None
+        new ResultPageHelper(UserAnswers("id")).wouldWorkerPaySubstitute mustBe None
       }
     }
 
@@ -1098,9 +1037,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).wouldWorkerPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -1111,9 +1050,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).wouldWorkerPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, hirerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Hirer.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Hirer.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
@@ -1124,9 +1063,9 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
         "Return correctly formatted answer row" in {
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
-          new CheckYourAnswersHelper(cacheMap).wouldWorkerPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
+          new ResultPageHelper(cacheMap).wouldWorkerPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true
             ))
