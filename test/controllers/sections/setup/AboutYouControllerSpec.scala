@@ -16,31 +16,21 @@
 
 package controllers.sections.setup
 
-import akka.util.ByteString
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import connectors.mocks.MockDataCacheConnector
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models._
 import models.requests.DataRequest
-import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Mockito.when
-import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WhichDescribesYouPage}
+import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json._
-import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
-
-import scala.concurrent.Future
 
 class AboutYouControllerSpec extends ControllerSpecBase {
 

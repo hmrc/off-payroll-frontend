@@ -18,7 +18,6 @@ package services
 
 import base.SpecBase
 import models.ArrangedSubstitute.YesClientAgreed
-import models.BusinessSize.Turnover
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.NoWorkerInputAllowed
@@ -52,7 +51,6 @@ class CheckYourAnswersServiceSpec extends SpecBase {
         .set(WhichDescribesYouPage,0, WorkerPAYE)
         .set(WorkerUsingIntermediaryPage,1, true)
         .set(IsWorkForPrivateSectorPage,2, true)
-        .set(BusinessSizePage,3, Seq(Turnover))
         .set(ContractStartedPage, 4, true)
         //Exit Section
         .set(OfficeHolderPage, 5, true)
@@ -93,7 +91,6 @@ class CheckYourAnswersServiceSpec extends SpecBase {
               CheckYourAnswersHelper.aboutYouOptimised.map(_ -> None),
               CheckYourAnswersHelper.workerTypeOptimised.map(_ -> None),
               CheckYourAnswersHelper.isWorkForPrivateSector.map(_ -> None),
-              CheckYourAnswersHelper.businessSize.map(_ -> None),
               CheckYourAnswersHelper.contractStarted.map(_ -> None)
             ).flatten
           ),

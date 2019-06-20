@@ -26,7 +26,6 @@ import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.BusinessSize.{BalanceSheet, NoneOfAbove, Turnover}
 import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
 import models._
 import pages._

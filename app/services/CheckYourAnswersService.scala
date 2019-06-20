@@ -36,7 +36,6 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
           checkYourAnswersHelper.aboutYouOptimised.map(_ -> None),
           checkYourAnswersHelper.workerTypeOptimised.map(_ -> None),
           checkYourAnswersHelper.isWorkForPrivateSector.map(_ -> None),
-          checkYourAnswersHelper.businessSize.map(_ -> None),
           checkYourAnswersHelper.contractStarted.map(_ -> None)
         ).flatten
       ),

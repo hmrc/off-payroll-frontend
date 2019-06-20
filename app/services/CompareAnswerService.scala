@@ -63,7 +63,6 @@ class CompareAnswerService {
     "aboutYou" -> AboutYouPage,
     "whichDescribesYou" -> WhichDescribesYouPage,
     "contractStarted" -> ContractStartedPage,
-    "businessSize" -> BusinessSizePage,
     TurnoverOverPage.toString -> TurnoverOverPage,
     EmployeesOverPage.toString -> EmployeesOverPage,
     BalanceSheetOverPage.toString -> BalanceSheetOverPage,

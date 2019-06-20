@@ -16,12 +16,8 @@
 
 package controllers.sections.personalService
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
-import controllers.BaseController
 import controllers.actions._
 import controllers.{BaseController, ControllerHelper}
 import forms.RejectSubstituteFormProvider
@@ -29,12 +25,9 @@ import javax.inject.Inject
 import models.Mode
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.sections.personalService.RejectSubstituteView
-import play.api.i18n.Messages
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.CompareAnswerService
+import views.html.sections.personalService.RejectSubstituteView
 import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 import scala.concurrent.Future
