@@ -18,8 +18,8 @@ package controllers.sections.financialRisk
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
+import controllers.BaseController
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
 import forms.OtherExpensesFormProvider
 import javax.inject.Inject
 import models.Mode
@@ -27,21 +27,23 @@ import navigation.Navigator
 import pages.OtherExpensesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CompareAnswerService, DecisionService}
 import views.html.sections.financialRisk.OtherExpensesView
 
 import scala.concurrent.Future
 
 class OtherExpensesController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: OtherExpensesFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         controllerHelper: ControllerHelper,
-                                         view: OtherExpensesView,
-                                         implicit val appConfig: FrontendAppConfig
-                                         ) extends BaseController(controllerComponents) {
+                                        navigator: Navigator,
+                                        identify: IdentifierAction,
+                                        getData: DataRetrievalAction,
+                                        requireData: DataRequiredAction,
+                                        formProvider: OtherExpensesFormProvider,
+                                        controllerComponents: MessagesControllerComponents,
+                                        view: OtherExpensesView,
+                                        compareAnswerService: CompareAnswerService,
+                                        decisionService: DecisionService,
+                                        implicit val appConfig: FrontendAppConfig
+                                       ) extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 
@@ -52,7 +54,7 @@ class OtherExpensesController @Inject()(dataCacheConnector: DataCacheConnector,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode, value, OtherExpensesPage)
+      value => redirect(mode, value, OtherExpensesPage)
     )
   }
 }
