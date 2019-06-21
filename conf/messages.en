@@ -1254,8 +1254,9 @@ toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include
 ## ----------------------
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What to do next
-optimised.result.download.h2 = Download a copy of this result
-optimised.result.download.p1 = You can download a copy of your answers and this result to keep for your records.
+optimised.result.download.h2 = Do you want a copy of this result?
+optimised.result.download.p1 = You can download a document that will show your answers, the result, today’s date and time of completion. You can also add details to the document to help reference it for your future use.
+optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 
 ## Office Holder PAYE
@@ -1474,3 +1475,19 @@ worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your busines
 worker.optimised.result.outside.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
 worker.optimised.result.outside.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
 ## ------------------
+
+downloadPDFCopy.error.required = You need to select an answer
+
+addReferenceDetails.error.required = You need to select an answer
+addReferenceDetails.title = Do you want to add some reference details to this document?
+addReferenceDetails.heading = Do you want to add some reference details to this document?
+addReferenceDetails.yourRecordsOnly = This is for your records only, HMRC will not keep these details.
+addReferenceDetails.example = For example, contract information, job title or hiring department.
+
+addDetails.title =Add details
+addDetails.heading =Add details
+addDetails.name=Your name
+addDetails.client=Name of end client issuing the contract and/or agency
+addDetails.job=Contract or role title
+addDetails.reference=Other reference details
+addDetails.charLimit =180 characters maximum

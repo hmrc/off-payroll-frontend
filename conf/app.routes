@@ -149,3 +149,6 @@ POST       /business-size/edit                          controllers.sections.set
 
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad()
 POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit()
+
+GET        /beans                                       controllers.AddReferenceDetailsController.onPageLoad()
+POST       /beans                                       controllers.AddReferenceDetailsController.onSubmit()

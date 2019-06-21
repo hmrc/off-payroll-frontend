@@ -20,24 +20,34 @@
 @import models.requests.DataRequest
 @import models.UserType.Hirer
 
+@import controllers.routes._
+
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call, isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm(tailorMsgOptimised("result.inside.ir35.title")), appConfig = appConfig) {
+@mainTemplate(title(form, tailorMsgOptimised("result.inside.ir35.title")), appConfig = appConfig) {
+
+    @components.error_summary(form.errors)
 
     @components.teal_result(
         Html(messages(tailorMsgOptimised("result.inside.ir35.heading"))),
         Some(Html(messages(tailorMsgOptimised("result.inside.ir35.subHeading"))))
     )
 
-    @formWithCsrf(postAction, 'autoComplete -> "off") {
+    @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
 
         @results.sections.why_result(whyResult)
 
         @results.sections.do_next(doNext)
 
         @results.sections.download()
+
+        @components.input_yes_no(
+            field = form("value"),
+            label = messages(tailorMsgOptimised("result.inside.ir35.heading")),
+            labelClass = Some("visually-hidden")
+        )
 
         @components.submit_button("site.continue")
     }

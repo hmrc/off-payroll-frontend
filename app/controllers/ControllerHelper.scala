@@ -41,26 +41,28 @@ class ControllerHelper @Inject()(compareAnswerService: CompareAnswerService,
                                  decisionConnector: DecisionConnector,
                                  optimisedDecisionService: OptimisedDecisionService
                                 )(implicit val appConf: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
+
   def redirect[T](mode: Mode,
                   value: T,
                   page: QuestionPage[T],
-                  callDecisionService: Boolean = false)(implicit request: DataRequest[AnyContent],
-                                                 reads: Reads[T],
-                                                 writes: Writes[T],
-                                                 aWrites: Writes[Answers[T]],
-                                                 aReads: Reads[Answers[T]]): Future[Result] = {
+                  callDecisionService: Boolean = false)
+                 (implicit request: DataRequest[AnyContent],
+                  reads: Reads[T],
+                  writes: Writes[T],
+                  aWrites: Writes[Answers[T]],
+                  aReads: Reads[Answers[T]]): Future[Result] = {
 
-    val answers = compareAnswerService.constructAnswers(request,value,page)
+    val answers = compareAnswerService.constructAnswers(request, value, page)
     dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
       val call = navigator.nextPage(page, mode)(answers)
-      (callDecisionService,isEnabled(OptimisedFlow)) match {
-          //early exit office holder
+      (callDecisionService, isEnabled(OptimisedFlow)) match {
+        //early exit office holder
         case _ if page == OfficeHolderPage => decisionService.decide(answers, call)
-          //don't call decision every time, only once at the end (opt flow)
-        case (true,true) => Future.successful(Redirect(call))
-          //if not calling decision, carry on
-        case (false,_) => Future.successful(Redirect(call))
-          //anything else calls decision
+        //don't call decision every time, only once at the end (opt flow)
+        case (true, true) => Future.successful(Redirect(call))
+        //if not calling decision, carry on
+        case (false, _) => Future.successful(Redirect(call))
+        //anything else calls decision
         case _ => decisionService.decide(answers, call)
       }
     }

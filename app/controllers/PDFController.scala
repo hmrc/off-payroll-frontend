@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, PrintPDF}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow, PrintPDF}
 import connectors.DataCacheConnector
 import connectors.httpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
@@ -28,11 +28,13 @@ import models.Answers._
 import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Mode, Timestamp}
 import navigation.Navigator
-import pages.{CustomisePDFPage, ResultPage}
+import pages.{CustomisePDFPage, ResultPage, Timestamp}
+import play.api.data.Form
 import play.api.mvc._
+import play.twirl.api.HtmlFormat
 import services.{DecisionService, PDFService}
 import utils.UserAnswersUtils
-import views.html.CustomisePDFView
+import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.Future
 
@@ -44,23 +46,29 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               formProvider: CustomisePDFFormProvider,
                               controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
+                              addDetailsView: AddDetailsView,
                               decisionService: DecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
                               time: Timestamp,
-                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching with UserAnswersUtils {
+                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents)
+  with FeatureSwitching with UserAnswersUtils {
 
-  val form = formProvider()
+  val form: Form[AdditionalPdfDetails] = formProvider()
+
+  private def view(form: Form[AdditionalPdfDetails], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) addDetailsView(appConfig, form, mode) else customisePdfView(appConfig, form, mode)
+
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(customisePdfView(appConfig, fillForm(CustomisePDFPage, form), mode))
+    Ok(view(fillForm(CustomisePDFPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
       additionalData => {
-        val timestamp = request.userAnswers.get(ResultPage)
+        val timestamp = request.userAnswers.get(Timestamp)
         printResult(additionalData, time.timestamp(timestamp.map(_.answer)))
       }
     )

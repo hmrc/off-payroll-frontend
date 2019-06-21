@@ -16,16 +16,16 @@
 
 package models
 
-import play.api.mvc.Call
+import play.api.data.Form
 
-case class ResultsDetails(action: Call,
-                          officeHolderAnswer: Boolean,
+case class ResultsDetails(officeHolderAnswer: Boolean,
                           privateSector: Boolean,
                           usingIntermediary: Boolean,
                           userType: Option[UserType],
                           personalServiceOption: Option[WeightedAnswerEnum.Value] = None,
                           controlOption: Option[WeightedAnswerEnum.Value] = None,
-                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None) {
+                          financialRiskOption: Option[WeightedAnswerEnum.Value] = None,
+                          form: Form[Boolean]) {
 
   def isAgent: Boolean = userType.contains(UserType.Agency)
 }

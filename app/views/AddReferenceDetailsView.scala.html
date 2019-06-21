@@ -16,44 +16,41 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
-@import views.ViewUtils._
 @import controllers.routes._
+@import models.Mode
+@import views.ViewUtils._
 
-@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(title(form, "agent.optimised.result.officeHolder.title"), appConfig = appConfig) {
+@mainTemplate(
+    title = title(form, messages("addReferenceDetails.title")),
+    appConfig = appConfig,
+    bodyClasses = None) {
 
-    @components.error_summary(form.errors)
+    @components.back_link()
 
-    @components.teal_result(
-        Html(messages("agent.optimised.result.officeHolder.heading")),
-        Some(Html(messages("agent.optimised.result.officeHolder.subHeading")))
-    )
+    @formWithCsrf(action = AddReferenceDetailsController.onSubmit(), 'autoComplete -> "off") {
 
-    @formWithCsrf(action = ResultController.onSubmit, 'autoComplete -> "off") {
+        @components.error_summary(form.errors)
 
-        @results.sections.why_result(whyResult)
+        @components.heading(messages("addReferenceDetails.heading"))
 
-        @results.sections.do_next(doNext)
+        <p>@messages("addReferenceDetails.yourRecordsOnly")</p>
 
-        @results.sections.download()
+        @components.panel_indent(panel)
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("agent.optimised.result.officeHolder.heading"),
+            label = messages("addReferenceDetails.heading"),
             labelClass = Some("visually-hidden")
         )
 
-        @components.submit_button("site.continue")
+        @components.submit_button()
     }
 }
 
-@whyResult = {
-    <p>@messages("agent.optimised.result.officeHolder.whyResult.p1")</p>
-}
-
-@doNext = {
-    <p>@messages("agent.optimised.result.officeHolder.doNext.p1")</p>
+@panel = {
+    <p>@messages("addReferenceDetails.example")</p>
 }

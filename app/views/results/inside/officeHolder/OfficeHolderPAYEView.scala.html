@@ -18,24 +18,34 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 
+@import controllers.routes._
+
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(titleNoForm(tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig) {
+@mainTemplate(title(form, tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig) {
+
+    @components.error_summary(form.errors)
 
     @components.teal_result(
         Html(messages(tailorMsgOptimised("result.officeHolder.paye.heading"))),
         Some(Html(messages(tailorMsgOptimised("result.officeHolder.paye.subHeading"))))
     )
 
-    @formWithCsrf(postAction, 'autoComplete -> "off") {
+    @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
 
         @results.sections.why_result(whyResult)
 
         @results.sections.do_next(doNext)
 
         @results.sections.download()
+
+        @components.input_yes_no(
+            field = form("value"),
+            label = messages(tailorMsgOptimised("result.officeHolder.paye.heading")),
+            labelClass = Some("visually-hidden")
+        )
 
         @components.submit_button("site.continue")
     }

@@ -172,7 +172,25 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
     //CYA/Results Page
     CheckYourAnswersPage -> (_ => routes.ResultController.onPageLoad()),
-    ResultPage -> (_ => routes.PDFController.onPageLoad(NormalMode))
+    ResultPage -> { answer =>
+
+      if (isEnabled(OptimisedFlow)) {
+        answer.get(ResultPage) match {
+          case Some(Answers(true, _)) => routes.AddReferenceDetailsController.onPageLoad()
+          case _ => routes.IndexController.onPageLoad()
+        }
+      } else {
+        routes.PDFController.onPageLoad(NormalMode)
+      }
+    },
+
+    AddReferenceDetailsPage -> {
+      answer =>
+        answer.get(AddReferenceDetailsPage) match {
+          case Some(Answers(true, _)) => routes.PDFController.onPageLoad(NormalMode)
+          case _ => routes.IndexController.onPageLoad()
+        }
+    }
   )
 
   private val checkRouteMap: Map[Page, UserAnswers => Call] = Map()

@@ -22,13 +22,14 @@ import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DecisionConnector
 import controllers.routes
-import forms.DeclarationFormProvider
+import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
 import models._
 import models.requests.DataRequest
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup.{IsWorkForPrivateSectorPage, WorkerUsingIntermediaryPage}
+import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, Call, Request}
 import play.mvc.Http.Status._
@@ -45,7 +46,7 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          errorHandler: ErrorHandler,
-                                         formProvider: DeclarationFormProvider,
+                                         formProvider: DownloadPDFCopyFormProvider,
                                          val officeAgency: OfficeHolderAgentView,
                                          val officeIR35: OfficeHolderIR35View,
                                          val officePAYE: OfficeHolderPAYEView,
@@ -59,6 +60,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val outsideIR35: IR35OutsideView,
                                          val outsidePAYE: PAYEOutsideView,
                                          implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
+
+  val defaultForm: Form[Boolean] = formProvider()
 
   private[services] def collateDecisions(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
     val interview = Interview(request.userAnswers)
@@ -99,7 +102,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT, "No log needed")))
     }
 
-  def determineResultView(postAction: Call)(implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
+  def determineResultView(formWithErrors: Option[Form[Boolean]] = None)
+                         (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
+
+    val form = formWithErrors.getOrElse(defaultForm)
+
     collateDecisions.map {
       case Right(decision) => {
         val result = decision.result
@@ -111,7 +118,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
 
         implicit val resultsDetails: ResultsDetails =
-          ResultsDetails(postAction, officeHolderAnswer, privateSector, usingIntermediary, request.userType, personalService, control, financialRisk)
+          ResultsDetails(officeHolderAnswer, privateSector, usingIntermediary, request.userType, personalService, control, financialRisk, form)
 
         result match {
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
@@ -126,9 +133,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
-      case (_, true) => undeterminedAgency(result.action) // AGENT
-      case (true, _) => undeterminedIR35(result.action, result.privateSector) // IR35
-      case _ => undeterminedPAYE(result.action) // PAYE
+      case (_, true) => undeterminedAgency(result.form) // AGENT
+      case (true, _) => undeterminedIR35(result.form, result.privateSector) // IR35
+      case _ => undeterminedPAYE(result.form) // PAYE
     }
   }
 
@@ -139,11 +146,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
-        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
+        outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
       case (true, _) =>
-        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
+        outsideIR35(result.form, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
       case _ =>
-        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
+        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
     }
   }
 
@@ -152,15 +159,15 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
     (result.usingIntermediary, result.userType) match {
-      case (_, Some(UserType.Agency)) => insideAgent(result.action) // AGENT
-      case (true, _) => insideIR35(result.action, result.privateSector) // IR35
-      case _ => insidePAYE(result.action) // PAYE
+      case (_, Some(UserType.Agency)) => insideAgent(result.form) // AGENT
+      case (true, _) => insideIR35(result.form, result.privateSector) // IR35
+      case _ => insidePAYE(result.form) // PAYE
     }
 
   private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
     (result.usingIntermediary, result.isAgent) match {
-      case (_, true) => officeAgency(result.action) // AGENT
-      case (true, _) => officeIR35(result.action, result.privateSector) // IR35
-      case _ => officePAYE(result.action) // PAYE
+      case (_, true) => officeAgency(result.form) // AGENT
+      case (true, _) => officeIR35(result.form, result.privateSector) // IR35
+      case _ => officePAYE(result.form) // PAYE
     }
 }
