@@ -142,11 +142,6 @@ POST       /hirer-advisory                              controllers.sections.set
 
 GET        /you-have-left-the-tool                      controllers.sections.setup.LeaveController.onPageLoad()
 
-GET        /business-size                               controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = NormalMode)
-POST       /business-size                               controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = NormalMode)
-GET        /business-size/edit                          controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = CheckMode)
-POST       /business-size/edit                          controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = CheckMode)
-
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad()
 POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit()
 

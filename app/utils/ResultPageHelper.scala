@@ -17,8 +17,7 @@
 package utils
 
 import config.FrontendAppConfig
-import models.{BusinessSize, CannotClaimAsExpense, Enumerable, UserAnswers}
-import pages._
+import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -194,19 +193,6 @@ class ResultPageHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
         )
       )
     }
-
-  def businessSize(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(BusinessSizePage).map { x =>
-    AnswerRow(
-      label = tailorMsg(s"$BusinessSizePage.checkYourAnswersLabel"),
-      answers = BusinessSize.values.map ( value =>
-        AnswerRow(
-          label = s"$BusinessSizePage.$value",
-          if(x.answer.contains(value)) "site.yes" else "site.no",
-          answerIsMessageKey = true
-        )
-      )
-    )
-  }
 
   def officeHolder(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(OfficeHolderPage) map { x =>

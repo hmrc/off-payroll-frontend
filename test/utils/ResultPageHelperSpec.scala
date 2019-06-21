@@ -19,14 +19,7 @@ package utils
 import _root_.models.UserType._
 import base.SpecBase
 import config.SessionKeys
-import controllers.sections.control.{routes => contolRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
 import models.ArrangedSubstitute.YesClientAgreed
-import models.BusinessSize.Turnover
 import models.CannotClaimAsExpense.WorkerUsedVehicle
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.NoWorkerInputAllowed
@@ -34,13 +27,13 @@ import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.WorkerType.LimitedCompany
-import models.{AboutYouAnswer, Enumerable, UserAnswers, _}
+import models.{AboutYouAnswer, Enumerable, UserAnswers}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.Json
 import viewmodels.AnswerRow
 
@@ -102,67 +95,6 @@ class ResultPageHelperSpec extends SpecBase with Enumerable.Implicits {
               answers = Seq(AnswerRow(
                 label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel",
                 answer = s"$CannotClaimAsExpensePage.$WorkerUsedVehicle",
-                answerIsMessageKey = true
-              ))
-            ))
-        }
-      }
-    }
-  }
-
-  ".businessSize" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new ResultPageHelper(UserAnswers("id")).businessSize mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" should {
-
-      "if the user is of type Worker" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
-          new ResultPageHelper(cacheMap).businessSize(messages, workerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Worker.$BusinessSizePage.checkYourAnswersLabel",
-              answers = BusinessSize.values.map( x => AnswerRow(
-                label = s"$BusinessSizePage.$x",
-                answer = if(x==Turnover) "site.yes" else "site.no",
-                answerIsMessageKey = true
-              ))
-            ))
-        }
-      }
-
-      "if the user is of type Hirer" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
-          new ResultPageHelper(cacheMap).businessSize(messages, hirerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Hirer.$BusinessSizePage.checkYourAnswersLabel",
-              answers = BusinessSize.values.map( x => AnswerRow(
-                label = s"$BusinessSizePage.$x",
-                answer = if(x==Turnover) "site.yes" else "site.no",
-                answerIsMessageKey = true
-              ))
-            ))
-        }
-      }
-
-      "if the user is not set" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(BusinessSizePage, 1, Seq(Turnover))
-          new ResultPageHelper(cacheMap).businessSize(messages, fakeRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$BusinessSizePage.checkYourAnswersLabel",
-              answers = BusinessSize.values.map( x => AnswerRow(
-                label = s"$BusinessSizePage.$x",
-                answer = if(x==Turnover) "site.yes" else "site.no",
                 answerIsMessageKey = true
               ))
             ))

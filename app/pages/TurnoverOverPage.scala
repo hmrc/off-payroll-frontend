@@ -18,5 +18,5 @@ package pages
 
 case object TurnoverOverPage extends QuestionPage[Boolean] {
 
-  override def toString: String = "turnoverOverController"
+  override def toString: String = "turnoverOver"
 }

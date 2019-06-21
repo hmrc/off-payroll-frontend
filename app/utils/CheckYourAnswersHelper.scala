@@ -17,7 +17,8 @@
 package utils
 
 import config.FrontendAppConfig
-import models.{BusinessSize, CannotClaimAsExpense, Enumerable, UserAnswers}
+import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
+import pages.{BalanceSheetOverPage, EmployeesOverPage, EquipmentExpensesPage, MaterialsPage, OtherExpensesPage, TurnoverOverPage, VehiclePage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -30,6 +31,33 @@ import viewmodels.AnswerRow
 import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
+
+  def turnoverOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(TurnoverOverPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$TurnoverOverPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def employeesOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(EmployeesOverPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$EmployeesOverPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def balanceSheetOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(BalanceSheetOverPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$BalanceSheetOverPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
 
   def didPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(DidPaySubstitutePage) map { x =>
@@ -180,6 +208,42 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       )
     }
 
+  def materialsExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(MaterialsPage) map { x =>
+      AnswerRow(
+        tailorMsg("materials.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def vehicleExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(VehiclePage) map { x =>
+      AnswerRow(
+        tailorMsg("vehicle.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def equipmentExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(EquipmentExpensesPage) map { x =>
+      AnswerRow(
+        tailorMsg("equipmentExpenses.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def otherExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(OtherExpensesPage) map { x =>
+      AnswerRow(
+        tailorMsg("otherExpenses.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
   def cannotClaimAsExpenseOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(CannotClaimAsExpensePage) map { x =>
       AnswerRow(
@@ -193,19 +257,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         )
       )
     }
-
-  def businessSize(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(BusinessSizePage).map { x =>
-    AnswerRow(
-      label = tailorMsg(s"$BusinessSizePage.checkYourAnswersLabel"),
-      answers = BusinessSize.values.map ( value =>
-        AnswerRow(
-          label = s"$BusinessSizePage.$value",
-          if(x.answer.contains(value)) "site.yes" else "site.no",
-          answerIsMessageKey = true
-        )
-      )
-    )
-  }
 
   def officeHolder(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(OfficeHolderPage) map { x =>

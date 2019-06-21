@@ -37,7 +37,9 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
           checkYourAnswersHelper.aboutYouOptimised.map(_ -> None),
           checkYourAnswersHelper.workerTypeOptimised.map(_ -> None),
           checkYourAnswersHelper.isWorkForPrivateSector.map(_ -> None),
-          checkYourAnswersHelper.businessSize.map(_ -> None),
+          checkYourAnswersHelper.turnoverOver.map(_ -> None),
+          checkYourAnswersHelper.employeesOver.map(_ -> None),
+          checkYourAnswersHelper.balanceSheetOver.map(_ -> None),
           checkYourAnswersHelper.contractStarted.map(_ -> None)
         ).flatten
       ),
@@ -67,7 +69,10 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
       AnswerSection(
         headingKey = Some("checkYourAnswers.financialRisk.header"),
         rows = Seq(
-          checkYourAnswersHelper.cannotClaimAsExpenseOptimised.map(_ -> None),
+          checkYourAnswersHelper.materialsExpenses.map(_ -> None),
+          checkYourAnswersHelper.vehicleExpenses.map(_ -> None),
+          checkYourAnswersHelper.equipmentExpenses.map(_ -> None),
+          checkYourAnswersHelper.otherExpenses.map(_ -> None),
           checkYourAnswersHelper.howWorkerIsPaid.map(_ -> None),
           checkYourAnswersHelper.putRightAtOwnCost.map(_ -> None)
         ).flatten
