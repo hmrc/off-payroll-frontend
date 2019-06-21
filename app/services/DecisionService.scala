@@ -199,6 +199,6 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   }
 
   private def getUserType(implicit request: DataRequest[_]) = {
-    request.session.get(SessionKeys.userType).getOrElse("unknown")
+    request.session.get(SessionKeys.userType).getOrElse("unknown").replace("\"","")
   }
 }

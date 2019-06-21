@@ -15,11 +15,11 @@
  *@
 
 @(message: Html, result: String, workerType: String, subMessage: Option[Html] = None)
+@*worker type is being wrapped in quotes when shown in the id*@
 
-@*worker type is being wrapped in quotes when shown in the id *@
-@defining(s"${workerType.tail.init}.$result") { id =>
+@defining(s"$workerType.$result") { id =>
 
-    <div class="govuk-box-highlight" id=@id>
+    <div class="govuk-box-highlight" id="@id">
         <h1 class="bold-xlarge">@message</h1>
         @subMessage.map { msg =>
             <p class="font-large">@msg</p>

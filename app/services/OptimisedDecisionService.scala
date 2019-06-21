@@ -125,7 +125,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   }
 
   private def getUserType(implicit request: DataRequest[_]) = {
-    request.session.get(SessionKeys.userType).getOrElse("unknown")
+    request.session.get(SessionKeys.userType).getOrElse("unknown").replace("\"","")
   }
 
   private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {

@@ -157,7 +157,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
 
-        val result = TestResultController.onPageLoad(fakeRequest.withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString))
+        val result = TestResultController.onPageLoad(fakeRequest
+          .withSession(SessionKeys.result -> ResultEnum.EMPLOYED.toString,SessionKeys.userType -> "worker"))
 
         status(result) mustBe OK
         contentAsString(result) mustBe viewAsString()
