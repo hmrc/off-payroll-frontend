@@ -43,7 +43,7 @@ class HirerAdvisoryControllerSpec extends ControllerSpecBase {
 
   def viewAsString = view(
     postAction = routes.HirerAdvisoryController.onSubmit(),
-    finishAction = routes.LeaveController.onPageLoad()
+    finishAction = controllers.routes.ExitSurveyController.redirectToExitSurvey()
   )(fakeRequest, messages, frontendAppConfig).toString
 
   "HirerAdvisory Controller" must {
