@@ -31,7 +31,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
   val view = injector.instanceOf[IR35InsideView]
 
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(postAction, isPrivateSector)(req, messages, frontendAppConfig)
+    view(postAction, isPrivateSector)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
   "The IR35InsideView page" should {
 

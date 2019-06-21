@@ -28,7 +28,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderPAYEView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
   "The OfficeHolderPAYEView page" should {
 

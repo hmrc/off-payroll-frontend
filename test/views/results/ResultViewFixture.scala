@@ -19,7 +19,7 @@ package views.results
 import akka.http.scaladsl.model.HttpMethods
 import config.featureSwitch.OptimisedFlow
 import models.AboutYouAnswer.Worker
-import models.AdditionalPdfDetails
+import models.{AdditionalPdfDetails, PDFResultDetails}
 import models.CannotClaimAsExpense.WorkerUsedVehicle
 import play.api.i18n.Messages
 import play.api.mvc.Call
@@ -47,8 +47,9 @@ trait ResultViewFixture extends ViewBehaviours {
       val p = (i: Int) => s"#doNext p:nth-of-type($i)"
     }
     object Download {
-      val h2 = (i: Int) => s"#download h2:nth-of-type($i)"
-      val p = (i: Int) => s"#download p:nth-of-type($i)"
+      val id = "#download"
+      val h2 = (i: Int) => s"$id h2:nth-of-type($i)"
+      val p = (i: Int) => s"$id p:nth-of-type($i)"
     }
   }
 
@@ -58,7 +59,9 @@ trait ResultViewFixture extends ViewBehaviours {
 
   val timestamp = FakeTimestamp.timestamp()
 
-  val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
+  val testAdditionalPdfDetails = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
+  implicit val testNoPdfResultDetails = PDFResultDetails()
+  lazy val testPdfResultDetails = PDFResultDetails(printMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 
   val answers = Seq(
     AnswerSection(Some(Messages("result.peopleInvolved.h2")), None, Seq(

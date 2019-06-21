@@ -34,7 +34,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true): HtmlFormat.Appendable =
-    view(postAction, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig)
+    view(postAction, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
   "The PAYEOutsideView page" should {
 

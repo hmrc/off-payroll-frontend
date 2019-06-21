@@ -27,7 +27,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEUndeterminedView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
   "The PAYEUndeterminedView page" should {
 

@@ -1605,3 +1605,12 @@ worker.equipmentExpenses.heading = Will you incur substantial equipment costs th
 worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
 worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
 
+
+##TODO: Need Welsh
+result.pdf.time = Date of result: {0} (UTC)
+result.pdf.customisedBy = Name of the person that completed this check:
+result.pdf.client = End client’s name:
+result.pdf.job = Engagement job title:
+result.pdf.reference = Reference:
+result.pdf.decisionVersion = Decision service version: {0}
+result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes

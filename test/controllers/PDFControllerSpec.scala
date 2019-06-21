@@ -30,7 +30,7 @@ import play.api.data.Form
 import play.api.libs.json.{JsString, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.DecisionService
+import services.{DecisionService, OptimisedDecisionService}
 import services.mocks.MockPDFService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
@@ -58,6 +58,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     customisePdfView,
     injector.instanceOf[DecisionService],
+    injector.instanceOf[OptimisedDecisionService],
     mockPDFService,
     errorHandler,
     FakeTimestamp,
