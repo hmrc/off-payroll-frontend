@@ -64,7 +64,7 @@ class ToolNotNeededControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val result = controller().onSubmit(fakeRequest)
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(controllers.sections.setup.routes.LeaveController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(controllers.routes.ExitSurveyController.redirectToExitSurvey().url)
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
