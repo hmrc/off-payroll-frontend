@@ -29,7 +29,7 @@ import models.ScheduleOfWorkingHours.ScheduleDecidedForWorker
 import models.WhichDescribesYouAnswer.WorkerPAYE
 import models._
 import models.requests.DataRequest
-import pages.{EmployeesOverPage, TurnoverOverPage}
+import pages.{EmployeesOverPage, EquipmentExpensesPage, MaterialsPage, OtherExpensesPage, TurnoverOverPage, VehiclePage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -70,14 +70,17 @@ class CheckYourAnswersServiceSpec extends SpecBase {
         .set(MoveWorkerPage, 15, CanMoveWorkerWithPermission)
         .set(ScheduleOfWorkingHoursPage, 16, ScheduleDecidedForWorker)
         //Financial Risk section
-        .set(CannotClaimAsExpensePage, 17, Seq(WorkerProvidedMaterials))
-        .set(HowWorkerIsPaidPage, 18, HourlyDailyOrWeekly)
-        .set(PutRightAtOwnCostPage, 19, OutsideOfHoursNoCosts)
+        .set(MaterialsPage, 17, true)
+        .set(VehiclePage, 18, true)
+        .set(EquipmentExpensesPage, 19, true)
+        .set(OtherExpensesPage, 20, true)
+        .set(HowWorkerIsPaidPage, 21, HourlyDailyOrWeekly)
+        .set(PutRightAtOwnCostPage, 22, OutsideOfHoursNoCosts)
         //Part and Parcel section
-        .set(BenefitsPage, 20, false)
-        .set(LineManagerDutiesPage, 21, false)
-        .set(InteractWithStakeholdersPage, 22, true)
-        .set(IdentifyToStakeholdersPage, 23, WorkForEndClient)
+        .set(BenefitsPage, 23, false)
+        .set(LineManagerDutiesPage, 24, false)
+        .set(InteractWithStakeholdersPage, 25, true)
+        .set(IdentifyToStakeholdersPage, 26, WorkForEndClient)
 
 
       lazy val request = DataRequest(fakeRequest, "id", userAnswers)
@@ -127,7 +130,10 @@ class CheckYourAnswersServiceSpec extends SpecBase {
           AnswerSection(
             headingKey = Some("checkYourAnswers.financialRisk.header"),
             rows = Seq(
-              CheckYourAnswersHelper.cannotClaimAsExpenseOptimised.map(_ -> None),
+              CheckYourAnswersHelper.materialsExpenses.map(_ -> None),
+              CheckYourAnswersHelper.vehicleExpenses.map(_ -> None),
+              CheckYourAnswersHelper.equipmentExpenses.map(_ -> None),
+              CheckYourAnswersHelper.otherExpenses.map(_ -> None),
               CheckYourAnswersHelper.howWorkerIsPaid.map(_ -> None),
               CheckYourAnswersHelper.putRightAtOwnCost.map(_ -> None)
             ).flatten
