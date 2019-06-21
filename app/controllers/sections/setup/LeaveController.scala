@@ -18,7 +18,7 @@ package controllers.sections.setup
 
 import javax.inject.Inject
 
-import config.FrontendAppConfig
+import config.{FrontendAppConfig, SessionKeys}
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseController
@@ -42,6 +42,6 @@ class LeaveController @Inject()(identify: IdentifierAction,
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view())
+    Ok(view(request.session.get(SessionKeys.userType).getOrElse("unknown")))
   }
 }

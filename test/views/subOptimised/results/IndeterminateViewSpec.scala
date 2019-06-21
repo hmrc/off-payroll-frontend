@@ -31,11 +31,11 @@ class IndeterminateViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IndeterminateView]
 
-  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(answers, version, form, postAction,"worker")(fakeRequest, messages, frontendAppConfig)
 
-  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
+  def createPrintView = () => view(answers, version, form, postAction,"worker", true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
 
-  def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
+  def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction,"worker")(req, messages, frontendAppConfig)
 
   "ResultPrintPage view" must {
     behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)

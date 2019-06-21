@@ -22,13 +22,14 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call, isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call, isPrivateSector: Boolean,workerType: String)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(titleNoForm(tailorMsgOptimised("result.officeHolder.ir35.title")), appConfig = appConfig) {
 
     @components.teal_result(
         Html(messages(tailorMsgOptimised("result.officeHolder.ir35.heading"))),
         "result.inside",
+        workerType,
         Some(Html(messages(tailorMsgOptimised("result.officeHolder.ir35.subHeading"))))
     )
 

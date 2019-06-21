@@ -31,7 +31,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
   val view = injector.instanceOf[IR35UndeterminedView]
 
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(postAction, isPrivateSector)(req, messages, frontendAppConfig)
+    view(postAction, isPrivateSector,"worker")(req, messages, frontendAppConfig)
 
   "The IR35UndeterminedView page" should {
 

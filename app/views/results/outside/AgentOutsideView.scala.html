@@ -21,14 +21,14 @@
     
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean,workerType: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig) {
 
     @components.teal_result(
         Html(messages("agent.optimised.result.outside.heading")),
         "result.outside",
-        None
+        workerType
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {

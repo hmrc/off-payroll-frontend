@@ -22,11 +22,12 @@
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
 @(answerSections: Seq[Section],
-version: String,
-form: Form[_],
-postAction: Call,
-printView: Boolean = false,
-additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+        version: String,
+        form: Form[_],
+        postAction: Call,
+        workerType: String,
+        printView: Boolean = false,
+        additionalPdfDetails: Option[AdditionalPdfDetails] = None,
         timestamp: Option[String] = None)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @defining(
@@ -47,7 +48,10 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 
         @components.error_summary(form.errors)
 
-        @components.teal_result(Html(messages("result.indeterminate.title")),"result.undetermined")
+        @components.teal_result(Html(messages("result.undetermined.title")),
+            "result.undetermined",
+            workerType
+        )
 
         @sections.should_now_do(shouldNowDoContent)
 
@@ -73,10 +77,10 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 
 @shouldNowDoContent = {
     <p>@messages("result.indeterminate.shouldNowDo.p1")</p>
-    @components.bulleted_list(Seq(
-        messages("result.indeterminate.shouldNowDo.bullet1"),
-        messages("result.indeterminate.shouldNowDo.bullet2")
-    ))
+@components.bulleted_list(Seq(
+    messages("result.indeterminate.shouldNowDo.bullet1"),
+    messages("result.indeterminate.shouldNowDo.bullet2")
+))
     <p>
         @messages("result.indeterminate.shouldNowDo.p2.beforeLink")
         @if(printView){

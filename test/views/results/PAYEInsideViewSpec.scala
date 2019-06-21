@@ -27,7 +27,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEInsideView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction,"worker")(req, messages, frontendAppConfig)
 
   "The PAYEInsideView page" should {
 

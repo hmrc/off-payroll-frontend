@@ -27,7 +27,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderAgentView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction,"worker")(req, messages, frontendAppConfig)
 
   "The OfficeHolderAgentView page" should {
 

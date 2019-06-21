@@ -25,7 +25,7 @@ class LeaveViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[LeaveView]
 
-  def createView = () => view()(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view("worker")(fakeRequest, messages, frontendAppConfig)
 
   "LeaveView" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)

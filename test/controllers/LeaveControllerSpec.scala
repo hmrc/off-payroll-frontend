@@ -38,7 +38,7 @@ class LeaveControllerSpec extends ControllerSpecBase {
     fakeNavigator,
     frontendAppConfig
   )
-  def viewAsString() = view()(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString() = view("worker")(fakeRequest, messages, frontendAppConfig).toString
 
   "LeaveController" must {
 

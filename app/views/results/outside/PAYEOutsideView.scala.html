@@ -23,12 +23,13 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean,workerType: String)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.outside.paye.heading"))),"result.outside"
+        Html(messages(tailorMsgOptimised("result.outside.paye.heading"))),"result.outside",
+        workerType
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
