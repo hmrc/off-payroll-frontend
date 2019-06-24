@@ -74,6 +74,7 @@ site.no = Na
 site.yes = Iawn
 ##### TODO NEED WELSH FOR ####
 site.finish = Finish
+site.exit = Exit
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
 site.accept_continue = Accept and continue
@@ -1214,10 +1215,11 @@ hirer.isWorkForPrivateSector.heading = In which sector is your organisation?
 hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is your organisation?
 
 ##### TODO NEED WELSH FOR ####
-workerAdvisory.title = You don’t need to answer any more questions
-workerAdvisory.heading = You don’t need to answer any more questions
-workerAdvisory.p1 = The organisation offering the work is responsible for determining if it should be in or out of IR35
-workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
+workerAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
+workerAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
+workerAdvisory.p1 = Because you told us this work is for a public sector body, they are responsible for determining its employment status for tax purposes.
+workerAdvisory.subheading = What to do next
+workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 ##### TODO NEED WELSH FOR ####
 hirer.businessSize.title = How large is your organisation? Tick all that apply

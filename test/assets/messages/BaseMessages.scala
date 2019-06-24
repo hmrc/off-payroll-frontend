@@ -23,5 +23,6 @@ trait BaseMessages {
   val continue = "Continue"
   val back = "Back"
   val finish = "Finish"
+  val exit = "Exit"
 
 }
