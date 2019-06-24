@@ -37,7 +37,7 @@
 
         @components.heading(tailorMsgOptimised("benefits.heading"))
 
-        @components.hint_p(tailorMsgOptimised("benefits.p1"))
+        @components.hint_p(Html(tailorMsgOptimised("benefits.p1")))
 
         @components.input_yes_no(
             field = form("value"),

@@ -21,23 +21,23 @@ object PutRightAtOwnCostsMessages extends BaseMessages {
   val subheading = "About the worker’s financial risk"
 
   object WorkerOptimised {
-    val title = "If your client wasn’t happy with the work, would you have to put it right at your cost?"
-    val heading = "If your client wasn’t happy with the work, would you have to put it right at your cost?"
-    val yesAdditionalCost = "Yes, you would have to put it right, for no additional income, and would incur extra outgoings in doing so."
-    val yesAdditionalCharge = "Yes, you would have to put it right, for no additional income, with no extra outgoings, but would incur an opportunity cost."
-    val noUsualHours = "No, you would put it right in your usual hours at your usual rate or fee."
-    val noSingleEvent = "No, you couldn’t put it right because it was time-specific or for a single event."
-    val no = "No, you wouldn’t need to put it right."
+    val title = "Would you have to put the work right if your client was not happy with it?"
+    val heading = "Would you have to put the work right if your client was not happy with it?"
+    val yesAdditionalCost = "Yes, you would have to put it right for no additional income, and would incur extra outgoings"
+    val yesAdditionalCharge = "Yes, you would have to put it right for no additional income, with no extra outgoings but would incur an opportunity cost"
+    val noUsualHours = "No, you would put it right in your usual hours at your usual rate or fee"
+    val noSingleEvent = "No, you could not put it right because it was time-specific or for a single event"
+    val no = "No, you would not need to put it right"
   }
 
   object HirerOptimised {
-    val title = "If your team weren’t happy with the work, would the worker have to put it right at their cost?"
-    val heading = "If your team weren’t happy with the work, would the worker have to put it right at their cost?"
-    val yesAdditionalCost = "Yes, the worker would have to put it right, for no additional income, and would incur extra outgoings in doing so."
-    val yesAdditionalCharge = "Yes, the worker would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost."
-    val noUsualHours = "No, the worker would put it right in their usual hours at their usual rate or fee."
-    val noSingleEvent = "No, the worker couldn’t put it right because it was time-specific or for a single event."
-    val no = "No, they wouldn’t need to put it right."
+    val title = "Would the worker have to put the work right if your organisation was not happy with it?"
+    val heading = "Would the worker have to put the work right if your organisation was not happy with it?"
+    val yesAdditionalCost = "Yes, the worker would have to put it right for no additional income, and would incur extra outgoings"
+    val yesAdditionalCharge = "Yes, the worker would have to put it right for no additional income, with no extra outgoings but would incur an opportunity cost"
+    val noUsualHours = "No, the worker would put it right in their usual hours at their usual rate or fee"
+    val noSingleEvent = "No, the worker could not put it right because it was time-specific or for a single event"
+    val no = "No, they would not need to put it right"
   }
 
   object Worker {
