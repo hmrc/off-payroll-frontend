@@ -1165,10 +1165,12 @@ agencyAdvisory.p2 = However, if your agency is the fee payer, you may still be a
 agencyAdvisory.subheading = What to do next
 agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
 
-hirerAdvisory.title = You don’t need to answer any more questions
-hirerAdvisory.heading = You don’t need to answer any more questions
-hirerAdvisory.p1 = Until April 2020, workers are responsible for determining if roles like this should be in or out of IR35
-hirerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination.
+hirerAdvisory.title = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
+hirerAdvisory.heading = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
+hirerAdvisory.p1 = It is the worker’s responsibility.
+hirerAdvisory.p2 = After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer.
+hirerAdvisory.subheading = What to do next
+hirerAdvisory.p3 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 leave.title = You have now left the tool
 leave.heading = You have now left the tool

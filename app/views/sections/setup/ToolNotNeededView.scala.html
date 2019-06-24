@@ -39,6 +39,8 @@
 
         <p class="panel-indent">@messages(s"toolNotNeeded.$clientType.p2")</p>
 
-        @components.button("site.exit")
+        <div class="section">
+            <input id="finish-link" type="submit" class="button" value="@messages("site.exit")"/>
+        </div>
     }
 }

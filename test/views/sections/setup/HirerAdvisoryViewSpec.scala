@@ -59,8 +59,16 @@ class HirerAdvisoryViewSpec extends ViewBehaviours {
       document.select(Selectors.p(2)).text mustBe HirerAdvisoryMessages.p2
     }
 
+    "have the correct subheading" in {
+      document.select(Selectors.h2(1)).text mustBe HirerAdvisoryMessages.subheading
+    }
+
+    "have the correct p3" in {
+      document.select(Selectors.p(3)).text mustBe HirerAdvisoryMessages.p3
+    }
+
     "have a finish link" in {
-      document.select(Selectors.finish).text mustBe HirerAdvisoryMessages.finish
+      document.select(Selectors.finish).text mustBe HirerAdvisoryMessages.exit
       document.select(Selectors.finish).attr("href") mustBe finishCall.url
     }
   }

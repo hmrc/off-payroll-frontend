@@ -35,10 +35,14 @@ bodyClasses = None) {
 
         <p>@messages("hirerAdvisory.p1")</p>
 
-        <p>@messages("hirerAdvisory.p2")</p>
+        <p class="panel-indent">@messages("hirerAdvisory.p2")</p>
+
+        <h2>@messages("hirerAdvisory.subheading")</h2>
+
+        <p>@messages("hirerAdvisory.p3")</p>
 
         @components.submit_button()
 
-        <a id="finish-link" href="@{finishAction.url}">@messages("site.finish")</a>
+        <a id="finish-link" href="@{finishAction.url}">@messages("site.exit")</a>
     }
 }
