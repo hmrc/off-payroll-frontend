@@ -318,12 +318,12 @@ hirer.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
 hirer.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
 
 ## TODO: Need Welsh
-worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
-worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
-worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work - without this substitute being vetted, cleared or interviewed first?
-worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
-worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client didn’t accept your substitute.
-worker.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work?
+worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted the substitute
+worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client did not accept the substitute
+worker.optimised.arrangedSubstitute.no = No, it has not happened
 
 ## TODO: Need Welsh
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
