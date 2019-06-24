@@ -205,26 +205,14 @@ hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes 
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
 
 ## TODO: Need Welsh
-worker.optimised.officeHolder.title = During the course of this work, will you ever have to act for your client as any of the following?
-worker.optimised.officeHolder.heading = During the course of this work, will you ever have to act for your client as any of the following?
-worker.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will you ever have to act for your client as any of the following?
-worker.optimised.officeHolder.b1 = A board member
-worker.optimised.officeHolder.b2 = A treasurer
-worker.optimised.officeHolder.b3 = A trustee
-worker.optimised.officeHolder.b4 = Company director
-worker.optimised.officeHolder.b5 = Company secretary
-worker.optimised.officeHolder.b6 = Other office holder position
+worker.optimised.officeHolder.title = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
+worker.optimised.officeHolder.heading = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
+worker.optimised.officeHolder.checkYourAnswersLabel = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
 
 ## TODO: Need Welsh
-hirer.optimised.officeHolder.title = During the course of this work, will the worker ever have to act for your organisation as any of the following:
-hirer.optimised.officeHolder.heading = During the course of this work, will the worker ever have to act for your organisation as any of the following:
-hirer.optimised.officeHolder.checkYourAnswersLabel = During the course of this work, will the worker ever have to act for your organisation as any of the following:
-hirer.optimised.officeHolder.b1 = A board member
-hirer.optimised.officeHolder.b2 = A treasurer
-hirer.optimised.officeHolder.b3 = A trustee
-hirer.optimised.officeHolder.b4 = Company director
-hirer.optimised.officeHolder.b5 = Company secretary
-hirer.optimised.officeHolder.b6 = Other office holder position
+hirer.optimised.officeHolder.title = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
+hirer.optimised.officeHolder.heading = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
+hirer.optimised.officeHolder.checkYourAnswersLabel = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
 #########################
 
 
