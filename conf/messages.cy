@@ -1156,14 +1156,14 @@ aboutYourResult.p3 = Neither will HMRC stand by results achieved through contriv
 
 
 ##### TODO NEED WELSH FOR ####
-whichDescribesYou.title = Please tell us why you’re here, to help us give you the most relevant result
-whichDescribesYou.heading = Please tell us why you’re here, to help us give you the most relevant result
-whichDescribesYou.checkYourAnswersLabel = Please tell us why you’re here, to help us give you the most relevant result
-whichDescribesYou.worker.paye = I want to find out if I am employed, or self-employed, for tax purposes.
-whichDescribesYou.client.paye = I want to find out if a job I am hiring for is classed as employed, or self-employed, for tax purposes.
-whichDescribesYou.worker.ir35 = I want to find out if a contract I’m working on, or could be working on, falls within the off-payroll working rules (IR35).
-whichDescribesYou.client.ir35 = I want to find out if a contract my organisation is offering falls within the off-payroll working rules (IR35).
-whichDescribesYou.agency = I want to find out if a contract my agency is recruiting for falls within the off-payroll working rules (IR35).
+whichDescribesYou.title = What do you want to find out?
+whichDescribesYou.heading = What do you want to find out?
+whichDescribesYou.checkYourAnswersLabel = What do you want to find out?
+whichDescribesYou.worker.paye = If you are employed or self-employed for tax purposes
+whichDescribesYou.client.paye = If a job you’re hiring for is classed as employed or self-employed for tax purposes
+whichDescribesYou.worker.ir35 = If a contract you’re working on, or could be working on, is within the off-payroll working rules (IR35)
+whichDescribesYou.client.ir35 = If a contract your organisation is offering is within the off-payroll working rules (IR35)
+whichDescribesYou.agency = If a contract your agency is recruiting for is within the off-payroll working rules (IR35)
 whichDescribesYou.error.required = You need to select an answer
 whichDescribesYou.error.invalid = You need to select an answer
 
@@ -1202,14 +1202,15 @@ isWorkForPrivateSector.private = The private sector.
 isWorkForPrivateSector.public = The public sector.
 isWorkForPrivateSector.error.required = You need to select an answer
 isWorkForPrivateSector.error.invalid = You need to select an answer
-worker.isWorkForPrivateSector.title = In which sector is the organisation you’ll be doing the work for?
-worker.isWorkForPrivateSector.heading = In which sector is the organisation you’ll be doing the work for?
-worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector do you work?
+
+worker.isWorkForPrivateSector.title = In which sector is the client you will be doing the work for?
+worker.isWorkForPrivateSector.heading = In which sector is the client you will be doing the work for?
+worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is the client you will be doing the work for?
 
 ##### TODO NEED WELSH FOR ####
-hirer.isWorkForPrivateSector.title = In which sector do you work?
-hirer.isWorkForPrivateSector.heading = In which sector do you work?
-hirer.isWorkForPrivateSector.checkYourAnswersLabel = Is your organisation a private sector business?
+hirer.isWorkForPrivateSector.title = In which sector is your organisation?
+hirer.isWorkForPrivateSector.heading = In which sector is your organisation?
+hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is your organisation?
 
 ##### TODO NEED WELSH FOR ####
 workerAdvisory.title = You don’t need to answer any more questions
