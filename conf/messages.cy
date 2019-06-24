@@ -737,22 +737,22 @@ hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures =Na - ni all y cleient 
 hirer.howWorkIsDone.workerAgreeWithOthers = Yn rhannol - mae’r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o’r gwaith sydd angen ei wneud
 
 ## TODO: Need Welsh
-hirer.optimised.howWorkIsDone.title = Will your team decide how the work should be done?
-hirer.optimised.howWorkIsDone.heading = Will your team decide how the work should be done?
-hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your team decide how the work should be done?
+hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work is done?
+hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
+hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
-hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides.
-hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work.
-hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your team and the worker agree together.
+hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
+hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
 
 ## TODO: Need Welsh
-worker.optimised.howWorkIsDone.title = Will your client decide how they want the work done?
-worker.optimised.howWorkIsDone.heading = Will your client decide how they want the work done?
-worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how they want the work done?
+worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
+worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
+worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
-worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide.
+worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
 worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
-worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, your client and you agree together.
+worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, your client and you agree together
 #########################
 
 
@@ -789,20 +789,20 @@ hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiw
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
 ## TODO: Need Welsh
-hirer.optimised.moveWorker.title = Could your team move the worker from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.heading = Could your team move the worker from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.checkYourAnswersLabel = Could your team move the worker from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.title = Could the worker be moved from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.heading = Could the worker be moved from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.checkYourAnswersLabel = Could the worker be moved from their original task, project or location without their agreement?
 hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker would have to agree.
-hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
+hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker solely decides
+hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 
 ## TODO: Need Welsh
 worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
 worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
 worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
 worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree.
-worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
+worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you solely decide
+worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 #########################
 
 
@@ -1287,36 +1287,6 @@ toolNotNeeded.client.paye.title = You don’t need to determine if this work sho
 toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
-
-hirer.optimised.moveWorker.title = Could your team move the worker from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.heading = Could your team move the worker from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.checkYourAnswersLabel = Could your team move the worker from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker would have to agree.
-hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
-
-worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree.
-worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement.
-
-hirer.optimised.howWorkIsDone.title = Will your team decide how the work should be done?
-hirer.optimised.howWorkIsDone.heading = Will your team decide how the work should be done?
-hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your team decide how the work should be done?
-hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
-hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides.
-hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work.
-hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your team and the worker agree together.
-
-worker.optimised.howWorkIsDone.title = Will your client decide how they want the work done?
-worker.optimised.howWorkIsDone.heading = Will your client decide how they want the work done?
-worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how they want the work done?
-worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
-worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide.
-worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
-worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, your client and you agree together.
 
 worker.optimised.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
 worker.optimised.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?

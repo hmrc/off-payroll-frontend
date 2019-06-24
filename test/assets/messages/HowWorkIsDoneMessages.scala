@@ -41,21 +41,21 @@ object HowWorkIsDoneMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val heading = "Will your client decide how they want the work done?"
+    val heading = "Will your client decide how the work is done?"
     val title = heading
     val yesClientDecides = "Yes"
-    val noWorkerDecides = "No, you solely decide."
+    val noWorkerDecides = "No, you solely decide"
     val noSkilledRole = "No, because it is highly skilled work"
-    val partly = "No, your client and you agree together."
+    val partly = "No, your client and you agree together"
   }
 
   object OptimisedHirer {
-    val heading = "Will your team decide how the work should be done?"
+    val heading = "Will your organisation decide how the work is done?"
     val title = heading
     val yesClientDecides = "Yes"
-    val noWorkerDecides = "No, the worker solely decides."
-    val noSkilledRole = "No, because it is highly skilled work."
-    val partly = "No, your team and the worker agree together."
+    val noWorkerDecides = "No, the worker solely decides"
+    val noSkilledRole = "No, because it is highly skilled work"
+    val partly = "No, your organisation and the worker agree together"
   }
 
   object NonTailored {
