@@ -19,26 +19,26 @@ package views.results
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
 import models.AboutYouAnswer.Worker
-import models.PDFResultDetails
+import models.{PDFResultDetails, UserAnswers}
 import models.UserType.Hirer
+import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import views.html.results.inside.officeHolder.OfficeHolderPAYEView
 
 class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderPAYEView]
 
-  def createView(req: Request[_], pdfDetails: PDFResultDetails): Html =
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
     view(postAction)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderPAYEView page" should {
 
     "If the UserType is Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
       workerPageChecks
@@ -47,7 +47,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
     "If the UserType is Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
       hirerPageChecks
@@ -59,7 +59,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
     "If the UserType is Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
       workerPageChecks
@@ -68,7 +68,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
     "If the UserType is Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
       hirerPageChecks

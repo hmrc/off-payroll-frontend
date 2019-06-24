@@ -40,7 +40,8 @@
         }
 
         @components.teal_result(
-            Html(messages(tailorMsgOptimised("result.undetermined.ir35.heading")))
+            Html(messages(tailorMsgOptimised("result.undetermined.ir35.heading"))),
+            "result.undetermined"
         )
 
         @formWithCsrf(postAction, 'autoComplete -> "off") {

@@ -18,10 +18,11 @@ package views.results
 
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
+import models.UserAnswers
 import models.UserType.Agency
+import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import views.html.results.inside.AgentInsideView
 
 class AgentInsideViewSpec extends ResultViewFixture {
@@ -30,9 +31,9 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
   "The InsideAgentView page" should {
 
-    def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+    def createView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
     implicit lazy val document = asDocument(createView(request))
 
     pageChecks
@@ -41,9 +42,9 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
   "The InsideAgentView PDF/PrintView page" should {
 
-    def createPrintView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testPdfResultDetails)
+    def createPrintView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testPdfResultDetails)
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
     implicit lazy val document = asDocument(createPrintView(request))
 
     pageChecks

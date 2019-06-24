@@ -21,10 +21,11 @@
 @import models.UserType.{Worker, Hirer}
 @import models.ResultType.PAYE
 @import results.sections.pdf
+@import models.requests.DataRequest
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -41,7 +42,8 @@
         }
 
         @components.teal_result(
-            Html(messages(tailorMsgOptimised("result.outside.paye.heading")))
+            Html(messages(tailorMsgOptimised("result.outside.paye.heading"))),
+            "result.outside"
         )
 
         @formWithCsrf(postAction, 'autoComplete -> "off") {

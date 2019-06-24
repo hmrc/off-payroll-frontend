@@ -18,11 +18,11 @@ package views.results
 
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
-import models.PDFResultDetails
 import models.UserType.Agency
+import models.requests.DataRequest
+import models.{PDFResultDetails, UserAnswers}
 import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import play.twirl.api.Html
 import views.html.results.inside.officeHolder.OfficeHolderAgentView
 
@@ -30,11 +30,11 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderAgentView]
 
-  def createView(req: Request[_], pdfDetails: PDFResultDetails): Html = view(postAction)(req, messages, frontendAppConfig, pdfDetails)
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html = view(postAction)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderAgentView page" should {
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
     implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
     pageChecks
@@ -43,7 +43,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   "The OfficeHolderAgentView PDF/Print page" should {
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
     implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
     pageChecks

@@ -19,6 +19,8 @@ package views.subOptimised.results
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
+import models.UserAnswers
+import models.requests.DataRequest
 import pages.ResultPage
 import play.api.libs.json.Json
 import play.api.mvc.Request
@@ -32,11 +34,11 @@ class ControlViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[ControlView]
 
-  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(answers, version, form, postAction)(fakeDataRequest, messages, frontendAppConfig)
 
-  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
+  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeDataRequest, messages, frontendAppConfig)
 
-  def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
+  def createViewWithRequest = (req: DataRequest[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
   "result page" must {
 
@@ -57,7 +59,7 @@ class ControlViewSpec extends ResultViewFixture {
 
   "The result page" should {
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
     lazy val document = asDocument(createViewWithRequest(request))
 
     "include the 'Which of these describes you best?' question" in {

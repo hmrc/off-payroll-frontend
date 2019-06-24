@@ -18,10 +18,11 @@ package views.results
 
 import assets.messages.results.{InDecisionMessages, OutDecisionMessages}
 import config.SessionKeys
+import models.UserAnswers
 import models.UserType.Agency
+import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import play.twirl.api.Html
 import views.html.results.outside.AgentOutsideView
 
@@ -29,11 +30,11 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentOutsideView]
 
-  lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+  lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString), "id", UserAnswers("id"))
 
   "The OutAgentView page" should {
 
-    def createView(req: Request[_]): Html =
+    def createView(req: DataRequest[_]): Html =
       view(postAction, true, true, true)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
     implicit lazy val document = asDocument(createView(request))
@@ -44,7 +45,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
   "The OutAgentView PDF/Print page" should {
 
-    def createView(req: Request[_]): Html = view(postAction, true, true, true)(req, messages, frontendAppConfig, testPdfResultDetails)
+    def createView(req: DataRequest[_]): Html = view(postAction, true, true, true)(req, messages, frontendAppConfig, testPdfResultDetails)
 
     implicit lazy val document = asDocument(createView(request))
 

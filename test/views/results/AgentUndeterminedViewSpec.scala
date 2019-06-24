@@ -18,21 +18,22 @@ package views.results
 
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
+import models.UserAnswers
 import models.UserType.Agency
+import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import views.html.results.undetermined.AgentUndeterminedView
 
 class AgentUndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentUndeterminedView]
 
-  lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+  lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
 
   "The AgentUndeterminedView page" should {
 
-    def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+    def createView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
     implicit lazy val document = asDocument(createView(request))
 
@@ -42,7 +43,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
   "The AgentUndeterminedView PDF/Print page" should {
 
-    def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testPdfResultDetails)
+    def createView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testPdfResultDetails)
 
     implicit lazy val document = asDocument(createView(request))
 

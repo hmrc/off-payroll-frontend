@@ -23,7 +23,8 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
-import models.{DecisionResponse, ErrorResponse}
+import models.requests.DataRequest
+import models.{DecisionResponse, ErrorResponse, UserAnswers}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -78,6 +79,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
   val errorHandler = injector.instanceOf[ErrorHandler]
 
   implicit lazy val fakeRequest = FakeRequest("", "")
+  lazy val fakeDataRequest = DataRequest(fakeRequest,"id",UserAnswers("id"))
 
   implicit lazy val messages: Messages = messagesApi.preferred(fakeRequest)
 

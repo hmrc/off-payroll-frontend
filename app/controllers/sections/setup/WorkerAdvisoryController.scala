@@ -46,7 +46,7 @@ class WorkerAdvisoryController @Inject()(navigator: Navigator,
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(
       postAction = routes.WorkerAdvisoryController.onSubmit(),
-      finishAction = routes.LeaveController.onPageLoad()
+      finishAction = controllers.routes.ExitSurveyController.redirectToExitSurvey()
     ))
   }
 

@@ -18,11 +18,11 @@ package views.results
 
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
-import models.PDFResultDetails
 import models.UserType.{Hirer, Worker}
+import models.requests.DataRequest
+import models.{PDFResultDetails, UserAnswers}
 import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import play.twirl.api.Html
 import views.html.results.inside.PAYEInsideView
 
@@ -30,14 +30,14 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEInsideView]
 
-  def createView(req: Request[_], pdfDetails: PDFResultDetails): Html =
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
     view(postAction)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEInsideView page" should {
 
     "The UserType is a Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
       workerPageChecks
@@ -46,7 +46,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
       hirerPageChecks
@@ -58,7 +58,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
       workerPageChecks
@@ -67,7 +67,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
       implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
       hirerPageChecks

@@ -18,10 +18,11 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import results.sections.pdf
+@import models.requests.DataRequest
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(postAction: Call)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -38,7 +39,8 @@
         }
 
         @components.teal_result(
-            Html(messages("agent.optimised.result.undetermined.heading"))
+            Html(messages("agent.optimised.result.undetermined.heading")),
+            "result.undetermined"
         )
 
         @formWithCsrf(postAction, 'autoComplete -> "off") {
