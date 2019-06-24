@@ -449,19 +449,13 @@ worker.lineManagerDuties.checkYourAnswersLabel =A ywâ€™r gweithiwr yn gyfrifol a
 hirer.optimised.lineManagerDuties.title = Will the worker be responsible for any of these duties for your organisation?
 hirer.optimised.lineManagerDuties.heading = Will the worker be responsible for any of these duties for your organisation?
 hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker be responsible for any of these duties for your organisation?
-hirer.optimised.lineManagerDuties.bullet1 = Hiring workers
-hirer.optimised.lineManagerDuties.bullet2 = Dismissing workers
-hirer.optimised.lineManagerDuties.bullet3 = Delivering appraisals
-hirer.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
+hirer.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 
 ##TODO: Need Welsh
 worker.optimised.lineManagerDuties.title = Will you be responsible for any of these duties for your client?
 worker.optimised.lineManagerDuties.heading = Will you be responsible for any of these duties for your client?
 worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you be responsible for any of these duties for your client?
-worker.optimised.lineManagerDuties.bullet1 = Hiring workers
-worker.optimised.lineManagerDuties.bullet2 = Dismissing workers
-worker.optimised.lineManagerDuties.bullet3 = Delivering appraisals
-worker.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
+worker.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 #########################
 
 ## Benefits from end client
@@ -504,21 +498,13 @@ worker.benefits.checkYourAnswersLabel =A oes gan y gweithiwr hawl i unrhyw un oâ
 worker.optimised.benefits.title = Will your client provide you with any of the following benefits?
 worker.optimised.benefits.heading = Will your client provide you with any of the following benefits?
 worker.optimised.benefits.checkYourAnswersLabel = Will your client provide you with any of the following benefits?
-worker.optimised.benefits.bullet1 = Sick pay
-worker.optimised.benefits.bullet2 = Holiday pay
-worker.optimised.benefits.bullet3 = Workplace pension
-worker.optimised.benefits.bullet4 = Maternity/paternity pay
-worker.optimised.benefits.bullet5 = Other significant benefits, like health insurance
+worker.optimised.benefits.p1 = This can include external gym memberships, health insurance or retail discounts.
 
 ##TODO: Need Welsh
 hirer.optimised.benefits.title = Will your organisation provide the worker with any of the following benefits?
 hirer.optimised.benefits.heading = Will your organisation provide the worker with any of the following benefits?
 hirer.optimised.benefits.checkYourAnswersLabel = Will your organisation provide the worker with any of the following benefits?
-hirer.optimised.benefits.bullet1 = Sick pay
-hirer.optimised.benefits.bullet2 = Holiday pay
-hirer.optimised.benefits.bullet3 = Workplace pension
-hirer.optimised.benefits.bullet4 = Maternity/paternity pay
-hirer.optimised.benefits.bullet5 = Other significant benefits, like health insurance
+hirer.optimised.benefits.p1 = This can include external gym memberships, health insurance or retail discounts.
 #########################
 
 ## Put Right at Workers Own Cost

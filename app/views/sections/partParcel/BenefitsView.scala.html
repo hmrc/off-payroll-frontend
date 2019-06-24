@@ -37,13 +37,7 @@
 
         @components.heading(tailorMsgOptimised("benefits.heading"))
 
-        @components.bulleted_list(Seq(
-            tailorMsgOptimised("benefits.bullet1"),
-            tailorMsgOptimised("benefits.bullet2"),
-            tailorMsgOptimised("benefits.bullet3"),
-            tailorMsgOptimised("benefits.bullet4"),
-            tailorMsgOptimised("benefits.bullet5")
-        ))
+        @components.hint_p(tailorMsgOptimised("benefits.p1"))
 
         @components.input_yes_no(
             field = form("value"),

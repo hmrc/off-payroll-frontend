@@ -371,21 +371,21 @@ worker.identifyToStakeholders.workAsIndependent = I am an independent worker act
 worker.identifyToStakeholders.workAsBusiness = I work for my own business
 worker.identifyToStakeholders.checkYourAnswersLabel = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
 
-hirer.optimised.identifyToStakeholders.title = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
-hirer.optimised.identifyToStakeholders.heading = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
-hirer.optimised.identifyToStakeholders.checkYourAnswersLabel = If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?
+hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
+hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
+hirer.optimised.identifyToStakeholders.checkYourAnswersLabel = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.workForEndClient = They work for you
 hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independent worker acting on your behalf
 hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
-hirer.optimised.identifyToStakeholders.wouldNotHappen = This wouldn’t happen - they wouldn’t interact formally
+hirer.optimised.identifyToStakeholders.wouldNotHappen = This would not happen
 
-worker.optimised.identifyToStakeholders.title = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
-worker.optimised.identifyToStakeholders.heading = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
-worker.optimised.identifyToStakeholders.checkYourAnswersLabel = If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?
-worker.optimised.identifyToStakeholders.workForEndClient = You work for your client’s organisation
-worker.optimised.identifyToStakeholders.workAsIndependent = You are an independent worker acting on behalf of your client
+worker.optimised.identifyToStakeholders.title = How would you introduce yourself to your client’s consumers or suppliers?
+worker.optimised.identifyToStakeholders.heading = How would you introduce yourself to your client’s consumers or suppliers?
+worker.optimised.identifyToStakeholders.checkYourAnswersLabel = How would you introduce yourself to your client’s consumers or suppliers?
+worker.optimised.identifyToStakeholders.workForEndClient = You work for your client
+worker.optimised.identifyToStakeholders.workAsIndependent =  You are an independent worker acting on your client’s behalf
 worker.optimised.identifyToStakeholders.workAsBusiness = You work for your own business
-worker.optimised.identifyToStakeholders.wouldNotHappen = This wouldn’t happen - you wouldn’t interact formally
+worker.optimised.identifyToStakeholders.wouldNotHappen = This would not happen
 #########################
 
 ## Worker interact with stakeholders
@@ -440,21 +440,15 @@ worker.lineManagerDuties.bullet3 = Delivering appraisals
 worker.lineManagerDuties.bullet4 = Deciding how much to pay someone
 worker.lineManagerDuties.checkYourAnswersLabel = Are you responsible for any of these duties for the end client?
 
-hirer.optimised.lineManagerDuties.title = Will the worker be responsible for any of these duties for your organisation?
-hirer.optimised.lineManagerDuties.heading = Will the worker be responsible for any of these duties for your organisation?
-hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker be responsible for any of these duties for your organisation?
-hirer.optimised.lineManagerDuties.bullet1 = Hiring workers
-hirer.optimised.lineManagerDuties.bullet2 = Dismissing workers
-hirer.optimised.lineManagerDuties.bullet3 = Delivering appraisals
-hirer.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
+hirer.optimised.lineManagerDuties.title = Will the worker have any formal responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.heading = Will the worker have any formal responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any formal responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 
-worker.optimised.lineManagerDuties.title = Will you be responsible for any of these duties for your client?
-worker.optimised.lineManagerDuties.heading = Will you be responsible for any of these duties for your client?
-worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you be responsible for any of these duties for your client?
-worker.optimised.lineManagerDuties.bullet1 = Hiring workers
-worker.optimised.lineManagerDuties.bullet2 = Dismissing workers
-worker.optimised.lineManagerDuties.bullet3 = Delivering appraisals
-worker.optimised.lineManagerDuties.bullet4 = Deciding how much to pay someone
+worker.optimised.lineManagerDuties.title = Will you have any formal responsibilities for your client?
+worker.optimised.lineManagerDuties.heading = Will you have any formal responsibilities for your client?
+worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you have any formal responsibilities for your client?
+worker.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 #########################
 
 ## Benefits from end client
@@ -493,23 +487,15 @@ worker.benefits.bullet4 = Maternity/paternity pay
 worker.benefits.bullet5 = Other benefits (such as gym membership and health insurance)
 worker.benefits.p1 = These do not include benefits provided by a third party or agency.
 
-worker.optimised.benefits.title = Will your client provide you with any of the following benefits?
-worker.optimised.benefits.heading = Will your client provide you with any of the following benefits?
-worker.optimised.benefits.checkYourAnswersLabel = Will your client provide you with any of the following benefits?
-worker.optimised.benefits.bullet1 = Sick pay
-worker.optimised.benefits.bullet2 = Holiday pay
-worker.optimised.benefits.bullet3 = Workplace pension
-worker.optimised.benefits.bullet4 = Maternity/paternity pay
-worker.optimised.benefits.bullet5 = Other significant benefits, like health insurance
+worker.optimised.benefits.title = Will your client provide you with paid-for corporate benefits?
+worker.optimised.benefits.heading = Will your client provide you with paid-for corporate benefits?
+worker.optimised.benefits.checkYourAnswersLabel = Will your client provide you with paid-for corporate benefits?
+worker.optimised.benefits.p1 = This can include external gym memberships, health insurance or retail discounts.
 
-hirer.optimised.benefits.title = Will your organisation provide the worker with any of the following benefits?
-hirer.optimised.benefits.heading = Will your organisation provide the worker with any of the following benefits?
-hirer.optimised.benefits.checkYourAnswersLabel = Will your organisation provide the worker with any of the following benefits?
-hirer.optimised.benefits.bullet1 = Sick pay
-hirer.optimised.benefits.bullet2 = Holiday pay
-hirer.optimised.benefits.bullet3 = Workplace pension
-hirer.optimised.benefits.bullet4 = Maternity/paternity pay
-hirer.optimised.benefits.bullet5 = Other significant benefits, like health insurance
+hirer.optimised.benefits.title = Will you provide the worker with paid-for corporate benefits?
+hirer.optimised.benefits.heading = Will you provide the worker with paid-for corporate benefits?
+hirer.optimised.benefits.checkYourAnswersLabel = Will you provide the worker with paid-for corporate benefits?
+hirer.optimised.benefits.p1 = This can include external gym memberships, health insurance or retail discounts.
 #########################
 
 ## Put Right at Workers Own Cost
@@ -546,23 +532,23 @@ hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would 
 hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
 hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
 
-worker.optimised.putRightAtOwnCost.title = If your client wasn’t happy with the work, would you have to put it right at your cost?
-worker.optimised.putRightAtOwnCost.heading = If your client wasn’t happy with the work, would you have to put it right at your cost?
-worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your client wasn’t happy with the work, would you have to put it right at your cost?
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right, for no additional income, and would incur extra outgoings in doing so.
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right, for no additional income, with no extra outgoings, but would incur an opportunity cost.
-worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, you would put it right in your usual hours at your usual rate or fee.
-worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, you couldn’t put it right because it was time-specific or for a single event.
-worker.optimised.putRightAtOwnCost.noObligationToCorrect = No, you wouldn’t need to put it right.
+worker.optimised.putRightAtOwnCost.title = Would you have to put the work right if your client was not happy with it?
+worker.optimised.putRightAtOwnCost.heading = Would you have to put the work right if your client was not happy with it?
+worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = Would you have to put the work right if your client was not happy with it?
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right, for no additional income, and would incur extra outgoings
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost
+worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, you would put it right in your usual hours at your usual rate or fee
+worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, you could not put it right because it was time-specific or for a single event
+worker.optimised.putRightAtOwnCost.noObligationToCorrect = No, you would not need to put it right
 
-hirer.optimised.putRightAtOwnCost.title = If your team weren’t happy with the work, would the worker have to put it right at their cost?
-hirer.optimised.putRightAtOwnCost.heading = If your team weren’t happy with the work, would the worker have to put it right at their cost?
-hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your team weren’t happy with the work, would the worker have to put it right at their cost?
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, the worker would have to put it right, for no additional income, and would incur extra outgoings in doing so.
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, the worker would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost.
-hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, the worker would put it right in their usual hours at their usual rate or fee.
-hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the worker couldn’t put it right because it was time-specific or for a single event.
-hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No, they wouldn’t need to put it right.
+hirer.optimised.putRightAtOwnCost.title = Would the worker have to put the work right if your organisation was not happy with it?
+hirer.optimised.putRightAtOwnCost.heading = Would the worker have to put the work right if your organisation was not happy with it?
+hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = Would the worker have to put the work right if your organisation was not happy with it?
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, the worker would have to put it right for no additional income, and would incur extra outgoings
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, the worker would have to put it right for no additional income, with no extra outgoings but would incur an opportunity cost
+hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, the worker would put it right in their usual hours at their usual rate or fee
+hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the worker could not put it right because it was time-specific or for a single event
+hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No, they would not need to put it right
 #########################
 
 ## How Worker is Paid
@@ -599,23 +585,23 @@ hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is comp
 hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
 
-worker.optimised.howWorkerIsPaid.title = On what basis will you be compensated for this work?
-worker.optimised.howWorkerIsPaid.heading = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.title = How will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.heading = How will you be compensated for this work?
 worker.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will you be compensated for this work?
-worker.optimised.howWorkerIsPaid.incomeCalendarPeriods = By an hourly, daily or weekly rate.
-worker.optimised.howWorkerIsPaid.incomeFixed = By a fixed price for a specific project.
-worker.optimised.howWorkerIsPaid.incomePieceRate = By the amount of work completed.
-worker.optimised.howWorkerIsPaid.incomeCommission = By a percentage of the sales you generate.
-worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = By a percentage of your client’s profits or savings.
+worker.optimised.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
+worker.optimised.howWorkerIsPaid.incomeFixed = A fixed price for a specific project
+worker.optimised.howWorkerIsPaid.incomePieceRate = The the amount of work completed
+worker.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales you generate
+worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your client’s profits or savings
 
-hirer.optimised.howWorkerIsPaid.title = On what basis will the worker be compensated for this work?
-hirer.optimised.howWorkerIsPaid.heading = On what basis will the worker be compensated for this work?
-hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will the worker be compensated for this work?
-hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = By an hourly, daily or weekly rate.
-hirer.optimised.howWorkerIsPaid.incomeFixed = By a fixed price for a specific project.
-hirer.optimised.howWorkerIsPaid.incomePieceRate = By the amount of work completed.
-hirer.optimised.howWorkerIsPaid.incomeCommission = By a percentage of the sales the worker generates.
-hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = By a percentage of your organisation’s profits or savings.
+hirer.optimised.howWorkerIsPaid.title = How will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.heading = How will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = By an hourly, daily or weekly rate
+hirer.optimised.howWorkerIsPaid.incomeFixed = By a fixed price for a specific project
+hirer.optimised.howWorkerIsPaid.incomePieceRate = By the amount of work completed
+hirer.optimised.howWorkerIsPaid.incomeCommission = By a percentage of the sales the worker generates
+hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = By a percentage of your organisation’s profits or savings
 #########################
 
 
@@ -650,21 +636,21 @@ hirer.chooseWhereWork.workerCannotChoose = No - we decide
 hirer.chooseWhereWork.noLocationRequired = No - the task determines the work location
 hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
 
-worker.optimised.chooseWhereWork.title = Will your client decide where the worker does the work?
-worker.optimised.chooseWhereWork.heading = Will your client decide where the worker does the work?
-worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where the worker does the work?
+worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
 worker.optimised.chooseWhereWork.workerCannotChoose = Yes
-worker.optimised.chooseWhereWork.workerChooses = No, you decide.
-worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
+worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
+worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
 worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
 
-hirer.optimised.chooseWhereWork.title = Will your team decide where the worker does the work?
-hirer.optimised.chooseWhereWork.heading = Will your team decide where the worker does the work?
-hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your team decide where the worker does the work?
+hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
 hirer.optimised.chooseWhereWork.workerCannotChoose = Yes
-hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides.
-hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location.
-hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice.
+hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
+hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
+hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
 #########################
 
 
@@ -703,17 +689,17 @@ worker.optimised.scheduleOfWorkingHours.title = Will your client decide your sch
 worker.optimised.scheduleOfWorkingHours.heading = Will your client decide your schedule of working hours?
 worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your client decide your schedule of working hours?
 worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
-worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide.
-worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your own schedule.
-worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide
+worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your schedule
+worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule
 
-hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the schedule of working hours?
 hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
 hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your team and the worker agree their own schedule.
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree their schedule
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule
 #########################
 
 
