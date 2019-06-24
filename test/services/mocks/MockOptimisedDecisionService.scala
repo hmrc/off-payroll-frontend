@@ -41,7 +41,7 @@ trait MockOptimisedDecisionService extends MockFactory {
       _: Option[String],
       _: Option[String]
     )( _: DataRequest[_],_: HeaderCarrier, _: Messages))
-      .expects(call, *, *, *, *, *, *, *, *)
+      .expects(*, *, *, *, *, *, *, *, *)
       .returns(Future.successful(response))
   }
 }
