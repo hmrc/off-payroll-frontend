@@ -1255,13 +1255,14 @@ checkYourAnswers.confirm.h2 = Confirm answers to get your result
 checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.
 
 ##### TODO NEED WELSH FOR ####
-toolNotNeeded.client.ir35.title = You don’t need to answer any more questions
-toolNotNeeded.client.ir35.heading = You don’t need to answer any more questions
-toolNotNeeded.client.ir35.text = Workers are responsible for determining if roles like this should be in or out of IR35
-toolNotNeeded.client.paye.title = You don’t need to determine if this work should be taxed at source (PAYE)
-toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be taxed at source (PAYE)
-toolNotNeeded.client.paye.text = It’s the worker’s responsibility to include the income from this work in their self-assessment return
-
+toolNotNeeded.client.ir35.title = You don’t need to determine if this work falls within the off-payroll rules (IR35)
+toolNotNeeded.client.ir35.heading = You don’t need to determine if this work falls within the off-payroll rules (IR35)
+toolNotNeeded.client.ir35.p1 = It is the worker’s responsibility.
+toolNotNeeded.client.ir35.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body. And because they’re responsible for determining the employment status for tax purposes of work for smaller private sector organisations.
+toolNotNeeded.client.paye.title = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
+toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
+toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
+toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
 
 hirer.optimised.moveWorker.title = Could your team move the worker from their original task, project or location without their agreement?
 hirer.optimised.moveWorker.heading = Could your team move the worker from their original task, project or location without their agreement?

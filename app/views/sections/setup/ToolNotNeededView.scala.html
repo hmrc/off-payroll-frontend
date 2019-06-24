@@ -35,8 +35,10 @@
 
         @components.heading(s"toolNotNeeded.$clientType.heading")
 
-        <p>@messages(s"toolNotNeeded.$clientType.text")</p>
+        <p>@messages(s"toolNotNeeded.$clientType.p1")</p>
 
-        @components.button("site.finish")
+        <p class="panel-indent">@messages(s"toolNotNeeded.$clientType.p2")</p>
+
+        @components.button("site.exit")
     }
 }
