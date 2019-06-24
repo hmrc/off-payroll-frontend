@@ -27,7 +27,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentInsideView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(postAction,"agency")(req, messages, frontendAppConfig)
 
   "The InsideAgentView page" should {
 

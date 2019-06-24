@@ -124,11 +124,15 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
+  private def getUserType(implicit request: DataRequest[_]) = {
+    request.session.get(SessionKeys.userType).getOrElse("unknown").replace("\"","")
+  }
+
   private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
-      case (_, true) => undeterminedAgency(result.action) // AGENT
-      case (true, _) => undeterminedIR35(result.action, result.privateSector) // IR35
-      case _ => undeterminedPAYE(result.action) // PAYE
+      case (_, true) => undeterminedAgency(result.action,getUserType) // AGENT
+      case (true, _) => undeterminedIR35(result.action, result.privateSector,getUserType) // IR35
+      case _ => undeterminedPAYE(result.action,getUserType) // PAYE
     }
   }
 
@@ -139,11 +143,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
-        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
+        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,getUserType) // AGENT
       case (true, _) =>
-        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
+        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,getUserType) // IR35
       case _ =>
-        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
+        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,getUserType) // PAYE
     }
   }
 
@@ -152,15 +156,15 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
     (result.usingIntermediary, result.userType) match {
-      case (_, Some(UserType.Agency)) => insideAgent(result.action) // AGENT
-      case (true, _) => insideIR35(result.action, result.privateSector) // IR35
-      case _ => insidePAYE(result.action) // PAYE
+      case (_, Some(UserType.Agency)) => insideAgent(result.action,getUserType) // AGENT
+      case (true, _) => insideIR35(result.action, result.privateSector,getUserType) // IR35
+      case _ => insidePAYE(result.action,getUserType) // PAYE
     }
 
   private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
     (result.usingIntermediary, result.isAgent) match {
-      case (_, true) => officeAgency(result.action) // AGENT
-      case (true, _) => officeIR35(result.action, result.privateSector) // IR35
-      case _ => officePAYE(result.action) // PAYE
+      case (_, true) => officeAgency(result.action,getUserType) // AGENT
+      case (true, _) => officeIR35(result.action, result.privateSector,getUserType) // IR35
+      case _ => officePAYE(result.action,getUserType) // PAYE
     }
 }

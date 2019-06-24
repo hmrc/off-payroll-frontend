@@ -20,12 +20,14 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call,workerType: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(titleNoForm("agent.optimised.result.undetermined.title"), appConfig = appConfig) {
 
     @components.teal_result(
-        Html(messages("agent.optimised.result.undetermined.heading"))
+        Html(messages("agent.optimised.result.undetermined.heading")),
+        "result.undetermined",
+        workerType
     )
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {

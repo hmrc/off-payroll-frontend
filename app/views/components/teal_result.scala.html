@@ -14,11 +14,14 @@
  * limitations under the License.
  *@
 
-@(message: Html, subMessage: Option[Html] = None)
+@(message: Html, result: String, workerType: String, subMessage: Option[Html] = None)
 
-<div class="govuk-box-highlight">
-    <h1 class="bold-xlarge">@message</h1>
-    @subMessage.map { msg =>
-        <p class="font-large">@msg</p>
-    }
-</div>
+@defining(s"$workerType.$result") { id =>
+
+    <div class="govuk-box-highlight" id="@id">
+        <h1 class="bold-xlarge">@message</h1>
+        @subMessage.map { msg =>
+            <p class="font-large">@msg</p>
+        }
+    </div>
+}

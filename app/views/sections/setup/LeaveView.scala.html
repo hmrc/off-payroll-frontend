@@ -19,7 +19,7 @@
 
 @this(mainTemplate: templates.MainTemplate)
 
-@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(workerType: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
     title = titleNoForm("leave.title"),
@@ -28,5 +28,5 @@
 
     @components.back_link()
 
-    @components.teal_result(Html(messages("leave.heading")))
+    @components.teal_result(Html(messages("leave.heading")),"exit.leave",workerType)
 }

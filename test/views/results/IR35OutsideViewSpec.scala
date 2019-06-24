@@ -36,7 +36,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true): HtmlFormat.Appendable =
-    view(postAction, isPrivateSector,isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig)
+    view(postAction, isPrivateSector,isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,"worker")(req, messages, frontendAppConfig)
 
   "The IR35OutsideView page" should {
 
