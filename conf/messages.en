@@ -1171,11 +1171,12 @@ whichDescribesYou.agency = If a contract your agency is recruiting for is within
 whichDescribesYou.error.required = You need to select an answer
 whichDescribesYou.error.invalid = You need to select an answer
 
-agencyAdvisory.title = You don’t need to determine if this work should be paid within IR35
-agencyAdvisory.heading = You don’t need to determine if this work should be paid within IR35
-agencyAdvisory.p1 = It’s the responsibility of the worker or end client to find out if this work is deemed employment for tax purposes.
-agencyAdvisory.p2 = However, if you are the fee-payer you may still be accountable for operating PAYE.
-agencyAdvisory.p3 = To understand if this work is inside or out of IR35, you can continue through the tool as if you were the worker.
+agencyAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
+agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
+agencyAdvisory.p1 = It is the responsibility of the worker or the organisation the work is being done for.
+agencyAdvisory.p2 = However, if your agency is the fee payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
+agencyAdvisory.subheading = What to do next
+agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
 
 hirerAdvisory.title = You don’t need to answer any more questions
 hirerAdvisory.heading = You don’t need to answer any more questions
