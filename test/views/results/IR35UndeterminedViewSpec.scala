@@ -18,11 +18,12 @@ package views.results
 
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
-import models.UserAnswers
 import models.UserType.{Hirer, Worker}
 import models.requests.DataRequest
+import models.{PDFResultDetails, UserAnswers}
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.twirl.api.HtmlFormat
+import play.twirl.api.Html
 import views.html.results.undetermined.IR35UndeterminedView
 
 
@@ -30,8 +31,8 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IR35UndeterminedView]
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(postAction, isPrivateSector)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+  def createView(req: DataRequest[_], isPrivateSector: Boolean = false, pdfDetails: PDFResultDetails): Html =
+    view(postAction, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35UndeterminedView page" should {
 
@@ -39,44 +40,21 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
 
-      "Have the correct title" in {
-        document.title mustBe title(UndeterminedDecisionMessages.WorkerIR35.title)
+      "If is the Private sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testNoPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = false)
       }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerIR35.heading
-      }
+      "If is the Public sector" should {
 
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult
-      }
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testNoPdfResultDetails))
 
-      "For a Public Sector contract" should {
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP1
-          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP2
-        }
-      }
-
-      "For a Private Sector contract" should {
-
-        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP1
-          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP2
-        }
-      }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
+        workerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = false)
       }
     }
 
@@ -84,44 +62,127 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
 
-      "Have the correct title" in {
-        document.title mustBe title(UndeterminedDecisionMessages.HirerIR35.title)
+      "If is the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testNoPdfResultDetails))
+
+        hirerPageChecks(true)
+        pdfPageChecks(isPdfView = false)
       }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
+      "If is the Public Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testNoPdfResultDetails))
+
+        hirerPageChecks(false)
+        pdfPageChecks(isPdfView = false)
+      }
+    }
+  }
+
+  "The IR35UndeterminedView PDF/Print page" should {
+
+    "If the UserType is Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+
+      "If is the Private sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = true)
       }
 
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult
+      "If is the Public sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = true)
+      }
+    }
+
+    "If the UserType is Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+
+      "If is the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+
+        hirerPageChecks(true)
+        pdfPageChecks(isPdfView = true)
       }
 
-      "For a Public Sector contract" should {
+      "If is the Public Sector" should {
 
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP1
-          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP2
-        }
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+
+        hirerPageChecks(false)
+        pdfPageChecks(isPdfView = true)
       }
+    }
+  }
 
-      "For a Private Sector contract" should {
+  def workerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
+    "Have the correct title" in {
+      document.title mustBe title(UndeterminedDecisionMessages.WorkerIR35.title)
+    }
 
-        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerIR35.heading
+    }
 
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP1
-          document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP2
-        }
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult
+    }
+
+    if (isPrivateSector) {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP1
+        document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP2
       }
+    } else {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP1
+        document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP2
+      }
+    }
+  }
 
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
+  def hirerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
+
+    "Have the correct title" in {
+      document.title mustBe title(UndeterminedDecisionMessages.HirerIR35.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult
+    }
+
+    if(isPrivateSector) {
+      "Have the correct Do Next section for the Private Sector" in {
+        document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP1
+        document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP2
+      }
+    } else {
+      "Have the correct Do Next section for the Public Sector" in {
+        document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP1
+        document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP2
       }
     }
   }

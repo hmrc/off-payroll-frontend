@@ -19,39 +19,42 @@
 
 @(answerSections: Seq[Section])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-<h2>@messages("result.pdf.whatYouToldUs")</h2>
 
-@for(section <- answerSections){
-    @{
-        section match {
-            case a: AnswerSection if a.nonEmpty => renderSection(a)
-            case a: AnswerSection => Html("")
+<div id="userAnswers">
+
+    <h2>@messages("result.pdf.whatYouToldUs")</h2>
+
+    @for(section <- answerSections){
+        @{
+            section match {
+                case a: AnswerSection if a.nonEmpty => renderSection(a)
+                case a: AnswerSection => Html("")
+            }
         }
     }
-}
 
-@renderSection(answers: AnswerSection) = {
-    @answers.headingKey.map { heading =>
-        <h3 class="section-heading">@messages(heading)</h3>
-        <div class="form-group">
-        @for(answer <- answers.rows) {
-            @{
-                answer._1 match {
-                    case a: SingleAnswerRow => renderSingleAnswer(a)
-                    case a: MultiAnswerRow => for(subAnswer <- a.answers) {
-                        renderSingleAnswer(subAnswer, panelIndent = true)
+    @renderSection(answers: AnswerSection) = {
+        @answers.headingKey.map { heading =>
+            <h3 class="section-heading">@messages(heading)</h3>
+            <div class="form-group">
+            @for(answer <- answers.rows) {
+                @{
+                    answer._1 match {
+                        case a: SingleAnswerRow => renderSingleAnswer(a)
+                        case a: MultiAnswerRow => for(subAnswer <- a.answers) {
+                            renderSingleAnswer(subAnswer, panelIndent = true)
+                        }
                     }
                 }
             }
+            </div>
         }
+    }
+
+    @renderSingleAnswer(answer: SingleAnswerRow, panelIndent: Boolean = false) = {
+        <div class="answer--container divider--bottom @if(panelIndent){panel-indent}">
+            <div class="answer--question"><p><strong>@messages(answer.label)</strong></p></div>
+            <div class="answer--answer"><p>@messages(answer.answer)</p></div>
         </div>
     }
-}
-
-@renderSingleAnswer(answer: SingleAnswerRow, panelIndent: Boolean = false) = {
-    <div class="answer--container divider--bottom @if(panelIndent){panel-indent}">
-        <div class="answer--question"><p><strong>@messages(answer.label)</strong></p></div>
-        <div class="answer--answer"><p>@messages(answer.answer)</p></div>
-    </div>
-}
-
+</div>

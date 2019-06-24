@@ -19,6 +19,7 @@ package views.results
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
 import models.UserType.Agency
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.html.results.inside.AgentInsideView
@@ -32,34 +33,10 @@ class AgentInsideViewSpec extends ResultViewFixture {
     def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
     lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-    lazy val document = asDocument(createView(request))
+    implicit lazy val document = asDocument(createView(request))
 
-    "Have the correct title" in {
-      document.title mustBe title(InDecisionMessages.Agent.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
-    }
-
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe InDecisionMessages.Agent.subHeading
-    }
-
-    "Have the correct Why Result section" in {
-      document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.Agent.whyResult_p1
-    }
-
-    "Have the correct Do Next section" in {
-      document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
-      document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.Agent.doNext_p1
-    }
-
-    "Have the correct Download section" in {
-      document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
-      document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
-    }
+    pageChecks
+    pdfPageChecks(isPdfView = false)
   }
 
   "The InsideAgentView PDF/PrintView page" should {
@@ -67,8 +44,13 @@ class AgentInsideViewSpec extends ResultViewFixture {
     def createPrintView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig, testPdfResultDetails)
 
     lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-    lazy val document = asDocument(createPrintView(request))
+    implicit lazy val document = asDocument(createPrintView(request))
 
+    pageChecks
+    pdfPageChecks(isPdfView = true)
+  }
+
+  def pageChecks(implicit document: Document) = {
     "Have the correct title" in {
       document.title mustBe title(InDecisionMessages.Agent.title)
     }
@@ -82,17 +64,13 @@ class AgentInsideViewSpec extends ResultViewFixture {
     }
 
     "Have the correct Why Result section" in {
-      document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.Agent.whyResult_p1
     }
 
     "Have the correct Do Next section" in {
-      document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.Agent.doNext_p1
-    }
-
-    "Not include a Download Download section" in {
-      document.select(Selectors.Download.id).hasText mustBe false
     }
   }
 }
