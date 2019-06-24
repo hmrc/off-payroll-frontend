@@ -927,14 +927,14 @@ hirer.rejectSubstitute.yes =Iawn - mae gan y cleient terfynol yr hawl i wrthod e
 hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn eilydd a fyddai’n bodloni’r meini prawf hyn
 
 ## TODO: Welsh Needed
-worker.optimised.rejectSubstitute.title = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
-worker.optimised.rejectSubstitute.heading = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
-worker.optimised.rejectSubstitute.checkYourAnswersLabel = Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?
+worker.optimised.rejectSubstitute.title = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
+worker.optimised.rejectSubstitute.heading = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
 
 ## TODO: Welsh Needed
-hirer.optimised.rejectSubstitute.title = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
-hirer.optimised.rejectSubstitute.heading = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
-hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?
+hirer.optimised.rejectSubstitute.title = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
+hirer.optimised.rejectSubstitute.heading = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
 #########################
 
 
