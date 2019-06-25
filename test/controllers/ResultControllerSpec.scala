@@ -26,7 +26,7 @@ import models.ChooseWhereWork.WorkerChooses
 import models._
 import models.requests.DataRequest
 import navigation.FakeNavigator
-import pages.ResultPage
+import pages.{ResultPage, Timestamp}
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.i18n.Messages
 import play.api.libs.json.Json
@@ -40,7 +40,7 @@ import utils.FakeTimestamp
 import viewmodels.AnswerSection
 import views.html.subOptimised.results._
 
-class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService with MockCheckYourAnswersService {
+class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService with MockCheckYourAnswersService with Enumerable.Implicits {
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
@@ -102,12 +102,12 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
           enable(OptimisedFlow)
 
           val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
-          val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+          val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
           mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-          mockDetermineResultView(onwardRoute)(Right(Html("Success")))
+          mockDetermineResultView()(Right(Html("Success")))
 
           val result = TestResultController.onPageLoad(dataRequest)
 
@@ -123,12 +123,12 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
           enable(OptimisedFlow)
 
           val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
-          val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+          val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
           mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-          mockDetermineResultView(onwardRoute)(Left(Html("Error")))
+          mockDetermineResultView()(Left(Html("Error")))
 
           val result = TestResultController.onPageLoad(dataRequest)
 
@@ -154,7 +154,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
         val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
         val postRequest = fakeRequest
-        val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+        val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
 
         mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
 

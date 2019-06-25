@@ -71,7 +71,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
   with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures {
 
   val formProvider = new DownloadPDFCopyFormProvider()
-  val postAction = Call("POST","/")
+  val form = formProvider()
 
   val OfficeHolderAgentView = injector.instanceOf[OfficeHolderAgentView]
   val OfficeHolderIR35View = injector.instanceOf[OfficeHolderIR35View]
@@ -240,9 +240,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = OfficeHolderAgentView(postAction,"placingAgency")(dataRequest, messages, frontendAppConfig)
+              val expected: Html = OfficeHolderAgentView(form)(dataRequest, messages, frontendAppConfig)
 
-              val actual = await(service.determineResultView(postAction))
+              val actual = await(service.determineResultView(Some(form)))
 
               actual mustBe Right(expected)
             }
@@ -266,9 +266,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = OfficeHolderIR35View(postAction, isPrivateSector = true,"personDoingWork")
+              val expected: Html = OfficeHolderIR35View(form, isPrivateSector = true,"personDoingWork")
 
-              val actual = await(service.determineResultView(postAction))
+              val actual = await(service.determineResultView(Some(form)))
 
               actual mustBe Right(expected)
             }
@@ -291,9 +291,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = OfficeHolderPAYEView(postAction,"personDoingWork")(dataRequest, messages, frontendAppConfig)
+              val expected: Html = OfficeHolderPAYEView(form,"personDoingWork")(dataRequest, messages, frontendAppConfig)
 
-              val actual = await(service.determineResultView(postAction))
+              val actual = await(service.determineResultView(Some(form)))
 
               actual mustBe Right(expected)
             }
@@ -319,9 +319,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = AgentInsideView(postAction,"placingAgency")(dataRequest, messages, frontendAppConfig)
+              val expected: Html = AgentInsideView(form)(dataRequest, messages, frontendAppConfig)
 
-              val actual = await(service.determineResultView(postAction))
+              val actual = await(service.determineResultView(Some(form)))
 
               actual mustBe Right(expected)
             }
@@ -344,9 +344,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = IR35InsideView(postAction, isPrivateSector = false,"personDoingWork")
+              val expected: Html = IR35InsideView(form, isPrivateSector = false,"personDoingWork")
 
-              val actual = await(service.determineResultView(postAction))
+              val actual = await(service.determineResultView(Some(form)))
 
               actual mustBe Right(expected)
             }
@@ -369,9 +369,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.EMPLOYED))(Right(true))
 
-              val expected: Html = PAYEInsideView(postAction,"personDoingWork")(dataRequest, messages, frontendAppConfig)
+              val expected: Html = PAYEInsideView(form,"personDoingWork")(dataRequest, messages, frontendAppConfig)
 
-              val actual = await(service.determineResultView(postAction))
+              val actual = await(service.determineResultView(Some(form)))
 
               actual mustBe Right(expected)
             }
@@ -397,9 +397,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
-            val expected: Html = AgentUndeterminedView(postAction,"placingAgency")(dataRequest, messages, frontendAppConfig)
+            val expected: Html = AgentUndeterminedView(form)(dataRequest, messages, frontendAppConfig)
 
-            val actual = await(service.determineResultView(postAction))
+            val actual = await(service.determineResultView(Some(form)))
 
             actual mustBe Right(expected)
           }
@@ -421,9 +421,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
-            val expected: Html = IR35UndeterminedView(postAction, isPrivateSector = false,"personDoingWork")
+            val expected: Html = IR35UndeterminedView(form, isPrivateSector = false,"personDoingWork")
 
-            val actual = await(service.determineResultView(postAction))
+            val actual = await(service.determineResultView(Some(form)))
 
             actual mustBe Right(expected)
           }
@@ -445,9 +445,9 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
-            val expected: Html = PAYEUndeterminedView(postAction,"personDoingWork")(dataRequest, messages, frontendAppConfig)
+            val expected: Html = PAYEUndeterminedView(form,"personDoingWork")(dataRequest, messages, frontendAppConfig)
 
-            val actual = await(service.determineResultView(postAction))
+            val actual = await(service.determineResultView(Some(form)))
 
             actual mustBe Right(expected)
           }
@@ -482,14 +482,13 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             ), ResultEnum.OUTSIDE_IR35))(Right(true))
 
             val expected: Html = AgentOutsideView(
-              postAction = postAction,
+              form = form,
               substituteToDoWork = true,
               clientNotControlWork = true,
               incurCostNoReclaim = true
-              ,"placingAgency"
             )(dataRequest, messages, frontendAppConfig)
 
-            val actual = await(service.determineResultView(postAction))
+            val actual = await(service.determineResultView(Some(form)))
 
             actual mustBe Right(expected)
           }
@@ -522,7 +521,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             ), ResultEnum.OUTSIDE_IR35))(Right(true))
 
             val expected: Html = IR35OutsideView(
-              postAction = postAction,
+              form = form,
               isPrivateSector = false,
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
@@ -530,7 +529,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               ,"personDoingWork"
             )(dataRequest, messages, frontendAppConfig)
 
-            val actual = await(service.determineResultView(postAction))
+            val actual = await(service.determineResultView(Some(form)))
 
             actual mustBe Right(expected)
           }
@@ -563,14 +562,14 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             ), ResultEnum.OUTSIDE_IR35))(Right(true))
 
             val expected: Html = PAYEOutsideView(
-              postAction = postAction,
+              form = form,
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
               isIncurCostNoReclaim = true
               ,"personDoingWork"
             )(dataRequest, messages, frontendAppConfig)
 
-            val actual = await(service.determineResultView(postAction))
+            val actual = await(service.determineResultView(Some(form)))
 
             actual mustBe Right(expected)
           }
@@ -592,7 +591,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
           mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
           mockInternalServerError(Html("Err"))
 
-          await(service.determineResultView(postAction)) mustBe Left(Html("Err"))
+          await(service.determineResultView(Some(form))) mustBe Left(Html("Err"))
         }
       }
     }
@@ -609,7 +608,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
         mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, "Oh noes")))
         mockInternalServerError(Html("Err"))
 
-        await(service.determineResultView(postAction)) mustBe Left(Html("Err"))
+        await(service.determineResultView(Some(form))) mustBe Left(Html("Err"))
       }
     }
   }

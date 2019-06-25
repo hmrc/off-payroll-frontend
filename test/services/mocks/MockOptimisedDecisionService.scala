@@ -18,6 +18,7 @@ package services.mocks
 
 import models.requests.DataRequest
 import org.scalamock.scalatest.MockFactory
+import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.twirl.api.Html
@@ -30,9 +31,9 @@ trait MockOptimisedDecisionService extends MockFactory {
 
   val mockOptimisedDecisionService = mock[OptimisedDecisionService]
 
-  def mockDetermineResultView(call: Call)(response: Either[Html, Html]): Unit = {
-    (mockOptimisedDecisionService.determineResultView(_: Call)( _: DataRequest[_],_: HeaderCarrier, _: Messages))
-      .expects(call, *, *, *)
+  def mockDetermineResultView(form: Option[Form[Boolean]] = None)(response: Either[Html, Html]): Unit = {
+    (mockOptimisedDecisionService.determineResultView(_: Option[Form[Boolean]])( _: DataRequest[_],_: HeaderCarrier, _: Messages))
+      .expects(form, *, *, *)
       .returns(Future.successful(response))
   }
 }

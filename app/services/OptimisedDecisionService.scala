@@ -61,7 +61,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val outsidePAYE: PAYEOutsideView,
                                          implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
-  val defaultForm: Form[Boolean] = formProvider()
+  lazy val defaultForm: Form[Boolean] = formProvider()
 
   private[services] def collateDecisions(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
     val interview = Interview(request.userAnswers)
