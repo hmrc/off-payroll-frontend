@@ -18,8 +18,8 @@ package assets.messages
 
 object IsWorkForPrivateSectorMessages extends BaseMessages {
 
-  val privateOption = "The private sector."
-  val publicOption = "The public sector."
+  val privateOption = "Private sector"
+  val publicOption = "Public sector"
 
   object Worker {
     val heading = "In which sector is the client you will be doing the work for?"

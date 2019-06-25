@@ -1211,8 +1211,8 @@ hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading thro
 
 ##### TODO NEED WELSH FOR ####
 
-isWorkForPrivateSector.private = The private sector.
-isWorkForPrivateSector.public = The public sector.
+isWorkForPrivateSector.private = Private sector
+isWorkForPrivateSector.public = Public sector
 isWorkForPrivateSector.error.required = You need to select an answer
 isWorkForPrivateSector.error.invalid = You need to select an answer
 
