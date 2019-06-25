@@ -34,9 +34,9 @@ import services.DecisionService
 import services.mocks.MockPDFService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
-import views.html.CustomisePDFView
+import views.html.{AddDetailsView, CustomisePDFView}
 
-class PDFControllerSpec extends ControllerSpecBase {
+class PDFDetailsControllerSpec extends ControllerSpecBase {
 
   override def beforeEach = {
     super.beforeEach()
@@ -47,8 +47,9 @@ class PDFControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   val customisePdfView = injector.instanceOf[CustomisePDFView]
+  val addDetailsView = injector.instanceOf[AddDetailsView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFDetailsController(
     mockDataCacheConnector,
     new FakeNavigator(onwardRoute),
     FakeIdentifierAction,
@@ -57,6 +58,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     formProvider,
     controllerComponents = messagesControllerComponents,
     customisePdfView,
+    addDetailsView,
     injector.instanceOf[DecisionService],
     mockPDFService,
     errorHandler,

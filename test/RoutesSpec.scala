@@ -203,10 +203,10 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Customise Result page" in {
-      PDFController.onPageLoad(NormalMode).url mustBe fullPath("/add-details-for-reference")
-      PDFController.onPageLoad(CheckMode).url mustBe fullPath("/add-details-for-reference/edit")
-      PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-details-for-reference")
-      PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details-for-reference/edit")
+      PDFDetailsController.onPageLoad(NormalMode).url mustBe fullPath("/add-details-for-reference")
+      PDFDetailsController.onPageLoad(CheckMode).url mustBe fullPath("/add-details-for-reference/edit")
+      PDFDetailsController.onSubmit(NormalMode).url mustBe fullPath("/add-details-for-reference")
+      PDFDetailsController.onSubmit(CheckMode).url mustBe fullPath("/add-details-for-reference/edit")
     }
 
     "Have the correct routes for the Leave page" in {

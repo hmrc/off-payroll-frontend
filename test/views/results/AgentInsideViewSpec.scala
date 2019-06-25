@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.Request
@@ -26,8 +27,9 @@ import views.html.results.inside.AgentInsideView
 class AgentInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentInsideView]
+  val form = new DeclarationFormProvider()()
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
 
   "The InsideAgentView page" should {
 

@@ -126,10 +126,12 @@ POST       /identify-worker/edit                        controllers.sections.par
 GET        /your-result                                 controllers.ResultController.onPageLoad()
 POST       /your-result                                 controllers.ResultController.onSubmit()
 
-GET        /add-details-for-reference                   controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-details-for-reference                   controllers.PDFController.onSubmit(mode: Mode = NormalMode)
-GET        /add-details-for-reference/edit              controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-details-for-reference/edit              controllers.PDFController.onSubmit(mode: Mode = CheckMode)
+GET        /add-details-for-reference                   controllers.PDFDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-details-for-reference                   controllers.PDFDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /add-details-for-reference/edit              controllers.PDFDetailsController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-details-for-reference/edit              controllers.PDFDetailsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /download-pdf                                controllers.PDFDetailsController.downloadPDF()
 
 GET        /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-advisory                             controllers.sections.setup.AgencyAdvisoryController.onSubmit()
@@ -150,5 +152,7 @@ POST       /business-size/edit                          controllers.sections.set
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad()
 POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit()
 
-GET        /beans                                       controllers.AddReferenceDetailsController.onPageLoad()
-POST       /beans                                       controllers.AddReferenceDetailsController.onSubmit()
+GET        /add-reference-details                       controllers.AddReferenceDetailsController.onPageLoad()
+POST       /add-reference-details                       controllers.AddReferenceDetailsController.onSubmit()
+
+GET        /finished-checking                           controllers.FinishedCheckingController.onPageLoad()

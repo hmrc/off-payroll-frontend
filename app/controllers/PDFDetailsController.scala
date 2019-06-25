@@ -26,7 +26,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Answers._
 import models.requests.DataRequest
-import models.{AdditionalPdfDetails, Mode, Timestamp}
+import models.{AdditionalPdfDetails, Mode, NormalMode, Timestamp}
 import navigation.Navigator
 import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.data.Form
@@ -38,20 +38,21 @@ import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.Future
 
-class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
-                              navigator: Navigator,
-                              identify: IdentifierAction,
-                              getData: DataRetrievalAction,
-                              requireData: DataRequiredAction,
-                              formProvider: CustomisePDFFormProvider,
-                              controllerComponents: MessagesControllerComponents,
-                              customisePdfView: CustomisePDFView,
-                              addDetailsView: AddDetailsView,
-                              decisionService: DecisionService,
-                              pdfService: PDFService,
-                              errorHandler: ErrorHandler,
-                              time: Timestamp,
-                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents)
+class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
+                                     navigator: Navigator,
+                                     identify: IdentifierAction,
+                                     getData: DataRetrievalAction,
+                                     requireData: DataRequiredAction,
+                                     formProvider: CustomisePDFFormProvider,
+                                     controllerComponents: MessagesControllerComponents,
+                                     customisePdfView: CustomisePDFView,
+                                     addDetailsView: AddDetailsView,
+                                     decisionService: DecisionService,
+                                     pdfService: PDFService,
+                                     errorHandler: ErrorHandler,
+                                     time: Timestamp,
+                                     controllerHelper: ControllerHelper,
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents)
   with FeatureSwitching with UserAnswersUtils {
 
   val form: Form[AdditionalPdfDetails] = formProvider()
@@ -65,13 +66,34 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      additionalData => {
-        val timestamp = request.userAnswers.get(Timestamp)
-        printResult(additionalData, time.timestamp(timestamp.map(_.answer)))
-      }
-    )
+
+    if(isEnabled(OptimisedFlow)){
+
+      form.bindFromRequest().fold(
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+        additionalData => {
+
+          controllerHelper.redirect[AdditionalPdfDetails](NormalMode, additionalData, CustomisePDFPage)
+        }
+      )
+
+    } else {
+      form.bindFromRequest().fold(
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+        additionalData => {
+          val timestamp = request.userAnswers.get(Timestamp)
+          printResult(additionalData, time.timestamp(timestamp.map(_.answer)))
+        }
+      )
+    }
+  }
+
+  def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
+    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(_.answer).getOrElse(AdditionalPdfDetails())
+    val timestamp = request.userAnswers.get(Timestamp)
+
+    printResult(pdfDetails, time.timestamp(timestamp.map(_.answer)))
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {

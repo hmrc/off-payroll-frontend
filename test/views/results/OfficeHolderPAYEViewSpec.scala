@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserType.Hirer
 import play.api.libs.json.Json
@@ -28,7 +29,9 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderPAYEView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  val form = new DeclarationFormProvider()()
+
+  def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
 
   "The OfficeHolderPAYEView page" should {
 

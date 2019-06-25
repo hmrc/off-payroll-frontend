@@ -32,7 +32,7 @@ import models.WhichDescribesYouAnswer._
 import models.WhichDescribesYouAnswer.Agency
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models.BusinessSize.NoneOfAbove
-import pages._
+import pages.{CustomisePDFPage, _}
 import models._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
@@ -177,20 +177,23 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
       if (isEnabled(OptimisedFlow)) {
         answer.get(ResultPage) match {
           case Some(Answers(true, _)) => routes.AddReferenceDetailsController.onPageLoad()
-          case _ => routes.IndexController.onPageLoad()
+          case _ => routes.FinishedCheckingController.onPageLoad()
         }
       } else {
-        routes.PDFController.onPageLoad(NormalMode)
+        routes.PDFDetailsController.onPageLoad(NormalMode)
       }
     },
 
     AddReferenceDetailsPage -> {
       answer =>
         answer.get(AddReferenceDetailsPage) match {
-          case Some(Answers(true, _)) => routes.PDFController.onPageLoad(NormalMode)
-          case _ => routes.IndexController.onPageLoad()
+          case Some(Answers(true, _)) => routes.PDFDetailsController.onPageLoad(NormalMode)
+          case _ => routes.FinishedCheckingController.onPageLoad()
         }
-    }
+    },
+
+    CustomisePDFPage -> (_ => routes.FinishedCheckingController.onPageLoad())
+
   )
 
   private val checkRouteMap: Map[Page, UserAnswers => Call] = Map()

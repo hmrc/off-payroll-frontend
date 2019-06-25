@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OutDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.UserType.Hirer
@@ -30,11 +31,13 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEOutsideView]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_],
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true): HtmlFormat.Appendable =
-    view(postAction, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig)
+    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig)
 
   "The PAYEOutsideView page" should {
 

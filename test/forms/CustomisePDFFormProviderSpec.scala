@@ -17,6 +17,7 @@
 package forms
 
 import forms.behaviours.StringFieldBehaviours
+import models.AdditionalPdfDetails
 import play.api.data.FormError
 
 class CustomisePDFFormProviderSpec extends StringFieldBehaviours {
@@ -45,5 +46,20 @@ class CustomisePDFFormProviderSpec extends StringFieldBehaviours {
         lengthError = FormError(fieldName, lengthKey(fieldName), Seq(maxLength))
       )
     }
+  }
+
+  "test the utf8 conversion" in {
+
+    CustomisePDFFormProvider.utf8Conversion(AdditionalPdfDetails(Some("Not great not terrible !@£%$^&(*()+_"),
+      Some("�,“ãḼơᶉëᶆ ȋḍỡḽǭᵳ ʂǐť ӓṁệṩčįɳġ ḝłįʈ, șếᶑ ᶁⱺ ẽḭŭŝḿꝋď ṫĕᶆᶈṓɍ ỉñḉīḑȋᵭṵńť ṷŧ ḹẩḇőꝛế éȶ đꝍꞎôꝛȇ ᵯáꞡᶇā ąⱡîɋṹẵ."),
+      Some("�,“ãḼơᶉëᶆ ȋḍỡḽǭᵳ ʂǐť ӓṁệṩčįɳġ ḝłįʈ, șếᶑ ᶁⱺ ẽḭŭŝḿꝋď ṫĕᶆᶈṓɍ ỉñḉīḑȋᵭṵńť ṷŧ ḹẩḇőꝛế éȶ đꝍꞎôꝛȇ ᵯáꞡᶇā ąⱡîɋṹẵ."),
+      Some("�,“ãḼơᶉëᶆ ȋḍỡḽǭᵳ ʂǐť ӓṁệṩčįɳġ ḝłįʈ, șếᶑ ᶁⱺ ẽḭŭŝḿꝋď ṫĕᶆᶈṓɍ ỉñḉīḑȋᵭṵńť ṷŧ ḹẩḇőꝛế éȶ đꝍꞎôꝛȇ ᵯáꞡᶇā ąⱡîɋṹẵ.")
+    )
+    ) shouldEqual AdditionalPdfDetails(Some("Not great not terrible !@ￂﾣ%$^&(*()+_"),
+      Some("￯﾿ﾽ,￢ﾀﾜￃﾣ￡ﾸﾼￆﾡ￡ﾶﾉￃﾫ￡ﾶﾆ ￈ﾋ￡ﾸﾍ￡ﾻﾡ￡ﾸﾽￇﾭ￡ﾵﾳ ￊﾂￇﾐￅﾥ ￓﾓ￡ﾹﾁ￡ﾻﾇ￡ﾹﾩￄﾍￄﾯ￉ﾳￄﾡ ￡ﾸﾝￅﾂￄﾯￊﾈ, ￈ﾙ￡ﾺ﾿￡ﾶﾑ ￡ﾶﾁ￢ﾱﾺ ￡ﾺﾽ￡ﾸﾭￅﾭￅﾝ￡ﾸ﾿￪ﾝﾋￄﾏ ￡ﾹﾫￄﾕ￡ﾶﾆ￡ﾶﾈ￡ﾹﾓ￉ﾍ ￡ﾻﾉￃﾱ￡ﾸﾉￄﾫ￡ﾸﾑ￈ﾋ￡ﾵﾭ￡ﾹﾵￅﾄￅﾥ ￡ﾹﾷￅﾧ ￡ﾸﾹ￡ﾺﾩ￡ﾸﾇￅﾑ￪ﾝﾛ￡ﾺ﾿ ￃﾩ￈ﾶ ￄﾑ￪ﾝﾍ￪ﾞﾎￃﾴ￪ﾝﾛ￈ﾇ ￡ﾵﾯￃﾡ￪ﾞﾡ￡ﾶﾇￄﾁ ￄﾅ￢ﾱﾡￃﾮ￉ﾋ￡ﾹﾹ￡ﾺﾵ."),
+      Some("￯﾿ﾽ,￢ﾀﾜￃﾣ￡ﾸﾼￆﾡ￡ﾶﾉￃﾫ￡ﾶﾆ ￈ﾋ￡ﾸﾍ￡ﾻﾡ￡ﾸﾽￇﾭ￡ﾵﾳ ￊﾂￇﾐￅﾥ ￓﾓ￡ﾹﾁ￡ﾻﾇ￡ﾹﾩￄﾍￄﾯ￉ﾳￄﾡ ￡ﾸﾝￅﾂￄﾯￊﾈ, ￈ﾙ￡ﾺ﾿￡ﾶﾑ ￡ﾶﾁ￢ﾱﾺ ￡ﾺﾽ￡ﾸﾭￅﾭￅﾝ￡ﾸ﾿￪ﾝﾋￄﾏ ￡ﾹﾫￄﾕ￡ﾶﾆ￡ﾶﾈ￡ﾹﾓ￉ﾍ ￡ﾻﾉￃﾱ￡ﾸﾉￄﾫ￡ﾸﾑ￈ﾋ￡ﾵﾭ￡ﾹﾵￅﾄￅﾥ ￡ﾹﾷￅﾧ ￡ﾸﾹ￡ﾺﾩ￡ﾸﾇￅﾑ￪ﾝﾛ￡ﾺ﾿ ￃﾩ￈ﾶ ￄﾑ￪ﾝﾍ￪ﾞﾎￃﾴ￪ﾝﾛ￈ﾇ ￡ﾵﾯￃﾡ￪ﾞﾡ￡ﾶﾇￄﾁ ￄﾅ￢ﾱﾡￃﾮ￉ﾋ￡ﾹﾹ￡ﾺﾵ."),
+      Some("￯﾿ﾽ,￢ﾀﾜￃﾣ￡ﾸﾼￆﾡ￡ﾶﾉￃﾫ￡ﾶﾆ ￈ﾋ￡ﾸﾍ￡ﾻﾡ￡ﾸﾽￇﾭ￡ﾵﾳ ￊﾂￇﾐￅﾥ ￓﾓ￡ﾹﾁ￡ﾻﾇ￡ﾹﾩￄﾍￄﾯ￉ﾳￄﾡ ￡ﾸﾝￅﾂￄﾯￊﾈ, ￈ﾙ￡ﾺ﾿￡ﾶﾑ ￡ﾶﾁ￢ﾱﾺ ￡ﾺﾽ￡ﾸﾭￅﾭￅﾝ￡ﾸ﾿￪ﾝﾋￄﾏ ￡ﾹﾫￄﾕ￡ﾶﾆ￡ﾶﾈ￡ﾹﾓ￉ﾍ ￡ﾻﾉￃﾱ￡ﾸﾉￄﾫ￡ﾸﾑ￈ﾋ￡ﾵﾭ￡ﾹﾵￅﾄￅﾥ ￡ﾹﾷￅﾧ ￡ﾸﾹ￡ﾺﾩ￡ﾸﾇￅﾑ￪ﾝﾛ￡ﾺ﾿ ￃﾩ￈ﾶ ￄﾑ￪ﾝﾍ￪ﾞﾎￃﾴ￪ﾝﾛ￈ﾇ ￡ﾵﾯￃﾡ￪ﾞﾡ￡ﾶﾇￄﾁ ￄﾅ￢ﾱﾡￃﾮ￉ﾋ￡ﾹﾹ￡ﾺﾵ."))
+
+
   }
 }

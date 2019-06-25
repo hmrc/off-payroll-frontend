@@ -89,4 +89,21 @@ trait Constraints {
       case Some(str) if str.length > maximum => Invalid(errorKey, maximum)
       case _ => Valid
     }
+
+  protected def optUTF8(errorKey: String): Constraint[Option[String]] =
+    Constraint {
+      case Some(str) =>
+
+        import java.nio.charset.StandardCharsets
+
+        try {
+          str.getBytes(StandardCharsets.UTF_8)
+          Valid
+
+        } catch {
+          case _: Exception => Invalid(errorKey)
+        }
+
+      case _ => Valid
+    }
 }

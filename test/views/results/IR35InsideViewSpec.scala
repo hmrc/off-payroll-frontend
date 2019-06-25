@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.UserType.Hirer
@@ -30,8 +31,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IR35InsideView]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(postAction, isPrivateSector)(req, messages, frontendAppConfig)
+    view(form, isPrivateSector)(req, messages, frontendAppConfig)
 
   "The IR35InsideView page" should {
 

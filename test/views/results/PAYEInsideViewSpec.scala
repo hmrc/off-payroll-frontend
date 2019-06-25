@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.UserType.{Hirer, Worker}
 import play.api.libs.json.Json
 import play.api.mvc.Request
@@ -27,7 +28,9 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEInsideView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  val form = new DeclarationFormProvider()()
+
+  def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
 
   "The PAYEInsideView page" should {
 

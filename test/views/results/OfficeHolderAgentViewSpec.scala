@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.UserType.Agency
 import play.api.libs.json.Json
 import play.api.mvc.Request
@@ -27,7 +28,9 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderAgentView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  val form = new DeclarationFormProvider()()
+
+  def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
 
   "The OfficeHolderAgentView page" should {
 

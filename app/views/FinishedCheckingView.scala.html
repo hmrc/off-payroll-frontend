@@ -22,10 +22,10 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, mode: Mode, downloadAction: Option[Call] = None)(implicit request: Request[_], messages: Messages)
 
 @mainTemplate(
-    title = title(form, "customisePDF.title"),
+    title = titleNoForm("finishedChecking.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -33,32 +33,18 @@
 
         @components.back_link()
 
-        @components.error_summary(form.errors)
+        @components.heading("finishedChecking.heading")
 
-        @components.heading("customisePDF.heading")
+        @if(downloadAction.isDefined){
+            <p><a href="@{downloadAction.get.url}">@messages("finishedChecking.downloadAnswers", 25)</a></p>
+        }
 
-        @components.hint(Html(messages("customisePDF.hint")))
-
-        @components.input_text(
-          field = form("completedBy"),
-          label = messages("customisePDF.customisedBy")
-        )
-
-        @components.input_text(
-            field = form("client"),
-            label = messages("customisePDF.client")
-        )
-
-        @components.input_text(
-            field = form("job"),
-            label = messages("customisePDF.job")
-        )
-
-        @components.input_text(
-            field = form("reference"),
-            label = messages("customisePDF.reference")
-        )
-
-        @components.submit_button()
+        <p>
+            @messages("finishedChecking.p1.beforeLink1")
+            <a href="@appConfig.govUkStartPageUrl">@messages("finishedChecking.p1.link1")</a>
+            @messages("finishedChecking.p1.beforeLink2")
+            <a href="@appConfig.govUkStartPageUrl">@messages("finishedChecking.p1.link2")</a>
+            @messages("finishedChecking.p1.afterLink2")
+        </p>
     }
 }

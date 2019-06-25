@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.UserType.Hirer
@@ -30,8 +31,10 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderIR35View]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view( postAction, isPrivateSector)(req, messages, frontendAppConfig)
+    view(form, isPrivateSector)(req, messages, frontendAppConfig)
 
   "The OfficeHolderIR35View page" should {
 

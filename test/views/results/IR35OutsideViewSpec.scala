@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OutDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.UserType.Hirer
@@ -31,12 +32,14 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IR35OutsideView]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_],
                  isPrivateSector: Boolean = false,
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true): HtmlFormat.Appendable =
-    view(postAction, isPrivateSector,isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig)
+    view(form, isPrivateSector,isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig)
 
   "The IR35OutsideView page" should {
 
