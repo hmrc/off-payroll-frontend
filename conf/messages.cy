@@ -77,6 +77,7 @@ site.finish = Finish
 site.exit = Exit
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
+site.confirm_continue = Confirm for result
 site.accept_continue = Accept and continue
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
@@ -997,10 +998,10 @@ result.aboutResult.exclamation =Ni fydd CThEM yn cadw cofnod o’r canlyniad hwn
 
 result.decisionVersion =Fersiwn y Gwasanaeth Penderfyniadau:
 
-result.declaration.checkbox = By submitting your answers, you are confirming the following:
-result.declaration.bullet1 = the information you have provided is correct, to the best of your knowledge
-result.declaration.bullet2 = it reflects the actual or expected working practices of this role
-result.declaration.bullet3 = if this information changes, you accept your result may no longer hold
+result.declaration.checkbox =Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
+result.declaration.bullet1 =darllen yr arweiniad ar gyfer pob cwestiwn
+result.declaration.bullet2 =adolygu’ch atebion
+result.declaration.bullet3 =rhoi atebion sy’n adlewyrchu arferion gwaith, gwirioneddol neu ddisgwyliedig, y swydd hon
 result.declaration.noLongerHold =Os bydd arferion gwaith y swydd hon yn newid, rydych yn derbyn na fydd y canlyniad hwn, o bosib, yn sefyll.
 result.declaration.error.required =Bydd angen i chi dicio’r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
 
@@ -1275,9 +1276,12 @@ employeesOver.error.required = You need to select an answer
 ##### TODO NEED WELSH FOR ####
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
-checkYourAnswers.confirm.h2 = Confirm answers to get your result
-checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.
+checkYourAnswers.confirm.h2 = Declaration
+checkYourAnswers.confirm.p1 = By submitting your answers, you are confirming the following:
 
+checkYourAnswers.confirm.bullet1 = the information you have provided is correct, to the best of your knowledge
+checkYourAnswers.confirm.bullet2 = it reflects the actual or expected working practices of this role
+checkYourAnswers.confirm.bullet3 = if this information changes, you accept your result may no longer hold
 ##### TODO NEED WELSH FOR ####
 toolNotNeeded.client.ir35.title = You don’t need to determine if this work falls within the off-payroll rules (IR35)
 toolNotNeeded.client.ir35.heading = You don’t need to determine if this work falls within the off-payroll rules (IR35)

@@ -64,7 +64,8 @@ site.continue = Continue
 site.accept_continue = Accept and continue
 site.finish = Finish
 site.exit = Exit
-site.confirm_continue = Confirm and continue
+site.confirm_continue = Confirm for result
+site.confirm_result = Confirm and continue
 site.service_name = Check employment status for tax
 site.home = Home
 site.govuk = GOV.UK
@@ -974,10 +975,10 @@ result.aboutResult.exclamation = HMRC will not keep a record of this result.
 
 result.decisionVersion = Decision Service Version:
 
-result.declaration.checkbox = By submitting your answers, you are confirming the following:
-result.declaration.bullet1 = the information you have provided is correct, to the best of your knowledge
-result.declaration.bullet2 = it reflects the actual or expected working practices of this role
-result.declaration.bullet3 = if this information changes, you accept your result may no longer hold
+result.declaration.checkbox = Before you rely on this result, please confirm that you have:
+result.declaration.bullet1 = read the guidance for each question
+result.declaration.bullet2 = reviewed your answers
+result.declaration.bullet3 = given answers that reflect the actual or expected working practices of this engagement
 result.declaration.noLongerHold = If the working practices of this engagement change you accept this result may no longer hold.
 result.declaration.error.required = In order to download a PDF, you will need to check the declaration box
 
@@ -1233,8 +1234,13 @@ employeesOver.error.required = You need to select an answer
 
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
-checkYourAnswers.confirm.h2 = Confirm answers to get your result
-checkYourAnswers.confirm.p1 = By submitting your answers, you confirm the information you’ve provided is, to the best of your knowledge, correct. That it reflects the actual, or expected, working practices of this role. And that if these change, you also accept your result may no longer hold.
+checkYourAnswers.confirm.h2 = Declaration
+checkYourAnswers.confirm.p1 = By submitting your answers, you are confirming the following:
+
+checkYourAnswers.confirm.bullet1 = the information you have provided is correct, to the best of your knowledge
+checkYourAnswers.confirm.bullet2 = it reflects the actual or expected working practices of this role
+checkYourAnswers.confirm.bullet3 = if this information changes, you accept your result may no longer hold
+
 checkYourAnswers.setup.header = Section 1: Who, what, when
 checkYourAnswers.exit.header = Section 2: Worker’s Duties
 checkYourAnswers.personalService.header = Section 3: Worker’s substitution

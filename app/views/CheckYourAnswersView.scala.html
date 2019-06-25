@@ -50,7 +50,13 @@
 
         <p>@messages("checkYourAnswers.confirm.p1")</p>
 
-        @components.submit_button()
+        @components.bulleted_list(Seq(
+            messages("checkYourAnswers.confirm.bullet1"),
+            messages("checkYourAnswers.confirm.bullet2"),
+            messages("checkYourAnswers.confirm.bullet3")
+        ))
+
+        @components.submit_button("site.confirm_continue")
     }
 
 }
