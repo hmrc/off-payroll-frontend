@@ -530,8 +530,8 @@ hirer.putRightAtOwnCost.checkYourAnswersLabel =Os nad yw’r cleient terfynol yn
 worker.optimised.putRightAtOwnCost.title = Would you have to put the work right if your client was not happy with it?
 worker.optimised.putRightAtOwnCost.heading = Would you have to put the work right if your client was not happy with it?
 worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = Would you have to put the work right if your client was not happy with it?
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right for no additional income, and would incur extra outgoings
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right for no additional income, with no extra outgoings but would incur an opportunity cost
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right, for no additional income, and would incur extra outgoings
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost
 worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, you would put it right in your usual hours at your usual rate or fee
 worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, you could not put it right because it was time-specific or for a single event
 worker.optimised.putRightAtOwnCost.noObligationToCorrect = No, you would not need to put it right
@@ -581,18 +581,18 @@ hirer.howWorkerIsPaid.incomeProfitOrLosses =Canran o elw neu gynilion y cleient 
 hirer.howWorkerIsPaid.checkYourAnswersLabel =Beth yw’r prif fodd y mae’r gweithiwr yn cael ei dalu ar gyfer y swydd hon?
 
 ## TODO newed wealsh
-worker.optimised.howWorkerIsPaid.title = How will you be compensated for this work?
-worker.optimised.howWorkerIsPaid.heading = How will you be compensated for this work?
-worker.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will you be compensated for this work?
+worker.optimised.howWorkerIsPaid.title = How will you be paid for this work?
+worker.optimised.howWorkerIsPaid.heading = How will you be paid for this work?
+worker.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will you be paid for this work?
 worker.optimised.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
 worker.optimised.howWorkerIsPaid.incomeFixed = A fixed price for a specific project
 worker.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
 worker.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales you generate
 worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your client’s profits or savings
 
-hirer.optimised.howWorkerIsPaid.title = How will the worker be compensated for this work?
-hirer.optimised.howWorkerIsPaid.heading = How will the worker be compensated for this work?
-hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be compensated for this work?
+hirer.optimised.howWorkerIsPaid.title = How will the worker be paid for this work?
+hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
+hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
 hirer.optimised.howWorkerIsPaid.incomeFixed = A fixed price for a specific project
 hirer.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
@@ -997,10 +997,10 @@ result.aboutResult.exclamation =Ni fydd CThEM yn cadw cofnod o’r canlyniad hwn
 
 result.decisionVersion =Fersiwn y Gwasanaeth Penderfyniadau:
 
-result.declaration.checkbox =Cyn i chi ddibynnu ar y canlyniad hwn, cadarnhewch eich bod wedi:
-result.declaration.bullet1 =darllen yr arweiniad ar gyfer pob cwestiwn
-result.declaration.bullet2 =adolygu’ch atebion
-result.declaration.bullet3 =rhoi atebion sy’n adlewyrchu arferion gwaith, gwirioneddol neu ddisgwyliedig, y swydd hon
+result.declaration.checkbox = By submitting your answers, you are confirming the following:
+result.declaration.bullet1 = the information you have provided is correct, to the best of your knowledge
+result.declaration.bullet2 = it reflects the actual or expected working practices of this role
+result.declaration.bullet3 = if this information changes, you accept your result may no longer hold
 result.declaration.noLongerHold =Os bydd arferion gwaith y swydd hon yn newid, rydych yn derbyn na fydd y canlyniad hwn, o bosib, yn sefyll.
 result.declaration.error.required =Bydd angen i chi dicio’r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
 

@@ -21,7 +21,7 @@ object HowWorkerIsPaidMessages extends BaseMessages {
   val subheading = "About the worker’s financial risk"
 
   object WorkerOptimised {
-    val heading = "How will you be compensated for this work?"
+    val heading = "How will you be paid for this work?"
     val title = heading
     val salary = "An hourly, daily or weekly rate"
     val fixed = "A fixed price for a specific project"
@@ -31,7 +31,7 @@ object HowWorkerIsPaidMessages extends BaseMessages {
   }
 
   object HirerOptimised {
-    val heading = "How will the worker be compensated for this work?"
+    val heading = "How will the worker be paid for this work?"
     val title = heading
     val salary = "An hourly, daily or weekly rate"
     val fixed = "A fixed price for a specific project"

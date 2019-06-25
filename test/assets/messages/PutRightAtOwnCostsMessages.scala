@@ -23,8 +23,8 @@ object PutRightAtOwnCostsMessages extends BaseMessages {
   object WorkerOptimised {
     val title = "Would you have to put the work right if your client was not happy with it?"
     val heading = "Would you have to put the work right if your client was not happy with it?"
-    val yesAdditionalCost = "Yes, you would have to put it right for no additional income, and would incur extra outgoings"
-    val yesAdditionalCharge = "Yes, you would have to put it right for no additional income, with no extra outgoings but would incur an opportunity cost"
+    val yesAdditionalCost = "Yes, you would have to put it right, for no additional income, and would incur extra outgoings"
+    val yesAdditionalCharge = "Yes, you would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost"
     val noUsualHours = "No, you would put it right in your usual hours at your usual rate or fee"
     val noSingleEvent = "No, you could not put it right because it was time-specific or for a single event"
     val no = "No, you would not need to put it right"
