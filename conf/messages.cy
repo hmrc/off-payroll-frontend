@@ -580,7 +580,7 @@ hirer.howWorkerIsPaid.incomeCommission =Canran o’r gwerthiannau y mae’r gwei
 hirer.howWorkerIsPaid.incomeProfitOrLosses =Canran o elw neu gynilion y cleient terfynol
 hirer.howWorkerIsPaid.checkYourAnswersLabel =Beth yw’r prif fodd y mae’r gweithiwr yn cael ei dalu ar gyfer y swydd hon?
 
-//TODO newed wealsh
+## TODO newed wealsh
 worker.optimised.howWorkerIsPaid.title = How will you be compensated for this work?
 worker.optimised.howWorkerIsPaid.heading = How will you be compensated for this work?
 worker.optimised.howWorkerIsPaid.checkYourAnswersLabel = On what basis will you be compensated for this work?

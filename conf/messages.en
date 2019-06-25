@@ -630,7 +630,7 @@ worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide
 worker.optimised.chooseWhereWork.workerCannotChoose = Yes
 worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
 worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
-worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
+worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice
 
 hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
 hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
