@@ -37,7 +37,7 @@
 
         @components.heading(tailorMsgOptimised("lineManagerDuties.heading"))
 
-        @components.hint_p(Html(Messages(tailorMsgOptimised("lineManagerDuties.p1"))))
+        <p>@messages(tailorMsgOptimised("lineManagerDuties.p1"))</p>
 
         @components.input_yes_no(
             field = form("value"),
