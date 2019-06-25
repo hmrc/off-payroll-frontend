@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import models.requests.DataRequest
+package assets.messages.results
 
-@(message: Html, result: String, subMessage: Option[Html] = None)(implicit request: DataRequest[_])
+object UserAnswersMessages extends BaseResultMessages {
 
-@defining(s"${request.userType}.$result") { id =>
+  val h2 = "What you told us"
+  val section1h3 = "Section 1: Who, what, when"
+  val section2h3 = "Section 2: Worker’s Duties"
+  val section3h3 = "Section 3: Worker’s substitution"
+  val section4h3 = "Section 4: Worker’s arrangements"
+  val section5h3 = "Section 5: Worker’s risk"
+  val section6h3 = "Section 6: Worker’s involvement"
 
-    <div class="govuk-box-highlight" id="@id">
-        <h1 class="bold-xlarge">@message</h1>
-        @subMessage.map { msg =>
-            <p class="font-large">@msg</p>
-        }
-    </div>
 }

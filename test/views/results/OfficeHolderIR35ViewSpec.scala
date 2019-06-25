@@ -19,19 +19,20 @@ package views.results
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
 import models.AboutYouAnswer.Worker
-import models.UserAnswers
 import models.UserType.Hirer
 import models.requests.DataRequest
+import models.{PDFResultDetails, UserAnswers}
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.twirl.api.HtmlFormat
+import play.twirl.api.Html
 import views.html.results.inside.officeHolder.OfficeHolderIR35View
 
 class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderIR35View]
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view( postAction, isPrivateSector,"worker")(req, messages, frontendAppConfig)
+  def createView(req: DataRequest[_], isPrivateSector: Boolean, pdfDetails: PDFResultDetails): Html =
+    view( postAction, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderIR35View page" should {
 
@@ -39,46 +40,20 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
 
-      "Have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+      "If is in the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testNoPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = false)
       }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
-      }
+      "If is in the Public Sector" should {
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testNoPdfResultDetails))
 
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Worker.IR35.subHeading
-      }
-
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.whyResult_p1
-      }
-
-      "For a Public Sector contract" should {
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_public_p1
-        }
-      }
-
-      "For a Private Sector contract" should {
-
-        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_private_p1
-        }
-      }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
+        workerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = false)
       }
     }
 
@@ -86,48 +61,130 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
 
-      "Have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+      "If is in the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testNoPdfResultDetails))
+
+        hirerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = false)
       }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+      "If is in the Public Sector" should {
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testNoPdfResultDetails))
+
+        hirerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = false)
+      }
+    }
+  }
+
+  "The OfficeHolderIR35View PDF/Print page" should {
+
+    "If the UserType is Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+
+      "If is in the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = true)
       }
 
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Hirer.IR35.subHeading
+      "If is in the Public Sector" should {
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = true)
+      }
+    }
+
+    "If the UserType is Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+
+      "If is in the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+
+        hirerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = true)
       }
 
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.whyResult_p1
+      "If is in the Public Sector" should {
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+
+        hirerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = true)
       }
+    }
+  }
 
-      "For a Public Sector contract" should {
+  def workerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
 
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p1
-          document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p2
-        }
+    "Have the correct title" in {
+      document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
+    }
+
+    "Have the correct subheading" in {
+      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Worker.IR35.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.whyResult_p1
+    }
+
+    if(isPrivateSector) {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_private_p1
       }
-
-      "For a Private Sector contract" should {
-
-        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p1
-          document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p2
-        }
+    } else {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_public_p1
       }
+    }
+  }
 
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
+  def hirerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
+    "Have the correct title" in {
+      document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+    }
+
+    "Have the correct subheading" in {
+      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Hirer.IR35.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.whyResult_p1
+    }
+
+    if(isPrivateSector) {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p1
+        document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p2
+      }
+    } else {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p1
+        document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p2
       }
     }
   }

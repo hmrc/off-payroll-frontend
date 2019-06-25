@@ -19,19 +19,20 @@ package views.results
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
 import models.AboutYouAnswer.Worker
-import models.UserAnswers
+import models.{PDFResultDetails, UserAnswers}
 import models.UserType.Hirer
 import models.requests.DataRequest
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.html.results.inside.IR35InsideView
 
 class IR35InsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IR35InsideView]
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(postAction, isPrivateSector,"worker")(req, messages, frontendAppConfig)
+  def createView(req: DataRequest[_], isPrivateSector: Boolean = false, pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
+    view(postAction, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35InsideView page" should {
 
@@ -39,46 +40,21 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
 
-      "Have the correct title" in {
-        document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+      "if working in the Public Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest))
+
+        workerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = false)
       }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
-      }
+      "if working in the Private Sector" should {
 
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe InDecisionMessages.WorkerIR35.subHeading
-      }
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
 
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerIR35.whyResult
-      }
-
-      "For a Public Sector contract" should {
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.doNextPublic
-        }
-      }
-
-      "For a Private Sector contract" should {
-
-        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.doNextPrivate
-        }
-      }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
+        workerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = false)
       }
     }
 
@@ -86,7 +62,80 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
+
+      "if working in the Public Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest))
+
+        hirerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = false)
+      }
+
+      "if working in the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
+
+        hirerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = false)
+      }
+    }
+  }
+
+  "The IR35InsideView PDF/Print page" should {
+
+    "If the UserType is Worker" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+
+      "if working in the Public Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = true)
+      }
+
+      "if working in the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+
+        workerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = true)
+      }
+    }
+
+    "If the UserType is Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+
+      "if working in the Public Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+
+        hirerPageChecks(isPrivateSector = false)
+        pdfPageChecks(isPdfView = true)
+      }
+
+      "if working in the Private Sector" should {
+
+        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+
+        hirerPageChecks(isPrivateSector = true)
+        pdfPageChecks(isPdfView = true)
+      }
+    }
+  }
+
+
+  def hirerPageChecks(isPrivateSector: Boolean)(implicit document: Document): Unit = {
+
+    "If the UserType is Hirer" should {
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
+      lazy val document = asDocument(createView(dataRequest, isPrivateSector))
 
       "Have the correct title" in {
         document.title mustBe title(InDecisionMessages.HirerIR35.title)
@@ -101,33 +150,54 @@ class IR35InsideViewSpec extends ResultViewFixture {
       }
 
       "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+        document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
         document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerIR35.whyResult
       }
 
-      "For a Public Sector contract" should {
-
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
+      if(isPrivateSector) {
+        "Have the correct Do Next section for the Private Sector" in {
+          document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+          document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP1
+          document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP2
+        }
+      } else {
+        "Have the correct Do Next section for the Public Sector" in {
+          document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
           document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextPublicP1
           document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextPublicP2
         }
       }
+    }
+  }
 
-      "For a Private Sector contract" should {
+  def workerPageChecks(isPrivateSector: Boolean)(implicit document: Document): Unit = {
 
-        lazy val document = asDocument(createView(dataRequest, isPrivateSector = true))
+    "Have the correct title" in {
+      document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+    }
 
-        "Have the correct Do Next section which" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP1
-          document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP2
-        }
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
+    }
+
+    "Have the correct subheading" in {
+      document.select(Selectors.subheading).text mustBe InDecisionMessages.WorkerIR35.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerIR35.whyResult
+    }
+
+    if(isPrivateSector) {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.doNextPrivate
       }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
+    } else {
+      "Have the correct Do Next section which" in {
+        document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.doNextPublic
       }
     }
   }

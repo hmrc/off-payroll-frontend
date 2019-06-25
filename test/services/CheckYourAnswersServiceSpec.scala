@@ -130,9 +130,9 @@ class CheckYourAnswersServiceSpec extends SpecBase {
           AnswerSection(
             headingKey = Some("checkYourAnswers.financialRisk.header"),
             rows = Seq(
-              CheckYourAnswersHelper.materialsExpenses.map(_ -> None),
-              CheckYourAnswersHelper.vehicleExpenses.map(_ -> None),
               CheckYourAnswersHelper.equipmentExpenses.map(_ -> None),
+              CheckYourAnswersHelper.vehicleExpenses.map(_ -> None),
+              CheckYourAnswersHelper.materialsExpenses.map(_ -> None),
               CheckYourAnswersHelper.otherExpenses.map(_ -> None),
               CheckYourAnswersHelper.howWorkerIsPaid.map(_ -> None),
               CheckYourAnswersHelper.putRightAtOwnCost.map(_ -> None)

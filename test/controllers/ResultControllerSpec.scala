@@ -85,7 +85,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
     frontendAppConfig
   )
 
-  def viewAsString() = employedView(answers, version, form, postAction,"worker")(fakeRequest, messages, frontendAppConfig).toString
+  def viewAsString() = employedView(answers, version, form, postAction)(fakeDataRequest, messages, frontendAppConfig).toString
 
   "ResultPage Controller" must {
 

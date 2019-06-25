@@ -18,28 +18,51 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import models.ResultType.Agent
-    
-@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+@import results.sections.pdf
+@import models.requests.DataRequest
 
-@(postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean,workerType: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@mainTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig) {
+@(postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
-    @components.teal_result(
-        Html(messages("agent.optimised.result.outside.heading")),
-        "result.outside",
-        workerType
-    )
+@defining(
+    if(pdfResultDetails.printMode) {
+        printTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig)(_)
+    } else {
+        mainTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig)(_)
+    }
+){ template =>
 
-    @formWithCsrf(postAction, 'autoComplete -> "off") {
+    @template {
 
-        @results.sections.why_result(whyResult)
+        @pdfResultDetails.additionalPdfDetails.map { details =>
+            @pdf.additional_details(details, pdfResultDetails.timestamp)
+        }
 
-        @results.sections.do_next(doNext)
+        @components.teal_result(
+            Html(messages("agent.optimised.result.outside.heading")),
+            "result.outside"
+        )
 
-        @results.sections.download()
+        @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @components.submit_button("site.continue")
+            @results.sections.why_result(whyResult)
+
+            @results.sections.do_next(doNext)
+
+            @if(pdfResultDetails.printMode) {
+
+                @pdf.answers(pdfResultDetails.answerSections)
+
+                @pdf.decision_version(appConfig.decisionVersion)
+
+            } else {
+
+                @results.sections.download()
+
+                @components.submit_button("site.continue")
+            }
+        }
     }
 }
 

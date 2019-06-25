@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import models.requests.DataRequest
+package assets.messages.results
 
-@(message: Html, result: String, subMessage: Option[Html] = None)(implicit request: DataRequest[_])
+object DecisionVersionMessages extends BaseResultMessages {
 
-@defining(s"${request.userType}.$result") { id =>
+  val h2 = (ver: String) => s"Decision service version: $ver"
+  val p1 = "This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes"
 
-    <div class="govuk-box-highlight" id="@id">
-        <h1 class="bold-xlarge">@message</h1>
-        @subMessage.map { msg =>
-            <p class="font-large">@msg</p>
-        }
-    </div>
 }

@@ -14,22 +14,13 @@
  * limitations under the License.
  */
 
-package views
+package assets.messages.results
 
-import views.behaviours.ViewBehaviours
-import views.html.sections.setup.LeaveView
+object AdditionalPDFMessages extends BaseResultMessages {
 
-class LeaveViewSpec extends ViewBehaviours {
-
-  val messageKeyPrefix = "leave"
-
-  val view = injector.instanceOf[LeaveView]
-
-  def createView = () => view("worker")(fakeRequest, messages, frontendAppConfig)
-
-  "LeaveView" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
-
-    behave like pageWithBackLink(createView)
-  }
+  val timestamp = (time: String) => s"Date of result: $time (UTC)"
+  val completedBy = (name: String) => s"Name of the person that completed this check: $name"
+  val client = (name: String) => s"End client’s name: $name"
+  val jobTitle = (title: String) => s"Engagement job title: $title"
+  val reference = (ref: String) => s"Reference: $ref"
 }

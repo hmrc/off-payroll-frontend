@@ -14,19 +14,9 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import views.ViewUtils._
+@(version: String)(implicit messages: Messages)
 
-@this(mainTemplate: templates.MainTemplate)
-
-@(workerType: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
-
-@mainTemplate(
-    title = titleNoForm("leave.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
-
-    @components.back_link()
-
-    @components.teal_result(Html(messages("leave.heading")),"exit.leave",workerType)
-}
+<div id="decisionVersion" class="form-group">
+   <h2>@messages("result.pdf.decisionVersion", version)</h2>
+   <p>@messages("result.pdf.decisionVersion.p1")</p>
+</div>

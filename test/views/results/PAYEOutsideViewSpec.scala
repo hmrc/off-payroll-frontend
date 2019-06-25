@@ -19,22 +19,20 @@ package views.results
 import assets.messages.results.OutDecisionMessages
 import config.SessionKeys
 import models.AboutYouAnswer.Worker
-import models.UserAnswers
+import models.{PDFResultDetails, UserAnswers}
 import models.UserType.Hirer
 import models.requests.DataRequest
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import views.html.results.outside.PAYEOutsideView
 
 class PAYEOutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEOutsideView]
 
-  def createView(req: DataRequest[_],
-                 isSubstituteToDoWork: Boolean = true,
-                 isClientNotControlWork: Boolean = true,
-                 isIncurCostNoReclaim: Boolean = true): HtmlFormat.Appendable =
-    view(postAction, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,"worker")(req, messages, frontendAppConfig)
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
+    view(postAction, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEOutsideView page" should {
 
@@ -42,165 +40,97 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
 
-      "Have the correct title" in {
-        document.title mustBe title(OutDecisionMessages.WorkerPAYE.title)
-      }
+      implicit lazy val document = asDocument(createView(dataRequest, testNoPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerPAYE.heading
-      }
-
-      "Have the correct Why Result section when all reasons are given" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
-        document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
-        document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
-      }
-
-      "Have the correct Why Result section when isSubstituteToDoWork reason is given" in {
-
-        lazy val document = asDocument(createView(
-          dataRequest,
-          isClientNotControlWork = false,
-          isIncurCostNoReclaim = false
-        ))
-
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
-        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
-      }
-
-      "Have the correct Why Result section when isClientNotControlWork reason is given" in {
-
-        lazy val document = asDocument(createView(
-          dataRequest,
-          isSubstituteToDoWork = false,
-          isIncurCostNoReclaim = false
-        ))
-
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
-        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
-      }
-
-      "Have the correct Why Result section when isIncurCostNoReclaim reason is given" in {
-
-        lazy val document = asDocument(createView(
-          dataRequest,
-          isSubstituteToDoWork = false,
-          isClientNotControlWork = false
-        ))
-
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
-        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
-      }
-
-      "Have the correct Do Next section which" in {
-        document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.doNext
-      }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe OutDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.download_p1
-      }
+      workerPageChecks
+      pdfPageChecks(isPdfView = false)
     }
 
     "If the UserType is Hirer" should {
 
       lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
       lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-      lazy val document = asDocument(createView(dataRequest))
 
-      "Have the correct title" in {
-        document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
-      }
+      implicit lazy val document = asDocument(createView(dataRequest, testNoPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerPAYE.heading
-      }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = false)
+    }
+  }
 
-      "Have the correct Why Result section when all reasons are given" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
-        document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
-        document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
-      }
+  "The PAYEOutsideView PDF/Print page" should {
 
-      "Have the correct Why Result section when isSubstituteToDoWork reason is given" in {
+    "If the UserType is Worker" should {
 
-        lazy val document = asDocument(createView(
-          dataRequest,
-          isClientNotControlWork = false,
-          isIncurCostNoReclaim = false
-        ))
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
 
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
-        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
-      }
+      implicit lazy val document = asDocument(createView(dataRequest, testPdfResultDetails))
 
-      "Have the correct Why Result section when isClientNotControlWork reason is given" in {
+      workerPageChecks
+      pdfPageChecks(isPdfView = true)
+    }
 
-        lazy val document = asDocument(createView(
-          dataRequest,
-          isSubstituteToDoWork = false,
-          isIncurCostNoReclaim = false
-        ))
+    "If the UserType is Hirer" should {
 
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
-        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
-      }
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
 
-      "Have the correct Why Result section when isIncurCostNoReclaim reason is given" in {
+      implicit lazy val document = asDocument(createView(dataRequest, testPdfResultDetails))
 
-        lazy val document = asDocument(createView(
-          dataRequest,
-          isSubstituteToDoWork = false,
-          isClientNotControlWork = false
-        ))
+      hirerPageChecks
+      pdfPageChecks(isPdfView = true)
+    }
+  }
 
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
-        document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
-        document.select(Selectors.WhyResult.bullet(2)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.bullet(3)).isEmpty mustBe true
-        document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
+  def workerPageChecks(implicit document: Document) = {
 
-      }
+    "Have the correct title" in {
+      document.title mustBe title(OutDecisionMessages.WorkerPAYE.title)
+    }
 
-      "Have the correct Do Next section which" in {
-        document.select(Selectors.DoNext.h2(1)).text mustBe OutDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerPAYE.doNext
-      }
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerPAYE.heading
+    }
 
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe OutDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.download_p1
-      }
+    "Have the correct Why Result section when all reasons are given" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP1
+      document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
+      document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
+      document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
+    }
+
+    "Have the correct Do Next section which" in {
+      document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.doNext
+    }
+  }
+
+  def hirerPageChecks(implicit document: Document) = {
+
+    "Have the correct title" in {
+      document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerPAYE.heading
+    }
+
+    "Have the correct Why Result section when all reasons are given" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP1
+      document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
+      document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
+      document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
+    }
+
+    "Have the correct Do Next section which" in {
+      document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerPAYE.doNext
     }
   }
 }
