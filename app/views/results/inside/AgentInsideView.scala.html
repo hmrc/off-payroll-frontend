@@ -22,6 +22,7 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
+
 @(form: Form[_])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(title(form, "agent.optimised.result.inside.title"), appConfig = appConfig) {
@@ -29,6 +30,8 @@
 
     @components.teal_result(
         Html(messages("agent.optimised.result.inside.heading")),
+        "result.inside",
+        "agency",
         Some(Html(messages("agent.optimised.result.inside.subHeading")))
     )
 

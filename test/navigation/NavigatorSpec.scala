@@ -26,7 +26,6 @@ import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.BusinessSize.{BalanceSheet, NoneOfAbove, Turnover}
 import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
 import models._
 import pages._
@@ -138,7 +137,7 @@ class NavigatorSpec extends SpecBase {
 
         }
 
-        "go to the Business Size page from the IsWorkForPrivateSector page, if work is for Private Sector" in {
+        "go to the Turnover Over page from the IsWorkForPrivateSector page, if work is for Private Sector" in {
 
           val userAnswers: UserAnswers = UserAnswers("id")
             .set(WhichDescribesYouPage,0, ClientPAYE)
@@ -149,11 +148,136 @@ class NavigatorSpec extends SpecBase {
             .set(IsWorkForPrivateSectorPage,1, true)
 
           enable(OptimisedFlow)
-          nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
+          nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.TurnoverOverController.onPageLoad(NormalMode)
 
           enable(OptimisedFlow)
-          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
+          nextPage(IsWorkForPrivateSectorPage, userAnswersIR35) mustBe setupRoutes.TurnoverOverController.onPageLoad(NormalMode)
 
+        }
+
+        "go to the EmployeesOver page from the TurnoverOver page" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+
+          enable(OptimisedFlow)
+          nextPage(TurnoverOverPage, userAnswers) mustBe setupRoutes.EmployeesOverController.onPageLoad(NormalMode)
+        }
+
+        "go to the ToolNotNeeded page from the Employees page, if small business and hirer" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, false)
+            .set(EmployeesOverPage, 3, false)
+
+          enable(OptimisedFlow)
+          nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
+        }
+
+        "go to the HirerAdvisory page from the Employees page, if medium/large business and hirer" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, true)
+            .set(EmployeesOverPage, 3, true)
+
+          enable(OptimisedFlow)
+          nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
+        }
+
+        "go to the BalanceSheet page from the Employees page, if business size not determined yet" in {
+
+          val workerAnswers = UserAnswers("id").set(WhichDescribesYouPage,0, WorkerPAYE)
+          val hirerAnswers = UserAnswers("id").set(WhichDescribesYouPage,0, ClientPAYE)
+          val userAnswers: UserAnswers => UserAnswers =
+            _
+              .set(IsWorkForPrivateSectorPage,1, true)
+              .set(TurnoverOverPage, 2, false)
+              .set(EmployeesOverPage, 3, true)
+
+          enable(OptimisedFlow)
+          nextPage(EmployeesOverPage, userAnswers(workerAnswers)) mustBe setupRoutes.BalanceSheetOverController.onPageLoad(NormalMode)
+          nextPage(EmployeesOverPage, userAnswers(hirerAnswers)) mustBe setupRoutes.BalanceSheetOverController.onPageLoad(NormalMode)
+        }
+
+        "go to the ContractStarted page from the Employees page, if small business and worker" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, false)
+            .set(EmployeesOverPage, 3, false)
+
+          enable(OptimisedFlow)
+          nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to the ContractStarted page from the Employees page, if medium/large business and worker" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, true)
+            .set(EmployeesOverPage, 3, true)
+
+          enable(OptimisedFlow)
+          nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to the ToolNotNeeded page from the BalanceSheetOver page, if small business and hirer" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, false)
+            .set(EmployeesOverPage, 3, true)
+            .set(BalanceSheetOverPage, 4, false)
+
+          enable(OptimisedFlow)
+          nextPage(BalanceSheetOverPage, userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
+        }
+
+        "go to the HirerAdvisory page from the BalanceSheetOver page, if medium/large business and hirer" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, ClientPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, true)
+            .set(EmployeesOverPage, 3, false)
+            .set(BalanceSheetOverPage, 4, true)
+
+          enable(OptimisedFlow)
+          nextPage(BalanceSheetOverPage, userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
+        }
+
+        "go to the ContractStarted page from the BalanceSheetOver page, if small business and worker" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, false)
+            .set(EmployeesOverPage, 3, true)
+            .set(BalanceSheetOverPage, 4, false)
+
+          enable(OptimisedFlow)
+          nextPage(BalanceSheetOverPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
+
+        "go to the ContractStarted page from the BalanceSheetOver page, if medium/large business and worker" in {
+
+          val userAnswers: UserAnswers = UserAnswers("id")
+            .set(WhichDescribesYouPage,0, WorkerPAYE)
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, true)
+            .set(EmployeesOverPage, 3, false)
+            .set(BalanceSheetOverPage, 3, true)
+
+          enable(OptimisedFlow)
+          nextPage(BalanceSheetOverPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
 
         "go to the same page from the IsWorkForPrivateSector page if nothing is supplied" in {
@@ -182,53 +306,6 @@ class NavigatorSpec extends SpecBase {
           nextPage(HirerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
         }
 
-        "go to the ToolNotNeeded page from Business Size if Hirer and Small Business" in {
-
-          val userAnswers: UserAnswers = UserAnswers("id")
-            .set(WhichDescribesYouPage,0, ClientPAYE)
-            .set(BusinessSizePage,1, Seq(Turnover))
-
-          enable(OptimisedFlow)
-          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
-        }
-
-        "go to the HirerAdvisory page from Business Size if Hirer and Medium-Large Business" in {
-
-          val userAnswers: UserAnswers = UserAnswers("id")
-            .set(WhichDescribesYouPage,0, ClientPAYE)
-            .set(BusinessSizePage,1, Seq(Turnover, BalanceSheet))
-
-          enable(OptimisedFlow)
-          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
-        }
-
-        "go to the ContractStarted page from Business Size if Worker and Small Business" in {
-
-          val userAnswers: UserAnswers = UserAnswers("id")
-            .set(WhichDescribesYouPage,0, WorkerPAYE)
-            .set(BusinessSizePage,1, Seq(Turnover))
-
-          enable(OptimisedFlow)
-          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-        }
-
-        "go to the ContractStarted page from Business Size if Worker and Medium-Large Business" in {
-
-          val userAnswers: UserAnswers = UserAnswers("id")
-            .set(WhichDescribesYouPage,0, WorkerPAYE)
-            .set(BusinessSizePage,1, Seq(Turnover, BalanceSheet))
-
-          enable(OptimisedFlow)
-          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-        }
-
-        "go to the BusinessSize page from Business Size if no answer is held" in {
-
-          val userAnswers: UserAnswers = UserAnswers("id")
-          enable(OptimisedFlow)
-          nextPage(BusinessSizePage, userAnswers) mustBe setupRoutes.BusinessSizeController.onPageLoad(NormalMode)
-        }
-
         "go to the Identify To Stakeholders page from the Line Manager Duties page" in {
           enable(OptimisedFlow)
           nextPage(LineManagerDutiesPage) mustBe partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
@@ -237,6 +314,31 @@ class NavigatorSpec extends SpecBase {
         "go to the Result page from the Check Your Answers page" in {
           enable(OptimisedFlow)
           nextPage(CheckYourAnswersPage) mustBe routes.ResultController.onPageLoad()
+        }
+
+        "go to the EquipmentExpenses page from the ChooseWhereWork page" in {
+          enable(OptimisedFlow)
+          nextPage(ChooseWhereWorkPage) mustBe financialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode)
+        }
+
+        "go to the VehicleExpenses page from the EquipmentExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(EquipmentExpensesPage) mustBe financialRiskRoutes.VehicleController.onPageLoad(NormalMode)
+        }
+
+        "go to the MaterialExpenses page from the VehicleExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(VehiclePage) mustBe financialRiskRoutes.MaterialsController.onPageLoad(NormalMode)
+        }
+
+        "go to the OtherExpenses page from the MaterialExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(MaterialsPage) mustBe financialRiskRoutes.OtherExpensesController.onPageLoad(NormalMode)
+        }
+
+        "go to the HowWorkerIsPaid page from the OtherExpenses page" in {
+          enable(OptimisedFlow)
+          nextPage(OtherExpensesPage) mustBe financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode)
         }
       }
 

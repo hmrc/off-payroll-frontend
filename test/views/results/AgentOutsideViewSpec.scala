@@ -33,6 +33,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
   lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
 
   def createView(req: Request[_]) = view(form,true,false,false)(req, messages, frontendAppConfig)
+
   lazy val document = asDocument(createView(request))
 
   "The OutAgentView page" should {
@@ -53,7 +54,11 @@ class AgentOutsideViewSpec extends ResultViewFixture {
     }
 
     "Have the correct Why Result section for 2 reasons" in {
+<<<<<<< HEAD
       def createView2(req: Request[_]) = view(form,true,true,false)(req, messages, frontendAppConfig)
+=======
+      def createView2(req: Request[_]) = view(postAction,true,true,false,"agency")(req, messages, frontendAppConfig)
+>>>>>>> cc82cd4c130b704d040ff1963809076b39748939
       lazy val document2 = asDocument(createView2(request))
 
       document2.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
@@ -64,7 +69,11 @@ class AgentOutsideViewSpec extends ResultViewFixture {
     }
 
     "Have the correct Why Result section for 3 reasons" in {
+<<<<<<< HEAD
       def createView3(req: Request[_]) = view(form,true,true,true)(req, messages, frontendAppConfig)
+=======
+      def createView3(req: Request[_]) = view(postAction,true,true,true,"agency")(req, messages, frontendAppConfig)
+>>>>>>> cc82cd4c130b704d040ff1963809076b39748939
       lazy val document3 = asDocument(createView3(request))
 
       document3.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading

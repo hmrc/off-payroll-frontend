@@ -25,16 +25,64 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
-  implicit lazy val arbitraryBusinessSizeUserAnswersEntry: Arbitrary[(BusinessSizePage.type, JsValue)] =
+  implicit lazy val arbitraryEquipmentExpensesUserAnswersEntry: Arbitrary[(EquipmentExpensesPage.type, JsValue)] =
     Arbitrary {
       for {
-        page  <- arbitrary[BusinessSizePage.type]
-        value <- arbitrary[BusinessSize].map(Json.toJson(_))
+        page  <- arbitrary[EquipmentExpensesPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryOtherExpensesUserAnswersEntry: Arbitrary[(OtherExpensesPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[OtherExpensesPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryVehicleUserAnswersEntry: Arbitrary[(VehiclePage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[VehiclePage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryMaterialsUserAnswersEntry: Arbitrary[(MaterialsPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[MaterialsPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryEmployeesOverUserAnswersEntry: Arbitrary[(EmployeesOverPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[EmployeesOverPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryBalanceSheetOverUserAnswersEntry: Arbitrary[(BalanceSheetOverPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[BalanceSheetOverPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryTurnoverOverControllerUserAnswersEntry: Arbitrary[(TurnoverOverPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[TurnoverOverPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }
 

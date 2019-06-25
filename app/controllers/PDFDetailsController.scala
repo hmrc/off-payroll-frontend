@@ -32,7 +32,7 @@ import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
-import services.{DecisionService, PDFService}
+import services.{CompareAnswerService, DecisionService, PDFService}
 import utils.UserAnswersUtils
 import views.html.{AddDetailsView, CustomisePDFView}
 
@@ -51,8 +51,10 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
                                      pdfService: PDFService,
                                      errorHandler: ErrorHandler,
                                      time: Timestamp,
-                                     controllerHelper: ControllerHelper,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents)
+                                     compareAnswerService: CompareAnswerService,
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
+
   with FeatureSwitching with UserAnswersUtils {
 
   val form: Form[AdditionalPdfDetails] = formProvider()
@@ -73,7 +75,7 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
         formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
         additionalData => {
 
-          controllerHelper.redirect[AdditionalPdfDetails](NormalMode, additionalData, CustomisePDFPage)
+          redirect[AdditionalPdfDetails](NormalMode, additionalData, CustomisePDFPage)
         }
       )
 

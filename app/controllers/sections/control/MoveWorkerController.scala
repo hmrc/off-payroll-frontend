@@ -19,20 +19,23 @@ package controllers.sections.control
 import javax.inject.Inject
 
 import config.FrontendAppConfig
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.MoveWorkerFormProvider
 import javax.inject.Inject
+
 import models.{Mode, MoveWorker}
+import navigation.Navigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.sections.control.MoveWorkerView
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future
@@ -42,11 +45,15 @@ class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      requireData: DataRequiredAction,
                                      formProvider: MoveWorkerFormProvider,
                                      controllerComponents: MessagesControllerComponents,
-                                     controllerHelper: ControllerHelper,
                                      optimisedView: MoveWorkerView,
                                      subOptimisedView: SubOptimisedMoveWorkerView,
-                                     implicit val appConfig: FrontendAppConfig
-                                    ) extends BaseController(controllerComponents) with FeatureSwitching{
+                                     checkYourAnswersService: CheckYourAnswersService,
+                                     compareAnswerService: CompareAnswerService,
+                                     dataCacheConnector: DataCacheConnector,
+                                     decisionService: DecisionService,
+                                     navigator: Navigator,
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[MoveWorker] = formProvider()
 
@@ -61,7 +68,7 @@ class MoveWorkerController @Inject()(identify: IdentifierAction,
     form.bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode,value,MoveWorkerPage)
+      value => redirect(mode,value,MoveWorkerPage)
     )
   }
 }

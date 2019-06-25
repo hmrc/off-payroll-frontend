@@ -31,7 +31,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
+  def createView(req: Request[_]) = view(form,"worker")(req, messages, frontendAppConfig)
 
   "The OfficeHolderPAYEView page" should {
 

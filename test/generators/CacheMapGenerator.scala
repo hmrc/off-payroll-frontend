@@ -24,7 +24,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -32,7 +32,13 @@ trait CacheMapGenerator {
   self: Generators =>
 
   val generators: Seq[Gen[(Page, JsValue)]] =
-    arbitrary[(BusinessSizePage.type, JsValue)] ::
+    arbitrary[(EquipmentExpensesPage.type, JsValue)] ::
+    arbitrary[(OtherExpensesPage.type, JsValue)] ::
+    arbitrary[(VehiclePage.type, JsValue)] ::
+    arbitrary[(MaterialsPage.type, JsValue)] ::
+    arbitrary[(EmployeesOverPage.type, JsValue)] ::
+    arbitrary[(BalanceSheetOverPage.type, JsValue)] ::
+    arbitrary[(TurnoverOverPage.type, JsValue)] ::
     arbitrary[(CustomisePDFPage.type, JsValue)] ::
     arbitrary[(DidPaySubstitutePage.type, JsValue)] ::
     arbitrary[(RejectSubstitutePage.type, JsValue)] ::

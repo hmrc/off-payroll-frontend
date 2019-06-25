@@ -63,6 +63,8 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
     mockPDFService,
     errorHandler,
     FakeTimestamp,
+    mockCheckYourAnswersService,
+    mockCompareAnswerService,
     frontendAppConfig
   )
 

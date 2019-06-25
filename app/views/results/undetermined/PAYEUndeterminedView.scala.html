@@ -22,14 +22,16 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_],workerType: String)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(title(form, tailorMsgOptimised("result.undetermined.paye.title")), appConfig = appConfig) {
 
     @components.error_summary(form.errors)
 
     @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.undetermined.paye.heading")))
+        Html(messages(tailorMsgOptimised("result.undetermined.paye.heading"))),
+        "result.undetermined",
+        workerType
     )
 
     @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {

@@ -36,12 +36,12 @@
         @components.heading("finishedChecking.heading")
 
         @if(downloadAction.isDefined){
-            <p><a href="@{downloadAction.get.url}">@messages("finishedChecking.downloadAnswers", 25)</a></p>
+            <p><a href="@{downloadAction.get.url}">@messages("finishedChecking.downloadAnswers", 50)</a></p>
         }
 
         <p>
             @messages("finishedChecking.p1.beforeLink1")
-            <a href="@appConfig.govUkStartPageUrl">@messages("finishedChecking.p1.link1")</a>
+            <a href="@appConfig.exitSurveyUrl">@messages("finishedChecking.p1.link1")</a>
             @messages("finishedChecking.p1.beforeLink2")
             <a href="@appConfig.govUkStartPageUrl">@messages("finishedChecking.p1.link2")</a>
             @messages("finishedChecking.p1.afterLink2")

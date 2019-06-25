@@ -36,7 +36,7 @@ import base.SpecBase
 import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
-import forms.DeclarationFormProvider
+import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.mocks.MockErrorHandler
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
@@ -70,7 +70,7 @@ import views.html.results.undetermined.{AgentUndeterminedView, IR35UndeterminedV
 class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
   with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures {
 
-  val formProvider = new DeclarationFormProvider()
+  val formProvider = new DownloadPDFCopyFormProvider()
   val postAction = Call("POST","/")
 
   val OfficeHolderAgentView = injector.instanceOf[OfficeHolderAgentView]
@@ -232,7 +232,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
                 .set(OfficeHolderPage, 3, true)
 
               implicit val dataRequest: DataRequest[AnyContent] =
-                DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "", userAnswers)
+                DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Agency.toString).toString), "id", userAnswers)
 
               mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
@@ -240,7 +240,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = OfficeHolderAgentView(postAction)(dataRequest, messages, frontendAppConfig)
+              val expected: Html = OfficeHolderAgentView(postAction,"placingAgency")(dataRequest, messages, frontendAppConfig)
 
               val actual = await(service.determineResultView(postAction))
 
@@ -257,7 +257,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
                 .set(OfficeHolderPage, 3, true)
                 .set(IsWorkForPrivateSectorPage, answerNumber = 4, true)
 
-              implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+              implicit val dataRequest: DataRequest[AnyContent] =
+                DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
               mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
@@ -265,7 +266,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = OfficeHolderIR35View(postAction, isPrivateSector = true)
+              val expected: Html = OfficeHolderIR35View(postAction, isPrivateSector = true,"personDoingWork")
 
               val actual = await(service.determineResultView(postAction))
 
@@ -281,7 +282,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
                 .set(WorkerUsingIntermediaryPage, 2, false)
                 .set(OfficeHolderPage, 3, true)
 
-              implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+              implicit val dataRequest: DataRequest[AnyContent] =
+                DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
               mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
@@ -289,7 +291,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = OfficeHolderPAYEView(postAction)(dataRequest, messages, frontendAppConfig)
+              val expected: Html = OfficeHolderPAYEView(postAction,"personDoingWork")(dataRequest, messages, frontendAppConfig)
 
               val actual = await(service.determineResultView(postAction))
 
@@ -317,7 +319,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = AgentInsideView(postAction)(dataRequest, messages, frontendAppConfig)
+              val expected: Html = AgentInsideView(postAction,"placingAgency")(dataRequest, messages, frontendAppConfig)
 
               val actual = await(service.determineResultView(postAction))
 
@@ -333,7 +335,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
                 .set(WorkerUsingIntermediaryPage, 2, true)
                 .set(OfficeHolderPage, 3, false)
 
-              implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+              implicit val dataRequest: DataRequest[AnyContent] =
+                DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
               mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
@@ -341,7 +344,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = IR35InsideView(postAction, isPrivateSector = false)
+              val expected: Html = IR35InsideView(postAction, isPrivateSector = false,"personDoingWork")
 
               val actual = await(service.determineResultView(postAction))
 
@@ -357,7 +360,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
                 .set(WorkerUsingIntermediaryPage, 2, false)
                 .set(OfficeHolderPage, 3, false)
 
-              implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+              implicit val dataRequest: DataRequest[AnyContent] =
+                DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
               mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
@@ -365,7 +369,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.EMPLOYED))(Right(true))
 
-              val expected: Html = PAYEInsideView(postAction)(dataRequest, messages, frontendAppConfig)
+              val expected: Html = PAYEInsideView(postAction,"personDoingWork")(dataRequest, messages, frontendAppConfig)
 
               val actual = await(service.determineResultView(postAction))
 
@@ -393,7 +397,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
-            val expected: Html = AgentUndeterminedView(postAction)(dataRequest, messages, frontendAppConfig)
+            val expected: Html = AgentUndeterminedView(postAction,"placingAgency")(dataRequest, messages, frontendAppConfig)
 
             val actual = await(service.determineResultView(postAction))
 
@@ -408,7 +412,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             val userAnswers: UserAnswers = UserAnswers("id")
               .set(WorkerUsingIntermediaryPage, 2, true)
 
-            implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+            implicit val dataRequest: DataRequest[AnyContent] =
+              DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
             mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
             mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
@@ -416,7 +421,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
-            val expected: Html = IR35UndeterminedView(postAction, isPrivateSector = false)
+            val expected: Html = IR35UndeterminedView(postAction, isPrivateSector = false,"personDoingWork")
 
             val actual = await(service.determineResultView(postAction))
 
@@ -431,7 +436,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             val userAnswers: UserAnswers = UserAnswers("id")
               .set(WorkerUsingIntermediaryPage, 2, false)
 
-            implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+            implicit val dataRequest: DataRequest[AnyContent] =
+              DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
             mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
             mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
@@ -439,7 +445,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
-            val expected: Html = PAYEUndeterminedView(postAction)(dataRequest, messages, frontendAppConfig)
+            val expected: Html = PAYEUndeterminedView(postAction,"personDoingWork")(dataRequest, messages, frontendAppConfig)
 
             val actual = await(service.determineResultView(postAction))
 
@@ -480,6 +486,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               substituteToDoWork = true,
               clientNotControlWork = true,
               incurCostNoReclaim = true
+              ,"placingAgency"
             )(dataRequest, messages, frontendAppConfig)
 
             val actual = await(service.determineResultView(postAction))
@@ -495,7 +502,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             val userAnswers: UserAnswers = UserAnswers("id")
               .set(WorkerUsingIntermediaryPage, 2, true)
 
-            implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+            implicit val dataRequest: DataRequest[AnyContent] =
+              DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
             mockDecide(Interview(userAnswers), Interview.writesPersonalService)(
               Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
@@ -519,6 +527,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
               isIncurCostNoReclaim = true
+              ,"personDoingWork"
             )(dataRequest, messages, frontendAppConfig)
 
             val actual = await(service.determineResultView(postAction))
@@ -534,7 +543,8 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
             val userAnswers: UserAnswers = UserAnswers("id")
               .set(WorkerUsingIntermediaryPage, 2, false)
 
-            implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+            implicit val dataRequest: DataRequest[AnyContent] =
+              DataRequest(fakeRequest.withSession(SessionKeys.userType -> JsString(AboutYouAnswer.Worker.toString).toString), "", userAnswers)
 
             mockDecide(Interview(userAnswers), Interview.writesPersonalService)(
               Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
@@ -557,6 +567,7 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
               isIncurCostNoReclaim = true
+              ,"personDoingWork"
             )(dataRequest, messages, frontendAppConfig)
 
             val actual = await(service.determineResultView(postAction))

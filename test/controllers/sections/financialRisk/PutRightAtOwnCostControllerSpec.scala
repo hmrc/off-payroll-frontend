@@ -19,7 +19,7 @@ package controllers.sections.financialRisk
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
-import controllers.{ControllerHelper, ControllerSpecBase}
+import controllers.ControllerSpecBase
 import forms.PutRightAtOwnCostFormProvider
 import models.Answers._
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
@@ -54,7 +54,11 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     subOptimisedView = subOptimisedView,
     optimisedView = optimisedView,
-    mockControllerHelper,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator,
     frontendAppConfig
   )
 
@@ -151,14 +155,15 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
       "redirect to the next page when valid data is submitted" in {
 
-
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
         val answers = userAnswers.set(PutRightAtOwnCostPage,0, OutsideOfHoursNoCharge)
-        val result = controller().onSubmit(NormalMode)(postRequest)
 
         mockConstructAnswers(DataRequest(postRequest,"id",answers),PutRightAtOwnCost)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
         mockDecide(answers)(onwardRoute)
+
+        val result = controller().onSubmit(NormalMode)(postRequest)
+
         status(result) mustBe SEE_OTHER
 
       }

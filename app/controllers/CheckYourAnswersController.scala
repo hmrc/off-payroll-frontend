@@ -18,19 +18,15 @@ package controllers
 
 import javax.inject.Inject
 
-import config.{FrontendAppConfig, SessionKeys}
+import config.FrontendAppConfig
+import connectors.DataCacheConnector
 import controllers.actions._
-import handlers.ErrorHandler
 import models._
 import navigation.Navigator
 import pages.CheckYourAnswersPage
-import play.api.mvc.Results.{InternalServerError, Redirect}
 import play.api.mvc._
-import services.{CheckYourAnswersService, OptimisedDecisionService}
-import uk.gov.hmrc.http.HeaderCarrier
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.CheckYourAnswersView
-
-import scala.concurrent.ExecutionContext
 
 class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            identify: IdentifierAction,
@@ -39,7 +35,11 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            controllerComponents: MessagesControllerComponents,
                                            view: CheckYourAnswersView,
                                            checkYourAnswersService: CheckYourAnswersService,
-                                           implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                           compareAnswerService: CompareAnswerService,
+                                           dataCacheConnector: DataCacheConnector,
+                                           decisionService: DecisionService,
+                                           implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(checkYourAnswersService.sections))

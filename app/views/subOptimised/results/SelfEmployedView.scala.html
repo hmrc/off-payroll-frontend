@@ -22,12 +22,13 @@
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
 @(
-answerSections: Seq[Section],
-version: String,
-form: Form[_],
-postAction: Call,
-printView: Boolean = false,
-additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+        answerSections: Seq[Section],
+        version: String,
+        form: Form[_],
+        postAction: Call,
+        workerType: String,
+        printView: Boolean = false,
+        additionalPdfDetails: Option[AdditionalPdfDetails] = None,
         timestamp: Option[String] = None)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @defining(
@@ -48,7 +49,10 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
 
         @components.error_summary(form.errors)
 
-        @components.teal_result(Html(messages("result.selfEmployed.title")))
+        @components.teal_result(Html(messages("result.selfEmployed.title")),
+            "result.inside",
+            workerType
+        )
 
         @sections.why_result(whyResultContent)
 

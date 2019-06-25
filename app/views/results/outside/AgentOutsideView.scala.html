@@ -22,6 +22,7 @@
 @import controllers.routes._
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
+
 @(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(title(form, "agent.optimised.result.outside.title"), appConfig = appConfig) {
@@ -30,7 +31,8 @@
 
     @components.teal_result(
         Html(messages("agent.optimised.result.outside.heading")),
-        None
+        "result.outside",
+        "agency"
     )
 
     @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {

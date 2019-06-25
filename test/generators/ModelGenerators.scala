@@ -28,11 +28,6 @@ trait ModelGenerators {
       Gen.oneOf(AboutYouAnswer.values)
     }
 
-  implicit lazy val arbitraryBusinessSize: Arbitrary[BusinessSize] =
-    Arbitrary {
-      Gen.oneOf(BusinessSize.values)
-    }
-
   implicit lazy val arbitrarySingleAnswerRowModel: Arbitrary[SingleAnswerRow] =
     Arbitrary {
       for {

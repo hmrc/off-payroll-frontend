@@ -28,7 +28,7 @@ import navigation.Navigator
 import pages.{ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService, OptimisedDecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, OptimisedDecisionService}
 import utils.UserAnswersUtils
 
 import scala.concurrent.Future
@@ -45,9 +45,9 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,
                                  optimisedDecisionService: OptimisedDecisionService,
-                                 controllerHelper: ControllerHelper,
-                                 implicit val conf: FrontendAppConfig
-                                ) extends BaseController(controllerComponents) with UserAnswersUtils with FeatureSwitching {
+                                 checkYourAnswersService: CheckYourAnswersService,
+                                 implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
 
   private val resultForm: Form[Boolean] = formProvider()
   private val resultFormPDF: Form[Boolean] = formProviderPDF()
@@ -78,7 +78,7 @@ class ResultController @Inject()(identify: IdentifierAction,
           }
         },
         answer => {
-          controllerHelper.redirect[Boolean](NormalMode, answer, ResultPage, callDecisionService = false)
+          redirect[Boolean](NormalMode, answer, ResultPage, callDecisionService = false)
         }
       )
     } else {

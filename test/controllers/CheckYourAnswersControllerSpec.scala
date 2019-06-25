@@ -42,13 +42,19 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     view = view,
-    mockCheckAnswerService,
-    frontendAppConfig
+    appConfig = frontendAppConfig,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService
   )
 
   "CheckYourAnswers Controller" must {
 
     "return OK and the correct view for a GET" in {
+
+      mockCheckYourAnswers()(Seq.empty)
+
       val result = controller().onPageLoad(fakeRequest)
       status(result) mustBe OK
       titleOf(result) mustBe title(CheckYourAnswersMessages.title)

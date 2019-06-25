@@ -23,12 +23,30 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, BusinessSizePage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 
 trait PageGenerators {
 
-  implicit lazy val arbitraryBusinessSizePage: Arbitrary[BusinessSizePage.type] =
-    Arbitrary(BusinessSizePage)
+  implicit lazy val arbitraryEquipmentExpensesPage: Arbitrary[EquipmentExpensesPage.type] =
+    Arbitrary(EquipmentExpensesPage)
+
+  implicit lazy val arbitraryOtherExpensesPage: Arbitrary[OtherExpensesPage.type] =
+    Arbitrary(OtherExpensesPage)
+
+  implicit lazy val arbitraryVehiclePage: Arbitrary[VehiclePage.type] =
+    Arbitrary(VehiclePage)
+
+  implicit lazy val arbitraryMaterialsPage: Arbitrary[MaterialsPage.type] =
+    Arbitrary(MaterialsPage)
+
+  implicit lazy val arbitraryEmployeesOverPage: Arbitrary[EmployeesOverPage.type] =
+    Arbitrary(EmployeesOverPage)
+
+  implicit lazy val arbitraryBalanceSheetOverPage: Arbitrary[BalanceSheetOverPage.type] =
+    Arbitrary(BalanceSheetOverPage)
+
+  implicit lazy val arbitraryTurnoverOverControllerPage: Arbitrary[TurnoverOverPage.type] =
+    Arbitrary(TurnoverOverPage)
 
   implicit lazy val arbitraryCustomisePDFPage: Arbitrary[CustomisePDFPage.type] =
     Arbitrary(CustomisePDFPage)

@@ -22,6 +22,7 @@ import models.CannotClaimAsExpense._
 import models.IdentifyToStakeholders.WouldNotHappen
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
+import pages.{EquipmentExpensesPage, MaterialsPage, OtherExpensesPage, VehiclePage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -204,20 +205,58 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
 
   def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
 
-    val contactWithEngagerCustomer =
-      if (isEnabled(OptimisedFlow)) {
-        userAnswers.get(IdentifyToStakeholdersPage).fold[Option[Boolean]](None)(
-          x => if(x.answer == WouldNotHappen) Some(false) else Some(true)
-        )
-      } else { userAnswers.get(InteractWithStakeholdersPage).fold[Option[Boolean]](None)(x => Some(x.answer)) }
+    if(isEnabled(OptimisedFlow)) optimisedApply(userAnswers) else subOptimisedApply(userAnswers)
+  }
 
-    val workerRepresentsEngagerBusiness =
-      if (isEnabled(OptimisedFlow)) {
-        userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(
-          x => if(x.answer == WouldNotHappen) None else Some(x.answer)
-        )
-      } else { userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(x => Some(x.answer)) }
+  private def optimisedApply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
 
+    val workerProvidedMaterials = userAnswers.get(MaterialsPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
+    val workerProvidedEquipment = userAnswers.get(EquipmentExpensesPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
+    val workerUsedVehicle = userAnswers.get(VehiclePage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
+    val workerHadOtherExpenses = userAnswers.get(OtherExpensesPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
+    val expensesAreNotRelevantForRole = (workerProvidedMaterials, workerProvidedEquipment, workerUsedVehicle, workerHadOtherExpenses) match {
+      case (Some(false), Some(false), Some(false), Some(false)) => Some(true)
+      case _ => Some(false)
+    }
+    val contactWithEngagerCustomer = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[Boolean]](None)(
+      x => if(x.answer == WouldNotHappen) Some(false) else Some(true)
+    )
+    val workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(
+      x => if(x.answer == WouldNotHappen) None else Some(x.answer)
+    )
+
+    Interview(
+      correlationId = userAnswers.cacheMap.id,
+      endUserRole = request.userType,
+      hasContractStarted = userAnswers.get(ContractStartedPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      provideServices = userAnswers.get(WorkerTypePage).fold(None: Option[WorkerType]) { answer => Some(answer.answer) },
+      isUsingIntermediary = userAnswers.get(WorkerUsingIntermediaryPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      officeHolder = userAnswers.get(OfficeHolderPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      workerSentActualSubstitute = userAnswers.get(ArrangedSubstitutePage).fold(None: Option[ArrangedSubstitute]) { answer => Some(answer.answer) },
+      workerPayActualSubstitute = userAnswers.get(DidPaySubstitutePage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      possibleSubstituteRejection = userAnswers.get(RejectSubstitutePage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      possibleSubstituteWorkerPay = userAnswers.get(WouldWorkerPaySubstitutePage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      wouldWorkerPayHelper = userAnswers.get(NeededToPayHelperPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      engagerMovingWorker = userAnswers.get(MoveWorkerPage).fold(None: Option[MoveWorker]) { answer => Some(answer.answer) },
+      workerDecidingHowWorkIsDone = userAnswers.get(HowWorkIsDonePage).fold(None: Option[HowWorkIsDone]) { answer => Some(answer.answer) },
+      whenWorkHasToBeDone = userAnswers.get(ScheduleOfWorkingHoursPage).fold(None: Option[ScheduleOfWorkingHours]) { answer => Some(answer.answer) },
+      workerDecideWhere = userAnswers.get(ChooseWhereWorkPage).fold(None: Option[ChooseWhereWork]) { answer => Some(answer.answer) },
+      workerProvidedMaterials = workerProvidedMaterials,
+      workerProvidedEquipment = workerProvidedEquipment,
+      workerUsedVehicle = workerUsedVehicle,
+      workerHadOtherExpenses = workerHadOtherExpenses,
+      expensesAreNotRelevantForRole = expensesAreNotRelevantForRole,
+      workerMainIncome = userAnswers.get(HowWorkerIsPaidPage).fold(None: Option[HowWorkerIsPaid]) { answer => Some(answer.answer) },
+      paidForSubstandardWork = userAnswers.get(PutRightAtOwnCostPage).fold(None: Option[PutRightAtOwnCost]) { answer => Some(answer.answer) },
+      workerReceivesBenefits = userAnswers.get(BenefitsPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      workerAsLineManager = userAnswers.get(LineManagerDutiesPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      contactWithEngagerCustomer = contactWithEngagerCustomer,
+      workerRepresentsEngagerBusiness = workerRepresentsEngagerBusiness
+    )
+  }
+
+
+  private def subOptimisedApply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
     Interview(
       correlationId = userAnswers.cacheMap.id,
       endUserRole = request.userType,
@@ -243,8 +282,8 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
       paidForSubstandardWork = userAnswers.get(PutRightAtOwnCostPage).fold(None: Option[PutRightAtOwnCost]) { answer => Some(answer.answer) },
       workerReceivesBenefits = userAnswers.get(BenefitsPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
       workerAsLineManager = userAnswers.get(LineManagerDutiesPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
-      contactWithEngagerCustomer = contactWithEngagerCustomer,
-      workerRepresentsEngagerBusiness = workerRepresentsEngagerBusiness
+      contactWithEngagerCustomer = userAnswers.get(InteractWithStakeholdersPage).fold[Option[Boolean]](None)(x => Some(x.answer)),
+      workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(x => Some(x.answer))
     )
   }
 }

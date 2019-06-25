@@ -34,7 +34,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
   val form = new DeclarationFormProvider()()
 
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(form, isPrivateSector)(req, messages, frontendAppConfig)
+    view(form, isPrivateSector,"worker")(req, messages, frontendAppConfig)
 
   "The IR35UndeterminedView page" should {
 

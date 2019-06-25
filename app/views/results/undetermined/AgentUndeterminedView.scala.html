@@ -29,7 +29,9 @@
     @components.error_summary(form.errors)
 
     @components.teal_result(
-        Html(messages("agent.optimised.result.undetermined.heading"))
+        Html(messages("agent.optimised.result.undetermined.heading")),
+        "result.undetermined",
+        "agency"
     )
 
     @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {

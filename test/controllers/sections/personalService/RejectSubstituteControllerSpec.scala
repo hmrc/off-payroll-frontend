@@ -17,23 +17,18 @@
 package controllers.sections.personalService
 
 import config.featureSwitch.OptimisedFlow
-import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.RejectSubstituteFormProvider
-import models.{Answers, BusinessSize, NormalMode}
-import navigation.FakeNavigator
-import pages.sections.personalService.{RejectSubstitutePage, WouldWorkerPaySubstitutePage}
+import models.requests.DataRequest
+import models.{Answers, NormalMode}
+import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.personalService.RejectSubstituteView
-import config.featureSwitch.OptimisedFlow
-import models.requests.DataRequest
-import pages.sections.setup.BusinessSizePage
 import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
@@ -50,10 +45,14 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
     controllerComponents = messagesControllerComponents,
-    controllerHelper = mockControllerHelper,
     optimisedView = optimisedView,
     subOptimisedView = subOptimisedView,
-    appConfig = frontendAppConfig
+    appConfig = frontendAppConfig,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
   val validData = Map(RejectSubstitutePage.toString -> Json.toJson(Answers(true, 0)))

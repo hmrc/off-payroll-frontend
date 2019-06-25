@@ -6,17 +6,17 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = s"\${errorPrefix(form)} \${messages("$className;format="decap"$.title")}",
+    title = title(form, "$className;format="decap"$.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
+    @components.back_link()
+
     @formWithCsrf(action = $className$Controller.onSubmit(mode), 'autoComplete -> "off") {
 
-        @components.back_link()
-        
         @components.error_summary(form.errors)
 
         @components.heading("$className;format="decap"$.heading", Some("$className;format="decap"$.subheading"))

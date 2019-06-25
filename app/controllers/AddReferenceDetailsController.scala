@@ -18,13 +18,16 @@ package controllers
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import controllers.actions._
 import forms.AddReferenceDetailsFormProvider
 import javax.inject.Inject
 import models.{Mode, NormalMode}
+import navigation.Navigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CompareAnswerService, DecisionService}
 import views.html.AddReferenceDetailsView
 
 import scala.concurrent.Future
@@ -34,10 +37,13 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
                                               requireData: DataRequiredAction,
                                               formProvider: AddReferenceDetailsFormProvider,
                                               controllerComponents: MessagesControllerComponents,
-                                              controllerHelper: ControllerHelper,
                                               addReferenceDetails: AddReferenceDetailsView,
+                                              navigator: Navigator,
+                                              dataCacheConnector: DataCacheConnector,
+                                              compareAnswerService: CompareAnswerService,
+                                              decisionService: DecisionService,
                                               implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents) with FeatureSwitching {
+  extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -50,7 +56,7 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(addReferenceDetails(formWithErrors))),
       value => {
-        controllerHelper.redirect[Boolean](NormalMode,value, AddReferenceDetailsPage, callDecisionService = false)
+        redirect[Boolean](NormalMode,value, AddReferenceDetailsPage, callDecisionService = false)
       }
     )
   }

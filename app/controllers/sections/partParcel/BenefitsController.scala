@@ -19,15 +19,18 @@ package controllers.sections.partParcel
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.actions._
-import controllers.{BaseController, ControllerHelper}
+import controllers.BaseController
 import forms.BenefitsFormProvider
 import javax.inject.Inject
+
+import connectors.DataCacheConnector
 import models.Mode
+import navigation.Navigator
 import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
-import services.DecisionService
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.partParcel.BenefitsView
 import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimisedBenefitsView}
 
@@ -40,10 +43,13 @@ class BenefitsController @Inject()(identify: IdentifierAction,
                                    controllerComponents: MessagesControllerComponents,
                                    optimisedView: BenefitsView,
                                    subOptimisedView: SubOptimisedBenefitsView,
-                                   controllerHelper: ControllerHelper,
+                                   checkYourAnswersService: CheckYourAnswersService,
+                                   compareAnswerService: CompareAnswerService,
+                                   dataCacheConnector: DataCacheConnector,
                                    decisionService: DecisionService,
-                                   implicit val appConfig: FrontendAppConfig
-                                  ) extends BaseController(controllerComponents) with FeatureSwitching {
+                                   navigator: Navigator,
+                                   implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 
@@ -59,7 +65,7 @@ class BenefitsController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        controllerHelper.redirect(mode,value,BenefitsPage,callDecisionService = true)
+        redirect(mode,value,BenefitsPage,callDecisionService = true)
       }
     )
   }

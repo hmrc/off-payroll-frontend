@@ -19,12 +19,15 @@ package controllers.sections.setup
 import javax.inject.Inject
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import models.NormalMode
 import navigation.Navigator
 import pages.sections.setup.AgencyAdvisoryPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.AgencyAdvisoryView
 
 class AgencyAdvisoryController @Inject()(navigator: Navigator,
@@ -33,12 +36,17 @@ class AgencyAdvisoryController @Inject()(navigator: Navigator,
                                          requireData: DataRequiredAction,
                                          controllerComponents: MessagesControllerComponents,
                                          view: AgencyAdvisoryView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
+                                         checkYourAnswersService: CheckYourAnswersService,
+                                         compareAnswerService: CompareAnswerService,
+                                         dataCacheConnector: DataCacheConnector,
+                                         decisionService: DecisionService,
+                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(
       postAction = routes.AgencyAdvisoryController.onSubmit(),
-      finishAction = routes.LeaveController.onPageLoad()
+      finishAction = controllers.routes.ExitSurveyController.redirectToExitSurvey()
     ))
   }
 

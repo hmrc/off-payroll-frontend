@@ -28,7 +28,7 @@ import views.ViewUtils._
 
 trait UserAnswersUtils {
 
-  def peopleInvolved(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def peopleInvolved(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.peopleInvolved.h2"),
     whyResult = None,
     rows = Seq(
@@ -39,7 +39,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def workersDuties(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def workersDuties(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.workersDuties.h2"),
     whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))),
     rows = Seq(
@@ -48,7 +48,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def substitutesHelpers(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def substitutesHelpers(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.substitutesHelpers.h2"),
     whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(
@@ -61,7 +61,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def workArrangements(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def workArrangements(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.workArrangements.h2"),
     whyResult = Some(Html(messages("result.workArrangements.summary"))),
     rows = Seq(
@@ -73,7 +73,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def financialRisk(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def financialRisk(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.financialRisk.h2"),
      whyResult = Some(Html(messages("result.financialRisk.summary"))),
     rows = Seq(
@@ -84,7 +84,7 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def partAndParcel(implicit checkYourAnswersHelper: CheckYourAnswersHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def partAndParcel(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.partAndParcel.h2"),
     whyResult = Some(Html(messages("result.partParcel.summary"))),
     rows = Seq(
@@ -97,7 +97,7 @@ trait UserAnswersUtils {
   )
 
   def answers(implicit request: DataRequest[_], messages: Messages, frontendAppConfig: FrontendAppConfig): Seq[AnswerSection] = {
-    implicit val checkYourAnswersHelper: CheckYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)
+    implicit val checkYourAnswersHelper: ResultPageHelper = new ResultPageHelper(request.userAnswers)
     Seq(peopleInvolved,workersDuties,substitutesHelpers,workArrangements,financialRisk,partAndParcel)
   }
 

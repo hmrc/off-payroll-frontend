@@ -1236,6 +1236,33 @@ businessSize.error.required = Select an option
 businessSize.error.invalid = Select a valid option
 
 ##### TODO NEED WELSH FOR ####
+hirer.turnoverOver.title = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.heading = Does your organisation have an annual turnover of more than £10.2 million?
+hirer.turnoverOver.checkYourAnswersLabel = Does your organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.title = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.heading = Does this organisation have an annual turnover of more than £10.2 million?
+worker.turnoverOver.checkYourAnswersLabel = Does this organisation have an annual turnover of more than £10.2 million?
+turnoverOver.error.required = You need to select an answer
+
+##### TODO NEED WELSH FOR ####
+hirer.balanceSheetOver.title = Does your organisation have more than £5.1 million on its balance sheet?
+hirer.balanceSheetOver.heading = Does your organisation have more than £5.1 million on its balance sheet?
+hirer.balanceSheetOver.checkYourAnswersLabel = Does your organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.title = Does this organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.heading = Does this organisation have more than £5.1 million on its balance sheet?
+worker.balanceSheetOver.checkYourAnswersLabel = Does this organisation have more than £5.1 million on its balance sheet?
+balanceSheetOver.error.required = You need to select an answer
+
+##### TODO NEED WELSH FOR ####
+hirer.employeesOver.title = Does your organisation employ more than 50 people?
+hirer.employeesOver.heading = Does your organisation employ more than 50 people?
+hirer.employeesOver.checkYourAnswersLabel = Does your organisation employ more than 50 people?
+worker.employeesOver.title = Does this organisation employ more than 50 people?
+worker.employeesOver.heading = Does this organisation employ more than 50 people?
+worker.employeesOver.checkYourAnswersLabel = this your organisation employ more than 50 people?
+employeesOver.error.required = You need to select an answer
+
+##### TODO NEED WELSH FOR ####
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
 checkYourAnswers.confirm.h2 = Confirm answers to get your result
@@ -1558,3 +1585,53 @@ finishedChecking.p1.beforeLink2 = the tool, or
 finishedChecking.p1.link2 = start again
 finishedChecking.p1.afterLink2 = to check another piece of work
 finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
+
+
+##TODO: Need Welsh
+materials.error.required = You need to select an answer
+hirer.materials.title = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.heading = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.checkYourAnswersLabel = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
+hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
+worker.materials.title = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.heading = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.checkYourAnswersLabel = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.p1 = This can include items that form a lasting part of the work, or are left behind when you leave. Stationery is not included.
+worker.materials.p2 = This question is most likely to be relevant to the construction industry.
+
+
+##TODO: Need Welsh
+vehicle.error.required = You need to select an answer
+hirer.vehicle.title = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.heading = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.checkYourAnswersLabel = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+worker.vehicle.title = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.heading = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.checkYourAnswersLabel = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+
+
+##TODO: Need Welsh
+otherExpenses.error.required = You need to select an answer
+hirer.otherExpenses.title = Will the worker incur any other substantial costs that your organisation will not pay for?
+hirer.otherExpenses.heading = Will the worker incur any other substantial costs that your organisation will not pay for?
+hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other substantial costs that your organisation will not pay for?
+hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
+worker.otherExpenses.title = Will you incur any other substantial costs that your client will not pay for?
+worker.otherExpenses.heading = Will you incur any other substantial costs that your client will not pay for?
+worker.otherExpenses.checkYourAnswersLabel = Will you incur any other substantial costs that your client will not pay for?
+worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
+
+##TODO: Need Welsh
+equipmentExpenses.error.required = You need to select an answer
+hirer.equipmentExpenses.title = Will the worker incur substantial equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.heading = Will the worker incur substantial equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker incur substantial equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+worker.equipmentExpenses.title = Will you incur substantial equipment costs that your client will not pay for?
+worker.equipmentExpenses.heading = Will you incur substantial equipment costs that your client will not pay for?
+worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
+worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+

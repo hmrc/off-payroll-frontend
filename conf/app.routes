@@ -12,6 +12,8 @@ POST       /service-reset                               controllers.errors.Sessi
 
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 
+GET        /exit-survey                                 controllers.ExitSurveyController.redirectToExitSurvey
+
 GET        /about-your-result                           controllers.sections.setup.AboutYourResultController.onPageLoad
 POST       /about-your-result                           controllers.sections.setup.AboutYourResultController.onSubmit
 
@@ -142,13 +144,6 @@ POST       /worker-advisory                             controllers.sections.set
 GET        /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onPageLoad()
 POST       /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onSubmit()
 
-GET        /you-have-left-the-tool                      controllers.sections.setup.LeaveController.onPageLoad()
-
-GET        /business-size                               controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = NormalMode)
-POST       /business-size                               controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = NormalMode)
-GET        /business-size/edit                          controllers.sections.setup.BusinessSizeController.onPageLoad(mode: Mode = CheckMode)
-POST       /business-size/edit                          controllers.sections.setup.BusinessSizeController.onSubmit(mode: Mode = CheckMode)
-
 GET        /check-your-answers                          controllers.CheckYourAnswersController.onPageLoad()
 POST       /check-your-answers                          controllers.CheckYourAnswersController.onSubmit()
 
@@ -156,3 +151,38 @@ GET        /add-reference-details                       controllers.AddReference
 POST       /add-reference-details                       controllers.AddReferenceDetailsController.onSubmit()
 
 GET        /finished-checking                           controllers.FinishedCheckingController.onPageLoad()
+
+GET        /turnover-over                               controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = NormalMode)
+POST       /turnover-over                               controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = NormalMode)
+GET        /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = CheckMode)
+POST       /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = CheckMode)
+
+GET        /balance-sheet-over                          controllers.sections.setup.BalanceSheetOverController.onPageLoad(mode: Mode = NormalMode)
+POST       /balance-sheet-over                          controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = NormalMode)
+GET        /balance-sheet-over/edit                     controllers.sections.setup.BalanceSheetOverController.onPageLoad(mode: Mode = CheckMode)
+POST       /balance-sheet-over/edit                     controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = CheckMode)
+
+GET        /employees-over                              controllers.sections.setup.EmployeesOverController.onPageLoad(mode: Mode = NormalMode)
+POST       /employees-over                              controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = NormalMode)
+GET        /employees-over/edit                         controllers.sections.setup.EmployeesOverController.onPageLoad(mode: Mode = CheckMode)
+POST       /employees-over/edit                         controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = CheckMode)
+
+GET        /materials                                   controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = NormalMode)
+POST       /materials                                   controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = NormalMode)
+GET        /materials/edit                              controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = CheckMode)
+POST       /materials/edit                              controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /vehicle                                     controllers.sections.financialRisk.VehicleController.onPageLoad(mode: Mode = NormalMode)
+POST       /vehicle                                     controllers.sections.financialRisk.VehicleController.onSubmit(mode: Mode = NormalMode)
+GET        /vehicle/edit                                controllers.sections.financialRisk.VehicleController.onPageLoad(mode: Mode = CheckMode)
+POST       /vehicle/edit                                controllers.sections.financialRisk.VehicleController.onSubmit(mode: Mode = CheckMode)
+
+GET        /other-expenses                              controllers.sections.financialRisk.OtherExpensesController.onPageLoad(mode: Mode = NormalMode)
+POST       /other-expenses                              controllers.sections.financialRisk.OtherExpensesController.onSubmit(mode: Mode = NormalMode)
+GET        /other-expenses/edit                         controllers.sections.financialRisk.OtherExpensesController.onPageLoad(mode: Mode = CheckMode)
+POST       /other-expenses/edit                         controllers.sections.financialRisk.OtherExpensesController.onSubmit(mode: Mode = CheckMode)
+
+GET        /equipment-expenses                          controllers.sections.financialRisk.EquipmentExpensesController.onPageLoad(mode: Mode = NormalMode)
+POST       /equipment-expenses                          controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = NormalMode)
+GET        /equipment-expenses/edit                     controllers.sections.financialRisk.EquipmentExpensesController.onPageLoad(mode: Mode = CheckMode)
+POST       /equipment-expenses/edit                     controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = CheckMode)
