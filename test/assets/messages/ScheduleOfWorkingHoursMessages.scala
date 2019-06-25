@@ -39,7 +39,7 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val heading = "Will your client decide your schedule of working hours?"
+    val heading = "Will your client decide the schedule of working hours?"
     val title = heading
     val yesClientDecides = "Yes"
     val noWorkerDecides = "No, you solely decide"

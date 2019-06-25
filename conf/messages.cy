@@ -685,9 +685,9 @@ hirer.scheduleOfWorkingHours.workerAgreeSchedule = Yn rhannol - mae’r gweithiw
 hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Ddim yn gymwys - nid oes angen amserlen cyn belled â bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
 
 ## TODO: Need Welsh
-worker.optimised.scheduleOfWorkingHours.title = Will your client decide your schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.heading = Will your client decide your schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your client decide your schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.title = Will your client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.heading = Will your client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your client decide the schedule of working hours?
 worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
 worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide
 worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your schedule
@@ -753,7 +753,7 @@ worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide h
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
 worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
-worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, your client and you agree together
+worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, you and your client agree together
 #########################
 
 

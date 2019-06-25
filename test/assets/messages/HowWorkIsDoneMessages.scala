@@ -46,7 +46,7 @@ object HowWorkIsDoneMessages extends BaseMessages {
     val yesClientDecides = "Yes"
     val noWorkerDecides = "No, you solely decide"
     val noSkilledRole = "No, because it is highly skilled work"
-    val partly = "No, your client and you agree together"
+    val partly = "No, you and your client agree together"
   }
 
   object OptimisedHirer {
