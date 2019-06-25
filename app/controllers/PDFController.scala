@@ -100,7 +100,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
     if (isEnabled(PrintPDF)) {
-      val filename = reference.fold("result")(_)
+      val filename: String = reference.fold("result")(ref => ref)
       pdfService.generatePdf(view) map {
         case Right(result: SuccessfulPDF) =>
           Ok(result.pdf.toArray)
