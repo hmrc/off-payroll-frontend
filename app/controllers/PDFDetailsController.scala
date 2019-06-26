@@ -65,7 +65,10 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
 
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(CustomisePDFPage, form), mode))
+
+    val decryptedForm = decryptDetails(fillForm(CustomisePDFPage, form).get)
+
+    Ok(view(form.fill(decryptedForm), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -101,7 +104,7 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
     printResult(pdfDetails, time.timestamp(timestamp.map(_.answer)))
   }
 
-  def encryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
+  private def encryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
 
     details.copy(
       client = details.client.map(client => encryption.encrypt(client)),
@@ -111,7 +114,7 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
     )
   }
 
-  def decryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
+  private def decryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
 
     details.copy(
       client = details.client.map(client => encryption.decrypt(client)),

@@ -16,13 +16,10 @@
 
 package forms
 
-import java.nio.charset.StandardCharsets
-
 import forms.mappings.Constraints
 import models.AdditionalPdfDetails
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.validation.Valid
 
 class CustomisePDFFormProvider extends Constraints {
 
