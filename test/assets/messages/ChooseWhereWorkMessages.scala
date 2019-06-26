@@ -48,21 +48,21 @@ object ChooseWhereWorkMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val heading = "Will your client decide where the worker does the work?"
+    val heading = "Will your client decide where you do the work?"
     val title = heading
     val clientDecides = "Yes"
-    val workerDecides = "No, you decide."
-    val noTaskDeterminate = "No, the task determines the location."
-    val partly = "No, some work has to be done in an agreed location and some can be your choice."
+    val workerDecides = "No, you solely decide"
+    val noTaskDeterminate = "No, the task determines the location"
+    val partly = "No, some work has to be done in an agreed location and some can be your choice"
   }
 
   object OptimisedHirer {
-    val heading = "Will your team decide where the worker does the work?"
+    val heading = "Will your organisation decide where the worker does the work?"
     val title = heading
     val clientDecides = "Yes"
-    val workerDecides = "No, the worker decides."
-    val noTaskDeterminate = "No, the task determines the location."
-    val partly = "No, some work has to be done in an agreed location and some can be the worker’s choice."
+    val workerDecides = "No, the worker decides"
+    val noTaskDeterminate = "No, the task determines the location"
+    val partly = "No, some work has to be done in an agreed location and some can be the worker’s choice"
   }
 
 }

@@ -19,84 +19,109 @@ package views.results
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
 import models.AboutYouAnswer.Worker
+import models.{PDFResultDetails, UserAnswers}
 import models.UserType.Hirer
+import models.requests.DataRequest
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
+import play.twirl.api.Html
 import views.html.results.inside.officeHolder.OfficeHolderPAYEView
 
 class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderPAYEView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
+    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderPAYEView page" should {
 
     "If the UserType is Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createView(request))
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
-      "Have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
-      }
-
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
-      }
-
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Worker.PAYE.subHeading
-      }
-
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.whyResult_p1
-      }
-
-      "Have the correct Do Next section" in {
-        document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.doNext_p1
-      }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
-      }
+      workerPageChecks
+      pdfPageChecks(isPdfView = false)
     }
 
     "If the UserType is Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-      lazy val document = asDocument(createView(request))
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
-      "Have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
-      }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = false)
+    }
+  }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
-      }
+  "The OfficeHolderPAYEView PDF/Print page" should {
 
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Hirer.PAYE.subHeading
-      }
+    "If the UserType is Worker" should {
 
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.whyResult_p1
-      }
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
-      "Have the correct Do Next section" in {
-        document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p1
-      }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
-      }
+      workerPageChecks
+      pdfPageChecks(isPdfView = true)
     }
 
+    "If the UserType is Hirer" should {
+
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
+
+      hirerPageChecks
+      pdfPageChecks(isPdfView = true)
+    }
+  }
+
+  def workerPageChecks(implicit document: Document) = {
+
+    "Have the correct title" in {
+      document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
+    }
+
+    "Have the correct subheading" in {
+      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Worker.PAYE.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.whyResult_p1
+    }
+
+    "Have the correct Do Next section" in {
+      document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.doNext_p1
+    }
+  }
+
+  def hirerPageChecks(implicit document: Document) = {
+    "Have the correct title" in {
+      document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
+    }
+
+    "Have the correct subheading" in {
+      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Hirer.PAYE.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.whyResult_p1
+    }
+
+    "Have the correct Do Next section" in {
+      document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p1
+    }
   }
 }

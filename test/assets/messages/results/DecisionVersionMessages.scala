@@ -14,26 +14,11 @@
  * limitations under the License.
  */
 
-package assets.messages
+package assets.messages.results
 
-object IsWorkForPrivateSectorMessages extends BaseMessages {
+object DecisionVersionMessages extends BaseResultMessages {
 
-  val privateOption = "Private sector"
-  val publicOption = "Public sector"
-
-  object Worker {
-    val heading = "In which sector is the client you will be doing the work for?"
-    val title = heading
-  }
-
-  object Hirer {
-    val heading = "In which sector is your organisation?"
-    val title = heading
-  }
-
-  object NonTailored {
-    val heading = "In which sector is the client you will be doing the work for?"
-    val title = heading
-  }
+  val h2 = (ver: String) => s"Decision service version: $ver"
+  val p1 = "This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes"
 
 }

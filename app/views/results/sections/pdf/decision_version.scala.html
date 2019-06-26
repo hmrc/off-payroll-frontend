@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,11 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package views
+@(version: String)(implicit messages: Messages)
 
-import views.behaviours.ViewBehaviours
-import views.html.sections.setup.LeaveView
-
-class LeaveViewSpec extends ViewBehaviours {
-
-  val messageKeyPrefix = "leave"
-
-  val view = injector.instanceOf[LeaveView]
-
-  def createView = () => view()(fakeRequest, messages, frontendAppConfig)
-
-  "LeaveView" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
-
-    behave like pageWithBackLink(createView)
-  }
-}
+<div id="decisionVersion" class="form-group">
+   <h2>@messages("result.pdf.decisionVersion", version)</h2>
+   <p>@messages("result.pdf.decisionVersion.p1")</p>
+</div>

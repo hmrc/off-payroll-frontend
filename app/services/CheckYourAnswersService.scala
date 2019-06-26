@@ -69,7 +69,10 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
       AnswerSection(
         headingKey = Some("checkYourAnswers.financialRisk.header"),
         rows = Seq(
-          checkYourAnswersHelper.cannotClaimAsExpenseOptimised.map(_ -> None),
+          checkYourAnswersHelper.equipmentExpenses.map(_ -> None),
+          checkYourAnswersHelper.vehicleExpenses.map(_ -> None),
+          checkYourAnswersHelper.materialsExpenses.map(_ -> None),
+          checkYourAnswersHelper.otherExpenses.map(_ -> None),
           checkYourAnswersHelper.howWorkerIsPaid.map(_ -> None),
           checkYourAnswersHelper.putRightAtOwnCost.map(_ -> None)
         ).flatten

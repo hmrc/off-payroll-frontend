@@ -51,6 +51,6 @@ class ToolNotNeededController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(routes.LeaveController.onPageLoad())
+    Redirect(controllers.routes.ExitSurveyController.redirectToExitSurvey())
   }
 }

@@ -19,82 +19,109 @@ package views.results
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
 import models.UserType.{Hirer, Worker}
+import models.requests.DataRequest
+import models.{PDFResultDetails, UserAnswers}
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
+import play.twirl.api.Html
 import views.html.results.inside.PAYEInsideView
 
 class PAYEInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEInsideView]
 
-  def createView(req: Request[_]) = view(postAction)(req, messages, frontendAppConfig)
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
+    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEInsideView page" should {
 
     "The UserType is a Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createView(request))
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
-      "Have the correct title" in {
-        document.title mustBe title(InDecisionMessages.WorkerPAYE.title)
-      }
-
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
-      }
-
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe InDecisionMessages.WorkerPAYE.subHeading
-      }
-
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerPAYE.whyResult
-      }
-
-      "Have the correct Do Next section" in {
-        document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerPAYE.doNext
-      }
-
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
-      }
+      workerPageChecks
+      pdfPageChecks(isPdfView = false)
     }
 
     "The UserType is a Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-      lazy val document = asDocument(createView(request))
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
-      "Have the correct title" in {
-        document.title mustBe title(InDecisionMessages.HirerPAYE.title)
-      }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = false)
+    }
+  }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
-      }
+  "The PAYEInsideView PDF/Print page" should {
 
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe InDecisionMessages.HirerPAYE.subHeading
-      }
+    "The UserType is a Worker" should {
 
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerPAYE.whyResult
-      }
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
-      "Have the correct Do Next section" in {
-        document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerPAYE.doNext
-      }
+      workerPageChecks
+      pdfPageChecks(isPdfView = true)
+    }
 
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
-      }
+    "The UserType is a Hirer" should {
+
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
+
+      hirerPageChecks
+      pdfPageChecks(isPdfView = true)
+    }
+  }
+
+  def workerPageChecks(implicit document: Document) = {
+
+    "Have the correct title" in {
+      document.title mustBe title(InDecisionMessages.WorkerPAYE.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
+    }
+
+    "Have the correct subheading" in {
+      document.select(Selectors.subheading).text mustBe InDecisionMessages.WorkerPAYE.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerPAYE.whyResult
+    }
+
+    "Have the correct Do Next section" in {
+      document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerPAYE.doNext
+    }
+  }
+
+  def hirerPageChecks(implicit document: Document) = {
+
+    "Have the correct title" in {
+      document.title mustBe title(InDecisionMessages.HirerPAYE.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
+    }
+
+    "Have the correct subheading" in {
+      document.select(Selectors.subheading).text mustBe InDecisionMessages.HirerPAYE.subHeading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerPAYE.whyResult
+    }
+
+    "Have the correct Do Next section" in {
+      document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerPAYE.doNext
     }
   }
 }

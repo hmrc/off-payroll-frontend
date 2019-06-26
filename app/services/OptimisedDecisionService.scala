@@ -34,6 +34,7 @@ import play.api.mvc.{AnyContent, Call, Request}
 import play.mvc.Http.Status._
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.AnswerSection
 import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.outside._
@@ -99,21 +100,38 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT, "No log needed")))
     }
 
-  def determineResultView(postAction: Call)(implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
+  def determineResultView(postAction: Call,
+                          answerSections: Seq[AnswerSection] = Seq(),
+                          printMode: Boolean = false,
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+                          timestamp: Option[String] = None,
+                          decisionVersion: Option[String] = None)
+                         (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
     collateDecisions.map {
       case Right(decision) => {
-        val result = decision.result
-        val personalService = decision.score.personalService
-        val control = decision.score.control
-        val financialRisk = decision.score.financialRisk
         val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
         val privateSector = request.userAnswers.get(IsWorkForPrivateSectorPage).fold(false)(_.answer)
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
 
-        implicit val resultsDetails: ResultsDetails =
-          ResultsDetails(postAction, officeHolderAnswer, privateSector, usingIntermediary, request.userType, personalService, control, financialRisk)
+        implicit val resultsDetails: ResultsDetails = ResultsDetails(
+          action = postAction,
+          officeHolderAnswer = officeHolderAnswer,
+          privateSector = privateSector,
+          usingIntermediary = usingIntermediary,
+          userType = request.userType,
+          personalServiceOption = decision.score.personalService,
+          controlOption = decision.score.control,
+          financialRiskOption = decision.score.financialRisk
+        )
 
-        result match {
+        implicit val pdfResultDetails = PDFResultDetails(
+          printMode,
+          additionalPdfDetails,
+          timestamp,
+          answerSections
+        )
+
+        decision.result match {
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
           case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
           case ResultEnum.UNKNOWN => Right(routeUndetermined)
@@ -124,7 +142,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
+  private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) => undeterminedAgency(result.action) // AGENT
       case (true, _) => undeterminedIR35(result.action, result.privateSector) // IR35
@@ -132,7 +150,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  private def routeOutside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
+  private def routeOutside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
     val isSubstituteToDoWork: Boolean = result.personalServiceOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isClientNotControlWork: Boolean = result.controlOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isIncurCostNoReclaim: Boolean = result.financialRiskOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
@@ -147,17 +165,17 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     }
   }
 
-  private def routeInside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable =
+  private def routeInside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     if (result.officeHolderAnswer) routeInsideOfficeHolder else routeInsideIR35
 
-  private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
+  private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.userType) match {
       case (_, Some(UserType.Agency)) => insideAgent(result.action) // AGENT
       case (true, _) => insideIR35(result.action, result.privateSector) // IR35
       case _ => insidePAYE(result.action) // PAYE
     }
 
-  private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
+  private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) => officeAgency(result.action) // AGENT
       case (true, _) => officeIR35(result.action, result.privateSector) // IR35

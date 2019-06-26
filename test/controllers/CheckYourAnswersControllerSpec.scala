@@ -53,7 +53,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      mockCheckYourAnswers()(Seq.empty)
+      mockCheckYourAnswers(Seq.empty)
 
       val result = controller().onPageLoad(fakeRequest)
       status(result) mustBe OK

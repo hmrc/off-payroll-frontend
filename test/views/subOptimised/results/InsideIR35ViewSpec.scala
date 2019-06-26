@@ -19,6 +19,8 @@ package views.subOptimised.results
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
+import models.UserAnswers
+import models.requests.DataRequest
 import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.html.subOptimised.results.InsideIR35View
@@ -31,11 +33,11 @@ class InsideIR35ViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[InsideIR35View]
 
-  def createView = () => view(answers, version, form, postAction)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(answers, version, form, postAction)(fakeDataRequest, messages, frontendAppConfig)
 
-  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeRequest, messages, frontendAppConfig)
+  def createPrintView = () => view(answers, version, form, postAction, true, Some(model), Some(timestamp))(fakeDataRequest, messages, frontendAppConfig)
 
-  def createViewWithRequest = (req: Request[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
+  def createViewWithRequest = (req: DataRequest[_]) => view(answers, version, form, postAction)(req, messages, frontendAppConfig)
 
   "ResultPrintPage view" must {
     behave like printPage(createPrintView, model, timestamp, messageKeyPrefix)
@@ -49,7 +51,7 @@ class InsideIR35ViewSpec extends ResultViewFixture {
 
   "The result page" should {
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
     lazy val document = asDocument(createViewWithRequest(request))
 
     "include the 'Which of these describes you best?' question" in {

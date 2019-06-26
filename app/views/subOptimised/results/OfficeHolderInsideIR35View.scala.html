@@ -18,6 +18,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import viewmodels.Section
 @import views.ViewUtils._
+@import models.requests.DataRequest
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
@@ -27,7 +28,7 @@
   postAction: Call,
   printView: Boolean = false,
   additionalPdfDetails: Option[AdditionalPdfDetails] = None,
-        timestamp: Option[String] = None)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+        timestamp: Option[String] = None)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @defining(
     if(printView) {
@@ -47,7 +48,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.teal_result(Html(messages("result.officeHolderInsideIR35.title")))
+        @components.teal_result(
+            Html(messages("result.officeHolderInsideIR35.title")),
+            "result.inside"
+        )
 
         @sections.why_result(whyResultContent)
 

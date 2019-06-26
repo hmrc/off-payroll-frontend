@@ -59,6 +59,10 @@ class AgencyAdvisoryViewSpec extends ViewBehaviours {
       document.select(Selectors.p(2)).text mustBe AgencyAdvisoryMessages.p2
     }
 
+    "have the correct subheading" in {
+      document.select(Selectors.h2(1)).text mustBe AgencyAdvisoryMessages.subheading
+    }
+
     "have the correct p3" in {
       document.select(Selectors.p(3)).text mustBe AgencyAdvisoryMessages.p3
     }

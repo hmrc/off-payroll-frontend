@@ -20,26 +20,51 @@
 @import models.requests.DataRequest
 @import models.UserType.{Worker, Hirer}
 @import models.ResultType.PAYE
+@import results.sections.pdf
+@import models.requests.DataRequest
 
-@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+@this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
-@mainTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig) {
+@defining(
+    if(pdfResultDetails.printMode) {
+        printTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
+    } else {
+        mainTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
+    }
+){ template =>
 
-    @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.outside.paye.heading")))
-    )
+    @template {
 
-    @formWithCsrf(postAction, 'autoComplete -> "off") {
+        @pdfResultDetails.additionalPdfDetails.map { details =>
+            @pdf.additional_details(details, pdfResultDetails.timestamp)
+        }
 
-        @results.sections.why_result(whyResult)
+        @components.teal_result(
+            Html(messages(tailorMsgOptimised("result.outside.paye.heading"))),
+            "result.outside"
+        )
 
-        @results.sections.do_next(doNext)
+        @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @results.sections.download()
+            @results.sections.why_result(whyResult)
 
-        @components.submit_button("site.continue")
+            @results.sections.do_next(doNext)
+
+            @if(pdfResultDetails.printMode) {
+
+                @pdf.answers(pdfResultDetails.answerSections)
+
+                @pdf.decision_version(appConfig.decisionVersion)
+
+            } else {
+
+                @results.sections.download()
+
+                @components.submit_button("site.continue")
+            }
+        }
     }
 }
 

@@ -22,20 +22,20 @@ object IdentifyToStakeholdersMessages extends BaseMessages {
 
   object Optimised {
     object Worker {
-      val heading = "If you were to formally interact with your client’s external consumers or suppliers, how would you introduce yourself?"
+      val heading = "How would you introduce yourself to your client’s consumers or suppliers?"
       val title = heading
-      val workForEndClient = "You work for your client’s organisation"
-      val workAsIndependent = "You are an independent worker acting on behalf of your client"
+      val workForEndClient = "You work for your client"
+      val workAsIndependent = "You are an independent worker acting on your client’s behalf"
       val workAsBusiness = "You work for your own business"
-      val wouldNotHappen = "This wouldn’t happen - you wouldn’t interact formally"
+      val wouldNotHappen = "This would not happen"
     }
     object Hirer {
-      val heading = "If the worker was to formally interact with your consumers or suppliers, how would they introduce themselves?"
+      val heading = "How would the worker introduce themselves to your consumers or suppliers?"
       val title = heading
       val workForEndClient = "They work for you"
       val workAsIndependent = "They are an independent worker acting on your behalf"
       val workAsBusiness = "They work for their own business"
-      val wouldNotHappen = "This wouldn’t happen - they wouldn’t interact formally"
+      val wouldNotHappen = "This would not happen"
     }
   }
 

@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,21 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
-@import views.ViewUtils._
+package assets.messages.results
 
-@this(mainTemplate: templates.MainTemplate)
+object AdditionalPDFMessages extends BaseResultMessages {
 
-@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
-
-@mainTemplate(
-    title = titleNoForm("leave.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
-
-    @components.back_link()
-
-    @components.teal_result(Html(messages("leave.heading")))
+  val timestamp = (time: String) => s"Date of result: $time (UTC)"
+  val completedBy = (name: String) => s"Name of the person that completed this check: $name"
+  val client = (name: String) => s"End client’s name: $name"
+  val jobTitle = (title: String) => s"Engagement job title: $title"
+  val reference = (ref: String) => s"Reference: $ref"
 }

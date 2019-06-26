@@ -43,7 +43,7 @@ class WorkerAdvisoryControllerSpec extends ControllerSpecBase {
 
   def viewAsString = view(
     postAction = routes.WorkerAdvisoryController.onSubmit(),
-    finishAction = routes.LeaveController.onPageLoad()
+    finishAction = controllers.routes.ExitSurveyController.redirectToExitSurvey()
   )(fakeRequest, messages, frontendAppConfig).toString
 
   "Worker advisory Controller" must {

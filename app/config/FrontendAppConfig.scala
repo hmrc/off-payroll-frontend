@@ -37,6 +37,8 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
 
+  private lazy val exitSurveyBaseUrl = servicesConfig.getString("feedback-frontend.host") + servicesConfig.getString("feedback-frontend.url")
+  lazy val exitSurveyUrl = s"$exitSurveyBaseUrl/$contactFormServiceIdentifier"
 
   private def whitelistConfig(key: String): Seq[String] =
     Some(new String(Base64.getDecoder.decode(servicesConfig.getString(key)), "UTF-8"))

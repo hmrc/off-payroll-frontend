@@ -18,7 +18,7 @@ package utils
 
 import config.FrontendAppConfig
 import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
-import pages.{BalanceSheetOverPage, EmployeesOverPage, TurnoverOverPage}
+import pages.{BalanceSheetOverPage, EmployeesOverPage, EquipmentExpensesPage, MaterialsPage, OtherExpensesPage, TurnoverOverPage, VehiclePage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -205,6 +205,42 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
             answerIsMessageKey = true
           )
         )
+      )
+    }
+
+  def materialsExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(MaterialsPage) map { x =>
+      AnswerRow(
+        tailorMsg("materials.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def vehicleExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(VehiclePage) map { x =>
+      AnswerRow(
+        tailorMsg("vehicle.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def equipmentExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(EquipmentExpensesPage) map { x =>
+      AnswerRow(
+        tailorMsg("equipmentExpenses.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
+      )
+    }
+
+  def otherExpenses(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(OtherExpensesPage) map { x =>
+      AnswerRow(
+        tailorMsg("otherExpenses.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true
       )
     }
 

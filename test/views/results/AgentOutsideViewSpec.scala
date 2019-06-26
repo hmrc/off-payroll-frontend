@@ -16,23 +16,44 @@
 
 package views.results
 
-import assets.messages.results.{InDecisionMessages, OutDecisionMessages, UndeterminedDecisionMessages}
+import assets.messages.results.{InDecisionMessages, OutDecisionMessages}
 import config.SessionKeys
+import models.UserAnswers
 import models.UserType.Agency
+import models.requests.DataRequest
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
+import play.twirl.api.Html
 import views.html.results.outside.AgentOutsideView
 
 class AgentOutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentOutsideView]
 
-  lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-
-  def createView(req: Request[_]) = view(postAction,true,false,false)(req, messages, frontendAppConfig)
-  lazy val document = asDocument(createView(request))
+  lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString), "id", UserAnswers("id"))
 
   "The OutAgentView page" should {
+
+    def createView(req: DataRequest[_]): Html =
+      view(postAction, true, true, true)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+
+    implicit lazy val document = asDocument(createView(request))
+
+    pageChecks
+    pdfPageChecks(isPdfView = false)
+  }
+
+  "The OutAgentView PDF/Print page" should {
+
+    def createView(req: DataRequest[_]): Html = view(postAction, true, true, true)(req, messages, frontendAppConfig, testPdfResultDetails)
+
+    implicit lazy val document = asDocument(createView(request))
+
+    pageChecks
+    pdfPageChecks(isPdfView = true)
+  }
+
+  def pageChecks(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.Agent.title)
@@ -42,44 +63,18 @@ class AgentOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
     }
 
-    "Have the correct Why Result section for 1 reason" in {
-      document.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
+    "Have the correct Why Result section for 3 reasons" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
       document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
+      document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
+      document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
     }
 
-    "Have the correct Why Result section for 2 reasons" in {
-      def createView2(req: Request[_]) = view(postAction,true,true,false)(req, messages, frontendAppConfig)
-      lazy val document2 = asDocument(createView2(request))
-
-      document2.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-      document2.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
-      document2.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
-      document2.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
-      document2.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
-    }
-
-    "Have the correct Why Result section for 3 reasons" in {
-      def createView3(req: Request[_]) = view(postAction,true,true,true)(req, messages, frontendAppConfig)
-      lazy val document3 = asDocument(createView3(request))
-
-      document3.select(Selectors.WhyResult.h2(1)).text mustBe OutDecisionMessages.whyResultHeading
-      document3.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
-      document3.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
-      document3.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
-      document3.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
-      document3.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
-    }
-
     "Have the correct Do Next section" in {
-      document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.Agent.doNext
-    }
-
-    "Have the correct Download section" in {
-      document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
-      document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
     }
   }
 }
