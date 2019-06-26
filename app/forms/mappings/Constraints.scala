@@ -90,7 +90,7 @@ trait Constraints {
     Constraint {
       case Some(text) =>
 
-        val validReference: Regex = s"^[!%*^()_+\\-={}:;@~#,.?\\[\\]/A-Za-z0-9 ]{0,$maxLength}$$".r
+        val validReference: Regex = s"^[£!%*^()_+\\-={}:;@~#,.?\\[\\]/A-Za-z0-9 ]{0,$maxLength}$$".r
 
         val error =
           if(text.trim.length > maxLength && !text.matches(validReference.regex)) {

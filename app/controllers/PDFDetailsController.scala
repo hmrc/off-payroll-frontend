@@ -66,7 +66,7 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val decryptedForm = decryptDetails(fillForm(CustomisePDFPage, form).get)
+    val decryptedForm = decryptDetails(fillForm(CustomisePDFPage, form).value.getOrElse(AdditionalPdfDetails()))
 
     Ok(view(form.fill(decryptedForm), mode))
   }
