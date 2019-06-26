@@ -165,6 +165,8 @@ class PDFControllerSpec extends ControllerSpecBase {
 
         status(result) mustBe INTERNAL_SERVER_ERROR
         contentAsString(result) must include("Sorry we are experiencing technical problems")
+        contentAsString(result) must include("Please try again in few moments")
+        contentAsString(result) must not include "What do you want to find out?"
       }
 
       "handle error from the Optimised Decision Service service" in {
@@ -182,6 +184,8 @@ class PDFControllerSpec extends ControllerSpecBase {
 
         status(result) mustBe INTERNAL_SERVER_ERROR
         contentAsString(result) must include("Sorry we are experiencing technical problems")
+        contentAsString(result) must include("Please try again in few moments")
+        contentAsString(result) must not include "What do you want to find out?"
       }
 
       "return a Bad Request and errors when invalid data is submitted" in {
@@ -292,6 +296,8 @@ class PDFControllerSpec extends ControllerSpecBase {
 
         status(result) mustBe INTERNAL_SERVER_ERROR
         contentAsString(result) must include("Sorry we are experiencing technical problems")
+        contentAsString(result) must include("Please try again in few moments")
+        contentAsString(result) must not include "What do you want to find out?"
       }
 
       "return a Bad Request and errors when invalid data is submitted" in {
