@@ -31,18 +31,14 @@ class CustomisePDFFormProvider extends Constraints {
   def apply(): Form[AdditionalPdfDetails] =
     Form(
       mapping(
-        "completedBy" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.completedBy.error.length"))
-          .verifying(optUTF8("customisePDF.completedBy.error.uft8")),
-        "client" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.client.error.length"))
-          .verifying(optUTF8("customisePDF.client.error.uft8")),
-        "job" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.job.error.length"))
-          .verifying(optUTF8("customisePDF.job.error.uft8")),
-        "reference" -> optional(text).verifying(optMaxLength(maxFieldReferenceLength, "customisePDF.reference.error.length"))
-          .verifying(optUTF8("customisePDF.reference.error.uft8"))
-      )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply).transform[AdditionalPdfDetails](
-        model => utf8Conversion(model),
-        x => x
-      )
+        "completedBy" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "completedBy")),
+
+        "client" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "client")),
+
+        "job" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "job")),
+
+        "reference" -> optional(text).verifying(referenceCheckConstraints(maxFieldReferenceLength, "reference"))
+      )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply)
     )
 }
 
@@ -51,13 +47,4 @@ object CustomisePDFFormProvider {
   val maxFieldLength = 100
   val maxFieldReferenceLength = 180
 
-  def utf8Conversion(details: AdditionalPdfDetails): AdditionalPdfDetails ={
-
-    details.copy(
-      completedBy = details.completedBy.map(str => str.getBytes(StandardCharsets.UTF_8).map(_.toChar).mkString),
-      client = details.client.map(str => str.getBytes(StandardCharsets.UTF_8).map(_.toChar).mkString),
-      job = details.job.map(str => str.getBytes(StandardCharsets.UTF_8).map(_.toChar).mkString),
-      reference = details.reference.map(str => str.getBytes(StandardCharsets.UTF_8).map(_.toChar).mkString)
-    )
-  }
 }

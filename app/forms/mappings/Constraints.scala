@@ -16,7 +16,9 @@
 
 package forms.mappings
 
-import play.api.data.validation.{Constraint, Invalid, Valid}
+import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+
+import scala.util.matching.Regex
 
 trait Constraints {
 
@@ -84,25 +86,27 @@ trait Constraints {
         Invalid(errorKey, maximum)
     }
 
-  protected def optMaxLength(maximum: Int, errorKey: String): Constraint[Option[String]] =
+  def referenceCheckConstraints(maxLength: Int, message: String): Constraint[Option[String]] =
     Constraint {
-      case Some(str) if str.length > maximum => Invalid(errorKey, maximum)
-      case _ => Valid
-    }
+      case Some(text) =>
 
-  protected def optUTF8(errorKey: String): Constraint[Option[String]] =
-    Constraint {
-      case Some(str) =>
+        val validReference: Regex = s"^[!%*^()_+\\-={}:;@~#,.?\\[\\]/A-Za-z0-9 ]{0,$maxLength}$$".r
 
-        import java.nio.charset.StandardCharsets
+        val error =
+          if(text.trim.length > maxLength && !text.matches(validReference.regex)) {
+            Seq(ValidationError(s"pdfDetails.$message.error.invalidCharactersAndLength", maxLength, "!%*^()_+-=:;@~#,.?[]/}{"))
 
-        try {
-          str.getBytes(StandardCharsets.UTF_8)
-          Valid
+          } else if(text.trim.length > maxLength) {
+            Seq(ValidationError(s"pdfDetails.$message.error.maxLength", maxLength))
 
-        } catch {
-          case _: Exception => Invalid(errorKey)
-        }
+          } else if(!text.trim.matches(validReference.regex)) {
+            Seq(ValidationError(s"pdfDetails.$message.error.invalidCharacters", "!%*^()_+-=:;@~#,.?[]/}{"))
+
+          } else {
+            Nil
+          }
+
+        if (error.isEmpty) Valid else Invalid(error)
 
       case _ => Valid
     }

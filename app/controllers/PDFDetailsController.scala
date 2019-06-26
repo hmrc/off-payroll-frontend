@@ -32,7 +32,7 @@ import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc._
 import play.twirl.api.HtmlFormat
-import services.{CompareAnswerService, DecisionService, PDFService}
+import services.{CompareAnswerService, DecisionService, EncryptionService, PDFService}
 import utils.UserAnswersUtils
 import views.html.{AddDetailsView, CustomisePDFView}
 
@@ -52,6 +52,7 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
                                      errorHandler: ErrorHandler,
                                      time: Timestamp,
                                      compareAnswerService: CompareAnswerService,
+                                     encryption: EncryptionService,
                                      implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
 
@@ -75,7 +76,9 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
         formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
         additionalData => {
 
-          redirect[AdditionalPdfDetails](NormalMode, additionalData, CustomisePDFPage)
+          val encryptedDetails = encryptDetails(additionalData)
+
+          redirect[AdditionalPdfDetails](NormalMode, encryptedDetails, CustomisePDFPage)
         }
       )
 
@@ -92,10 +95,30 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
 
   def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(_.answer).getOrElse(AdditionalPdfDetails())
+    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => decryptDetails(answer.answer)).getOrElse(AdditionalPdfDetails())
     val timestamp = request.userAnswers.get(Timestamp)
 
     printResult(pdfDetails, time.timestamp(timestamp.map(_.answer)))
+  }
+
+  def encryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
+
+    details.copy(
+      client = details.client.map(client => encryption.encrypt(client)),
+      completedBy = details.completedBy.map(completedBy => encryption.encrypt(completedBy)),
+      job = details.job.map(job => encryption.encrypt(job)),
+      reference = details.reference.map(reference => encryption.encrypt(reference))
+    )
+  }
+
+  def decryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
+
+    details.copy(
+      client = details.client.map(client => encryption.decrypt(client)),
+      completedBy = details.completedBy.map(completedBy => encryption.decrypt(completedBy)),
+      job = details.job.map(job => encryption.decrypt(job)),
+      reference = details.reference.map(reference => encryption.decrypt(reference))
+    )
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {

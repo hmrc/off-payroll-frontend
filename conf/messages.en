@@ -1559,3 +1559,18 @@ worker.equipmentExpenses.heading = Will you incur substantial equipment costs th
 worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
 worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
 
+pdfDetails.completedBy.error.invalidCharactersAndLength = The name must be {0} characters or less and only include letters, numbers 0 to 9, spaces and the following characters: {1}
+pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
+pdfDetails.completedBy.error.invalidCharacters = The name must only include letters, numbers 0 to 9, spaces and the following characters: {0}
+
+pdfDetails.client.error.invalidCharactersAndLength = The client name must be {0} characters or less and only include letters, numbers 0 to 9, spaces and the following characters: {1}
+pdfDetails.client.error.maxLength = The client name must be {0} characters or less
+pdfDetails.client.error.invalidCharacters = The client name must only include letters, numbers 0 to 9, spaces and the following characters: {0}
+
+pdfDetails.job.error.invalidCharactersAndLength = The contract or role title must be {0} characters or less and only include letters, numbers 0 to 9, spaces and the following characters: {1}
+pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
+pdfDetails.job.error.invalidCharacters = The contract or role title must only include letters, numbers 0 to 9, spaces and the following characters: {0}
+
+pdfDetails.reference.error.invalidCharactersAndLength = The reference must be {0} characters or less and only include letters, numbers 0 to 9, spaces and the following characters: {1}
+pdfDetails.reference.error.maxLength = The reference must be {0} characters or less
+pdfDetails.reference.error.invalidCharacters = The reference must only include letters, numbers 0 to 9, spaces and the following characters: {0}
