@@ -17,10 +17,15 @@
 package forms.mappings
 
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
+import java.util.regex.Pattern
+import java.util.regex.Pattern._
 
+import filters.Filter
+
+import scala.annotation.tailrec
 import scala.util.matching.Regex
 
-trait Constraints {
+trait Constraints extends Filter{
 
   protected def firstError[A](constraints: Constraint[A]*): Constraint[A] =
     Constraint {
@@ -90,16 +95,18 @@ trait Constraints {
     Constraint {
       case Some(text) =>
 
+        val filteredText = filter(text)
+
         val validReference: Regex = s"^[£!%*^()_+\\-={}:;@~#,.?\\[\\]/A-Za-z0-9 ]{0,$maxLength}$$".r
 
         val error =
-          if(text.trim.length > maxLength && !text.matches(validReference.regex)) {
+          if(filteredText.trim.length > maxLength && !filteredText.matches(validReference.regex)) {
             Seq(ValidationError(s"pdfDetails.$message.error.invalidCharactersAndLength", maxLength, "!%*^()_+-=:;@~#,.?[]/}{"))
 
-          } else if(text.trim.length > maxLength) {
+          } else if(filteredText.trim.length > maxLength) {
             Seq(ValidationError(s"pdfDetails.$message.error.maxLength", maxLength))
 
-          } else if(!text.trim.matches(validReference.regex)) {
+          } else if(!filteredText.trim.matches(validReference.regex)) {
             Seq(ValidationError(s"pdfDetails.$message.error.invalidCharacters", "!%*^()_+-=:;@~#,.?[]/}{"))
 
           } else {

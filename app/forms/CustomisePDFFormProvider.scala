@@ -16,12 +16,13 @@
 
 package forms
 
+import filters.Filter
 import forms.mappings.Constraints
 import models.AdditionalPdfDetails
 import play.api.data.Form
 import play.api.data.Forms._
 
-class CustomisePDFFormProvider extends Constraints {
+class CustomisePDFFormProvider extends Constraints with Filter{
 
   import CustomisePDFFormProvider._
 
@@ -35,7 +36,14 @@ class CustomisePDFFormProvider extends Constraints {
         "job" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "job")),
 
         "reference" -> optional(text).verifying(referenceCheckConstraints(maxFieldReferenceLength, "reference"))
-      )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply)
+      )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply).transform[AdditionalPdfDetails](
+        details => details.copy(
+          completedBy = details.completedBy.map(completedBy => filter(completedBy)),
+          client = details.client.map(client => filter(client)),
+          job = details.job.map(job => filter(job)),
+          reference = details.reference.map(reference => filter(reference))
+        ), x => x
+      )
     )
 }
 
