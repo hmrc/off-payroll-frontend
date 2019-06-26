@@ -71,15 +71,6 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Worker.heading
       }
 
-      "have the correct bullet points" in {
-        document.select(Selectors.bullet(1)).text mustBe OfficeHolderMessages.Optimised.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe OfficeHolderMessages.Optimised.Worker.b2
-        document.select(Selectors.bullet(3)).text mustBe OfficeHolderMessages.Optimised.Worker.b3
-        document.select(Selectors.bullet(4)).text mustBe OfficeHolderMessages.Optimised.Worker.b4
-        document.select(Selectors.bullet(5)).text mustBe OfficeHolderMessages.Optimised.Worker.b5
-        document.select(Selectors.bullet(6)).text mustBe OfficeHolderMessages.Optimised.Worker.b6
-      }
-
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe OfficeHolderMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe OfficeHolderMessages.no
@@ -99,15 +90,6 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Hirer.heading
       }
 
-      "have the correct bullet points" in {
-        document.select(Selectors.bullet(1)).text mustBe OfficeHolderMessages.Optimised.Hirer.b1
-        document.select(Selectors.bullet(2)).text mustBe OfficeHolderMessages.Optimised.Hirer.b2
-        document.select(Selectors.bullet(3)).text mustBe OfficeHolderMessages.Optimised.Hirer.b3
-        document.select(Selectors.bullet(4)).text mustBe OfficeHolderMessages.Optimised.Hirer.b4
-        document.select(Selectors.bullet(5)).text mustBe OfficeHolderMessages.Optimised.Hirer.b5
-        document.select(Selectors.bullet(6)).text mustBe OfficeHolderMessages.Optimised.Hirer.b6
-      }
-
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe OfficeHolderMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe OfficeHolderMessages.no
@@ -125,15 +107,6 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Worker.heading
-      }
-
-      "have the correct bullet points" in {
-        document.select(Selectors.bullet(1)).text mustBe OfficeHolderMessages.Optimised.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe OfficeHolderMessages.Optimised.Worker.b2
-        document.select(Selectors.bullet(3)).text mustBe OfficeHolderMessages.Optimised.Worker.b3
-        document.select(Selectors.bullet(4)).text mustBe OfficeHolderMessages.Optimised.Worker.b4
-        document.select(Selectors.bullet(5)).text mustBe OfficeHolderMessages.Optimised.Worker.b5
-        document.select(Selectors.bullet(6)).text mustBe OfficeHolderMessages.Optimised.Worker.b6
       }
 
       "have the correct radio option messages" in {

@@ -18,9 +18,11 @@ package assets.messages
 
 object HirerAdvisoryMessages extends BaseMessages {
 
-  val heading = "You don’t need to answer any more questions"
-  val title = heading
-  val p1 = "Until April 2020, workers are responsible for determining if roles like this should be in or out of IR35"
-  val p2 = "You can exit the tool now. Or continue through it, to see how aspects of the work - like its duties and arrangements - influence its employment status determination."
+  val title = "Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)"
+  val heading = "Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)"
+  val p1 = "It is the worker’s responsibility."
+  val p2 = "After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer."
+  val subheading = "What to do next"
+  val p3 = "You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given."
 
 }

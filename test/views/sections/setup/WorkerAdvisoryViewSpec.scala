@@ -24,7 +24,7 @@ import views.html.sections.setup.{AgencyAdvisoryView, WorkerAdvisoryView}
 class WorkerAdvisoryViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors {
-    val finish = "#finish-link"
+    val exit = "#finish-link"
   }
 
   val messageKeyPrefix = "workerAdvisory"
@@ -55,13 +55,17 @@ class WorkerAdvisoryViewSpec extends ViewBehaviours {
       document.select(Selectors.p(1)).text mustBe WorkerAdvisoryMessages.p1
     }
 
+    "have the correct h2" in {
+      document.select(Selectors.h2(1)).text mustBe WorkerAdvisoryMessages.subheading
+    }
+
     "have the correct p2" in {
       document.select(Selectors.p(2)).text mustBe WorkerAdvisoryMessages.p2
     }
 
     "have a finish link" in {
-      document.select(Selectors.finish).text mustBe WorkerAdvisoryMessages.finish
-      document.select(Selectors.finish).attr("href") mustBe finishCall.url
+      document.select(Selectors.exit).text mustBe WorkerAdvisoryMessages.exit
+      document.select(Selectors.exit).attr("href") mustBe finishCall.url
     }
   }
 }
