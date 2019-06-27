@@ -25,10 +25,12 @@ import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+
 import models._
 import models.requests.DataRequest
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup.{IsWorkForPrivateSectorPage, WorkerUsingIntermediaryPage}
+import play.api.Logger
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, Call, Request}
 import play.mvc.Http.Status._
@@ -135,7 +137,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
           case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
           case ResultEnum.UNKNOWN => Right(routeUndetermined)
-          case ResultEnum.NOT_MATCHED => Left(errorHandler.internalServerErrorTemplate)
+          case ResultEnum.NOT_MATCHED => Logger.error("OptimisedDecisionService determineResultView Exception: NOT MATCHED final decision")
+            Left(errorHandler.internalServerErrorTemplate)
         }
       }
       case Left(_) => Left(errorHandler.internalServerErrorTemplate)

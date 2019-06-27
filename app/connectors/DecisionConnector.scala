@@ -23,6 +23,7 @@ import javax.inject.Inject
 
 import MultiDecision.Result
 import cats.data.EitherT
+import connectors.httpParsers.DecisionHttpParser
 import models._
 import models.logging.LogInterview
 import play.api.Logger
