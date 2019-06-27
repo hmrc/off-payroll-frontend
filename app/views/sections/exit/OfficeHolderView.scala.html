@@ -37,15 +37,6 @@
 
         @components.heading(tailorMsgOptimised("officeHolder.heading"))
 
-        @components.bulleted_list(Seq(
-            tailorMsgOptimised("officeHolder.b1"),
-            tailorMsgOptimised("officeHolder.b2"),
-            tailorMsgOptimised("officeHolder.b3"),
-            tailorMsgOptimised("officeHolder.b4"),
-            tailorMsgOptimised("officeHolder.b5"),
-            tailorMsgOptimised("officeHolder.b6")
-        ))
-
         @components.input_yes_no(
             field = form("value"),
             label = messages(tailorMsgOptimised("officeHolder.heading")),

@@ -33,12 +33,14 @@ bodyClasses = None) {
 
         @components.heading("workerAdvisory.heading")
 
-        <p>@messages("workerAdvisory.p1")</p>
+        <p class="panel panel-border-wide">@messages("workerAdvisory.p1")</p>
+
+        <h2>@messages("workerAdvisory.subheading")</h2>
 
         <p>@messages("workerAdvisory.p2")</p>
 
         @components.submit_button()
 
-        <a id="finish-link" href="@{finishAction.url}">@messages("site.finish")</a>
+        <a id="finish-link" href="@{finishAction.url}">@messages("site.exit")</a>
     }
 }

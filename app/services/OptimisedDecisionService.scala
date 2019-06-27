@@ -25,16 +25,19 @@ import controllers.routes
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+
 import models._
 import models.requests.DataRequest
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup.{IsWorkForPrivateSectorPage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
+import play.api.Logger
 import play.api.i18n.Messages
 import play.api.mvc.{AnyContent, Call, Request}
 import play.mvc.Http.Status._
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.AnswerSection
 import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.outside._
@@ -102,76 +105,127 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT, "No log needed")))
     }
 
+<<<<<<< HEAD
   def determineResultView(formWithErrors: Option[Form[Boolean]] = None)
                          (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
 
     val form = formWithErrors.getOrElse(defaultForm)
 
+=======
+  def determineResultView(postAction: Call,
+                          answerSections: Seq[AnswerSection] = Seq(),
+                          printMode: Boolean = false,
+                          additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+                          timestamp: Option[String] = None,
+                          decisionVersion: Option[String] = None)
+                         (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
     collateDecisions.map {
       case Right(decision) => {
-        val result = decision.result
-        val personalService = decision.score.personalService
-        val control = decision.score.control
-        val financialRisk = decision.score.financialRisk
         val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
         val privateSector = request.userAnswers.get(IsWorkForPrivateSectorPage).fold(false)(_.answer)
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
 
+<<<<<<< HEAD
         implicit val resultsDetails: ResultsDetails =
           ResultsDetails(officeHolderAnswer, privateSector, usingIntermediary, request.userType, personalService, control, financialRisk, form)
 
         result match {
+=======
+        implicit val resultsDetails: ResultsDetails = ResultsDetails(
+          action = postAction,
+          officeHolderAnswer = officeHolderAnswer,
+          privateSector = privateSector,
+          usingIntermediary = usingIntermediary,
+          userType = request.userType,
+          personalServiceOption = decision.score.personalService,
+          controlOption = decision.score.control,
+          financialRiskOption = decision.score.financialRisk
+        )
+
+        implicit val pdfResultDetails = PDFResultDetails(
+          printMode,
+          additionalPdfDetails,
+          timestamp,
+          answerSections
+        )
+
+        decision.result match {
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
           case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
           case ResultEnum.UNKNOWN => Right(routeUndetermined)
-          case ResultEnum.NOT_MATCHED => Left(errorHandler.internalServerErrorTemplate)
+          case ResultEnum.NOT_MATCHED => Logger.error("[OptimisedDecisionService][determineResultView]: NOT MATCHED final decision")
+            Left(errorHandler.internalServerErrorTemplate)
         }
       }
       case Left(_) => Left(errorHandler.internalServerErrorTemplate)
     }
   }
 
-  private def getUserType(implicit request: DataRequest[_]) = {
-    request.session.get(SessionKeys.userType).getOrElse("unknown").replace("\"","")
-  }
-
-  private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html = {
+  private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
+<<<<<<< HEAD
       case (_, true) => undeterminedAgency(result.form) // AGENT
       case (true, _) => undeterminedIR35(result.form, result.privateSector,getUserType) // IR35
       case _ => undeterminedPAYE(result.form,getUserType) // PAYE
+=======
+      case (_, true) => undeterminedAgency(result.action) // AGENT
+      case (true, _) => undeterminedIR35(result.action, result.privateSector) // IR35
+      case _ => undeterminedPAYE(result.action) // PAYE
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
     }
   }
 
-  private def routeOutside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable = {
+  private def routeOutside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
     val isSubstituteToDoWork: Boolean = result.personalServiceOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isClientNotControlWork: Boolean = result.controlOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isIncurCostNoReclaim: Boolean = result.financialRiskOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
+<<<<<<< HEAD
         outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
       case (true, _) =>
         outsideIR35(result.form, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,getUserType) // IR35
       case _ =>
         outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,getUserType) // PAYE
+=======
+        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
+      case (true, _) =>
+        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
+      case _ =>
+        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
     }
   }
 
-  private def routeInside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): HtmlFormat.Appendable =
+  private def routeInside(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     if (result.officeHolderAnswer) routeInsideOfficeHolder else routeInsideIR35
 
-  private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
+  private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.userType) match {
+<<<<<<< HEAD
       case (_, Some(UserType.Agency)) => insideAgent(result.form) // AGENT
       case (true, _) => insideIR35(result.form, result.privateSector,getUserType) // IR35
       case _ => insidePAYE(result.form,getUserType) // PAYE
+=======
+      case (_, Some(UserType.Agency)) => insideAgent(result.action) // AGENT
+      case (true, _) => insideIR35(result.action, result.privateSector) // IR35
+      case _ => insidePAYE(result.action) // PAYE
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
     }
 
-  private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails): Html =
+  private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.isAgent) match {
+<<<<<<< HEAD
       case (_, true) => officeAgency(result.form) // AGENT
       case (true, _) => officeIR35(result.form, result.privateSector,getUserType) // IR35
       case _ => officePAYE(result.form,getUserType) // PAYE
+=======
+      case (_, true) => officeAgency(result.action) // AGENT
+      case (true, _) => officeIR35(result.action, result.privateSector) // IR35
+      case _ => officePAYE(result.action) // PAYE
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
     }
 }

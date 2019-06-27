@@ -18,11 +18,13 @@ package assets.messages
 
 object ToolNotNeededMessages extends BaseMessages {
 
-  val ir35Title = "You don’t need to answer any more questions"
-  val ir35Heading = "You don’t need to answer any more questions"
-  val ir35Text = "Workers are responsible for determining if roles like this should be in or out of IR35"
-  val payeTitle = "You don’t need to determine if this work should be taxed at source (PAYE)"
-  val payeHeading = "You don’t need to determine if this work should be taxed at source (PAYE)"
-  val payeText = "It’s the worker’s responsibility to include the income from this work in their self-assessment return"
+  val ir35Title = "You don’t need to determine if this work falls within the off-payroll rules (IR35)"
+  val ir35Heading = "You don’t need to determine if this work falls within the off-payroll rules (IR35)"
+  val ir35P1 = "It is the worker’s responsibility."
+  val ir35P2 = "This is because you told us they will trade through a limited company, partnership or unincorporated body. And because they’re responsible for determining the employment status for tax purposes of work for smaller private sector organisations."
+  val payeTitle = "You don’t need to determine if this work should be classed as employed or self-employed for tax purposes"
+  val payeHeading = "You don’t need to determine if this work should be classed as employed or self-employed for tax purposes"
+  val payeP1 = "It is the worker’s responsibility."
+  val payeP2 = "This is because you told us they will trade through a limited company, partnership or unincorporated body."
 
 }

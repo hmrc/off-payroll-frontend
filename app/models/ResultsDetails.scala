@@ -17,6 +17,8 @@
 package models
 
 import play.api.data.Form
+import play.api.mvc.Call
+import viewmodels.AnswerSection
 
 case class ResultsDetails(officeHolderAnswer: Boolean,
                           privateSector: Boolean,
@@ -29,3 +31,8 @@ case class ResultsDetails(officeHolderAnswer: Boolean,
 
   def isAgent: Boolean = userType.contains(UserType.Agency)
 }
+
+case class PDFResultDetails(printMode: Boolean = false,
+                            additionalPdfDetails: Option[AdditionalPdfDetails] = None,
+                            timestamp: Option[String] = None,
+                            answerSections: Seq[AnswerSection] = Seq())

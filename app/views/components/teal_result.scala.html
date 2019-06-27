@@ -14,9 +14,11 @@
  * limitations under the License.
  *@
 
-@(message: Html, result: String, workerType: String, subMessage: Option[Html] = None)
+@import models.requests.DataRequest
 
-@defining(s"$workerType.$result") { id =>
+@(message: Html, result: String, subMessage: Option[Html] = None)(implicit request: DataRequest[_])
+
+@defining(s"${request.userType}.$result") { id =>
 
     <div class="govuk-box-highlight" id="@id">
         <h1 class="bold-xlarge">@message</h1>

@@ -72,11 +72,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.bullet(1)).text mustBe BenefitsMessages.Optimised.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe BenefitsMessages.Optimised.Worker.b2
-        document.select(Selectors.bullet(3)).text mustBe BenefitsMessages.Optimised.Worker.b3
-        document.select(Selectors.bullet(4)).text mustBe BenefitsMessages.Optimised.Worker.b4
-        document.select(Selectors.bullet(5)).text mustBe BenefitsMessages.Optimised.Worker.b5
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Worker.p1
       }
     }
 
@@ -94,11 +90,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.bullet(1)).text mustBe BenefitsMessages.Optimised.Hirer.b1
-        document.select(Selectors.bullet(2)).text mustBe BenefitsMessages.Optimised.Hirer.b2
-        document.select(Selectors.bullet(3)).text mustBe BenefitsMessages.Optimised.Hirer.b3
-        document.select(Selectors.bullet(4)).text mustBe BenefitsMessages.Optimised.Hirer.b4
-        document.select(Selectors.bullet(5)).text mustBe BenefitsMessages.Optimised.Hirer.b5
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Hirer.p1
       }
     }
 
@@ -116,11 +108,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct bullet points" in {
-        document.select(Selectors.bullet(1)).text mustBe BenefitsMessages.Optimised.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe BenefitsMessages.Optimised.Worker.b2
-        document.select(Selectors.bullet(3)).text mustBe BenefitsMessages.Optimised.Worker.b3
-        document.select(Selectors.bullet(4)).text mustBe BenefitsMessages.Optimised.Worker.b4
-        document.select(Selectors.bullet(5)).text mustBe BenefitsMessages.Optimised.Worker.b5
+        document.select(Selectors.p(1)).text mustBe BenefitsMessages.Optimised.Worker.p1
       }
     }
   }

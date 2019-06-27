@@ -20,22 +20,44 @@ import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.UserType.Agency
+import models.requests.DataRequest
+import models.{PDFResultDetails, UserAnswers}
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
+import play.twirl.api.Html
 import views.html.results.inside.officeHolder.OfficeHolderAgentView
 
 class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderAgentView]
 
+<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
   def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
+=======
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html = view(postAction)(req, messages, frontendAppConfig, pdfDetails)
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
 
   "The OfficeHolderAgentView page" should {
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-    lazy val document = asDocument(createView(request))
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
+    implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
+
+    pageChecks
+    pdfPageChecks(isPdfView = false)
+  }
+
+  "The OfficeHolderAgentView PDF/Print page" should {
+
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
+    implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
+
+    pageChecks
+    pdfPageChecks(isPdfView = true)
+  }
+
+  def pageChecks(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Agent.title)
@@ -50,18 +72,13 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
     }
 
     "Have the correct Why Result section" in {
-      document.select(Selectors.WhyResult.h2(1)).text mustBe OfficeHolderMessages.whyResultHeading
+      document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Agent.whyResult_p1
     }
 
     "Have the correct Do Next section" in {
-      document.select(Selectors.DoNext.h2(1)).text mustBe OfficeHolderMessages.doNextHeading
+      document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Agent.doNext_p1
-    }
-
-    "Have the correct Download section" in {
-      document.select(Selectors.Download.h2(1)).text mustBe OfficeHolderMessages.downloadHeading
-      document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.download_p1
     }
   }
 }

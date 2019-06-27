@@ -69,10 +69,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct hints" in {
-        document.select(Selectors.bullet(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b2
-        document.select(Selectors.bullet(3)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b3
-        document.select(Selectors.bullet(4)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b4
+        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.p1
       }
     }
 
@@ -90,10 +87,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct hints" in {
-        document.select(Selectors.bullet(1)).text mustBe LineManagerDutiesMessages.Optimised.Hirer.b1
-        document.select(Selectors.bullet(2)).text mustBe LineManagerDutiesMessages.Optimised.Hirer.b2
-        document.select(Selectors.bullet(3)).text mustBe LineManagerDutiesMessages.Optimised.Hirer.b3
-        document.select(Selectors.bullet(4)).text mustBe LineManagerDutiesMessages.Optimised.Hirer.b4
+        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.p1
       }
     }
 
@@ -111,10 +105,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct hints" in {
-        document.select(Selectors.bullet(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b1
-        document.select(Selectors.bullet(2)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b2
-        document.select(Selectors.bullet(3)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b3
-        document.select(Selectors.bullet(4)).text mustBe LineManagerDutiesMessages.Optimised.Worker.b4
+        document.select(Selectors.p(1)).text mustBe LineManagerDutiesMessages.Optimised.Worker.p1
       }
     }
   }

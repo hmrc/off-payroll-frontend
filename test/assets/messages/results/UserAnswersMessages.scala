@@ -14,26 +14,16 @@
  * limitations under the License.
  */
 
-package assets.messages
+package assets.messages.results
 
-object IsWorkForPrivateSectorMessages extends BaseMessages {
+object UserAnswersMessages extends BaseResultMessages {
 
-  val privateOption = "Private sector"
-  val publicOption = "Public sector"
-
-  object Worker {
-    val heading = "In which sector is the client you will be doing the work for?"
-    val title = heading
-  }
-
-  object Hirer {
-    val heading = "In which sector is your organisation?"
-    val title = heading
-  }
-
-  object NonTailored {
-    val heading = "In which sector is the client you will be doing the work for?"
-    val title = heading
-  }
+  val h2 = "What you told us"
+  val section1h3 = "Section 1: Who, what, when"
+  val section2h3 = "Section 2: Worker’s Duties"
+  val section3h3 = "Section 3: Worker’s substitution"
+  val section4h3 = "Section 4: Worker’s arrangements"
+  val section5h3 = "Section 5: Worker’s risk"
+  val section6h3 = "Section 6: Worker’s involvement"
 
 }

@@ -23,6 +23,7 @@ import javax.inject.Inject
 
 import MultiDecision.Result
 import cats.data.EitherT
+import connectors.httpParsers.DecisionHttpParser
 import models._
 import models.logging.LogInterview
 import play.api.Logger
@@ -45,7 +46,8 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   lazy val logUrl = s"$baseUrl/cest-decision/log"
 
   private[connectors] val handleUnexpectedError: PartialFunction[Throwable, Left[ErrorResponse, Nothing]] = {
-    case ex: Exception => Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
+    case ex: Exception => Logger.error("[DecisionConnector][handleUnexpectedError]",ex)
+      Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
   }
 
   def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)

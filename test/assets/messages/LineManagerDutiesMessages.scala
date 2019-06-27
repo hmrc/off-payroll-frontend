@@ -22,21 +22,15 @@ object LineManagerDutiesMessages extends BaseMessages {
 
   object Optimised {
     object Worker {
-      val heading = "Will you be responsible for any of these duties for your client?"
+      val heading = "Will you have any formal responsibilities for your client?"
       val title = heading
-      val b1 = "Hiring workers"
-      val b2 = "Dismissing workers"
-      val b3 = "Delivering appraisals"
-      val b4 = "Deciding how much to pay someone"
+      val p1 = "This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals."
     }
 
     object Hirer {
-      val heading = "Will the worker be responsible for any of these duties for your organisation?"
+      val heading = "Will the worker have any formal responsibilities for your organisation?"
       val title = heading
-      val b1 = "Hiring workers"
-      val b2 = "Dismissing workers"
-      val b3 = "Delivering appraisals"
-      val b4 = "Deciding how much to pay someone"
+      val p1 = "This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals."
     }
   }
 

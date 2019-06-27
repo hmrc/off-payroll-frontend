@@ -16,6 +16,7 @@
 
 package services.mocks
 
+import models.AdditionalPdfDetails
 import models.requests.DataRequest
 import org.scalamock.scalatest.MockFactory
 import play.api.data.Form
@@ -24,6 +25,7 @@ import play.api.mvc.Call
 import play.twirl.api.Html
 import services.OptimisedDecisionService
 import uk.gov.hmrc.http.HeaderCarrier
+import viewmodels.AnswerSection
 
 import scala.concurrent.Future
 
@@ -31,9 +33,22 @@ trait MockOptimisedDecisionService extends MockFactory {
 
   val mockOptimisedDecisionService = mock[OptimisedDecisionService]
 
+<<<<<<< HEAD
   def mockDetermineResultView(form: Option[Form[Boolean]] = None)(response: Either[Html, Html]): Unit = {
     (mockOptimisedDecisionService.determineResultView(_: Option[Form[Boolean]])( _: DataRequest[_],_: HeaderCarrier, _: Messages))
       .expects(form, *, *, *)
+=======
+  def mockDetermineResultView(call: Call)(response: Either[Html, Html]): Unit = {
+    (mockOptimisedDecisionService.determineResultView(
+      _: Call,
+      _: Seq[AnswerSection],
+      _: Boolean,
+      _: Option[AdditionalPdfDetails],
+      _: Option[String],
+      _: Option[String]
+    )( _: DataRequest[_],_: HeaderCarrier, _: Messages))
+      .expects(*, *, *, *, *, *, *, *, *)
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
       .returns(Future.successful(response))
   }
 }

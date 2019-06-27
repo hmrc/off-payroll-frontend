@@ -39,21 +39,21 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val heading = "Will your client decide your schedule of working hours?"
+    val heading = "Will your client decide the schedule of working hours?"
     val title = heading
     val yesClientDecides = "Yes"
-    val noWorkerDecides = "No, you solely decide."
-    val partly = "No, you and your client agree your own schedule."
-    val notApplicable = "No, the work is based on agreed deadlines, not a set schedule."
+    val noWorkerDecides = "No, you solely decide"
+    val partly = "No, you and your client agree your schedule"
+    val notApplicable = "No, the work is based on agreed deadlines, not a set schedule"
   }
 
   object OptimisedHirer {
-    val heading = "Will your team decide the schedule of working hours?"
+    val heading = "Will your organisation decide the schedule of working hours?"
     val title = heading
     val yesClientDecides = "Yes"
     val noWorkerDecides = "No, the worker solely decides"
-    val partly = "No, your team and the worker agree their own schedule."
-    val notApplicable = "No, the work is based on agreed deadlines, not a set schedule."
+    val partly = "No, your organisation and the worker agree their schedule"
+    val notApplicable = "No, the work is based on agreed deadlines, not a set schedule"
   }
 
   object NonTailored {

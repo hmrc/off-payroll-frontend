@@ -19,9 +19,11 @@ package views.results
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
 import forms.DeclarationFormProvider
+import models.UserAnswers
 import models.UserType.Agency
+import models.requests.DataRequest
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
-import play.api.mvc.Request
 import views.html.results.inside.AgentInsideView
 
 class AgentInsideViewSpec extends ResultViewFixture {
@@ -29,13 +31,29 @@ class AgentInsideViewSpec extends ResultViewFixture {
   val view = injector.instanceOf[AgentInsideView]
   val form = new DeclarationFormProvider()()
 
-  def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
-
   "The InsideAgentView page" should {
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-    lazy val document = asDocument(createView(request))
+    def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
+    implicit lazy val document = asDocument(createView(request))
+
+    pageChecks
+    pdfPageChecks(isPdfView = false)
+  }
+
+  "The InsideAgentView PDF/PrintView page" should {
+
+    def createPrintView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPdfResultDetails)
+
+    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
+    implicit lazy val document = asDocument(createPrintView(request))
+
+    pageChecks
+    pdfPageChecks(isPdfView = true)
+  }
+
+  def pageChecks(implicit document: Document) = {
     "Have the correct title" in {
       document.title mustBe title(InDecisionMessages.Agent.title)
     }
@@ -49,18 +67,13 @@ class AgentInsideViewSpec extends ResultViewFixture {
     }
 
     "Have the correct Why Result section" in {
-      document.select(Selectors.WhyResult.h2(1)).text mustBe InDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.Agent.whyResult_p1
     }
 
     "Have the correct Do Next section" in {
-      document.select(Selectors.DoNext.h2(1)).text mustBe InDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.Agent.doNext_p1
-    }
-
-    "Have the correct Download section" in {
-      document.select(Selectors.Download.h2(1)).text mustBe InDecisionMessages.downloadHeading
-      document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
     }
   }
 }

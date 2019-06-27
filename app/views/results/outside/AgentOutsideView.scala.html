@@ -20,36 +20,60 @@
 @import models.ResultType.Agent
 
 @import controllers.routes._
-@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+@import results.sections.pdf
+@import models.requests.DataRequest
+@import results.sections.pdf
+@import models.requests.DataRequest
 
+@this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
-@mainTemplate(title(form, "agent.optimised.result.outside.title"), appConfig = appConfig) {
+@defining(
+    if(pdfResultDetails.printMode) {
+        printTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig)(_)
+    } else {
+        mainTemplate(titleNoForm("agent.optimised.result.outside.title"), appConfig = appConfig)(_)
+    }
+){ template =>
 
-    @components.error_summary(form.errors)
+    @template {
 
-    @components.teal_result(
-        Html(messages("agent.optimised.result.outside.heading")),
-        "result.outside",
-        "agency"
-    )
+        @components.error_summary(form.errors)
 
-    @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
+        @pdfResultDetails.additionalPdfDetails.map { details =>
+            @pdf.additional_details(details, pdfResultDetails.timestamp)
+        }
 
-        @results.sections.why_result(whyResult)
-
-        @results.sections.do_next(doNext)
-
-        @results.sections.download()
-
-        @components.input_yes_no(
-            field = form("value"),
-            label = messages("agent.optimised.result.outside.heading"),
-            labelClass = Some("visually-hidden")
+        @components.teal_result(
+            Html(messages("agent.optimised.result.outside.heading")),
+            "result.outside"
         )
 
-        @components.submit_button("site.continue")
+        @formWithCsrf(ResultController.onSubmit(), 'autoComplete -> "off") {
+
+            @results.sections.why_result(whyResult)
+
+            @results.sections.do_next(doNext)
+
+            @if(pdfResultDetails.printMode) {
+
+                @pdf.answers(pdfResultDetails.answerSections)
+                @pdf.decision_version(appConfig.decisionVersion)
+
+            } else {
+
+                @results.sections.download()
+
+                @components.input_yes_no(
+                    field = form("value"),
+                    label = messages("agent.optimised.result.outside.heading"),
+                    labelClass = Some("visually-hidden")
+                )
+
+                @components.submit_button("site.continue")
+            }
+        }
     }
 }
 

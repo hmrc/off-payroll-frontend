@@ -22,23 +22,15 @@ object BenefitsMessages extends BaseMessages {
 
   object Optimised {
     object Worker {
-      val heading = "Will your client provide you with any of the following benefits?"
+      val heading = "Will your client provide you with paid-for corporate benefits?"
       val title = heading
-      val b1 = "Sick pay"
-      val b2 = "Holiday pay"
-      val b3 = "Workplace pension"
-      val b4 = "Maternity/paternity pay"
-      val b5 = "Other significant benefits, like health insurance"
+      val p1 = "This can include external gym memberships, health insurance or retail discounts."
     }
 
     object Hirer {
-      val heading = "Will your organisation provide the worker with any of the following benefits?"
+      val heading = "Will you provide the worker with paid-for corporate benefits?"
       val title = heading
-      val b1 = "Sick pay"
-      val b2 = "Holiday pay"
-      val b3 = "Workplace pension"
-      val b4 = "Maternity/paternity pay"
-      val b5 = "Other significant benefits, like health insurance"
+      val p1 = "This can include external gym memberships, health insurance or retail discounts."
     }
   }
 

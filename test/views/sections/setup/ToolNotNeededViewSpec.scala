@@ -16,10 +16,15 @@
 
 package views.sections.setup
 
-import models.WhichDescribesYouAnswer
+import assets.messages.ToolNotNeededMessages
+import config.SessionKeys
+import models.UserType.Worker
+import models.{NormalMode, WhichDescribesYouAnswer}
 import models.WhichDescribesYouAnswer.{ClientIR35, ClientPAYE}
+import play.api.libs.json.Json
 import views.behaviours.ViewBehaviours
 import views.html.sections.setup.ToolNotNeededView
+import play.api.mvc.Request
 
 class ToolNotNeededViewSpec extends ViewBehaviours {
 
@@ -31,6 +36,7 @@ class ToolNotNeededViewSpec extends ViewBehaviours {
 
   def createView(clientType: WhichDescribesYouAnswer) = () => view(clientType)(fakeRequest, messages, frontendAppConfig)
 
+  def createViewWithRequest = (userType: WhichDescribesYouAnswer, req: Request[_]) => view(userType)(req, messages, frontendAppConfig)
 
   "ToolNotNeeded view" when {
 
@@ -38,12 +44,45 @@ class ToolNotNeededViewSpec extends ViewBehaviours {
       behave like normalPage(createView(ClientIR35), messageKeyPrefix + ".ir35", hasSubheading = false)
 
       behave like pageWithBackLink(createView(ClientIR35))
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(ClientIR35, request))
+
+      "have the correct title" in {
+        document.title mustBe title(ToolNotNeededMessages.ir35Title)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ToolNotNeededMessages.ir35Heading
+      }
+
+      "have the content messages" in {
+        document.select(Selectors.p(1)).text mustBe ToolNotNeededMessages.ir35P1
+        document.select(Selectors.p(2)).text mustBe ToolNotNeededMessages.ir35P2
+      }
     }
 
     "PAYE user" must {
       behave like normalPage(createView(ClientPAYE), messageKeyPrefix + ".paye", hasSubheading = false)
 
       behave like pageWithBackLink(createView(ClientPAYE))
+
+      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      lazy val document = asDocument(createViewWithRequest(ClientPAYE, request))
+
+      "have the correct title" in {
+        document.title mustBe title(ToolNotNeededMessages.payeTitle)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe ToolNotNeededMessages.payeHeading
+      }
+
+      "have the content messages" in {
+        document.select(Selectors.p(1)).text mustBe ToolNotNeededMessages.payeP1
+        document.select(Selectors.p(2)).text mustBe ToolNotNeededMessages.payeP2
+      }
+
     }
 
   }

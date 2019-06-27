@@ -18,80 +18,115 @@ package views.results
 
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
+<<<<<<< HEAD
 import forms.DeclarationFormProvider
+=======
+import models.{PDFResultDetails, UserAnswers}
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
 import models.UserType.{Hirer, Worker}
+import models.requests.DataRequest
+import org.jsoup.nodes.Document
 import play.api.libs.json.Json
 import play.api.mvc.Request
+import play.twirl.api.Html
 import views.html.results.undetermined.PAYEUndeterminedView
 
 class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEUndeterminedView]
 
+<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
   def createView(req: Request[_]) = view(form,"worker")(req, messages, frontendAppConfig)
+=======
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
+    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
+>>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
 
   "The PAYEUndeterminedView page" should {
 
     "The UserType is a Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createView(request))
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
-      "Have the correct title" in {
-        document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
-      }
+      workerPageChecks
+      pdfPageChecks(isPdfView = false)
+    }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
-      }
+    "The UserType is a Hirer" should {
 
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult
-      }
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
 
-      "Have the correct Do Next section" in {
-        document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP1
-        document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP2
-      }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = false)
+    }
+  }
 
-      "Have the correct Download section" in {
-        document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
-        document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
-      }
+  "The PAYEUndeterminedView PDF/Print page" should {
 
-      "The UserType is a Hirer" should {
+    "The UserType is a Worker" should {
 
-        lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-        lazy val document = asDocument(createView(request))
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
-        "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
-        }
+      workerPageChecks
+      pdfPageChecks(isPdfView = true)
+    }
 
-        "Have the correct heading" in {
-          document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
-        }
+    "The UserType is a Hirer" should {
 
-        "Have the correct Why Result section" in {
-          document.select(Selectors.WhyResult.h2(1)).text mustBe UndeterminedDecisionMessages.whyResultHeading
-          document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult
-        }
+      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
+      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
 
-        "Have the correct Do Next section" in {
-          document.select(Selectors.DoNext.h2(1)).text mustBe UndeterminedDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP1
-          document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
-        }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = true)
+    }
+  }
 
-        "Have the correct Download section" in {
-          document.select(Selectors.Download.h2(1)).text mustBe UndeterminedDecisionMessages.downloadHeading
-          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.download_p1
-        }
-      }
+  def workerPageChecks(implicit document: Document) = {
+
+    "Have the correct title" in {
+      document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult
+    }
+
+    "Have the correct Do Next section" in {
+      document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP1
+      document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP2
+    }
+  }
+
+  def hirerPageChecks(implicit document: Document) = {
+
+    "Have the correct title" in {
+      document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+    }
+
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult
+    }
+
+    "Have the correct Do Next section" in {
+      document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP1
+      document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
     }
   }
 }

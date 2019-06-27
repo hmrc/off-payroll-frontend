@@ -23,12 +23,12 @@ object RejectSubstituteMessages extends BaseMessages {
   object Optimised {
 
     object Worker {
-      val heading = "Would this client allow you to send someone else to do your work - without your substitute being vetted, cleared or interviewed first?"
+      val heading = "If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?"
       val title = heading
     }
 
     object Hirer {
-      val heading = "Would your organisation allow the worker to send someone else to do their work - without this substitute being vetted, cleared or interviewed first?"
+      val heading = "If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?"
       val title = heading
     }
   }

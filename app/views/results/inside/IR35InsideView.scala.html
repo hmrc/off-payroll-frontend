@@ -19,39 +19,61 @@
 @import views.ViewUtils._
 @import models.requests.DataRequest
 @import models.UserType.Hirer
+@import results.sections.pdf
 
 @import controllers.routes._
 
-@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+@this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], isPrivateSector: Boolean,workerType: String)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig)
+@(form: Form[_], isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
-@mainTemplate(title(form, tailorMsgOptimised("result.inside.ir35.title")), appConfig = appConfig) {
+@defining(
+    if(pdfResultDetails.printMode) {
+        printTemplate(titleNoForm(tailorMsgOptimised("result.inside.ir35.title")), appConfig = appConfig)(_)
+    } else {
+        mainTemplate(titleNoForm(tailorMsgOptimised("result.inside.ir35.title")), appConfig = appConfig)(_)
+    }
+){ template =>
 
-    @components.error_summary(form.errors)
+    @template {
 
-    @components.teal_result(
-        Html(messages(tailorMsgOptimised("result.inside.ir35.heading"))),
-        "result.inside",
-        workerType,
-        Some(Html(messages(tailorMsgOptimised("result.inside.ir35.subHeading"))))
-    )
+        @components.error_summary(form.errors)
 
-    @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
+        @pdfResultDetails.additionalPdfDetails.map { details =>
+            @pdf.additional_details(details, pdfResultDetails.timestamp)
+        }
 
-        @results.sections.why_result(whyResult)
-
-        @results.sections.do_next(doNext)
-
-        @results.sections.download()
-
-        @components.input_yes_no(
-            field = form("value"),
-            label = messages(tailorMsgOptimised("result.inside.ir35.heading")),
-            labelClass = Some("visually-hidden")
+        @components.teal_result(
+            Html(messages(tailorMsgOptimised("result.inside.ir35.heading"))),
+            "result.inside",
+            Some(Html(messages(tailorMsgOptimised("result.inside.ir35.subHeading"))))
         )
 
-        @components.submit_button("site.continue")
+        @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
+
+            @results.sections.why_result(whyResult)
+
+            @results.sections.do_next(doNext)
+
+            @if(pdfResultDetails.printMode) {
+
+                @pdf.answers(pdfResultDetails.answerSections)
+
+                @pdf.decision_version(appConfig.decisionVersion)
+
+            } else {
+
+                @results.sections.download()
+
+                @components.input_yes_no(
+                    field = form("value"),
+                    label = messages(tailorMsgOptimised("result.inside.ir35.heading")),
+                    labelClass = Some("visually-hidden")
+                )
+
+                @components.submit_button("site.continue")
+            }
+        }
     }
 }
 
