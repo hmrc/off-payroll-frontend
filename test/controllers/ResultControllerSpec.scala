@@ -101,7 +101,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
           enable(OptimisedFlow)
 
-          val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+          val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
           val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
@@ -122,7 +122,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
           enable(OptimisedFlow)
 
-          val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+          val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
           val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
@@ -141,7 +141,16 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
         enable(OptimisedFlow)
 
-        val result = TestResultController.onSubmit(fakeRequest)
+        val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+
+        val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
+        val result = TestResultController.onSubmit(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -152,7 +161,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
       "return OK and the correct view for a GET" in {
 
-        val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+        val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
         val postRequest = fakeRequest
         val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
 

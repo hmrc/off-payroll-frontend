@@ -1350,7 +1350,7 @@ hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be 
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What to do next
 optimised.result.download.h2 = Do you want a copy of this result?
-optimised.result.download.p1 = You can download a document that will show your answers, the result, today’s date and time of completion. You can also add details to the document to help reference it for your future use.
+optimised.result.download.p1 = You can download a document that will show today's date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
 optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 

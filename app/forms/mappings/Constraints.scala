@@ -95,7 +95,7 @@ trait Constraints extends InputFilter{
 
         val filteredText = filter(text)
 
-        val regexString: String = s"^[`~@£!%%*#^()_+\\-=±{}|&/'>\\\\<:;@~#*,.?\\[\\]/A-Za-z0-9 ]{0,$maxLength}$$"
+        val regexString: String = s"^[`~@£!%%*#^()_+\\-=±{}|&/'>\\\\<:;@~#*,.?\\[\\]/A-Za-z0-9 ]*$$"
 
         val validReference: Regex = regexString.r
 
