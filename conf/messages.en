@@ -1473,16 +1473,16 @@ worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either c
 worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
 ## ------------------
 
-## Undetermined PAYE Worker
+## Outside PAYE Worker
 ## ------------------
-worker.optimised.result.outside.paye.title = Self-employed. Earnings paid gross
-worker.optimised.result.outside.paye.heading = Self-employed. Earnings paid gross
-worker.optimised.result.outside.paye.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.outside.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
-worker.optimised.result.outside.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
+worker.optimised.result.outside.paye.title = You are self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.heading = You are self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
+worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost with this work, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
+worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
 ## ------------------
 
 

@@ -1449,6 +1449,18 @@ worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that t
 worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 
+## Outside PAYE Decision Worker
+## ------------------
+##TODO: Need Welsh
+worker.optimised.result.outside.paye.title = You are self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.heading = You are self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
+worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost with this work, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
+worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
+
 ## Inside Agent
 ## ------------------
 ##TODO: Need Welsh

@@ -44,14 +44,14 @@ object OutDecisionMessages extends BaseResultMessages {
   }
 
   object WorkerPAYE {
-    val title = "Self-employed. Earnings paid gross"
-    val heading = "Self-employed. Earnings paid gross"
-    val whyResultP1 = "You told us the following information:"
-    val whyResultB1 = "you have or could provide a substitute to do this work and your client would accept it"
-    val whyResultB2 = "your client does not have a right of control over the work"
-    val whyResultB3 = "your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency"
-    val whyResultP2 = "Your answers indicate that you are classed as self-employed for tax purposes."
-    val doNext = "Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes."
+    val title = "You are self-employed for tax purposes for this work"
+    val heading = "You are self-employed for tax purposes for this work"
+    val whyResultP1 = "Your answers told us:"
+    val whyResultB1 = "your client has accepted, or would accept, a substitute to do this work"
+    val whyResultB2 = "your client does not have control over this work"
+    val whyResultB3 = "your business will incur a significant cost with this work, which cannot be reclaimed or re-charged"
+    val whyResultP2 = "These working arrangements mean you are self-employed for tax purposes."
+    val doNext = "Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross."
   }
 
   object HirerPAYE {
