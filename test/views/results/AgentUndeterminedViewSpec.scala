@@ -18,11 +18,8 @@ package views.results
 
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
-<<<<<<< HEAD
 import forms.DeclarationFormProvider
-=======
 import models.UserAnswers
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
 import models.UserType.Agency
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
@@ -33,17 +30,13 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentUndeterminedView]
 
-<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
-  def createView(req: Request[_]) = view(form)(req, messages, frontendAppConfig)
-=======
   lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
 
   "The AgentUndeterminedView page" should {
 
-    def createView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+    def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
     implicit lazy val document = asDocument(createView(request))
 
@@ -53,7 +46,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
   "The AgentUndeterminedView PDF/Print page" should {
 
-    def createView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testPdfResultDetails)
+    def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPdfResultDetails)
 
     implicit lazy val document = asDocument(createView(request))
 

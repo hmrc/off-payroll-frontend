@@ -18,11 +18,8 @@ package views.results
 
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
-<<<<<<< HEAD
 import forms.DeclarationFormProvider
-=======
 import models.{PDFResultDetails, UserAnswers}
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
 import models.UserType.{Hirer, Worker}
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
@@ -35,14 +32,10 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEUndeterminedView]
 
-<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
-  def createView(req: Request[_]) = view(form,"worker")(req, messages, frontendAppConfig)
-=======
   def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+    view(form)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEUndeterminedView page" should {
 

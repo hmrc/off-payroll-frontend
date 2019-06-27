@@ -31,14 +31,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEInsideView]
 
-<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
-  def createView(req: Request[_]) = view(form,"worker")(req, messages, frontendAppConfig)
-=======
   def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+    view(form)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEInsideView page" should {
 

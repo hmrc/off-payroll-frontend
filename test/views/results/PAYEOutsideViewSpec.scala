@@ -32,18 +32,10 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEOutsideView]
 
-<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_],
-                 isSubstituteToDoWork: Boolean = true,
-                 isClientNotControlWork: Boolean = true,
-                 isIncurCostNoReclaim: Boolean = true): HtmlFormat.Appendable =
-    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,"worker")(req, messages, frontendAppConfig)
-=======
   def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(postAction, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+    view(form, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEOutsideView page" should {
 

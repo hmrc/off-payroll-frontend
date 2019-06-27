@@ -32,19 +32,10 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IR35OutsideView]
 
-<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_],
-                 isPrivateSector: Boolean = false,
-                 isSubstituteToDoWork: Boolean = true,
-                 isClientNotControlWork: Boolean = true,
-                 isIncurCostNoReclaim: Boolean = true): HtmlFormat.Appendable =
-    view(form, isPrivateSector,isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,"worker")(req, messages, frontendAppConfig)
-=======
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false, pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
-    view(postAction, isPrivateSector, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+    view(form, isPrivateSector, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35OutsideView page" should {
 

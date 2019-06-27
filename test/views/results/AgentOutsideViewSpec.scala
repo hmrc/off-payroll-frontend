@@ -76,7 +76,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
     }
 
     "Have the correct Why Result section for 2 reasons" in {
-      def createView2(req: DataRequest[_]) = view(form,true,true,false)(req, messages, frontendAppConfig)
+      def createView2(req: DataRequest[_]) = view(form,true,true,false)(req, messages, frontendAppConfig,testPdfResultDetails)
 
       lazy val document2 = asDocument(createView2(request))
 
@@ -89,7 +89,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section for 3 reasons" in {
 
-      def createView3(req: DataRequest[_]) = view(form,true,true,true)(req, messages, frontendAppConfig)
+      def createView3(req: DataRequest[_]) = view(form,true,true,true)(req, messages, frontendAppConfig,testPdfResultDetails)
 
       lazy val document3 = asDocument(createView3(request))
 

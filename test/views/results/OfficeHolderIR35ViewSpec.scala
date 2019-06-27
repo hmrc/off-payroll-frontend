@@ -32,15 +32,10 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderIR35View]
 
-<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(form, isPrivateSector,"worker")(req, messages, frontendAppConfig)
-=======
   def createView(req: DataRequest[_], isPrivateSector: Boolean, pdfDetails: PDFResultDetails): Html =
-    view( postAction, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+    view(form, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderIR35View page" should {
 

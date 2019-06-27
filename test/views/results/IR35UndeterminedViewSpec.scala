@@ -18,11 +18,8 @@ package views.results
 
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
-<<<<<<< HEAD
 import forms.DeclarationFormProvider
 import models.UserAnswers
-=======
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
 import models.UserType.{Hirer, Worker}
 import models.requests.DataRequest
 import models.{PDFResultDetails, UserAnswers}
@@ -36,15 +33,10 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[IR35UndeterminedView]
 
-<<<<<<< HEAD
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean = false): HtmlFormat.Appendable =
-    view(form, isPrivateSector,"worker")(req, messages, frontendAppConfig)
-=======
   def createView(req: DataRequest[_], isPrivateSector: Boolean = false, pdfDetails: PDFResultDetails): Html =
-    view(postAction, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+    view(form, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35UndeterminedView page" should {
 
