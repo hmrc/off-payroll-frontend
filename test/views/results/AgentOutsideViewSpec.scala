@@ -66,15 +66,6 @@ class AgentOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
     }
 
-    "Have the correct Why Result section for 3 reasons" in {
-      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
-      document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
-      document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
-      document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
-      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
-    }
-
     "Have the correct Why Result section for 2 reasons" in {
       def createView2(req: DataRequest[_]) = view(form,true,true,false)(req, messages, frontendAppConfig,testPdfResultDetails)
 
@@ -99,8 +90,16 @@ class AgentOutsideViewSpec extends ResultViewFixture {
       document3.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
       document3.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
       document3.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
-    }
 
+    }
+    "Have the correct Why Result section for 3 reasons for no details" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
+      document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
+      document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
+      document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
+    }
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.Agent.doNext

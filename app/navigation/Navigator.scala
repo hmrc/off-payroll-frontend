@@ -203,14 +203,14 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
           case _ => routes.FinishedCheckingController.onPageLoad()
         }
       } else {
-        routes.PDFDetailsController.onPageLoad(NormalMode)
+        routes.PDFController.onPageLoad(NormalMode)
       }
     },
 
     AddReferenceDetailsPage -> {
       answer =>
         answer.get(AddReferenceDetailsPage) match {
-          case Some(Answers(true, _)) => routes.PDFDetailsController.onPageLoad(NormalMode)
+          case Some(Answers(true, _)) => routes.PDFController.onPageLoad(NormalMode)
           case _ => routes.FinishedCheckingController.onPageLoad()
         }
     },

@@ -128,12 +128,12 @@ POST       /introduce-worker/change                     controllers.sections.par
 GET        /result                                      controllers.ResultController.onPageLoad()
 POST       /result                                      controllers.ResultController.onSubmit()
 
-GET        /add-details-to-document                     controllers.PDFDetailsController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-details-to-document                     controllers.PDFDetailsController.onSubmit(mode: Mode = NormalMode)
-GET        /add-details-to-document/change              controllers.PDFDetailsController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-details-to-document/change              controllers.PDFDetailsController.onSubmit(mode: Mode = CheckMode)
+GET        /add-details-to-document                     controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-details-to-document                     controllers.PDFController.onSubmit(mode: Mode = NormalMode)
+GET        /add-details-to-document/change              controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-details-to-document/change              controllers.PDFController.onSubmit(mode: Mode = CheckMode)
 
-GET        /download-pdf                                controllers.PDFDetailsController.downloadPDF()
+GET        /download-pdf                                controllers.PDFController.downloadPDF()
 
 GET        /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onSubmit()

@@ -48,7 +48,7 @@ class FinishedCheckingController @Inject()(identify: IdentifierAction,
 
     val downloadPDF = request.userAnswers.get(ResultPage).exists(_.answer)
 
-    val downloadCall: Option[Call] = if(downloadPDF) Some(routes.PDFDetailsController.downloadPDF()) else None
+    val downloadCall: Option[Call] = if(downloadPDF) Some(routes.PDFController.downloadPDF()) else None
 
     Ok(finishedCheckingView(appConfig, NormalMode, downloadCall))
   }

@@ -39,24 +39,24 @@ import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.{ExecutionException, Future}
 
-class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     identify: IdentifierAction,
-                                     getData: DataRetrievalAction,
-                                     requireData: DataRequiredAction,
-                                     formProvider: CustomisePDFFormProvider,
-                                     controllerComponents: MessagesControllerComponents,
-                                     customisePdfView: CustomisePDFView,
-                                     addDetailsView: AddDetailsView,
-                                     decisionService: DecisionService,
-                                     optimisedDecisionService: OptimisedDecisionService,
-                                     pdfService: PDFService,
-                                     errorHandler: ErrorHandler,
-                                     time: Timestamp,
-                                     compareAnswerService: CompareAnswerService,
-                                     checkYourAnswersService: CheckYourAnswersService,
-                                     encryption: EncryptionService,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(
+class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
+                              navigator: Navigator,
+                              identify: IdentifierAction,
+                              getData: DataRetrievalAction,
+                              requireData: DataRequiredAction,
+                              formProvider: CustomisePDFFormProvider,
+                              controllerComponents: MessagesControllerComponents,
+                              customisePdfView: CustomisePDFView,
+                              addDetailsView: AddDetailsView,
+                              decisionService: DecisionService,
+                              optimisedDecisionService: OptimisedDecisionService,
+                              pdfService: PDFService,
+                              errorHandler: ErrorHandler,
+                              time: Timestamp,
+                              compareAnswerService: CompareAnswerService,
+                              checkYourAnswersService: CheckYourAnswersService,
+                              encryption: EncryptionService,
+                              implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
 
   with FeatureSwitching with UserAnswersUtils {

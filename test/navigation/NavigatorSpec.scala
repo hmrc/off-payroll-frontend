@@ -494,7 +494,7 @@ class NavigatorSpec extends SpecBase {
         }
 
         "go to CustomisePDFPage from the ResultPage" in {
-          nextPage(ResultPage) mustBe routes.PDFDetailsController.onPageLoad(NormalMode)
+          nextPage(ResultPage) mustBe routes.PDFController.onPageLoad(NormalMode)
         }
       }
     }
