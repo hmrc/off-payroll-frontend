@@ -19,8 +19,6 @@ package forms.mappings
 import filters.InputFilter
 import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 
-import scala.util.matching.Regex
-
 trait Constraints extends InputFilter{
 
   protected def firstError[A](constraints: Constraint[A]*): Constraint[A] =

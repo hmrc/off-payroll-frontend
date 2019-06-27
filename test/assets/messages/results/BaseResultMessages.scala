@@ -23,7 +23,7 @@ trait BaseResultMessages extends BaseMessages {
   val whyResultHeading = "Why you are getting this result"
   val doNextHeading = "What to do next"
   val downloadHeading = "Do you want a copy of this result?"
-  val download_p1 = "You can download a document that will show your answers, the result, today’s date and time of completion." +
+  val download_p1 = "You can download a document that will show today’s date and time of completion, your answers and the above result." +
     " You can also add details to the document to help reference it for your future use."
 
 
