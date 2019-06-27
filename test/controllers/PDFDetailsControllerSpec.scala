@@ -30,6 +30,7 @@ import play.api.data.Form
 import play.api.libs.json.{JsString, Json}
 import play.api.mvc.Call
 import play.api.test.Helpers._
+import play.twirl.api.Html
 import services.DecisionService
 import services.mocks.MockPDFService
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -64,6 +65,7 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
     errorHandler,
     FakeTimestamp,
     mockCompareAnswerService,
+    mockEncryptionService,
     frontendAppConfig
   )
 
@@ -85,6 +87,8 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
+
+      mockDecrypt("answer")
 
       contentAsString(result) mustBe viewAsString(form.fill(AdditionalPdfDetails(Some(testAnswer))))
     }

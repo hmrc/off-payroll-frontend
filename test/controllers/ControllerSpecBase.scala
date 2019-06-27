@@ -35,7 +35,8 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.Future
 
 trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
-  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler {
+  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler
+  with MockEncryptionService {
 
   def onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")

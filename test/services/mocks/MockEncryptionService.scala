@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package assets.messages.results
+package services.mocks
 
-import assets.messages.BaseMessages
+import org.scalamock.scalatest.MockFactory
+import services.EncryptionService
 
-trait BaseResultMessages extends BaseMessages {
+trait MockEncryptionService extends MockFactory {
 
-  val whyResultHeading = "Why you are getting this result"
-  val doNextHeading = "What to do next"
-  val downloadHeading = "Do you want a copy of this result?"
-  val download_p1 = "You can download a document that will show your answers, the result, today’s date and time of completion." +
-    " You can also add details to the document to help reference it for your future use."
+  val mockEncryptionService = mock[EncryptionService]
 
-
-
+  def mockEncrypt(encrypt: String): Unit = {
+    (mockEncryptionService.encrypt(_: String))
+      .expects(encrypt)
+      .returns(encrypt)
+  }
+  def mockDecrypt(encrypt: String): Unit = {
+    (mockEncryptionService.decrypt(_: String))
+      .expects(encrypt)
+      .returns(encrypt)
+  }
 }
