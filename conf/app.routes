@@ -128,10 +128,10 @@ POST       /introduce-worker/change                     controllers.sections.par
 GET        /result                                      controllers.ResultController.onPageLoad()
 POST       /result                                      controllers.ResultController.onSubmit()
 
-GET        /add-details-for-reference                   controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-details-for-reference                   controllers.PDFController.onSubmit(mode: Mode = NormalMode)
-GET        /add-details-for-reference/change            controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-details-for-reference/change            controllers.PDFController.onSubmit(mode: Mode = CheckMode)
+GET        /add-details-to-document                     controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-details-to-document                     controllers.PDFController.onSubmit(mode: Mode = NormalMode)
+GET        /add-details-to-document/change              controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-details-to-document/change              controllers.PDFController.onSubmit(mode: Mode = CheckMode)
 
 GET        /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onSubmit()
