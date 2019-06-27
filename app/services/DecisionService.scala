@@ -23,6 +23,7 @@ import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+
 import models.Answers._
 import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
@@ -32,6 +33,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.personalService.ArrangedSubstitutePage
 import pages.sections.setup.WorkerUsingIntermediaryPage
 import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
+import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
@@ -41,8 +43,8 @@ import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
 import views.html.subOptimised.results._
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 trait DecisionService {
