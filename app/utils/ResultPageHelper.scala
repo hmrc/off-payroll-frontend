@@ -180,20 +180,6 @@ class ResultPageHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
       )
     }
 
-  def cannotClaimAsExpenseOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(CannotClaimAsExpensePage) map { x =>
-      AnswerRow(
-        label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel.optimised"),
-        answers = CannotClaimAsExpense.values.map ( expense =>
-          AnswerRow(
-            label = tailorMsg(s"cannotClaimAsExpense.$expense.checkYourAnswers"),
-            if(x.answer.contains(expense)) "site.yes" else "site.no",
-            answerIsMessageKey = true
-          )
-        )
-      )
-    }
-
   def officeHolder(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(OfficeHolderPage) map { x =>
       AnswerRow(
@@ -212,15 +198,6 @@ class ResultPageHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
       )
     }
 
-  def workerTypeOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(WorkerUsingIntermediaryPage) map { x =>
-      AnswerRow(
-        tailorMsg(s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
-      )
-    }
-
   def contractStarted(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(ContractStartedPage) map { x =>
       AnswerRow(
@@ -234,22 +211,6 @@ class ResultPageHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
     AnswerRow(
       "aboutYou.checkYourAnswersLabel",
       s"aboutYou.${x.answer}", answerIsMessageKey = true
-    )
-  }
-
-  def aboutYouOptimised: Option[AnswerRow] = userAnswers.get(WhichDescribesYouPage) map { x =>
-    AnswerRow(
-      s"$WhichDescribesYouPage.checkYourAnswersLabel",
-      s"$WhichDescribesYouPage.${x.answer}",
-      answerIsMessageKey = true
-    )
-  }
-
-  def isWorkForPrivateSector(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(IsWorkForPrivateSectorPage) map { x =>
-    AnswerRow(
-      tailorMsg(s"$IsWorkForPrivateSectorPage.checkYourAnswersLabel"),
-      if(x.answer) "site.yes" else "site.no",
-      answerIsMessageKey = true
     )
   }
 }

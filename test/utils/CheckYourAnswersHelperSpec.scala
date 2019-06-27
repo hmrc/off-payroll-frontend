@@ -20,150 +20,31 @@ import _root_.models.UserType._
 import base.SpecBase
 import config.SessionKeys
 import models.ArrangedSubstitute.YesClientAgreed
-import models.CannotClaimAsExpense.WorkerUsedVehicle
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.NoWorkerInputAllowed
 import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
-import models.WorkerType.LimitedCompany
-import models.{AboutYouAnswer, Enumerable, UserAnswers, _}
-import pages.{BalanceSheetOverPage, EmployeesOverPage, TurnoverOverPage}
+import models.{CheckMode, Enumerable, UserAnswers}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.financialRisk.HowWorkerIsPaidPage
+import pages.sections.partParcel.{BenefitsPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.ContractStartedPage
+import pages._
 import play.api.libs.json.Json
 import viewmodels.AnswerRow
+import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.partParcel.{routes => partParcelRoutes}
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.setup.{routes => setupRoutes}
 
 class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
   lazy val workerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
   lazy val hirerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-
-  ".cannotClaimAsExpense" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).cannotClaimAsExpense mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" should {
-
-      "if the user is of type Worker" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, workerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Worker.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-              answers = Seq(AnswerRow(
-                label = s"$Worker.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"$Worker.optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
-                answerIsMessageKey = true
-              ))
-            ))
-        }
-      }
-
-      "if the user is of type Hirer" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense(messages, hirerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Hirer.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-              answers = Seq(AnswerRow(
-                label = s"$Hirer.optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"$Hirer.optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
-                answerIsMessageKey = true
-              ))
-            ))
-        }
-      }
-
-      "if the user is not set" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-          new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpense mustBe
-            Some(AnswerRow(
-              label = s"optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-              answers = Seq(AnswerRow(
-                label = s"optimised.$CannotClaimAsExpensePage.checkYourAnswersLabel",
-                answer = s"optimised.$CannotClaimAsExpensePage.$WorkerUsedVehicle",
-                answerIsMessageKey = true
-              ))
-            ))
-        }
-      }
-    }
-  }
-
-  ".cannotClaimAsExpenseOptimised" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).cannotClaimAsExpenseOptimised mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" should {
-
-        "if the user is of type Worker" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-            new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised(messages, workerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Worker.$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
-                answers = CannotClaimAsExpense.values.map( x => AnswerRow(
-                  label = s"$Worker.$CannotClaimAsExpensePage.$x.checkYourAnswers",
-                  answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
-                  answerIsMessageKey = true
-                ))
-              ))
-          }
-        }
-
-        "if the user is of type Hirer" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-            new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised(messages, hirerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Hirer.$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
-                answers = CannotClaimAsExpense.values.map( x => AnswerRow(
-                  label = s"$Hirer.$CannotClaimAsExpensePage.$x.checkYourAnswers",
-                  answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
-                  answerIsMessageKey = true
-                ))
-              ))
-          }
-        }
-
-        "if the user is not set" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(CannotClaimAsExpensePage, 1, Seq(WorkerUsedVehicle))
-            new CheckYourAnswersHelper(cacheMap).cannotClaimAsExpenseOptimised mustBe
-              Some(AnswerRow(
-                label = s"$CannotClaimAsExpensePage.checkYourAnswersLabel.optimised",
-                answers = CannotClaimAsExpense.values.map( x => AnswerRow(
-                  label = s"$CannotClaimAsExpensePage.$x.checkYourAnswers",
-                  answer = if(x==WorkerUsedVehicle) "site.yes" else "site.no",
-                  answerIsMessageKey = true
-                ))
-              ))
-          }
-        }
-      }
-  }
 
   ".officeHolder" when {
 
@@ -186,7 +67,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Worker.optimised.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -199,7 +81,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Hirer.optimised.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -212,7 +95,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -226,84 +110,10 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url)
             ))
         }
-      }
-    }
-  }
-
-  ".workerType" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).workerType mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" should {
-
-      "the user is of type worker" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new CheckYourAnswersHelper(cacheMap).workerType(messages, workerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Worker.optimised.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$WorkerTypePage.$LimitedCompany",
-              answerIsMessageKey = true
-            ))
-        }
-      }
-
-      "the user is of type hirer" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new CheckYourAnswersHelper(cacheMap).workerType(messages, hirerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Hirer.optimised.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$WorkerTypePage.$LimitedCompany",
-              answerIsMessageKey = true
-            ))
-        }
-      }
-
-      "the user is of type is not set" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(WorkerTypePage, 1, LimitedCompany)
-          new CheckYourAnswersHelper(cacheMap).workerType(messages, fakeRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"optimised.$WorkerTypePage.checkYourAnswersLabel",
-              answer = s"optimised.$WorkerTypePage.$LimitedCompany",
-              answerIsMessageKey = true
-            ))
-        }
-      }
-    }
-  }
-
-  ".aboutYou" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).aboutYou mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" should {
-
-      "Return correctly formatted answer row" in {
-        val cacheMap = UserAnswers("id").set(AboutYouPage, 1, AboutYouAnswer.Worker)
-        new CheckYourAnswersHelper(cacheMap).aboutYou mustBe
-          Some(AnswerRow(
-            label = s"$AboutYouPage.checkYourAnswersLabel",
-            answer = s"$AboutYouPage.${AboutYouAnswer.Worker}",
-            answerIsMessageKey = true
-          ))
       }
     }
   }
@@ -329,7 +139,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -342,7 +153,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -355,7 +167,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -369,7 +182,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -395,7 +209,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Worker.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -408,7 +223,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Hirer.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -421,7 +237,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"optimised.$ArrangedSubstitutePage.$YesClientAgreed",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -449,7 +266,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Worker.optimised.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -462,7 +280,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Hirer.optimised.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -475,7 +294,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -489,7 +309,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -515,7 +336,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"$Worker.optimised.$ChooseWhereWorkPage.$WorkerChooses",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -528,7 +350,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"$Hirer.optimised.$ChooseWhereWorkPage.$WorkerChooses",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -541,7 +364,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
               answer = s"optimised.$ChooseWhereWorkPage.$WorkerChooses",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -567,7 +391,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -580,7 +405,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -593,7 +419,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -619,7 +446,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"$Worker.optimised.$HowWorkerIsPaidPage.$Commission",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -632,7 +460,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"$Hirer.optimised.$HowWorkerIsPaidPage.$Commission",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -645,7 +474,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
               answer = s"optimised.$HowWorkerIsPaidPage.$Commission",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -671,7 +501,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"$Worker.optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -684,7 +515,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"$Hirer.optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -697,59 +529,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
               answer = s"optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
-              answerIsMessageKey = true
-            ))
-        }
-      }
-    }
-  }
-
-  ".identifyToStakeholders" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).identifyToStakeholders mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" should {
-
-      "the user is of type worker" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, workerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Worker.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$Worker.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
-              answerIsMessageKey = true
-            ))
-        }
-      }
-
-      "the user is of type hirer" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Hirer.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"$Hirer.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
-              answerIsMessageKey = true
-            ))
-        }
-      }
-
-      "the user is of type is not set" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
-          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -775,7 +556,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -788,7 +570,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -801,7 +584,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$InteractWithStakeholdersPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -827,7 +611,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -840,7 +625,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -853,7 +639,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -879,7 +666,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"$Worker.optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -892,7 +680,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"$Hirer.optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -905,7 +694,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$MoveWorkerPage.checkYourAnswersLabel",
               answer = s"optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -931,7 +721,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -944,7 +735,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -957,7 +749,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -983,7 +776,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -996,7 +790,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -1009,7 +804,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -1035,7 +831,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -1048,7 +845,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Hirer.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -1061,7 +859,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -1089,7 +888,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -1102,7 +902,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Hirer.$TurnoverOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -1116,7 +917,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
             ))
         }
       }
@@ -1144,7 +946,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -1157,7 +960,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Hirer.$EmployeesOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -1171,14 +975,15 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
             ))
         }
       }
     }
   }
 
-  ".equipmentOver" when {
+  ".balanceSheetOver" when {
 
     "there is no answer in the cacheMap" should {
 
@@ -1199,7 +1004,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -1212,7 +1018,8 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               Some(AnswerRow(
                 label = s"$Hirer.$BalanceSheetOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
-                answerIsMessageKey = true
+                answerIsMessageKey = true,
+                changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
               ))
           }
         }
@@ -1226,10 +1033,244 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
             Some(AnswerRow(
               label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
               answer = "site.no",
-              answerIsMessageKey = true
+              answerIsMessageKey = true,
+              changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
             ))
         }
       }
     }
   }
+
+  ".vehicleExpenses" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).vehicleExpenses mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(VehiclePage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).vehicleExpenses(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$VehiclePage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.VehicleController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(VehiclePage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).vehicleExpenses(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$VehiclePage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.VehicleController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(VehiclePage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).vehicleExpenses(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$VehiclePage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(financialRiskRoutes.VehicleController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".equipmentExpenses" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).equipmentExpenses mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(EquipmentExpensesPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).equipmentExpenses(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$EquipmentExpensesPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.EquipmentExpensesController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(EquipmentExpensesPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).equipmentExpenses(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$EquipmentExpensesPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.EquipmentExpensesController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(EquipmentExpensesPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).equipmentExpenses(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$EquipmentExpensesPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(financialRiskRoutes.EquipmentExpensesController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".materialExpenses" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).materialsExpenses mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(MaterialsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).materialsExpenses(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$MaterialsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.MaterialsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(MaterialsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).materialsExpenses(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$MaterialsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.MaterialsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(MaterialsPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).materialsExpenses(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$MaterialsPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(financialRiskRoutes.MaterialsController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".otherExpenses" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).otherExpenses mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(OtherExpensesPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).otherExpenses(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$OtherExpensesPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.OtherExpensesController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(OtherExpensesPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).otherExpenses(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$OtherExpensesPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(financialRiskRoutes.OtherExpensesController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(OtherExpensesPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).otherExpenses(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$OtherExpensesPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(financialRiskRoutes.OtherExpensesController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
 }
