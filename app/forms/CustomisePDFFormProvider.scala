@@ -16,13 +16,12 @@
 
 package forms
 
-import filters.Filter
 import forms.mappings.Constraints
 import models.AdditionalPdfDetails
 import play.api.data.Form
 import play.api.data.Forms._
 
-class CustomisePDFFormProvider extends Constraints with Filter{
+class CustomisePDFFormProvider extends Constraints {
 
   import CustomisePDFFormProvider._
 

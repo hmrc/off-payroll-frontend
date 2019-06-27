@@ -130,7 +130,9 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
     if (isEnabled(PrintPDF)) {
       pdfService.generatePdf(view) map {
         case Right(result: SuccessfulPDF) => {
-          val fileName = additionalPdfDetails.reference.getOrElse("result")
+
+          val sanitisedFileName = additionalPdfDetails.reference.map(reference => reference.replaceAll(",", ""))
+          val fileName = sanitisedFileName.getOrElse("result")
           Ok(result.pdf.toArray)
             .as("application/pdf")
             .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")

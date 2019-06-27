@@ -22,7 +22,7 @@ import java.util.regex.Pattern.compile
 
 import scala.annotation.tailrec
 
-trait Filter {
+trait InputFilter {
   val filters: Seq[Pattern] = Seq(
     compile("<script>(.*?)</script>", CASE_INSENSITIVE),
     compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", CASE_INSENSITIVE | MULTILINE | DOTALL),

@@ -20,12 +20,12 @@ import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 import java.util.regex.Pattern
 import java.util.regex.Pattern._
 
-import filters.Filter
+import filters.InputFilter
 
 import scala.annotation.tailrec
 import scala.util.matching.Regex
 
-trait Constraints extends Filter{
+trait Constraints extends InputFilter{
 
   protected def firstError[A](constraints: Constraint[A]*): Constraint[A] =
     Constraint {
@@ -97,7 +97,9 @@ trait Constraints extends Filter{
 
         val filteredText = filter(text)
 
-        val validReference: Regex = s"^[£!%*^()_+\\-={}:;@~#,.?\\[\\]/A-Za-z0-9 ]{0,$maxLength}$$".r
+        val regexString: String = s"^[`~@£!%%*#^()_+\\-=±{}|&/'>\\\\<:;@~#*,.?\\[\\]/A-Za-z0-9 ]{0,$maxLength}$$"
+
+        val validReference: Regex = regexString.r
 
         val error =
           if(filteredText.trim.length > maxLength && !filteredText.matches(validReference.regex)) {
