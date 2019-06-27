@@ -33,7 +33,7 @@ import play.api.data.Form
 import play.api.mvc._
 import play.core.utils.AsciiSet
 import play.twirl.api.{Html, HtmlFormat}
-import services.{CompareAnswerService, DecisionService, EncryptionService, PDFService}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, EncryptionService, OptimisedDecisionService, PDFService}
 import utils.UserAnswersUtils
 import views.html.{AddDetailsView, CustomisePDFView}
 
@@ -49,10 +49,12 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
                                      customisePdfView: CustomisePDFView,
                                      addDetailsView: AddDetailsView,
                                      decisionService: DecisionService,
+                                     optimisedDecisionService: OptimisedDecisionService,
                                      pdfService: PDFService,
                                      errorHandler: ErrorHandler,
                                      time: Timestamp,
                                      compareAnswerService: CompareAnswerService,
+                                     checkYourAnswersService: CheckYourAnswersService,
                                      encryption: EncryptionService,
                                      implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
@@ -64,10 +66,9 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
   private def view(form: Form[AdditionalPdfDetails], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
     if(isEnabled(OptimisedFlow)) addDetailsView(appConfig, form, mode) else customisePdfView(appConfig, form, mode)
 
-
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val decryptedForm = decryptDetails(fillForm(CustomisePDFPage, form).value.getOrElse(AdditionalPdfDetails()))
+    val decryptedForm = encryption.decryptDetails(fillForm(CustomisePDFPage, form).value.getOrElse(AdditionalPdfDetails()))
 
     Ok(view(form.fill(decryptedForm), mode))
   }
@@ -80,7 +81,7 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
         formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
         additionalData => {
 
-          val encryptedDetails = encryptDetails(additionalData)
+          val encryptedDetails = encryption.encryptDetails(additionalData)
 
           redirect[AdditionalPdfDetails](NormalMode, encryptedDetails, CustomisePDFPage)
         }
@@ -90,8 +91,8 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
       form.bindFromRequest().fold(
         formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
         additionalData => {
-          val timestamp = request.userAnswers.get(Timestamp)
-          printResult(additionalData, time.timestamp(timestamp.map(_.answer)))
+          val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
+          printResult(additionalData, timestamp)
         }
       )
     }
@@ -99,42 +100,42 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
 
   def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
-    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => decryptDetails(answer.answer)).getOrElse(AdditionalPdfDetails())
-    val timestamp = request.userAnswers.get(Timestamp)
+    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryption.decryptDetails(answer.answer)).getOrElse(AdditionalPdfDetails())
+    val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
 
-    printResult(pdfDetails, time.timestamp(timestamp.map(_.answer)))
-  }
-
-  private def encryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
-
-    details.copy(
-      client = details.client.map(client => encryption.encrypt(client)),
-      completedBy = details.completedBy.map(completedBy => encryption.encrypt(completedBy)),
-      job = details.job.map(job => encryption.encrypt(job)),
-      reference = details.reference.map(reference => encryption.encrypt(reference))
-    )
-  }
-
-  private def decryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
-
-    details.copy(
-      client = details.client.map(client => encryption.decrypt(client)),
-      completedBy = details.completedBy.map(completedBy => encryption.decrypt(completedBy)),
-      job = details.job.map(job => encryption.decrypt(job)),
-      reference = details.reference.map(reference => encryption.decrypt(reference))
-    )
+    optimisedPrintResult(pdfDetails, timestamp)
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
-    lazy val view = decisionService.determineResultView(answers, printMode = true, additionalPdfDetails = Some(additionalPdfDetails),
-      timestamp = Some(timestamp))
+    val html = decisionService.determineResultView(
+      answers,
+      printMode = true,
+      additionalPdfDetails = Some(additionalPdfDetails),
+      timestamp = Some(timestamp)
+    )
+    generatePdf(html, additionalPdfDetails.reference)
+  }
+
+  private def optimisedPrintResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
+    optimisedDecisionService.determineResultView(
+      None,
+      checkYourAnswersService.sections,
+      printMode = true,
+      additionalPdfDetails = Some(additionalPdfDetails),
+      timestamp = Some(timestamp)
+    ).flatMap {
+      case Right(html) => generatePdf(html, additionalPdfDetails.reference)
+      case Left(_) => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+    }
+  }
+
+  private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
     if (isEnabled(PrintPDF)) {
+
       pdfService.generatePdf(view) map {
-        case Right(result: SuccessfulPDF) => {
+        case Right(result: SuccessfulPDF) =>
 
-          val sanitisedFileName = additionalPdfDetails.reference.map(reference => reference.replaceAll(",", ""))
-
-          val fileName = sanitisedFileName
+          val fileName = reference.map(reference => reference.replaceAll(",", ""))
 
           val ascii = try {
             fileName.map(fileName => fileName.map(char => AsciiSet.apply(char)))
@@ -148,67 +149,11 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
           Ok(result.pdf.toArray)
             .as("application/pdf")
             .withHeaders("Content-Disposition" -> s"attachment; filename=$validFileName.pdf")
-        }
+
         case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
       }
     } else {
       Future.successful(Ok(view))
     }
   }
-
-//  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-//    Ok(customisePdfView(appConfig, fillForm(CustomisePDFPage, form), mode))
-//  }
-//
-//  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-//    form.bindFromRequest().fold(
-//      formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
-//      additionalData => {
-//        val timestamp = time.timestamp(request.userAnswers.get(ResultPage).map(_.answer))
-//        if(isEnabled(OptimisedFlow)) {
-//          optimisedPrintResult(additionalData, timestamp)
-//        } else {
-//          printResult(additionalData, timestamp)
-//        }
-//      }
-//    )
-//  }
-//
-//  private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
-//    val html = decisionService.determineResultView(
-//      answers,
-//      printMode = true,
-//      additionalPdfDetails = Some(additionalPdfDetails),
-//      timestamp = Some(timestamp)
-//    )
-//    generatePdf(html, additionalPdfDetails.reference)
-//  }
-//
-//  private def optimisedPrintResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
-//    optimisedDecisionService.determineResultView(
-//      controllers.routes.ResultController.onSubmit(),
-//      checkYourAnswersService.sections,
-//      printMode = true,
-//      additionalPdfDetails = Some(additionalPdfDetails),
-//      timestamp = Some(timestamp)
-//    ).flatMap {
-//      case Right(html) => generatePdf(html, additionalPdfDetails.reference)
-//      case Left(_) => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
-//    }
-//  }
-//
-//  private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
-//    if (isEnabled(PrintPDF)) {
-//      val filename: String = reference.fold("result")(ref => ref)
-//      pdfService.generatePdf(view) map {
-//        case Right(result: SuccessfulPDF) =>
-//          Ok(result.pdf.toArray)
-//            .as("application/pdf")
-//            .withHeaders("Content-Disposition" -> s"attachment; filename=$filename.pdf")
-//        case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
-//      }
-//    } else {
-//      Future.successful(Ok(view))
-//    }
-//  }
 }

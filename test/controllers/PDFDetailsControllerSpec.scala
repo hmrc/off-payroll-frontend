@@ -63,6 +63,7 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
     errorHandler,
     FakeTimestamp,
     mockCompareAnswerService,
+    mockCheckYourAnswersService,
     mockEncryptionService,
     frontendAppConfig
   )
@@ -109,7 +110,7 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
         val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
         mockCheckYourAnswers(Seq())
-        mockDetermineResultView(controllers.routes.ResultController.onSubmit())(Right(Html("html")))
+        mockDetermineResultView()(Right(Html("html")))
         mockGeneratePdf(response)
 
         val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
@@ -126,7 +127,7 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
         val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
 
         mockCheckYourAnswers(Seq())
-        mockDetermineResultView(controllers.routes.ResultController.onSubmit())(Right(Html("html")))
+        mockDetermineResultView()(Right(Html("html")))
         mockGeneratePdf(response)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
@@ -145,7 +146,7 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
         val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         mockCheckYourAnswers(Seq())
-        mockDetermineResultView(controllers.routes.ResultController.onSubmit())(Right(Html("html")))
+        mockDetermineResultView()(Right(Html("html")))
 
         val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
 
@@ -163,7 +164,7 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
         val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         mockCheckYourAnswers(Seq())
-        mockDetermineResultView(controllers.routes.ResultController.onSubmit())(Right(Html("html")))
+        mockDetermineResultView()(Right(Html("html")))
         mockGeneratePdf(response)
 
         val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
@@ -183,7 +184,7 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
         val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         mockCheckYourAnswers(Seq())
-        mockDetermineResultView(controllers.routes.ResultController.onSubmit())(Left(Html("bad_html")))
+        mockDetermineResultView()(Left(Html("bad_html")))
 
         val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
 

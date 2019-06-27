@@ -33,7 +33,7 @@ trait MockOptimisedDecisionService extends MockFactory {
 
   val mockOptimisedDecisionService = mock[OptimisedDecisionService]
 
-  def mockDetermineResultView(call: Call)(response: Either[Html, Html]): Unit = {
+  def mockDetermineResultView(form : Option[Form[Boolean]] = None)(response: Either[Html, Html]): Unit = {
     (mockOptimisedDecisionService.determineResultView(
       _: Option[Form[Boolean]],
       _: Seq[AnswerSection],

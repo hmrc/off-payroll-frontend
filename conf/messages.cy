@@ -1632,3 +1632,8 @@ result.pdf.job = Engagement job title:
 result.pdf.reference = Reference:
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+
+pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
+pdfDetails.client.error.maxLength = The client name must be {0} characters or less
+pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
+pdfDetails.reference.error.maxLength = The reference must be {0} characters or less
