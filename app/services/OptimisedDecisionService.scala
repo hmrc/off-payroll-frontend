@@ -137,7 +137,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
           case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
           case ResultEnum.UNKNOWN => Right(routeUndetermined)
-          case ResultEnum.NOT_MATCHED => Logger.error("OptimisedDecisionService determineResultView Exception: NOT MATCHED final decision")
+          case ResultEnum.NOT_MATCHED => Logger.error("[OptimisedDecisionService][determineResultView]: NOT MATCHED final decision")
             Left(errorHandler.internalServerErrorTemplate)
         }
       }

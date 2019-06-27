@@ -46,7 +46,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   lazy val logUrl = s"$baseUrl/cest-decision/log"
 
   private[connectors] val handleUnexpectedError: PartialFunction[Throwable, Left[ErrorResponse, Nothing]] = {
-    case ex: Exception => Logger.error("DecisionConnector Exception",ex)
+    case ex: Exception => Logger.error("[DecisionConnector][handleUnexpectedError]",ex)
       Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
   }
 

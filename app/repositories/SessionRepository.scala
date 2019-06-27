@@ -84,14 +84,14 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     collection.update(selector, modifier, upsert = true).map { lastError =>
       lastError.ok
     }.recoverWith {
-      case ex: Exception => Logger.error("DecisionConnector upsert Exception",ex)
+      case ex: Exception => Logger.error("[DecisionConnector][upsert]",ex)
         throw ex
     }
   }
 
   def get(id: String): Future[Option[CacheMap]] =
     collection.find(Json.obj("id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[CacheMap].map(res => res).recoverWith {
-      case ex: Exception => Logger.error("DecisionConnector get Exception",ex)
+      case ex: Exception => Logger.error("[DecisionConnector][get]",ex)
         Future.successful(None)
     }
 
