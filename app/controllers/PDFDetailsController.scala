@@ -142,7 +142,8 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
             case _: Throwable => None
           }
 
-          val validFileName = if(ascii.isDefined) fileName else "result"
+          val default = "result"
+          val validFileName = if(ascii.isDefined) fileName.getOrElse(default) else default
 
           Ok(result.pdf.toArray)
             .as("application/pdf")
