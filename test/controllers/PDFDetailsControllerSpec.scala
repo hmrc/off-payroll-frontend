@@ -81,18 +81,14 @@ class PDFDetailsControllerSpec extends ControllerSpecBase {
         val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
         status(result) mustBe OK
-        contentAsString(result) mustBe viewAsString()
+
+        mockDecrypt("answer")
+
+        contentAsString(result) mustBe viewAsString(form.fill(AdditionalPdfDetails(Some(testAnswer))))
       }
 
-<<<<<<< HEAD:test/controllers/PDFDetailsControllerSpec.scala
-      mockDecrypt("answer")
-
-      contentAsString(result) mustBe viewAsString(form.fill(AdditionalPdfDetails(Some(testAnswer))))
-    }
-=======
       "populate the view correctly on a GET when the question has previously been answered" in {
         enable(OptimisedFlow)
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d:test/controllers/PDFControllerSpec.scala
 
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer")), 0)))
         val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))

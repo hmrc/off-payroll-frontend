@@ -18,7 +18,6 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import controllers.routes._
-=======
 @import results.sections.pdf
 @import models.requests.DataRequest
 
@@ -26,56 +25,53 @@
 
 @(form: Form[_])(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
-    @mainTemplate(title(form, "agent.optimised.result.officeHolder.title"), appConfig = appConfig) {
+@defining(
+    if(pdfResultDetails.printMode) {
+        printTemplate(titleNoForm("agent.optimised.result.officeHolder.title"), appConfig = appConfig)(_)
+    } else {
+        mainTemplate(titleNoForm("agent.optimised.result.officeHolder.title"), appConfig = appConfig)(_)
+    }
+) { template =>
 
-        @defining(
-            if(pdfResultDetails.printMode) {
-                printTemplate(titleNoForm("agent.optimised.result.officeHolder.title"), appConfig = appConfig)(_)
+    @template {
+
+        @components.error_summary(form.errors)
+
+        @pdfResultDetails.additionalPdfDetails.map { details =>
+            @pdf.additional_details(details, pdfResultDetails.timestamp)
+        }
+
+        @components.teal_result(
+            Html(messages("agent.optimised.result.officeHolder.heading")),
+            "result.inside",
+            Some(Html(messages("agent.optimised.result.officeHolder.subHeading")))
+        )
+
+        @formWithCsrf(action = ResultController.onSubmit, 'autoComplete -> "off") {
+
+            @results.sections.why_result(whyResult)
+
+            @results.sections.do_next(doNext)
+
+            @if(pdfResultDetails.printMode) {
+
+                @pdf.answers(pdfResultDetails.answerSections)
+                @pdf.decision_version(appConfig.decisionVersion)
+
             } else {
-                mainTemplate(titleNoForm("agent.optimised.result.officeHolder.title"), appConfig = appConfig)(_)
-            }
-        ) { template =>
 
-            @template {
-
-                @components.error_summary(form.errors)
-
-                @pdfResultDetails.additionalPdfDetails.map { details =>
-                    @pdf.additional_details(details, pdfResultDetails.timestamp)
-                }
-
-                @components.teal_result(
-                    Html(messages("agent.optimised.result.officeHolder.heading")),
-                    "result.inside",
-                    Some(Html(messages("agent.optimised.result.officeHolder.subHeading")))
+                @results.sections.download()
+                @components.input_yes_no(
+                    field = form("value"),
+                    label = messages("agent.optimised.result.officeHolder.heading"),
+                    labelClass = Some("visually-hidden")
                 )
 
-                @formWithCsrf(action = ResultController.onSubmit, 'autoComplete -> "off") {
-
-                    @results.sections.why_result(whyResult)
-
-                    @results.sections.do_next(doNext)
-
-                    @if(pdfResultDetails.printMode) {
-
-                        @pdf.answers(pdfResultDetails.answerSections)
-                        @pdf.decision_version(appConfig.decisionVersion)
-
-                    } else {
-
-                        @results.sections.download()
-                        @components.input_yes_no(
-                            field = form("value"),
-                            label = messages("agent.optimised.result.officeHolder.heading"),
-                            labelClass = Some("visually-hidden")
-                        )
-
-                        @components.submit_button("site.continue")
-                    }
-                }
+                @components.submit_button("site.continue")
             }
         }
     }
+}
 
 @whyResult = {
     <p>@messages("agent.optimised.result.officeHolder.whyResult.p1")</p>

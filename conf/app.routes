@@ -128,8 +128,8 @@ POST       /introduce-worker/change                     controllers.sections.par
 GET        /result                                      controllers.ResultController.onPageLoad()
 POST       /result                                      controllers.ResultController.onSubmit()
 
-GET        /add-details-to-document                   controllers.PDFDetailsController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-details-to-document                   controllers.PDFDetailsController.onSubmit(mode: Mode = NormalMode)
+GET        /add-details-to-document                     controllers.PDFDetailsController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-details-to-document                     controllers.PDFDetailsController.onSubmit(mode: Mode = NormalMode)
 GET        /add-details-to-document/change              controllers.PDFDetailsController.onPageLoad(mode: Mode = CheckMode)
 POST       /add-details-to-document/change              controllers.PDFDetailsController.onSubmit(mode: Mode = CheckMode)
 

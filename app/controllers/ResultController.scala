@@ -73,8 +73,6 @@ class ResultController @Inject()(identify: IdentifierAction,
       resultFormPDF.bindFromRequest().fold(
         formWithErrors => {
 
-          println("BEANS MOTHERFUCKER DO YOU EAT IT")
-
           optimisedDecisionService.determineResultView(Some(formWithErrors)).map {
             case Right(result) => BadRequest(result)
             case Left(err) => InternalServerError(err)

@@ -105,45 +105,34 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case _ => Future.successful(Left(ErrorResponse(NO_CONTENT, "No log needed")))
     }
 
-<<<<<<< HEAD
-  def determineResultView(formWithErrors: Option[Form[Boolean]] = None)
-                         (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
-
-    val form = formWithErrors.getOrElse(defaultForm)
-
-=======
-  def determineResultView(postAction: Call,
+  def determineResultView(formWithErrors: Option[Form[Boolean]] = None,
                           answerSections: Seq[AnswerSection] = Seq(),
                           printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None,
                           timestamp: Option[String] = None,
                           decisionVersion: Option[String] = None)
                          (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+
+    val form = formWithErrors.getOrElse(defaultForm)
+
     collateDecisions.map {
       case Right(decision) => {
         val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
         val privateSector = request.userAnswers.get(IsWorkForPrivateSectorPage).fold(false)(_.answer)
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
 
-<<<<<<< HEAD
-        implicit val resultsDetails: ResultsDetails =
-          ResultsDetails(officeHolderAnswer, privateSector, usingIntermediary, request.userType, personalService, control, financialRisk, form)
-
-        result match {
-=======
         implicit val resultsDetails: ResultsDetails = ResultsDetails(
-          action = postAction,
           officeHolderAnswer = officeHolderAnswer,
           privateSector = privateSector,
           usingIntermediary = usingIntermediary,
           userType = request.userType,
           personalServiceOption = decision.score.personalService,
           controlOption = decision.score.control,
-          financialRiskOption = decision.score.financialRisk
+          financialRiskOption = decision.score.financialRisk,
+          form = form
         )
 
-        implicit val pdfResultDetails = PDFResultDetails(
+        implicit val pdfResultDetails: PDFResultDetails = PDFResultDetails(
           printMode,
           additionalPdfDetails,
           timestamp,
@@ -151,7 +140,6 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
         )
 
         decision.result match {
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
           case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
           case ResultEnum.UNKNOWN => Right(routeUndetermined)
@@ -165,15 +153,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
-<<<<<<< HEAD
       case (_, true) => undeterminedAgency(result.form) // AGENT
-      case (true, _) => undeterminedIR35(result.form, result.privateSector,getUserType) // IR35
-      case _ => undeterminedPAYE(result.form,getUserType) // PAYE
-=======
-      case (_, true) => undeterminedAgency(result.action) // AGENT
-      case (true, _) => undeterminedIR35(result.action, result.privateSector) // IR35
-      case _ => undeterminedPAYE(result.action) // PAYE
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+      case (true, _) => undeterminedIR35(result.form, result.privateSector) // IR35
+      case _ => undeterminedPAYE(result.form) // PAYE
     }
   }
 
@@ -184,19 +166,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
-<<<<<<< HEAD
         outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
       case (true, _) =>
-        outsideIR35(result.form, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,getUserType) // IR35
+        outsideIR35(result.form, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
       case _ =>
-        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim,getUserType) // PAYE
-=======
-        outsideAgent(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
-      case (true, _) =>
-        outsideIR35(result.action, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
-      case _ =>
-        outsidePAYE(result.action, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
     }
   }
 
@@ -205,27 +179,15 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.userType) match {
-<<<<<<< HEAD
       case (_, Some(UserType.Agency)) => insideAgent(result.form) // AGENT
-      case (true, _) => insideIR35(result.form, result.privateSector,getUserType) // IR35
-      case _ => insidePAYE(result.form,getUserType) // PAYE
-=======
-      case (_, Some(UserType.Agency)) => insideAgent(result.action) // AGENT
-      case (true, _) => insideIR35(result.action, result.privateSector) // IR35
-      case _ => insidePAYE(result.action) // PAYE
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+      case (true, _) => insideIR35(result.form, result.privateSector) // IR35
+      case _ => insidePAYE(result.form) // PAYE
     }
 
   private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.isAgent) match {
-<<<<<<< HEAD
       case (_, true) => officeAgency(result.form) // AGENT
-      case (true, _) => officeIR35(result.form, result.privateSector,getUserType) // IR35
-      case _ => officePAYE(result.form,getUserType) // PAYE
-=======
-      case (_, true) => officeAgency(result.action) // AGENT
-      case (true, _) => officeIR35(result.action, result.privateSector) // IR35
-      case _ => officePAYE(result.action) // PAYE
->>>>>>> 38afc4b63f0e9038575a78b2eb127d0e3924e39d
+      case (true, _) => officeIR35(result.form, result.privateSector) // IR35
+      case _ => officePAYE(result.form) // PAYE
     }
 }
