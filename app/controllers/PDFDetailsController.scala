@@ -31,12 +31,13 @@ import navigation.Navigator
 import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc._
+import play.core.utils.AsciiSet
 import play.twirl.api.HtmlFormat
 import services.{CompareAnswerService, DecisionService, EncryptionService, PDFService}
 import utils.UserAnswersUtils
 import views.html.{AddDetailsView, CustomisePDFView}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionException, Future}
 
 class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
                                      navigator: Navigator,
@@ -132,10 +133,20 @@ class PDFDetailsController @Inject()(dataCacheConnector: DataCacheConnector,
         case Right(result: SuccessfulPDF) => {
 
           val sanitisedFileName = additionalPdfDetails.reference.map(reference => reference.replaceAll(",", ""))
-          val fileName = sanitisedFileName.getOrElse("result")
+
+          val fileName = sanitisedFileName
+
+          val ascii = try {
+            fileName.map(fileName => fileName.map(char => AsciiSet.apply(char)))
+          } catch {
+            case _: Throwable => None
+          }
+
+          val validFileName = if(ascii.isDefined) fileName else "result"
+
           Ok(result.pdf.toArray)
             .as("application/pdf")
-            .withHeaders("Content-Disposition" -> s"attachment; filename=$fileName.pdf")
+            .withHeaders("Content-Disposition" -> s"attachment; filename=$validFileName.pdf")
         }
         case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
       }

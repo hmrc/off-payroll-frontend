@@ -100,14 +100,14 @@ trait Constraints extends InputFilter{
         val validReference: Regex = regexString.r
 
         val error =
-          if(filteredText.trim.length > maxLength && !filteredText.matches(validReference.regex)) {
+          if(filteredText.trim.length > maxLength){ //&& !filteredText.matches(validReference.regex)) {
             Seq(ValidationError(s"pdfDetails.$message.error.invalidCharactersAndLength", maxLength, allowedCharacters))
 
           } else if(filteredText.trim.length > maxLength) {
             Seq(ValidationError(s"pdfDetails.$message.error.maxLength", maxLength))
 
-          } else if(!filteredText.trim.matches(validReference.regex)) {
-            Seq(ValidationError(s"pdfDetails.$message.error.invalidCharacters", allowedCharacters))
+//          } else if(!filteredText.trim.matches(validReference.regex)) {
+//            Seq(ValidationError(s"pdfDetails.$message.error.invalidCharacters", allowedCharacters))
 
           } else {
             Nil
