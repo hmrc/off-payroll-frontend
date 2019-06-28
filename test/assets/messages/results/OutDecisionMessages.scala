@@ -60,7 +60,7 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "you have accepted, or would accept, a substitute to do this work"
     val whyResultB2 = "you do not have control over this work"
-    val whyResultB3 = "the worker’s business will incur a significant cost with this job, which cannot be reclaimed or re-charged."
+    val whyResultB3 = "the worker’s business will incur a significant cost with this job, which cannot be reclaimed or re-charged"
     val whyResultP2 = "These working arrangements mean the worker is self-employed for tax purposes."
     val doNext = "You can pay a gross amount to the worker, without deducting tax and National Insurance."
   }

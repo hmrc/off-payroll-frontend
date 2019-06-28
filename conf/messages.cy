@@ -1676,11 +1676,11 @@ worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you a
 worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
 
 ##TODO: Need Welsh
-hirer.optimised.result.outside.paye.title = Self-employed. Earnings paid gross
-hirer.optimised.result.outside.paye.heading = Self-employed. Earnings paid gross
-hirer.optimised.result.outside.paye.whyResult.p1 = You told us the following information:
-hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-hirer.optimised.result.outside.paye.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
+hirer.optimised.result.outside.paye.title = The worker is self-employed for tax purposes for this job
+hirer.optimised.result.outside.paye.heading = The worker is self-employed for tax purposes for this job
+hirer.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute to do this work
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not have control over this work
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost with this job, which cannot be reclaimed or re-charged
+hirer.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean the worker is self-employed for tax purposes.
 hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
