@@ -1644,13 +1644,13 @@ result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
 
 ##TODO: Need Welsh
-hirer.optimised.result.outside.ir35.title = IR35 does not apply
-hirer.optimised.result.outside.ir35.heading = IR35 does not apply
-hirer.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-hirer.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
+hirer.optimised.result.outside.ir35.title = The off-payroll working rules (IR35) do not apply to this contract
+hirer.optimised.result.outside.ir35.heading = The off-payroll working rules (IR35) do not apply to this contract
+hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute to do this work
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged
+hirer.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 hirer.optimised.result.outside.ir35.private.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 hirer.optimised.result.outside.ir35.public.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
 hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.

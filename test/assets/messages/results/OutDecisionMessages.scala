@@ -31,13 +31,13 @@ object OutDecisionMessages extends BaseResultMessages {
   }
 
   object HirerIR35 {
-    val title = "IR35 does not apply"
-    val heading = "IR35 does not apply"
-    val whyResultP1 = "You told us the following information:"
-    val whyResultP2 = "Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes."
-    val whyResultB1 = "the worker has or could provide a substitute to do this work and your organisation would accept it"
-    val whyResultB2 = "your organisation does not have a right of control over the work"
-    val whyResultB3 = "the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency"
+    val title = "The off-payroll working rules (IR35) do not apply to this contract"
+    val heading = "The off-payroll working rules (IR35) do not apply to this contract"
+    val whyResultP1 = "Your answers told us:"
+    val whyResultB1 = "you have accepted, or would accept, a substitute to do this work"
+    val whyResultB2 = "you do not have control over this work"
+    val whyResultB3 = "the worker’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged"
+    val whyResultP2 = "This indicates the working arrangements for this contract are on a business to business basis."
     val doNextPrivate = "You can pay a gross amount to the worker, without deducting tax and National Insurance."
     val doNextPublicP1 = "If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance."
     val doNextPublicP2 = "If the fee payer is someone else, you need to show them this determination."
