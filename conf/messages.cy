@@ -1468,13 +1468,13 @@ worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read
 ## Outside IR35 Decision Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.outside.ir35.title = IR35 does not apply. Earnings paid gross
-worker.optimised.result.outside.ir35.heading = IR35 does not apply. Earnings paid gross
-worker.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means that you are classed as self-employed for tax purposes.
+worker.optimised.result.outside.ir35.title = The off-payroll working rules (IR35) do not apply to this contract
+worker.optimised.result.outside.ir35.heading = The off-payroll working rules (IR35) do not apply to this contract
+worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business will incur a significant cost with this contract, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 
