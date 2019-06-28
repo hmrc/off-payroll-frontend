@@ -77,7 +77,6 @@ site.finish = Finish
 site.exit = Exit
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
-site.confirm_continue = Confirm for result
 site.confirm_result = Confirm and continue
 site.accept_continue = Accept and continue
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
@@ -261,12 +260,12 @@ worker.cannotClaimAsExpense.workerProvidedEquipment =Offer - yn cynnwys peiriann
 worker.cannotClaimAsExpense.workerUsedVehicle =Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 worker.cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 worker.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
-worker.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+## TODO: Need Welsh
 worker.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
 worker.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
 worker.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
 worker.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
-worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Ddim yn berthnasol
 
 hirer.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 hirer.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
@@ -652,24 +651,6 @@ hirer.chooseWhereWork.workerChooses = Iawn - y gweithiwr sy’n penderfynu
 hirer.chooseWhereWork.workerCannotChoose =Na - y cleient terfynol sy’n dewis
 hirer.chooseWhereWork.noLocationRequired =Na - y dasg sy’n pennu lleoliad y gwaith
 hirer.chooseWhereWork.workerAgreeWithOthers = Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno, a rhaid i beth ohono gael ei wneud lle bynnag y mae’r gweithiwr yn dewis
-
-## TODO: Need Welsh
-worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.workerCannotChoose = Yes
-worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
-worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
-worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
-
-hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.workerCannotChoose = Yes
-hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
-hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
-hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
-
 #########################
 
 
@@ -712,14 +693,6 @@ worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
 worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide
 worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your schedule
 worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule
-
-hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
-hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree their schedule
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule
 #########################
 
 
@@ -1321,14 +1294,6 @@ toolNotNeeded.client.paye.heading = You don’t need to determine if this work s
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
 
-worker.optimised.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
-worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide.
-worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your own schedule.
-worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
-
 hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
 hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
 hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your team decide the schedule of working hours?
@@ -1544,19 +1509,6 @@ hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read
 hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
 hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
 
-##TODO: Need Welsh
-worker.optimised.result.outside.ir35.title = IR35 does not apply
-worker.optimised.result.outside.ir35.heading = IR35 does not apply
-worker.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
-worker.optimised.result.outside.ir35.private.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
-worker.optimised.result.outside.ir35.public.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
-worker.optimised.result.outside.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
-## ------------------
-
 ## PAYE Worker
 ## ------------------
 ##TODO: Need Welsh
@@ -1572,16 +1524,6 @@ worker.optimised.result.undetermined.paye.heading = Undetermined employment stat
 worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
 worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
 worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
-
-##TODO: Need Welsh
-worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.heading = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
-worker.optimised.result.out.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.out.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.out.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
-worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
 
 
 ##TODO: Need Welsh
