@@ -55,13 +55,13 @@ object OutDecisionMessages extends BaseResultMessages {
   }
 
   object HirerPAYE {
-    val title = "Self-employed. Earnings paid gross"
-    val heading = "Self-employed. Earnings paid gross"
-    val whyResultP1 = "You told us the following information:"
-    val whyResultB1 = "the worker has or could provide a substitute to do this work and your organisation would accept it"
-    val whyResultB2 = "your organisation does not have a right of control over the work"
-    val whyResultB3 = "the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency"
-    val whyResultP2 = "Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes."
+    val title = "The worker is self-employed for tax purposes for this job"
+    val heading = "The worker is self-employed for tax purposes for this job"
+    val whyResultP1 = "Your answers told us:"
+    val whyResultB1 = "you have accepted, or would accept, a substitute to do this work"
+    val whyResultB2 = "you do not have control over this work"
+    val whyResultB3 = "the worker’s business will incur a significant cost with this job, which cannot be reclaimed or re-charged."
+    val whyResultP2 = "These working arrangements mean the worker is self-employed for tax purposes."
     val doNext = "You can pay a gross amount to the worker, without deducting tax and National Insurance."
   }
 

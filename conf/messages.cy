@@ -10,7 +10,7 @@ date.day = Day
 date.month = Month
 date.year = Year
 ##### TODO NEED WELSH FOR ####
-date.january = Ionawr
+date.January = Ionawr
 date.February = Chwefror
 date.March = Mawrth
 date.April = Ebrill
@@ -78,6 +78,7 @@ site.exit = Exit
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
 site.confirm_continue = Confirm for result
+site.confirm_result = Confirm and continue
 site.accept_continue = Accept and continue
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
@@ -223,6 +224,8 @@ cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyf
 cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.checkYourAnswersLabel =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.checkYourAnswersLabel.optimised = Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
+#TODO: Need Welsh
+cannotClaimAsExpense.subheading = About the worker’s financial risk
 cannotClaimAsExpense.p1 =Dyma restr o bethau:
 cannotClaimAsExpense.bullet1 =y mae’n rhaid i’r gweithiwr eu darparu er mwyn cyflawni’r swydd benodol hon
 cannotClaimAsExpense.bullet2 =nad ydynt yn cael eu darparu gan y cleient terfynol
@@ -236,6 +239,11 @@ cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costa
 cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
 cannotClaimAsExpense.error.required = Mae angen i chi ddewis ateb
 cannotClaimAsExpense.error.invalid = Mae angen i chi ddewis ateb
+cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 worker.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 worker.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
@@ -253,6 +261,12 @@ worker.cannotClaimAsExpense.workerProvidedEquipment =Offer - yn cynnwys peiriann
 worker.cannotClaimAsExpense.workerUsedVehicle =Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 worker.cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 worker.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
+worker.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+worker.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+worker.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+worker.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 hirer.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 hirer.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
@@ -270,6 +284,12 @@ hirer.cannotClaimAsExpense.workerProvidedEquipment =Offer - yn cynnwys peirianna
 hirer.cannotClaimAsExpense.workerUsedVehicle =Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 hirer.cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
+## TODO: Welsh needed
+hirer.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+hirer.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+hirer.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+hirer.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 #########################
 
 ## Arranged Substitute
@@ -1282,6 +1302,15 @@ checkYourAnswers.confirm.p1 = By submitting your answers, you are confirming the
 checkYourAnswers.confirm.bullet1 = the information you have provided is correct, to the best of your knowledge
 checkYourAnswers.confirm.bullet2 = it reflects the actual or expected working practices of this role
 checkYourAnswers.confirm.bullet3 = if this information changes, you accept your result may no longer hold
+
+checkYourAnswers.setup.header = Section 1: Who, what, when
+checkYourAnswers.exit.header = Section 2: Worker’s Duties
+checkYourAnswers.personalService.header = Section 3: Worker’s substitution
+checkYourAnswers.control.header = Section 4: Worker’s arrangements
+checkYourAnswers.financialRisk.header = Section 5: Worker’s risk
+checkYourAnswers.partParcel.header = Section 6: Worker’s involvement
+
+
 ##### TODO NEED WELSH FOR ####
 toolNotNeeded.client.ir35.title = You don’t need to determine if this work falls within the off-payroll rules (IR35)
 toolNotNeeded.client.ir35.heading = You don’t need to determine if this work falls within the off-payroll rules (IR35)
@@ -1546,15 +1575,13 @@ worker.optimised.result.undetermined.paye.doNext.p2 = You could also read throug
 
 ##TODO: Need Welsh
 worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.heading = Self-employed.
-worker.optimised.result.out.paye.subHeading = Earnings paid gross
+worker.optimised.result.out.paye.heading = Self-employed. Earnings paid gross
 worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
-worker.optimised.result.out.paye.whyResult.b1 = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.out.paye.whyResult.b2 = your client does not have a right of control over the work
-worker.optimised.result.out.paye.whyResult.b3 = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
+worker.optimised.result.out.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
+worker.optimised.result.out.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
+worker.optimised.result.out.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
 worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
 worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
-## ------------------
 
 
 ##TODO: Need Welsh
@@ -1612,5 +1639,48 @@ result.pdf.customisedBy = Name of the person that completed this check:
 result.pdf.client = End client’s name:
 result.pdf.job = Engagement job title:
 result.pdf.reference = Reference:
+result.pdf.whatYouToldUs = What you told us
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+
+##TODO: Need Welsh
+hirer.optimised.result.outside.ir35.title = IR35 does not apply
+hirer.optimised.result.outside.ir35.heading = IR35 does not apply
+hirer.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
+hirer.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
+hirer.optimised.result.outside.ir35.private.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.public.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
+
+##TODO: Need Welsh
+agent.optimised.result.outside.title = The off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.outside.heading = The off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.outside.whyResult.p1 = Your answers told us:
+agent.optimised.result.outside.whyResult.substituteToDoWork = your candidate’s client has accepted, or would accept, a substitute to do this work
+agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate’s client does not have control over this work
+agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged.
+agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business-to-business basis.
+agent.optimised.result.outside.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+
+##TODO: Need Welsh
+worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
+worker.optimised.result.out.paye.heading = Self-employed. Earnings paid gross
+worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
+worker.optimised.result.out.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
+worker.optimised.result.out.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
+worker.optimised.result.out.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
+worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
+worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
+
+##TODO: Need Welsh
+hirer.optimised.result.outside.paye.title = Self-employed. Earnings paid gross
+hirer.optimised.result.outside.paye.heading = Self-employed. Earnings paid gross
+hirer.optimised.result.outside.paye.whyResult.p1 = You told us the following information:
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
+hirer.optimised.result.outside.paye.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
+hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
