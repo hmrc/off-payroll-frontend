@@ -20,14 +20,14 @@ object OfficeHolderMessages extends BaseResultMessages {
 
   object Worker {
     object PAYE {
-      val title = "Result"
+      val title = "Employed for tax purposes for this work"
       val heading = "Employed for tax purposes for this work"
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are employed for tax purposes."
       val doNext_p1 = "Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings."
     }
 
     object IR35 {
-      val title = "Result"
+      val title = "The off-payroll working rules (IR35) apply to this contract"
       val heading = "The off-payroll working rules (IR35) apply to this contract"
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are deemed employed for tax purposes."
       val doNext_private_p1 = "Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings."
@@ -37,14 +37,14 @@ object OfficeHolderMessages extends BaseResultMessages {
 
   object Hirer {
     object PAYE {
-      val title = "Result"
+      val title = "Employed for tax purposes for this job"
       val heading = "Employed for tax purposes for this job"
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes."
       val doNext_p1 = "Ensure that you operate PAYE on earnings from this job."
     }
 
     object IR35 {
-      val title = "Result"
+      val title = "The off-payroll working rules (IR35) apply to this contract"
       val heading = "The off-payroll working rules (IR35) apply to this contract"
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes."
       val doNext_private_p1 = "Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility."
@@ -53,7 +53,7 @@ object OfficeHolderMessages extends BaseResultMessages {
   }
 
   object Agent {
-    val title = "Result"
+    val title = "The off-payroll working rules (IR35) apply to this contract"
     val heading = "The off-payroll working rules (IR35) apply to this contract"
     val whyResult_p1 = "In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes."
     val doNext_p1 = "If you are the fee payer, you should tell your candidate that you will be operating PAYE on their earnings."
