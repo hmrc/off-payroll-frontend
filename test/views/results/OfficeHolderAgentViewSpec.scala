@@ -60,10 +60,6 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe OfficeHolderMessages.Agent.heading
     }
 
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Agent.subHeading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Agent.whyResult_p1
