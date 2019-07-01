@@ -1388,11 +1388,10 @@ agent.optimised.result.officeHolder.doNext.p1 = If you’re the fee payer, you s
 ## Inside PAYE Hirer
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
-hirer.optimised.result.inside.paye.heading = Employed.
-hirer.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
-hirer.optimised.result.inside.paye.whyResult.p1 = The answers you’ve given tell us you’re directly engaging the worker. The working practices of this role indicate that the worker is employed for tax purposes.
-hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE for this worker.
+hirer.optimised.result.inside.paye.title = Result
+hirer.optimised.result.inside.paye.heading = Employed for tax purposes for this job
+hirer.optimised.result.inside.paye.whyResult.p1 = The working arrangements of this job indicate that the worker is employed for tax purposes.
+hirer.optimised.result.inside.paye.doNext.p1 = Ensure that you operate PAYE on earnings from this job.
 ## ------------------
 
 ## PAYE Hirer
@@ -1416,12 +1415,11 @@ hirer.optimised.result.out.paye.whyResult.p2 = Your answers indicate that this i
 hirer.optimised.result.out.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 
 ##TODO: Need Welsh
-worker.optimised.result.inside.ir35.title = IR35 applies. Tax earnings within PAYE
-worker.optimised.result.inside.ir35.heading = IR35 applies.
-worker.optimised.result.inside.ir35.subHeading = Tax earnings within PAYE
-worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are classed as employed for tax purposes.
-worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
-worker.optimised.result.inside.ir35.public.doNext.p1 = Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
+worker.optimised.result.inside.ir35.title = Result
+worker.optimised.result.inside.ir35.heading = The off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes.
+worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.ir35.public.doNext.p1 = Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings.
 ## ------------------
 
 ## Undetermined IR35 Decision Worker
@@ -1452,11 +1450,10 @@ worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your 
 ## Inside Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.inside.title = IR35 applies. Tax earnings within PAYE
-agent.optimised.result.inside.heading = IR35 applies.
-agent.optimised.result.inside.subHeading = Tax earnings within PAYE
-agent.optimised.result.inside.whyResult.p1 = The answers you’ve given tell us your client is  directly hiring your candidate, and the working practices of this engagement mean that your candidate is classed as employed for tax purposes.
-agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+agent.optimised.result.inside.title = Result
+agent.optimised.result.inside.heading = The off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.inside.whyResult.p1 = The answers you’ve given tell us your candidate’s client is directly hiring them. And the working practices of this engagement mean that your candidate is classed as employed for tax purposes.
+agent.optimised.result.inside.doNext.p1 = If you are the fee payer, you should tell your candidate that you will be operating PAYE for their earnings.
 ## ------------------
 
 ## Out Agent
@@ -1485,14 +1482,13 @@ agent.optimised.result.undetermined.doNext.p2 = You could also read through the 
 ## Hirer IR35
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.ir35.title = IR35 applies. Tax earnings within PAYE
-hirer.optimised.result.inside.ir35.heading = IR35 applies.
-hirer.optimised.result.inside.ir35.subHeading = Tax earnings within PAYE
-hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are classed as employed for tax purposes.
+hirer.optimised.result.inside.ir35.title = Result
+hirer.optimised.result.inside.ir35.heading = The off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are deemed employed for tax purposes.
 hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
 hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker.
-hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee payer is someone else,  you need to show them this determination.
+hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE on earnings from this contract.
+hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
 
 ##TODO: Need Welsh
 hirer.optimised.result.undetermined.ir35.title = Undetermined employment status
@@ -1519,11 +1515,10 @@ worker.optimised.result.outside.ir35.public.doNext.p2 = If the fee payer is some
 ## PAYE Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
-worker.optimised.result.inside.paye.heading = Employed.
-worker.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
-worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given tell us you are directly engaged by your client. The working practices of this role indicate that you are employed for tax purposes.
-worker.optimised.result.inside.paye.doNext.p1 = Show this to the person hiring you and tell them they should operate PAYE for you.
+worker.optimised.result.inside.paye.title = Result
+worker.optimised.result.inside.paye.heading = Employed for tax purposes for this work
+worker.optimised.result.inside.paye.whyResult.p1 = The working arrangements indicate that you are employed for tax purposes.
+worker.optimised.result.inside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
 
 ##TODO: Need Welsh
 worker.optimised.result.undetermined.paye.title = Undetermined employment status

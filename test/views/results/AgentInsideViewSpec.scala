@@ -60,10 +60,6 @@ class AgentInsideViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
     }
 
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe InDecisionMessages.Agent.subHeading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.Agent.whyResult_p1

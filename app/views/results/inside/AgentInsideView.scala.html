@@ -40,8 +40,7 @@
 
         @components.teal_result(
             Html(messages("agent.optimised.result.inside.heading")),
-            "result.inside",
-            Some(Html(messages("agent.optimised.result.inside.subHeading")))
+            "result.inside"
         )
 
         @formWithCsrf(postAction, 'autoComplete -> "off") {

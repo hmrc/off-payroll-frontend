@@ -19,46 +19,41 @@ package assets.messages.results
 object InDecisionMessages extends BaseResultMessages {
 
   object Agent {
-    val title = "IR35 applies. Tax earnings within PAYE"
-    val heading = "IR35 applies."
-    val subHeading = "Tax earnings within PAYE"
-    val whyResult_p1 = "The answers you’ve given tell us your client is directly hiring your candidate, and the working practices of this engagement mean that your candidate is classed as employed for tax purposes."
-    val doNext_p1 = "If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them."
+    val title = "Result"
+    val heading = "The off-payroll working rules (IR35) apply to this contract"
+    val whyResult_p1 = "The answers you’ve given tell us your candidate’s client is directly hiring them. And the working practices of this engagement mean that your candidate is classed as employed for tax purposes."
+    val doNext_p1 = "If you are the fee payer, you should tell your candidate that you will be operating PAYE for their earnings."
   }
 
   object WorkerIR35 {
-    val title = "IR35 applies. Tax earnings within PAYE"
-    val heading = "IR35 applies."
-    val subHeading = "Tax earnings within PAYE"
-    val whyResult = "Your answers indicate that you are providing a service to your client. This means you are classed as employed for tax purposes."
-    val doNextPrivate = "Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings."
-    val doNextPublic = "Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings."
+    val title = "Result"
+    val heading = "The off-payroll working rules (IR35) apply to this contract"
+    val whyResult = "Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes."
+    val doNextPrivate = "Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings."
+    val doNextPublic = "Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings."
   }
 
   object HirerPAYE {
-    val title = "Employed. Tax earnings within PAYE"
-    val heading = "Employed."
-    val subHeading = "Tax earnings within PAYE"
-    val whyResult = "The answers you’ve given tell us you’re directly engaging the worker. The working practices of this role indicate that the worker is employed for tax purposes."
-    val doNext = "You need to operate PAYE for this worker."
+    val title = "Result"
+    val heading = "Employed for tax purposes for this job"
+    val whyResult = "The working arrangements of this job indicate that the worker is employed for tax purposes."
+    val doNext = "Ensure that you operate PAYE on earnings from this job."
   }
 
   object HirerIR35 {
-    val title = "IR35 applies. Tax earnings within PAYE"
-    val heading = "IR35 applies."
-    val subHeading = "Tax earnings within PAYE"
-    val whyResult = "Your answers indicate that the worker is providing a service to your organisation. This means they are classed as employed for tax purposes."
+    val title = "Result"
+    val heading = "The off-payroll working rules (IR35) apply to this contract"
+    val whyResult = "Your answers indicate that the worker is providing a service to your organisation. This means they are deemed employed for tax purposes."
     val doNextPrivateP1 = "Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility."
     val doNextPrivateP2 = "From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them."
-    val doNextPublicP1 = "If you’re the fee payer, you need to operate PAYE for this worker."
+    val doNextPublicP1 = "If you’re the fee payer, you need to operate PAYE on earnings from this contract."
     val doNextPublicP2 = "If the fee payer is someone else, you need to show them this determination."
   }
 
   object WorkerPAYE {
-    val title = "Employed. Tax earnings within PAYE"
-    val heading = "Employed."
-    val subHeading = "Tax earnings within PAYE"
-    val whyResult = "The answers you have given tell us you are directly engaged by your client. The working practices of this role indicate that you are employed for tax purposes."
-    val doNext = "Show this to the person hiring you and tell them they should operate PAYE for you."
+    val title = "Result"
+    val heading = "Employed for tax purposes for this work"
+    val whyResult = "The working arrangements indicate that you are employed for tax purposes."
+    val doNext = "Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings."
   }
 }
