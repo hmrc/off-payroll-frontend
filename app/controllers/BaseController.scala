@@ -55,7 +55,12 @@ abstract class BaseController @Inject()(mcc: MessagesControllerComponents,compar
                                                         aWrites: Writes[Answers[T]],
                                                         aReads: Reads[Answers[T]]): Future[Result] = {
 
-    val answers = compareAnswerService.constructAnswers(request,value,page)
+    val answers =
+      if(isEnabled(OptimisedFlow)) {
+        compareAnswerService.optimisedConstructAnswers(request,value,page)
+      } else {
+        compareAnswerService.constructAnswers(request,value,page)
+      }
     dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
       val call = navigator.nextPage(page, mode)(answers)
       (callDecisionService,isEnabled(OptimisedFlow)) match {

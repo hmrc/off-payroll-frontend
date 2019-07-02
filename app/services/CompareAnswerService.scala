@@ -16,8 +16,11 @@
 
 package services
 
+import javax.inject.Inject
+
 import models.requests.DataRequest
 import models.{Answers, UserAnswers}
+import navigation.QuestionDeletionLookup
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
@@ -32,7 +35,7 @@ import scala.annotation.tailrec
 import scala.collection.immutable.Map
 import scala.concurrent.ExecutionContext
 
-class CompareAnswerService {
+class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLookup) {
 
   def constructAnswers[T](request: DataRequest[_], value: T,
                           page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],
@@ -51,6 +54,20 @@ class CompareAnswerService {
       }
     }
   }
+
+  def optimisedConstructAnswers[T](request: DataRequest[_], value: T,
+                          page: QuestionPage[T])(implicit reads: Reads[T],writes: Writes[T],
+                                                 aWrites: Writes[Answers[T]],aReads: Reads[Answers[T]],ec: ExecutionContext): UserAnswers = {
+    request.userAnswers.get(page) match {
+      case Some(answer) if answer.answer == value => request.userAnswers
+      case _ => {
+        val pagesToRemove = questionDeletionLookup.getPagesToRemove(page)(request.userAnswers)
+        val updatedUserAnswers = recursivelyClearQuestions(pagesToRemove,request.userAnswers)
+        updatedUserAnswers.set(page,0,value)
+      }
+    }
+  }
+
 
   @tailrec
   private def recursivelyClearQuestions(pages: List[QuestionPage[_]], userAnswers: UserAnswers): UserAnswers = {
