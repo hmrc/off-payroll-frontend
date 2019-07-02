@@ -28,7 +28,7 @@ import models.{CheckMode, Enumerable, UserAnswers}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.HowWorkerIsPaidPage
-import pages.sections.partParcel.{BenefitsPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.ContractStartedPage
 import pages._
@@ -40,6 +40,7 @@ import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
+import models.IdentifyToStakeholders.WorkForEndClient
 
 class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
@@ -586,6 +587,61 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               answer = "site.yes",
               answerIsMessageKey = true,
               changeUrl = Some(partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".identifyToStakeholders" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).identifyToStakeholders mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" should {
+
+      "the user is of type worker" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
+          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+
+      "the user is of type hirer" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
+          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, hirerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Hirer.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Hirer.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+
+      "the user is of type is not set" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
+          new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              answerIsMessageKey = true,
+              changeUrl = Some(partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url)
             ))
         }
       }

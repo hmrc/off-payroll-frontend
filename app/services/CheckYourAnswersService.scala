@@ -82,7 +82,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         rows = Seq(
           checkYourAnswersHelper.benefits.map(_ -> None),
           checkYourAnswersHelper.lineManagerDuties.map(_ -> None),
-          checkYourAnswersHelper.interactWithStakeholders.map(_ -> None)
+          checkYourAnswersHelper.identifyToStakeholders.map(_ -> None)
         ).flatten
       )
     )

@@ -28,7 +28,7 @@ import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{HowWorkerIsPaidPage, PutRightAtOwnCostPage}
-import pages.sections.partParcel.{BenefitsPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.i18n.Messages
@@ -195,6 +195,16 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
         changeUrl = Some(partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def identifyToStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(IdentifyToStakeholdersPage) map { x =>
+      AnswerRow(
+        tailorMsgOptimised("identifyToStakeholders.checkYourAnswersLabel"),
+        tailorMsgOptimised(s"identifyToStakeholders.${x.answer}"),
+        answerIsMessageKey = true,
+        changeUrl = Some(partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url)
       )
     }
 
