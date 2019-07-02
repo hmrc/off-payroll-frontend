@@ -20,7 +20,7 @@ object CheckYourAnswersMessages extends BaseMessages {
 
   val heading = "Review your answers in each section below"
   val title = heading
-  val h2 = "Declaration"
+  val h2 = "heading1 heading2 Declaration"
   val p1 = "By submitting your answers, you are confirming the following:"
 
 }
