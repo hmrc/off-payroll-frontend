@@ -55,6 +55,21 @@ class CustomisePDFFormProviderSpec extends StringFieldBehaviours {
     }
   }
 
+  "apply" must {
+    "create the form" in {
+
+      Seq("completedBy", "client", "job")
+      val result = form.bind(Map("completedBy" -> "Testing this out vbscript:",
+        "client" -> "Testing this out vbscript:",
+        "job" -> "Testing this out vbscript:",
+        "reference" -> "Testing this out vbscript:"))
+
+      result.value shouldEqual Some(AdditionalPdfDetails(Some("Testing this out "), Some("Testing this out "),
+        Some("Testing this out "), Some("Testing this out ")))
+
+    }
+  }
+
   "reference" must {
     "behave well" in {
 
