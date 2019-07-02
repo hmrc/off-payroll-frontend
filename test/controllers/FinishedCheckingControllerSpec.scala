@@ -16,18 +16,23 @@
 
 package controllers
 
-import controllers.actions.{DataRequiredActionImpl, FakeEmptyCacheMapDataRetrievalAction, FakeIdentifierAction}
+import controllers.actions._
+import models.{Answers, NormalMode}
 import navigation.FakeNavigator
-import play.api.test.Helpers._
+import pages.{AddReferenceDetailsPage, ResultPage}
+import play.api.libs.json.Json
+import play.api.mvc.Call
+import play.api.test.Helpers.{contentAsString, _}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.FinishedCheckingView
 
 class FinishedCheckingControllerSpec extends ControllerSpecBase {
 
   val view = injector.instanceOf[FinishedCheckingView]
 
-  object TestFinishedCheckingController extends FinishedCheckingController(
+  def testFinishedCheckingController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new FinishedCheckingController(
     identify = FakeIdentifierAction,
-    getData = FakeEmptyCacheMapDataRetrievalAction,
+    dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     finishedCheckingView = view,
     navigator = new FakeNavigator(onwardRoute),
@@ -38,12 +43,27 @@ class FinishedCheckingControllerSpec extends ControllerSpecBase {
     appConfig = frontendAppConfig
   )
 
+  def viewAsString(call: Option[Call] = None) = view(frontendAppConfig, NormalMode, call)(fakeRequest, messages).toString
+
+  val validData = Map(ResultPage.toString -> Json.toJson(Answers(true,0)))
+
   "FinishedCheckingController" should {
 
-    lazy val result = TestFinishedCheckingController.onPageLoad()(fakeRequest)
+    lazy val result = testFinishedCheckingController().onPageLoad()(fakeRequest)
 
     "return OK for a GET" in {
       status(result) mustBe OK
+      contentAsString(result) mustBe viewAsString()
+    }
+
+    "return OK for a GET when the download is present" in {
+
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      lazy val result = testFinishedCheckingController(getRelevantData).onPageLoad()(fakeRequest)
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsString(Some(routes.PDFController.downloadPDF()))
+
     }
   }
 }

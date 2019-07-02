@@ -85,8 +85,6 @@ trait Constraints extends InputFilter{
         Invalid(errorKey, maximum)
     }
 
-  val allowedCharacters = "!@£%^&*()_+{}`|:?><~#-=[]\\';/.,"
-
   def referenceCheckConstraints(maxLength: Int, message: String): Constraint[Option[String]] =
     Constraint {
       case Some(text) =>

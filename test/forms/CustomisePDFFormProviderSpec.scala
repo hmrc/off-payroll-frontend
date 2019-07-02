@@ -34,27 +34,44 @@ class CustomisePDFFormProviderSpec extends StringFieldBehaviours {
 
     s"$fieldName" must {
 
-//      behave like fieldThatBindsValidData(
-//        form,
-//        fieldName,
-//        stringsWithMaxLength(maxLength)
-//      )
+      "behave well" in {
 
-//      behave like fieldWithMaxLength(
-//        form,
-//        fieldName,
-//        maxLength = maxLength,
-//        lengthError = FormError(fieldName, lengthKey(fieldName), Seq(maxLength))
-//      )
+        val result = form.bind(Map(fieldName -> "Testing this out")).apply(fieldName)
+        result.value.value shouldBe "Testing this out"
+
+      }
+
+      "return a length error" in {
+
+        val result = form.bind(Map(fieldName -> (1 to 101).map(a => "a").mkString(""))).apply(fieldName)
+        result.errors shouldEqual Seq(FormError(fieldName, s"pdfDetails.$fieldName.error.maxLength", Seq(100)))
+
+        val resultNoError = form.bind(Map(fieldName -> (1 to 99).map(a => "a").mkString(""))).apply(fieldName)
+        resultNoError.errors shouldEqual Seq()
+
+        val resultNoErrorBoundary = form.bind(Map(fieldName -> (1 to 100).map(a => "a").mkString(""))).apply(fieldName)
+        resultNoErrorBoundary.errors shouldEqual Seq()
+      }
     }
   }
 
   "reference" must {
-//    behave like fieldWithMaxLength(
-//      form,
-//      "reference",
-//      maxLength = maxLengthRef,
-//      lengthError = FormError("reference", lengthKey("reference"), Seq(maxLengthRef))
-//    )
+    "behave well" in {
+
+      val result = form.bind(Map("reference" -> "Testing this out")).apply("reference")
+      result.value.value shouldBe "Testing this out"
+    }
+
+    "return a length error" in {
+
+      val result = form.bind(Map("reference" -> (1 to 181).map(a => "a").mkString(""))).apply("reference")
+      result.errors shouldEqual Seq(FormError("reference", s"pdfDetails.reference.error.maxLength", Seq(180)))
+
+      val resultNoError = form.bind(Map("reference" -> (1 to 179).map(a => "a").mkString(""))).apply("reference")
+      resultNoError.errors shouldEqual Seq()
+
+      val resultNoErrorBoundary = form.bind(Map("reference" -> (1 to 180).map(a => "a").mkString(""))).apply("reference")
+      resultNoErrorBoundary.errors shouldEqual Seq()
+    }
   }
 }
