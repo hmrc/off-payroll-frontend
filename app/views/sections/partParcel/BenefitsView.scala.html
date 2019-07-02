@@ -35,16 +35,17 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("benefits.heading"))
-
-        <p>@messages(tailorMsgOptimised("benefits.p1"))</p>
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsgOptimised("benefits.heading")),
+            legend = tailorMsgOptimised("benefits.heading"),
+            otherContent = Some(content),
             labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
+}
+
+@content = {
+    <p>@messages(tailorMsgOptimised("benefits.p1"))</p>
 }

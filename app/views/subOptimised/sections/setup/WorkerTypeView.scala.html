@@ -36,11 +36,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("workerType.heading"), Some(tailorMsg("workerType.subheading")))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("workerType.heading")),
+            legend = tailorMsg("workerType.heading"),
+            subheading = Some(tailorMsg("workerType.subheading")),
             legendClass = Some("visually-hidden"),
             inputs = WorkerType.options.toSeq
         )

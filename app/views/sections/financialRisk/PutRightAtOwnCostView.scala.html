@@ -36,11 +36,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("putRightAtOwnCost.heading"))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsgOptimised("putRightAtOwnCost.heading")),
+            legend = tailorMsgOptimised("putRightAtOwnCost.heading"),
             legendClass = Some("visually-hidden"),
             inputs = PutRightAtOwnCost.options
         )

@@ -35,13 +35,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("wouldWorkerPaySubstitute.heading"), Some(tailorMsg("wouldWorkerPaySubstitute.subheading")))
-
-        @components.exclamation(Html(messages(tailorMsg("wouldWorkerPaySubstitute.exclamation"))))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("wouldWorkerPaySubstitute.heading")),
+            legend = tailorMsg("wouldWorkerPaySubstitute.heading"),
+            subheading = Some(tailorMsg("wouldWorkerPaySubstitute.subheading")),
+            otherContent = Some(components.exclamation(Html(messages(tailorMsg("wouldWorkerPaySubstitute.exclamation"))))),
             labelClass = Some("visually-hidden")
         )
 

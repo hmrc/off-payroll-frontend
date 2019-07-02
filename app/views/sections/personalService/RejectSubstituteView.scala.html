@@ -35,11 +35,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("rejectSubstitute.heading"))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsgOptimised("rejectSubstitute.heading")),
+            legend = tailorMsgOptimised("rejectSubstitute.heading"),
             labelClass = Some("visually-hidden")
         )
 

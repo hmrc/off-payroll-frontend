@@ -36,11 +36,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("chooseWhereWork.heading"), None)
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsgOptimised("chooseWhereWork.heading")),
+            legend = tailorMsgOptimised("chooseWhereWork.heading"),
             legendClass = Some("visually-hidden"),
             inputs = ChooseWhereWork.options(true)
         )

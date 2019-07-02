@@ -36,11 +36,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("chooseWhereWork.heading"), Some(tailorMsg("chooseWhereWork.subheading")))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("chooseWhereWork.heading")),
+            legend = tailorMsg("chooseWhereWork.heading"),
+            subheading = Some(tailorMsg("chooseWhereWork.subheading")),
             legendClass = Some("visually-hidden"),
             inputs = ChooseWhereWork.options()
         )

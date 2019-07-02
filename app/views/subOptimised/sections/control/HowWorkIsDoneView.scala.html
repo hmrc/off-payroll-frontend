@@ -36,11 +36,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("howWorkIsDone.heading"), Some(tailorMsg("howWorkIsDone.subheading")))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("howWorkIsDone.heading")),
+            legend = tailorMsg("howWorkIsDone.heading"),
+            subheading = Some(tailorMsg("howWorkIsDone.subheading")),
             legendClass = Some("visually-hidden"),
             hint = Some(Html(messages(tailorMsg("howWorkIsDone.hint")))),
             inputs = HowWorkIsDone.options()

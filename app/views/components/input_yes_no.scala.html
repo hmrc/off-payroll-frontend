@@ -14,9 +14,13 @@
  * limitations under the License.
  *@
 
+@import play.twirl.api.Html
+
 @(
         field: Field,
-        label: String,
+        legend: String,
+        subheading: Option[String] = None,
+        otherContent: Option[Html] = None,
         secondaryLabel: Option[String] = None,
         inputClass: Option[String] = None,
         hint: Option[Html] = None,
@@ -32,9 +36,10 @@
 <div class="form-group @if(field.hasErrors){form-group-error}">
     <fieldset class="@if(inline){inline}" id="@{field.id}">
 
-        <legend>
-            <span @if(labelClass.nonEmpty){class="@labelClass"}>@label</span>
-        </legend>
+        @components.heading(legend, subheading, asLegend = true)
+        @otherContent.map { content =>
+            @content
+        }
         @if(hint.nonEmpty){
             <span class="form-hint form-group">@hint</span>
         }

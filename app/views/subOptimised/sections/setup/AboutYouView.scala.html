@@ -37,11 +37,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("aboutYou.heading", subHeading = Some("aboutYou.subheading"))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("aboutYou.heading"),
+            legend = "aboutYou.heading",
+            subheading = Some("aboutYou.subheading"),
             legendClass = Some("visually-hidden"),
             hint = Some(Html(messages("aboutYou.hint"))),
             inputs = AboutYouAnswer.options

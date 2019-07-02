@@ -35,13 +35,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("lineManagerDuties.heading"), Some(tailorMsg("lineManagerDuties.subheading")))
-
-        @components.details.line_manager_duties_details()
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("lineManagerDuties.heading")),
+            legend = tailorMsg("lineManagerDuties.heading"),
+            subheading = Some(tailorMsg("lineManagerDuties.subheading")),
+            otherContent = Some(components.details.line_manager_duties_details()),
             labelClass = Some("visually-hidden")
         )
 

@@ -35,11 +35,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("turnoverOver.heading"))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("turnoverOver.heading")),
+            legend = tailorMsg("turnoverOver.heading"),
             labelClass = Some("visually-hidden")
         )
 

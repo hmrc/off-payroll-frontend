@@ -35,11 +35,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("isWorkForPrivateSector.heading"))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("isWorkForPrivateSector.heading")),
+            legend = tailorMsg("isWorkForPrivateSector.heading"),
             labelClass = Some("visually-hidden"),
             yesMessage = Some(messages("isWorkForPrivateSector.private")),
             noMessage = Some(messages("isWorkForPrivateSector.public")),

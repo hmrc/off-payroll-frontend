@@ -35,11 +35,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("contractStarted.heading"), Some(tailorMsg("contractStarted.subheading")))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("contractStarted.heading")),
+            legend = tailorMsg("contractStarted.heading"),
+            subheading = Some(tailorMsg("contractStarted.subheading")),
             labelClass = Some("visually-hidden")
         )
 

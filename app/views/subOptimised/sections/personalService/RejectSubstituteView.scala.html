@@ -35,13 +35,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("rejectSubstitute.heading"), Some(tailorMsg("rejectSubstitute.subheading")))
-
-        @components.details.reject_substitute_details()
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("rejectSubstitute.heading")),
+            legend = tailorMsg("rejectSubstitute.heading"),
+            subheading = Some(tailorMsg("rejectSubstitute.subheading")),
+            otherContent = Some(components.details.reject_substitute_details()),
             labelClass = Some("visually-hidden"),
             yesMessage = Some(messages(tailorMsg("rejectSubstitute.yes"))),
             noMessage = Some(messages(tailorMsg("rejectSubstitute.no"))),

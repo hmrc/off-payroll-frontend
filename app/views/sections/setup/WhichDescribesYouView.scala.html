@@ -37,11 +37,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("whichDescribesYou.heading")
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("whichDescribesYou.heading"),
+            legend = "whichDescribesYou.heading",
             legendClass = Some("visually-hidden"),
             inputs = WhichDescribesYouAnswer.options
         )
