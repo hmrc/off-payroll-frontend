@@ -25,7 +25,7 @@ import uk.gov.hmrc.crypto.{Crypted, CryptoWithKeysFromConfig, PlainText}
 class EncryptionService @Inject()(config: Configuration) {
   lazy val crypto = new CryptoWithKeysFromConfig("encryption", config.underlying)
 
-  def encryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails ={
+  def encryptDetails(details: AdditionalPdfDetails): AdditionalPdfDetails = {
 
     details.copy(
       client = details.client.map(client => encrypt(client)),
