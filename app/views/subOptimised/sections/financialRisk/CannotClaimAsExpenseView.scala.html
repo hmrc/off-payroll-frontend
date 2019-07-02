@@ -31,7 +31,7 @@
     bodyClasses = None,
     js = Some("cannot-claim-as-expense.js")) {
 
-    @components.back_link()
+    @components.back_link()(mode)
 
     @formWithCsrf(action = CannotClaimAsExpenseController.onSubmit(mode), 'autoComplete -> "off") {
 

@@ -16,8 +16,9 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
-@import models.Mode
+@import models.NormalMode
 @import views.ViewUtils._
+
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
@@ -27,7 +28,7 @@
 appConfig = appConfig,
 bodyClasses = None) {
 
-    @components.back_link()
+    @components.back_link()(NormalMode)
 
     @formWithCsrf(postAction, 'autoComplete -> "off") {
 
