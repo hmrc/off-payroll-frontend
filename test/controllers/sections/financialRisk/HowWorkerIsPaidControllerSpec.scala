@@ -97,7 +97,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", HowWorkerIsPaid.options.head.value))
         val answers = userAnswers.set(HowWorkerIsPaidPage,0,HowWorkerIsPaid.HourlyDailyOrWeekly)
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkerIsPaid)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

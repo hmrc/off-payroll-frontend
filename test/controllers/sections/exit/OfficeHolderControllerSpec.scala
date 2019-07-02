@@ -96,7 +96,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

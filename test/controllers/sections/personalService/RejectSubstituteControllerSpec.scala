@@ -83,7 +83,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
         val answers = userAnswers.set(RejectSubstitutePage,0,true)
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)

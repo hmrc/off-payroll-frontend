@@ -33,6 +33,7 @@ import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
 import navigation.QuestionDeletionLookup
+import navigation.mocks.MockQuestionDeletionLookup
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import org.scalamock.scalatest.MockFactory
@@ -44,13 +45,13 @@ import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
+import services.mocks.MockCompareAnswerService
 
 import scala.concurrent.Future
 
-class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCacheConnector {
+class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCacheConnector with MockQuestionDeletionLookup {
 
-  val questionLookupMock = mock[QuestionDeletionLookup]
-  val service = new CompareAnswerService(questionLookupMock)
+  val service = new CompareAnswerService(mockQuestionDeletionLookup)
 
   "sub-optimised" should {
 
@@ -222,8 +223,7 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
           .set(RejectSubstitutePage, 1, true)
           .set(NeededToPayHelperPage, 2, true)
 
-        (questionLookupMock.getPagesToRemove _).expects(ArrangedSubstitutePage)
-          .returning(_ => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
+        mockGetPagesToRemove(ArrangedSubstitutePage)(List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
@@ -248,8 +248,8 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
           .set(RejectSubstitutePage, 2, true)
           .set(NeededToPayHelperPage, 3, true)
 
-        (questionLookupMock.getPagesToRemove _).expects(ArrangedSubstitutePage)
-          .returning(_ => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
+
+        mockGetPagesToRemove(ArrangedSubstitutePage)(List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
@@ -291,5 +291,4 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
       }
     }
   }
-
-  }
+}

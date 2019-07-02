@@ -16,6 +16,7 @@
 
 package controllers.sections.financialRisk
 
+import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
@@ -31,6 +32,11 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.financialRisk.OtherExpensesView
 
 class OtherExpensesControllerSpec extends ControllerSpecBase {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
 
   val formProvider = new OtherExpensesFormProvider()
   val form = formProvider()
@@ -76,7 +82,7 @@ class OtherExpensesControllerSpec extends ControllerSpecBase {
       val validData = Map(OtherExpensesPage.toString -> Json.toJson(Answers(true,0)))
 
       val answers = userAnswers.set(OtherExpensesPage,0,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

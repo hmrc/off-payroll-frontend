@@ -100,7 +100,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
         val userAnswers = UserAnswers("id").set(IdentifyToStakeholdersPage, 0, WorkForEndClient)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", IdentifyToStakeholders.options.head.value))
 
-        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),IdentifyToStakeholders)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
 
