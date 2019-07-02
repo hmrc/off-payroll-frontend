@@ -17,7 +17,6 @@
 package services
 
 import javax.inject.Inject
-
 import models.requests.DataRequest
 import models.{Answers, UserAnswers}
 import navigation.QuestionDeletionLookup
@@ -28,6 +27,7 @@ import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPa
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage, WorkerTypePage, _}
+import play.api.Logger
 import play.api.libs.json.{Reads, Writes}
 import play.api.mvc.AnyContent
 
@@ -61,9 +61,10 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
     request.userAnswers.get(page) match {
       case Some(answer) if answer.answer == value => request.userAnswers
       case _ => {
-        val pagesToRemove = questionDeletionLookup.getPagesToRemove(page)(request.userAnswers)
-        val updatedUserAnswers = recursivelyClearQuestions(pagesToRemove,request.userAnswers)
-        updatedUserAnswers.set(page,0,value)
+        val userAnswers = request.userAnswers.set(page,0,value)
+        val pagesToRemove = questionDeletionLookup.getPagesToRemove(page)(userAnswers)
+        Logger.debug(s"[CompareAnswerService][optimisedConstructAnswers] Questions to be removed: \n$pagesToRemove")
+        recursivelyClearQuestions(pagesToRemove, userAnswers)
       }
     }
   }

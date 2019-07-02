@@ -16,15 +16,8 @@
 
 package navigation
 
-import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
-import controllers.sections.control.{routes => controlRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
+import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models._
 import pages._
