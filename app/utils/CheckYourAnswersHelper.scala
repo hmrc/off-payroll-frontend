@@ -17,11 +17,17 @@
 package utils
 
 import config.FrontendAppConfig
-import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
-import pages.{BalanceSheetOverPage, EmployeesOverPage, EquipmentExpensesPage, MaterialsPage, OtherExpensesPage, TurnoverOverPage, VehiclePage}
+import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.partParcel.{routes => partParcelRoutes}
+import controllers.sections.personalService.{routes => personalServiceRoutes}
+import controllers.sections.setup.{routes => setupRoutes}
+import models.{CheckMode, Enumerable, UserAnswers}
+import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.financialRisk.{HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
@@ -37,7 +43,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg(s"$TurnoverOverPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -46,7 +53,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg(s"$EmployeesOverPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -55,7 +63,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg(s"$BalanceSheetOverPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -64,7 +73,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("didPaySubstitute.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -73,7 +83,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("rejectSubstitute.checkYourAnswersLabel"),
         if(!x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -82,7 +93,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("wouldWorkerPaySubstitute.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -91,7 +103,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("neededToPayHelper.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -100,7 +113,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("moveWorker.checkYourAnswersLabel"),
         tailorMsgOptimised(s"moveWorker.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -109,7 +123,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("howWorkIsDone.checkYourAnswersLabel"),
         tailorMsgOptimised(s"howWorkIsDone.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(controlRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -118,7 +133,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("scheduleOfWorkingHours.checkYourAnswersLabel"),
         tailorMsgOptimised(s"scheduleOfWorkingHours.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -127,7 +143,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("chooseWhereWork.checkYourAnswersLabel"),
         tailorMsgOptimised(s"chooseWhereWork.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(controlRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -136,7 +153,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("howWorkerIsPaid.checkYourAnswersLabel"),
         tailorMsgOptimised(s"howWorkerIsPaid.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -145,7 +163,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("putRightAtOwnCost.checkYourAnswersLabel"),
         tailorMsgOptimised(s"putRightAtOwnCost.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(financialRiskRoutes.PutRightAtOwnCostController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -154,7 +173,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("benefits.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -163,7 +183,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("lineManagerDuties.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -172,7 +193,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("interactWithStakeholders.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -181,7 +203,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("identifyToStakeholders.checkYourAnswersLabel"),
         tailorMsgOptimised(s"identifyToStakeholders.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -190,21 +213,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("arrangedSubstitute.checkYourAnswersLabel"),
         tailorMsgOptimised(s"arrangedSubstitute.${x.answer}"),
-        answerIsMessageKey = true
-      )
-    }
-
-  def cannotClaimAsExpense(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(CannotClaimAsExpensePage) map { x =>
-      AnswerRow(
-        label = tailorMsgOptimised("cannotClaimAsExpense.checkYourAnswersLabel"),
-        answers = x.answer.map(ans =>
-          AnswerRow(
-            label = tailorMsgOptimised(s"cannotClaimAsExpense.checkYourAnswersLabel"),
-            answer = tailorMsgOptimised(s"cannotClaimAsExpense.$ans"),
-            answerIsMessageKey = true
-          )
-        )
+        answerIsMessageKey = true,
+        changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -213,7 +223,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg("materials.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(financialRiskRoutes.MaterialsController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -222,7 +233,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg("vehicle.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(financialRiskRoutes.VehicleController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -231,7 +243,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg("equipmentExpenses.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(financialRiskRoutes.EquipmentExpensesController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -240,21 +253,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg("otherExpenses.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
-      )
-    }
-
-  def cannotClaimAsExpenseOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(CannotClaimAsExpensePage) map { x =>
-      AnswerRow(
-        label = tailorMsg("cannotClaimAsExpense.checkYourAnswersLabel.optimised"),
-        answers = CannotClaimAsExpense.values.map ( expense =>
-          AnswerRow(
-            label = tailorMsg(s"cannotClaimAsExpense.$expense.checkYourAnswers"),
-            if(x.answer.contains(expense)) "site.yes" else "site.no",
-            answerIsMessageKey = true
-          )
-        )
+        answerIsMessageKey = true,
+        changeUrl = Some(financialRiskRoutes.OtherExpensesController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -263,16 +263,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("officeHolder.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
-      )
-    }
-
-  def workerType(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(WorkerTypePage) map { x =>
-      AnswerRow(
-        tailorMsgOptimised("workerType.checkYourAnswersLabel"),
-        tailorMsgOptimised(s"workerType.${x.answer}"),
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -281,7 +273,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsg(s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url)
       )
     }
 
@@ -290,22 +283,17 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       AnswerRow(
         tailorMsgOptimised("contractStarted.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true
+        answerIsMessageKey = true,
+        changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
       )
     }
-
-  def aboutYou: Option[AnswerRow] = userAnswers.get(AboutYouPage) map { x =>
-    AnswerRow(
-      "aboutYou.checkYourAnswersLabel",
-      s"aboutYou.${x.answer}", answerIsMessageKey = true
-    )
-  }
 
   def aboutYouOptimised: Option[AnswerRow] = userAnswers.get(WhichDescribesYouPage) map { x =>
     AnswerRow(
       s"$WhichDescribesYouPage.checkYourAnswersLabel",
       s"$WhichDescribesYouPage.${x.answer}",
-      answerIsMessageKey = true
+      answerIsMessageKey = true,
+      changeUrl = Some(setupRoutes.AboutYouController.onPageLoad(CheckMode).url)
     )
   }
 
@@ -313,7 +301,8 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     AnswerRow(
       tailorMsg(s"$IsWorkForPrivateSectorPage.checkYourAnswersLabel"),
       if(x.answer) "isWorkForPrivateSector.private" else "isWorkForPrivateSector.public",
-      answerIsMessageKey = true
+      answerIsMessageKey = true,
+      changeUrl = Some(setupRoutes.IsWorkForPrivateSectorController.onPageLoad(CheckMode).url)
     )
   }
 }
