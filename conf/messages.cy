@@ -1449,7 +1449,7 @@ worker.optimised.result.outside.paye.heading = You are self-employed for tax pur
 worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
 worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
-worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost with this work, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
 
