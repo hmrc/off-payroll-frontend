@@ -76,6 +76,108 @@ class PDFControllerSpec extends ControllerSpecBase {
 
   "CustomisePDF Controller" must {
 
+    "download the pdf" in {
+      enable(OptimisedFlow)
+
+      mockDetermineResultView()(Right(Html("Html")))
+
+      val validData = Map(
+        CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer"), reference = Some("filenames,,,,,,")), 0)),
+        Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 1))
+      )
+
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      mockDecryptDetails(AdditionalPdfDetails(Some("answer"), reference = Some("filenames,,,,,,")))
+
+      val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
+
+      mockGeneratePdf(response)
+      mockCheckYourAnswers(Seq())
+
+      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+
+      status(result) mustBe OK
+
+      contentAsString(result) mustBe "PDF"
+    }
+
+    "download the pdf and default the filename if it's not ascii" in {
+      enable(OptimisedFlow)
+
+      mockDetermineResultView()(Right(Html("Html")))
+
+      val validData = Map(
+        CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer"), reference =  Some("€€€€€###¢¢¢€€#¢,,,,,,,,")), 0)),
+        Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 1))
+      )
+
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      mockDecryptDetails(AdditionalPdfDetails(Some("answer"), reference = Some("€€€€€###¢¢¢€€#¢,,,,,,,,")))
+
+      val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
+
+      mockGeneratePdf(response)
+      mockCheckYourAnswers(Seq())
+
+      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+
+      status(result) mustBe OK
+
+      contentAsString(result) mustBe "PDF"
+
+    }
+    "handle errors from the pdf" in {
+      enable(OptimisedFlow)
+
+      mockDetermineResultView()(Left(Html("Html")))
+
+      val validData = Map(
+        CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer")), 0)),
+        Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 1))
+      )
+
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      mockDecryptDetails(AdditionalPdfDetails(Some("answer")))
+
+      val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
+
+      mockCheckYourAnswers(Seq())
+
+      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+
+      status(result) mustBe INTERNAL_SERVER_ERROR
+
+      contentAsString(result) must include("Sorry we are experiencing technical problems")
+      contentAsString(result) must include("Please try again in few moments")
+      contentAsString(result) must not include "What do you want to find out?"
+    }
+
+    "download the pdf when no data is entered" in {
+      enable(OptimisedFlow)
+
+      mockDetermineResultView()(Right(Html("Html")))
+
+      val validData = Map(
+        Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 1))
+      )
+
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))
+
+      mockGeneratePdf(response)
+      mockCheckYourAnswers(Seq())
+
+      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+
+      status(result) mustBe OK
+
+      contentAsString(result) mustBe "PDF"
+    }
+
     "If the OptimisedFlow is enabled" should {
 
       "return OK and the correct view for a GET" in {
@@ -223,7 +325,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       "show the PDF view" in {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", testAnswer))
 
-        val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+        val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
         val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
         val response: PDFGeneratorHttpParser.Response = Right(SuccessfulPDF(ByteString("PDF")))

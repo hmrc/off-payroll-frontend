@@ -116,6 +116,30 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
         }
       }
 
+      "handle form errors" in {
+
+        enable(OptimisedFlow)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "sdfgvf"))
+        mockDetermineResultView()(Right(Html("Error")))
+
+        val result = TestResultController.onSubmit(postRequest)
+
+        status(result) mustBe BAD_REQUEST
+      }
+
+      "handle errors" in {
+
+        enable(OptimisedFlow)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "sdfgvf"))
+        mockDetermineResultView()(Left(Html("Error")))
+
+        val result = TestResultController.onSubmit(postRequest)
+
+        status(result) mustBe INTERNAL_SERVER_ERROR
+      }
+
       "If an error response is returned from the Optimised Decision Service" should {
 
         "return ISE and the HTML returned from the Decision Service" in {
