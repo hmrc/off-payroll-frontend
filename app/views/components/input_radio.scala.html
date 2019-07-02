@@ -43,6 +43,7 @@
             <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
         }
 
+        <div id="multiple-choice-options">
         @for(input <- inputs) {
             <div class="multiple-choice">
                 <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="check-employment-status-for-tax:click:@{input.id}"} />
@@ -56,6 +57,7 @@
                 </label>
             </div>
         }
+        </div>
 
     </fieldset>
 </div>

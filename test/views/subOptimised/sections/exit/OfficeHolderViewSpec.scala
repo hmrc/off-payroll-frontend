@@ -152,8 +152,8 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(3)).text mustBe OfficeHolderMessages.yes
-        document.select(Selectors.multichoice(5)).text mustBe OfficeHolderMessages.no
+        document.select(Selectors.multichoice(1)).text mustBe OfficeHolderMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe OfficeHolderMessages.no
       }
     }
   }
