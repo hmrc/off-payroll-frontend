@@ -56,6 +56,7 @@ session.expired.start_again = Start again
 site.back = Back
 site.delete = Remove
 site.edit = Change
+site.warning = Warning:
 site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
 site.no = No

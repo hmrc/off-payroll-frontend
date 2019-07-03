@@ -67,6 +67,7 @@ site.back = Yn ôl
 ##### TODO NEED WELSH FOR ####
 site.delete =   Remove
 site.edit =   Change
+site.warning = Warning:
 site.hidden-delete =   Delete {0}
 site.hidden-edit =   Change {0}
 ##### TODO NEED WELSH FOR ####
