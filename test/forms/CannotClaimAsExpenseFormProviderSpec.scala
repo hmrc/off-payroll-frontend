@@ -42,7 +42,7 @@ class CannotClaimAsExpenseFormProviderSpec extends OptionFieldBehaviours {
         fieldName(1) -> WorkerUsedVehicle.toString,
         fieldName(2) -> ExpensesAreNotRelevantForRole.toString
       ))
-      result.value.value shouldEqual Seq(ExpensesAreNotRelevantForRole)
+      result.value.value mustBe Seq(ExpensesAreNotRelevantForRole)
     }
   }
 }

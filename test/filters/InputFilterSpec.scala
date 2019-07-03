@@ -14,12 +14,24 @@
  * limitations under the License.
  */
 
-package pages
+package filters
 
-case object ResultPage extends QuestionPage[Boolean] {
-  override def toString: String = "result"
-}
+import base.SpecBase
 
-case object Timestamp extends QuestionPage[String] {
-  override def toString: String = "timestamp"
+class InputFilterSpec extends SpecBase with InputFilter {
+
+  "Input filter" must {
+    "filter out those hackers" in {
+
+      filter("<script>(.*?)</script>").mustBe("")
+      filter("<script(.*?)>").mustBe("")
+      filter("</script>").mustBe("")
+      filter("javascript:").mustBe("")
+      filter("vbscript:").mustBe("")
+      filter("onload(.*?)=").mustBe("")
+      filter("eval((.*?)").mustBe("")
+      filter("expression((.*?)").mustBe("")
+
+    }
+  }
 }

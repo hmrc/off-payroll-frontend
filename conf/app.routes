@@ -133,6 +133,8 @@ POST       /add-details-to-document                     controllers.PDFControlle
 GET        /add-details-to-document/change              controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
 POST       /add-details-to-document/change              controllers.PDFController.onSubmit(mode: Mode = CheckMode)
 
+GET        /download-pdf                                controllers.PDFController.downloadPDF()
+
 GET        /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onSubmit()
 
@@ -144,6 +146,16 @@ POST       /hirer-advisory                              controllers.sections.set
 
 GET        /review-answers                              controllers.CheckYourAnswersController.onPageLoad()
 POST       /review-answers                              controllers.CheckYourAnswersController.onSubmit()
+
+GET        /add-reference-details                       controllers.AddReferenceDetailsController.onPageLoad()
+POST       /add-reference-details                       controllers.AddReferenceDetailsController.onSubmit()
+
+GET        /finished-checking                           controllers.FinishedCheckingController.onPageLoad()
+
+GET        /turnover-over                               controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = NormalMode)
+POST       /turnover-over                               controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = NormalMode)
+GET        /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = CheckMode)
+POST       /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = CheckMode)
 
 GET        /private-sector-turnover                     controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = NormalMode)
 POST       /private-sector-turnover                     controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = NormalMode)

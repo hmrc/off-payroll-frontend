@@ -1142,8 +1142,12 @@ customisePDF.reference =Cyfeirnod (enw’r gweithiwr neu rif y cytundeb, er engh
 customisePDF.completedBy.error.length =  Name must be 100 characters or less
 customisePDF.client.error.length = Name must be 100 characters or less
 customisePDF.job.error.length = Job title must be 100 characters or less
-customisePDF.reference.error.length = Reference must be 100 characters or less
+customisePDF.reference.error.length = Reference must be 180 characters or less
 ##### TODO NEED WELSH FOR ####
+customisePDF.completedBy.error.utf8 = Name must be UTF8 characters only
+customisePDF.client.error.utf8 = Name must be UTF8 characters only
+customisePDF.job.error.utf8 = Job title must be UTF8 characters only
+customisePDF.reference.error.utf8 = Reference must be UTF8 characters only
 
 #Result summary text
 result.substitutesAndHelpers.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod a yw’r gweithiwr yn cael ei hurio fel busnes neu ar sail gwasanaeth personol. Os nad yw’r cleient terfynol wedi cytuno bod busnes y gweithiwr yn trefnu bod rhywun arall yn cael ei dalu i wneud y gwaith yn ei le, neu os na fyddai’n cytuno i hynny, mae’n awgrymu ei fod yn cael ei hurio ar sail gwasanaeth personol.
@@ -1334,8 +1338,9 @@ hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be 
 ##TODO: Need Welsh
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What to do next
-optimised.result.download.h2 = Download a copy of this result
-optimised.result.download.p1 = You can download a copy of your answers and this result to keep for your records.
+optimised.result.download.h2 = Do you want a copy of this result?
+optimised.result.download.p1 = You can download a document that will show today's date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
+optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 
 ## Office Holder PAYE
@@ -1545,6 +1550,31 @@ worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you a
 worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
 ## ------------------
 
+downloadPDFCopy.error.required = You need to select an answer
+
+addReferenceDetails.error.required = You need to select an answer
+addReferenceDetails.title = Do you want to add some reference details to this document?
+addReferenceDetails.heading = Do you want to add some reference details to this document?
+addReferenceDetails.yourRecordsOnly = This is for your records only, HMRC will not keep these details.
+addReferenceDetails.example = For example, contract information, job title or hiring department.
+
+addDetails.title =Add details
+addDetails.heading =Add details
+addDetails.name=Your name
+addDetails.client=Name of end client issuing the contract and/or agency
+addDetails.job=Contract or role title
+addDetails.reference=Other reference details
+addDetails.charLimit =180 characters maximum
+
+finishedChecking.title = You have finished checking the employment status for tax of this work
+finishedChecking.heading = You have finished checking the employment status for tax of this work
+finishedChecking.p1.beforeLink1 = You can now
+finishedChecking.p1.link1 = exit
+finishedChecking.p1.beforeLink2 = the tool, or
+finishedChecking.p1.link2 = start again
+finishedChecking.p1.afterLink2 = to check another piece of work
+finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
+
 
 ##TODO: Need Welsh
 materials.error.required = You need to select an answer
@@ -1603,3 +1633,8 @@ result.pdf.job = Engagement job title:
 result.pdf.reference = Reference:
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+
+pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
+pdfDetails.client.error.maxLength = The client name must be {0} characters or less
+pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
+pdfDetails.reference.error.maxLength = The reference must be {0} characters or less

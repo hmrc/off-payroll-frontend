@@ -16,26 +16,52 @@
 
 package forms
 
+import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import forms.mappings.Constraints
 import models.AdditionalPdfDetails
 import play.api.data.Form
 import play.api.data.Forms._
 
-class CustomisePDFFormProvider extends Constraints {
+class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
 
-  import CustomisePDFFormProvider.maxFieldLength
+  import CustomisePDFFormProvider._
 
-  def apply(): Form[AdditionalPdfDetails] =
-    Form(
-      mapping(
-        "completedBy" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.completedBy.error.length")),
-        "client" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.client.error.length")),
-        "job" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.job.error.length")),
-        "reference" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.reference.error.length"))
-      )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply)
-    )
+  def apply()(implicit appConfig: FrontendAppConfig): Form[AdditionalPdfDetails] =
+
+    if(isEnabled(OptimisedFlow)){
+
+      Form(
+        mapping(
+          "completedBy" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "completedBy")),
+          "client" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "client")),
+          "job" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "job")),
+          "reference" -> optional(text).verifying(referenceCheckConstraints(maxFieldReferenceLength, "reference"))
+        )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply).transform[AdditionalPdfDetails](
+          details => details.copy(
+            completedBy = details.completedBy.map(completedBy => filter(completedBy)),
+            client = details.client.map(client => filter(client)),
+            job = details.job.map(job => filter(job)),
+            reference = details.reference.map(reference => filter(reference))
+          ), x => x
+        )
+      )
+    } else {
+
+      Form(
+        mapping(
+          "completedBy" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.completedBy.error.length")),
+          "client" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.client.error.length")),
+          "job" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.job.error.length")),
+          "reference" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.reference.error.length"))
+        )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply)
+      )
+    }
 }
 
 object CustomisePDFFormProvider {
+
   val maxFieldLength = 100
+  val maxFieldReferenceLength = 180
+
 }
