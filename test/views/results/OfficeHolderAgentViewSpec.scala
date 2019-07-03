@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.UserType.Agency
 import models.requests.DataRequest
 import models.{PDFResultDetails, UserAnswers}
@@ -30,7 +31,9 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderAgentView]
 
-  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html = view(postAction)(req, messages, frontendAppConfig, pdfDetails)
+  val form = new DeclarationFormProvider()()
+
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html = view(form)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderAgentView page" should {
 

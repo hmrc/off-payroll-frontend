@@ -57,6 +57,37 @@ class NavigatorSpec extends SpecBase {
 
       "for the optimised flow" must {
 
+        "go to add reference page" in {
+
+          enable(OptimisedFlow)
+          nextPage(ResultPage, setAnswers(ResultPage -> true)) mustBe routes.AddReferenceDetailsController.onPageLoad()
+        }
+
+        "go to the finished checking page from the result page" in {
+
+          enable(OptimisedFlow)
+          nextPage(ResultPage, setAnswers(ResultPage -> false)) mustBe routes.FinishedCheckingController.onPageLoad()
+        }
+
+        "go to the pdf page" in {
+
+          enable(OptimisedFlow)
+          nextPage(AddReferenceDetailsPage, setAnswers(AddReferenceDetailsPage -> true)) mustBe routes.PDFController.onPageLoad(NormalMode)
+        }
+
+        "go to the finished checking page from the add details" in {
+
+          enable(OptimisedFlow)
+          nextPage(AddReferenceDetailsPage, setAnswers(AddReferenceDetailsPage -> false)) mustBe routes.FinishedCheckingController.onPageLoad()
+        }
+
+        "go to the finished checking page" in {
+
+          enable(OptimisedFlow)
+          nextPage(CustomisePDFPage) mustBe routes.FinishedCheckingController.onPageLoad()
+        }
+
+
         "go to the About Your Result page from the Index page" in {
           enable(OptimisedFlow)
           nextPage(IndexPage) mustBe setupRoutes.AboutYourResultController.onPageLoad()

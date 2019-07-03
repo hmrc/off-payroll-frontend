@@ -19,7 +19,8 @@
         label: String,
         inputClass: Option[String] = None,
         hint: Option[String] = None,
-        labelClass: Option[String] = None
+        labelClass: Option[String] = None,
+        maxLength: Option[Int] = Some(101)
 )(implicit messages: Messages)
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
@@ -36,6 +37,9 @@
         <input
         class="form-control @inputClass"
         type="text"
+        @if(maxLength.isDefined){
+            maxLength="@maxLength.get"
+        }
         id="@{field.id}"
         name="@{field.name}"
         value="@{field.value}"

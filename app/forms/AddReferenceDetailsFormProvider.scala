@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
-package pages
+package forms
 
-case object ResultPage extends QuestionPage[Boolean] {
-  override def toString: String = "result"
-}
+import javax.inject.Inject
 
-case object Timestamp extends QuestionPage[String] {
-  override def toString: String = "timestamp"
+import forms.mappings.Mappings
+import play.api.data.Form
+
+class AddReferenceDetailsFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("addReferenceDetails.error.required")
+    )
 }

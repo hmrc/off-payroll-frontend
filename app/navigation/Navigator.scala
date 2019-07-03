@@ -27,6 +27,7 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
+import pages.{CustomisePDFPage, _}
 import models.WhichDescribesYouAnswer.{Agency, _}
 import models._
 import pages._
@@ -194,7 +195,28 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
     //CYA/Results Page
     CheckYourAnswersPage -> (_ => routes.ResultController.onPageLoad()),
-    ResultPage -> (_ => routes.PDFController.onPageLoad(NormalMode))
+    ResultPage -> { answer =>
+
+      if (isEnabled(OptimisedFlow)) {
+        answer.get(ResultPage) match {
+          case Some(Answers(true, _)) => routes.AddReferenceDetailsController.onPageLoad()
+          case _ => routes.FinishedCheckingController.onPageLoad()
+        }
+      } else {
+        routes.PDFController.onPageLoad(NormalMode)
+      }
+    },
+
+    AddReferenceDetailsPage -> {
+      answer =>
+        answer.get(AddReferenceDetailsPage) match {
+          case Some(Answers(true, _)) => routes.PDFController.onPageLoad(NormalMode)
+          case _ => routes.FinishedCheckingController.onPageLoad()
+        }
+    },
+
+    CustomisePDFPage -> (_ => routes.FinishedCheckingController.onPageLoad())
+
   )
 
   private val checkRouteMap: Map[Page, UserAnswers => Call] = Map()
