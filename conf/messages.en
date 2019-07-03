@@ -1283,14 +1283,14 @@ hirer.optimised.result.officeHolder.paye.doNext.p1 = Ensure that you operate PAY
 
 ## Office Holder IR35
 ## ------------------
-worker.optimised.result.officeHolder.ir35.title = The off-payroll working rules (IR35) apply to this contract
-worker.optimised.result.officeHolder.ir35.heading = The off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply to this contract
 worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are deemed employed for tax purposes.
 worker.optimised.result.officeHolder.ir35.private.doNext.p1 = Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings.
 worker.optimised.result.officeHolder.ir35.public.doNext.p1 = Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings.
 
-hirer.optimised.result.officeHolder.ir35.title = The off-payroll working rules (IR35) apply to this contract
-hirer.optimised.result.officeHolder.ir35.heading = The off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply to this contract
 hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes.
 hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
 hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you are the fee payer, you need to operate PAYE on earnings from this contract. If the fee payer is someone else, you need to show them this determination.
@@ -1298,8 +1298,8 @@ hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you are the fee p
 
 ## Office Holder Agent
 ## -------------------
-agent.optimised.result.officeHolder.title = The off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.officeHolder.heading = The off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.officeHolder.title = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply to this contract
 agent.optimised.result.officeHolder.whyResult.p1 = In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
 agent.optimised.result.officeHolder.doNext.p1 = If you are the fee payer, you should tell your candidate that you will be operating PAYE on their earnings.
 ## ------------------
