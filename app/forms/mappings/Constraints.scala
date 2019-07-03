@@ -85,6 +85,12 @@ trait Constraints extends InputFilter{
         Invalid(errorKey, maximum)
     }
 
+  protected def optMaxLength(maximum: Int, errorKey: String): Constraint[Option[String]] =
+    Constraint {
+      case Some(str) if str.length > maximum => Invalid(errorKey, maximum)
+      case _ => Valid
+    }
+
   def referenceCheckConstraints(maxLength: Int, message: String): Constraint[Option[String]] =
     Constraint {
       case Some(text) =>
