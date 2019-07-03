@@ -42,6 +42,11 @@ class PDFControllerSpec extends ControllerSpecBase {
     enable(PrintPDF)
   }
 
+  enable(OptimisedFlow)
+  val optFormProvider = new CustomisePDFFormProvider()
+  val optForm = optFormProvider()
+
+  disable(OptimisedFlow)
   val formProvider = new CustomisePDFFormProvider()
   val form = formProvider()
 
@@ -55,6 +60,27 @@ class PDFControllerSpec extends ControllerSpecBase {
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
     formProvider,
+    controllerComponents = messagesControllerComponents,
+    customisePdfView,
+    addDetailsView,
+    injector.instanceOf[DecisionService],
+    mockOptimisedDecisionService,
+    mockPDFService,
+    errorHandler,
+    FakeTimestamp,
+    mockCompareAnswerService,
+    mockCheckYourAnswersService,
+    mockEncryptionService,
+    frontendAppConfig
+  )
+
+  def optController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
+    mockDataCacheConnector,
+    new FakeNavigator(onwardRoute),
+    FakeIdentifierAction,
+    dataRetrievalAction,
+    new DataRequiredActionImpl(messagesControllerComponents),
+    optFormProvider,
     controllerComponents = messagesControllerComponents,
     customisePdfView,
     addDetailsView,
@@ -269,12 +295,12 @@ class PDFControllerSpec extends ControllerSpecBase {
         enable(OptimisedFlow)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("completedBy", "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
-        val boundForm = form.bind(Map("completedBy" -> "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
+        val boundForm = optForm.bind(Map("completedBy" -> "a" * (CustomisePDFFormProvider.maxFieldLength + 1)))
 
         val validData = Map(CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer")), 0)))
         val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-        val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)
+        val result = optController(getRelevantData).onSubmit(NormalMode)(postRequest)
 
         status(result) mustBe BAD_REQUEST
         contentAsString(result) mustBe optViewAsString(boundForm)
