@@ -17,26 +17,23 @@
 package services
 
 import base.SpecBase
-import models.AdditionalPdfDetails
 import org.scalamock.scalatest.MockFactory
-import play.api.Configuration
 
 class EncryptionServiceSpec extends SpecBase with MockFactory {
 
-  val mockConf = mock[Configuration]
+  val service = new EncryptionService(app.configuration)
 
-  val service = new EncryptionService(mockConf)
+  val strToEncrypt = "EncryptThisPleaseKindSir-vice"
+  val encryptedStr = "Ve6PtNjJmYtYegZJDXDeXDXxYrMijtUVoeZhIFMbe0s="
 
-  //TODO ADD MOCK
 
   "The encryption service" must {
     "encrypt values" in {
-
-//      service.encrypt("EncryptThisPleaseKindSir-vice") mustBe ""
+      service.encrypt(strToEncrypt) mustBe encryptedStr
     }
 
     "decrypt values" in {
-//      service.decrypt("DecryptThisPleaseKindSir-vice") mustBe ""
+      service.decrypt(encryptedStr) mustBe strToEncrypt
     }
 
 //    "encrypt the details model" in {
