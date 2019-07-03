@@ -285,8 +285,8 @@ arrangedSubstitute.bullet3 = rhywun nad oedd o garfan o weithwyr a huriwyd yn rh
 arrangedSubstitute.bullet4 = rhywun a oedd yn gwneud holl dasgau gwaith y gweithiwr am y cyfnod hwnnw o amser
 arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y gweithiwr yn fodlon gwneud y gwaith, er y gallai
 arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
-arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
-arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
+arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 arrangedSubstitute.checkYourAnswersLabel = A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
 arrangedSubstitute.error.required = Mae angen i chi ddewis ateb
 arrangedSubstitute.error.invalid = Mae angen i chi ddewis ateb
@@ -302,8 +302,8 @@ worker.arrangedSubstitute.bullet3 = rhywun nad oedd o garfan o weithwyr a huriwy
 worker.arrangedSubstitute.bullet4 = rhywun a oedd yn gwneud holl dasgau gwaith y gweithiwr am y cyfnod hwnnw o amser
 worker.arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y gweithiwr yn fodlon gwneud y gwaith, er y gallai
 worker.arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
-worker.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
-worker.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+worker.arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
+worker.arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 
 hirer.arrangedSubstitute.title = A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
 hirer.arrangedSubstitute.heading = A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
@@ -316,24 +316,24 @@ hirer.arrangedSubstitute.bullet3 = rhywun nad oedd o garfan o weithwyr a huriwyd
 hirer.arrangedSubstitute.bullet4 = rhywun a oedd yn gwneud holl dasgau gwaith y gweithiwr am y cyfnod hwnnw o amser
 hirer.arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y gweithiwr yn fodlon gwneud y gwaith, er y gallai
 hirer.arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
-hirer.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
-hirer.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+hirer.arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
+hirer.arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 
 ## TODO: Need Welsh
 worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted the substitute
-worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client did not accept the substitute
-worker.optimised.arrangedSubstitute.no = No, it has not happened
+worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept the substitute
+worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
 ## TODO: Need Welsh
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
-hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but the substitute wasn’t accepted.
-hirer.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but the substitute wasn’t accepted.
+hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it hasn’t happened.
 #########################
 
 ## Identify to stakeholders
