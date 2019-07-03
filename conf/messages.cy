@@ -84,6 +84,7 @@ site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
 site.ir35email = ir35@hmrc.gov.uk
+site.employmentStatusManual = Employment Status Manual
 
 feedback.before = Mae hwn yn wasanaeth newydd - bydd eich
 feedback.link = adborth

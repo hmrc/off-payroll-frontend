@@ -1378,10 +1378,10 @@ worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client 
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business will incur a significant cost with this contract, which cannot be reclaimed or re-charged
 worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
-worker.optimised.result.outside.ir35.private.doNext.p1.preLink = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow
+worker.optimised.result.outside.ir35.private.doNext.p1.preLink = Download a copy of your result to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow
 worker.optimised.result.outside.ir35.private.doNext.p1.link = this guidance
 worker.optimised.result.outside.ir35.private.doNext.p1.postLink = about your taxes.
-worker.optimised.result.outside.ir35.public.doNext.p1.preLink = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow
+worker.optimised.result.outside.ir35.public.doNext.p1.preLink = Download a copy of your result to give to the feepayer. They need to pay your business a gross amount for this work. You can also follow
 worker.optimised.result.outside.ir35.public.doNext.p1.link = this guidance
 worker.optimised.result.outside.ir35.public.doNext.p1.postLink =  about your taxes.
 

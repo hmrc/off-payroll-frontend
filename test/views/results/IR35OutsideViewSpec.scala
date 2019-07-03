@@ -149,7 +149,6 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         "Have the correct Do Next section which" in {
           document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
           document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.doNextPublic
-          document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.WorkerIR35.doNextPublic
         }
       }
     }
