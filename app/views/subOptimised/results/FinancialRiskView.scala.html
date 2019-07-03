@@ -97,9 +97,9 @@ timestamp: Option[String] = None)(implicit request: DataRequest[_], messages: Me
     <p>
         @messages("result.financialRisk.aboutResult.p1.beforeLink")
         @if(printView){
-            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040">@messages("result.financialRisk.aboutResult.p1.link")</a>
+            <a href="@{appConfig.employmentStatusManualUrl}/esm8040">@messages("result.financialRisk.aboutResult.p1.link")</a>
         } else {
-            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm8040" rel="external">@messages("result.financialRisk.aboutResult.p1.link")</a>
+            <a href="@{appConfig.employmentStatusManualUrl}/esm8040" rel="external">@messages("result.financialRisk.aboutResult.p1.link")</a>
         }@messages("result.financialRisk.aboutResult.p1.afterLink")
     </p>
 }

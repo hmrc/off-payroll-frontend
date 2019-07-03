@@ -72,10 +72,22 @@
 
 @doNext = {
     @if(isPrivateSector) {
-        <p>@messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p1"))</p>
-        <p>@messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p2"))</p>
+        <p>
+            @messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p1"))
+            <a href="mailto:@{messages("site.ir35email")}">@messages("site.ir35email")</a>.
+        </p>
+        <p>
+            @messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p2"))
+            <a href="@{appConfig.employmentStatusManualUrl}">@messages("site.employmentStatusManual")</a>.
+        </p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p1"))</p>
-        <p>@messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p2"))</p>
+        <p>
+            @messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p1"))
+            <a href="mailto:@{messages("site.ir35email")}">@messages("site.ir35email")</a>.
+        </p>
+        <p>
+            @messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p2"))
+            <a href="@{appConfig.employmentStatusManualUrl}">@messages("site.employmentStatusManual")</a>.
+        </p>
     }
 }

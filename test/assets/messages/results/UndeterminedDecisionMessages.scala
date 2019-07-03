@@ -22,10 +22,10 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val title = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
     val heading = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
     val whyResult = "We need more information to understand the working practices of this contract."
-    val doNextPrivateP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk"
-    val doNextPrivateP2 = "You could also read through the Employment status manual."
-    val doNextPublicP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk"
-    val doNextPublicP2 = "You could also read through the Employment status manual."
+    val doNextPrivateP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
+    val doNextPrivateP2 = "You could also read through the Employment Status Manual."
+    val doNextPublicP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
+    val doNextPublicP2 = "You could also read through the Employment Status Manual."
   }
 
   object HirerPAYE {
@@ -33,15 +33,15 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to decide the employment status of this work for tax purposes"
     val whyResult = "We need more information to understand the working practices of this engagement."
     val doNextP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextP2 = "You could also read through the Employment status manual."
+    val doNextP2 = "You could also read through the Employment Status Manual."
   }
 
   object Agent {
     val title = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
     val heading = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
     val whyResult_p1 = "We need more information to understand the working practices of this engagement."
-    val doNext_p1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk"
-    val doNext_p2 = "You could also read through the Employment status manual."
+    val doNext_p1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
+    val doNext_p2 = "You could also read through the Employment Status Manual."
   }
 
 
@@ -50,9 +50,9 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
     val whyResult = "We need more information to understand the working practices of this contract."
     val doNextPrivateP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextPrivateP2 = "You could also read through the Employment status manual."
+    val doNextPrivateP2 = "You could also read through the Employment Status Manual."
     val doNextPublicP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextPublicP2 = "You could also read through the Employment status manual."
+    val doNextPublicP2 = "You could also read through the Employment Status Manual."
   }
 
 
@@ -61,6 +61,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to decide the employment status of this work for tax purposes"
     val whyResult = "We need more information to understand the working practices of this engagement."
     val doNextP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextP2 = "You could also read through the Employment status manual."
+    val doNextP2 = "You could also read through the Employment Status Manual."
   }
 }

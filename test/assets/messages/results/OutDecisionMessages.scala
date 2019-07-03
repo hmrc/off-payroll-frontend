@@ -19,27 +19,29 @@ package assets.messages.results
 object OutDecisionMessages extends BaseResultMessages {
 
   object WorkerIR35 {
-    val title = "The off-payroll working rules (IR35) do not apply to this contract"
-    val heading = "The off-payroll working rules (IR35) do not apply to this contract"
+    val title = "Off-payroll working rules (IR35) do not apply to this contract"
+    val heading = "Off-payroll working rules (IR35) do not apply to this contract"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "your client has accepted, or would accept, a substitute to do this work"
     val whyResultB2 = "your client does not have control over this work"
     val whyResultB3 = "your business will incur a significant cost with this contract, which cannot be reclaimed or re-charged"
     val whyResultP2 = "This indicates the working arrangements for this contract are on a business to business basis."
-    val doNextPrivate = "Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
-    val doNextPublic = "Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
+    val doNextPrivate = "Download a copy of your result to give to the feepayer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
+    val doNextPublic = "Download a copy of your result to give to the feepayer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
   }
 
   object HirerIR35 {
-    val title = "The off-payroll working rules (IR35) do not apply to this contract"
-    val heading = "The off-payroll working rules (IR35) do not apply to this contract"
+    val title = "Off-payroll working rules (IR35) do not apply to this contract"
+    val heading = "Off-payroll working rules (IR35) do not apply to this contract"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "you have accepted, or would accept, a substitute to do this work"
     val whyResultB2 = "you do not have control over this work"
     val whyResultB3 = "the worker’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged"
     val whyResultP2 = "This indicates the working arrangements for this contract are on a business to business basis."
-    val doNextPrivate = "You can pay a gross amount to the worker, without deducting tax and National Insurance."
-    val doNextPublicP1 = "If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance."
+    val doNextPrivateP1 = "Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker's responsibility."
+    val doNextPrivateP2 = "From April 2020, if you are the fee payer then you would need to pay the worker’s business gross, without deducting tax and National Insurance."
+    val doNextPrivateP3 = "If the fee payer is someone else, then you would need to show this determination to them."
+    val doNextPublicP1 = "If you are the fee payer you need to pay the worker’s business gross, without deducting tax and National Insurance."
     val doNextPublicP2 = "If the fee payer is someone else, you need to show them this determination."
   }
 
@@ -55,24 +57,24 @@ object OutDecisionMessages extends BaseResultMessages {
   }
 
   object HirerPAYE {
-    val title = "The worker is self-employed for tax purposes for this job"
-    val heading = "The worker is self-employed for tax purposes for this job"
+    val title = "Self-employed for tax purposes for this job"
+    val heading = "Self-employed for tax purposes for this job"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "you have accepted, or would accept, a substitute to do this work"
     val whyResultB2 = "you do not have control over this work"
-    val whyResultB3 = "the worker’s business will incur a significant cost with this job, which cannot be reclaimed or re-charged"
+    val whyResultB3 = "the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged"
     val whyResultP2 = "These working arrangements mean the worker is self-employed for tax purposes."
     val doNext = "You can pay a gross amount to the worker, without deducting tax and National Insurance."
   }
 
   object Agent {
-    val heading = "The off-payroll working rules (IR35) do not apply to this contract"
+    val heading = "Off-payroll working rules (IR35) do not apply to this contract"
     val title = heading
     val p1 = "Your answers told us:"
     val reason1 = "your candidate’s client has accepted, or would accept, a substitute to do this work"
     val reason2 = "your candidate’s client does not have control over this work"
-    val reason3 = "your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged."
+    val reason3 = "your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged"
     val p2 = "This indicates the working arrangements for this contract are on a business to business basis."
-    val doNext = "If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance."
+    val doNext = "If you are the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance."
   }
 }

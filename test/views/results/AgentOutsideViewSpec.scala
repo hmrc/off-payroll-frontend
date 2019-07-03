@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{InDecisionMessages, OutDecisionMessages}
+import assets.messages.results.OutDecisionMessages
 import config.SessionKeys
 import models.UserAnswers
 import models.UserType.Agency
@@ -73,7 +73,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
     }
 
     "Have the correct Do Next section" in {
-      document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.Agent.doNext
     }
   }
