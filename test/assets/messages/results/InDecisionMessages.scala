@@ -19,15 +19,15 @@ package assets.messages.results
 object InDecisionMessages extends BaseResultMessages {
 
   object Agent {
-    val title = "The off-payroll working rules (IR35) apply to this contract"
-    val heading = "The off-payroll working rules (IR35) apply to this contract"
-    val whyResult_p1 = "The answers you’ve given tell us your candidate’s client is directly hiring them. And the working practices of this engagement mean that your candidate is classed as employed for tax purposes."
+    val title = "Off-payroll working rules (IR35) apply to this contract"
+    val heading = "Off-payroll working rules (IR35) apply to this contract"
+    val whyResult_p1 = "The answers you have given tell us that your candidate’s client is directly hiring them. The working practices of this engagement mean that your candidate is classed as employed for tax purposes."
     val doNext_p1 = "If you are the fee payer, you should tell your candidate that you will be operating PAYE for their earnings."
   }
 
   object WorkerIR35 {
-    val title = "The off-payroll working rules (IR35) apply to this contract"
-    val heading = "The off-payroll working rules (IR35) apply to this contract"
+    val title = "Off-payroll working rules (IR35) apply to this contract"
+    val heading = "Off-payroll working rules (IR35) apply to this contract"
     val whyResult = "Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes."
     val doNextPrivate = "Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings."
     val doNextPublic = "Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings."
@@ -41,8 +41,8 @@ object InDecisionMessages extends BaseResultMessages {
   }
 
   object HirerIR35 {
-    val title = "The off-payroll working rules (IR35) apply to this contract"
-    val heading = "The off-payroll working rules (IR35) apply to this contract"
+    val title = "Off-payroll working rules (IR35) apply to this contract"
+    val heading = "Off-payroll working rules (IR35) apply to this contract"
     val whyResult = "Your answers indicate that the worker is providing a service to your organisation. This means they are deemed employed for tax purposes."
     val doNextPrivateP1 = "Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility."
     val doNextPrivateP2 = "From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them."

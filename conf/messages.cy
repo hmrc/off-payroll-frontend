@@ -1409,8 +1409,8 @@ hirer.optimised.result.out.paye.whyResult.p2 = Your answers indicate that this i
 hirer.optimised.result.out.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 
 ##TODO: Need Welsh
-worker.optimised.result.inside.ir35.title = Result
-worker.optimised.result.inside.ir35.heading = The off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
 worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes.
 worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings.
 worker.optimised.result.inside.ir35.public.doNext.p1 = Download a copy of your result to give to the feepayer. They need to operate PAYE on your earnings.
@@ -1456,9 +1456,9 @@ worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result 
 ## Inside Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.inside.title = Result
-agent.optimised.result.inside.heading = The off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.inside.whyResult.p1 = The answers you’ve given tell us your candidate’s client is directly hiring them. And the working practices of this engagement mean that your candidate is classed as employed for tax purposes.
+agent.optimised.result.inside.title = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.inside.heading = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.inside.whyResult.p1 = The answers you have given tell us that your candidate’s client is directly hiring them. The working practices of this engagement mean that your candidate is classed as employed for tax purposes.
 agent.optimised.result.inside.doNext.p1 = If you are the fee payer, you should tell your candidate that you will be operating PAYE for their earnings.
 ## ------------------
 
@@ -1488,8 +1488,8 @@ agent.optimised.result.undetermined.doNext.p2 = You could also read through the 
 ## Hirer IR35
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.ir35.title = Result
-hirer.optimised.result.inside.ir35.heading = The off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
 hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are deemed employed for tax purposes.
 hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
 hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
@@ -1508,7 +1508,7 @@ hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read 
 ## PAYE Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.inside.paye.title = Result
+worker.optimised.result.inside.paye.title = Employed for tax purposes for this work
 worker.optimised.result.inside.paye.heading = Employed for tax purposes for this work
 worker.optimised.result.inside.paye.whyResult.p1 = The working arrangements indicate that you are employed for tax purposes.
 worker.optimised.result.inside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
