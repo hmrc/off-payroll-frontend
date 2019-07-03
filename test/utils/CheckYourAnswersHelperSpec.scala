@@ -211,7 +211,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Worker.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(ArrangedSubstitutePage).url)
             ))
         }
       }
@@ -225,7 +225,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"$Hirer.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(ArrangedSubstitutePage).url)
             ))
         }
       }
@@ -239,7 +239,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
               answer = s"optimised.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(ArrangedSubstitutePage).url)
             ))
         }
       }
@@ -393,7 +393,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(DidPaySubstitutePage).url)
             ))
         }
       }
@@ -407,7 +407,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(DidPaySubstitutePage).url)
             ))
         }
       }
@@ -421,7 +421,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(DidPaySubstitutePage).url)
             ))
         }
       }
@@ -778,7 +778,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(NeededToPayHelperPage).url)
             ))
         }
       }
@@ -792,7 +792,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(NeededToPayHelperPage).url)
             ))
         }
       }
@@ -806,7 +806,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(NeededToPayHelperPage).url)
             ))
         }
       }
@@ -833,7 +833,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage).url)
             ))
         }
       }
@@ -847,7 +847,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage).url)
             ))
         }
       }
@@ -861,7 +861,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"optimised.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage).url)
             ))
         }
       }
@@ -888,7 +888,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(WouldWorkerPaySubstitutePage).url)
             ))
         }
       }
@@ -902,7 +902,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Hirer.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(WouldWorkerPaySubstitutePage).url)
             ))
         }
       }
@@ -916,7 +916,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
-              changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(WouldWorkerPaySubstitutePage).url)
             ))
         }
       }
