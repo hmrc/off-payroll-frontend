@@ -284,8 +284,8 @@ arrangedSubstitute.bullet3 = was not from a pool or bank of workers regularly en
 arrangedSubstitute.bullet4 = did all of the worker’s tasks for that period of time
 arrangedSubstitute.bullet5 = was substituted because the worker was unwilling but not unable to do the work
 arrangedSubstitute.yesClientAgreed = Yes - and the client agreed
-arrangedSubstitute.yesClientNotAgreed = Yes - but the client did not agree
-arrangedSubstitute.no = No - it has not happened
+arrangedSubstitute.notAgreedWithClient = Yes - but the client did not agree
+arrangedSubstitute.noSubstitutionHappened = No - it has not happened
 arrangedSubstitute.checkYourAnswersLabel = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 arrangedSubstitute.error.required = You need to select an answer
 arrangedSubstitute.error.invalid = You need to select an answer
@@ -301,8 +301,8 @@ worker.arrangedSubstitute.bullet3 = Was not from a pool or bank of workers regul
 worker.arrangedSubstitute.bullet4 = Did all of your tasks for that period of time
 worker.arrangedSubstitute.bullet5 = Was substituted because you were unwilling but not unable to do the work
 worker.arrangedSubstitute.yesClientAgreed = Yes - and the end client agreed
-worker.arrangedSubstitute.yesClientNotAgreed = Yes - but the end client did not agree
-worker.arrangedSubstitute.no = No - it has not happened
+worker.arrangedSubstitute.notAgreedWithClient = Yes - but the end client did not agree
+worker.arrangedSubstitute.noSubstitutionHappened = No - it has not happened
 
 hirer.arrangedSubstitute.title = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 hirer.arrangedSubstitute.heading = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
@@ -315,22 +315,22 @@ hirer.arrangedSubstitute.bullet3 = Was not from a pool or bank of workers regula
 hirer.arrangedSubstitute.bullet4 = Did all of the worker’s tasks for that period of time
 hirer.arrangedSubstitute.bullet5 = Was substituted because the worker was unwilling but not unable to do the work
 hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
-hirer.arrangedSubstitute.yesClientNotAgreed = Yes - but we did not agree
-hirer.arrangedSubstitute.no = No - it has not happened
+hirer.arrangedSubstitute.notAgreedWithClient = Yes - but we did not agree
+hirer.arrangedSubstitute.noSubstitutionHappened = No - it has not happened
 
 worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted the substitute
-worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client did not accept the substitute
-worker.optimised.arrangedSubstitute.no = No, it has not happened
+worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept the substitute
+worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work?
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work?
 hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work?
 hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted the substitute
-hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but you did not accept the substitute
-hirer.optimised.arrangedSubstitute.no = No, it has not happened
+hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but you did not accept the substitute
+hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 #########################
 
 ## Identify to stakeholders
