@@ -34,6 +34,7 @@ trait ViewSpecBase extends SpecBase {
     val exclamation = s"#content form .notice strong"
     val continueButton = "#content form button"
     val hint = (i: Int) => s".form-hint:nth-of-type($i)"
+    val panel = s"div.panel-border-wide"
   }
 
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())

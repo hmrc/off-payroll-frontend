@@ -28,12 +28,13 @@
 @mainTemplate(
     title = title(form,messages("resetAnswersWarning.title")),
     appConfig = appConfig,
-    bodyClasses = None,
-    articleLayout = false) {
+    bodyClasses = None) {
 
     @components.back_link()(NormalMode)(messages)
 
     @formWithCsrf(action = ResetAnswersWarningController.onSubmit(), 'autoComplete -> "off") {
+
+        @components.error_summary(form.errors)
 
         @components.heading("resetAnswersWarning.heading")
 

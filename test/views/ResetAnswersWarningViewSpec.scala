@@ -29,14 +29,7 @@ class ResetAnswersWarningViewSpec extends ViewBehaviours {
     enable(OptimisedFlow)
   }
 
-  object Selectors extends BaseCSSSelectors {
-    override val h2 = (i: Int) => s"h2:nth-of-type($i)"
-    val accordionHeader = (i: Int) => s".accordion:nth-of-type($i) > .accordion__row a"
-    val sectionQuestion = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dt.cya-question"
-    val sectionSingleAnswer = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dd.cya-answer"
-    val sectionMultiQuestion = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type(${x+1}) dt.cya-question"
-    val sectionMultiAnswer = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type(${x+1}) dd.cya-answer"
-  }
+  object Selectors extends BaseCSSSelectors
 
   val messageKeyPrefix = "resetAnswersWarning"
 
@@ -63,7 +56,7 @@ class ResetAnswersWarningViewSpec extends ViewBehaviours {
     }
 
     "have the correct hint" in {
-      document.select(Selectors.hint(1)).text mustBe ResetAnswersMessages.hint
+      document.select(Selectors.panel).text() mustBe ResetAnswersMessages.hint
     }
 
   }
