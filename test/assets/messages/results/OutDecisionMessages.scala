@@ -26,8 +26,8 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultB2 = "your client does not have control over this work"
     val whyResultB3 = "your business will incur a significant cost for this work, which cannot be reclaimed or re-charged"
     val whyResultP2 = "This indicates the working arrangements for this contract are on a business to business basis."
-    val doNextPrivate = "Download a copy of your result to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
-    val doNextPublic = "Download a copy of your result to give to the feepayer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
+    val doNextPrivate = "Download a copy of your result to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
+    val doNextPublic = "Download a copy of your result to give to the fee-payer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes."
   }
 
   object HirerIR35 {
@@ -39,10 +39,10 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultB3 = "the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged"
     val whyResultP2 = "This indicates the working arrangements for this contract are on a business to business basis."
     val doNextPrivateP1 = "Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility."
-    val doNextPrivateP2 = "From April 2020, if you are the fee payer then you would need to pay the worker’s business gross, without deducting tax and National Insurance."
-    val doNextPrivateP3 = "If the fee payer is someone else, then you would need to show this determination to them."
-    val doNextPublicP1 = "If you are the fee payer you need to pay the worker’s business gross, without deducting tax and National Insurance."
-    val doNextPublicP2 = "If the fee payer is someone else, you need to show them this determination."
+    val doNextPrivateP2 = "From April 2020, if you are the fee-payer then you would need to pay the worker’s business gross, without deducting tax and National Insurance."
+    val doNextPrivateP3 = "If the fee-payer is someone else, then you would need to show this determination to them."
+    val doNextPublicP1 = "If you are the fee-payer you need to pay the worker’s business gross, without deducting tax and National Insurance."
+    val doNextPublicP2 = "If the fee-payer is someone else, you need to show them this determination."
   }
 
   object WorkerPAYE {
@@ -75,6 +75,6 @@ object OutDecisionMessages extends BaseResultMessages {
     val reason2 = "your candidate’s client does not have control over this work"
     val reason3 = "your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged"
     val p2 = "This indicates the working arrangements for this contract are on a business to business basis."
-    val doNext = "If you are the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance."
+    val doNext = "If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance."
   }
 }
