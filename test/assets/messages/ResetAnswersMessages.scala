@@ -16,11 +16,12 @@
 
 package assets.messages
 
-object CheckYourAnswersMessages extends BaseMessages {
+object ResetAnswersMessages extends BaseMessages {
 
-  val heading = "Review your answers in each section below"
-  val title = heading
-  val h2 = "Section 1 Section 2 Declaration"
-  val p1 = "By submitting your answers, you are confirming the following:"
+  val heading = "To change an answer in this section, you will need to restart the tool. This will delete your answers."
+  val title = "Finish"
+  val hint = "The answers given in this section influence the questions you are asked and the result."
+  val startAgain = "Start again"
+  val goBack = "Take me back to my answers"
 
 }

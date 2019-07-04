@@ -26,7 +26,7 @@
 @(form: Form[_])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = messages("resetAnswersWarning.title"),
+    title = title(form,messages("resetAnswersWarning.title")),
     appConfig = appConfig,
     bodyClasses = None,
     articleLayout = false) {
@@ -37,7 +37,7 @@
 
         @components.heading("resetAnswersWarning.heading")
 
-        @components.hint_p(Html(messages("resetAnswersWarning.hint")))
+        @components.panel_indent(Html(messages("resetAnswersWarning.hint")))
 
         @components.input_radio(
             field = form("value"),
