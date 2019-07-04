@@ -23,7 +23,7 @@ import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
-import models.{CheckMode, Enumerable, UserAnswers}
+import models.{CheckMode, Enumerable, NormalMode, UserAnswers}
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
@@ -274,7 +274,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(setupRoutes.WorkerTypeController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
       )
     }
 
@@ -284,7 +284,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsgOptimised("contractStarted.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
       )
     }
 
@@ -293,7 +293,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       s"$WhichDescribesYouPage.checkYourAnswersLabel",
       s"$WhichDescribesYouPage.${x.answer}",
       answerIsMessageKey = true,
-      changeUrl = Some(setupRoutes.AboutYouController.onPageLoad(CheckMode).url)
+      changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
     )
   }
 
@@ -302,7 +302,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       tailorMsg(s"$IsWorkForPrivateSectorPage.checkYourAnswersLabel"),
       if(x.answer) "isWorkForPrivateSector.private" else "isWorkForPrivateSector.public",
       answerIsMessageKey = true,
-      changeUrl = Some(setupRoutes.IsWorkForPrivateSectorController.onPageLoad(CheckMode).url)
+      changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
     )
   }
 }

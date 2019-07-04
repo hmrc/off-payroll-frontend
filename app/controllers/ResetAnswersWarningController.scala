@@ -56,10 +56,11 @@ class ResetAnswersWarningController @Inject()(navigator: Navigator,
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors =>
-        BadRequest(view(formWithErrors, NormalMode)),
+        BadRequest(view(formWithErrors)),
       reset => {
         if(reset) {
-          Redirect(controllers.routes.IndexController.onPageLoad())
+
+          Redirect(controllers.routes.IndexController.onPageLoad()).withNewSession
         } else {
           Redirect(controllers.routes.CheckYourAnswersController.onPageLoad())
         }

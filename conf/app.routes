@@ -192,5 +192,5 @@ POST       /equipment-expenses                          controllers.sections.fin
 GET        /equipment-expenses/change                   controllers.sections.financialRisk.EquipmentExpensesController.onPageLoad(mode: Mode = CheckMode)
 POST       /equipment-expenses/change                   controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = CheckMode)
 
-GET        /reset-answers-warning                       controllers.ResetAnswersWarningController.onPageLoad(mode: Mode = CheckMode)
-POST       /reset-answers-warning                       controllers.ResetAnswersWarningController.onSubmit(mode: Mode = CheckMode)
+GET        /reset-answers-warning                       controllers.ResetAnswersWarningController.onPageLoad()
+POST       /reset-answers-warning                       controllers.ResetAnswersWarningController.onSubmit()

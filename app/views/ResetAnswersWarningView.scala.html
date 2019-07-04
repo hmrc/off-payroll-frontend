@@ -26,7 +26,7 @@
 @(form: Form[_])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = titleNoForm("resetAnswersWarning.title"),
+    title = messages("resetAnswersWarning.title"),
     appConfig = appConfig,
     bodyClasses = None,
     articleLayout = false) {
@@ -41,8 +41,8 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("resetAnswersWarning.heading")),
-            hint = Some(components.details.arranged_substitute_details()),
+            legend = messages("resetAnswersWarning.heading"),
+            hint = None,
             legendClass = Some("visually-hidden"),
             inputs = ResetAnswersWarning.options
         )
