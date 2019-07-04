@@ -17,12 +17,13 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
+@import controllers.routes._
 @import results.sections.pdf
 @import models.requests.DataRequest
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_])(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -30,9 +31,11 @@
     } else {
         mainTemplate(titleNoForm("agent.optimised.result.officeHolder.title"), appConfig = appConfig)(_)
     }
-){ template =>
+) { template =>
 
     @template {
+
+        @components.error_summary(form.errors)
 
         @pdfResultDetails.additionalPdfDetails.map { details =>
             @pdf.additional_details(details, pdfResultDetails.timestamp)
@@ -44,7 +47,7 @@
             Some(Html(messages("agent.optimised.result.officeHolder.subHeading")))
         )
 
-        @formWithCsrf(postAction, 'autoComplete -> "off") {
+        @formWithCsrf(action = ResultController.onSubmit, 'autoComplete -> "off") {
 
             @results.sections.why_result(whyResult)
 
@@ -53,12 +56,16 @@
             @if(pdfResultDetails.printMode) {
 
                 @pdf.answers(pdfResultDetails.answerSections)
-
                 @pdf.decision_version(appConfig.decisionVersion)
 
             } else {
 
                 @results.sections.download()
+                @components.input_yes_no(
+                    field = form("value"),
+                    label = messages("agent.optimised.result.officeHolder.heading"),
+                    labelClass = Some("visually-hidden")
+                )
 
                 @components.submit_button("site.continue")
             }

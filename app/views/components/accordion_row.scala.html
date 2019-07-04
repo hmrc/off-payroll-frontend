@@ -19,7 +19,7 @@
 
 @(question: String, answer: String, answerIsMessageKey: Boolean, panelIndent: Boolean = false, changeUrl: Option[String])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-<dl class="govuk-check-your-answers cya-questions-long @if(panelIndent){panel-indent}">
+<dl class="govuk-check-your-answers cya-questions-long @if(panelIndent){panel-indent}" role="table">
     <div>
         <dt class="cya-question">@messages(question)</dt>
         <dd class="cya-answer">@if(answerIsMessageKey){@messages(answer)} else {@answer}</dd>

@@ -1,0 +1,68 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import controllers.routes._
+@import models.Mode
+@import views.ViewUtils._
+
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
+
+@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+
+@mainTemplate(
+    title = title(form, "addDetails.title"),
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    @formWithCsrf(action = PDFController.onSubmit(mode), 'autoComplete -> "off") {
+
+        @components.back_link
+
+        @components.error_summary(form.errors)
+
+        @components.heading("addDetails.heading")
+
+        @components.input_text(
+          field = form("completedBy"),
+          label = messages("addDetails.name"),
+            inputClass = Some("form-control-3-4")
+        )
+
+        @components.input_text(
+            field = form("client"),
+            label = messages("addDetails.client"),
+            inputClass = Some("form-control-3-4")
+        )
+
+        @components.input_text(
+            field = form("job"),
+            label = messages("addDetails.job"),
+            inputClass = Some("form-control-3-4")
+        )
+
+        @components.input_textarea(
+            field = form("reference"),
+            label = messages("addDetails.reference"),
+            hint = Some(messages("addDetails.charLimit")),
+            bold = false,
+            hintBelow = true
+        )
+
+        @components.submit_button()
+    }
+}

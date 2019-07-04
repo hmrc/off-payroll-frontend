@@ -26,16 +26,18 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.Answers._
 import models.requests.DataRequest
-import models.{AdditionalPdfDetails, Mode, Timestamp}
+import models.{AdditionalPdfDetails, Mode, NormalMode, Timestamp}
 import navigation.Navigator
-import pages.{CustomisePDFPage, ResultPage}
+import pages.{CustomisePDFPage, ResultPage, Timestamp}
+import play.api.data.Form
 import play.api.mvc._
-import play.twirl.api.Html
-import services._
+import play.core.utils.AsciiSet
+import play.twirl.api.{Html, HtmlFormat}
+import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, EncryptionService, OptimisedDecisionService, PDFService}
 import utils.UserAnswersUtils
-import views.html.CustomisePDFView
+import views.html.{AddDetailsView, CustomisePDFView}
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionException, Future}
 
 class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               navigator: Navigator,
@@ -45,34 +47,63 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               formProvider: CustomisePDFFormProvider,
                               controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
+                              addDetailsView: AddDetailsView,
                               decisionService: DecisionService,
                               optimisedDecisionService: OptimisedDecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
                               time: Timestamp,
-                              checkYourAnswersService: CheckYourAnswersService,
                               compareAnswerService: CompareAnswerService,
+                              checkYourAnswersService: CheckYourAnswersService,
+                              encryption: EncryptionService,
                               implicit val appConfig: FrontendAppConfig) extends BaseController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
+  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
 
-  val form = formProvider()
+  with FeatureSwitching with UserAnswersUtils {
+
+  val form: Form[AdditionalPdfDetails] = formProvider()
+
+  private def view(form: Form[AdditionalPdfDetails], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+    if(isEnabled(OptimisedFlow)) addDetailsView(appConfig, form, mode) else customisePdfView(appConfig, form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(customisePdfView(appConfig, fillForm(CustomisePDFPage, form), mode))
+
+    val decryptedForm = encryption.decryptDetails(fillForm(CustomisePDFPage, form).value.getOrElse(AdditionalPdfDetails()))
+
+    Ok(view(form.fill(decryptedForm), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(customisePdfView(appConfig, formWithErrors, mode))),
-      additionalData => {
-        val timestamp = time.timestamp(request.userAnswers.get(ResultPage).map(_.answer))
-        if(isEnabled(OptimisedFlow)) {
-          optimisedPrintResult(additionalData, timestamp)
-        } else {
+
+    if(isEnabled(OptimisedFlow)){
+
+      form.bindFromRequest().fold(
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+        additionalData => {
+
+          val encryptedDetails = encryption.encryptDetails(additionalData)
+
+          redirect[AdditionalPdfDetails](NormalMode, encryptedDetails, CustomisePDFPage)
+        }
+      )
+
+    } else {
+      form.bindFromRequest().fold(
+        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+        additionalData => {
+          val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
           printResult(additionalData, timestamp)
         }
-      }
-    )
+      )
+    }
+  }
+
+  def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
+    val pdfDetails = request.userAnswers.get(CustomisePDFPage).map(answer => encryption.decryptDetails(answer.answer)).getOrElse(AdditionalPdfDetails())
+    val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
+
+    optimisedPrintResult(pdfDetails, timestamp)
   }
 
   private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
@@ -87,7 +118,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   private def optimisedPrintResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
     optimisedDecisionService.determineResultView(
-      controllers.routes.ResultController.onSubmit(),
+      None,
       checkYourAnswersService.sections,
       printMode = true,
       additionalPdfDetails = Some(additionalPdfDetails),
@@ -100,12 +131,25 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
     if (isEnabled(PrintPDF)) {
-      val filename: String = reference.fold("result")(ref => ref)
+
       pdfService.generatePdf(view) map {
         case Right(result: SuccessfulPDF) =>
+
+          val fileName = reference.map(reference => reference.replaceAll(",", ""))
+
+          val ascii = try {
+            fileName.map(fileName => fileName.map(char => AsciiSet.apply(char)))
+          } catch {
+            case _: Throwable => None
+          }
+
+          val default = "result"
+          val validFileName = if(ascii.isDefined) fileName.getOrElse(default) else default
+
           Ok(result.pdf.toArray)
             .as("application/pdf")
-            .withHeaders("Content-Disposition" -> s"attachment; filename=$filename.pdf")
+            .withHeaders("Content-Disposition" -> s"attachment; filename=$validFileName.pdf")
+
         case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
       }
     } else {

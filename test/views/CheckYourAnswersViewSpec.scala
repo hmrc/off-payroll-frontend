@@ -57,14 +57,14 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
     lazy val cyaSections = Seq(
       AnswerSection(
-        headingKey = Some("heading1"),
+        headingKey = Some("Section 1"),
         whyResult = Some(Html("Additional Content1")),
         rows = Seq(
           singleAnswerRow(1) -> None,
           multiAnswerRow(1) -> None
         )),
       AnswerSection(
-        headingKey = Some("heading2"),
+        headingKey = Some("Section 2"),
         whyResult = Some(Html("Additional Content2")),
         rows = Seq(
           singleAnswerRow(2) -> None,
@@ -85,7 +85,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
     "have the 1st accordion section" which {
 
       "has the correct heading" in {
-        document.select(Selectors.accordionHeader(1)).text mustBe "heading1"
+        document.select(Selectors.accordionHeader(1)).text mustBe "Section 1"
       }
 
       "for the first row" must {
@@ -126,7 +126,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
     "have the 2nd accordion section" which {
 
       "has the correct heading" in {
-        document.select(Selectors.accordionHeader(2)).text mustBe "heading2"
+        document.select(Selectors.accordionHeader(2)).text mustBe "Section 2"
       }
 
       "for the first row" must {

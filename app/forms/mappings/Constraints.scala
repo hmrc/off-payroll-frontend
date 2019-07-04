@@ -16,9 +16,10 @@
 
 package forms.mappings
 
-import play.api.data.validation.{Constraint, Invalid, Valid}
+import filters.InputFilter
+import play.api.data.validation.{Constraint, Invalid, Valid, ValidationError}
 
-trait Constraints {
+trait Constraints extends InputFilter{
 
   protected def firstError[A](constraints: Constraint[A]*): Constraint[A] =
     Constraint {
@@ -87,6 +88,24 @@ trait Constraints {
   protected def optMaxLength(maximum: Int, errorKey: String): Constraint[Option[String]] =
     Constraint {
       case Some(str) if str.length > maximum => Invalid(errorKey, maximum)
+      case _ => Valid
+    }
+
+  def referenceCheckConstraints(maxLength: Int, message: String): Constraint[Option[String]] =
+    Constraint {
+      case Some(text) =>
+
+        val filteredText = filter(text)
+
+        val error =
+          if(filteredText.trim.length > maxLength) {
+            Seq(ValidationError(s"pdfDetails.$message.error.maxLength", maxLength))
+          } else {
+            Nil
+          }
+
+        if (error.isEmpty) Valid else Invalid(error)
+
       case _ => Valid
     }
 }
