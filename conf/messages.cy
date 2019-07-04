@@ -1602,3 +1602,7 @@ result.pdf.job = Engagement job title:
 result.pdf.reference = Reference:
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+
+##TODO: Need Welsh
+personalServiceSectionChangeWarning.title = Please be advised that by changing your answers in this section, you may need to answer additional questions.
+personalServiceSectionChangeWarning.heading = Please be advised that by changing your answers in this section, you may need to answer additional questions.
