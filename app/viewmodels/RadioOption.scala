@@ -16,8 +16,6 @@
 
 package viewmodels
 
-import play.twirl.api.Html
-
 sealed trait OptionType
 case object radio extends OptionType
 case object checkbox extends OptionType
@@ -27,7 +25,6 @@ case class RadioOption(id: String,
                        messageKey: String,
                        optionType: OptionType,
                        hasTailoredMsgs: Boolean,
-                       dividerPrefix: Boolean,
                        hasOptimisedMsgs: Boolean)
 
 object RadioOption {
@@ -38,7 +35,6 @@ object RadioOption {
     s"$keyPrefix.$option",
     optionType,
     hasTailoredMsgs = false,
-    dividerPrefix =  false,
     hasOptimisedMsgs = false
   )
 
@@ -49,18 +45,6 @@ object RadioOption {
       s"$keyPrefix.$option",
       optionType,
       hasTailoredMsgs,
-      dividerPrefix = false,
-      hasOptimisedMsgs = false
-    )
-
-  def apply(keyPrefix: String, option: String, optionType: OptionType, dividerPrefix: Boolean, hasTailoredMsgs: Boolean): RadioOption =
-    RadioOption(
-      s"$keyPrefix.$option",
-      option,
-      s"$keyPrefix.$option",
-      optionType,
-      hasTailoredMsgs,
-      dividerPrefix,
       hasOptimisedMsgs = false
     )
 
@@ -76,7 +60,6 @@ object RadioOption {
       s"$keyPrefix.$option",
       optionType,
       hasTailoredMsgs,
-      dividerPrefix,
       hasOptimisedMsgs
     )
 }

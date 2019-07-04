@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OutDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.{PDFResultDetails, UserAnswers}
 import models.UserType.Hirer
@@ -31,8 +32,10 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEOutsideView]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(postAction, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
+    view(form, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEOutsideView page" should {
 

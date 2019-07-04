@@ -22,9 +22,11 @@
 @import models.ResultType.IR35
 @import results.sections.pdf
 
+@import controllers.routes._
+
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call, isPrivateSector: Boolean, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], isPrivateSector: Boolean, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -36,6 +38,8 @@
 
     @template {
 
+        @components.error_summary(form.errors)
+
         @pdfResultDetails.additionalPdfDetails.map { details =>
             @pdf.additional_details(details, pdfResultDetails.timestamp)
         }
@@ -45,7 +49,7 @@
             "result.outside"
         )
 
-        @formWithCsrf(postAction, 'autoComplete -> "off") {
+        @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
 
             @results.sections.why_result(whyResult)
 
@@ -60,6 +64,12 @@
             } else {
 
                 @results.sections.download()
+
+                @components.input_yes_no(
+                    field = form("value"),
+                    label = messages(tailorMsgOptimised("result.outside.ir35.heading")),
+                    labelClass = Some("visually-hidden")
+                )
 
                 @components.submit_button("site.continue")
             }

@@ -26,8 +26,8 @@ sealed trait ArrangedSubstitute
 object ArrangedSubstitute extends FeatureSwitching {
 
   case object YesClientAgreed extends WithName("yesClientAgreed") with ArrangedSubstitute
-  case object YesClientNotAgreed extends WithName("yesClientNotAgreed") with ArrangedSubstitute
-  case object No extends WithName("no") with ArrangedSubstitute
+  case object YesClientNotAgreed extends WithName("notAgreedWithClient") with ArrangedSubstitute
+  case object No extends WithName("noSubstitutionHappened") with ArrangedSubstitute
 
   val values: Seq[ArrangedSubstitute] = Seq(
     YesClientAgreed, YesClientNotAgreed, No

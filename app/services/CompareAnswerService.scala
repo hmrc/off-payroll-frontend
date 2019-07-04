@@ -108,7 +108,9 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
     "interactWithStakeholders" -> InteractWithStakeholdersPage,
     "identifyToStakeholders" -> IdentifyToStakeholdersPage,
     "customisePDF" -> CustomisePDFPage,
-    "result" -> ResultPage
+    "timestamp" -> Timestamp,
+    "result" -> ResultPage,
+    "addReferenceDetails" -> AddReferenceDetailsPage
   )
 
 }
