@@ -170,6 +170,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
         document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p1
+        document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p2
       }
     } else {
       "Have the correct Do Next section which" in {
