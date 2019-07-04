@@ -1450,8 +1450,8 @@ worker.optimised.result.outside.ir35.public.doNext.p1.postLink =  about your tax
 ## Outside PAYE Decision Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.outside.paye.title = You are self-employed for tax purposes for this work
-worker.optimised.result.outside.paye.heading = You are self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.heading = Self-employed for tax purposes for this work
 worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
 worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work

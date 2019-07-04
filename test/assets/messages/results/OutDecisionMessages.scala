@@ -46,8 +46,8 @@ object OutDecisionMessages extends BaseResultMessages {
   }
 
   object WorkerPAYE {
-    val title = "You are self-employed for tax purposes for this work"
-    val heading = "You are self-employed for tax purposes for this work"
+    val title = "Self-employed for tax purposes for this work"
+    val heading = "Self-employed for tax purposes for this work"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "your client has accepted, or would accept, a substitute to do this work"
     val whyResultB2 = "your client does not have control over this work"
