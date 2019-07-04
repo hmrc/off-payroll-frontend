@@ -29,6 +29,7 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.PersonalServiceSectionChangeWarningView
 import controllers.sections.personalService.{routes => personalServiceRoutes}
+import handlers.ErrorHandler
 
 class PersonalServiceSectionChangeWarningController @Inject()(navigator: Navigator,
                                                               identify: IdentifierAction,
@@ -40,6 +41,7 @@ class PersonalServiceSectionChangeWarningController @Inject()(navigator: Navigat
                                                               compareAnswerService: CompareAnswerService,
                                                               dataCacheConnector: DataCacheConnector,
                                                               decisionService: DecisionService,
+                                                              errorHandler: ErrorHandler,
                                                               implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
@@ -48,13 +50,13 @@ class PersonalServiceSectionChangeWarningController @Inject()(navigator: Navigat
   }
 
   def onSubmit(page: String): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    val url = Page(page) match {
-      case ArrangedSubstitutePage => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode)
-      case DidPaySubstitutePage => personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode)
-      case NeededToPayHelperPage => personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode)
-      case RejectSubstitutePage => personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode)
-      case WouldWorkerPaySubstitutePage => personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode)
+    Page(page) match {
+      case ArrangedSubstitutePage => Redirect(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode))
+      case DidPaySubstitutePage => Redirect(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode))
+      case NeededToPayHelperPage => Redirect(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode))
+      case RejectSubstitutePage => Redirect(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode))
+      case WouldWorkerPaySubstitutePage => Redirect(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode))
+      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
-    Redirect(url)
   }
 }

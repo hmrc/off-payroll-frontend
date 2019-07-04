@@ -16,18 +16,14 @@
 
 package controllers
 
-import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
-import models.CheckMode
-import navigation.Navigator
-import pages.sections.personalService._
-import play.api.mvc.MessagesControllerComponents
-import play.api.test.Helpers._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import views.html.PersonalServiceSectionChangeWarningView
-import views.html.sections.setup.AgencyAdvisoryView
 import controllers.sections.personalService.{routes => personalServiceRoutes}
+import handlers.ErrorHandler
+import models.CheckMode
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.personalService._
+import play.api.test.Helpers._
+import views.html.PersonalServiceSectionChangeWarningView
 
 class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBase {
 
@@ -44,6 +40,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
+    errorHandler = app.injector.instanceOf[ErrorHandler],
     decisionService = mockDecisionService
   )
 
@@ -87,6 +84,11 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
       val result = controller().onSubmit(WouldWorkerPaySubstitutePage)(fakeRequest)
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
+    }
+
+    "render an ISE if the page is invalid" in {
+      val result = controller().onSubmit(OfficeHolderPage)(fakeRequest)
+      status(result) mustBe INTERNAL_SERVER_ERROR
     }
 
     "redirect to Index Controller for a GET if no existing data is found" in {
