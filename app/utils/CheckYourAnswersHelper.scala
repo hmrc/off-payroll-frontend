@@ -21,8 +21,8 @@ import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
+import controllers.routes
 import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -74,7 +74,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsgOptimised("didPaySubstitute.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode).url)
+        changeUrl = Some(routes.PersonalServiceSectionChangeWarningController.onPageLoad(DidPaySubstitutePage).url)
       )
     }
 
@@ -84,7 +84,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsgOptimised("rejectSubstitute.checkYourAnswersLabel"),
         if(!x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url)
+        changeUrl = Some(routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage).url)
       )
     }
 
@@ -94,7 +94,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsgOptimised("wouldWorkerPaySubstitute.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode).url)
+        changeUrl = Some(routes.PersonalServiceSectionChangeWarningController.onPageLoad(WouldWorkerPaySubstitutePage).url)
       )
     }
 
@@ -104,7 +104,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsgOptimised("neededToPayHelper.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode).url)
+        changeUrl = Some(routes.PersonalServiceSectionChangeWarningController.onPageLoad(NeededToPayHelperPage).url)
       )
     }
 
@@ -214,7 +214,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsgOptimised("arrangedSubstitute.checkYourAnswersLabel"),
         tailorMsgOptimised(s"arrangedSubstitute.${x.answer}"),
         answerIsMessageKey = true,
-        changeUrl = Some(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode).url)
+        changeUrl = Some(routes.PersonalServiceSectionChangeWarningController.onPageLoad(ArrangedSubstitutePage).url)
       )
     }
 

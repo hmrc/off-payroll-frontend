@@ -179,3 +179,6 @@ GET        /equipment-expenses                          controllers.sections.fin
 POST       /equipment-expenses                          controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = NormalMode)
 GET        /equipment-expenses/change                   controllers.sections.financialRisk.EquipmentExpensesController.onPageLoad(mode: Mode = CheckMode)
 POST       /equipment-expenses/change                   controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = CheckMode)
+
+GET        /personal-service-section-change-warning     controllers.PersonalServiceSectionChangeWarningController.onPageLoad(page: String)
+POST       /personal-service-section-change-warning     controllers.PersonalServiceSectionChangeWarningController.onSubmit(page: String)
