@@ -35,13 +35,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("didPaySubstitute.heading"), Some(tailorMsg("didPaySubstitute.subheading")))
-
-        @components.exclamation(Html(messages(tailorMsg("didPaySubstitute.exclamation"))))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("didPaySubstitute.heading")),
+            legend = components.heading(tailorMsg("didPaySubstitute.heading"), Some(tailorMsg("didPaySubstitute.subheading")), asLegend = true),
+            otherContent = Some(components.exclamation(Html(messages(tailorMsg("didPaySubstitute.exclamation"))))),
             labelClass = Some("visually-hidden")
         )
 

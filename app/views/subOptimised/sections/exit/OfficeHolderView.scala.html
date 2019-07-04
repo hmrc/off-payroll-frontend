@@ -35,13 +35,10 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("officeHolder.heading"), Some(tailorMsg("officeHolder.subheading")))
-
-        @components.details.office_holder_details()
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("officeHolder.heading")),
+            legend = components.heading(tailorMsg("officeHolder.heading"), Some(tailorMsg("officeHolder.subheading")), asLegend = true),
+            otherContent = Some(components.details.office_holder_details()),
             labelClass = Some("visually-hidden")
         )
 

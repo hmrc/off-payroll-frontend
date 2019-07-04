@@ -14,45 +14,51 @@
  * limitations under the License.
  *@
 
+@import play.twirl.api.Html
+
 @(
-        field: Field,
-        label: String,
-        secondaryLabel: Option[String] = None,
-        inputClass: Option[String] = None,
-        hint: Option[Html] = None,
-        yesAssoc: Option[String] = None,
-        noAssoc: Option[String] = None,
-        labelClass: Option[String] = None,
-        yesMessage: Option[String] = None,
-        noMessage: Option[String] = None,
-        inline: Boolean = true
-)(implicit messages: Messages)
+field: Field,
+legend: Html,
+otherContent: Option[Html] = None,
+secondaryLabel: Option[String] = None,
+inputClass: Option[String] = None,
+hint: Option[Html] = None,
+yesAssoc: Option[String] = None,
+noAssoc: Option[String] = None,
+labelClass: Option[String] = None,
+yesMessage: Option[String] = None,
+noMessage: Option[String] = None,
+inline: Boolean = true)(implicit messages: Messages)
 
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
     <fieldset class="@if(inline){inline}" id="@{field.id}">
 
-        <legend>
-            <span @if(labelClass.nonEmpty){class="@labelClass"}>@label</span>
-        </legend>
+        @legend
+
+        @otherContent.map { content =>
+            @content
+        }
         @if(hint.nonEmpty){
             <span class="form-hint form-group">@hint</span>
         }
         @field.errors.map { error =>
             <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
         }
-        <div class="multiple-choice">
-            <input id="@{field.id}-yes" type="radio" name="@{field.id}" value="true" @if(field.value.contains("true")){checked="checked"} />
-            <label class="block-label selection-button-radio" for="@{field.id}-yes" data-target="@if(yesAssoc.nonEmpty){@yesAssoc}">
-                @yesMessage.fold(messages("site.yes"))(x => x)
-            </label>
-        </div>
+        <div id="multiple-choice-options">
+            <div class="multiple-choice">
+                <input id="@{field.id}-yes" type="radio" name="@{field.id}" value="true" @if(field.value.contains("true")){checked="checked"} />
+                <label class="block-label selection-button-radio" for="@{field.id}-yes" data-target="@if(yesAssoc.nonEmpty){@yesAssoc}">
+                    @yesMessage.fold(messages("site.yes"))(x => x)
+                </label>
+            </div>
 
-        <div class="multiple-choice">
-            <input id="@{field.id}-no" type="radio" name="@{field.id}" value="false" @if(field.value.contains("false")){checked="checked"} />
-            <label class="block-label selection-button-radio" for="@{field.id}-no" data-target="@if(noAssoc.nonEmpty){@noAssoc}">
-                @noMessage.fold(messages("site.no"))(x => x)
-            </label>
+            <div class="multiple-choice">
+                <input id="@{field.id}-no" type="radio" name="@{field.id}" value="false" @if(field.value.contains("false")){checked="checked"} />
+                <label class="block-label selection-button-radio" for="@{field.id}-no" data-target="@if(noAssoc.nonEmpty){@noAssoc}">
+                    @noMessage.fold(messages("site.no"))(x => x)
+                </label>
+            </div>
         </div>
 
     </fieldset>

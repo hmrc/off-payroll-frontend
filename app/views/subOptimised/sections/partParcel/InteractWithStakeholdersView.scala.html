@@ -35,11 +35,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("interactWithStakeholders.heading"), Some(tailorMsg("interactWithStakeholders.subheading")))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("interactWithStakeholders.heading")),
+            legend = components.heading(tailorMsg("interactWithStakeholders.heading"), Some(tailorMsg("interactWithStakeholders.subheading")), asLegend = true),
             hint = Some(Html(messages(tailorMsg("interactWithStakeholders.hint")))),
             labelClass = Some("visually-hidden")
         )

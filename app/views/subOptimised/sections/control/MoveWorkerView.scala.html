@@ -36,11 +36,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("moveWorker.heading"), Some(tailorMsg("moveWorker.subheading")))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("moveWorker.heading")),
+            legend = components.heading(tailorMsg("moveWorker.heading"), Some(tailorMsg("moveWorker.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = MoveWorker.options(),
             hint = Some(Html(messages(tailorMsg("moveWorker.hint"))))
