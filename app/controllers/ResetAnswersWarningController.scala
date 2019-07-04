@@ -25,10 +25,13 @@ import forms.{ChooseWhereWorkFormProvider, ResetAnswersWarningFormProvider}
 import models._
 import navigation.Navigator
 import pages.CheckYourAnswersPage
+import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
 import play.api.mvc._
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.{CheckYourAnswersView, ResetAnswersWarningView}
+
+import scala.concurrent.Future
 
 class ResetAnswersWarningController @Inject()(navigator: Navigator,
                                               identify: IdentifierAction,
@@ -51,6 +54,16 @@ class ResetAnswersWarningController @Inject()(navigator: Navigator,
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(navigator.nextPage(CheckYourAnswersPage, NormalMode)(request.userAnswers))
+    form.bindFromRequest().fold(
+      formWithErrors =>
+        BadRequest(view(formWithErrors, NormalMode)),
+      reset => {
+        if(reset) {
+          Redirect(controllers.routes.IndexController.onPageLoad())
+        } else {
+          Redirect(controllers.routes.CheckYourAnswersController.onPageLoad())
+        }
+      }
+    )
   }
 }
