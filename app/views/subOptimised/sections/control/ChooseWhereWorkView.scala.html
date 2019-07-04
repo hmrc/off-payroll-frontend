@@ -38,8 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = tailorMsg("chooseWhereWork.heading"),
-            subheading = Some(tailorMsg("chooseWhereWork.subheading")),
+            legend = components.heading(tailorMsg("chooseWhereWork.heading"), Some(tailorMsg("chooseWhereWork.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = ChooseWhereWork.options()
         )

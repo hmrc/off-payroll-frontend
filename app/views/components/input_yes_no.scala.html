@@ -17,26 +17,25 @@
 @import play.twirl.api.Html
 
 @(
-        field: Field,
-        legend: String,
-        subheading: Option[String] = None,
-        otherContent: Option[Html] = None,
-        secondaryLabel: Option[String] = None,
-        inputClass: Option[String] = None,
-        hint: Option[Html] = None,
-        yesAssoc: Option[String] = None,
-        noAssoc: Option[String] = None,
-        labelClass: Option[String] = None,
-        yesMessage: Option[String] = None,
-        noMessage: Option[String] = None,
-        inline: Boolean = true
-)(implicit messages: Messages)
+field: Field,
+legend: Html,
+otherContent: Option[Html] = None,
+secondaryLabel: Option[String] = None,
+inputClass: Option[String] = None,
+hint: Option[Html] = None,
+yesAssoc: Option[String] = None,
+noAssoc: Option[String] = None,
+labelClass: Option[String] = None,
+yesMessage: Option[String] = None,
+noMessage: Option[String] = None,
+inline: Boolean = true)(implicit messages: Messages)
 
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
     <fieldset class="@if(inline){inline}" id="@{field.id}">
 
-        @components.heading(legend, subheading, asLegend = true)
+        @legend
+
         @otherContent.map { content =>
             @content
         }

@@ -21,7 +21,7 @@
 
 @(
         field: Field,
-        legend: String,
+        legend: Html,
         subheading: Option[String] = None,
         otherContent: Option[Html] = None,
         legendClass: Option[String] = None,
@@ -32,7 +32,9 @@
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
     <fieldset id="@{field.id}">
-        @components.heading(legend, subheading, asLegend = true)
+
+        @legend
+
         @otherContent.map { content =>
             @content
         }

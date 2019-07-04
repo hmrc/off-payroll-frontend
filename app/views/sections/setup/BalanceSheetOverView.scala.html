@@ -37,7 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = tailorMsg("balanceSheetOver.heading"),
+            legend = components.heading(tailorMsg("balanceSheetOver.heading"), asLegend = true),
             labelClass = Some("visually-hidden")
         )
 

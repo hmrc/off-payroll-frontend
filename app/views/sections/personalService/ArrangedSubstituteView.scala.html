@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = tailorMsgOptimised("arrangedSubstitute.heading"),
+            legend = components.heading(tailorMsgOptimised("arrangedSubstitute.heading"), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = ArrangedSubstitute.options
         )

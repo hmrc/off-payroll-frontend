@@ -37,8 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = tailorMsg("didPaySubstitute.heading"),
-            subheading = Some(tailorMsg("didPaySubstitute.subheading")),
+            legend = components.heading(tailorMsg("didPaySubstitute.heading"), Some(tailorMsg("didPaySubstitute.subheading")), asLegend = true),
             otherContent = Some(components.exclamation(Html(messages(tailorMsg("didPaySubstitute.exclamation"))))),
             labelClass = Some("visually-hidden")
         )

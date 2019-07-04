@@ -18,12 +18,16 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import models.ResultType.Agent
+
+@import controllers.routes._
+@import results.sections.pdf
+@import models.requests.DataRequest
 @import results.sections.pdf
 @import models.requests.DataRequest
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(postAction: Call,substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -35,6 +39,8 @@
 
     @template {
 
+        @components.error_summary(form.errors)
+
         @pdfResultDetails.additionalPdfDetails.map { details =>
             @pdf.additional_details(details, pdfResultDetails.timestamp)
         }
@@ -44,7 +50,7 @@
             "result.outside"
         )
 
-        @formWithCsrf(postAction, 'autoComplete -> "off") {
+        @formWithCsrf(ResultController.onSubmit(), 'autoComplete -> "off") {
 
             @results.sections.why_result(whyResult)
 
@@ -53,13 +59,11 @@
             @if(pdfResultDetails.printMode) {
 
                 @pdf.answers(pdfResultDetails.answerSections)
-
                 @pdf.decision_version(appConfig.decisionVersion)
 
             } else {
 
-                @results.sections.download()
-
+                @results.sections.download(form)
                 @components.submit_button("site.continue")
             }
         }

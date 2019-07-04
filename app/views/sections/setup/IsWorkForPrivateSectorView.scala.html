@@ -37,7 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = tailorMsg("isWorkForPrivateSector.heading"),
+            legend = components.heading(tailorMsg("isWorkForPrivateSector.heading"), asLegend = true),
             labelClass = Some("visually-hidden"),
             yesMessage = Some(messages("isWorkForPrivateSector.private")),
             noMessage = Some(messages("isWorkForPrivateSector.public")),

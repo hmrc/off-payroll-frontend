@@ -39,8 +39,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = "aboutYou.heading",
-            subheading = Some("aboutYou.subheading"),
+            legend = components.heading("aboutYou.heading", Some("aboutYou.subheading"), asLegend = true),
             legendClass = Some("visually-hidden"),
             hint = Some(Html(messages("aboutYou.hint"))),
             inputs = AboutYouAnswer.options

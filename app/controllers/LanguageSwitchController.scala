@@ -43,6 +43,8 @@ class LanguageSwitchController @Inject()(controllerComponents: MessagesControlle
       val enabled = isWelshEnabled
       val lang = if (enabled) languageMap.getOrElse(language, Lang("en")) else Lang("en")
       val redirectURL = request.headers.get(REFERER).getOrElse(fallbackURL)
+
+
       Redirect(redirectURL).withLang(Lang.apply(lang.code)).flashing(Flash(Map("switching-language" -> "true")))
   }
 

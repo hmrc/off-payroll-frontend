@@ -38,8 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = tailorMsg("identifyToStakeholders.heading"),
-            subheading = Some(tailorMsg("identifyToStakeholders.subheading")),
+            legend = components.heading(tailorMsg("identifyToStakeholders.heading"), Some(tailorMsg("identifyToStakeholders.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = IdentifyToStakeholders.options
         )

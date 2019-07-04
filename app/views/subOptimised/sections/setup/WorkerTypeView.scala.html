@@ -38,8 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = tailorMsg("workerType.heading"),
-            subheading = Some(tailorMsg("workerType.subheading")),
+            legend = components.heading(tailorMsg("workerType.heading"), Some(tailorMsg("workerType.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = WorkerType.options.toSeq
         )

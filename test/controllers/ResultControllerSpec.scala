@@ -21,12 +21,12 @@ import config.featureSwitch.OptimisedFlow
 import connectors.DataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
-import forms.DeclarationFormProvider
+import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import models.ChooseWhereWork.WorkerChooses
 import models._
 import models.requests.DataRequest
 import navigation.FakeNavigator
-import pages.ResultPage
+import pages.{ResultPage, Timestamp}
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.i18n.Messages
 import play.api.libs.json.Json
@@ -40,10 +40,13 @@ import utils.FakeTimestamp
 import viewmodels.AnswerSection
 import views.html.subOptimised.results._
 
-class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService with MockCheckYourAnswersService {
+class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecisionService with MockCheckYourAnswersService with Enumerable.Implicits {
 
   val formProvider = new DeclarationFormProvider()
   val form = formProvider()
+
+  val formProviderPDF = new DownloadPDFCopyFormProvider()
+  val formPDF = formProvider()
 
   val officeHolderInsideIR35View = injector.instanceOf[OfficeHolderInsideIR35View]
   val officeHolderEmployedView = injector.instanceOf[OfficeHolderEmployedView]
@@ -76,6 +79,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
     controllerComponents = messagesControllerComponents,
     injector.instanceOf[DecisionService],
     formProvider,
+    formProviderPDF,
     new FakeNavigator(onwardRoute),
     mockDataCacheConnector,
     FakeTimestamp,
@@ -97,13 +101,13 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
           enable(OptimisedFlow)
 
-          val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
-          val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+          val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+          val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
           mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-          mockDetermineResultView(onwardRoute)(Right(Html("Success")))
+          mockDetermineResultView()(Right(Html("Success")))
 
           val result = TestResultController.onPageLoad(dataRequest)
 
@@ -112,19 +116,43 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
         }
       }
 
+      "handle form errors" in {
+
+        enable(OptimisedFlow)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "sdfgvf"))
+        mockDetermineResultView()(Right(Html("Error")))
+
+        val result = TestResultController.onSubmit(postRequest)
+
+        status(result) mustBe BAD_REQUEST
+      }
+
+      "handle errors" in {
+
+        enable(OptimisedFlow)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "sdfgvf"))
+        mockDetermineResultView()(Left(Html("Error")))
+
+        val result = TestResultController.onSubmit(postRequest)
+
+        status(result) mustBe INTERNAL_SERVER_ERROR
+      }
+
       "If an error response is returned from the Optimised Decision Service" should {
 
         "return ISE and the HTML returned from the Decision Service" in {
 
           enable(OptimisedFlow)
 
-          val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
-          val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+          val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+          val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
           mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-          mockDetermineResultView(onwardRoute)(Left(Html("Error")))
+          mockDetermineResultView()(Left(Html("Error")))
 
           val result = TestResultController.onPageLoad(dataRequest)
 
@@ -137,7 +165,16 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
         enable(OptimisedFlow)
 
-        val result = TestResultController.onSubmit(fakeRequest)
+        val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+
+        val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+        mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+
+        val result = TestResultController.onSubmit(postRequest)
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
@@ -148,9 +185,9 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
       "return OK and the correct view for a GET" in {
 
-        val validData = Map(ResultPage.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
+        val validData = Map(Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 0)))
         val postRequest = fakeRequest
-        val answers = userAnswers.set(ResultPage, 0, FakeTimestamp.timestamp())
+        val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
 
         mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
 

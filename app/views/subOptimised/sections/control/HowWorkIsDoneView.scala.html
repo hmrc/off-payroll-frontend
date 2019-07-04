@@ -38,8 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = tailorMsg("howWorkIsDone.heading"),
-            subheading = Some(tailorMsg("howWorkIsDone.subheading")),
+            legend = components.heading(tailorMsg("howWorkIsDone.heading"), Some(tailorMsg("howWorkIsDone.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             hint = Some(Html(messages(tailorMsg("howWorkIsDone.hint")))),
             inputs = HowWorkIsDone.options()

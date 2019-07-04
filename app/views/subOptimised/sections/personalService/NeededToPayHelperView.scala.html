@@ -37,8 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = tailorMsg("neededToPayHelper.heading"),
-            subheading = Some(tailorMsg("neededToPayHelper.subheading")),
+            legend = components.heading(tailorMsg("neededToPayHelper.heading"), Some(tailorMsg("neededToPayHelper.subheading")), asLegend = true),
             labelClass = Some("visually-hidden"),
             hint = Some(components.details.needed_to_pay_helper_details())
         )

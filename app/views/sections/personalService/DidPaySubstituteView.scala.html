@@ -37,7 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = tailorMsgOptimised("didPaySubstitute.heading"),
+            legend = components.heading(tailorMsgOptimised("didPaySubstitute.heading"), asLegend = true),
             labelClass = Some("visually-hidden")
         )
 

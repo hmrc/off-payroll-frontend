@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = tailorMsgOptimised("scheduleOfWorkingHours.heading"),
+            legend = components.heading(tailorMsgOptimised("scheduleOfWorkingHours.heading"), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = ScheduleOfWorkingHours.options(true)
         )
