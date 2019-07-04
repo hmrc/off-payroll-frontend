@@ -559,8 +559,250 @@ class NavigatorSpec extends SpecBase {
       "go to ResultController from a page that doesn't exist in the edit route map" in {
 
         case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode)(emptyUserAnswers) mustBe routes.ResultController.onPageLoad()
+        navigator.nextPage(UnknownPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
+
+      "WhichDescribesYouPage" should {
+
+        "go to the Worker Type page, if WorkerPAYE" in {
+          enable(OptimisedFlow)
+          navigator.nextPage(WhichDescribesYouPage, CheckMode)(setAnswers(WhichDescribesYouPage -> WorkerPAYE)) mustBe
+            setupRoutes.WorkerTypeController.onPageLoad(CheckMode)
+        }
+
+        "go to the Worker Type page, if WorkerIR35" in {
+          enable(OptimisedFlow)
+          navigator.nextPage(WhichDescribesYouPage, CheckMode)(setAnswers(WhichDescribesYouPage -> WorkerIR35)) mustBe
+            setupRoutes.WorkerTypeController.onPageLoad(CheckMode)
+        }
+
+        "go to the Worker Type page, if ClientPAYE" in {
+          enable(OptimisedFlow)
+          navigator.nextPage(WhichDescribesYouPage, CheckMode)(setAnswers(WhichDescribesYouPage -> ClientPAYE)) mustBe
+            setupRoutes.WorkerTypeController.onPageLoad(CheckMode)
+        }
+
+        "go to the Worker Type page, if ClientIR35" in {
+          enable(OptimisedFlow)
+          navigator.nextPage(WhichDescribesYouPage, CheckMode)(setAnswers(WhichDescribesYouPage -> ClientIR35)) mustBe
+            setupRoutes.WorkerTypeController.onPageLoad(CheckMode)
+        }
+
+        "go to the Agent Advisory page, if Agent" in {
+          enable(OptimisedFlow)
+          navigator.nextPage(WhichDescribesYouPage, CheckMode)(setAnswers(WhichDescribesYouPage -> Agency)) mustBe
+            setupRoutes.AgencyAdvisoryController.onPageLoad()
+        }
+      }
+    }
+
+    "ContractStartedPage" should {
+
+      "go to the OfficeHolder page from the ContractStarted page" in {
+
+        enable(OptimisedFlow)
+        navigator.nextPage(ContractStartedPage, CheckMode)(emptyUserAnswers) mustBe exitRoutes.OfficeHolderController.onPageLoad(CheckMode)
+      }
+    }
+
+    "IsWorkForPrivateSectorPage" should {
+
+      "go to the TurnoverOver page from the IsWorkForPrivateSector, if is Private Sector and user is hirer" in {
+        enable(OptimisedFlow)
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, ClientIR35)
+          .set(IsWorkForPrivateSectorPage,0, true)
+
+        navigator.nextPage(IsWorkForPrivateSectorPage, CheckMode)(userAnswers) mustBe setupRoutes.TurnoverOverController.onPageLoad(CheckMode)
+      }
+
+      "go to the WorkerAdvisory page from the IsWorkForPrivateSector page, if is Public Sector and user is worker" in {
+        enable(OptimisedFlow)
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, WorkerPAYE)
+          .set(IsWorkForPrivateSectorPage,0, false)
+
+        navigator.nextPage(IsWorkForPrivateSectorPage, CheckMode)(userAnswers) mustBe setupRoutes.WorkerAdvisoryController.onPageLoad()
+      }
+
+      "go to the ContractStarted page from the IsWorkForPrivateSector page, if Public Sector and Hirer" in {
+        enable(OptimisedFlow)
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, ClientIR35)
+          .set(IsWorkForPrivateSectorPage,0, false)
+
+        navigator.nextPage(IsWorkForPrivateSectorPage, CheckMode)(userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(CheckMode)
+      }
+
+      "go to the IsWorkForPrivateSector there is no answer" in {
+
+        enable(OptimisedFlow)
+        navigator.nextPage(IsWorkForPrivateSectorPage, CheckMode)(emptyUserAnswers) mustBe setupRoutes.IsWorkForPrivateSectorController.onPageLoad(CheckMode)
+      }
+    }
+
+    "TurnoverOverPage" should {
+
+      "got to the EmployeesOver page" in {
+        enable(OptimisedFlow)
+        navigator.nextPage(TurnoverOverPage, CheckMode)(emptyUserAnswers) mustBe setupRoutes.EmployeesOverController.onPageLoad(CheckMode)
+      }
+    }
+
+    "EmployeesOverPage" should {
+
+      "go to the ToolNotNeeded page from the Employees page, if small business and hirer" in {
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, ClientPAYE)
+          .set(IsWorkForPrivateSectorPage,1, true)
+          .set(TurnoverOverPage, 2, false)
+          .set(EmployeesOverPage, 3, false)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(EmployeesOverPage, CheckMode)(userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
+      }
+
+      "go to the HirerAdvisory page from the Employees page, if medium/large business and hirer" in {
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, ClientPAYE)
+          .set(IsWorkForPrivateSectorPage,1, true)
+          .set(TurnoverOverPage, 2, true)
+          .set(EmployeesOverPage, 3, true)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(EmployeesOverPage, CheckMode)(userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
+      }
+
+      "go to the BalanceSheet page from the Employees page, if business size not determined yet" in {
+
+        val workerAnswers = UserAnswers("id").set(WhichDescribesYouPage,0, WorkerPAYE)
+        val hirerAnswers = UserAnswers("id").set(WhichDescribesYouPage,0, ClientPAYE)
+        val userAnswers: UserAnswers => UserAnswers =
+          _
+            .set(IsWorkForPrivateSectorPage,1, true)
+            .set(TurnoverOverPage, 2, false)
+            .set(EmployeesOverPage, 3, true)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(EmployeesOverPage, CheckMode)(userAnswers(workerAnswers)) mustBe setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode)
+        navigator.nextPage(EmployeesOverPage, CheckMode)(userAnswers(workerAnswers)) mustBe setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode)
+      }
+
+      "go to the ContractStarted page from the Employees page, if small business and worker" in {
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, WorkerPAYE)
+          .set(IsWorkForPrivateSectorPage,1, true)
+          .set(TurnoverOverPage, 2, false)
+          .set(EmployeesOverPage, 3, false)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(EmployeesOverPage, CheckMode)(userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(CheckMode)
+      }
+    }
+
+    "BalanceSheetOverPage" should {
+
+      "go to the ToolNotNeeded page from the BalanceSheetOver page, if small business and hirer" in {
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, ClientPAYE)
+          .set(IsWorkForPrivateSectorPage,1, true)
+          .set(TurnoverOverPage, 2, false)
+          .set(EmployeesOverPage, 3, true)
+          .set(BalanceSheetOverPage, 4, false)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(BalanceSheetOverPage, CheckMode)(userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
+      }
+
+      "go to the HirerAdvisory page from the BalanceSheetOver page, if medium/large business and hirer" in {
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, ClientPAYE)
+          .set(IsWorkForPrivateSectorPage,1, true)
+          .set(TurnoverOverPage, 2, true)
+          .set(EmployeesOverPage, 3, false)
+          .set(BalanceSheetOverPage, 4, true)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(BalanceSheetOverPage, CheckMode)(userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
+      }
+
+      "go to the ContractStarted page from the BalanceSheetOver page, if small business and worker" in {
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, WorkerPAYE)
+          .set(IsWorkForPrivateSectorPage,1, true)
+          .set(TurnoverOverPage, 2, false)
+          .set(EmployeesOverPage, 3, true)
+          .set(BalanceSheetOverPage, 4, false)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(BalanceSheetOverPage, CheckMode)(userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(CheckMode)
+      }
+
+      "go to the ContractStarted page from the BalanceSheetOver page, if medium/large business and worker" in {
+
+        val userAnswers: UserAnswers = UserAnswers("id")
+          .set(WhichDescribesYouPage,0, WorkerPAYE)
+          .set(IsWorkForPrivateSectorPage,1, true)
+          .set(TurnoverOverPage, 2, true)
+          .set(EmployeesOverPage, 3, false)
+          .set(BalanceSheetOverPage, 3, true)
+
+        enable(OptimisedFlow)
+        navigator.nextPage(BalanceSheetOverPage, CheckMode)(userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(CheckMode)
+      }
+    }
+
+    "go from the ScheduleOfWorkingHoursPage got to the review answers page" in {
+      navigator.nextPage(ScheduleOfWorkingHoursPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the ChooseWhereWorkPage got to the review answers page" in {
+      navigator.nextPage(ChooseWhereWorkPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the HowWorkIsDonePage got to the review answers page" in {
+      navigator.nextPage(HowWorkIsDonePage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the MoveWorkerPage got to the review answers page" in {
+      navigator.nextPage(MoveWorkerPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the CannotClaimAsExpensePage got to the review answers page" in {
+      navigator.nextPage(CannotClaimAsExpensePage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the HowWorkerIsPaidPage got to the review answers page" in {
+      navigator.nextPage(HowWorkerIsPaidPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the PutRightAtOwnCostPage got to the review answers page" in {
+      navigator.nextPage(PutRightAtOwnCostPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the BenefitsPage got to the review answers page" in {
+      navigator.nextPage(BenefitsPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the IdentifyToStakeholdersPage got to the review answers page" in {
+      navigator.nextPage(IdentifyToStakeholdersPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the InteractWithStakeholdersPage got to the review answers page" in {
+      navigator.nextPage(IdentifyToStakeholdersPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+    }
+
+    "go from the LineManagerDutiesPage got to the review answers page" in {
+      navigator.nextPage(LineManagerDutiesPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
     }
   }
 }

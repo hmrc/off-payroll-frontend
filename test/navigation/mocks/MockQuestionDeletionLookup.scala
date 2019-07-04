@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import models.Mode
+package navigation.mocks
 
-@(url: String = "#")(mode: Mode)(implicit messages: Messages)
+import navigation.QuestionDeletionLookup
+import org.scalamock.scalatest.MockFactory
+import pages.QuestionPage
 
-@if(mode == NormalMode) {
-  <div class="js-visible">
-    <p><a id="back-link" class="link-back" href='@url'>@messages("site.back")</a></p>
-  </div>
+trait MockQuestionDeletionLookup extends MockFactory {
+
+  val mockQuestionDeletionLookup = mock[QuestionDeletionLookup]
+
+  def mockGetPagesToRemove(page: QuestionPage[_])(result: List[QuestionPage[_]]): Unit = {
+    (mockQuestionDeletionLookup.getPagesToRemove _).expects(page)
+      .returning(_ => result)
+  }
 }

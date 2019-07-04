@@ -1638,3 +1638,15 @@ pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
 pdfDetails.client.error.maxLength = The client name must be {0} characters or less
 pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
 pdfDetails.reference.error.maxLength = The reference must be {0} characters or less
+
+##TODO: Need Welsh
+resetAnswersWarning.title = Finish
+resetAnswersWarning.heading = To change an answer in this section, you will need to restart the tool. This will delete your answers.
+resetAnswersWarning.hint = The answers given in this section influence the questions you are asked and the result.
+resetAnswersWarning.startAgain = Start Again
+resetAnswersWarning.goBack = Take me back to my answers
+resetAnswersWarning.error.required = You need to select an answer
+
+##TODO: Need Welsh
+personalServiceSectionChangeWarning.title = Please be advised that by changing your answers in this section, you may need to answer additional questions.
+personalServiceSectionChangeWarning.heading = Please be advised that by changing your answers in this section, you may need to answer additional questions.

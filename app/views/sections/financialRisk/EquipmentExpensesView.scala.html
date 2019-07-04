@@ -29,7 +29,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.back_link()
+    @components.back_link()(mode)
 
     @formWithCsrf(action = EquipmentExpensesController.onSubmit(mode), 'autoComplete -> "off") {
 

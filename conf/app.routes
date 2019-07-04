@@ -194,3 +194,6 @@ POST       /equipment-expenses/change                   controllers.sections.fin
 
 GET        /reset-answers-warning                       controllers.ResetAnswersWarningController.onPageLoad()
 POST       /reset-answers-warning                       controllers.ResetAnswersWarningController.onSubmit()
+
+GET        /personal-service-section-change-warning     controllers.PersonalServiceSectionChangeWarningController.onPageLoad(page: String)
+POST       /personal-service-section-change-warning     controllers.PersonalServiceSectionChangeWarningController.onSubmit(page: String)

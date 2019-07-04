@@ -22,17 +22,10 @@ import models.requests.DataRequest
 import models.{Answers, UserAnswers}
 import navigation.QuestionDeletionLookup
 import pages._
-import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
-import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
-import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhichDescribesYouPage, WorkerTypePage, _}
+import play.api.Logger
 import play.api.libs.json.{Reads, Writes}
-import play.api.mvc.AnyContent
 
 import scala.annotation.tailrec
-import scala.collection.immutable.Map
 import scala.concurrent.ExecutionContext
 
 class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLookup) {
@@ -48,7 +41,7 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
         // find what page they are associated with, then remove them
         val updatedAnswers = recursivelyClearQuestions(
           request.userAnswers.cacheMap.data.map(value => (value._1, (value._2 \ "answerNumber").get.as[Int])).toList.sortBy(_._2)
-            .splitAt(answer.answerNumber)._2.map(_._1).map(pageName => questionToPage(pageName))
+            .splitAt(answer.answerNumber)._2.map(_._1).map(pageName => Page.questionToPage(pageName))
           , request.userAnswers)
         updatedAnswers.set(page, updatedAnswers.size, value)
       }
@@ -61,9 +54,10 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
     request.userAnswers.get(page) match {
       case Some(answer) if answer.answer == value => request.userAnswers
       case _ => {
-        val pagesToRemove = questionDeletionLookup.getPagesToRemove(page)(request.userAnswers)
-        val updatedUserAnswers = recursivelyClearQuestions(pagesToRemove,request.userAnswers)
-        updatedUserAnswers.set(page,0,value)
+        val userAnswers = request.userAnswers.set(page,0,value)
+        val pagesToRemove = questionDeletionLookup.getPagesToRemove(page)(userAnswers)
+        Logger.debug(s"[CompareAnswerService][optimisedConstructAnswers] Questions to be removed: \n$pagesToRemove")
+        recursivelyClearQuestions(pagesToRemove, userAnswers)
       }
     }
   }
@@ -75,42 +69,5 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
       recursivelyClearQuestions(pages.tail,userAnswers.remove(pages.head))
     }
   }
-
-  private lazy val questionToPage = Map(
-    "aboutYou" -> AboutYouPage,
-    "whichDescribesYou" -> WhichDescribesYouPage,
-    "contractStarted" -> ContractStartedPage,
-    TurnoverOverPage.toString -> TurnoverOverPage,
-    EmployeesOverPage.toString -> EmployeesOverPage,
-    BalanceSheetOverPage.toString -> BalanceSheetOverPage,
-    "workerType" -> WorkerTypePage,
-    "workerUsingIntermediary" -> WorkerUsingIntermediaryPage,
-    "isWorkForPrivateSector" -> IsWorkForPrivateSectorPage,
-    "officeHolder" -> OfficeHolderPage,
-    "arrangedSubstitute" -> ArrangedSubstitutePage,
-    "didPaySubstitute" -> DidPaySubstitutePage,
-    "wouldWorkerPaySubstitute" -> WouldWorkerPaySubstitutePage,
-    "neededToPayHelper" -> NeededToPayHelperPage,
-    "moveWorker" -> MoveWorkerPage,
-    "rejectSubstitute" -> RejectSubstitutePage,
-    "howWorkIsDone" -> HowWorkIsDonePage,
-    "scheduleOfWorkingHours" -> ScheduleOfWorkingHoursPage,
-    "chooseWhereWork" -> ChooseWhereWorkPage,
-    "cannotClaimAsExpense" -> CannotClaimAsExpensePage,
-    EquipmentExpensesPage.toString -> EquipmentExpensesPage,
-    MaterialsPage.toString -> MaterialsPage,
-    OtherExpensesPage.toString -> OtherExpensesPage,
-    VehiclePage.toString -> VehiclePage,
-    "howWorkerIsPaid" -> HowWorkerIsPaidPage,
-    "putRightAtOwnCost" -> PutRightAtOwnCostPage,
-    "benefits" -> BenefitsPage,
-    "lineManagerDuties" -> LineManagerDutiesPage,
-    "interactWithStakeholders" -> InteractWithStakeholdersPage,
-    "identifyToStakeholders" -> IdentifyToStakeholdersPage,
-    "customisePDF" -> CustomisePDFPage,
-    "timestamp" -> Timestamp,
-    "result" -> ResultPage,
-    "addReferenceDetails" -> AddReferenceDetailsPage
-  )
 
 }

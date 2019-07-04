@@ -25,6 +25,8 @@ import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
+import config.FrontendAppConfig
+import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models._
 import pages._

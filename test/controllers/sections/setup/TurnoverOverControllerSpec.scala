@@ -16,6 +16,7 @@
 
 package controllers.sections.setup
 
+import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
@@ -31,6 +32,11 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.TurnoverOverView
 
 class TurnoverOverControllerSpec extends ControllerSpecBase {
+
+override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
 
   val formProvider = new TurnoverOverFormProvider()
   val form = formProvider()
@@ -77,7 +83,7 @@ class TurnoverOverControllerSpec extends ControllerSpecBase {
       val validData = Map(TurnoverOverPage.toString -> Json.toJson(Answers(true,0)))
 
       val answers = userAnswers.set(TurnoverOverPage,0,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

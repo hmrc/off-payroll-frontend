@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import models.Mode
+package assets.messages
 
-@(url: String = "#")(mode: Mode)(implicit messages: Messages)
+object PersonalServiceSectionChangeWarningMessages extends BaseMessages {
 
-@if(mode == NormalMode) {
-  <div class="js-visible">
-    <p><a id="back-link" class="link-back" href='@url'>@messages("site.back")</a></p>
-  </div>
+  val title = "Please be advised that by changing your answers in this section, you may need to answer additional questions."
+  val heading = title
+
 }

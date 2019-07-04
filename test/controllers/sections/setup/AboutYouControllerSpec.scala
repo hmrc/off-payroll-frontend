@@ -150,7 +150,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhichDescribesYouAnswer.values.head.toString))
 
         val answers = userAnswers.set(WhichDescribesYouPage,0,WhichDescribesYouAnswer.WorkerPAYE)
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),AboutYouAnswer)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AboutYouAnswer)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)

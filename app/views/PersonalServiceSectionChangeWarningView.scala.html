@@ -16,34 +16,25 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
-@import controllers.sections.control.routes._
-@import models.MoveWorker
 @import models.Mode
 @import views.ViewUtils._
+@import models.NormalMode
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("moveWorker.title"), None),
+    title = titleNoForm("personalServiceSectionChangeWarning.title"),
     appConfig = appConfig,
-    bodyClasses = None) {
+    bodyClasses = None
+) {
 
-    @components.back_link()(mode)
+    @components.back_link()(NormalMode)
 
-    @formWithCsrf(action = MoveWorkerController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-        @components.error_summary(form.errors)
-
-        @components.heading(tailorMsgOptimised("moveWorker.heading"), None)
-
-        @components.input_radio(
-            field = form("value"),
-            legend = messages(tailorMsgOptimised("moveWorker.heading")),
-            legendClass = Some("visually-hidden"),
-            inputs = MoveWorker.options(true)
-        )
+        @components.heading("personalServiceSectionChangeWarning.heading")
 
         @components.submit_button()
     }

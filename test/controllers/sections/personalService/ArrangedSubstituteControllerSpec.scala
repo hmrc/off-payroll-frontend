@@ -90,7 +90,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val answers = userAnswers.set(ArrangedSubstitutePage,0,ArrangedSubstitute.YesClientAgreed)
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),ArrangedSubstitute)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ArrangedSubstitute)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 
