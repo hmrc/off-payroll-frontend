@@ -141,7 +141,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -155,7 +155,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -169,7 +169,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -184,7 +184,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(setupRoutes.ContractStartedController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
         }
       }

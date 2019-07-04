@@ -33,10 +33,7 @@ import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
 import navigation.QuestionDeletionLookup
-<<<<<<< HEAD
-=======
 import navigation.mocks.MockQuestionDeletionLookup
->>>>>>> 4249b723f1b45cea24b91ba865c413192a0b8500
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import org.scalamock.scalatest.MockFactory
@@ -118,7 +115,6 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
         val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), AboutYouAnswer.Agency, AboutYouPage)
 
         val result = answers.get(AboutYouPage).get
-<<<<<<< HEAD
 
         result.answer mustBe Agency
         result.answerNumber mustBe 0
@@ -212,182 +208,6 @@ class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCa
 
         result.answer mustBe true
         result.answerNumber mustBe 1
-      }
-    }
-  }
-
-  "optimised" should {
-
-    "optimised compare answer service" should {
-
-      "remove answers if an answer is added" in {
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(WouldWorkerPaySubstitutePage, 0, true)
-          .set(RejectSubstitutePage, 1, true)
-          .set(NeededToPayHelperPage, 2, true)
-
-        (questionLookupMock.getPagesToRemove _).expects(ArrangedSubstitutePage)
-          .returning(_ => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.optimisedConstructAnswers(DataRequest(request, "id", userAnswers), YesClientAgreed, ArrangedSubstitutePage)
-
-        val resultFirst = answers.get(WouldWorkerPaySubstitutePage)
-        val resultSecond = answers.get(RejectSubstitutePage)
-        val resultThird = answers.get(NeededToPayHelperPage)
-
-        resultFirst mustBe None
-        resultSecond mustBe None
-        resultThird mustBe None
-
-        val newPage = answers.get(ArrangedSubstitutePage)
-        newPage mustBe Some(Answers(YesClientAgreed, 0))
-      }
-
-      "remove answers if an answer is changed" in {
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(ArrangedSubstitutePage, 0, No)
-          .set(WouldWorkerPaySubstitutePage, 1, true)
-          .set(RejectSubstitutePage, 2, true)
-          .set(NeededToPayHelperPage, 3, true)
-
-        (questionLookupMock.getPagesToRemove _).expects(ArrangedSubstitutePage)
-          .returning(_ => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage))
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.optimisedConstructAnswers(DataRequest(request, "id", userAnswers), YesClientAgreed, ArrangedSubstitutePage)
-
-        val resultFirst = answers.get(WouldWorkerPaySubstitutePage)
-        val resultSecond = answers.get(RejectSubstitutePage)
-        val resultThird = answers.get(NeededToPayHelperPage)
-
-        resultFirst mustBe None
-        resultSecond mustBe None
-        resultThird mustBe None
-
-        val newPage = answers.get(ArrangedSubstitutePage)
-        newPage mustBe Some(Answers(YesClientAgreed, 0))
-      }
-
-      "return same answers if an answer is not changed" in {
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(ArrangedSubstitutePage, 0, No)
-          .set(WouldWorkerPaySubstitutePage, 0, true)
-          .set(RejectSubstitutePage, 0, true)
-          .set(NeededToPayHelperPage, 0, true)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.optimisedConstructAnswers(DataRequest(request, "id", userAnswers), No, ArrangedSubstitutePage)
-
-        val resultFirst = answers.get(WouldWorkerPaySubstitutePage)
-        val resultSecond = answers.get(RejectSubstitutePage)
-        val resultThird = answers.get(NeededToPayHelperPage)
-
-        resultFirst mustBe Some(Answers(true, 0))
-        resultSecond mustBe Some(Answers(true, 0))
-        resultThird mustBe Some(Answers(true, 0))
-
-        val newPage = answers.get(ArrangedSubstitutePage)
-        newPage mustBe Some(Answers(No, 0))
-=======
-
-        result.answer mustBe Agency
-        result.answerNumber mustBe 0
-      }
-
-      "change a Contract Started Answer if it's a new value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-          .set(ContractStartedPage, 1, true)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), false, ContractStartedPage)
-
-        val result = answers.get(ContractStartedPage).get
-
-        result.answer mustBe false
-        result.answerNumber mustBe 1
-      }
-
-      "change all answers after current answer if it's changed to a new value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-          .set(ContractStartedPage, 1, true)
-          .set(WorkerTypePage, 2, SoleTrader)
-          .set(OfficeHolderPage, 3, false)
-          .set(ArrangedSubstitutePage, 4, YesClientAgreed)
-          .set(DidPaySubstitutePage, 5, false)
-          .set(WouldWorkerPaySubstitutePage, 6, true)
-          .set(RejectSubstitutePage, 7, false)
-          .set(NeededToPayHelperPage, 8, false)
-          .set(MoveWorkerPage, 9, CanMoveWorkerWithPermission)
-          .set(HowWorkIsDonePage, 10, WorkerFollowStrictEmployeeProcedures)
-          .set(ScheduleOfWorkingHoursPage, 11, WorkerAgreeSchedule)
-          .set(ChooseWhereWorkPage, 12, WorkerAgreeWithOthers)
-          .set(CannotClaimAsExpensePage, 13, Seq(WorkerUsedVehicle, WorkerHadOtherExpenses))
-          .set(HowWorkerIsPaidPage, 14, Commission)
-          .set(PutRightAtOwnCostPage, 15, CannotBeCorrected)
-          .set(BenefitsPage, 16, false)
-          .set(LineManagerDutiesPage, 17, false)
-          .set(InteractWithStakeholdersPage, 18, false)
-          .set(IdentifyToStakeholdersPage, 19, WorkAsIndependent)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), false, ContractStartedPage)
-
-        val result = answers.get(ContractStartedPage).get
-
-        result.answer mustBe false
-        result.answerNumber mustBe 1
-        answers.size mustBe 2
-        answers.get(OfficeHolderPage) mustBe None
-        answers.get(IdentifyToStakeholdersPage) mustBe None
-      }
-    }
-
-    "compare answer service (change same answer)" should {
-      "not change an About You Answer if it's the same value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), AboutYouAnswer.Worker, AboutYouPage)
-
-        val result = answers.get(AboutYouPage).get
-
-        result.answer mustBe Worker
-        result.answerNumber mustBe 0
-      }
-
-      "not change a Contract Started Answer if it's the same value" in {
-
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-          .set(ContractStartedPage, 1, true)
-
-        val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
-
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), true, ContractStartedPage)
-
-        val result = answers.get(ContractStartedPage).get
-
-        result.answer mustBe true
-        result.answerNumber mustBe 1
->>>>>>> 4249b723f1b45cea24b91ba865c413192a0b8500
       }
     }
   }

@@ -31,7 +31,7 @@
     bodyClasses = None,
     articleLayout = false) {
 
-    @components.back_link()
+    @components.back_link()(NormalMode)(messages)
 
     @formWithCsrf(action = ResetAnswersWarningController.onSubmit(), 'autoComplete -> "off") {
 

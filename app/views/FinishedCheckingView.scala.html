@@ -31,7 +31,7 @@
 
     @formWithCsrf(action = PDFController.onSubmit(mode), 'autoComplete -> "off") {
 
-        @components.back_link()
+        @components.back_link()(mode)(messages)
 
         @components.heading("finishedChecking.heading")
 
