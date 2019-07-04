@@ -29,7 +29,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.back_link()(NormalMode)(messages)
+    @components.back_link
 
     @formWithCsrf(action = AddReferenceDetailsController.onSubmit(), 'autoComplete -> "off") {
 

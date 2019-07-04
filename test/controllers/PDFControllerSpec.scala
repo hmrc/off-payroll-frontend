@@ -242,7 +242,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
         val answers = userAnswers.set(CustomisePDFPage,0,AdditionalPdfDetails(Some("answer")))
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -263,7 +263,7 @@ class PDFControllerSpec extends ControllerSpecBase {
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
 
         val answers = userAnswers.set(CustomisePDFPage,0,AdditionalPdfDetails(Some("answer")))
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -283,7 +283,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
         mockEncryptDetails(AdditionalPdfDetails(Some("answer")))
         val answers = userAnswers.set(CustomisePDFPage,0,AdditionalPdfDetails(Some("answer")))
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),AdditionalPdfDetails)(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller(getRelevantData).onSubmit(NormalMode)(postRequest)

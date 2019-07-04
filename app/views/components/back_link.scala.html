@@ -16,7 +16,7 @@
 
 @import models.Mode
 
-@(url: String = "#")(mode: Mode)(implicit messages: Messages)
+@(url: String = "#")(mode: Mode = NormalMode)(implicit messages: Messages)
 
 @if(mode == NormalMode) {
   <div class="js-visible">
