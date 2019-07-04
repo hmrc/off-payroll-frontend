@@ -144,9 +144,12 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
         case (_, None) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
       }),
     WouldWorkerPaySubstitutePage -> (answers =>
-      answers.get(ContractStartedPage) match {
-        case Some(Answers(true,_)) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case Some(_) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+      (answers.get(ContractStartedPage), answers.get(WouldWorkerPaySubstitutePage)) match {
+        case (Some(Answers(true,_)),_) if !isEnabled(OptimisedFlow) =>
+          personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case (Some(Answers(false,_)),_) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        case (Some(Answers(true,_)),Some(Answers(false,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case (Some(Answers(true,_)),Some(Answers(true,_))) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
         case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       }),
     NeededToPayHelperPage -> (_ => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)),

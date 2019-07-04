@@ -460,6 +460,30 @@ class NavigatorSpec extends SpecBase {
             personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
         }
 
+        "go to NeededToPayHelperPage from the WouldWorkerPaySubstitutePage if Contract Started and answer is no" in {
+          enable(OptimisedFlow)
+          nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> true, WouldWorkerPaySubstitutePage -> false)) mustBe
+            personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        }
+
+        "go to MoveWorkerPage from the WouldWorkerPaySubstitutePage if Contract Started is no" in {
+          enable(OptimisedFlow)
+          nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> false, WouldWorkerPaySubstitutePage -> false)) mustBe
+            controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        }
+
+        "go to NeededToPayHelperPage from the WouldWorkerPaySubstitutePage if Contract Started is true and answer is no" in {
+          enable(OptimisedFlow)
+          nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> true, WouldWorkerPaySubstitutePage -> false)) mustBe
+            personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        }
+
+        "go to MoveWorkerPage from the WouldWorkerPaySubstitutePage if Contract Started is true and answer is yes" in {
+          enable(OptimisedFlow)
+          nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> true, WouldWorkerPaySubstitutePage -> true)) mustBe
+            controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        }
+
         "go to MoveWorkerPage from the WouldWorkerPaySubstitutePage if Contract Started not started" in {
           nextPage(WouldWorkerPaySubstitutePage, setAnswers(ContractStartedPage -> false)) mustBe
             controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
