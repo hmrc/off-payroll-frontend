@@ -148,10 +148,6 @@ class IR35InsideViewSpec extends ResultViewFixture {
         document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
       }
 
-      "Have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe InDecisionMessages.HirerIR35.subHeading
-      }
-
       "Have the correct Why Result section" in {
         document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
         document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerIR35.whyResult
@@ -181,10 +177,6 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
     "Have the correct heading" in {
       document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
-    }
-
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe InDecisionMessages.WorkerIR35.subHeading
     }
 
     "Have the correct Why Result section" in {

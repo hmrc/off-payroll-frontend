@@ -10,7 +10,7 @@ date.day = Day
 date.month = Month
 date.year = Year
 ##### TODO NEED WELSH FOR ####
-date.january = Ionawr
+date.January = Ionawr
 date.February = Chwefror
 date.March = Mawrth
 date.April = Ebrill
@@ -78,12 +78,14 @@ site.finish = Finish
 site.exit = Exit
 site.continue = Yn eich blaen
 site.confirm_continue =Cadarnhau a pharhau
-site.confirm_continue = Confirm for result
+site.confirm_result = Confirm and continue
 site.accept_continue = Accept and continue
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
+site.ir35email = ir35@hmrc.gov.uk
+site.employmentStatusManual = Employment Status Manual
 
 feedback.before = Mae hwn yn wasanaeth newydd - bydd eich
 feedback.link = adborth
@@ -224,6 +226,8 @@ cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyf
 cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.checkYourAnswersLabel =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.checkYourAnswersLabel.optimised = Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
+#TODO: Need Welsh
+cannotClaimAsExpense.subheading = About the worker’s financial risk
 cannotClaimAsExpense.p1 =Dyma restr o bethau:
 cannotClaimAsExpense.bullet1 =y mae’n rhaid i’r gweithiwr eu darparu er mwyn cyflawni’r swydd benodol hon
 cannotClaimAsExpense.bullet2 =nad ydynt yn cael eu darparu gan y cleient terfynol
@@ -237,6 +241,11 @@ cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costa
 cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
 cannotClaimAsExpense.error.required = Mae angen i chi ddewis ateb
 cannotClaimAsExpense.error.invalid = Mae angen i chi ddewis ateb
+cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 worker.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 worker.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
@@ -254,6 +263,12 @@ worker.cannotClaimAsExpense.workerProvidedEquipment =Offer - yn cynnwys peiriann
 worker.cannotClaimAsExpense.workerUsedVehicle =Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 worker.cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 worker.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
+## TODO: Need Welsh
+worker.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+worker.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+worker.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+worker.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Ddim yn berthnasol
 
 hirer.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 hirer.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
@@ -271,6 +286,12 @@ hirer.cannotClaimAsExpense.workerProvidedEquipment =Offer - yn cynnwys peirianna
 hirer.cannotClaimAsExpense.workerUsedVehicle =Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 hirer.cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
+## TODO: Welsh needed
+hirer.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
+hirer.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
+hirer.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
+hirer.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
+hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 #########################
 
 ## Arranged Substitute
@@ -633,24 +654,6 @@ hirer.chooseWhereWork.workerChooses = Iawn - y gweithiwr sy’n penderfynu
 hirer.chooseWhereWork.workerCannotChoose =Na - y cleient terfynol sy’n dewis
 hirer.chooseWhereWork.noLocationRequired =Na - y dasg sy’n pennu lleoliad y gwaith
 hirer.chooseWhereWork.workerAgreeWithOthers = Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno, a rhaid i beth ohono gael ei wneud lle bynnag y mae’r gweithiwr yn dewis
-
-## TODO: Need Welsh
-worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.workerCannotChoose = Yes
-worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
-worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
-worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
-
-hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.workerCannotChoose = Yes
-hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
-hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
-hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
-
 #########################
 
 
@@ -693,14 +696,6 @@ worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
 worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide
 worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your schedule
 worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule
-
-hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
-hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree their schedule
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule
 #########################
 
 
@@ -1107,10 +1102,10 @@ result.indeterminate.whyResult.p2 =Gallwch adolygu’r atebion a roddwyd gennych
 ##### TODO NEED WELSH FOR ####
 result.indeterminate.shouldNowDo.p1 =Cysylltwch â llinell gymorth CThEM - Statws Cyflogaeth a Chyfryngwyr (Employment Status and Intermediaries) - os oes angen rhagor o gymorth arnoch:
 result.indeterminate.shouldNowDo.bullet1 =ar y ffôn ar 0300 123 2326
-result.indeterminate.shouldNowDo.bullet2 =drwy e-bost yn ir35@hmrc.gov.uk
+result.indeterminate.shouldNowDo.bullet2 =drwy e-bost yn
 result.indeterminate.shouldNowDo.p2.beforeLink =Gallwch, hefyd, ddarllen yr
 ##### TODO NEED WELSH FOR ####
-result.indeterminate.shouldNowDo.p2.link = Employment status manual
+result.indeterminate.shouldNowDo.p2.link = Employment Status Manual
 
 # Inside IR35
 result.insideIR35.title =Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
@@ -1186,7 +1181,7 @@ whichDescribesYou.error.invalid = You need to select an answer
 agencyAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 agencyAdvisory.p1 = It is the responsibility of the worker or the organisation the work is being done for.
-agencyAdvisory.p2 = However, if your agency is the fee payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
+agencyAdvisory.p2 = However, if your agency is the fee-payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
 agencyAdvisory.subheading = What to do next
 agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
 
@@ -1287,6 +1282,15 @@ checkYourAnswers.confirm.p1 = By submitting your answers, you are confirming the
 checkYourAnswers.confirm.bullet1 = the information you have provided is correct, to the best of your knowledge
 checkYourAnswers.confirm.bullet2 = it reflects the actual or expected working practices of this role
 checkYourAnswers.confirm.bullet3 = if this information changes, you accept your result may no longer hold
+
+checkYourAnswers.setup.header = Section 1: Who, what, when
+checkYourAnswers.exit.header = Section 2: Worker’s Duties
+checkYourAnswers.personalService.header = Section 3: Worker’s substitution
+checkYourAnswers.control.header = Section 4: Worker’s arrangements
+checkYourAnswers.financialRisk.header = Section 5: Worker’s risk
+checkYourAnswers.partParcel.header = Section 6: Worker’s involvement
+
+
 ##### TODO NEED WELSH FOR ####
 toolNotNeeded.client.ir35.title = You don’t need to determine if this work falls within the off-payroll rules (IR35)
 toolNotNeeded.client.ir35.heading = You don’t need to determine if this work falls within the off-payroll rules (IR35)
@@ -1296,14 +1300,6 @@ toolNotNeeded.client.paye.title = You don’t need to determine if this work sho
 toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
-
-worker.optimised.scheduleOfWorkingHours.title = Can the end client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.heading = Can the end client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Can the end client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
-worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide.
-worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your own schedule.
-worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
 
 hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
 hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
@@ -1367,18 +1363,18 @@ worker.optimised.result.officeHolder.ir35.title = IR35 applies. Tax earnings wit
 worker.optimised.result.officeHolder.ir35.heading = IR35 applies.
 worker.optimised.result.officeHolder.ir35.subHeading = Tax earnings within PAYE
 worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘worker’s duties’ section, you answered that you will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
-worker.optimised.result.officeHolder.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
-worker.optimised.result.officeHolder.ir35.public.doNext.p1 = Show this to the fee payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
+worker.optimised.result.officeHolder.ir35.private.doNext.p1 = Download a copy of your results to give to the fee-payer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
+worker.optimised.result.officeHolder.ir35.public.doNext.p1 = Show this to the fee-payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
 
 ##TODO: Need Welsh
 hirer.optimised.result.officeHolder.ir35.title = IR35 applies. Tax earnings within PAYE
 hirer.optimised.result.officeHolder.ir35.heading = IR35 applies.
 hirer.optimised.result.officeHolder.ir35.subHeading = Tax earnings within PAYE
 hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘worker’s duties’ section, you answered that the worker will act in an official position for you. Workers that perform office holder duties are classed as employed for tax purposes.
-hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
-hirer.optimised.result.officeHolder.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker.
-hirer.optimised.result.officeHolder.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
+hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
+hirer.optimised.result.officeHolder.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you’re the fee-payer, you need to operate PAYE for this worker.
+hirer.optimised.result.officeHolder.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
 ## ------------------
 
 ## Office Holder Agent
@@ -1388,27 +1384,26 @@ agent.optimised.result.officeHolder.title = IR35 applies. Tax earnings within PA
 agent.optimised.result.officeHolder.heading = IR35 applies.
 agent.optimised.result.officeHolder.subHeading = Tax earnings within PAYE
 agent.optimised.result.officeHolder.whyResult.p1 = In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
-agent.optimised.result.officeHolder.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+agent.optimised.result.officeHolder.doNext.p1 = If you’re the fee-payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
 ## ------------------
 
 ## Inside PAYE Hirer
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
-hirer.optimised.result.inside.paye.heading = Employed.
-hirer.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
-hirer.optimised.result.inside.paye.whyResult.p1 = The answers you’ve given tell us you’re directly engaging the worker. The working practices of this role indicate that the worker is employed for tax purposes.
-hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE for this worker.
+hirer.optimised.result.inside.paye.title = Result
+hirer.optimised.result.inside.paye.heading = Employed for tax purposes for this job
+hirer.optimised.result.inside.paye.whyResult.p1 = The working arrangements of this job indicate that the worker is employed for tax purposes.
+hirer.optimised.result.inside.paye.doNext.p1 = Ensure that you operate PAYE on earnings from this job.
 ## ------------------
 
-## PAYE Hirer
+## Undetermined PAYE Hirer
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.undetermined.paye.title = Undetermined employment status
-hirer.optimised.result.undetermined.paye.heading = Undetermined employment status
+hirer.optimised.result.undetermined.paye.title = Unable to decide the employment status of this work for tax purposes
+hirer.optimised.result.undetermined.paye.heading = Unable to decide the employment status of this work for tax purposes
 hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
+hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
 
 ##TODO: Need Welsh
 hirer.optimised.result.out.paye.title = Self-employed. Earnings paid gross
@@ -1422,133 +1417,122 @@ hirer.optimised.result.out.paye.whyResult.p2 = Your answers indicate that this i
 hirer.optimised.result.out.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 
 ##TODO: Need Welsh
-worker.optimised.result.inside.ir35.title = IR35 applies. Tax earnings within PAYE
-worker.optimised.result.inside.ir35.heading = IR35 applies.
-worker.optimised.result.inside.ir35.subHeading = Tax earnings within PAYE
-worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are classed as employed for tax purposes.
-worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
-worker.optimised.result.inside.ir35.public.doNext.p1 = Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
+worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes.
+worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
 ## ------------------
 
 ## Undetermined IR35 Decision Worker
 ## -------------------
 ##TODO: Need Welsh
-worker.optimised.result.undetermined.ir35.title = Undetermined employment status
-worker.optimised.result.undetermined.ir35.heading = Undetermined employment status
+worker.optimised.result.undetermined.ir35.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.undetermined.ir35.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
 worker.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
-worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
-worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
+worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the
+worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the
 ## ------------------
 
 ## Outside IR35 Decision Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.outside.ir35.title = IR35 does not apply. Earnings paid gross
-worker.optimised.result.outside.ir35.heading = IR35 does not apply. Earnings paid gross
-worker.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means that you are classed as self-employed for tax purposes.
-worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
-worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
+worker.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
+worker.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
+worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
+worker.optimised.result.outside.ir35.private.doNext.p1.preLink = Download a copy of your results to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow
+worker.optimised.result.outside.ir35.private.doNext.p1.link = this guidance
+worker.optimised.result.outside.ir35.private.doNext.p1.postLink = about your taxes.
+worker.optimised.result.outside.ir35.public.doNext.p1.preLink = Download a copy of your results to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow
+worker.optimised.result.outside.ir35.public.doNext.p1.link = this guidance
+worker.optimised.result.outside.ir35.public.doNext.p1.postLink =  about your taxes.
+
+## Outside PAYE Decision Worker
+## ------------------
+##TODO: Need Welsh
+worker.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.heading = Self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
+worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
+worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
 
 ## Inside Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.inside.title = IR35 applies. Tax earnings within PAYE
-agent.optimised.result.inside.heading = IR35 applies.
-agent.optimised.result.inside.subHeading = Tax earnings within PAYE
-agent.optimised.result.inside.whyResult.p1 = The answers you’ve given tell us your client is  directly hiring your candidate, and the working practices of this engagement mean that your candidate is classed as employed for tax purposes.
-agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+agent.optimised.result.inside.title = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.inside.heading = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.inside.whyResult.p1 = The answers you have given tell us that your candidate’s client is directly hiring them. The working practices of this engagement mean that your candidate is classed as employed for tax purposes.
+agent.optimised.result.inside.doNext.p1 = If you are the fee-payer, you should tell your candidate that you will be operating PAYE for their earnings.
 ## ------------------
 
 ## Out Agent
 ## ------------------
-agent.optimised.result.out.title = The off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.out.heading = The off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.out.title = Off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.out.heading = Off-payroll working rules (IR35) do not apply to this contract
 agent.optimised.result.out.whyResult.p1 = Your answers told us:
 agent.optimised.result.out.reason.p1 = your candidate’s client has accepted, or would accept, a substitute to do this work
 agent.optimised.result.out.reason.p2 = your candidate’s client does not have control over this work
 agent.optimised.result.out.reason.p3 = your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged.
 agent.optimised.result.out.whyResult.p2 = This indicates the working arrangements for this contract are on a business-to-business basis.
-agent.optimised.result.out.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+agent.optimised.result.out.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
 
 ## ------------------
 
 ## Undetermined Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.undetermined.title = Undetermined employment status
-agent.optimised.result.undetermined.heading = Undetermined employment status
+agent.optimised.result.undetermined.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.undetermined.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
 agent.optimised.result.undetermined.whyResult.p1 = We need more information to understand the working practices of this engagement.
-agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-agent.optimised.result.undetermined.doNext.p2 = You could also read through the Employment status manual.
+agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+agent.optimised.result.undetermined.doNext.p2 = You could also read through the
 
 ## ------------------
 ## Hirer IR35
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.ir35.title = IR35 applies. Tax earnings within PAYE
-hirer.optimised.result.inside.ir35.heading = IR35 applies.
-hirer.optimised.result.inside.ir35.subHeading = Tax earnings within PAYE
-hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are classed as employed for tax purposes.
-hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
-hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker.
-hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee payer is someone else,  you need to show them this determination.
+hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are deemed employed for tax purposes.
+hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
+hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.inside.ir35.public.doNext.p1 = If you are the fee-payer, you need to operate PAYE on earnings from this contract.
+hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
 
 ##TODO: Need Welsh
-hirer.optimised.result.undetermined.ir35.title = Undetermined employment status
-hirer.optimised.result.undetermined.ir35.heading = Undetermined employment status
+hirer.optimised.result.undetermined.ir35.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.undetermined.ir35.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
 hirer.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
-hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
-hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
-
-##TODO: Need Welsh
-worker.optimised.result.outside.ir35.title = IR35 does not apply
-worker.optimised.result.outside.ir35.heading = IR35 does not apply
-worker.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
-worker.optimised.result.outside.ir35.private.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
-worker.optimised.result.outside.ir35.public.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
-worker.optimised.result.outside.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
-## ------------------
+hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the
+hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the
 
 ## PAYE Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
-worker.optimised.result.inside.paye.heading = Employed.
-worker.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
-worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given tell us you are directly engaged by your client. The working practices of this role indicate that you are employed for tax purposes.
-worker.optimised.result.inside.paye.doNext.p1 = Show this to the person hiring you and tell them they should operate PAYE for you.
+worker.optimised.result.inside.paye.title = Employed for tax purposes for this work
+worker.optimised.result.inside.paye.heading = Employed for tax purposes for this work
+worker.optimised.result.inside.paye.whyResult.p1 = The working arrangements indicate that you are employed for tax purposes.
+worker.optimised.result.inside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
 
-##TODO: Need Welsh
-worker.optimised.result.undetermined.paye.title = Undetermined employment status
-worker.optimised.result.undetermined.paye.heading = Undetermined employment status
-worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
-
-##TODO: Need Welsh
-worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.heading = Self-employed.
-worker.optimised.result.out.paye.subHeading = Earnings paid gross
-worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
-worker.optimised.result.out.paye.whyResult.b1 = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.out.paye.whyResult.b2 = your client does not have a right of control over the work
-worker.optimised.result.out.paye.whyResult.b3 = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
-worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
+## Undetermined PAYE Worker
 ## ------------------
+##TODO: Need Welsh
+worker.optimised.result.undetermined.paye.title = Unable to decide the employment status of this work for tax purposes
+worker.optimised.result.undetermined.paye.heading = Unable to decide the employment status of this work for tax purposes
+worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
+worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
 
 downloadPDFCopy.error.required = You need to select an answer
 
@@ -1631,12 +1615,59 @@ result.pdf.customisedBy = Name of the person that completed this check:
 result.pdf.client = End client’s name:
 result.pdf.job = Engagement job title:
 result.pdf.reference = Reference:
+result.pdf.whatYouToldUs = What you told us
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
 
 ##TODO: Need Welsh
 personalServiceSectionChangeWarning.title = Please be advised that by changing your answers in this section, you may need to answer additional questions.
 personalServiceSectionChangeWarning.heading = Please be advised that by changing your answers in this section, you may need to answer additional questions.
+
+hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
+hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
+hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute to do this work
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+hirer.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
+hirer.optimised.result.outside.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
+hirer.optimised.result.outside.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then you would need to pay the worker’s business gross, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.private.doNext.p3 = If the fee-payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.outside.ir35.public.doNext.p1 = If you are the fee-payer you need to pay the worker’s business gross, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
+
+## ------------------
+## Out Agent
+## ------------------
+##TODO: Need Welsh
+agent.optimised.result.outside.title = Off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.outside.heading = Off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.outside.whyResult.p1 = Your answers told us:
+agent.optimised.result.outside.whyResult.substituteToDoWork = your candidate’s client has accepted, or would accept, a substitute to do this work
+agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate’s client does not have control over this work
+agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
+agent.optimised.result.outside.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+
+##TODO: Need Welsh
+worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
+worker.optimised.result.out.paye.heading = Self-employed. Earnings paid gross
+worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
+worker.optimised.result.out.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
+worker.optimised.result.out.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
+worker.optimised.result.out.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
+worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
+worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
+
+##TODO: Need Welsh
+hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this job
+hirer.optimised.result.outside.paye.heading = Self-employed for tax purposes for this job
+hirer.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute to do this work
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not have control over this work
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged
+hirer.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean the worker is self-employed for tax purposes.
+hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 
 pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
 pdfDetails.client.error.maxLength = The client name must be {0} characters or less
@@ -1650,3 +1681,4 @@ resetAnswersWarning.hint = The answers given in this section influence the quest
 resetAnswersWarning.startAgain = Start again
 resetAnswersWarning.goBack = Take me back to my answers
 resetAnswersWarning.error.required = You need to select an answer
+

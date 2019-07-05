@@ -44,8 +44,7 @@
 
         @components.teal_result(
             Html(messages(tailorMsgOptimised("result.inside.paye.heading"))),
-            "result.inside",
-            Some(Html(messages(tailorMsgOptimised("result.inside.paye.subHeading"))))
+            "result.inside"
         )
 
         @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {

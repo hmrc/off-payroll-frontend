@@ -87,9 +87,9 @@
         @messages("result.officeHolderInsideIR35.shouldNowDo.public.p2.beforeLink")
 
         @if(printView) {
-            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm0500">@messages("result.officeHolderInsideIR35.shouldNowDo.public.p2.link")</a>
+            <a href="@{appConfig.employmentStatusManualUrl}/esm0500">@messages("result.officeHolderInsideIR35.shouldNowDo.public.p2.link")</a>
         } else {
-            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm0500" rel="external">@messages("result.officeHolderInsideIR35.shouldNowDo.public.p2.link")</a>
+            <a href="@{appConfig.employmentStatusManualUrl}/esm0500" rel="external">@messages("result.officeHolderInsideIR35.shouldNowDo.public.p2.link")</a>
         }
         @messages("result.officeHolderInsideIR35.shouldNowDo.public.p2.afterLink")
     </p>

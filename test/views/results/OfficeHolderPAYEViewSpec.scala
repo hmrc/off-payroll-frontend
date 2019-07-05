@@ -89,10 +89,6 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
     }
 
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Worker.PAYE.subHeading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.PAYE.whyResult_p1
@@ -111,10 +107,6 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
     "Have the correct heading" in {
       document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
-    }
-
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Hirer.PAYE.subHeading
     }
 
     "Have the correct Why Result section" in {

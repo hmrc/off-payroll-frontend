@@ -137,10 +137,6 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
     }
 
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Worker.IR35.subHeading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.whyResult_p1
@@ -168,10 +164,6 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
     }
 
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe OfficeHolderMessages.Hirer.IR35.subHeading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.whyResult_p1
@@ -187,7 +179,6 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
         document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p1
-        document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p2
       }
     }
   }
