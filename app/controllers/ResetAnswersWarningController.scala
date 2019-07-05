@@ -40,7 +40,6 @@ class ResetAnswersWarningController @Inject()(navigator: Navigator,
                                               formProvider: ResetAnswersWarningFormProvider,
                                               controllerComponents: MessagesControllerComponents,
                                               view: ResetAnswersWarningView,
-                                              checkYourAnswersService: CheckYourAnswersService,
                                               compareAnswerService: CompareAnswerService,
                                               dataCacheConnector: DataCacheConnector,
                                               decisionService: DecisionService,
@@ -59,7 +58,6 @@ class ResetAnswersWarningController @Inject()(navigator: Navigator,
         BadRequest(view(formWithErrors)),
       reset => {
         if(reset) {
-
           Redirect(controllers.routes.IndexController.onPageLoad()).withNewSession
         } else {
           Redirect(controllers.routes.CheckYourAnswersController.onPageLoad())

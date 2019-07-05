@@ -43,6 +43,24 @@ class QuestionDeletionLookupSpec extends SpecBase {
   val userAnswers = UserAnswers("id")
 
   "QuestionDeletionLookup" when {
+
+    "Office holder" must {
+      "remove all further questions" in {
+        val res = navigator.getPagesToRemove(OfficeHolderPage)(
+          userAnswers.set(OfficeHolderPage, 0, false))
+
+        res mustBe List(
+          ArrangedSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, RejectSubstitutePage, WouldWorkerPaySubstitutePage,
+          //Control
+          ChooseWhereWorkPage, MoveWorkerPage, ScheduleOfWorkingHoursPage, HowWorkIsDonePage,
+          //Financial Risk
+          EquipmentExpensesPage, HowWorkerIsPaidPage, MaterialsPage, OtherExpensesPage, PutRightAtOwnCostPage, VehiclePage, CannotClaimAsExpensePage,
+          //Part Parcel
+          BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage, InteractWithStakeholdersPage
+        )
+      }
+    }
+
     "Setup" must {
       "handle WorkerUsingIntermediaryPage" when {
 

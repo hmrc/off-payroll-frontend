@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.OfficeHolderFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.requests.DataRequest
-import models.{Answers, NormalMode, UserAnswers}
+import models.{Answers, CheckMode, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.CannotClaimAsExpensePage
@@ -64,6 +64,20 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
   val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true, 0)))
 
   "OfficeHolder Controller" must {
+
+    "override the mode if office holder set to false in check mode" in {
+      enable(OptimisedFlow)
+      val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(false, 0)))
+
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData).onSubmit(CheckMode)(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/check-employment-status-for-tax/review-answers")
+    }
 
     "If the OptimisedFlow is enabled" should {
 
