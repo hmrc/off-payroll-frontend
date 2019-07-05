@@ -19,28 +19,26 @@ package utils
 import _root_.models.UserType._
 import base.SpecBase
 import config.SessionKeys
+import controllers.sections.control.{routes => controlRoutes}
+import controllers.sections.exit.{routes => exitRoutes}
+import controllers.sections.financialRisk.{routes => financialRiskRoutes}
+import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.NoWorkerInputAllowed
 import models.HowWorkerIsPaid.Commission
+import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.{CheckMode, Enumerable, UserAnswers}
+import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.ContractStartedPage
-import pages._
 import play.api.libs.json.Json
 import viewmodels.AnswerRow
-import controllers.sections.control.{routes => controlRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
-import models.IdentifyToStakeholders.WorkForEndClient
 
 class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
 
@@ -945,7 +943,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -959,7 +957,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Hirer.$TurnoverOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -974,7 +972,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
         }
       }
@@ -1003,7 +1001,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -1017,7 +1015,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Hirer.$EmployeesOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -1032,7 +1030,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
         }
       }
@@ -1061,7 +1059,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -1075,7 +1073,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
                 label = s"$Hirer.$BalanceSheetOverPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
         }
@@ -1090,7 +1088,7 @@ class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
               label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
         }
       }
