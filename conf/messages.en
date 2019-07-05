@@ -1085,9 +1085,9 @@ result.indeterminate.whyResult.p1 = We need more information to understand the w
 result.indeterminate.whyResult.p2 = You can review the answers you have given below.
 result.indeterminate.shouldNowDo.p1 = If you require further assistance, please contact HMRC’s Employment Status and Intermediaries helpline for advice:
 result.indeterminate.shouldNowDo.bullet1 = by phone on 0300 123 2326
-result.indeterminate.shouldNowDo.bullet2 = by email at
+result.indeterminate.shouldNowDo.bullet2 = by email at ir35@hmrc.gov.uk
 result.indeterminate.shouldNowDo.p2.beforeLink = You could also read through the
-result.indeterminate.shouldNowDo.p2.link = Employment Status Manual
+result.indeterminate.shouldNowDo.p2.link = Employment status manual
 
 # Inside IR35
 result.insideIR35.title = The intermediaries legislation applies to this engagement
