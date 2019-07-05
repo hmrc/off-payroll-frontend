@@ -151,11 +151,11 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     WouldWorkerPaySubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(WouldWorkerPaySubstitutePage)) match {
         case (Some(Answers(true,_)),_) if !isEnabled(OptimisedFlow) =>
-          personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case (Some(Answers(false,_)),_) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
-        case (Some(Answers(true,_)),Some(Answers(false,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case (Some(Answers(true,_)),Some(Answers(true,_))) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
-        case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+          personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
+        case (Some(Answers(false,_)),_) => personalServiceNextPage
+        case (Some(Answers(true,_)),Some(Answers(false,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
+        case (Some(Answers(true,_)),Some(Answers(true,_))) => personalServiceNextPage
+        case _ => setupRoutes.ContractStartedController.onPageLoad(mode)
       }),
     NeededToPayHelperPage -> (_ => personalServiceNextPage)
   )

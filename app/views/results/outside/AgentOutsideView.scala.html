@@ -63,14 +63,7 @@
 
             } else {
 
-                @results.sections.download()
-
-                @components.input_yes_no(
-                    field = form("value"),
-                    label = messages("agent.optimised.result.outside.heading"),
-                    labelClass = Some("visually-hidden")
-                )
-
+                @results.sections.download(form)
                 @components.submit_button("site.continue")
             }
         }
