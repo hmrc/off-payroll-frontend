@@ -22,9 +22,8 @@ import controllers.actions._
 import controllers.BaseController
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
-
 import connectors.DataCacheConnector
-import models.Mode
+import models.{CheckMode, Mode, NormalMode}
 import navigation.Navigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
@@ -65,7 +64,16 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-        redirect[Boolean](mode,value, OfficeHolderPage, callDecisionService = true)
+
+        val overrideMode = if(mode.equals(CheckMode) && request.userAnswers.get(OfficeHolderPage).isDefined &&
+          request.userAnswers.get(OfficeHolderPage).get.answer.equals(value) && !value)
+        {
+          CheckMode
+        } else {
+          NormalMode
+        }
+
+        redirect[Boolean](overrideMode,value, OfficeHolderPage, callDecisionService = true)
       }
     )
   }

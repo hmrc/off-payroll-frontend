@@ -68,6 +68,8 @@ object Page {
     InteractWithStakeholdersPage.toString -> InteractWithStakeholdersPage,
     IdentifyToStakeholdersPage.toString -> IdentifyToStakeholdersPage,
     CustomisePDFPage.toString -> CustomisePDFPage,
-    ResultPage.toString -> ResultPage
+    ResultPage.toString -> ResultPage,
+    Timestamp.toString -> Timestamp,
+    AddReferenceDetailsPage.toString -> AddReferenceDetailsPage
   )
 }
