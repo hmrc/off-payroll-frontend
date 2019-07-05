@@ -18,11 +18,14 @@ package views
 
 import assets.messages.ResetAnswersMessages
 import config.featureSwitch.OptimisedFlow
+import controllers.sections.setup.routes
 import forms.ResetAnswersWarningFormProvider
-import views.behaviours.ViewBehaviours
+import models.NormalMode
+import play.api.data.Form
+import views.behaviours.{ViewBehaviours, YesNoViewBehaviours}
 import views.html.ResetAnswersWarningView
 
-class ResetAnswersWarningViewSpec extends ViewBehaviours {
+class ResetAnswersWarningViewSpec extends YesNoViewBehaviours with ViewBehaviours {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -35,16 +38,21 @@ class ResetAnswersWarningViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[ResetAnswersWarningView]
 
-  val form = new ResetAnswersWarningFormProvider()
+  val form = new ResetAnswersWarningFormProvider()()
 
-  def createView = () => view(form())(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form)(fakeRequest, messages, frontendAppConfig)
+
+  def createViewUsingForm = (form: Form[_]) => view(form)(fakeRequest, messages, frontendAppConfig)
 
   lazy val document = asDocument(createView())
 
   "CheckYourAnswers view" must {
+
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
+
+    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.IsWorkForPrivateSectorController.onSubmit(NormalMode).url)
 
     "have the correct title" in {
 
