@@ -36,16 +36,14 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("resetAnswersWarning.heading")
-
-        @components.panel_indent(Html(messages("resetAnswersWarning.hint")))
-
-        @components.input_radio(
+        @components.input_yes_no(
             field = form("value"),
-            legend = messages("resetAnswersWarning.heading"),
-            hint = None,
-            legendClass = Some("visually-hidden"),
-            inputs = ResetAnswersWarning.options
+            legend = components.heading(messages("resetAnswersWarning.heading"), asLegend = true),
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(components.panel_indent(Html(messages("resetAnswersWarning.hint")))),
+            yesMessage = Some(messages("resetAnswersWarning.startAgain")),
+            noMessage = Some(messages("resetAnswersWarning.goBack")),
+            inline = false
         )
 
         @components.submit_button()

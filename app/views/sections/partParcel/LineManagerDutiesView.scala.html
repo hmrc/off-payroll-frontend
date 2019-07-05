@@ -35,16 +35,17 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("lineManagerDuties.heading"))
-
-        <p>@messages(tailorMsgOptimised("lineManagerDuties.p1"))</p>
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsgOptimised("lineManagerDuties.heading")),
+            legend = components.heading(tailorMsgOptimised("lineManagerDuties.heading"), asLegend = true),
+            otherContent = Some(content),
             labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
+}
+
+@content = {
+    <p>@messages(tailorMsgOptimised("lineManagerDuties.p1"))</p>
 }
