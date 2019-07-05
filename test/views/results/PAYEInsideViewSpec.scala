@@ -88,10 +88,6 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
     }
 
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe InDecisionMessages.WorkerPAYE.subHeading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerPAYE.whyResult
@@ -111,10 +107,6 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "Have the correct heading" in {
       document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
-    }
-
-    "Have the correct subheading" in {
-      document.select(Selectors.subheading).text mustBe InDecisionMessages.HirerPAYE.subHeading
     }
 
     "Have the correct Why Result section" in {

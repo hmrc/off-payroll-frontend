@@ -71,6 +71,8 @@ site.service_name = Check employment status for tax
 site.home = Home
 site.govuk = GOV.UK
 site.hmrc = HM Revenue & Customs
+site.ir35email = ir35@hmrc.gov.uk
+site.employmentStatusManual = Employment Status Manual
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -987,8 +989,8 @@ result.declaration.error.required = In order to download a PDF, you will need to
 result.officeHolderInsideIR35.title = The intermediaries legislation applies to this engagement
 result.officeHolderInsideIR35.heading = The intermediaries legislation applies to this engagement
 result.officeHolderInsideIR35.whyResult.p1 = Workers that perform office holder duties for the end client are classed as employed for tax purposes.
-result.officeHolderInsideIR35.shouldNowDo.public.p1 = If you are the worker you should tell the organisation that pays your fees (the fee payer) to deduct tax and National Insurance from your payment.
-result.officeHolderInsideIR35.shouldNowDo.public.p2.beforeLink = If you are the fee payer you need to deduct tax and National Insurance from the worker’s
+result.officeHolderInsideIR35.shouldNowDo.public.p1 = If you are the worker you should tell the organisation that pays your fees (the fee-payer) to deduct tax and National Insurance from your payment.
+result.officeHolderInsideIR35.shouldNowDo.public.p2.beforeLink = If you are the fee-payer you need to deduct tax and National Insurance from the worker’s
 result.officeHolderInsideIR35.shouldNowDo.public.p2.link = deemed employment payment(s)
 result.officeHolderInsideIR35.shouldNowDo.public.p2.afterLink = during this engagement.
 result.officeHolderInsideIR35.shouldNowDo.private.p1.beforeLink = If you are the worker you need to follow
@@ -1017,7 +1019,7 @@ result.futureSubstitution.whyResult.p2 = It is important to demonstrate that it 
 result.futureSubstitution.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
 result.futureSubstitution.shouldNowDo.p1.link = this guidance
 result.futureSubstitution.shouldNowDo.p1.afterLink = about your taxes.
-result.futureSubstitution.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.futureSubstitution.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
 result.futureSubstitution.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.futureSubstitution.aboutResult.p1.link = these specific conditions of liability
 result.futureSubstitution.aboutResult.p1.afterLink = .
@@ -1030,7 +1032,7 @@ result.currentSubstitution.whyResult.exclamation = If HMRC investigate this enga
 result.currentSubstitution.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
 result.currentSubstitution.shouldNowDo.p1.link = this guidance
 result.currentSubstitution.shouldNowDo.p1.afterLink = about your taxes.
-result.currentSubstitution.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.currentSubstitution.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
 
 # Self Employed Result
 result.selfEmployed.title = This engagement should be classed as self-employed for tax purposes
@@ -1039,7 +1041,7 @@ result.selfEmployed.whyResult.p1 = The answers you have given tell us that the w
 result.selfEmployed.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
 result.selfEmployed.shouldNowDo.p1.link = this guidance
 result.selfEmployed.shouldNowDo.p1.afterLink = about your taxes.
-result.selfEmployed.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.selfEmployed.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
 
 # Employed Result
 result.employed.title = This engagement should be classed as employed for tax purposes
@@ -1058,7 +1060,7 @@ result.control.whyResult.exclamation = If HMRC investigate this engagement, the 
 result.control.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
 result.control.shouldNowDo.p1.link = this guidance
 result.control.shouldNowDo.p1.afterLink = about your taxes.
-result.control.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.control.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
 result.control.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.control.aboutResult.p1.link = these specific conditions of liability
 result.control.aboutResult.p1.afterLink = .
@@ -1071,7 +1073,7 @@ result.financialRisk.whyResult.exclamation = If HMRC investigate this engagement
 result.financialRisk.shouldNowDo.p1.beforeLink = If you are the worker your business should be paid a gross amount and follow
 result.financialRisk.shouldNowDo.p1.link = this guidance
 result.financialRisk.shouldNowDo.p1.afterLink = about your taxes.
-result.financialRisk.shouldNowDo.p2 = If you are the fee payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
+result.financialRisk.shouldNowDo.p2 = If you are the fee-payer you can pay the worker’s business a gross amount without deducting tax or National Insurance.
 result.financialRisk.aboutResult.p1.beforeLink = The intermediaries legislation will apply to this engagement where the worker’s business (the intermediary) satisfies
 result.financialRisk.aboutResult.p1.link = these specific conditions of liability
 result.financialRisk.aboutResult.p1.afterLink = .
@@ -1083,19 +1085,19 @@ result.indeterminate.whyResult.p1 = We need more information to understand the w
 result.indeterminate.whyResult.p2 = You can review the answers you have given below.
 result.indeterminate.shouldNowDo.p1 = If you require further assistance, please contact HMRC’s Employment Status and Intermediaries helpline for advice:
 result.indeterminate.shouldNowDo.bullet1 = by phone on 0300 123 2326
-result.indeterminate.shouldNowDo.bullet2 = by email at ir35@hmrc.gov.uk
+result.indeterminate.shouldNowDo.bullet2 = by email at
 result.indeterminate.shouldNowDo.p2.beforeLink = You could also read through the
-result.indeterminate.shouldNowDo.p2.link = Employment status manual
+result.indeterminate.shouldNowDo.p2.link = Employment Status Manual
 
 # Inside IR35
 result.insideIR35.title = The intermediaries legislation applies to this engagement
 result.insideIR35.heading = The intermediaries legislation applies to this engagement
 result.insideIR35.whyResult.p1 = The answers you have given suggest that the working practices of this engagement mean the worker is employed for tax purposes.
-result.insideIR35.shouldNowDo.public.p1 = If you are the worker you should tell the organisation that pays your fees (the fee payer) to deduct tax and National Insurance from your payment.
-result.insideIR35.shouldNowDo.public.p2.beforeLink = If you are the fee payer you need to deduct tax and National Insurance from the worker’s
+result.insideIR35.shouldNowDo.public.p1 = If you are the worker you should tell the organisation that pays your fees (the fee-payer) to deduct tax and National Insurance from your payment.
+result.insideIR35.shouldNowDo.public.p2.beforeLink = If you are the fee-payer you need to deduct tax and National Insurance from the worker’s
 result.insideIR35.shouldNowDo.public.p2.link = deemed employment payment(s)
 result.insideIR35.shouldNowDo.public.p2.afterLink = during this engagement.
-result.insideIR35.shouldNowDo.public.p3.beforeLink = If you are the end client, and not the organisation paying the worker (fee payer). You should tell the fee paying agency to deduct tax and National Insurance from the worker’s
+result.insideIR35.shouldNowDo.public.p3.beforeLink = If you are the end client, and not the organisation paying the worker (fee-payer). You should tell the fee paying agency to deduct tax and National Insurance from the worker’s
 result.insideIR35.shouldNowDo.public.p3.link = deemed employment payment(s)
 result.insideIR35.shouldNowDo.public.p3.afterLink = during this engagement.
 result.insideIR35.shouldNowDo.private.p1.beforeLink = If you are the worker you need to follow
@@ -1155,7 +1157,7 @@ whichDescribesYou.error.invalid = You need to select an answer
 agencyAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 agencyAdvisory.p1 = It is the responsibility of the worker or the organisation the work is being done for.
-agencyAdvisory.p2 = However, if your agency is the fee payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
+agencyAdvisory.p2 = However, if your agency is the fee-payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
 agencyAdvisory.subheading = What to do next
 agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
 
@@ -1276,201 +1278,191 @@ optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 ## Office Holder PAYE
 ## ------------------
-worker.optimised.result.officeHolder.paye.title = Employed. Tax earnings within PAYE
-worker.optimised.result.officeHolder.paye.heading = Employed.
-worker.optimised.result.officeHolder.paye.subHeading = Tax earnings within PAYE
-worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘worker’s duties’ section, you answered that you will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
-worker.optimised.result.officeHolder.paye.doNext.p1 = Show this to the person hiring you and tell them they should operate PAYE for you.
+worker.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
+worker.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
+worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are employed for tax purposes.
+worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
 
-hirer.optimised.result.officeHolder.paye.title = Employed. Tax earnings within PAYE
-hirer.optimised.result.officeHolder.paye.heading = Employed.
-hirer.optimised.result.officeHolder.paye.subHeading = Tax earnings within PAYE
-hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ’worker’s duties’ section, you answered that the worker will act in an official position for you. Workers that perform office holder duties are classed as employed for tax purposes.
-hirer.optimised.result.officeHolder.paye.doNext.p1 = Ensure that any earnings from this work are paid net of tax within PAYE.
+hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this job
+hirer.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this job
+hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes.
+hirer.optimised.result.officeHolder.paye.doNext.p1 = Ensure that you operate PAYE on earnings from this job.
 ## ------------------
 
 ## Office Holder IR35
 ## ------------------
-worker.optimised.result.officeHolder.ir35.title = IR35 applies. Tax earnings within PAYE
-worker.optimised.result.officeHolder.ir35.heading = IR35 applies.
-worker.optimised.result.officeHolder.ir35.subHeading = Tax earnings within PAYE
-worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘worker’s duties’ section, you answered that you will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
-worker.optimised.result.officeHolder.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
-worker.optimised.result.officeHolder.ir35.public.doNext.p1 = Show this to the fee payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
+worker.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are deemed employed for tax purposes.
+worker.optimised.result.officeHolder.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
+worker.optimised.result.officeHolder.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
 
-hirer.optimised.result.officeHolder.ir35.title = IR35 applies. Tax earnings within PAYE
-hirer.optimised.result.officeHolder.ir35.heading = IR35 applies.
-hirer.optimised.result.officeHolder.ir35.subHeading = Tax earnings within PAYE
-hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘worker’s duties’ section, you answered that the worker will act in an official position for you. Workers that perform office holder duties are classed as employed for tax purposes.
-hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
-hirer.optimised.result.officeHolder.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker.
-hirer.optimised.result.officeHolder.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
+hirer.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes.
+hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
+hirer.optimised.result.officeHolder.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you are the fee-payer, you need to operate PAYE on earnings from this contract. If the fee-payer is someone else, you need to show them this determination.
 ## ------------------
 
 ## Office Holder Agent
 ## -------------------
-agent.optimised.result.officeHolder.title = IR35 applies. Tax earnings within PAYE
-agent.optimised.result.officeHolder.heading = IR35 applies.
-agent.optimised.result.officeHolder.subHeading = Tax earnings within PAYE
+agent.optimised.result.officeHolder.title = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply to this contract
 agent.optimised.result.officeHolder.whyResult.p1 = In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
-agent.optimised.result.officeHolder.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+agent.optimised.result.officeHolder.doNext.p1 = If you are the fee-payer, you should tell your candidate that you will be operating PAYE on their earnings.
 ## ------------------
 
 ## Inside PAYE Hirer
 ## ------------------
-hirer.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
-hirer.optimised.result.inside.paye.heading = Employed.
-hirer.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
-hirer.optimised.result.inside.paye.whyResult.p1 = The answers you’ve given tell us you’re directly engaging the worker. The working practices of this role indicate that the worker is employed for tax purposes.
-hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE for this worker.
+hirer.optimised.result.inside.paye.title = Employed for tax purposes for this job
+hirer.optimised.result.inside.paye.heading = Employed for tax purposes for this job
+hirer.optimised.result.inside.paye.whyResult.p1 = The working arrangements of this job indicate that the worker is employed for tax purposes.
+hirer.optimised.result.inside.paye.doNext.p1 = Ensure that you operate PAYE on earnings from this job.
 ## ------------------
 
 ## Undetermined PAYE Hirer
 ## ------------------
-hirer.optimised.result.undetermined.paye.title = Undetermined employment status
-hirer.optimised.result.undetermined.paye.heading = Undetermined employment status
+hirer.optimised.result.undetermined.paye.title = Unable to decide the employment status of this work for tax purposes
+hirer.optimised.result.undetermined.paye.heading = Unable to decide the employment status of this work for tax purposes
 hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
+hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
 
-hirer.optimised.result.outside.paye.title = Self-employed. Earnings paid gross
-hirer.optimised.result.outside.paye.heading = Self-employed. Earnings paid gross
-hirer.optimised.result.outside.paye.whyResult.p1 = You told us the following information:
-hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-hirer.optimised.result.outside.paye.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
+hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this job
+hirer.optimised.result.outside.paye.heading = Self-employed for tax purposes for this job
+hirer.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute to do this work
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not have control over this work
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged
+hirer.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean the worker is self-employed for tax purposes.
 hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
 ## ------------------
 
-## Outside PAYE Hirer
+## Inside PAYE Worker
 ## ------------------
-worker.optimised.result.inside.paye.title = Employed. Tax earnings within PAYE
-worker.optimised.result.inside.paye.heading = Employed.
-worker.optimised.result.inside.paye.subHeading = Tax earnings within PAYE
-worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given tell us you are directly engaged by your client. The working practices of this role indicate that you are employed for tax purposes.
-worker.optimised.result.inside.paye.doNext.p1 = Show this to the person hiring you and tell them they should operate PAYE for you.
+worker.optimised.result.inside.paye.title = Employed for tax purposes for this work
+worker.optimised.result.inside.paye.heading = Employed for tax purposes for this work
+worker.optimised.result.inside.paye.whyResult.p1 = The working arrangements indicate that you are employed for tax purposes.
+worker.optimised.result.inside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
+## ------------------
 
-worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.heading = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
-worker.optimised.result.out.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.out.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.out.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
-worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
-
-worker.optimised.result.undetermined.paye.title = Undetermined employment status
-worker.optimised.result.undetermined.paye.heading = Undetermined employment status
+## Undetermined PAYE Worker
+## ------------------
+worker.optimised.result.undetermined.paye.title = Unable to decide the employment status of this work for tax purposes
+worker.optimised.result.undetermined.paye.heading = Unable to decide the employment status of this work for tax purposes
 worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the Employment status manual.
+worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
 ## ------------------
 
 
 ## In IR35 Decision Worker
 ## -------------------
-worker.optimised.result.inside.ir35.title = IR35 applies. Tax earnings within PAYE
-worker.optimised.result.inside.ir35.heading = IR35 applies.
-worker.optimised.result.inside.ir35.subHeading = Tax earnings within PAYE
-worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are classed as employed for tax purposes.
-worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to operate PAYE and deduct tax and National Insurance from your earnings.
-worker.optimised.result.inside.ir35.public.doNext.p1 = Show this to the payer and tell them they need to operate PAYE. They will need to deduct tax and National Insurance from your earnings.
+worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes.
+worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
 ## ------------------
 
 ## Undetermined IR35 Decision Worker
 ## -------------------
-worker.optimised.result.undetermined.ir35.title = Undetermined employment status
-worker.optimised.result.undetermined.ir35.heading = Undetermined employment status
+worker.optimised.result.undetermined.ir35.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
+worker.optimised.result.undetermined.ir35.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
 worker.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
-worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
-worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
+worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the
+worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the
 
 ## Outside IR35 Decision Worker
 ## ------------------
-worker.optimised.result.outside.ir35.title = IR35 does not apply. Earnings paid gross
-worker.optimised.result.outside.ir35.heading = IR35 does not apply. Earnings paid gross
-worker.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means that you are classed as self-employed for tax purposes.
-worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
-worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your results to give to the feepayer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
+worker.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
+worker.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
+worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
+worker.optimised.result.outside.ir35.private.doNext.p1.preLink = Download a copy of your result to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow
+worker.optimised.result.outside.ir35.private.doNext.p1.link = this guidance
+worker.optimised.result.outside.ir35.private.doNext.p1.postLink = about your taxes.
+worker.optimised.result.outside.ir35.public.doNext.p1.preLink = Download a copy of your result to give to the fee-payer. They need to pay your business a gross amount for this work. You can also follow
+worker.optimised.result.outside.ir35.public.doNext.p1.link = this guidance
+worker.optimised.result.outside.ir35.public.doNext.p1.postLink =  about your taxes.
 
 ## Inside Agent
 ## ------------------
-agent.optimised.result.inside.title = IR35 applies. Tax earnings within PAYE
-agent.optimised.result.inside.heading = IR35 applies.
-agent.optimised.result.inside.subHeading = Tax earnings within PAYE
-agent.optimised.result.inside.whyResult.p1 = The answers you’ve given tell us your client is  directly hiring your candidate, and the working practices of this engagement mean that your candidate is classed as employed for tax purposes.
-agent.optimised.result.inside.doNext.p1 = If you’re the fee payer, you should tell your candidate that you will be deducting tax and National Insurance from your payment to them.
+agent.optimised.result.inside.title = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.inside.heading = Off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.inside.whyResult.p1 = The answers you have given tell us that your candidate’s client is directly hiring them. The working practices of this engagement mean that your candidate is classed as employed for tax purposes.
+agent.optimised.result.inside.doNext.p1 = If you are the fee-payer, you should tell your candidate that you will be operating PAYE for their earnings.
 ## ------------------
 
 ## Undetermined Agent
 ## ------------------
-agent.optimised.result.undetermined.title = Undetermined employment status
-agent.optimised.result.undetermined.heading = Undetermined employment status
+agent.optimised.result.undetermined.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
+agent.optimised.result.undetermined.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
 agent.optimised.result.undetermined.whyResult.p1 = We need more information to understand the working practices of this engagement.
-agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-agent.optimised.result.undetermined.doNext.p2 = You could also read through the Employment status manual.
+agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+agent.optimised.result.undetermined.doNext.p2 = You could also read through the
 
 ## ------------------
 ## Out Agent
 ## ------------------
-agent.optimised.result.outside.title = The off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.outside.heading = The off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.outside.title = Off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.outside.heading = Off-payroll working rules (IR35) do not apply to this contract
 agent.optimised.result.outside.whyResult.p1 = Your answers told us:
 agent.optimised.result.outside.whyResult.substituteToDoWork = your candidate’s client has accepted, or would accept, a substitute to do this work
 agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate’s client does not have control over this work
-agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged.
-agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business-to-business basis.
-agent.optimised.result.outside.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
+agent.optimised.result.outside.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
 
 ## ------------------
 ## Hirer IR35
 ## ------------------
-hirer.optimised.result.inside.ir35.title = IR35 applies. Tax earnings within PAYE
-hirer.optimised.result.inside.ir35.heading = IR35 applies.
-hirer.optimised.result.inside.ir35.subHeading = Tax earnings within PAYE
-hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are classed as employed for tax purposes.
-hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you don’t need to determine the employment status for tax of this contract. It is the worker’s responsibility.
-hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee payer then contracts like this will need to be operated within PAYE. If the fee payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.inside.ir35.public.doNext.p1 = If you’re the fee payer, you need to operate PAYE for this worker.
-hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee payer is someone else,  you need to show them this determination.
+hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are deemed employed for tax purposes.
+hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
+hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.inside.ir35.public.doNext.p1 = If you are the fee-payer, you need to operate PAYE on earnings from this contract.
+hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
 
-hirer.optimised.result.undetermined.ir35.title = Undetermined employment status
-hirer.optimised.result.undetermined.ir35.heading = Undetermined employment status
+hirer.optimised.result.undetermined.ir35.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
+hirer.optimised.result.undetermined.ir35.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
 hirer.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
-hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the Employment status manual.
-hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk.
-hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the Employment status manual.
+hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the
+hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
+hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the
 
-hirer.optimised.result.outside.ir35.title = IR35 does not apply
-hirer.optimised.result.outside.ir35.heading = IR35 does not apply
-hirer.optimised.result.outside.ir35.whyResult.p1 = You told us the following information:
-hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = the worker has or could provide a substitute to do this work and your organisation would accept it
-hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = your organisation does not have a right of control over the work
-hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-hirer.optimised.result.outside.ir35.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
-hirer.optimised.result.outside.ir35.private.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
-hirer.optimised.result.outside.ir35.public.doNext.p1 = If you’re the fee payer you can pay the worker’s business gross, without deducting tax and National Insurance.
-hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee payer is someone else, you need to show them this determination.
-
-## Undetermined PAYE Worker
+hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
+hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
+hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute to do this work
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+hirer.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
+hirer.optimised.result.outside.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
+hirer.optimised.result.outside.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then you would need to pay the worker’s business gross, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.private.doNext.p3 = If the fee-payer is someone else, then you would need to show this determination to them.
+hirer.optimised.result.outside.ir35.public.doNext.p1 = If you are the fee-payer you need to pay the worker’s business gross, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
 ## ------------------
-worker.optimised.result.outside.paye.title = Self-employed. Earnings paid gross
-worker.optimised.result.outside.paye.heading = Self-employed. Earnings paid gross
-worker.optimised.result.outside.paye.whyResult.p1 = You told us the following information:
-worker.optimised.result.outside.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.outside.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
-worker.optimised.result.outside.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
+
+## Outside PAYE Worker
+## ------------------
+worker.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.heading = Self-employed for tax purposes for this work
+worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
+worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
+worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
+worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
 ## ------------------
 
 downloadPDFCopy.error.required = You need to select an answer

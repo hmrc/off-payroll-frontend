@@ -84,9 +84,9 @@ additionalPdfDetails: Option[AdditionalPdfDetails] = None,
     <p>
         @messages("result.indeterminate.shouldNowDo.p2.beforeLink")
         @if(printView){
-            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm0500">@messages("result.indeterminate.shouldNowDo.p2.link")</a>
+            <a href="@{appConfig.employmentStatusManualUrl}/esm0500">@messages("result.indeterminate.shouldNowDo.p2.link")</a>
         } else {
-            <a href="https://www.gov.uk/hmrc-internal-manuals/employment-status-manual/esm0500" rel="external">@messages("result.indeterminate.shouldNowDo.p2.link")</a>
+            <a href="@{appConfig.employmentStatusManualUrl}/esm0500" rel="external">@messages("result.indeterminate.shouldNowDo.p2.link")</a>
         }
     </p>
 }
