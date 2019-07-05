@@ -246,3 +246,4 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
       changeRouting.getOrElse(page, _ => routes.CheckYourAnswersController.onPageLoad())
   }
 }
+
