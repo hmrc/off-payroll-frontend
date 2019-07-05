@@ -19,7 +19,7 @@ import models.{DecisionResponse, ErrorResponse}
 
 import scala.concurrent.Future
 
-package object MultiDecision {
+package object multiDecision {
 
   type EitherF[A,B] = EitherT[Future,A,B]
   type Result[T] = EitherF[Either[ErrorResponse,DecisionResponse],T]

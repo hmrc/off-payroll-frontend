@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait ChooseWhereWork
 
@@ -37,9 +37,9 @@ object ChooseWhereWork {
   def options(optimised: Boolean = false): Seq[RadioOption] = values(optimised).map {
     value =>
       if(optimised){
-        RadioOption("optimised.chooseWhereWork", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("optimised.chooseWhereWork", value.toString, Radio, hasTailoredMsgs = true)
       } else {
-        RadioOption("chooseWhereWork", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("chooseWhereWork", value.toString, Radio, hasTailoredMsgs = true)
       }
   }
 

@@ -16,7 +16,7 @@
 
 package base
 
-import MultiDecision.Result
+import multiDecision.Result
 import cats.data.EitherT
 import cats.implicits._
 import config.FrontendAppConfig

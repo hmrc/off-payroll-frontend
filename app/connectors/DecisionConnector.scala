@@ -21,7 +21,7 @@ import connectors.httpParsers.DecisionHttpParser.DecisionReads
 import connectors.httpParsers.LogHttpParser.LogReads
 import javax.inject.Inject
 
-import MultiDecision.Result
+import multiDecision.Result
 import cats.data.EitherT
 import connectors.httpParsers.DecisionHttpParser
 import models._

@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait MoveWorker
 
@@ -38,9 +38,9 @@ object MoveWorker {
   def options(optimised: Boolean = false): Seq[RadioOption] = values(optimised).map {
     value =>
       if(optimised) {
-        RadioOption("optimised.moveWorker", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("optimised.moveWorker", value.toString, Radio, hasTailoredMsgs = true)
       } else {
-        RadioOption("moveWorker", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("moveWorker", value.toString, Radio, hasTailoredMsgs = true)
       }
   }
 

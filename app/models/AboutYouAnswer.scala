@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait AboutYouAnswer
 
@@ -29,7 +29,7 @@ object AboutYouAnswer {
 
   val values: Seq[AboutYouAnswer] = Seq(Worker, Client, Agency)
 
-  val options: Seq[RadioOption] = values.map { value => RadioOption("aboutYou", value.toString, radio) }
+  val options: Seq[RadioOption] = values.map { value => RadioOption("aboutYou", value.toString, Radio) }
 
   implicit val enumerable: Enumerable[AboutYouAnswer] = Enumerable(values.map(v => v.toString -> v): _*)
 

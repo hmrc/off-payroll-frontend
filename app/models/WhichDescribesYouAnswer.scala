@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json.{JsError, JsString, JsSuccess, Json, Reads, Writes}
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait WhichDescribesYouAnswer
 
@@ -32,11 +32,11 @@ object WhichDescribesYouAnswer {
   val values: Seq[WhichDescribesYouAnswer] = Seq(WorkerPAYE, ClientPAYE, WorkerIR35, ClientIR35, Agency)
 
   val options: Seq[RadioOption] = Seq(
-    RadioOption("whichDescribesYou", WorkerIR35.toString, radio),
-    RadioOption("whichDescribesYou", ClientIR35.toString, radio),
-    RadioOption("whichDescribesYou", Agency.toString, radio),
-    RadioOption("whichDescribesYou", WorkerPAYE.toString, radio),
-    RadioOption("whichDescribesYou", ClientPAYE.toString, radio)
+    RadioOption("whichDescribesYou", WorkerIR35.toString, Radio),
+    RadioOption("whichDescribesYou", ClientIR35.toString, Radio),
+    RadioOption("whichDescribesYou", Agency.toString, Radio),
+    RadioOption("whichDescribesYou", WorkerPAYE.toString, Radio),
+    RadioOption("whichDescribesYou", ClientPAYE.toString, Radio)
   )
 
   implicit val enumerable: Enumerable[WhichDescribesYouAnswer] = Enumerable(values.map(v => v.toString -> v): _*)

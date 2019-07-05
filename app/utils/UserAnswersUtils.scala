@@ -48,7 +48,8 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def substitutesHelpers(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def substitutesHelpers(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages,
+                         request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.substitutesHelpers.h2"),
     whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(
@@ -61,7 +62,8 @@ trait UserAnswersUtils {
     useProgressiveDisclosure = true
   )
 
-  def workArrangements(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+  def workArrangements(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages,
+                       request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     headingKey = Some("result.workArrangements.h2"),
     whyResult = Some(Html(messages("result.workArrangements.summary"))),
     rows = Seq(

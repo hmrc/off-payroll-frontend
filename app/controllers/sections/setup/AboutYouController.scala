@@ -50,9 +50,9 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    dataCacheConnector: DataCacheConnector,
                                    decisionService: DecisionService,
                                    navigator: Navigator,
-                                   implicit val appConfig: FrontendAppConfig) extends BaseController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
-  
+                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents,
+  compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
+
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()
   val whichDescribedForm: Form[WhichDescribesYouAnswer] = whichDescribesYouFormProvider()
 
@@ -61,10 +61,10 @@ class AboutYouController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if(isEnabled(OptimisedFlow)) submitWhichDescribesYou(mode) else submitAboutYou(mode)
+    if (isEnabled(OptimisedFlow)) submitWhichDescribesYou(mode) else submitAboutYou(mode)
   }
 
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]) = if(isEnabled(OptimisedFlow)) {
+  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]) = if (isEnabled(OptimisedFlow)) {
     whichDescribesYouView(request.userAnswers.get(WhichDescribesYouPage)
       .fold(whichDescribedForm)(answerModel => whichDescribedForm.fill(answerModel.answer)), mode)
   } else {
@@ -76,7 +76,7 @@ class AboutYouController @Inject()(identify: IdentifierAction,
     whichDescribedForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(whichDescribesYouView(formWithErrors, mode))),
       value => {
-        redirect(mode,value,WhichDescribesYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
+        redirect(mode, value, WhichDescribesYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
     )
 
@@ -84,7 +84,7 @@ class AboutYouController @Inject()(identify: IdentifierAction,
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(aboutYouView(formWithErrors, mode))),
       value => {
-        redirect(mode,value,AboutYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
+        redirect(mode, value, AboutYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
     )
 }
