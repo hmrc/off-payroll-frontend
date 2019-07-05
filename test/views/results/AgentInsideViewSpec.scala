@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.UserAnswers
 import models.UserType.Agency
 import models.requests.DataRequest
@@ -28,10 +29,11 @@ import views.html.results.inside.AgentInsideView
 class AgentInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[AgentInsideView]
+  val form = new DeclarationFormProvider()()
 
   "The InsideAgentView page" should {
 
-    def createView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+    def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
     lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
     implicit lazy val document = asDocument(createView(request))
@@ -42,7 +44,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
   "The InsideAgentView PDF/PrintView page" should {
 
-    def createPrintView(req: DataRequest[_]) = view(postAction)(req, messages, frontendAppConfig, testPdfResultDetails)
+    def createPrintView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPdfResultDetails)
 
     lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
     implicit lazy val document = asDocument(createPrintView(request))

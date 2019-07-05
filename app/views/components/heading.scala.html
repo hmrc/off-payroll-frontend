@@ -14,10 +14,14 @@
  * limitations under the License.
  *@
 
-@(headingKey: String, subHeading: Option[String] = None)(implicit messages: Messages)
+@(headingKey: String, subHeading: Option[String] = None, asLegend: Boolean = false)(implicit messages: Messages)
 
 <header class="page-heading">
-    <h1 class="heading-large">@messages(headingKey)</h1>
+    @if(asLegend) {
+        <legend><h1 class="heading-large">@messages(headingKey)</h1></legend>
+    } else {
+        <h1 class="heading-large">@messages(headingKey)</h1>
+    }
     @subHeading.map { x =>
         <span class="heading-secondary">@messages(x)</span>
     }

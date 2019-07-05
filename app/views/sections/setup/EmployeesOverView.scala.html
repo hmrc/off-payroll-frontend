@@ -35,11 +35,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("employeesOver.heading"))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("employeesOver.heading")),
+            legend = components.heading(tailorMsg("employeesOver.heading"), asLegend = true),
             labelClass = Some("visually-hidden")
         )
 

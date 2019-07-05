@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.InDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.UserType.{Hirer, Worker}
 import models.requests.DataRequest
 import models.{PDFResultDetails, UserAnswers}
@@ -30,8 +31,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEInsideView]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
+    view(form)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEInsideView page" should {
 

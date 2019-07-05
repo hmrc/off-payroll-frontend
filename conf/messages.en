@@ -56,6 +56,7 @@ session.expired.start_again = Start again
 site.back = Back
 site.delete = Remove
 site.edit = Change
+site.warning = Warning:
 site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
 site.no = No
@@ -285,8 +286,8 @@ arrangedSubstitute.bullet3 = was not from a pool or bank of workers regularly en
 arrangedSubstitute.bullet4 = did all of the worker’s tasks for that period of time
 arrangedSubstitute.bullet5 = was substituted because the worker was unwilling but not unable to do the work
 arrangedSubstitute.yesClientAgreed = Yes - and the client agreed
-arrangedSubstitute.yesClientNotAgreed = Yes - but the client did not agree
-arrangedSubstitute.no = No - it has not happened
+arrangedSubstitute.notAgreedWithClient = Yes - but the client did not agree
+arrangedSubstitute.noSubstitutionHappened = No - it has not happened
 arrangedSubstitute.checkYourAnswersLabel = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 arrangedSubstitute.error.required = You need to select an answer
 arrangedSubstitute.error.invalid = You need to select an answer
@@ -302,8 +303,8 @@ worker.arrangedSubstitute.bullet3 = Was not from a pool or bank of workers regul
 worker.arrangedSubstitute.bullet4 = Did all of your tasks for that period of time
 worker.arrangedSubstitute.bullet5 = Was substituted because you were unwilling but not unable to do the work
 worker.arrangedSubstitute.yesClientAgreed = Yes - and the end client agreed
-worker.arrangedSubstitute.yesClientNotAgreed = Yes - but the end client did not agree
-worker.arrangedSubstitute.no = No - it has not happened
+worker.arrangedSubstitute.notAgreedWithClient = Yes - but the end client did not agree
+worker.arrangedSubstitute.noSubstitutionHappened = No - it has not happened
 
 hirer.arrangedSubstitute.title = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
 hirer.arrangedSubstitute.heading = Has the worker’s business arranged for someone else (a substitute) to do the work instead of them during this engagement?
@@ -316,22 +317,22 @@ hirer.arrangedSubstitute.bullet3 = Was not from a pool or bank of workers regula
 hirer.arrangedSubstitute.bullet4 = Did all of the worker’s tasks for that period of time
 hirer.arrangedSubstitute.bullet5 = Was substituted because the worker was unwilling but not unable to do the work
 hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
-hirer.arrangedSubstitute.yesClientNotAgreed = Yes - but we did not agree
-hirer.arrangedSubstitute.no = No - it has not happened
+hirer.arrangedSubstitute.notAgreedWithClient = Yes - but we did not agree
+hirer.arrangedSubstitute.noSubstitutionHappened = No - it has not happened
 
 worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted the substitute
-worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client did not accept the substitute
-worker.optimised.arrangedSubstitute.no = No, it has not happened
+worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept the substitute
+worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work?
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work?
 hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work?
 hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted the substitute
-hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but you did not accept the substitute
-hirer.optimised.arrangedSubstitute.no = No, it has not happened
+hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but you did not accept the substitute
+hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 #########################
 
 ## Identify to stakeholders
@@ -1118,6 +1119,10 @@ customisePDF.completedBy.error.length = Name must be 100 characters or less
 customisePDF.client.error.length = Name must be 100 characters or less
 customisePDF.job.error.length = Job title must be 100 characters or less
 customisePDF.reference.error.length = Reference must be 100 characters or less
+customisePDF.completedBy.error.utf8 = Name must be UTF8 characters only
+customisePDF.client.error.utf8 = Name must be UTF8 characters only
+customisePDF.job.error.utf8 = Job title must be UTF8 characters only
+customisePDF.reference.error.utf8 = Reference must be UTF8 characters only
 
 #Result summary text
 result.substitutesAndHelpers.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client has not or would not agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they are being engaged on a personal service basis.
@@ -1266,8 +1271,9 @@ toolNotNeeded.client.paye.p2 = This is because you told us they will trade throu
 ## ----------------------
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What to do next
-optimised.result.download.h2 = Download a copy of this result
-optimised.result.download.p1 = You can download a copy of your answers and this result to keep for your records.
+optimised.result.download.h2 = Do you want a copy of this result?
+optimised.result.download.p1 = You can download a document that will show today’s date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
+optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 
 ## Office Holder PAYE
@@ -1459,6 +1465,30 @@ worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements m
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
 ## ------------------
 
+downloadPDFCopy.error.required = You need to select an answer
+
+addReferenceDetails.error.required = You need to select an answer
+addReferenceDetails.title = Do you want to add some reference details to this document?
+addReferenceDetails.heading = Do you want to add some reference details to this document?
+addReferenceDetails.yourRecordsOnly = This is for your records only, HMRC will not keep these details.
+addReferenceDetails.example = For example, contract information, job title or hiring department.
+
+addDetails.title =Add details
+addDetails.heading =Add details
+addDetails.name=Your name
+addDetails.client=Name of end client issuing the contract and/or agency
+addDetails.job=Contract or role title
+addDetails.reference=Other reference details
+addDetails.charLimit =180 characters maximum
+
+finishedChecking.title = You have finished checking the employment status for tax of this work
+finishedChecking.heading = You have finished checking the employment status for tax of this work
+finishedChecking.p1.beforeLink1 = You can now
+finishedChecking.p1.link1 = exit
+finishedChecking.p1.beforeLink2 = the tool, or
+finishedChecking.p1.link2 = start again
+finishedChecking.p1.afterLink2 = to check another piece of work
+finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
 
 materials.error.required = You need to select an answer
 hirer.materials.title = Will the worker incur substantial costs for materials that your organisation will not pay for?
@@ -1508,6 +1538,10 @@ worker.equipmentExpenses.heading = Will you incur substantial equipment costs th
 worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
 worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
 
+pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
+pdfDetails.client.error.maxLength = The client name must be {0} characters or less
+pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
+pdfDetails.reference.error.maxLength = The reference must be {0} characters or less
 
 result.pdf.time = Date of result: {0} (UTC)
 result.pdf.customisedBy = Name of the person that completed this check:

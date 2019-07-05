@@ -16,9 +16,10 @@
 
 package forms.behaviours
 
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import play.api.data.{Form, FormError}
 
-trait StringFieldBehaviours extends FieldBehaviours {
+trait StringFieldBehaviours extends FieldBehaviours with FeatureSwitching {
 
     def fieldWithMaxLength(form: Form[_],
                            fieldName: String,
@@ -30,7 +31,7 @@ trait StringFieldBehaviours extends FieldBehaviours {
       forAll(stringsLongerThan(maxLength) -> "longString") {
         string =>
           val result = form.bind(Map(fieldName -> string)).apply(fieldName)
-          result.errors shouldEqual Seq(lengthError)
+          result.errors mustBe Seq(lengthError)
       }
     }
   }

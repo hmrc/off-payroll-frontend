@@ -26,14 +26,14 @@
      aria-expanded="false"
      class="accordion">
     <div class="accordion__row">
-        <div class="accordion__row__left">
-            <i class="accordion__indicator arrow arrow--right font-small" data-accordion-arrow></i>
+        <h2 class="accordion__row__left font-small">
+            <i class="accordion__indicator arrow arrow--right font-small" data-accordion-arrow aria-hidden="true"></i>
             <a class="accordion__button link--no-underline bold-small" href="" data-accordion-button role="button">
                 @answerSection.headingKey.map { header =>
                     @messages(header)
                 }
             </a>
-        </div>
+        </h2>
     </div>
     <div class="accordion__body hidden cya-row" data-accordion-body aria-hidden="true">
         @answerSection.rows.map(_._1.answerHtml)

@@ -16,17 +16,16 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.DeclarationFormProvider
+import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
+import javax.inject.Inject
 import models.requests.DataRequest
-import models.{NormalMode, Timestamp}
+import models.{NormalMode, Timestamp, UserAnswers}
 import navigation.Navigator
-import pages.ResultPage
+import pages.{ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, OptimisedDecisionService}
@@ -40,6 +39,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  controllerComponents: MessagesControllerComponents,
                                  decisionService: DecisionService,
                                  formProvider: DeclarationFormProvider,
+                                 formProviderPDF: DownloadPDFCopyFormProvider,
                                  navigator: Navigator,
                                  dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
@@ -50,13 +50,15 @@ class ResultController @Inject()(identify: IdentifierAction,
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
 
   private val resultForm: Form[Boolean] = formProvider()
-  private def nextPage(implicit request: DataRequest[_]): Call = navigator.nextPage(ResultPage, NormalMode)(request.userAnswers)
+  private val resultFormPDF: Form[Boolean] = formProviderPDF()
+  private def nextPage(userAnswers: Option[UserAnswers] = None)
+                      (implicit request: DataRequest[_]): Call = navigator.nextPage(ResultPage, NormalMode)(userAnswers.getOrElse(request.userAnswers))
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),ResultPage)
+    val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
       if(isEnabled(OptimisedFlow)){
-        optimisedDecisionService.determineResultView(nextPage).map {
+        optimisedDecisionService.determineResultView().map {
           case Right(result) => Ok(result)
           case Left(err) => InternalServerError(err)
         }
@@ -66,18 +68,29 @@ class ResultController @Inject()(identify: IdentifierAction,
     }
   }
 
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     if(isEnabled(OptimisedFlow)){
-      Redirect(nextPage)
+      resultFormPDF.bindFromRequest().fold(
+        formWithErrors => {
+
+          optimisedDecisionService.determineResultView(Some(formWithErrors)).map {
+            case Right(result) => BadRequest(result)
+            case Left(err) => InternalServerError(err)
+          }
+        },
+        answer => {
+          redirect[Boolean](NormalMode, answer, ResultPage, callDecisionService = false)
+        }
+      )
     } else {
-      resultForm.bindFromRequest().fold(
+      Future.successful(resultForm.bindFromRequest().fold(
         formWithErrors => {
           BadRequest(decisionService.determineResultView(answers, Some(formWithErrors)))
         },
         _ => {
-          Redirect(nextPage)
+          Redirect(nextPage())
         }
-      )
+      ))
     }
   }
 }

@@ -143,7 +143,6 @@ class CheckYourAnswersServiceSpec extends SpecBase {
             rows = Seq(
               CheckYourAnswersHelper.benefits.map(_ -> None),
               CheckYourAnswersHelper.lineManagerDuties.map(_ -> None),
-              CheckYourAnswersHelper.interactWithStakeholders.map(_ -> None),
               CheckYourAnswersHelper.identifyToStakeholders.map(_ -> None)
             ).flatten
           )

@@ -36,11 +36,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("scheduleOfWorkingHours.heading"), Some(tailorMsg("scheduleOfWorkingHours.subheading")))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("scheduleOfWorkingHours.heading")),
+            legend = components.heading(tailorMsg("scheduleOfWorkingHours.heading"), Some(tailorMsg("scheduleOfWorkingHours.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = ScheduleOfWorkingHours.options(false)
         )

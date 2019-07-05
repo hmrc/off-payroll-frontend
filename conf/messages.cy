@@ -67,6 +67,7 @@ site.back = Yn ôl
 ##### TODO NEED WELSH FOR ####
 site.delete =   Remove
 site.edit =   Change
+site.warning = Warning:
 site.hidden-delete =   Delete {0}
 site.hidden-edit =   Change {0}
 ##### TODO NEED WELSH FOR ####
@@ -305,8 +306,8 @@ arrangedSubstitute.bullet3 = rhywun nad oedd o garfan o weithwyr a huriwyd yn rh
 arrangedSubstitute.bullet4 = rhywun a oedd yn gwneud holl dasgau gwaith y gweithiwr am y cyfnod hwnnw o amser
 arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y gweithiwr yn fodlon gwneud y gwaith, er y gallai
 arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
-arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
-arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
+arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 arrangedSubstitute.checkYourAnswersLabel = A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
 arrangedSubstitute.error.required = Mae angen i chi ddewis ateb
 arrangedSubstitute.error.invalid = Mae angen i chi ddewis ateb
@@ -322,8 +323,8 @@ worker.arrangedSubstitute.bullet3 = rhywun nad oedd o garfan o weithwyr a huriwy
 worker.arrangedSubstitute.bullet4 = rhywun a oedd yn gwneud holl dasgau gwaith y gweithiwr am y cyfnod hwnnw o amser
 worker.arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y gweithiwr yn fodlon gwneud y gwaith, er y gallai
 worker.arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
-worker.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
-worker.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+worker.arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
+worker.arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 
 hirer.arrangedSubstitute.title = A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
 hirer.arrangedSubstitute.heading = A yw busnes y gweithiwr wedi trefnu bod rhywun arall (eilydd) yn gwneud y gwaith yn ei le yn ystod y swydd hon?
@@ -336,24 +337,24 @@ hirer.arrangedSubstitute.bullet3 = rhywun nad oedd o garfan o weithwyr a huriwyd
 hirer.arrangedSubstitute.bullet4 = rhywun a oedd yn gwneud holl dasgau gwaith y gweithiwr am y cyfnod hwnnw o amser
 hirer.arrangedSubstitute.bullet5 = rhywun a gafodd ei ddirprwyo gan nad oedd y gweithiwr yn fodlon gwneud y gwaith, er y gallai
 hirer.arrangedSubstitute.yesClientAgreed = Iawn - a chytunodd y cleient
-hirer.arrangedSubstitute.yesClientNotAgreed = Iawn - ond ni chytunodd y cleient
-hirer.arrangedSubstitute.no = Na - nid yw hyn wedi digwydd
+hirer.arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
+hirer.arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 
 ## TODO: Need Welsh
 worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work?
 worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted the substitute
-worker.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but your client did not accept the substitute
-worker.optimised.arrangedSubstitute.no = No, it has not happened
+worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept the substitute
+worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
 ## TODO: Need Welsh
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work - without this substitute being vetted, cleared or interviewed first?
 hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, it was agreed.
-hirer.optimised.arrangedSubstitute.yesClientNotAgreed = Yes, but the substitute wasn’t accepted.
-hirer.optimised.arrangedSubstitute.no = No, it hasn’t happened.
+hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but the substitute wasn’t accepted.
+hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it hasn’t happened.
 #########################
 
 ## Identify to stakeholders
@@ -1136,8 +1137,12 @@ customisePDF.reference =Cyfeirnod (enw’r gweithiwr neu rif y cytundeb, er engh
 customisePDF.completedBy.error.length =  Name must be 100 characters or less
 customisePDF.client.error.length = Name must be 100 characters or less
 customisePDF.job.error.length = Job title must be 100 characters or less
-customisePDF.reference.error.length = Reference must be 100 characters or less
+customisePDF.reference.error.length = Reference must be 180 characters or less
 ##### TODO NEED WELSH FOR ####
+customisePDF.completedBy.error.utf8 = Name must be UTF8 characters only
+customisePDF.client.error.utf8 = Name must be UTF8 characters only
+customisePDF.job.error.utf8 = Job title must be UTF8 characters only
+customisePDF.reference.error.utf8 = Reference must be UTF8 characters only
 
 #Result summary text
 result.substitutesAndHelpers.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod a yw’r gweithiwr yn cael ei hurio fel busnes neu ar sail gwasanaeth personol. Os nad yw’r cleient terfynol wedi cytuno bod busnes y gweithiwr yn trefnu bod rhywun arall yn cael ei dalu i wneud y gwaith yn ei le, neu os na fyddai’n cytuno i hynny, mae’n awgrymu ei fod yn cael ei hurio ar sail gwasanaeth personol.
@@ -1329,8 +1334,9 @@ hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be 
 ##TODO: Need Welsh
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What to do next
-optimised.result.download.h2 = Download a copy of this result
-optimised.result.download.p1 = You can download a copy of your answers and this result to keep for your records.
+optimised.result.download.h2 = Do you want a copy of this result?
+optimised.result.download.p1 = You can download a document that will show today's date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
+optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 
 ## Office Holder PAYE
@@ -1528,6 +1534,31 @@ worker.optimised.result.undetermined.paye.whyResult.p1 = We need more informatio
 worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
 worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
 
+downloadPDFCopy.error.required = You need to select an answer
+
+addReferenceDetails.error.required = You need to select an answer
+addReferenceDetails.title = Do you want to add some reference details to this document?
+addReferenceDetails.heading = Do you want to add some reference details to this document?
+addReferenceDetails.yourRecordsOnly = This is for your records only, HMRC will not keep these details.
+addReferenceDetails.example = For example, contract information, job title or hiring department.
+
+addDetails.title =Add details
+addDetails.heading =Add details
+addDetails.name=Your name
+addDetails.client=Name of end client issuing the contract and/or agency
+addDetails.job=Contract or role title
+addDetails.reference=Other reference details
+addDetails.charLimit =180 characters maximum
+
+finishedChecking.title = You have finished checking the employment status for tax of this work
+finishedChecking.heading = You have finished checking the employment status for tax of this work
+finishedChecking.p1.beforeLink1 = You can now
+finishedChecking.p1.link1 = exit
+finishedChecking.p1.beforeLink2 = the tool, or
+finishedChecking.p1.link2 = start again
+finishedChecking.p1.afterLink2 = to check another piece of work
+finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
+
 
 ##TODO: Need Welsh
 materials.error.required = You need to select an answer
@@ -1634,3 +1665,8 @@ hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not 
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged
 hirer.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean the worker is self-employed for tax purposes.
 hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
+
+pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
+pdfDetails.client.error.maxLength = The client name must be {0} characters or less
+pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
+pdfDetails.reference.error.maxLength = The reference must be {0} characters or less

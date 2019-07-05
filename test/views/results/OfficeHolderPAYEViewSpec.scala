@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.AboutYouAnswer.Worker
 import models.{PDFResultDetails, UserAnswers}
 import models.UserType.Hirer
@@ -31,8 +32,10 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[OfficeHolderPAYEView]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
+    view(form)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderPAYEView page" should {
 

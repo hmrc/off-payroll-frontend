@@ -20,28 +20,33 @@
         secondaryLabel: Option[String] = None,
         inputClass: Option[String] = None,
         labelClass: Option[String] = None,
-        hint: Option[String] = None
+        hint: Option[String] = None,
+        bold: Boolean = true,
+        hintBelow: Boolean = false
 )(implicit messages: Messages)
 
-<div class="form-group @if(field.hasErrors){form-group-error}">
-    <label class="form-label" for="@{field.id}">
-        <span class="bold @labelClass">@label</span>
-        @hint.map { hint =>
-            <span class="form-hint">@hint</span>
-        }
-        @field.errors.map { error =>
-            <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
-        }
-    </label>
-    <div class="form-control-wrapper char-counter" data-char-counter>
-        <textarea
-        class="form-control form-control--full-width @inputClass"
-        id="@{field.id}"
-        name="@{field.id}"
-        value="@{field.value}"
-        aria-describedby="error-message-@{field.id}-input"
-        rows="5"
-        ></textarea>
-    </div>
-</div>
+    <div class="form-group form-control-3-4 @if(field.hasErrors) {form-group-error}">
 
+        <label class="form-label" for="@{field.id}">
+            <span class="@if(labelClass.nonEmpty){@labelClass}">@label</span>
+            @if(hint.nonEmpty && !hintBelow){
+                <span class="form-hint">@hint</span>
+            }
+            @field.errors.map { error =>
+                <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+            }
+        </label>
+
+        <div class="char-counter" style="display: block !important;" data-char-counter>
+            <textarea class="form-control"
+                      style="width: 100%; resize: none; height: auto !important;"
+                      id="@{field.id}"
+                      name="@{field.id}"
+                      @if(field.hasErrors){aria-describedby="error-message-@{field.id}-input"}
+                      aria-live="polite"
+                      rows="5"
+                      data-char-field="true"
+                      maxlength="180"
+                      spellcheck="false"></textarea>
+        </div>
+    </div>

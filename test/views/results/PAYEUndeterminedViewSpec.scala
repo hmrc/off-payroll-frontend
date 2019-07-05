@@ -18,6 +18,7 @@ package views.results
 
 import assets.messages.results.UndeterminedDecisionMessages
 import config.SessionKeys
+import forms.DeclarationFormProvider
 import models.{PDFResultDetails, UserAnswers}
 import models.UserType.{Hirer, Worker}
 import models.requests.DataRequest
@@ -31,8 +32,10 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
   val view = injector.instanceOf[PAYEUndeterminedView]
 
+  val form = new DeclarationFormProvider()()
+
   def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(postAction)(req, messages, frontendAppConfig, pdfDetails)
+    view(form)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEUndeterminedView page" should {
 

@@ -27,6 +27,7 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
+import pages.{CustomisePDFPage, _}
 import models.WhichDescribesYouAnswer.{Agency, _}
 import models._
 import pages._
@@ -143,9 +144,12 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
         case (_, None) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
       }),
     WouldWorkerPaySubstitutePage -> (answers =>
-      answers.get(ContractStartedPage) match {
-        case Some(Answers(true,_)) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
-        case Some(_) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+      (answers.get(ContractStartedPage), answers.get(WouldWorkerPaySubstitutePage)) match {
+        case (Some(Answers(true,_)),_) if !isEnabled(OptimisedFlow) =>
+          personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case (Some(Answers(false,_)),_) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
+        case (Some(Answers(true,_)),Some(Answers(false,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(NormalMode)
+        case (Some(Answers(true,_)),Some(Answers(true,_))) => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
         case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       }),
     NeededToPayHelperPage -> (_ => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)),
@@ -194,7 +198,28 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
     //CYA/Results Page
     CheckYourAnswersPage -> (_ => routes.ResultController.onPageLoad()),
-    ResultPage -> (_ => routes.PDFController.onPageLoad(NormalMode))
+    ResultPage -> { answer =>
+
+      if (isEnabled(OptimisedFlow)) {
+        answer.get(ResultPage) match {
+          case Some(Answers(true, _)) => routes.AddReferenceDetailsController.onPageLoad()
+          case _ => routes.FinishedCheckingController.onPageLoad()
+        }
+      } else {
+        routes.PDFController.onPageLoad(NormalMode)
+      }
+    },
+
+    AddReferenceDetailsPage -> {
+      answer =>
+        answer.get(AddReferenceDetailsPage) match {
+          case Some(Answers(true, _)) => routes.PDFController.onPageLoad(NormalMode)
+          case _ => routes.FinishedCheckingController.onPageLoad()
+        }
+    },
+
+    CustomisePDFPage -> (_ => routes.FinishedCheckingController.onPageLoad())
+
   )
 
   private val checkRouteMap: Map[Page, UserAnswers => Call] = Map()
