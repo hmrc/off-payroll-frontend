@@ -16,7 +16,7 @@
 
 package controllers
 
-import assets.messages.CheckYourAnswersMessages
+import assets.messages.{CheckYourAnswersMessages, ResetAnswersMessages}
 import controllers.actions._
 import forms.ResetAnswersWarningFormProvider
 import navigation.FakeNavigator
@@ -47,17 +47,21 @@ class ResetAnswersWarningControllerSpec extends ControllerSpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      mockCheckYourAnswers(Seq.empty)
-
       val result = controller().onPageLoad(fakeRequest)
       status(result) mustBe OK
-      titleOf(result) mustBe title(ResetAnswersWarningMessages.title)
+      titleOf(result) mustBe title(ResetAnswersMessages.title)
     }
 
-    "redirect to the result page" in {
-      val result = controller().onSubmit(fakeRequest)
+    "redirect to home when passed true" in {
+      val result = controller().onSubmit(fakeRequest.withFormUrlEncodedBody(("value", "true")))
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/foo")
+      redirectLocation(result) mustBe Some("/check-employment-status-for-tax")
+    }
+
+    "redirect back to CYA when passed false" in {
+      val result = controller().onSubmit(fakeRequest.withFormUrlEncodedBody(("value", "false")))
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some("/check-employment-status-for-tax/review-answers")
     }
   }
 }

@@ -58,7 +58,6 @@ class ResetAnswersWarningController @Inject()(navigator: Navigator,
         BadRequest(view(formWithErrors)),
       reset => {
         if(reset) {
-
           Redirect(controllers.routes.IndexController.onPageLoad()).withNewSession
         } else {
           Redirect(controllers.routes.CheckYourAnswersController.onPageLoad())
