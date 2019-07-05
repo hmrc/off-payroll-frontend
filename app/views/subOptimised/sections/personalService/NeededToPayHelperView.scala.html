@@ -35,11 +35,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("neededToPayHelper.heading"), Some(tailorMsg("neededToPayHelper.subheading")))
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("neededToPayHelper.heading")),
+            legend = components.heading(tailorMsg("neededToPayHelper.heading"), Some(tailorMsg("neededToPayHelper.subheading")), asLegend = true),
             labelClass = Some("visually-hidden"),
             hint = Some(components.details.needed_to_pay_helper_details())
         )

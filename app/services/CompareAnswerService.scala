@@ -17,6 +17,7 @@
 package services
 
 import javax.inject.Inject
+
 import models.requests.DataRequest
 import models.{Answers, UserAnswers}
 import navigation.QuestionDeletionLookup
@@ -68,4 +69,5 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
       recursivelyClearQuestions(pages.tail,userAnswers.remove(pages.head))
     }
   }
+
 }

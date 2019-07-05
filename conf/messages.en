@@ -22,7 +22,7 @@ date.November = November
 date.December = December
 
 error.browser.title.prefix = Error:
-error.boolean = What do you want to find out?
+error.boolean = You need to select an answer
 error.invalid_date = Give a correct date
 error.date.day_blank = Enter a day
 error.date.day_invalid = Give a correct day using numbers 1 to 31
@@ -32,8 +32,8 @@ error.date.year_blank = Enter a year
 error.date.year_invalid = Give a correct year
 error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
-error.number = What do you want to find out?
-error.required = What do you want to find out?
+error.number = You need to select an answer
+error.required = You need to select an answer
 error.summary.title = There is a problem
 
 timeout.text = As this session has been inactive for a while, your answers will be deleted in
@@ -1560,6 +1560,12 @@ result.pdf.whatYouToldUs = What you told us
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
 
+resetAnswersWarning.title = To change an answer in this section, you will need to restart the tool. This will delete your answers.
+resetAnswersWarning.heading = To change an answer in this section, you will need to restart the tool. This will delete your answers.
+resetAnswersWarning.hint = The answers given in this section influence the questions you are asked and the result.
+resetAnswersWarning.startAgain = Start again
+resetAnswersWarning.goBack = Take me back to my answers
+resetAnswersWarning.error.required = You need to select an answer
 
 personalServiceSectionChangeWarning.title = Please be advised that by changing your answers in this section, you may need to answer additional questions.
 personalServiceSectionChangeWarning.heading = Please be advised that by changing your answers in this section, you may need to answer additional questions.

@@ -36,11 +36,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsgOptimised("howWorkerIsPaid.heading"))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsgOptimised("howWorkerIsPaid.heading")),
+            legend = components.heading(tailorMsgOptimised("howWorkerIsPaid.heading"), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = HowWorkerIsPaid.options
         )

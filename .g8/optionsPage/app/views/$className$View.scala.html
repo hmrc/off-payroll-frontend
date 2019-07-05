@@ -20,11 +20,9 @@
         
         @components.error_summary(form.errors)
 
-        @components.heading("$className;format="decap"$.heading", Some("$className;format="decap"$.subheading"))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages("$className;format="decap"$.heading"),
+            legend = components.heading("$className;format="decap"$.heading", Some("$className;format="decap"$.subheading")),
             legendClass = Some("visually-hidden"),
             inputs = $className$.options
         )

@@ -15,32 +15,38 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
-@import controllers.sections.exit.routes._
-@import models.Mode
+@import viewmodels._
 @import views.ViewUtils._
+@import controllers.routes._
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 
-@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
+
+@(form: Form[_])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("officeHolder.title")),
+    title = title(form,messages("resetAnswersWarning.title")),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.back_link()(mode)
+    @components.back_link()(NormalMode)(messages)
 
-    @formWithCsrf(action = OfficeHolderController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = ResetAnswersWarningController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
         @components.input_yes_no(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("officeHolder.heading"), asLegend = true),
-            labelClass = Some("visually-hidden")
+            legend = components.heading(messages("resetAnswersWarning.heading"), asLegend = true),
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(components.panel_indent(Html(messages("resetAnswersWarning.hint")))),
+            yesMessage = Some(messages("resetAnswersWarning.startAgain")),
+            noMessage = Some(messages("resetAnswersWarning.goBack")),
+            inline = false
         )
 
         @components.submit_button()
     }
+
 }
