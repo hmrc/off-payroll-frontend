@@ -65,8 +65,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
 
-        val overrideMode = if(mode.equals(CheckMode) && request.userAnswers.get(OfficeHolderPage).isDefined &&
-          request.userAnswers.get(OfficeHolderPage).get.answer.equals(value) && !value)
+        val overrideMode = if(mode.equals(CheckMode) && request.userAnswers.get(OfficeHolderPage).exists(a => a.answer.equals(value)) && !value)
         {
           CheckMode
         } else {
