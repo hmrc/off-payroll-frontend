@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,25 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(form: Form[_])(implicit messages: Messages)
+package assets.messages
 
-<div id="download">
- @components.input_yes_no(
-  field = form("value"),
-  legend = yesNoHeader,
-  labelClass = Some("visually-hidden"),
-  otherContent = Some(additionalContent)
-)
-</div>
+object ResetAnswersMessages extends BaseMessages {
 
-@yesNoHeader = {
- <legend><h2>@messages("optimised.result.download.h2")</h2></legend>
+  val heading = "To change an answer in this section, you will need to restart the tool. This will delete your answers."
+  val title = "To change an answer in this section, you will need to restart the tool. This will delete your answers."
+  val hint = "The answers given in this section influence the questions you are asked and the result."
+  val startAgain = "Start again"
+  val goBack = "Take me back to my answers"
+
 }
-
-@additionalContent = {
- <p>@messages("optimised.result.download.p1")</p>
- <p>@messages("optimised.result.download.p2")</p>
-}
-

@@ -35,20 +35,20 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(messages("addReferenceDetails.heading"))
-
-        <p>@messages("addReferenceDetails.yourRecordsOnly")</p>
-
-        @components.panel_indent(panel)
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages("addReferenceDetails.heading"),
-            labelClass = Some("visually-hidden")
+            legend = components.heading(messages("addReferenceDetails.heading"), asLegend = true),
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(otherContent)
         )
 
         @components.submit_button()
     }
+}
+
+@otherContent = {
+    <p>@messages("addReferenceDetails.yourRecordsOnly")</p>
+    @components.panel_indent(panel)
 }
 
 @panel = {

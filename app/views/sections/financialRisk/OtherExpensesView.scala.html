@@ -35,16 +35,17 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("otherExpenses.heading"))
-
-        <p>@messages(tailorMsg("otherExpenses.p1"))</p>
-
         @components.input_yes_no(
             field = form("value"),
-            label = messages(tailorMsg("otherExpenses.heading")),
+            legend = components.heading(tailorMsg("otherExpenses.heading"), asLegend = true),
+            otherContent = Some(content),
             labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
+}
+
+@content = {
+    <p>@messages(tailorMsg("otherExpenses.p1"))</p>
 }

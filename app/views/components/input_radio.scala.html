@@ -17,10 +17,13 @@
 @import viewmodels.RadioOption
 @import config.FrontendAppConfig
 @import _root_.views.ViewUtils._
+@import play.twirl.api.Html
 
 @(
         field: Field,
-        legend: String,
+        legend: Html,
+        subheading: Option[String] = None,
+        otherContent: Option[Html] = None,
         legendClass: Option[String] = None,
         hint: Option[Html] = None,
         trackGa: Boolean = false,
@@ -29,9 +32,12 @@
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
     <fieldset id="@{field.id}">
-        <legend>
-            <span class="bold-small @if(legendClass.nonEmpty){@{legendClass.get}}">@legend</span>
-        </legend>
+
+        @legend
+
+        @otherContent.map { content =>
+            @content
+        }
         @if(hint.nonEmpty){
             <span class="form-hint form-group">@{hint.get}</span>
         }
@@ -39,6 +45,7 @@
             <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
         }
 
+        <div id="multiple-choice-options">
         @for(input <- inputs) {
             <div class="multiple-choice">
                 <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="check-employment-status-for-tax:click:@{input.id}"} />
@@ -52,6 +59,7 @@
                 </label>
             </div>
         }
+        </div>
 
     </fieldset>
 </div>

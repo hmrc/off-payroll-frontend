@@ -17,13 +17,11 @@
 package utils
 
 import config.FrontendAppConfig
+import controllers.routes
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
-import models.{CheckMode, Enumerable, NormalMode, UserAnswers}
-import controllers.routes
 import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -45,7 +43,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$TurnoverOverPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(setupRoutes.TurnoverOverController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
       )
     }
 
@@ -55,7 +53,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$EmployeesOverPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(setupRoutes.EmployeesOverController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
       )
     }
 
@@ -65,7 +63,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$BalanceSheetOverPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(setupRoutes.BalanceSheetOverController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
       )
     }
 

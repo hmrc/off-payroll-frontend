@@ -36,11 +36,9 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(tailorMsg("identifyToStakeholders.heading"), Some(tailorMsg("identifyToStakeholders.subheading")))
-
         @components.input_radio(
             field = form("value"),
-            legend = messages(tailorMsg("identifyToStakeholders.heading")),
+            legend = components.heading(tailorMsg("identifyToStakeholders.heading"), Some(tailorMsg("identifyToStakeholders.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = IdentifyToStakeholders.options
         )

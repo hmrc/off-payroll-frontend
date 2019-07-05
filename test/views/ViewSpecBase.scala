@@ -30,10 +30,11 @@ trait ViewSpecBase extends SpecBase {
     val p = (i: Int) => s"#content form p:nth-of-type($i)"
     val h2 = (i: Int) => s"#content form h2:nth-of-type($i)"
     val bullet = (i: Int) => s"#content form ul li:nth-of-type($i)"
-    val multichoice = (i: Int) => s"#content form div.multiple-choice:nth-of-type($i) label"
+    val multichoice = (i: Int) => s"#multiple-choice-options div:nth-of-type($i) label"
     val exclamation = s"#content form .notice strong"
     val continueButton = "#content form button"
     val hint = (i: Int) => s".form-hint:nth-of-type($i)"
+    val panel = s"div.panel-border-wide"
   }
 
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())
