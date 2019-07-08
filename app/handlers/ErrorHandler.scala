@@ -16,20 +16,36 @@
 
 package handlers
 
-import javax.inject.{Inject, Singleton}
-import play.api.i18n.{I18nSupport, Lang, MessagesApi}
-import play.api.mvc.Request
-import play.twirl.api.Html
 import config.FrontendAppConfig
+import javax.inject.{Inject, Singleton}
+import play.api.Logger
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.Results.{BadRequest, InternalServerError, NotFound}
+import play.api.mvc.{Request, RequestHeader, Result, Results}
+import play.mvc.Http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND}
+import play.twirl.api.Html
 import uk.gov.hmrc.play.bootstrap.http.FrontendErrorHandler
 import views.html.templates.ErrorTemplate
-import play.mvc.Http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND}
+
+import scala.language.implicitConversions
+import scala.concurrent.Future
 
 @Singleton
 class ErrorHandler @Inject()(appConfig: FrontendAppConfig,
                              val messagesApi: MessagesApi,
                              view: ErrorTemplate
                             ) extends FrontendErrorHandler with I18nSupport {
+
+  private implicit def rhToRequest(rh: RequestHeader): Request[_] = Request(rh, "")
+
+  override def onClientError(request: RequestHeader, statusCode: Int, message: String): Future[Result] =
+    statusCode match {
+      case play.mvc.Http.Status.BAD_REQUEST => Future.successful(BadRequest(badRequestTemplate(request)))
+      case play.mvc.Http.Status.NOT_FOUND   => Future.successful(NotFound(notFoundTemplate(request)))
+      case _                                =>
+        Logger.error(s"[ErrorHandler][onClientError] Status $statusCode with message: $message")
+        Future.successful(InternalServerError(internalServerErrorTemplate(request)))
+    }
 
   override def standardErrorTemplate(pageTitle: String,
                                      heading: String,

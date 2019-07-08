@@ -197,3 +197,7 @@ POST       /reset-answers-warning                       controllers.ResetAnswers
 
 GET        /personal-service-section-change-warning     controllers.PersonalServiceSectionChangeWarningController.onPageLoad(page: String)
 POST       /personal-service-section-change-warning     controllers.PersonalServiceSectionChangeWarningController.onSubmit(page: String)
+
+GET        /start-again                                 controllers.StartAgainController.redirectToGovUk
+
+
