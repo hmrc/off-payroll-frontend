@@ -50,6 +50,7 @@ object OfficeHolderMessages extends BaseResultMessages {
       val doNext_private_p1 = "Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility."
       val doNext_private_p2 = "From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them."
       val doNext_public_p1 = "If you are the fee-payer, you need to operate PAYE on earnings from this contract. If the fee-payer is someone else, you need to show them this determination."
+      val doNext_public_p2 = "If the fee-payer is someone else, you need to show them this determination."
     }
   }
 
