@@ -16,19 +16,19 @@
 
 package controllers
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import controllers.actions.IdentifierAction
-import javax.inject.Inject
 import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-class ExitSurveyController @Inject()(navigator: Navigator,
-                                     identify: IdentifierAction,
+class StartAgainController @Inject()(identify: IdentifierAction,
                                      controllerComponents: MessagesControllerComponents,
                                      implicit val appConfig: FrontendAppConfig) extends FrontendController(controllerComponents) {
 
-  def redirectToExitSurvey: Action[AnyContent] = identify { implicit request =>
-    Redirect(appConfig.exitSurveyUrl).withNewSession
+  def redirectToGovUk: Action[AnyContent] = identify { implicit request =>
+    Redirect(appConfig.govUkStartPageUrl).withNewSession
   }
 }

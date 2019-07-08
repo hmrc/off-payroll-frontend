@@ -41,9 +41,9 @@
 
         <p>
             @messages("finishedChecking.p1.beforeLink1")
-            <a href="@appConfig.exitSurveyUrl">@messages("finishedChecking.p1.link1")</a>
+            <a href="@routes.ExitSurveyController.redirectToExitSurvey">@messages("finishedChecking.p1.link1")</a>
             @messages("finishedChecking.p1.beforeLink2")
-            <a href="@appConfig.govUkStartPageUrl">@messages("finishedChecking.p1.link2")</a>
+            <a href="@routes.StartAgainController.redirectToGovUk">@messages("finishedChecking.p1.link2")</a>
             @messages("finishedChecking.p1.afterLink2")
         </p>
     }
