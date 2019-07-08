@@ -19,22 +19,51 @@ package controllers
 import controllers.actions.FakeIdentifierAction
 import play.api.http.Status
 import play.api.test.Helpers._
+import views.html.StartAgainView
+import views.html.subOptimised.results.FinancialRiskView
 
 class StartAgainControllerSpec extends ControllerSpecBase {
+
+  val startAgainView = injector.instanceOf[StartAgainView]
 
   object TestExitSurveyController extends StartAgainController(
     identify = FakeIdentifierAction,
     controllerComponents = messagesControllerComponents,
-    appConfig = frontendAppConfig
+    appConfig = frontendAppConfig,
+    view = startAgainView,
+    checkYourAnswersService = mockCheckYourAnswersService,
+    compareAnswerService = mockCompareAnswerService,
+    dataCacheConnector = mockDataCacheConnector,
+    decisionService = mockDecisionService,
+    navigator = fakeNavigator
   )
 
-  "ExitSurveyController.redirectToExitSurvey" should {
+  "StartAgainController.redirectToExitSurvey" should {
 
     "Redirect to the ExitSurvey and clear a session" in {
       val result = TestExitSurveyController.redirectToGovUk()(fakeRequest)
 
       status(result) mustBe Status.SEE_OTHER
       redirectLocation(result) mustBe Some(frontendAppConfig.govUkStartPageUrl)
+    }
+  }
+
+  "StartAgainController.redirectToDisclaimer" should {
+
+    "Redirect to the redirectToDisclaimer page" in {
+      val result = TestExitSurveyController.redirectToDisclaimer()(fakeRequest)
+
+      status(result) mustBe Status.SEE_OTHER
+      redirectLocation(result) mustBe Some("/check-employment-status-for-tax")
+    }
+  }
+
+  "StartAgainController.somethingWentWrong" should {
+
+    "Redirect to the somethingWentWrong page" in {
+      val result = TestExitSurveyController.somethingWentWrong()(fakeRequest)
+
+      status(result) mustBe Status.OK
     }
   }
 }
