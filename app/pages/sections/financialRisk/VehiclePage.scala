@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.financialRisk
+
+import pages.QuestionPage
 
 case object VehiclePage extends QuestionPage[Boolean] {
 

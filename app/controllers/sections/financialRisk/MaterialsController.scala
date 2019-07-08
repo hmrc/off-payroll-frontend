@@ -17,7 +17,6 @@
 package controllers.sections.financialRisk
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseController
@@ -25,7 +24,7 @@ import controllers.actions._
 import forms.MaterialsFormProvider
 import models.Mode
 import navigation.Navigator
-import pages.MaterialsPage
+import pages.sections.financialRisk.MaterialsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}

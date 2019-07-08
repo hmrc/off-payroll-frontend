@@ -17,6 +17,7 @@
 package pages
 
 import pages.behaviours.PageBehaviours
+import pages.sections.financialRisk.OtherExpensesPage
 
 class OtherExpensesPageSpec extends PageBehaviours {
 

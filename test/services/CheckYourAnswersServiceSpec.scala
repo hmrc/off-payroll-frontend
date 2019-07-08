@@ -29,10 +29,10 @@ import models.ScheduleOfWorkingHours.ScheduleDecidedForWorker
 import models.WhichDescribesYouAnswer.WorkerPAYE
 import models._
 import models.requests.DataRequest
-import pages.{EmployeesOverPage, EquipmentExpensesPage, MaterialsPage, OtherExpensesPage, TurnoverOverPage, VehiclePage}
+import pages.{EmployeesOverPage, TurnoverOverPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._

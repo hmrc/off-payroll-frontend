@@ -24,7 +24,7 @@ import forms.VehicleFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.VehiclePage
+import pages.sections.financialRisk.VehiclePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}

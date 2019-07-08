@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.financialRisk
 
-case object OtherExpensesPage extends QuestionPage[Boolean] {
+import pages.QuestionPage
 
-  override def toString: String = "otherExpenses"
+case object EquipmentExpensesPage extends QuestionPage[Boolean] {
+
+  override def toString: String = "equipmentExpenses"
 }

@@ -24,7 +24,7 @@ import forms.MaterialsFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.FakeNavigator
-import pages.MaterialsPage
+import pages.sections.financialRisk.MaterialsPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
