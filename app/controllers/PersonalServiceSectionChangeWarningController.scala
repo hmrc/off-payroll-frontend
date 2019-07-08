@@ -23,7 +23,7 @@ import controllers.actions._
 import javax.inject.Inject
 import models.{ArrangedSubstitute, CheckMode}
 import navigation.Navigator
-import pages.Page
+import pages.{Page, PersonalServiceSectionChangeWarningPage}
 import pages.sections.personalService._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
@@ -49,14 +49,19 @@ class PersonalServiceSectionChangeWarningController @Inject()(navigator: Navigat
     Ok(view(routes.PersonalServiceSectionChangeWarningController.onSubmit(page)))
   }
 
-  def onSubmit(page: String): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Page(page) match {
-      case ArrangedSubstitutePage => Redirect(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode))
-      case DidPaySubstitutePage => Redirect(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode))
-      case NeededToPayHelperPage => Redirect(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode))
-      case RejectSubstitutePage => Redirect(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode))
-      case WouldWorkerPaySubstitutePage => Redirect(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode))
-      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+  def onSubmit(page: String): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+
+    val userAnswers = request.userAnswers.set(PersonalServiceSectionChangeWarningPage, 0, true)
+
+    dataCacheConnector.save(userAnswers.cacheMap).map { _ =>
+      Page(page) match {
+        case ArrangedSubstitutePage => Redirect(personalServiceRoutes.ArrangedSubstituteController.onPageLoad(CheckMode))
+        case DidPaySubstitutePage => Redirect(personalServiceRoutes.DidPaySubstituteController.onPageLoad(CheckMode))
+        case NeededToPayHelperPage => Redirect(personalServiceRoutes.NeededToPayHelperController.onPageLoad(CheckMode))
+        case RejectSubstitutePage => Redirect(personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode))
+        case WouldWorkerPaySubstitutePage => Redirect(personalServiceRoutes.WouldWorkerPaySubstituteController.onPageLoad(CheckMode))
+        case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+      }
     }
   }
 }

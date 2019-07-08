@@ -67,16 +67,23 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
     "override the mode if office holder set to false in check mode" in {
       enable(OptimisedFlow)
+      val answers = userAnswers.set(OfficeHolderPage, 0, false)
+
       val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(false, 0)))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockDecide(answers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+
       val result = controller(getRelevantData).onSubmit(CheckMode)(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/check-employment-status-for-tax/review-answers")
+      redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
     "If the OptimisedFlow is enabled" should {
