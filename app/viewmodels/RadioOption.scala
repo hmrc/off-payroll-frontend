@@ -17,8 +17,8 @@
 package viewmodels
 
 sealed trait OptionType
-case object radio extends OptionType
-case object checkbox extends OptionType
+case object Radio extends OptionType
+case object Checkbox extends OptionType
 
 case class RadioOption(id: String,
                        value: String,

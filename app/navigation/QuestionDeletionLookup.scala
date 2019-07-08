@@ -17,7 +17,6 @@
 package navigation
 
 import javax.inject.{Inject, Singleton}
-
 import config.FrontendAppConfig
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
@@ -30,6 +29,10 @@ import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models._
 import pages._
+import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.exit.OfficeHolderPage
+import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
 
@@ -84,7 +87,19 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
         case Some(Answers(true, _)) => List(NeededToPayHelperPage)
         case _ => List.empty
       }
-    })
+    }),
+    OfficeHolderPage -> (
+      _ => List(
+        //Personal Service
+        ArrangedSubstitutePage,DidPaySubstitutePage,NeededToPayHelperPage,RejectSubstitutePage,WouldWorkerPaySubstitutePage,
+        //Control
+        ChooseWhereWorkPage,MoveWorkerPage,ScheduleOfWorkingHoursPage,HowWorkIsDonePage,
+        //Financial Risk
+        EquipmentExpensesPage,HowWorkerIsPaidPage,MaterialsPage,OtherExpensesPage,PutRightAtOwnCostPage,VehiclePage,CannotClaimAsExpensePage,
+        //Part Parcel
+        BenefitsPage,IdentifyToStakeholdersPage,LineManagerDutiesPage,InteractWithStakeholdersPage
+        )
+    )
   )
 
 }

@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait HowWorkIsDone
 
@@ -36,9 +36,9 @@ object HowWorkIsDone {
     value =>
 
       if(optimised){
-        RadioOption("optimised.howWorkIsDone", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("optimised.howWorkIsDone", value.toString, Radio, hasTailoredMsgs = true)
       } else {
-        RadioOption("howWorkIsDone", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("howWorkIsDone", value.toString, Radio, hasTailoredMsgs = true)
       }
   }
 

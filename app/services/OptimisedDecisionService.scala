@@ -89,9 +89,9 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       score = Score(
         setup = wholeInterview.score.setup,
         exit = wholeInterview.score.exit,
-        personalService = personalService.score.personalService,    // Score from isolated Personal Service call 
-        control = control.score.control,                            // Score from isolated Control call 
-        financialRisk = financialRisk.score.financialRisk,          // Score from isolated Financial Risk call 
+        personalService = personalService.score.personalService,    // Score from isolated Personal Service call
+        control = control.score.control,                            // Score from isolated Control call
+        financialRisk = financialRisk.score.financialRisk,          // Score from isolated Financial Risk call
         partAndParcel = wholeInterview.score.partAndParcel
       ),
       result = wholeInterview.result

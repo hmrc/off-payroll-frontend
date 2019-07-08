@@ -19,7 +19,7 @@ package models
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import play.api.libs.json._
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait HowWorkerIsPaid
 
@@ -39,7 +39,7 @@ object HowWorkerIsPaid extends FeatureSwitching {
     value => RadioOption(
       keyPrefix = "howWorkerIsPaid",
       option = value.toString,
-      optionType = radio,
+      optionType = Radio,
       hasTailoredMsgs = true,
       dividerPrefix = false,
       hasOptimisedMsgs = isEnabled(OptimisedFlow)

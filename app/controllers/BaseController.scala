@@ -24,7 +24,7 @@ import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{Answers, CheckMode, Enumerable, Mode}
 import navigation.Navigator
-import pages.QuestionPage
+import pages.{PersonalServiceSectionChangeWarningPage, QuestionPage}
 import pages.sections.exit.OfficeHolderPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -56,26 +56,37 @@ abstract class BaseController @Inject()(mcc: MessagesControllerComponents,compar
 
     val currentAnswer = request.userAnswers.get(page).map(_.answer)
 
-    if(currentAnswer.contains(value) && mode == CheckMode) {
+    // If this is the first redirect since the Personal Service warning page was displayed
+    // And, it is in CheckMode. And, the Answer has not changed.
+    // Then redirect back to CYA
+    val redirectToCYA =
+      request.userAnswers.get(PersonalServiceSectionChangeWarningPage).isDefined &&
+      mode == CheckMode &&
+      currentAnswer.contains(value)
+
+    //Remove the Personal Service warning page viewed flag from the request
+    val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage))
+
+    if(redirectToCYA) {
       Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
     } else {
       val answers =
         if(isEnabled(OptimisedFlow)) {
-          compareAnswerService.optimisedConstructAnswers(request,value,page)
+          compareAnswerService.optimisedConstructAnswers(req,value,page)
         } else {
-          compareAnswerService.constructAnswers(request,value,page)
+          compareAnswerService.constructAnswers(req,value,page)
         }
       dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
         val call = navigator.nextPage(page, mode)(answers)
         (callDecisionService, isEnabled(OptimisedFlow)) match {
           //early exit office holder
-          case _ if page == OfficeHolderPage => decisionService.decide(answers, call)
+          case _ if page == OfficeHolderPage => decisionService.decide(answers, call)(hc, ec, req)
           //don't call decision every time, only once at the end (opt flow)
           case (true, true) => Future.successful(Redirect(call))
           //if not calling decision, carry on
           case (false, _) => Future.successful(Redirect(call))
           //anything else calls decision
-          case _ => decisionService.decide(answers, call)
+          case _ => decisionService.decide(answers, call)(hc, ec, req)
         }
       }
     }

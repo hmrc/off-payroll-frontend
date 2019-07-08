@@ -72,6 +72,12 @@
 }
 
 @doNext = {
-    <p>@messages("agent.optimised.result.undetermined.doNext.p1")</p>
-    <p>@messages("agent.optimised.result.undetermined.doNext.p2")</p>
+    <p>
+        @messages("agent.optimised.result.undetermined.doNext.p1")
+        <a href="mailto:@{messages("site.ir35email")}">@messages("site.ir35email")</a>.
+    </p>
+    <p>
+        @messages("agent.optimised.result.undetermined.doNext.p2")
+        <a href="@{appConfig.employmentStatusManualUrl}">@messages("site.employmentStatusManual")</a>.
+    </p>
 }

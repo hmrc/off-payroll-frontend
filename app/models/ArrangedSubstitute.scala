@@ -19,7 +19,7 @@ package models
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import play.api.libs.json._
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait ArrangedSubstitute
 
@@ -38,7 +38,7 @@ object ArrangedSubstitute extends FeatureSwitching {
       RadioOption(
         "arrangedSubstitute",
         value.toString,
-        radio,
+        Radio,
         hasTailoredMsgs = true,
         hasOptimisedMsgs = isEnabled(OptimisedFlow),
         dividerPrefix = false

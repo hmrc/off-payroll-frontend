@@ -179,7 +179,9 @@ class IR35OutsideViewSpec extends ResultViewFixture {
     if(isPrivateSector) {
       "Have the correct Do Next section for the Private Sector" in {
         document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivate
+        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivateP1
+        document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivateP2
+        document.select(Selectors.DoNext.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivateP3
       }
     } else {
       "Have the correct Do Next section for the Public Sector" in {
