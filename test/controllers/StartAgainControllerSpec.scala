@@ -17,14 +17,12 @@
 package controllers
 
 import controllers.actions.FakeIdentifierAction
-import navigation.FakeNavigator
 import play.api.http.Status
 import play.api.test.Helpers._
 
-class ExitSurveyControllerSpec extends ControllerSpecBase {
+class StartAgainControllerSpec extends ControllerSpecBase {
 
-  object TestExitSurveyController extends ExitSurveyController(
-    navigator = new FakeNavigator(onwardRoute),
+  object TestExitSurveyController extends StartAgainController(
     identify = FakeIdentifierAction,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig
@@ -33,10 +31,10 @@ class ExitSurveyControllerSpec extends ControllerSpecBase {
   "ExitSurveyController.redirectToExitSurvey" should {
 
     "Redirect to the ExitSurvey and clear a session" in {
-      val result = TestExitSurveyController.redirectToExitSurvey()(fakeRequest)
+      val result = TestExitSurveyController.redirectToGovUk()(fakeRequest)
 
       status(result) mustBe Status.SEE_OTHER
-      redirectLocation(result) mustBe Some(frontendAppConfig.exitSurveyUrl)
+      redirectLocation(result) mustBe Some(frontendAppConfig.govUkStartPageUrl)
     }
   }
 }
