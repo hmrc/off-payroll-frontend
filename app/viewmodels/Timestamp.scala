@@ -14,16 +14,35 @@
  * limitations under the License.
  */
 
-package models
-
-import java.time.format.DateTimeFormatter
-import java.time.{ZoneOffset, ZonedDateTime}
+package viewmodels
 
 import play.api.i18n.Messages
 
-class Timestamp {
+object Timestamp {
 
-  def timestamp(time: Option[String] = None)(implicit messages: Messages): String =
-    time.getOrElse(ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss")))
+  val months = Seq(
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  )
+
+  def monthToMessages(dateTime: String)(implicit messages: Messages): String =
+    months.flatMap {
+      month =>
+        if (dateTime.contains(month)) {
+          Some(dateTime.replaceAllLiterally(month, messages(s"date.$month")))
+        } else {
+          None
+        }
+    }.headOption.getOrElse(dateTime)
 
 }
