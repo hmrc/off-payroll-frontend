@@ -193,3 +193,5 @@ GET        /equipment-expenses/change                   controllers.sections.fin
 POST       /equipment-expenses/change                   controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = CheckMode)
 
 GET        /start-again                                 controllers.StartAgainController.redirectToGovUk
+GET        /redirect-to-disclaimer                      controllers.StartAgainController.redirectToDisclaimer
+GET        /something-went-wrong                        controllers.StartAgainController.somethingWentWrong
