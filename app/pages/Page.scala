@@ -16,6 +16,14 @@
 
 package pages
 
+import pages.sections.control._
+import pages.sections.exit._
+import pages.sections.financialRisk._
+import pages.sections.partParcel._
+import pages.sections.personalService._
+import pages.sections.setup._
+
+import scala.collection.immutable.Map
 import scala.language.implicitConversions
 
 trait Page
@@ -24,4 +32,44 @@ object Page {
 
   implicit def toString(page: Page): String =
     page.toString
+
+  def apply(pageName: String): QuestionPage[_] = questionToPage(pageName)
+  def unapply(arg: QuestionPage[_]): String = questionToPage.map(_.swap).apply(arg)
+
+  lazy val questionToPage = Map[String, QuestionPage[_]](
+    AboutYouPage.toString -> AboutYouPage,
+    WhichDescribesYouPage.toString -> WhichDescribesYouPage,
+    ContractStartedPage.toString -> ContractStartedPage,
+    TurnoverOverPage.toString -> TurnoverOverPage,
+    EmployeesOverPage.toString -> EmployeesOverPage,
+    BalanceSheetOverPage.toString -> BalanceSheetOverPage,
+    WorkerTypePage.toString -> WorkerTypePage,
+    WorkerUsingIntermediaryPage.toString -> WorkerUsingIntermediaryPage,
+    IsWorkForPrivateSectorPage.toString -> IsWorkForPrivateSectorPage,
+    OfficeHolderPage.toString -> OfficeHolderPage,
+    ArrangedSubstitutePage.toString -> ArrangedSubstitutePage,
+    DidPaySubstitutePage.toString -> DidPaySubstitutePage,
+    WouldWorkerPaySubstitutePage.toString -> WouldWorkerPaySubstitutePage,
+    NeededToPayHelperPage.toString -> NeededToPayHelperPage,
+    MoveWorkerPage.toString -> MoveWorkerPage,
+    RejectSubstitutePage.toString -> RejectSubstitutePage,
+    HowWorkIsDonePage.toString -> HowWorkIsDonePage,
+    ScheduleOfWorkingHoursPage.toString -> ScheduleOfWorkingHoursPage,
+    ChooseWhereWorkPage.toString -> ChooseWhereWorkPage,
+    CannotClaimAsExpensePage.toString -> CannotClaimAsExpensePage,
+    EquipmentExpensesPage.toString -> EquipmentExpensesPage,
+    MaterialsPage.toString -> MaterialsPage,
+    OtherExpensesPage.toString -> OtherExpensesPage,
+    VehiclePage.toString -> VehiclePage,
+    HowWorkerIsPaidPage.toString -> HowWorkerIsPaidPage,
+    PutRightAtOwnCostPage.toString -> PutRightAtOwnCostPage,
+    BenefitsPage.toString -> BenefitsPage,
+    LineManagerDutiesPage.toString -> LineManagerDutiesPage,
+    InteractWithStakeholdersPage.toString -> InteractWithStakeholdersPage,
+    IdentifyToStakeholdersPage.toString -> IdentifyToStakeholdersPage,
+    CustomisePDFPage.toString -> CustomisePDFPage,
+    ResultPage.toString -> ResultPage,
+    Timestamp.toString -> Timestamp,
+    AddReferenceDetailsPage.toString -> AddReferenceDetailsPage
+  )
 }

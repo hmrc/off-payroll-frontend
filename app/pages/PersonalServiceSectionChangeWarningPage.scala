@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-import cats.data.EitherT
-import models.{DecisionResponse, ErrorResponse}
+package pages
 
-import scala.concurrent.Future
-
-package object MultiDecision {
-
-  type EitherF[A,B] = EitherT[Future,A,B]
-  type Result[T] = EitherF[Either[ErrorResponse,DecisionResponse],T]
+case object PersonalServiceSectionChangeWarningPage extends QuestionPage[Boolean] {
+  override def toString: String = "personalServiceSectionChangeWarning"
 }

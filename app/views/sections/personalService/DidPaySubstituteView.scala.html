@@ -31,7 +31,7 @@
 
     @formWithCsrf(action = DidPaySubstituteController.onSubmit(mode), 'autoComplete -> "off") {
 
-        @components.back_link()
+        @components.back_link()(mode)
 
         @components.error_summary(form.errors)
 

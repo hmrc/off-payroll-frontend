@@ -122,7 +122,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val answers = userAnswers.set(ScheduleOfWorkingHoursPage,0,ScheduleOfWorkingHours.ScheduleDecidedForWorker)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),ScheduleOfWorkingHours)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),ScheduleOfWorkingHours)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

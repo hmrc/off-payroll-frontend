@@ -85,7 +85,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
 
         val userAnswers = UserAnswers("id").set(BenefitsPage, 0, true)
 
-        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),true)(UserAnswers("id")set(BenefitsPage,0, true))
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),true)(UserAnswers("id")set(BenefitsPage,0, true))
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
 

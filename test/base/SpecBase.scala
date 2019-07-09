@@ -16,15 +16,12 @@
 
 package base
 
-import MultiDecision.Result
-import cats.data.EitherT
-import cats.implicits._
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import handlers.ErrorHandler
+import models.UserAnswers
 import models.requests.DataRequest
-import models.{DecisionResponse, ErrorResponse, UserAnswers}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
@@ -35,8 +32,6 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.bootstrap.http.HttpClient
-import utils.Wiremock
 
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
 import scala.concurrent.{Await, ExecutionContext, Future}
@@ -82,12 +77,5 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
   lazy val fakeDataRequest = DataRequest(fakeRequest,"id",UserAnswers("id"))
 
   implicit lazy val messages: Messages = messagesApi.preferred(fakeRequest)
-
-  val wireMock = new Wiremock
-
-  val client = injector.instanceOf[HttpClient]
-
-  def createRightType(value: Boolean): Result[Boolean] = EitherT.right(Future(value))
-  def createLeftType(value: Either[ErrorResponse,DecisionResponse]): Result[Boolean] = EitherT.left(Future(value))
 
 }

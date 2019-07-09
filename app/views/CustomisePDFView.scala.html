@@ -19,6 +19,7 @@
 @import controllers.routes._
 @import models.Mode
 @import views.ViewUtils._
+@import models.NormalMode
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
@@ -31,7 +32,7 @@
 
     @formWithCsrf(action = PDFController.onSubmit(mode), 'autoComplete -> "off") {
 
-        @components.back_link()
+        @components.back_link()(NormalMode)
 
         @components.error_summary(form.errors)
 

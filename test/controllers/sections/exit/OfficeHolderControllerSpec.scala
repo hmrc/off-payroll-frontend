@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.OfficeHolderFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.requests.DataRequest
-import models.{Answers, NormalMode, UserAnswers}
+import models.{Answers, CheckMode, NormalMode, UserAnswers}
 import navigation.FakeNavigator
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.CannotClaimAsExpensePage
@@ -65,6 +65,27 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
   "OfficeHolder Controller" must {
 
+    "override the mode if office holder set to false in check mode" in {
+      enable(OptimisedFlow)
+      val answers = userAnswers.set(OfficeHolderPage, 0, false)
+
+      val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(false, 0)))
+
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockDecide(answers)(onwardRoute)
+
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+
+      val result = controller(getRelevantData).onSubmit(CheckMode)(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+    }
+
     "If the OptimisedFlow is enabled" should {
 
       def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -96,7 +117,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

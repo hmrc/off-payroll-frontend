@@ -19,6 +19,7 @@
 @import viewmodels.Section
 @import views.ViewUtils._
 @import models.requests.DataRequest
+@import models.NormalMode
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
@@ -44,7 +45,7 @@ timestamp: Option[String] = None)(implicit request: DataRequest[_], messages: Me
             @sections.additional_pdf_details(details)
         }
 
-        @if(!printView) { @components.back_link() }
+        @if(!printView) { @components.back_link()(NormalMode) }
 
         @components.error_summary(form.errors)
 

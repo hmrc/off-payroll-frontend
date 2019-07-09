@@ -123,7 +123,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val answers = userAnswers.set(HowWorkIsDonePage,0,HowWorkIsDone.NoWorkerInputAllowed)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),HowWorkIsDone)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

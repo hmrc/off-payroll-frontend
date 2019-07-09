@@ -105,7 +105,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
           val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
-          mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
+          mockOptimisedConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
           mockDetermineResultView()(Right(Html("Success")))
 
@@ -150,7 +150,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
           val answers = userAnswers.set(Timestamp, 0, FakeTimestamp.timestamp())
           val dataRequest = DataRequest(fakeRequest, "id", answers)
 
-          mockConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
+          mockOptimisedConstructAnswers(dataRequest, FakeTimestamp.timestamp())(answers)
           mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
           mockDetermineResultView()(Left(Html("Error")))
 
@@ -171,7 +171,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        mockConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest, "id", answers), FakeTimestamp.timestamp())(answers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = TestResultController.onSubmit(postRequest)

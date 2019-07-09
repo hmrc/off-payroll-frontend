@@ -14,11 +14,13 @@
  * limitations under the License.
  *@
 
+@import viewmodels.Timestamp._
+
 @(additionalPdfDetails: AdditionalPdfDetails, timestamp: Option[String])(implicit messages: Messages)
 
 <div id="pdfDetails" class="divider--bottom">
     @timestamp.map { time =>
-        <h2>@messages("result.pdf.time", time)</h2>
+        <h2>@messages("result.pdf.time", monthToMessages(time))</h2>
     }
 
     @additionalPdfDetails.completedBy.map { name =>

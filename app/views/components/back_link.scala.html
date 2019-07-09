@@ -14,8 +14,12 @@
  * limitations under the License.
  *@
 
-@(url: String = "#")(implicit messages: Messages)
+@import models.Mode
 
-<div class="js-visible">
-  <p><a id="back-link" class="link-back" href='@url'>@messages("site.back")</a></p>
-</div>
+@(url: String = "#")(mode: Mode = NormalMode)(implicit messages: Messages)
+
+@if(mode == NormalMode) {
+  <div class="js-visible">
+    <p><a id="back-link" class="link-back" href='@url'>@messages("site.back")</a></p>
+  </div>
+}

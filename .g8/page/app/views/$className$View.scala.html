@@ -9,7 +9,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.back_link()
+    @components.back_link()(mode)
 
     @components.heading("$className;format="decap"$.heading", Some("$className;format="decap"$.subheading"))
 }

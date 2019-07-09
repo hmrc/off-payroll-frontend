@@ -31,7 +31,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.back_link(appConfig.govUkStartPageUrl)
+    @components.back_link(appConfig.govUkStartPageUrl)(mode)
 
     @formWithCsrf(action = AboutYouController.onSubmit(mode), 'autoComplete -> "off") {
 

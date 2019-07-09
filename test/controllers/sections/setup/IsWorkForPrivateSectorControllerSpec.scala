@@ -16,32 +16,25 @@
 
 package controllers.sections.setup
 
-import akka.util.ByteString
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockDataCacheConnector
+import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.{ContractStartedFormProvider, IsWorkForPrivateSectorFormProvider}
+import forms.IsWorkForPrivateSectorFormProvider
 import models._
 import models.requests.DataRequest
-import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Mockito.when
-import pages.sections.personalService.ArrangedSubstitutePage
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, IsWorkForPrivateSectorPage}
+import pages.sections.setup.{ContractStartedPage, IsWorkForPrivateSectorPage}
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.IsWorkForPrivateSectorView
-import views.html.subOptimised.sections.setup.ContractStartedView
-
-import scala.concurrent.Future
 
 class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
 
   val formProvider = new IsWorkForPrivateSectorFormProvider()
   val form = formProvider()
@@ -88,7 +81,7 @@ class IsWorkForPrivateSectorControllerSpec extends ControllerSpecBase {
       val validData = Map(ContractStartedPage.toString -> Json.toJson(Answers(true,0)))
 
       val answers = userAnswers.set(ContractStartedPage,0,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

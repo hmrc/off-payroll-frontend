@@ -96,7 +96,7 @@ class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", PutRightAtOwnCost.options.head.value))
 
-        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),PutRightAtOwnCost)(userAnswers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),PutRightAtOwnCost)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
         val result = controller().onSubmit(NormalMode)(postRequest)

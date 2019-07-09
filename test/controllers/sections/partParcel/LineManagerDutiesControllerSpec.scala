@@ -86,7 +86,7 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-        mockConstructAnswers(DataRequest(postRequest,"id",userAnswers),Boolean)(userAnswers)
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",userAnswers),Boolean)(userAnswers)
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
 

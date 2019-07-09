@@ -16,6 +16,7 @@
 
 package controllers.sections.financialRisk
 
+import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
 import controllers.ControllerSpecBase
@@ -31,6 +32,11 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.financialRisk.VehicleView
 
 class VehicleControllerSpec extends ControllerSpecBase {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
 
   val formProvider = new VehicleFormProvider()
   val form = formProvider()
@@ -76,7 +82,7 @@ class VehicleControllerSpec extends ControllerSpecBase {
       val validData = Map(VehiclePage.toString -> Json.toJson(Answers(true,0)))
 
       val answers = userAnswers.set(VehiclePage,0,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

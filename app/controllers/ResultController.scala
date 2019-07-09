@@ -55,7 +55,13 @@ class ResultController @Inject()(identify: IdentifierAction,
                       (implicit request: DataRequest[_]): Call = navigator.nextPage(ResultPage, NormalMode)(userAnswers.getOrElse(request.userAnswers))
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val timestamp = compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
+
+    val timestamp = if(isEnabled(OptimisedFlow)) {
+      compareAnswerService.optimisedConstructAnswers(request,time.timestamp(),Timestamp)
+    } else {
+      compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
+    }
+
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
       if(isEnabled(OptimisedFlow)){
         optimisedDecisionService.determineResultView().map {

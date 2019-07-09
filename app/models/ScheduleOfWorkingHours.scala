@@ -17,7 +17,7 @@
 package models
 
 import play.api.libs.json._
-import viewmodels.{RadioOption, radio}
+import viewmodels.{RadioOption, Radio}
 
 sealed trait ScheduleOfWorkingHours
 
@@ -36,9 +36,9 @@ object ScheduleOfWorkingHours {
     value =>
 
       if(optimised){
-        RadioOption("optimised.scheduleOfWorkingHours", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("optimised.scheduleOfWorkingHours", value.toString, Radio, hasTailoredMsgs = true)
       } else {
-        RadioOption("scheduleOfWorkingHours", value.toString, radio, hasTailoredMsgs = true)
+        RadioOption("scheduleOfWorkingHours", value.toString, Radio, hasTailoredMsgs = true)
       }
   }
 

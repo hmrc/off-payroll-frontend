@@ -19,6 +19,7 @@
 @import views.ViewUtils._
 @import controllers.routes._
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import models.NormalMode
 
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
@@ -31,7 +32,7 @@
     bodyClasses = None,
     articleLayout = false) {
 
-    @components.back_link()
+    @components.back_link()(NormalMode)
 
     @formWithCsrf(action = CheckYourAnswersController.onSubmit(), 'autoComplete -> "off") {
 

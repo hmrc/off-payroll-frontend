@@ -23,32 +23,7 @@ import play.api.i18n.Messages
 
 class Timestamp {
 
-  val months = Seq(
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December"
-  )
-
   def timestamp(time: Option[String] = None)(implicit messages: Messages): String =
-    monthToMessages(time.getOrElse(ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss"))))
-
-  private def monthToMessages(dateTime: String)(implicit messages: Messages): String =
-    months.flatMap {
-      month =>
-        if (dateTime.contains(month)) {
-          Some(dateTime.replaceAllLiterally(month, messages(s"date.$month")))
-        } else {
-          None
-        }
-    }.headOption.getOrElse(dateTime)
+    time.getOrElse(ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss")))
 
 }
