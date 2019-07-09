@@ -69,8 +69,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     case CheckMode => routes.CheckYourAnswersController.onPageLoad()
   }
 
-  private def optimisedSetupRouteMap(implicit mode: Mode): Map[Page, UserAnswers => Call] = Map(
-
+  private def optimisedIndexToWorkerUsingIntermediary(implicit mode: Mode): Map[Page, UserAnswers => Call] = Map(
     //Initialisation Section
     IndexPage -> (_ => setupRoutes.AboutYourResultController.onPageLoad()),
 
@@ -84,7 +83,10 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     WorkerUsingIntermediaryPage -> (answers => answers.get(WorkerUsingIntermediaryPage) match {
       case Some(Answers(true, _)) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(mode)
       case _ => setupRoutes.ContractStartedController.onPageLoad(mode)
-    }),
+    })
+  )
+
+  private def optimisedPrivateSectorToContractStarted(implicit mode: Mode): Map[Page, UserAnswers => Call] = Map(
     IsWorkForPrivateSectorPage -> (answers => {
       (answers.get(IsWorkForPrivateSectorPage), isWorker(answers)) match {
         case (Some(Answers(true, _)), _) => setupRoutes.TurnoverOverController.onPageLoad(mode)
@@ -107,6 +109,10 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(mode))
   )
 
+  private def optimisedSetupRouteMap(implicit mode: Mode): Map[Page, UserAnswers => Call] = {
+    optimisedIndexToWorkerUsingIntermediary ++ optimisedPrivateSectorToContractStarted
+  }
+
   private val setupRouteMap: Map[Page, UserAnswers => Call] = Map(
 
     //Initialisation Section
@@ -127,7 +133,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     })
   )
 
-  private def personalServiceRouteMap(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
+  private def arrangedSubstituteToDidPaySubstitute(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
     ArrangedSubstitutePage -> (answers =>
       answers.get(ArrangedSubstitutePage) match {
         case Some(Answers(YesClientAgreed,_)) => personalServiceRoutes.DidPaySubstituteController.onPageLoad(mode)
@@ -139,7 +145,10 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
       answers.get(DidPaySubstitutePage) match {
         case Some(Answers(true,_)) => personalServiceNextPage
         case _ => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
-      }),
+      })
+  )
+
+  private def rejectSubstituteRouting(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
     RejectSubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(RejectSubstitutePage)) match {
         case (Some(Answers(true,_)), Some(Answers(true,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
@@ -147,18 +156,27 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
         case (_, Some(Answers(true,_))) => personalServiceNextPage
         case (None, _) => setupRoutes.ContractStartedController.onPageLoad(mode)
         case (_, None) => personalServiceRoutes.RejectSubstituteController.onPageLoad(mode)
-      }),
+      })
+  )
+
+  private def wouldWorkerPaySubstituteRouting(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
     WouldWorkerPaySubstitutePage -> (answers =>
       (answers.get(ContractStartedPage), answers.get(WouldWorkerPaySubstitutePage)) match {
-        case (Some(Answers(true,_)),_) if !isEnabled(OptimisedFlow) =>
+        case (Some(Answers(true, _)), _) if !isEnabled(OptimisedFlow) =>
           personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
-        case (Some(Answers(false,_)),_) => personalServiceNextPage
-        case (Some(Answers(true,_)),Some(Answers(false,_))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
-        case (Some(Answers(true,_)),Some(Answers(true,_))) => personalServiceNextPage
+        case (Some(Answers(false, _)), _) => personalServiceNextPage
+        case (Some(Answers(true, _)), Some(Answers(false, _))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
+        case (Some(Answers(true, _)), Some(Answers(true, _))) => personalServiceNextPage
         case _ => setupRoutes.ContractStartedController.onPageLoad(mode)
-      }),
-    NeededToPayHelperPage -> (_ => personalServiceNextPage)
+      })
   )
+
+  private def personalServiceRouteMap(implicit mode: Mode): Map[Page, UserAnswers => Call] = {
+    arrangedSubstituteToDidPaySubstitute ++
+      rejectSubstituteRouting ++
+      wouldWorkerPaySubstituteRouting ++
+      Map(NeededToPayHelperPage -> (_ => personalServiceNextPage))
+  }
 
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
 
@@ -246,8 +264,3 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
       changeRouting.getOrElse(page, _ => routes.CheckYourAnswersController.onPageLoad())
   }
 }
-
-
-
-
-
