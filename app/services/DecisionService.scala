@@ -141,7 +141,17 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     financialRisk.fold(controlRedirect)(controlRedirect.addingToSession(_))
   }
 
-  //TODO REFACTOR FOR SCALASTYLE
+  def isSoleTrader(implicit request: DataRequest[_], messages: Messages): Boolean = if(isEnabled(OptimisedFlow)) {
+    request.userAnswers.get(WorkerUsingIntermediaryPage).exists(answer => answer.answer.equals(false))
+  } else {
+    request.userAnswers.get(WorkerTypePage).exists(answer => answer.answer.equals(SoleTrader))
+  }
+
+  def isOfficeHolder(implicit request: DataRequest[_], messages: Messages): Boolean = request.userAnswers.get(OfficeHolderPage) match {
+    case Some(answer) => answer.answer
+    case _ => false
+  }
+
   def determineResultView(answerSections: Seq[AnswerSection], formWithErrors: Option[Form[Boolean]] = None, printMode: Boolean = false,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None, timestamp: Option[String] = None)
                          (implicit request: DataRequest[_], messages: Messages): Html = {
@@ -151,28 +161,21 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val financialRiskSession = request.session.get(SessionKeys.financialRiskResult)
     val control = controlSession.map(WeightedAnswerEnum.withName)
     val financialRisk = financialRiskSession.map(WeightedAnswerEnum.withName)
-
-    val isSoleTrader = if(isEnabled(OptimisedFlow)) {
-      request.userAnswers.get(WorkerUsingIntermediaryPage).exists(answer => answer.answer.equals(false))
-    } else {
-      request.userAnswers.get(WorkerTypePage).exists(answer => answer.answer.equals(SoleTrader))
-    }
+    val soleTrader = isSoleTrader
 
     val currentContractAnswer = request.userAnswers.get(ContractStartedPage)
     val arrangedSubstitute = request.userAnswers.get(ArrangedSubstitutePage)
-    val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage) match {
-      case Some(answer) => answer.answer
-      case _ => false
-    }
+    val officeHolderAnswer = isOfficeHolder
+
     val action: Call = routes.ResultController.onSubmit()
     val form = formWithErrors.getOrElse(resultForm)
 
-    def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, isSoleTrader) match {
+    def resultViewInside: HtmlFormat.Appendable = (officeHolderAnswer, soleTrader) match {
       case (_, true) => employedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (true, _) => officeHolderInsideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _) => insideIR35View(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
     }
-    def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, isSoleTrader, control, financialRisk) match {
+    def resultViewOutside: HtmlFormat.Appendable = (arrangedSubstitute, currentContractAnswer, soleTrader, control, financialRisk) match {
       case (_, _, true, _, _) => selfEmployedView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35), _) => controlView(answerSections,version,form,action,printMode,additionalPdfDetails,timestamp)
       case (_, _, _, _, Some(WeightedAnswerEnum.OUTSIDE_IR35)) =>
