@@ -20,17 +20,19 @@ import assets.messages.CheckYourAnswersMessages
 import controllers.actions._
 import handlers.ErrorHandler
 import models.requests.DataRequest
-import models.{DecisionResponse, ErrorResponse, ResultEnum, Score}
+import models._
 import navigation.FakeNavigator
 import pages.ResultPage
+import pages.sections.exit.OfficeHolderPage
 import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import services.{CheckYourAnswersService, CompareAnswerService}
+import services.mocks.MockCheckYourAnswersValidationService
+import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService}
 import utils.FakeTimestamp
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersControllerSpec extends ControllerSpecBase {
+class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYourAnswersValidationService {
 
   val view = injector.instanceOf[CheckYourAnswersView]
   val mockCheckAnswerService = app.injector.instanceOf[CheckYourAnswersService]
@@ -46,18 +48,36 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase {
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService
+    decisionService = mockDecisionService,
+    errorHandler = errorHandler,
+    checkYourAnswersValidationService = mockCheckYourAnswersValidationService
   )
 
   "CheckYourAnswers Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "If the response from the CheckYourAnswersValidationService is valid" should {
 
-      mockCheckYourAnswers(Seq.empty)
+      "return OK and the correct view for a GET" in {
 
-      val result = controller().onPageLoad(fakeRequest)
-      status(result) mustBe OK
-      titleOf(result) mustBe title(CheckYourAnswersMessages.title)
+        mockCheckYourAnswers(Seq.empty)
+        mockIsValid(UserAnswers(cacheMapId))(Right(true))
+
+        val result = controller().onPageLoad(fakeRequest)
+        status(result) mustBe OK
+        titleOf(result) mustBe title(CheckYourAnswersMessages.title)
+      }
+    }
+
+    "If the response from the CheckYourAnswersValidationService is invalid (set of unanswered questions)" should {
+
+      "return ISE" in {
+
+        mockIsValid(UserAnswers(cacheMapId))(Left(Set(OfficeHolderPage)))
+
+        val result = controller().onPageLoad(fakeRequest)
+        status(result) mustBe INTERNAL_SERVER_ERROR
+        Html(await(bodyOf(result))) mustBe errorHandler.internalServerErrorTemplate(fakeRequest)
+      }
     }
 
     "redirect to the result page" in {

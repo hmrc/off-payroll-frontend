@@ -19,60 +19,61 @@ package services
 import config.FrontendAppConfig
 import javax.inject.Inject
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.WorkerType.SoleTrader
 import models._
-import models.requests.DataRequest
-import pages.{BalanceSheetOverPage, EmployeesOverPage, QuestionPage, TurnoverOverPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
+import pages.{BalanceSheetOverPage, EmployeesOverPage, QuestionPage, TurnoverOverPage}
 import play.api.Logger
-import play.api.i18n.Messages
-import utils.CheckYourAnswersHelper
-import viewmodels.AnswerSection
 
 class CheckYourAnswersValidationService @Inject()(implicit val appConfig: FrontendAppConfig) {
 
   private def mandatorySetupPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    Set(WhichDescribesYouPage, WorkerUsingIntermediaryPage, ContractStartedPage) ++
-      (userAnswers.get(WorkerUsingIntermediaryPage).map(_.answer) match {
+    Set(
+      WhichDescribesYouPage,
+      WorkerUsingIntermediaryPage,
+      ContractStartedPage
+    ) ++
+      (userAnswers.getAnswer(WorkerUsingIntermediaryPage) match {
         case Some(true) => Set(IsWorkForPrivateSectorPage)
         case _ => Set()
       }) ++
-      (userAnswers.get(IsWorkForPrivateSectorPage).map(_.answer) match {
+      (userAnswers.getAnswer(IsWorkForPrivateSectorPage) match {
         case Some(true) => Set(TurnoverOverPage, EmployeesOverPage)
         case _ => Set()
       }) ++
-      ((userAnswers.get(TurnoverOverPage).map(_.answer), userAnswers.get(EmployeesOverPage).map(_.answer)) match {
+      ((userAnswers.getAnswer(TurnoverOverPage), userAnswers.getAnswer(EmployeesOverPage)) match {
         case (Some(x), Some(y)) if x != y => Set(BalanceSheetOverPage)
         case _ => Set()
       })
   }
 
+  //noinspection ScalaStyle TODO: Look to refactor for cyclomatic complexity warning
   private def mandatoryPersonalServicePages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    (userAnswers.get(ContractStartedPage).map(_.answer) match {
+    (userAnswers.getAnswer(ContractStartedPage) match {
       case Some(true) => Set(ArrangedSubstitutePage)
+      case Some(false) => Set(RejectSubstitutePage)
       case _ => Set()
     }) ++
-      (userAnswers.get(ArrangedSubstitutePage).map(_.answer) match {
+      (userAnswers.getAnswer(ArrangedSubstitutePage) match {
         case Some(YesClientAgreed) => Set(DidPaySubstitutePage)
         case Some(No) => Set(RejectSubstitutePage)
-        case Some(YesClientNotAgreed) => Set(RejectSubstitutePage)
+        case Some(YesClientNotAgreed) => Set(NeededToPayHelperPage)
         case _ => Set()
       }) ++
-      (userAnswers.get(DidPaySubstitutePage).map(_.answer) match {
+      (userAnswers.getAnswer(DidPaySubstitutePage) match {
         case Some(false) => Set(NeededToPayHelperPage)
         case _ => Set()
       }) ++
-      ((userAnswers.get(RejectSubstitutePage).map(_.answer), userAnswers.get(ContractStartedPage).map(_.answer)) match {
+      ((userAnswers.getAnswer(RejectSubstitutePage), userAnswers.getAnswer(ContractStartedPage)) match {
         case (Some(true), Some(true)) => Set(NeededToPayHelperPage)
         case (Some(false), _) => Set(WouldWorkerPaySubstitutePage)
         case _ => Set()
       }) ++
-      ((userAnswers.get(WouldWorkerPaySubstitutePage).map(_.answer), userAnswers.get(ContractStartedPage).map(_.answer)) match {
+      ((userAnswers.getAnswer(WouldWorkerPaySubstitutePage), userAnswers.getAnswer(ContractStartedPage)) match {
         case (Some(false), Some(true)) => Set(NeededToPayHelperPage)
         case _ => Set()
       })
