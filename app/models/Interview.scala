@@ -22,10 +22,9 @@ import models.CannotClaimAsExpense._
 import models.IdentifyToStakeholders.WouldNotHappen
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
-import pages.{EquipmentExpensesPage, MaterialsPage, OtherExpensesPage, VehiclePage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.financialRisk.{VehiclePage, _}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}

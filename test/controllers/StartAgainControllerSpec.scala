@@ -60,10 +60,10 @@ class StartAgainControllerSpec extends ControllerSpecBase {
 
   "StartAgainController.somethingWentWrong" should {
 
-    "Redirect to the somethingWentWrong page" in {
+    "Render the somethingWentWrong page" in {
       val result = TestExitSurveyController.somethingWentWrong()(fakeRequest)
 
-      status(result) mustBe Status.OK
+      status(result) mustBe Status.CONFLICT
     }
   }
 }

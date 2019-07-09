@@ -26,9 +26,16 @@ case class UserAnswers(cacheMap: CacheMap) extends Enumerable.Implicits {
   def get[A](page: QuestionPage[A])(implicit rds: Reads[A],ans: Reads[Answers[A]]): Option[Answers[A]] =
     cacheMap.getEntry[Answers[A]](page)
 
+  def getAnswer[A](page: QuestionPage[A])(implicit rds: Reads[A],ans: Reads[Answers[A]]): Option[A] =
+    get(page).map(_.answer)
+
   def set[A](page: QuestionPage[A], answerNumber: Int, value: A)(implicit writes: Writes[A],ans: Writes[Answers[A]]): UserAnswers = {
     val updatedAnswers = UserAnswers(cacheMap copy (data = cacheMap.data + (page.toString -> Json.toJson(Answers(value,answerNumber)))))
     page.cleanup(Some(value), updatedAnswers)
+  }
+
+  def set[A](page: QuestionPage[A], value: A)(implicit writes: Writes[A],ans: Writes[Answers[A]]): UserAnswers = {
+    set(page, 0, value)
   }
 
   def remove[A](page: QuestionPage[A]): UserAnswers = {

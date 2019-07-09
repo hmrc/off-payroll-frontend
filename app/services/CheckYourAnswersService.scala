@@ -26,6 +26,7 @@ import viewmodels.AnswerSection
 
 class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfig) {
 
+  //noinspection ScalaStyle
   def sections(implicit request: DataRequest[_], messages: Messages): Seq[AnswerSection] = {
 
     val checkYourAnswersHelper = new CheckYourAnswersHelper(request.userAnswers)

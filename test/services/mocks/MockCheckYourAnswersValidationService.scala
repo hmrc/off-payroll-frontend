@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package pages
+package services.mocks
 
-import pages.behaviours.PageBehaviours
-import pages.sections.financialRisk.EquipmentExpensesPage
+import models.UserAnswers
+import org.scalamock.scalatest.MockFactory
+import pages.QuestionPage
+import services.CheckYourAnswersValidationService
 
-class EquipmentExpensesPageSpec extends PageBehaviours {
+trait MockCheckYourAnswersValidationService extends MockFactory {
 
-  "EquipmentExpensesPage" must {
+  val mockCheckYourAnswersValidationService = mock[CheckYourAnswersValidationService]
 
-    beRetrievable[Boolean](EquipmentExpensesPage)
+  def mockIsValid(userAnswers: UserAnswers)(response: Either[Set[QuestionPage[_]], Boolean]): Unit = {
+    (mockCheckYourAnswersValidationService.isValid(_: UserAnswers))
+      .expects(userAnswers)
+      .returns(response)
 
-    beSettable[Boolean](EquipmentExpensesPage)
-
-    beRemovable[Boolean](EquipmentExpensesPage)
   }
 }

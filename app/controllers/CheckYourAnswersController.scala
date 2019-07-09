@@ -17,15 +17,15 @@
 package controllers
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
+import handlers.ErrorHandler
 import models._
 import navigation.Navigator
 import pages.CheckYourAnswersPage
 import play.api.mvc._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService, DecisionService}
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersController @Inject()(navigator: Navigator,
@@ -35,14 +35,19 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            controllerComponents: MessagesControllerComponents,
                                            view: CheckYourAnswersView,
                                            checkYourAnswersService: CheckYourAnswersService,
+                                           checkYourAnswersValidationService: CheckYourAnswersValidationService,
                                            compareAnswerService: CompareAnswerService,
                                            dataCacheConnector: DataCacheConnector,
                                            decisionService: DecisionService,
+                                           errorHandler: ErrorHandler,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(checkYourAnswersService.sections))
+    checkYourAnswersValidationService.isValid(request.userAnswers) match {
+      case Right(_) => Ok(view(checkYourAnswersService.sections))
+      case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
+    }
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

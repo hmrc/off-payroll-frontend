@@ -16,14 +16,6 @@
 
 package navigation
 
-import javax.inject.{Inject, Singleton}
-import config.FrontendAppConfig
-import controllers.sections.control.{routes => controlRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
@@ -31,7 +23,7 @@ import models._
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
+import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._

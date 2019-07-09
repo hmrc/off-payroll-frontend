@@ -24,7 +24,7 @@ import forms.EquipmentExpensesFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.Navigator
-import pages.EquipmentExpensesPage
+import pages.sections.financialRisk.EquipmentExpensesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}

@@ -20,7 +20,7 @@ import controllers.actions._
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import handlers.ErrorHandler
 import models.CheckMode
-import pages.{MaterialsPage, PersonalServiceSectionChangeWarningPage}
+import pages.PersonalServiceSectionChangeWarningPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.personalService._
 import play.api.test.Helpers._
