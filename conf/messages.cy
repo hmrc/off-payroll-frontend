@@ -39,6 +39,9 @@ error.number =   Please enter a valid number
 error.required =   Please enter a value
 ##### TODO NEED WELSH FOR ####
 error.summary.title = Mae problem wedi codi
+error.startAgain.title = Something went wrong
+error.startAgain.p =  Please try starting the tool again
+error.startAgain.button = Start again
 
 ##### TODO NEED WELSH FOR ####
 timeout.text =  As this session has been inactive for a while, your answers will be deleted in

@@ -35,6 +35,9 @@ error.non_numeric = Give a value using only numbers
 error.number = You need to select an answer
 error.required = You need to select an answer
 error.summary.title = There is a problem
+error.startAgain.title = Something went wrong
+error.startAgain.p =  Please try starting the tool again
+error.startAgain.button = Start again
 
 timeout.text = As this session has been inactive for a while, your answers will be deleted in
 timeout.keep_alive = Continue through tool
@@ -1302,7 +1305,7 @@ hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR
 hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes.
 hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
 hirer.optimised.result.officeHolder.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you are the fee-payer, you need to operate PAYE on earnings from this contract. If the fee-payer is someone else, you need to show them this determination.
+hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you are the fee-payer, you need to operate PAYE on earnings from this contract.
 hirer.optimised.result.officeHolder.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
 ## ------------------
 
