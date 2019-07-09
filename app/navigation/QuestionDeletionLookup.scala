@@ -91,7 +91,15 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
         //Part Parcel
         BenefitsPage,IdentifyToStakeholdersPage,LineManagerDutiesPage,InteractWithStakeholdersPage
         )
+    ),
+    AddReferenceDetailsPage -> (answers =>
+      answers.get(AddReferenceDetailsPage) match {
+        case Some(Answers(false, _)) => List(CustomisePDFPage)
+        case _ => List.empty
+      }
     )
+
+
   )
 
 }

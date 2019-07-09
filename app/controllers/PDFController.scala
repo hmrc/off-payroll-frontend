@@ -135,7 +135,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       pdfService.generatePdf(view) map {
         case Right(result: SuccessfulPDF) =>
 
-          val fileName = reference.map(reference => reference.replaceAll(",", ""))
+          val fileName = reference.map(reference => reference.replaceAll(",", "").trim)
 
           val ascii = try {
             fileName.map(fileName => fileName.map(char => AsciiSet.apply(char)))
@@ -144,7 +144,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
           }
 
           val default = "result"
-          val validFileName = if(ascii.isDefined) fileName.getOrElse(default) else default
+          val validFileName = if(ascii.isDefined && ascii.get.mkString.nonEmpty) fileName.getOrElse(default) else default
 
           Ok(result.pdf.toArray)
             .as("application/pdf")
