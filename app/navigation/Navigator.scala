@@ -168,14 +168,14 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
         case (Some(Answers(true, _)), Some(Answers(false, _))) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
         case (Some(Answers(true, _)), Some(Answers(true, _))) => personalServiceNextPage
         case _ => setupRoutes.ContractStartedController.onPageLoad(mode)
-      })
+      }),
+    NeededToPayHelperPage -> (_ => personalServiceNextPage)
   )
 
   private def personalServiceRouteMap(implicit mode: Mode): Map[Page, UserAnswers => Call] = {
     arrangedSubstituteToDidPaySubstitute ++
       rejectSubstituteRouting ++
-      wouldWorkerPaySubstituteRouting ++
-      Map(NeededToPayHelperPage -> (_ => personalServiceNextPage))
+      wouldWorkerPaySubstituteRouting
   }
 
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
