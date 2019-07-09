@@ -39,6 +39,9 @@ error.number =   Please enter a valid number
 error.required =   Please enter a value
 ##### TODO NEED WELSH FOR ####
 error.summary.title = Mae problem wedi codi
+error.startAgain.title = Something went wrong
+error.startAgain.p =  Please try starting the tool again
+error.startAgain.button = Start again
 
 ##### TODO NEED WELSH FOR ####
 timeout.text =  As this session has been inactive for a while, your answers will be deleted in
@@ -1446,12 +1449,8 @@ worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client 
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
-worker.optimised.result.outside.ir35.private.doNext.p1.preLink = Download a copy of your results to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow
-worker.optimised.result.outside.ir35.private.doNext.p1.link = this guidance
-worker.optimised.result.outside.ir35.private.doNext.p1.postLink = about your taxes.
-worker.optimised.result.outside.ir35.public.doNext.p1.preLink = Download a copy of your results to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow
-worker.optimised.result.outside.ir35.public.doNext.p1.link = this guidance
-worker.optimised.result.outside.ir35.public.doNext.p1.postLink =  about your taxes.
+worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
+worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 
 ## Outside PAYE Decision Worker
 ## ------------------

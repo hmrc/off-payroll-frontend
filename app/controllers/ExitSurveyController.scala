@@ -29,6 +29,6 @@ class ExitSurveyController @Inject()(navigator: Navigator,
                                      implicit val appConfig: FrontendAppConfig) extends FrontendController(controllerComponents) {
 
   def redirectToExitSurvey: Action[AnyContent] = identify { implicit request =>
-    Redirect(appConfig.exitSurveyUrl)
+    Redirect(appConfig.exitSurveyUrl).withNewSession
   }
 }

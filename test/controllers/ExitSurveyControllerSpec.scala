@@ -32,7 +32,7 @@ class ExitSurveyControllerSpec extends ControllerSpecBase {
 
   "ExitSurveyController.redirectToExitSurvey" should {
 
-    "Redirect to the ExitSurvey" in {
+    "Redirect to the ExitSurvey and clear a session" in {
       val result = TestExitSurveyController.redirectToExitSurvey()(fakeRequest)
 
       status(result) mustBe Status.SEE_OTHER
