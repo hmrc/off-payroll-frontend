@@ -70,13 +70,13 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
 
     "If the response from the CheckYourAnswersValidationService is invalid (set of unanswered questions)" should {
 
-      "return ISE" in {
+      "return Redirect (303)" in {
 
         mockIsValid(UserAnswers(cacheMapId))(Left(Set(OfficeHolderPage)))
 
         val result = controller().onPageLoad(fakeRequest)
-        status(result) mustBe INTERNAL_SERVER_ERROR
-        Html(await(bodyOf(result))) mustBe errorHandler.internalServerErrorTemplate(fakeRequest)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
       }
     }
 

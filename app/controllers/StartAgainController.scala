@@ -47,6 +47,6 @@ controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionS
   }
 
   def somethingWentWrong: Action[AnyContent] = identify { implicit request =>
-    Ok(view(appConfig))
+    Conflict(view(appConfig))
   }
 }

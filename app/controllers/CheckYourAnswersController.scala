@@ -46,7 +46,7 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     checkYourAnswersValidationService.isValid(request.userAnswers) match {
       case Right(_) => Ok(view(checkYourAnswersService.sections))
-      case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+      case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
     }
   }
 
