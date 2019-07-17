@@ -24,7 +24,7 @@ date.November = Tachwedd
 date.December = Rhagfyr
 
 ##### TODO NEED WELSH FOR ####
-error.browser.title.prefix =   Error:
+error.browser.title.prefix =  Gwall:
 error.boolean =   Please give an answer
 error.invalid_date =   Give a correct date
 error.date.day_blank =   Enter a day
@@ -37,17 +37,15 @@ error.integer =   Give an answer in whole numbers
 error.non_numeric =   Give a value using only numbers
 error.number =   Please enter a valid number
 error.required =   Please enter a value
-##### TODO NEED WELSH FOR ####
 error.summary.title = Mae problem wedi codi
+##### TODO NEED WELSH FOR ####
 error.startAgain.title = Something went wrong
 error.startAgain.p =  Please try starting the tool again
-error.startAgain.button = Start again
+error.startAgain.button = Dechrau eto
 
-##### TODO NEED WELSH FOR ####
-timeout.text =  As this session has been inactive for a while, your answers will be deleted in
-timeout.keep_alive =  Continue through tool
-timeout.delete_answers =  Delete your answers
-##### TODO NEED WELSH FOR ####
+timeout.text =  Gan fod y sesiwn hon wedi bod yn segur am dipyn, caiff eich atebion eu dileu mewn
+timeout.keep_alive =  Mynd yn eich blaen drwy’r twlsyn
+timeout.delete_answers =  Dileu’ch atebion
 timeout.seconds = eiliad
 timeout.minute = munud
 timeout.minutes = munud
@@ -59,10 +57,8 @@ session.deleted.heading = You have closed this session. For your security, we ha
 ##### TODO NEED WELSH FOR ####
 session.deleted.start_again = Dechrau eto
 
-##### TODO NEED WELSH FOR ####
-session.expired.title =  This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
-session.expired.heading = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
-##### TODO NEED WELSH FOR ####
+session.expired.title = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur am fwy na 15 munud. Er eich diogelwch, rydym wedi dileu’ch atebion.
+session.expired.heading = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur am fwy na 15 munud. Er eich diogelwch, rydym wedi dileu’ch atebion.
 session.expired.start_again =Dechrau eto
 
 
