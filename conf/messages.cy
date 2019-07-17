@@ -1132,11 +1132,10 @@ customisePDF.time = Dyddiad y canlyniad: {0} (UTC)
 customisePDF.client =Enw’r cleient terfynol
 customisePDF.job =Teitl y swydd
 customisePDF.reference =Cyfeirnod (enw’r gweithiwr neu rif y cytundeb, er enghraifft)
-##### TODO NEED WELSH FOR ####
-customisePDF.completedBy.error.length =  Name must be 100 characters or less
-customisePDF.client.error.length = Name must be 100 characters or less
-customisePDF.job.error.length = Job title must be 100 characters or less
-customisePDF.reference.error.length = Reference must be 180 characters or less
+customisePDF.completedBy.error.length = Rhaid i’r enw fod yn 100 o gymeriadau neu’n llai
+customisePDF.client.error.length = Rhaid i’r enw fod yn 100 o gymeriadau neu’n llai
+customisePDF.job.error.length = Rhaid i deitl y swydd fod yn 100 o gymeriadau neu’n llai
+customisePDF.reference.error.length = Rhaid i’r cyfeirnod fod yn 180 o gymeriadau neu’n llai
 ##### TODO NEED WELSH FOR ####
 customisePDF.completedBy.error.utf8 = Name must be UTF8 characters only
 customisePDF.client.error.utf8 = Name must be UTF8 characters only
