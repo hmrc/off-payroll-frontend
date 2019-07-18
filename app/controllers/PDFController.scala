@@ -61,7 +61,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   with FeatureSwitching with UserAnswersUtils {
 
-  val form: Form[AdditionalPdfDetails] = formProvider()
+  def form: Form[AdditionalPdfDetails] = formProvider()
 
   private def view(form: Form[AdditionalPdfDetails], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
     if(isEnabled(OptimisedFlow)) addDetailsView(appConfig, form, mode) else customisePdfView(appConfig, form, mode)
