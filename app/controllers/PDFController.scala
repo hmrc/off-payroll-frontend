@@ -29,6 +29,7 @@ import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Mode, NormalMode, Timestamp}
 import navigation.Navigator
 import pages.{CustomisePDFPage, ResultPage, Timestamp}
+import play.api.Logger
 import play.api.data.Form
 import play.api.mvc._
 import play.core.utils.AsciiSet
@@ -68,7 +69,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
-    val decryptedForm = encryption.decryptDetails(fillForm(CustomisePDFPage, form).value.getOrElse(AdditionalPdfDetails()))
+    val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(x => encryption.decryptDetails(x.answer))
 
     Ok(view(form.fill(decryptedForm), mode))
   }
