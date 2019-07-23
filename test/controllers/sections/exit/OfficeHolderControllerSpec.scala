@@ -125,6 +125,23 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(onwardRoute.url)
       }
 
+      "override the mode if changing from Yes to No, so that Normal flow is continued" in {
+        enable(OptimisedFlow)
+        val answers = userAnswers.set(OfficeHolderPage, 0, true)
+
+        mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockDecide(answers)(onwardRoute)
+
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
+
+        mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+
+        val result = controller().onSubmit(CheckMode)(postRequest)
+
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
+      }
+
       "return a Bad Request and errors when invalid data is submitted" in {
         enable(OptimisedFlow)
 
