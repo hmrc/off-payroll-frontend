@@ -19,7 +19,7 @@ package controllers
 
 import javax.inject.Inject
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{Answers, CheckMode, Enumerable, Mode}
@@ -80,7 +80,7 @@ abstract class BaseController @Inject()(mcc: MessagesControllerComponents,compar
         val call = navigator.nextPage(page, mode)(answers)
         (callDecisionService, isEnabled(OptimisedFlow)) match {
           //early exit office holder
-          case _ if page == OfficeHolderPage => decisionService.decide(answers, call)(hc, ec, req)
+          case (_, true) if page == OfficeHolderPage => decisionService.decide(answers, call)(hc, ec, req)
           //don't call decision every time, only once at the end (opt flow)
           case (true, true) => Future.successful(Redirect(call))
           //if not calling decision, carry on
