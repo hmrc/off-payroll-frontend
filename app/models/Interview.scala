@@ -215,6 +215,7 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
     val workerHadOtherExpenses = userAnswers.get(OtherExpensesPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
     val expensesAreNotRelevantForRole = (workerProvidedMaterials, workerProvidedEquipment, workerUsedVehicle, workerHadOtherExpenses) match {
       case (Some(false), Some(false), Some(false), Some(false)) => Some(true)
+      case (None, None, None, None) => None
       case _ => Some(false)
     }
     val contactWithEngagerCustomer = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[Boolean]](None)(
