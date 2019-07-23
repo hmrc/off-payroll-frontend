@@ -84,7 +84,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
 
-    if(isEnabled(CallNewDecisionService)){
+    if(isEnabled(CallNewDecisionService) && isEnabled(OptimisedFlow)){
 
       for {
         decisionServiceResult <- decisionConnector.decideNew(interview)
