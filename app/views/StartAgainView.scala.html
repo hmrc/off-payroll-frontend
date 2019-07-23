@@ -31,8 +31,8 @@
 
     @components.heading(messages("error.startAgain.title"))
 
-    <br><p>@messages("error.startAgain.p")</p>
+    <p>@messages("error.startAgain.p")</p>
 
-    @components.button_link("error.startAgain.button",routes.StartAgainController.redirectToDisclaimer().absoluteURL())
+    @components.button_link("error.startAgain.button", routes.StartAgainController.redirectToDisclaimer().url)
 
 }

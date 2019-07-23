@@ -562,6 +562,11 @@ class NavigatorSpec extends SpecBase {
         navigator.nextPage(UnknownPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
 
+      "Go to the CheckYourAnswers page" in {
+        enable(OptimisedFlow)
+        navigator.nextPage(OfficeHolderPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      }
+
       "WhichDescribesYouPage" should {
 
         "go to the Worker Type page, if WorkerPAYE" in {

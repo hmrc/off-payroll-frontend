@@ -26,6 +26,7 @@ import connectors.DataCacheConnector
 import models.{CheckMode, Mode, NormalMode}
 import navigation.Navigator
 import pages.sections.exit.OfficeHolderPage
+import play.api.Logger
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
@@ -64,15 +65,9 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {
-
-        val overrideMode = if(mode.equals(CheckMode) && request.userAnswers.get(OfficeHolderPage).exists(a => a.answer.equals(value)) && !value)
-        {
-          CheckMode
-        } else {
-          NormalMode
-        }
-
-        redirect[Boolean](overrideMode,value, OfficeHolderPage, callDecisionService = true)
+        val currentAnswer = request.userAnswers.getAnswer(OfficeHolderPage)
+        val overrideMode = if(mode == CheckMode && !value && currentAnswer.contains(true)) NormalMode else mode
+        redirect[Boolean](overrideMode, value, OfficeHolderPage, callDecisionService = true)
       }
     )
   }

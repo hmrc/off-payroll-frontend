@@ -124,14 +124,20 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )
 
-  private def officeHolderRouteMap(mode: Mode):  Map[Page, UserAnswers => Call] = Map(
-    //Early Exit Section
-    OfficeHolderPage -> (answers => answers.get(ContractStartedPage) match {
-      case Some(Answers(true,_)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(mode)
-      case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(mode)
-      case _ => setupRoutes.ContractStartedController.onPageLoad(mode)
-    })
-  )
+  private def officeHolderRouteMap(mode: Mode):  Map[Page, UserAnswers => Call] =
+    if(mode == CheckMode) {
+      Map(OfficeHolderPage -> (_ => routes.CheckYourAnswersController.onPageLoad()))
+    }
+    else {
+      Map(
+        //Early Exit Section
+        OfficeHolderPage -> (answers => answers.get(ContractStartedPage) match {
+          case Some(Answers(true,_)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
+          case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
+          case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        })
+      )
+    }
 
   private def arrangedSubstituteToDidPaySubstitute(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
     ArrangedSubstitutePage -> (answers =>
