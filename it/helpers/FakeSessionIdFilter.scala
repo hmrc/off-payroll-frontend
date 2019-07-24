@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package filters
+package helpers
 
 import java.util.UUID
 
@@ -26,7 +26,7 @@ import uk.gov.hmrc.http.{SessionKeys, HeaderNames => HMRCHeaderNames}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SessionIdFilter (
+class FakeSessionIdFilter (
                         override val mat: Materializer,
                         uuid: => UUID,
                         implicit val ec: ExecutionContext
@@ -39,7 +39,8 @@ class SessionIdFilter (
 
   override def apply(f: (RequestHeader) => Future[Result])(rh: RequestHeader): Future[Result] = {
 
-    lazy val sessionId: String = s"session-$uuid"
+    //Force Fixed Session ID for Testing
+    lazy val sessionId: String = "id"
 
     if (rh.session.get(SessionKeys.sessionId).isEmpty) {
 
