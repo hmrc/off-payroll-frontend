@@ -208,14 +208,20 @@ hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes 
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
 
 ## TODO: Need Welsh
-worker.optimised.officeHolder.title = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
-worker.optimised.officeHolder.heading = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
-worker.optimised.officeHolder.checkYourAnswersLabel = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
+worker.optimised.officeHolder.title = Will you be an ‘Office Holder’?
+worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
+worker.optimised.officeHolder.checkYourAnswersLabel = Will you be an ‘Office Holder’?
+worker.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
+worker.optimised.officeholder.p2 = Read more about
+worker.optimised.officeholder.link = Office Holders (opens in a new window)
 
 ## TODO: Need Welsh
-hirer.optimised.officeHolder.title = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
-hirer.optimised.officeHolder.heading = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
-hirer.optimised.officeHolder.checkYourAnswersLabel = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
+hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeHolder.checkYourAnswersLabel = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
+hirer.optimised.officeholder.p2 = Read more about
+hirer.optimised.officeholder.link = Office Holders (opens in a new window)
 #########################
 
 
