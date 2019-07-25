@@ -22,13 +22,17 @@ object OfficeHolderMessages extends BaseMessages {
 
   object Optimised {
     object Worker {
-      val heading = "During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?"
+      val heading = "Will you be an ‘Office Holder’?"
       val title = heading
+      val p1 = "This can include being a board member, treasurer, trustee, company secretary or company director."
+      val p2 = "Read more about Office Holders (opens in a new window)."
     }
 
     object Hirer {
-      val heading = "During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?"
+      val heading = "Will the worker be an ‘Office Holder’?"
       val title = heading
+      val p1 = "This can include being a board member, treasurer, trustee, company secretary or company director."
+      val p2 = "Read more about Office Holders (opens in a new window)."
     }
   }
 
