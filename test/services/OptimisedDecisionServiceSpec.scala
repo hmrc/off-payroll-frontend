@@ -34,7 +34,7 @@ package services
 
 import base.SpecBase
 import config.SessionKeys
-import config.featureSwitch.FeatureSwitching
+import config.featureSwitch.{CallNewDecisionService, FeatureSwitching}
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.mocks.MockErrorHandler
@@ -61,6 +61,7 @@ import pages.sections.setup._
 import play.api.http.Status
 import play.api.libs.json.JsString
 import play.api.mvc.{AnyContent, Call}
+import play.mvc.Http.Status.INTERNAL_SERVER_ERROR
 import play.twirl.api.Html
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.inside.{AgentInsideView, IR35InsideView, PAYEInsideView}
@@ -132,7 +133,24 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
     "give a valid result" when {
 
+      "every decision call is successful for the new decision service" in {
+
+        enable(CallNewDecisionService)
+
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecideNew(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
+
+
+        whenReady(service.collateDecisions) { res =>
+          res.right.get.result mustBe ResultEnum.INSIDE_IR35
+        }
+      }
+
       "every decision call is successful" in {
+
+        disable(CallNewDecisionService)
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
@@ -166,7 +184,22 @@ class OptimisedDecisionServiceSpec extends SpecBase with MockDecisionConnector
 
     "return an error" when {
 
+      "an error is returned" in {
+
+        enable(CallNewDecisionService)
+
+        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
+
+        mockDecideNew(Interview(userAnswers))(Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API")))
+
+        whenReady(service.collateDecisions) { res =>
+          res.left.get mustBe an[ErrorResponse]
+        }
+      }
+
       "personal service decision call returns a Left" in {
+
+        disable(CallNewDecisionService)
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 

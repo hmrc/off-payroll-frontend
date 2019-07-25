@@ -16,14 +16,13 @@
 
 package services
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.{DataCacheConnector, DecisionConnector}
 import controllers.routes
 import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
-
 import models.Answers._
 import models.ArrangedSubstitute.No
 import models.WorkerType.SoleTrader
@@ -84,11 +83,22 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   override def decide(userAnswers: UserAnswers, continueResult: Call)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
-    for {
-      decisionServiceResult <- decisionConnector.decide(interview)
-      _ <- logResult(decisionServiceResult,interview)
-      redirect <- redirectResult(interview,continueResult,decisionServiceResult)
-    } yield redirect
+
+    if(isEnabled(CallNewDecisionService) && isEnabled(OptimisedFlow)){
+
+      for {
+        decisionServiceResult <- decisionConnector.decideNew(interview)
+        _ <- logResult(decisionServiceResult,interview)
+        redirect <- redirectResult(interview,continueResult,decisionServiceResult)
+      } yield redirect
+
+    } else {
+      for {
+        decisionServiceResult <- decisionConnector.decide(interview)
+        _ <- logResult(decisionServiceResult,interview)
+        redirect <- redirectResult(interview,continueResult,decisionServiceResult)
+      } yield redirect
+    }
   }
 
   private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)
