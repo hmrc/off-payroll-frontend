@@ -80,12 +80,13 @@ trait ResultViewFixture extends ViewBehaviours {
   val version = "1.0"
 
   val timestamp = FakeTimestamp.timestamp()
+  val fileName = "testFile"
   val testName = "Gerald"
   val testClient = "PBPlumbin"
   val testJobTitle = "Plumber"
   val testReference = "Boiler man"
 
-  val testAdditionalPdfDetails = AdditionalPdfDetails(Some(testName), Some(testClient), Some(testJobTitle), Some(testReference))
+  val testAdditionalPdfDetails = AdditionalPdfDetails(Some(fileName),Some(testName), Some(testClient), Some(testJobTitle), Some(testReference))
   implicit val testNoPdfResultDetails = PDFResultDetails()
   lazy val testPdfResultDetails = PDFResultDetails(printMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 

@@ -33,6 +33,7 @@ class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
 
       Form(
         mapping(
+          "fileName" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "fileName")),
           "completedBy" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "completedBy")),
           "client" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "client")),
           "job" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "job")),
@@ -50,6 +51,7 @@ class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
 
       Form(
         mapping(
+          "fileName" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.fileName.error.length")),
           "completedBy" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.completedBy.error.length")),
           "client" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.client.error.length")),
           "job" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.job.error.length")),

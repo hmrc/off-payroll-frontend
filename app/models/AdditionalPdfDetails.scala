@@ -18,7 +18,8 @@ package models
 
 import play.api.libs.json.{Format, Json}
 
-case class AdditionalPdfDetails(completedBy: Option[String] = None,
+case class AdditionalPdfDetails(fileName: Option[String] = None,
+                                completedBy: Option[String] = None,
                                 client: Option[String] = None,
                                 job: Option[String] = None,
                                 reference: Option[String] = None)

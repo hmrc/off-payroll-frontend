@@ -125,7 +125,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       additionalPdfDetails = Some(additionalPdfDetails),
       timestamp = Some(timestamp)
     ).flatMap {
-      case Right(html) => generatePdf(html, additionalPdfDetails.reference)
+      case Right(html) => generatePdf(html, additionalPdfDetails.fileName)
       case Left(_) => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
   }
