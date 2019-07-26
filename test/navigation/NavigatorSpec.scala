@@ -556,15 +556,9 @@ class NavigatorSpec extends SpecBase {
 
     "in Check mode" must {
 
-      "go to ResultController from a page that doesn't exist in the edit route map" in {
-
-        case object UnknownPage extends Page
-        navigator.nextPage(UnknownPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
-      }
-
-      "Go to the CheckYourAnswers page" in {
+      "Go to the CheckYourAnswers page from Office Holder" in {
         enable(OptimisedFlow)
-        navigator.nextPage(OfficeHolderPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+        navigator.nextPage(OfficeHolderPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))
       }
 
       "WhichDescribesYouPage" should {
@@ -767,47 +761,47 @@ class NavigatorSpec extends SpecBase {
     }
 
     "go from the ScheduleOfWorkingHoursPage got to the review answers page" in {
-      navigator.nextPage(ScheduleOfWorkingHoursPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(ScheduleOfWorkingHoursPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.control))
     }
 
     "go from the ChooseWhereWorkPage got to the review answers page" in {
-      navigator.nextPage(ChooseWhereWorkPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(ChooseWhereWorkPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.control))
     }
 
     "go from the HowWorkIsDonePage got to the review answers page" in {
-      navigator.nextPage(HowWorkIsDonePage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(HowWorkIsDonePage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.control))
     }
 
     "go from the MoveWorkerPage got to the review answers page" in {
-      navigator.nextPage(MoveWorkerPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(MoveWorkerPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.control))
     }
 
     "go from the CannotClaimAsExpensePage got to the review answers page" in {
-      navigator.nextPage(CannotClaimAsExpensePage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(CannotClaimAsExpensePage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.financialRisk))
     }
 
     "go from the HowWorkerIsPaidPage got to the review answers page" in {
-      navigator.nextPage(HowWorkerIsPaidPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(HowWorkerIsPaidPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.financialRisk))
     }
 
     "go from the PutRightAtOwnCostPage got to the review answers page" in {
-      navigator.nextPage(PutRightAtOwnCostPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(PutRightAtOwnCostPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.financialRisk))
     }
 
     "go from the BenefitsPage got to the review answers page" in {
-      navigator.nextPage(BenefitsPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(BenefitsPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.partAndParcel))
     }
 
     "go from the IdentifyToStakeholdersPage got to the review answers page" in {
-      navigator.nextPage(IdentifyToStakeholdersPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(IdentifyToStakeholdersPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.partAndParcel))
     }
 
     "go from the InteractWithStakeholdersPage got to the review answers page" in {
-      navigator.nextPage(IdentifyToStakeholdersPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(IdentifyToStakeholdersPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.partAndParcel))
     }
 
     "go from the LineManagerDutiesPage got to the review answers page" in {
-      navigator.nextPage(LineManagerDutiesPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
+      navigator.nextPage(LineManagerDutiesPage, CheckMode)(emptyUserAnswers) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.partAndParcel))
     }
   }
 }

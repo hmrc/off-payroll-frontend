@@ -23,6 +23,7 @@ import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.{CheckMode, NormalMode}
+import navigation.Section
 
 class RoutesSpec extends SpecBase {
 
@@ -204,7 +205,7 @@ class RoutesSpec extends SpecBase {
 
     "Have the correct routes for the Check Your Answers page" in {
       CheckYourAnswersController.onPageLoad().url mustBe fullPath("/review-answers")
-      CheckYourAnswersController.onPageLoad(Some("personalService")).url mustBe fullPath("/review-answers?sectionToExpand=personalService")
+      CheckYourAnswersController.onPageLoad(Some(Section.personalService)).url mustBe fullPath("/review-answers?sectionToExpand=personalService")
       CheckYourAnswersController.onSubmit().url mustBe fullPath("/review-answers")
     }
 

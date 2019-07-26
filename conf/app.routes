@@ -144,7 +144,7 @@ POST       /worker-advisory                             controllers.sections.set
 GET        /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onPageLoad()
 POST       /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onSubmit()
 
-GET        /review-answers                              controllers.CheckYourAnswersController.onPageLoad(sectionToExpand: Option[String] ?= None)
+GET        /review-answers                              controllers.CheckYourAnswersController.onPageLoad(sectionToExpand: Option[navigation.Section.SectionEnum] ?= None)
 POST       /review-answers                              controllers.CheckYourAnswersController.onSubmit()
 
 GET        /add-reference-details                       controllers.AddReferenceDetailsController.onPageLoad()

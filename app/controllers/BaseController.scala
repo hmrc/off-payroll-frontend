@@ -17,15 +17,15 @@
 package controllers
 
 
-import javax.inject.Inject
 import config.FrontendAppConfig
-import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
+import javax.inject.Inject
 import models.requests.DataRequest
 import models.{Answers, CheckMode, Enumerable, Mode}
-import navigation.Navigator
-import pages.{PersonalServiceSectionChangeWarningPage, QuestionPage}
+import navigation.{Navigator, Section}
 import pages.sections.exit.OfficeHolderPage
+import pages.{PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.libs.json.{Format, Reads, Writes}
@@ -68,7 +68,7 @@ abstract class BaseController @Inject()(mcc: MessagesControllerComponents,compar
     val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage))
 
     if(redirectToCYA) {
-      Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad()))
+      Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.personalService))))
     } else {
       val answers =
         if(isEnabled(OptimisedFlow)) {
