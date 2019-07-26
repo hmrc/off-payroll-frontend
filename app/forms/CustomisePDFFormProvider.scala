@@ -33,11 +33,11 @@ class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
 
       Form(
         mapping(
-          "fileName" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "fileName")),
           "completedBy" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "completedBy")),
           "client" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "client")),
           "job" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "job")),
-          "reference" -> optional(text).verifying(referenceCheckConstraints(maxFieldReferenceLength, "reference"))
+          "reference" -> optional(text).verifying(referenceCheckConstraints(maxFieldReferenceLength, "reference")),
+          "fileName" -> optional(text).verifying(referenceCheckConstraints(maxFieldLength, "fileName"))
         )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply).transform[AdditionalPdfDetails](
           details => details.copy(
             completedBy = details.completedBy.map(completedBy => filter(completedBy)),
@@ -51,11 +51,11 @@ class CustomisePDFFormProvider extends Constraints with FeatureSwitching{
 
       Form(
         mapping(
-          "fileName" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.fileName.error.length")),
           "completedBy" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.completedBy.error.length")),
           "client" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.client.error.length")),
           "job" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.job.error.length")),
-          "reference" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.reference.error.length"))
+          "reference" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.reference.error.length")),
+          "fileName" -> optional(text).verifying(optMaxLength(maxFieldLength, "customisePDF.fileName.error.length"))
         )(AdditionalPdfDetails.apply)(AdditionalPdfDetails.unapply)
       )
     }

@@ -39,17 +39,17 @@ class EncryptionServiceSpec extends SpecBase with MockFactory {
 
     "encrypt the details model" in {
       service.encryptDetails(AdditionalPdfDetails(
-        Some("Rick Owens"), Some("Raf Simons"), Some("Hedi Slimane"), Some("Rei Kawakubo") , Some("Prime Mark")
+        Some("Rick Owens"), Some("Raf Simons"), Some("Hedi Slimane"), Some("Rei Kawakubo")
       )) mustBe AdditionalPdfDetails(
-        Some("tjEQZVSmigsNSJcsI/Xy9A=="), Some("ZXJbXujAt/Lh+f0vayILrw=="), Some("rCISmCPHS+D5KPhUb3nPCQ=="), Some("yNeVHPtiCjVRn6CWIolgcg=="),Some("XmQH8TWE/dR4Y6YnxTcLQQ==")
+        Some("tjEQZVSmigsNSJcsI/Xy9A=="), Some("ZXJbXujAt/Lh+f0vayILrw=="), Some("rCISmCPHS+D5KPhUb3nPCQ=="), Some("yNeVHPtiCjVRn6CWIolgcg==")
       )
     }
 
     "decrypt the details model" in {
       service.decryptDetails(AdditionalPdfDetails(
-        Some("tjEQZVSmigsNSJcsI/Xy9A=="), Some("ZXJbXujAt/Lh+f0vayILrw=="), Some("rCISmCPHS+D5KPhUb3nPCQ=="), Some("yNeVHPtiCjVRn6CWIolgcg=="),Some("XmQH8TWE/dR4Y6YnxTcLQQ==")
+        Some("tjEQZVSmigsNSJcsI/Xy9A=="), Some("ZXJbXujAt/Lh+f0vayILrw=="), Some("rCISmCPHS+D5KPhUb3nPCQ=="), Some("yNeVHPtiCjVRn6CWIolgcg==")
       )) mustBe AdditionalPdfDetails(
-        Some("Rick Owens"), Some("Raf Simons"), Some("Hedi Slimane"), Some("Rei Kawakubo") , Some("Prime Mark")
+        Some("Rick Owens"), Some("Raf Simons"), Some("Hedi Slimane"), Some("Rei Kawakubo")
       )
     }
   }
