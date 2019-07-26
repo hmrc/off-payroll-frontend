@@ -22,7 +22,7 @@ object HirerAdvisoryMessages extends BaseMessages {
   val heading = "Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)"
   val p1 = "It is the worker’s responsibility."
   val p2 = "After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer."
-  val subheading = "What to do next"
+  val subheading = "What you should do next"
   val p3 = "You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given."
 
 }
