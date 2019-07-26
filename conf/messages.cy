@@ -1551,7 +1551,7 @@ finishedChecking.p1.beforeLink1 = You can now
 finishedChecking.p1.link1 = exit
 finishedChecking.p1.beforeLink2 = , or
 finishedChecking.p1.link2 = start again
-finishedChecking.p1.afterLink2 = to check another piece of work
+finishedChecking.p1.afterLink2 = to check the employment status of some other work.
 finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
 
 
