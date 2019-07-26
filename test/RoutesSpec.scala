@@ -202,6 +202,12 @@ class RoutesSpec extends SpecBase {
       PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details-to-document/change")
     }
 
+    "Have the correct routes for the Check Your Answers page" in {
+      CheckYourAnswersController.onPageLoad().url mustBe fullPath("/review-answers")
+      CheckYourAnswersController.onPageLoad(Some("personalService")).url mustBe fullPath("/review-answers?sectionToExpand=personalService")
+      CheckYourAnswersController.onSubmit().url mustBe fullPath("/review-answers")
+    }
+
     "Have the correct routes for the ExitSurvey" in {
       ExitSurveyController.redirectToExitSurvey().url mustBe fullPath("/exit-survey")
     }

@@ -43,7 +43,7 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
-  def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+  def onPageLoad(sectionToExpand: Option[String] = None): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     checkYourAnswersValidationService.isValid(request.userAnswers) match {
       case Right(_) => Ok(view(checkYourAnswersService.sections))
       case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
