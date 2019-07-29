@@ -15,6 +15,7 @@
  */
 
 import base.SpecBase
+import play.api.i18n.Lang
 
 import scala.io.Source
 
@@ -51,6 +52,14 @@ class MessagesSpec extends SpecBase {
       val differences = englishKeys.diff(englishKeys.distinct)
       assert(differences.isEmpty)
     }
+
+    "for all Welsh language keys" should {
+      for (keyValue <- welshKeys) {
+        s"contain the key '$keyValue'" in {
+          assert(englishKeys.contains(keyValue))
+        }
+      }
+    }
   }
 
   "Both files" should {
@@ -59,4 +68,6 @@ class MessagesSpec extends SpecBase {
       assert(englishKeys.diff(welshKeys).isEmpty)
     }
   }
+
+
 }

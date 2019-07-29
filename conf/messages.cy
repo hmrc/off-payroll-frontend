@@ -1405,17 +1405,6 @@ hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either ca
 hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
 
 ##TODO: Need Welsh
-hirer.optimised.result.out.paye.title = Self-employed. Earnings paid gross
-hirer.optimised.result.out.paye.heading = Self-employed.
-hirer.optimised.result.out.paye.subHeading = Earnings paid gross
-hirer.optimised.result.out.paye.whyResult.p1 = Why you are getting this result:
-hirer.optimised.result.out.paye.whyResult.b1 = the worker has or could provide a substitute to do this work and your organisation would accept it
-hirer.optimised.result.out.paye.whyResult.b2 = your organisation does not have a right of control over the work
-hirer.optimised.result.out.paye.whyResult.b3 = the worker’s business must make a significant investment to do this contract, which cannot be reclaimed from your organisation or an agency
-hirer.optimised.result.out.paye.whyResult.p2 = Your answers indicate that this is a contract for services, not a contract of service. This means the worker is classed as self-employed for tax purposes.
-hirer.optimised.result.out.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
-
-##TODO: Need Welsh
 worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
 worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
 worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes.
@@ -1469,19 +1458,7 @@ agent.optimised.result.inside.whyResult.p1 = The answers you have given tell us 
 agent.optimised.result.inside.doNext.p1 = If you are the fee-payer, you should tell your candidate that you will be operating PAYE for their earnings.
 ## ------------------
 
-## Out Agent
 ## ------------------
-agent.optimised.result.out.title = Off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.out.heading = Off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.out.whyResult.p1 = Your answers told us:
-agent.optimised.result.out.reason.p1 = your candidate’s client has accepted, or would accept, a substitute to do this work
-agent.optimised.result.out.reason.p2 = your candidate’s client does not have control over this work
-agent.optimised.result.out.reason.p3 = your candidate’s business will incur a significant cost with this contract, which cannot be reclaimed or re-charged.
-agent.optimised.result.out.whyResult.p2 = This indicates the working arrangements for this contract are on a business-to-business basis.
-agent.optimised.result.out.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
-
-## ------------------
-
 ## Undetermined Agent
 ## ------------------
 ##TODO: Need Welsh
@@ -1643,16 +1620,6 @@ agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate�
 agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 agent.optimised.result.outside.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
-
-##TODO: Need Welsh
-worker.optimised.result.out.paye.title = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.heading = Self-employed. Earnings paid gross
-worker.optimised.result.out.paye.whyResult.p1 = You told us the following information:
-worker.optimised.result.out.paye.whyResult.substituteToDoWork = you have or could provide a substitute to do this work and your client would accept it
-worker.optimised.result.out.paye.whyResult.clientNotControlWork = your client does not have a right of control over the work
-worker.optimised.result.out.paye.whyResult.incurCostNoReclaim = your business must make a significant investment to do this contract, which cannot be reclaimed from your client or an agency
-worker.optimised.result.out.paye.whyResult.p2 = Your answers indicate that you are classed as self-employed for tax purposes.
-worker.optimised.result.out.paye.doNext.p1 = Show this to the person hiring you, request that you’re paid a gross amount and follow this guidance about your taxes.
 
 ##TODO: Need Welsh
 hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this job
