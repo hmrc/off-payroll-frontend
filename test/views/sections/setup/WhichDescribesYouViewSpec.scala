@@ -22,8 +22,14 @@ import models.{NormalMode, WhichDescribesYouAnswer}
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
 import views.html.sections.setup.WhichDescribesYouView
+import assets.messages.WhichDescribesYouMessages
+
 
 class WhichDescribesYouViewSpec extends QuestionViewBehaviours[WhichDescribesYouAnswer] {
+
+  object Selectors extends BaseCSSSelectors {
+    val exit = "#finish-link"
+  }
 
   val messageKeyPrefix = "whichDescribesYou"
 
@@ -42,5 +48,35 @@ class WhichDescribesYouViewSpec extends QuestionViewBehaviours[WhichDescribesYou
     behave like pageWithBackLink(createView)
 
     behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.AboutYouController.onSubmit(NormalMode).url)
+
+    lazy val document = asDocument(createView())
+
+    "have the correct title" in {
+      document.title mustBe title(WhichDescribesYouMessages.title)
+    }
+
+    "have the correct heading" in {
+      document.select(Selectors.heading).text mustBe WhichDescribesYouMessages.heading
+    }
+
+    "have the correct first multi choice answer" in {
+      document.select(Selectors.multichoice(1)).text mustBe WhichDescribesYouMessages.ir35Worker
+    }
+
+    "have the correct second multi choice answer" in {
+      document.select(Selectors.multichoice(2)).text mustBe WhichDescribesYouMessages.ir35Hirer
+    }
+
+    "have the correct third multi choice answer" in {
+      document.select(Selectors.multichoice(3)).text mustBe WhichDescribesYouMessages.agency
+    }
+
+    "have the correct fourth multi choice answer" in {
+      document.select(Selectors.multichoice(4)).text mustBe WhichDescribesYouMessages.payeWorker
+    }
+
+    "have the correct fifth multi choice answer" in {
+      document.select(Selectors.multichoice(5)).text mustBe WhichDescribesYouMessages.payeHirer
+    }
   }
 }
