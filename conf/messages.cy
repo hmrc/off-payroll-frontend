@@ -1186,7 +1186,7 @@ agencyAdvisory.title = You don’t need to determine if the off-payroll rules (I
 agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 agencyAdvisory.p1 = It is the responsibility of the worker or the organisation the work is being done for.
 agencyAdvisory.p2 = However, if your agency is the fee-payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
-agencyAdvisory.subheading = What to do next
+agencyAdvisory.subheading = What you should do next
 agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
 
 ##### TODO NEED WELSH FOR ####
@@ -1194,7 +1194,7 @@ hirerAdvisory.title = Until April 2020, you do not need to determine if this wor
 hirerAdvisory.heading = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
 hirerAdvisory.p1 = It is the worker’s responsibility.
 hirerAdvisory.p2 = After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer.
-hirerAdvisory.subheading = What to do next
+hirerAdvisory.subheading = What you should do next
 hirerAdvisory.p3 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 ##### TODO NEED WELSH FOR ####
@@ -1233,7 +1233,7 @@ hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is your org
 workerAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 workerAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 workerAdvisory.p1 = Because you told us this work is for a public sector body, they are responsible for determining its employment status for tax purposes.
-workerAdvisory.subheading = What to do next
+workerAdvisory.subheading = What you should do next
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 ##### TODO NEED WELSH FOR ####
@@ -1337,9 +1337,9 @@ hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be 
 ## ----------------------
 ##TODO: Need Welsh
 optimised.result.whyResult.h2 = Why you are getting this result
-optimised.result.doNext.h2 = What to do next
-optimised.result.download.h2 = Do you want a copy of this result?
-optimised.result.download.p1 = You can download a document that will show today's date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
+optimised.result.doNext.h2 = What you should do next
+optimised.result.download.h2 = Do you want to download this result?
+optimised.result.download.p1 = You will get a document that shows today’s date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
 optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 
@@ -1545,13 +1545,13 @@ addDetails.job=Contract or role title
 addDetails.reference=Other reference details
 addDetails.charLimit =180 characters maximum
 
-finishedChecking.title = You have finished checking the employment status for tax of this work
-finishedChecking.heading = You have finished checking the employment status for tax of this work
+finishedChecking.title = You have finished checking this work
+finishedChecking.heading = You have finished checking this work
 finishedChecking.p1.beforeLink1 = You can now
 finishedChecking.p1.link1 = exit
-finishedChecking.p1.beforeLink2 = the tool, or
+finishedChecking.p1.beforeLink2 = , or
 finishedChecking.p1.link2 = start again
-finishedChecking.p1.afterLink2 = to check another piece of work
+finishedChecking.p1.afterLink2 = to check the employment status of some other work.
 finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
 
 
