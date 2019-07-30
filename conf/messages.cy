@@ -1544,6 +1544,7 @@ addDetails.client=Name of end client issuing the contract and/or agency
 addDetails.job=Contract or role title
 addDetails.reference=Other reference details
 addDetails.charLimit =180 characters maximum
+addDetails.fileName = File name
 
 finishedChecking.title = You have finished checking this work
 finishedChecking.heading = You have finished checking this work
