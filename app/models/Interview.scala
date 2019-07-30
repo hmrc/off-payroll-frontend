@@ -56,7 +56,14 @@ case class Interview(correlationId: String,
                      workerReceivesBenefits: Option[Boolean] = None,
                      workerAsLineManager: Option[Boolean] = None,
                      contactWithEngagerCustomer: Option[Boolean] = None,
-                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None)(implicit val appConfig: FrontendAppConfig){
+                     workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None,
+                     //BOOA
+                     exclusiveContract: Option[String] = None,
+                     transferRights: Option[String] = None,
+                     multipleEngagements: Option[String] = None,
+                     significantWorkingTime: Option[Boolean] = None,
+                     seriesOfContracts: Option[String] = None
+                    )(implicit val appConfig: FrontendAppConfig){
 
   def calculateProvideServices: Option[WorkerType] = {
 
@@ -133,6 +140,13 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
           "workerAsLineManager" -> model.workerAsLineManager,
           "contactWithEngagerCustomer" -> model.contactWithEngagerCustomer,
           "workerRepresentsEngagerBusiness" -> model.workerRepresentsEngagerBusiness
+        ),
+        "businessOnOwnAccount" -> jsonObjNoNulls(
+          "exclusiveContract" -> model.exclusiveContract,
+          "transferRights" -> model.transferRights,
+          "multipleEngagements" -> model.multipleEngagements,
+          "significantWorkingTime" -> model.significantWorkingTime,
+          "seriesOfContracts" -> model.seriesOfContracts
         )
       )
     )
