@@ -22,6 +22,8 @@ import models.CannotClaimAsExpense._
 import models.IdentifyToStakeholders.WouldNotHappen
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
+import pages.QuestionPage
+import pages.sections.businessOnOwnAccount.{ExclusiveContractPage, MultipleEngagementsPage, SeriesOfContractsPage, SignificantWorkingTimePage, TransferRightsPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{VehiclePage, _}
@@ -222,7 +224,6 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
   }
 
   private def optimisedApply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
-
     val workerProvidedMaterials = userAnswers.get(MaterialsPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
     val workerProvidedEquipment = userAnswers.get(EquipmentExpensesPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
     val workerUsedVehicle = userAnswers.get(VehiclePage).fold(None: Option[Boolean]) { answer => Some(answer.answer) }
@@ -238,6 +239,14 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
     val workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(
       x => if(x.answer == WouldNotHappen) None else Some(x.answer)
     )
+
+    def dos[A](userAnswers: UserAnswers, page: QuestionPage[A])(implicit rds: Reads[A]): Option[A] ={
+      userAnswers.get(page).fold(None: Option[A]) { answer => Some(answer.answer) }
+    }
+
+    val x = dos[Boolean](userAnswers,ContractStartedPage)
+
+    print("dos check" + x)
 
     Interview(
       correlationId = userAnswers.cacheMap.id,
@@ -265,7 +274,12 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
       workerReceivesBenefits = userAnswers.get(BenefitsPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
       workerAsLineManager = userAnswers.get(LineManagerDutiesPage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
       contactWithEngagerCustomer = contactWithEngagerCustomer,
-      workerRepresentsEngagerBusiness = workerRepresentsEngagerBusiness
+      workerRepresentsEngagerBusiness = workerRepresentsEngagerBusiness,
+      exclusiveContract = userAnswers.get(ExclusiveContractPage).fold(None: Option[ExclusiveContract]) { answer => Some(answer.answer) },
+      transferRights = userAnswers.get(TransferRightsPage).fold(None: Option[TransferRights]) { answer => Some(answer.answer) },
+      multipleEngagements = userAnswers.get(MultipleEngagementsPage).fold(None: Option[MultipleEngagements]) { answer => Some(answer.answer) },
+      significantWorkingTime = userAnswers.get(SignificantWorkingTimePage).fold(None: Option[Boolean]) { answer => Some(answer.answer) },
+      seriesOfContracts = userAnswers.get(SeriesOfContractsPage).fold(None: Option[SeriesOfContracts]) { answer => Some(answer.answer) }
     )
   }
 
