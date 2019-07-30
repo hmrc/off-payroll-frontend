@@ -23,12 +23,16 @@ import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.ChooseWhereWork.WorkerAgreeWithOthers
+import models.ExclusiveContract.AbleToProvideServices
 import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
 import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
+import models.MultipleEngagements.NoKnowledgeOfExternalActivity
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.SeriesOfContracts.ContractCouldBeExtended
+import models.TransferRights.AbleToTransferRights
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
 import pages._
@@ -616,7 +620,12 @@ class InterviewSpec extends SpecBase {
           workerReceivesBenefits = Some(false),
           workerAsLineManager = Some(false),
           contactWithEngagerCustomer = Some(false),
-          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent),
+          exclusiveContract = Some(AbleToProvideServices.toString),
+          transferRights = Some(AbleToTransferRights.toString),
+          multipleEngagements = Some(NoKnowledgeOfExternalActivity.toString),
+          significantWorkingTime = Some(true),
+          seriesOfContracts = Some(ContractCouldBeExtended.toString)
         )
 
         val expected = Json.obj(
@@ -658,6 +667,13 @@ class InterviewSpec extends SpecBase {
               "workerAsLineManager" -> "No",
               "contactWithEngagerCustomer" -> "No",
               "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+            ),
+            "businessOnOwnAccount" -> Json.obj(
+              "exclusiveContract" -> "ableToProvideServices",
+              "transferRights" -> "ableToTransferRights",
+              "multipleEngagements" -> "noKnowledgeOfExternalActivity",
+              "significantWorkingTime" -> "Yes",
+              "seriesOfContracts" -> "contractCouldBeExtended"
             )
           )
         )
@@ -680,7 +696,8 @@ class InterviewSpec extends SpecBase {
             "personalService" -> Json.obj(),
             "control" -> Json.obj(),
             "financialRisk" -> Json.obj(),
-            "partAndParcel" -> Json.obj()
+            "partAndParcel" -> Json.obj(),
+            "businessOnOwnAccount" -> Json.obj()
           )
         )
 
