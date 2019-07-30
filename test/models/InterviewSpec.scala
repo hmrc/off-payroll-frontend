@@ -621,11 +621,11 @@ class InterviewSpec extends SpecBase {
           workerAsLineManager = Some(false),
           contactWithEngagerCustomer = Some(false),
           workerRepresentsEngagerBusiness = Some(WorkAsIndependent),
-          exclusiveContract = Some(AbleToProvideServices.toString),
-          transferRights = Some(AbleToTransferRights.toString),
-          multipleEngagements = Some(NoKnowledgeOfExternalActivity.toString),
+          exclusiveContract = Some(AbleToProvideServices),
+          transferRights = Some(AbleToTransferRights),
+          multipleEngagements = Some(NoKnowledgeOfExternalActivity),
           significantWorkingTime = Some(true),
-          seriesOfContracts = Some(ContractCouldBeExtended.toString)
+          seriesOfContracts = Some(ContractCouldBeExtended)
         )
 
         val expected = Json.obj(

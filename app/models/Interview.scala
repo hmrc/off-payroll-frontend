@@ -58,11 +58,11 @@ case class Interview(correlationId: String,
                      contactWithEngagerCustomer: Option[Boolean] = None,
                      workerRepresentsEngagerBusiness: Option[IdentifyToStakeholders] = None,
                      //BOOA
-                     exclusiveContract: Option[String] = None,
-                     transferRights: Option[String] = None,
-                     multipleEngagements: Option[String] = None,
+                     exclusiveContract: Option[ExclusiveContract] = None,
+                     transferRights: Option[TransferRights] = None,
+                     multipleEngagements: Option[MultipleEngagements] = None,
                      significantWorkingTime: Option[Boolean] = None,
-                     seriesOfContracts: Option[String] = None
+                     seriesOfContracts: Option[SeriesOfContracts] = None
                     )(implicit val appConfig: FrontendAppConfig){
 
   def calculateProvideServices: Option[WorkerType] = {
