@@ -69,19 +69,23 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
     }
 
     "have the correct first label" in {
-      document.select(Selectors.label(3)).text mustBe AddDetailsMessages.name
+      document.select(Selectors.label(3)).text mustBe AddDetailsMessages.fileName
     }
 
     "have the correct second label" in {
-      document.select(Selectors.label(4)).text mustBe AddDetailsMessages.clientName
+      document.select(Selectors.label(4)).text mustBe AddDetailsMessages.name
     }
 
     "have the correct third label" in {
-      document.select(Selectors.label(5)).text mustBe AddDetailsMessages.role
+      document.select(Selectors.label(5)).text mustBe AddDetailsMessages.clientName
     }
 
     "have the correct fourth label" in {
-      document.select(Selectors.label(6)).text mustBe AddDetailsMessages.reference
+      document.select(Selectors.label(6)).text mustBe AddDetailsMessages.role
+    }
+
+    "have the correct fifth label" in {
+      document.select(Selectors.label(7)).text mustBe AddDetailsMessages.reference
     }
   }
 }
