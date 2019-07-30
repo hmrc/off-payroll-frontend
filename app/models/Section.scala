@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package navigation
+package models
 
 import play.api.mvc.QueryStringBindable
 
@@ -27,7 +27,7 @@ object Section extends Enumeration {
   val financialRisk = Value("financialRisk")
   val partAndParcel = Value("partAndParcel")
 
-  implicit object SectionBinder extends QueryStringBindable.Parsing[SectionEnum](
+  implicit object SectionBinder extends QueryStringBindable.Parsing[Value](
     withName, _.toString, (k: String, e: Exception) => "Cannot parse %s as MyEnum: %s".format(k, e.getMessage)
   )
 }

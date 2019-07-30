@@ -23,7 +23,7 @@ import controllers.actions._
 import handlers.ErrorHandler
 import models._
 import navigation.Navigator
-import navigation.Section.SectionEnum
+import Section.SectionEnum
 import pages.CheckYourAnswersPage
 import play.api.mvc._
 import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService, DecisionService}
@@ -46,7 +46,7 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
 
   def onPageLoad(sectionToExpand: Option[SectionEnum] = None): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     checkYourAnswersValidationService.isValid(request.userAnswers) match {
-      case Right(_) => Ok(view(checkYourAnswersService.sections))
+      case Right(_) => Ok(view(checkYourAnswersService.sections, sectionToExpand))
       case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong)
     }
   }

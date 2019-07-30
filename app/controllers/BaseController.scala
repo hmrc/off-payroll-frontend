@@ -22,8 +22,8 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import javax.inject.Inject
 import models.requests.DataRequest
-import models.{Answers, CheckMode, Enumerable, Mode}
-import navigation.{Navigator, Section}
+import models._
+import navigation.Navigator
 import pages.sections.exit.OfficeHolderPage
 import pages.{PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.data.Form
