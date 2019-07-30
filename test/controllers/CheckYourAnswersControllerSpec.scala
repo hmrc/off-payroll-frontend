@@ -62,7 +62,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
         mockCheckYourAnswers(Seq.empty)
         mockIsValid(UserAnswers(cacheMapId))(Right(true))
 
-        val result = controller().onPageLoad(fakeRequest)
+        val result = controller().onPageLoad()(fakeRequest)
         status(result) mustBe OK
         titleOf(result) mustBe title(CheckYourAnswersMessages.title)
       }
@@ -74,7 +74,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
 
         mockIsValid(UserAnswers(cacheMapId))(Left(Set(OfficeHolderPage)))
 
-        val result = controller().onPageLoad(fakeRequest)
+        val result = controller().onPageLoad()(fakeRequest)
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
       }

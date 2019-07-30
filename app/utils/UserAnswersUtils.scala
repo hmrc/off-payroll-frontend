@@ -17,6 +17,7 @@
 package utils
 
 import config.FrontendAppConfig
+import models.Section
 import models.requests.DataRequest
 import play.api.i18n.Messages
 import play.api.mvc.Request
@@ -29,6 +30,7 @@ import views.ViewUtils._
 trait UserAnswersUtils {
 
   def peopleInvolved(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+    section = Section.setup,
     headingKey = Some("result.peopleInvolved.h2"),
     whyResult = None,
     rows = Seq(
@@ -40,6 +42,7 @@ trait UserAnswersUtils {
   )
 
   def workersDuties(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+    section = Section.earlyExit,
     headingKey = Some("result.workersDuties.h2"),
     whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))),
     rows = Seq(
@@ -50,6 +53,7 @@ trait UserAnswersUtils {
 
   def substitutesHelpers(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages,
                          request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+    section = Section.personalService,
     headingKey = Some("result.substitutesHelpers.h2"),
     whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(
@@ -64,6 +68,7 @@ trait UserAnswersUtils {
 
   def workArrangements(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages,
                        request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+    section = Section.control,
     headingKey = Some("result.workArrangements.h2"),
     whyResult = Some(Html(messages("result.workArrangements.summary"))),
     rows = Seq(
@@ -76,6 +81,7 @@ trait UserAnswersUtils {
   )
 
   def financialRisk(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+    section = Section.financialRisk,
     headingKey = Some("result.financialRisk.h2"),
      whyResult = Some(Html(messages("result.financialRisk.summary"))),
     rows = Seq(
@@ -87,6 +93,7 @@ trait UserAnswersUtils {
   )
 
   def partAndParcel(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
+    section = Section.partAndParcel,
     headingKey = Some("result.partAndParcel.h2"),
     whyResult = Some(Html(messages("result.partParcel.summary"))),
     rows = Seq(
