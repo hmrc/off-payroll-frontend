@@ -16,14 +16,9 @@
 
 package assets.messages
 
-object CheckYourAnswersMessages extends BaseMessages {
+object FinishedCheckingMessages extends BaseMessages {
 
-  val heading = "Review your answers in each section below"
+  val heading = "You have finished checking this work"
   val title = heading
-  val h2 = "Section 1 Section 2 Declaration"
-  val p1 = "By submitting your answers, you are confirming the following:"
-  val li1 = "the information you have provided is correct, to the best of your knowledge"
-  val li2 = "it reflects the actual or expected working practices of this role"
-  val li3 = "if this information changes, you accept your result may no longer hold"
-
+  val p1 = "You can now exit, or start again to check the employment status of some other work."
 }
