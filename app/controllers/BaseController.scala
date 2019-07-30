@@ -19,7 +19,7 @@ package controllers
 
 import javax.inject.Inject
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{Answers, CheckMode, Enumerable, Mode}

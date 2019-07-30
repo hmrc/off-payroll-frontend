@@ -196,13 +196,22 @@ hirer.officeHolder.bullet2 = The role is created by statute, articles of associa
 hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
 hirer.officeHolder.exclamation = If you are not sure if these things apply, please ask your management about your organisational structure.
 
-worker.optimised.officeHolder.title = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
-worker.optimised.officeHolder.heading = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
-worker.optimised.officeHolder.checkYourAnswersLabel = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
+worker.optimised.officeHolder.title = Will you be an ‘Office Holder’?
+worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
+worker.optimised.officeHolder.checkYourAnswersLabel = Will you be an ‘Office Holder’?
+worker.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
+worker.optimised.officeholder.p2 = Read more about
+worker.optimised.officeholder.link = Office Holders (opens in a new window)
 
-hirer.optimised.officeHolder.title = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
-hirer.optimised.officeHolder.heading = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
-hirer.optimised.officeHolder.checkYourAnswersLabel = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
+
+hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeHolder.checkYourAnswersLabel = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
+hirer.optimised.officeholder.p2 = Read more about
+hirer.optimised.officeholder.link = Office Holders (opens in a new window)
+
+
 #########################
 
 
@@ -1142,9 +1151,10 @@ result.partParcel.summary=We ask these questions to find out how integrated the 
 
 aboutYourResult.title = Disclaimer
 aboutYourResult.heading = Disclaimer
-aboutYourResult.p1 = HMRC will stand by the result you get from this tool, provided the information you have given is accurate.
-aboutYourResult.p2 = However, if your information was checked and found to be inaccurate, HMRC will not stand by the result.
-aboutYourResult.p3 = Neither will HMRC stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties.
+aboutYourResult.p1 = HMRC will stand by the result you get from this tool.
+aboutYourResult.p2 = This would not be the case if the information you’ve provided was checked and found to be inaccurate.
+aboutYourResult.p3 = HMRC will also not stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties.
+
 
 whichDescribesYou.title = What do you want to find out?
 whichDescribesYou.heading = What do you want to find out?

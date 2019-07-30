@@ -20,6 +20,7 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import models.CannotClaimAsExpense._
 import models.IdentifyToStakeholders.WouldNotHappen
+import models.Interview.jsonObjNoNulls
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -78,6 +79,60 @@ case class Interview(correlationId: String,
       case (_, Some(providedServices)) => if (providedServices == SoleTrader) "ESI" else "IR35"
       case _ => "IR35"
     }
+}
+
+object NewInterview extends JsonObjectSugar with FeatureSwitching {
+
+  private val writesPossibleSubstituteRejection: Writes[Option[Boolean]] = Writes {
+    case Some(true) => JsString("wouldReject")
+    case Some(_) => JsString("wouldNotReject")
+    case _ => JsNull
+  }
+
+  implicit def writes: Writes[Interview] = Writes { model =>
+    Json.obj(
+      "version" -> model.appConfig.decisionVersion,
+      "correlationID" -> model.correlationId,
+      "interview" -> Json.obj(
+        "setup" -> jsonObjNoNulls(
+          "endUserRole" -> model.endUserRole,
+          "hasContractStarted" -> model.hasContractStarted,
+          "provideServices" -> model.calculateProvideServices
+        ),
+        "exit" -> jsonObjNoNulls(
+          "officeHolder" -> model.officeHolder
+        ),
+        "personalService" -> jsonObjNoNulls(
+          "workerSentActualSubstitute" -> model.workerSentActualSubstitute,
+          "workerPayActualSubstitute" -> model.workerPayActualSubstitute,
+          "possibleSubstituteRejection" -> Json.toJson(model.possibleSubstituteRejection)(writesPossibleSubstituteRejection),
+          "possibleSubstituteWorkerPay" -> model.possibleSubstituteWorkerPay,
+          "wouldWorkerPayHelper" -> model.wouldWorkerPayHelper
+        ),
+        "control" -> jsonObjNoNulls(
+          "engagerMovingWorker" -> model.engagerMovingWorker,
+          "workerDecidingHowWorkIsDone" -> model.workerDecidingHowWorkIsDone,
+          "whenWorkHasToBeDone" -> model.whenWorkHasToBeDone,
+          "workerDecideWhere" -> model.workerDecideWhere
+        ),
+        "financialRisk" -> jsonObjNoNulls(
+          "workerProvidedMaterials" -> model.workerProvidedMaterials,
+          "workerProvidedEquipment" -> model.workerProvidedEquipment,
+          "workerUsedVehicle" -> model.workerUsedVehicle,
+          "workerHadOtherExpenses" -> model.workerHadOtherExpenses,
+          "expensesAreNotRelevantForRole" -> model.expensesAreNotRelevantForRole,
+          "workerMainIncome" -> model.workerMainIncome,
+          "paidForSubstandardWork" -> model.paidForSubstandardWork
+        ),
+        "partAndParcel" -> jsonObjNoNulls(
+          "workerReceivesBenefits" -> model.workerReceivesBenefits,
+          "workerAsLineManager" -> model.workerAsLineManager,
+          "contactWithEngagerCustomer" -> model.contactWithEngagerCustomer,
+          "workerRepresentsEngagerBusiness" -> model.workerRepresentsEngagerBusiness
+        )
+      )
+    )
+  }
 }
 
 object Interview extends JsonObjectSugar with FeatureSwitching {

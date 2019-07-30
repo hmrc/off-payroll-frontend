@@ -36,7 +36,9 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
     enable(OptimisedFlow)
   }
 
-  object Selectors extends BaseCSSSelectors
+  object Selectors extends BaseCSSSelectors{
+    val link = "#value > p:nth-child(3) > a"
+  }
 
   val messageKeyPrefix = "worker.optimised.officeHolder"
 
@@ -71,6 +73,15 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Worker.heading
       }
 
+      "have the correct page content" in {
+        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Optimised.Worker.p1
+        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Optimised.Worker.p2
+      }
+
+      "have the correct link" in {
+        document.select(Selectors.link).attr("href") mustBe frontendAppConfig.officeHolderUrl
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe OfficeHolderMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe OfficeHolderMessages.no
@@ -90,6 +101,15 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Hirer.heading
       }
 
+      "have the correct page content" in {
+        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Optimised.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Optimised.Hirer.p2
+      }
+
+      "have the correct link" in {
+        document.select(Selectors.link).attr("href") mustBe frontendAppConfig.officeHolderUrl
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe OfficeHolderMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe OfficeHolderMessages.no
@@ -107,6 +127,15 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe OfficeHolderMessages.Optimised.Worker.heading
+      }
+
+      "have the correct page content" in {
+        document.select(Selectors.p(1)).text mustBe OfficeHolderMessages.Optimised.Worker.p1
+        document.select(Selectors.p(2)).text mustBe OfficeHolderMessages.Optimised.Worker.p2
+      }
+
+      "have the correct link" in {
+        document.select(Selectors.link).attr("href") mustBe frontendAppConfig.officeHolderUrl
       }
 
       "have the correct radio option messages" in {
