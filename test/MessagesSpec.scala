@@ -15,9 +15,6 @@
  */
 
 import base.SpecBase
-import org.scalatest.Assertion
-
-import scala.annotation.tailrec
 import scala.io.Source
 
 class MessagesSpec extends SpecBase {
@@ -25,7 +22,7 @@ class MessagesSpec extends SpecBase {
   val englishFileName = "conf/messages.en"
   val welshFileName = "conf/messages.cy"
 
-  val expectedWelshFileName = "test/utils/welshMessages/messages.cy"
+  val expectedWelshFileName = "test/resources/welshMessages/messages.cy"
 
   val sanitize: Iterator[String] => List[String] = _.filterNot(_.isEmpty).filterNot(_.contains("#")).toList
   val getKey: String => String = _.split("=").head.trim
