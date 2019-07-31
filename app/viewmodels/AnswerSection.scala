@@ -16,9 +16,13 @@
 
 package viewmodels
 
+import models.Section.SectionEnum
 import play.twirl.api.Html
 
-case class AnswerSection(headingKey: Option[String], whyResult: Option[Html] = None,
-                         rows: Seq[(AnswerRow, Option[Html])], useProgressiveDisclosure: Boolean = false) extends Section {
+case class AnswerSection(headingKey: Option[String],
+                         whyResult: Option[Html] = None,
+                         rows: Seq[(AnswerRow, Option[Html])],
+                         useProgressiveDisclosure: Boolean = false,
+                         section: SectionEnum) extends Section {
   val nonEmpty: Boolean = rows.nonEmpty
 }

@@ -18,10 +18,10 @@ package services
 
 import config.FrontendAppConfig
 import javax.inject.Inject
-
+import models.Section
 import models.requests.DataRequest
 import play.api.i18n.Messages
-import utils.{CheckYourAnswersHelper, ResultPageHelper}
+import utils.CheckYourAnswersHelper
 import viewmodels.AnswerSection
 
 class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfig) {
@@ -33,6 +33,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
 
     Seq(
       AnswerSection(
+        section = Section.setup,
         headingKey = Some("checkYourAnswers.setup.header"),
         rows = Seq(
           checkYourAnswersHelper.aboutYouOptimised.map(_ -> None), checkYourAnswersHelper.workerTypeOptimised.map(_ -> None),
@@ -42,10 +43,12 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         ).flatten
       ),
       AnswerSection(
+        section = Section.earlyExit,
         headingKey = Some("checkYourAnswers.exit.header"),
         rows = Seq(checkYourAnswersHelper.officeHolder.map(_ -> None)).flatten
       ),
       AnswerSection(
+        section = Section.personalService,
         headingKey = Some("checkYourAnswers.personalService.header"),
         rows = Seq(
           checkYourAnswersHelper.arrangedSubstitute.map(_ -> None), checkYourAnswersHelper.didPaySubstitute.map(_ -> None),
@@ -54,6 +57,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         ).flatten
       ),
       AnswerSection(
+        section = Section.control,
         headingKey = Some("checkYourAnswers.control.header"),
         rows = Seq(
           checkYourAnswersHelper.moveWorker.map(_ -> None), checkYourAnswersHelper.howWorkIsDone.map(_ -> None),
@@ -61,6 +65,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         ).flatten
       ),
       AnswerSection(
+        section = Section.financialRisk,
         headingKey = Some("checkYourAnswers.financialRisk.header"),
         rows = Seq(
           checkYourAnswersHelper.equipmentExpenses.map(_ -> None), checkYourAnswersHelper.vehicleExpenses.map(_ -> None),
@@ -69,6 +74,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         ).flatten
       ),
       AnswerSection(
+        section = Section.partAndParcel,
         headingKey = Some("checkYourAnswers.partParcel.header"),
         rows = Seq(
           checkYourAnswersHelper.benefits.map(_ -> None), checkYourAnswersHelper.lineManagerDuties.map(_ -> None),

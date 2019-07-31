@@ -16,16 +16,18 @@
 
 package models
 
-import play.api.libs.json.{Format, Json}
+import play.api.mvc.QueryStringBindable
 
-case class AdditionalPdfDetails(completedBy: Option[String] = None,
-                                client: Option[String] = None,
-                                job: Option[String] = None,
-                                reference: Option[String] = None,
-                                fileName: Option[String] = None)
+object Section extends Enumeration {
+  type SectionEnum = Value
+  val setup = Value("setup")
+  val earlyExit = Value("earlyExit")
+  val control = Value("control")
+  val personalService = Value("personalService")
+  val financialRisk = Value("financialRisk")
+  val partAndParcel = Value("partAndParcel")
 
-object AdditionalPdfDetails {
-  implicit val fmt: Format[AdditionalPdfDetails] = Json.format[AdditionalPdfDetails]
+  implicit object SectionBinder extends QueryStringBindable.Parsing[Value](
+    withName, _.toString, (k: String, e: Exception) => "Cannot parse %s as MyEnum: %s".format(k, e.getMessage)
+  )
 }
-
-
