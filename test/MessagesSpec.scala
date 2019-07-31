@@ -15,7 +15,6 @@
  */
 
 import base.SpecBase
-
 import scala.io.Source
 
 class MessagesSpec extends SpecBase {
@@ -23,11 +22,16 @@ class MessagesSpec extends SpecBase {
   val englishFileName = "conf/messages.en"
   val welshFileName = "conf/messages.cy"
 
+  val expectedWelshFileName = "test/resources/welshMessages/messages.cy"
+
   val sanitize: Iterator[String] => List[String] = _.filterNot(_.isEmpty).filterNot(_.contains("#")).toList
   val getKey: String => String = _.split("=").head.trim
 
+  lazy val expectedWelshMessages = sanitize(Source.fromFile(expectedWelshFileName).getLines)
+  lazy val actualWelshMessages = sanitize(Source.fromFile(welshFileName).getLines)
+
   lazy val englishKeys = sanitize(Source.fromFile(englishFileName).getLines map getKey)
-  lazy val welshKeys = sanitize(Source.fromFile(welshFileName).getLines map getKey)
+  lazy val welshKeys = actualWelshMessages map getKey
 
   "Welsh file" should {
 
@@ -43,6 +47,20 @@ class MessagesSpec extends SpecBase {
         }
       }
     }
+
+    "for the expected welsh messages" should {
+
+      "have the same number of lines between the expected file and the actual file" in {
+        expectedWelshMessages.length mustBe actualWelshMessages.length
+      }
+
+      expectedWelshMessages.zip(actualWelshMessages).foreach {
+        case (expectedMsg, actualMsg) =>
+          s"expected message: '$expectedMsg' must equal actual message: '$actualMsg'" in {
+            expectedMsg mustBe actualMsg
+          }
+      }
+    }
   }
 
   "English file" should {
@@ -50,6 +68,14 @@ class MessagesSpec extends SpecBase {
     "not contain duplicate keys" in {
       val differences = englishKeys.diff(englishKeys.distinct)
       assert(differences.isEmpty)
+    }
+
+    "for all Welsh language keys" should {
+      for (keyValue <- welshKeys) {
+        s"contain the key '$keyValue'" in {
+          assert(englishKeys.contains(keyValue))
+        }
+      }
     }
   }
 

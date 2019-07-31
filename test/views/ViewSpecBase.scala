@@ -34,6 +34,8 @@ trait ViewSpecBase extends SpecBase {
     val exclamation = s"#content form .notice strong"
     val continueButton = "#content form button"
     val hint = (i: Int) => s".form-hint:nth-of-type($i)"
+    val li = (i: Int) => s"#content > form > ul > li:nth-child($i)"
+    val label = (i: Int) => s"#content > article > form > div:nth-child($i) > label > span"
     val panel = s"div.panel-border-wide"
   }
 
