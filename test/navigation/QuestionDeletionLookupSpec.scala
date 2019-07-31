@@ -16,7 +16,7 @@
 
 package navigation
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.control.{routes => controlRoutes}
@@ -37,7 +37,7 @@ import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.libs.json.Writes
 
-class QuestionDeletionLookupSpec extends SpecBase {
+class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
   val navigator = new QuestionDeletionLookup
   val userAnswers = UserAnswers("id")

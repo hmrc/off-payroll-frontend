@@ -16,7 +16,7 @@
 
 package controllers.actions
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import connectors.DataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import models.requests.{IdentifierRequest, OptionalDataRequest}
@@ -25,7 +25,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
-class DataRetrievalActionSpec extends SpecBase with MockDataCacheConnector with ScalaFutures {
+class DataRetrievalActionSpec extends GuiceAppSpecBase with MockDataCacheConnector with ScalaFutures {
 
   class Harness(dataCacheConnector: DataCacheConnector) extends DataRetrievalActionImpl(dataCacheConnector, messagesControllerComponents) {
     def callTransform[A](request: IdentifierRequest[A]): Future[OptionalDataRequest[A]] = transform(request)

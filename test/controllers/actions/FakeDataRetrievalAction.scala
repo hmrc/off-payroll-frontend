@@ -16,7 +16,7 @@
 
 package controllers.actions
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import controllers.ControllerSpecBase
 import models.UserAnswers
 import models.requests.{IdentifierRequest, OptionalDataRequest}
@@ -25,7 +25,7 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-trait FakeDataRetrievalAction extends SpecBase with DataRetrievalAction with ControllerSpecBase {
+trait FakeDataRetrievalAction extends GuiceAppSpecBase with DataRetrievalAction with ControllerSpecBase {
 
   val cacheMapToReturn: Option[CacheMap]
 

@@ -16,14 +16,14 @@
 
 package viewmodels
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import generators.ModelGenerators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks._
 import play.twirl.api.Html
 
 
-class AnswerRowSpec extends SpecBase with ModelGenerators {
+class AnswerRowSpec extends GuiceAppSpecBase with ModelGenerators {
 
   "AnswerRow" should {
 

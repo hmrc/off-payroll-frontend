@@ -16,7 +16,7 @@
 
 package services
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import connectors.DataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import models.AboutYouAnswer.{Agency, Worker}
@@ -49,7 +49,7 @@ import services.mocks.MockCompareAnswerService
 
 import scala.concurrent.Future
 
-class CompareAnswerServiceSpec extends SpecBase with MockFactory with MockDataCacheConnector with MockQuestionDeletionLookup {
+class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with MockDataCacheConnector with MockQuestionDeletionLookup {
 
   val service = new CompareAnswerService(mockQuestionDeletionLookup)
 

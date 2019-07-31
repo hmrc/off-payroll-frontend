@@ -25,17 +25,17 @@ class ViewUtilsSpec extends ViewSpecBase {
   "Calling .tailorMsg" should {
 
     "If the user is of type Worker, prefix the supplied message key" in {
-      val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+      val req = workerFakeRequest
       ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "worker.key"
     }
 
     "If the user is of type Hirer, prefix the supplied message key" in {
-      val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+      val req = hirerFakeRequest
       ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "hirer.key"
     }
 
     "If the user is of type Agency, do not prefix the supplied message key" in {
-      val req = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+      val req = agencyFakeRequest
       ViewUtils.tailorMsg("key")(req, frontendAppConfig) mustBe "key"
     }
 

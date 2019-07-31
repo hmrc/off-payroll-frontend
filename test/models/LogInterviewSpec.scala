@@ -16,8 +16,7 @@
 
 package models
 
-import base.SpecBase
-import config.SessionKeys
+import base.GuiceAppSpecBase
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
@@ -30,7 +29,6 @@ import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WorkerType.SoleTrader
 import models.logging._
-import models.requests.DataRequest
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -40,7 +38,7 @@ import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.Json
 import utils.MockDateTimeUtil
 
-class LogInterviewSpec extends SpecBase {
+class LogInterviewSpec extends GuiceAppSpecBase {
 
   private val decisionResponseString =
     s"""
@@ -87,8 +85,7 @@ class LogInterviewSpec extends SpecBase {
           .set(InteractWithStakeholdersPage,18, false)
           .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
 
-        implicit val dataRequest = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(UserType.Worker).toString), "id", userAnswers)
-        val decisionRequest = Interview(userAnswers)
+        val decisionRequest = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
 
         val expected = LogInterview(
           decisionResponse.version,
@@ -143,8 +140,7 @@ class LogInterviewSpec extends SpecBase {
 
         val userAnswers = UserAnswers("id")
 
-        implicit val dataRequest = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(UserType.Worker).toString), "id", userAnswers)
-        val decisionRequest = Interview(userAnswers)
+        val decisionRequest = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
 
         val expected = LogInterview(
           version = decisionResponse.version,

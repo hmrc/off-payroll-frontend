@@ -16,12 +16,13 @@
 
 package forms
 
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.StringFieldBehaviours
 import models.AdditionalPdfDetails
 import play.api.data.FormError
 
-class CustomisePDFFormProviderSpec extends StringFieldBehaviours {
+class CustomisePDFFormProviderSpec extends GuiceAppSpecBase with StringFieldBehaviours {
 
   val lengthKey = (field: String) => s"customisePDF.$field.error.length"
   val maxLength = 100

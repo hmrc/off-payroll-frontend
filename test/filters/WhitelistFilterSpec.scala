@@ -16,7 +16,7 @@
 
 package filters
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import connectors.{DataCacheConnector, FakeDataCacheConnector}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -28,7 +28,7 @@ import play.api.{Application, Configuration}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class WhitelistFilterSpec extends SpecBase {
+class WhitelistFilterSpec extends GuiceAppSpecBase {
 
   object TestAction extends ActionBuilder[Request, AnyContent] {
     override implicit protected def executionContext: ExecutionContext = messagesControllerComponents.executionContext

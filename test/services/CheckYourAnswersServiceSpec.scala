@@ -16,7 +16,7 @@
 
 package services
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.ChooseWhereWork.WorkerChooses
@@ -39,7 +39,7 @@ import pages.sections.setup._
 import utils.{CheckYourAnswersHelper, ResultPageHelper}
 import viewmodels.AnswerSection
 
-class CheckYourAnswersServiceSpec extends SpecBase {
+class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
 
   object CheckYourAnswersService extends CheckYourAnswersService
 

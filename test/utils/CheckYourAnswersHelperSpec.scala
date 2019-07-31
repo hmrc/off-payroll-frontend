@@ -17,7 +17,7 @@
 package utils
 
 import _root_.models.UserType._
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import config.SessionKeys
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
@@ -40,10 +40,10 @@ import pages.sections.setup.ContractStartedPage
 import play.api.libs.json.Json
 import viewmodels.AnswerRow
 
-class CheckYourAnswersHelperSpec extends SpecBase with Enumerable.Implicits {
+class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
-  lazy val workerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-  lazy val hirerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+  lazy val workerRequest = workerFakeRequest
+  lazy val hirerRequest = hirerFakeRequest
 
   ".officeHolder" when {
 

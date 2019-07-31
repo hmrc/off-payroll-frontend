@@ -45,8 +45,7 @@ class ToolNotNeededViewSpec extends ViewBehaviours {
 
       behave like pageWithBackLink(createView(ClientIR35))
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createViewWithRequest(ClientIR35, request))
+      lazy val document = asDocument(createViewWithRequest(ClientIR35, workerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(ToolNotNeededMessages.ir35Title)
@@ -67,8 +66,7 @@ class ToolNotNeededViewSpec extends ViewBehaviours {
 
       behave like pageWithBackLink(createView(ClientPAYE))
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createViewWithRequest(ClientPAYE, request))
+      lazy val document = asDocument(createViewWithRequest(ClientPAYE, workerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(ToolNotNeededMessages.payeTitle)
