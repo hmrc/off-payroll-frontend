@@ -69,9 +69,19 @@
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1"))</p>
 
-    @components.bulleted_list(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
+
+
+        @if(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 1){
+
+        <p class="form-group">@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1")).stripSuffix(":")  @messages(singleOutReason(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim)).</p>
+        } else {
+        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1"))</p>
+        @components.bulleted_list(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
+
+        }
+
+
     <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
 }
 

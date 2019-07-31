@@ -52,6 +52,7 @@ trait ResultViewFixture extends ViewBehaviours {
       val h2 = Selectors.h2(id)
       val bullet = (i: Int) => s"$id ul li:nth-of-type($i)"
       val p = (i: Int) => Selectors.p(i, id)
+
     }
     object DoNext {
       val id = "#doNext"
