@@ -30,11 +30,11 @@ class MessagesSpec extends SpecBase {
   val sanitize: Iterator[String] => List[String] = _.filterNot(_.isEmpty).filterNot(_.contains("#")).toList
   val getKey: String => String = _.split("=").head.trim
 
-  lazy val englishKeys = sanitize(Source.fromFile(englishFileName).getLines map getKey)
-  lazy val welshKeys = sanitize(Source.fromFile(welshFileName).getLines map getKey)
-
-  lazy val actualWelshMessages = sanitize(Source.fromFile(welshFileName).getLines)
   lazy val expectedWelshMessages = sanitize(Source.fromFile(expectedWelshFileName).getLines)
+  lazy val actualWelshMessages = sanitize(Source.fromFile(welshFileName).getLines)
+
+  lazy val englishKeys = sanitize(Source.fromFile(englishFileName).getLines map getKey)
+  lazy val welshKeys = actualWelshMessages map getKey
 
   "Welsh file" should {
 
@@ -51,17 +51,18 @@ class MessagesSpec extends SpecBase {
       }
     }
 
-    "contains the correct welsh messages" in {
-      @tailrec
-      def welshMessageList(actualList: List[String],expectedList: List[String]): Assertion ={
-        if(actualList.isEmpty && expectedList.isEmpty){
-          succeed
-        } else {
-          assert(actualList.head==expectedList.head)
-          welshMessageList(actualList.tail,expectedList.tail)
-        }
+    "for the expected welsh messages" should {
+
+      "have the same number of lines between the expected file and the actual file" in {
+        expectedWelshMessages.length mustBe actualWelshMessages.length
       }
-      welshMessageList(actualWelshMessages,expectedWelshMessages)
+
+      expectedWelshMessages.zip(actualWelshMessages).foreach {
+        case (expectedMsg, actualMsg) =>
+          s"expected message: '$expectedMsg' must equal actual message: '$actualMsg'" in {
+            expectedMsg mustBe actualMsg
+          }
+      }
     }
   }
 
@@ -87,6 +88,4 @@ class MessagesSpec extends SpecBase {
       assert(englishKeys.diff(welshKeys).isEmpty)
     }
   }
-
-
 }
