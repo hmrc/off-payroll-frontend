@@ -20,7 +20,7 @@ import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results.{AdditionalPDFMessages, DecisionVersionMessages, InDecisionMessages, UserAnswersMessages}
 import config.featureSwitch.OptimisedFlow
 import models.AboutYouAnswer.Worker
-import models.{AdditionalPdfDetails, PDFResultDetails}
+import models.{AdditionalPdfDetails, PDFResultDetails, Section}
 import models.CannotClaimAsExpense.WorkerUsedVehicle
 import org.jsoup.nodes.Document
 import play.api.i18n.Messages
@@ -80,12 +80,13 @@ trait ResultViewFixture extends ViewBehaviours {
   val version = "1.0"
 
   val timestamp = FakeTimestamp.timestamp()
+  val fileName = "testFile"
   val testName = "Gerald"
   val testClient = "PBPlumbin"
   val testJobTitle = "Plumber"
   val testReference = "Boiler man"
 
-  val testAdditionalPdfDetails = AdditionalPdfDetails(Some(testName), Some(testClient), Some(testJobTitle), Some(testReference))
+  val testAdditionalPdfDetails = AdditionalPdfDetails(Some(testName), Some(testClient), Some(testJobTitle), Some(testReference), Some(fileName))
   implicit val testNoPdfResultDetails = PDFResultDetails()
   lazy val testPdfResultDetails = PDFResultDetails(printMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 
@@ -97,7 +98,8 @@ trait ResultViewFixture extends ViewBehaviours {
           answer = "A1",
           answerIsMessageKey = true
         ),None)
-      )
+      ),
+      section = Section.setup
     ),
     AnswerSection(Some(Messages("checkYourAnswers.exit.header")), whyResult = None,
       Seq(
@@ -106,7 +108,8 @@ trait ResultViewFixture extends ViewBehaviours {
           answer = "A2",
           answerIsMessageKey = true
         ),None)
-      )
+      ),
+      section = Section.earlyExit
     ),
     AnswerSection(Some(Messages("checkYourAnswers.personalService.header")), whyResult = None,
       Seq(
@@ -115,7 +118,8 @@ trait ResultViewFixture extends ViewBehaviours {
           answer = "A3",
           answerIsMessageKey = true
         ),None)
-      )
+      ),
+      section = Section.personalService
     ),
     AnswerSection(Some(Messages("checkYourAnswers.control.header")), whyResult = None,
       Seq(
@@ -124,7 +128,8 @@ trait ResultViewFixture extends ViewBehaviours {
           answer = "A4",
           answerIsMessageKey = true
         ),None)
-      )
+      ),
+      section = Section.control
     ),
     AnswerSection(Some(Messages("checkYourAnswers.financialRisk.header")), whyResult = None,
       Seq(
@@ -133,7 +138,8 @@ trait ResultViewFixture extends ViewBehaviours {
           answer = "A5",
           answerIsMessageKey = true
         ),None)
-      )
+      ),
+      section = Section.financialRisk
     ),
     AnswerSection(Some(Messages("checkYourAnswers.partParcel.header")), whyResult = None,
       Seq(
@@ -142,7 +148,8 @@ trait ResultViewFixture extends ViewBehaviours {
           answer = "A6",
           answerIsMessageKey = true
         ),None)
-      )
+      ),
+      section = Section.partAndParcel
     )
   )
 

@@ -208,14 +208,20 @@ hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes 
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
 
 ## TODO: Need Welsh
-worker.optimised.officeHolder.title = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
-worker.optimised.officeHolder.heading = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
-worker.optimised.officeHolder.checkYourAnswersLabel = During this work will you act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your client?
+worker.optimised.officeHolder.title = Will you be an ‘Office Holder’?
+worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
+worker.optimised.officeHolder.checkYourAnswersLabel = Will you be an ‘Office Holder’?
+worker.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
+worker.optimised.officeholder.p2 = Read more about
+worker.optimised.officeholder.link = Office Holders (opens in a new window)
 
 ## TODO: Need Welsh
-hirer.optimised.officeHolder.title = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
-hirer.optimised.officeHolder.heading = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
-hirer.optimised.officeHolder.checkYourAnswersLabel = During this work will the worker act as a board member, treasurer, trustee, company director, company secretary or other office holder position for your organisation?
+hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeHolder.checkYourAnswersLabel = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
+hirer.optimised.officeholder.p2 = Read more about
+hirer.optimised.officeholder.link = Office Holders (opens in a new window)
 #########################
 
 
@@ -1158,9 +1164,9 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 ##### TODO NEED WELSH FOR ####
 aboutYourResult.title = Disclaimer
 aboutYourResult.heading = Disclaimer
-aboutYourResult.p1 = HMRC will stand by the result you get from this tool, provided the information you have given is accurate.
-aboutYourResult.p2 = However, if your information was checked and found to be inaccurate, HMRC will not stand by the result.
-aboutYourResult.p3 = Neither will HMRC stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties.
+aboutYourResult.p1 = HMRC will stand by the result you get from this tool.
+aboutYourResult.p2 = This would not be the case if the information you’ve provided was checked and found to be inaccurate.
+aboutYourResult.p3 = HMRC will also not stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties.
 
 
 ##### TODO NEED WELSH FOR ####
@@ -1180,7 +1186,7 @@ agencyAdvisory.title = You don’t need to determine if the off-payroll rules (I
 agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 agencyAdvisory.p1 = It is the responsibility of the worker or the organisation the work is being done for.
 agencyAdvisory.p2 = However, if your agency is the fee-payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
-agencyAdvisory.subheading = What to do next
+agencyAdvisory.subheading = What you should do next
 agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
 
 ##### TODO NEED WELSH FOR ####
@@ -1188,7 +1194,7 @@ hirerAdvisory.title = Until April 2020, you do not need to determine if this wor
 hirerAdvisory.heading = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
 hirerAdvisory.p1 = It is the worker’s responsibility.
 hirerAdvisory.p2 = After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer.
-hirerAdvisory.subheading = What to do next
+hirerAdvisory.subheading = What you should do next
 hirerAdvisory.p3 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 ##### TODO NEED WELSH FOR ####
@@ -1227,7 +1233,7 @@ hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is your org
 workerAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 workerAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 workerAdvisory.p1 = Because you told us this work is for a public sector body, they are responsible for determining its employment status for tax purposes.
-workerAdvisory.subheading = What to do next
+workerAdvisory.subheading = What you should do next
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 ##### TODO NEED WELSH FOR ####
@@ -1331,9 +1337,9 @@ hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be 
 ## ----------------------
 ##TODO: Need Welsh
 optimised.result.whyResult.h2 = Why you are getting this result
-optimised.result.doNext.h2 = What to do next
-optimised.result.download.h2 = Do you want a copy of this result?
-optimised.result.download.p1 = You can download a document that will show today's date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
+optimised.result.doNext.h2 = What you should do next
+optimised.result.download.h2 = Do you want to download this result?
+optimised.result.download.p1 = You will get a document that shows today’s date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
 optimised.result.download.p2 = HMRC will not keep a record of this result.
 
 
@@ -1538,14 +1544,15 @@ addDetails.client=Name of end client issuing the contract and/or agency
 addDetails.job=Contract or role title
 addDetails.reference=Other reference details
 addDetails.charLimit =180 characters maximum
+addDetails.fileName = File name
 
-finishedChecking.title = You have finished checking the employment status for tax of this work
-finishedChecking.heading = You have finished checking the employment status for tax of this work
+finishedChecking.title = You have finished checking this work
+finishedChecking.heading = You have finished checking this work
 finishedChecking.p1.beforeLink1 = You can now
 finishedChecking.p1.link1 = exit
-finishedChecking.p1.beforeLink2 = the tool, or
+finishedChecking.p1.beforeLink2 = , or
 finishedChecking.p1.link2 = start again
-finishedChecking.p1.afterLink2 = to check another piece of work
+finishedChecking.p1.afterLink2 = to check the employment status of some other work.
 finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
 
 

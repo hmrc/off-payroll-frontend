@@ -20,8 +20,8 @@ object AboutYourResultMessages extends BaseMessages {
 
   val heading = "Disclaimer"
   val title = heading
-  val p1 = "HMRC will stand by the result you get from this tool, provided the information you have given is accurate."
-  val p2 = "However, if your information was checked and found to be inaccurate, HMRC will not stand by the result."
-  val p3 = "Neither will HMRC stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties."
+  val p1 = "HMRC will stand by the result you get from this tool."
+  val p2 = "This would not be the case if the information you’ve provided was checked and found to be inaccurate."
+  val p3 = "HMRC will also not stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties."
 
 }

@@ -18,7 +18,7 @@ package navigation
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import controllers.routes
+import controllers.routes._
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
@@ -27,10 +27,9 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import pages.{CustomisePDFPage, _}
 import models.WhichDescribesYouAnswer.{Agency, _}
 import models._
-import pages._
+import pages.{CustomisePDFPage, _}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -66,7 +65,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
   private def personalServiceNextPage(implicit mode: Mode): Call = mode match {
     case NormalMode => controlRoutes.MoveWorkerController.onPageLoad(NormalMode)
-    case CheckMode => routes.CheckYourAnswersController.onPageLoad()
+    case CheckMode => CheckYourAnswersController.onPageLoad(Some(Section.personalService))
   }
 
   private def optimisedIndexToWorkerUsingIntermediary(implicit mode: Mode): Map[Page, UserAnswers => Call] = Map(
@@ -126,7 +125,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
 
   private def officeHolderRouteMap(mode: Mode):  Map[Page, UserAnswers => Call] =
     if(mode == CheckMode) {
-      Map(OfficeHolderPage -> (_ => routes.CheckYourAnswersController.onPageLoad()))
+      Map(OfficeHolderPage -> (_ => CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))))
     }
     else {
       Map(
@@ -218,39 +217,39 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
     InteractWithStakeholdersPage -> { answer =>
       answer.get(InteractWithStakeholdersPage) match {
         case Some(Answers(true,_)) => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
-        case Some(ans) if !ans.answer && isEnabled(OptimisedFlow) => routes.CheckYourAnswersController.onPageLoad()
-        case _ => routes.ResultController.onPageLoad()
+        case Some(ans) if !ans.answer && isEnabled(OptimisedFlow) => CheckYourAnswersController.onPageLoad()
+        case _ => ResultController.onPageLoad()
       }},
     IdentifyToStakeholdersPage -> (_ =>
       if (isEnabled(OptimisedFlow)) {
-        routes.CheckYourAnswersController.onPageLoad()
+        CheckYourAnswersController.onPageLoad()
       } else {
-        routes.ResultController.onPageLoad()
+        ResultController.onPageLoad()
       }),
 
     //CYA/Results Page
-    CheckYourAnswersPage -> (_ => routes.ResultController.onPageLoad()),
+    CheckYourAnswersPage -> (_ => ResultController.onPageLoad()),
     ResultPage -> { answer =>
 
       if (isEnabled(OptimisedFlow)) {
         answer.get(ResultPage) match {
-          case Some(Answers(true, _)) => routes.AddReferenceDetailsController.onPageLoad()
-          case _ => routes.FinishedCheckingController.onPageLoad()
+          case Some(Answers(true, _)) => AddReferenceDetailsController.onPageLoad()
+          case _ => FinishedCheckingController.onPageLoad()
         }
       } else {
-        routes.PDFController.onPageLoad(NormalMode)
+        PDFController.onPageLoad(NormalMode)
       }
     },
 
     AddReferenceDetailsPage -> {
       answer =>
         answer.get(AddReferenceDetailsPage) match {
-          case Some(Answers(true, _)) => routes.PDFController.onPageLoad(NormalMode)
-          case _ => routes.FinishedCheckingController.onPageLoad()
+          case Some(Answers(true, _)) => PDFController.onPageLoad(NormalMode)
+          case _ => FinishedCheckingController.onPageLoad()
         }
     },
 
-    CustomisePDFPage -> (_ => routes.FinishedCheckingController.onPageLoad())
+    CustomisePDFPage -> (_ => FinishedCheckingController.onPageLoad())
 
   )
 
@@ -261,12 +260,16 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) extends Feature
           officeHolderRouteMap(NormalMode) ++
           personalServiceRouteMap(NormalMode) ++
           routeMap
-      routing.getOrElse(page, _ => routes.IndexController.onPageLoad())
+      routing.getOrElse(page, _ => IndexController.onPageLoad())
     case CheckMode =>
-      val changeRouting =
-        optimisedSetupRouteMap(CheckMode) ++
-          officeHolderRouteMap(CheckMode) ++
-          personalServiceRouteMap(CheckMode)
-      changeRouting.getOrElse(page, _ => routes.CheckYourAnswersController.onPageLoad())
+      val changeRouting = optimisedSetupRouteMap(CheckMode) ++ officeHolderRouteMap(CheckMode) ++ personalServiceRouteMap(CheckMode)
+      changeRouting.getOrElse(page, _ => page match {
+        case MoveWorkerPage | HowWorkIsDonePage | ScheduleOfWorkingHoursPage | ChooseWhereWorkPage =>
+          CheckYourAnswersController.onPageLoad(Some(Section.control))
+        case BenefitsPage | LineManagerDutiesPage | IdentifyToStakeholdersPage =>
+          CheckYourAnswersController.onPageLoad(Some(Section.partAndParcel))
+        case _ =>
+          CheckYourAnswersController.onPageLoad(Some(Section.financialRisk))
+      })
   }
 }

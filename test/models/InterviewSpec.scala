@@ -42,7 +42,7 @@ import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
-import play.api.libs.json.{JsNull, JsString, Json}
+import play.api.libs.json.{JsNull, JsString, Json, Writes}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 class InterviewSpec extends SpecBase {
@@ -592,6 +592,86 @@ class InterviewSpec extends SpecBase {
     }
 
     "serialise to JSON correctly" when {
+
+      "the maximum model is supplied with the new writes" in {
+
+        implicit val writes: Writes[Interview] = NewInterview.writes
+
+        val model = Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          provideServices = Some(SoleTrader),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
+        )
+
+        val expected = Json.obj(
+          "version" -> "1.5.0-final",
+          "correlationID" -> "id",
+          "interview" -> Json.obj(
+            "setup" -> Json.obj(
+              "endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> true,
+              "provideServices" -> "soleTrader"
+            ),
+            "exit" -> Json.obj(
+              "officeHolder" -> false
+            ),
+            "personalService" -> Json.obj(
+              "workerSentActualSubstitute" -> "yesClientAgreed",
+              "workerPayActualSubstitute" -> false,
+              "possibleSubstituteRejection" -> "wouldNotReject",
+              "possibleSubstituteWorkerPay" -> true,
+              "wouldWorkerPayHelper" -> false
+            ),
+            "control" -> Json.obj(
+              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+              "workerDecideWhere" -> "workerAgreeWithOthers"
+            ),
+            "financialRisk" -> Json.obj(
+              "workerProvidedMaterials" -> false,
+              "workerProvidedEquipment" -> false,
+              "workerUsedVehicle" -> true,
+              "workerHadOtherExpenses" -> true,
+              "expensesAreNotRelevantForRole" -> false,
+              "workerMainIncome" -> "incomeCommission",
+              "paidForSubstandardWork" -> "cannotBeCorrected"
+            ),
+            "partAndParcel" -> Json.obj(
+              "workerReceivesBenefits" -> false,
+              "workerAsLineManager" -> false,
+              "contactWithEngagerCustomer" -> false,
+              "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+            )
+          )
+        )
+
+        val actual = Json.toJson(model)
+
+        actual mustBe expected
+      }
 
       "the maximum model is supplied" in {
 

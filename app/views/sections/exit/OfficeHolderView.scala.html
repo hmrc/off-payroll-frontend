@@ -38,9 +38,15 @@
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("officeHolder.heading"), asLegend = true),
+            otherContent = Some(pageContent),
             labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
+}
+
+@pageContent = {
+    <p>@messages(tailorMsgOptimised("officeholder.p1"))</p>
+        <p>@messages(tailorMsgOptimised("officeholder.p2")) <a href="@appConfig.officeHolderUrl" target="_blank">@messages(tailorMsgOptimised("officeholder.link"))</a>.</p>
 }
