@@ -93,6 +93,7 @@ class CheckYourAnswersServiceSpec extends SpecBase {
 
         val expected = Seq(
           AnswerSection(
+            section = Section.setup,
             headingKey = Some("checkYourAnswers.setup.header"),
             rows = Seq(
               CheckYourAnswersHelper.aboutYouOptimised.map(_ -> None),
@@ -105,10 +106,12 @@ class CheckYourAnswersServiceSpec extends SpecBase {
             ).flatten
           ),
           AnswerSection(
+            section = Section.earlyExit,
             headingKey = Some("checkYourAnswers.exit.header"),
             rows = Seq(CheckYourAnswersHelper.officeHolder.map(_ -> None)).flatten
           ),
           AnswerSection(
+            section = Section.personalService,
             headingKey = Some("checkYourAnswers.personalService.header"),
             rows = Seq(
               CheckYourAnswersHelper.arrangedSubstitute.map(_ -> None),
@@ -119,6 +122,7 @@ class CheckYourAnswersServiceSpec extends SpecBase {
             ).flatten
           ),
           AnswerSection(
+            section = Section.control,
             headingKey = Some("checkYourAnswers.control.header"),
             rows = Seq(
               CheckYourAnswersHelper.moveWorker.map(_ -> None),
@@ -128,6 +132,7 @@ class CheckYourAnswersServiceSpec extends SpecBase {
             ).flatten
           ),
           AnswerSection(
+            section = Section.financialRisk,
             headingKey = Some("checkYourAnswers.financialRisk.header"),
             rows = Seq(
               CheckYourAnswersHelper.equipmentExpenses.map(_ -> None),
@@ -139,6 +144,7 @@ class CheckYourAnswersServiceSpec extends SpecBase {
             ).flatten
           ),
           AnswerSection(
+            section = Section.partAndParcel,
             headingKey = Some("checkYourAnswers.partParcel.header"),
             rows = Seq(
               CheckYourAnswersHelper.benefits.map(_ -> None),
@@ -167,26 +173,32 @@ class CheckYourAnswersServiceSpec extends SpecBase {
 
         val expected = Seq(
           AnswerSection(
+            section = Section.setup,
             headingKey = Some("checkYourAnswers.setup.header"),
             rows = Seq()
           ),
           AnswerSection(
+            section = Section.earlyExit,
             headingKey = Some("checkYourAnswers.exit.header"),
             rows = Seq()
           ),
           AnswerSection(
+            section = Section.personalService,
             headingKey = Some("checkYourAnswers.personalService.header"),
             rows = Seq()
           ),
           AnswerSection(
+            section = Section.control,
             headingKey = Some("checkYourAnswers.control.header"),
             rows = Seq()
           ),
           AnswerSection(
+            section = Section.financialRisk,
             headingKey = Some("checkYourAnswers.financialRisk.header"),
             rows = Seq()
           ),
           AnswerSection(
+            section = Section.partAndParcel,
             headingKey = Some("checkYourAnswers.partParcel.header"),
             rows = Seq()
           )

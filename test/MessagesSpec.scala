@@ -15,8 +15,7 @@
  */
 
 import base.SpecBase
-import play.api.i18n.Lang
-
+import org.scalatest.Assertion
 import scala.io.Source
 
 class MessagesSpec extends SpecBase {
@@ -24,11 +23,16 @@ class MessagesSpec extends SpecBase {
   val englishFileName = "conf/messages.en"
   val welshFileName = "conf/messages.cy"
 
+  val expectedWelshFileName = "test/utils/welshMessages/messages.cy"
+
   val sanitize: Iterator[String] => List[String] = _.filterNot(_.isEmpty).filterNot(_.contains("#")).toList
   val getKey: String => String = _.split("=").head.trim
 
   lazy val englishKeys = sanitize(Source.fromFile(englishFileName).getLines map getKey)
   lazy val welshKeys = sanitize(Source.fromFile(welshFileName).getLines map getKey)
+
+  lazy val actualWelshMessages = sanitize(Source.fromFile(welshFileName).getLines)
+  lazy val expectedWelshMessages = sanitize(Source.fromFile(expectedWelshFileName).getLines)
 
   "Welsh file" should {
 
@@ -43,6 +47,18 @@ class MessagesSpec extends SpecBase {
           assert(welshKeys.contains(keyValue))
         }
       }
+    }
+
+    "contains the correct welsh messages" in {
+      def welshMessageList(actualList: List[String],expectedList: List[String]): Assertion ={
+        if(actualList.isEmpty && expectedList.isEmpty){
+          succeed
+        } else {
+          assert(actualList.head==expectedList.head)
+          welshMessageList(actualList.tail,expectedList.tail)
+        }
+      }
+      welshMessageList(actualWelshMessages,expectedWelshMessages)
     }
   }
 

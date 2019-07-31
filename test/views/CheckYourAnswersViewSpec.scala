@@ -18,6 +18,8 @@ package views
 
 import assets.messages.CheckYourAnswersMessages
 import config.featureSwitch.OptimisedFlow
+import models.Section
+import models.Section.SectionEnum
 import play.twirl.api.Html
 import viewmodels.{AnswerRow, AnswerSection, Section}
 import views.behaviours.ViewBehaviours
@@ -32,6 +34,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors {
     override val h2 = (i: Int) => s"h2:nth-of-type($i)"
+    val accordion = (i: Int) => s".accordion:nth-of-type($i)"
     val accordionHeader = (i: Int) => s".accordion:nth-of-type($i) > .accordion__row a"
     val sectionQuestion = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dt.cya-question"
     val sectionSingleAnswer = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dd.cya-answer"
@@ -43,9 +46,10 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[CheckYourAnswersView]
 
-  def createView = () => view(Seq())(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(Seq(), None)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewWithData(userAnswers: Seq[Section]) = view(userAnswers)(fakeRequest, messages, frontendAppConfig)
+  def createViewWithData(userAnswers: Seq[Section], sectionToExpand: Option[SectionEnum] = None) =
+    view(userAnswers, sectionToExpand)(fakeRequest, messages, frontendAppConfig)
 
   "CheckYourAnswers view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
@@ -57,6 +61,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
     lazy val cyaSections = Seq(
       AnswerSection(
+        section = Section.setup,
         headingKey = Some("Section 1"),
         whyResult = Some(Html("Additional Content1")),
         rows = Seq(
@@ -64,6 +69,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
           multiAnswerRow(1) -> None
         )),
       AnswerSection(
+        section = Section.earlyExit,
         headingKey = Some("Section 2"),
         whyResult = Some(Html("Additional Content2")),
         rows = Seq(
@@ -164,6 +170,16 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
       }
     }
 
+    "if supplied with a section to expand" should {
+
+      "expand the appropriate accordion" in {
+        lazy val document = asDocument(createViewWithData(cyaSections, Some(Section.earlyExit)))
+
+        document.select(Selectors.accordion(2)).attr("aria-expanded") mustBe "true"
+        document.select(Selectors.accordion(2)).hasClass("accordion--expanded") mustBe true
+      }
+    }
+
     "have the correct h2" in {
       document.select(Selectors.h2(1)).text.trim mustBe CheckYourAnswersMessages.h2
     }
@@ -181,6 +197,7 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
     "have the correct third bullet point" in {
       document.select(Selectors.li(3)).text mustBe CheckYourAnswersMessages.li3
+
     }
   }
 }

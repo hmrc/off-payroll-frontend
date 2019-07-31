@@ -22,7 +22,7 @@ import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import models.{CheckMode, NormalMode}
+import models.{CheckMode, NormalMode, Section}
 
 class RoutesSpec extends SpecBase {
 
@@ -200,6 +200,12 @@ class RoutesSpec extends SpecBase {
       PDFController.onPageLoad(CheckMode).url mustBe fullPath("/add-details-to-document/change")
       PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-details-to-document")
       PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details-to-document/change")
+    }
+
+    "Have the correct routes for the Check Your Answers page" in {
+      CheckYourAnswersController.onPageLoad().url mustBe fullPath("/review-answers")
+      CheckYourAnswersController.onPageLoad(Some(Section.personalService)).url mustBe fullPath("/review-answers?sectionToExpand=personalService")
+      CheckYourAnswersController.onSubmit().url mustBe fullPath("/review-answers")
     }
 
     "Have the correct routes for the ExitSurvey" in {
