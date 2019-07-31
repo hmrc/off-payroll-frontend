@@ -16,6 +16,8 @@
 
 import base.SpecBase
 import org.scalatest.Assertion
+
+import scala.annotation.tailrec
 import scala.io.Source
 
 class MessagesSpec extends SpecBase {
@@ -50,6 +52,7 @@ class MessagesSpec extends SpecBase {
     }
 
     "contains the correct welsh messages" in {
+      @tailrec
       def welshMessageList(actualList: List[String],expectedList: List[String]): Assertion ={
         if(actualList.isEmpty && expectedList.isEmpty){
           succeed
