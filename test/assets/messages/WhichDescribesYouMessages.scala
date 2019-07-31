@@ -16,14 +16,14 @@
 
 package assets.messages
 
-object CheckYourAnswersMessages extends BaseMessages {
+object WhichDescribesYouMessages extends BaseMessages {
 
-  val heading = "Review your answers in each section below"
+  val heading = "What do you want to find out?"
   val title = heading
-  val h2 = "Section 1 Section 2 Declaration"
-  val p1 = "By submitting your answers, you are confirming the following:"
-  val li1 = "the information you have provided is correct, to the best of your knowledge"
-  val li2 = "it reflects the actual or expected working practices of this role"
-  val li3 = "if this information changes, you accept your result may no longer hold"
+  val ir35Worker = "If a contract you’re working on, or could be working on, is within the off-payroll working rules (IR35)"
+  val ir35Hirer = "If a contract your organisation is offering is within the off-payroll working rules (IR35)"
+  val agency = "If a contract your agency is recruiting for is within the off-payroll working rules (IR35)"
+  val payeWorker = "If you are employed or self-employed for tax purposes"
+  val payeHirer = "If a job you’re hiring for is classed as employed or self-employed for tax purposes"
 
 }

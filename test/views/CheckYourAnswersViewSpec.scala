@@ -170,13 +170,6 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
       }
     }
 
-    "have the correct h2" in {
-      document.select(Selectors.h2(1)).text.trim mustBe CheckYourAnswersMessages.h2
-    }
-    "have the correct p1" in {
-      document.select(Selectors.p(1)).text mustBe CheckYourAnswersMessages.p1
-    }
-
     "if supplied with a section to expand" should {
 
       "expand the appropriate accordion" in {
@@ -185,6 +178,26 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
         document.select(Selectors.accordion(2)).attr("aria-expanded") mustBe "true"
         document.select(Selectors.accordion(2)).hasClass("accordion--expanded") mustBe true
       }
+    }
+
+    "have the correct h2" in {
+      document.select(Selectors.h2(1)).text.trim mustBe CheckYourAnswersMessages.h2
+    }
+    "have the correct p1" in {
+      document.select(Selectors.p(1)).text mustBe CheckYourAnswersMessages.p1
+    }
+
+    "have the correct first bullet point" in {
+      document.select(Selectors.li(1)).text mustBe CheckYourAnswersMessages.li1
+    }
+
+    "have the correct second bullet point" in {
+      document.select(Selectors.li(2)).text mustBe CheckYourAnswersMessages.li2
+    }
+
+    "have the correct third bullet point" in {
+      document.select(Selectors.li(3)).text mustBe CheckYourAnswersMessages.li3
+
     }
   }
 }
