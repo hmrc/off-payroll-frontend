@@ -56,7 +56,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(createView)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.RejectSubstituteController.onSubmit(NormalMode).url, invertedAnswer = true)
+    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.RejectSubstituteController.onSubmit(NormalMode).url)
 
     "If the user type is of Worker" should {
 
