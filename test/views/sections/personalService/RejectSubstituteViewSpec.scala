@@ -71,6 +71,10 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Optimised.Worker.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Worker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe RejectSubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe RejectSubstituteMessages.no
@@ -90,6 +94,10 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Optimised.Hirer.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Hirer.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe RejectSubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe RejectSubstituteMessages.no
@@ -107,6 +115,10 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Optimised.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Worker.p1
       }
 
       "have the correct radio option messages" in {
