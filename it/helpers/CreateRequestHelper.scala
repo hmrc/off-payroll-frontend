@@ -23,15 +23,15 @@ trait CreateRequestHelper extends ServerProvider {
 
   lazy val sessionId = "id"
 
-  val cookies: String = {
-    val session = Session(Map(SessionKeys.sessionId -> sessionId,"CSRF-Token"->"123"))
-    val cookies = Seq(Session.encodeAsCookie(session))
-    Cookies.encodeCookieHeader(cookies)
-  }
+//  val cookies: String = {
+//    val session = Session(Map(SessionKeys.sessionId -> sessionId))
+//    val cookies = Seq(Session.encodeAsCookie(session))
+//    Cookies.encodeCookieHeader(cookies)
+//  }
 
   def buildRequest(path: String, followRedirect: Boolean = false): WSRequest = {
     ws.url(s"http://localhost:$port/check-employment-status-for-tax$path")
-      .withHttpHeaders(HMRCHeaderNames.xSessionId -> sessionId, HeaderNames.COOKIE -> cookies)
+     // .withHttpHeaders(HMRCHeaderNames.xSessionId -> sessionId, HeaderNames.COOKIE -> cookies)
       .withFollowRedirects(followRedirect)
   }
 
@@ -39,6 +39,12 @@ trait CreateRequestHelper extends ServerProvider {
     buildRequest(path, followRedirect).get()
 
   def postRequest(path: String, formJson: JsValue, followRedirect: Boolean = true): Future[WSResponse] =
-    buildRequest(path, followRedirect).post(formJson)
+    buildRequest(path, followRedirect)
+      .withHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded")
+      .post(formJson)
+
+  def optionsRequest(path: String, followRedirect: Boolean = true): Future[WSResponse] =
+    buildRequest(path, followRedirect)
+      .options()
 
 }

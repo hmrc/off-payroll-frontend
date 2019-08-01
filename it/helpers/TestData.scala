@@ -6,5 +6,6 @@ import play.api.libs.json.Json
 
 
 trait TestData {
-  val defaultValue = Json.toJson({"value"->"true"})
+  val emptyValue = Json.toJson({""->""})
+  val defaultValue = Json.toJson({"csrfToken"->"123"})
 }

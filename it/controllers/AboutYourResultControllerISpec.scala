@@ -20,10 +20,10 @@ class AboutYourResultControllerISpec extends IntegrationSpecBase with CreateRequ
 
     "Return a 403 on unsuccessful post" in {
 
-      lazy val res = postRequest("/disclaimer",defaultValue)
+      lazy val res = optionsRequest("/disclaimer")
 
       whenReady(res) { result =>
-        result.status shouldBe FORBIDDEN
+        result.status shouldBe NOT_FOUND
       }
 
     }
