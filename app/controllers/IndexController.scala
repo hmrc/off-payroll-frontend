@@ -23,13 +23,13 @@ import javax.inject.Inject
 
 import config.featureSwitch.FeatureSwitching
 import models.{NormalMode, UserAnswers}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.IndexPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
-class IndexController @Inject()(navigator: Navigator,
+class IndexController @Inject()(navigator: OldNavigator,
                                 identify: IdentifierAction,
                                 getData: DataRetrievalAction,
                                 cache: DataCacheConnector,

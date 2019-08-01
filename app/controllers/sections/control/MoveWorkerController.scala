@@ -28,7 +28,7 @@ import forms.MoveWorkerFormProvider
 import javax.inject.Inject
 
 import models.{Mode, MoveWorker}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -51,7 +51,7 @@ class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      compareAnswerService: CompareAnswerService,
                                      dataCacheConnector: DataCacheConnector,
                                      decisionService: DecisionService,
-                                     navigator: Navigator,
+                                     navigator: OldNavigator,
                                      implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

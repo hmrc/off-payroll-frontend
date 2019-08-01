@@ -23,7 +23,7 @@ import connectors.DataCacheConnector
 import javax.inject.Inject
 import models.requests.DataRequest
 import models._
-import navigation.Navigator
+import navigation.{Navigator, OldNavigator}
 import pages.sections.exit.OfficeHolderPage
 import pages.{PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.data.Form
@@ -35,8 +35,8 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 import scala.concurrent.{ExecutionContext, Future}
 
-abstract class BaseController @Inject()(mcc: MessagesControllerComponents,compareAnswerService: CompareAnswerService,
-                                        dataCacheConnector: DataCacheConnector,navigator: Navigator, decisionService: DecisionService)
+abstract class BaseController @Inject()(mcc: MessagesControllerComponents, compareAnswerService: CompareAnswerService,
+                                        dataCacheConnector: DataCacheConnector, navigator: Navigator, decisionService: DecisionService)
                                        (implicit frontendAppConfig: FrontendAppConfig)
   extends FrontendController(mcc) with I18nSupport with Enumerable.Implicits with FeatureSwitching {
 

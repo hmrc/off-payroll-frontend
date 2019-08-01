@@ -20,7 +20,6 @@ import controllers.actions.FakeIdentifierAction
 import play.api.http.Status
 import play.api.test.Helpers._
 import views.html.StartAgainView
-import views.html.subOptimised.results.FinancialRiskView
 
 class StartAgainControllerSpec extends ControllerSpecBase {
 

@@ -23,7 +23,7 @@ import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataR
 import forms.EquipmentExpensesFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
+
 import pages.sections.financialRisk.EquipmentExpensesPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -46,7 +46,7 @@ class EquipmentExpensesControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new EquipmentExpensesController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = fakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

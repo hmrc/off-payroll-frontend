@@ -37,11 +37,11 @@ import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.libs.json.Writes
 
-class NavigatorSpec extends GuiceAppSpecBase {
+class OldNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
 
-  val navigator = new Navigator
+  val navigator = new OldNavigator
   def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
   def setAnswers[A](answers: (QuestionPage[A], A)*)(implicit writes: Writes[A],aWrites: Writes[Answers[A]]) =
     answers.foldLeft(UserAnswers.apply("id"))((o, a) => o.set(a._1,0, a._2))

@@ -20,7 +20,7 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, WelshLanguage}
 import connectors.DataCacheConnector
-import navigation.Navigator
+import navigation.OldNavigator
 import play.api.i18n.Lang
 import play.api.mvc._
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
@@ -30,7 +30,7 @@ class LanguageSwitchController @Inject()(controllerComponents: MessagesControlle
                                          compareAnswerService: CompareAnswerService,
                                          dataCacheConnector: DataCacheConnector,
                                          decisionService: DecisionService,
-                                         navigator: Navigator,
+                                         navigator: OldNavigator,
                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

@@ -16,15 +16,14 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.EmployeesOverFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.EmployeesOverPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -34,7 +33,7 @@ import views.html.sections.setup.EmployeesOverView
 import scala.concurrent.Future
 
 class EmployeesOverController @Inject()(dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
+                                        navigator: SetupNavigator,
                                         identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,

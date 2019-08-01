@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.OtherExpensesFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.financialRisk.OtherExpensesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +33,7 @@ import views.html.sections.financialRisk.OtherExpensesView
 import scala.concurrent.Future
 
 class OtherExpensesController @Inject()(dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
+                                        navigator: OldNavigator,
                                         identify: IdentifierAction,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,

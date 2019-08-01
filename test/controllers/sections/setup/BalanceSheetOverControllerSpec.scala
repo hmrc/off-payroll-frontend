@@ -23,7 +23,6 @@ import controllers.actions._
 import forms.BalanceSheetOverFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
 import pages.BalanceSheetOverPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -46,7 +45,7 @@ class BalanceSheetOverControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new BalanceSheetOverController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = fakeSetupNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

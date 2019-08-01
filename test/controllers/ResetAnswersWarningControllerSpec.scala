@@ -16,10 +16,9 @@
 
 package controllers
 
-import assets.messages.{CheckYourAnswersMessages, ResetAnswersMessages}
+import assets.messages.ResetAnswersMessages
 import controllers.actions._
 import forms.ResetAnswersWarningFormProvider
-import navigation.FakeNavigator
 import play.api.test.Helpers._
 import views.html.ResetAnswersWarningView
 
@@ -30,7 +29,7 @@ class ResetAnswersWarningControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ResetAnswersWarningController(
-    new FakeNavigator(onwardRoute),
+    fakeNavigator,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),

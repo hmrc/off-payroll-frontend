@@ -24,7 +24,7 @@ import forms.WouldWorkerPaySubstituteFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models._
-import navigation.FakeNavigator
+
 import pages.sections.control.HowWorkIsDonePage
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import pages.sections.setup.AboutYouPage

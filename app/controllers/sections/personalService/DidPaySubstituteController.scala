@@ -25,7 +25,7 @@ import controllers.actions._
 import controllers.BaseController
 import forms.DidPaySubstituteFormProvider
 import models.Mode
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -47,7 +47,7 @@ class DidPaySubstituteController @Inject()(identify: IdentifierAction,
                                            compareAnswerService: CompareAnswerService,
                                            dataCacheConnector: DataCacheConnector,
                                            decisionService: DecisionService,
-                                           navigator: Navigator,
+                                           navigator: OldNavigator,
                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

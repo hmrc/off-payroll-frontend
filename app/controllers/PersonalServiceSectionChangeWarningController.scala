@@ -22,7 +22,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import javax.inject.Inject
 import models.{ArrangedSubstitute, CheckMode}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.{Page, PersonalServiceSectionChangeWarningPage}
 import pages.sections.personalService._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -31,7 +31,7 @@ import views.html.PersonalServiceSectionChangeWarningView
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import handlers.ErrorHandler
 
-class PersonalServiceSectionChangeWarningController @Inject()(navigator: Navigator,
+class PersonalServiceSectionChangeWarningController @Inject()(navigator: OldNavigator,
                                                               identify: IdentifierAction,
                                                               getData: DataRetrievalAction,
                                                               requireData: DataRequiredAction,

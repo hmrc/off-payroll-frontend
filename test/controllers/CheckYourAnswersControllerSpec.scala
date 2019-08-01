@@ -18,18 +18,11 @@ package controllers
 
 import assets.messages.CheckYourAnswersMessages
 import controllers.actions._
-import handlers.ErrorHandler
-import models.requests.DataRequest
 import models._
-import navigation.FakeNavigator
-import pages.ResultPage
 import pages.sections.exit.OfficeHolderPage
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import play.twirl.api.Html
+import services.CheckYourAnswersService
 import services.mocks.MockCheckYourAnswersValidationService
-import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService}
-import utils.FakeTimestamp
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYourAnswersValidationService {
@@ -38,7 +31,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
   val mockCheckAnswerService = app.injector.instanceOf[CheckYourAnswersService]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new CheckYourAnswersController(
-    new FakeNavigator(onwardRoute),
+    fakeNavigator,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),

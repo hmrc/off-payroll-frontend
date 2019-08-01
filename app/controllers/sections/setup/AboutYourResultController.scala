@@ -16,21 +16,20 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
+import javax.inject.Inject
 import models.NormalMode
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.sections.setup.AboutYourResultPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.AboutYourResultView
 
-class AboutYourResultController @Inject()(navigator: Navigator,
+class AboutYourResultController @Inject()(navigator: SetupNavigator,
                                           identify: IdentifierAction,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,

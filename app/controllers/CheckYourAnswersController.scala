@@ -22,14 +22,14 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import handlers.ErrorHandler
 import models._
-import navigation.Navigator
+import navigation.OldNavigator
 import Section.SectionEnum
 import pages.CheckYourAnswersPage
 import play.api.mvc._
 import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService, DecisionService}
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersController @Inject()(navigator: Navigator,
+class CheckYourAnswersController @Inject()(navigator: OldNavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,

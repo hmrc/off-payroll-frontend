@@ -23,7 +23,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.{ChooseWhereWorkFormProvider, ResetAnswersWarningFormProvider}
 import models._
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.CheckYourAnswersPage
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
@@ -33,7 +33,7 @@ import views.html.{CheckYourAnswersView, ResetAnswersWarningView}
 
 import scala.concurrent.Future
 
-class ResetAnswersWarningController @Inject()(navigator: Navigator,
+class ResetAnswersWarningController @Inject()(navigator: OldNavigator,
                                               identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,

@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.AddReferenceDetailsFormProvider
 import javax.inject.Inject
 import models.{Mode, NormalMode}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.{AddReferenceDetailsPage, ResultPage}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -37,7 +37,7 @@ class FinishedCheckingController @Inject()(identify: IdentifierAction,
                                            requireData: DataRequiredAction,
                                            controllerComponents: MessagesControllerComponents,
                                            finishedCheckingView: FinishedCheckingView,
-                                           navigator: Navigator,
+                                           navigator: OldNavigator,
                                            dataCacheConnector: DataCacheConnector,
                                            compareAnswerService: CompareAnswerService,
                                            decisionService: DecisionService,

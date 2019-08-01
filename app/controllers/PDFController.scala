@@ -27,7 +27,7 @@ import javax.inject.Inject
 import models.Answers._
 import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Mode, NormalMode, Timestamp}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.Logger
 import play.api.data.Form
@@ -41,7 +41,7 @@ import views.html.{AddDetailsView, CustomisePDFView}
 import scala.concurrent.{ExecutionException, Future}
 
 class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
-                              navigator: Navigator,
+                              navigator: OldNavigator,
                               identify: IdentifierAction,
                               getData: DataRetrievalAction,
                               requireData: DataRequiredAction,

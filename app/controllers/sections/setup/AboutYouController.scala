@@ -17,7 +17,6 @@
 package controllers.sections.setup
 
 import javax.inject.Inject
-
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
@@ -26,7 +25,7 @@ import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models.requests.DataRequest
 import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
-import navigation.Navigator
+import navigation.{OldNavigator, SetupNavigator}
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.mvc._
@@ -49,7 +48,7 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    compareAnswerService: CompareAnswerService,
                                    dataCacheConnector: DataCacheConnector,
                                    decisionService: DecisionService,
-                                   navigator: Navigator,
+                                   navigator: SetupNavigator,
                                    implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents,
   compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
 

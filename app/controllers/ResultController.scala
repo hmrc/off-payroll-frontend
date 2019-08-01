@@ -24,7 +24,7 @@ import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import javax.inject.Inject
 import models.requests.DataRequest
 import models.{NormalMode, Timestamp, UserAnswers}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.{ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -40,7 +40,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  decisionService: DecisionService,
                                  formProvider: DeclarationFormProvider,
                                  formProviderPDF: DownloadPDFCopyFormProvider,
-                                 navigator: Navigator,
+                                 navigator: OldNavigator,
                                  dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,

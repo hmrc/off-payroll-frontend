@@ -17,15 +17,14 @@
 package controllers.sections.setup
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.IsWorkForPrivateSectorFormProvider
 import javax.inject.Inject
-
-import config.featureSwitch.FeatureSwitching
 import models.Mode
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.sections.setup.IsWorkForPrivateSectorPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -35,7 +34,7 @@ import views.html.sections.setup.IsWorkForPrivateSectorView
 import scala.concurrent.Future
 
 class IsWorkForPrivateSectorController @Inject()(dataCacheConnector: DataCacheConnector,
-                                                 navigator: Navigator,
+                                                 navigator: SetupNavigator,
                                                  identify: IdentifierAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,

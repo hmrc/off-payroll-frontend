@@ -23,9 +23,10 @@ import akka.util.ByteString
 import base.GuiceAppSpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import handlers.mocks.MockErrorHandler
-import models.UserAnswers
-import navigation.FakeNavigator
+import models.{Mode, UserAnswers}
+import navigation.{Navigator, OldNavigator, SetupNavigator}
 import org.jsoup.Jsoup
+import pages.Page
 import play.api.mvc.{Call, Result}
 import services.mocks._
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -35,12 +36,18 @@ import scala.concurrent.Future
 trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
   with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService {
 
-  def onwardRoute = Call("POST", "/foo")
+  val onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")
 
   val cacheMapId = "id"
 
-  val fakeNavigator = new FakeNavigator(onwardRoute)
+  val fakeNavigator = new OldNavigator()(frontendAppConfig) {
+    override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => onwardRoute
+  }
+
+  val fakeSetupNavigator = new SetupNavigator()(frontendAppConfig) {
+    override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => onwardRoute
+  }
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
 

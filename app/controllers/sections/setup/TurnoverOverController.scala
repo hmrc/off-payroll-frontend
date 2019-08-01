@@ -16,15 +16,14 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.TurnoverOverFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.TurnoverOverPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -34,7 +33,7 @@ import views.html.sections.setup.TurnoverOverView
 import scala.concurrent.Future
 
 class TurnoverOverController @Inject()(dataCacheConnector: DataCacheConnector,
-                                       navigator: Navigator,
+                                       navigator: SetupNavigator,
                                        identify: IdentifierAction,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,

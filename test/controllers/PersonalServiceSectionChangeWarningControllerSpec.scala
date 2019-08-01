@@ -24,7 +24,6 @@ import pages.PersonalServiceSectionChangeWarningPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.personalService._
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.PersonalServiceSectionChangeWarningView
 
 class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBase {

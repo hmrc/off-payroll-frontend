@@ -16,14 +16,13 @@
 
 package controllers.sections.setup
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
 import models._
 import models.requests.DataRequest
-import pages.sections.control.MoveWorkerPage
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -56,7 +55,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
       decisionService = mockDecisionService,
-      navigator = fakeNavigator,
+      navigator = fakeSetupNavigator,
       frontendAppConfig
     )
 

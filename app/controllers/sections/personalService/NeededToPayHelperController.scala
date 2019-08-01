@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 import connectors.DataCacheConnector
 import models.Mode
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -47,7 +47,7 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             compareAnswerService: CompareAnswerService,
                                             dataCacheConnector: DataCacheConnector,
                                             decisionService: DecisionService,
-                                            navigator: Navigator,
+                                            navigator: OldNavigator,
                                             implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

@@ -25,7 +25,7 @@ import javax.inject.Inject
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import models.Mode
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -44,7 +44,7 @@ class InteractWithStakeholdersController @Inject()(identify: IdentifierAction,
                                                    compareAnswerService: CompareAnswerService,
                                                    dataCacheConnector: DataCacheConnector,
                                                    decisionService: DecisionService,
-                                                   navigator: Navigator,
+                                                   navigator: OldNavigator,
                                                    implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

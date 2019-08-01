@@ -23,7 +23,6 @@ import controllers.actions._
 import forms.TurnoverOverFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
 import pages.TurnoverOverPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -46,7 +45,7 @@ override def beforeEach(): Unit = {
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new TurnoverOverController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = fakeSetupNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

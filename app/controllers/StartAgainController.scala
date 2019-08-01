@@ -21,7 +21,7 @@ import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions.IdentifierAction
-import navigation.Navigator
+import navigation.OldNavigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -34,7 +34,7 @@ class StartAgainController @Inject()(identify: IdentifierAction,
                                      compareAnswerService: CompareAnswerService,
                                      dataCacheConnector: DataCacheConnector,
                                      decisionService: DecisionService,
-                                     navigator: Navigator,
+                                     navigator: OldNavigator,
                                      implicit val appConfig: FrontendAppConfig) extends BaseController(
 controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 

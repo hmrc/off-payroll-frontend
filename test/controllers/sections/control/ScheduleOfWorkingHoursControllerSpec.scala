@@ -24,7 +24,7 @@ import forms.ScheduleOfWorkingHoursFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models.{Answers, HowWorkerIsPaid, NormalMode, ScheduleOfWorkingHours}
-import navigation.FakeNavigator
+
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.HowWorkerIsPaidPage

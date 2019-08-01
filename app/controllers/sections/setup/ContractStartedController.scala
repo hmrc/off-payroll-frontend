@@ -16,17 +16,15 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
-import controllers.BaseController
 import forms.ContractStartedFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -46,7 +44,7 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
                                           decisionService: DecisionService,
-                                          navigator: Navigator,
+                                          navigator: SetupNavigator,
                                           implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

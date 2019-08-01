@@ -17,14 +17,13 @@
 package controllers
 
 import controllers.actions.FakeIdentifierAction
-import navigation.FakeNavigator
 import play.api.http.Status
 import play.api.test.Helpers._
 
 class ExitSurveyControllerSpec extends ControllerSpecBase {
 
   object TestExitSurveyController extends ExitSurveyController(
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = fakeNavigator,
     identify = FakeIdentifierAction,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig

@@ -9,7 +9,7 @@ import config.FrontendAppConfig
 import forms.$className$FormProvider
 import models.{Enumerable, Mode}
 import pages.$className$Page
-import navigation.Navigator
+import navigation.OldNavigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.$className$View
 
@@ -17,7 +17,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class $className$Controller @Inject()(appConfig: FrontendAppConfig,
                                       dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
+                                      navigator: OldNavigator,
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,

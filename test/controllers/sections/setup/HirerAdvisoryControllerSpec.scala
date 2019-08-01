@@ -18,8 +18,6 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import navigation.FakeNavigator
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.sections.setup.HirerAdvisoryView
 
@@ -38,7 +36,7 @@ class HirerAdvisoryControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = fakeSetupNavigator
   )
 
   def viewAsString = view(

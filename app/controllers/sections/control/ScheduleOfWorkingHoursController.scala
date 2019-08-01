@@ -25,7 +25,7 @@ import controllers.actions._
 import controllers.BaseController
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.{Mode, ScheduleOfWorkingHours}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
@@ -47,7 +47,7 @@ class ScheduleOfWorkingHoursController @Inject()(identify: IdentifierAction,
                                                  compareAnswerService: CompareAnswerService,
                                                  dataCacheConnector: DataCacheConnector,
                                                  decisionService: DecisionService,
-                                                 navigator: Navigator,
+                                                 navigator: OldNavigator,
                                                  implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

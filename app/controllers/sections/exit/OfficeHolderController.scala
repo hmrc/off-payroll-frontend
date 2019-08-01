@@ -24,7 +24,7 @@ import forms.OfficeHolderFormProvider
 import javax.inject.Inject
 import connectors.DataCacheConnector
 import models.{CheckMode, Mode, NormalMode}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.Logger
 import play.api.data.Form
@@ -47,7 +47,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        compareAnswerService: CompareAnswerService,
                                        dataCacheConnector: DataCacheConnector,
                                        decisionService: DecisionService,
-                                       navigator: Navigator,
+                                       navigator: OldNavigator,
                                        implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

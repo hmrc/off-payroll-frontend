@@ -28,7 +28,7 @@ import forms.HowWorkIsDoneFormProvider
 import javax.inject.Inject
 
 import models.{HowWorkIsDone, Mode}
-import navigation.Navigator
+import navigation.OldNavigator
 import pages.sections.control.HowWorkIsDonePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -51,7 +51,7 @@ class HowWorkIsDoneController @Inject()(identify: IdentifierAction,
                                         compareAnswerService: CompareAnswerService,
                                         dataCacheConnector: DataCacheConnector,
                                         decisionService: DecisionService,
-                                        navigator: Navigator,
+                                        navigator: OldNavigator,
                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

@@ -17,15 +17,14 @@
 package controllers.sections.setup
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
+import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import javax.inject.Inject
-
-import config.featureSwitch.FeatureSwitching
-import connectors.DataCacheConnector
+import models.WhichDescribesYouAnswer
 import models.WhichDescribesYouAnswer.ClientPAYE
-import models.{Answers, WhichDescribesYouAnswer}
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.sections.setup.WhichDescribesYouPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
@@ -40,7 +39,7 @@ class ToolNotNeededController @Inject()(identify: IdentifierAction,
                                         compareAnswerService: CompareAnswerService,
                                         dataCacheConnector: DataCacheConnector,
                                         decisionService: DecisionService,
-                                        navigator: Navigator,
+                                        navigator: SetupNavigator,
                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

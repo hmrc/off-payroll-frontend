@@ -24,8 +24,7 @@ import controllers.actions._
 import forms.CustomisePDFFormProvider
 import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Answers, NormalMode}
-import navigation.FakeNavigator
-import pages.{BalanceSheetOverPage, CustomisePDFPage, ResultPage, Timestamp}
+import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.libs.json.{JsString, Json}
 import play.api.test.Helpers._
@@ -55,7 +54,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
     mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
+    fakeNavigator,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
@@ -76,7 +75,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
   def optController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
     mockDataCacheConnector,
-    new FakeNavigator(onwardRoute),
+    fakeNavigator,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
