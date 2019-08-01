@@ -1110,7 +1110,7 @@ result.indeterminate.shouldNowDo.bullet1 =ar y ffôn ar 0300 123 2326
 result.indeterminate.shouldNowDo.bullet2 =drwy e-bost yn
 result.indeterminate.shouldNowDo.p2.beforeLink =Gallwch, hefyd, ddarllen yr
 ##### TODO NEED WELSH FOR ####
-result.indeterminate.shouldNowDo.p2.link = Employment Status Manual
+result.indeterminate.shouldNowDo.p2.link = Canllaw Statws Cyflogaeth
 
 # Inside IR35
 result.insideIR35.title =Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
