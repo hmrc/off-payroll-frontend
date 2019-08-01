@@ -50,4 +50,5 @@ trait IntegrationSpecBase extends WordSpec
 
   def redirectLocation(response: WSResponse) = response.header(HeaderNames.LOCATION)
 
+
 }

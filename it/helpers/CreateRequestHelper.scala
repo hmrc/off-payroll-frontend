@@ -24,13 +24,13 @@ trait CreateRequestHelper extends ServerProvider {
   lazy val sessionId = "id"
 
   val cookies: String = {
-    val session = Session(Map(SessionKeys.sessionId -> sessionId))
+    val session = Session(Map(SessionKeys.sessionId -> sessionId,"CSRF-Token"->"123"))
     val cookies = Seq(Session.encodeAsCookie(session))
     Cookies.encodeCookieHeader(cookies)
   }
 
   def buildRequest(path: String, followRedirect: Boolean = false): WSRequest = {
-    ws.url(s"http://localhost:$port$path")
+    ws.url(s"http://localhost:$port/check-employment-status-for-tax$path")
       .withHttpHeaders(HMRCHeaderNames.xSessionId -> sessionId, HeaderNames.COOKIE -> cookies)
       .withFollowRedirects(followRedirect)
   }
