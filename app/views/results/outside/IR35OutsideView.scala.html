@@ -73,7 +73,7 @@
 @whyResult = {
 
         @if(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 1){
-        <p class="form-group">@messages(singleOutReason(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))</p>
+        <p class="form-group">@messages(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).head)</p>
         } else {
             <p>@messages(tailorMsgOptimised("result.outside.ir35.whyResult.p1"))</p>
             @components.bulleted_list(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
