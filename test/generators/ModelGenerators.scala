@@ -97,4 +97,24 @@ trait ModelGenerators {
     Arbitrary {
       Gen.oneOf(WorkerType.values)
     }
+
+  implicit lazy val arbitraryExclusiveContract: Arbitrary[ExclusiveContract] =
+    Arbitrary {
+      Gen.oneOf(ExclusiveContract.values)
+    }
+
+  implicit lazy val arbitrarySeriesOfContracts: Arbitrary[SeriesOfContracts] =
+    Arbitrary {
+      Gen.oneOf(SeriesOfContracts.values)
+    }
+
+  implicit lazy val arbitraryTransferRights: Arbitrary[TransferRights] =
+    Arbitrary {
+      Gen.oneOf(TransferRights.values)
+    }
+
+  implicit lazy val arbitraryMultipleEngagements: Arbitrary[MultipleEngagements] =
+    Arbitrary {
+      Gen.oneOf(MultipleEngagements.values)
+    }
 }
