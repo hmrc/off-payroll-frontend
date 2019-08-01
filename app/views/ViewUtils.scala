@@ -73,7 +73,7 @@ object ViewUtils extends FeatureSwitching {
   }
 
   def singleOutReason(outType: ResultType, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
-                     (implicit request: Request[_], appConfig: FrontendAppConfig): String = {
+                     (implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
 
 
 
@@ -86,9 +86,9 @@ object ViewUtils extends FeatureSwitching {
       }
 
       Seq(
-        if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWork") else None,
-        if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWork") else None,
-        if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None
+        if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWorkOnlyReason") else None,
+        if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWorkOnlyReason") else None,
+        if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaimOnlyReason") else None
       ).flatten.head
 
 
