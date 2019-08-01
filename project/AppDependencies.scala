@@ -30,8 +30,9 @@ object AppDependencies {
     "org.mockito" % "mockito-all" % "1.10.19",
     "org.scalacheck" %% "scalacheck" % "1.13.4",
     "com.github.tomakehurst" % "wiremock-jre8" % "2.21.0",
-    "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0"
-  ).map(_ % Test)
+    "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0",
+    "com.github.tomakehurst" % "wiremock-standalone" % "2.22.0"
+  ).map(_ % "test, it")
 
   def apply() = compile ++ test
 }
