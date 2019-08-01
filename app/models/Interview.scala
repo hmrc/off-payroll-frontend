@@ -20,11 +20,11 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import models.CannotClaimAsExpense._
 import models.IdentifyToStakeholders.WouldNotHappen
+import models.Interview.jsonObjNoNulls
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
 import pages.QuestionPage
-import pages.sections.businessOnOwnAccount.{ExclusiveContractPage, MultipleEngagementsPage,
-  SeriesOfContractsPage, SignificantWorkingTimePage, TransferRightsPage}
+import pages.sections.businessOnOwnAccount.{ExclusiveContractPage, MultipleEngagementsPage, SeriesOfContractsPage, SignificantWorkingTimePage, TransferRightsPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{VehiclePage, _}
@@ -138,6 +138,13 @@ object NewInterview extends JsonObjectSugar with FeatureSwitching {
           "workerAsLineManager" -> model.workerAsLineManager,
           "contactWithEngagerCustomer" -> model.contactWithEngagerCustomer,
           "workerRepresentsEngagerBusiness" -> model.workerRepresentsEngagerBusiness
+        ),
+        "businessOnOwnAccount" -> jsonObjNoNulls(
+          "exclusiveContract" -> model.exclusiveContract,
+          "transferRights" -> model.transferRights,
+          "multipleEngagements" -> model.multipleEngagements,
+          "significantWorkingTime" -> model.significantWorkingTime,
+          "seriesOfContracts" -> model.seriesOfContracts
         )
       )
     )
@@ -197,13 +204,6 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
           "workerAsLineManager" -> model.workerAsLineManager,
           "contactWithEngagerCustomer" -> model.contactWithEngagerCustomer,
           "workerRepresentsEngagerBusiness" -> model.workerRepresentsEngagerBusiness
-        ),
-        "businessOnOwnAccount" -> jsonObjNoNulls(
-          "exclusiveContract" -> model.exclusiveContract,
-          "transferRights" -> model.transferRights,
-          "multipleEngagements" -> model.multipleEngagements,
-          "significantWorkingTime" -> model.significantWorkingTime,
-          "seriesOfContracts" -> model.seriesOfContracts
         )
       )
     )

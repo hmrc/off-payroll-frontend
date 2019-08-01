@@ -664,6 +664,9 @@ class InterviewSpec extends SpecBase {
               "workerAsLineManager" -> false,
               "contactWithEngagerCustomer" -> false,
               "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+            ),
+            "businessOnOwnAccount" -> Json.obj(
+
             )
           )
         )
@@ -747,12 +750,97 @@ class InterviewSpec extends SpecBase {
               "workerAsLineManager" -> "No",
               "contactWithEngagerCustomer" -> "No",
               "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+            )
+          )
+        )
+
+        val actual = Json.toJson(model)
+
+        actual mustBe expected
+      }
+
+      "the maximum model is supplied with new writes" in {
+
+        implicit val writes: Writes[Interview] = NewInterview.writes
+
+        val model = Interview(
+          correlationId = "id",
+          endUserRole = Some(UserType.Worker),
+          hasContractStarted = Some(true),
+          provideServices = Some(SoleTrader),
+          officeHolder = Some(false),
+          workerSentActualSubstitute = Some(YesClientAgreed),
+          workerPayActualSubstitute = Some(false),
+          possibleSubstituteRejection = Some(false),
+          possibleSubstituteWorkerPay = Some(true),
+          wouldWorkerPayHelper = Some(false),
+          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
+          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
+          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
+          workerDecideWhere = Some(WorkerAgreeWithOthers),
+          workerProvidedMaterials = Some(false),
+          workerProvidedEquipment = Some(false),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(false),
+          workerMainIncome = Some(Commission),
+          paidForSubstandardWork = Some(CannotBeCorrected),
+          workerReceivesBenefits = Some(false),
+          workerAsLineManager = Some(false),
+          contactWithEngagerCustomer = Some(false),
+          workerRepresentsEngagerBusiness = Some(WorkAsIndependent),
+          exclusiveContract = Some(AbleToProvideServices),
+          transferRights = Some(AbleToTransferRights),
+          multipleEngagements = Some(NoKnowledgeOfExternalActivity),
+          significantWorkingTime = Some(true),
+          seriesOfContracts = Some(ContractCouldBeExtended)
+        )
+
+        val expected = Json.obj(
+          "version" -> "1.5.0-final",
+          "correlationID" -> "id",
+          "interview" -> Json.obj(
+            "setup" -> Json.obj(
+              "endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> true,
+              "provideServices" -> "soleTrader"
+            ),
+            "exit" -> Json.obj(
+              "officeHolder" -> false
+            ),
+            "personalService" -> Json.obj(
+              "workerSentActualSubstitute" -> "yesClientAgreed",
+              "workerPayActualSubstitute" -> false,
+              "possibleSubstituteRejection" -> "wouldNotReject",
+              "possibleSubstituteWorkerPay" -> true,
+              "wouldWorkerPayHelper" -> false
+            ),
+            "control" -> Json.obj(
+              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+              "workerDecideWhere" -> "workerAgreeWithOthers"
+            ),
+            "financialRisk" -> Json.obj(
+              "workerProvidedMaterials" -> false,
+              "workerProvidedEquipment" -> false,
+              "workerUsedVehicle" -> true,
+              "workerHadOtherExpenses" -> true,
+              "expensesAreNotRelevantForRole" -> false,
+              "workerMainIncome" -> "incomeCommission",
+              "paidForSubstandardWork" -> "cannotBeCorrected"
+            ),
+            "partAndParcel" -> Json.obj(
+              "workerReceivesBenefits" -> false,
+              "workerAsLineManager" -> false,
+              "contactWithEngagerCustomer" -> false,
+              "workerRepresentsEngagerBusiness" -> "workAsIndependent"
             ),
             "businessOnOwnAccount" -> Json.obj(
               "exclusiveContract" -> "ableToProvideServices",
               "transferRights" -> "ableToTransferRights",
               "multipleEngagements" -> "noKnowledgeOfExternalActivity",
-              "significantWorkingTime" -> "Yes",
+              "significantWorkingTime" -> true,
               "seriesOfContracts" -> "contractCouldBeExtended"
             )
           )
@@ -764,6 +852,8 @@ class InterviewSpec extends SpecBase {
       }
 
       "the minimum model is supplied" in {
+
+        implicit val writes: Writes[Interview] = NewInterview.writes
 
         val model = Interview("id")
 
