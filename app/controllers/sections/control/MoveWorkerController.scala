@@ -16,26 +16,21 @@
 
 package controllers.sections.control
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
-import controllers.BaseController
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.MoveWorkerFormProvider
 import javax.inject.Inject
-
 import models.{Mode, MoveWorker}
-import navigation.OldNavigator
+import navigation.ControlNavigator
 import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import views.html.sections.control.MoveWorkerView
-import play.api.mvc._
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
 import play.twirl.api.HtmlFormat
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import views.html.sections.control.MoveWorkerView
 import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future
@@ -51,7 +46,7 @@ class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      compareAnswerService: CompareAnswerService,
                                      dataCacheConnector: DataCacheConnector,
                                      decisionService: DecisionService,
-                                     navigator: OldNavigator,
+                                     navigator: ControlNavigator,
                                      implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

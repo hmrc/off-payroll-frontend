@@ -22,11 +22,10 @@ import controllers.actions._
 import controllers.BaseController
 import forms.PutRightAtOwnCostFormProvider
 import javax.inject.Inject
-
 import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{Mode, PutRightAtOwnCost}
-import navigation.OldNavigator
+import navigation.{FinancialRiskNavigator, OldNavigator}
 import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -48,7 +47,7 @@ class PutRightAtOwnCostController @Inject()(identify: IdentifierAction,
                                             compareAnswerService: CompareAnswerService,
                                             dataCacheConnector: DataCacheConnector,
                                             decisionService: DecisionService,
-                                            navigator: OldNavigator,
+                                            navigator: FinancialRiskNavigator,
                                             implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

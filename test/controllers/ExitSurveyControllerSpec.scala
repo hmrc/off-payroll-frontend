@@ -23,7 +23,7 @@ import play.api.test.Helpers._
 class ExitSurveyControllerSpec extends ControllerSpecBase {
 
   object TestExitSurveyController extends ExitSurveyController(
-    navigator = fakeNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig

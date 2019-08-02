@@ -45,7 +45,7 @@ class EmployeesOverControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new EmployeesOverController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = fakeSetupNavigator,
+    navigator = FakeSetupNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

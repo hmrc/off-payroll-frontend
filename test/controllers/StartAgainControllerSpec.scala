@@ -34,7 +34,7 @@ class StartAgainControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeNavigator
   )
 
   "StartAgainController.redirectToExitSurvey" should {

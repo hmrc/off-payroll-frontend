@@ -23,7 +23,7 @@ import controllers.BaseController
 import controllers.actions._
 import forms.MaterialsFormProvider
 import models.Mode
-import navigation.OldNavigator
+import navigation.{FinancialRiskNavigator, OldNavigator}
 import pages.sections.financialRisk.MaterialsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +33,7 @@ import views.html.sections.financialRisk.MaterialsView
 import scala.concurrent.Future
 
 class MaterialsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                    navigator: OldNavigator,
+                                    navigator: FinancialRiskNavigator,
                                     identify: IdentifierAction,
                                     getData: DataRetrievalAction,
                                     requireData: DataRequiredAction,

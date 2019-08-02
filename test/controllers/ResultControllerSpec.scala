@@ -74,7 +74,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
     injector.instanceOf[DecisionService],
     formProvider,
     formProviderPDF,
-    fakeNavigator,
+    FakeNavigator,
     mockDataCacheConnector,
     FakeTimestamp,
     mockCompareAnswerService,

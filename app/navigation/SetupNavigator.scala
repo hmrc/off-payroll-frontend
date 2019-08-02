@@ -38,66 +38,65 @@ import pages.sections.setup._
 import pages.{CustomisePDFPage, _}
 import play.api.mvc.Call
 
+//noinspection ScalaStyle
 @Singleton
 class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
-  private val isWorker: UserAnswers => Boolean = _.get(WhichDescribesYouPage) match {
-    case Some(Answers(WorkerPAYE, _)) => true
-    case Some(Answers(WorkerIR35, _)) => true
-    case Some(Answers(ClientPAYE, _)) => false
-    case Some(Answers(ClientIR35, _)) => false
+  private val isWorker: UserAnswers => Boolean = _.getAnswer(WhichDescribesYouPage) match {
+    case Some(WorkerPAYE) => true
+    case Some(WorkerIR35) => true
+    case Some(ClientPAYE) => false
+    case Some(ClientIR35) => false
     case _ => true
   }
 
   private def isSmallBusiness(answers: UserAnswers): Boolean =
-    (answers.get(TurnoverOverPage), answers.get(EmployeesOverPage), answers.get(BalanceSheetOverPage)) match {
-      case (Some(Answers(false, _)), Some(Answers(false, _)), _) => true
-      case (_, Some(Answers(false, _)), Some(Answers(false, _))) => true
-      case (Some(Answers(false, _)),_ , Some(Answers(false, _))) => true
+    (answers.getAnswer(TurnoverOverPage), answers.getAnswer(EmployeesOverPage), answers.getAnswer(BalanceSheetOverPage)) match {
+      case (Some(false), Some(false), _) => true
+      case (_, Some(false), Some(false)) => true
+      case (Some(false), _, Some(false)) => true
       case _ => false
     }
 
-  private def businessSizeNextPage(answers: UserAnswers)(implicit mode: Mode): Call = (isSmallBusiness(answers), isWorker(answers)) match {
+  private def businessSizeNextPage(answers: UserAnswers): Call = (isSmallBusiness(answers), isWorker(answers)) match {
     case (true, false) => setupRoutes.ToolNotNeededController.onPageLoad()
     case (_, false) => setupRoutes.HirerAdvisoryController.onPageLoad()
-    case (_, true) => setupRoutes.ContractStartedController.onPageLoad(mode)
+    case (_, true) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
   }
 
-  private def optimisedSetupRouteMap(implicit mode: Mode): Map[Page, UserAnswers => Call] = Map(
+  private val optimisedSetupRouteMap: Map[Page, UserAnswers => Call] = Map(
     //Initialisation Section
     IndexPage -> (_ => setupRoutes.AboutYourResultController.onPageLoad()),
 
     //Setup Section
-    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(mode)),
-    WhichDescribesYouPage -> (answers => answers.get(WhichDescribesYouPage) match {
-      case Some(Answers(Agency, _)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
-      case _ => setupRoutes.WorkerTypeController.onPageLoad(mode)
+    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
+    WhichDescribesYouPage -> (answers => answers.getAnswer(WhichDescribesYouPage) match {
+      case Some(Agency) => setupRoutes.AgencyAdvisoryController.onPageLoad()
+      case _ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
     }),
-    AgencyAdvisoryPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(mode)),
-    WorkerUsingIntermediaryPage -> (answers => answers.get(WorkerUsingIntermediaryPage) match {
-      case Some(Answers(true, _)) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(mode)
-      case _ => setupRoutes.ContractStartedController.onPageLoad(mode)
+    AgencyAdvisoryPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
+    WorkerUsingIntermediaryPage -> (answers => answers.getAnswer(WorkerUsingIntermediaryPage) match {
+      case Some(true) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
+      case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
     }),
     IsWorkForPrivateSectorPage -> (answers => {
-      (answers.get(IsWorkForPrivateSectorPage), isWorker(answers)) match {
-        case (Some(Answers(true, _)), _) => setupRoutes.TurnoverOverController.onPageLoad(mode)
-        case (Some(Answers(false, _)), true) => setupRoutes.WorkerAdvisoryController.onPageLoad()
-        case (Some(Answers(false, _)), false) => setupRoutes.ContractStartedController.onPageLoad(mode)
-        case (_, _) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(mode)
+      (answers.getAnswer(IsWorkForPrivateSectorPage), isWorker(answers)) match {
+        case (Some(true), _) => setupRoutes.TurnoverOverController.onPageLoad(NormalMode)
+        case (Some(false), true) => setupRoutes.WorkerAdvisoryController.onPageLoad()
+        case (_, _) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       }
     }),
-    TurnoverOverPage -> (_ => setupRoutes.EmployeesOverController.onPageLoad(mode)),
+    TurnoverOverPage -> (_ => setupRoutes.EmployeesOverController.onPageLoad(NormalMode)),
     EmployeesOverPage -> (answers => {
-      (answers.get(TurnoverOverPage), answers.get(EmployeesOverPage)) match {
-        case (Some(Answers(true, _)), Some(Answers(true, _))) => businessSizeNextPage(answers)
-        case (Some(Answers(false, _)), Some(Answers(false, _))) => businessSizeNextPage(answers)
-        case _ => setupRoutes.BalanceSheetOverController.onPageLoad(mode)
+      (answers.getAnswer(TurnoverOverPage), answers.getAnswer(EmployeesOverPage)) match {
+        case (Some(a), Some(b)) if a == b => businessSizeNextPage(answers)
+        case _ => setupRoutes.BalanceSheetOverController.onPageLoad(NormalMode)
       }
     }),
     BalanceSheetOverPage -> businessSizeNextPage,
-    WorkerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(mode)),
-    HirerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(mode)),
-    ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(mode))
+    WorkerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
+    HirerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
+    ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )
 
   private val setupRouteMap: Map[Page, UserAnswers => Call] = Map(
@@ -111,12 +110,8 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
     WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )
 
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
-    case NormalMode =>
-      val routing = if (isEnabled(OptimisedFlow)) optimisedSetupRouteMap(NormalMode) else setupRouteMap
-      routing.getOrElse(page, _ => IndexController.onPageLoad())
-    case CheckMode =>
-      val changeRouting = optimisedSetupRouteMap(CheckMode)
-      changeRouting.getOrElse(page, _ => IndexController.onPageLoad())
+  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = {
+    val routing = if (isEnabled(OptimisedFlow)) optimisedSetupRouteMap else setupRouteMap
+    routing.getOrElse(page, _ => IndexController.onPageLoad())
   }
 }

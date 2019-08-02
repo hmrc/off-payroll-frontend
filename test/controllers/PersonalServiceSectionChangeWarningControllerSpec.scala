@@ -31,7 +31,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
   val view = injector.instanceOf[PersonalServiceSectionChangeWarningView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PersonalServiceSectionChangeWarningController(
-    navigator = fakeNavigator,
+    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

@@ -27,7 +27,7 @@ class IndexControllerSpec extends ControllerSpecBase {
 
       object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
-        navigator = fakeNavigator,
+        navigator = FakeNavigator,
         identify = FakeIdentifierAction,
         getData = FakeEmptyCacheMapDataRetrievalAction,
         cache = mockDataCacheConnector,
@@ -54,7 +54,7 @@ class IndexControllerSpec extends ControllerSpecBase {
 
       object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
-        navigator = fakeNavigator,
+        navigator = FakeNavigator,
         identify = FakeIdentifierAction,
         getData = FakeDontGetDataDataRetrievalAction,
         cache = mockDataCacheConnector,

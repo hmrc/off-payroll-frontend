@@ -24,7 +24,7 @@ import base.GuiceAppSpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import handlers.mocks.MockErrorHandler
 import models.{Mode, UserAnswers}
-import navigation.{Navigator, OldNavigator, SetupNavigator}
+import navigation.{ControlNavigator, FinancialRiskNavigator, Navigator, OldNavigator, SetupNavigator}
 import org.jsoup.Jsoup
 import pages.Page
 import play.api.mvc.{Call, Result}
@@ -41,13 +41,14 @@ trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with 
 
   val cacheMapId = "id"
 
-  val fakeNavigator = new OldNavigator()(frontendAppConfig) {
+  trait FakeNavigator extends Navigator {
     override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => onwardRoute
   }
 
-  val fakeSetupNavigator = new SetupNavigator()(frontendAppConfig) {
-    override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => onwardRoute
-  }
+  object FakeNavigator extends OldNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeSetupNavigator extends SetupNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeControlNavigator extends ControlNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeFinancialRiskNavigator extends FinancialRiskNavigator()(frontendAppConfig) with FakeNavigator
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
 

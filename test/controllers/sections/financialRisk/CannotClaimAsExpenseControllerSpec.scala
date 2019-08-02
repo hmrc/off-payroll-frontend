@@ -54,7 +54,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator,
+    navigator = FakeFinancialRiskNavigator,
     appConfig = frontendAppConfig
   )
 

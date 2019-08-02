@@ -34,7 +34,7 @@ class FinishedCheckingControllerSpec extends ControllerSpecBase {
     dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     finishedCheckingView = view,
-    navigator = fakeNavigator,
+    navigator = FakeNavigator,
     dataCacheConnector = mockDataCacheConnector,
     controllerComponents = messagesControllerComponents,
     compareAnswerService = mockCompareAnswerService,

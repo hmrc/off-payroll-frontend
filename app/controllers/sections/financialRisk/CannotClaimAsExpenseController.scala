@@ -20,11 +20,10 @@ import controllers.actions._
 import controllers.BaseController
 import forms.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
-
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import models.Mode
-import navigation.OldNavigator
+import navigation.{FinancialRiskNavigator, OldNavigator}
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
@@ -42,7 +41,7 @@ class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
                                                compareAnswerService: CompareAnswerService,
                                                dataCacheConnector: DataCacheConnector,
                                                decisionService: DecisionService,
-                                               navigator: OldNavigator,
+                                               navigator: FinancialRiskNavigator,
                                                implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

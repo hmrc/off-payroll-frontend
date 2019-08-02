@@ -52,7 +52,7 @@ class LineManagerDutiesControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator,
+    navigator = FakeNavigator,
     appConfig = frontendAppConfig
   )
 
