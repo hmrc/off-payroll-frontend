@@ -1438,6 +1438,9 @@ worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your busines
 worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute to do this work.
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## Outside PAYE Decision Worker
 ## ------------------
@@ -1450,6 +1453,9 @@ worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your clien
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
+worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute to do this work.
+worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## Inside Agent
 ## ------------------
@@ -1610,6 +1616,9 @@ hirer.optimised.result.outside.ir35.private.doNext.p2 = From April 2020, if you 
 hirer.optimised.result.outside.ir35.private.doNext.p3 = If the fee-payer is someone else, then you would need to show this determination to them.
 hirer.optimised.result.outside.ir35.public.doNext.p1 = If you are the fee-payer you need to pay the worker’s business gross, without deducting tax and National Insurance.
 hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## ------------------
 ## Out Agent
@@ -1623,6 +1632,9 @@ agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate�
 agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 agent.optimised.result.outside.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us your candidate’s client has accepted, or would accept, a substitute to do this work.
+agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us your candidate’s client does not have control over this work.
+agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ##TODO: Need Welsh
 hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this job
@@ -1633,6 +1645,9 @@ hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not 
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged
 hirer.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean the worker is self-employed for tax purposes.
 hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged.
 
 pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
 pdfDetails.client.error.maxLength = The client name must be {0} characters or less
