@@ -16,18 +16,16 @@
 
 package controllers.actions
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import play.api.mvc.{BaseController, ControllerComponents}
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.SessionKeys
 
-import scala.concurrent.ExecutionContext.Implicits.global
-
-class SessionActionSpec extends SpecBase {
+class SessionActionSpec extends GuiceAppSpecBase {
 
   class Harness(action: IdentifierAction) extends BaseController {
     override def controllerComponents: ControllerComponents = messagesControllerComponents
-    def onPageLoad() = action { request => Ok }
+    def onPageLoad() = action { _ => Ok }
   }
 
   "Session Action" when {
@@ -35,7 +33,7 @@ class SessionActionSpec extends SpecBase {
       "redirect to the Index Page page" in {
         val sessionAction = new SessionIdentifierAction(frontendAppConfig, messagesControllerComponents)
         val controller = new Harness(sessionAction)
-        val result = controller.onPageLoad()(fakeRequest)
+        val result = controller.onPageLoad()(FakeRequest())
         status(result) mustBe SEE_OTHER
         redirectLocation(result).get must startWith(controllers.routes.IndexController.onPageLoad().url)
       }
@@ -44,8 +42,7 @@ class SessionActionSpec extends SpecBase {
       "perform the action" in {
         val sessionAction = new SessionIdentifierAction(frontendAppConfig, messagesControllerComponents)
         val controller = new Harness(sessionAction)
-        val request = fakeRequest.withSession(SessionKeys.sessionId -> "foo")
-        val result = controller.onPageLoad()(request)
+        val result = controller.onPageLoad()(fakeRequest)
         status(result) mustBe 200
       }
     }

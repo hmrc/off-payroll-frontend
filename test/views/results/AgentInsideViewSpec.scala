@@ -35,8 +35,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
-    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
-    implicit lazy val document = asDocument(createView(request))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
     pageChecks
     pdfPageChecks(isPdfView = false)
@@ -46,8 +45,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     def createPrintView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPdfResultDetails)
 
-    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
-    implicit lazy val document = asDocument(createPrintView(request))
+    implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
 
     pageChecks
     pdfPageChecks(isPdfView = true)

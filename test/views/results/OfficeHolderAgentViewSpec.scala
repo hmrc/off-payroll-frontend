@@ -37,8 +37,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   "The OfficeHolderAgentView page" should {
 
-    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
-    implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest, testNoPdfResultDetails))
 
     pageChecks
     pdfPageChecks(isPdfView = false)
@@ -46,8 +45,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
   "The OfficeHolderAgentView PDF/Print page" should {
 
-    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
-    implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest, testPdfResultDetails))
 
     pageChecks
     pdfPageChecks(isPdfView = true)

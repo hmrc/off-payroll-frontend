@@ -16,7 +16,7 @@
 
 package controllers.actions
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import controllers.errors.routes
 import play.api.mvc.BaseController
 import play.api.test.Helpers._
@@ -27,7 +27,7 @@ import uk.gov.hmrc.http.HeaderCarrier
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class AuthActionSpec extends SpecBase {
+class AuthActionSpec extends GuiceAppSpecBase {
 
   class Harness(authAction: IdentifierAction) extends BaseController {
     override def controllerComponents = messagesControllerComponents

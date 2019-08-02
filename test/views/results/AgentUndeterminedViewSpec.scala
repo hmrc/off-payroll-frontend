@@ -32,13 +32,11 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString),"id",UserAnswers("id"))
-
   "The AgentUndeterminedView page" should {
 
     def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
-    implicit lazy val document = asDocument(createView(request))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
     pageChecks
     pdfPageChecks(isPdfView = false)
@@ -48,7 +46,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
     def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPdfResultDetails)
 
-    implicit lazy val document = asDocument(createView(request))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
     pageChecks
     pdfPageChecks(isPdfView = true)

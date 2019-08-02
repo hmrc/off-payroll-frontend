@@ -59,7 +59,7 @@ class ControlViewSpec extends ResultViewFixture {
 
   "The result page" should {
 
-    lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
+    lazy val request = workerFakeDataRequest
     lazy val document = asDocument(createViewWithRequest(request))
 
     "include the 'Which of these describes you best?' question" in {

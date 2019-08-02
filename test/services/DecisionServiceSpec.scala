@@ -16,7 +16,7 @@
 
 package services
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import config.SessionKeys
 import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
@@ -53,7 +53,7 @@ import utils.UserAnswersUtils
 import viewmodels.AnswerSection
 import views.html.subOptimised.results._
 
-class DecisionServiceSpec extends SpecBase with MockDecisionConnector with MockDataCacheConnector with MockErrorHandler with FeatureSwitching {
+class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector with MockDataCacheConnector with MockErrorHandler with FeatureSwitching {
 
   implicit val headerCarrier = new HeaderCarrier()
   implicit val request = FakeRequest("", "")

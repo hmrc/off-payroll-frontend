@@ -33,14 +33,11 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString), "id", UserAnswers("id"))
-
   "The OutAgentView page" should {
 
-    def createView(req: DataRequest[_]): Html =
-      view(form, true, true, true)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+    def createView(req: DataRequest[_]): Html = view(form, true, true, true)(req, messages, frontendAppConfig, testNoPdfResultDetails)
 
-    implicit lazy val document = asDocument(createView(request))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
     pageChecks
     pdfPageChecks(isPdfView = false)
@@ -50,7 +47,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
     def createView(req: DataRequest[_]): Html = view(form, true, true, true)(req, messages, frontendAppConfig, testPdfResultDetails)
 
-    implicit lazy val document = asDocument(createView(request))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
     pageChecks
     pdfPageChecks(isPdfView = true)
@@ -69,7 +66,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
     "Have the correct Why Result section for 2 reasons" in {
       def createView2(req: DataRequest[_]) = view(form,true,true,false)(req, messages, frontendAppConfig,testPdfResultDetails)
 
-      lazy val document2 = asDocument(createView2(request))
+      lazy val document2 = asDocument(createView2(agencyFakeDataRequest))
 
       document2.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
       document2.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
@@ -82,7 +79,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
       def createView3(req: DataRequest[_]) = view(form,true,true,true)(req, messages, frontendAppConfig,testPdfResultDetails)
 
-      lazy val document3 = asDocument(createView3(request))
+      lazy val document3 = asDocument(createView3(agencyFakeDataRequest))
 
       document3.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
       document3.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1

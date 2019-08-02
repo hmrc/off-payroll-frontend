@@ -17,7 +17,7 @@
 package utils
 
 import _root_.models.UserType._
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import config.SessionKeys
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.WorkerUsedVehicle
@@ -37,10 +37,10 @@ import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 import play.api.libs.json.Json
 import viewmodels.AnswerRow
 
-class ResultPageHelperSpec extends SpecBase with Enumerable.Implicits {
+class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
 
-  lazy val workerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-  lazy val hirerRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+  lazy val workerRequest = workerFakeRequest
+  lazy val hirerRequest = hirerFakeRequest
 
   ".cannotClaimAsExpense" when {
 

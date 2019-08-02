@@ -16,8 +16,7 @@
 
 package models
 
-import base.SpecBase
-import config.SessionKeys
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
@@ -35,17 +34,15 @@ import models.SeriesOfContracts.ContractCouldBeExtended
 import models.TransferRights.AbleToTransferRights
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
-import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
-import play.api.libs.json.{JsNull, JsString, Json, Writes}
-import uk.gov.hmrc.http.cache.client.CacheMap
+import play.api.libs.json.{Json, Writes}
 
-class InterviewSpec extends SpecBase {
+class InterviewSpec extends GuiceAppSpecBase {
 
   "Interview" must {
 
@@ -440,9 +437,7 @@ class InterviewSpec extends SpecBase {
             workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
           )
 
-          val dataRequest = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(UserType.Worker).toString), "id", userAnswers)
-
-          val actual = Interview(userAnswers)(frontendAppConfig, dataRequest)
+          val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
 
           actual mustBe expected
 
@@ -504,9 +499,7 @@ class InterviewSpec extends SpecBase {
             workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
           )
 
-          val dataRequest = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(UserType.Worker).toString), "id", userAnswers)
-
-          val actual = Interview(userAnswers)(frontendAppConfig, dataRequest)
+          val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
 
           actual mustBe expected
 
@@ -567,9 +560,7 @@ class InterviewSpec extends SpecBase {
             workerRepresentsEngagerBusiness = Some(WorkAsIndependent)
           )
 
-          val dataRequest = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(UserType.Worker).toString), "id", userAnswers)
-
-          val actual = Interview(userAnswers)(frontendAppConfig, dataRequest)
+          val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
 
           actual mustBe expected
 

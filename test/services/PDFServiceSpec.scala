@@ -17,7 +17,7 @@
 package services
 
 import akka.util.ByteString
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import connectors.mocks.MockPDFGeneratorConnector
 import play.twirl.api.Html
@@ -25,7 +25,7 @@ import play.twirl.api.Html
 import scala.concurrent.Future
 
 
-class PDFServiceSpec extends SpecBase with MockPDFGeneratorConnector {
+class PDFServiceSpec extends GuiceAppSpecBase with MockPDFGeneratorConnector {
 
   val testHtml = Html("<html><title>Test</title></html>")
 
