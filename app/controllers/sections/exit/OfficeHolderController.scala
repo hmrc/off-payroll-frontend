@@ -18,15 +18,14 @@ package controllers.sections.exit
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import controllers.actions._
+import connectors.DataCacheConnector
 import controllers.BaseController
+import controllers.actions._
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
-import connectors.DataCacheConnector
 import models.{CheckMode, Mode, NormalMode}
-import navigation.OldNavigator
+import navigation.ExitNavigator
 import pages.sections.exit.OfficeHolderPage
-import play.api.Logger
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
@@ -47,7 +46,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        compareAnswerService: CompareAnswerService,
                                        dataCacheConnector: DataCacheConnector,
                                        decisionService: DecisionService,
-                                       navigator: OldNavigator,
+                                       navigator: ExitNavigator,
                                        implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

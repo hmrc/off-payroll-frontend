@@ -24,7 +24,7 @@ import controllers.actions._
 import forms.RejectSubstituteFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.OldNavigator
+import navigation.PersonalServiceNavigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -46,7 +46,7 @@ class RejectSubstituteController @Inject()(identify: IdentifierAction,
                                            compareAnswerService: CompareAnswerService,
                                            dataCacheConnector: DataCacheConnector,
                                            decisionService: DecisionService,
-                                           navigator: OldNavigator,
+                                           navigator: PersonalServiceNavigator,
                                            implicit val appConfig: FrontendAppConfig
                                           ) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {

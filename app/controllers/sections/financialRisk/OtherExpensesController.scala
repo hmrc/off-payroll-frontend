@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.OtherExpensesFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.{FinancialRiskNavigator, OldNavigator}
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.OtherExpensesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

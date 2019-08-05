@@ -18,14 +18,13 @@ package controllers.sections.partParcel
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import controllers.actions._
+import connectors.DataCacheConnector
 import controllers.BaseController
+import controllers.actions._
 import forms.IdentifyToStakeholdersFormProvider
 import javax.inject.Inject
-
-import connectors.DataCacheConnector
 import models.{IdentifyToStakeholders, Mode}
-import navigation.OldNavigator
+import navigation.PartAndParcelNavigator
 import pages.sections.partParcel.IdentifyToStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -47,7 +46,7 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
                                                  compareAnswerService: CompareAnswerService,
                                                  dataCacheConnector: DataCacheConnector,
                                                  decisionService: DecisionService,
-                                                 navigator: OldNavigator,
+                                                 navigator: PartAndParcelNavigator,
                                                  implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

@@ -64,7 +64,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = FakeNavigator,
+    navigator = FakePartAndParcelNavigator,
     frontendAppConfig
   )
 

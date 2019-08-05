@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 import connectors.DataCacheConnector
 import models.Mode
-import navigation.OldNavigator
+import navigation.PartAndParcelNavigator
 import pages.sections.partParcel.LineManagerDutiesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -47,7 +47,7 @@ class LineManagerDutiesController @Inject()(identify: IdentifierAction,
                                             checkYourAnswersService: CheckYourAnswersService,
                                             compareAnswerService: CompareAnswerService,
                                             dataCacheConnector: DataCacheConnector,
-                                            navigator: OldNavigator,
+                                            navigator: PartAndParcelNavigator,
                                             implicit val appConfig: FrontendAppConfig) extends BaseController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 

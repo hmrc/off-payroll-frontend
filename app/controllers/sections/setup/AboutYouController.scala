@@ -16,16 +16,16 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
+import javax.inject.Inject
 import models.requests.DataRequest
 import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
-import navigation.{OldNavigator, SetupNavigator}
+import navigation.SetupNavigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.mvc._

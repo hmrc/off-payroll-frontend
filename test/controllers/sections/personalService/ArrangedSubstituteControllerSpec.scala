@@ -56,7 +56,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = FakeNavigator
+    navigator = FakePersonalServiceNavigator
   )
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

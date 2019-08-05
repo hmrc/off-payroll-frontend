@@ -18,14 +18,14 @@ package controllers.sections.financialRisk
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import controllers.actions._
+import connectors.DataCacheConnector
 import controllers.BaseController
+import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
-import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{HowWorkerIsPaid, Mode}
-import navigation.{FinancialRiskNavigator, OldNavigator}
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

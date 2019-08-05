@@ -63,7 +63,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = FakeNavigator
+    navigator = FakePersonalServiceNavigator
   )
 
   val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(Answers(true, 0)))

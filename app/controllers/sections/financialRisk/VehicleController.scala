@@ -18,12 +18,12 @@ package controllers.sections.financialRisk
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.actions._
 import controllers.BaseController
+import controllers.actions._
 import forms.VehicleFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.{FinancialRiskNavigator, OldNavigator}
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.VehiclePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

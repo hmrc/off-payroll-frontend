@@ -16,14 +16,14 @@
 
 package controllers.sections.financialRisk
 import config.FrontendAppConfig
-import controllers.actions._
-import controllers.BaseController
-import forms.CannotClaimAsExpenseFormProvider
-import javax.inject.Inject
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
+import controllers.BaseController
+import controllers.actions._
+import forms.CannotClaimAsExpenseFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.{FinancialRiskNavigator, OldNavigator}
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}

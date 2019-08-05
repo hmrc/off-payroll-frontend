@@ -16,14 +16,14 @@
 
 package controllers.sections.financialRisk
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseController
 import controllers.actions._
 import forms.MaterialsFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.{FinancialRiskNavigator, OldNavigator}
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.MaterialsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

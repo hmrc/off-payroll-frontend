@@ -52,7 +52,7 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = FakeNavigator
+    navigator = FakePersonalServiceNavigator
   )
 
   val validData = Map(RejectSubstitutePage.toString -> Json.toJson(Answers(true, 0)))

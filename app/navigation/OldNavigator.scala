@@ -253,7 +253,7 @@ class OldNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navi
 
   )
 
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
+  def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
     case NormalMode =>
       val routing =
         (if (isEnabled(OptimisedFlow)) optimisedSetupRouteMap(NormalMode) else setupRouteMap) ++
