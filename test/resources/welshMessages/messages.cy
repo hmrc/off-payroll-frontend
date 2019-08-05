@@ -96,7 +96,7 @@ unauthorised.heading =  You can’t access this service with this account
 aboutYou.title = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.heading = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.subheading = Ynglŷn â’r bobl berthnasol
-aboutYou.checkYourAnswersLabel = Pa un o’r canlynol sy’n eic h disgrifio orau?
+aboutYou.checkYourAnswersLabel = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.hint = Y cleient terfynol yw’r corff cyhoeddus, corfforaeth neu’r busnes y mae’r gweithiwr yn cyflenwi gwasanaethau iddo/iddi.
 aboutYou.personDoingWork = Y gweithiwr
 aboutYou.endClient = Y cleient terfynol
@@ -1110,7 +1110,7 @@ result.indeterminate.whyResult.p2 =Gallwch adolygu’r atebion a roddwyd gennych
 result.indeterminate.shouldNowDo.p1 = Os oes angen rhagor o gymorth arnoch, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM:
 result.indeterminate.shouldNowDo.bullet1 = dros y ffôn ar 0300 200 1900
 result.indeterminate.shouldNowDo.bullet2 = drwy e-bostio gwasanaeth.cymraeg@hmrc.gov.uk
-result.indeterminate.shouldNowDo.p2.beforeLink =Gallwch, hefyd, ddarllen yr
+result.indeterminate.shouldNowDo.p2.beforeLink =Gallech hefyd ddarllen y
 ##### TODO NEED WELSH FOR ####
 result.indeterminate.shouldNowDo.p2.link = Canllaw Statws Cyflogaeth
 

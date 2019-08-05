@@ -1110,7 +1110,7 @@ result.indeterminate.whyResult.p2 =Gallwch adolygu’r atebion a roddwyd gennych
 result.indeterminate.shouldNowDo.p1 = Os oes angen rhagor o gymorth arnoch, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM:
 result.indeterminate.shouldNowDo.bullet1 = dros y ffôn ar 0300 200 1900
 result.indeterminate.shouldNowDo.bullet2 = drwy e-bostio gwasanaeth.cymraeg@hmrc.gov.uk
-result.indeterminate.shouldNowDo.p2.beforeLink =Gallwch, hefyd, ddarllen yr
+result.indeterminate.shouldNowDo.p2.beforeLink =Gallech hefyd ddarllen y
 ##### TODO NEED WELSH FOR ####
 result.indeterminate.shouldNowDo.p2.link = Canllaw Statws Cyflogaeth
 
