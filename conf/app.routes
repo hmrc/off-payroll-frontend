@@ -202,3 +202,8 @@ GET        /start-again                                 controllers.StartAgainCo
 
 GET        /redirect-to-disclaimer                      controllers.StartAgainController.redirectToDisclaimer
 GET        /something-went-wrong                        controllers.StartAgainController.somethingWentWrong
+
+GET        /multiple-contracts                          controllers.sections.businessOnOwnAccount.MultipleContractsController.onPageLoad(mode: Mode = NormalMode)
+POST       /multiple-contracts                          controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = NormalMode)
+GET        /multiple-contracts/change                   controllers.sections.businessOnOwnAccount.MultipleContractsController.onPageLoad(mode: Mode = CheckMode)
+POST       /multiple-contracts/change                   controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = CheckMode)

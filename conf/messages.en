@@ -1592,3 +1592,9 @@ resetAnswersWarning.error.required = You need to select an answer
 
 personalServiceSectionChangeWarning.title = Please be advised that by changing your answers in this section, you may need to answer additional questions.
 personalServiceSectionChangeWarning.heading = Please be advised that by changing your answers in this section, you may need to answer additional questions.
+
+multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
+multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
+multipleContracts.subheading = Worker’s contracts
+multipleContracts.checkYourAnswersLabel = Does this contract stop the worker from doing similar work for other organisations?
+multipleContracts.error.required = You need to select an answer
