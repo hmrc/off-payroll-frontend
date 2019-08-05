@@ -1568,6 +1568,7 @@ worker.equipmentExpenses.heading = Will you incur substantial equipment costs th
 worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
 worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
 
+pdfDetails.fileName.error.maxLength = The file name must be {0} characters or less
 pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
 pdfDetails.client.error.maxLength = The client name must be {0} characters or less
 pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
