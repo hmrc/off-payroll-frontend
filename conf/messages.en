@@ -536,23 +536,23 @@ hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would 
 hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
 hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
 
-worker.optimised.putRightAtOwnCost.title = Would you have to put the work right if your client was not happy with it?
-worker.optimised.putRightAtOwnCost.heading = Would you have to put the work right if your client was not happy with it?
-worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = Would you have to put the work right if your client was not happy with it?
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right, for no additional income, and would incur extra outgoings
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost
-worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, you would put it right in your usual hours at your usual rate or fee
-worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, you could not put it right because it was time-specific or for a single event
-worker.optimised.putRightAtOwnCost.noObligationToCorrect = No, you would not need to put it right
+worker.optimised.putRightAtOwnCost.title = If the client was not happy with your work, would you have to put it right?
+worker.optimised.putRightAtOwnCost.heading = If the client was not happy with your work, would you have to put it right?
+worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = If the client was not happy with your work, would you have to put it right?
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and you would incur extra costs
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but your only cost would be lost opportunity to do other work
+worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, you would fix it in your usual hours at your usual rate or fee
+worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
+worker.optimised.putRightAtOwnCost.noObligationToCorrect = No
 
-hirer.optimised.putRightAtOwnCost.title = Would the worker have to put the work right if your organisation was not happy with it?
-hirer.optimised.putRightAtOwnCost.heading = Would the worker have to put the work right if your organisation was not happy with it?
-hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = Would the worker have to put the work right if your organisation was not happy with it?
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, the worker would have to put it right for no additional income, and would incur extra outgoings
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, the worker would have to put it right for no additional income, with no extra outgoings but would incur an opportunity cost
-hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, the worker would put it right in their usual hours at their usual rate or fee
-hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the worker could not put it right because it was time-specific or for a single event
-hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No, they would not need to put it right
+hirer.optimised.putRightAtOwnCost.title = If your organisation was not happy with the work, would the worker have to put it right?
+hirer.optimised.putRightAtOwnCost.heading = If your organisation was not happy with the work, would the worker have to put it right?
+hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your organisation was not happy with the work, would the worker have to put it right?
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and they would incur extra costs
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but their only cost would be lost opportunity to do other work
+hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, they would fix it in their usual hours at their usual rate or fee
+hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
+hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No
 #########################
 
 ## How Worker is Paid
