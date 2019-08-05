@@ -1545,14 +1545,14 @@ finishedChecking.downloadAnswers = Download your answers and result (PDF, under 
 
 ##TODO: Need Welsh
 materials.error.required = You need to select an answer
-hirer.materials.title = Will the worker incur substantial costs for materials that your organisation will not pay for?
-hirer.materials.heading = Will the worker incur substantial costs for materials that your organisation will not pay for?
-hirer.materials.checkYourAnswersLabel = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.title = Will the worker incur costs for materials that your organisation will not pay for?
+hirer.materials.heading = Will the worker incur costs for materials that your organisation will not pay for?
+hirer.materials.checkYourAnswersLabel = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
 hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
-worker.materials.title = Will you incur substantial costs for materials that your client will not pay for?
-worker.materials.heading = Will you incur substantial costs for materials that your client will not pay for?
-worker.materials.checkYourAnswersLabel = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.title = Will you incur costs for materials that your client will not pay for?
+worker.materials.heading = Will you incur costs for materials that your client will not pay for?
+worker.materials.checkYourAnswersLabel = Will you incur costs for materials that your client will not pay for?
 worker.materials.p1 = This can include items that form a lasting part of the work, or are left behind when you leave. Stationery is not included.
 worker.materials.p2 = This question is most likely to be relevant to the construction industry.
 

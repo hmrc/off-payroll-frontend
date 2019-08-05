@@ -19,15 +19,15 @@ package assets.messages
 object MaterialsMessages extends BaseMessages {
 
   object Worker {
-    val title = "Will you incur substantial costs for materials that your client will not pay for?"
-    val heading = "Will you incur substantial costs for materials that your client will not pay for?"
+    val title = "Will you incur costs for materials that your client will not pay for?"
+    val heading = "Will you incur costs for materials that your client will not pay for?"
     val p1 = "This can include items that form a lasting part of the work, or are left behind when you leave. Stationery is not included."
     val p2 = "This question is most likely to be relevant to the construction industry."
   }
 
   object Hirer {
-    val title = "Will the worker incur substantial costs for materials that your organisation will not pay for?"
-    val heading = "Will the worker incur substantial costs for materials that your organisation will not pay for?"
+    val title = "Will the worker incur costs for materials that your organisation will not pay for?"
+    val heading = "Will the worker incur costs for materials that your organisation will not pay for?"
     val p1 = "This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included."
     val p2 = "This question is most likely to be relevant to the construction industry."
   }
