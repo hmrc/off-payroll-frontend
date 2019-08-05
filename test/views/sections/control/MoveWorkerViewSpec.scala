@@ -66,6 +66,10 @@ class MoveWorkerViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe MoveWorkerMessages.OptimisedWorker.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedWorker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe MoveWorkerMessages.OptimisedWorker.yesWithAgreement
         document.select(Selectors.multichoice(2)).text mustBe MoveWorkerMessages.OptimisedWorker.yesWithoutAgreement
@@ -85,6 +89,10 @@ class MoveWorkerViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe MoveWorkerMessages.OptimisedHirer.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedHirer.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe MoveWorkerMessages.OptimisedHirer.yesWithAgreement
         document.select(Selectors.multichoice(2)).text mustBe MoveWorkerMessages.OptimisedHirer.yesWithoutAgreement
@@ -102,6 +110,10 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe MoveWorkerMessages.OptimisedWorker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedWorker.p1
       }
 
       "have the correct radio option messages" in {

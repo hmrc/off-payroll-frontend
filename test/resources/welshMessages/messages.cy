@@ -791,19 +791,21 @@ hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiw
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
 ## TODO: Need Welsh
-hirer.optimised.moveWorker.title = Could the worker be moved from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.heading = Could the worker be moved from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.checkYourAnswersLabel = Could the worker be moved from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.checkYourAnswersLabel = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.p1 = This includes changing the project or base location.
 hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker solely decides
+hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, they would have to agree
 hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 
 ## TODO: Need Welsh
-worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.title = Can the task be changed without your agreement?
+worker.optimised.moveWorker.heading = Can the task be changed without your agreement?
+worker.optimised.moveWorker.checkYourAnswersLabel = Can the task be changed without your agreement?
+worker.optimised.moveWorker.p1 = This includes changing the project or base location.
 worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you solely decide
+worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree
 worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 #########################
 
