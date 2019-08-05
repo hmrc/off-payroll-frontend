@@ -29,7 +29,7 @@ object HowWorkIsDone {
   case object WorkerAgreeWithOthers extends WithName("workerAgreeWithOthers") with HowWorkIsDone
 
   val values: Seq[HowWorkIsDone] = Seq(
-    NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerFollowStrictEmployeeProcedures, WorkerAgreeWithOthers
+    NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerAgreeWithOthers, WorkerFollowStrictEmployeeProcedures
   )
 
   def options(optimised: Boolean = false): Seq[RadioOption] = values.map {
