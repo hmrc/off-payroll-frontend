@@ -17,6 +17,7 @@
 package connectors
 
 import config.FrontendAppConfig
+import config.featureSwitch.{FeatureSwitch, FeatureSwitching, OptimisedFlow}
 import connectors.httpParsers.DecisionHttpParser.DecisionReads
 import connectors.httpParsers.LogHttpParser.LogReads
 import javax.inject.Inject
@@ -40,7 +41,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
                                   dateTimeUtil: DateTimeUtil,
                                   dataCacheConnector: DataCacheConnector,
                                   timestamp: Timestamp
-                                 ) {
+                                 ) extends FeatureSwitching {
 
   lazy val baseUrl: String = servicesConfig.baseUrl("cest-decision")
   lazy val decideUrl = s"$baseUrl/cest-decision/decide"
@@ -81,6 +82,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
                 val identicalBody: Boolean = responseOld.equals(responseNew)
                 val identicalResult: Boolean = responseOld.result.equals(responseNew.result)
+
                 toMap(Json.toJson(responseOld), Json.toJson(responseNew), identicalBody, identicalResult)
 
               case (Left(errorOld), Right(responseNew)) => toMap(Json.toJson(errorOld), Json.toJson(responseNew))
@@ -105,9 +107,12 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
     val response = httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
 
-    val newResponse = decideNew(decisionRequest)
+    implicit val appConf: FrontendAppConfig = conf
 
-    calculateDifferences(response,newResponse)
+    if(!isEnabled(OptimisedFlow)){
+      val newResponse = decideNew(decisionRequest)
+      calculateDifferences(response,newResponse)
+    }
 
     response
   }
