@@ -83,8 +83,8 @@ site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
-site.ir35email = ir35@hmrc.gov.uk
-site.employmentStatusManual = Employment Status Manual
+site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
+site.employmentStatusManual = Canllaw Statws Cyflogaeth
 
 feedback.before = Mae hwn yn wasanaeth newydd - bydd eich
 feedback.link = adborth
@@ -96,7 +96,7 @@ unauthorised.heading =  You can’t access this service with this account
 aboutYou.title = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.heading = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.subheading = Ynglŷn â’r bobl berthnasol
-aboutYou.checkYourAnswersLabel = Pa un o’r canlynol sy’n eich disgrifio orau?
+aboutYou.checkYourAnswersLabel = Pa un o’r canlynol sy’n eic h disgrifio orau?
 aboutYou.hint = Y cleient terfynol yw’r corff cyhoeddus, corfforaeth neu’r busnes y mae’r gweithiwr yn cyflenwi gwasanaethau iddo/iddi.
 aboutYou.personDoingWork = Y gweithiwr
 aboutYou.endClient = Y cleient terfynol
@@ -1107,9 +1107,9 @@ result.indeterminate.heading =Ni allwn bennu’r statws treth ar gyfer y swydd h
 result.indeterminate.whyResult.p1 =Mae angen rhagor o wybodaeth arnom er mwyn deall arferion gwaith y swydd hon.
 result.indeterminate.whyResult.p2 =Gallwch adolygu’r atebion a roddwyd gennych, isod.
 ##### TODO NEED WELSH FOR ####
-result.indeterminate.shouldNowDo.p1 =Cysylltwch â llinell gymorth CThEM - Statws Cyflogaeth a Chyfryngwyr (Employment Status and Intermediaries) - os oes angen rhagor o gymorth arnoch:
-result.indeterminate.shouldNowDo.bullet1 =ar y ffôn ar 0300 123 2326
-result.indeterminate.shouldNowDo.bullet2 =drwy e-bost yn
+result.indeterminate.shouldNowDo.p1 = Os oes angen rhagor o gymorth arnoch, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM:
+result.indeterminate.shouldNowDo.bullet1 = dros y ffôn ar 0300 200 1900
+result.indeterminate.shouldNowDo.bullet2 = drwy e-bostio gwasanaeth.cymraeg@hmrc.gov.uk
 result.indeterminate.shouldNowDo.p2.beforeLink =Gallwch, hefyd, ddarllen yr
 ##### TODO NEED WELSH FOR ####
 result.indeterminate.shouldNowDo.p2.link = Canllaw Statws Cyflogaeth
