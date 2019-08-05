@@ -1571,14 +1571,14 @@ worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other
 
 ##TODO: Need Welsh
 otherExpenses.error.required = You need to select an answer
-hirer.otherExpenses.title = Will the worker incur any other substantial costs that your organisation will not pay for?
-hirer.otherExpenses.heading = Will the worker incur any other substantial costs that your organisation will not pay for?
-hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other substantial costs that your organisation will not pay for?
-hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
-worker.otherExpenses.title = Will you incur any other substantial costs that your client will not pay for?
-worker.otherExpenses.heading = Will you incur any other substantial costs that your client will not pay for?
-worker.otherExpenses.checkYourAnswersLabel = Will you incur any other substantial costs that your client will not pay for?
-worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
+hirer.otherExpenses.title = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.heading = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
+worker.otherExpenses.title = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.heading = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.checkYourAnswersLabel = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
 
 ##TODO: Need Welsh
 equipmentExpenses.error.required = You need to select an answer
