@@ -45,7 +45,7 @@ class SessionIdFilter (
 
       val cookies: String = {
         val session: Session = rh.session + (SessionKeys.sessionId -> sessionId)
-        val cookies = rh.cookies ++ Seq(Session.encodeAsCookie(session))
+        val cookies: Traversable[Cookie] = rh.cookies ++ Seq(Session.encodeAsCookie(session))
         Cookies.encodeCookieHeader(cookies.toSeq)
       }
 

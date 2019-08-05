@@ -56,8 +56,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
     "If the user type is of Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, None)
@@ -65,6 +64,10 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe MoveWorkerMessages.OptimisedWorker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedWorker.p1
       }
 
       "have the correct radio option messages" in {
@@ -76,8 +79,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
     "If the user type is of Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(MoveWorkerMessages.OptimisedHirer.title, None)
@@ -85,6 +87,10 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe MoveWorkerMessages.OptimisedHirer.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedHirer.p1
       }
 
       "have the correct radio option messages" in {
@@ -96,8 +102,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
     "If the user type is of Agency" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, None)
@@ -105,6 +110,10 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe MoveWorkerMessages.OptimisedWorker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedWorker.p1
       }
 
       "have the correct radio option messages" in {

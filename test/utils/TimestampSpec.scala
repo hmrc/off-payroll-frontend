@@ -16,11 +16,11 @@
 
 package utils
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import models.Timestamp
 import play.api.i18n.{Lang, Messages, MessagesApi}
 
-class TimestampSpec extends SpecBase {
+class TimestampSpec extends GuiceAppSpecBase {
 
   "Timestamp" must {
 

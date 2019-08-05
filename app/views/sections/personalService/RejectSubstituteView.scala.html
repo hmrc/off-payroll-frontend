@@ -38,10 +38,15 @@
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("rejectSubstitute.heading"), asLegend = true),
+            otherContent = Some(content),
             labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()
     }
+}
+
+@content = {
+<p>@messages(tailorMsg("optimised.rejectSubstitute.p1"))</p>
 }
 

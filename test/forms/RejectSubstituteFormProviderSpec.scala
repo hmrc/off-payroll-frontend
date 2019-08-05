@@ -44,13 +44,13 @@ class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with MockF
 
       "bind true as false" in {
         enable(OptimisedFlow)
-        val result = form.bind(Map(fieldName -> "true"))
+        val result = form.bind(Map(fieldName -> "false"))
         result.value.value mustBe false
       }
 
       "bind false as true" in {
         enable(OptimisedFlow)
-        val result = form.bind(Map(fieldName -> "false"))
+        val result = form.bind(Map(fieldName -> "true"))
         result.value.value mustBe true
       }
     }

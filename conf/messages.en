@@ -791,18 +791,20 @@ hirer.moveWorker.canMoveWorkerWithPermission = Yes - but only with the worker’
 hirer.moveWorker.canMoveWorkerWithoutPermission = Yes - without the worker’s agreement (if the worker does not want to change, you might end the engagement)
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
 
-hirer.optimised.moveWorker.title = Could the worker be moved from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.heading = Could the worker be moved from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.checkYourAnswersLabel = Could the worker be moved from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.checkYourAnswersLabel = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.p1 = This includes changing the project or base location.
 hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker solely decides
+hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, they would have to agree
 hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 
-worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.title = Can the task be changed without your agreement?
+worker.optimised.moveWorker.heading = Can the task be changed without your agreement?
+worker.optimised.moveWorker.checkYourAnswersLabel = Can the task be changed without your agreement?
+worker.optimised.moveWorker.p1 = This includes changing the project or base location.
 worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you solely decide
+worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree
 worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 #########################
 
@@ -923,13 +925,15 @@ hirer.rejectSubstitute.exclamation = We need to know what would happen in practi
 hirer.rejectSubstitute.yes = Yes - we have the right to reject a substitute for any reason, including if it would negatively impact the work
 hirer.rejectSubstitute.no = No - we would always accept a substitute who met these criteria
 
-worker.optimised.rejectSubstitute.title = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
-worker.optimised.rejectSubstitute.heading = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
-worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
+worker.optimised.rejectSubstitute.title = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.heading = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your client’s interviewing, vetting and security clearance procedures.
 
-hirer.optimised.rejectSubstitute.title = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
-hirer.optimised.rejectSubstitute.heading = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
-hirer.optimised.rejectSubstitute.checkYourAnswersLabel = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
+hirer.optimised.rejectSubstitute.title = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
+hirer.optimised.rejectSubstitute.heading = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
+hirer.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your interviewing, vetting and security clearance procedures.
 #########################
 
 
@@ -1351,6 +1355,9 @@ hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not 
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged
 hirer.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean the worker is self-employed for tax purposes.
 hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged.
 ## ------------------
 
 ## Inside PAYE Worker
@@ -1401,6 +1408,9 @@ worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your busines
 worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute to do this work.
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## Inside Agent
 ## ------------------
@@ -1429,6 +1439,9 @@ agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate�
 agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 agent.optimised.result.outside.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us your candidate’s client has accepted, or would accept, a substitute to do this work.
+agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us your candidate’s client does not have control over this work.
+agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## ------------------
 ## Hirer IR35
@@ -1461,6 +1474,9 @@ hirer.optimised.result.outside.ir35.private.doNext.p2 = From April 2020, if you 
 hirer.optimised.result.outside.ir35.private.doNext.p3 = If the fee-payer is someone else, then you would need to show this determination to them.
 hirer.optimised.result.outside.ir35.public.doNext.p1 = If you are the fee-payer you need to pay the worker’s business gross, without deducting tax and National Insurance.
 hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 ## ------------------
 
 ## Outside PAYE Worker
@@ -1473,6 +1489,9 @@ worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your clien
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
+worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute to do this work.
+worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 ## ------------------
 
 downloadPDFCopy.error.required = You need to select an answer
@@ -1549,6 +1568,7 @@ worker.equipmentExpenses.heading = Will you incur substantial equipment costs th
 worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
 worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
 
+pdfDetails.fileName.error.maxLength = The file name must be {0} characters or less
 pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
 pdfDetails.client.error.maxLength = The client name must be {0} characters or less
 pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less

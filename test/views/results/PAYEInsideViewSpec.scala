@@ -40,8 +40,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Worker" should {
 
-      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
-      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
+      implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
       workerPageChecks
       pdfPageChecks(isPdfView = false)
@@ -49,8 +48,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Hirer" should {
 
-      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
-      implicit lazy val document = asDocument(createView(request, testNoPdfResultDetails))
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
 
       hirerPageChecks
       pdfPageChecks(isPdfView = false)
@@ -61,8 +59,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Worker" should {
 
-      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString),"id",UserAnswers("id"))
-      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
+      implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
       workerPageChecks
       pdfPageChecks(isPdfView = true)
@@ -70,8 +67,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Hirer" should {
 
-      lazy val request = DataRequest(fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString),"id",UserAnswers("id"))
-      implicit lazy val document = asDocument(createView(request, testPdfResultDetails))
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
 
       hirerPageChecks
       pdfPageChecks(isPdfView = true)

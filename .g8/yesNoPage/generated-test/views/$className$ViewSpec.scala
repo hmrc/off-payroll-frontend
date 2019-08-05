@@ -38,7 +38,7 @@ class $className$ViewSpec extends YesNoViewBehaviours {
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.$className$Controller.onSubmit(NormalMode).url)
 
-    lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+    lazy val request = workerFakeRequest
     lazy val document = asDocument(createViewWithRequest(request))
 
     "have the correct title" in {

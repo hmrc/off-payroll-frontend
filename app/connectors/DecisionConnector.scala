@@ -51,12 +51,19 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
       Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
   }
 
-  def toMap(jsonOld: JsValue, jsonNew: JsValue, identical: Boolean = false): Map[String, JsValue] = {
+  def toMap(jsonOld: JsValue, jsonNew: JsValue, identicalBody: Boolean = false,
+            identicalResult: Boolean = false): Map[String, JsValue] = {
+
+    if(!identicalResult) Logger.error(s"[DecisionConnector] The new decision result did not match the old decision result." +
+      s" OldJson: $jsonOld , NewJson: $jsonNew")
+    if(!identicalBody && identicalResult) Logger.warn("[DecisionConnector] The decision results match but the json bodies differ." +
+      s" OldJson: $jsonOld , NewJson: $jsonNew")
 
     Map(
       "oldResponse" -> jsonOld,
       "newResponse" -> jsonNew,
-      "identicalResult" -> JsBoolean(identical)
+      "identicalBody" -> JsBoolean(identicalBody),
+      "identicalResult" -> JsBoolean(identicalResult)
     )
   }
 
@@ -72,8 +79,9 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
             val cacheMap: Map[String, JsValue] = (oldResponse, newResponse) match {
               case (Right(responseOld), Right(responseNew)) =>
 
-                val identical: Boolean = responseOld.result.equals(responseNew.result)
-                toMap(Json.toJson(responseOld), Json.toJson(responseNew), identical)
+                val identicalBody: Boolean = responseOld.equals(responseNew)
+                val identicalResult: Boolean = responseOld.result.equals(responseNew.result)
+                toMap(Json.toJson(responseOld), Json.toJson(responseNew), identicalBody, identicalResult)
 
               case (Left(errorOld), Right(responseNew)) => toMap(Json.toJson(errorOld), Json.toJson(responseNew))
 
@@ -81,8 +89,9 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
               case (Left(errorOld), Left(errorNew)) =>
 
-                val identical: Boolean = errorOld.equals(errorNew)
-                toMap(Json.toJson(errorOld),Json.toJson(errorNew), identical)
+                val identicalBody: Boolean = errorOld.equals(errorNew)
+                val identicalResult: Boolean = errorOld.status.equals(errorNew.status)
+                toMap(Json.toJson(errorOld),Json.toJson(errorNew), identicalBody, identicalResult)
             }
 
             dataCacheConnector.save(CacheMap(timestamp.timestamp(), cacheMap))

@@ -16,11 +16,11 @@
 
 package services
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import models.AdditionalPdfDetails
 import org.scalamock.scalatest.MockFactory
 
-class EncryptionServiceSpec extends SpecBase with MockFactory {
+class EncryptionServiceSpec extends GuiceAppSpecBase with MockFactory {
 
   val service = new EncryptionService(app.configuration)
 

@@ -51,8 +51,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
     "If the user type is of Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(PutRightAtOwnCostsMessages.Worker.title, Some(PutRightAtOwnCostsMessages.subheading))
@@ -77,8 +76,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
     "If the user type is of Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(PutRightAtOwnCostsMessages.Hirer.title, Some(PutRightAtOwnCostsMessages.subheading))
@@ -103,8 +101,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
     "If the user type is of Agency" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(PutRightAtOwnCostsMessages.NonTailored.title, Some(PutRightAtOwnCostsMessages.subheading))

@@ -17,7 +17,7 @@
 package connectors
 
 import _root_.utils.MockDateTimeUtil
-import base.{MockServicesConfig, SpecBase}
+import base.{GuiceAppSpecBase, MockServicesConfig, SpecBase}
 import connectors.mocks.MockHttp
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
@@ -39,7 +39,7 @@ import play.mvc.Http.Status
 import scala.concurrent.Future
 
 
-class DecisionConnectorSpec extends SpecBase with MockHttp with MockServicesConfig {
+class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServicesConfig {
 
   object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil)
 

@@ -17,11 +17,10 @@
 package controllers
 
 import java.nio.charset.Charset
-import javax.inject.Singleton
 
 import akka.stream.Materializer
 import akka.util.ByteString
-import base.SpecBase
+import base.GuiceAppSpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import handlers.mocks.MockErrorHandler
 import models.UserAnswers
@@ -29,14 +28,12 @@ import navigation.FakeNavigator
 import org.jsoup.Jsoup
 import play.api.mvc.{Call, Result}
 import services.mocks._
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
-trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
-  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler
-  with MockEncryptionService {
+trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
+  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService {
 
   def onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")

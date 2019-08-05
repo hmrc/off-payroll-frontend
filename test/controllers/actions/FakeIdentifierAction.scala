@@ -16,13 +16,13 @@
 
 package controllers.actions
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import models.requests.IdentifierRequest
 import play.api.mvc.{AnyContent, BodyParser, Request, Result}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-object FakeIdentifierAction extends SpecBase with IdentifierAction {
+object FakeIdentifierAction extends GuiceAppSpecBase with IdentifierAction {
 
   override implicit protected def executionContext: ExecutionContext = ec
   override def parser: BodyParser[AnyContent] = messagesControllerComponents.parsers.defaultBodyParser

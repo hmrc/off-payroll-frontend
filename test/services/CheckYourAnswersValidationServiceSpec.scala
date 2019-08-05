@@ -16,7 +16,7 @@
 
 package services
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models.ChooseWhereWork.{WorkerCannotChoose, WorkerChooses}
 import models.HowWorkIsDone.NoWorkerInputAllowed
@@ -39,7 +39,7 @@ import utils.{CheckYourAnswersHelper, ResultPageHelper}
 import viewmodels.AnswerSection
 
 //noinspection ScalaStyle
-class CheckYourAnswersValidationServiceSpec extends SpecBase {
+class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
   object CheckYourAnswersService extends CheckYourAnswersValidationService
 
