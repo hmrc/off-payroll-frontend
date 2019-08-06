@@ -16,7 +16,7 @@
 
 package views.sections.financialRisk
 
-import assets.messages.VehicleMessages
+import assets.messages.{SubHeadingMessages, VehicleMessages}
 import config.SessionKeys
 import controllers.sections.financialRisk.routes
 import forms.VehicleFormProvider
@@ -57,7 +57,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(VehicleMessages.Worker.title, Some(VehicleMessages.optimisedSubHeading))
+        document.title mustBe title(VehicleMessages.Worker.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(VehicleMessages.Hirer.title, Some(VehicleMessages.optimisedSubHeading))
+        document.title mustBe title(VehicleMessages.Hirer.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {

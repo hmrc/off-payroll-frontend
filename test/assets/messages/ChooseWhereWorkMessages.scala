@@ -18,9 +18,6 @@ package assets.messages
 
 object ChooseWhereWorkMessages extends BaseMessages {
 
-  val subheading = "About the work arrangements"
-  val optimisedSubHeading = "Working arrangements"
-
   object Worker {
     val heading = "Can you choose where you work?"
     val title = heading

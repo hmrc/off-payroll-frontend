@@ -16,7 +16,7 @@
 
 package views.sections.personalService
 
-import assets.messages.DidPaySubstituteMessages
+import assets.messages.{DidPaySubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
@@ -63,7 +63,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Optimised.Worker.title, Some(DidPaySubstituteMessages.optimisedSubHeading))
+        document.title mustBe title(DidPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -81,7 +81,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Optimised.Hirer.title, Some(DidPaySubstituteMessages.optimisedSubHeading))
+        document.title mustBe title(DidPaySubstituteMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -99,7 +99,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Optimised.Worker.title, Some(DidPaySubstituteMessages.optimisedSubHeading))
+        document.title mustBe title(DidPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {

@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.personalService
 
-import assets.messages.DidPaySubstituteMessages
+import assets.messages.{DidPaySubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.personalService.routes
 import forms.DidPaySubstituteFormProvider
@@ -57,7 +57,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Worker.title, Some(DidPaySubstituteMessages.subheading))
+        document.title mustBe title(DidPaySubstituteMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -65,7 +65,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe DidPaySubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct exclamation (warning)" in {
@@ -83,7 +83,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.Hirer.title, Some(DidPaySubstituteMessages.subheading))
+        document.title mustBe title(DidPaySubstituteMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -91,7 +91,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe DidPaySubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct exclamation (warning)" in {
@@ -109,7 +109,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(DidPaySubstituteMessages.NonTailored.title, Some(DidPaySubstituteMessages.subheading))
+        document.title mustBe title(DidPaySubstituteMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -117,7 +117,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe DidPaySubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct exclamation (warning)" in {

@@ -16,7 +16,7 @@
 
 package views.sections.financialRisk
 
-import assets.messages.EquipmentExpensesMessages
+import assets.messages.{EquipmentExpensesMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.financialRisk.routes
 import forms.EquipmentExpensesFormProvider
@@ -60,7 +60,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(EquipmentExpensesMessages.Worker.title, Some(EquipmentExpensesMessages.optimisedSubHeading))
+        document.title mustBe title(EquipmentExpensesMessages.Worker.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -82,7 +82,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(EquipmentExpensesMessages.Hirer.title, Some(EquipmentExpensesMessages.optimisedSubHeading))
+        document.title mustBe title(EquipmentExpensesMessages.Hirer.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {

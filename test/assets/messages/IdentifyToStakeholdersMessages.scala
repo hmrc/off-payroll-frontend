@@ -18,9 +18,6 @@ package assets.messages
 
 object IdentifyToStakeholdersMessages extends BaseMessages {
 
-  val subheading = "About the worker’s integration into the organisation"
-  val optimisedSubHeading = "Worker’s involvement"
-
   object Optimised {
     object Worker {
       val heading = "How would you introduce yourself to your client’s consumers or suppliers?"

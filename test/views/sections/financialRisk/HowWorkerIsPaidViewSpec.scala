@@ -16,7 +16,7 @@
 
 package views.sections.financialRisk
 
-import assets.messages.HowWorkerIsPaidMessages
+import assets.messages.{HowWorkerIsPaidMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.HowWorkerIsPaidFormProvider
@@ -59,7 +59,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title, Some(HowWorkerIsPaidMessages.optimisedSubHeading))
+        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
 
       }
 
@@ -81,7 +81,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title, Some(HowWorkerIsPaidMessages.optimisedSubHeading))
+        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
 
       }
 

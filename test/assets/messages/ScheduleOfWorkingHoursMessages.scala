@@ -18,9 +18,6 @@ package assets.messages
 
 object ScheduleOfWorkingHoursMessages extends BaseMessages {
 
-  val subheading = "About the work arrangements"
-  val optimisedSubHeading = "Working arrangements"
-
   object Worker {
     val heading = "Can the end client decide the schedule of working hours?"
     val title = heading

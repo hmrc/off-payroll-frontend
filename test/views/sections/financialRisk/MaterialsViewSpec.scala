@@ -16,7 +16,7 @@
 
 package views.sections.financialRisk
 
-import assets.messages.MaterialsMessages
+import assets.messages.{MaterialsMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.financialRisk.routes
@@ -63,7 +63,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Worker.title, Some(MaterialsMessages.optimisedSubHeading))
+        document.title mustBe title(MaterialsMessages.Worker.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -86,7 +86,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Hirer.title, Some(MaterialsMessages.optimisedSubHeading))
+        document.title mustBe title(MaterialsMessages.Hirer.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {

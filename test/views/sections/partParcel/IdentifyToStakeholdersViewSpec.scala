@@ -16,7 +16,7 @@
 
 package views.sections.partParcel
 
-import assets.messages.IdentifyToStakeholdersMessages
+import assets.messages.{IdentifyToStakeholdersMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.IdentifyToStakeholdersFormProvider
@@ -59,7 +59,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.Optimised.Worker.title, Some(IdentifyToStakeholdersMessages.optimisedSubHeading))
+        document.title mustBe title(IdentifyToStakeholdersMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.Optimised.Hirer.title, Some(IdentifyToStakeholdersMessages.optimisedSubHeading))
+        document.title mustBe title(IdentifyToStakeholdersMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -99,7 +99,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.Optimised.Worker.title, Some(IdentifyToStakeholdersMessages.optimisedSubHeading))
+        document.title mustBe title(IdentifyToStakeholdersMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {

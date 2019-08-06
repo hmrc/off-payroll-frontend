@@ -18,8 +18,6 @@ package assets.messages
 
 object ContractStartedMessages extends BaseMessages {
 
-  val subheading = "About the people involved"
-
   object Worker {
     val heading = "Have you already started this particular engagement for the end client?"
     val title = heading

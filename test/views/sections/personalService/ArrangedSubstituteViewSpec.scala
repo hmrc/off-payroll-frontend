@@ -16,7 +16,7 @@
 
 package views.sections.personalService
 
-import assets.messages.ArrangedSubstituteMessages
+import assets.messages.{ArrangedSubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.ArrangedSubstituteFormProvider
@@ -59,7 +59,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title, Some(ArrangedSubstituteMessages.optimisedSubHeading))
+        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -78,7 +78,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Hirer.title, Some(ArrangedSubstituteMessages.optimisedSubHeading))
+        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -97,7 +97,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title, Some(ArrangedSubstituteMessages.optimisedSubHeading))
+        document.title mustBe title(ArrangedSubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {

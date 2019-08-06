@@ -16,7 +16,7 @@
 
 package views.sections.control
 
-import assets.messages.ScheduleOfWorkingHoursMessages
+import assets.messages.{ScheduleOfWorkingHoursMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.ScheduleOfWorkingHoursFormProvider
@@ -59,7 +59,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, Some(ScheduleOfWorkingHoursMessages.optimisedSubHeading))
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedHirer.title, Some(ScheduleOfWorkingHoursMessages.optimisedSubHeading))
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedHirer.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -99,7 +99,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, Some(ScheduleOfWorkingHoursMessages.optimisedSubHeading))
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {

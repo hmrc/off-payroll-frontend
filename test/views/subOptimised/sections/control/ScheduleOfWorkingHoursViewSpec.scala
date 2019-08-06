@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.control
 
-import assets.messages.ScheduleOfWorkingHoursMessages
+import assets.messages.{ScheduleOfWorkingHoursMessages, SubHeadingMessages}
 import config.SessionKeys
 import forms.ScheduleOfWorkingHoursFormProvider
 import models.{NormalMode, ScheduleOfWorkingHours}
@@ -53,7 +53,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.Worker.title, Some(ScheduleOfWorkingHoursMessages.subheading))
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -61,7 +61,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct radio option messages" in {
@@ -77,7 +77,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.Hirer.title, Some(ScheduleOfWorkingHoursMessages.subheading))
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -85,7 +85,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct radio option messages" in {
@@ -101,7 +101,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.NonTailored.title, Some(ScheduleOfWorkingHoursMessages.subheading))
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -109,7 +109,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ScheduleOfWorkingHoursMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct radio option messages" in {

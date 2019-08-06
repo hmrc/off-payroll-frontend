@@ -16,7 +16,7 @@
 
 package views.sections.financialRisk
 
-import assets.messages.PutRightAtOwnCostsMessages
+import assets.messages.{PutRightAtOwnCostsMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.PutRightAtOwnCostFormProvider
@@ -61,7 +61,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.WorkerOptimised.title, Some(PutRightAtOwnCostsMessages.optimisedSubHeading))
+        document.title mustBe title(PutRightAtOwnCostsMessages.WorkerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -82,7 +82,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.HirerOptimised.title, Some(PutRightAtOwnCostsMessages.optimisedSubHeading))
+        document.title mustBe title(PutRightAtOwnCostsMessages.HirerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
       }
 
       "have the correct heading" in {

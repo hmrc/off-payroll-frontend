@@ -16,7 +16,7 @@
 
 package views.sections.exit
 
-import assets.messages.OfficeHolderMessages
+import assets.messages.{OfficeHolderMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.exit.routes
@@ -65,7 +65,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(OfficeHolderMessages.optimisedSubHeading))
+        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.exit))
       }
 
       "have the correct heading" in {
@@ -92,7 +92,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Hirer.title, Some(OfficeHolderMessages.optimisedSubHeading))
+        document.title mustBe title(OfficeHolderMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.exit))
       }
 
       "have the correct heading" in {
@@ -119,7 +119,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(OfficeHolderMessages.optimisedSubHeading))
+        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.exit))
       }
 
       "have the correct heading" in {

@@ -16,7 +16,7 @@
 
 package views.sections.partParcel
 
-import assets.messages.LineManagerDutiesMessages
+import assets.messages.{LineManagerDutiesMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.LineManagerDutiesFormProvider
@@ -60,7 +60,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Optimised.Worker.title, Some(LineManagerDutiesMessages.optimisedSubHeading))
+        document.title mustBe title(LineManagerDutiesMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -77,7 +77,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Optimised.Hirer.title, Some(LineManagerDutiesMessages.optimisedSubHeading))
+        document.title mustBe title(LineManagerDutiesMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -94,7 +94,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Optimised.Worker.title, Some(LineManagerDutiesMessages.optimisedSubHeading))
+        document.title mustBe title(LineManagerDutiesMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {

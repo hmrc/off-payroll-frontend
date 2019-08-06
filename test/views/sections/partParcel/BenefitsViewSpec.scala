@@ -16,7 +16,7 @@
 
 package views.sections.partParcel
 
-import assets.messages.BenefitsMessages
+import assets.messages.{BenefitsMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.partParcel.routes
@@ -63,7 +63,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(BenefitsMessages.optimisedSubHeading))
+        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -80,7 +80,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Hirer.title, Some(BenefitsMessages.optimisedSubHeading))
+        document.title mustBe title(BenefitsMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -97,7 +97,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(BenefitsMessages.optimisedSubHeading))
+        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.partAndParcel))
       }
 
       "have the correct heading" in {

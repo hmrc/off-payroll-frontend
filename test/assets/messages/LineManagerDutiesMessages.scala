@@ -18,9 +18,6 @@ package assets.messages
 
 object LineManagerDutiesMessages extends BaseMessages {
 
-  val subheading = "About the worker’s integration into the organisation"
-  val optimisedSubHeading = "Worker’s involvement"
-
   object Optimised {
     object Worker {
       val heading = "Will you have any formal responsibilities for your client?"
