@@ -877,13 +877,13 @@ hirer.wouldWorkerPaySubstitute.exclamation =Os byddai’r eilydd yn cael ei dalu
 worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute?
 worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute?
 worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute?
-worker.optimised.wouldWorkerPaySubstitute.exclamation = This would include payments made by you or your business.
+worker.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by you or your business.
 
 ## TODO: Need Welsh
 hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute?
-hirer.optimised.wouldWorkerPaySubstitute.exclamation = This would include payments made by the worker or their business.
+hirer.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by the worker or their business.
 #########################
 
 

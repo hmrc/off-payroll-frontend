@@ -72,8 +72,8 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
       }
 
-      "have the correct exclamation" in {
-        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Optimised.Worker.exclamation
+      "have the correct hint p" in {
+        document.select(Selectors.hint(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.hint
 
       }
     }
