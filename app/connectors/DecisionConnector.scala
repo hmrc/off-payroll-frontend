@@ -16,6 +16,8 @@
 
 package connectors
 
+import java.util.UUID
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.httpParsers.DecisionHttpParser.DecisionReads
@@ -24,21 +26,22 @@ import javax.inject.Inject
 import models._
 import models.logging.LogInterview
 import play.api.Logger
-import play.api.libs.json.{JsBoolean, JsValue, Json, Writes}
+import play.api.libs.json.{JsValue, Json, Writes}
 import play.mvc.Http.Status._
+import repositories.ParallelRunningRepository
 import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.DateTimeUtil
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Random
 
 class DecisionConnector @Inject()(httpClient: HttpClient,
                                   servicesConfig: ServicesConfig,
                                   conf: FrontendAppConfig,
                                   dateTimeUtil: DateTimeUtil,
-                                  dataCacheConnector: DataCacheConnector,
+                                  parallelRunningRepository: ParallelRunningRepository,
                                   timestamp: Timestamp
                                  ) extends FeatureSwitching {
 
@@ -47,47 +50,8 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   lazy val logUrl = s"$baseUrl/cest-decision/log"
 
   private[connectors] val handleUnexpectedError: PartialFunction[Throwable, Left[ErrorResponse, Nothing]] = {
-    case ex: Exception => Logger.error("[DecisionConnector][handleUnexpectedError]",ex)
+    case ex: Exception => Logger.error("[DecisionConnector][handleUnexpectedError]", ex)
       Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
-  }
-
-  def toMapModel(jsonOld: JsValue, jsonNew: JsValue, identicalBody: Boolean = false,
-                 identicalResult: Boolean = false): Map[String, JsValue] = {
-
-    if(!identicalResult) Logger.error(s"[DecisionConnector] The new decision result did not match the old decision result." +
-      s" OldJson: $jsonOld , NewJson: $jsonNew")
-    if(!identicalBody && identicalResult) Logger.warn("[DecisionConnector] The decision results match but the json bodies differ." +
-      s" OldJson: $jsonOld , NewJson: $jsonNew")
-
-    Map(
-      "oldResponse" -> jsonOld,
-      "newResponse" -> jsonNew,
-      "identicalBody" -> JsBoolean(identicalBody),
-      "identicalResult" -> JsBoolean(identicalResult)
-    )
-  }
-
-  def calculateDifferences(oldResponse: Either[ErrorResponse, DecisionResponse], newResponse: Either[ErrorResponse, DecisionResponse])
-                          (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CacheMap] = {
-
-    val cacheMap: Map[String, JsValue] = (oldResponse, newResponse) match {
-      case (Right(responseOld), Right(responseNew)) =>
-
-        val identicalBody: Boolean = responseOld.equals(responseNew)
-        val identicalResult: Boolean = responseOld.result.equals(responseNew.result)
-        toMapModel(Json.toJson(responseOld), Json.toJson(responseNew), identicalBody, identicalResult)
-
-      case (Left(errorOld), Left(errorNew)) =>
-
-        val identicalBody: Boolean = errorOld.equals(errorNew)
-        val identicalResult: Boolean = errorOld.status.equals(errorNew.status)
-        toMapModel(Json.toJson(errorOld), Json.toJson(errorNew), identicalBody, identicalResult)
-
-      case (Right(responseOld), Left(errorNew)) => toMapModel(Json.toJson(responseOld), Json.toJson(errorNew))
-      case (Left(errorOld), Right(responseNew)) => toMapModel(Json.toJson(errorOld), Json.toJson(responseNew))
-    }
-
-    dataCacheConnector.save(CacheMap(timestamp.timestamp(), cacheMap))
   }
 
   def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)
@@ -98,7 +62,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
     implicit val appConf: FrontendAppConfig = conf
 
-    if(!isEnabled(OptimisedFlow)){
+    if (!isEnabled(OptimisedFlow)) {
       for {
         oldResponse <- response
         newResponse <- decideNew(decisionRequest)
@@ -108,14 +72,58 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     response
   }
 
+  def calculateDifferences(oldResponse: Either[ErrorResponse, DecisionResponse], newResponse: Either[ErrorResponse, DecisionResponse])
+                          (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[ParallelRunningModel] = {
+
+    val model: ParallelRunningModel = (oldResponse, newResponse) match {
+      case (Right(responseOld), Right(responseNew)) =>
+
+        val identicalBody: Boolean = responseOld.equals(responseNew)
+        val identicalResult: Boolean = responseOld.result.equals(responseNew.result)
+        toModel(Json.toJson(responseOld), Json.toJson(responseNew), identicalBody, identicalResult)
+
+      case (Left(errorOld), Left(errorNew)) =>
+
+        val identicalBody: Boolean = errorOld.equals(errorNew)
+        val identicalResult: Boolean = errorOld.status.equals(errorNew.status)
+        toModel(Json.toJson(errorOld), Json.toJson(errorNew), identicalBody, identicalResult)
+
+      case (Right(responseOld), Left(responseNew)) => toModel(Json.toJson(responseOld), Json.toJson(responseNew))
+      case (Left(responseOld), Right(responseNew)) => toModel(Json.toJson(responseOld), Json.toJson(responseNew))
+    }
+
+    parallelRunningRepository.insert(model).map { _ => model }
+  }
+
+  def toModel(oldResponse: JsValue,
+              newResponse: JsValue,
+              identicalBody: Boolean = false,
+              identicalResult: Boolean = false): ParallelRunningModel = {
+
+    if (!identicalResult) Logger.error(s"[DecisionConnector] The new decision result did not match the old decision result." +
+      s" OldResponse: $oldResponse , NewResponse: $newResponse")
+    if (!identicalBody && identicalResult) Logger.warn("[DecisionConnector] The decision results match but the json bodies differ." +
+      s" OldResponse: $oldResponse , NewResponse: $newResponse")
+
+    def uuid: String = UUID.randomUUID().toString
+
+    ParallelRunningModel(
+      s"${timestamp.timestamp()} - $uuid",
+      oldResponse,
+      newResponse,
+      identicalBody,
+      identicalResult
+    )
+  }
+
   def decideNew(decisionRequest: Interview, writer: Writes[Interview] = NewInterview.writes)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
+               (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
     Logger.debug(s"[DecisionConnector][decideNew] ${Json.toJson(decisionRequest)(writer)}")
 
     httpClient.POST(s"$decideUrl/new", decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
   }
 
-  def log(decisionRequest: Interview,decisionResponse: DecisionResponse)
+  def log(decisionRequest: Interview, decisionResponse: DecisionResponse)
          (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, Boolean]] = {
     Logger.debug(s"[DecisionConnector][log] ${Json.toJson(decisionRequest)}")
     httpClient.POST(logUrl, LogInterview(decisionRequest, decisionResponse, dateTimeUtil))(LogInterview.writes, LogReads, hc, ec) recover handleUnexpectedError
