@@ -99,11 +99,9 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     implicit val appConf: FrontendAppConfig = conf
 
     if(!isEnabled(OptimisedFlow)){
-      val newResponse = decideNew(decisionRequest)
-
       for {
         oldResponse <- response
-        newResponse <- newResponse
+        newResponse <- decideNew(decisionRequest)
       } yield calculateDifferences(oldResponse, newResponse)
     }
 
