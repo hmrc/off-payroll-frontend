@@ -18,12 +18,12 @@ package controllers.sections.businessOnOwnAccount
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.MajorityOfWorkingTimeFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.BusinessOnOwnAccountNavigator
 import pages.MajorityOfWorkingTimePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +33,7 @@ import views.html.sections.businessOnOwnAccount.MajorityOfWorkingTimeView
 import scala.concurrent.Future
 
 class MajorityOfWorkingTimeController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
+                                         navigator: BusinessOnOwnAccountNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -42,7 +42,7 @@ class MajorityOfWorkingTimeController @Inject()(dataCacheConnector: DataCacheCon
                                          compareAnswerService: CompareAnswerService,
                                          decisionService: DecisionService,
                                          view: MajorityOfWorkingTimeView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
 controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()

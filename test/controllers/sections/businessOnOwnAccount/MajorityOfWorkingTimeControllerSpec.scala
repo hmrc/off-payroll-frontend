@@ -23,7 +23,6 @@ import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataR
 import forms.MajorityOfWorkingTimeFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
 import pages.MajorityOfWorkingTimePage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -45,7 +44,7 @@ class MajorityOfWorkingTimeControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new MajorityOfWorkingTimeController(
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = FakeBusinessOnOwnAccountNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
