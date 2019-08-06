@@ -41,7 +41,7 @@ class AddReferenceDetailsControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view,
-    navigator = FakePartAndParcelNavigator,
+    navigator = FakeCYANavigator,
     dataCacheConnector = mockDataCacheConnector,
     compareAnswerService = mockCompareAnswerService,
     decisionService = mockDecisionService,

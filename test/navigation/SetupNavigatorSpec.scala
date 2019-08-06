@@ -16,7 +16,7 @@
 
 package navigation
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
@@ -26,7 +26,7 @@ import pages._
 import pages.sections.setup._
 import play.api.libs.json.Writes
 
-class SetupNavigatorSpec extends SpecBase {
+class SetupNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
 

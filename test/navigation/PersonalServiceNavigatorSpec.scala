@@ -16,7 +16,7 @@
 
 package navigation
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.control.{routes => controlRoutes}
@@ -27,7 +27,7 @@ import pages._
 import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, WouldWorkerPaySubstitutePage}
 import pages.sections.setup.ContractStartedPage
 
-class PersonalServiceNavigatorSpec extends SpecBase {
+class PersonalServiceNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
   val navigator = new PersonalServiceNavigator

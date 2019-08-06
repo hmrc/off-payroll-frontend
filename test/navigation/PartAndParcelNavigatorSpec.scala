@@ -16,7 +16,7 @@
 
 package navigation
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.partParcel.{routes => partAndParcelRoutes}
@@ -24,7 +24,7 @@ import models._
 import pages._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 
-class PartAndParcelNavigatorSpec extends SpecBase {
+class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
   val navigator = new PartAndParcelNavigator

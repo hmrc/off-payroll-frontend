@@ -16,13 +16,13 @@
 
 package navigation
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import models._
 import pages._
 
-class CYANavigatorSpec extends SpecBase {
+class CYANavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
   val navigator = new CYANavigator

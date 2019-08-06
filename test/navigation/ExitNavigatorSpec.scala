@@ -16,18 +16,17 @@
 
 package navigation
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import models._
 import pages._
-import pages.sections.control.{HowWorkIsDonePage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup.ContractStartedPage
 
-class ExitNavigatorSpec extends SpecBase {
+class ExitNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
   val navigator = new ExitNavigator

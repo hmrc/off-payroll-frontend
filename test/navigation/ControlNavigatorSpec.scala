@@ -16,7 +16,7 @@
 
 package navigation
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => finacialRiskRoutes}
@@ -24,7 +24,7 @@ import models._
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 
-class ControlNavigatorSpec extends SpecBase {
+class ControlNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
   val navigator = new ControlNavigator

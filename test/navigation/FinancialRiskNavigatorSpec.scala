@@ -16,7 +16,7 @@
 
 package navigation
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.financialRisk.{routes => finacialRiskRoutes}
 import controllers.sections.partParcel.{routes => partAndParcelRoutes}
@@ -24,7 +24,7 @@ import models._
 import pages._
 import pages.sections.financialRisk._
 
-class FinancialRiskNavigatorSpec extends SpecBase {
+class FinancialRiskNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
   val navigator = new FinancialRiskNavigator
