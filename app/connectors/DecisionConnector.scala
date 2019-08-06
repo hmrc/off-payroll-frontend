@@ -100,8 +100,10 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
               identicalBody: Boolean = false,
               identicalResult: Boolean = false): ParallelRunningModel = {
 
-    if (!identicalResult) Logger.error(s"[DecisionConnector] The new decision result did not match the old decision result." +
-      s" OldResponse: $oldResponse , NewResponse: $newResponse")
+    if (!identicalResult) {
+      Logger.error("[DecisionConnector] The new decision result did not match the old decision result:")
+      Logger.error(s"OldResponse: $oldResponse\n\nNewResponse: $newResponse")
+    }
     if (!identicalBody && identicalResult) Logger.warn("[DecisionConnector] The decision results match but the json bodies differ." +
       s" OldResponse: $oldResponse , NewResponse: $newResponse")
 
