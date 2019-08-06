@@ -16,7 +16,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class $className$Controller @Inject()(appConfig: FrontendAppConfig,
                                       dataCacheConnector: DataCacheConnector,
-                                      navigator: OldNavigator,
+                                      navigator: Navigator,
                                       identify: IdentifierAction,
                                       getData: DataRetrievalAction,
                                       requireData: DataRequiredAction,
