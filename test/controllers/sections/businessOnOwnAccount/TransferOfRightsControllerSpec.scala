@@ -1,20 +1,42 @@
-package controllers
+/*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import play.api.data.Form
-import play.api.libs.json.{JsBoolean, Json}
-import uk.gov.hmrc.http.cache.client.CacheMap
-import navigation.FakeNavigator
+package controllers.sections.businessOnOwnAccount
+
+import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
+import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
-import play.api.test.Helpers._
 import forms.TransferOfRightsFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import pages.{TransferOfRightsPage, TransferOfRightsPage}
-import play.api.mvc.Call
-import views.html.TransferOfRightsView
+import navigation.FakeNavigator
+import pages.TransferOfRightsPage
+import play.api.data.Form
+import play.api.libs.json.Json
+import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
+import views.html.sections.businessOnOwnAccount.TransferOfRightsView
 
 class TransferOfRightsControllerSpec extends ControllerSpecBase {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
 
   val formProvider = new TransferOfRightsFormProvider()
   val form = formProvider()
@@ -31,7 +53,8 @@ class TransferOfRightsControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper = mockControllerHelper
+    compareAnswerService = mockCompareAnswerService,
+    decisionService = mockDecisionService
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -59,9 +82,7 @@ class TransferOfRightsControllerSpec extends ControllerSpecBase {
       val validData = Map(TransferOfRightsPage.toString -> Json.toJson(Answers(true,0)))
 
       val answers = userAnswers.set(TransferOfRightsPage,0,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
