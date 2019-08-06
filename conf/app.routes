@@ -207,3 +207,8 @@ GET        /multiple-contracts                          controllers.sections.bus
 POST       /multiple-contracts                          controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = NormalMode)
 GET        /multiple-contracts/change                   controllers.sections.businessOnOwnAccount.MultipleContractsController.onPageLoad(mode: Mode = CheckMode)
 POST       /multiple-contracts/change                   controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /transfer-of-rights                          controllers.TransferOfRightsController.onPageLoad(mode: Mode = NormalMode)
+POST       /transfer-of-rights                          controllers.TransferOfRightsController.onSubmit(mode: Mode = NormalMode)
+GET        /transfer-of-rights/change                   controllers.TransferOfRightsController.onPageLoad(mode: Mode = CheckMode)
+POST       /transfer-of-rights/change                   controllers.TransferOfRightsController.onSubmit(mode: Mode = CheckMode)

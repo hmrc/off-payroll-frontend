@@ -1,0 +1,30 @@
+@import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
+@import controllers.routes._
+@import models.Mode
+@import views.ViewUtils._
+
+@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
+
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+
+@mainTemplate(
+    title = title(form, "transferOfRights.title"),
+    appConfig = appConfig,
+    bodyClasses = None) {
+
+    @components.back_link()(mode)
+
+    @formWithCsrf(action = TransferOfRightsController.onSubmit(mode), 'autoComplete -> "off") {
+
+        @components.error_summary(form.errors)
+
+        @components.input_yes_no(
+            field = form("value"),
+            legend = components.heading("transferOfRights.heading", Some("transferOfRights.subheading")),
+            labelClass = Some("visually-hidden")
+        )
+
+        @components.submit_button()
+    }
+}

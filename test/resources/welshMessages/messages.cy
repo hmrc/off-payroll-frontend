@@ -1667,6 +1667,7 @@ resetAnswersWarning.error.required = You need to select an answer
 
 
 ##TODO: Need Welsh
+<<<<<<< HEAD
 ### Multiple Contracts Page
 ### -----------------------
 multipleContracts.error.required = You need to select an answer
@@ -1680,3 +1681,20 @@ hirer.multipleContracts.subheading = Worker’s contracts
 hirer.multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
 hirer.multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
 hirer.multipleContracts.checkYourAnswersLabel = Does this contract stop the worker from doing similar work for other organisations?
+=======
+#### Transfer of Rights Page - BoOA
+#### ------------------------------
+transferOfRights.error.required = You need to select an answer
+
+worker.transferOfRights.subheading = Worker’s contracts
+worker.transferOfRights.title = Does the contract give the client the option to buy the rights for a separate fee?
+worker.transferOfRights.heading = Does the contract give the client the option to buy the rights for a separate fee?
+worker.transferOfRights.checkYourAnswersLabel = Does the contract give the client the option to buy the rights for a separate fee?
+worker.transferOfRights.p1 = If no such clause or requirement exists, you would keep all the rights.
+
+hirer.transferOfRights.subheading = Worker’s contracts
+hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker would keep all the rights.
+>>>>>>> [CEST-548] Built Xfer of Rights page using giter8

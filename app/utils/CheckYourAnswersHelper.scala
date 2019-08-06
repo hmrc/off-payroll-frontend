@@ -37,6 +37,10 @@ import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
+  def transferOfRights: Option[AnswerRow] = userAnswers.get(TransferOfRightsPage) map {
+    x => AnswerRow("transferOfRights.checkYourAnswersLabel", if(x) "site.yes" else "site.no", true, routes.TransferOfRightsController.onPageLoad(CheckMode).url)
+  }
+
   def turnoverOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(TurnoverOverPage) map { x =>
       AnswerRow(
