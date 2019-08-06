@@ -17,7 +17,7 @@
 package connectors
 
 import _root_.utils.MockDateTimeUtil
-import base.{GuiceAppSpecBase, MockServicesConfig, SpecBase}
+import base.{GuiceAppSpecBase, MockServicesConfig}
 import connectors.mocks.MockHttp
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
@@ -33,19 +33,14 @@ import models.WeightedAnswerEnum.{HIGH, LOW}
 import models.WorkerType.SoleTrader
 import models._
 import models.logging.LogInterview
-import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.Json
 import play.mvc.Http.Status
-import repositories.ParallelRunningRepository
+import repositories.FakeParallelRunningRepository
 
 import scala.concurrent.Future
 
 
 class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServicesConfig {
-
-  object mockRepo extends MockitoSugar {
-    val parallelRepo = mock[ParallelRunningRepository]
-  }
 
   object FakeTimestamp extends Timestamp {
 
@@ -53,7 +48,7 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
 
   }
 
-  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil, mockRepo.parallelRepo, FakeTimestamp)
+  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil, new FakeParallelRunningRepository, FakeTimestamp)
 
   val emptyInterviewModel: Interview = Interview(
     "12345"
