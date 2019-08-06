@@ -23,7 +23,6 @@ import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataR
 import forms.PermissionToWorkWithOthersFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
 import pages.PermissionToWorkWithOthersPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -45,7 +44,7 @@ class PermissionToWorkWithOthersControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PermissionToWorkWithOthersController(
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = FakeBusinessOnOwnAccountNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

@@ -18,12 +18,12 @@ package controllers.sections.businessOnOwnAccount
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.{BaseController, BaseNavigationController}
 import controllers.actions._
 import forms.PermissionToWorkWithOthersFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.{BusinessOnOwnAccountNavigator, Navigator}
 import pages.PermissionToWorkWithOthersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,16 +33,16 @@ import views.html.sections.businessOnOwnAccount.PermissionToWorkWithOthersView
 import scala.concurrent.Future
 
 class PermissionToWorkWithOthersController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: PermissionToWorkWithOthersFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         compareAnswerService: CompareAnswerService,
-                                         decisionService: DecisionService,
-                                         view: PermissionToWorkWithOthersView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                                     navigator: BusinessOnOwnAccountNavigator,
+                                                     identify: IdentifierAction,
+                                                     getData: DataRetrievalAction,
+                                                     requireData: DataRequiredAction,
+                                                     formProvider: PermissionToWorkWithOthersFormProvider,
+                                                     controllerComponents: MessagesControllerComponents,
+                                                     compareAnswerService: CompareAnswerService,
+                                                     decisionService: DecisionService,
+                                                     view: PermissionToWorkWithOthersView,
+                                                     implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
 controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
