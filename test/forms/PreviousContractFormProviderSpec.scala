@@ -14,20 +14,32 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms
 
-object $className$Messages extends BaseMessages {
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-  object Worker {
-    val title = "$workerHeading$"
-    val heading = "$workerTitle$"
-    val subheading = "$workerSubheading$"
+class PreviousContractFormProviderSpec extends BooleanFieldBehaviours {
+
+  val requiredKey = "previousContract.error.required"
+  val invalidKey = "error.boolean"
+
+  val form = new PreviousContractFormProvider()()
+
+  ".value" must {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
   }
-
-  object Hirer {
-    val title = "$hirerHeading$"
-    val heading = "$hirerTitle$"
-    val subheading = "$hirerSubheading$"
-  }
-
 }

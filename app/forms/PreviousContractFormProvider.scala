@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package assets.messages
+package forms
 
-object $className$Messages extends BaseMessages {
+import javax.inject.Inject
 
-  object Worker {
-    val title = "$workerHeading$"
-    val heading = "$workerTitle$"
-    val subheading = "$workerSubheading$"
-  }
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  object Hirer {
-    val title = "$hirerHeading$"
-    val heading = "$hirerTitle$"
-    val subheading = "$hirerSubheading$"
-  }
+class PreviousContractFormProvider @Inject() extends Mappings {
 
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("previousContract.error.required")
+    )
 }

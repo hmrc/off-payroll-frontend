@@ -1750,3 +1750,19 @@ hirer.permissionToWorkWithOthers.title = Is the worker required to ask permissio
 hirer.permissionToWorkWithOthers.heading = Is the worker required to ask permission to work for other organisations?
 hirer.permissionToWorkWithOthers.checkYourAnswersLabel = Is the worker required to ask permission to work for other organisations?
 hirer.permissionToWorkWithOthers.subheading = Worker’s contracts
+
+
+##TODO: Need Welsh
+#### Permission to Work Page - BoOA
+#### ------------------------------
+previousContract.error.required = You need to select an answer
+
+worker.previousContract.title = Have you had a previous contract with this client?
+worker.previousContract.heading = Have you had a previous contract with this client?
+worker.previousContract.checkYourAnswersLabel = Have you had a previous contract with this client?
+worker.previousContract.subheading = Worker’s contracts
+
+hirer.previousContract.title = Has the worker had a previous contract with your organisation?
+hirer.previousContract.heading = Has the worker had a previous contract with your organisation?
+hirer.previousContract.checkYourAnswersLabel = Has the worker had a previous contract with your organisation?
+hirer.previousContract.subheading = Worker’s contracts

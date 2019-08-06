@@ -16,18 +16,18 @@
 
 package assets.messages
 
-object $className$Messages extends BaseMessages {
+object PreviousContractMessages extends BaseMessages {
 
   object Worker {
-    val title = "$workerHeading$"
-    val heading = "$workerTitle$"
-    val subheading = "$workerSubheading$"
+    val title = "Have you had a previous contract with this client?"
+    val heading = title
+    val subheading = "Worker’s contracts"
   }
 
   object Hirer {
-    val title = "$hirerHeading$"
-    val heading = "$hirerTitle$"
-    val subheading = "$hirerSubheading$"
+    val title = "Has the worker had a previous contract with your organisation?"
+    val heading = title
+    val subheading = "Worker’s contracts"
   }
 
 }

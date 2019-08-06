@@ -14,20 +14,9 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object $className$Messages extends BaseMessages {
+case object PreviousContractPage extends QuestionPage[Boolean] {
 
-  object Worker {
-    val title = "$workerHeading$"
-    val heading = "$workerTitle$"
-    val subheading = "$workerSubheading$"
-  }
-
-  object Hirer {
-    val title = "$hirerHeading$"
-    val heading = "$hirerTitle$"
-    val subheading = "$hirerSubheading$"
-  }
-
+  override def toString: String = "previousContract"
 }

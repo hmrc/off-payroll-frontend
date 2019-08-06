@@ -9,7 +9,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, "$className;format="decap"$.title"),
+    title = title(form, tailorMsg("$className;format="decap"$.title"), Some(tailorMsg("$className;format="decap"$.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -21,7 +21,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = components.heading("$className;format="decap"$.heading", Some("$className;format="decap"$.subheading")),
+            legend = components.heading(tailorMsg("$className;format="decap"$.heading"), Some(tailorMsg("$className;format="decap"$.subheading")), asLegend = true),
             labelClass = Some("visually-hidden")
         )
 

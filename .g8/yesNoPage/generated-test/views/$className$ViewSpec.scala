@@ -16,42 +16,60 @@ class $className$ViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "$className;format="
-  decap "
-  $"
+  val messageKeyPrefix = "worker.$className;format="decap"$"
 
   val form = new $className$FormProvider()()
 
   val view = injector.instanceOf[$className$View]
 
-  def createView = () => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
+  def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(workerFakeRequest, messages, frontendAppConfig)
 
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
-  "$className$View" must {
+  "$className$View" when {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.$className$Controller.onSubmit(NormalMode).url)
 
-    lazy val request = workerFakeRequest
-    lazy val document = asDocument(createViewWithRequest(request))
+    "the UserType is Worker" must {
 
-    "have the correct title" in {
-      document.title mustBe title($className$Messages.title)
+      lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
+
+      "have the correct title" in {
+        document.title mustBe title($className$Messages.Worker.title, Some($className$Messages.Worker.subheading))
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe $className$Messages.Worker.heading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe $className$Messages.yes
+        document.select(Selectors.multichoice(2)).text mustBe $className$Messages.no
+      }
     }
 
-    "have the correct heading" in {
-      document.select(Selectors.heading).text mustBe $className$Messages.heading
-    }
+    "the UserType is Hirer" must {
 
-    "have the correct radio option messages" in {
-      document.select(Selectors.multichoice(1)).text mustBe $className$Messages.yes
-      document.select(Selectors.multichoice(2)).text mustBe $className$Messages.no
+      lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
+
+      "have the correct title" in {
+        document.title mustBe title($className$Messages.Hirer.title, Some($className$Messages.Hirer.subheading))
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe $className$Messages.Hirer.heading
+      }
+
+      "have the correct radio option messages" in {
+        document.select(Selectors.multichoice(1)).text mustBe $className$Messages.yes
+        document.select(Selectors.multichoice(2)).text mustBe $className$Messages.no
+      }
     }
   }
 }
