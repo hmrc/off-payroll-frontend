@@ -14,7 +14,7 @@ echo "POST       /$className;format="decap"$/edit                   controllers.
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
-echo "### $className Page" >> ../conf/messages.en
+echo "### $className$ Page" >> ../conf/messages.en
 echo "### ---------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = You need to select an answer" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
@@ -32,7 +32,7 @@ echo "hirer.$className;format="decap"$.checkYourAnswersLabel = $hirerHeading$" >
 echo "Adding Welsh messages to conf.messages"
 echo "" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
-echo "### $className Page" >> ../conf/messages.cy
+echo "### $className$ Page" >> ../conf/messages.cy
 echo "### ---------------------------------" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.required = You need to select an answer" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy

@@ -27,6 +27,9 @@ import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 
 trait PageGenerators {
 
+  implicit lazy val arbitraryFollowOnContractPage: Arbitrary[FollowOnContractPage.type] =
+    Arbitrary(FollowOnContractPage)
+
   implicit lazy val arbitraryPreviousContractPage: Arbitrary[PreviousContractPage.type] =
     Arbitrary(PreviousContractPage)
 

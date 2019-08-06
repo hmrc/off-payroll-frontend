@@ -1766,3 +1766,21 @@ hirer.previousContract.title = Has the worker had a previous contract with your 
 hirer.previousContract.heading = Has the worker had a previous contract with your organisation?
 hirer.previousContract.checkYourAnswersLabel = Has the worker had a previous contract with your organisation?
 hirer.previousContract.subheading = Worker’s contracts
+
+
+##TODO: Need Welsh
+### FollowOnContract Page
+### ---------------------------------
+followOnContract.error.required = You need to select an answer
+
+worker.followOnContract.title = Will you start this contract contract immediately after your last contract with this client ended?
+worker.followOnContract.heading = Will you start this contract contract immediately after your last contract with this client ended?
+worker.followOnContract.subheading = Worker’s contracts
+worker.followOnContract.checkYourAnswersLabel = Will you start this contract contract immediately after your last contract with this client ended?
+worker.followOnContract.p1 = This refers to working time only and can include any holiday period between the two contracts.
+
+hirer.followOnContract.title = Will the worker start this contract immediately after their last contract with your organisation ended?
+hirer.followOnContract.heading = Will the worker start this contract immediately after their last contract with your organisation ended?
+hirer.followOnContract.subheading = Worker’s contracts
+hirer.followOnContract.checkYourAnswersLabel = Will the worker start this contract immediately after their last contract with your organisation ended?
+hirer.followOnContract.p1 = This refers to working time only and can include any holiday period between the two contracts.
