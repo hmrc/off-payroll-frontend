@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package utils
+package repositories
+import models.ParallelRunningModel
 
-import models.Timestamp
-import play.api.i18n.Messages
+import scala.concurrent.Future
 
-object FakeTimestamp extends Timestamp {
-
-  override def timestamp(time: Option[String]): String = s"01 January 2019, 00:00:00"
-
+class FakeParallelRunningRepository extends ParallelRunningRepository {
+  override def get(id: String): Future[Option[ParallelRunningModel]] = Future.successful(None)
+  override def insert(model: ParallelRunningModel): Future[Boolean] = Future.successful(true)
 }
