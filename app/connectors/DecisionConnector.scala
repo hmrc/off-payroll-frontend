@@ -17,21 +17,20 @@
 package connectors
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitch, FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.httpParsers.DecisionHttpParser.DecisionReads
 import connectors.httpParsers.LogHttpParser.LogReads
 import javax.inject.Inject
 import models._
 import models.logging.LogInterview
 import play.api.Logger
-import play.api.libs.json.{JsBoolean, JsObject, JsValue, Json, Writes}
+import play.api.libs.json.{JsBoolean, JsValue, Json, Writes}
 import play.mvc.Http.Status._
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
 import utils.DateTimeUtil
-import viewmodels.Timestamp
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -52,8 +51,8 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
       Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
   }
 
-  def toMap(jsonOld: JsValue, jsonNew: JsValue, identicalBody: Boolean = false,
-            identicalResult: Boolean = false): Map[String, JsValue] = {
+  def toMapModel(jsonOld: JsValue, jsonNew: JsValue, identicalBody: Boolean = false,
+                 identicalResult: Boolean = false): Map[String, JsValue] = {
 
     if(!identicalResult) Logger.error(s"[DecisionConnector] The new decision result did not match the old decision result." +
       s" OldJson: $jsonOld , NewJson: $jsonNew")
@@ -68,37 +67,27 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     )
   }
 
-  def calculateDifferences(oldResponse: Future[Either[ErrorResponse, DecisionResponse]], newResponse: Future[Either[ErrorResponse,DecisionResponse]])
+  def calculateDifferences(oldResponse: Either[ErrorResponse, DecisionResponse], newResponse: Either[ErrorResponse, DecisionResponse])
                           (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[CacheMap] = {
 
-    oldResponse.flatMap{
-      oldResponse =>
+    val cacheMap: Map[String, JsValue] = (oldResponse, newResponse) match {
+      case (Right(responseOld), Right(responseNew)) =>
 
-        newResponse.flatMap{
-          newResponse =>
+        val identicalBody: Boolean = responseOld.equals(responseNew)
+        val identicalResult: Boolean = responseOld.result.equals(responseNew.result)
+        toMapModel(Json.toJson(responseOld), Json.toJson(responseNew), identicalBody, identicalResult)
 
-            val cacheMap: Map[String, JsValue] = (oldResponse, newResponse) match {
-              case (Right(responseOld), Right(responseNew)) =>
+      case (Left(errorOld), Left(errorNew)) =>
 
-                val identicalBody: Boolean = responseOld.equals(responseNew)
-                val identicalResult: Boolean = responseOld.result.equals(responseNew.result)
+        val identicalBody: Boolean = errorOld.equals(errorNew)
+        val identicalResult: Boolean = errorOld.status.equals(errorNew.status)
+        toMapModel(Json.toJson(errorOld), Json.toJson(errorNew), identicalBody, identicalResult)
 
-                toMap(Json.toJson(responseOld), Json.toJson(responseNew), identicalBody, identicalResult)
-
-              case (Left(errorOld), Right(responseNew)) => toMap(Json.toJson(errorOld), Json.toJson(responseNew))
-
-              case (Right(responseOld), Left(errorNew)) => toMap(Json.toJson(responseOld),Json.toJson(errorNew))
-
-              case (Left(errorOld), Left(errorNew)) =>
-
-                val identicalBody: Boolean = errorOld.equals(errorNew)
-                val identicalResult: Boolean = errorOld.status.equals(errorNew.status)
-                toMap(Json.toJson(errorOld),Json.toJson(errorNew), identicalBody, identicalResult)
-            }
-
-            dataCacheConnector.save(CacheMap(timestamp.timestamp(), cacheMap))
-        }
+      case (Right(responseOld), Left(errorNew)) => toMapModel(Json.toJson(responseOld), Json.toJson(errorNew))
+      case (Left(errorOld), Right(responseNew)) => toMapModel(Json.toJson(errorOld), Json.toJson(responseNew))
     }
+
+    dataCacheConnector.save(CacheMap(timestamp.timestamp(), cacheMap))
   }
 
   def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)
@@ -111,7 +100,11 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
     if(!isEnabled(OptimisedFlow)){
       val newResponse = decideNew(decisionRequest)
-      calculateDifferences(response,newResponse)
+
+      for {
+        oldResponse <- response
+        newResponse <- newResponse
+      } yield calculateDifferences(oldResponse, newResponse)
     }
 
     response
