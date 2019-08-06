@@ -29,16 +29,12 @@ class ResetAnswersWarningControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ResetAnswersWarningController(
-    FakeNavigator,
-    FakeIdentifierAction,
-    dataRetrievalAction,
-    new DataRequiredActionImpl(messagesControllerComponents),
+    identify = FakeIdentifierAction,
+    getData = dataRetrievalAction,
+    requireData = new DataRequiredActionImpl(messagesControllerComponents),
     controllerComponents = messagesControllerComponents,
     view = view,
     appConfig = frontendAppConfig,
-    compareAnswerService = mockCompareAnswerService,
-    dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
     formProvider = formProvider
   )
 

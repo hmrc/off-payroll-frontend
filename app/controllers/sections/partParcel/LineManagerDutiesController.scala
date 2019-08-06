@@ -18,12 +18,11 @@ package controllers.sections.partParcel
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
+import controllers.BaseNavigationController
 import controllers.actions._
-import controllers.BaseController
 import forms.LineManagerDutiesFormProvider
 import javax.inject.Inject
-
-import connectors.DataCacheConnector
 import models.Mode
 import navigation.PartAndParcelNavigator
 import pages.sections.partParcel.LineManagerDutiesPage
@@ -48,7 +47,7 @@ class LineManagerDutiesController @Inject()(identify: IdentifierAction,
                                             compareAnswerService: CompareAnswerService,
                                             dataCacheConnector: DataCacheConnector,
                                             navigator: PartAndParcelNavigator,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                            implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()

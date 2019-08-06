@@ -31,12 +31,7 @@ class StartAgainController @Inject()(identify: IdentifierAction,
                                      controllerComponents: MessagesControllerComponents,
                                      view: StartAgainView,
                                      checkYourAnswersService: CheckYourAnswersService,
-                                     compareAnswerService: CompareAnswerService,
-                                     dataCacheConnector: DataCacheConnector,
-                                     decisionService: DecisionService,
-                                     navigator: OldNavigator,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   def redirectToGovUk: Action[AnyContent] = identify { implicit request =>
     Redirect(appConfig.govUkStartPageUrl).withNewSession

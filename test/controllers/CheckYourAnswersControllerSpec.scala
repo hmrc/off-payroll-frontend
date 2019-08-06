@@ -31,7 +31,7 @@ class CheckYourAnswersControllerSpec extends ControllerSpecBase with MockCheckYo
   val mockCheckAnswerService = app.injector.instanceOf[CheckYourAnswersService]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new CheckYourAnswersController(
-    FakeNavigator,
+    FakeCYANavigator,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),

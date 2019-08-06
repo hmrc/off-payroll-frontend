@@ -19,7 +19,7 @@ package controllers.sections.control
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.MoveWorkerFormProvider
 import javax.inject.Inject
@@ -47,7 +47,7 @@ class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      dataCacheConnector: DataCacheConnector,
                                      decisionService: DecisionService,
                                      navigator: ControlNavigator,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                     implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[MoveWorker] = formProvider()

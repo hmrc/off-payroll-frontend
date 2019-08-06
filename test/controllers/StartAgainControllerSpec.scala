@@ -30,11 +30,7 @@ class StartAgainControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
     view = startAgainView,
-    checkYourAnswersService = mockCheckYourAnswersService,
-    compareAnswerService = mockCompareAnswerService,
-    dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
-    navigator = FakeNavigator
+    checkYourAnswersService = mockCheckYourAnswersService
   )
 
   "StartAgainController.redirectToExitSurvey" should {

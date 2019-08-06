@@ -19,7 +19,7 @@ package controllers.sections.setup
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import javax.inject.Inject
@@ -49,7 +49,7 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    dataCacheConnector: DataCacheConnector,
                                    decisionService: DecisionService,
                                    navigator: SetupNavigator,
-                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents,
+                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
   compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
 
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()

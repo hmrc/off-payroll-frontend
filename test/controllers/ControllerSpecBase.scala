@@ -24,7 +24,7 @@ import base.GuiceAppSpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import handlers.mocks.MockErrorHandler
 import models.{Mode, UserAnswers}
-import navigation.{ControlNavigator, ExitNavigator, FinancialRiskNavigator, Navigator, OldNavigator, PartAndParcelNavigator, PersonalServiceNavigator, SetupNavigator}
+import navigation.{CYANavigator, ControlNavigator, ExitNavigator, FinancialRiskNavigator, Navigator, OldNavigator, PartAndParcelNavigator, PersonalServiceNavigator, SetupNavigator}
 import org.jsoup.Jsoup
 import pages.Page
 import play.api.mvc.{Call, Result}
@@ -52,6 +52,7 @@ trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with 
   object FakePersonalServiceNavigator extends PersonalServiceNavigator()(frontendAppConfig) with FakeNavigator
   object FakePartAndParcelNavigator extends PartAndParcelNavigator()(frontendAppConfig) with FakeNavigator
   object FakeExitNavigator extends ExitNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeCYANavigator extends CYANavigator()(frontendAppConfig) with FakeNavigator
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
 

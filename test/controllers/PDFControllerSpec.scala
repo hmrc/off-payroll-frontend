@@ -54,7 +54,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
     mockDataCacheConnector,
-    FakeNavigator,
+    FakeCYANavigator,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),
@@ -75,7 +75,7 @@ class PDFControllerSpec extends ControllerSpecBase {
 
   def optController(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PDFController(
     mockDataCacheConnector,
-    FakeNavigator,
+    FakeCYANavigator,
     FakeIdentifierAction,
     dataRetrievalAction,
     new DataRequiredActionImpl(messagesControllerComponents),

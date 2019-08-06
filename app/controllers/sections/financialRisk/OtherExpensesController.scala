@@ -18,7 +18,7 @@ package controllers.sections.financialRisk
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.OtherExpensesFormProvider
 import javax.inject.Inject
@@ -43,7 +43,7 @@ class OtherExpensesController @Inject()(dataCacheConnector: DataCacheConnector,
                                         compareAnswerService: CompareAnswerService,
                                         decisionService: DecisionService,
                                         implicit val appConfig: FrontendAppConfig
-                                       ) extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                       ) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 

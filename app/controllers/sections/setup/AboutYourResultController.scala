@@ -19,7 +19,7 @@ package controllers.sections.setup
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import javax.inject.Inject
 import models.NormalMode
@@ -39,7 +39,7 @@ class AboutYourResultController @Inject()(navigator: SetupNavigator,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
                                           decisionService: DecisionService,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

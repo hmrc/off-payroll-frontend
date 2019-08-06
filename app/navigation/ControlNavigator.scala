@@ -58,5 +58,6 @@ class ControlNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends 
     case NormalMode => routeMap.getOrElse(page, _ => IndexController.onPageLoad())
     case CheckMode => _ => CheckYourAnswersController.onPageLoad(Some(Section.control))
 
+
   }
 }

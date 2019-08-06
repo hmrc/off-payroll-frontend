@@ -33,18 +33,13 @@ import views.html.{CheckYourAnswersView, ResetAnswersWarningView}
 
 import scala.concurrent.Future
 
-class ResetAnswersWarningController @Inject()(navigator: OldNavigator,
-                                              identify: IdentifierAction,
+class ResetAnswersWarningController @Inject()(identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
                                               formProvider: ResetAnswersWarningFormProvider,
                                               controllerComponents: MessagesControllerComponents,
                                               view: ResetAnswersWarningView,
-                                              compareAnswerService: CompareAnswerService,
-                                              dataCacheConnector: DataCacheConnector,
-                                              decisionService: DecisionService,
-                                              implicit val appConfig: FrontendAppConfig) extends BaseController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 

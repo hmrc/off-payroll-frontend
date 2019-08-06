@@ -19,12 +19,10 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions.IdentifierAction
 import javax.inject.Inject
-import navigation.OldNavigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-class ExitSurveyController @Inject()(navigator: OldNavigator,
-                                     identify: IdentifierAction,
+class ExitSurveyController @Inject()(identify: IdentifierAction,
                                      controllerComponents: MessagesControllerComponents,
                                      implicit val appConfig: FrontendAppConfig) extends FrontendController(controllerComponents) {
 

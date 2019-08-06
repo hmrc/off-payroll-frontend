@@ -19,7 +19,7 @@ package controllers.sections.financialRisk
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
@@ -48,7 +48,7 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           dataCacheConnector: DataCacheConnector,
                                           decisionService: DecisionService,
                                           navigator: FinancialRiskNavigator,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[HowWorkerIsPaid] = formProvider()

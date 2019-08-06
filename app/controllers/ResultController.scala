@@ -24,7 +24,7 @@ import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import javax.inject.Inject
 import models.requests.DataRequest
 import models.{NormalMode, Timestamp, UserAnswers}
-import navigation.OldNavigator
+import navigation.{CYANavigator, OldNavigator}
 import pages.{ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
@@ -40,13 +40,13 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  decisionService: DecisionService,
                                  formProvider: DeclarationFormProvider,
                                  formProviderPDF: DownloadPDFCopyFormProvider,
-                                 navigator: OldNavigator,
+                                 navigator: CYANavigator,
                                  dataCacheConnector: DataCacheConnector,
                                  time: Timestamp,
                                  compareAnswerService: CompareAnswerService,
                                  optimisedDecisionService: OptimisedDecisionService,
                                  checkYourAnswersService: CheckYourAnswersService,
-                                 implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                 implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
 
   private val resultForm: Form[Boolean] = formProvider()

@@ -19,7 +19,7 @@ package controllers.sections.setup
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ContractStartedFormProvider
 import javax.inject.Inject
@@ -45,7 +45,7 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           dataCacheConnector: DataCacheConnector,
                                           decisionService: DecisionService,
                                           navigator: SetupNavigator,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()

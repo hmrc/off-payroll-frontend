@@ -31,7 +31,6 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
   val view = injector.instanceOf[PersonalServiceSectionChangeWarningView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PersonalServiceSectionChangeWarningController(
-    navigator = FakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
@@ -41,8 +40,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-    errorHandler = app.injector.instanceOf[ErrorHandler],
-    decisionService = mockDecisionService
+    errorHandler = app.injector.instanceOf[ErrorHandler]
   )
 
   val submitAction = routes.PersonalServiceSectionChangeWarningController.onSubmit(ArrangedSubstitutePage)

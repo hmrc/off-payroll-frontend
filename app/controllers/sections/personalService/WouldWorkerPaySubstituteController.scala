@@ -19,7 +19,7 @@ package controllers.sections.personalService
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.WouldWorkerPaySubstituteFormProvider
 import javax.inject.Inject
@@ -47,7 +47,7 @@ class WouldWorkerPaySubstituteController @Inject()(identify: IdentifierAction,
                                                    dataCacheConnector: DataCacheConnector,
                                                    decisionService: DecisionService,
                                                    navigator: PersonalServiceNavigator,
-                                                   implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()

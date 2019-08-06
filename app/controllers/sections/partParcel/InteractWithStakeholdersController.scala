@@ -17,13 +17,12 @@
 package controllers.sections.partParcel
 
 import config.FrontendAppConfig
-import controllers.actions._
-import controllers.BaseController
-import forms.InteractWithStakeholdersFormProvider
-import javax.inject.Inject
-
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
+import controllers.BaseNavigationController
+import controllers.actions._
+import forms.InteractWithStakeholdersFormProvider
+import javax.inject.Inject
 import models.Mode
 import navigation.PartAndParcelNavigator
 import pages.sections.partParcel.InteractWithStakeholdersPage
@@ -45,7 +44,7 @@ class InteractWithStakeholdersController @Inject()(identify: IdentifierAction,
                                                    dataCacheConnector: DataCacheConnector,
                                                    decisionService: DecisionService,
                                                    navigator: PartAndParcelNavigator,
-                                                   implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()

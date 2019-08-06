@@ -18,7 +18,7 @@ package controllers.sections.financialRisk
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
@@ -42,7 +42,7 @@ class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
                                                dataCacheConnector: DataCacheConnector,
                                                decisionService: DecisionService,
                                                navigator: FinancialRiskNavigator,
-                                               implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                               implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form = formProvider()
