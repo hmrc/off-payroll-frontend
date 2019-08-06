@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.AddReferenceDetailsFormProvider
 import javax.inject.Inject
 import models.NormalMode
-import navigation.PartAndParcelNavigator
+import navigation.CYANavigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -38,7 +38,7 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
                                               formProvider: AddReferenceDetailsFormProvider,
                                               controllerComponents: MessagesControllerComponents,
                                               addReferenceDetails: AddReferenceDetailsView,
-                                              navigator: PartAndParcelNavigator,
+                                              navigator: CYANavigator,
                                               dataCacheConnector: DataCacheConnector,
                                               compareAnswerService: CompareAnswerService,
                                               decisionService: DecisionService,
