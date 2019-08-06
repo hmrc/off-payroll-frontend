@@ -33,15 +33,27 @@ import models.WeightedAnswerEnum.{HIGH, LOW}
 import models.WorkerType.SoleTrader
 import models._
 import models.logging.LogInterview
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.Json
 import play.mvc.Http.Status
+import repositories.ParallelRunningRepository
 
 import scala.concurrent.Future
 
 
 class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServicesConfig {
 
-  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil)
+  object mockRepo extends MockitoSugar {
+    val parallelRepo = mock[ParallelRunningRepository]
+  }
+
+  object FakeTimestamp extends Timestamp {
+
+    override def timestamp(time: Option[String]): String = s"01 January 2019, 00:00:00"
+
+  }
+
+  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil, mockRepo.parallelRepo, FakeTimestamp)
 
   val emptyInterviewModel: Interview = Interview(
     "12345"
