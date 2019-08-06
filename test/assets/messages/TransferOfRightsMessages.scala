@@ -16,18 +16,21 @@
 
 package assets.messages
 
-object OtherExpensesMessages extends BaseMessages {
+object TransferOfRightsMessages extends BaseMessages {
+
 
   object Worker {
-    val title = "Will you incur any other costs that your client will not pay for?"
+    val title = "Does the contract give the client the option to buy the rights for a separate fee?"
     val heading = title
-    val p1 = "This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only."
+    val subheading = "Worker’s contracts"
+    val p1 = "If no such clause or requirement exists, you would keep all the rights."
   }
 
   object Hirer {
-    val title = "Will the worker incur any other costs that your organisation will not pay for?"
+    val title = "Does the contract give your organisation the option to buy the rights for a separate fee?"
     val heading = title
-    val p1 = "This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only."
+    val subheading = "Worker’s contracts"
+    val p1 = "If no such clause or requirement exists, the worker would keep all the rights."
   }
 
 }

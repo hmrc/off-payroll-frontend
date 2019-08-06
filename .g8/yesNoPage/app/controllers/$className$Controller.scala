@@ -24,9 +24,11 @@ class $className;format="cap"$Controller @Inject()(dataCacheConnector: DataCache
                                          formProvider: $className$FormProvider,
                                          controllerComponents: MessagesControllerComponents,
                                          controllerHelper: ControllerHelper,
+                                         compareAnswerService: CompareAnswerService,
+                                         decisionService: DecisionService,
                                          view: $className$View,
-                                         implicit val appConfig: FrontendAppConfig
-                                         ) extends BaseController(controllerComponents) {
+                                         implicit val appConfig: FrontendAppConfig extends BaseController(
+controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 

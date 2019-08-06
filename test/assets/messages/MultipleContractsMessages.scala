@@ -16,18 +16,18 @@
 
 package assets.messages
 
-object OtherExpensesMessages extends BaseMessages {
-
-  object Worker {
-    val title = "Will you incur any other costs that your client will not pay for?"
-    val heading = title
-    val p1 = "This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only."
-  }
+object MultipleContractsMessages extends BaseMessages {
 
   object Hirer {
-    val title = "Will the worker incur any other costs that your organisation will not pay for?"
+    val title = "Does this contract stop the worker from doing similar work for other organisations?"
     val heading = title
-    val p1 = "This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only."
+    val subheading = "Worker’s contracts"
+  }
+
+  object Worker {
+    val title = "Does this contract stop you from doing similar work for other clients?"
+    val heading = title
+    val subheading = "Worker’s contracts"
   }
 
 }
