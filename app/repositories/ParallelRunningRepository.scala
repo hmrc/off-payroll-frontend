@@ -30,13 +30,18 @@ import uk.gov.hmrc.mongo.ReactiveRepository
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+trait ParallelRunningRepository {
+  def insert(model: ParallelRunningModel): Future[Boolean]
+  def get(id: String): Future[Option[ParallelRunningModel]]
+}
+
 @Singleton
-class ParallelRunningRepository @Inject()(mongoComponent: ReactiveMongoComponent, appConfig: FrontendAppConfig, @Named("appName") appName: String)
+class ParallelRunningRepositoryImpl @Inject()(mongoComponent: ReactiveMongoComponent, appConfig: FrontendAppConfig, @Named("appName") appName: String)
   extends ReactiveRepository[ParallelRunningModel, BSONObjectID](
     collectionName = "parallelRunning",
     mongo = mongoComponent.mongoConnector.db,
     domainFormat = ParallelRunningModel.formats
-  ) {
+  ) with ParallelRunningRepository {
 
   createIndex("identicalResult", "identicalResultIndex")
 
@@ -45,7 +50,7 @@ class ParallelRunningRepository @Inject()(mongoComponent: ReactiveMongoComponent
     collection.indexesManager.ensure(Index(Seq((field, IndexType.Ascending)), Some(indexName)))
   }
 
-  def insert(model: ParallelRunningModel): Future[Boolean] = {
+  override def insert(model: ParallelRunningModel): Future[Boolean] = {
 
     val selector = BSONDocument("_id" -> model._id)
     val modifier = BSONDocument("$set" -> Json.toJson(model))
@@ -58,7 +63,7 @@ class ParallelRunningRepository @Inject()(mongoComponent: ReactiveMongoComponent
     }
   }
 
-  def get(id: String): Future[Option[ParallelRunningModel]] =
+  override def get(id: String): Future[Option[ParallelRunningModel]] =
     collection.find(Json.obj("_id" -> id), None)(JsObjectDocumentWriter, BSONDocumentWrites).one[ParallelRunningModel].map(res => res).recoverWith {
       case ex: Exception => Logger.error("[ParallelRunningRepository][get]",ex)
         Future.successful(None)
