@@ -18,8 +18,16 @@ package assets.messages
 
 object MultipleContractsMessages extends BaseMessages {
 
-  val title = "Does this contract stop the worker from doing similar work for other organisations?"
-  val heading = "Does this contract stop the worker from doing similar work for other organisations?"
-  val subheading = "Worker’s contracts"
+  object Hirer {
+    val title = "Does this contract stop the worker from doing similar work for other organisations?"
+    val heading = title
+    val subheading = "Worker’s contracts"
+  }
+
+  object Worker {
+    val title = "Does this contract stop you from doing similar work for other clients?"
+    val heading = title
+    val subheading = "Worker’s contracts"
+  }
 
 }

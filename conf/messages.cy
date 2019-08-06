@@ -1665,3 +1665,17 @@ resetAnswersWarning.startAgain = Start again
 resetAnswersWarning.goBack = Take me back to my answers
 resetAnswersWarning.error.required = You need to select an answer
 
+##TODO: Need Welsh
+### Multiple Contracts Page
+### -----------------------
+multipleContracts.error.required = You need to select an answer
+
+worker.multipleContracts.subheading = Worker’s contracts
+worker.multipleContracts.title = Does this contract stop you from doing similar work for other clients?
+worker.multipleContracts.heading = Does this contract stop you from doing similar work for other clients?
+worker.multipleContracts.checkYourAnswersLabel = Does this contract stop you from doing similar work for other clients?
+
+hirer.multipleContracts.subheading = Worker’s contracts
+hirer.multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
+hirer.multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
+hirer.multipleContracts.checkYourAnswersLabel = Does this contract stop the worker from doing similar work for other organisations?

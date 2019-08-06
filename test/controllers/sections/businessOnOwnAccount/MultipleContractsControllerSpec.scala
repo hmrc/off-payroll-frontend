@@ -16,6 +16,7 @@
 
 package controllers.sections.businessOnOwnAccount
 
+import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
@@ -28,9 +29,14 @@ import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.MultipleContractsView
+import views.html.sections.businessOnOwnAccount.MultipleContractsView
 
 class MultipleContractsControllerSpec extends ControllerSpecBase {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
 
   val formProvider = new MultipleContractsFormProvider()
   val form = formProvider()
@@ -76,9 +82,7 @@ class MultipleContractsControllerSpec extends ControllerSpecBase {
       val validData = Map(MultipleContractsPage.toString -> Json.toJson(Answers(true,0)))
 
       val answers = userAnswers.set(MultipleContractsPage,0,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
