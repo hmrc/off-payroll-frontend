@@ -18,12 +18,12 @@ package controllers.sections.businessOnOwnAccount
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.{BaseController, BaseNavigationController}
 import controllers.actions._
 import forms.MultipleContractsFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.{BusinessOnOwnAccountNavigator, Navigator}
 import pages.MultipleContractsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +33,7 @@ import views.html.sections.businessOnOwnAccount.MultipleContractsView
 import scala.concurrent.Future
 
 class MultipleContractsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                            navigator: Navigator,
+                                            navigator: BusinessOnOwnAccountNavigator,
                                             identify: IdentifierAction,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
@@ -42,7 +42,7 @@ class MultipleContractsController @Inject()(dataCacheConnector: DataCacheConnect
                                             compareAnswerService: CompareAnswerService,
                                             decisionService: DecisionService,
                                             view: MultipleContractsView,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                            implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()

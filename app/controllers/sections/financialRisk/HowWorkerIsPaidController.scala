@@ -18,15 +18,14 @@ package controllers.sections.financialRisk
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
+import controllers.BaseNavigationController
 import controllers.actions._
-import controllers.BaseController
 import forms.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
-
-import connectors.DataCacheConnector
 import models.requests.DataRequest
 import models.{HowWorkerIsPaid, Mode}
-import navigation.Navigator
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -48,8 +47,8 @@ class HowWorkerIsPaidController @Inject()(identify: IdentifierAction,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
                                           decisionService: DecisionService,
-                                          navigator: Navigator,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                          navigator: FinancialRiskNavigator,
+                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[HowWorkerIsPaid] = formProvider()

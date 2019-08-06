@@ -24,7 +24,7 @@ import forms.MoveWorkerFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models.{Answers, MoveWorker, NormalMode, ScheduleOfWorkingHours}
-import navigation.FakeNavigator
+
 import pages.sections.control.{MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import play.api.data.Form
 import play.api.libs.json._
@@ -56,7 +56,7 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeControlNavigator
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

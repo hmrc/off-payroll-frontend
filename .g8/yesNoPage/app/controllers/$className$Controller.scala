@@ -8,7 +8,6 @@ import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
 import pages.$className$Page
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

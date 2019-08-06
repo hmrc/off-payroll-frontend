@@ -16,23 +16,22 @@
 
 package controllers.sections.personalService
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
+import controllers.BaseNavigationController
 import controllers.actions._
-import controllers.BaseController
 import forms.DidPaySubstituteFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.PersonalServiceNavigator
 import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
 import play.twirl.api.HtmlFormat
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import views.html.subOptimised.sections.personalService.{DidPaySubstituteView => SubOptimisedDidPaySubstituteView}
 import views.html.sections.personalService.DidPaySubstituteView
+import views.html.subOptimised.sections.personalService.{DidPaySubstituteView => SubOptimisedDidPaySubstituteView}
 
 import scala.concurrent.Future
 
@@ -47,8 +46,8 @@ class DidPaySubstituteController @Inject()(identify: IdentifierAction,
                                            compareAnswerService: CompareAnswerService,
                                            dataCacheConnector: DataCacheConnector,
                                            decisionService: DecisionService,
-                                           navigator: Navigator,
-                                           implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                           navigator: PersonalServiceNavigator,
+                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()

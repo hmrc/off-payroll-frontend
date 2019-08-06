@@ -19,12 +19,12 @@ package controllers.sections.personalService
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.RejectSubstituteFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.PersonalServiceNavigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -46,9 +46,9 @@ class RejectSubstituteController @Inject()(identify: IdentifierAction,
                                            compareAnswerService: CompareAnswerService,
                                            dataCacheConnector: DataCacheConnector,
                                            decisionService: DecisionService,
-                                           navigator: Navigator,
+                                           navigator: PersonalServiceNavigator,
                                            implicit val appConfig: FrontendAppConfig
-                                          ) extends BaseController(
+                                          ) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()

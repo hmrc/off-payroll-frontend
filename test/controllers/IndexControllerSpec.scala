@@ -16,10 +16,7 @@
 
 package controllers
 
-import connectors.mocks.MockDataCacheConnector
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeEmptyCacheMapDataRetrievalAction, FakeIdentifierAction}
-import navigation.FakeNavigator
-import play.api.mvc.Call
 import play.api.test.Helpers._
 
 class IndexControllerSpec extends ControllerSpecBase {
@@ -30,7 +27,7 @@ class IndexControllerSpec extends ControllerSpecBase {
 
       object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
-        navigator = new FakeNavigator(onwardRoute),
+        navigator = FakeSetupNavigator,
         identify = FakeIdentifierAction,
         getData = FakeEmptyCacheMapDataRetrievalAction,
         cache = mockDataCacheConnector,
@@ -57,7 +54,7 @@ class IndexControllerSpec extends ControllerSpecBase {
 
       object TestIndexController extends IndexController(
         appConfig = frontendAppConfig,
-        navigator = new FakeNavigator(onwardRoute),
+        navigator = FakeSetupNavigator,
         identify = FakeIdentifierAction,
         getData = FakeDontGetDataDataRetrievalAction,
         cache = mockDataCacheConnector,

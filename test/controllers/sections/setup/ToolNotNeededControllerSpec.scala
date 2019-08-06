@@ -39,7 +39,7 @@ class ToolNotNeededControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeSetupNavigator
   )
 
   def viewAsString(clientType: WhichDescribesYouAnswer = ClientPAYE) = view(clientType)(fakeRequest, messages, frontendAppConfig).toString

@@ -16,16 +16,15 @@
 
 package controllers.sections.personalService
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
+import controllers.BaseNavigationController
 import controllers.actions._
-import controllers.BaseController
 import forms.ArrangedSubstituteFormProvider
+import javax.inject.Inject
 import models.{ArrangedSubstitute, Mode}
-import navigation.Navigator
+import navigation.PersonalServiceNavigator
 import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -47,8 +46,8 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
                                              compareAnswerService: CompareAnswerService,
                                              dataCacheConnector: DataCacheConnector,
                                              decisionService: DecisionService,
-                                             navigator: Navigator,
-                                             implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                             navigator: PersonalServiceNavigator,
+                                             implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[ArrangedSubstitute] = formProvider()

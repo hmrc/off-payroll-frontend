@@ -25,7 +25,7 @@ import forms.ArrangedSubstituteFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models.{Answers, ArrangedSubstitute, NormalMode}
-import navigation.FakeNavigator
+
 import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage}
 import play.api.data.Form
 import play.api.libs.json._
@@ -56,7 +56,7 @@ class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataC
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakePersonalServiceNavigator
   )
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

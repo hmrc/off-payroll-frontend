@@ -16,16 +16,15 @@
 
 package controllers.sections.control
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
+import controllers.BaseNavigationController
 import controllers.actions._
-import controllers.BaseController
 import forms.ScheduleOfWorkingHoursFormProvider
+import javax.inject.Inject
 import models.{Mode, ScheduleOfWorkingHours}
-import navigation.Navigator
+import navigation.ControlNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
@@ -47,8 +46,8 @@ class ScheduleOfWorkingHoursController @Inject()(identify: IdentifierAction,
                                                  compareAnswerService: CompareAnswerService,
                                                  dataCacheConnector: DataCacheConnector,
                                                  decisionService: DecisionService,
-                                                 navigator: Navigator,
-                                                 implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                                 navigator: ControlNavigator,
+                                                 implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[ScheduleOfWorkingHours] = formProvider()

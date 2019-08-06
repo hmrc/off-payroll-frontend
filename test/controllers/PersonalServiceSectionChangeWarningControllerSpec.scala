@@ -24,7 +24,6 @@ import pages.PersonalServiceSectionChangeWarningPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.personalService._
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.PersonalServiceSectionChangeWarningView
 
 class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBase {
@@ -32,7 +31,6 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
   val view = injector.instanceOf[PersonalServiceSectionChangeWarningView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new PersonalServiceSectionChangeWarningController(
-    navigator = fakeNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
@@ -42,8 +40,7 @@ class PersonalServiceSectionChangeWarningControllerSpec extends ControllerSpecBa
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-    errorHandler = app.injector.instanceOf[ErrorHandler],
-    decisionService = mockDecisionService
+    errorHandler = app.injector.instanceOf[ErrorHandler]
   )
 
   val submitAction = routes.PersonalServiceSectionChangeWarningController.onSubmit(ArrangedSubstitutePage)

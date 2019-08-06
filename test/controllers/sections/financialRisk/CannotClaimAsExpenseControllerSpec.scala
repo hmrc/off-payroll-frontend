@@ -25,7 +25,7 @@ import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
 import models.requests.DataRequest
-import navigation.FakeNavigator
+
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, PutRightAtOwnCostPage}
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -54,7 +54,7 @@ class CannotClaimAsExpenseControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator,
+    navigator = FakeFinancialRiskNavigator,
     appConfig = frontendAppConfig
   )
 

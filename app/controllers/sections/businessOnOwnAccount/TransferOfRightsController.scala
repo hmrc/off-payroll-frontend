@@ -18,12 +18,12 @@ package controllers.sections.businessOnOwnAccount
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.TransferOfRightsFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.BusinessOnOwnAccountNavigator
 import pages.TransferOfRightsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,16 +33,16 @@ import views.html.sections.businessOnOwnAccount.TransferOfRightsView
 import scala.concurrent.Future
 
 class TransferOfRightsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: TransferOfRightsFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
+                                           navigator: BusinessOnOwnAccountNavigator,
+                                           identify: IdentifierAction,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           formProvider: TransferOfRightsFormProvider,
+                                           controllerComponents: MessagesControllerComponents,
                                            compareAnswerService: CompareAnswerService,
                                            decisionService: DecisionService,
-                                         view: TransferOfRightsView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                           view: TransferOfRightsView,
+                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()

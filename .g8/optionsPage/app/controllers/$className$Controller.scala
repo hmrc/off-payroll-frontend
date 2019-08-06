@@ -9,7 +9,6 @@ import config.FrontendAppConfig
 import forms.$className$FormProvider
 import models.{Enumerable, Mode}
 import pages.$className$Page
-import navigation.Navigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.$className$View
 
