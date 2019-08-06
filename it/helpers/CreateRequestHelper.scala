@@ -4,7 +4,7 @@ import org.scalatestplus.play.ServerProvider
 import play.api.Application
 import play.api.http.HeaderNames
 import play.api.libs.json.JsValue
-import play.api.libs.ws.{DefaultWSCookie, WSClient, WSRequest, WSResponse}
+import play.api.libs.ws.{DefaultWSCookie, WSClient, WSCookie, WSRequest, WSResponse}
 import play.api.mvc.{Cookies, Headers, RequestHeader, Session}
 import uk.gov.hmrc.http.SessionKeys
 import uk.gov.hmrc.http.{HeaderNames => HMRCHeaderNames}
@@ -21,27 +21,34 @@ trait CreateRequestHelper extends ServerProvider {
 
   lazy val ws: WSClient = app.injector.instanceOf(classOf[WSClient])
 
-  lazy val sessionId = "id"
-
-//  val cookies: String = {
-//    val session = Session(Map(SessionKeys.sessionId -> sessionId))
-//    val cookies = Seq(Session.encodeAsCookie(session))
-//    Cookies.encodeCookieHeader(cookies)
-//  }
-
   def buildRequest(path: String, followRedirect: Boolean = false): WSRequest = {
     ws.url(s"http://localhost:$port/check-employment-status-for-tax$path")
-     // .withHttpHeaders(HMRCHeaderNames.xSessionId -> sessionId, HeaderNames.COOKIE -> cookies)
+      .withFollowRedirects(followRedirect)
+  }
+
+  def buildSessionRequest(path: String, followRedirect: Boolean = false): WSRequest = {
+    ws.url(s"http://localhost:$port/check-employment-status-for-tax$path")
       .withFollowRedirects(followRedirect)
   }
 
   def getRequest(path: String, followRedirect: Boolean = false): Future[WSResponse] =
     buildRequest(path, followRedirect).get()
 
-  def postRequest(path: String, formJson: JsValue, followRedirect: Boolean = true): Future[WSResponse] =
+  def getSessionRequest(path: String, cookies: Seq[WSCookie], followRedirect: Boolean = false): Future[WSResponse] =
+    buildRequest(path, followRedirect)
+      .withCookies(cookies: _*)
+      .withHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded").get()
+
+  def postRequest(path: String, formString: String, followRedirect: Boolean = true): Future[WSResponse] =
     buildRequest(path, followRedirect)
       .withHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded")
-      .post(formJson)
+      .post(formString)
+
+  def postSessionRequest(path: String, formString: String, cookies: Seq[WSCookie], followRedirect: Boolean = true): Future[WSResponse] =
+    buildRequest(path, followRedirect)
+      .withCookies(cookies: _*)
+      .withHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded", "Csrf-Token" -> "nocheck")
+      .post(formString)
 
   def optionsRequest(path: String, followRedirect: Boolean = true): Future[WSResponse] =
     buildRequest(path, followRedirect)

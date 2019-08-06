@@ -18,7 +18,7 @@ class AboutYourResultControllerISpec extends IntegrationSpecBase with CreateRequ
 
     }
 
-    "Return a 403 on unsuccessful post" in {
+    "Return a 404 on unsuccessful post" in {
 
       lazy val res = optionsRequest("/disclaimer")
 

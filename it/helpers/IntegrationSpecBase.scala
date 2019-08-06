@@ -22,6 +22,7 @@ trait IntegrationSpecBase extends WordSpec
   with BeforeAndAfterEach with BeforeAndAfterAll with Eventually {
 
   override implicit lazy val app: Application = new GuiceApplicationBuilder()
+    .configure(Map("play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck"))
     .build()
 
   lazy val component: ReactiveMongoComponent = app.injector.instanceOf(classOf[ReactiveMongoComponent])
