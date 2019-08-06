@@ -19,6 +19,7 @@ package assets.messages
 object HowWorkerIsPaidMessages extends BaseMessages {
 
   val subheading = "About the worker’s financial risk"
+  val optimisedSubHeading = "Worker’s financial risk"
 
   object WorkerOptimised {
     val heading = "How will you be paid for this work?"

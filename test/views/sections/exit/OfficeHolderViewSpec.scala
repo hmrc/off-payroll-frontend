@@ -54,7 +54,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
 
   "OfficeHolder view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -65,7 +65,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title)
+        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(OfficeHolderMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -92,7 +92,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Hirer.title)
+        document.title mustBe title(OfficeHolderMessages.Optimised.Hirer.title, Some(OfficeHolderMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -119,7 +119,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title)
+        document.title mustBe title(OfficeHolderMessages.Optimised.Worker.title, Some(OfficeHolderMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {

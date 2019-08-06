@@ -46,7 +46,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
 
   "VehicleView" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -57,7 +57,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(VehicleMessages.Worker.title)
+        document.title mustBe title(VehicleMessages.Worker.title, Some(VehicleMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(VehicleMessages.Hirer.title)
+        document.title mustBe title(VehicleMessages.Hirer.title, Some(VehicleMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {

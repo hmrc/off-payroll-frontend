@@ -19,6 +19,7 @@ package assets.messages
 object HowWorkIsDoneMessages extends BaseMessages {
 
   val subheading = "About the work arrangements"
+  val optimisedSubHeading = "Working arrangements"
 
   object Worker {
     val heading = "Once you start the engagement, does the end client have the right to decide how the work is done?"

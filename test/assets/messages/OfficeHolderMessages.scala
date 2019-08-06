@@ -19,6 +19,7 @@ package assets.messages
 object OfficeHolderMessages extends BaseMessages {
 
   val subheading = "About the worker’s duties"
+  val optimisedSubHeading = "Worker’s duties"
 
   object Optimised {
     object Worker {

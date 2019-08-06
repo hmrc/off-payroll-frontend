@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("materials.title")),
+    title = title(form, tailorMsg("materials.title"), Some(tailorMsg("materials.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -37,7 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = components.heading(tailorMsg("materials.heading"), asLegend = true),
+            legend = components.heading(tailorMsg("materials.heading"), Some(tailorMsg("materials.subheading")), asLegend = true),
             otherContent = Some(content),
             labelClass = Some("visually-hidden")
         )

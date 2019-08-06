@@ -52,7 +52,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "PutRightAtOwnCost view" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -61,7 +61,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.WorkerOptimised.title)
+        document.title mustBe title(PutRightAtOwnCostsMessages.WorkerOptimised.title, Some(PutRightAtOwnCostsMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -82,7 +82,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.HirerOptimised.title)
+        document.title mustBe title(PutRightAtOwnCostsMessages.HirerOptimised.title, Some(PutRightAtOwnCostsMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {

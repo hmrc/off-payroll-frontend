@@ -18,6 +18,8 @@ package assets.messages
 
 object EquipmentExpensesMessages extends BaseMessages {
 
+  val optimisedSubHeading = "Worker’s financial risk"
+
   object Hirer {
     val title = "Will the worker incur substantial equipment costs that your organisation will not pay for?"
     val heading = title

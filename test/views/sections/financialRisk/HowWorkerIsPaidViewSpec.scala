@@ -50,7 +50,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "HowWorkerIsPaid view" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -59,7 +59,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title)
+        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title, Some(HowWorkerIsPaidMessages.optimisedSubHeading))
 
       }
 
@@ -81,7 +81,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title)
+        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title, Some(HowWorkerIsPaidMessages.optimisedSubHeading))
 
       }
 

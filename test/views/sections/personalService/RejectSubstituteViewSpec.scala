@@ -52,7 +52,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
   "RejectSubstitute view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -63,7 +63,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(RejectSubstituteMessages.Optimised.Worker.title)
+        document.title mustBe title(RejectSubstituteMessages.Optimised.Worker.title, Some(RejectSubstituteMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -85,7 +85,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(RejectSubstituteMessages.Optimised.Hirer.title)
+        document.title mustBe title(RejectSubstituteMessages.Optimised.Hirer.title, Some(RejectSubstituteMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -107,7 +107,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(RejectSubstituteMessages.Optimised.Worker.title)
+        document.title mustBe title(RejectSubstituteMessages.Optimised.Worker.title, Some(RejectSubstituteMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {

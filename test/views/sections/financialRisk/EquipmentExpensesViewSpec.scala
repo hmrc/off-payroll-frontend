@@ -46,7 +46,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
 
   "EquipmentExpensesView" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -60,7 +60,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(EquipmentExpensesMessages.Worker.title)
+        document.title mustBe title(EquipmentExpensesMessages.Worker.title, Some(EquipmentExpensesMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -82,7 +82,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(EquipmentExpensesMessages.Hirer.title)
+        document.title mustBe title(EquipmentExpensesMessages.Hirer.title, Some(EquipmentExpensesMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {

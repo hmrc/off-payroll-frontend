@@ -52,7 +52,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
 
   "Benefits view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -63,7 +63,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title)
+        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(BenefitsMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -80,7 +80,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Hirer.title)
+        document.title mustBe title(BenefitsMessages.Optimised.Hirer.title, Some(BenefitsMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -97,7 +97,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Optimised.Worker.title)
+        document.title mustBe title(BenefitsMessages.Optimised.Worker.title, Some(BenefitsMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {

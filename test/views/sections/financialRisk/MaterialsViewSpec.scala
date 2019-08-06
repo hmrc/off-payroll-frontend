@@ -52,7 +52,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
 
   "Materials view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -63,7 +63,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Worker.title)
+        document.title mustBe title(MaterialsMessages.Worker.title, Some(MaterialsMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -86,7 +86,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MaterialsMessages.Hirer.title)
+        document.title mustBe title(MaterialsMessages.Hirer.title, Some(MaterialsMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {

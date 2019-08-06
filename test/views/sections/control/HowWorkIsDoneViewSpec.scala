@@ -50,7 +50,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "HowWorkIsDone view" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -59,7 +59,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, None)
+        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, Some(HowWorkIsDoneMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.OptimisedHirer.title, None)
+        document.title mustBe title(HowWorkIsDoneMessages.OptimisedHirer.title, Some(HowWorkIsDoneMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
@@ -99,7 +99,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, None)
+        document.title mustBe title(HowWorkIsDoneMessages.OptimisedWorker.title, Some(HowWorkIsDoneMessages.optimisedSubHeading))
       }
 
       "have the correct heading" in {
