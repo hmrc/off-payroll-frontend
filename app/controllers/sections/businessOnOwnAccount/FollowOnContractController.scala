@@ -18,12 +18,12 @@ package controllers.sections.businessOnOwnAccount
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.FollowOnContractFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.BusinessOnOwnAccountNavigator
 import pages.FollowOnContractPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +33,7 @@ import views.html.sections.businessOnOwnAccount.FollowOnContractView
 import scala.concurrent.Future
 
 class FollowOnContractController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
+                                         navigator: BusinessOnOwnAccountNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -42,7 +42,7 @@ class FollowOnContractController @Inject()(dataCacheConnector: DataCacheConnecto
                                          compareAnswerService: CompareAnswerService,
                                          decisionService: DecisionService,
                                          view: FollowOnContractView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
 controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
