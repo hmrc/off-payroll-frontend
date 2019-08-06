@@ -26,7 +26,7 @@ import handlers.ErrorHandler
 import javax.inject.Inject
 import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Mode, NormalMode, Timestamp}
-import navigation.{CYANavigator, OldNavigator}
+import navigation.CYANavigator
 import pages.{CustomisePDFPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc._

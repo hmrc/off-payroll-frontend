@@ -22,8 +22,8 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.AddReferenceDetailsFormProvider
 import javax.inject.Inject
-import models.{Mode, NormalMode}
-import navigation.{OldNavigator, PartAndParcelNavigator}
+import models.NormalMode
+import navigation.PartAndParcelNavigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

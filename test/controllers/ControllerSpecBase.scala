@@ -24,7 +24,7 @@ import base.GuiceAppSpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import handlers.mocks.MockErrorHandler
 import models.{Mode, UserAnswers}
-import navigation.{CYANavigator, ControlNavigator, ExitNavigator, FinancialRiskNavigator, Navigator, OldNavigator, PartAndParcelNavigator, PersonalServiceNavigator, SetupNavigator}
+import navigation.{CYANavigator, ControlNavigator, ExitNavigator, FinancialRiskNavigator, Navigator, PartAndParcelNavigator, PersonalServiceNavigator, SetupNavigator}
 import org.jsoup.Jsoup
 import pages.Page
 import play.api.mvc.{Call, Result}
@@ -45,7 +45,6 @@ trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with 
     override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => onwardRoute
   }
 
-  object FakeNavigator extends OldNavigator()(frontendAppConfig) with FakeNavigator
   object FakeSetupNavigator extends SetupNavigator()(frontendAppConfig) with FakeNavigator
   object FakeControlNavigator extends ControlNavigator()(frontendAppConfig) with FakeNavigator
   object FakeFinancialRiskNavigator extends FinancialRiskNavigator()(frontendAppConfig) with FakeNavigator

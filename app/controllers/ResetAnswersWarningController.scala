@@ -16,22 +16,13 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
-import forms.{ChooseWhereWorkFormProvider, ResetAnswersWarningFormProvider}
-import models._
-import navigation.OldNavigator
-import pages.CheckYourAnswersPage
-import pages.sections.control.ChooseWhereWorkPage
+import forms.ResetAnswersWarningFormProvider
+import javax.inject.Inject
 import play.api.data.Form
 import play.api.mvc._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import views.html.{CheckYourAnswersView, ResetAnswersWarningView}
-
-import scala.concurrent.Future
+import views.html.ResetAnswersWarningView
 
 class ResetAnswersWarningController @Inject()(identify: IdentifierAction,
                                               getData: DataRetrievalAction,

@@ -24,7 +24,7 @@ import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import javax.inject.Inject
 import models.requests.DataRequest
 import models.{NormalMode, Timestamp, UserAnswers}
-import navigation.{CYANavigator, OldNavigator}
+import navigation.CYANavigator
 import pages.{ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}

@@ -18,22 +18,18 @@ package controllers
 
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.DataCacheConnector
+import config.featureSwitch.FeatureSwitching
 import javax.inject.Inject
-import models.requests.DataRequest
 import models._
-import navigation.{Navigator, OldNavigator}
-import pages.sections.exit.OfficeHolderPage
-import pages.{PersonalServiceSectionChangeWarningPage, QuestionPage}
+import models.requests.DataRequest
+import pages.QuestionPage
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.libs.json.{Format, Reads, Writes}
-import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
-import services.{CompareAnswerService, DecisionService}
+import play.api.libs.json.Format
+import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext
 
 abstract class BaseController @Inject()(mcc: MessagesControllerComponents)
                                        (implicit frontendAppConfig: FrontendAppConfig)

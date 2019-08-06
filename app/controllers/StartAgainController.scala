@@ -16,15 +16,11 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions.IdentifierAction
-import navigation.OldNavigator
+import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.CheckYourAnswersService
 import views.html.StartAgainView
 
 class StartAgainController @Inject()(identify: IdentifierAction,
