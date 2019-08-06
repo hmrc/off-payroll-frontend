@@ -58,7 +58,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
 
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
-      "have the correct titleaaaaaaaaaaaaaaaaaaaaaa" in {
+      "have the correct title" in {
         document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, None)
       }
 
