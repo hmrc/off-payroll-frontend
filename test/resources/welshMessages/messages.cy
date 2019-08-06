@@ -694,13 +694,13 @@ hirer.scheduleOfWorkingHours.workerAgreeSchedule = Yn rhannol - mae’r gweithiw
 hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Ddim yn gymwys - nid oes angen amserlen cyn belled â bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
 
 ## TODO: Need Welsh
-worker.optimised.scheduleOfWorkingHours.title = Will your client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.heading = Will your client decide the schedule of working hours?
-worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your client decide the schedule of working hours?
+worker.optimised.scheduleOfWorkingHours.title = Will your client decide the working hours?
+worker.optimised.scheduleOfWorkingHours.heading = Will your client decide the working hours?
+worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your client decide the working hours?
 worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
 worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide
-worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree your schedule
-worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule
+worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree
+worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
 #########################
 
 
@@ -1309,20 +1309,20 @@ toolNotNeeded.client.paye.heading = You don’t need to determine if this work s
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
 
-hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the working hours?
 hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
 hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your team and the worker agree their own schedule.
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
 
 worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
 worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
 worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
 worker.optimised.chooseWhereWork.workerCannotChoose = Yes
 worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
-worker.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
+worker.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
 worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice.
 
 hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
@@ -1330,7 +1330,7 @@ hirer.optimised.chooseWhereWork.heading = Will your organisation decide where th
 hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
 hirer.optimised.chooseWhereWork.workerCannotChoose = Yes
 hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
-hirer.optimised.chooseWhereWork.noLocationRequired = No, the task determines the location
+hirer.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
 hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
 
 

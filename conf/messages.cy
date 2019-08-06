@@ -1309,13 +1309,13 @@ toolNotNeeded.client.paye.heading = You don’t need to determine if this work s
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
 
-hirer.optimised.scheduleOfWorkingHours.title = Will your team decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.heading = Will your team decide the schedule of working hours?
-hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your team decide the schedule of working hours?
+hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the working hours?
 hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Yes
 hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your team and the worker agree their own schedule.
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines, not a set schedule.
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
 
 worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
 worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
