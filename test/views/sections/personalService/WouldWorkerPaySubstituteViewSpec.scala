@@ -17,14 +17,11 @@
 package views.sections.personalService
 
 import assets.messages.WouldPaySubstituteMessages
-import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.personalService.WouldWorkerPaySubstituteView
@@ -73,6 +70,11 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
+      }
+
+      "have the correct exclamation" in {
+        document.select(Selectors.exclamation).text mustBe WouldPaySubstituteMessages.Optimised.Worker.exclamation
+
       }
     }
 

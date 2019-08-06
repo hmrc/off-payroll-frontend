@@ -38,7 +38,8 @@
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("wouldWorkerPaySubstitute.heading"), asLegend = true),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(components.exclamation(Html(messages(tailorMsgOptimised("wouldWorkerPaySubstitute.exclamation")))))
         )
 
         @components.submit_button()
