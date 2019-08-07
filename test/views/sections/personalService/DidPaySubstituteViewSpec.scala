@@ -70,6 +70,10 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Optimised.Worker.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Optimised.Worker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe DidPaySubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe DidPaySubstituteMessages.no
@@ -88,6 +92,10 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Optimised.Hirer.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Optimised.Hirer.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe DidPaySubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe DidPaySubstituteMessages.no
@@ -104,6 +112,10 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe DidPaySubstituteMessages.Optimised.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe DidPaySubstituteMessages.Optimised.Worker.p1
       }
 
       "have the correct radio option messages" in {
