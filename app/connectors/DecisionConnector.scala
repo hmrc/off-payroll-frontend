@@ -61,6 +61,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     val response = httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
 
     implicit val appConf: FrontendAppConfig = conf
+    implicit val interview = decisionRequest
 
     if (!isEnabled(OptimisedFlow)) {
       for {
@@ -72,8 +73,9 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     response
   }
 
-  def calculateDifferences(oldResponse: Either[ErrorResponse, DecisionResponse], newResponse: Either[ErrorResponse, DecisionResponse])
-                          (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[ParallelRunningModel] = {
+  def calculateDifferences(oldResponse: Either[ErrorResponse, DecisionResponse],
+                           newResponse: Either[ErrorResponse, DecisionResponse])
+                          (implicit hc: HeaderCarrier, ec: ExecutionContext, decisionRequest: Interview): Future[ParallelRunningModel] = {
 
     val model: ParallelRunningModel = (oldResponse, newResponse) match {
       case (Right(responseOld), Right(responseNew)) =>
@@ -98,11 +100,17 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   def toModel(oldResponse: JsValue,
               newResponse: JsValue,
               identicalBody: Boolean = false,
-              identicalResult: Boolean = false): ParallelRunningModel = {
+              identicalResult: Boolean = false)(implicit decisionRequest: Interview): ParallelRunningModel = {
+
+    val oldRequest = Json.toJson(decisionRequest)(Interview.writes)
+    val newRequest = Json.toJson(decisionRequest)(NewInterview.writes)
 
     if (!identicalResult) {
-      Logger.error("[DecisionConnector] The new decision result did not match the old decision result:")
-      Logger.error(s"OldResponse: $oldResponse\n\nNewResponse: $newResponse")
+      Logger.error("[DecisionConnector] The new decision result did not match the old decision result:\n\n" +
+        s"OldRequest: $oldRequest\n\n" +
+        s"NewRequest: $newRequest\n\n" +
+        s"OldResponse: $oldResponse\n\n" +
+        s"NewResponse: $newResponse")
     }
     if (!identicalBody && identicalResult) Logger.warn("[DecisionConnector] The decision results match but the json bodies differ." +
       s" OldResponse: $oldResponse , NewResponse: $newResponse")
@@ -110,11 +118,13 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     def uuid: String = UUID.randomUUID().toString
 
     ParallelRunningModel(
-      s"${timestamp.timestamp()} - $uuid",
-      oldResponse,
-      newResponse,
-      identicalBody,
-      identicalResult
+      _id = s"${timestamp.timestamp()} - $uuid",
+      oldRequest = oldRequest,
+      newRequest = newRequest,
+      oldResponse = oldResponse,
+      newResponse = newResponse,
+      identicalBody = identicalBody,
+      identicalResult = identicalResult
     )
   }
 
