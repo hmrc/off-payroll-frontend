@@ -22,13 +22,13 @@ object WouldPaySubstituteMessages extends BaseMessages {
     object Worker {
       val heading = "Would you have to pay your substitute?"
       val title = heading
-      val hint = "This would include payments made by you or your business."
+      val p1 = "This would include payments made by you or your business."
     }
 
     object Hirer {
       val heading = "Would the worker have to pay their substitute?"
       val title = heading
-      val hint = "This would include payments made by the worker or their business."
+      val p1 = "This would include payments made by the worker or their business."
     }
   }
 

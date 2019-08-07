@@ -67,14 +67,13 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
-      }
-
-      "have the correct hint p" in {
-        document.select(Selectors.hint(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.hint
-
       }
     }
 
@@ -88,6 +87,10 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Hirer.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Hirer.p1
       }
 
       "have the correct radio option messages" in {
@@ -106,6 +109,10 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.p1
       }
 
       "have the correct radio option messages" in {
