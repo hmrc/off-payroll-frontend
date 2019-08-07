@@ -16,7 +16,7 @@
 
 package views.sections.control
 
-import assets.messages.MoveWorkerMessages
+import assets.messages.{MoveWorkerMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.MoveWorkerFormProvider
@@ -50,7 +50,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "MoveWorker view" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -59,7 +59,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, None)
+        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -82,7 +82,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MoveWorkerMessages.OptimisedHirer.title, None)
+        document.title mustBe title(MoveWorkerMessages.OptimisedHirer.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -105,7 +105,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, None)
+        document.title mustBe title(MoveWorkerMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {

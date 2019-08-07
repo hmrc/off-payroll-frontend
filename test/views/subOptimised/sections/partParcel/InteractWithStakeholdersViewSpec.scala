@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.partParcel
 
-import assets.messages.InteractWithStakeholdersMessages
+import assets.messages.{InteractWithStakeholdersMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.partParcel.routes
 import forms.InteractWithStakeholdersFormProvider
@@ -57,7 +57,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(InteractWithStakeholdersMessages.Worker.title, Some(InteractWithStakeholdersMessages.subheading))
+        document.title mustBe title(InteractWithStakeholdersMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -65,7 +65,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe InteractWithStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -78,7 +78,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(InteractWithStakeholdersMessages.Hirer.title, Some(InteractWithStakeholdersMessages.subheading))
+        document.title mustBe title(InteractWithStakeholdersMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -86,7 +86,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe InteractWithStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -99,7 +99,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(InteractWithStakeholdersMessages.NonTailored.title, Some(InteractWithStakeholdersMessages.subheading))
+        document.title mustBe title(InteractWithStakeholdersMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -107,7 +107,7 @@ class InteractWithStakeholdersViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe InteractWithStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {

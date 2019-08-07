@@ -18,7 +18,6 @@ package assets.messages
 
 object HowProvideServicesMessages extends BaseMessages {
 
-  val subheading = "About the people involved"
   val ltd = "As a limited company"
   val pship = "As a partnership"
   val thirdParty = "Through another individual (not an agency)"

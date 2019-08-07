@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.partParcel
 
-import assets.messages.LineManagerDutiesMessages
+import assets.messages.{LineManagerDutiesMessages, SubHeadingMessages}
 import config.SessionKeys
 import forms.LineManagerDutiesFormProvider
 import models.NormalMode
@@ -54,7 +54,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Worker.title, Some(LineManagerDutiesMessages.subheading))
+        document.title mustBe title(LineManagerDutiesMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -62,7 +62,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe LineManagerDutiesMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -78,7 +78,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.Hirer.title, Some(LineManagerDutiesMessages.subheading))
+        document.title mustBe title(LineManagerDutiesMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -86,7 +86,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe LineManagerDutiesMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -102,7 +102,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(LineManagerDutiesMessages.NonTailored.title, Some(LineManagerDutiesMessages.subheading))
+        document.title mustBe title(LineManagerDutiesMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -110,7 +110,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe LineManagerDutiesMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {

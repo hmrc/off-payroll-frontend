@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.control
 
-import assets.messages.ChooseWhereWorkMessages
+import assets.messages.{ChooseWhereWorkMessages, SubHeadingMessages}
 import config.SessionKeys
 import forms.ChooseWhereWorkFormProvider
 import models.{ChooseWhereWork, NormalMode}
@@ -53,7 +53,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.Worker.title, Some(ChooseWhereWorkMessages.subheading))
+        document.title mustBe title(ChooseWhereWorkMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -61,7 +61,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct radio option messages" in {
@@ -77,7 +77,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.Hirer.title, Some(ChooseWhereWorkMessages.subheading))
+        document.title mustBe title(ChooseWhereWorkMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -85,7 +85,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct radio option messages" in {
@@ -101,7 +101,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.NonTailored.title, Some(ChooseWhereWorkMessages.subheading))
+        document.title mustBe title(ChooseWhereWorkMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -109,7 +109,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ChooseWhereWorkMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct radio option messages" in {
