@@ -29,18 +29,23 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = DidPaySubstituteController.onSubmit(mode), 'autoComplete -> "off") {
+    @components.back_link()(mode)
 
-        @components.back_link()(mode)
+    @formWithCsrf(action = DidPaySubstituteController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("didPaySubstitute.heading"), Some(tailorMsgOptimised("didPaySubstitute.subheading")), asLegend = true),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(p1)
         )
 
         @components.submit_button()
     }
+}
+
+@p1 = {
+    <p>@messages(tailorMsgOptimised("didPaySubstitute.p1"))</p>
 }

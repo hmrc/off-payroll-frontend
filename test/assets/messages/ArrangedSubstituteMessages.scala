@@ -21,18 +21,18 @@ object ArrangedSubstituteMessages extends BaseMessages {
   object Optimised {
 
     object Worker {
-      val title = "Have you ever sent someone else to do your work?"
+      val title = "Have you ever sent a substitute to do your work?"
       val heading = title
-      val yesClientAgreed = "Yes, your client accepted the substitute"
-      val yesClientNotAgreed = "Yes, but your client did not accept the substitute"
+      val yesClientAgreed = "Yes, your client accepted them"
+      val yesClientNotAgreed = "Yes, but your client did not accept them"
       val no = "No, it has not happened"
     }
 
     object Hirer {
-      val title = "Has the worker ever sent someone else to do their work?"
+      val title = "Has the worker ever sent a substitute to do their work?"
       val heading = title
-      val yesClientAgreed = "Yes, you accepted the substitute"
-      val yesClientNotAgreed = "Yes, but you did not accept the substitute"
+      val yesClientAgreed = "Yes, you accepted them"
+      val yesClientNotAgreed = "Yes, but you did not accept them"
       val no = "No, it has not happened"
     }
   }

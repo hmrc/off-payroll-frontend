@@ -20,13 +20,15 @@ object DidPaySubstituteMessages extends BaseMessages {
 
   object Optimised {
     object Worker {
-      val heading = "Did you pay your substitute directly?"
+      val heading = "Did you pay your substitute?"
       val title = heading
+      val p1 = "This includes payments made by you or your business."
     }
 
     object Hirer {
-      val heading = "Did the worker pay their substitute directly?"
+      val heading = "Did the worker pay their substitute?"
       val title = heading
+      val p1 = "This includes payments made by the worker or their business."
     }
   }
 

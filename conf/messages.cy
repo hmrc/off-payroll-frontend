@@ -346,21 +346,21 @@ hirer.arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
 hirer.arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 
 ## TODO: Need Welsh
-worker.optimised.arrangedSubstitute.title = Have you ever sent someone else to do your work?
+worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do your work?
 worker.optimised.arrangedSubstitute.subheading = Substitutes and helpers
-worker.optimised.arrangedSubstitute.heading = Have you ever sent someone else to do your work?
-worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent someone else to do your work?
-worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted the substitute
-worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept the substitute
+worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do your work?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent a substitute to do your work?
+worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted them
+worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept them
 worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
 ## TODO: Need Welsh
-hirer.optimised.arrangedSubstitute.title = Has the worker ever sent someone else to do their work?
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do their work?
 hirer.optimised.arrangedSubstitute.subheading = Substitutes and helpers
-hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent someone else to do their work?
-hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent someone else to do their work?
-hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted the substitute
-hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but you did not accept the substitute
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do their work?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent a substitute to do their work?
+hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted them
+hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but you did not accept them
 hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 #########################
 
@@ -893,16 +893,18 @@ hirer.wouldWorkerPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.wouldWorkerPaySubstitute.exclamation =Os byddai’r eilydd yn cael ei dalu gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
 
 ## TODO: Need Welsh
-worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute?
 worker.optimised.wouldWorkerPaySubstitute.subheading = Substitutes and helpers
-worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute directly?
-worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute directly?
+worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute?
+worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have to pay your substitute?
+worker.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by you or your business.
 
 ## TODO: Need Welsh
-hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.subheading = Substitutes and helpers
-hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute directly?
-hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute directly?
+hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute?
+hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute?
+hirer.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by the worker or their business.
 #########################
 
 
@@ -989,16 +991,18 @@ hirer.didPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.didPaySubstitute.exclamation = Os talwyd yr eilydd gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
 
 ## TODO: Welsh Needed
-worker.optimised.didPaySubstitute.title = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.title = Did you pay your substitute?
 worker.optimised.didPaySubstitute.subheading = Substitutes and helpers
-worker.optimised.didPaySubstitute.heading = Did you pay your substitute directly?
-worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute directly?
+worker.optimised.didPaySubstitute.heading = Did you pay your substitute?
+worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute?
+worker.optimised.didPaySubstitute.p1 = This includes payments made by you or your business.
 
 ## TODO: Welsh Needed
-hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute?
 hirer.optimised.didPaySubstitute.subheading = Substitutes and helpers
-hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute directly?
-hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute directly?
+hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute?
+hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute?
+hirer.optimised.didPaySubstitute.p1 = This includes payments made by the worker or their business.
 #########################
 
 

@@ -17,14 +17,11 @@
 package views.sections.personalService
 
 import assets.messages.{SubHeadingMessages, WouldPaySubstituteMessages}
-import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
 import forms.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.YesNoViewBehaviours
 import views.html.sections.personalService.WouldWorkerPaySubstituteView
@@ -70,6 +67,10 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
@@ -88,6 +89,10 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Hirer.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Hirer.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe WouldPaySubstituteMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WouldPaySubstituteMessages.no
@@ -104,6 +109,10 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe WouldPaySubstituteMessages.Optimised.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe WouldPaySubstituteMessages.Optimised.Worker.p1
       }
 
       "have the correct radio option messages" in {

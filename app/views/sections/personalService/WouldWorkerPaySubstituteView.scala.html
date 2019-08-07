@@ -38,9 +38,14 @@
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("wouldWorkerPaySubstitute.heading"), Some(tailorMsgOptimised("wouldWorkerPaySubstitute.subheading")), asLegend = true),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(p1)
         )
 
         @components.submit_button()
     }
+}
+
+@p1 = {
+    <p>@messages(tailorMsgOptimised("wouldWorkerPaySubstitute.hint"))</p>
 }
