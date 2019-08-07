@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.partParcel
 
-import assets.messages.BenefitsMessages
+import assets.messages.{BenefitsMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.partParcel.routes
 import forms.BenefitsFormProvider
@@ -57,7 +57,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Worker.title, Some(BenefitsMessages.subheading))
+        document.title mustBe title(BenefitsMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -65,7 +65,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe BenefitsMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -83,7 +83,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.Hirer.title, Some(BenefitsMessages.subheading))
+        document.title mustBe title(BenefitsMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -91,7 +91,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe BenefitsMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -109,7 +109,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(BenefitsMessages.NonTailored.title, Some(BenefitsMessages.subheading))
+        document.title mustBe title(BenefitsMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -117,7 +117,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe BenefitsMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {

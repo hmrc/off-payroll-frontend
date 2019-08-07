@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.personalService
 
-import assets.messages.NeededToPayHelperMessages
+import assets.messages.{NeededToPayHelperMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.personalService.routes
 import forms.NeededToPayHelperFormProvider
@@ -57,7 +57,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(NeededToPayHelperMessages.subheading))
+        document.title mustBe title(NeededToPayHelperMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -65,7 +65,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {
@@ -86,7 +86,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Hirer.title, Some(NeededToPayHelperMessages.subheading))
+        document.title mustBe title(NeededToPayHelperMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -94,7 +94,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {
@@ -115,7 +115,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.NonTailored.title, Some(NeededToPayHelperMessages.subheading))
+        document.title mustBe title(NeededToPayHelperMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -123,7 +123,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe NeededToPayHelperMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {

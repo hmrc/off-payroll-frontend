@@ -23,7 +23,7 @@ import play.api.i18n.Messages
 
 class Timestamp {
 
-  def timestamp(time: Option[String] = None)(implicit messages: Messages): String =
+  def timestamp(time: Option[String] = None): String =
     time.getOrElse(ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("d MMMM uuuu, HH:mm:ss")))
 
 }

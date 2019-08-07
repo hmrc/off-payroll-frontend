@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("howWorkerIsPaid.title")),
+    title = title(form, tailorMsgOptimised("howWorkerIsPaid.title"), Some(tailorMsgOptimised("howWorkerIsPaid.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("howWorkerIsPaid.heading"), asLegend = true),
+            legend = components.heading(tailorMsgOptimised("howWorkerIsPaid.heading"), Some(tailorMsgOptimised("howWorkerIsPaid.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = HowWorkerIsPaid.options
         )

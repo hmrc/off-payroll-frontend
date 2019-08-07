@@ -25,7 +25,7 @@ import forms.HowWorkIsDoneFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models._
-import navigation.FakeNavigator
+
 import pages.sections.control.{HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.setup.AboutYouPage
 import play.api.data.Form
@@ -57,7 +57,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeControlNavigator
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

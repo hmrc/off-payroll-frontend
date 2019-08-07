@@ -56,7 +56,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeSetupNavigator
   )
 
   "AboutYou Controller" when {

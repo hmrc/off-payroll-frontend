@@ -19,13 +19,13 @@ package assets.messages
 object EquipmentExpensesMessages extends BaseMessages {
 
   object Hirer {
-    val title = "Will the worker incur substantial equipment costs that your organisation will not pay for?"
+    val title = "Will the worker incur equipment costs that your organisation will not pay for?"
     val heading = title
     val p1 = "This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones."
   }
 
   object Worker {
-    val title = "Will you incur substantial equipment costs that your client will not pay for?"
+    val title = "Will you incur equipment costs that your client will not pay for?"
     val heading = title
     val p1 = "This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones."
   }

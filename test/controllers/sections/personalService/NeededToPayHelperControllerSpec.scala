@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.NeededToPayHelperFormProvider
 import models.requests.DataRequest
 import models.{Answers, HowWorkerIsPaid, NormalMode, UserAnswers}
-import navigation.FakeNavigator
+
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -63,7 +63,7 @@ class NeededToPayHelperControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakePersonalServiceNavigator
   )
 
   val validData = Map(NeededToPayHelperPage.toString -> Json.toJson(Answers(true, 0)))

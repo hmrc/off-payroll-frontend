@@ -24,7 +24,7 @@ import forms.ScheduleOfWorkingHoursFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models.{Answers, HowWorkerIsPaid, NormalMode, ScheduleOfWorkingHours}
-import navigation.FakeNavigator
+
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.HowWorkerIsPaidPage
@@ -57,7 +57,7 @@ class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockD
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeControlNavigator
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

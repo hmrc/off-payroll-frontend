@@ -24,24 +24,22 @@ import controllers.actions._
 import forms.CustomisePDFFormProvider
 import handlers.ErrorHandler
 import javax.inject.Inject
-import models.Answers._
 import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Mode, NormalMode, Timestamp}
-import navigation.Navigator
-import pages.{CustomisePDFPage, ResultPage, Timestamp}
-import play.api.Logger
+import navigation.CYANavigator
+import pages.{CustomisePDFPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc._
 import play.core.utils.AsciiSet
 import play.twirl.api.{Html, HtmlFormat}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, EncryptionService, OptimisedDecisionService, PDFService}
+import services._
 import utils.UserAnswersUtils
 import views.html.{AddDetailsView, CustomisePDFView}
 
-import scala.concurrent.{ExecutionException, Future}
+import scala.concurrent.Future
 
 class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
-                              navigator: Navigator,
+                              navigator: CYANavigator,
                               identify: IdentifierAction,
                               getData: DataRetrievalAction,
                               requireData: DataRequiredAction,
@@ -57,7 +55,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               compareAnswerService: CompareAnswerService,
                               checkYourAnswersService: CheckYourAnswersService,
                               encryption: EncryptionService,
-                              implicit val appConfig: FrontendAppConfig) extends BaseController(
+                              implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
 
   with FeatureSwitching with UserAnswersUtils {

@@ -18,23 +18,17 @@ package controllers
 
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import connectors.DataCacheConnector
-import connectors.mocks.MockDataCacheConnector
 import controllers.actions._
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
-import models.ChooseWhereWork.WorkerChooses
 import models._
 import models.requests.DataRequest
-import navigation.FakeNavigator
-import pages.{ResultPage, Timestamp}
-import pages.sections.control.ChooseWhereWorkPage
+import pages.Timestamp
 import play.api.i18n.Messages
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import services.{DecisionService, OptimisedDecisionService}
-import services.mocks.{MockCheckYourAnswersService, MockCompareAnswerService, MockDecisionService, MockOptimisedDecisionService}
+import services.DecisionService
+import services.mocks.{MockCheckYourAnswersService, MockOptimisedDecisionService}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeTimestamp
 import viewmodels.AnswerSection
@@ -80,7 +74,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
     injector.instanceOf[DecisionService],
     formProvider,
     formProviderPDF,
-    new FakeNavigator(onwardRoute),
+    FakeCYANavigator,
     mockDataCacheConnector,
     FakeTimestamp,
     mockCompareAnswerService,

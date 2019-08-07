@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-package navigation
+package pages
 
-import config.FrontendAppConfig
-import models.{Mode, NormalMode, UserAnswers}
-import pages._
-import play.api.mvc.Call
+case object TransferOfRightsPage extends QuestionPage[Boolean] {
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
+  override def toString: String = "transferOfRights"
 }

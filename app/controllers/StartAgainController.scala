@@ -16,27 +16,18 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions.IdentifierAction
-import navigation.Navigator
+import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import services.CheckYourAnswersService
 import views.html.StartAgainView
 
 class StartAgainController @Inject()(identify: IdentifierAction,
                                      controllerComponents: MessagesControllerComponents,
                                      view: StartAgainView,
                                      checkYourAnswersService: CheckYourAnswersService,
-                                     compareAnswerService: CompareAnswerService,
-                                     dataCacheConnector: DataCacheConnector,
-                                     decisionService: DecisionService,
-                                     navigator: Navigator,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                     implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   def redirectToGovUk: Action[AnyContent] = identify { implicit request =>
     Redirect(appConfig.govUkStartPageUrl).withNewSession

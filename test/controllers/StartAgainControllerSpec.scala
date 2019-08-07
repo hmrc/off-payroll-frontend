@@ -20,7 +20,6 @@ import controllers.actions.FakeIdentifierAction
 import play.api.http.Status
 import play.api.test.Helpers._
 import views.html.StartAgainView
-import views.html.subOptimised.results.FinancialRiskView
 
 class StartAgainControllerSpec extends ControllerSpecBase {
 
@@ -31,11 +30,7 @@ class StartAgainControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     appConfig = frontendAppConfig,
     view = startAgainView,
-    checkYourAnswersService = mockCheckYourAnswersService,
-    compareAnswerService = mockCompareAnswerService,
-    dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    checkYourAnswersService = mockCheckYourAnswersService
   )
 
   "StartAgainController.redirectToExitSurvey" should {

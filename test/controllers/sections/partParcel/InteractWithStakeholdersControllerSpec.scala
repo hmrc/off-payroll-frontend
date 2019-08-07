@@ -21,7 +21,7 @@ import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import forms.InteractWithStakeholdersFormProvider
 import models._
-import navigation.FakeNavigator
+
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when
@@ -32,7 +32,7 @@ import controllers.actions._
 import forms.InteractWithStakeholdersFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode, UserAnswers}
-import navigation.FakeNavigator
+
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
 import play.api.http.HttpEntity
@@ -64,7 +64,7 @@ class InteractWithStakeholdersControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator,
+    navigator = FakePartAndParcelNavigator,
     frontendAppConfig
   )
 

@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.financialRisk
 
-import assets.messages.CannotClaimAsExpenseMessages
+import assets.messages.{CannotClaimAsExpenseMessages, SubHeadingMessages}
 import config.SessionKeys
 import forms.CannotClaimAsExpenseFormProvider
 import models.UserType.{Agency, Hirer, Worker}
@@ -53,7 +53,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(CannotClaimAsExpenseMessages.Worker.title, Some(CannotClaimAsExpenseMessages.subheading))
+        document.title mustBe title(CannotClaimAsExpenseMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -61,7 +61,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe CannotClaimAsExpenseMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct hint messages" in {
@@ -87,7 +87,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(CannotClaimAsExpenseMessages.Hirer.title, Some(CannotClaimAsExpenseMessages.subheading))
+        document.title mustBe title(CannotClaimAsExpenseMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -95,7 +95,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe CannotClaimAsExpenseMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct hint messages" in {
@@ -121,7 +121,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(CannotClaimAsExpenseMessages.NonTailored.title, Some(CannotClaimAsExpenseMessages.subheading))
+        document.title mustBe title(CannotClaimAsExpenseMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -129,7 +129,7 @@ class CannotClaimAsExpenseViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe CannotClaimAsExpenseMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct hint messages" in {

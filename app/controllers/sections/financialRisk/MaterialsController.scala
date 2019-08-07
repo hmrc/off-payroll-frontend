@@ -16,14 +16,14 @@
 
 package controllers.sections.financialRisk
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.MaterialsFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.MaterialsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -33,7 +33,7 @@ import views.html.sections.financialRisk.MaterialsView
 import scala.concurrent.Future
 
 class MaterialsController @Inject()(dataCacheConnector: DataCacheConnector,
-                                    navigator: Navigator,
+                                    navigator: FinancialRiskNavigator,
                                     identify: IdentifierAction,
                                     getData: DataRetrievalAction,
                                     requireData: DataRequiredAction,
@@ -44,7 +44,7 @@ class MaterialsController @Inject()(dataCacheConnector: DataCacheConnector,
                                     compareAnswerService: CompareAnswerService,
                                     decisionService: DecisionService,
                                     implicit val appConfig: FrontendAppConfig
-                                   ) extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                   ) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 

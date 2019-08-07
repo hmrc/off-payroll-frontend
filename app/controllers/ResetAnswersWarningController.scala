@@ -16,35 +16,21 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
-import connectors.DataCacheConnector
 import controllers.actions._
-import forms.{ChooseWhereWorkFormProvider, ResetAnswersWarningFormProvider}
-import models._
-import navigation.Navigator
-import pages.CheckYourAnswersPage
-import pages.sections.control.ChooseWhereWorkPage
+import forms.ResetAnswersWarningFormProvider
+import javax.inject.Inject
 import play.api.data.Form
 import play.api.mvc._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import views.html.{CheckYourAnswersView, ResetAnswersWarningView}
+import views.html.ResetAnswersWarningView
 
-import scala.concurrent.Future
-
-class ResetAnswersWarningController @Inject()(navigator: Navigator,
-                                              identify: IdentifierAction,
+class ResetAnswersWarningController @Inject()(identify: IdentifierAction,
                                               getData: DataRetrievalAction,
                                               requireData: DataRequiredAction,
                                               formProvider: ResetAnswersWarningFormProvider,
                                               controllerComponents: MessagesControllerComponents,
                                               view: ResetAnswersWarningView,
-                                              compareAnswerService: CompareAnswerService,
-                                              dataCacheConnector: DataCacheConnector,
-                                              decisionService: DecisionService,
-                                              implicit val appConfig: FrontendAppConfig) extends BaseController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) {
 
   val form: Form[Boolean] = formProvider()
 

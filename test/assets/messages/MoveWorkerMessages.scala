@@ -18,8 +18,6 @@ package assets.messages
 
 object MoveWorkerMessages extends BaseMessages {
 
-  val subheading = "About the work arrangements"
-
   object Worker {
     val heading = "Can the end client move you to a different task than you originally agreed to do?"
     val title = heading

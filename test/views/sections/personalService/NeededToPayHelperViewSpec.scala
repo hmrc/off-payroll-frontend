@@ -16,7 +16,7 @@
 
 package views.sections.personalService
 
-import assets.messages.NeededToPayHelperMessages
+import assets.messages.{NeededToPayHelperMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
@@ -52,7 +52,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
 
   "NeededToPayHelper view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -63,7 +63,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title)
+        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -81,7 +81,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Hirer.title)
+        document.title mustBe title(NeededToPayHelperMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -99,7 +99,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title)
+        document.title mustBe title(NeededToPayHelperMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {

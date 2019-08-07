@@ -16,15 +16,14 @@
 
 package controllers.sections.financialRisk
 import config.FrontendAppConfig
-import controllers.actions._
-import controllers.BaseController
-import forms.CannotClaimAsExpenseFormProvider
-import javax.inject.Inject
-
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
+import controllers.BaseNavigationController
+import controllers.actions._
+import forms.CannotClaimAsExpenseFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
@@ -42,8 +41,8 @@ class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
                                                compareAnswerService: CompareAnswerService,
                                                dataCacheConnector: DataCacheConnector,
                                                decisionService: DecisionService,
-                                               navigator: Navigator,
-                                               implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                               navigator: FinancialRiskNavigator,
+                                               implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form = formProvider()

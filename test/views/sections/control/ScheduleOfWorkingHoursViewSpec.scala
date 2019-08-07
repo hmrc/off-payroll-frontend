@@ -16,7 +16,7 @@
 
 package views.sections.control
 
-import assets.messages.ScheduleOfWorkingHoursMessages
+import assets.messages.{ScheduleOfWorkingHoursMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.ScheduleOfWorkingHoursFormProvider
@@ -50,7 +50,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ScheduleOfWorkingHours view" must {
-    behave like normalPage(createView, messageKeyPrefix, false)
+    behave like normalPage(createView, messageKeyPrefix, true)
 
     behave like pageWithBackLink(createView)
 
@@ -59,7 +59,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, None)
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedHirer.title)
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedHirer.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -100,7 +100,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, None)
+        document.title mustBe title(ScheduleOfWorkingHoursMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {

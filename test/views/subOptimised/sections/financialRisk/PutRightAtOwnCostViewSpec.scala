@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.financialRisk
 
-import assets.messages.PutRightAtOwnCostsMessages
+import assets.messages.{PutRightAtOwnCostsMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.PutRightAtOwnCostFormProvider
@@ -54,7 +54,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.Worker.title, Some(PutRightAtOwnCostsMessages.subheading))
+        document.title mustBe title(PutRightAtOwnCostsMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -62,7 +62,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe PutRightAtOwnCostsMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct radio option messages" in {
@@ -79,7 +79,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.Hirer.title, Some(PutRightAtOwnCostsMessages.subheading))
+        document.title mustBe title(PutRightAtOwnCostsMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -87,7 +87,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe PutRightAtOwnCostsMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct radio option messages" in {
@@ -104,7 +104,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(PutRightAtOwnCostsMessages.NonTailored.title, Some(PutRightAtOwnCostsMessages.subheading))
+        document.title mustBe title(PutRightAtOwnCostsMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -112,7 +112,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe PutRightAtOwnCostsMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct radio option messages" in {
