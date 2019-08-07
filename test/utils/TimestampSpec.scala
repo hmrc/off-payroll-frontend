@@ -33,7 +33,7 @@ class TimestampSpec extends GuiceAppSpecBase {
       implicit def messages: Messages = messagesApi.preferred(Seq(lang))
       implicit def lang: Lang = Lang("en")
 
-      viewmodels.Timestamp.months.map(month => testTimestamp.timestamp()(messages).contains(messages(s"date.$month"))) must contain(true)
+      viewmodels.Timestamp.months.map(month => testTimestamp.timestamp().contains(messages(s"date.$month"))) must contain(true)
     }
 
     "convert to welsh" in {
@@ -42,7 +42,7 @@ class TimestampSpec extends GuiceAppSpecBase {
       implicit def lang: Lang = Lang("cy")
 
       viewmodels.Timestamp.months.map(month => viewmodels.Timestamp.monthToMessages(
-        testTimestamp.timestamp()(messages)).contains(messages(s"date.$month"))) must contain(true)
+        testTimestamp.timestamp()).contains(messages(s"date.$month"))) must contain(true)
     }
   }
 }

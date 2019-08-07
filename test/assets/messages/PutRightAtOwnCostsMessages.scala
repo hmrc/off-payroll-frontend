@@ -18,8 +18,6 @@ package assets.messages
 
 object PutRightAtOwnCostsMessages extends BaseMessages {
 
-  val subheading = "About the worker’s financial risk"
-
   object WorkerOptimised {
     val title = "If the client was not happy with your work, would you have to put it right?"
     val heading = "If the client was not happy with your work, would you have to put it right?"

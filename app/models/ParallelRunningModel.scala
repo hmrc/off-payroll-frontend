@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-import models.Timestamp
-import play.api.i18n.Messages
+import play.api.libs.json.{JsValue, Json, OFormat}
 
-object FakeTimestamp extends Timestamp {
+case class ParallelRunningModel(_id: String,
+                                oldRequest: JsValue,
+                                newRequest: JsValue,
+                                oldResponse: JsValue,
+                                newResponse: JsValue,
+                                identicalBody: Boolean,
+                                identicalResult:Boolean)
 
-  override def timestamp(time: Option[String]): String = s"01 January 2019, 00:00:00"
-
+object ParallelRunningModel {
+  implicit val formats: OFormat[ParallelRunningModel] = Json.format[ParallelRunningModel]
 }

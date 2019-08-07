@@ -25,6 +25,7 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesControllerComponents
+import repositories.{FakeParallelRunningRepository, ParallelRunningRepository}
 
 import scala.concurrent.ExecutionContext
 import scala.language.implicitConversions
@@ -34,6 +35,7 @@ trait GuiceAppSpecBase extends SpecBase with GuiceOneAppPerSuite {
 
   override lazy val app: Application = GuiceApplicationBuilder()
     .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
+    .overrides(bind[ParallelRunningRepository].to[FakeParallelRunningRepository])
     .build()
 
   lazy val injector = app.injector

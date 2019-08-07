@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.personalService
 
-import assets.messages.RejectSubstituteMessages
+import assets.messages.{RejectSubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.personalService.routes
 import forms.RejectSubstituteFormProvider
@@ -57,7 +57,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(RejectSubstituteMessages.Worker.title, Some(RejectSubstituteMessages.subheading))
+        document.title mustBe title(RejectSubstituteMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -65,7 +65,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe RejectSubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {
@@ -92,7 +92,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(RejectSubstituteMessages.Hirer.title, Some(RejectSubstituteMessages.subheading))
+        document.title mustBe title(RejectSubstituteMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -100,7 +100,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe RejectSubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {
@@ -127,7 +127,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(RejectSubstituteMessages.NonTailored.title, Some(RejectSubstituteMessages.subheading))
+        document.title mustBe title(RejectSubstituteMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -135,7 +135,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe RejectSubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {

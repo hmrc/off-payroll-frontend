@@ -16,7 +16,7 @@
 
 package views.sections.financialRisk
 
-import assets.messages.HowWorkerIsPaidMessages
+import assets.messages.{HowWorkerIsPaidMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.HowWorkerIsPaidFormProvider
@@ -50,7 +50,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "HowWorkerIsPaid view" must {
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -59,7 +59,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title)
+        document.title mustBe title(HowWorkerIsPaidMessages.WorkerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
 
       }
 
@@ -81,7 +81,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title)
+        document.title mustBe title(HowWorkerIsPaidMessages.HirerOptimised.title, Some(SubHeadingMessages.Optimised.financialRisk))
 
       }
 

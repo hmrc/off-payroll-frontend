@@ -18,8 +18,6 @@ package assets.messages
 
 object CannotClaimAsExpenseMessages extends BaseMessages {
 
-  val subheading = "About the worker’s financial risk"
-
   object Worker {
     val heading = "What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?"
     val title = heading
