@@ -1738,3 +1738,19 @@ hirer.transferOfRights.title = Does the contract give your organisation the opti
 hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker would keep all the rights.
+
+
+##TODO: Need Welsh
+#### Permission to Work Page - BoOA
+#### ------------------------------
+permissionToWorkWithOthers.error.required = You need to select an answer
+
+worker.permissionToWorkWithOthers.title = Are you required to ask permission to work for other clients?
+worker.permissionToWorkWithOthers.heading = Are you required to ask permission to work for other clients?
+worker.permissionToWorkWithOthers.checkYourAnswersLabel = Are you required to ask permission to work for other clients?
+worker.permissionToWorkWithOthers.subheading = Worker’s contracts
+
+hirer.permissionToWorkWithOthers.title = Is the worker required to ask permission to work for other organisations?
+hirer.permissionToWorkWithOthers.heading = Is the worker required to ask permission to work for other organisations?
+hirer.permissionToWorkWithOthers.checkYourAnswersLabel = Is the worker required to ask permission to work for other organisations?
+hirer.permissionToWorkWithOthers.subheading = Worker’s contracts

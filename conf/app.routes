@@ -212,3 +212,8 @@ GET        /transfer-of-rights                          controllers.sections.bus
 POST       /transfer-of-rights                          controllers.sections.businessOnOwnAccount.TransferOfRightsController.onSubmit(mode: Mode = NormalMode)
 GET        /transfer-of-rights/change                   controllers.sections.businessOnOwnAccount.TransferOfRightsController.onPageLoad(mode: Mode = CheckMode)
 POST       /transfer-of-rights/change                   controllers.sections.businessOnOwnAccount.TransferOfRightsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /permission-to-work-with-others              controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onPageLoad(mode: Mode = NormalMode)
+POST       /permission-to-work-with-others              controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onSubmit(mode: Mode = NormalMode)
+GET        /permission-to-work-with-others/change       controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onPageLoad(mode: Mode = CheckMode)
+POST       /permission-to-work-with-others/change       controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onSubmit(mode: Mode = CheckMode)

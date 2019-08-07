@@ -26,7 +26,7 @@ class $className;format="cap"$Controller @Inject()(dataCacheConnector: DataCache
                                          compareAnswerService: CompareAnswerService,
                                          decisionService: DecisionService,
                                          view: $className$View,
-                                         implicit val appConfig: FrontendAppConfig extends BaseController(
+                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
 controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
@@ -38,7 +38,7 @@ controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionS
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => controllerHelper.redirect(mode, value, $className$Page)
+      value => redirect(mode, value, $className$Page)
     )
   }
 }
