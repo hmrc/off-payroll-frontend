@@ -18,8 +18,6 @@ package assets.messages
 
 object ArrangedSubstituteMessages extends BaseMessages {
 
-  val subheading = "About substitutes and helpers"
-
   object Optimised {
 
     object Worker {

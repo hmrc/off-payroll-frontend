@@ -16,29 +16,18 @@
 
 package controllers.sections.setup
 
-import akka.util.ByteString
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.mocks.MockDataCacheConnector
+import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.ContractStartedFormProvider
 import models.requests.DataRequest
-import models.{Answers, NormalMode, UserAnswers}
-import navigation.FakeNavigator
-import org.mockito.Matchers
-import org.mockito.Mockito.when
-import pages.sections.personalService.WouldWorkerPaySubstitutePage
+import models.{Answers, NormalMode}
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.setup.ContractStartedView
-
-import scala.concurrent.Future
 class ContractStartedControllerSpec extends ControllerSpecBase {
 
   val formProvider = new ContractStartedFormProvider()
@@ -60,7 +49,7 @@ class ContractStartedControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeSetupNavigator
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

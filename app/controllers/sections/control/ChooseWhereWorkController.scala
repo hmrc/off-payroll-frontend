@@ -16,16 +16,15 @@
 
 package controllers.sections.control
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.ChooseWhereWorkFormProvider
+import javax.inject.Inject
 import models.{ChooseWhereWork, Mode}
-import navigation.Navigator
+import navigation.ControlNavigator
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
@@ -47,8 +46,8 @@ class ChooseWhereWorkController @Inject()(identify: IdentifierAction,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
                                           decisionService: DecisionService,
-                                          navigator: Navigator,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                          navigator: ControlNavigator,
+                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[ChooseWhereWork] = formProvider()

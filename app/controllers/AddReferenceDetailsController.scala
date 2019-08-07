@@ -22,8 +22,8 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.AddReferenceDetailsFormProvider
 import javax.inject.Inject
-import models.{Mode, NormalMode}
-import navigation.Navigator
+import models.NormalMode
+import navigation.CYANavigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -38,12 +38,12 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
                                               formProvider: AddReferenceDetailsFormProvider,
                                               controllerComponents: MessagesControllerComponents,
                                               addReferenceDetails: AddReferenceDetailsView,
-                                              navigator: Navigator,
+                                              navigator: CYANavigator,
                                               dataCacheConnector: DataCacheConnector,
                                               compareAnswerService: CompareAnswerService,
                                               decisionService: DecisionService,
                                               implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 

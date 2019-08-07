@@ -16,7 +16,7 @@
 
 package views.sections.personalService
 
-import assets.messages.WouldPaySubstituteMessages
+import assets.messages.{SubHeadingMessages, WouldPaySubstituteMessages}
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
 import forms.WouldWorkerPaySubstituteFormProvider
@@ -49,7 +49,7 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   "WouldWorkerPaySubstitute view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -60,7 +60,7 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title)
+        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -83,7 +83,7 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Hirer.title)
+        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Hirer.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {
@@ -101,7 +101,7 @@ class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title)
+        document.title mustBe title(WouldPaySubstituteMessages.Optimised.Worker.title, Some(SubHeadingMessages.Optimised.personalService))
       }
 
       "have the correct heading" in {

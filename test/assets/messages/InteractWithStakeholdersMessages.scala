@@ -18,8 +18,6 @@ package assets.messages
 
 object InteractWithStakeholdersMessages extends BaseMessages {
 
-  val subheading = "About the worker’s integration into the organisation"
-
   object Worker {
     val heading = "Do you interact with the end client’s customers, clients, audience or users?"
     val title = heading

@@ -24,7 +24,7 @@ import forms.WouldWorkerPaySubstituteFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models._
-import navigation.FakeNavigator
+
 import pages.sections.control.HowWorkIsDonePage
 import pages.sections.personalService.WouldWorkerPaySubstitutePage
 import pages.sections.setup.AboutYouPage
@@ -58,7 +58,7 @@ class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with Moc
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakePersonalServiceNavigator
   )
 
   def viewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

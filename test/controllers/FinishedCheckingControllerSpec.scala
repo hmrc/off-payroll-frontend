@@ -18,8 +18,7 @@ package controllers
 
 import controllers.actions._
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
-import pages.{AddReferenceDetailsPage, ResultPage}
+import pages.ResultPage
 import play.api.libs.json.Json
 import play.api.mvc.Call
 import play.api.test.Helpers.{contentAsString, _}
@@ -35,11 +34,7 @@ class FinishedCheckingControllerSpec extends ControllerSpecBase {
     dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),
     finishedCheckingView = view,
-    navigator = new FakeNavigator(onwardRoute),
-    dataCacheConnector = mockDataCacheConnector,
     controllerComponents = messagesControllerComponents,
-    compareAnswerService = mockCompareAnswerService,
-    decisionService = mockDecisionService,
     appConfig = frontendAppConfig
   )
 

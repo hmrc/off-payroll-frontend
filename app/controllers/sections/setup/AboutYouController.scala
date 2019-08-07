@@ -16,17 +16,16 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
+import javax.inject.Inject
 import models.requests.DataRequest
 import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.mvc._
@@ -49,8 +48,8 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    compareAnswerService: CompareAnswerService,
                                    dataCacheConnector: DataCacheConnector,
                                    decisionService: DecisionService,
-                                   navigator: Navigator,
-                                   implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents,
+                                   navigator: SetupNavigator,
+                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
   compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
 
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()

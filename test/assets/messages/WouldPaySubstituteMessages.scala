@@ -18,8 +18,6 @@ package assets.messages
 
 object WouldPaySubstituteMessages extends BaseMessages {
 
-  val subheading = "About substitutes and helpers"
-
   object Optimised {
     object Worker {
       val heading = "Would you have to pay your substitute?"

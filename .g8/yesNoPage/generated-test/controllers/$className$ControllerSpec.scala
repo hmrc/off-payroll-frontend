@@ -5,12 +5,12 @@ import play.api.libs.json.{JsBoolean, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import navigation.FakeNavigator
 import connectors.FakeDataCacheConnector
-import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
+import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, FakeIdentifierAction, _}
 import play.api.test.Helpers._
 import forms.$className$FormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import pages.{$className$Page, $className$Page}
+import pages.$className$Page
 import play.api.mvc.Call
 import views.html.$className$View
 
@@ -22,7 +22,6 @@ class $className$ControllerSpec extends ControllerSpecBase {
   val view = injector.instanceOf[$className$View]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new $className$Controller(
-    appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = new FakeNavigator(onwardRoute),
     identify = FakeIdentifierAction,
@@ -31,7 +30,9 @@ class $className$ControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    controllerHelper = mockControllerHelper
+    compareAnswerService = mockCompareAnswerService,
+    decisionService = mockDecisionService,
+    appConfig = frontendAppConfig
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
@@ -59,9 +60,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
       val validData = Map($className$Page.toString -> Json.toJson(Answers(true,0)))
 
       val answers = userAnswers.set($className$Page,0,true)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
-
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

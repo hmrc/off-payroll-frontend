@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.setup
 
-import assets.messages.ContractStartedMessages
+import assets.messages.{ContractStartedMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.setup.routes
 import forms.ContractStartedFormProvider
@@ -57,7 +57,7 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ContractStartedMessages.Worker.title, Some(ContractStartedMessages.subheading))
+        document.title mustBe title(ContractStartedMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.setup))
       }
 
       "have the correct heading" in {
@@ -65,7 +65,7 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ContractStartedMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.setup
       }
 
       "have the correct radio option messages" in {
@@ -79,7 +79,7 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ContractStartedMessages.Hirer.title, Some(ContractStartedMessages.subheading))
+        document.title mustBe title(ContractStartedMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.setup))
       }
 
       "have the correct heading" in {
@@ -87,7 +87,7 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ContractStartedMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.setup
       }
 
       "have the correct radio option messages" in {
@@ -101,7 +101,7 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ContractStartedMessages.NonTailored.title, Some(ContractStartedMessages.subheading))
+        document.title mustBe title(ContractStartedMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.setup))
       }
 
       "have the correct heading" in {
@@ -109,7 +109,7 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ContractStartedMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.setup
       }
 
       "have the correct radio option messages" in {

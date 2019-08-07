@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.partParcel
 
-import assets.messages.IdentifyToStakeholdersMessages
+import assets.messages.{IdentifyToStakeholdersMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import forms.IdentifyToStakeholdersFormProvider
@@ -54,7 +54,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.Worker.title, Some(IdentifyToStakeholdersMessages.subheading))
+        document.title mustBe title(IdentifyToStakeholdersMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -62,7 +62,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -77,7 +77,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.Hirer.title, Some(IdentifyToStakeholdersMessages.subheading))
+        document.title mustBe title(IdentifyToStakeholdersMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -85,7 +85,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {
@@ -100,7 +100,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(IdentifyToStakeholdersMessages.NonTailored.title, Some(IdentifyToStakeholdersMessages.subheading))
+        document.title mustBe title(IdentifyToStakeholdersMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.partAndParcel))
       }
 
       "have the correct heading" in {
@@ -108,7 +108,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe IdentifyToStakeholdersMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.partAndParcel
       }
 
       "have the correct hints" in {

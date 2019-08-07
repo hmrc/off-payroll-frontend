@@ -16,7 +16,7 @@
 
 package views.sections.control
 
-import assets.messages.ChooseWhereWorkMessages
+import assets.messages.{ChooseWhereWorkMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import forms.ChooseWhereWorkFormProvider
@@ -50,7 +50,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
   def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ChooseWhereWork view" must {
-    behave like normalPage(createView, messageKeyPrefix, false)
+    behave like normalPage(createView, messageKeyPrefix, true)
 
     behave like pageWithBackLink(createView)
 
@@ -59,7 +59,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, None)
+        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -79,7 +79,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.OptimisedHirer.title, None)
+        document.title mustBe title(ChooseWhereWorkMessages.OptimisedHirer.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {
@@ -99,7 +99,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, None)
+        document.title mustBe title(ChooseWhereWorkMessages.OptimisedWorker.title, Some(SubHeadingMessages.Optimised.control))
       }
 
       "have the correct heading" in {

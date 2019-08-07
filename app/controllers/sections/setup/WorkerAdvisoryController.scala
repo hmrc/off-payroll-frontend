@@ -17,20 +17,19 @@
 package controllers.sections.setup
 
 import config.FrontendAppConfig
-import controllers.BaseController
-import controllers.actions._
-import javax.inject.Inject
-
 import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
+import controllers.BaseNavigationController
+import controllers.actions._
+import javax.inject.Inject
 import models.NormalMode
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.sections.setup.WorkerAdvisoryPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
 import views.html.sections.setup.WorkerAdvisoryView
 
-class WorkerAdvisoryController @Inject()(navigator: Navigator,
+class WorkerAdvisoryController @Inject()(navigator: SetupNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -40,7 +39,7 @@ class WorkerAdvisoryController @Inject()(navigator: Navigator,
                                          compareAnswerService: CompareAnswerService,
                                          dataCacheConnector: DataCacheConnector,
                                          decisionService: DecisionService,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

@@ -25,7 +25,7 @@ import models.Answers._
 import models.ChooseWhereWork.WorkerChooses
 import models._
 import models.requests.DataRequest
-import navigation.FakeNavigator
+
 import pages.ResultPage
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage}
 import play.api.data.Form
@@ -59,7 +59,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeControlNavigator
   )
 
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
