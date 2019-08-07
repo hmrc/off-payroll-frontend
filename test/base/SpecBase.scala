@@ -16,33 +16,24 @@
 
 package base
 
-import config.FrontendAppConfig
+import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import connectors.{DataCacheConnector, FakeDataCacheConnector}
-import handlers.ErrorHandler
 import models.UserAnswers
+import models.UserType.{Agency, Hirer, Worker}
 import models.requests.DataRequest
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.Application
-import play.api.i18n.{Lang, Messages, MessagesApi}
-import play.api.inject.bind
-import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.MessagesControllerComponents
+import play.api.i18n.{Lang, Messages}
+import play.api.libs.json.Json
 import play.api.test.FakeRequest
-import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.http.{HeaderCarrier, SessionKeys => HMRCSessionKeys}
 
 import scala.concurrent.duration.{Duration, FiniteDuration, _}
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.{Await, Future}
 import scala.language.implicitConversions
 
 
-trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach with MaterializerSupport with FeatureSwitching {
-
-  override lazy val app: Application = GuiceApplicationBuilder()
-    .overrides(bind[DataCacheConnector].to[FakeDataCacheConnector])
-    .build()
+trait SpecBase extends PlaySpec with BeforeAndAfterEach with MaterializerSupport with FeatureSwitching {
 
   override def beforeEach(): Unit = {
     disable(OptimisedFlow)
@@ -58,24 +49,22 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite with BeforeAndAfterEach
 
   def await[A](future: Future[A])(implicit timeout: Duration): A = Await.result(future, timeout)
 
-  lazy val injector = app.injector
-
-  implicit lazy val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
-
-  lazy val messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
-
-  implicit lazy val lang: Lang = Lang("en")
-
-  lazy val messagesControllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
-
-  implicit lazy val ec: ExecutionContext = injector.instanceOf[ExecutionContext]
-  implicit lazy val hc: HeaderCarrier = HeaderCarrier()
-
-  val errorHandler = injector.instanceOf[ErrorHandler]
-
-  implicit lazy val fakeRequest = FakeRequest("", "")
+  implicit lazy val fakeRequest = FakeRequest().withSession(HMRCSessionKeys.sessionId -> "id")
   lazy val fakeDataRequest = DataRequest(fakeRequest,"id",UserAnswers("id"))
 
-  implicit lazy val messages: Messages = messagesApi.preferred(fakeRequest)
+  lazy val agencyFakeRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
+  lazy val agencyFakeDataRequest = DataRequest(agencyFakeRequest, "id", UserAnswers("id"))
+  def agencyFakeDataRequestWithAnswers(userAnswers: UserAnswers) = DataRequest(agencyFakeRequest, "id", userAnswers)
+
+  lazy val workerFakeRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
+  lazy val workerFakeDataRequest = DataRequest(workerFakeRequest, "id", UserAnswers("id"))
+  def workerFakeDataRequestWithAnswers(userAnswers: UserAnswers) = DataRequest(workerFakeRequest, "id", userAnswers)
+
+  lazy val hirerFakeRequest = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
+  lazy val hirerFakeDataRequest = DataRequest(hirerFakeRequest, "id", UserAnswers("id"))
+  def hirerFakeDataRequestWithAnswers(userAnswers: UserAnswers) = DataRequest(hirerFakeRequest, "id", userAnswers)
+
+  implicit lazy val hc: HeaderCarrier = HeaderCarrier()
+  implicit lazy val lang: Lang = Lang("en")
 
 }

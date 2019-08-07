@@ -14,13 +14,20 @@
  * limitations under the License.
  */
 
-package navigation
+package pages.businessOnOwnAccount
 
-import config.FrontendAppConfig
-import models.{Mode, NormalMode, UserAnswers}
-import pages._
-import play.api.mvc.Call
+import models.{Enumerable, ExclusiveContract}
+import pages.behaviours.PageBehaviours
+import pages.sections.businessOnOwnAccount.ExclusiveContractPage
 
-class FakeNavigator(desiredRoute: Call, mode: Mode = NormalMode)(implicit appConfig: FrontendAppConfig) extends Navigator {
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => desiredRoute
+class ExclusiveContractPageSpec extends PageBehaviours with Enumerable.Implicits{
+
+  "ExclusiveContractPage" must {
+
+    beRetrievable[ExclusiveContract](ExclusiveContractPage)
+
+    beSettable[ExclusiveContract](ExclusiveContractPage)
+
+    beRemovable[ExclusiveContract](ExclusiveContractPage)
+  }
 }

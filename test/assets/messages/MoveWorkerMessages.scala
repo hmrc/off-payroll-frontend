@@ -39,18 +39,20 @@ object MoveWorkerMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val heading = "Could your client move you from your original task, project or location without your agreement?"
+    val heading = "Can the task be changed without your agreement?"
+    val p1 = "This includes changing the project or base location."
     val title = heading
     val yesWithAgreement = "Yes"
-    val yesWithoutAgreement = "No, you solely decide"
+    val yesWithoutAgreement = "No, you would have to agree"
     val no = "No, that would require a new contract or formal working arrangement"
   }
 
   object OptimisedHirer {
-    val heading = "Could the worker be moved from their original task, project or location without their agreement?"
+    val heading = "Could the worker’s task be changed without their agreement?"
     val title = heading
+    val p1 = "This includes changing the project or base location."
     val yesWithAgreement = "Yes"
-    val yesWithoutAgreement = "No, the worker solely decides"
+    val yesWithoutAgreement = "No, they would have to agree"
     val no = "No, that would require a new contract or formal working arrangement"
   }
 

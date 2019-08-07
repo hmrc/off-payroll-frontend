@@ -83,8 +83,8 @@ site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
-site.ir35email = ir35@hmrc.gov.uk
-site.employmentStatusManual = Employment Status Manual
+site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
+site.employmentStatusManual = Canllaw Statws Cyflogaeth
 
 feedback.before = Mae hwn yn wasanaeth newydd - bydd eich
 feedback.link = adborth
@@ -555,23 +555,23 @@ hirer.putRightAtOwnCost.cannotBeCorrected =Na - ni fyddai’r gweithiwr yn gallu
 hirer.putRightAtOwnCost.noObligationToCorrect =Na - ni fyddai’n rhaid iddo roi pethau’n iawn
 hirer.putRightAtOwnCost.checkYourAnswersLabel =Os nad yw’r cleient terfynol yn fodlon gyda’r gwaith, a oes angen i’r gweithiwr rhoi pethau’n iawn ar ei gost ei hun?
 
-worker.optimised.putRightAtOwnCost.title = Would you have to put the work right if your client was not happy with it?
-worker.optimised.putRightAtOwnCost.heading = Would you have to put the work right if your client was not happy with it?
-worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = Would you have to put the work right if your client was not happy with it?
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, you would have to put it right, for no additional income, and would incur extra outgoings
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, you would have to put it right, for no additional income, with no extra outgoings but would incur an opportunity cost
-worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, you would put it right in your usual hours at your usual rate or fee
-worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, you could not put it right because it was time-specific or for a single event
-worker.optimised.putRightAtOwnCost.noObligationToCorrect = No, you would not need to put it right
+worker.optimised.putRightAtOwnCost.title = If the client was not happy with your work, would you have to put it right?
+worker.optimised.putRightAtOwnCost.heading = If the client was not happy with your work, would you have to put it right?
+worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = If the client was not happy with your work, would you have to put it right?
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and you would incur extra costs
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but your only cost would be lost opportunity to do other work
+worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, you would fix it in your usual hours at your usual rate or fee
+worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
+worker.optimised.putRightAtOwnCost.noObligationToCorrect = No
 
-hirer.optimised.putRightAtOwnCost.title = Would the worker have to put the work right if your organisation was not happy with it?
-hirer.optimised.putRightAtOwnCost.heading = Would the worker have to put the work right if your organisation was not happy with it?
-hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = Would the worker have to put the work right if your organisation was not happy with it?
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, the worker would have to put it right for no additional income, and would incur extra outgoings
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, the worker would have to put it right for no additional income, with no extra outgoings but would incur an opportunity cost
-hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No, the worker would put it right in their usual hours at their usual rate or fee
-hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the worker could not put it right because it was time-specific or for a single event
-hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No, they would not need to put it right
+hirer.optimised.putRightAtOwnCost.title = If your organisation was not happy with the work, would the worker have to put it right?
+hirer.optimised.putRightAtOwnCost.heading = If your organisation was not happy with the work, would the worker have to put it right?
+hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your organisation was not happy with the work, would the worker have to put it right?
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and they would incur extra costs
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but their only cost would be lost opportunity to do other work
+hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, they would fix it in their usual hours at their usual rate or fee
+hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
+hirer.optimised.putRightAtOwnCost.noObligationToCorrect = No
 #########################
 
 ## How Worker is Paid
@@ -791,19 +791,21 @@ hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiw
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
 ## TODO: Need Welsh
-hirer.optimised.moveWorker.title = Could the worker be moved from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.heading = Could the worker be moved from their original task, project or location without their agreement?
-hirer.optimised.moveWorker.checkYourAnswersLabel = Could the worker be moved from their original task, project or location without their agreement?
+hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.checkYourAnswersLabel = Could the worker’s task be changed without their agreement?
+hirer.optimised.moveWorker.p1 = This includes changing the project or base location.
 hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, the worker solely decides
+hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, they would have to agree
 hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 
 ## TODO: Need Welsh
-worker.optimised.moveWorker.title = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.heading = Could your client move you from your original task, project or location without your agreement?
-worker.optimised.moveWorker.checkYourAnswersLabel = Could your client move you from your original task, project or location without your agreement?
+worker.optimised.moveWorker.title = Can the task be changed without your agreement?
+worker.optimised.moveWorker.heading = Can the task be changed without your agreement?
+worker.optimised.moveWorker.checkYourAnswersLabel = Can the task be changed without your agreement?
+worker.optimised.moveWorker.p1 = This includes changing the project or base location.
 worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
-worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you solely decide
+worker.optimised.moveWorker.canMoveWorkerWithPermission = No, you would have to agree
 worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 #########################
 
@@ -929,14 +931,16 @@ hirer.rejectSubstitute.yes =Iawn - mae gan y cleient terfynol yr hawl i wrthod e
 hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn eilydd a fyddai’n bodloni’r meini prawf hyn
 
 ## TODO: Welsh Needed
-worker.optimised.rejectSubstitute.title = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
-worker.optimised.rejectSubstitute.heading = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
-worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent someone to do your work, who your client had not vetted, cleared or interviewed, would they be accepted?
+worker.optimised.rejectSubstitute.title = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.heading = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your client's interviewing, vetting and security clearance procedures.
 
 ## TODO: Welsh Needed
-hirer.optimised.rejectSubstitute.title = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
-hirer.optimised.rejectSubstitute.heading = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
-hirer.optimised.rejectSubstitute.checkYourAnswersLabel = If the worker sent someone to do their work, who your organisation had not vetted, cleared or interviewed, would they be accepted?
+hirer.optimised.rejectSubstitute.title = If the worker sent a substitute, who met all your criteria, do you have the right to reject them
+hirer.optimised.rejectSubstitute.heading = If the worker sent a substitute, who met all your criteria, do you have the right to reject them
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = If the worker sent a substitute, who met all your criteria, do you have the right to reject them
+hirer.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your interviewing, vetting and security clearance procedures.
 #########################
 
 
@@ -1105,12 +1109,12 @@ result.indeterminate.heading =Ni allwn bennu’r statws treth ar gyfer y swydd h
 result.indeterminate.whyResult.p1 =Mae angen rhagor o wybodaeth arnom er mwyn deall arferion gwaith y swydd hon.
 result.indeterminate.whyResult.p2 =Gallwch adolygu’r atebion a roddwyd gennych, isod.
 ##### TODO NEED WELSH FOR ####
-result.indeterminate.shouldNowDo.p1 =Cysylltwch â llinell gymorth CThEM - Statws Cyflogaeth a Chyfryngwyr (Employment Status and Intermediaries) - os oes angen rhagor o gymorth arnoch:
-result.indeterminate.shouldNowDo.bullet1 =ar y ffôn ar 0300 123 2326
-result.indeterminate.shouldNowDo.bullet2 =drwy e-bost yn
-result.indeterminate.shouldNowDo.p2.beforeLink =Gallwch, hefyd, ddarllen yr
+result.indeterminate.shouldNowDo.p1 = Os oes angen rhagor o gymorth arnoch, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM:
+result.indeterminate.shouldNowDo.bullet1 = dros y ffôn ar 0300 200 1900
+result.indeterminate.shouldNowDo.bullet2 = drwy e-bostio gwasanaeth.cymraeg@hmrc.gov.uk
+result.indeterminate.shouldNowDo.p2.beforeLink =Gallech hefyd ddarllen y
 ##### TODO NEED WELSH FOR ####
-result.indeterminate.shouldNowDo.p2.link = Employment Status Manual
+result.indeterminate.shouldNowDo.p2.link = Canllaw Statws Cyflogaeth
 
 # Inside IR35
 result.insideIR35.title =Mae’r ddeddfwriaeth ynglŷn â chyfryngwyr yn berthnasol i’r swydd hon
@@ -1436,6 +1440,9 @@ worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your busines
 worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
 worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute to do this work.
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## Outside PAYE Decision Worker
 ## ------------------
@@ -1448,6 +1455,9 @@ worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your clien
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 worker.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean you are self-employed for tax purposes.
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to pay your earnings gross.
+worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute to do this work.
+worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## Inside Agent
 ## ------------------
@@ -1535,14 +1545,14 @@ finishedChecking.downloadAnswers = Download your answers and result (PDF, under 
 
 ##TODO: Need Welsh
 materials.error.required = You need to select an answer
-hirer.materials.title = Will the worker incur substantial costs for materials that your organisation will not pay for?
-hirer.materials.heading = Will the worker incur substantial costs for materials that your organisation will not pay for?
-hirer.materials.checkYourAnswersLabel = Will the worker incur substantial costs for materials that your organisation will not pay for?
+hirer.materials.title = Will the worker incur costs for materials that your organisation will not pay for?
+hirer.materials.heading = Will the worker incur costs for materials that your organisation will not pay for?
+hirer.materials.checkYourAnswersLabel = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
 hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
-worker.materials.title = Will you incur substantial costs for materials that your client will not pay for?
-worker.materials.heading = Will you incur substantial costs for materials that your client will not pay for?
-worker.materials.checkYourAnswersLabel = Will you incur substantial costs for materials that your client will not pay for?
+worker.materials.title = Will you incur costs for materials that your client will not pay for?
+worker.materials.heading = Will you incur costs for materials that your client will not pay for?
+worker.materials.checkYourAnswersLabel = Will you incur costs for materials that your client will not pay for?
 worker.materials.p1 = This can include items that form a lasting part of the work, or are left behind when you leave. Stationery is not included.
 worker.materials.p2 = This question is most likely to be relevant to the construction industry.
 
@@ -1561,24 +1571,24 @@ worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other
 
 ##TODO: Need Welsh
 otherExpenses.error.required = You need to select an answer
-hirer.otherExpenses.title = Will the worker incur any other substantial costs that your organisation will not pay for?
-hirer.otherExpenses.heading = Will the worker incur any other substantial costs that your organisation will not pay for?
-hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other substantial costs that your organisation will not pay for?
-hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
-worker.otherExpenses.title = Will you incur any other substantial costs that your client will not pay for?
-worker.otherExpenses.heading = Will you incur any other substantial costs that your client will not pay for?
-worker.otherExpenses.checkYourAnswersLabel = Will you incur any other substantial costs that your client will not pay for?
-worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation.
+hirer.otherExpenses.title = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.heading = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
+worker.otherExpenses.title = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.heading = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.checkYourAnswersLabel = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
 
 ##TODO: Need Welsh
 equipmentExpenses.error.required = You need to select an answer
-hirer.equipmentExpenses.title = Will the worker incur substantial equipment costs that your organisation will not pay for?
-hirer.equipmentExpenses.heading = Will the worker incur substantial equipment costs that your organisation will not pay for?
-hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker incur substantial equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.title = Will the worker incur equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.heading = Will the worker incur equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker incur equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
-worker.equipmentExpenses.title = Will you incur substantial equipment costs that your client will not pay for?
-worker.equipmentExpenses.heading = Will you incur substantial equipment costs that your client will not pay for?
-worker.equipmentExpenses.checkYourAnswersLabel = Will you incur substantial equipment costs that your client will not pay for?
+worker.equipmentExpenses.title = Will you incur equipment costs that your client will not pay for?
+worker.equipmentExpenses.heading = Will you incur equipment costs that your client will not pay for?
+worker.equipmentExpenses.checkYourAnswersLabel = Will you incur equipment costs that your client will not pay for?
 worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
 
 
@@ -1608,6 +1618,9 @@ hirer.optimised.result.outside.ir35.private.doNext.p2 = From April 2020, if you 
 hirer.optimised.result.outside.ir35.private.doNext.p3 = If the fee-payer is someone else, then you would need to show this determination to them.
 hirer.optimised.result.outside.ir35.public.doNext.p1 = If you are the fee-payer you need to pay the worker’s business gross, without deducting tax and National Insurance.
 hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ## ------------------
 ## Out Agent
@@ -1621,6 +1634,9 @@ agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate�
 agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
 agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
 agent.optimised.result.outside.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
+agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us your candidate’s client has accepted, or would accept, a substitute to do this work.
+agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us your candidate’s client does not have control over this work.
+agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 
 ##TODO: Need Welsh
 hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this job
@@ -1631,7 +1647,11 @@ hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not 
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged
 hirer.optimised.result.outside.paye.whyResult.p2 = These working arrangements mean the worker is self-employed for tax purposes.
 hirer.optimised.result.outside.paye.doNext.p1 = You can pay a gross amount to the worker, without deducting tax and National Insurance.
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this job, which cannot be reclaimed or re-charged.
 
+pdfDetails.fileName.error.maxLength = The file name must be {0} characters or less
 pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
 pdfDetails.client.error.maxLength = The client name must be {0} characters or less
 pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
@@ -1645,3 +1665,36 @@ resetAnswersWarning.startAgain = Start again
 resetAnswersWarning.goBack = Take me back to my answers
 resetAnswersWarning.error.required = You need to select an answer
 
+
+##TODO: Need Welsh
+### Multiple Contracts Page
+### -----------------------
+multipleContracts.error.required = You need to select an answer
+
+worker.multipleContracts.subheading = Worker’s contracts
+worker.multipleContracts.title = Does this contract stop you from doing similar work for other clients?
+worker.multipleContracts.heading = Does this contract stop you from doing similar work for other clients?
+worker.multipleContracts.checkYourAnswersLabel = Does this contract stop you from doing similar work for other clients?
+
+hirer.multipleContracts.subheading = Worker’s contracts
+hirer.multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
+hirer.multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
+hirer.multipleContracts.checkYourAnswersLabel = Does this contract stop the worker from doing similar work for other organisations?
+
+
+##TODO: Need Welsh
+#### Transfer of Rights Page - BoOA
+#### ------------------------------
+transferOfRights.error.required = You need to select an answer
+
+worker.transferOfRights.subheading = Worker’s contracts
+worker.transferOfRights.title = Does the contract give the client the option to buy the rights for a separate fee?
+worker.transferOfRights.heading = Does the contract give the client the option to buy the rights for a separate fee?
+worker.transferOfRights.checkYourAnswersLabel = Does the contract give the client the option to buy the rights for a separate fee?
+worker.transferOfRights.p1 = If no such clause or requirement exists, you would keep all the rights.
+
+hirer.transferOfRights.subheading = Worker’s contracts
+hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker would keep all the rights.

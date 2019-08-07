@@ -56,6 +56,7 @@ object ViewUtils extends FeatureSwitching {
   def allOutReasons(outType: ResultType, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
                    (implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
 
+
     val messageBase = {
       outType match {
         case ResultType.Agent => "agent.optimised.result.outside.whyResult"
@@ -70,4 +71,26 @@ object ViewUtils extends FeatureSwitching {
       if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None
     ).flatten
   }
+
+  def singleOutReason(outType: ResultType, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
+                     (implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
+
+
+
+      val messageBase = {
+        outType match {
+          case ResultType.Agent => "agent.optimised.result.outside.whyResult"
+          case ResultType.IR35 => tailorMsgOptimised(s"result.outside.ir35.whyResult")
+          case ResultType.PAYE => tailorMsgOptimised(s"result.outside.paye.whyResult")
+        }
+      }
+
+      Seq(
+        if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWorkOnlyReason") else None,
+        if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWorkOnlyReason") else None,
+        if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaimOnlyReason") else None
+      ).flatten.head
+
+
+    }
 }

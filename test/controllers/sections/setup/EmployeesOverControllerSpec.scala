@@ -23,7 +23,6 @@ import controllers.actions._
 import forms.EmployeesOverFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
 import pages.EmployeesOverPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -46,7 +45,7 @@ class EmployeesOverControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new EmployeesOverController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = FakeSetupNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

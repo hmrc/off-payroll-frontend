@@ -56,12 +56,11 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(createView)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.RejectSubstituteController.onSubmit(NormalMode).url, invertedAnswer = true)
+    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.RejectSubstituteController.onSubmit(NormalMode).url)
 
     "If the user type is of Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(RejectSubstituteMessages.Optimised.Worker.title)
@@ -69,6 +68,10 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Optimised.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Worker.p1
       }
 
       "have the correct radio option messages" in {
@@ -79,8 +82,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
     "If the user type is of Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(RejectSubstituteMessages.Optimised.Hirer.title)
@@ -88,6 +90,10 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Optimised.Hirer.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Hirer.p1
       }
 
       "have the correct radio option messages" in {
@@ -98,8 +104,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
     "If the user type is of Agency" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Agency).toString)
-      lazy val document = asDocument(createViewWithRequest(request))
+      lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
         document.title mustBe title(RejectSubstituteMessages.Optimised.Worker.title)
@@ -107,6 +112,10 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe RejectSubstituteMessages.Optimised.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Worker.p1
       }
 
       "have the correct radio option messages" in {

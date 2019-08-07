@@ -18,31 +18,20 @@ package controllers
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import connectors.DataCacheConnector
 import controllers.actions._
-import forms.AddReferenceDetailsFormProvider
 import javax.inject.Inject
-import models.{Mode, NormalMode}
-import navigation.Navigator
-import pages.{AddReferenceDetailsPage, ResultPage}
-import play.api.data.Form
+import models.NormalMode
+import pages.ResultPage
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
 import views.html.FinishedCheckingView
-
-import scala.concurrent.Future
 
 class FinishedCheckingController @Inject()(identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            controllerComponents: MessagesControllerComponents,
                                            finishedCheckingView: FinishedCheckingView,
-                                           navigator: Navigator,
-                                           dataCacheConnector: DataCacheConnector,
-                                           compareAnswerService: CompareAnswerService,
-                                           decisionService: DecisionService,
                                            implicit val appConfig: FrontendAppConfig)
-  extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+  extends BaseController(controllerComponents) with FeatureSwitching {
 
   def onPageLoad(): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 

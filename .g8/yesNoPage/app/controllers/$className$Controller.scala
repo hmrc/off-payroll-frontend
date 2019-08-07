@@ -8,7 +8,6 @@ import controllers.actions._
 import forms.$className$FormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
 import pages.$className$Page
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -24,9 +23,11 @@ class $className;format="cap"$Controller @Inject()(dataCacheConnector: DataCache
                                          formProvider: $className$FormProvider,
                                          controllerComponents: MessagesControllerComponents,
                                          controllerHelper: ControllerHelper,
+                                         compareAnswerService: CompareAnswerService,
+                                         decisionService: DecisionService,
                                          view: $className$View,
-                                         implicit val appConfig: FrontendAppConfig
-                                         ) extends BaseController(controllerComponents) {
+                                         implicit val appConfig: FrontendAppConfig extends BaseController(
+controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 

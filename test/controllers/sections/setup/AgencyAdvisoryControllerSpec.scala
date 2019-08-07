@@ -18,9 +18,6 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import models.NormalMode
-import navigation.FakeNavigator
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import views.html.sections.setup.AgencyAdvisoryView
 
@@ -39,7 +36,7 @@ class AgencyAdvisoryControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeSetupNavigator
   )
 
   def viewAsString = view(

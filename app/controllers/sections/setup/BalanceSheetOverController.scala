@@ -16,15 +16,14 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.BaseController
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.BalanceSheetOverFormProvider
+import javax.inject.Inject
 import models.Mode
-import navigation.Navigator
+import navigation.SetupNavigator
 import pages.BalanceSheetOverPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -34,7 +33,7 @@ import views.html.sections.setup.BalanceSheetOverView
 import scala.concurrent.Future
 
 class BalanceSheetOverController @Inject()(dataCacheConnector: DataCacheConnector,
-                                           navigator: Navigator,
+                                           navigator: SetupNavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
@@ -45,7 +44,7 @@ class BalanceSheetOverController @Inject()(dataCacheConnector: DataCacheConnecto
                                            compareAnswerService: CompareAnswerService,
                                            decisionService: DecisionService,
                                            implicit val appConfig: FrontendAppConfig
-                                          ) extends BaseController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                          ) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 

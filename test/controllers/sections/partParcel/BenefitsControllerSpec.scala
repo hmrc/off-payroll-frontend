@@ -51,7 +51,7 @@ class BenefitsControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    fakeNavigator,
+    FakePartAndParcelNavigator,
     frontendAppConfig
   )
 

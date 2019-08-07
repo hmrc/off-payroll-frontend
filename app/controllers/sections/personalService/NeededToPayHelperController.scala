@@ -18,14 +18,13 @@ package controllers.sections.personalService
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import connectors.DataCacheConnector
+import controllers.BaseNavigationController
 import controllers.actions._
-import controllers.BaseController
 import forms.NeededToPayHelperFormProvider
 import javax.inject.Inject
-
-import connectors.DataCacheConnector
 import models.Mode
-import navigation.Navigator
+import navigation.PersonalServiceNavigator
 import pages.sections.personalService.NeededToPayHelperPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
@@ -47,8 +46,8 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             compareAnswerService: CompareAnswerService,
                                             dataCacheConnector: DataCacheConnector,
                                             decisionService: DecisionService,
-                                            navigator: Navigator,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                            navigator: PersonalServiceNavigator,
+                                            implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()

@@ -16,7 +16,7 @@
 
 package connectors
 
-import base.SpecBase
+import base.{GuiceAppSpecBase, SpecBase}
 import connectors.httpParsers.PDFGeneratorHttpParser
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import connectors.mocks.MockWsClient
@@ -28,7 +28,7 @@ import play.twirl.api.Html
 import scala.concurrent.Future
 
 
-class PDFGeneratorConnectorSpec extends SpecBase with MockWsClient {
+class PDFGeneratorConnectorSpec extends GuiceAppSpecBase with MockWsClient {
 
   val testHtml = Html("<html><title>Test</title></html>")
 

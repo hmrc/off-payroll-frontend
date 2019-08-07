@@ -17,7 +17,7 @@
 package connectors
 
 import _root_.utils.MockDateTimeUtil
-import base.{MockServicesConfig, SpecBase}
+import base.{GuiceAppSpecBase, MockServicesConfig}
 import connectors.mocks.MockHttp
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
@@ -35,13 +35,20 @@ import models._
 import models.logging.LogInterview
 import play.api.libs.json.Json
 import play.mvc.Http.Status
+import repositories.FakeParallelRunningRepository
 
 import scala.concurrent.Future
 
 
-class DecisionConnectorSpec extends SpecBase with MockHttp with MockServicesConfig {
+class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServicesConfig {
 
-  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil)
+  object FakeTimestamp extends Timestamp {
+
+    override def timestamp(time: Option[String]): String = s"01 January 2019, 00:00:00"
+
+  }
+
+  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil, new FakeParallelRunningRepository, FakeTimestamp)
 
   val emptyInterviewModel: Interview = Interview(
     "12345"

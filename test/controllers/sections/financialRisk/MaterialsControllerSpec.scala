@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.MaterialsFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import navigation.FakeNavigator
+
 import pages.sections.financialRisk.MaterialsPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -46,7 +46,7 @@ class MaterialsControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new MaterialsController(
     appConfig = frontendAppConfig,
     dataCacheConnector = new FakeDataCacheConnector,
-    navigator = new FakeNavigator(onwardRoute),
+    navigator = FakeFinancialRiskNavigator,
     identify = FakeIdentifierAction,
     getData = dataRetrievalAction,
     requireData = new DataRequiredActionImpl(messagesControllerComponents),

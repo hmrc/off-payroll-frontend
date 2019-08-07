@@ -26,7 +26,7 @@ import models.Answers._
 import models.IdentifyToStakeholders.WorkForEndClient
 import models._
 import models.requests.DataRequest
-import navigation.FakeNavigator
+
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage}
@@ -64,7 +64,7 @@ class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator,
+    navigator = FakePartAndParcelNavigator,
     frontendAppConfig
   )
 

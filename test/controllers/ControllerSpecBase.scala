@@ -17,33 +17,42 @@
 package controllers
 
 import java.nio.charset.Charset
-import javax.inject.Singleton
 
 import akka.stream.Materializer
 import akka.util.ByteString
-import base.SpecBase
+import base.GuiceAppSpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import handlers.mocks.MockErrorHandler
-import models.UserAnswers
-import navigation.FakeNavigator
+import models.{Mode, UserAnswers}
+import navigation._
 import org.jsoup.Jsoup
+import pages.Page
 import play.api.mvc.{Call, Result}
 import services.mocks._
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
-trait ControllerSpecBase extends SpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
-  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler
-  with MockEncryptionService {
+trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
+  with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService {
 
-  def onwardRoute = Call("POST", "/foo")
+  val onwardRoute = Call("POST", "/foo")
   val userAnswers = UserAnswers("id")
 
   val cacheMapId = "id"
 
-  val fakeNavigator = new FakeNavigator(onwardRoute)
+  trait FakeNavigator extends Navigator {
+    override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => onwardRoute
+  }
+
+  object FakeSetupNavigator extends SetupNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeControlNavigator extends ControlNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeFinancialRiskNavigator extends FinancialRiskNavigator()(frontendAppConfig) with FakeNavigator
+  object FakePersonalServiceNavigator extends PersonalServiceNavigator()(frontendAppConfig) with FakeNavigator
+  object FakePartAndParcelNavigator extends PartAndParcelNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeExitNavigator extends ExitNavigator()(frontendAppConfig) with FakeNavigator
+  object FakeCYANavigator extends CYANavigator()(frontendAppConfig) with FakeNavigator
+  object FakeBusinessOnOwnAccountNavigator extends BusinessOnOwnAccountNavigator()(frontendAppConfig) with FakeNavigator
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
 

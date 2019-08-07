@@ -16,11 +16,11 @@
 
 package utils
 
-import base.SpecBase
+import base.GuiceAppSpecBase
 import models.Timestamp
 import play.api.i18n.{Lang, Messages, MessagesApi}
 
-class TimestampSpec extends SpecBase {
+class TimestampSpec extends GuiceAppSpecBase {
 
   "Timestamp" must {
 
@@ -33,7 +33,7 @@ class TimestampSpec extends SpecBase {
       implicit def messages: Messages = messagesApi.preferred(Seq(lang))
       implicit def lang: Lang = Lang("en")
 
-      viewmodels.Timestamp.months.map(month => testTimestamp.timestamp()(messages).contains(messages(s"date.$month"))) must contain(true)
+      viewmodels.Timestamp.months.map(month => testTimestamp.timestamp().contains(messages(s"date.$month"))) must contain(true)
     }
 
     "convert to welsh" in {
@@ -42,7 +42,7 @@ class TimestampSpec extends SpecBase {
       implicit def lang: Lang = Lang("cy")
 
       viewmodels.Timestamp.months.map(month => viewmodels.Timestamp.monthToMessages(
-        testTimestamp.timestamp()(messages)).contains(messages(s"date.$month"))) must contain(true)
+        testTimestamp.timestamp()).contains(messages(s"date.$month"))) must contain(true)
     }
   }
 }

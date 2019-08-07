@@ -16,20 +16,20 @@
 
 package controllers
 
-import javax.inject.Inject
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import handlers.ErrorHandler
+import javax.inject.Inject
+import models.Section.SectionEnum
 import models._
-import navigation.Navigator
-import Section.SectionEnum
+import navigation.CYANavigator
 import pages.CheckYourAnswersPage
 import play.api.mvc._
 import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService, DecisionService}
 import views.html.CheckYourAnswersView
 
-class CheckYourAnswersController @Inject()(navigator: Navigator,
+class CheckYourAnswersController @Inject()(navigator: CYANavigator,
                                            identify: IdentifierAction,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
@@ -41,7 +41,7 @@ class CheckYourAnswersController @Inject()(navigator: Navigator,
                                            dataCacheConnector: DataCacheConnector,
                                            decisionService: DecisionService,
                                            errorHandler: ErrorHandler,
-                                           implicit val appConfig: FrontendAppConfig) extends BaseController(
+                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   def onPageLoad(sectionToExpand: Option[SectionEnum] = None): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>

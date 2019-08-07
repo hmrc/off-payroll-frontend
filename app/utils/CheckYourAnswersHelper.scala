@@ -81,7 +81,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     userAnswers.get(RejectSubstitutePage) map { x =>
       AnswerRow(
         tailorMsgOptimised("rejectSubstitute.checkYourAnswersLabel"),
-        if(!x.answer) "site.yes" else "site.no",
+        if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
         changeUrl = Some(routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage).url)
       )

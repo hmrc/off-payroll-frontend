@@ -28,7 +28,7 @@ import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models.requests.DataRequest
 import models._
-import navigation.FakeNavigator
+
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -64,7 +64,7 @@ class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator,
+    navigator = FakeFinancialRiskNavigator,
     frontendAppConfig
   )
 

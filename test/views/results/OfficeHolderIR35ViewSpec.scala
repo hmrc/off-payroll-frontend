@@ -41,19 +41,16 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
     "If the UserType is Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-
       "If is in the Private Sector" should {
 
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testNoPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true, testNoPdfResultDetails))
 
         workerPageChecks(isPrivateSector = true)
         pdfPageChecks(isPdfView = false)
       }
 
       "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testNoPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = false, testNoPdfResultDetails))
 
         workerPageChecks(isPrivateSector = false)
         pdfPageChecks(isPdfView = false)
@@ -62,19 +59,16 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
     "If the UserType is Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-
       "If is in the Private Sector" should {
 
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testNoPdfResultDetails))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true, testNoPdfResultDetails))
 
         hirerPageChecks(isPrivateSector = true)
         pdfPageChecks(isPdfView = false)
       }
 
       "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testNoPdfResultDetails))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = false, testNoPdfResultDetails))
 
         hirerPageChecks(isPrivateSector = false)
         pdfPageChecks(isPdfView = false)
@@ -86,19 +80,16 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
     "If the UserType is Worker" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Worker).toString)
-      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-
       "If is in the Private Sector" should {
 
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
 
         workerPageChecks(isPrivateSector = true)
         pdfPageChecks(isPdfView = true)
       }
 
       "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
 
         workerPageChecks(isPrivateSector = false)
         pdfPageChecks(isPdfView = true)
@@ -107,19 +98,16 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
     "If the UserType is Hirer" should {
 
-      lazy val request = fakeRequest.withSession(SessionKeys.userType -> Json.toJson(Hirer).toString)
-      lazy val dataRequest = DataRequest(request, "id", UserAnswers("id"))
-
       "If is in the Private Sector" should {
 
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = true, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
 
         hirerPageChecks(isPrivateSector = true)
         pdfPageChecks(isPdfView = true)
       }
 
       "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(dataRequest, isPrivateSector = false, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
 
         hirerPageChecks(isPrivateSector = false)
         pdfPageChecks(isPdfView = true)

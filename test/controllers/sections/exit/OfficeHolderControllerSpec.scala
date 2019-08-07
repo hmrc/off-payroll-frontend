@@ -24,7 +24,7 @@ import forms.OfficeHolderFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.requests.DataRequest
 import models.{Answers, CheckMode, NormalMode, UserAnswers}
-import navigation.FakeNavigator
+
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.data.Form
@@ -58,7 +58,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
     decisionService = mockDecisionService,
-    navigator = fakeNavigator
+    navigator = FakeExitNavigator
   )
 
   val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(true, 0)))
