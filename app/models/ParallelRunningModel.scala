@@ -18,8 +18,13 @@ package models
 
 import play.api.libs.json.{JsValue, Json, OFormat}
 
-case class ParallelRunningModel(_id: String, oldResponse: JsValue, newResponse: JsValue,
-                                identicalBody: Boolean, identicalResult:Boolean)
+case class ParallelRunningModel(_id: String,
+                                oldRequest: JsValue,
+                                newRequest: JsValue,
+                                oldResponse: JsValue,
+                                newResponse: JsValue,
+                                identicalBody: Boolean,
+                                identicalResult:Boolean)
 
 object ParallelRunningModel {
   implicit val formats: OFormat[ParallelRunningModel] = Json.format[ParallelRunningModel]

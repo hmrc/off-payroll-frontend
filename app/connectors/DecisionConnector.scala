@@ -102,10 +102,13 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
               identicalBody: Boolean = false,
               identicalResult: Boolean = false)(implicit decisionRequest: Interview): ParallelRunningModel = {
 
+    val oldRequest = Json.toJson(decisionRequest)(Interview.writes)
+    val newRequest = Json.toJson(decisionRequest)(NewInterview.writes)
+
     if (!identicalResult) {
       Logger.error("[DecisionConnector] The new decision result did not match the old decision result:\n\n" +
-        s"OldRequest: ${Json.toJson(decisionRequest)(Interview.writes)}\n\n" +
-        s"NewRequest: ${Json.toJson(decisionRequest)(NewInterview.writes)}\n\n" +
+        s"OldRequest: $oldRequest\n\n" +
+        s"NewRequest: $newRequest\n\n" +
         s"OldResponse: $oldResponse\n\n" +
         s"NewResponse: $newResponse")
     }
@@ -115,11 +118,13 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     def uuid: String = UUID.randomUUID().toString
 
     ParallelRunningModel(
-      s"${timestamp.timestamp()} - $uuid",
-      oldResponse,
-      newResponse,
-      identicalBody,
-      identicalResult
+      _id = s"${timestamp.timestamp()} - $uuid",
+      oldRequest = oldRequest,
+      newRequest = newRequest,
+      oldResponse = oldResponse,
+      newResponse = newResponse,
+      identicalBody = identicalBody,
+      identicalResult = identicalResult
     )
   }
 
