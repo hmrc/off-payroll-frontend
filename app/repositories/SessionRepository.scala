@@ -81,7 +81,7 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
     val cmDocument = Json.toJson(DatedCacheMap(cm))
     val modifier = BSONDocument("$set" -> cmDocument)
 
-    collection.update(selector, modifier, upsert = true).map { lastError =>
+    collection.update(ordered = false).one(selector, modifier, upsert = true, multi = false).map { lastError =>
       lastError.ok
     }.recoverWith {
       case ex: Exception => Logger.error("[DecisionConnector][upsert]",ex)

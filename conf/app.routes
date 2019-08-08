@@ -212,3 +212,23 @@ GET        /transfer-of-rights                          controllers.sections.bus
 POST       /transfer-of-rights                          controllers.sections.businessOnOwnAccount.TransferOfRightsController.onSubmit(mode: Mode = NormalMode)
 GET        /transfer-of-rights/change                   controllers.sections.businessOnOwnAccount.TransferOfRightsController.onPageLoad(mode: Mode = CheckMode)
 POST       /transfer-of-rights/change                   controllers.sections.businessOnOwnAccount.TransferOfRightsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /permission-to-work-with-others              controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onPageLoad(mode: Mode = NormalMode)
+POST       /permission-to-work-with-others              controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onSubmit(mode: Mode = NormalMode)
+GET        /permission-to-work-with-others/change       controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onPageLoad(mode: Mode = CheckMode)
+POST       /permission-to-work-with-others/change       controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onSubmit(mode: Mode = CheckMode)
+
+GET        /previous-contract                           controllers.sections.businessOnOwnAccount.PreviousContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /previous-contract                           controllers.sections.businessOnOwnAccount.PreviousContractController.onSubmit(mode: Mode = NormalMode)
+GET        /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onSubmit(mode: Mode = CheckMode)
+
+GET        /follow-on-contract                          controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /follow-on-contract                          controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = NormalMode)
+GET        /follow-on-contract/change                   controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /follow-on-contract/change                   controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = CheckMode)
+
+GET        /majority-of-working-time                    controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onPageLoad(mode: Mode = NormalMode)
+POST       /majority-of-working-time                    controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onSubmit(mode: Mode = NormalMode)
+GET        /majority-of-working-time/change             controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onPageLoad(mode: Mode = CheckMode)
+POST       /majority-of-working-time/change             controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onSubmit(mode: Mode = CheckMode)

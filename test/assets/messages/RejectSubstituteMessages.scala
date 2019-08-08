@@ -17,9 +17,6 @@
 package assets.messages
 
 object RejectSubstituteMessages extends BaseMessages {
-
-  val subheading = "About substitutes and helpers"
-
   object Optimised {
 
     object Worker {

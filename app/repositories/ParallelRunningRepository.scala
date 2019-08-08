@@ -55,7 +55,7 @@ class ParallelRunningRepositoryImpl @Inject()(mongoComponent: ReactiveMongoCompo
     val selector = BSONDocument("_id" -> model._id)
     val modifier = BSONDocument("$set" -> Json.toJson(model))
 
-    collection.update(selector, modifier, upsert = true).map { lastError =>
+    collection.update(ordered = false).one(selector, modifier, upsert = true, multi = false).map { lastError =>
       lastError.ok
     }.recoverWith {
       case ex: Exception => Logger.error("[ParallelRunningRepository][insert]",ex)

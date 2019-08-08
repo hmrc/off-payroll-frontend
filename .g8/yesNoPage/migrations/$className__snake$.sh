@@ -13,11 +13,38 @@ echo "POST       /$className;format="decap"$/edit                   controllers.
 
 echo "Adding messages to conf.messages"
 echo "" >> ../conf/messages.en
-echo "$className;format="decap"$.title = $title$" >> ../conf/messages.en
-echo "$className;format="decap"$.heading = $heading$" >> ../conf/messages.en
-echo "$className;format="decap"$.subheading = $subheading$" >> ../conf/messages.en
-echo "$className;format="decap"$.checkYourAnswersLabel = $heading$" >> ../conf/messages.en
+echo "" >> ../conf/messages.en
+echo "### $className$ Page" >> ../conf/messages.en
+echo "### ---------------------------------" >> ../conf/messages.en
 echo "$className;format="decap"$.error.required = You need to select an answer" >> ../conf/messages.en
+echo "" >> ../conf/messages.en
+echo "worker.$className;format="decap"$.title = $workerTitle$" >> ../conf/messages.en
+echo "worker.$className;format="decap"$.heading = $workerHeading$" >> ../conf/messages.en
+echo "worker.$className;format="decap"$.subheading = $workerSubheading$" >> ../conf/messages.en
+echo "worker.$className;format="decap"$.checkYourAnswersLabel = $workerHeading$" >> ../conf/messages.en
+echo "" >> ../conf/messages.en
+echo "hirer.$className;format="decap"$.title = $hirerTitle$" >> ../conf/messages.en
+echo "hirer.$className;format="decap"$.heading = $hirerHeading$" >> ../conf/messages.en
+echo "hirer.$className;format="decap"$.subheading = $hirerSubheading$" >> ../conf/messages.en
+echo "hirer.$className;format="decap"$.checkYourAnswersLabel = $hirerHeading$" >> ../conf/messages.en
+
+
+echo "Adding Welsh messages to conf.messages"
+echo "" >> ../conf/messages.cy
+echo "" >> ../conf/messages.cy
+echo "### $className$ Page" >> ../conf/messages.cy
+echo "### ---------------------------------" >> ../conf/messages.cy
+echo "$className;format="decap"$.error.required = You need to select an answer" >> ../conf/messages.cy
+echo "" >> ../conf/messages.cy
+echo "worker.$className;format="decap"$.title = $workerTitle$" >> ../conf/messages.cy
+echo "worker.$className;format="decap"$.heading = $workerHeading$" >> ../conf/messages.cy
+echo "worker.$className;format="decap"$.subheading = $workerSubheading$" >> ../conf/messages.cy
+echo "worker.$className;format="decap"$.checkYourAnswersLabel = $workerHeading$" >> ../conf/messages.cy
+echo "" >> ../conf/messages.cy
+echo "hirer.$className;format="decap"$.title = $hirerTitle$" >> ../conf/messages.cy
+echo "hirer.$className;format="decap"$.heading = $hirerHeading$" >> ../conf/messages.cy
+echo "hirer.$className;format="decap"$.subheading = $hirerSubheading$" >> ../conf/messages.cy
+echo "hirer.$className;format="decap"$.checkYourAnswersLabel = $hirerHeading$" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
@@ -45,13 +72,5 @@ awk '/val generators/ {\
     print;\
     print "    arbitrary[($className$Page.type, JsValue)] ::";\
     next }1' ../test/generators/CacheMapGenerator.scala > tmp && mv tmp ../test/generators/CacheMapGenerator.scala
-
-echo "Adding helper method to CheckYourAnswersHelper"
-awk '/class/ {\
-     print;\
-     print "";\
-     print "  def $className;format="decap"$: Option[AnswerRow] = userAnswers.get($className$Page) map {";\
-     print "    x => AnswerRow(\"$className;format="decap"$.checkYourAnswersLabel\", if(x) \"site.yes\" else \"site.no\", true, routes.$className$Controller.onPageLoad(CheckMode).url)"; print "  }";\
-     next }1' ../app/utils/CheckYourAnswersHelper.scala > tmp && mv tmp ../app/utils/CheckYourAnswersHelper.scala
 
 echo "Migration $className;format="snake"$ completed"

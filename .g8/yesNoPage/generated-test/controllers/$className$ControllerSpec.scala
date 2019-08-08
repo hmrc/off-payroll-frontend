@@ -1,5 +1,6 @@
 package controllers
 
+import config.featureSwitch.OptimisedFlow
 import play.api.data.Form
 import play.api.libs.json.{JsBoolean, Json}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -15,6 +16,11 @@ import play.api.mvc.Call
 import views.html.$className$View
 
 class $className$ControllerSpec extends ControllerSpecBase {
+
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
 
   val formProvider = new $className$FormProvider()
   val form = formProvider()

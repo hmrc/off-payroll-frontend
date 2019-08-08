@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.personalService
 
-import assets.messages.ArrangedSubstituteMessages
+import assets.messages.{ArrangedSubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import forms.ArrangedSubstituteFormProvider
 import models.{ArrangedSubstitute, NormalMode}
@@ -53,7 +53,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Worker.title, Some(ArrangedSubstituteMessages.subheading))
+        document.title mustBe title(ArrangedSubstituteMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -61,7 +61,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ArrangedSubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {
@@ -85,7 +85,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.Hirer.title, Some(ArrangedSubstituteMessages.subheading))
+        document.title mustBe title(ArrangedSubstituteMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -93,7 +93,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ArrangedSubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {
@@ -117,7 +117,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(ArrangedSubstituteMessages.NonTailored.title, Some(ArrangedSubstituteMessages.subheading))
+        document.title mustBe title(ArrangedSubstituteMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.personalService))
       }
 
       "have the correct heading" in {
@@ -125,7 +125,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe ArrangedSubstituteMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.personalService
       }
 
       "have the correct hints" in {

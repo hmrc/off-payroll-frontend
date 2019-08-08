@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.financialRisk
 
-import assets.messages.HowWorkerIsPaidMessages
+import assets.messages.{HowWorkerIsPaidMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import forms.HowWorkerIsPaidFormProvider
@@ -54,7 +54,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.Worker.title, Some(HowWorkerIsPaidMessages.subheading))
+        document.title mustBe title(HowWorkerIsPaidMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
 
       }
 
@@ -63,7 +63,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkerIsPaidMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct radio option messages" in {
@@ -80,7 +80,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.Hirer.title, Some(HowWorkerIsPaidMessages.subheading))
+        document.title mustBe title(HowWorkerIsPaidMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -88,7 +88,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkerIsPaidMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct radio option messages" in {
@@ -105,7 +105,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkerIsPaidMessages.NonTailored.title, Some(HowWorkerIsPaidMessages.subheading))
+        document.title mustBe title(HowWorkerIsPaidMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.financialRisk))
       }
 
       "have the correct heading" in {
@@ -113,7 +113,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkerIsPaidMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.financialRisk
       }
 
       "have the correct radio option messages" in {

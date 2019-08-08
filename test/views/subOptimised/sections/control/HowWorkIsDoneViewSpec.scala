@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.control
 
-import assets.messages.HowWorkIsDoneMessages
+import assets.messages.{HowWorkIsDoneMessages, SubHeadingMessages}
 import config.SessionKeys
 import forms.HowWorkIsDoneFormProvider
 import models.{HowWorkIsDone, NormalMode}
@@ -53,7 +53,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.Worker.title, Some(HowWorkIsDoneMessages.subheading))
+        document.title mustBe title(HowWorkIsDoneMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -61,7 +61,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct hint paragraph" in {
@@ -81,7 +81,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.Hirer.title, Some(HowWorkIsDoneMessages.subheading))
+        document.title mustBe title(HowWorkIsDoneMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -89,7 +89,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct hint paragraph" in {
@@ -109,7 +109,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(HowWorkIsDoneMessages.NonTailored.title, Some(HowWorkIsDoneMessages.subheading))
+        document.title mustBe title(HowWorkIsDoneMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.control))
       }
 
       "have the correct heading" in {
@@ -117,7 +117,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe HowWorkIsDoneMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.control
       }
 
       "have the correct hint paragraph" in {

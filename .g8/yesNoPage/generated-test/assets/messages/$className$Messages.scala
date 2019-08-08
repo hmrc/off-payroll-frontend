@@ -18,8 +18,16 @@ package assets.messages
 
 object $className$Messages extends BaseMessages {
 
-  val title = "$heading$"
-  val heading = "$title$"
-  val subheading = "$subheading$"
+  object Worker {
+    val title = "$workerHeading$"
+    val heading = "$workerTitle$"
+    val subheading = "$workerSubheading$"
+  }
+
+  object Hirer {
+    val title = "$hirerHeading$"
+    val heading = "$hirerTitle$"
+    val subheading = "$hirerSubheading$"
+  }
 
 }

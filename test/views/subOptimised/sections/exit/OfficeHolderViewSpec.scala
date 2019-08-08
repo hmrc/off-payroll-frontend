@@ -16,7 +16,7 @@
 
 package views.subOptimised.sections.exit
 
-import assets.messages.OfficeHolderMessages
+import assets.messages.{OfficeHolderMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.exit.routes
 import forms.OfficeHolderFormProvider
@@ -57,7 +57,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Worker.title, Some(OfficeHolderMessages.subheading))
+        document.title mustBe title(OfficeHolderMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.exit))
       }
 
       "have the correct heading" in {
@@ -65,7 +65,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe OfficeHolderMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.exit
       }
 
       "have the correct hints" in {
@@ -91,7 +91,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.Hirer.title, Some(OfficeHolderMessages.subheading))
+        document.title mustBe title(OfficeHolderMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.exit))
       }
 
       "have the correct heading" in {
@@ -99,7 +99,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe OfficeHolderMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.exit
       }
 
       "have the correct hints" in {
@@ -125,7 +125,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        document.title mustBe title(OfficeHolderMessages.NonTailored.title, Some(OfficeHolderMessages.subheading))
+        document.title mustBe title(OfficeHolderMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.exit))
       }
 
       "have the correct heading" in {
@@ -133,7 +133,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
       }
 
       "have the correct subheading" in {
-        document.select(Selectors.subheading).text mustBe OfficeHolderMessages.subheading
+        document.select(Selectors.subheading).text mustBe SubHeadingMessages.SubOptimised.exit
       }
 
       "have the correct hints" in {

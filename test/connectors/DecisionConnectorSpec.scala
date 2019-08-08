@@ -18,6 +18,7 @@ package connectors
 
 import _root_.utils.MockDateTimeUtil
 import base.{GuiceAppSpecBase, MockServicesConfig}
+import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockHttp
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
@@ -42,10 +43,13 @@ import scala.concurrent.Future
 
 class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServicesConfig {
 
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+    enable(OptimisedFlow)
+  }
+
   object FakeTimestamp extends Timestamp {
-
     override def timestamp(time: Option[String]): String = s"01 January 2019, 00:00:00"
-
   }
 
   object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil, new FakeParallelRunningRepository, FakeTimestamp)
