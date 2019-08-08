@@ -63,7 +63,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
   def viewAsString(form: Form[_] = form) = subOptimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def optimisedViewAsString(form: Form[_] = form) = optimisedView(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(Answers(HowWorkIsDone.values.head,0)))
+  val validData = Map(HowWorkIsDonePage.toString -> Json.toJson(Answers(HowWorkIsDone.values().head,0)))
 
   "HowWorkIsDone Controller" must {
 
@@ -88,7 +88,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(HowWorkIsDone.values.head))
+      contentAsString(result) mustBe viewAsString(form.fill(HowWorkIsDone.values().head))
     }
 
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
@@ -98,7 +98,7 @@ class HowWorkIsDoneControllerSpec extends ControllerSpecBase with MockDataCacheC
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe optimisedViewAsString(form.fill(HowWorkIsDone.values.head))
+      contentAsString(result) mustBe optimisedViewAsString(form.fill(HowWorkIsDone.values().head))
     }
 
     "redirect to the next page when valid data is submitted" in {

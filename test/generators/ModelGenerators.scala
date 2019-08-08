@@ -55,7 +55,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryHowWorkIsDone: Arbitrary[HowWorkIsDone] =
     Arbitrary {
-      Gen.oneOf(HowWorkIsDone.values)
+      Gen.oneOf(HowWorkIsDone.values())
     }
 
   implicit lazy val arbitraryScheduleOfWorkingHours: Arbitrary[ScheduleOfWorkingHours] =

@@ -40,14 +40,13 @@
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("moveWorker.heading"), Some(tailorMsgOptimised("chooseWhereWork.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
-            inputs = MoveWorker.options(true),
-            otherContent = Some(p1)
+            otherContent = Some(content),
+            inputs = MoveWorker.options(true)
         )
 
         @components.submit_button()
     }
 }
-
-@p1 = {
+@content = {
     <p>@messages(tailorMsgOptimised("moveWorker.p1"))</p>
 }
