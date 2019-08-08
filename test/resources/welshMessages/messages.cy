@@ -1788,3 +1788,21 @@ hirer.followOnContract.heading = Will the worker start this contract immediately
 hirer.followOnContract.subheading = Worker’s contracts
 hirer.followOnContract.checkYourAnswersLabel = Will the worker start this contract immediately after their last contract with your organisation ended?
 hirer.followOnContract.p1 = This refers to working time only and can include any holiday period between the two contracts.
+
+
+##TODO: Need Welsh
+### MajorityOfWorkingTime Page
+### ---------------------------------
+majorityOfWorkingTime.error.required = You need to select an answer
+
+worker.majorityOfWorkingTime.title = Will this work take up the majority of your available working time?
+worker.majorityOfWorkingTime.heading = Will this work take up the majority of your available working time?
+worker.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of your available working time?
+worker.majorityOfWorkingTime.subheading = Worker’s contracts
+worker.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
+
+hirer.majorityOfWorkingTime.title = Will this work take up the majority of the worker’s available working time?
+hirer.majorityOfWorkingTime.heading = Will this work take up the majority of the worker’s available working time?
+hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of the worker’s available working time?
+hirer.majorityOfWorkingTime.subheading = Worker’s contracts
+hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.

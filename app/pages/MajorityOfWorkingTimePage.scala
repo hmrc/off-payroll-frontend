@@ -14,16 +14,9 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object CheckYourAnswersMessages extends BaseMessages {
+case object MajorityOfWorkingTimePage extends QuestionPage[Boolean] {
 
-  val heading = "Review your answers in each section below"
-  val title = heading
-  val h2 = "Section 1 Section 2 Declaration Support links"
-  val p1 = "By submitting your answers, you are confirming the following:"
-  val li1 = "the information you have provided is correct, to the best of your knowledge"
-  val li2 = "it reflects the actual or expected working practices of this role"
-  val li3 = "if this information changes, you accept your result may no longer hold"
-
+  override def toString: String = "majorityOfWorkingTime"
 }
