@@ -466,16 +466,16 @@ worker.lineManagerDuties.checkYourAnswersLabel =A yw’r gweithiwr yn gyfrifol a
 
 ##TODO: Need Welsh
 
-hirer.optimised.lineManagerDuties.title = Will the worker have any formal responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.title = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.subheading = Worker’s involvement
-hirer.optimised.lineManagerDuties.heading = Will the worker have any formal responsibilities for your organisation?
-hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any formal responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.heading = Will the worker have any management responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 
-worker.optimised.lineManagerDuties.title = Will you have any formal responsibilities for your client?
+worker.optimised.lineManagerDuties.title = Will you have any management responsibilities for your client?
 worker.optimised.lineManagerDuties.subheading = Worker’s involvement
-worker.optimised.lineManagerDuties.heading = Will you have any formal responsibilities for your client?
-worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you have any formal responsibilities for your client?
+worker.optimised.lineManagerDuties.heading = Will you have any management responsibilities for your client?
+worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you have any management responsibilities for your client?
 worker.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 #########################
 
