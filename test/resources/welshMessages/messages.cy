@@ -1777,8 +1777,8 @@ hirer.previousContract.subheading = Worker’s contracts
 ### ---------------------------------
 followOnContract.error.required = You need to select an answer
 
-worker.followOnContract.title = Will you start this contract contract immediately after your last contract with this client ended?
-worker.followOnContract.heading = Will you start this contract contract immediately after your last contract with this client ended?
+worker.followOnContract.title = Will you start this contract immediately after your last contract with this client ended?
+worker.followOnContract.heading = Will you start this contract immediately after your last contract with this client ended?
 worker.followOnContract.subheading = Worker’s contracts
 worker.followOnContract.checkYourAnswersLabel = Will you start this contract contract immediately after your last contract with this client ended?
 worker.followOnContract.p1 = This refers to working time only and can include any holiday period between the two contracts.
