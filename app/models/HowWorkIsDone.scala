@@ -16,8 +16,9 @@
 
 package models
 
+import config.featureSwitch.FeatureSwitching
 import play.api.libs.json._
-import viewmodels.{RadioOption, Radio}
+import viewmodels.{Radio, RadioOption}
 
 sealed trait HowWorkIsDone
 
@@ -28,11 +29,15 @@ object HowWorkIsDone {
   case object WorkerFollowStrictEmployeeProcedures extends WithName("workerFollowStrictEmployeeProcedures") with HowWorkIsDone
   case object WorkerAgreeWithOthers extends WithName("workerAgreeWithOthers") with HowWorkIsDone
 
-  val values: Seq[HowWorkIsDone] = Seq(
-    NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerFollowStrictEmployeeProcedures, WorkerAgreeWithOthers
-  )
+  def values(optimised: Boolean = false): Seq[HowWorkIsDone] =
+    if(optimised) {
+      Seq(NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerAgreeWithOthers, WorkerFollowStrictEmployeeProcedures)
+    }else{
+      Seq(NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerFollowStrictEmployeeProcedures, WorkerAgreeWithOthers)
 
-  def options(optimised: Boolean = false): Seq[RadioOption] = values.map {
+    }
+
+  def options(optimised: Boolean = false): Seq[RadioOption] = values(optimised).map {
     value =>
 
       if(optimised){
@@ -43,7 +48,7 @@ object HowWorkIsDone {
   }
 
   implicit val enumerable: Enumerable[HowWorkIsDone] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values().map(v => v.toString -> v): _*)
 
   implicit object HowWorkIsDoneWrites extends Writes[HowWorkIsDone] {
     def writes(howWorkIsDone: HowWorkIsDone) = Json.toJson(howWorkIsDone.toString)

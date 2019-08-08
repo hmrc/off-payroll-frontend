@@ -32,7 +32,7 @@ class HowWorkIsDoneFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[HowWorkIsDone](
       form,
       fieldName,
-      validValues  = HowWorkIsDone.values,
+      validValues  = HowWorkIsDone.values(),
       invalidError = FormError(fieldName, "error.invalid")
     )
 
