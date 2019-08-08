@@ -222,3 +222,8 @@ GET        /previous-contract                           controllers.sections.bus
 POST       /previous-contract                           controllers.sections.businessOnOwnAccount.PreviousContractController.onSubmit(mode: Mode = NormalMode)
 GET        /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onPageLoad(mode: Mode = CheckMode)
 POST       /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onSubmit(mode: Mode = CheckMode)
+
+GET        /follow-on-contract                          controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /follow-on-contract                          controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = NormalMode)
+GET        /follow-on-contract/change                   controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /follow-on-contract/change                   controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = CheckMode)
