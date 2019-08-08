@@ -12,6 +12,7 @@ import pages.$className$Page
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import views.html.$className$View
+import services.{CompareAnswerService, DecisionService}
 
 import scala.concurrent.Future
 
@@ -22,7 +23,6 @@ class $className;format="cap"$Controller @Inject()(dataCacheConnector: DataCache
                                          requireData: DataRequiredAction,
                                          formProvider: $className$FormProvider,
                                          controllerComponents: MessagesControllerComponents,
-                                         controllerHelper: ControllerHelper,
                                          compareAnswerService: CompareAnswerService,
                                          decisionService: DecisionService,
                                          view: $className$View,

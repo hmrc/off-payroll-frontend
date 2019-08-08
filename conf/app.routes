@@ -217,3 +217,8 @@ GET        /permission-to-work-with-others              controllers.sections.bus
 POST       /permission-to-work-with-others              controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onSubmit(mode: Mode = NormalMode)
 GET        /permission-to-work-with-others/change       controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onPageLoad(mode: Mode = CheckMode)
 POST       /permission-to-work-with-others/change       controllers.sections.businessOnOwnAccount.PermissionToWorkWithOthersController.onSubmit(mode: Mode = CheckMode)
+
+GET        /previous-contract                           controllers.sections.businessOnOwnAccount.PreviousContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /previous-contract                           controllers.sections.businessOnOwnAccount.PreviousContractController.onSubmit(mode: Mode = NormalMode)
+GET        /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onSubmit(mode: Mode = CheckMode)

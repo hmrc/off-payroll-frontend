@@ -18,12 +18,12 @@ package controllers.sections.businessOnOwnAccount
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.{BaseController, BaseNavigationController}
+import controllers.BaseNavigationController
 import controllers.actions._
 import forms.MultipleContractsFormProvider
 import javax.inject.Inject
 import models.Mode
-import navigation.{BusinessOnOwnAccountNavigator, Navigator}
+import navigation.BusinessOnOwnAccountNavigator
 import pages.MultipleContractsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

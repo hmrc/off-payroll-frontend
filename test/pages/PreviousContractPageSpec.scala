@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages
 
-object $className$Messages extends BaseMessages {
+import pages.behaviours.PageBehaviours
 
-  object Worker {
-    val title = "$workerHeading$"
-    val heading = "$workerTitle$"
-    val subheading = "$workerSubheading$"
+class PreviousContractPageSpec extends PageBehaviours {
+
+  "PreviousContractPage" must {
+
+    beRetrievable[Boolean](PreviousContractPage)
+
+    beSettable[Boolean](PreviousContractPage)
+
+    beRemovable[Boolean](PreviousContractPage)
   }
-
-  object Hirer {
-    val title = "$hirerHeading$"
-    val heading = "$hirerTitle$"
-    val subheading = "$hirerSubheading$"
-  }
-
 }
