@@ -26,7 +26,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
       lazy val res = getSessionRequest("/decide-where-work-is-done", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide where you do the work?")
       }
 
     }
@@ -47,7 +47,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide where you do the work?")
 
       }
     }
@@ -58,7 +58,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will you incur equipment costs that your client will not pay for?")
       }
 
     }
@@ -83,7 +83,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
       lazy val res = getSessionRequest("/decide-where-work-is-done/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide where you do the work?")
       }
 
     }
@@ -104,7 +104,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide where you do the work?")
 
       }
     }
@@ -115,7 +115,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will you incur equipment costs that your client will not pay for?")
       }
 
     }

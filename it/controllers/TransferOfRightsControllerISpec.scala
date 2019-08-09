@@ -26,7 +26,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase with CreateReq
       lazy val res = getSessionRequest("/transfer-of-rights", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
       }
 
     }
@@ -47,7 +47,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
 
       }
     }
@@ -58,7 +58,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Disclaimer")
       }
 
     }
@@ -83,7 +83,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase with CreateReq
       lazy val res = getSessionRequest("/transfer-of-rights/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
       }
 
     }
@@ -104,7 +104,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
 
       }
     }
@@ -115,7 +115,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Disclaimer")
       }
 
     }

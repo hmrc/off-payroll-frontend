@@ -26,7 +26,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase with CreateRe
       lazy val res = getSessionRequest("/put-work-right", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("If the client was not happy with your work, would you have to put it right?")
       }
 
     }
@@ -47,7 +47,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("If the client was not happy with your work, would you have to put it right?")
 
       }
     }
@@ -58,7 +58,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will your client provide you with paid-for corporate benefits?")
       }
 
     }
@@ -83,7 +83,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase with CreateRe
       lazy val res = getSessionRequest("/put-work-right/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("If the client was not happy with your work, would you have to put it right?")
       }
 
     }
@@ -104,7 +104,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("If the client was not happy with your work, would you have to put it right?")
 
       }
     }
@@ -115,7 +115,7 @@ class PutRightAtOwnCostControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will your client provide you with paid-for corporate benefits?")
       }
 
     }

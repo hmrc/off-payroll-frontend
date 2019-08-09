@@ -26,7 +26,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
       lazy val res = getSessionRequest("/decide-worker-task", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Can the task be changed without your agreement?")
       }
 
     }
@@ -47,7 +47,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Can the task be changed without your agreement?")
 
       }
     }
@@ -58,7 +58,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will your client decide how the work is done?")
       }
 
     }
@@ -83,7 +83,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
       lazy val res = getSessionRequest("/decide-worker-task/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Can the task be changed without your agreement?")
       }
 
     }
@@ -104,7 +104,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Can the task be changed without your agreement?")
 
       }
     }
@@ -115,7 +115,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will your client decide how the work is done?")
       }
 
     }

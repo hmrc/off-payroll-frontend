@@ -26,7 +26,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
       lazy val res = getSessionRequest("/office-holder-duties", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will you be an ‘Office Holder’?")
       }
 
     }
@@ -47,7 +47,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will you be an ‘Office Holder’?")
 
       }
     }
@@ -58,7 +58,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Have you already started working for this client?")
       }
 
     }
@@ -83,7 +83,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
       lazy val res = getSessionRequest("/office-holder-duties/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will you be an ‘Office Holder’?")
       }
 
     }
@@ -104,7 +104,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will you be an ‘Office Holder’?")
 
       }
     }
@@ -115,7 +115,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Have you already started working for this client?")
       }
 
     }

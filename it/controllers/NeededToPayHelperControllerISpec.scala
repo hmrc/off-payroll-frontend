@@ -26,7 +26,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
       lazy val res = getSessionRequest("/worker-paid-helper", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you paid another person to do a significant amount of this work?")
       }
 
     }
@@ -47,7 +47,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you paid another person to do a significant amount of this work?")
 
       }
     }
@@ -58,7 +58,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Can the task be changed without your agreement?")
       }
 
     }
@@ -83,7 +83,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
       lazy val res = getSessionRequest("/worker-paid-helper/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you paid another person to do a significant amount of this work?")
       }
 
     }
@@ -104,7 +104,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you paid another person to do a significant amount of this work?")
 
       }
     }
@@ -115,7 +115,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Can the task be changed without your agreement?")
       }
 
     }

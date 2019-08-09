@@ -26,7 +26,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
       lazy val res = getSessionRequest("/worker-cannot-claim", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?")
       }
 
     }
@@ -47,7 +47,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?")
 
       }
     }
@@ -58,7 +58,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("How will you be paid for this work?")
       }
 
     }
@@ -83,7 +83,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
       lazy val res = getSessionRequest("/worker-cannot-claim/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?")
       }
 
     }
@@ -104,7 +104,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?")
 
       }
     }
@@ -115,7 +115,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("How will you be paid for this work?")
       }
 
     }

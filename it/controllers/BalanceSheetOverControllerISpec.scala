@@ -26,7 +26,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
       lazy val res = getSessionRequest("/private-sector-balance-sheet", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have more than £5.1 million on its balance sheet?")
       }
 
     }
@@ -47,7 +47,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have more than £5.1 million on its balance sheet?")
 
       }
     }
@@ -58,7 +58,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Have you already started working for this client?")
       }
 
     }
@@ -83,7 +83,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
       lazy val res = getSessionRequest("/private-sector-balance-sheet/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have more than £5.1 million on its balance sheet?")
       }
 
     }
@@ -104,7 +104,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have more than £5.1 million on its balance sheet?")
 
       }
     }
@@ -115,7 +115,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Have you already started working for this client?")
       }
 
     }

@@ -26,7 +26,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
       lazy val res = getSessionRequest("/decide-how-work-is-done", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide how the work is done?")
       }
 
     }
@@ -47,7 +47,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide how the work is done?")
 
       }
     }
@@ -58,7 +58,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will your client decide the working hours?")
       }
 
     }
@@ -83,7 +83,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
       lazy val res = getSessionRequest("/decide-how-work-is-done/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide how the work is done?")
       }
 
     }
@@ -104,7 +104,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client decide how the work is done?")
 
       }
     }
@@ -115,7 +115,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will your client decide the working hours?")
       }
 
     }

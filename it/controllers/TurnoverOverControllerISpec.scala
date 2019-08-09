@@ -26,7 +26,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       lazy val res = getSessionRequest("/turnover-over", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
 
     }
@@ -47,7 +47,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
 
       }
     }
@@ -83,7 +83,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       lazy val res = getSessionRequest("/turnover-over/edit", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
 
     }
@@ -104,7 +104,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
 
       }
     }
@@ -141,7 +141,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       lazy val res = getSessionRequest("/private-sector-turnover", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
 
     }
@@ -162,7 +162,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
 
       }
     }
@@ -173,7 +173,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Does this organisation employ more than 50 people?")
       }
 
     }
@@ -198,7 +198,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       lazy val res = getSessionRequest("/private-sector-turnover/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
 
     }
@@ -219,7 +219,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
 
       }
     }
@@ -230,7 +230,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Does this organisation employ more than 50 people?")
       }
 
     }

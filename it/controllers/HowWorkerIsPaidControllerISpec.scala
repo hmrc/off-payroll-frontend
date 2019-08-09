@@ -26,7 +26,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
       lazy val res = getSessionRequest("/worker-compensation", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("How will you be paid for this work?")
       }
 
     }
@@ -47,7 +47,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("How will you be paid for this work?")
 
       }
     }
@@ -58,7 +58,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("If the client was not happy with your work, would you have to put it right?")
       }
 
     }
@@ -83,7 +83,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
       lazy val res = getSessionRequest("/worker-compensation/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("How will you be paid for this work?")
       }
 
     }
@@ -104,7 +104,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("How will you be paid for this work?")
 
       }
     }
@@ -115,7 +115,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("If the client was not happy with your work, would you have to put it right?")
       }
 
     }

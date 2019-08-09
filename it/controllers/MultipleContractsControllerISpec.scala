@@ -26,7 +26,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
       lazy val res = getSessionRequest("/multiple-contracts", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this contract stop you from doing similar work for other clients?")
       }
 
     }
@@ -47,7 +47,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this contract stop you from doing similar work for other clients?")
 
       }
     }
@@ -58,7 +58,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Disclaimer")
       }
 
     }
@@ -83,7 +83,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
       lazy val res = getSessionRequest("/multiple-contracts/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this contract stop you from doing similar work for other clients?")
       }
 
     }
@@ -104,7 +104,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Does this contract stop you from doing similar work for other clients?")
 
       }
     }
@@ -115,7 +115,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Disclaimer")
       }
 
     }

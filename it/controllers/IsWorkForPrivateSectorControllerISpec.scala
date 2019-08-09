@@ -26,7 +26,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
       lazy val res = getSessionRequest("/sector-type", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("In which sector is the client you will be doing the work for?")
       }
 
     }
@@ -47,7 +47,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("In which sector is the client you will be doing the work for?")
 
       }
     }
@@ -58,7 +58,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
 
     }
@@ -83,7 +83,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
       lazy val res = getSessionRequest("/sector-type/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("In which sector is the client you will be doing the work for?")
       }
 
     }
@@ -104,7 +104,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("In which sector is the client you will be doing the work for?")
 
       }
     }
@@ -115,7 +115,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
 
     }

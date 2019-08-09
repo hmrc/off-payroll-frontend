@@ -26,7 +26,7 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase with C
       lazy val res = getSessionRequest("/external-interaction", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Do you interact with the end client’s customers, clients, audience or users?")
       }
 
     }
@@ -47,7 +47,7 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase with C
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Do you interact with the end client’s customers, clients, audience or users?")
 
       }
     }
@@ -83,7 +83,7 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase with C
       lazy val res = getSessionRequest("/external-interaction/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Do you interact with the end client’s customers, clients, audience or users?")
       }
 
     }
@@ -104,7 +104,7 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase with C
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Do you interact with the end client’s customers, clients, audience or users?")
 
       }
     }

@@ -26,7 +26,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
       lazy val res = getSessionRequest("/benefits", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client provide you with paid-for corporate benefits?")
       }
 
     }
@@ -47,7 +47,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client provide you with paid-for corporate benefits?")
 
       }
     }
@@ -58,7 +58,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will you have any management responsibilities for your client?")
       }
 
     }
@@ -83,7 +83,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
       lazy val res = getSessionRequest("/benefits/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client provide you with paid-for corporate benefits?")
       }
 
     }
@@ -104,7 +104,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Will your client provide you with paid-for corporate benefits?")
 
       }
     }
@@ -115,7 +115,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will you have any management responsibilities for your client?")
       }
 
     }
