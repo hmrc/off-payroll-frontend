@@ -54,7 +54,7 @@ class VehicleControllerISpec extends IntegrationSpecBase with CreateRequestHelpe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/vehicle-expenses",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/vehicle-expenses",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class VehicleControllerISpec extends IntegrationSpecBase with CreateRequestHelpe
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/vehicle-expenses/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/vehicle-expenses/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you incur costs for materials that your client will not pay for?")
+        result.status shouldBe CONFLICT
       }
 
     }

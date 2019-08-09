@@ -54,7 +54,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase with CreateReques
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/other-expenses",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/other-expenses",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase with CreateReques
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as no other answers given" in {
 
-      lazy val res = postSessionRequest("/other-expenses/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/other-expenses/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("How will you be paid for this work?")
+        result.status shouldBe CONFLICT
       }
 
     }

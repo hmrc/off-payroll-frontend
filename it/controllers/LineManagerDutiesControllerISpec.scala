@@ -54,7 +54,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase with CreateRe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/manager-duties",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/manager-duties",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,13 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/manager-duties/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/manager-duties/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }

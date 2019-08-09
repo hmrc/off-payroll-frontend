@@ -54,7 +54,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/sector-type",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/sector-type",selectedYes, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class IsWorkForPrivateSectorControllerISpec extends IntegrationSpecBase with Cre
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/sector-type/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/sector-type/change",selectedYes, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

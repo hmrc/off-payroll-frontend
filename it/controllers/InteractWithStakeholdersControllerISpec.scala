@@ -52,13 +52,12 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase with C
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as no other answers recorded" in {
 
-      lazy val res = postSessionRequest("/external-interaction",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/external-interaction",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.status shouldBe CONFLICT
       }
 
     }
@@ -109,13 +108,12 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase with C
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as no other answers recorded" in {
 
-      lazy val res = postSessionRequest("/external-interaction/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/external-interaction/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.status shouldBe CONFLICT
       }
 
     }

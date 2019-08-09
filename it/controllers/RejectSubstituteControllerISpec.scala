@@ -54,7 +54,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/substitute-rejected",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/substitute-rejected",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/substitute-rejected/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/substitute-rejected/change",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

@@ -54,7 +54,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/decide-worker-task",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-worker-task",taskChangeValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,13 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase with CreateRequestHe
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/decide-worker-task/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-worker-task/change",taskChangeValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will your client decide how the work is done?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }

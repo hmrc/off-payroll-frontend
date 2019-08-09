@@ -54,11 +54,11 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/turnover-over",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/turnover-over",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Does this organisation employ more than 50 people?")
       }
 
     }
@@ -111,11 +111,11 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/turnover-over/edit",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/turnover-over/edit",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Does this organisation employ more than 50 people?")
       }
 
     }
@@ -169,7 +169,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-turnover",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-turnover",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -226,7 +226,7 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-turnover/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-turnover/change",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

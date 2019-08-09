@@ -54,7 +54,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase with C
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-would-pay-substitute",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-would-pay-substitute",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase with C
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as check your answers is not complete" in {
 
-      lazy val res = postSessionRequest("/worker-would-pay-substitute/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-would-pay-substitute/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Can the task be changed without your agreement?")
+        result.status shouldBe CONFLICT
       }
 
     }

@@ -54,7 +54,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-cannot-claim",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-cannot-claim",cannotClaimValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-cannot-claim/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-cannot-claim/change",cannotClaimValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

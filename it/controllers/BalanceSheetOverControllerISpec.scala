@@ -54,7 +54,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-balance-sheet",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-balance-sheet",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class BalanceSheetOverControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-balance-sheet/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-balance-sheet/change",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

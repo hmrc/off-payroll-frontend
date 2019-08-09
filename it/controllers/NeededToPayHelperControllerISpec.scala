@@ -54,7 +54,7 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-paid-helper",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-paid-helper",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class NeededToPayHelperControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as no other answers given" in {
 
-      lazy val res = postSessionRequest("/worker-paid-helper/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-paid-helper/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Can the task be changed without your agreement?")
+        result.status shouldBe CONFLICT
       }
 
     }

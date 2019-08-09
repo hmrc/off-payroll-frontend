@@ -54,7 +54,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/decide-where-work-is-done",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-where-work-is-done",chooseWhereDoneValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,13 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase with CreateRequ
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/decide-where-work-is-done/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-where-work-is-done/change",chooseWhereDoneValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you incur equipment costs that your client will not pay for?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }

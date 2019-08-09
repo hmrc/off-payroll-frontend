@@ -54,7 +54,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/wmultiple-contracts",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/multiple-contracts",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/multiple-contracts/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/multiple-contracts/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Disclaimer")
+        result.status shouldBe CONFLICT
       }
 
     }

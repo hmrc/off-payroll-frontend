@@ -54,7 +54,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-paid-substitute",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-paid-substitute",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-paid-substitute/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-paid-substitute/change",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

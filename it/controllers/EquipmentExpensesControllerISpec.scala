@@ -54,7 +54,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase with CreateRe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/equipment-expenses",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/equipment-expenses",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,13 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase with CreateRe
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto soemthing went wrong" in {
 
-      lazy val res = postSessionRequest("/equipment-expenses/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/equipment-expenses/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you incur costs for a vehicle that your client will not pay for?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }

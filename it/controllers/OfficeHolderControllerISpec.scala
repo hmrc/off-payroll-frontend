@@ -54,7 +54,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/office-holder-duties",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/office-holder-duties",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase with CreateRequest
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/office-holder-duties/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/office-holder-duties/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you already started working for this client?")
+        result.status shouldBe CONFLICT
       }
 
     }

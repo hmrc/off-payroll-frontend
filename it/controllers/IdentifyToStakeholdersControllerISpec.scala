@@ -52,12 +52,12 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase with Cre
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and go to the something went wrong page" in {
 
-      lazy val res = postSessionRequest("/introduce-worker",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/introduce-worker",introduceValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
+        result.status shouldBe CONFLICT
         result.body should include ("Something went wrong")
       }
 
@@ -109,12 +109,12 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase with Cre
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto the something went wrong page" in {
 
-      lazy val res = postSessionRequest("/introduce-worker/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/introduce-worker/change",introduceValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
+        result.status shouldBe CONFLICT
         result.body should include ("Something went wrong")
       }
 

@@ -54,7 +54,7 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-compensation",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-compensation",workerCompValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,13 @@ class HowWorkerIsPaidControllerISpec extends IntegrationSpecBase with CreateRequ
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/worker-compensation/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-compensation/change",workerCompValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("If the client was not happy with your work, would you have to put it right?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }

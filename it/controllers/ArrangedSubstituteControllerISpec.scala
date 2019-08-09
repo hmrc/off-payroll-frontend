@@ -54,7 +54,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase with CreateR
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-sent-substitute",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-sent-substitute",arrangeSubValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase with CreateR
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-sent-substitute/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-sent-substitute/change",arrangeSubValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

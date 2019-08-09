@@ -54,7 +54,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/benefits",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/benefits",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class BenefitsControllerISpec extends IntegrationSpecBase with CreateRequestHelp
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/benefits/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/benefits/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you have any management responsibilities for your client?")
+        result.status shouldBe CONFLICT
       }
 
     }

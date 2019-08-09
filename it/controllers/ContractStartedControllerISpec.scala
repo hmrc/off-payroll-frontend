@@ -26,7 +26,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase with CreateRequ
       lazy val res = getSessionRequest("/work-started", cookies,true)
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you already started working for this client?")
       }
 
     }
@@ -47,18 +47,18 @@ class ContractStartedControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you already started working for this client?")
 
       }
     }
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/work-started",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/work-started",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will you be an ‘Office Holder’?")
       }
 
     }
@@ -83,7 +83,7 @@ class ContractStartedControllerISpec extends IntegrationSpecBase with CreateRequ
       lazy val res = getSessionRequest("/work-started/change", cookies,true)
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you already started working for this client?")
       }
 
     }
@@ -104,18 +104,18 @@ class ContractStartedControllerISpec extends IntegrationSpecBase with CreateRequ
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started this particular engagement for the end client?")
+        result.body should include ("Have you already started working for this client?")
 
       }
     }
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/work-started/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/work-started/change",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
+        result.body should include ("Will you be an ‘Office Holder’?")
       }
 
     }

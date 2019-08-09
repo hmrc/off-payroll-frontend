@@ -54,7 +54,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase with CreateRequestHel
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/material-expenses",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/material-expenses",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,12 @@ class MaterialsControllerISpec extends IntegrationSpecBase with CreateRequestHel
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post as no other answers given" in {
 
-      lazy val res = postSessionRequest("/material-expenses/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/material-expenses/change",selectedNo, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you incur any other costs that your client will not pay for?")
+        result.status shouldBe CONFLICT
       }
 
     }

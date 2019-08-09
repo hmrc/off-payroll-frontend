@@ -54,7 +54,7 @@ class EmployeesOverControllerISpec extends IntegrationSpecBase with CreateReques
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-employees",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-employees",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class EmployeesOverControllerISpec extends IntegrationSpecBase with CreateReques
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-employees/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-employees/change",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

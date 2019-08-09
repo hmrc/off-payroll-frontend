@@ -54,7 +54,7 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-trade-type",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-trade-type",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -111,7 +111,7 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase with CreateRequestHe
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-trade-type/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/worker-trade-type/change",selectedNo, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK

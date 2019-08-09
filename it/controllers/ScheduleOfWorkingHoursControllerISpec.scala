@@ -54,7 +54,7 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase with Cre
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/decide-working-schedule",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-working-schedule",chooseWhenDoneValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,13 @@ class ScheduleOfWorkingHoursControllerISpec extends IntegrationSpecBase with Cre
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/decide-working-schedule/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-working-schedule/change",chooseWhenDoneValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will your client decide where you do the work?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }

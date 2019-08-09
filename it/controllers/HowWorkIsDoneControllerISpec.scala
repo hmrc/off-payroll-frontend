@@ -54,7 +54,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/decide-how-work-is-done",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-how-work-is-done",howWorkDoneValue, cookies)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -109,13 +109,13 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase with CreateReques
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/decide-how-work-is-done/change",aboutYouValue, cookies)
+      lazy val res = postSessionRequest("/decide-how-work-is-done/change",howWorkDoneValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will your client decide the working hours?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }
