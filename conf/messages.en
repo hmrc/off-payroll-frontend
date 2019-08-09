@@ -447,16 +447,16 @@ worker.lineManagerDuties.bullet3 = Delivering appraisals
 worker.lineManagerDuties.bullet4 = Deciding how much to pay someone
 worker.lineManagerDuties.checkYourAnswersLabel = Are you responsible for any of these duties for the end client?
 
-hirer.optimised.lineManagerDuties.title = Will the worker have any formal responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.title = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.subheading = Worker’s involvement
-hirer.optimised.lineManagerDuties.heading = Will the worker have any formal responsibilities for your organisation?
-hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any formal responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.heading = Will the worker have any management responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 
-worker.optimised.lineManagerDuties.title = Will you have any formal responsibilities for your client?
+worker.optimised.lineManagerDuties.title = Will you have any management responsibilities for your client?
 worker.optimised.lineManagerDuties.subheading = Worker’s involvement
-worker.optimised.lineManagerDuties.heading = Will you have any formal responsibilities for your client?
-worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you have any formal responsibilities for your client?
+worker.optimised.lineManagerDuties.heading = Will you have any management responsibilities for your client?
+worker.optimised.lineManagerDuties.checkYourAnswersLabel = Will you have any management responsibilities for your client?
 worker.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 #########################
 
@@ -1698,10 +1698,10 @@ hirer.previousContract.subheading = Worker’s contracts
 ### ---------------------------------
 followOnContract.error.required = You need to select an answer
 
-worker.followOnContract.title = Will you start this contract contract immediately after your last contract with this client ended?
-worker.followOnContract.heading = Will you start this contract contract immediately after your last contract with this client ended?
+worker.followOnContract.title = Will you start this contract immediately after your last contract with this client ended?
+worker.followOnContract.heading = Will you start this contract immediately after your last contract with this client ended?
 worker.followOnContract.subheading = Worker’s contracts
-worker.followOnContract.checkYourAnswersLabel = Will you start this contract contract immediately after your last contract with this client ended?
+worker.followOnContract.checkYourAnswersLabel = Will you start this contract immediately after your last contract with this client ended?
 worker.followOnContract.p1 = This refers to working time only and can include any holiday period between the two contracts.
 
 hirer.followOnContract.title = Will the worker start this contract immediately after their last contract with your organisation ended?
