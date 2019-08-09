@@ -24,7 +24,9 @@ import controllers.actions._
 import forms.ContractStartedFormProvider
 import javax.inject.Inject
 import models.Mode
+import models.requests.DataRequest
 import navigation.SetupNavigator
+import pages.BalanceSheetOverPage
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -50,7 +52,13 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
 
   val form: Form[Boolean] = formProvider()
 
+  def renderView(mode: Mode, oForm: Option[Form[Boolean]] = None)(implicit request: DataRequest[_]) = {
+    val formData = oForm.getOrElse(fillForm(ContractStartedPage, form))
+    if (isEnabled(OptimisedFlow)) optimisedView(formData, mode) else view(formData, mode)
+  }
+
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(renderView(mode))
 
     if(isEnabled(OptimisedFlow)) {
       Ok(optimisedView(request.userAnswers.get(ContractStartedPage).fold(form)(answerModel => form.fill(answerModel.answer)), mode))
@@ -61,7 +69,7 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(renderView(mode, Some(formWithErrors)))),
       value => redirect(mode,value,ContractStartedPage)
     )
   }
