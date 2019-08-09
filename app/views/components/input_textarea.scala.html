@@ -37,13 +37,12 @@
             }
         </label>
 
-        <div class="char-counter" style="display: block !important;" data-char-counter>
+        <div class="char-counter" style="display: block !important;" data-char-counter aria-live="polite">
             <textarea class="form-control"
                       style="width: 100%; resize: none; height: auto !important;"
                       id="@{field.id}"
                       name="@{field.id}"
                       @if(field.hasErrors){aria-describedby="error-message-@{field.id}-input"}
-                      aria-live="polite"
                       rows="5"
                       data-char-field="true"
                       maxlength="180"
