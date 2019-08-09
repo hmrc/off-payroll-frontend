@@ -29,7 +29,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = PDFController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = PDFController.onSubmit(mode), 'autoComplete -> "on") {
 
         @components.back_link()()
 
