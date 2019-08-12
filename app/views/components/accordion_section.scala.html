@@ -26,21 +26,32 @@
     <div data-accordion
          data-accordion-animate
          data-accordion-set-hash
-         aria-expanded="@expanded"
          class="accordion @if(expanded){accordion--expanded}">
-        <div class="accordion__row">
-            <h2 class="accordion__row__left font-small">
-                <i class="accordion__indicator arrow arrow--right font-small @if(expanded){arrow--expand}" data-accordion-arrow aria-hidden="true"></i>
-                <a class="accordion__button link--no-underline bold-small" href="" data-accordion-button role="button">
-                    @answerSection.headingKey.map { header =>
-                        @messages(header)
-                    }
-                </a>
-            </h2>
-        </div>
-        <div class="accordion__body @if(!expanded){hidden} cya-row" data-accordion-body aria-hidden="@{!expanded}">
-            @answerSection.rows.map(_._1.answerHtml)
+        <a class="accordion__button link--no-underline"
+           href="" data-accordion-button
+           role="button"
+           id="@{answerSection.section}-section-header"
+           aria-controls="@{answerSection.section}-section-body"
+           aria-expanded="@expanded">
+            <div class="accordion__row">
+                <h2 class="accordion__row__left bold-small">
+                    <i class="accordion__indicator arrow arrow--right font-small @if(expanded){arrow--expand}" data-accordion-arrow aria-hidden="true"></i>
+                        @answerSection.headingKey.map { header =>
+                            @messages(header)
+                        }
+                </h2>
+            </div>
+        </a>
+        <div class="accordion__body @if(!expanded){hidden} cya-row"
+             id="@{answerSection.section}-section-body"
+             data-accordion-body
+             aria-hidden="@{!expanded}"
+             aria-labelledby="@{answerSection.section}-section-header"
+             tabindex="-1"
+             role="region">
+            <dl class="govuk-check-your-answers cya-questions-long">
+                @answerSection.rows.map(_._1.answerHtml)
+            </dl>
         </div>
     </div>
-
 }
