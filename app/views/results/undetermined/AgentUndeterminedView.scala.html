@@ -28,9 +28,9 @@
 
 @defining(
     if(pdfResultDetails.printMode) {
-        printTemplate(titleNoForm("agent.optimised.result.undetermined.title"), appConfig = appConfig)(_)
+        printTemplate(title(form, "agent.optimised.result.undetermined.title"), appConfig = appConfig)(_)
     } else {
-        mainTemplate(titleNoForm("agent.optimised.result.undetermined.title"), appConfig = appConfig)(_)
+        mainTemplate(title(form, "agent.optimised.result.undetermined.title"), appConfig = appConfig)(_)
     }
 ){ template =>
 
