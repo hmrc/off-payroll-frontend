@@ -29,7 +29,7 @@
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @formWithCsrf(action = PDFController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = PDFController.onSubmit(mode), 'autoComplete -> "on") {
 
         @components.back_link()()
 
@@ -38,15 +38,16 @@
         @components.heading("addDetails.heading")
 
         @components.input_text(
-          field = form("fileName"),
-          label = messages("addDetails.fileName"),
+            field = form("fileName"),
+            label = messages("addDetails.fileName"),
             inputClass = Some("form-control-3-4")
         )
 
         @components.input_text(
-          field = form("completedBy"),
-          label = messages("addDetails.name"),
-            inputClass = Some("form-control-3-4")
+            field = form("completedBy"),
+            label = messages("addDetails.name"),
+            inputClass = Some("form-control-3-4"),
+            autocomplete = Some("name")
         )
 
         @components.input_text(

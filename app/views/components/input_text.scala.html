@@ -20,7 +20,8 @@
         inputClass: Option[String] = None,
         hint: Option[String] = None,
         labelClass: Option[String] = None,
-        maxLength: Option[Int] = Some(101)
+        maxLength: Option[Int] = Some(101),
+        autocomplete: Option[String] = Some("on")
 )(implicit messages: Messages)
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
@@ -39,6 +40,9 @@
         type="text"
         @if(maxLength.isDefined){
             maxLength="@maxLength.get"
+        }
+        @if(autocomplete.isDefined){
+            autocomplete="@autocomplete.get"
         }
         id="@{field.id}"
         name="@{field.name}"
