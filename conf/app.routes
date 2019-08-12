@@ -232,3 +232,8 @@ GET        /majority-of-working-time                    controllers.sections.bus
 POST       /majority-of-working-time                    controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onSubmit(mode: Mode = NormalMode)
 GET        /majority-of-working-time/change             controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onPageLoad(mode: Mode = CheckMode)
 POST       /majority-of-working-time/change             controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onSubmit(mode: Mode = CheckMode)
+
+GET        /first-contract                              controllers.sections.businessOnOwnAccount.FirstContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /first-contract                              controllers.sections.businessOnOwnAccount.FirstContractController.onSubmit(mode: Mode = NormalMode)
+GET        /first-contract/change                       controllers.sections.businessOnOwnAccount.FirstContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /first-contract/change                       controllers.sections.businessOnOwnAccount.FirstContractController.onSubmit(mode: Mode = CheckMode)

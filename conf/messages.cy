@@ -1805,3 +1805,17 @@ hirer.majorityOfWorkingTime.heading = Will this work take up the majority of the
 hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of the worker’s available working time?
 hirer.majorityOfWorkingTime.subheading = Worker’s contracts
 hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
+
+### FirstContract Page
+### ---------------------------------
+firstContract.error.required = You need to select an answer
+
+worker.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
+worker.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
+worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
+worker.firstContract.subheading = Worker’s contracts
+
+hirer.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
+hirer.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
+hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
+hirer.firstContract.subheading = Worker’s contracts
