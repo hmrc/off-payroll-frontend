@@ -81,6 +81,17 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
           checkYourAnswersHelper.identifyToStakeholders.map(_ -> None)
         ).flatten
       )
+      ,
+      AnswerSection(
+        section = Section.businessOnOwnAccount,
+        headingKey = Some("checkYourAnswers.partParcel.header"),
+        rows = Seq(
+          checkYourAnswersHelper.extendContract.map(_ -> None),checkYourAnswersHelper.firstContract.map(_ -> None),
+          checkYourAnswersHelper.followOnContract.map(_ -> None),checkYourAnswersHelper.majorityOfWorkingTime.map(_ -> None),
+          checkYourAnswersHelper.multipleContracts.map(_ -> None),checkYourAnswersHelper.permissionToWorkWithOthers.map(_ -> None),
+          checkYourAnswersHelper.previousContract.map(_ -> None),checkYourAnswersHelper.transferOfRights.map(_ -> None)
+        ).flatten
+      )
     )
 
   }

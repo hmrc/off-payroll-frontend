@@ -24,6 +24,7 @@ import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
+import pages.sections.businessOnOwnAccount.FirstContractPage
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -37,6 +38,86 @@ import views.ViewUtils._
 
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
 
+  def extendContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(ExtendContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$ExtendContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+
+  def firstContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(FirstContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$FirstContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+
+  def followOnContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(FollowOnContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$FollowOnContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+
+  def majorityOfWorkingTime(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(MajorityOfWorkingTimePage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$MajorityOfWorkingTimePage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+
+  def multipleContracts(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(MultipleContractsPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$MultipleContractsPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+
+  def permissionToWorkWithOthers(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(PermissionToWorkWithOthersPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$PermissionToWorkWithOthersPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+
+  def previousContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(PreviousContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$PreviousContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+
+  def transferOfRights(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(TransferOfRightsPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$TransferOfRightsPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+      )
+    }
+  
   def turnoverOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(TurnoverOverPage) map { x =>
       AnswerRow(
