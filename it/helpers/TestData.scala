@@ -19,5 +19,5 @@ trait TestData {
   val chooseWhereDoneValue = "value=workerChooses"
   val chooseWhenDoneValue = "value=workerDecideSchedule"
   val introduceValue = "value=workAsIndependent"
-  val cannotClaimValue = "value=expensesAreNotRelevantForRole"
+  val cannotClaimValue = "cannotClaimAsExpense[]=expensesAreNotRelevantForRole"
 }

@@ -4,7 +4,7 @@ import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
 import play.api.http.Status
 import play.api.libs.ws.WSCookie
 
-class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
+class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData {
 
   var cookies: Seq[WSCookie] = Nil
 
@@ -109,13 +109,13 @@ class CannotClaimAsExpenseControllerISpec extends IntegrationSpecBase with Creat
       }
     }
 
-    "Return a 200 on Successful post and move onto next page" in {
+    "Return a 409 on Successful post and display something went wrong page" in {
 
       lazy val res = postSessionRequest("/worker-cannot-claim/change",cannotClaimValue, cookies)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("How will you be paid for this work?")
+        result.status shouldBe CONFLICT
+        result.body should include ("Something went wrong")
       }
 
     }
