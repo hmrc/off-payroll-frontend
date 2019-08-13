@@ -1859,3 +1859,19 @@ hirer.extendContract.heading = Does the current contract allow for it to be exte
 hirer.extendContract.subheading = Worker’s contracts
 hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
 
+##TODO: Need Welsh
+#### Financially Dependent Page - BoOA
+#### ------------------------------
+financiallyDependent.error.required = You need to select an answer
+
+worker.financiallyDependent.subheading = Worker’s contracts
+worker.financiallyDependent.title = If you lost this contract, would you need to replace the income from it immediately?
+worker.financiallyDependent.heading = If you lost this contract, would you need to replace the income from it immediately?
+worker.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
+worker.financiallyDependent.p1 = Regular income is earnings of a similar amount, paid with the same frequency and on an ongoing basis.
+
+hirer.financiallyDependent.subheading = Worker’s contracts
+hirer.financiallyDependent.title = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.heading = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.p1 = If the worker has separate earnings, their need to find other work may not be so urgent.

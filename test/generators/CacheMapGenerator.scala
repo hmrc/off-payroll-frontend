@@ -19,7 +19,7 @@ package generators
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 import pages._
-import pages.sections.businessOnOwnAccount.FirstContractPage
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -34,6 +34,7 @@ trait CacheMapGenerator {
 
   val generators: Seq[Gen[(Page, JsValue)]] =
     arbitrary[(RightsOfWorkPage.type, JsValue)] ::
+    arbitrary[(FinanciallyDependentPage.type, JsValue)] ::
     arbitrary[(ExtendContractPage.type, JsValue)] ::
     arbitrary[(MajorityOfWorkingTimePage.type, JsValue)] ::
     arbitrary[(FollowOnContractPage.type, JsValue)] ::
