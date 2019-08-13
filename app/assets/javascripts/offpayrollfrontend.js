@@ -14,6 +14,20 @@ $(document).ready(function() {
     numberInputs();
 
   // =====================================================
+  // Handle Accordion Button
+  // =====================================================
+    $('.accordion__row').click(function() {
+       $(this).find("button").click();
+    });
+    $('.accordion__row button').click(function(e) {
+       e.stopPropagation();
+    });
+    $('[data-accordion-button]').attr("role","tab")
+    $('[data-accordion-button]').on('click', function(e) {
+      $(this).attr('aria-expanded') == 'true' ? $(this).attr('aria-expanded','false') : $(this).attr('aria-expanded','true');
+    })
+
+  // =====================================================
   // Back link mimics browser back functionality
   // =====================================================
 
@@ -146,4 +160,6 @@ $(document).ready(function() {
           if ( e.which == 38 || e.which == 40 || e.which == 188 )
               e.preventDefault();
       });
+
+
   }

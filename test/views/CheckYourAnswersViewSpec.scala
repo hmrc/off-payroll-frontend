@@ -35,11 +35,11 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
   object Selectors extends BaseCSSSelectors {
     override val h2 = (i: Int) => s"h2:nth-of-type($i)"
     val accordion = (i: Int) => s".accordion:nth-of-type($i)"
-    val accordionHeader = (i: Int) => s".accordion:nth-of-type($i) > .accordion__row a"
-    val sectionQuestion = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dt.cya-question"
-    val sectionSingleAnswer = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type($x) dd.cya-answer"
-    val sectionMultiQuestion = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type(${x+1}) dt.cya-question"
-    val sectionMultiAnswer = (i: Int, x: Int) => s".accordion:nth-of-type($i) > .accordion__body > dl:nth-of-type(${x+1}) dd.cya-answer"
+    val accordionHeader = (i: Int) => s"${accordion(i)} > .accordion__row button"
+    val sectionQuestion = (i: Int, x: Int) => s"${accordion(i)} > .accordion__body div:nth-of-type($x) dt.cya-question"
+    val sectionSingleAnswer = (i: Int, x: Int) => s"${accordion(i)} > .accordion__body div:nth-of-type($x) dd.cya-answer"
+    val sectionMultiQuestion = (i: Int, x: Int) => s"${accordion(i)} > .accordion__body div:nth-of-type(${x+1}) dt.cya-question"
+    val sectionMultiAnswer = (i: Int, x: Int) => s"${accordion(i)} > .accordion__body div:nth-of-type(${x+1}) dd.cya-answer"
   }
 
   val messageKeyPrefix = "checkYourAnswers"
@@ -174,8 +174,6 @@ class CheckYourAnswersViewSpec extends ViewBehaviours {
 
       "expand the appropriate accordion" in {
         lazy val document = asDocument(createViewWithData(cyaSections, Some(Section.earlyExit)))
-
-        document.select(Selectors.accordion(2)).attr("aria-expanded") mustBe "true"
         document.select(Selectors.accordion(2)).hasClass("accordion--expanded") mustBe true
       }
     }

@@ -38,14 +38,16 @@
 
         @components.heading("checkYourAnswers.heading")
 
-        @for(section <- answerSections){
-            @{
-                section match {
-                    case a: AnswerSection if a.nonEmpty => components.accordion_section(a, sectionToExpand)
-                    case _ => Html("")
+        <div role="tablist">
+            @for(section <- answerSections){
+                @{
+                    section match {
+                        case a: AnswerSection if a.nonEmpty => components.accordion_section(a, sectionToExpand)
+                        case _ => Html("")
+                    }
                 }
             }
-        }
+        </div>
 
         <h2>@messages("checkYourAnswers.confirm.h2")</h2>
 
