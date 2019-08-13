@@ -66,6 +66,10 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe RightsOfWorkMessages.Worker.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RightsOfWorkMessages.Worker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.Worker.yes
         document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.Worker.no
@@ -85,6 +89,10 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe RightsOfWorkMessages.Hirer.heading
       }
 
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RightsOfWorkMessages.Hirer.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.Hirer.yes
         document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.Hirer.no
@@ -102,6 +110,10 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe RightsOfWorkMessages.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p(1)).text mustBe RightsOfWorkMessages.Worker.p1
       }
 
       "have the correct radio option messages" in {
