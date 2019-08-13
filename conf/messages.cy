@@ -1819,3 +1819,17 @@ hirer.firstContract.title = Is the current contract the first in a series of con
 hirer.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.subheading = Worker’s contracts
+
+### ExtendContract Page
+### ---------------------------------
+extendContract.error.required = You need to select an answer
+
+worker.extendContract.title = Does the current contract allow for it to be extended?
+worker.extendContract.heading = Does the current contract allow for it to be extended?
+worker.extendContract.subheading = Worker’s contracts
+worker.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+
+hirer.extendContract.title = Does the current contract allow for it to be extended?
+hirer.extendContract.heading = Does the current contract allow for it to be extended?
+hirer.extendContract.subheading = Worker’s contracts
+hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?

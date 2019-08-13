@@ -30,9 +30,9 @@
 
 @defining(
     if(pdfResultDetails.printMode) {
-        printTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
+        printTemplate(title(form, tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
     } else {
-        mainTemplate(titleNoForm(tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
+        mainTemplate(title(form, tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
     }
 ){ template =>
 

@@ -28,9 +28,9 @@
 
 @defining(
     if(pdfResultDetails.printMode) {
-        printTemplate(titleNoForm(tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig)(_)
+        printTemplate(title(form, tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig)(_)
     } else {
-        mainTemplate(titleNoForm(tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig)(_)
+        mainTemplate(title(form, tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig)(_)
     }
 ){ template =>
 
