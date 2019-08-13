@@ -238,3 +238,13 @@ POST       /rights-of-work                              controllers.sections.bus
 GET        /rights-of-work/change                       controllers.sections.businessOnOwnAccount.RightsOfWorkController.onPageLoad(mode: Mode = CheckMode)
 POST       /rights-of-work/change                       controllers.sections.businessOnOwnAccount.RightsOfWorkController.onSubmit(mode: Mode = CheckMode)
 
+GET        /first-contract                              controllers.sections.businessOnOwnAccount.FirstContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /first-contract                              controllers.sections.businessOnOwnAccount.FirstContractController.onSubmit(mode: Mode = NormalMode)
+GET        /first-contract/change                       controllers.sections.businessOnOwnAccount.FirstContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /first-contract/change                       controllers.sections.businessOnOwnAccount.FirstContractController.onSubmit(mode: Mode = CheckMode)
+
+GET        /extend-contract                             controllers.sections.businessOnOwnAccount.ExtendContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /extend-contract                             controllers.sections.businessOnOwnAccount.ExtendContractController.onSubmit(mode: Mode = NormalMode)
+GET        /extend-contract/change                      controllers.sections.businessOnOwnAccount.ExtendContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /extend-contract/change                      controllers.sections.businessOnOwnAccount.ExtendContractController.onSubmit(mode: Mode = CheckMode)
+

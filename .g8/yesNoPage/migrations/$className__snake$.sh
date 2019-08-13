@@ -32,6 +32,7 @@ echo "hirer.$className;format="decap"$.checkYourAnswersLabel = $hirerHeading$" >
 echo "Adding Welsh messages to conf.messages"
 echo "" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
+echo "### TODO: Need Welsh" >> ../conf/messages.cy
 echo "### $className$ Page" >> ../conf/messages.cy
 echo "### ---------------------------------" >> ../conf/messages.cy
 echo "$className;format="decap"$.error.required = You need to select an answer" >> ../conf/messages.cy
@@ -45,6 +46,25 @@ echo "hirer.$className;format="decap"$.title = $hirerTitle$" >> ../conf/messages
 echo "hirer.$className;format="decap"$.heading = $hirerHeading$" >> ../conf/messages.cy
 echo "hirer.$className;format="decap"$.subheading = $hirerSubheading$" >> ../conf/messages.cy
 echo "hirer.$className;format="decap"$.checkYourAnswersLabel = $hirerHeading$" >> ../conf/messages.cy
+
+
+echo "Adding Welsh messages to test.messages"
+echo "" >> ../test/resources/welshMessages/messages.cy
+echo "" >> ../test/resources/welshMessages/messages.cy
+echo "### TODO: Need Welsh" >> ../test/resources/welshMessages/messages.cy
+echo "### $className$ Page" >> ../test/resources/welshMessages/messages.cy
+echo "### ---------------------------------" >> ../test/resources/welshMessages/messages.cy
+echo "$className;format="decap"$.error.required = You need to select an answer" >> ../test/resources/welshMessages/messages.cy
+echo "" >> ../test/resources/welshMessages/messages.cy
+echo "worker.$className;format="decap"$.title = $workerTitle$" >> ../test/resources/welshMessages/messages.cy
+echo "worker.$className;format="decap"$.heading = $workerHeading$" >> ../test/resources/welshMessages/messages.cy
+echo "worker.$className;format="decap"$.subheading = $workerSubheading$" >> ../test/resources/welshMessages/messages.cy
+echo "worker.$className;format="decap"$.checkYourAnswersLabel = $workerHeading$" >> ../test/resources/welshMessages/messages.cy
+echo "" >> ../test/resources/welshMessages/messages.cy
+echo "hirer.$className;format="decap"$.title = $hirerTitle$" >> ../test/resources/welshMessages/messages.cy
+echo "hirer.$className;format="decap"$.heading = $hirerHeading$" >> ../test/resources/welshMessages/messages.cy
+echo "hirer.$className;format="decap"$.subheading = $hirerSubheading$" >>../test/resources/welshMessages/messages.cy ../conf/messages.cy
+echo "hirer.$className;format="decap"$.checkYourAnswersLabel = $hirerHeading$" >> ../test/resources/welshMessages/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
