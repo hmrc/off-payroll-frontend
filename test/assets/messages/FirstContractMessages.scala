@@ -19,8 +19,8 @@ package assets.messages
 object FirstContractMessages extends BaseMessages {
 
   object Worker {
-    val title = "Is the current contract the first in a series of contracts with your organisation?"
-    val heading = "Is the current contract the first in a series of contracts with your organisation?"
+    val title = "Is the current contract the first in a series of contracts with this client?"
+    val heading = "Is the current contract the first in a series of contracts with this client?"
     val subheading = "Worker’s contracts"
   }
 

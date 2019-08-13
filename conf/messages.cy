@@ -1810,9 +1810,9 @@ hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time nec
 ### ---------------------------------
 firstContract.error.required = You need to select an answer
 
-worker.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
-worker.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
-worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
+worker.firstContract.title = Is the current contract the first in a series of contracts with this client?
+worker.firstContract.heading = Is the current contract the first in a series of contracts with this client?
+worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with this client?
 worker.firstContract.subheading = Worker’s contracts
 
 hirer.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
