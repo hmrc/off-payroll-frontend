@@ -18,12 +18,13 @@ package forms
 
 import forms.mappings.Mappings
 import javax.inject.Inject
+import models.RightsOfWork
 import play.api.data.Form
 
 class RightsOfWorkFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Boolean] =
+  def apply(): Form[RightsOfWork] =
     Form(
-      "value" -> boolean("rightsOfWork.error.required")
+      "value" -> enumerable[RightsOfWork]("rightsOfWork.error.required")
     )
 }

@@ -16,7 +16,9 @@
 
 package pages
 
-case object RightsOfWorkPage extends QuestionPage[Boolean] {
+import models.RightsOfWork
+
+case object RightsOfWorkPage extends QuestionPage[RightsOfWork] {
 
   override def toString: String = "rightsOfWork"
 }
