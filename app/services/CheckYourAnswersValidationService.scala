@@ -20,7 +20,8 @@ import javax.inject.Inject
 
 import config.FrontendAppConfig
 import models._
-import pages.QuestionPage
+import pages.sections.businessOnOwnAccount.FirstContractPage
+import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -75,7 +76,17 @@ class CheckYourAnswersValidationService @Inject()(implicit val appConfig: Fronte
         //Part and Parcel
         BenefitsPage,
         IdentifyToStakeholdersPage,
-        LineManagerDutiesPage
+        LineManagerDutiesPage,
+
+        //Business on own account
+        ExtendContractPage,
+        FirstContractPage,
+        FollowOnContractPage,
+        MajorityOfWorkingTimePage,
+        MultipleContractsPage,
+        PermissionToWorkWithOthersPage,
+        PreviousContractPage,
+        TransferOfRightsPage
       )
   }
 
