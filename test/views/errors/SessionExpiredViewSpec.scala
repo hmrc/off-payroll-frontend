@@ -36,7 +36,7 @@ class SessionExpiredViewSpec extends ViewBehaviours {
 
   "Have a link to the IndexController" in {
     val button = asDocument(createView()).select(Selectors.startAgainButton)
-    button.attr("href") mustBe controllers.routes.IndexController.onPageLoad().url
+    button.attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
     button.text mustBe SessionTimeoutMessages.startAgain
   }
 }
