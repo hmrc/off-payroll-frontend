@@ -17,7 +17,7 @@ $(document).ready(function() {
   // Handle Accordion Button
   // =====================================================
     $('.accordion__row').click(function() {
-       $(this).find("button").click();
+       $(this).find("button").click().focus();
     });
     $('.accordion__row button').click(function(e) {
        e.stopPropagation();

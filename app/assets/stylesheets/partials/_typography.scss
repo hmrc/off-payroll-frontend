@@ -10,3 +10,15 @@
 .govuk-check-your-answers {
   padding-top:0.75em !important;
 }
+
+dl > div:last-child >* {
+  border: none;
+}
+
+.govuk-check-your-answers > div:last-child {
+    border: none;
+}
+
+dl {
+  padding-bottom: 1em;
+}
