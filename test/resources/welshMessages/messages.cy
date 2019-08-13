@@ -1807,7 +1807,6 @@ hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the m
 hirer.majorityOfWorkingTime.subheading = Worker’s contracts
 hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
 
-<<<<<<< HEAD
 ### FirstContract Page
 ### ---------------------------------
 firstContract.error.required = You need to select an answer
@@ -1821,7 +1820,6 @@ hirer.firstContract.title = Is the current contract the first in a series of con
 hirer.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.subheading = Worker’s contracts
-=======
 
 ### TODO: Need Welsh
 ### ExtendContract Page
