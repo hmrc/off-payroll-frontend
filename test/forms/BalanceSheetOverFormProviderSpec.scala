@@ -22,7 +22,7 @@ import play.api.data.FormError
 class BalanceSheetOverFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "balanceSheetOver.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new BalanceSheetOverFormProvider()()
 

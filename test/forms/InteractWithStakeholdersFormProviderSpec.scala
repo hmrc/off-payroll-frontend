@@ -22,7 +22,7 @@ import play.api.data.FormError
 class InteractWithStakeholdersFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "interactWithStakeholders.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new InteractWithStakeholdersFormProvider()()
 

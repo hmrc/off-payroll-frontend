@@ -22,7 +22,7 @@ import play.api.data.FormError
 class ContractStartedFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "contractStarted.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new ContractStartedFormProvider()()
 
