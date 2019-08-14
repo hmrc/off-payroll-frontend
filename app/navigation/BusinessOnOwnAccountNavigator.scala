@@ -17,20 +17,40 @@
 package navigation
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import controllers.routes._
-import controllers.sections.control.{routes => controlRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.businessOnOwnAccount.FirstContractPage
 import play.api.mvc.Call
+import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
+
 
 @Singleton
 class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
-  private val routeMap:  Map[Page, UserAnswers => Call] = Map()
+  private val routeMap:  Map[Page, UserAnswers => Call] = Map(
+
+    FirstContractPage -> (_ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)), //todo one of these are the wrong page
+
+    MultipleContractsPage -> (answer =>
+      answer.getAnswer(MultipleContractsPage) match {
+        case Some(true) => booaRoutes.PermissionToWorkWithOthersController.onPageLoad(NormalMode)
+        case _ => booaRoutes.RightsOfWorkController.onPageLoad(NormalMode)
+      }
+    ),
+
+    PermissionToWorkWithOthersPage -> (_ => booaRoutes.RightsOfWorkController.onPageLoad(NormalMode)),
+
+    RightsOfWorkPage -> (answer =>
+      (answer.getAnswer(RightsOfWorkPage), answer.getAnswer(FirstContractPage)) match {
+        case (Some(RightsOfWork.No), _) => booaRoutes.TransferOfRightsController.onPageLoad(NormalMode)
+        case (_, Some(false)) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
+        case (_, Some(true)) => booaRoutes.FirstContractController.onPageLoad(NormalMode)  //todo one of these are the wrong page
+      }
+    )
+  )
 
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
     case NormalMode => routeMap.getOrElse(page, _ => IndexController.onPageLoad())
