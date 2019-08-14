@@ -25,7 +25,7 @@
 
 @this(mainTemplate: templates.MainTemplate, formWithCsrf: FormWithCSRF)
 
-@(answerSections: Seq[Section], sectionToExpand: Option[SectionEnum])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(answerSections: Seq[AnswerSection], sectionToExpand: Option[SectionEnum])(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
     title = titleNoForm("checkYourAnswers.title"),
@@ -38,16 +38,11 @@
 
         @components.heading("checkYourAnswers.heading")
 
-        <div role="tablist">
-            @for(section <- answerSections){
-                @{
-                    section match {
-                        case a: AnswerSection if a.nonEmpty => components.accordion_section(a, sectionToExpand)
-                        case _ => Html("")
-                    }
-                }
-            }
-        </div>
+        @Accordion(answerSections, sectionToExpand).html
+
+        <noscript>
+            @CheckYourAnswers(answerSections).sections.map(_.html)
+        </noscript>
 
         <h2>@messages("checkYourAnswers.confirm.h2")</h2>
 

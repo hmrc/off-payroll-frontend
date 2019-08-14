@@ -86,6 +86,10 @@ site.govuk = GOV.UK
 site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
 site.employmentStatusManual = Canllaw Statws Cyflogaeth
 
+## TODO NEED WELSH
+site.accordion.openAll = Open all
+site.accordion.closeAll = Close all
+
 feedback.before = Mae hwn yn wasanaeth newydd - bydd eich
 feedback.link = adborth
 feedback.after = yn ein helpu i’w wella.

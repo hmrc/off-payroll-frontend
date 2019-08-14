@@ -15,13 +15,17 @@
  *@
 
 @import viewmodels._
+@import views.html._
 @import config.FrontendAppConfig
+@import models.Section.SectionEnum
 
-@(headerKey: String, row: Seq[SingleAnswerRow])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(sections: Seq[AccordionSection])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-<div>
-    <dt class="cya-question">@messages(headerKey)</dt>
-    <dd class="cya-answer"></dd>
+
+<div class="accordion__open__wrapper">
+    <button type="button" class="accordion__open--all" aria-expanded="false">@messages("site.accordion.openAll")</button>
+    <button type="button" class="accordion__close--all hidden" aria-expanded="true" aria-hidden="true">@messages("site.accordion.closeAll")</button>
 </div>
-
-@row.map(_.panelIndentHtml)
+<div class="accordion__wrapper hidden" aria-hidden="true" role="tablist">
+    @sections.map(accordion => accordion.html)
+</div>

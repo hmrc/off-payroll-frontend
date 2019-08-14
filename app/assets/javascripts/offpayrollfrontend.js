@@ -25,7 +25,30 @@ $(document).ready(function() {
     $('[data-accordion-button]').attr("role","tab")
     $('[data-accordion-button]').on('click', function(e) {
       $(this).attr('aria-expanded') == 'true' ? $(this).attr('aria-expanded','false') : $(this).attr('aria-expanded','true');
+      updateOpenAll();
     })
+    $('.accordion__open--all').click(function() {
+       $('[data-accordion-button][aria-expanded="false"]').click()
+       updateOpenAll();
+       $('.accordion__close--all').focus();
+    });
+    $('.accordion__close--all').click(function() {
+       $('[data-accordion-button]').click()
+       updateOpenAll();
+       $('.accordion__open--all').focus();
+    });
+    $('.accordion__wrapper').removeClass("hidden").attr("aria-hidden","false")
+
+    function updateOpenAll() {
+        if($('[data-accordion]').length == $('[data-accordion][aria-expanded="true"]').length) {
+            $('.accordion__open--all').addClass("hidden").attr("aria-hidden", "true");
+            $('.accordion__close--all').removeClass("hidden").attr("aria-hidden", "false")
+        } else {
+            $('.accordion__close--all').addClass("hidden").attr("aria-hidden", "true");
+            $('.accordion__open--all').removeClass("hidden").attr("aria-hidden", "false")
+        }
+    }
+
 
   // =====================================================
   // Back link mimics browser back functionality

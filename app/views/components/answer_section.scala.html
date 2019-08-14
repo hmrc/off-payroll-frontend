@@ -20,9 +20,7 @@
 
 @(answerSection: AnswerSection, printMode: Boolean = false)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-@answerSection.headingKey.map { header =>
-    <h2>@messages(header)</h2>
-}
+<h2>@messages(answerSection.headingKey)</h2>
 
 @answerSection.whyResult.map { html =>
     <p>@html<p>

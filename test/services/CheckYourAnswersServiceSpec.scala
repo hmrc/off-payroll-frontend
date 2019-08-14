@@ -94,7 +94,7 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
         val expected = Seq(
           AnswerSection(
             section = Section.setup,
-            headingKey = Some("checkYourAnswers.setup.header"),
+            headingKey = "checkYourAnswers.setup.header",
             rows = Seq(
               CheckYourAnswersHelper.aboutYouOptimised.map(_ -> None),
               CheckYourAnswersHelper.workerTypeOptimised.map(_ -> None),
@@ -107,12 +107,12 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
           ),
           AnswerSection(
             section = Section.earlyExit,
-            headingKey = Some("checkYourAnswers.exit.header"),
+            headingKey = "checkYourAnswers.exit.header",
             rows = Seq(CheckYourAnswersHelper.officeHolder.map(_ -> None)).flatten
           ),
           AnswerSection(
             section = Section.personalService,
-            headingKey = Some("checkYourAnswers.personalService.header"),
+            headingKey = "checkYourAnswers.personalService.header",
             rows = Seq(
               CheckYourAnswersHelper.arrangedSubstitute.map(_ -> None),
               CheckYourAnswersHelper.didPaySubstitute.map(_ -> None),
@@ -123,7 +123,7 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
           ),
           AnswerSection(
             section = Section.control,
-            headingKey = Some("checkYourAnswers.control.header"),
+            headingKey = "checkYourAnswers.control.header",
             rows = Seq(
               CheckYourAnswersHelper.moveWorker.map(_ -> None),
               CheckYourAnswersHelper.howWorkIsDone.map(_ -> None),
@@ -133,7 +133,7 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
           ),
           AnswerSection(
             section = Section.financialRisk,
-            headingKey = Some("checkYourAnswers.financialRisk.header"),
+            headingKey = "checkYourAnswers.financialRisk.header",
             rows = Seq(
               CheckYourAnswersHelper.equipmentExpenses.map(_ -> None),
               CheckYourAnswersHelper.vehicleExpenses.map(_ -> None),
@@ -145,7 +145,7 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
           ),
           AnswerSection(
             section = Section.partAndParcel,
-            headingKey = Some("checkYourAnswers.partParcel.header"),
+            headingKey = "checkYourAnswers.partParcel.header",
             rows = Seq(
               CheckYourAnswersHelper.benefits.map(_ -> None),
               CheckYourAnswersHelper.lineManagerDuties.map(_ -> None),
@@ -174,32 +174,32 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
         val expected = Seq(
           AnswerSection(
             section = Section.setup,
-            headingKey = Some("checkYourAnswers.setup.header"),
+            headingKey = "checkYourAnswers.setup.header",
             rows = Seq()
           ),
           AnswerSection(
             section = Section.earlyExit,
-            headingKey = Some("checkYourAnswers.exit.header"),
+            headingKey = "checkYourAnswers.exit.header",
             rows = Seq()
           ),
           AnswerSection(
             section = Section.personalService,
-            headingKey = Some("checkYourAnswers.personalService.header"),
+            headingKey = "checkYourAnswers.personalService.header",
             rows = Seq()
           ),
           AnswerSection(
             section = Section.control,
-            headingKey = Some("checkYourAnswers.control.header"),
+            headingKey = "checkYourAnswers.control.header",
             rows = Seq()
           ),
           AnswerSection(
             section = Section.financialRisk,
-            headingKey = Some("checkYourAnswers.financialRisk.header"),
+            headingKey = "checkYourAnswers.financialRisk.header",
             rows = Seq()
           ),
           AnswerSection(
             section = Section.partAndParcel,
-            headingKey = Some("checkYourAnswers.partParcel.header"),
+            headingKey = "checkYourAnswers.partParcel.header",
             rows = Seq()
           )
         )

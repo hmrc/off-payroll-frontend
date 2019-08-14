@@ -19,6 +19,21 @@ dl > div:last-child >* {
     border: none;
 }
 
+.cya-change {
+    text-align: left !important;
+    position: inherit !important;
+    padding-bottom: 1em;
+}
+
 dl {
   padding-bottom: 1em;
+}
+
+a:focus {
+    outline: 3px solid transparent;
+    color: #0b0c0c;
+    background-color: #fd0;
+    -webkit-box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
+    text-decoration: none;
 }

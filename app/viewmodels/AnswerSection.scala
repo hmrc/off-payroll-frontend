@@ -19,7 +19,7 @@ package viewmodels
 import models.Section.SectionEnum
 import play.twirl.api.Html
 
-case class AnswerSection(headingKey: Option[String],
+case class AnswerSection(headingKey: String,
                          whyResult: Option[Html] = None,
                          rows: Seq[(AnswerRow, Option[Html])],
                          useProgressiveDisclosure: Boolean = false,

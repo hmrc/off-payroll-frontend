@@ -1,3 +1,39 @@
+.accordion__open__wrapper {
+    position: relative;
+    height: 24px;
+}
+
+.accordion__open--all, .accordion__open--all:hover, .accordion__open--all:focus, .accordion__open--all:after,
+.accordion__close--all, .accordion__close--all:hover, .accordion__close--all:focus, .accordion__close--all:after {
+    position: absolute;
+    right: 0;
+    background: none;
+    color: #1d70b8;
+    text-align: left;
+    border: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accordion__open--all:hover, .accordion__close--all:hover {
+    text-decoration: underline !important;
+}
+
+.accordion {
+    border-bottom: none;
+}
+
+.accordion:last-child {
+    border-bottom: 1px solid #bfc1c3;
+}
+
+.accordion__body, .accordion.accordion--expanded .accordion__body {
+    border-top: none;
+}
+
 .accordion__button, .accordion__button:hover, .accordion__button:focus, .accordion__button:after {
     background: none;
     color: #1d70b8;
@@ -9,6 +45,7 @@
     padding: 0;
     margin: 0;
     font-weight: 700;
+    transform: none;
 }
 
 @media (min-width: 40.0625em) {
@@ -21,7 +58,7 @@
     text-decoration: underline !important;
 }
 
-.accordion__button:focus {
+.accordion__button:focus, .accordion__open--all:focus, .accordion__close--all:focus {
     -webkit-box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
     box-shadow: 0 -2px #fd0, 0 4px #0b0c0c;
     background: #fd0 !important;
