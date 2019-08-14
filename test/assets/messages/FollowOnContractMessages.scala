@@ -31,5 +31,4 @@ object FollowOnContractMessages extends BaseMessages {
     val subheading = "Worker’s contracts"
     val p1 = "This refers to working time only and can include any holiday period between the two contracts."
   }
-
 }

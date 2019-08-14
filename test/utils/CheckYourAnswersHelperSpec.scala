@@ -1326,5 +1326,4 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
       }
     }
   }
-
 }

@@ -68,5 +68,4 @@ class ParallelRunningRepositoryImpl @Inject()(mongoComponent: ReactiveMongoCompo
       case ex: Exception => Logger.error("[ParallelRunningRepository][get]",ex)
         Future.successful(None)
     }
-
-}
+  }

@@ -31,10 +31,10 @@ trait CreateRequestHelper extends ServerProvider {
       .withFollowRedirects(followRedirect)
   }
 
-  def getRequest(path: String, followRedirect: Boolean = false): Future[WSResponse] =
+  def getRequest(path: String, followRedirect: Boolean = true): Future[WSResponse] =
     buildRequest(path, followRedirect).get()
 
-  def getSessionRequest(path: String, cookies: Seq[WSCookie], followRedirect: Boolean = false): Future[WSResponse] =
+  def getSessionRequest(path: String, followRedirect: Boolean = true)(implicit cookies: Seq[WSCookie]): Future[WSResponse] =
     buildRequest(path, followRedirect)
       .withCookies(cookies: _*)
       .withHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded").get()
@@ -44,7 +44,7 @@ trait CreateRequestHelper extends ServerProvider {
       .withHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded")
       .post(formString)
 
-  def postSessionRequest(path: String, formString: String, cookies: Seq[WSCookie], followRedirect: Boolean = true): Future[WSResponse] =
+  def postSessionRequest(path: String, formString: String, followRedirect: Boolean = true)(implicit  cookies: Seq[WSCookie]): Future[WSResponse] =
     buildRequest(path, followRedirect)
       .withCookies(cookies: _*)
       .withHttpHeaders("Content-Type" -> "application/x-www-form-urlencoded", "Csrf-Token" -> "nocheck")

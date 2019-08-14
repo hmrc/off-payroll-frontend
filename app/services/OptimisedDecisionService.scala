@@ -75,7 +75,6 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
         case Right(decision) => logResult(decision, interview).map(_ => Right(decision))
         case Left(err) => Future.successful(Left(err))
       }
-
     } else {
       (for {
         personalService <- EitherT(decisionConnector.decide(interview, Interview.writesPersonalService))

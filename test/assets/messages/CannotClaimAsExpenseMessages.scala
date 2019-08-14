@@ -65,5 +65,4 @@ object CannotClaimAsExpenseMessages extends BaseMessages {
     val other = "Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home"
     val notRelevant = "Not relevant"
   }
-
 }

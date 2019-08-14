@@ -27,5 +27,4 @@ object BalanceSheetOverMessages extends BaseMessages {
     val heading = "Does your organisation have more than £5.1 million on its balance sheet?"
     val title = heading
   }
-
 }

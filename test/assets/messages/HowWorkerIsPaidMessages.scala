@@ -67,5 +67,4 @@ object HowWorkerIsPaidMessages extends BaseMessages {
     val commision = "A percentage of the sales the worker makes"
     val profits = "A percentage of the end client’s profits or savings"
   }
-
 }

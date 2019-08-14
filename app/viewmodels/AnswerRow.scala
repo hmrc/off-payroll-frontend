@@ -57,7 +57,6 @@ case class MultiAnswerRow(label: String,
       Html(s"<ul class='no-bullet-pdf'>$listItems</ul>")
     }
   }
-
 }
 
 object AnswerRow {

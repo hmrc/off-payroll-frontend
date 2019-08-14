@@ -3,8 +3,7 @@ package controllers
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
 import play.api.http.Status
 
-class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
-
+class IndexControllerISpec extends IntegrationSpecBase {
 
   s"Get /setup" should {
 
@@ -15,7 +14,6 @@ class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper 
       whenReady(res) { result =>
         result.status shouldBe OK
       }
-
     }
 
     "Return a 404 on unsuccessful post" in {
@@ -25,10 +23,7 @@ class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
-
     }
-
-
   }
 
   s"Get /" should {
@@ -40,7 +35,6 @@ class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper 
       whenReady(res) { result =>
         result.status shouldBe OK
       }
-
     }
 
     "Return a 404 on unsuccessful post" in {
@@ -50,10 +44,6 @@ class IndexControllerISpec extends IntegrationSpecBase with CreateRequestHelper 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
-
     }
-
-
   }
-
 }

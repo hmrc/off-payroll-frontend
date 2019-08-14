@@ -5,9 +5,9 @@ import org.scalatest._
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
 import play.api.Application
-import play.api.http.HeaderNames
+import play.api.http.{HeaderNames, Status}
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.libs.ws.WSResponse
+import play.api.libs.ws.{WSCookie, WSResponse}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import repositories.SessionRepository
 
@@ -19,7 +19,9 @@ trait IntegrationSpecBase extends WordSpec
   with GivenWhenThen with TestSuite with ScalaFutures with IntegrationPatience with Matchers
   with WiremockHelper
   with GuiceOneServerPerSuite
-  with BeforeAndAfterEach with BeforeAndAfterAll with Eventually {
+  with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with Status with TestData {
+
+  implicit lazy val cookies: Seq[WSCookie] = whenReady(getRequest("/disclaimer", true))(_.cookies)
 
   override implicit lazy val app: Application = new GuiceApplicationBuilder()
     .configure(Map("play.filters.csrf.header.bypassHeaders.Csrf-Token" -> "nocheck"))

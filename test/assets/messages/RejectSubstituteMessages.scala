@@ -73,5 +73,4 @@ object RejectSubstituteMessages extends BaseMessages {
     val yes = "Yes - the end client has the right to reject a substitute for any reason, including if it would negatively impact the work"
     val no = "No - the end client would always accept a substitute who met these criteria"
   }
-
 }

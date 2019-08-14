@@ -59,5 +59,4 @@ class IsWorkForPrivateSectorController @Inject()(dataCacheConnector: DataCacheCo
       value => redirect(mode,value,IsWorkForPrivateSectorPage)
     )
   }
-
 }

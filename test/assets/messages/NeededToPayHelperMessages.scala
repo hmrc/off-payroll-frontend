@@ -56,5 +56,4 @@ object NeededToPayHelperMessages extends BaseMessages {
     val b1 = "a researcher hired to source information could be classed as doing a significant amount of the lecturer’s work"
     val b2 = "a company the lecturer pays to print and bind materials for the module would not be classed as doing a significant amount of the work"
   }
-
 }

@@ -109,5 +109,4 @@ trait UserAnswersUtils {
     implicit val checkYourAnswersHelper: ResultPageHelper = new ResultPageHelper(request.userAnswers)
     Seq(peopleInvolved,workersDuties,substitutesHelpers,workArrangements,financialRisk,partAndParcel)
   }
-
 }

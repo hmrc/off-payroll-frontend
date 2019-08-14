@@ -156,7 +156,6 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
 
         actual mustBe expected
       }
-
     }
 
     "when no questions are in the CacheMap" must {
@@ -206,7 +205,6 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
 
         actual mustBe expected
       }
-
     }
   }
 }

@@ -49,5 +49,4 @@ object DidPaySubstituteMessages extends BaseMessages {
     val title = heading
     val exclamation = "If the substitute was paid by an agency, it does not count as substitution."
   }
-
 }

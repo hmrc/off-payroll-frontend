@@ -29,5 +29,4 @@ object PermissionToWorkWithOthersMessages extends BaseMessages {
     val heading = title
     val subheading = "Worker’s contracts"
   }
-
 }

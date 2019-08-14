@@ -185,5 +185,4 @@ class MongoCacheConnectorSpec extends SpecBase with ScalaCheckPropertyChecks wit
       }
     }
   }
-
 }

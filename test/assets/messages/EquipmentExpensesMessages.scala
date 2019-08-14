@@ -29,5 +29,4 @@ object EquipmentExpensesMessages extends BaseMessages {
     val heading = title
     val p1 = "This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones."
   }
-
 }

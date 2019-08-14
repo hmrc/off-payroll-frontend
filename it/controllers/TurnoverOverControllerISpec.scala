@@ -4,31 +4,18 @@ import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
 import play.api.http.Status
 import play.api.libs.ws.WSCookie
 
-class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
-
-  var cookies: Seq[WSCookie] = Nil
+class TurnoverOverControllerISpec extends IntegrationSpecBase {
 
   s"Post or Get to /turnover-over" should {
 
-    "Get sessionheaders successfully" in {
-
-      lazy val sessionResult = getRequest("/disclaimer", true)
-
-      whenReady(sessionResult) { result =>
-        cookies = result.cookies
-      }
-
-    }
-
-
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/turnover-over", cookies,true)
+      lazy val res = getSessionRequest("/turnover-over")
+
       whenReady(res) { result =>
          result.status shouldBe OK
         result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
-
     }
 
     "Return a 404 on a post to unused method" in {
@@ -38,12 +25,11 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
-
     }
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/turnover-over",defaultValue, cookies)
+      lazy val res = postSessionRequest("/turnover-over", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -54,38 +40,25 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/turnover-over",selectedNo, cookies)
+      lazy val res = postSessionRequest("/turnover-over", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Does this organisation employ more than 50 people?")
       }
-
     }
-
   }
 
   s"Post or Get to /turnover-over/edit" should {
 
-    "Get sessionheaders successfully" in {
-
-      lazy val sessionResult = getRequest("/disclaimer", true)
-
-      whenReady(sessionResult) { result =>
-        cookies = result.cookies
-      }
-
-    }
-
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/turnover-over/edit", cookies,true)
+      lazy val res = getSessionRequest("/turnover-over/edit")
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
-
     }
 
     "Return a 404 on a post to unused method" in {
@@ -95,12 +68,11 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
-
     }
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/turnover-over/edit",defaultValue, cookies)
+      lazy val res = postSessionRequest("/turnover-over/edit", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -111,39 +83,26 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/turnover-over/edit",selectedNo, cookies)
+      lazy val res = postSessionRequest("/turnover-over/edit", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Does this organisation employ more than 50 people?")
       }
-
     }
-
   }
 
 
   s"Post or Get to /private-sector-turnover" should {
 
-    "Get sessionheaders successfully" in {
-
-      lazy val sessionResult = getRequest("/disclaimer", true)
-
-      whenReady(sessionResult) { result =>
-        cookies = result.cookies
-      }
-
-    }
-
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/private-sector-turnover", cookies,true)
+      lazy val res = getSessionRequest("/private-sector-turnover")
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
-
     }
 
     "Return a 404 on a post to unused method" in {
@@ -153,12 +112,11 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
-
     }
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/private-sector-turnover",defaultValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-turnover", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -169,38 +127,25 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-turnover",selectedNo, cookies)
+      lazy val res = postSessionRequest("/private-sector-turnover", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Does this organisation employ more than 50 people?")
       }
-
     }
-
   }
 
   s"Post or Get to /private-sector-turnover/change" should {
 
-    "Get sessionheaders successfully" in {
-
-      lazy val sessionResult = getRequest("/disclaimer", true)
-
-      whenReady(sessionResult) { result =>
-        cookies = result.cookies
-      }
-
-    }
-
-
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/private-sector-turnover/change", cookies,true)
+      lazy val res = getSessionRequest("/private-sector-turnover/change")
+
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Does this organisation have an annual turnover of more than £10.2 million?")
       }
-
     }
 
     "Return a 404 on a post to unused method" in {
@@ -210,12 +155,11 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
-
     }
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/private-sector-turnover/change",defaultValue, cookies)
+      lazy val res = postSessionRequest("/private-sector-turnover/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -226,15 +170,12 @@ class TurnoverOverControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/private-sector-turnover/change",selectedNo, cookies)
+      lazy val res = postSessionRequest("/private-sector-turnover/change", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Does this organisation employ more than 50 people?")
       }
-
     }
-
   }
-
 }

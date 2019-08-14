@@ -32,7 +32,6 @@ object ContractStartedMessages extends BaseMessages {
     val heading = "Has the worker already started this particular engagement for the end client?"
     val title = heading
   }
-
 }
 
 object ContractStartedOptimisedMessages extends BaseMessages {
@@ -51,6 +50,5 @@ object ContractStartedOptimisedMessages extends BaseMessages {
     val heading = "Have you already started working for this client?"
     val title = heading
   }
-
 }
 
