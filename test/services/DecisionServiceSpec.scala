@@ -863,7 +863,5 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
       status(result) mustBe INTERNAL_SERVER_ERROR
       contentAsString(result) mustBe "Error page"
     }
-
   }
-
 }

@@ -62,5 +62,4 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
     val partly = "Partly - the worker and the end client agree a schedule"
     val notApplicable = "Not applicable - no schedule is needed as long as the worker meets any agreed deadlines"
   }
-
 }

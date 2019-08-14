@@ -212,5 +212,4 @@ class RoutesSpec extends SpecBase {
       ExitSurveyController.redirectToExitSurvey().url mustBe fullPath("/exit-survey")
     }
   }
-
 }

@@ -1005,5 +1005,4 @@ class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
       }
     }
   }
-
 }

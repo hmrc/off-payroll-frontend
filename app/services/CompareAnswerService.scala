@@ -69,5 +69,4 @@ class CompareAnswerService @Inject()(questionDeletionLookup: QuestionDeletionLoo
       recursivelyClearQuestions(pages.tail,userAnswers.remove(pages.head))
     }
   }
-
 }

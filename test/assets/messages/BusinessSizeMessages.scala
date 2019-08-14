@@ -32,5 +32,4 @@ object BusinessSizeMessages extends BaseMessages {
     val heading = "How large is your organisation? Tick all that apply"
     val title = heading
   }
-
 }

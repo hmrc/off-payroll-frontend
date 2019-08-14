@@ -73,5 +73,4 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
       value => redirect(mode,value,ContractStartedPage)
     )
   }
-
 }

@@ -65,5 +65,4 @@ object HowWorkIsDoneMessages extends BaseMessages {
     val noSkilledRole = "No - the end client cannot decide how the work needs to be done because it is a highly skilled role"
     val partly = "Partly - the worker and other people employed or engaged by the end client agree how the work needs to be done"
   }
-
 }

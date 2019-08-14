@@ -66,6 +66,5 @@ class ResetAnswersWarningViewSpec extends YesNoViewBehaviours with ViewBehaviour
     "have the correct hint" in {
       document.select(Selectors.panel).text() mustBe ResetAnswersMessages.hint
     }
-
   }
 }

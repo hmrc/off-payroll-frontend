@@ -80,8 +80,6 @@ class ToolNotNeededViewSpec extends ViewBehaviours {
         document.select(Selectors.p(1)).text mustBe ToolNotNeededMessages.payeP1
         document.select(Selectors.p(2)).text mustBe ToolNotNeededMessages.payeP2
       }
-
     }
-
   }
 }

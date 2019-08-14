@@ -35,5 +35,4 @@ object IsWorkForPrivateSectorMessages extends BaseMessages {
     val heading = "In which sector is the client you will be doing the work for?"
     val title = heading
   }
-
 }

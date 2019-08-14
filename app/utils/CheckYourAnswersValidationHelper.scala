@@ -83,5 +83,4 @@ trait CheckYourAnswersValidationHelper {
       case _ => Set()
     }
   }
-  
 }
