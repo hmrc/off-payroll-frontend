@@ -16,13 +16,14 @@
 
 package forms
 
-import forms.behaviours.BooleanFieldBehaviours
+import forms.behaviours.OptionFieldBehaviours
+import models.RightsOfWork
 import play.api.data.FormError
 
-class RightsOfWorkProviderSpec extends BooleanFieldBehaviours {
+class RightsOfWorkProviderSpec extends OptionFieldBehaviours {
 
   val requiredKey = "rightsOfWork.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.invalid"
 
   val form = new RightsOfWorkFormProvider()()
 
@@ -30,9 +31,10 @@ class RightsOfWorkProviderSpec extends BooleanFieldBehaviours {
 
     val fieldName = "value"
 
-    behave like booleanField(
+    behave like optionsField[RightsOfWork](
       form,
       fieldName,
+      validValues = RightsOfWork.values,
       invalidError = FormError(fieldName, invalidKey)
     )
 

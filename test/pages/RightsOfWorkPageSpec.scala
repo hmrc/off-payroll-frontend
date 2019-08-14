@@ -16,16 +16,17 @@
 
 package pages
 
+import models.RightsOfWork
 import pages.behaviours.PageBehaviours
 
 class RightsOfWorkPageSpec extends PageBehaviours {
 
   "RightsOfWorkPage" must {
 
-    beRetrievable[Boolean](RightsOfWorkPage)
+    beRetrievable[RightsOfWork](RightsOfWorkPage)
 
-    beSettable[Boolean](RightsOfWorkPage)
+    beSettable[RightsOfWork](RightsOfWorkPage)
 
-    beRemovable[Boolean](RightsOfWorkPage)
+    beRemovable[RightsOfWork](RightsOfWorkPage)
   }
 }

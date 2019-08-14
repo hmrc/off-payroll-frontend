@@ -22,7 +22,7 @@ import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, FakeIdentifierAction, _}
 import forms.RightsOfWorkFormProvider
 import models.requests.DataRequest
-import models.{Answers, NormalMode}
+import models.{Answers, NormalMode, RightsOfWork}
 import pages.RightsOfWorkPage
 import play.api.data.Form
 import play.api.libs.json.Json
@@ -68,20 +68,20 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(RightsOfWorkPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(RightsOfWorkPage.toString -> Json.toJson(Answers(RightsOfWork.Yes,0)))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(true))
+      contentAsString(result) mustBe viewAsString(form.fill(RightsOfWork.Yes))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val validData = Map(RightsOfWorkPage.toString -> Json.toJson(Answers(true,0)))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", RightsOfWork.Yes.toString))
+      val validData = Map(RightsOfWorkPage.toString -> Json.toJson(Answers(RightsOfWork.Yes,0)))
 
-      val answers = userAnswers.set(RightsOfWorkPage,0,true)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
+      val answers = userAnswers.set(RightsOfWorkPage,0,RightsOfWork.Yes)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),RightsOfWork)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
