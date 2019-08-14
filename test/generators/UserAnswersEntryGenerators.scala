@@ -31,6 +31,14 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+  implicit lazy val arbitraryRightsOfWorkUserAnswersEntry: Arbitrary[(RightsOfWorkPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page <- arbitrary[RightsOfWorkPage.type]
+        value <- arbitrary[RightsOfWork].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
   implicit lazy val arbitraryExtendContractUserAnswersEntry: Arbitrary[(ExtendContractPage.type, JsValue)] =
     Arbitrary {
       for {

@@ -1807,6 +1807,32 @@ hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the m
 hirer.majorityOfWorkingTime.subheading = Worker’s contracts
 hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
 
+
+##TODO: Need Welsh
+### RightsOfWork Page
+### ---------------------------------
+rightsOfWork.error.required = You need to select an answer
+rightsOfWork.error.invalid = You need to select an answer
+
+worker.rightsOfWork.title = Does your agreed fee include all proprietary rights of this work?
+worker.rightsOfWork.heading = Does your agreed fee include all proprietary rights of this work?
+worker.rightsOfWork.checkYourAnswersLabel = Does your agreed fee include all proprietary rights of this work?
+worker.rightsOfWork.subheading = Worker’s contracts
+worker.rightsOfWork.p1 = Proprietary rights include all intellectual property, authorship, data and branding.
+worker.optimised.RightsOfWork.yes = Yes
+worker.optimised.RightsOfWork.no = No
+worker.optimised.RightsOfWork.notapplicable = Not applicable
+
+
+hirer.rightsOfWork.title = Does the worker’s agreed fee include all proprietary rights of this work?
+hirer.rightsOfWork.heading = Does the worker’s agreed fee include all proprietary rights of this work?
+hirer.rightsOfWork.checkYourAnswersLabel = Does the worker’s agreed fee include all proprietary rights of this work?
+hirer.rightsOfWork.subheading = Worker’s contracts
+hirer.rightsOfWork.p1 = Proprietary rights include all intellectual property, authorship, data and branding.
+hirer.optimised.RightsOfWork.yes = Yes
+hirer.optimised.RightsOfWork.no = No
+hirer.optimised.RightsOfWork.notapplicable = Not applicable
+
 ### FirstContract Page
 ### ---------------------------------
 firstContract.error.required = You need to select an answer
@@ -1835,3 +1861,4 @@ hirer.extendContract.title = Does the current contract allow for it to be extend
 hirer.extendContract.heading = Does the current contract allow for it to be extended?
 hirer.extendContract.subheading = Worker’s contracts
 hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+
