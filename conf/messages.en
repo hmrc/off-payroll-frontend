@@ -76,6 +76,8 @@ site.govuk = GOV.UK
 site.hmrc = HM Revenue & Customs
 site.ir35email = ir35@hmrc.gov.uk
 site.employmentStatusManual = Employment Status Manual
+site.accordion.openAll = Open all
+site.accordion.closeAll = Close all
 
 feedback.before = This is a new service - your
 feedback.link = feedback

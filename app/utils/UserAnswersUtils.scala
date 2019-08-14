@@ -31,7 +31,7 @@ trait UserAnswersUtils {
 
   def peopleInvolved(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     section = Section.setup,
-    headingKey = Some("result.peopleInvolved.h2"),
+    headingKey = "result.peopleInvolved.h2",
     whyResult = None,
     rows = Seq(
       (checkYourAnswersHelper.aboutYou, Some(hint_p(Html(messages("aboutYou.hint"))))),
@@ -43,7 +43,7 @@ trait UserAnswersUtils {
 
   def workersDuties(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     section = Section.earlyExit,
-    headingKey = Some("result.workersDuties.h2"),
+    headingKey = "result.workersDuties.h2",
     whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))),
     rows = Seq(
       (checkYourAnswersHelper.officeHolder, Some(office_holder_details.apply()))
@@ -54,7 +54,7 @@ trait UserAnswersUtils {
   def substitutesHelpers(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages,
                          request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     section = Section.personalService,
-    headingKey = Some("result.substitutesHelpers.h2"),
+    headingKey = "result.substitutesHelpers.h2",
     whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.arrangedSubstitute, Some(hint(arranged_substitute_details.apply()))),
@@ -69,7 +69,7 @@ trait UserAnswersUtils {
   def workArrangements(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages,
                        request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     section = Section.control,
-    headingKey = Some("result.workArrangements.h2"),
+    headingKey = "result.workArrangements.h2",
     whyResult = Some(Html(messages("result.workArrangements.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.moveWorker, Some(hint_p(Html(messages(tailorMsg("moveWorker.hint")))))),
@@ -82,7 +82,7 @@ trait UserAnswersUtils {
 
   def financialRisk(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     section = Section.financialRisk,
-    headingKey = Some("result.financialRisk.h2"),
+    headingKey = "result.financialRisk.h2",
      whyResult = Some(Html(messages("result.financialRisk.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.cannotClaimAsExpense, None),
@@ -94,7 +94,7 @@ trait UserAnswersUtils {
 
   def partAndParcel(implicit checkYourAnswersHelper: ResultPageHelper, messages: Messages, request: Request[_], appConfig: FrontendAppConfig) = AnswerSection(
     section = Section.partAndParcel,
-    headingKey = Some("result.partAndParcel.h2"),
+    headingKey = "result.partAndParcel.h2",
     whyResult = Some(Html(messages("result.partParcel.summary"))),
     rows = Seq(
       (checkYourAnswersHelper.benefits, Some(hint(benefits_details.apply()))),

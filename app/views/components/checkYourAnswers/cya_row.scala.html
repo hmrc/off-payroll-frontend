@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package assets.messages
+@import views.ViewUtils._
+@import config.FrontendAppConfig
 
-object CheckYourAnswersMessages extends BaseMessages {
+@(question: String, answer: String, answerIsMessageKey: Boolean, panelIndent: Boolean = false, changeUrl: Option[String])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-  val heading = "Review your answers in each section below"
-  val title = heading
-  val h2 = "Declaration"
-  val p1 = "By submitting your answers, you are confirming the following:"
-  val li1 = "the information you have provided is correct, to the best of your knowledge"
-  val li2 = "it reflects the actual or expected working practices of this role"
-  val li3 = "if this information changes, you accept your result may no longer hold"
-
-}
+<div>
+    <dt class="cya-question">@messages(question)</dt>
+    <dd class="cya-answer">@if(answerIsMessageKey){@messages(answer)} else {@answer}</dd>
+    @changeUrl.map { url =>
+        <dd class="cya-change"><a href="@url">@messages("site.edit")</a></dd>
+    }
+</div>

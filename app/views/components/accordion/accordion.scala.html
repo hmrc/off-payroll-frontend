@@ -14,17 +14,18 @@
  * limitations under the License.
  *@
 
-@import views.ViewUtils._
+@import viewmodels._
+@import views.html._
 @import config.FrontendAppConfig
+@import models.Section.SectionEnum
 
-@(question: String, answer: String, answerIsMessageKey: Boolean, panelIndent: Boolean = false, changeUrl: Option[String])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(sections: Seq[AccordionSection])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-<dl class="govuk-check-your-answers cya-questions-long @if(panelIndent){panel-indent}" role="table">
-    <div>
-        <dt class="cya-question">@messages(question)</dt>
-        <dd class="cya-answer">@if(answerIsMessageKey){@messages(answer)} else {@answer}</dd>
-        @changeUrl.map { url =>
-            <dd class="cya-change"><a href="@url">@messages("site.edit")</a></dd>
-        }
-    </div>
-</dl>
+
+<div class="accordion__open__wrapper">
+    <button type="button" class="accordion__open--all" aria-expanded="false">@messages("site.accordion.openAll")</button>
+    <button type="button" class="accordion__close--all hidden" aria-expanded="true" aria-hidden="true">@messages("site.accordion.closeAll")</button>
+</div>
+<div class="accordion__wrapper hidden" aria-hidden="true" role="tablist">
+    @sections.map(accordion => accordion.html)
+</div>

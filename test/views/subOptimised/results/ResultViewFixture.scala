@@ -40,8 +40,7 @@ trait ResultViewFixture extends ViewBehaviours {
   val model = AdditionalPdfDetails(Some("Gerald"), Some("PBPlumbin"), Some("Plumber"), Some("Boiler man"))
 
   val answers = Seq(
-    AnswerSection(
-      Some(Messages("result.peopleInvolved.h2")), None, Seq(
+    AnswerSection(Messages("result.peopleInvolved.h2"), None, Seq(
         (AnswerRow(
           label = "aboutYou.checkYourAnswersLabel",
           answer = s"aboutYou.$Worker",
@@ -50,7 +49,7 @@ trait ResultViewFixture extends ViewBehaviours {
       ),
       section = Section.setup
     ),
-    AnswerSection(Some(Messages("result.workersDuties.h2")), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq(
+    AnswerSection(Messages("result.workersDuties.h2"), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq(
       (AnswerRow(
         label = "contractStarted.checkYourAnswersLabel",
         answer = "site.yes",
@@ -59,8 +58,8 @@ trait ResultViewFixture extends ViewBehaviours {
     ),
       section = Section.earlyExit
     ),
-    AnswerSection(Some(Messages("result.substitutesHelpers.h2")), whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))), Seq(), section = Section.personalService),
-    AnswerSection(Some(Messages("result.workArrangements.h2")), whyResult = Some(Html(messages("result.workArrangements.summary"))), Seq(
+    AnswerSection(Messages("result.substitutesHelpers.h2"), whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))), Seq(), section = Section.personalService),
+    AnswerSection(Messages("result.workArrangements.h2"), whyResult = Some(Html(messages("result.workArrangements.summary"))), Seq(
       (AnswerRow(
         label = "cannotClaimAsExpense.checkYourAnswersLabel",
         answers = Seq(AnswerRow(
@@ -75,8 +74,8 @@ trait ResultViewFixture extends ViewBehaviours {
         answerIsMessageKey = true
       ),None)
     ),section = Section.control),
-    AnswerSection(Some(Messages("result.financialRisk.h2")), whyResult = Some(Html(messages("result.financialRisk.summary"))), Seq(), section = Section.financialRisk),
-    AnswerSection(Some(Messages("result.partAndParcel.h2")), whyResult = Some(Html(messages("result.partParcel.summary"))), Seq(), section = Section.partAndParcel)
+    AnswerSection(Messages("result.financialRisk.h2"), whyResult = Some(Html(messages("result.financialRisk.summary"))), Seq(), section = Section.financialRisk),
+    AnswerSection(Messages("result.partAndParcel.h2"), whyResult = Some(Html(messages("result.partParcel.summary"))), Seq(), section = Section.partAndParcel)
   )
 
 }

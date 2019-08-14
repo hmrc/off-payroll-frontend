@@ -34,13 +34,10 @@ case class SingleAnswerRow(label: String,
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
     if(isEnabled(OptimisedFlow)) {
-      views.html.components.accordion_row(label, answer, answerIsMessageKey, panelIndent = false, changeUrl)
+      views.html.components.checkYourAnswers.cya_row(label, answer, answerIsMessageKey, panelIndent = false, changeUrl)
     } else {
       Html(if(answerIsMessageKey) messages(answer) else answer)
     }
-
-  def panelIndentHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
-    views.html.components.accordion_row(label, answer, answerIsMessageKey, panelIndent = true, changeUrl)
 }
 
 case class MultiAnswerRow(label: String,
@@ -48,14 +45,10 @@ case class MultiAnswerRow(label: String,
                           changeUrl: Option[String]) extends AnswerRow with FeatureSwitching {
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html = {
-    if(isEnabled(OptimisedFlow)) {
-      views.html.components.accordion_row_multi(label, answers)
-    } else {
-      val listItems = answers.foldLeft(""){
-        case (output, answer) => output + s"<li>${if(answer.answerIsMessageKey) messages(answer.answer) else answer.answer}</li>"
-      }
-      Html(s"<ul class='no-bullet-pdf'>$listItems</ul>")
+    val listItems = answers.foldLeft(""){
+      case (output, answer) => output + s"<li>${if(answer.answerIsMessageKey) messages(answer.answer) else answer.answer}</li>"
     }
+    Html(s"<ul class='no-bullet-pdf'>$listItems</ul>")
   }
 
 }
