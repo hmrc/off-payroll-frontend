@@ -257,3 +257,8 @@ GET        /worker-known                                controllers.sections.bus
 POST       /worker-known                                controllers.sections.businessOnOwnAccount.WorkerKnownController.onSubmit(mode: Mode = NormalMode)
 GET        /worker-known/change                         controllers.sections.businessOnOwnAccount.WorkerKnownController.onPageLoad(mode: Mode = CheckMode)
 POST       /worker-known/change                         controllers.sections.businessOnOwnAccount.WorkerKnownController.onSubmit(mode: Mode = CheckMode)
+
+GET        /ownership-rights                            controllers.sections.businessOnOwnAccount.OwnershipRightsController.onPageLoad(mode: Mode = NormalMode)
+POST       /ownership-rights                            controllers.sections.businessOnOwnAccount.OwnershipRightsController.onSubmit(mode: Mode = NormalMode)
+GET        /ownership-rights/change                     controllers.sections.businessOnOwnAccount.OwnershipRightsController.onPageLoad(mode: Mode = CheckMode)
+POST       /ownership-rights/change                     controllers.sections.businessOnOwnAccount.OwnershipRightsController.onSubmit(mode: Mode = CheckMode)

@@ -1858,3 +1858,20 @@ hirer.workerKnown.subheading = Worker’s contracts
 hirer.workerKnown.heading = Has your organisation identified who will be doing this work?
 hirer.workerKnown.title = Has your organisation identified who will be doing this work?
 hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who will be doing this work?
+
+###TODO: Need Welsh
+### Financially Dependent Page - BoOA
+### ------------------------------
+ownershipRights.error.required = You need to select an answer
+
+worker.ownershipRights.subheading = Worker’s contracts
+worker.ownershipRights.title = Are there any ownership rights relating to this work?
+worker.ownershipRights.heading = Are there any ownership rights relating to this work?
+worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this work?
+worker.ownershipRights.p1 = These rights include copyright, trademarks, patents and other intellectual property rights.
+
+hirer.ownershipRights.subheading = Worker’s contracts
+hirer.ownershipRights.title = Are there any ownership rights relating to this work?
+hirer.ownershipRights.heading = Are there any ownership rights relating to this work?
+hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this work?
+hirer.ownershipRights.p1 = These rights include copyright, trademarks, patents and other intellectual property rights.
