@@ -85,6 +85,5 @@ class ControlViewSpec extends ResultViewFixture {
     "include the 'office duty' question'" in {
       document.toString must include("Will the worker (or their business) perform office holder duties for the end client as part of this engagement?")
     }
-
   }
 }

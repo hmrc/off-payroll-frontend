@@ -32,5 +32,4 @@ object TransferOfRightsMessages extends BaseMessages {
     val subheading = "Worker’s contracts"
     val p1 = "If no such clause or requirement exists, the worker would keep all the rights."
   }
-
 }

@@ -27,5 +27,4 @@ object TurnoverOverMessages extends BaseMessages {
     val heading = "Does your organisation have an annual turnover of more than £10.2 million?"
     val title = heading
   }
-
 }

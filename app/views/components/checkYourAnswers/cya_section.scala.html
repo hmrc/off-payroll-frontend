@@ -14,16 +14,17 @@
  * limitations under the License.
  *@
 
+@import views.ViewUtils._
 @import viewmodels._
 @import config.FrontendAppConfig
+@import models.Section.SectionEnum
 
-@(headerKey: String, row: Seq[SingleAnswerRow])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(rows: Seq[CheckYourAnswersRow], section: Option[SectionEnum] = None, headingKey: Option[String] = None)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-<dl class="govuk-check-your-answers cya-questions-long" role="table">
-    <div>
-        <dt class="cya-question">@messages(headerKey)</dt>
-        <dd class="cya-answer"></dd>
-    </div>
+@headingKey.map { heading =>
+  <h2>@messages(heading)</h2>
+}
+
+<dl class="govuk-check-your-answers cya-questions-long">
+    @rows.map(_.html)
 </dl>
-
-@row.map(_.panelIndentHtml)

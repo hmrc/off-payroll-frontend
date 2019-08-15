@@ -29,5 +29,4 @@ object $className$Messages extends BaseMessages {
     val heading = "$hirerTitle$"
     val subheading = "$hirerSubheading$"
   }
-
 }

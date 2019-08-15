@@ -27,5 +27,4 @@ object EmployeesOverMessages extends BaseMessages {
     val heading = "Does your organisation employ more than 50 people?"
     val title = heading
   }
-
 }

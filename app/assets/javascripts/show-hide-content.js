@@ -90,7 +90,6 @@
         $content.addClass('js-hidden')
         $content.attr('aria-hidden', 'true')
       }
-
     }
 
     // Handle radio show/hide

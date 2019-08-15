@@ -179,5 +179,4 @@ class RejectSubstituteControllerSpec extends ControllerSpecBase with MockDataCac
       }
     }
   }
-
 }

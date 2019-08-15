@@ -32,5 +32,4 @@ object WorkerUsingIntermediaryMessages extends BaseMessages {
     val heading = "Are you trading through a limited company, partnership or unincorporated body?"
     val title = heading
   }
-
 }

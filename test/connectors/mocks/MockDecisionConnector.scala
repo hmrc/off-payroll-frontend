@@ -45,5 +45,4 @@ trait MockDecisionConnector extends MockFactory {
       .expects(decisionRequest, decisionResponse, *, *)
       .returns(Future.successful(response))
   }
-
 }

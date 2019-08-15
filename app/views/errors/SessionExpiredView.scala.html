@@ -32,6 +32,6 @@
     @components.heading("session.expired.heading")
 
     <div class="section">
-        <a href="@{controllers.routes.IndexController.onPageLoad.url}" class="button">@messages("session.expired.start_again")</a>
+        <a href="@{controllers.routes.StartAgainController.redirectToDisclaimer().url}" class="button">@messages("session.expired.start_again")</a>
     </div>
 }

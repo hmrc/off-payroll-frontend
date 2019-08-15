@@ -92,7 +92,7 @@ trait ResultViewFixture extends ViewBehaviours {
   lazy val testPdfResultDetails = PDFResultDetails(printMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 
   val answers = Seq(
-    AnswerSection(Some(Messages("checkYourAnswers.setup.header")), whyResult = None,
+    AnswerSection(Messages("checkYourAnswers.setup.header"), whyResult = None,
       Seq(
         (AnswerRow(
           label = "Q1",
@@ -102,7 +102,7 @@ trait ResultViewFixture extends ViewBehaviours {
       ),
       section = Section.setup
     ),
-    AnswerSection(Some(Messages("checkYourAnswers.exit.header")), whyResult = None,
+    AnswerSection(Messages("checkYourAnswers.exit.header"), whyResult = None,
       Seq(
         (AnswerRow(
           label = "Q2",
@@ -112,7 +112,7 @@ trait ResultViewFixture extends ViewBehaviours {
       ),
       section = Section.earlyExit
     ),
-    AnswerSection(Some(Messages("checkYourAnswers.personalService.header")), whyResult = None,
+    AnswerSection(Messages("checkYourAnswers.personalService.header"), whyResult = None,
       Seq(
         (AnswerRow(
           label = "Q3",
@@ -122,7 +122,7 @@ trait ResultViewFixture extends ViewBehaviours {
       ),
       section = Section.personalService
     ),
-    AnswerSection(Some(Messages("checkYourAnswers.control.header")), whyResult = None,
+    AnswerSection(Messages("checkYourAnswers.control.header"), whyResult = None,
       Seq(
         (AnswerRow(
           label = "Q4",
@@ -132,7 +132,7 @@ trait ResultViewFixture extends ViewBehaviours {
       ),
       section = Section.control
     ),
-    AnswerSection(Some(Messages("checkYourAnswers.financialRisk.header")), whyResult = None,
+    AnswerSection(Messages("checkYourAnswers.financialRisk.header"), whyResult = None,
       Seq(
         (AnswerRow(
           label = "Q5",
@@ -142,7 +142,7 @@ trait ResultViewFixture extends ViewBehaviours {
       ),
       section = Section.financialRisk
     ),
-    AnswerSection(Some(Messages("checkYourAnswers.partParcel.header")), whyResult = None,
+    AnswerSection(Messages("checkYourAnswers.partParcel.header"), whyResult = None,
       Seq(
         (AnswerRow(
           label = "Q6",

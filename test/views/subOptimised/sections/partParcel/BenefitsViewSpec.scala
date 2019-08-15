@@ -130,6 +130,4 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
       }
     }
   }
-
-
 }

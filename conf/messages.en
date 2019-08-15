@@ -60,6 +60,8 @@ site.govuk = GOV.UK
 site.hmrc = HM Revenue & Customs
 site.ir35email = ir35@hmrc.gov.uk
 site.employmentStatusManual = Employment Status Manual
+site.accordion.openAll = Open all
+site.accordion.closeAll = Close all
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -743,6 +745,7 @@ hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people
 hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
 hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
+hirer.optimised.howWorkIsDone.p1 = This would be the case if your organisation directs the worker in the way task should be completed - by instructing, guiding or advising.
 hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
 hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
@@ -752,6 +755,7 @@ hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and 
 worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
+worker.optimised.howWorkIsDone.p1 = This would be the case if your client directs you in the way the task should be completed - by instructing, guiding or advising.
 worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
@@ -1705,3 +1709,71 @@ hirer.majorityOfWorkingTime.heading = Will this work take up the majority of the
 hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of the worker’s available working time?
 hirer.majorityOfWorkingTime.subheading = Worker’s contracts
 hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
+
+### RightsOfWork Page
+### ---------------------------------
+rightsOfWork.error.required = You need to select an answer
+rightsOfWork.error.invalid = You need to select an answer
+
+worker.rightsOfWork.title = Does your agreed fee include all proprietary rights of this work?
+worker.rightsOfWork.heading = Does your agreed fee include all proprietary rights of this work?
+worker.rightsOfWork.checkYourAnswersLabel = Does your agreed fee include all proprietary rights of this work?
+worker.rightsOfWork.subheading = Worker’s contracts
+worker.rightsOfWork.p1 = Proprietary rights include all intellectual property, authorship, data and branding.
+worker.optimised.RightsOfWork.yes = Yes
+worker.optimised.RightsOfWork.no = No
+worker.optimised.RightsOfWork.notapplicable = Not applicable
+
+
+hirer.rightsOfWork.title = Does the worker’s agreed fee include all proprietary rights of this work?
+hirer.rightsOfWork.heading = Does the worker’s agreed fee include all proprietary rights of this work?
+hirer.rightsOfWork.checkYourAnswersLabel = Does the worker’s agreed fee include all proprietary rights of this work?
+hirer.rightsOfWork.subheading = Worker’s contracts
+hirer.rightsOfWork.p1 = Proprietary rights include all intellectual property, authorship, data and branding.
+hirer.optimised.RightsOfWork.yes = Yes
+hirer.optimised.RightsOfWork.no = No
+hirer.optimised.RightsOfWork.notapplicable = Not applicable
+
+### FirstContract Page
+### ---------------------------------
+firstContract.error.required = You need to select an answer
+
+worker.firstContract.title = Is the current contract the first in a series of contracts with this client?
+worker.firstContract.heading = Is the current contract the first in a series of contracts with this client?
+worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with this client?
+worker.firstContract.subheading = Worker’s contracts
+
+hirer.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
+hirer.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
+hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
+hirer.firstContract.subheading = Worker’s contracts
+
+### ExtendContract Page
+### ---------------------------------
+extendContract.error.required = You need to select an answer
+
+worker.extendContract.title = Does the current contract allow for it to be extended?
+worker.extendContract.heading = Does the current contract allow for it to be extended?
+worker.extendContract.subheading = Worker’s contracts
+worker.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+
+hirer.extendContract.title = Does the current contract allow for it to be extended?
+hirer.extendContract.heading = Does the current contract allow for it to be extended?
+hirer.extendContract.subheading = Worker’s contracts
+hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+
+#### Financially Dependent Page - BoOA
+#### ------------------------------
+financiallyDependent.error.required = You need to select an answer
+
+worker.financiallyDependent.subheading = Worker’s contracts
+worker.financiallyDependent.title = If you lost this contract, would you need to replace the income from it immediately?
+worker.financiallyDependent.heading = If you lost this contract, would you need to replace the income from it immediately?
+worker.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
+worker.financiallyDependent.p1 = Regular income is earnings of a similar amount, paid with the same frequency and on an ongoing basis.
+
+hirer.financiallyDependent.subheading = Worker’s contracts
+hirer.financiallyDependent.title = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.heading = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.p1 = If the worker has separate earnings, their need to find other work may not be so urgent.

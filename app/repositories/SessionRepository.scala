@@ -94,5 +94,4 @@ class SessionRepository @Inject()(mongoComponent: ReactiveMongoComponent, appCon
       case ex: Exception => Logger.error("[DecisionConnector][get]",ex)
         Future.successful(None)
     }
-
-}
+  }

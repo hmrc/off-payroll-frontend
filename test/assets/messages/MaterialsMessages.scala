@@ -31,5 +31,4 @@ object MaterialsMessages extends BaseMessages {
     val p1 = "This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included."
     val p2 = "This question is most likely to be relevant to the construction industry."
   }
-
 }

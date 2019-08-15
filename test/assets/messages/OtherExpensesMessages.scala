@@ -29,5 +29,4 @@ object OtherExpensesMessages extends BaseMessages {
     val heading = title
     val p1 = "This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only."
   }
-
 }

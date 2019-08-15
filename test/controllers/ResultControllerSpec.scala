@@ -56,12 +56,12 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
   val postAction = routes.ResultController.onSubmit()
 
   val answers = Seq(
-    AnswerSection(Some(Messages("result.peopleInvolved.h2")), None, Seq(), section = Section.setup),
-    AnswerSection(Some(Messages("result.workersDuties.h2")), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq(), section = Section.earlyExit),
-    AnswerSection(Some(Messages("result.substitutesHelpers.h2")), whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))), Seq(), section = Section.personalService),
-    AnswerSection(Some(Messages("result.workArrangements.h2")), whyResult = Some(Html(messages("result.workArrangements.summary"))), Seq(), section = Section.control),
-    AnswerSection(Some(Messages("result.financialRisk.h2")), whyResult = Some(Html(messages("result.financialRisk.summary"))), Seq(), section = Section.financialRisk),
-    AnswerSection(Some(Messages("result.partAndParcel.h2")), whyResult = Some(Html(messages("result.partParcel.summary"))), Seq(), section = Section.partAndParcel)
+    AnswerSection(Messages("result.peopleInvolved.h2"), None, Seq(), section = Section.setup),
+    AnswerSection(Messages("result.workersDuties.h2"), whyResult = Some(Html(messages("result.officeHolderInsideIR35.whyResult.p1"))), Seq(), section = Section.earlyExit),
+    AnswerSection(Messages("result.substitutesHelpers.h2"), whyResult = Some(Html(messages("result.substitutesAndHelpers.summary"))), Seq(), section = Section.personalService),
+    AnswerSection(Messages("result.workArrangements.h2"), whyResult = Some(Html(messages("result.workArrangements.summary"))), Seq(), section = Section.control),
+    AnswerSection(Messages("result.financialRisk.h2"), whyResult = Some(Html(messages("result.financialRisk.summary"))), Seq(), section = Section.financialRisk),
+    AnswerSection(Messages("result.partAndParcel.h2"), whyResult = Some(Html(messages("result.partParcel.summary"))), Seq(), section = Section.partAndParcel)
   )
 
   val version = "1.5.0-final"

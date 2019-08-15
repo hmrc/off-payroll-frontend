@@ -78,5 +78,4 @@ object ArrangedSubstituteMessages extends BaseMessages {
     val yesClientNotAgreed = "Yes - but the client did not agree"
     val no = "No - it has not happened"
   }
-
 }

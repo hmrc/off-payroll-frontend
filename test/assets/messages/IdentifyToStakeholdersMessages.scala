@@ -60,5 +60,4 @@ object IdentifyToStakeholdersMessages extends BaseMessages {
     val workAsIndependent = "They are an independent worker acting on behalf of the end client"
     val workAsBusiness = "They work for their own business"
   }
-
 }

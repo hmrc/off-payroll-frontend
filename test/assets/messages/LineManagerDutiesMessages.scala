@@ -58,5 +58,4 @@ object LineManagerDutiesMessages extends BaseMessages {
     val b3 = "Delivering appraisals"
     val b4 = "Deciding how much to pay someone"
   }
-
 }

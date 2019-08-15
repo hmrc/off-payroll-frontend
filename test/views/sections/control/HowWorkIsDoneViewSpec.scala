@@ -66,6 +66,10 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.OptimisedWorker.heading
       }
 
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.yesClientDecides
         document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.noWorkerDecides
@@ -87,6 +91,10 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.OptimisedHirer.heading
       }
 
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.yesClientDecides
         document.select(Selectors.multichoice(2)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.noWorkerDecides
@@ -106,6 +114,10 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe HowWorkIsDoneMessages.OptimisedWorker.heading
+      }
+
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p1
       }
 
       "have the correct radio option messages" in {

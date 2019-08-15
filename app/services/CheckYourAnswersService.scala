@@ -34,7 +34,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
     Seq(
       AnswerSection(
         section = Section.setup,
-        headingKey = Some("checkYourAnswers.setup.header"),
+        headingKey = "checkYourAnswers.setup.header",
         rows = Seq(
           checkYourAnswersHelper.aboutYouOptimised.map(_ -> None), checkYourAnswersHelper.workerTypeOptimised.map(_ -> None),
           checkYourAnswersHelper.isWorkForPrivateSector.map(_ -> None), checkYourAnswersHelper.turnoverOver.map(_ -> None),
@@ -44,12 +44,12 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
       ),
       AnswerSection(
         section = Section.earlyExit,
-        headingKey = Some("checkYourAnswers.exit.header"),
+        headingKey = "checkYourAnswers.exit.header",
         rows = Seq(checkYourAnswersHelper.officeHolder.map(_ -> None)).flatten
       ),
       AnswerSection(
         section = Section.personalService,
-        headingKey = Some("checkYourAnswers.personalService.header"),
+        headingKey = "checkYourAnswers.personalService.header",
         rows = Seq(
           checkYourAnswersHelper.arrangedSubstitute.map(_ -> None), checkYourAnswersHelper.didPaySubstitute.map(_ -> None),
           checkYourAnswersHelper.rejectSubstitute.map(_ -> None), checkYourAnswersHelper.wouldWorkerPaySubstitute.map(_ -> None),
@@ -58,7 +58,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
       ),
       AnswerSection(
         section = Section.control,
-        headingKey = Some("checkYourAnswers.control.header"),
+        headingKey = "checkYourAnswers.control.header",
         rows = Seq(
           checkYourAnswersHelper.moveWorker.map(_ -> None), checkYourAnswersHelper.howWorkIsDone.map(_ -> None),
           checkYourAnswersHelper.scheduleOfWorkingHours.map(_ -> None), checkYourAnswersHelper.chooseWhereWork.map(_ -> None)
@@ -66,7 +66,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
       ),
       AnswerSection(
         section = Section.financialRisk,
-        headingKey = Some("checkYourAnswers.financialRisk.header"),
+        headingKey = "checkYourAnswers.financialRisk.header",
         rows = Seq(
           checkYourAnswersHelper.equipmentExpenses.map(_ -> None), checkYourAnswersHelper.vehicleExpenses.map(_ -> None),
           checkYourAnswersHelper.materialsExpenses.map(_ -> None), checkYourAnswersHelper.otherExpenses.map(_ -> None),
@@ -75,7 +75,7 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
       ),
       AnswerSection(
         section = Section.partAndParcel,
-        headingKey = Some("checkYourAnswers.partParcel.header"),
+        headingKey = "checkYourAnswers.partParcel.header",
         rows = Seq(
           checkYourAnswersHelper.benefits.map(_ -> None), checkYourAnswersHelper.lineManagerDuties.map(_ -> None),
           checkYourAnswersHelper.identifyToStakeholders.map(_ -> None)

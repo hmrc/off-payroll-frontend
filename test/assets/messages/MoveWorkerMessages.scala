@@ -62,5 +62,4 @@ object MoveWorkerMessages extends BaseMessages {
     val yesWithoutAgreement = "Yes - without the worker’s agreement (if the worker does not want to change, the end client might end the engagement)"
     val no = "No - that would need to be arranged under a new contract or formal agreement"
   }
-
 }

@@ -117,4 +117,9 @@ trait ModelGenerators {
     Arbitrary {
       Gen.oneOf(MultipleEngagements.values)
     }
+
+  implicit lazy val arbitraryRightsOFWork: Arbitrary[RightsOfWork] =
+    Arbitrary {
+      Gen.oneOf(RightsOfWork.values)
+    }
 }

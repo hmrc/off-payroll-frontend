@@ -62,5 +62,4 @@ object ChooseWhereWorkMessages extends BaseMessages {
     val noTaskDeterminate = "No, the task sets the location"
     val partly = "No, some work has to be done in an agreed location and some can be the worker’s choice"
   }
-
 }
