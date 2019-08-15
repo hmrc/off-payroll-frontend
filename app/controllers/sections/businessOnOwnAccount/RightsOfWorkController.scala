@@ -22,7 +22,7 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.RightsOfWorkFormProvider
 import javax.inject.Inject
-import models.{Mode, RightsOfWork}
+import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
 import pages.RightsOfWorkPage
 import play.api.data.Form
@@ -45,7 +45,7 @@ class RightsOfWorkController @Inject()(dataCacheConnector: DataCacheConnector,
                                        implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
 controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
-  val form: Form[RightsOfWork] = formProvider()
+  val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(RightsOfWorkPage, form), mode))

@@ -19,23 +19,16 @@ package assets.messages
 object RightsOfWorkMessages extends BaseMessages {
 
   object Worker {
-    val title = "Does your agreed fee include all proprietary rights of this work?"
-    val heading = "Does your agreed fee include all proprietary rights of this work?"
+    val title = "Are you required to transfer all ownership rights of this work as part of the contract?"
+    val heading = "Are you required to transfer all ownership rights of this work as part of the contract?"
     val subheading = "Worker’s contracts"
-    val p1 = "Proprietary rights include all intellectual property, authorship, data and branding."
-    val yes = "Yes"
-    val no = "No"
-    val notapplicable = "Not applicable"
+    val p1 = "This does not include the option to buy the rights for a separate fee."
   }
 
   object Hirer {
-    val title = "Does the worker’s agreed fee include all proprietary rights of this work?"
-    val heading = "Does the worker’s agreed fee include all proprietary rights of this work?"
+    val title = "Is the worker required to transfer all ownership rights of this work as part of the contract?"
+    val heading = "Is the worker required to transfer all ownership rights of this work as part of the contract?"
     val subheading = "Worker’s contracts"
-    val p1 = "Proprietary rights include all intellectual property, authorship, data and branding."
-    val yes = "Yes"
-    val no = "No"
-    val notapplicable = "Not applicable"
+    val p1 = "This does not include the option to buy the rights for a separate fee."
   }
-
 }

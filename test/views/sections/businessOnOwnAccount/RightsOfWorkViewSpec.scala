@@ -16,15 +16,14 @@
 
 package views.sections.businessOnOwnAccount
 
-import assets.messages.{RightsOfWorkMessages, SubHeadingMessages}
-import controllers.sections.businessOnOwnAccount.routes
+import assets.messages.RightsOfWorkMessages
+import config.featureSwitch.OptimisedFlow
 import forms.RightsOfWorkFormProvider
-import models.{NormalMode, RightsOfWork}
+import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.businessOnOwnAccount.RightsOfWorkView
-import config.featureSwitch.OptimisedFlow
 
 
 
@@ -71,9 +70,8 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.Worker.yes
-        document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.Worker.no
-        document.select(Selectors.multichoice(3)).text mustBe RightsOfWorkMessages.Worker.notapplicable
+        document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.no
       }
     }
 
@@ -94,9 +92,8 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.Hirer.yes
-        document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.Hirer.no
-        document.select(Selectors.multichoice(3)).text mustBe RightsOfWorkMessages.Hirer.notapplicable
+        document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.no
       }
     }
 
@@ -117,9 +114,8 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
       }
 
       "have the correct radio option messages" in {
-        document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.Worker.yes
-        document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.Worker.no
-        document.select(Selectors.multichoice(3)).text mustBe RightsOfWorkMessages.Worker.notapplicable
+        document.select(Selectors.multichoice(1)).text mustBe RightsOfWorkMessages.yes
+        document.select(Selectors.multichoice(2)).text mustBe RightsOfWorkMessages.no
       }
     }
   }

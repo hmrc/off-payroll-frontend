@@ -1785,24 +1785,17 @@ hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time nec
 rightsOfWork.error.required = You need to select an answer
 rightsOfWork.error.invalid = You need to select an answer
 
-worker.rightsOfWork.title = Does your agreed fee include all proprietary rights of this work?
-worker.rightsOfWork.heading = Does your agreed fee include all proprietary rights of this work?
-worker.rightsOfWork.checkYourAnswersLabel = Does your agreed fee include all proprietary rights of this work?
+worker.rightsOfWork.title = Are you required to transfer all ownership rights of this work as part of the contract?
+worker.rightsOfWork.heading = Are you required to transfer all ownership rights of this work as part of the contract?
+worker.rightsOfWork.checkYourAnswersLabel = Are you required to transfer all ownership rights of this work as part of the contract?
 worker.rightsOfWork.subheading = Worker’s contracts
-worker.rightsOfWork.p1 = Proprietary rights include all intellectual property, authorship, data and branding.
-worker.optimised.RightsOfWork.yes = Yes
-worker.optimised.RightsOfWork.no = No
-worker.optimised.RightsOfWork.notapplicable = Not applicable
+worker.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
 
-
-hirer.rightsOfWork.title = Does the worker’s agreed fee include all proprietary rights of this work?
-hirer.rightsOfWork.heading = Does the worker’s agreed fee include all proprietary rights of this work?
-hirer.rightsOfWork.checkYourAnswersLabel = Does the worker’s agreed fee include all proprietary rights of this work?
+hirer.rightsOfWork.title = Is the worker required to transfer all ownership rights of this work as part of the contract?
+hirer.rightsOfWork.heading = Is the worker required to transfer all ownership rights of this work as part of the contract?
+hirer.rightsOfWork.checkYourAnswersLabel = Is the worker required to transfer all ownership rights of this work as part of the contract?
 hirer.rightsOfWork.subheading = Worker’s contracts
-hirer.rightsOfWork.p1 = Proprietary rights include all intellectual property, authorship, data and branding.
-hirer.optimised.RightsOfWork.yes = Yes
-hirer.optimised.RightsOfWork.no = No
-hirer.optimised.RightsOfWork.notapplicable = Not applicable
+hirer.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
 
 ### FirstContract Page
 ### ---------------------------------

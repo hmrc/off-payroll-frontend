@@ -17,7 +17,6 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import controllers.sections.businessOnOwnAccount.routes._
-@import models.RightsOfWork
 @import models.Mode
 @import views.ViewUtils._
 
@@ -37,16 +36,12 @@
         @components.error_summary(form.errors)
 
 
-        @components.input_radio(
+        @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsg("rightsOfWork.heading"), Some(tailorMsg("rightsOfWork.subheading")), asLegend = true),
-            legendClass = Some("visually-hidden"),
             otherContent = Some(p1),
-            inputs = RightsOfWork.options
-
+            labelClass = Some("visually-hidden")
         )
-
-
 
         @components.submit_button()
     }
