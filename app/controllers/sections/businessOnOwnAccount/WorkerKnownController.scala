@@ -20,41 +20,41 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.ExtendContractFormProvider
+import forms.WorkerKnownFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
-import pages.sections.businessOnOwnAccount.ExtendContractPage
+import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}
-import views.html.sections.businessOnOwnAccount.ExtendContractView
+import views.html.sections.businessOnOwnAccount.WorkerKnownView
 
 import scala.concurrent.Future
 
-class ExtendContractController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: BusinessOnOwnAccountNavigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: ExtendContractFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         compareAnswerService: CompareAnswerService,
-                                         decisionService: DecisionService,
-                                         view: ExtendContractView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
+class WorkerKnownController @Inject()(dataCacheConnector: DataCacheConnector,
+                                      navigator: BusinessOnOwnAccountNavigator,
+                                      identify: IdentifierAction,
+                                      getData: DataRetrievalAction,
+                                      requireData: DataRequiredAction,
+                                      formProvider: WorkerKnownFormProvider,
+                                      controllerComponents: MessagesControllerComponents,
+                                      compareAnswerService: CompareAnswerService,
+                                      decisionService: DecisionService,
+                                      view: WorkerKnownView,
+                                      implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
 controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
 
   val form: Form[Boolean] = formProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ExtendContractPage, form), mode))
+    Ok(view(fillForm(WorkerKnownPage, form), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-      value => redirect(mode, value, ExtendContractPage)
+      value => redirect(mode, value, WorkerKnownPage)
     )
   }
 }

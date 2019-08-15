@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-package pages
+package forms
 
-case object ExtendContractPage extends QuestionPage[Boolean] {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  override def toString: String = "extendContract"
+class WorkerKnownFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("workerKnown.error.required")
+    )
 }

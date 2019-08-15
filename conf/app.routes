@@ -252,3 +252,8 @@ GET        /financially-dependent                       controllers.sections.bus
 POST       /financially-dependent                       controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onSubmit(mode: Mode = NormalMode)
 GET        /financially-dependent/change                controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onPageLoad(mode: Mode = CheckMode)
 POST       /financially-dependent/change                controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onSubmit(mode: Mode = CheckMode)
+
+GET        /worker-known                                controllers.sections.businessOnOwnAccount.WorkerKnownController.onPageLoad(mode: Mode = NormalMode)
+POST       /worker-known                                controllers.sections.businessOnOwnAccount.WorkerKnownController.onSubmit(mode: Mode = NormalMode)
+GET        /worker-known/change                         controllers.sections.businessOnOwnAccount.WorkerKnownController.onPageLoad(mode: Mode = CheckMode)
+POST       /worker-known/change                         controllers.sections.businessOnOwnAccount.WorkerKnownController.onSubmit(mode: Mode = CheckMode)
