@@ -1536,6 +1536,8 @@ addDetails.job=Contract or role title
 addDetails.reference=Other reference details
 addDetails.charLimit =180 characters maximum
 addDetails.fileName = File name
+addDetails.optional = optional
+addDetails.optional.all = These details are optional
 
 finishedChecking.title = You have finished checking this work
 finishedChecking.heading = You have finished checking this work
