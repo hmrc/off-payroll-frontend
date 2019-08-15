@@ -42,14 +42,6 @@ import play.api.mvc.Call
 @Singleton
 class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
-  private val isWorker: UserAnswers => Boolean = _.getAnswer(WhichDescribesYouPage) match {
-    case Some(WorkerPAYE) => true
-    case Some(WorkerIR35) => true
-    case Some(ClientPAYE) => false
-    case Some(ClientIR35) => false
-    case _ => true
-  }
-
   private def isSmallBusiness(answers: UserAnswers): Boolean =
     (answers.getAnswer(TurnoverOverPage), answers.getAnswer(EmployeesOverPage), answers.getAnswer(BalanceSheetOverPage)) match {
       case (Some(false), Some(false), _) => true

@@ -39,7 +39,8 @@ import pages.{CustomisePDFPage, _}
 import play.api.mvc.Call
 
 @Singleton
-class PartAndParcelNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
+class PartAndParcelNavigator @Inject()(businessOnOwnAccountNavigator: BusinessOnOwnAccountNavigator,
+                                        implicit val appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
     BenefitsPage -> (_ => partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode)),
@@ -52,12 +53,13 @@ class PartAndParcelNavigator @Inject()(implicit appConfig: FrontendAppConfig) ex
     InteractWithStakeholdersPage -> { answer =>
       answer.getAnswer(InteractWithStakeholdersPage) match {
         case Some(true) => partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
-        case _ => nextSection
+        case _ => nextSection(answer)
       }},
-    IdentifyToStakeholdersPage -> (_ => nextSection)
+    IdentifyToStakeholdersPage -> (answers => nextSection(answers))
   )
 
-  private def nextSection = if (isEnabled(OptimisedFlow)) CheckYourAnswersController.onPageLoad() else ResultController.onPageLoad()
+  private def nextSection(userAnswers: UserAnswers) =
+    if (isEnabled(OptimisedFlow)) businessOnOwnAccountNavigator.startPage(userAnswers) else ResultController.onPageLoad()
 
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
     case NormalMode => routeMap.getOrElse(page, _ => IndexController.onPageLoad())
