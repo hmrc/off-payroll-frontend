@@ -1,7 +1,9 @@
 package controllers
 
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import models._
 import play.api.http.Status
+import play.api.libs.json.Json
 import play.api.libs.ws.WSCookie
 
 class OfficeHolderControllerISpec extends IntegrationSpecBase {
@@ -13,8 +15,8 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/office-holder-duties")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
-        result.body should include ("Will you be an ‘Office Holder’?")
+        result.status shouldBe OK
+        result.body should include("Will you be an ‘Office Holder’?")
       }
     }
 
@@ -39,6 +41,18 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
     }
 
     "Return a 200 on Successful post and move onto next page" in {
+
+      val response = Json.toJson(DecisionResponse(
+        "1.6.0",
+        "id",
+        Score(
+          setup = Some(SetupEnum.CONTINUE),
+          exit = Some(ExitEnum.CONTINUE)
+        ),
+        result = ResultEnum.NOT_MATCHED
+      ))
+
+      stubPost("/cest-decision/decide", Status.OK, response.toString)
 
       lazy val res = postSessionRequest("/office-holder-duties", selectedNo)
 
@@ -82,6 +96,18 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
     }
 
     "Return a 409 on Successful post as answers not complete" in {
+
+      val response = Json.toJson(DecisionResponse(
+        "1.6.0",
+        "id",
+        Score(
+          setup = Some(SetupEnum.CONTINUE),
+          exit = Some(ExitEnum.CONTINUE)
+        ),
+        result = ResultEnum.NOT_MATCHED
+      ))
+
+      stubPost("/cest-decision/decide", Status.OK, response.toString)
 
       lazy val res = postSessionRequest("/office-holder-duties/change", selectedNo)
 
