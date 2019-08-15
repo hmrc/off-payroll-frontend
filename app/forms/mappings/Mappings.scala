@@ -31,7 +31,7 @@ trait Mappings extends Formatters with Constraints {
     of(intFormatter(requiredKey, wholeNumberKey, nonNumericKey))
 
   protected def boolean(requiredKey: String = "error.required",
-                        invalidKey: String = "error.boolean"): FieldMapping[Boolean] =
+                        invalidKey: String = "error.required"): FieldMapping[Boolean] =
     of(booleanFormatter(requiredKey, invalidKey))
 
 

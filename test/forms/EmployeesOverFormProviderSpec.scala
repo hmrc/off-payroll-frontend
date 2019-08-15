@@ -22,7 +22,7 @@ import play.api.data.FormError
 class EmployeesOverFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "employeesOver.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new EmployeesOverFormProvider()()
 

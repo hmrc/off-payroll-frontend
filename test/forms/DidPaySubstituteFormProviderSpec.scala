@@ -22,7 +22,7 @@ import play.api.data.FormError
 class DidPaySubstituteFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "didPaySubstitute.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new DidPaySubstituteFormProvider()()
 

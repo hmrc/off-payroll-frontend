@@ -22,7 +22,7 @@ import play.api.data.FormError
 class VehicleFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "vehicle.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new VehicleFormProvider()()
 

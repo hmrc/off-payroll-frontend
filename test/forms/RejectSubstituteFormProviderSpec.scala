@@ -26,7 +26,7 @@ import play.api.data.FormError
 class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with MockFactory with FeatureSwitching {
 
   val requiredKey = "rejectSubstitute.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
   val mockConfig = mock[FrontendAppConfig]
 
   val form = new RejectSubstituteFormProvider()(mockConfig)()

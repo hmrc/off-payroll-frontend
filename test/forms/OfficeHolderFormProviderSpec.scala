@@ -22,7 +22,7 @@ import play.api.data.FormError
 class OfficeHolderFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "officeHolder.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new OfficeHolderFormProvider()()
 

@@ -92,7 +92,7 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
 
     "not bind a non-boolean" in {
       val result = testForm.bind(Map("value" -> "not a boolean"))
-      result.errors must contain(FormError("value", "error.boolean"))
+      result.errors must contain(FormError("value", "error.required"))
     }
 
     "not bind an empty value" in {
