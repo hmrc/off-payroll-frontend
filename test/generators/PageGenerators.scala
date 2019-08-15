@@ -28,6 +28,9 @@ import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
 
 trait PageGenerators {
 
+  implicit lazy val arbitrarySimilarWorkOtherClientsPage: Arbitrary[SimilarWorkOtherClientsPage.type] =
+    Arbitrary(SimilarWorkOtherClientsPage)
+
   implicit lazy val arbitraryOwnershipRightsPage: Arbitrary[OwnershipRightsPage.type] =
     Arbitrary(OwnershipRightsPage)
 
