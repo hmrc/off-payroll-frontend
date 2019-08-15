@@ -20,29 +20,29 @@ import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, FakeIdentifierAction, _}
-import forms.RightsOfWorkFormProvider
+import forms.OwnershipRightsFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import pages.RightsOfWorkPage
+import pages.sections.businessOnOwnAccount.OwnershipRightsPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.businessOnOwnAccount.RightsOfWorkView
+import views.html.sections.businessOnOwnAccount.OwnershipRightsView
 
-class RightsOfWorkControllerSpec extends ControllerSpecBase {
+class OwnershipRightsControllerSpec extends ControllerSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     enable(OptimisedFlow)
   }
 
-  val formProvider = new RightsOfWorkFormProvider()
+  val formProvider = new OwnershipRightsFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[RightsOfWorkView]
+  val view = injector.instanceOf[OwnershipRightsView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new RightsOfWorkController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new OwnershipRightsController(
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = FakeBusinessOnOwnAccountNavigator,
     identify = FakeIdentifierAction,
@@ -58,7 +58,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  "RightsOfWorkController" must {
+  "OwnershipRightsController" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
@@ -68,7 +68,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(RightsOfWorkPage.toString -> Json.toJson(Answers(true, 0)))
+      val validData = Map(OwnershipRightsPage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -78,10 +78,10 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val validData = Map(RightsOfWorkPage.toString -> Json.toJson(Answers(true, 0)))
+      val validData = Map(OwnershipRightsPage.toString -> Json.toJson(Answers(true,0)))
 
-      val answers = userAnswers.set(RightsOfWorkPage,0, true)
-      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers), true)(answers)
+      val answers = userAnswers.set(OwnershipRightsPage,0,true)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 

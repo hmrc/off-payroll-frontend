@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package pages
+package pages.sections.businessOnOwnAccount
 
-case object RightsOfWorkPage extends QuestionPage[Boolean] {
+import pages.QuestionPage
 
-  override def toString: String = "rightsOfWork"
+case object OwnershipRightsPage extends QuestionPage[Boolean] {
+
+  override def toString: String = "ownershipRights"
 }

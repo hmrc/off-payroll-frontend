@@ -16,19 +16,19 @@
 
 package assets.messages
 
-object RightsOfWorkMessages extends BaseMessages {
+object OwnershipRightsMessages extends BaseMessages {
 
   object Worker {
-    val title = "Are you required to transfer all ownership rights of this work as part of the contract?"
-    val heading = "Are you required to transfer all ownership rights of this work as part of the contract?"
     val subheading = "Worker’s contracts"
-    val p1 = "This does not include the option to buy the rights for a separate fee."
+    val title = "Are there any ownership rights relating to this work?"
+    val heading = "Are there any ownership rights relating to this work?"
+    val p1 = "These rights include copyright, trademarks, patents and other intellectual property rights."
   }
 
   object Hirer {
-    val title = "Is the worker required to transfer all ownership rights of this work as part of the contract?"
-    val heading = "Is the worker required to transfer all ownership rights of this work as part of the contract?"
     val subheading = "Worker’s contracts"
-    val p1 = "This does not include the option to buy the rights for a separate fee."
+    val title = "Are there any ownership rights relating to this work?"
+    val heading = "Are there any ownership rights relating to this work?"
+    val p1 = "These rights include copyright, trademarks, patents and other intellectual property rights."
   }
 }

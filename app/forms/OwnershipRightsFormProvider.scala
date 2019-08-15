@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-package pages
+package forms
 
-case object RightsOfWorkPage extends QuestionPage[Boolean] {
+import forms.mappings.Mappings
+import javax.inject.Inject
+import play.api.data.Form
 
-  override def toString: String = "rightsOfWork"
+class OwnershipRightsFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("ownershipRights.error.required")
+    )
 }

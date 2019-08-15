@@ -25,28 +25,27 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsg("rightsOfWork.title"), Some(tailorMsg("rightsOfWork.subheading"))),
+    title = title(form, tailorMsg("ownershipRights.title"), Some(tailorMsg("ownershipRights.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
     @components.back_link()(mode)
 
-    @formWithCsrf(action = RightsOfWorkController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = OwnershipRightsController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-
         @components.input_yes_no(
             field = form("value"),
-            legend = components.heading(tailorMsg("rightsOfWork.heading"), Some(tailorMsg("rightsOfWork.subheading")), asLegend = true),
-            otherContent = Some(p1),
-            labelClass = Some("visually-hidden")
+            legend = components.heading(tailorMsg("ownershipRights.heading"), Some(tailorMsg("ownershipRights.subheading")), asLegend = true),
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(content)
         )
 
         @components.submit_button()
     }
 }
 
-@p1 = {
-    <p>@messages(tailorMsg("rightsOfWork.p1"))</p>
+@content = {
+    <p>@messages(tailorMsg("ownershipRights.p1"))</p>
 }

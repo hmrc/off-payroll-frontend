@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
-package pages
+package pages.businessOnOwnAccount
 
-case object RightsOfWorkPage extends QuestionPage[Boolean] {
+import pages.behaviours.PageBehaviours
+import pages.sections.businessOnOwnAccount.OwnershipRightsPage
 
-  override def toString: String = "rightsOfWork"
+class OwnershipRightsPageSpec extends PageBehaviours {
+
+  "OwnershipRightsPage" must {
+
+    beRetrievable[Boolean](OwnershipRightsPage)
+
+    beSettable[Boolean](OwnershipRightsPage)
+
+    beRemovable[Boolean](OwnershipRightsPage)
+  }
 }

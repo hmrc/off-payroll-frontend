@@ -14,9 +14,32 @@
  * limitations under the License.
  */
 
-package pages
+package forms
 
-case object RightsOfWorkPage extends QuestionPage[Boolean] {
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-  override def toString: String = "rightsOfWork"
+class OwnershipRightsFormProviderSpec extends BooleanFieldBehaviours {
+
+  val requiredKey = "ownershipRights.error.required"
+  val invalidKey = "error.required"
+
+  val form = new OwnershipRightsFormProvider()()
+
+  ".value" must {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }
