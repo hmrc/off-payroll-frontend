@@ -21,12 +21,18 @@
         hint: Option[String] = None,
         labelClass: Option[String] = None,
         maxLength: Option[Int] = Some(101),
-        autocomplete: Option[String] = Some("on")
+        autocomplete: Option[String] = Some("on"),
+        contextualLabelPostfix: Option[String] = None
 )(implicit messages: Messages)
 
 <div class="form-group @if(field.hasErrors){form-group-error}">
     <label class="form-label" for="@{field.id}">
-        <span class="@if(labelClass.nonEmpty){@labelClass}">@label</span>
+        <span class="@if(labelClass.nonEmpty){@labelClass}">
+            @label
+            @contextualLabelPostfix.map { postfix =>
+                <span class="visuallyhidden">@postfix</span>
+            }
+        </span>
         @if(hint.nonEmpty){
             <span class="form-hint">@hint</span>
         }
