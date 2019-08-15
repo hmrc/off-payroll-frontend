@@ -22,9 +22,11 @@ import controllers.routes._
 import javax.inject.{Inject, Singleton}
 import models._
 import pages._
-import pages.sections.businessOnOwnAccount.FirstContractPage
+import pages.sections.businessOnOwnAccount.{FinanciallyDependentPage, FirstContractPage}
 import play.api.mvc.Call
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
+import controllers.routes
+import pages.sections.businessOnOwnAccount
 
 
 @Singleton
@@ -32,11 +34,9 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
 
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
 
-    FirstContractPage -> (_ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)), //todo one of these are the wrong page
-
     MultipleContractsPage -> (answer =>
       answer.getAnswer(MultipleContractsPage) match {
-        case Some(true) => booaRoutes.PermissionToWorkWithOthersController.onPageLoad(NormalMode)
+        case Some(false) => booaRoutes.PermissionToWorkWithOthersController.onPageLoad(NormalMode)
         case _ => booaRoutes.RightsOfWorkController.onPageLoad(NormalMode)
       }
     ),
@@ -44,12 +44,41 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
     PermissionToWorkWithOthersPage -> (_ => booaRoutes.RightsOfWorkController.onPageLoad(NormalMode)),
 
     RightsOfWorkPage -> (answer =>
-      (answer.getAnswer(RightsOfWorkPage), answer.getAnswer(FirstContractPage)) match {
-        case (Some(RightsOfWork.No), _) => booaRoutes.TransferOfRightsController.onPageLoad(NormalMode)
-        case (_, Some(false)) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
-        case (_, Some(true)) => booaRoutes.FirstContractController.onPageLoad(NormalMode)  //todo one of these are the wrong page
+      answer.getAnswer(RightsOfWorkPage) match {
+        case Some(RightsOfWork.No) => booaRoutes.TransferOfRightsController.onPageLoad(NormalMode)
+        case Some(RightsOfWork.Yes) => booaRoutes.FirstContractController.onPageLoad(NormalMode)
+        //todo case Some(RightsOfWork.NotApplicable =>
       }
-    )
+    ),
+
+    TransferOfRightsPage -> (_ => booaRoutes.FirstContractController.onPageLoad(NormalMode)),
+
+    PreviousContractPage -> (answer =>
+      answer.getAnswer(PreviousContractPage) match {
+        case Some(true) => booaRoutes.FollowOnContractController.onPageLoad(NormalMode)
+        case _ => booaRoutes.FirstContractController.onPageLoad(NormalMode)
+      }
+    ),
+
+    FollowOnContractPage -> (answer =>
+      answer.getAnswer(FollowOnContractPage) match {
+        case Some(false) => booaRoutes.ExtendContractController.onPageLoad(NormalMode)
+        case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(NormalMode)
+      }
+    ),
+
+    FirstContractPage -> (answer =>
+      answer.getAnswer(FirstContractPage) match {
+        case Some(false) => booaRoutes.ExtendContractController.onPageLoad(NormalMode)
+        case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(NormalMode)
+      }
+    ),
+
+    ExtendContractPage -> (_ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(NormalMode)),
+
+    MajorityOfWorkingTimePage -> (_ => booaRoutes.FinanciallyDependentController.onPageLoad(NormalMode)),
+
+    FinanciallyDependentPage -> (_ => routes.CheckYourAnswersController.onPageLoad())
   )
 
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
