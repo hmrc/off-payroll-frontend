@@ -40,9 +40,14 @@
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("howWorkIsDone.heading"), Some(tailorMsgOptimised("howWorkIsDone.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
-            inputs = HowWorkIsDone.options(true)
+            inputs = HowWorkIsDone.options(true),
+            otherContent = Some(otherContent)
         )
 
         @components.submit_button()
     }
+}
+
+@otherContent = {
+    <p>@messages(tailorMsgOptimised("howWorkIsDone.p1"))</p>
 }
