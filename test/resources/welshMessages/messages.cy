@@ -1848,3 +1848,13 @@ hirer.financiallyDependent.title = If the worker lost this contract, would they 
 hirer.financiallyDependent.heading = If the worker lost this contract, would they need to replace the income from it immediately?
 hirer.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
 hirer.financiallyDependent.p1 = If the worker has separate earnings, their need to find other work may not be so urgent.
+
+###TODO: Need Welsh
+### Worker Known Page
+### --------------------------------
+workerKnown.error.required = You need to select an answer
+
+hirer.workerKnown.subheading = Worker’s contracts
+hirer.workerKnown.heading = Has your organisation identified who will be doing this work?
+hirer.workerKnown.title = Has your organisation identified who will be doing this work?
+hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who will be doing this work?

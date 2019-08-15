@@ -20,29 +20,29 @@ import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, FakeIdentifierAction, _}
-import forms.ExtendContractFormProvider
+import forms.WorkerKnownFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import pages.sections.businessOnOwnAccount.ExtendContractPage
+import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.sections.businessOnOwnAccount.ExtendContractView
+import views.html.sections.businessOnOwnAccount.WorkerKnownView
 
-class ExtendContractControllerSpec extends ControllerSpecBase {
+class WorkerKnownControllerSpec extends ControllerSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
     enable(OptimisedFlow)
   }
 
-  val formProvider = new ExtendContractFormProvider()
+  val formProvider = new WorkerKnownFormProvider()
   val form = formProvider()
 
-  val view = injector.instanceOf[ExtendContractView]
+  val view = injector.instanceOf[WorkerKnownView]
 
-  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new ExtendContractController(
+  def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) = new WorkerKnownController(
     dataCacheConnector = new FakeDataCacheConnector,
     navigator = FakeBusinessOnOwnAccountNavigator,
     identify = FakeIdentifierAction,
@@ -58,7 +58,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-  "ExtendContractController" must {
+  "WorkerKnownController" must {
 
     "return OK and the correct view for a GET" in {
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
@@ -68,7 +68,7 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ExtendContractPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(WorkerKnownPage.toString -> Json.toJson(Answers(true,0)))
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -78,9 +78,9 @@ class ExtendContractControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val validData = Map(ExtendContractPage.toString -> Json.toJson(Answers(true,0)))
+      val validData = Map(WorkerKnownPage.toString -> Json.toJson(Answers(true,0)))
 
-      val answers = userAnswers.set(ExtendContractPage,0,true)
+      val answers = userAnswers.set(WorkerKnownPage,0,true)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),Boolean)(answers)
 
       val result = controller().onSubmit(NormalMode)(postRequest)

@@ -14,18 +14,32 @@
  * limitations under the License.
  */
 
-package pages
+package forms
 
-import pages.behaviours.PageBehaviours
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-class ExtendContractPageSpec extends PageBehaviours {
+class WorkerKnownFormProviderSpec extends BooleanFieldBehaviours {
 
-  "ExtendContractPage" must {
+  val requiredKey = "workerKnown.error.required"
+  val invalidKey = "error.boolean"
 
-    beRetrievable[Boolean](ExtendContractPage)
+  val form = new WorkerKnownFormProvider()()
 
-    beSettable[Boolean](ExtendContractPage)
+  ".value" must {
 
-    beRemovable[Boolean](ExtendContractPage)
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
   }
 }
