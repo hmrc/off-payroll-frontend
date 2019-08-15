@@ -262,3 +262,8 @@ GET        /ownership-rights                            controllers.sections.bus
 POST       /ownership-rights                            controllers.sections.businessOnOwnAccount.OwnershipRightsController.onSubmit(mode: Mode = NormalMode)
 GET        /ownership-rights/change                     controllers.sections.businessOnOwnAccount.OwnershipRightsController.onPageLoad(mode: Mode = CheckMode)
 POST       /ownership-rights/change                     controllers.sections.businessOnOwnAccount.OwnershipRightsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /similar-work-other-clients                  controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onPageLoad(mode: Mode = NormalMode)
+POST       /similar-work-other-clients                  controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onSubmit(mode: Mode = NormalMode)
+GET        /similar-work-other-clients/change           controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onPageLoad(mode: Mode = CheckMode)
+POST       /similar-work-other-clients/change           controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onSubmit(mode: Mode = CheckMode)

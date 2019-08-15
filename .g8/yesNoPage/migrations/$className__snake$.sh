@@ -63,7 +63,7 @@ echo "worker.$className;format="decap"$.checkYourAnswersLabel = $workerHeading$"
 echo "" >> ../test/resources/welshMessages/messages.cy
 echo "hirer.$className;format="decap"$.title = $hirerTitle$" >> ../test/resources/welshMessages/messages.cy
 echo "hirer.$className;format="decap"$.heading = $hirerHeading$" >> ../test/resources/welshMessages/messages.cy
-echo "hirer.$className;format="decap"$.subheading = $hirerSubheading$" >>../test/resources/welshMessages/messages.cy ../conf/messages.cy
+echo "hirer.$className;format="decap"$.subheading = $hirerSubheading$" >> ../test/resources/welshMessages/messages.cy
 echo "hirer.$className;format="decap"$.checkYourAnswersLabel = $hirerHeading$" >> ../test/resources/welshMessages/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
