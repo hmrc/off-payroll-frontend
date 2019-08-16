@@ -18,15 +18,15 @@ echo "### FollowOnContract Page" >> ../conf/messages.en
 echo "### ---------------------------------" >> ../conf/messages.en
 echo "followOnContract.error.required = You need to select an answer" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
-echo "worker.followOnContract.title = Will you start this contract immediately after your last contract with this client ended?" >> ../conf/messages.en
-echo "worker.followOnContract.heading = Will you start this contract immediately after your last contract with this client ended?" >> ../conf/messages.en
+echo "worker.followOnContract.title = Will this contract start immediately after the previous one ended?" >> ../conf/messages.en
+echo "worker.followOnContract.heading = Will this contract start immediately after the previous one ended?" >> ../conf/messages.en
 echo "worker.followOnContract.subheading = Worker’s contracts" >> ../conf/messages.en
-echo "worker.followOnContract.checkYourAnswersLabel = Will you start this contract immediately after your last contract with this client ended?" >> ../conf/messages.en
+echo "worker.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
-echo "hirer.followOnContract.title = Will the worker start this contract immediately after their last contract with your organisation ended?" >> ../conf/messages.en
-echo "hirer.followOnContract.heading = Will the worker start this contract immediately after their last contract with your organisation ended?" >> ../conf/messages.en
+echo "hirer.followOnContract.title = Will this contract start immediately after the previous one ended?" >> ../conf/messages.en
+echo "hirer.followOnContract.heading = Will this contract start immediately after the previous one ended?" >> ../conf/messages.en
 echo "hirer.followOnContract.subheading = Worker’s contracts" >> ../conf/messages.en
-echo "hirer.followOnContract.checkYourAnswersLabel = Will the worker start this contract immediately after their last contract with your organisation ended?" >> ../conf/messages.en
+echo "hirer.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?" >> ../conf/messages.en
 
 
 echo "Adding Welsh messages to conf.messages"
@@ -36,15 +36,15 @@ echo "### FollowOnContract Page" >> ../conf/messages.cy
 echo "### ---------------------------------" >> ../conf/messages.cy
 echo "followOnContract.error.required = You need to select an answer" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
-echo "worker.followOnContract.title = Will you start this contract immediately after your last contract with this client ended?" >> ../conf/messages.cy
-echo "worker.followOnContract.heading = Will you start this contract immediately after your last contract with this client ended?" >> ../conf/messages.cy
+echo "worker.followOnContract.title = Will this contract start immediately after the previous one ended?" >> ../conf/messages.cy
+echo "worker.followOnContract.heading = Will this contract start immediately after the previous one ended?" >> ../conf/messages.cy
 echo "worker.followOnContract.subheading = Worker’s contracts" >> ../conf/messages.cy
-echo "worker.followOnContract.checkYourAnswersLabel = Will you start this contract immediately after your last contract with this client ended?" >> ../conf/messages.cy
+echo "worker.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
-echo "hirer.followOnContract.title = Will the worker start this contract immediately after their last contract with your organisation ended?" >> ../conf/messages.cy
-echo "hirer.followOnContract.heading = Will the worker start this contract immediately after their last contract with your organisation ended?" >> ../conf/messages.cy
+echo "hirer.followOnContract.title = Will this contract start immediately after the previous one ended?" >> ../conf/messages.cy
+echo "hirer.followOnContract.heading = Will this contract start immediately after the previous one ended?" >> ../conf/messages.cy
 echo "hirer.followOnContract.subheading = Worker’s contracts" >> ../conf/messages.cy
-echo "hirer.followOnContract.checkYourAnswersLabel = Will the worker start this contract immediately after their last contract with your organisation ended?" >> ../conf/messages.cy
+echo "hirer.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?" >> ../conf/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\
