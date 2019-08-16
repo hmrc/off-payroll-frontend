@@ -745,7 +745,7 @@ hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people
 hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
 hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
-hirer.optimised.howWorkIsDone.p1 = This would be the case if your organisation directs the worker in the way task should be completed - by instructing, guiding or advising.
+hirer.optimised.howWorkIsDone.p1 = This would be the case if your organisation directs the worker in the way task should be completed by instructing, guiding or advising.
 hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
 hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
@@ -755,7 +755,7 @@ hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and 
 worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
-worker.optimised.howWorkIsDone.p1 = This would be the case if your client directs you in the way the task should be completed - by instructing, guiding or advising.
+worker.optimised.howWorkIsDone.p1 = This would be the case if your client directs you in the way the task should be completed by instructing, guiding or advising.
 worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
@@ -1623,11 +1623,13 @@ worker.multipleContracts.subheading = Worker’s contracts
 worker.multipleContracts.title = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.heading = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.checkYourAnswersLabel = Does this contract stop you from doing similar work for other clients?
+worker.multipleContracts.p1 = This includes working for your client’s competitors.
 
 hirer.multipleContracts.subheading = Worker’s contracts
 hirer.multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
 hirer.multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
 hirer.multipleContracts.checkYourAnswersLabel = Does this contract stop the worker from doing similar work for other organisations?
+hirer.multipleContracts.p1 = This includes working for your competitors.
 
 
 #### Transfer of Rights Page - BoOA
@@ -1635,10 +1637,10 @@ hirer.multipleContracts.checkYourAnswersLabel = Does this contract stop the work
 transferOfRights.error.required = You need to select an answer
 
 worker.transferOfRights.subheading = Worker’s contracts
-worker.transferOfRights.title = Does the contract give the client the option to buy the rights for a separate fee?
-worker.transferOfRights.heading = Does the contract give the client the option to buy the rights for a separate fee?
-worker.transferOfRights.checkYourAnswersLabel = Does the contract give the client the option to buy the rights for a separate fee?
-worker.transferOfRights.p1 = If no such clause or requirement exists, you would keep all the rights.
+worker.transferOfRights.title = Does your client have the option to buy the rights for a separate fee?
+worker.transferOfRights.heading = Does your client have the option to buy the rights for a separate fee?
+worker.transferOfRights.checkYourAnswersLabel = Does your client have the option to buy the rights for a separate fee?
+worker.transferOfRights.p1 = If a requirement like this does not exist, you would keep all the rights.
 
 hirer.transferOfRights.subheading = Worker’s contracts
 hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
@@ -1682,17 +1684,17 @@ hirer.previousContract.subheading = Worker’s contracts
 ### ---------------------------------
 followOnContract.error.required = You need to select an answer
 
-worker.followOnContract.title = Will you start this contract immediately after your last contract with this client ended?
-worker.followOnContract.heading = Will you start this contract immediately after your last contract with this client ended?
+worker.followOnContract.title = Will this contract start immediately after the previous one ended?
+worker.followOnContract.heading = Will this contract start immediately after the previous one ended?
 worker.followOnContract.subheading = Worker’s contracts
-worker.followOnContract.checkYourAnswersLabel = Will you start this contract immediately after your last contract with this client ended?
-worker.followOnContract.p1 = This refers to working time only and can include any holiday period between the two contracts.
+worker.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?
+worker.followOnContract.p1 = This does not include any holiday period between the two contracts.
 
-hirer.followOnContract.title = Will the worker start this contract immediately after their last contract with your organisation ended?
-hirer.followOnContract.heading = Will the worker start this contract immediately after their last contract with your organisation ended?
+hirer.followOnContract.title = Will this contract start immediately after the previous one ended?
+hirer.followOnContract.heading = Will this contract start immediately after the previous one ended?
 hirer.followOnContract.subheading = Worker’s contracts
-hirer.followOnContract.checkYourAnswersLabel = Will the worker start this contract immediately after their last contract with your organisation ended?
-hirer.followOnContract.p1 = This refers to working time only and can include any holiday period between the two contracts.
+hirer.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?
+hirer.followOnContract.p1 = This does not include any holiday period between the two contracts.
 
 ### MajorityOfWorkingTime Page
 ### ---------------------------------

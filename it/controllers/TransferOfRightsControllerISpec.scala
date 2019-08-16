@@ -14,7 +14,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
+        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
       }
     }
 
@@ -33,7 +33,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
+        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
 
       }
     }
@@ -57,7 +57,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 //      lazy val res = getSessionRequest("/transfer-of-rights/change")
 //      whenReady(res) { result =>
 //        result.status shouldBe OK
-//        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
+//        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
 //      }
 //
 //    }
@@ -77,7 +77,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does the contract give the client the option to buy the rights for a separate fee?")
+        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
 
       }
     }

@@ -20,10 +20,10 @@ object TransferOfRightsMessages extends BaseMessages {
 
 
   object Worker {
-    val title = "Does the contract give the client the option to buy the rights for a separate fee?"
+    val title = "Does your client have the option to buy the rights for a separate fee?"
     val heading = title
     val subheading = "Worker’s contracts"
-    val p1 = "If no such clause or requirement exists, you would keep all the rights."
+    val p1 = "If a requirement like this does not exist, you would keep all the rights."
   }
 
   object Hirer {
