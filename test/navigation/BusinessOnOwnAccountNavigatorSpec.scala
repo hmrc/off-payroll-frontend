@@ -16,14 +16,16 @@
 
 package navigation
 
+import assets.messages.results.UndeterminedDecisionMessages.HirerIR35
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import controllers.routes
+import models.WhichDescribesYouAnswer.{ClientIR35, WorkerIR35}
 import models._
 import pages._
 import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
-import pages.sections.setup.ContractStartedPage
+import pages.sections.setup.{ContractStartedPage, WhichDescribesYouPage}
 
 class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
@@ -244,12 +246,24 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
         nextPage(FinanciallyDependentPage, userAnswers) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
       }
 
-      "the Worker is not known should go to the CheckYourAnswersPage" in {
+      "the user is a worker go to the CheckYourAnswersPage" in {
 
         enable(OptimisedFlow)
         lazy val userAnswers = UserAnswers("id")
           .set(WorkerKnownPage, false)
           .set(ContractStartedPage, false)
+          .set(WhichDescribesYouPage, WorkerIR35)
+
+        nextPage(FinanciallyDependentPage, userAnswers) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
+      }
+
+      "the Worker is not known and the user is a Hirer should go to the CheckYourAnswersPage" in {
+
+        enable(OptimisedFlow)
+        lazy val userAnswers = UserAnswers("id")
+          .set(WorkerKnownPage, false)
+          .set(ContractStartedPage, false)
+          .set(WhichDescribesYouPage, ClientIR35)
 
         nextPage(FinanciallyDependentPage, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
       }

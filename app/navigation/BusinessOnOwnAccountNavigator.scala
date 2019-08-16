@@ -39,9 +39,10 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
     }
 
   private def workerKnown(userAnswers: UserAnswers): Boolean =
-    (userAnswers.getAnswer(WorkerKnownPage), userAnswers.getAnswer(ContractStartedPage)) match {
-      case (Some(true), _) => true
-      case (_, Some(true)) => true
+    (isWorker(userAnswers), userAnswers.getAnswer(WorkerKnownPage), userAnswers.getAnswer(ContractStartedPage)) match {
+      case (true, _, _) => true
+      case (_, Some(true), _) => true
+      case (_, _, Some(true)) => true
       case _ => false
     }
 
