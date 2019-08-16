@@ -38,6 +38,13 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
       case _ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
     }
 
+  private def workerKnown(userAnswers: UserAnswers): Boolean =
+    (userAnswers.getAnswer(WorkerKnownPage), userAnswers.getAnswer(ContractStartedPage)) match {
+      case (Some(true), _) => true
+      case (_, Some(true)) => true
+      case _ => false
+    }
+
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
 
     WorkerKnownPage -> (_ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)),
@@ -52,17 +59,17 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
     PermissionToWorkWithOthersPage -> (_ => booaRoutes.OwnershipRightsController.onPageLoad(NormalMode)),
 
     OwnershipRightsPage -> (answer =>
-      (answer.getAnswer(OwnershipRightsPage), answer.getAnswer(WorkerKnownPage)) match {
+      (answer.getAnswer(OwnershipRightsPage), workerKnown(answer)) match {
         case (Some(true), _) => booaRoutes.RightsOfWorkController.onPageLoad(NormalMode)
-        case (_, Some(true)) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
+        case (_, true) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
         case _ => booaRoutes.FirstContractController.onPageLoad(NormalMode)
       }
     ),
 
     RightsOfWorkPage -> (answer =>
-      (answer.getAnswer(RightsOfWorkPage), answer.getAnswer(WorkerKnownPage)) match {
+      (answer.getAnswer(RightsOfWorkPage), workerKnown(answer)) match {
         case (Some(false), _) => booaRoutes.TransferOfRightsController.onPageLoad(NormalMode)
-        case (_, Some(true)) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
+        case (_, true) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
         case _ => booaRoutes.FirstContractController.onPageLoad(NormalMode)
       }
     ),
@@ -95,8 +102,8 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
     MajorityOfWorkingTimePage -> (_ => booaRoutes.FinanciallyDependentController.onPageLoad(NormalMode)),
 
     FinanciallyDependentPage -> (answer =>
-      answer.getAnswer(WorkerKnownPage) match {
-        case Some(true) => booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
+      workerKnown(answer) match {
+        case true => booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
         case _ => routes.CheckYourAnswersController.onPageLoad()
       }
     ),
