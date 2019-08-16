@@ -17,6 +17,7 @@
 @(
         field: Field,
         label: String,
+        contextualLabelPostfix: Option[String] = None,
         secondaryLabel: Option[String] = None,
         inputClass: Option[String] = None,
         labelClass: Option[String] = None,
@@ -28,7 +29,12 @@
     <div class="form-group form-control-3-4 @if(field.hasErrors) {form-group-error}">
 
         <label class="form-label" for="@{field.id}">
-            <span class="@if(labelClass.nonEmpty){@labelClass}">@label</span>
+            <span class="@if(labelClass.nonEmpty){@labelClass}">
+                @label
+                @contextualLabelPostfix.map { postfix =>
+                    <span class="visuallyhidden">@postfix</span>
+                }
+            </span>
             @if(hint.nonEmpty && !hintBelow){
                 <span class="form-hint">@hint</span>
             }
