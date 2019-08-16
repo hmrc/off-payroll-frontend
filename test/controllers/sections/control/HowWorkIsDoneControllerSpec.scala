@@ -25,7 +25,7 @@ import forms.HowWorkIsDoneFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models._
-
+import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.sections.control.{HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.setup.AboutYouPage
 import play.api.data.Form

@@ -20,14 +20,16 @@ import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.partParcel.{routes => partAndParcelRoutes}
+import controllers.sections.businessOnOwnAccount.{routes => booa}
 import models._
+import navigation.mocks.FakeNavigators.FakeBusinessOnOwnAccountNavigator
 import pages._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 
 class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
-  val navigator = new PartAndParcelNavigator
+  val navigator = new PartAndParcelNavigator(FakeBusinessOnOwnAccountNavigator, frontendAppConfig)
 
   def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
 
@@ -59,7 +61,7 @@ class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
 
       "if InteractWithStakeholders is false AND OptimisedFlow is enabled go to the IdentifyToStakeholdersPage" in {
         enable(OptimisedFlow)
-        nextPage(InteractWithStakeholdersPage) mustBe routes.CheckYourAnswersController.onPageLoad()
+        nextPage(InteractWithStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
       }
 
       "if InteractWithStakeholders is false AND OptimisedFlow is disabled go to the IdentifyToStakeholdersPage" in {
@@ -72,7 +74,7 @@ class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
 
       "if OptimisedFlow is enabled go to the IdentifyToStakeholdersPage" in {
         enable(OptimisedFlow)
-        nextPage(IdentifyToStakeholdersPage) mustBe routes.CheckYourAnswersController.onPageLoad()
+        nextPage(IdentifyToStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
       }
 
       "if OptimisedFlow is disabled go to the IdentifyToStakeholdersPage" in {

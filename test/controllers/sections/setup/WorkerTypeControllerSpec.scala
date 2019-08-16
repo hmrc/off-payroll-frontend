@@ -23,6 +23,7 @@ import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
 import models._
 import models.requests.DataRequest
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.libs.json.Json

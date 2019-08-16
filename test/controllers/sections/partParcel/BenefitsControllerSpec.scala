@@ -22,6 +22,7 @@ import controllers.actions._
 import forms.BenefitsFormProvider
 import models.requests.DataRequest
 import models.{Answers, IdentifyToStakeholders, NormalMode, UserAnswers}
+import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage}
 import play.api.data.Form
 import play.api.libs.json._

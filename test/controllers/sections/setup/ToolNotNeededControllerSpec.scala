@@ -20,6 +20,7 @@ import controllers.ControllerSpecBase
 import controllers.actions._
 import models.WhichDescribesYouAnswer.{ClientPAYE, WorkerIR35}
 import models.{UserAnswers, WhichDescribesYouAnswer}
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.WhichDescribesYouPage
 import play.api.test.Helpers._
 import views.html.sections.setup.ToolNotNeededView

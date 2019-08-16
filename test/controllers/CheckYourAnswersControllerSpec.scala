@@ -19,6 +19,7 @@ package controllers
 import assets.messages.CheckYourAnswersMessages
 import controllers.actions._
 import models._
+import navigation.mocks.FakeNavigators.FakeCYANavigator
 import pages.sections.exit.OfficeHolderPage
 import play.api.test.Helpers._
 import services.CheckYourAnswersService

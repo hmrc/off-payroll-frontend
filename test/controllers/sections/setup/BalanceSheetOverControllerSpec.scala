@@ -23,6 +23,7 @@ import controllers.actions._
 import forms.BalanceSheetOverFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.BalanceSheetOverPage
 import play.api.data.Form
 import play.api.libs.json.Json

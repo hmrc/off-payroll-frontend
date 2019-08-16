@@ -26,7 +26,7 @@ import models.Answers._
 import models.IdentifyToStakeholders.WorkForEndClient
 import models._
 import models.requests.DataRequest
-
+import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage}

@@ -24,6 +24,7 @@ import controllers.actions._
 import forms.CustomisePDFFormProvider
 import models.requests.DataRequest
 import models.{AdditionalPdfDetails, Answers, NormalMode}
+import navigation.mocks.FakeNavigators.FakeCYANavigator
 import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.libs.json.{JsString, Json}

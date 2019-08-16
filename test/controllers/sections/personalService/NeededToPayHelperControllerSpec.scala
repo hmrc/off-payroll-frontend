@@ -23,7 +23,7 @@ import controllers.actions._
 import forms.NeededToPayHelperFormProvider
 import models.requests.DataRequest
 import models.{Answers, HowWorkerIsPaid, NormalMode, UserAnswers}
-
+import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import org.mockito.Matchers
 import org.mockito.Matchers.any
 import org.mockito.Mockito.when

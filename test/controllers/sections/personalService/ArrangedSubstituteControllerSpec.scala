@@ -25,7 +25,7 @@ import forms.ArrangedSubstituteFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models.{Answers, ArrangedSubstitute, NormalMode}
-
+import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage}
 import play.api.data.Form
 import play.api.libs.json._

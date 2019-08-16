@@ -23,7 +23,7 @@ import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataR
 import forms.OtherExpensesFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-
+import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
 import pages.sections.financialRisk.OtherExpensesPage
 import play.api.data.Form
 import play.api.libs.json.Json

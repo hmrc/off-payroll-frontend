@@ -20,6 +20,7 @@ import controllers.actions._
 import forms.AddReferenceDetailsFormProvider
 import models.Answers
 import models.requests.DataRequest
+import navigation.mocks.FakeNavigators.FakeCYANavigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.libs.json.Json

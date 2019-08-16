@@ -23,6 +23,7 @@ import controllers.ControllerSpecBase
 import forms.FollowOnContractFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
+import navigation.mocks.FakeNavigators.FakeBusinessOnOwnAccountNavigator
 import pages.FollowOnContractPage
 import play.api.data.Form
 import play.api.libs.json.Json
