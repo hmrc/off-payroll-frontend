@@ -37,16 +37,17 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
 
   private val personalService = List(ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage)
 
+  //TODO: Needs Updating with logic for BoOA - future Story
   private val pagesToRemove: Map[QuestionPage[_], UserAnswers => List[QuestionPage[_]]] = Map(
     //Setup Section
-    WorkerUsingIntermediaryPage -> (answers => answers.get(WorkerUsingIntermediaryPage) match {
-      case Some(Answers(false, _)) =>
+    WorkerUsingIntermediaryPage -> (answers => answers.getAnswer(WorkerUsingIntermediaryPage) match {
+      case Some(false) =>
         List(IsWorkForPrivateSectorPage, TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
       case _ => List.empty
     }),
     IsWorkForPrivateSectorPage -> (answers => {
-      answers.get(IsWorkForPrivateSectorPage) match {
-        case Some(Answers(false, _)) => List(TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
+      answers.getAnswer(IsWorkForPrivateSectorPage) match {
+        case Some(false) => List(TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
         case _ => List.empty
       }
     }),
@@ -55,28 +56,28 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
     ContractStartedPage -> (_ => personalService),
     //Personal Service Section
     ArrangedSubstitutePage -> (answers => {
-      answers.get(ArrangedSubstitutePage) match {
-        case Some(Answers(No, _)) => List(DidPaySubstitutePage, NeededToPayHelperPage)
-        case Some(Answers(YesClientAgreed, _)) => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage)
-        case Some(Answers(YesClientNotAgreed, _)) => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage)
+      answers.getAnswer(ArrangedSubstitutePage) match {
+        case Some(No) => List(DidPaySubstitutePage, NeededToPayHelperPage)
+        case Some(YesClientAgreed) => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, NeededToPayHelperPage)
+        case Some(YesClientNotAgreed) => List(WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage)
         case _ => List.empty
       }
     }),
     DidPaySubstitutePage -> (answers => {
-      answers.get(DidPaySubstitutePage) match {
-        case Some(Answers(true, _)) => List(NeededToPayHelperPage)
+      answers.getAnswer(DidPaySubstitutePage) match {
+        case Some(true) => List(NeededToPayHelperPage)
         case _ => List.empty
       }
     }),
     RejectSubstitutePage -> (answers => {
-      answers.get(RejectSubstitutePage) match {
-        case Some(Answers(true, _)) => List(WouldWorkerPaySubstitutePage)
+      answers.getAnswer(RejectSubstitutePage) match {
+        case Some(true) => List(WouldWorkerPaySubstitutePage)
         case _ => List(NeededToPayHelperPage)
       }
     }),
     WouldWorkerPaySubstitutePage -> (answers => {
-      answers.get(WouldWorkerPaySubstitutePage) match {
-        case Some(Answers(true, _)) => List(NeededToPayHelperPage)
+      answers.getAnswer(WouldWorkerPaySubstitutePage) match {
+        case Some(true) => List(NeededToPayHelperPage)
         case _ => List.empty
       }
     }),
@@ -93,13 +94,10 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
         )
     ),
     AddReferenceDetailsPage -> (answers =>
-      answers.get(AddReferenceDetailsPage) match {
-        case Some(Answers(false, _)) => List(CustomisePDFPage)
+      answers.getAnswer(AddReferenceDetailsPage) match {
+        case Some(false) => List(CustomisePDFPage)
         case _ => List.empty
       }
     )
-
-
   )
-
 }

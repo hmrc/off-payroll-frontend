@@ -29,7 +29,8 @@ import models.ScheduleOfWorkingHours.ScheduleDecidedForWorker
 import models.WhichDescribesYouAnswer.WorkerPAYE
 import models._
 import models.requests.DataRequest
-import pages.{EmployeesOverPage, TurnoverOverPage}
+import pages.sections.businessOnOwnAccount._
+import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -81,6 +82,21 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
         .set(LineManagerDutiesPage, 24, false)
         .set(InteractWithStakeholdersPage, 25, true)
         .set(IdentifyToStakeholdersPage, 26, WorkForEndClient)
+        //Business On Own Account Section
+        .set(WorkerKnownPage,27,true)
+        .set(MultipleContractsPage,28,true)
+        .set(PermissionToWorkWithOthersPage,29,true)
+        .set(OwnershipRightsPage,30,true)
+        .set(RightsOfWorkPage,31,true)
+        .set(TransferOfRightsPage,32,true)
+        .set(PreviousContractPage,33,true)
+        .set(FollowOnContractPage,34,true)
+        .set(FirstContractPage,35,true)
+        .set(ExtendContractPage,36,true)
+        .set(MajorityOfWorkingTimePage,37,true)
+        .set(FinanciallyDependentPage,38,true)
+        .set(SimilarWorkOtherClientsPage,39,true)
+
 
 
       lazy val request = DataRequest(fakeRequest, "id", userAnswers)
@@ -151,6 +167,25 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
               CheckYourAnswersHelper.lineManagerDuties.map(_ -> None),
               CheckYourAnswersHelper.identifyToStakeholders.map(_ -> None)
             ).flatten
+          ),
+          AnswerSection(
+            section = Section.businessOnOwnAccount,
+            headingKey = "checkYourAnswers.businessOnOwnAccount.header",
+            rows = Seq(
+              CheckYourAnswersHelper.workerKnown.map(_ -> None),
+              CheckYourAnswersHelper.multipleContracts.map(_ -> None),
+              CheckYourAnswersHelper.permissionToWorkWithOthers.map(_ -> None),
+              CheckYourAnswersHelper.ownershipRights.map(_ -> None),
+              CheckYourAnswersHelper.rightsOfWork.map(_ -> None),
+              CheckYourAnswersHelper.transferOfRights.map(_ -> None),
+              CheckYourAnswersHelper.previousContract.map(_ -> None),
+              CheckYourAnswersHelper.followOnContract.map(_ -> None),
+              CheckYourAnswersHelper.firstContract.map(_ -> None),
+              CheckYourAnswersHelper.extendContract.map(_ -> None),
+              CheckYourAnswersHelper.majorityOfWorkingTime.map(_ -> None),
+              CheckYourAnswersHelper.financiallyDependent.map(_ -> None),
+              CheckYourAnswersHelper.similarWorkOtherClients.map(_ -> None)
+            ).flatten
           )
         )
 
@@ -199,6 +234,11 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
           AnswerSection(
             section = Section.partAndParcel,
             headingKey = "checkYourAnswers.partParcel.header",
+            rows = Seq()
+          ),
+          AnswerSection(
+            section = Section.businessOnOwnAccount,
+            headingKey = "checkYourAnswers.businessOnOwnAccount.header",
             rows = Seq()
           )
         )

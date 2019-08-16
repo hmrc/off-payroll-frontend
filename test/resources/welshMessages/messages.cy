@@ -1298,6 +1298,7 @@ checkYourAnswers.personalService.header = Section 3: Substitutes and helpers
 checkYourAnswers.control.header = Section 4: Working arrangements
 checkYourAnswers.financialRisk.header = Section 5: Worker’s financial risk
 checkYourAnswers.partParcel.header = Section 6: Worker’s involvement
+checkYourAnswers.businessOnOwnAccount.header = Section 7: Worker’s contracts
 
 
 ##### TODO NEED WELSH FOR ####
