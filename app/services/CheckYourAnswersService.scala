@@ -36,9 +36,12 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         section = Section.setup,
         headingKey = "checkYourAnswers.setup.header",
         rows = Seq(
-          checkYourAnswersHelper.aboutYouOptimised.map(_ -> None), checkYourAnswersHelper.workerTypeOptimised.map(_ -> None),
-          checkYourAnswersHelper.isWorkForPrivateSector.map(_ -> None), checkYourAnswersHelper.turnoverOver.map(_ -> None),
-          checkYourAnswersHelper.employeesOver.map(_ -> None), checkYourAnswersHelper.balanceSheetOver.map(_ -> None),
+          checkYourAnswersHelper.aboutYouOptimised.map(_ -> None),
+          checkYourAnswersHelper.workerTypeOptimised.map(_ -> None),
+          checkYourAnswersHelper.isWorkForPrivateSector.map(_ -> None),
+          checkYourAnswersHelper.turnoverOver.map(_ -> None),
+          checkYourAnswersHelper.employeesOver.map(_ -> None),
+          checkYourAnswersHelper.balanceSheetOver.map(_ -> None),
           checkYourAnswersHelper.contractStarted.map(_ -> None)
         ).flatten
       ),
@@ -51,8 +54,10 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         section = Section.personalService,
         headingKey = "checkYourAnswers.personalService.header",
         rows = Seq(
-          checkYourAnswersHelper.arrangedSubstitute.map(_ -> None), checkYourAnswersHelper.didPaySubstitute.map(_ -> None),
-          checkYourAnswersHelper.rejectSubstitute.map(_ -> None), checkYourAnswersHelper.wouldWorkerPaySubstitute.map(_ -> None),
+          checkYourAnswersHelper.arrangedSubstitute.map(_ -> None),
+          checkYourAnswersHelper.didPaySubstitute.map(_ -> None),
+          checkYourAnswersHelper.rejectSubstitute.map(_ -> None),
+          checkYourAnswersHelper.wouldWorkerPaySubstitute.map(_ -> None),
           checkYourAnswersHelper.neededToPayHelper.map(_ -> None)
         ).flatten
       ),
@@ -60,36 +65,46 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         section = Section.control,
         headingKey = "checkYourAnswers.control.header",
         rows = Seq(
-          checkYourAnswersHelper.moveWorker.map(_ -> None), checkYourAnswersHelper.howWorkIsDone.map(_ -> None),
-          checkYourAnswersHelper.scheduleOfWorkingHours.map(_ -> None), checkYourAnswersHelper.chooseWhereWork.map(_ -> None)
+          checkYourAnswersHelper.moveWorker.map(_ -> None),
+          checkYourAnswersHelper.howWorkIsDone.map(_ -> None),
+          checkYourAnswersHelper.scheduleOfWorkingHours.map(_ -> None),
+          checkYourAnswersHelper.chooseWhereWork.map(_ -> None)
         ).flatten
       ),
       AnswerSection(
         section = Section.financialRisk,
         headingKey = "checkYourAnswers.financialRisk.header",
         rows = Seq(
-          checkYourAnswersHelper.equipmentExpenses.map(_ -> None), checkYourAnswersHelper.vehicleExpenses.map(_ -> None),
-          checkYourAnswersHelper.materialsExpenses.map(_ -> None), checkYourAnswersHelper.otherExpenses.map(_ -> None),
-          checkYourAnswersHelper.howWorkerIsPaid.map(_ -> None), checkYourAnswersHelper.putRightAtOwnCost.map(_ -> None)
+          checkYourAnswersHelper.equipmentExpenses.map(_ -> None),
+          checkYourAnswersHelper.vehicleExpenses.map(_ -> None),
+          checkYourAnswersHelper.materialsExpenses.map(_ -> None),
+          checkYourAnswersHelper.otherExpenses.map(_ -> None),
+          checkYourAnswersHelper.howWorkerIsPaid.map(_ -> None),
+          checkYourAnswersHelper.putRightAtOwnCost.map(_ -> None)
         ).flatten
       ),
       AnswerSection(
         section = Section.partAndParcel,
         headingKey = "checkYourAnswers.partParcel.header",
         rows = Seq(
-          checkYourAnswersHelper.benefits.map(_ -> None), checkYourAnswersHelper.lineManagerDuties.map(_ -> None),
+          checkYourAnswersHelper.benefits.map(_ -> None),
+          checkYourAnswersHelper.lineManagerDuties.map(_ -> None),
           checkYourAnswersHelper.identifyToStakeholders.map(_ -> None)
         ).flatten
       )
       ,
       AnswerSection(
         section = Section.businessOnOwnAccount,
-        headingKey = Some("checkYourAnswers.partParcel.header"),
+        headingKey = Some("checkYourAnswers.businessOnOwnAccount.header"),
         rows = Seq(
-          checkYourAnswersHelper.extendContract.map(_ -> None),checkYourAnswersHelper.firstContract.map(_ -> None),
-          checkYourAnswersHelper.followOnContract.map(_ -> None),checkYourAnswersHelper.majorityOfWorkingTime.map(_ -> None),
-          checkYourAnswersHelper.multipleContracts.map(_ -> None),checkYourAnswersHelper.permissionToWorkWithOthers.map(_ -> None),
-          checkYourAnswersHelper.previousContract.map(_ -> None),checkYourAnswersHelper.transferOfRights.map(_ -> None)
+          checkYourAnswersHelper.extendContract.map(_ -> None),
+          checkYourAnswersHelper.firstContract.map(_ -> None),
+          checkYourAnswersHelper.followOnContract.map(_ -> None),
+          checkYourAnswersHelper.majorityOfWorkingTime.map(_ -> None),
+          checkYourAnswersHelper.multipleContracts.map(_ -> None),
+          checkYourAnswersHelper.permissionToWorkWithOthers.map(_ -> None),
+          checkYourAnswersHelper.previousContract.map(_ -> None),
+          checkYourAnswersHelper.transferOfRights.map(_ -> None)
         ).flatten
       )
     )
