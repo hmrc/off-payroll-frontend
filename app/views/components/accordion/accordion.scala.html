@@ -22,9 +22,11 @@
 @(sections: Seq[AccordionSection])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 
-<div class="accordion__open__wrapper">
-    <button type="button" class="accordion__open--all" aria-expanded="false">@messages("site.accordion.openAll")</button>
-    <button type="button" class="accordion__close--all hidden" aria-expanded="true" aria-hidden="true">@messages("site.accordion.closeAll")</button>
+<div class="accordion__open__wrapper hidden" aria-hidden="true">
+    <button type="button" class="accordion__open--all" aria-expanded="false">
+        <span id="openAll">@messages("site.accordion.openAll")</span>
+        <span id="closeAll" class="hidden">@messages("site.accordion.closeAll")</span>
+    </button>
 </div>
 <div class="accordion__wrapper hidden" aria-hidden="true" role="tablist">
     @sections.map(accordion => accordion.html)
