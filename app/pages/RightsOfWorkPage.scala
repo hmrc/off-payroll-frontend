@@ -16,16 +16,7 @@
 
 package pages
 
-import pages.behaviours.PageBehaviours
+case object RightsOfWorkPage extends QuestionPage[Boolean] {
 
-class ExtendContractPageSpec extends PageBehaviours {
-
-  "ExtendContractPage" must {
-
-    beRetrievable[Boolean](ExtendContractPage)
-
-    beSettable[Boolean](ExtendContractPage)
-
-    beRemovable[Boolean](ExtendContractPage)
-  }
+  override def toString: String = "rightsOfWork"
 }

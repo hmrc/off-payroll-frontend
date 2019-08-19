@@ -22,7 +22,7 @@ import play.api.data.FormError
 class TransferOfRightsFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "transferOfRights.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new TransferOfRightsFormProvider()()
 

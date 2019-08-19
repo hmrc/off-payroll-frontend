@@ -20,7 +20,7 @@ import models._
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import pages._
-import pages.sections.businessOnOwnAccount.FirstContractPage
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -31,10 +31,52 @@ import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
 
+
   implicit lazy val whatDoYouWantToFindOutUserAnswersEntry: Arbitrary[(WhatDoYouWantToFindOutPage.type, JsValue)] =
     Arbitrary {
       for {
         page  <- arbitrary[WhatDoYouWantToFindOutPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitrarySimilarWorkOtherClientsUserAnswersEntry: Arbitrary[(SimilarWorkOtherClientsPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[SimilarWorkOtherClientsPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryOwnershipRightsUserAnswersEntry: Arbitrary[(OwnershipRightsPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[OwnershipRightsPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryWorkerKnownUserAnswersEntry: Arbitrary[(WorkerKnownPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WorkerKnownPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+  implicit lazy val arbitraryFinanciallyDependentUserAnswersEntry: Arbitrary[(FinanciallyDependentPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[FinanciallyDependentPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
+
+
+  implicit lazy val arbitraryRightsOfWorkUserAnswersEntry: Arbitrary[(RightsOfWorkPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page <- arbitrary[RightsOfWorkPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }

@@ -58,5 +58,4 @@ class FeatureSwitchController @Inject()(controllerComponents: MessagesController
 
     Redirect(FeatureSwitchController.show())
   }
-
 }

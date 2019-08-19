@@ -22,7 +22,7 @@ import play.api.data.FormError
 class TurnoverOverFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "turnoverOver.error.required"
-  val invalidKey = "error.boolean"
+  val invalidKey = "error.required"
 
   val form = new TurnoverOverFormProvider()()
 

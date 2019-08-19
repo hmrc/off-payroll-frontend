@@ -56,7 +56,9 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
   def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)
             (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(writer)}")
+
+    Logger.debug(s"[DecisionConnector][decide] url: $decideUrl")
+    Logger.debug(s"[DecisionConnector][decide] body: ${Json.toJson(decisionRequest)(writer)}")
 
     val response = httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
 

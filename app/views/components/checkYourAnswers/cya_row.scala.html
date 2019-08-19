@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,11 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package pages
+@import views.ViewUtils._
+@import config.FrontendAppConfig
 
-case object ExtendContractPage extends QuestionPage[Boolean] {
+@(question: String, answer: String, answerIsMessageKey: Boolean, panelIndent: Boolean = false, changeUrl: Option[String])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
-  override def toString: String = "extendContract"
-}
+<div>
+    <dt class="cya-question">@messages(question)</dt>
+    <dd class="cya-answer">@if(answerIsMessageKey){@messages(answer)} else {@answer}</dd>
+    @changeUrl.map { url =>
+        <dd class="cya-change"><a href="@url">@messages("site.edit")</a></dd>
+    }
+</div>

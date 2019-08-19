@@ -5,9 +5,6 @@ common.standardPageNotFoundErrorMessageContent2 = If you typed the web address
 common.standardPageNotFoundErrorMessageContent3 = Check the address and make sure you typed it correctly.
 common.standardPageNotFoundErrorMessageHeader = Page not found
 
-date.day = Day
-date.month = Month
-date.year = Year
 date.January = January
 date.February = February
 date.March = March
@@ -22,17 +19,6 @@ date.November = November
 date.December = December
 
 error.browser.title.prefix = Error:
-error.boolean = You need to select an answer
-error.invalid_date = Give a correct date
-error.date.day_blank = Enter a day
-error.date.day_invalid = Give a correct day using numbers 1 to 31
-error.date.month_blank = Enter a month
-error.date.month_invalid = Give a correct month using numbers 1 to 12
-error.date.year_blank = Enter a year
-error.date.year_invalid = Give a correct year
-error.integer = Give an answer in whole numbers
-error.non_numeric = Give a value using only numbers
-error.number = You need to select an answer
 error.required = You need to select an answer
 error.summary.title = There is a problem
 error.startAgain.title = Something went wrong
@@ -57,11 +43,10 @@ session.expired.start_again = Start again
 
 
 site.back = Back
-site.delete = Remove
+
 site.edit = Change
 site.warning = Warning:
-site.hidden-delete = Delete {0}
-site.hidden-edit = Change {0}
+
 site.no = No
 site.yes = Yes
 site.continue = Continue
@@ -69,13 +54,14 @@ site.accept_continue = Accept and continue
 site.finish = Finish
 site.exit = Exit
 site.confirm_continue = Confirm for result
-site.confirm_result = Confirm and continue
 site.service_name = Check employment status for tax
 site.home = Home
 site.govuk = GOV.UK
 site.hmrc = HM Revenue & Customs
 site.ir35email = ir35@hmrc.gov.uk
 site.employmentStatusManual = Employment Status Manual
+site.accordion.openAll = Open all
+site.accordion.closeAll = Close all
 
 feedback.before = This is a new service - your
 feedback.link = feedback
@@ -772,6 +758,7 @@ hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people
 hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
 hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
+hirer.optimised.howWorkIsDone.p1 = This would be the case if your organisation directs the worker in the way task should be completed - by instructing, guiding or advising.
 hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
 hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
@@ -781,6 +768,7 @@ hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and 
 worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
+worker.optimised.howWorkIsDone.p1 = This would be the case if your client directs you in the way the task should be completed - by instructing, guiding or advising.
 worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Yes
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
@@ -1179,10 +1167,6 @@ customisePDF.completedBy.error.length = Name must be 100 characters or less
 customisePDF.client.error.length = Name must be 100 characters or less
 customisePDF.job.error.length = Job title must be 100 characters or less
 customisePDF.reference.error.length = Reference must be 100 characters or less
-customisePDF.completedBy.error.utf8 = Name must be UTF8 characters only
-customisePDF.client.error.utf8 = Name must be UTF8 characters only
-customisePDF.job.error.utf8 = Job title must be UTF8 characters only
-customisePDF.reference.error.utf8 = Reference must be UTF8 characters only
 
 #Result summary text
 result.substitutesAndHelpers.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client has not or would not agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they are being engaged on a personal service basis.
@@ -1554,6 +1538,8 @@ addDetails.job=Contract or role title
 addDetails.reference=Other reference details
 addDetails.charLimit =180 characters maximum
 addDetails.fileName = File name
+addDetails.optional = optional
+addDetails.optional.all = These details are optional
 
 finishedChecking.title = You have finished checking this work
 finishedChecking.heading = You have finished checking this work
@@ -1739,6 +1725,23 @@ hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the m
 hirer.majorityOfWorkingTime.subheading = Worker’s contracts
 hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
 
+### RightsOfWork Page
+### ---------------------------------
+rightsOfWork.error.required = You need to select an answer
+rightsOfWork.error.invalid = You need to select an answer
+
+worker.rightsOfWork.title = Are you required to transfer all ownership rights of this work as part of the contract?
+worker.rightsOfWork.heading = Are you required to transfer all ownership rights of this work as part of the contract?
+worker.rightsOfWork.checkYourAnswersLabel = Are you required to transfer all ownership rights of this work as part of the contract?
+worker.rightsOfWork.subheading = Worker’s contracts
+worker.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
+
+hirer.rightsOfWork.title = Is the worker required to transfer all ownership rights of this work as part of the contract?
+hirer.rightsOfWork.heading = Is the worker required to transfer all ownership rights of this work as part of the contract?
+hirer.rightsOfWork.checkYourAnswersLabel = Is the worker required to transfer all ownership rights of this work as part of the contract?
+hirer.rightsOfWork.subheading = Worker’s contracts
+hirer.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
+
 ### FirstContract Page
 ### ---------------------------------
 firstContract.error.required = You need to select an answer
@@ -1766,3 +1769,60 @@ hirer.extendContract.title = Does the current contract allow for it to be extend
 hirer.extendContract.heading = Does the current contract allow for it to be extended?
 hirer.extendContract.subheading = Worker’s contracts
 hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+
+#### Financially Dependent Page - BoOA
+#### ------------------------------
+financiallyDependent.error.required = You need to select an answer
+
+worker.financiallyDependent.subheading = Worker’s contracts
+worker.financiallyDependent.title = If you lost this contract, would you need to replace the income from it immediately?
+worker.financiallyDependent.heading = If you lost this contract, would you need to replace the income from it immediately?
+worker.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
+worker.financiallyDependent.p1 = Regular income is earnings of a similar amount, paid with the same frequency and on an ongoing basis.
+
+hirer.financiallyDependent.subheading = Worker’s contracts
+hirer.financiallyDependent.title = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.heading = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
+hirer.financiallyDependent.p1 = If the worker has separate earnings, their need to find other work may not be so urgent.
+
+### Worker Known Page
+### --------------------------------
+workerKnown.error.required = You need to select an answer
+
+hirer.workerKnown.subheading = Worker’s contracts
+hirer.workerKnown.heading = Has your organisation identified who will be doing this work?
+hirer.workerKnown.title = Has your organisation identified who will be doing this work?
+hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who will be doing this work?
+
+### SimilarWorkOtherClients Page
+### ---------------------------------
+similarWorkOtherClients.error.required = You need to select an answer
+
+worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?
+worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?
+worker.similarWorkOtherClients.subheading = Worker’s contracts
+worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?
+
+hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?
+hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?
+hirer.similarWorkOtherClients.subheading = Worker’s contracts
+hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done similar work for other engagers in the last 12 months?
+
+### Financially Dependent Page - BoOA
+### ------------------------------
+ownershipRights.error.required = You need to select an answer
+
+worker.ownershipRights.subheading = Worker’s contracts
+worker.ownershipRights.title = Are there any ownership rights relating to this work?
+worker.ownershipRights.heading = Are there any ownership rights relating to this work?
+worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this work?
+worker.ownershipRights.p1 = These rights include copyright, trademarks, patents and other intellectual property rights.
+
+hirer.ownershipRights.subheading = Worker’s contracts
+hirer.ownershipRights.title = Are there any ownership rights relating to this work?
+hirer.ownershipRights.heading = Are there any ownership rights relating to this work?
+hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this work?
+hirer.ownershipRights.p1 = These rights include copyright, trademarks, patents and other intellectual property rights.
+
+

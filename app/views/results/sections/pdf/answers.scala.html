@@ -34,21 +34,19 @@
     }
 
     @renderSection(answers: AnswerSection) = {
-        @answers.headingKey.map { heading =>
-            <h3 class="section-heading">@messages(heading)</h3>
-            <div class="form-group">
-            @for(answer <- answers.rows) {
-                @{
-                    answer._1 match {
-                        case a: SingleAnswerRow => renderSingleAnswer(a)
-                        case a: MultiAnswerRow => for(subAnswer <- a.answers) {
-                            renderSingleAnswer(subAnswer, panelIndent = true)
-                        }
+        <h3 class="section-heading">@messages(answers.headingKey)</h3>
+        <div class="form-group">
+        @for(answer <- answers.rows) {
+            @{
+                answer._1 match {
+                    case a: SingleAnswerRow => renderSingleAnswer(a)
+                    case a: MultiAnswerRow => for(subAnswer <- a.answers) {
+                        renderSingleAnswer(subAnswer, panelIndent = true)
                     }
                 }
             }
-            </div>
         }
+        </div>
     }
 
     @renderSingleAnswer(answer: SingleAnswerRow, panelIndent: Boolean = false) = {

@@ -66,5 +66,4 @@ object OfficeHolderMessages extends BaseMessages {
     val b3 = "the role exists even if someone is not engaged to fill it (a club treasurer, for example)"
     val exclamation = "If you are not sure if these things apply, please ask the end client’s management about their organisational structure."
   }
-
 }

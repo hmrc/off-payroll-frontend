@@ -14,6 +14,40 @@ $(document).ready(function() {
     numberInputs();
 
   // =====================================================
+  // Handle Accordion Button
+  // =====================================================
+    $('.accordion__open__wrapper').removeClass("hidden").attr("aria-hidden","false")
+    $('.accordion__wrapper').removeClass("hidden").attr("aria-hidden","false")
+    $('.accordion__row').click(function() {
+       $(this).find("button").click().focus();
+    });
+    $('.accordion__row button').click(function(e) {
+       e.stopPropagation();
+    });
+    $('[data-accordion-button]').attr("role","tab")
+    $('[data-accordion-button]').on('click', function(e) {
+      $(this).attr('aria-expanded') == 'true' ? $(this).attr('aria-expanded','false') : $(this).attr('aria-expanded','true');
+      updateOpenAll();
+    })
+    $('.accordion__open--all').click(function() {
+       $(this).attr('aria-expanded') == 'false' ? $('[data-accordion-button][aria-expanded="false"]').click() : $('[data-accordion-button]').click();
+       updateOpenAll();
+    });
+
+    function updateOpenAll() {
+        if($('[data-accordion]').length == $('[data-accordion][aria-expanded="true"]').length) {
+            $('#openAll').addClass("hidden").attr("aria-hidden", "true");
+            $('#closeAll').removeClass("hidden").attr("aria-hidden", "false");
+            $('button.accordion__open--all').attr("aria-expanded","true")
+        } else {
+            $('#closeAll').addClass("hidden").attr("aria-hidden", "true");
+            $('#openAll').removeClass("hidden").attr("aria-hidden", "false")
+            $('button.accordion__open--all').attr("aria-expanded","false")
+        }
+    }
+
+
+  // =====================================================
   // Back link mimics browser back functionality
   // =====================================================
 
@@ -146,4 +180,6 @@ $(document).ready(function() {
           if ( e.which == 38 || e.which == 40 || e.which == 188 )
               e.preventDefault();
       });
+
+
   }

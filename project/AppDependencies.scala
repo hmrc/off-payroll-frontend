@@ -34,5 +34,10 @@ object AppDependencies {
     "com.github.tomakehurst" % "wiremock-standalone" % "2.22.0"
   ).map(_ % "test, it")
 
-  def apply() = compile ++ test
+  def tmpMacWorkaround(): Seq[ModuleID] =
+    if (sys.props.get("os.name").exists(_.toLowerCase.contains("mac")))
+      Seq("org.reactivemongo" % "reactivemongo-shaded-native" % "0.17.1-osx-x86-64" % "runtime,test,it")
+    else Seq()
+
+  def apply() = compile ++ test ++ tmpMacWorkaround
 }

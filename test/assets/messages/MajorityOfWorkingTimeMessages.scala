@@ -31,5 +31,4 @@ object MajorityOfWorkingTimeMessages extends BaseMessages {
     val subheading = "Worker’s contracts"
     val p1 = "This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract."
   }
-
 }

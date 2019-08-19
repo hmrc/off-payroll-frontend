@@ -67,5 +67,4 @@ object PutRightAtOwnCostsMessages extends BaseMessages {
     val noSingleEvent = "No - the worker would not be able to put it right because the work is time-specific or for a single event"
     val no = "No - they would not need to put it right"
   }
-
 }

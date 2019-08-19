@@ -18,7 +18,7 @@ package generators
 
 import org.scalacheck.Arbitrary
 import pages._
-import pages.sections.businessOnOwnAccount.FirstContractPage
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -30,6 +30,21 @@ trait PageGenerators {
 
   implicit lazy val whatDoYouWantToFindOutPage: Arbitrary[WhatDoYouWantToFindOutPage.type] =
     Arbitrary(WhatDoYouWantToFindOutPage)
+
+  implicit lazy val arbitrarySimilarWorkOtherClientsPage: Arbitrary[SimilarWorkOtherClientsPage.type] =
+    Arbitrary(SimilarWorkOtherClientsPage)
+
+  implicit lazy val arbitraryOwnershipRightsPage: Arbitrary[OwnershipRightsPage.type] =
+    Arbitrary(OwnershipRightsPage)
+
+  implicit lazy val arbitraryWorkerKnownPage: Arbitrary[WorkerKnownPage.type] =
+    Arbitrary(WorkerKnownPage)
+
+  implicit lazy val arbitraryFinanciallyDependentPage: Arbitrary[FinanciallyDependentPage.type] =
+    Arbitrary(FinanciallyDependentPage)
+
+  implicit lazy val arbitraryRightsOfWorkPage: Arbitrary[RightsOfWorkPage.type] =
+    Arbitrary(RightsOfWorkPage)
 
   implicit lazy val arbitraryExtendContractPage: Arbitrary[ExtendContractPage.type] =
     Arbitrary(ExtendContractPage)

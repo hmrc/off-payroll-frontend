@@ -77,13 +77,13 @@ trait FormBehaviours extends FormSpec {
     for (field <- fields) {
       s"fail to bind when $field is omitted" in {
         val data = validData - field
-        val expectedError = error(field, "error.boolean")
+        val expectedError = error(field, "error.required")
         checkForError(form, data, expectedError)
       }
 
       s"fail to bind when $field is invalid" in {
         val data = validData + (field -> "invalid value")
-        val expectedError = error(field, "error.boolean")
+        val expectedError = error(field, "error.required")
         checkForError(form, data, expectedError)
       }
     }

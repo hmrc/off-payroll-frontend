@@ -64,5 +64,4 @@ object BenefitsMessages extends BaseMessages {
     val b5 = "Other benefits (such as gym membership and health insurance)"
     val p1 = "These do not include benefits provided by a third party or agency."
   }
-
 }

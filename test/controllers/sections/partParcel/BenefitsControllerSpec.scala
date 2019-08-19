@@ -185,6 +185,5 @@ class BenefitsControllerSpec extends ControllerSpecBase {
         redirectLocation(result) mustBe Some(controllers.routes.IndexController.onPageLoad().url)
       }
     }
-
   }
 }

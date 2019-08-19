@@ -23,7 +23,7 @@ import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataR
 import forms.ExtendContractFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-import pages.ExtendContractPage
+import pages.sections.businessOnOwnAccount.ExtendContractPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._

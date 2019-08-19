@@ -68,24 +68,28 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
       document.title mustBe title(AddDetailsMessages.heading)
     }
 
+    "have a panel indent to indicate that all fields are optional" in {
+      document.select(Selectors.panel).text mustBe AddDetailsMessages.allOptional
+    }
+
     "have the correct first label" in {
-      document.select(Selectors.label(3)).text mustBe AddDetailsMessages.fileName
+      document.select(Selectors.label(4)).text mustBe AddDetailsMessages.fileName + " " + AddDetailsMessages.optional
     }
 
     "have the correct second label" in {
-      document.select(Selectors.label(4)).text mustBe AddDetailsMessages.name
+      document.select(Selectors.label(5)).text mustBe AddDetailsMessages.name + " " + AddDetailsMessages.optional
     }
 
     "have the correct third label" in {
-      document.select(Selectors.label(5)).text mustBe AddDetailsMessages.clientName
+      document.select(Selectors.label(6)).text mustBe AddDetailsMessages.clientName + " " + AddDetailsMessages.optional
     }
 
     "have the correct fourth label" in {
-      document.select(Selectors.label(6)).text mustBe AddDetailsMessages.role
+      document.select(Selectors.label(7)).text mustBe AddDetailsMessages.role + " " + AddDetailsMessages.optional
     }
 
     "have the correct fifth label" in {
-      document.select(Selectors.label(7)).text mustBe AddDetailsMessages.reference
+      document.select(Selectors.label(8)).text mustBe AddDetailsMessages.reference + " " + AddDetailsMessages.optional
     }
   }
 }

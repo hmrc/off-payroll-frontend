@@ -24,7 +24,7 @@ import forms.ExtendContractFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
-import pages.ExtendContractPage
+import pages.sections.businessOnOwnAccount.ExtendContractPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}

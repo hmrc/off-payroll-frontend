@@ -233,6 +233,11 @@ POST       /majority-of-working-time                    controllers.sections.bus
 GET        /majority-of-working-time/change             controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onPageLoad(mode: Mode = CheckMode)
 POST       /majority-of-working-time/change             controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onSubmit(mode: Mode = CheckMode)
 
+GET        /rights-of-work                              controllers.sections.businessOnOwnAccount.RightsOfWorkController.onPageLoad(mode: Mode = NormalMode)
+POST       /rights-of-work                              controllers.sections.businessOnOwnAccount.RightsOfWorkController.onSubmit(mode: Mode = NormalMode)
+GET        /rights-of-work/change                       controllers.sections.businessOnOwnAccount.RightsOfWorkController.onPageLoad(mode: Mode = CheckMode)
+POST       /rights-of-work/change                       controllers.sections.businessOnOwnAccount.RightsOfWorkController.onSubmit(mode: Mode = CheckMode)
+
 GET        /first-contract                              controllers.sections.businessOnOwnAccount.FirstContractController.onPageLoad(mode: Mode = NormalMode)
 POST       /first-contract                              controllers.sections.businessOnOwnAccount.FirstContractController.onSubmit(mode: Mode = NormalMode)
 GET        /first-contract/change                       controllers.sections.businessOnOwnAccount.FirstContractController.onPageLoad(mode: Mode = CheckMode)
@@ -247,3 +252,23 @@ GET        /want-to-find-out                            controllers.sections.set
 POST       /want-to-find-out                            controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = NormalMode)
 GET        /want-to-find-out/change                     controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = CheckMode)
 POST       /want-to-find-out/change                     controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = CheckMode)
+
+GET        /financially-dependent                       controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onPageLoad(mode: Mode = NormalMode)
+POST       /financially-dependent                       controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onSubmit(mode: Mode = NormalMode)
+GET        /financially-dependent/change                controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onPageLoad(mode: Mode = CheckMode)
+POST       /financially-dependent/change                controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onSubmit(mode: Mode = CheckMode)
+
+GET        /worker-known                                controllers.sections.businessOnOwnAccount.WorkerKnownController.onPageLoad(mode: Mode = NormalMode)
+POST       /worker-known                                controllers.sections.businessOnOwnAccount.WorkerKnownController.onSubmit(mode: Mode = NormalMode)
+GET        /worker-known/change                         controllers.sections.businessOnOwnAccount.WorkerKnownController.onPageLoad(mode: Mode = CheckMode)
+POST       /worker-known/change                         controllers.sections.businessOnOwnAccount.WorkerKnownController.onSubmit(mode: Mode = CheckMode)
+
+GET        /ownership-rights                            controllers.sections.businessOnOwnAccount.OwnershipRightsController.onPageLoad(mode: Mode = NormalMode)
+POST       /ownership-rights                            controllers.sections.businessOnOwnAccount.OwnershipRightsController.onSubmit(mode: Mode = NormalMode)
+GET        /ownership-rights/change                     controllers.sections.businessOnOwnAccount.OwnershipRightsController.onPageLoad(mode: Mode = CheckMode)
+POST       /ownership-rights/change                     controllers.sections.businessOnOwnAccount.OwnershipRightsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /similar-work-other-clients                  controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onPageLoad(mode: Mode = NormalMode)
+POST       /similar-work-other-clients                  controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onSubmit(mode: Mode = NormalMode)
+GET        /similar-work-other-clients/change           controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onPageLoad(mode: Mode = CheckMode)
+POST       /similar-work-other-clients/change           controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onSubmit(mode: Mode = CheckMode)

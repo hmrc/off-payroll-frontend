@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,34 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import viewmodels._
-@import config.FrontendAppConfig
+package forms
 
-@(headerKey: String, row: Seq[SingleAnswerRow])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-<dl class="govuk-check-your-answers cya-questions-long" role="table">
-    <div>
-        <dt class="cya-question">@messages(headerKey)</dt>
-        <dd class="cya-answer"></dd>
-    </div>
-</dl>
+class WorkerKnownFormProviderSpec extends BooleanFieldBehaviours {
 
-@row.map(_.panelIndentHtml)
+  val requiredKey = "workerKnown.error.required"
+  val invalidKey = "error.required"
+
+  val form = new WorkerKnownFormProvider()()
+
+  ".value" must {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
+}

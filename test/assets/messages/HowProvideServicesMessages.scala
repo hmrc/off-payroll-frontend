@@ -37,5 +37,4 @@ object HowProvideServicesMessages extends BaseMessages {
     val heading = "How does the worker provide their services to the end client?"
     val title = heading
   }
-
 }
