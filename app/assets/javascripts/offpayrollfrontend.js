@@ -16,6 +16,8 @@ $(document).ready(function() {
   // =====================================================
   // Handle Accordion Button
   // =====================================================
+    $('.accordion__open__wrapper').removeClass("hidden").attr("aria-hidden","false")
+    $('.accordion__wrapper').removeClass("hidden").attr("aria-hidden","false")
     $('.accordion__row').click(function() {
        $(this).find("button").click().focus();
     });
@@ -28,24 +30,19 @@ $(document).ready(function() {
       updateOpenAll();
     })
     $('.accordion__open--all').click(function() {
-       $('[data-accordion-button][aria-expanded="false"]').click()
+       $(this).attr('aria-expanded') == 'false' ? $('[data-accordion-button][aria-expanded="false"]').click() : $('[data-accordion-button]').click();
        updateOpenAll();
-       $('.accordion__close--all').focus();
     });
-    $('.accordion__close--all').click(function() {
-       $('[data-accordion-button]').click()
-       updateOpenAll();
-       $('.accordion__open--all').focus();
-    });
-    $('.accordion__wrapper').removeClass("hidden").attr("aria-hidden","false")
 
     function updateOpenAll() {
         if($('[data-accordion]').length == $('[data-accordion][aria-expanded="true"]').length) {
-            $('.accordion__open--all').addClass("hidden").attr("aria-hidden", "true");
-            $('.accordion__close--all').removeClass("hidden").attr("aria-hidden", "false")
+            $('#openAll').addClass("hidden").attr("aria-hidden", "true");
+            $('#closeAll').removeClass("hidden").attr("aria-hidden", "false");
+            $('button.accordion__open--all').attr("aria-expanded","true")
         } else {
-            $('.accordion__close--all').addClass("hidden").attr("aria-hidden", "true");
-            $('.accordion__open--all').removeClass("hidden").attr("aria-hidden", "false")
+            $('#closeAll').addClass("hidden").attr("aria-hidden", "true");
+            $('#openAll').removeClass("hidden").attr("aria-hidden", "false")
+            $('button.accordion__open--all').attr("aria-expanded","false")
         }
     }
 
