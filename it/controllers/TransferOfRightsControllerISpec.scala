@@ -44,7 +44,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Disclaimer")
+        result.body should include ("Have you had a previous contract with this client?")
       }
     }
   }

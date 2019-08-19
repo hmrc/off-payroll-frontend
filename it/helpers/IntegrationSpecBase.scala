@@ -1,6 +1,7 @@
 package helpers
 
 import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
 import org.scalatest._
 import org.scalatest.concurrent.{Eventually, IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneServerPerSuite
@@ -19,7 +20,7 @@ trait IntegrationSpecBase extends WordSpec
   with GivenWhenThen with TestSuite with ScalaFutures with IntegrationPatience with Matchers
   with WiremockHelper
   with GuiceOneServerPerSuite
-  with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with Status with TestData {
+  with BeforeAndAfterEach with BeforeAndAfterAll with Eventually with CreateRequestHelper with Status with TestData with FeatureSwitching {
 
   implicit lazy val cookies: Seq[WSCookie] = whenReady(getRequest("/disclaimer", true))(_.cookies)
 

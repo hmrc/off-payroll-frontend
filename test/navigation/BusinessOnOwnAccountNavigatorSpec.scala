@@ -21,7 +21,7 @@ import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import controllers.routes
-import models.WhichDescribesYouAnswer.{ClientIR35, WorkerIR35}
+import models.WhichDescribesYouAnswer.{ClientIR35, ClientPAYE, WorkerIR35}
 import models._
 import pages._
 import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
@@ -103,6 +103,9 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
         lazy val userAnswers = UserAnswers("id")
           .set(OwnershipRightsPage, false)
           .set(WorkerKnownPage, false)
+          .set(ContractStartedPage, false)
+          .set(WhichDescribesYouPage, ClientPAYE)
+
 
         nextPage(OwnershipRightsPage, userAnswers) mustBe booaRoutes.FirstContractController.onPageLoad(NormalMode)
       }
@@ -146,6 +149,8 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
         lazy val userAnswers = UserAnswers("id")
           .set(RightsOfWorkPage, true)
           .set(WorkerKnownPage, false)
+          .set(ContractStartedPage, false)
+          .set(WhichDescribesYouPage, ClientIR35)
 
         nextPage(RightsOfWorkPage, userAnswers) mustBe booaRoutes.FirstContractController.onPageLoad(NormalMode)
       }
