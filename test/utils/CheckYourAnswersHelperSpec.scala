@@ -23,6 +23,7 @@ import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
+import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.NoWorkerInputAllowed
@@ -31,6 +32,7 @@ import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -1321,6 +1323,761 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               answer = "site.no",
               answerIsMessageKey = true,
               changeUrl = Some(financialRiskRoutes.OtherExpensesController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  //Business On Own Account
+  ".workerKnown" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).workerKnown mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(WorkerKnownPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).workerKnown(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$WorkerKnownPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(WorkerKnownPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).workerKnown(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$WorkerKnownPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(WorkerKnownPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).workerKnown(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$WorkerKnownPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".multipleContracts" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).multipleContracts mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(MultipleContractsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).multipleContracts(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$MultipleContractsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(MultipleContractsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).multipleContracts(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$MultipleContractsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(MultipleContractsPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).multipleContracts(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$MultipleContractsPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".permissionToWorkWithOthers" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).permissionToWorkWithOthers mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(PermissionToWorkWithOthersPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).permissionToWorkWithOthers(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$PermissionToWorkWithOthersPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(PermissionToWorkWithOthersPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).permissionToWorkWithOthers(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$PermissionToWorkWithOthersPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(PermissionToWorkWithOthersPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).permissionToWorkWithOthers(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$PermissionToWorkWithOthersPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".ownershipRights" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).ownershipRights mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(OwnershipRightsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).ownershipRights(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$OwnershipRightsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(OwnershipRightsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).ownershipRights(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$OwnershipRightsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(OwnershipRightsPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).ownershipRights(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$OwnershipRightsPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".rightsOfWork" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).rightsOfWork mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(RightsOfWorkPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).rightsOfWork(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$RightsOfWorkPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(RightsOfWorkPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).rightsOfWork(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$RightsOfWorkPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(RightsOfWorkPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).rightsOfWork(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$RightsOfWorkPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".transferOfRights" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).transferOfRights mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(TransferOfRightsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).transferOfRights(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$TransferOfRightsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(TransferOfRightsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).transferOfRights(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$TransferOfRightsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(TransferOfRightsPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).transferOfRights(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$TransferOfRightsPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".previousContract" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).previousContract mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(PreviousContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).previousContract(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$PreviousContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(PreviousContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).previousContract(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$PreviousContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(PreviousContractPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).previousContract(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$PreviousContractPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".followOnContract" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).followOnContract mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(FollowOnContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).followOnContract(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$FollowOnContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(FollowOnContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).followOnContract(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$FollowOnContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(FollowOnContractPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).followOnContract(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$FollowOnContractPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".firstContract" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).firstContract mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(FirstContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).firstContract(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$FirstContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(FirstContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).firstContract(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$FirstContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(FirstContractPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).firstContract(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$FirstContractPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".extendContract" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).extendContract mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ExtendContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).extendContract(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$ExtendContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ExtendContractPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).extendContract(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$ExtendContractPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(ExtendContractPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).extendContract(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$ExtendContractPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".majorityOfWorkingTime" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).majorityOfWorkingTime mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(MajorityOfWorkingTimePage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).majorityOfWorkingTime(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$MajorityOfWorkingTimePage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(MajorityOfWorkingTimePage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).majorityOfWorkingTime(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$MajorityOfWorkingTimePage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(MajorityOfWorkingTimePage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).majorityOfWorkingTime(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$MajorityOfWorkingTimePage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".financiallyDependent" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).financiallyDependent mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(FinanciallyDependentPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).financiallyDependent(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$FinanciallyDependentPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(FinanciallyDependentPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).financiallyDependent(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$FinanciallyDependentPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(FinanciallyDependentPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).financiallyDependent(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$FinanciallyDependentPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".similarWorkOtherClients" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).similarWorkOtherClients mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(SimilarWorkOtherClientsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).similarWorkOtherClients(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$SimilarWorkOtherClientsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(SimilarWorkOtherClientsPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).similarWorkOtherClients(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$SimilarWorkOtherClientsPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(SimilarWorkOtherClientsPage, 1, false)
+          new CheckYourAnswersHelper(cacheMap).similarWorkOtherClients(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$Worker.$SimilarWorkOtherClientsPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
             ))
         }
       }
