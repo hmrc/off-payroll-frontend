@@ -26,10 +26,18 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
 import play.api.libs.json.{JsValue, Json}
 
 trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
+
+  implicit lazy val whatDoYouWantToFindOutUserAnswersEntry: Arbitrary[(WhatDoYouWantToFindOutPage.type, JsValue)] =
+    Arbitrary {
+      for {
+        page  <- arbitrary[WhatDoYouWantToFindOutPage.type]
+        value <- arbitrary[Boolean].map(Json.toJson(_))
+      } yield (page, value)
+    }
 
   implicit lazy val arbitraryExtendContractUserAnswersEntry: Arbitrary[(ExtendContractPage.type, JsValue)] =
     Arbitrary {

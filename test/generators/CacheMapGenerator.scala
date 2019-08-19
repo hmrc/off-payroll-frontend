@@ -25,7 +25,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup.{AboutYouPage, ContractStartedPage, WhatDoYouWantToFindOutPage, WorkerTypePage}
 import play.api.libs.json.JsValue
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -69,7 +69,8 @@ trait CacheMapGenerator {
     arbitrary[(WorkerTypePage.type, JsValue)] ::
     arbitrary[(ContractStartedPage.type, JsValue)] ::
     arbitrary[(AboutYouPage.type, JsValue)] ::
-    Nil
+    arbitrary[(WhatDoYouWantToFindOutPage.type, JsValue)] ::
+  Nil
 
   implicit lazy val arbitraryCacheMap: Arbitrary[CacheMap] =
     Arbitrary {

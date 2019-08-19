@@ -16,12 +16,17 @@
 
 package generators
 
-import models._
+import models.{WhatDoYouWantToFindOut, _}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 import viewmodels.SingleAnswerRow
 
 trait ModelGenerators {
+
+  implicit lazy val whatDoYouWantToFindOut: Arbitrary[WhatDoYouWantToFindOut] =
+    Arbitrary {
+      Gen.oneOf(WhatDoYouWantToFindOut.values)
+    }
 
   implicit lazy val arbitraryAboutYou: Arbitrary[AboutYouAnswer] =
     Arbitrary {
