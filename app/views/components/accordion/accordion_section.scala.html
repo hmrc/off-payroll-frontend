@@ -24,29 +24,24 @@
 <div data-accordion
      data-accordion-animate
      data-accordion-set-hash
-     class="accordion @if(expanded){accordion--expanded}"
-     aria-expanded="@expanded">
+     class="accordion @if(expanded){accordion--expanded}">
     <div class="accordion__row">
         <h2 class="accordion__row__left bold-small">
             <button type="button"
                     class="accordion__button link--no-underline"
                     data-accordion-button
-                    role="tab"
                     id="@id-header"
-                    aria-controls="@id-section-body"
+                    aria-controls="@id-body"
                     aria-expanded="@expanded">
                 @messages(headerKey)
             </button>
             <span class="accordion__icon" aria-hidden="true"></span>
         </h2>
-
     </div>
     <div class="accordion__body @if(!expanded){hidden}"
-         id="@id-section-body"
+         id="@id-body"
          data-accordion-body
-         aria-hidden="@{!expanded}"
-         aria-labelledby="@id-section-header"
-         role="tabpanel">
+         aria-labelledby="@id-header">
         @body
     </div>
 </div>

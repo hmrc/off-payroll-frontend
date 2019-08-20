@@ -16,33 +16,32 @@ $(document).ready(function() {
   // =====================================================
   // Handle Accordion Button
   // =====================================================
-    $('.accordion__open__wrapper').removeClass("hidden").attr("aria-hidden","false")
-    $('.accordion__wrapper').removeClass("hidden").attr("aria-hidden","false")
+    $('.accordion__open__wrapper').removeClass("hidden")
+    $('.accordion__wrapper').removeClass("hidden")
     $('.accordion__row').click(function() {
        $(this).find("button").click().focus();
     });
     $('.accordion__row button').click(function(e) {
        e.stopPropagation();
     });
-    $('[data-accordion-button]').attr("role","tab")
     $('[data-accordion-button]').on('click', function(e) {
       $(this).attr('aria-expanded') == 'true' ? $(this).attr('aria-expanded','false') : $(this).attr('aria-expanded','true');
       updateOpenAll();
     })
     $('.accordion__open--all').click(function() {
-       $(this).attr('aria-expanded') == 'false' ? $('[data-accordion-button][aria-expanded="false"]').click() : $('[data-accordion-button]').click();
+       $(this).attr('aria-expanded') == 'false' ? $('.accordion__button[aria-expanded="false"]').click() : $('.accordion__button').click();
        updateOpenAll();
     });
 
     function updateOpenAll() {
         if($('[data-accordion]').length == $('[data-accordion][aria-expanded="true"]').length) {
-            $('#openAll').addClass("hidden").attr("aria-hidden", "true");
-            $('#closeAll').removeClass("hidden").attr("aria-hidden", "false");
-            $('button.accordion__open--all').attr("aria-expanded","true")
+            $('button.accordion__open--all').attr("aria-expanded","true");
+            $('#openAll').addClass("hidden");
+            $('#closeAll').removeClass("hidden");
         } else {
-            $('#closeAll').addClass("hidden").attr("aria-hidden", "true");
-            $('#openAll').removeClass("hidden").attr("aria-hidden", "false")
-            $('button.accordion__open--all').attr("aria-expanded","false")
+            $('button.accordion__open--all').attr("aria-expanded","false");
+            $('#closeAll').addClass("hidden");
+            $('#openAll').removeClass("hidden");
         }
     }
 
