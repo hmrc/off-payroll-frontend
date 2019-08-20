@@ -248,6 +248,11 @@ POST       /extend-contract                             controllers.sections.bus
 GET        /extend-contract/change                      controllers.sections.businessOnOwnAccount.ExtendContractController.onPageLoad(mode: Mode = CheckMode)
 POST       /extend-contract/change                      controllers.sections.businessOnOwnAccount.ExtendContractController.onSubmit(mode: Mode = CheckMode)
 
+GET        /want-to-find-out                            controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = NormalMode)
+POST       /want-to-find-out                            controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = NormalMode)
+GET        /want-to-find-out/change                     controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = CheckMode)
+POST       /want-to-find-out/change                     controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = CheckMode)
+
 GET        /financially-dependent                       controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onPageLoad(mode: Mode = NormalMode)
 POST       /financially-dependent                       controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onSubmit(mode: Mode = NormalMode)
 GET        /financially-dependent/change                controllers.sections.businessOnOwnAccount.FinanciallyDependentController.onPageLoad(mode: Mode = CheckMode)

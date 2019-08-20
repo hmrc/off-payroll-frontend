@@ -147,6 +147,19 @@ hirer.workerType.soleTrader = Fel unig fasnachwr
 hirer.workerType.checkYourAnswersLabel = Sut mae’r gweithiwr yn darparu’i wasanaethau i’r cleient terfynol?
 #########################
 
+## What do you want
+#########################
+
+whatDoYouWantToFindOut.title =  What do you want to find out?
+whatDoYouWantToFindOut.heading =  What do you want to find out?
+whatDoYouWantToFindOut.subheading = About you and the work
+whatDoYouWantToFindOut.checkYourAnswersLabel = What do you want to find out?
+whatDoYouWantToFindOut.ir35 = If the off payroll working rules (IR35) apply to a contract
+whatDoYouWantToFindOut.paye = If some work is classed as employment or self-employment for tax purposes
+
+whatDoYouWantToFindOut.error.required = You need to select an answer
+whatDoYouWantToFindOut.error.invalid = You need to select an answer
+#########################
 
 ## Office Holder
 #########################
