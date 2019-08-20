@@ -147,6 +147,22 @@ hirer.workerType.soleTrader = Fel unig fasnachwr
 hirer.workerType.checkYourAnswersLabel = Sut mae’r gweithiwr yn darparu’i wasanaethau i’r cleient terfynol?
 #########################
 
+## TODO: Need Welsh
+## Who Are you
+#########################
+
+whoAreYou.title =  Who are you?
+whoAreYou.heading =  Who are you?
+whoAreYou.subheading = About you and the work
+whoAreYou.checkYourAnswersLabel = Who are you?
+whoAreYou.personDoingWork = Worker
+whoAreYou.endClient = Hirer
+whoAreYou.placingAgency = Agency
+
+whoAreYou.error.required = You need to select an answer
+whoAreYou.error.invalid = You need to select an answer
+#########################
+
 ## What do you want
 #########################
 

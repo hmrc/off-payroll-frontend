@@ -24,25 +24,24 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call, form: Form[_], mode: Mode, showAgency: Boolean = true)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, "aboutYou.title", Some("aboutYou.subheading")),
+    title = title(form, "whoAreYou.title", Some("whoAreYou.subheading")),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.back_link(appConfig.govUkStartPageUrl)(mode)
+    @formWithCsrf(postAction, 'autoComplete -> "off") {
 
-    @formWithCsrf(action = AboutYouController.onSubmit(mode), 'autoComplete -> "off") {
+        @components.back_link()(mode)
 
         @components.error_summary(form.errors)
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading("aboutYou.heading", Some("aboutYou.subheading"), asLegend = true),
+            legend = components.heading("whoAreYou.heading", Some("whoAreYou.subheading"), asLegend = true),
             legendClass = Some("visually-hidden"),
-            hint = Some(Html(messages("aboutYou.hint"))),
-            inputs = AboutYouAnswer.options()
+            inputs = AboutYouAnswer.options(showAgency, optimisedFlow = true)
         )
 
         @components.submit_button()
