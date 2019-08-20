@@ -102,10 +102,12 @@ hirer.contractStarted.heading = Has the worker already started this particular e
 hirer.contractStarted.subheading = About the people involved
 hirer.contractStarted.checkYourAnswersLabel = Has the worker already started this particular engagement for you?
 
+worker.optimised.contractStarted.error.required = Select yes if you have already started working for this client
 worker.optimised.contractStarted.title = Have you already started working for this client?
 worker.optimised.contractStarted.heading = Have you already started working for this client?
 worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
 
+hirer.optimised.contractStarted.error.required = Select yes if the worker has already started working for your organisation
 hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
@@ -208,6 +210,7 @@ hirer.officeHolder.bullet2 = The role is created by statute, articles of associa
 hirer.officeHolder.bullet3 = The role exists even if someone is not engaged to fill it (a club treasurer, for example)
 hirer.officeHolder.exclamation = If you are not sure if these things apply, please ask your management about your organisational structure.
 
+worker.optimised.officeHolder.error.required = Select yes if you will be an Office Holder
 worker.optimised.officeHolder.title = Will you be an ‘Office Holder’?
 worker.optimised.officeHolder.subheading = Worker’s duties
 worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
@@ -216,6 +219,7 @@ worker.optimised.officeholder.p1 = This can include being a board member, treasu
 worker.optimised.officeholder.p2 = Read more about
 worker.optimised.officeholder.link = Office Holders (opens in a new window)
 
+hirer.optimised.officeHolder.error.required = Select yes if the worker will be an Office Holder
 hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
 hirer.optimised.officeHolder.subheading = Worker’s duties
 hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’?
@@ -1211,8 +1215,8 @@ whichDescribesYou.client.paye = If a job you’re hiring for is classed as emplo
 whichDescribesYou.worker.ir35 = If a contract you’re working on, or could be working on, is within the off-payroll working rules (IR35)
 whichDescribesYou.client.ir35 = If a contract your organisation is offering is within the off-payroll working rules (IR35)
 whichDescribesYou.agency = If a contract your agency is recruiting for is within the off-payroll working rules (IR35)
-whichDescribesYou.error.required = You need to select an answer
-whichDescribesYou.error.invalid = You need to select an answer
+whichDescribesYou.error.required = Select what you want to find out
+whichDescribesYou.error.invalid = Select what you want to find out
 
 agencyAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
@@ -1232,12 +1236,14 @@ leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
 
-workerUsingIntermediary.error.required = You need to select an answer
-workerUsingIntermediary.error.invalid = You need to select an answer
+worker.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
+worker.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
 
+hirer.workerUsingIntermediary.error.required = Select yes if the worker is trading through a limited company, partnership or unincorporated body
+hirer.workerUsingIntermediary.error.invalid = Select yes if the worker is trading through a limited company, partnership or unincorporated body
 hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?

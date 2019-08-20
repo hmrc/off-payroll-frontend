@@ -14,18 +14,22 @@
  * limitations under the License.
  */
 
-package forms
+package forms.mappings
 
 import config.FrontendAppConfig
-import forms.mappings.{Mappings, OptimisedErrorHandling}
-import javax.inject.Inject
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import models.UserType.Worker
 import models.requests.DataRequest
-import play.api.data.Form
 
-class WorkerUsingIntermediaryFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
+trait OptimisedErrorHandling extends FeatureSwitching {
 
-  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
-    Form(
-      "value" -> boolean(tailoredErrMsg("workerUsingIntermediary.error.required"))
-    )
+  def tailoredErrMsg(key: String, optimisedPrefix: Boolean = false)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
+    if(isEnabled(OptimisedFlow)) {
+      s"${request.userType.getOrElse(Worker)}${if(optimisedPrefix) ".optimised" else ""}.$key"
+    } else {
+      key
+    }
+
+  def tailoredErrMsgOptimised(key: String)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
+    tailoredErrMsg(key, optimisedPrefix = true)
 }

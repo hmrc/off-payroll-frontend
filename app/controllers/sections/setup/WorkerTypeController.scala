@@ -24,7 +24,7 @@ import controllers.actions._
 import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import javax.inject.Inject
 import models.requests.DataRequest
-import models.{Mode, WorkerType}
+import models.{Mode, UserAnswers, WorkerType}
 import navigation.SetupNavigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
@@ -53,7 +53,7 @@ class WorkerTypeController @Inject()(identify: IdentifierAction,
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   val workerTypeForm: Form[WorkerType] = workerTypeFormProvider()
-  val workerUsingIntermediaryForm: Form[Boolean] = newFormProvider()
+  def workerUsingIntermediaryForm(implicit request: DataRequest[_]): Form[Boolean] = newFormProvider()
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(mode))

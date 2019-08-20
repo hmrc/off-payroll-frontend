@@ -50,7 +50,7 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
-  val form: Form[Boolean] = formProvider()
+  def form(implicit request: DataRequest[_]): Form[Boolean] = formProvider()
 
   def renderView(mode: Mode, oForm: Option[Form[Boolean]] = None)(implicit request: DataRequest[_]) = {
     val formData = oForm.getOrElse(fillForm(ContractStartedPage, form))
