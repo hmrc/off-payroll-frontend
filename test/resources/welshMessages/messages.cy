@@ -1311,6 +1311,7 @@ checkYourAnswers.personalService.header = Section 3: Substitutes and helpers
 checkYourAnswers.control.header = Section 4: Working arrangements
 checkYourAnswers.financialRisk.header = Section 5: Worker’s financial risk
 checkYourAnswers.partParcel.header = Section 6: Worker’s involvement
+checkYourAnswers.businessOnOwnAccount.header = Section 7: Worker’s contracts
 
 
 ##### TODO NEED WELSH FOR ####
@@ -1850,7 +1851,7 @@ financiallyDependent.error.required = You need to select an answer
 worker.financiallyDependent.subheading = Worker’s contracts
 worker.financiallyDependent.title = If you lost this contract, would you need to replace the income from it immediately?
 worker.financiallyDependent.heading = If you lost this contract, would you need to replace the income from it immediately?
-worker.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
+worker.financiallyDependent.checkYourAnswersLabel = If you lost this contract, would you need to replace the income from it immediately?
 worker.financiallyDependent.p1 = Regular income is earnings of a similar amount, paid with the same frequency and on an ongoing basis.
 
 hirer.financiallyDependent.subheading = Worker’s contracts

@@ -17,10 +17,10 @@
 package services
 
 import javax.inject.Inject
-
 import config.FrontendAppConfig
 import models._
-import pages.QuestionPage
+import pages.sections.businessOnOwnAccount.{ExtendContractPage, FirstContractPage}
+import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -76,6 +76,8 @@ class CheckYourAnswersValidationService @Inject()(implicit val appConfig: Fronte
         BenefitsPage,
         IdentifyToStakeholdersPage,
         LineManagerDutiesPage
+
+        //TODO: Needs Updating with logic for BoOA - future Story
       )
   }
 

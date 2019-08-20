@@ -22,8 +22,10 @@ import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
+import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import models.{CheckMode, Enumerable, UserAnswers}
 import pages._
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -35,8 +37,9 @@ import play.api.mvc.Request
 import viewmodels.AnswerRow
 import views.ViewUtils._
 
+//noinspection ScalaStyle
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
-
+  
   def turnoverOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(TurnoverOverPage) map { x =>
       AnswerRow(
@@ -305,4 +308,137 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
     )
   }
+
+  // Business On Own Account Section
+  // ===============================
+  def workerKnown(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(WorkerKnownPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$WorkerKnownPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def multipleContracts(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(MultipleContractsPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$MultipleContractsPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def permissionToWorkWithOthers(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(PermissionToWorkWithOthersPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$PermissionToWorkWithOthersPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def ownershipRights(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(OwnershipRightsPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$OwnershipRightsPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def rightsOfWork(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(RightsOfWorkPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$RightsOfWorkPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def transferOfRights(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(TransferOfRightsPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$TransferOfRightsPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def previousContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(PreviousContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$PreviousContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def followOnContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(FollowOnContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$FollowOnContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def firstContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(FirstContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$FirstContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def extendContract(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(ExtendContractPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$ExtendContractPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def majorityOfWorkingTime(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(MajorityOfWorkingTimePage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$MajorityOfWorkingTimePage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+      )
+    }
+
+
+  def financiallyDependent(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(FinanciallyDependentPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$FinanciallyDependentPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+      )
+    }
+
+  def similarWorkOtherClients(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
+    userAnswers.get(SimilarWorkOtherClientsPage) map { x =>
+      AnswerRow(
+        tailorMsg(s"$SimilarWorkOtherClientsPage.checkYourAnswersLabel"),
+        if(x.answer) "site.yes" else "site.no",
+        answerIsMessageKey = true,
+        changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+      )
+    }
 }
