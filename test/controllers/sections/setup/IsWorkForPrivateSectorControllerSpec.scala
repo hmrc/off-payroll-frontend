@@ -22,6 +22,7 @@ import controllers.actions._
 import forms.IsWorkForPrivateSectorFormProvider
 import models._
 import models.requests.DataRequest
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{ContractStartedPage, IsWorkForPrivateSectorPage}
 import play.api.data.Form
 import play.api.libs.json.Json

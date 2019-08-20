@@ -24,7 +24,7 @@ import forms.MoveWorkerFormProvider
 import models.Answers._
 import models.requests.DataRequest
 import models.{Answers, MoveWorker, NormalMode, ScheduleOfWorkingHours}
-
+import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.sections.control.{MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import play.api.data.Form
 import play.api.libs.json._

@@ -23,6 +23,7 @@ import controllers.actions._
 import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models._
 import models.requests.DataRequest
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.libs.json._

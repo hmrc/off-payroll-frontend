@@ -23,7 +23,7 @@ import controllers.ControllerSpecBase
 import forms.VehicleFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
-
+import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
 import pages.sections.financialRisk.VehiclePage
 import play.api.data.Form
 import play.api.libs.json.Json

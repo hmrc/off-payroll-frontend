@@ -1,5 +1,6 @@
 package controllers
 
+import config.featureSwitch.BusinessOnOwnAccountJourney
 import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
 import play.api.http.Status
 import play.api.libs.ws.WSCookie
@@ -40,6 +41,7 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
 
     "Return a 409 on Successful post and go to the something went wrong page" in {
 
+      disable(BusinessOnOwnAccountJourney)
       lazy val res = postSessionRequest("/introduce-worker",introduceValue)
 
       whenReady(res) { result =>

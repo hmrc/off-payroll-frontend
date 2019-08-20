@@ -22,6 +22,7 @@ import controllers.actions._
 import forms.LineManagerDutiesFormProvider
 import models.requests.DataRequest
 import models.{Answers, ArrangedSubstitute, NormalMode, UserAnswers}
+import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
 import pages.sections.partParcel.LineManagerDutiesPage
 import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form

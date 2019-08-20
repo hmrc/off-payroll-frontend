@@ -31,7 +31,7 @@
 
     @components.back_link()(mode)
 
-    @formWithCsrf(action = ExtendContractController.onSubmit(mode), 'autoComplete -> "off") {
+    @formWithCsrf(action = WorkerKnownController.onSubmit(mode), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 

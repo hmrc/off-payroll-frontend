@@ -44,7 +44,7 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Disclaimer")
+        result.body should include ("Are you required to ask permission to work for other clients?")
       }
     }
   }

@@ -25,7 +25,7 @@ import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
 import models.requests.DataRequest
-
+import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, PutRightAtOwnCostPage}
 import play.api.data.Form
 import play.api.libs.json.Json

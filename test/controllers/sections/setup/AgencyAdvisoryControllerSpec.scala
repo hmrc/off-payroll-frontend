@@ -18,6 +18,7 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import play.api.test.Helpers._
 import views.html.sections.setup.AgencyAdvisoryView
 

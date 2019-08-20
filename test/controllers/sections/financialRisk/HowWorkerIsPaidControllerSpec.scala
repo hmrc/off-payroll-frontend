@@ -28,7 +28,7 @@ import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models.requests.DataRequest
 import models._
-
+import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
 import org.mockito.Matchers
 import org.mockito.Mockito.when
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}

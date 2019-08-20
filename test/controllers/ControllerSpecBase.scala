@@ -41,19 +41,6 @@ trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with 
 
   val cacheMapId = "id"
 
-  trait FakeNavigator extends Navigator {
-    override def nextPage(page: Page, mode: Mode): UserAnswers => Call = _ => onwardRoute
-  }
-
-  object FakeSetupNavigator extends SetupNavigator()(frontendAppConfig) with FakeNavigator
-  object FakeControlNavigator extends ControlNavigator()(frontendAppConfig) with FakeNavigator
-  object FakeFinancialRiskNavigator extends FinancialRiskNavigator()(frontendAppConfig) with FakeNavigator
-  object FakePersonalServiceNavigator extends PersonalServiceNavigator()(frontendAppConfig) with FakeNavigator
-  object FakePartAndParcelNavigator extends PartAndParcelNavigator()(frontendAppConfig) with FakeNavigator
-  object FakeExitNavigator extends ExitNavigator()(frontendAppConfig) with FakeNavigator
-  object FakeCYANavigator extends CYANavigator()(frontendAppConfig) with FakeNavigator
-  object FakeBusinessOnOwnAccountNavigator extends BusinessOnOwnAccountNavigator()(frontendAppConfig) with FakeNavigator
-
   def emptyCacheMap = CacheMap(cacheMapId, Map())
 
   def bodyOf(result: Result)(implicit mat: Materializer): String = {

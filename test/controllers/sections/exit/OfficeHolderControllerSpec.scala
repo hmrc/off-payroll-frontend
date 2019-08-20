@@ -24,7 +24,7 @@ import forms.OfficeHolderFormProvider
 import models.CannotClaimAsExpense.WorkerProvidedMaterials
 import models.requests.DataRequest
 import models.{Answers, CheckMode, NormalMode, UserAnswers}
-
+import navigation.mocks.FakeNavigators.FakeExitNavigator
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.data.Form

@@ -17,17 +17,19 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+import config.featureSwitch.{BusinessOnOwnAccountJourney, OptimisedFlow}
 import controllers.routes
 import controllers.sections.partParcel.{routes => partAndParcelRoutes}
+import controllers.sections.businessOnOwnAccount.{routes => booa}
 import models._
+import navigation.mocks.FakeNavigators.FakeBusinessOnOwnAccountNavigator
 import pages._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 
 class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
 
   val emptyUserAnswers = UserAnswers("id")
-  val navigator = new PartAndParcelNavigator
+  val navigator = new PartAndParcelNavigator(FakeBusinessOnOwnAccountNavigator, frontendAppConfig)
 
   def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
 
@@ -57,8 +59,15 @@ class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
           partAndParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
       }
 
-      "if InteractWithStakeholders is false AND OptimisedFlow is enabled go to the IdentifyToStakeholdersPage" in {
+      "if InteractWithStakeholders is false AND OptimisedFlow is enabled and BusinessOnOwnAccountJourney is enabled go to the MultipleContractsPage" in {
         enable(OptimisedFlow)
+        enable(BusinessOnOwnAccountJourney)
+        nextPage(InteractWithStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
+      }
+
+      "if InteractWithStakeholders is false AND OptimisedFlow is enabled and BusinessOnOwnAccountJourney is disabled go to the CheckYourAnswersPage" in {
+        enable(OptimisedFlow)
+        disable(BusinessOnOwnAccountJourney)
         nextPage(InteractWithStakeholdersPage) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
 
@@ -70,12 +79,19 @@ class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
 
     "go from the IdentifyToStakeholdersPage" when {
 
-      "if OptimisedFlow is enabled go to the IdentifyToStakeholdersPage" in {
+      "if OptimisedFlow and BusinessOnOwnAccountJourney are enabled go to the MultipleContractsPage" in {
         enable(OptimisedFlow)
+        enable(BusinessOnOwnAccountJourney)
+        nextPage(IdentifyToStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
+      }
+
+      "if OptimisedFlow is enabled and BusinessOnOwnAccountJourney is disabled go to the CheckYourAnswersPage" in {
+        enable(OptimisedFlow)
+        disable(BusinessOnOwnAccountJourney)
         nextPage(IdentifyToStakeholdersPage) mustBe routes.CheckYourAnswersController.onPageLoad()
       }
 
-      "if OptimisedFlow is disabled go to the IdentifyToStakeholdersPage" in {
+      "if OptimisedFlow is disabled go to the ResultPage" in {
         disable(OptimisedFlow)
         nextPage(IdentifyToStakeholdersPage) mustBe routes.ResultController.onPageLoad()
       }

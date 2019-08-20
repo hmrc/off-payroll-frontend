@@ -1,8 +1,7 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
-import play.api.libs.ws.WSCookie
+import config.featureSwitch.BusinessOnOwnAccountJourney
+import helpers.IntegrationSpecBase
 
 class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase {
 
@@ -13,7 +12,7 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/external-interaction")
 
       whenReady(res) { result =>
-         result.status shouldBe OK
+        result.status shouldBe OK
         result.body should include ("Do you interact with the end client’s customers, clients, audience or users?")
       }
     }
@@ -40,6 +39,7 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase {
 
     "Return a 409 on Successful post as no other answers recorded" in {
 
+      disable(BusinessOnOwnAccountJourney)
       lazy val res = postSessionRequest("/external-interaction", selectedNo)
 
       whenReady(res) { result =>

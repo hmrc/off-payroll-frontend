@@ -23,6 +23,7 @@ import controllers.actions._
 import forms.RejectSubstituteFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
+import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
 import pages.sections.personalService.RejectSubstitutePage
 import play.api.data.Form
 import play.api.libs.json.Json

@@ -22,6 +22,7 @@ import controllers.actions._
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import models._
 import models.requests.DataRequest
+import navigation.mocks.FakeNavigators.FakeCYANavigator
 import pages.Timestamp
 import play.api.i18n.Messages
 import play.api.libs.json.Json

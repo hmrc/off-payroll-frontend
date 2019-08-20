@@ -25,7 +25,7 @@ import models.Answers._
 import models.ChooseWhereWork.WorkerChooses
 import models._
 import models.requests.DataRequest
-
+import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.ResultPage
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage}
 import play.api.data.Form

@@ -17,6 +17,7 @@
 package controllers
 
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeEmptyCacheMapDataRetrievalAction, FakeIdentifierAction}
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import play.api.test.Helpers._
 
 class IndexControllerSpec extends ControllerSpecBase {

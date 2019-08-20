@@ -19,16 +19,16 @@ package assets.messages
 object FollowOnContractMessages extends BaseMessages {
 
   object Worker {
-    val title = "Will you start this contract immediately after your last contract with this client ended?"
-    val heading = "Will you start this contract immediately after your last contract with this client ended?"
+    val title = "Will this contract start immediately after the previous one ended?"
+    val heading = "Will this contract start immediately after the previous one ended?"
     val subheading = "Worker’s contracts"
-    val p1 = "This refers to working time only and can include any holiday period between the two contracts."
+    val p1 = "This does not include any holiday period between the two contracts."
   }
 
   object Hirer {
-    val title = "Will the worker start this contract immediately after their last contract with your organisation ended?"
-    val heading = "Will the worker start this contract immediately after their last contract with your organisation ended?"
+    val title = "Will this contract start immediately after the previous one ended?"
+    val heading = "Will this contract start immediately after the previous one ended?"
     val subheading = "Worker’s contracts"
-    val p1 = "This refers to working time only and can include any holiday period between the two contracts."
+    val p1 = "This does not include any holiday period between the two contracts."
   }
 }
