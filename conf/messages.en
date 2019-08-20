@@ -143,6 +143,21 @@ hirer.workerType.soleTrader = As a sole trader
 hirer.workerType.checkYourAnswersLabel = How does the worker provide their services to you?
 #########################
 
+## Who Are you
+#########################
+
+whoAreYou.title =  Who are you?
+whoAreYou.heading =  Who are you?
+whoAreYou.subheading = About you and the work
+whoAreYou.checkYourAnswersLabel = Who are you?
+whoAreYou.personDoingWork = Worker
+whoAreYou.endClient = Hirer
+whoAreYou.placingAgency = Agency
+
+whoAreYou.error.required = You need to select an answer
+whoAreYou.error.invalid = You need to select an answer
+#########################
+
 ## What do you want
 #########################
 

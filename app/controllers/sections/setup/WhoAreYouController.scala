@@ -23,13 +23,17 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.AboutYouFormProvider
 import javax.inject.Inject
+import models.WhatDoYouWantToFindOut.IR35
 import models._
+import models.requests.DataRequest
 import navigation.SetupNavigator
-import pages.sections.setup.WhoAreYouPage
+import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form
 import play.api.mvc._
 import services.{CompareAnswerService, DecisionService}
 import views.html.sections.setup.WhoAreYouView
+
+import scala.concurrent.Future
 
 class WhoAreYouController @Inject()(identify: IdentifierAction,
                                     getData: DataRetrievalAction,
@@ -46,11 +50,22 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
 
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()
 
-  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(routes.WhoAreYouController.onSubmit(mode), fillForm(WhoAreYouPage, form), mode))
+  private def renderedView(mode: Mode, form: Form[AboutYouAnswer] = form)(implicit request: DataRequest[_]) = {
+    val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage) match {
+      case Some(IR35) => true
+      case _ => false
+    }
+    view(routes.WhoAreYouController.onSubmit(mode), fillForm(WhoAreYouPage, form), mode, showAgency)
   }
 
-  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(navigator.nextPage(WhoAreYouPage, mode)(request.userAnswers))
+  def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
+    Ok(renderedView(mode))
+  }
+
+  def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    form.bindFromRequest().fold(
+      formWithErrors => Future.successful(BadRequest(renderedView(mode, formWithErrors))),
+      value => redirect(mode, value, WhoAreYouPage)
+    )
   }
 }

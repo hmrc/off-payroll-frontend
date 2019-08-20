@@ -28,7 +28,7 @@ class AboutYouAnswerSpec extends WordSpec with MustMatchers with ScalaCheckPrope
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(AboutYouAnswer.values)
+      val gen = Gen.oneOf(AboutYouAnswer.values())
 
       forAll(gen) {
         aboutYouAnswer =>
@@ -39,7 +39,7 @@ class AboutYouAnswerSpec extends WordSpec with MustMatchers with ScalaCheckPrope
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!AboutYouAnswer.values.map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!AboutYouAnswer.values().map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
@@ -50,7 +50,7 @@ class AboutYouAnswerSpec extends WordSpec with MustMatchers with ScalaCheckPrope
 
     "serialise" in {
 
-      val gen = Gen.oneOf(AboutYouAnswer.values)
+      val gen = Gen.oneOf(AboutYouAnswer.values())
 
       forAll(gen) {
         aboutYouAnswer =>
