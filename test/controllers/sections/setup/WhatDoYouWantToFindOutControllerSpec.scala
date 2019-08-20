@@ -22,6 +22,7 @@ import forms.WhatDoYouWantToFindOutFormProvider
 import models.Answers._
 import models._
 import models.requests.DataRequest
+import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.WhatDoYouWantToFindOutPage
 import play.api.data.Form
 import play.api.libs.json.Json
