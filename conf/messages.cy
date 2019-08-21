@@ -577,6 +577,9 @@ hirer.putRightAtOwnCost.cannotBeCorrected =Na - ni fyddai’r gweithiwr yn gallu
 hirer.putRightAtOwnCost.noObligationToCorrect =Na - ni fyddai’n rhaid iddo roi pethau’n iawn
 hirer.putRightAtOwnCost.checkYourAnswersLabel =Os nad yw’r cleient terfynol yn fodlon gyda’r gwaith, a oes angen i’r gweithiwr rhoi pethau’n iawn ar ei gost ei hun?
 
+## TODO: Need Welsh
+worker.optimised.putRightAtOwnCost.error.required = Select if you would have to put your work right if your client was not happy with it
+worker.optimised.putRightAtOwnCost.error.invalid = Select if you would have to put your work right if your client was not happy with it
 worker.optimised.putRightAtOwnCost.title = If the client was not happy with your work, would you have to put it right?
 worker.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 worker.optimised.putRightAtOwnCost.heading = If the client was not happy with your work, would you have to put it right?
@@ -587,6 +590,9 @@ worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, you wo
 worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
 worker.optimised.putRightAtOwnCost.noObligationToCorrect = Na
 
+## TODO: Need Welsh
+hirer.optimised.putRightAtOwnCost.error.required = Select if the worker would have to put the work right if your organisation was not happy with it
+hirer.optimised.putRightAtOwnCost.error.invalid = Select if the worker would have to put the work right if your organisation was not happy with it
 hirer.optimised.putRightAtOwnCost.title = If your organisation was not happy with the work, would the worker have to put it right?
 hirer.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 hirer.optimised.putRightAtOwnCost.heading = If your organisation was not happy with the work, would the worker have to put it right?

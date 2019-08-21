@@ -34,7 +34,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "putRightAtOwnCost"
 
-  val form = new PutRightAtOwnCostFormProvider()()
+  val form = new PutRightAtOwnCostFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[PutRightAtOwnCostView]
 

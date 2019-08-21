@@ -16,16 +16,17 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import play.api.data.Form
 import models.PutRightAtOwnCost
+import models.requests.DataRequest
 
-class PutRightAtOwnCostFormProvider @Inject() extends Mappings {
+class PutRightAtOwnCostFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[PutRightAtOwnCost] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[PutRightAtOwnCost] =
     Form(
-      "value" -> enumerable[PutRightAtOwnCost]("putRightAtOwnCost.error.required")
+      "value" -> enumerable[PutRightAtOwnCost](tailoredErrMsgOptimised("putRightAtOwnCost.error.required"))
     )
 }

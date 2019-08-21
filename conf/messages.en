@@ -565,6 +565,9 @@ hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would 
 hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
 hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
 
+
+worker.optimised.putRightAtOwnCost.error.required = Select if you would have to put your work right if your client was not happy with it
+worker.optimised.putRightAtOwnCost.error.invalid = Select if you would have to put your work right if your client was not happy with it
 worker.optimised.putRightAtOwnCost.title = If the client was not happy with your work, would you have to put it right?
 worker.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 worker.optimised.putRightAtOwnCost.heading = If the client was not happy with your work, would you have to put it right?
@@ -575,6 +578,8 @@ worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, you wo
 worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
 worker.optimised.putRightAtOwnCost.noObligationToCorrect = No
 
+hirer.optimised.putRightAtOwnCost.error.required = Select if the worker would have to put the work right if your organisation was not happy with it
+hirer.optimised.putRightAtOwnCost.error.invalid = Select if the worker would have to put the work right if your organisation was not happy with it
 hirer.optimised.putRightAtOwnCost.title = If your organisation was not happy with the work, would the worker have to put it right?
 hirer.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 hirer.optimised.putRightAtOwnCost.heading = If your organisation was not happy with the work, would the worker have to put it right?

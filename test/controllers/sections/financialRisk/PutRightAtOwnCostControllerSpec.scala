@@ -41,7 +41,7 @@ import views.html.sections.financialRisk.PutRightAtOwnCostView
 class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 
   val formProvider = new PutRightAtOwnCostFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val subOptimisedView = injector.instanceOf[SubOptimisedPutRightAtOwnCostView]
   val optimisedView = injector.instanceOf[PutRightAtOwnCostView]
