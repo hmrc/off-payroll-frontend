@@ -43,7 +43,7 @@ class WhatDoYouWantToFindOutViewSpec extends ViewBehaviours with FeatureSwitchin
 
   "WhatDoYouWantToFindOut view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
+    behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
 
     behave like pageWithBackLink(createView)
 
@@ -52,17 +52,18 @@ class WhatDoYouWantToFindOutViewSpec extends ViewBehaviours with FeatureSwitchin
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        enable(OptimisedFlow)
-        document.title mustBe title(WhatDoYouWantToFindOutMessages.title)
+        document.title mustBe title(WhatDoYouWantToFindOutMessages.title, Some(WhatDoYouWantToFindOutMessages.subheading))
       }
 
       "have the correct heading" in {
-        enable(OptimisedFlow)
         document.select(Selectors.heading).text mustBe WhatDoYouWantToFindOutMessages.heading
       }
 
+      "have the correct subheading" in {
+        document.select(Selectors.subheading).text mustBe WhatDoYouWantToFindOutMessages.subheading
+      }
+
       "have the correct radio option messages" in {
-        enable(OptimisedFlow)
         document.select(Selectors.multichoice(1)).text mustBe WhatDoYouWantToFindOutMessages.ir35
         document.select(Selectors.multichoice(2)).text mustBe WhatDoYouWantToFindOutMessages.paye
       }
