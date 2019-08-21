@@ -31,7 +31,7 @@ class MultipleContractsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.multipleContracts"
 
-  val form = new MultipleContractsFormProvider()()
+  val form = new MultipleContractsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MultipleContractsView]
 

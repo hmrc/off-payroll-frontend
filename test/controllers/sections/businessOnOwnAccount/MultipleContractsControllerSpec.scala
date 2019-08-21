@@ -39,7 +39,7 @@ class MultipleContractsControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new MultipleContractsFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MultipleContractsView]
 

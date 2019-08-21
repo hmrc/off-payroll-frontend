@@ -1778,14 +1778,14 @@ resetAnswersWarning.error.required = Mae angen i chi ddewis ateb
 ##TODO: Need Welsh
 ### Multiple Contracts Page
 ### -----------------------
-multipleContracts.error.required = Mae angen i chi ddewis ateb
-
+worker.multipleContracts.error.required = Select yes if this contract stops you from doing similar work for other organisations
 worker.multipleContracts.subheading = Worker’s contracts
 worker.multipleContracts.title = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.heading = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.checkYourAnswersLabel = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.p1 = This includes working for your client’s competitors.
 
+hirer.multipleContracts.error.required = Select yes if this contract stops the worker from doing similar work for other organisations
 hirer.multipleContracts.subheading = Worker’s contracts
 hirer.multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
 hirer.multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
