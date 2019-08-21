@@ -479,13 +479,15 @@ worker.lineManagerDuties.bullet4 =Penderfynu ar faint i dalu rhywun
 worker.lineManagerDuties.checkYourAnswersLabel =A yw’r gweithiwr yn gyfrifol am unrhyw un o’r dyletswyddau canlynol ar gyfer y cleient terfynol?
 
 ##TODO: Need Welsh
-
+hirer.optimised.lineManagerDuties.error.required = Select yes if the worker will have any management responsibilities for your organisation
 hirer.optimised.lineManagerDuties.title = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.subheading = Worker’s involvement
 hirer.optimised.lineManagerDuties.heading = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 
+##TODO: Need Welsh
+worker.optimised.lineManagerDuties.error.required = Select yes if you will have any management responsibilities for your client
 worker.optimised.lineManagerDuties.title = Will you have any management responsibilities for your client?
 worker.optimised.lineManagerDuties.subheading = Worker’s involvement
 worker.optimised.lineManagerDuties.heading = Will you have any management responsibilities for your client?

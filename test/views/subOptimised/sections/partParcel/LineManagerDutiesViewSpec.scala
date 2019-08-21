@@ -33,7 +33,7 @@ class LineManagerDutiesViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "lineManagerDuties"
 
-  val form = new LineManagerDutiesFormProvider()()
+  val form = new LineManagerDutiesFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[LineManagerDutiesView]
 
