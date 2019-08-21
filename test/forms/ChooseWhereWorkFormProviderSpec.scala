@@ -16,18 +16,21 @@
 
 package forms
 
+import base.GuiceAppSpecBase
+import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
 import models.ChooseWhereWork
 import play.api.data.FormError
 
-class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours {
+class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {
 
-  val form = new ChooseWhereWorkFormProvider()()
+  val fieldName = "value"
+  val requiredKey = "chooseWhereWork.error.required"
+
+  val form = new ChooseWhereWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   ".value" must {
 
-    val fieldName = "value"
-    val requiredKey = "chooseWhereWork.error.required"
 
     behave like optionsField[ChooseWhereWork](
       form,
@@ -36,10 +39,43 @@ class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours {
       invalidError = FormError(fieldName, "error.invalid")
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    "for the sub optimised flow" should {
+
+      disable(OptimisedFlow)
+      val form = new ChooseWhereWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
+
+      behave like mandatoryField(
+        form ,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
+    }
+
+    "for the optimised flow" should {
+
+      "if the user type is 'Worker'" must {
+
+        enable(OptimisedFlow)
+        val form = new ChooseWhereWorkFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+        )
+      }
+
+      "if the user type is 'Hirer'" must {
+
+        enable(OptimisedFlow)
+        val form = new ChooseWhereWorkFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+        )
+      }
+    }
   }
 }

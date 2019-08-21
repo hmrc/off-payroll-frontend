@@ -655,7 +655,7 @@ hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your orga
 #########################
 
 
-## How Work Is Done
+## Choose Where Work
 #########################
 chooseWhereWork.title = A all y gweithiwr ddewis ble y mae’n gweithio?
 chooseWhereWork.heading =A all y gweithiwr ddewis ble y mae’n gweithio?
@@ -685,6 +685,30 @@ hirer.chooseWhereWork.workerChooses = Iawn - y gweithiwr sy’n penderfynu
 hirer.chooseWhereWork.workerCannotChoose =Na - y cleient terfynol sy’n dewis
 hirer.chooseWhereWork.noLocationRequired =Na - y dasg sy’n pennu lleoliad y gwaith
 hirer.chooseWhereWork.workerAgreeWithOthers = Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno, a rhaid i beth ohono gael ei wneud lle bynnag y mae’r gweithiwr yn dewis
+
+##TODO: Need Welsh
+worker.optimised.chooseWhereWork.error.required = Select yes if your client will decide where you do the work
+worker.optimised.chooseWhereWork.error.invalid = Select yes if your client will decide where you do the work
+worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.subheading = Working arrangements
+worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.workerCannotChoose = Iawn
+worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
+worker.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
+worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice
+
+##TODO: Need Welsh
+hirer.optimised.chooseWhereWork.error.required = Select yes if your organisation will decide where the worker does the work
+hirer.optimised.chooseWhereWork.error.invalid = Select yes if your organisation will decide where the worker does the work
+hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.subheading = Working arrangements
+hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.workerCannotChoose = Iawn
+hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
+hirer.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
+hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
 #########################
 
 
@@ -1380,24 +1404,6 @@ toolNotNeeded.client.paye.title = You don’t need to determine if this work sho
 toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
-
-worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.subheading = Working arrangements
-worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.workerCannotChoose = Iawn
-worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
-worker.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
-worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice
-
-hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.subheading = Working arrangements
-hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.workerCannotChoose = Iawn
-hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
-hirer.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
-hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
 
 
 #### New Optimised Result Pages ####

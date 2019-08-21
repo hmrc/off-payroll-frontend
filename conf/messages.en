@@ -673,6 +673,8 @@ hirer.chooseWhereWork.workerCannotChoose = No - we decide
 hirer.chooseWhereWork.noLocationRequired = No - the task determines the work location
 hirer.chooseWhereWork.workerAgreeWithOthers = Partly - some work has to be done in an agreed location and some can be done wherever the worker chooses
 
+worker.optimised.chooseWhereWork.error.required = Select yes if your client will decide where you do the work
+worker.optimised.chooseWhereWork.error.invalid = Select yes if your client will decide where you do the work
 worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
 worker.optimised.chooseWhereWork.subheading = Working arrangements
 worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
@@ -682,6 +684,8 @@ worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
 worker.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
 worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice
 
+hirer.optimised.chooseWhereWork.error.required = Select yes if your organisation will decide where the worker does the work
+hirer.optimised.chooseWhereWork.error.invalid = Select yes if your organisation will decide where the worker does the work
 hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
 hirer.optimised.chooseWhereWork.subheading = Working arrangements
 hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
