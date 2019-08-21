@@ -34,7 +34,7 @@ class  ContractStartedViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "contractStarted"
 
-  val form = new ContractStartedFormProvider()()
+  val form = new ContractStartedFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ContractStartedView]
 

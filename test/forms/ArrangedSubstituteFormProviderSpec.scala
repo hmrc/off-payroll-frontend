@@ -18,35 +18,32 @@ package forms
 
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
-import forms.behaviours.BooleanFieldBehaviours
+import forms.behaviours.OptionFieldBehaviours
+import models.ArrangedSubstitute
 import play.api.data.FormError
 
-class ContractStartedFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {
-
-  val requiredKey = "contractStarted.error.required"
-  val invalidKey = "error.required"
-
-  val form = new ContractStartedFormProvider()()(fakeDataRequest, frontendAppConfig)
+class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {
 
   ".value" must {
 
     val fieldName = "value"
 
-    behave like booleanField(
-      form,
+    behave like optionsField[ArrangedSubstitute](
+      new ArrangedSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig),
       fieldName,
-      invalidError = FormError(fieldName, invalidKey)
+      validValues  = ArrangedSubstitute.values,
+      invalidError = FormError(fieldName, "error.invalid")
     )
 
     "for the sub optimised flow" should {
 
       disable(OptimisedFlow)
-      val form = new ContractStartedFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+      val form = new ArrangedSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
       behave like mandatoryField(
-        form,
+        form ,
         fieldName,
-        requiredError = FormError(fieldName, requiredKey)
+        requiredError = FormError(fieldName, "arrangedSubstitute.error.required")
       )
     }
 
@@ -55,24 +52,24 @@ class ContractStartedFormProviderSpec extends BooleanFieldBehaviours with GuiceA
       "if the user type is 'Worker'" must {
 
         enable(OptimisedFlow)
-        val form = new ContractStartedFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+        val form = new ArrangedSubstituteFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+          requiredError = FormError(fieldName, "worker.optimised.arrangedSubstitute.error.required")
         )
       }
 
       "if the user type is 'Hirer'" must {
 
         enable(OptimisedFlow)
-        val form = new ContractStartedFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+        val form = new ArrangedSubstituteFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+          requiredError = FormError(fieldName, "hirer.optimised.arrangedSubstitute.error.required")
         )
       }
     }

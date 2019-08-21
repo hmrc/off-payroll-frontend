@@ -37,7 +37,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
   val formProvider = new WorkerTypeFormProvider()
   val formProviderInt = new WorkerUsingIntermediaryFormProvider()
   val form = formProvider()
-  val formInt = formProviderInt()
+  val formInt = formProviderInt()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[WorkerTypeView]
   val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]

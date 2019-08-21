@@ -349,6 +349,8 @@ hirer.arrangedSubstitute.yesClientAgreed = Yes - and we agreed
 hirer.arrangedSubstitute.notAgreedWithClient = Yes - but we did not agree
 hirer.arrangedSubstitute.noSubstitutionHappened = No - it has not happened
 
+worker.optimised.arrangedSubstitute.error.required = Select if you have ever sent a substitute to do your work
+worker.optimised.arrangedSubstitute.error.invalid = Select if you have ever sent a substitute to do your work
 worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do your work?
 worker.optimised.arrangedSubstitute.subheading = Substitutes and helpers
 worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do your work?
@@ -357,6 +359,8 @@ worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted 
 worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept them
 worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
+hirer.optimised.arrangedSubstitute.error.required = Select if the worker has ever sent a substitute to do their work
+hirer.optimised.arrangedSubstitute.error.invalid = Select if the worker has ever sent a substitute to do their work
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do their work?
 hirer.optimised.arrangedSubstitute.subheading = Substitutes and helpers
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do their work?
@@ -1050,7 +1054,7 @@ result.declaration.bullet1 = read the guidance for each question
 result.declaration.bullet2 = reviewed your answers
 result.declaration.bullet3 = given answers that reflect the actual or expected working practices of this engagement
 result.declaration.noLongerHold = If the working practices of this engagement change you accept this result may no longer hold.
-result.declaration.error.required = In order to download a PDF, you will need to check the declaration box
+result.declaration.error.required = Select yes to download this result
 
 # Early Exit, Office Holder Inside IR35
 result.officeHolderInsideIR35.title = The intermediaries legislation applies to this engagement
@@ -1546,7 +1550,7 @@ worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Yo
 
 downloadPDFCopy.error.required = You need to select an answer
 
-addReferenceDetails.error.required = You need to select an answer
+addReferenceDetails.error.required = Select yes if you want to add some reference details to this document
 addReferenceDetails.title = Do you want to add some reference details to this document?
 addReferenceDetails.heading = Do you want to add some reference details to this document?
 addReferenceDetails.yourRecordsOnly = This is for your records only, HMRC will not keep these details.

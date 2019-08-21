@@ -38,7 +38,7 @@ import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView 
 class ArrangedSubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new ArrangedSubstituteFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[ArrangedSubstituteView]
   val subOptimisedView = injector.instanceOf[SubOptimisedArrangedSubstituteView]

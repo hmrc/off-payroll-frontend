@@ -104,10 +104,12 @@ hirer.contractStarted.heading =A yw’r gweithiwr wedi dechrau’r swydd benodol
 hirer.contractStarted.subheading = Ynglŷn â’r bobl berthnasol
 hirer.contractStarted.checkYourAnswersLabel =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
 
+worker.optimised.contractStarted.error.required = Select yes if you have already started working for this client
 worker.optimised.contractStarted.title = Have you already started working for this client?
 worker.optimised.contractStarted.heading = Have you already started working for this client?
 worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
 
+hirer.optimised.contractStarted.error.required = Select yes if the worker has already started working for your organisation
 hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
@@ -213,6 +215,7 @@ hirer.officeHolder.bullet2 =caiff y swyddogaeth ei chreu gan statud, erthyglau c
 hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes neb yn ei chyflawni (er enghraifft, trysorydd clwb)
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
 
+worker.optimised.officeHolder.error.required = Select yes if you will be an Office Holder
 worker.optimised.officeHolder.title = Will you be an ‘Office Holder’?
 worker.optimised.officeHolder.subheading = Worker’s duties
 worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
@@ -221,6 +224,7 @@ worker.optimised.officeholder.p1 = This can include being a board member, treasu
 worker.optimised.officeholder.p2 = Read more about
 worker.optimised.officeholder.link = Office Holders (opens in a new window)
 
+hirer.optimised.officeHolder.error.required = Select yes if the worker will be an Office Holder
 hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
 hirer.optimised.officeHolder.subheading = Worker’s duties
 hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’?
@@ -352,6 +356,8 @@ hirer.arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
 hirer.arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 
 ## TODO: Need Welsh
+worker.optimised.arrangedSubstitute.error.required = Select if you have ever sent a substitute to do your work
+worker.optimised.arrangedSubstitute.error.invalid = Select if you have ever sent a substitute to do your work
 worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do your work?
 worker.optimised.arrangedSubstitute.subheading = Substitutes and helpers
 worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do your work?
@@ -361,6 +367,8 @@ worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client d
 worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
 ## TODO: Need Welsh
+hirer.optimised.arrangedSubstitute.error.required = Select if the worker has ever sent a substitute to do their work
+hirer.optimised.arrangedSubstitute.error.invalid = Select if the worker has ever sent a substitute to do their work
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do their work?
 hirer.optimised.arrangedSubstitute.subheading = Substitutes and helpers
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do their work?
@@ -1045,6 +1053,7 @@ result.declaration.bullet1 =darllen yr arweiniad ar gyfer pob cwestiwn
 result.declaration.bullet2 =adolygu’ch atebion
 result.declaration.bullet3 =rhoi atebion sy’n adlewyrchu arferion gwaith, gwirioneddol neu ddisgwyliedig, y swydd hon
 result.declaration.noLongerHold =Os bydd arferion gwaith y swydd hon yn newid, rydych yn derbyn na fydd y canlyniad hwn, o bosib, yn sefyll.
+# TODO: Needs New Translation
 result.declaration.error.required =Bydd angen i chi dicio’r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
 
 # Early Exit, Office Holder Inside IR35
@@ -1236,13 +1245,15 @@ leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
 ##### TODO NEED WELSH FOR ####
-workerUsingIntermediary.error.required = Mae angen i chi ddewis ateb
-workerUsingIntermediary.error.invalid = Mae angen i chi ddewis ateb
+worker.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
+worker.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
+hirer.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
+hirer.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?

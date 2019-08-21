@@ -42,7 +42,7 @@ class OfficeHolderViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.officeHolder"
 
-  val form = new OfficeHolderFormProvider()()
+  val form = new OfficeHolderFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[OfficeHolderView]
 

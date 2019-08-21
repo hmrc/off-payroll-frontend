@@ -32,7 +32,7 @@ import views.html.subOptimised.sections.setup.ContractStartedView
 class ContractStartedControllerSpec extends ControllerSpecBase {
 
   val formProvider = new ContractStartedFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ContractStartedView]
   val optimisedView = injector.instanceOf[views.html.sections.setup.ContractStartedView]

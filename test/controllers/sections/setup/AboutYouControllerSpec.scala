@@ -164,7 +164,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
       "return a Bad Request and errors when invalid data is submitted" in {
         enable(OptimisedFlow)
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-        val boundForm = aboutYouForm.bind(Map("value" -> "invalid value"))
+        val boundForm = whichDescribesYouForm.bind(Map("value" -> "invalid value"))
 
         val result = controller().onSubmit(NormalMode)(postRequest)
 

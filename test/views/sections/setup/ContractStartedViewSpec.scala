@@ -35,7 +35,7 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
 
   val messageKeyPrefix = "optimised.contractStarted"
 
-  val form = new ContractStartedFormProvider()()
+  val form = new ContractStartedFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ContractStartedView]
 
