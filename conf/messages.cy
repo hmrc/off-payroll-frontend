@@ -720,6 +720,8 @@ hirer.scheduleOfWorkingHours.workerAgreeSchedule = Yn rhannol - mae’r gweithiw
 hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Ddim yn gymwys - nid oes angen amserlen cyn belled â bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
 
 ## TODO: Need Welsh
+worker.optimised.scheduleOfWorkingHours.error.required = Select yes if your client will decide the working hours
+worker.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your client will decide the working hours
 worker.optimised.scheduleOfWorkingHours.title = Will your client decide the working hours?
 worker.optimised.scheduleOfWorkingHours.subheading = Working arrangements
 worker.optimised.scheduleOfWorkingHours.heading = Will your client decide the working hours?
@@ -728,6 +730,18 @@ worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
 worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide
 worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree
 worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
+
+## TODO: Need Welsh
+hirer.optimised.scheduleOfWorkingHours.error.required = Select yes if your organisation will decide the working hours
+hirer.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your organisation will decide the working hours
+hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.subheading = Working arrangements
+hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
+hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
 #########################
 
 
@@ -1366,15 +1380,6 @@ toolNotNeeded.client.paye.title = You don’t need to determine if this work sho
 toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
-
-hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the working hours?
-hirer.optimised.scheduleOfWorkingHours.subheading = Working arrangements
-hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the working hours?
-hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the working hours?
-hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
-hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
 
 worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
 worker.optimised.chooseWhereWork.subheading = Working arrangements

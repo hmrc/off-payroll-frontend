@@ -39,7 +39,7 @@ import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => S
 class ScheduleOfWorkingHoursControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new ScheduleOfWorkingHoursFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[ScheduleOfWorkingHoursView]
   val subOptimisedView = injector.instanceOf[SubOptimisedScheduleOfWorkingHoursView]

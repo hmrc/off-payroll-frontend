@@ -16,16 +16,17 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import play.api.data.Form
 import models.ScheduleOfWorkingHours
+import models.requests.DataRequest
 
-class ScheduleOfWorkingHoursFormProvider @Inject() extends Mappings {
+class ScheduleOfWorkingHoursFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[ScheduleOfWorkingHours] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[ScheduleOfWorkingHours] =
     Form(
-      "value" -> enumerable[ScheduleOfWorkingHours]("scheduleOfWorkingHours.error.required")
+      "value" -> enumerable[ScheduleOfWorkingHours](tailoredErrMsgOptimised("scheduleOfWorkingHours.error.required"))
     )
 }

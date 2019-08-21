@@ -724,6 +724,8 @@ hirer.scheduleOfWorkingHours.workerDecideSchedule = No - the worker decides thei
 hirer.scheduleOfWorkingHours.workerAgreeSchedule = Partly - we agree a schedule with the worker
 hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Not applicable - no schedule is needed as long as the worker meets any agreed deadlines
 
+worker.optimised.scheduleOfWorkingHours.error.required = Select yes if your client will decide the working hours
+worker.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your client will decide the working hours
 worker.optimised.scheduleOfWorkingHours.title = Will your client decide the working hours?
 worker.optimised.scheduleOfWorkingHours.subheading = Working arrangements
 worker.optimised.scheduleOfWorkingHours.heading = Will your client decide the working hours?
@@ -733,6 +735,8 @@ worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely de
 worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree
 worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
 
+hirer.optimised.scheduleOfWorkingHours.error.required = Select yes if your organisation will decide the working hours
+hirer.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your organisation will decide the working hours
 hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the working hours?
 hirer.optimised.scheduleOfWorkingHours.subheading = Working arrangements
 hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the working hours?
