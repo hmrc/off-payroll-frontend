@@ -16,65 +16,63 @@
 
 package forms
 
-import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import base.GuiceAppSpecBase
+import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
-import org.scalamock.scalatest.MockFactory
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.data.FormError
 
-class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with MockFactory with FeatureSwitching {
+class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {
 
   val requiredKey = "rejectSubstitute.error.required"
   val invalidKey = "error.required"
-  val mockConfig = mock[FrontendAppConfig]
 
-  val form = new RejectSubstituteFormProvider()(mockConfig)()
+  val form = new RejectSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
   val fieldName = "value"
 
   ".value" must {
 
-    behave like mandatoryField(
+    behave like booleanField(
       form,
       fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      invalidError = FormError(fieldName, invalidKey)
     )
 
-    "if OptimisedFlow is enabled" must {
+    "for the sub optimised flow" should {
 
-      "bind true as false" in {
-        enable(OptimisedFlow)
-        val result = form.bind(Map(fieldName -> "false"))
-        result.value.value mustBe false
-      }
+      disable(OptimisedFlow)
+      val form = new RejectSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
-      "bind false as true" in {
-        enable(OptimisedFlow)
-        val result = form.bind(Map(fieldName -> "true"))
-        result.value.value mustBe true
-      }
+      behave like mandatoryField(
+        form ,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
     }
 
-    "if OptimisedFlow is disabled" must {
+    "for the optimised flow" should {
 
-      "bind true as true" in {
-        disable(OptimisedFlow)
-        val result = form.bind(Map(fieldName -> "true"))
-        result.value.value mustBe true
+      "if the user type is 'Worker'" must {
+
+        enable(OptimisedFlow)
+        val form = new RejectSubstituteFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+        )
       }
 
-      "bind false as false" in {
-        disable(OptimisedFlow)
-        val result = form.bind(Map(fieldName -> "false"))
-        result.value.value mustBe false
-      }
-    }
+      "if the user type is 'Hirer'" must {
 
-    "not bind non-booleans" in {
-      forAll(nonBooleans -> "nonBoolean") {
-        nonBoolean =>
-          val result = form.bind(Map(fieldName -> nonBoolean)).apply(fieldName)
-          result.errors mustBe Seq(FormError(fieldName, invalidKey))
+        enable(OptimisedFlow)
+        val form = new RejectSubstituteFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+        )
       }
     }
   }
