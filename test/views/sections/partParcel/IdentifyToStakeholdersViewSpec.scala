@@ -39,7 +39,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.identifyToStakeholders"
 
-  val form = new IdentifyToStakeholdersFormProvider()()
+  val form = new IdentifyToStakeholdersFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 

@@ -16,16 +16,17 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import play.api.data.Form
 import models.IdentifyToStakeholders
+import models.requests.DataRequest
 
-class IdentifyToStakeholdersFormProvider @Inject() extends Mappings {
+class IdentifyToStakeholdersFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[IdentifyToStakeholders] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[IdentifyToStakeholders] =
     Form(
-      "value" -> enumerable[IdentifyToStakeholders]("identifyToStakeholders.error.required")
+      "value" -> enumerable[IdentifyToStakeholders](tailoredErrMsgOptimised("identifyToStakeholders.error.required"))
     )
 }

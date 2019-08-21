@@ -24,9 +24,10 @@ import play.api.data.FormError
 
 class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {
 
-  ".value" must {
+  val fieldName = "value"
+  val requiredKey = "arrangedSubstitute.error.required"
 
-    val fieldName = "value"
+  ".value" must {
 
     behave like optionsField[ArrangedSubstitute](
       new ArrangedSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig),
@@ -43,7 +44,7 @@ class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with Guic
       behave like mandatoryField(
         form ,
         fieldName,
-        requiredError = FormError(fieldName, "arrangedSubstitute.error.required")
+        requiredError = FormError(fieldName, requiredKey)
       )
     }
 
@@ -57,7 +58,7 @@ class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with Guic
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, "worker.optimised.arrangedSubstitute.error.required")
+          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
         )
       }
 
@@ -69,7 +70,7 @@ class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with Guic
         behave like mandatoryField(
           form,
           fieldName,
-          requiredError = FormError(fieldName, "hirer.optimised.arrangedSubstitute.error.required")
+          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
         )
       }
     }

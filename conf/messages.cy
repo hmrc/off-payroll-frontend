@@ -407,6 +407,7 @@ worker.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy�
 worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
 
 ##TODO: Need Welsh
+hirer.optimised.identifyToStakeholders.error.invalid = You need to select an answer
 hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.subheading = Worker’s involvement
 hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
@@ -416,6 +417,8 @@ hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independe
 hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
 hirer.optimised.identifyToStakeholders.wouldNotHappen = This would not happen
 
+##TODO: Need Welsh
+worker.optimised.identifyToStakeholders.error.invalid = Select how you would introduce yourself to your client’s consumers or suppliers
 worker.optimised.identifyToStakeholders.title = How would you introduce yourself to your client’s consumers or suppliers?
 worker.optimised.identifyToStakeholders.subheading = Worker’s involvement
 worker.optimised.identifyToStakeholders.heading = How would you introduce yourself to your client’s consumers or suppliers?
@@ -879,8 +882,8 @@ hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiw
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
 ## TODO: Need Welsh
-hirer.optimised.moveWorker.error.required = Select yes if the task can be changed without the worker's agreement
-hirer.optimised.moveWorker.error.invalid = Select yes if the task can be changed without the worker's agreement
+hirer.optimised.moveWorker.error.required = Select yes if the task can be changed without the worker’s agreement
+hirer.optimised.moveWorker.error.invalid = Select yes if the task can be changed without the worker’s agreement
 hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
 hirer.optimised.moveWorker.subheading = Working arrangements
 hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?

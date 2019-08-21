@@ -398,6 +398,7 @@ worker.identifyToStakeholders.workAsIndependent = I am an independent worker act
 worker.identifyToStakeholders.workAsBusiness = I work for my own business
 worker.identifyToStakeholders.checkYourAnswersLabel = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
 
+hirer.optimised.identifyToStakeholders.error.invalid = You need to select an answer
 hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.subheading = Worker’s involvement
 hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
@@ -407,6 +408,7 @@ hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independe
 hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
 hirer.optimised.identifyToStakeholders.wouldNotHappen = This would not happen
 
+worker.optimised.identifyToStakeholders.error.invalid = Select how you would introduce yourself to your client’s consumers or suppliers
 worker.optimised.identifyToStakeholders.title = How would you introduce yourself to your client’s consumers or suppliers?
 worker.optimised.identifyToStakeholders.subheading = Worker’s involvement
 worker.optimised.identifyToStakeholders.heading = How would you introduce yourself to your client’s consumers or suppliers?
@@ -857,8 +859,8 @@ hirer.moveWorker.canMoveWorkerWithPermission = Yes - but only with the worker’
 hirer.moveWorker.canMoveWorkerWithoutPermission = Yes - without the worker’s agreement (if the worker does not want to change, you might end the engagement)
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
 
-hirer.optimised.moveWorker.error.required = Select yes if the task can be changed without the worker's agreement
-hirer.optimised.moveWorker.error.invalid = Select yes if the task can be changed without the worker's agreement
+hirer.optimised.moveWorker.error.required = Select yes if the task can be changed without the worker’s agreement
+hirer.optimised.moveWorker.error.invalid = Select yes if the task can be changed without the worker’s agreement
 hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
 hirer.optimised.moveWorker.subheading = Working arrangements
 hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?
