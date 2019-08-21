@@ -530,12 +530,15 @@ worker.benefits.p1 =Nid yw’r rhain yn cynnwys buddiannau a ddarparwyd gan dryd
 worker.benefits.checkYourAnswersLabel =A oes gan y gweithiwr hawl i unrhyw un o’r buddiannau canlynol oddi wrth y cleient terfynol?
 
 ##TODO: Need Welsh
+worker.optimised.benefits.error.required = Select yes if your client will provide you with paid-for corporate benefits
 worker.optimised.benefits.title = Will your client provide you with paid-for corporate benefits?
 worker.optimised.benefits.subheading = Worker’s involvement
 worker.optimised.benefits.heading = Will your client provide you with paid-for corporate benefits?
 worker.optimised.benefits.checkYourAnswersLabel = Will your client provide you with paid-for corporate benefits?
 worker.optimised.benefits.p1 = This can include external gym memberships, health insurance or retail discounts.
 
+##TODO: Need Welsh
+hirer.optimised.benefits.error.required = Select yes if your organisation will provide the worker with paid-for corporate benefits
 hirer.optimised.benefits.title = Will you provide the worker with paid-for corporate benefits?
 hirer.optimised.benefits.subheading = Worker’s involvement
 hirer.optimised.benefits.heading = Will you provide the worker with paid-for corporate benefits?

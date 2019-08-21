@@ -40,7 +40,7 @@ class BenefitsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.benefits"
 
-  val form = new BenefitsFormProvider()()
+  val form = new BenefitsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[BenefitsView]
 

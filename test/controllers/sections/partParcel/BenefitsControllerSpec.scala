@@ -35,7 +35,7 @@ import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimised
 class BenefitsControllerSpec extends ControllerSpecBase {
 
   val formProvider = new BenefitsFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[BenefitsView]
   val subOptimisedView = injector.instanceOf[SubOptimisedBenefitsView]
