@@ -1618,13 +1618,15 @@ finishedChecking.downloadAnswers = Download your answers and result (PDF, under 
 
 
 ##TODO: Need Welsh
-materials.error.required = Mae angen i chi ddewis ateb
+hirer.materials.error.required = Select yes if the worker will incur costs for materials that your organisation will not pay for
 hirer.materials.title = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.subheading = Worker’s financial risk
 hirer.materials.heading = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.checkYourAnswersLabel = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
 hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
+
+worker.materials.error.required = Select yes if you will incur costs for materials that your client will not pay for
 worker.materials.title = Will you incur costs for materials that your client will not pay for?
 worker.materials.subheading = Worker’s financial risk
 worker.materials.heading = Will you incur costs for materials that your client will not pay for?

@@ -40,7 +40,7 @@ class MaterialsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.materials"
 
-  val form = new MaterialsFormProvider()()
+  val form = new MaterialsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MaterialsView]
 

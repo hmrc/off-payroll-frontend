@@ -39,7 +39,7 @@ class MaterialsControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new MaterialsFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MaterialsView]
 
