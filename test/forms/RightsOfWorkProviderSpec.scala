@@ -16,19 +16,21 @@
 
 package forms
 
+import base.GuiceAppSpecBase
+import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class RightsOfWorkProviderSpec extends BooleanFieldBehaviours {
+class RightsOfWorkProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {
+
+  val fieldName = "value"
 
   val requiredKey = "rightsOfWork.error.required"
   val invalidKey = "error.required"
 
-  val form = new RightsOfWorkFormProvider()()
+  val form = new RightsOfWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   ".value" must {
-
-    val fieldName = "value"
 
     behave like booleanField(
       form,
@@ -36,10 +38,43 @@ class RightsOfWorkProviderSpec extends BooleanFieldBehaviours {
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    "for the sub optimised flow" should {
+
+      disable(OptimisedFlow)
+      val form = new RightsOfWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
+
+      behave like mandatoryField(
+        form ,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
+    }
+
+    "for the optimised flow" should {
+
+      "if the user type is 'Worker'" must {
+
+        enable(OptimisedFlow)
+        val form = new RightsOfWorkFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
+        )
+      }
+
+      "if the user type is 'Hirer'" must {
+
+        enable(OptimisedFlow)
+        val form = new RightsOfWorkFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
+        )
+      }
+    }
   }
 }

@@ -1864,15 +1864,14 @@ hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time nec
 ##TODO: Need Welsh
 ### RightsOfWork Page
 ### ---------------------------------
-rightsOfWork.error.required = You need to select an answer
-rightsOfWork.error.invalid = You need to select an answer
-
+worker.rightsOfWork.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
 worker.rightsOfWork.title = Are you required to transfer all ownership rights of this work as part of the contract?
 worker.rightsOfWork.heading = Are you required to transfer all ownership rights of this work as part of the contract?
 worker.rightsOfWork.checkYourAnswersLabel = Are you required to transfer all ownership rights of this work as part of the contract?
 worker.rightsOfWork.subheading = Worker’s contracts
 worker.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
 
+hirer.rightsOfWork.error.required = Select yes if the worker is required to transfer all ownership rights of this work as part of the contract
 hirer.rightsOfWork.title = Is the worker required to transfer all ownership rights of this work as part of the contract?
 hirer.rightsOfWork.heading = Is the worker required to transfer all ownership rights of this work as part of the contract?
 hirer.rightsOfWork.checkYourAnswersLabel = Is the worker required to transfer all ownership rights of this work as part of the contract?

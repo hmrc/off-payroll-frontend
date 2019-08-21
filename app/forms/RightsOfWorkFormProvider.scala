@@ -16,14 +16,16 @@
 
 package forms
 
-import forms.mappings.Mappings
+import config.FrontendAppConfig
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import javax.inject.Inject
+import models.requests.DataRequest
 import play.api.data.Form
 
-class RightsOfWorkFormProvider @Inject() extends Mappings {
+class RightsOfWorkFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[Boolean] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean("rightsOfWork.error.required")
+      "value" -> boolean(tailoredErrMsg("rightsOfWork.error.required"))
     )
 }
