@@ -31,7 +31,7 @@ class PermissionToWorkWithOthersViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.permissionToWorkWithOthers"
 
-  val form = new PermissionToWorkWithOthersFormProvider()()
+  val form = new PermissionToWorkWithOthersFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[PermissionToWorkWithOthersView]
 

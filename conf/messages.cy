@@ -1814,13 +1814,14 @@ hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker 
 ##TODO: Need Welsh
 #### Permission to Work Page - BoOA
 #### ------------------------------
-permissionToWorkWithOthers.error.required = Mae angen i chi ddewis ateb
 
+worker.permissionToWorkWithOthers.error.required = Select yes if you are required to ask permission to work for other clients
 worker.permissionToWorkWithOthers.title = Are you required to ask permission to work for other clients?
 worker.permissionToWorkWithOthers.heading = Are you required to ask permission to work for other clients?
 worker.permissionToWorkWithOthers.checkYourAnswersLabel = Are you required to ask permission to work for other clients?
 worker.permissionToWorkWithOthers.subheading = Worker’s contracts
 
+hirer.permissionToWorkWithOthers.error.required = Select yes if the worker is required to ask permission to work for other organisations
 hirer.permissionToWorkWithOthers.title = Is the worker required to ask permission to work for other organisations?
 hirer.permissionToWorkWithOthers.heading = Is the worker required to ask permission to work for other organisations?
 hirer.permissionToWorkWithOthers.checkYourAnswersLabel = Is the worker required to ask permission to work for other organisations?
