@@ -1661,12 +1661,14 @@ worker.otherExpenses.checkYourAnswersLabel = Will you incur any other costs that
 worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
 
 ##TODO: Need Welsh
-equipmentExpenses.error.required = Mae angen i chi ddewis ateb
+hirer.equipmentExpenses.error.required = Select yes if the worker will incur equipment costs that your organisation will not pay for
 hirer.equipmentExpenses.title = Will the worker incur equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.subheading = Worker’s financial risk
 hirer.equipmentExpenses.heading = Will the worker incur equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker incur equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+
+worker.equipmentExpenses.error.required = Select yes if you will incur equipment costs that your client will not pay for
 worker.equipmentExpenses.title = Will you incur equipment costs that your client will not pay for?
 worker.equipmentExpenses.subheading = Worker’s financial risk
 worker.equipmentExpenses.heading = Will you incur equipment costs that your client will not pay for?

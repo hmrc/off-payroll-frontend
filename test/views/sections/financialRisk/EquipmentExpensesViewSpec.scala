@@ -34,7 +34,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "equipmentExpenses"
 
-  val form = new EquipmentExpensesFormProvider()()
+  val form = new EquipmentExpensesFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[EquipmentExpensesView]
 
