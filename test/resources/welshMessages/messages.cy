@@ -1814,13 +1814,13 @@ hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker 
 ##TODO: Need Welsh
 #### Permission to Work Page - BoOA
 #### ------------------------------
-previousContract.error.required = Mae angen i chi ddewis ateb
-
+worker.previousContract.error.required = Select yes if you have had a previous contract with this client
 worker.previousContract.title = Have you had a previous contract with this client?
 worker.previousContract.heading = Have you had a previous contract with this client?
 worker.previousContract.checkYourAnswersLabel = Have you had a previous contract with this client?
 worker.previousContract.subheading = Worker’s contracts
 
+hirer.previousContract.error.required = Select yes if the worker has had a previous contract with your organisation
 hirer.previousContract.title = Has the worker had a previous contract with your organisation?
 hirer.previousContract.heading = Has the worker had a previous contract with your organisation?
 hirer.previousContract.checkYourAnswersLabel = Has the worker had a previous contract with your organisation?

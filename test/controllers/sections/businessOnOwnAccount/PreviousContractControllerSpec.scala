@@ -39,7 +39,7 @@ class PreviousContractControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new PreviousContractFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[PreviousContractView]
 
