@@ -47,7 +47,7 @@ import scala.concurrent.Future
 class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
   val formProvider = new HowWorkerIsPaidFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val subOptimisedView = injector.instanceOf[SubOptimisedHowWorkerIsPaidView]
   val optimisedView = injector.instanceOf[HowWorkerIsPaidView]

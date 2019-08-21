@@ -620,6 +620,8 @@ hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is comp
 hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
 
+worker.optimised.howWorkerIsPaid.error.required = Select how you will be paid for this work
+worker.optimised.howWorkerIsPaid.error.invalid = Select how you will be paid for this work
 worker.optimised.howWorkerIsPaid.title = How will you be paid for this work?
 worker.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 worker.optimised.howWorkerIsPaid.heading = How will you be paid for this work?
@@ -630,6 +632,8 @@ worker.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
 worker.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales you generate
 worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your client’s profits or savings
 
+hirer.optimised.howWorkerIsPaid.error.required = Select how the worker will be paid for this work
+hirer.optimised.howWorkerIsPaid.error.invalid = Select how the worker will be paid for this work
 hirer.optimised.howWorkerIsPaid.title = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?

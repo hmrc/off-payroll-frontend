@@ -16,16 +16,17 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import play.api.data.Form
 import models.HowWorkerIsPaid
+import models.requests.DataRequest
 
-class HowWorkerIsPaidFormProvider @Inject() extends Mappings {
+class HowWorkerIsPaidFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[HowWorkerIsPaid] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[HowWorkerIsPaid] =
     Form(
-      "value" -> enumerable[HowWorkerIsPaid]("howWorkerIsPaid.error.required")
+      "value" -> enumerable[HowWorkerIsPaid](tailoredErrMsgOptimised("howWorkerIsPaid.error.required"))
     )
 }

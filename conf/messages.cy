@@ -632,7 +632,9 @@ hirer.howWorkerIsPaid.incomeCommission =Canran o’r gwerthiannau y mae’r gwei
 hirer.howWorkerIsPaid.incomeProfitOrLosses =Canran o elw neu gynilion y cleient terfynol
 hirer.howWorkerIsPaid.checkYourAnswersLabel =Beth yw’r prif fodd y mae’r gweithiwr yn cael ei dalu ar gyfer y swydd hon?
 
-## TODO newed wealsh
+## TODO Need Welsh
+worker.optimised.howWorkerIsPaid.error.required = Select how you will be paid for this work
+worker.optimised.howWorkerIsPaid.error.invalid = Select how you will be paid for this work
 worker.optimised.howWorkerIsPaid.title = How will you be paid for this work?
 worker.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 worker.optimised.howWorkerIsPaid.heading = How will you be paid for this work?
@@ -643,6 +645,8 @@ worker.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
 worker.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales you generate
 worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your client’s profits or savings
 
+hirer.optimised.howWorkerIsPaid.error.required = Select how the worker will be paid for this work
+hirer.optimised.howWorkerIsPaid.error.invalid = Select how the worker will be paid for this work
 hirer.optimised.howWorkerIsPaid.title = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
