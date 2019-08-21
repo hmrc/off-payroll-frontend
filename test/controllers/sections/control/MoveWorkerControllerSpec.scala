@@ -37,7 +37,7 @@ import views.html.sections.control.MoveWorkerView
 class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 
   val formProvider = new MoveWorkerFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[MoveWorkerView]
   val subOptimisedView = injector.instanceOf[SubOptimisedMoveWorkerView]

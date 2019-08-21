@@ -832,6 +832,8 @@ hirer.moveWorker.canMoveWorkerWithPermission = Yes - but only with the worker’
 hirer.moveWorker.canMoveWorkerWithoutPermission = Yes - without the worker’s agreement (if the worker does not want to change, you might end the engagement)
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = No - that would need to be arranged under a new contract or formal agreement
 
+hirer.optimised.moveWorker.error.required = Select yes if the task can be changed without the worker's agreement
+hirer.optimised.moveWorker.error.invalid = Select yes if the task can be changed without the worker's agreement
 hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
 hirer.optimised.moveWorker.subheading = Working arrangements
 hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?
@@ -841,6 +843,8 @@ hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Yes
 hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, they would have to agree
 hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 
+worker.optimised.moveWorker.error.required = Select yes if the task can be changed without your agreement
+worker.optimised.moveWorker.error.invalid = Select yes if the task can be changed without your agreement
 worker.optimised.moveWorker.title = Can the task be changed without your agreement?
 worker.optimised.moveWorker.subheading = Working arrangements
 worker.optimised.moveWorker.heading = Can the task be changed without your agreement?

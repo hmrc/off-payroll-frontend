@@ -822,6 +822,8 @@ hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiw
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
 ## TODO: Need Welsh
+hirer.optimised.moveWorker.error.required = Select yes if the task can be changed without the worker's agreement
+hirer.optimised.moveWorker.error.invalid = Select yes if the task can be changed without the worker's agreement
 hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
 hirer.optimised.moveWorker.subheading = Working arrangements
 hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?
@@ -832,6 +834,8 @@ hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, they would have to 
 hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 
 ## TODO: Need Welsh
+worker.optimised.moveWorker.error.required = Select yes if the task can be changed without your agreement
+worker.optimised.moveWorker.error.invalid = Select yes if the task can be changed without your agreement
 worker.optimised.moveWorker.title = Can the task be changed without your agreement?
 worker.optimised.moveWorker.subheading = Working arrangements
 worker.optimised.moveWorker.heading = Can the task be changed without your agreement?

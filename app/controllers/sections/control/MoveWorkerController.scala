@@ -50,17 +50,15 @@ class MoveWorkerController @Inject()(identify: IdentifierAction,
                                      implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
-  val form: Form[MoveWorker] = formProvider()
-
   private def view(form: Form[MoveWorker], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
     if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(MoveWorkerPage, form), mode))
+    Ok(view(fillForm(MoveWorkerPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
+    formProvider().bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => redirect(mode,value,MoveWorkerPage)
