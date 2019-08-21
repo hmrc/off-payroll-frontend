@@ -1011,12 +1011,14 @@ hirer.didPaySubstitute.checkYourAnswersLabel = Did the worker’s business pay t
 hirer.didPaySubstitute.subheading = About substitutes and helpers
 hirer.didPaySubstitute.exclamation = If the substitute was paid by an agency, it does not count as substitution.
 
+worker.optimised.didPaySubstitute.error.required = Select yes if you paid your substitute
 worker.optimised.didPaySubstitute.title = Did you pay your substitute?
 worker.optimised.didPaySubstitute.subheading = Substitutes and helpers
 worker.optimised.didPaySubstitute.heading = Did you pay your substitute?
 worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your substitute?
 worker.optimised.didPaySubstitute.p1 = This includes payments made by you or your business.
 
+hirer.optimised.didPaySubstitute.error.required = Select yes if the worker paid their substitute
 hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute?
 hirer.optimised.didPaySubstitute.subheading = Substitutes and helpers
 hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute?

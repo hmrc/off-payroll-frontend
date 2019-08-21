@@ -40,7 +40,7 @@ class DidPaySubstituteViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.didPaySubstitute"
 
-  val form = new DidPaySubstituteFormProvider()()
+  val form = new DidPaySubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[DidPaySubstituteView]
 

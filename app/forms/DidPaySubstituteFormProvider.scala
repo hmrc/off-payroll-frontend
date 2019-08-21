@@ -16,15 +16,16 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
+import models.requests.DataRequest
 import play.api.data.Form
 
-class DidPaySubstituteFormProvider @Inject() extends Mappings {
+class DidPaySubstituteFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[Boolean] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean("didPaySubstitute.error.required")
+      "value" -> boolean(tailoredErrMsgOptimised("didPaySubstitute.error.required"))
     )
 }

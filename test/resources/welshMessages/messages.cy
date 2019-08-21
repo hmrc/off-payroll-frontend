@@ -1009,6 +1009,7 @@ hirer.didPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.didPaySubstitute.exclamation = Os talwyd yr eilydd gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
 
 ## TODO: Welsh Needed
+worker.optimised.didPaySubstitute.error.required = Select yes if you paid your substitute
 worker.optimised.didPaySubstitute.title = Did you pay your substitute?
 worker.optimised.didPaySubstitute.subheading = Substitutes and helpers
 worker.optimised.didPaySubstitute.heading = Did you pay your substitute?
@@ -1016,6 +1017,7 @@ worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your subst
 worker.optimised.didPaySubstitute.p1 = This includes payments made by you or your business.
 
 ## TODO: Welsh Needed
+hirer.optimised.didPaySubstitute.error.required = Select yes if the worker paid their substitute
 hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute?
 hirer.optimised.didPaySubstitute.subheading = Substitutes and helpers
 hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute?
