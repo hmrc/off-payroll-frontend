@@ -874,12 +874,14 @@ hirer.neededToPayHelper.hint.bullet1 = gellir ystyried ymchwilydd a huriwyd i dd
 hirer.neededToPayHelper.hint.bullet2 = ni fyddai cwmni y mae’r darlithydd yn ei dalu i argraffu a rhwymo llyfrau ar gyfer y modiwl, yn cael ei ystyried fel bod yn gwneud llwyth sylweddol o’r gwaith
 
 ## TODO: Need Welsh
+worker.optimised.neededToPayHelper.error.required = Select yes if you paid another person to do a significant amount of this work
 worker.optimised.neededToPayHelper.title = Have you paid another person to do a significant amount of this work?
 worker.optimised.neededToPayHelper.subheading = Substitutes and helpers
 worker.optimised.neededToPayHelper.heading = Have you paid another person to do a significant amount of this work?
 worker.optimised.neededToPayHelper.checkYourAnswersLabel = Have you paid another person to do a significant amount of this work?
 
 ## TODO: Need Welsh
+hirer.optimised.neededToPayHelper.error.required = Select yes if the worker paid another person to do a significant amount of this work
 hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
 hirer.optimised.neededToPayHelper.subheading = Substitutes and helpers
 hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?

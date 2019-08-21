@@ -45,7 +45,7 @@ import views.html.subOptimised.sections.personalService.{NeededToPayHelperView =
 class NeededToPayHelperControllerSpec extends ControllerSpecBase {
 
   val formProvider = new NeededToPayHelperFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[NeededToPayHelperView]
   val subOptimisedView = injector.instanceOf[SubOptimisedNeededToPayHelperView]

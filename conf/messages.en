@@ -882,11 +882,13 @@ hirer.neededToPayHelper.hint.p2 = For example if a lecturer was hired by a unive
 hirer.neededToPayHelper.hint.bullet1 = A researcher hired to source information could be classed as doing a significant amount of the lecturer’s work
 hirer.neededToPayHelper.hint.bullet2 = A company the lecturer pays to print and bind materials for the module would not be classified as doing a significant amount of the work
 
+worker.optimised.neededToPayHelper.error.required = Select yes if you paid another person to do a significant amount of this work
 worker.optimised.neededToPayHelper.title = Have you paid another person to do a significant amount of this work?
 worker.optimised.neededToPayHelper.subheading = Substitutes and helpers
 worker.optimised.neededToPayHelper.heading = Have you paid another person to do a significant amount of this work?
 worker.optimised.neededToPayHelper.checkYourAnswersLabel = Have you paid another person to do a significant amount of this work?
 
+hirer.optimised.neededToPayHelper.error.required = Select yes if the worker paid another person to do a significant amount of this work
 hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
 hirer.optimised.neededToPayHelper.subheading = Substitutes and helpers
 hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
