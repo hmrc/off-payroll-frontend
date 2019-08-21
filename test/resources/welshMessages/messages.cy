@@ -1796,7 +1796,7 @@ hirer.multipleContracts.p1 = This includes working for your competitors.
 ##TODO: Need Welsh
 #### Transfer of Rights Page - BoOA
 #### ------------------------------
-transferOfRights.error.required = Mae angen i chi ddewis ateb
+transferOfRights.error.required = Select yes if there are any ownership rights relating to this work
 
 worker.transferOfRights.subheading = Worker’s contracts
 worker.transferOfRights.title = Does your client have the option to buy the rights for a separate fee?
@@ -1812,20 +1812,21 @@ hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker 
 
 
 ##TODO: Need Welsh
-#### Permission to Work Page - BoOA
+#### Transfer of Rights Page - BoOA
 #### ------------------------------
+worker.transferOfRights.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
+worker.transferOfRights.subheading = Worker’s contracts
+worker.transferOfRights.title = Does your client have the option to buy the rights for a separate fee?
+worker.transferOfRights.heading = Does your client have the option to buy the rights for a separate fee?
+worker.transferOfRights.checkYourAnswersLabel = Does your client have the option to buy the rights for a separate fee?
+worker.transferOfRights.p1 = If a requirement like this does not exist, you would keep all the rights.
 
-worker.permissionToWorkWithOthers.error.required = Select yes if you are required to ask permission to work for other clients
-worker.permissionToWorkWithOthers.title = Are you required to ask permission to work for other clients?
-worker.permissionToWorkWithOthers.heading = Are you required to ask permission to work for other clients?
-worker.permissionToWorkWithOthers.checkYourAnswersLabel = Are you required to ask permission to work for other clients?
-worker.permissionToWorkWithOthers.subheading = Worker’s contracts
-
-hirer.permissionToWorkWithOthers.error.required = Select yes if the worker is required to ask permission to work for other organisations
-hirer.permissionToWorkWithOthers.title = Is the worker required to ask permission to work for other organisations?
-hirer.permissionToWorkWithOthers.heading = Is the worker required to ask permission to work for other organisations?
-hirer.permissionToWorkWithOthers.checkYourAnswersLabel = Is the worker required to ask permission to work for other organisations?
-hirer.permissionToWorkWithOthers.subheading = Worker’s contracts
+hirer.transferOfRights.error.required = Select yes if the worker is required to transfer all ownership rights of this work as part of the contract
+hirer.transferOfRights.subheading = Worker’s contracts
+hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organisation the option to buy the rights for a separate fee?
+hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker would keep all the rights.
 
 
 ##TODO: Need Welsh
@@ -1847,7 +1848,7 @@ hirer.previousContract.subheading = Worker’s contracts
 ##TODO: Need Welsh
 ### FollowOnContract Page
 ### ---------------------------------
-followOnContract.error.required = Mae angen i chi ddewis ateb
+followOnContract.error.required = Select yes if this contract will start immediately after the previous one ended
 
 worker.followOnContract.title = Will this contract start immediately after the previous one ended?
 worker.followOnContract.heading = Will this contract start immediately after the previous one ended?
@@ -1912,7 +1913,7 @@ hirer.firstContract.subheading = Worker’s contracts
 
 ### ExtendContract Page
 ### ---------------------------------
-extendContract.error.required = You need to select an answer
+extendContract.error.required = Select yes if the current contract allows for it to be extended
 
 worker.extendContract.title = Does the current contract allow for it to be extended?
 worker.extendContract.heading = Does the current contract allow for it to be extended?

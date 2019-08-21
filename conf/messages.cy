@@ -1796,14 +1796,14 @@ hirer.multipleContracts.p1 = This includes working for your competitors.
 ##TODO: Need Welsh
 #### Transfer of Rights Page - BoOA
 #### ------------------------------
-transferOfRights.error.required = Mae angen i chi ddewis ateb
-
+worker.transferOfRights.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
 worker.transferOfRights.subheading = Worker’s contracts
 worker.transferOfRights.title = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.heading = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.checkYourAnswersLabel = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.p1 = If a requirement like this does not exist, you would keep all the rights.
 
+hirer.transferOfRights.error.required = Select yes if the worker is required to transfer all ownership rights of this work as part of the contract
 hirer.transferOfRights.subheading = Worker’s contracts
 hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
@@ -1847,7 +1847,7 @@ hirer.previousContract.subheading = Worker’s contracts
 ##TODO: Need Welsh
 ### FollowOnContract Page
 ### ---------------------------------
-followOnContract.error.required = Mae angen i chi ddewis ateb
+followOnContract.error.required = Select yes if this contract will start immediately after the previous one ended
 
 worker.followOnContract.title = Will this contract start immediately after the previous one ended?
 worker.followOnContract.heading = Will this contract start immediately after the previous one ended?
@@ -1912,7 +1912,7 @@ hirer.firstContract.subheading = Worker’s contracts
 
 ### ExtendContract Page
 ### ---------------------------------
-extendContract.error.required = You need to select an answer
+extendContract.error.required = Select yes if the current contract allows for it to be extended
 
 worker.extendContract.title = Does the current contract allow for it to be extended?
 worker.extendContract.heading = Does the current contract allow for it to be extended?
@@ -1970,7 +1970,7 @@ hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done simila
 ###TODO: Need Welsh
 ### Financially Dependent Page - BoOA
 ### ------------------------------
-ownershipRights.error.required = You need to select an answer
+ownershipRights.error.required = Select yes if there are any ownership rights relating to this work
 
 worker.ownershipRights.subheading = Worker’s contracts
 worker.ownershipRights.title = Are there any ownership rights relating to this work?

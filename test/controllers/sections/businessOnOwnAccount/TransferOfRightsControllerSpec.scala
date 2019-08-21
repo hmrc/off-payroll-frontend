@@ -39,7 +39,7 @@ class TransferOfRightsControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new TransferOfRightsFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[TransferOfRightsView]
 

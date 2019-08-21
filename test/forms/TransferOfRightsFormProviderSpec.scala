@@ -16,19 +16,21 @@
 
 package forms
 
+import base.GuiceAppSpecBase
+import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class TransferOfRightsFormProviderSpec extends BooleanFieldBehaviours {
+class TransferOfRightsFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {
+
+  val fieldName = "value"
 
   val requiredKey = "transferOfRights.error.required"
   val invalidKey = "error.required"
 
-  val form = new TransferOfRightsFormProvider()()
+  val form = new TransferOfRightsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   ".value" must {
-
-    val fieldName = "value"
 
     behave like booleanField(
       form,
@@ -36,10 +38,43 @@ class TransferOfRightsFormProviderSpec extends BooleanFieldBehaviours {
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    "for the sub optimised flow" should {
+
+      disable(OptimisedFlow)
+      val form = new TransferOfRightsFormProvider()()(fakeDataRequest, frontendAppConfig)
+
+      behave like mandatoryField(
+        form ,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
+    }
+
+    "for the optimised flow" should {
+
+      "if the user type is 'Worker'" must {
+
+        enable(OptimisedFlow)
+        val form = new TransferOfRightsFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
+        )
+      }
+
+      "if the user type is 'Hirer'" must {
+
+        enable(OptimisedFlow)
+        val form = new TransferOfRightsFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
+        )
+      }
+    }
   }
 }
