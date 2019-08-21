@@ -1634,12 +1634,14 @@ worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other
 
 
 
-otherExpenses.error.required = You need to select an answer
+hirer.otherExpenses.error.required = Select yes if the worker will incur any other costs that your organisation will not pay for
 hirer.otherExpenses.title = Will the worker incur any other costs that your organisation will not pay for?
 hirer.otherExpenses.subheading = Worker’s financial risk
 hirer.otherExpenses.heading = Will the worker incur any other costs that your organisation will not pay for?
 hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other costs that your organisation will not pay for?
 hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
+
+worker.otherExpenses.error.required = Select yes if you will incur any other costs that your client will not pay for
 worker.otherExpenses.title = Will you incur any other costs that your client will not pay for?
 worker.otherExpenses.subheading = Worker’s financial risk
 worker.otherExpenses.heading = Will you incur any other costs that your client will not pay for?
