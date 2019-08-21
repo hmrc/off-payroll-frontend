@@ -1772,7 +1772,7 @@ hirer.previousContract.subheading = Worker’s contracts
 
 ### FollowOnContract Page
 ### ---------------------------------
-followOnContract.error.required = You need to select an answer
+followOnContract.error.required = Select yes if this contract will start immediately after the previous one ended
 
 worker.followOnContract.title = Will this contract start immediately after the previous one ended?
 worker.followOnContract.heading = Will this contract start immediately after the previous one ended?
@@ -1835,7 +1835,7 @@ hirer.firstContract.subheading = Worker’s contracts
 
 ### ExtendContract Page
 ### ---------------------------------
-extendContract.error.required = You need to select an answer
+extendContract.error.required = Select yes if the current contract allows for it to be extended
 
 worker.extendContract.title = Does the current contract allow for it to be extended?
 worker.extendContract.heading = Does the current contract allow for it to be extended?
@@ -1887,7 +1887,8 @@ hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done simila
 
 ### Financially Dependent Page - BoOA
 ### ------------------------------
-ownershipRights.error.required = You need to select an answer
+
+ownershipRights.error.required = Select yes if there are any ownership rights relating to this work
 
 worker.ownershipRights.subheading = Worker’s contracts
 worker.ownershipRights.title = Are there any ownership rights relating to this work?
