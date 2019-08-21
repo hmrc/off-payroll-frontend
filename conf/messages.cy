@@ -909,6 +909,7 @@ hirer.wouldWorkerPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.wouldWorkerPaySubstitute.exclamation =Os byddai’r eilydd yn cael ei dalu gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
 
 ## TODO: Need Welsh
+worker.optimised.wouldWorkerPaySubstitute.error.required = Select yes if you would have to pay your substitute
 worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute?
 worker.optimised.wouldWorkerPaySubstitute.subheading = Substitutes and helpers
 worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute?
@@ -916,6 +917,7 @@ worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have
 worker.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by you or your business.
 
 ## TODO: Need Welsh
+hirer.optimised.wouldWorkerPaySubstitute.error.required = Select yes if the worker would have to pay their substitute
 hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.subheading = Substitutes and helpers
 hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute?
