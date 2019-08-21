@@ -16,16 +16,17 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import play.api.data.Form
 import models.HowWorkIsDone
+import models.requests.DataRequest
 
-class HowWorkIsDoneFormProvider @Inject() extends Mappings {
+class HowWorkIsDoneFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[HowWorkIsDone] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[HowWorkIsDone] =
     Form(
-      "value" -> enumerable[HowWorkIsDone]("howWorkIsDone.error.required")
+      "value" -> enumerable[HowWorkIsDone](tailoredErrMsgOptimised("howWorkIsDone.error.required"))
     )
 }

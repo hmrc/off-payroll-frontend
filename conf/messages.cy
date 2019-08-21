@@ -766,6 +766,8 @@ hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures =Na - ni all y cleient 
 hirer.howWorkIsDone.workerAgreeWithOthers = Yn rhannol - mae’r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o’r gwaith sydd angen ei wneud
 
 ## TODO: Need Welsh
+hirer.optimised.howWorkIsDone.error.required = Select yes if your organisation will decide how the work is done
+hirer.optimised.howWorkIsDone.error.invalid = Select yes if your organisation will decide how the work is done
 hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
 hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
@@ -777,6 +779,8 @@ hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because
 hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
 
 ## TODO: Need Welsh
+worker.optimised.howWorkIsDone.error.required = Select if your client will decide how the work is done
+worker.optimised.howWorkIsDone.error.invalid = Select if your client will decide how the work is done
 worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?

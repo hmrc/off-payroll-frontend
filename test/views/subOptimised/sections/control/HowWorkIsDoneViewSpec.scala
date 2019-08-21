@@ -33,7 +33,7 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "howWorkIsDone"
 
-  val form = new HowWorkIsDoneFormProvider()()
+  val form = new HowWorkIsDoneFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[HowWorkIsDoneView]
 

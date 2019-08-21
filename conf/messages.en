@@ -778,6 +778,8 @@ hirer.howWorkIsDone.workerDecidesWithoutInput = No - the worker decides how the 
 hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures = No - we cannot decide how the work needs to be done because it is a highly skilled role
 hirer.howWorkIsDone.workerAgreeWithOthers = Partly - the worker and other people employed or engaged by your organisation agree how the work needs to be done
 
+hirer.optimised.howWorkIsDone.error.required = Select yes if your organisation will decide how the work is done
+hirer.optimised.howWorkIsDone.error.invalid = Select yes if your organisation will decide how the work is done
 hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
 hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
@@ -788,6 +790,8 @@ hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely 
 hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
 hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
 
+worker.optimised.howWorkIsDone.error.required = Select if your client will decide how the work is done
+worker.optimised.howWorkIsDone.error.invalid = Select if your client will decide how the work is done
 worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
