@@ -277,3 +277,8 @@ GET        /similar-work-other-clients                  controllers.sections.bus
 POST       /similar-work-other-clients                  controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onSubmit(mode: Mode = NormalMode)
 GET        /similar-work-other-clients/change           controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onPageLoad(mode: Mode = CheckMode)
 POST       /similar-work-other-clients/change           controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onSubmit(mode: Mode = CheckMode)
+
+GET        /what-do-you-want-to-do                      controllers.sections.setup.WhatDoYouWantToDoController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-do-you-want-to-do                      controllers.sections.setup.WhatDoYouWantToDoController.onSubmit(mode: Mode = NormalMode)
+GET        /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onPageLoad(mode: Mode = CheckMode)
+POST       /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onSubmit(mode: Mode = CheckMode)

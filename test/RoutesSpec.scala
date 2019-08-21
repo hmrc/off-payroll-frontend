@@ -66,6 +66,13 @@ class RoutesSpec extends SpecBase {
       setupRoutes.WorkerTypeController.onSubmit(CheckMode).url mustBe fullPath("/worker-trade-type/change")
     }
 
+    "Have the correct routes for the What Do You Want To Do page" in {
+      setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode).url mustBe fullPath("/what-do-you-want-to-do")
+      setupRoutes.WhatDoYouWantToDoController.onPageLoad(CheckMode).url mustBe fullPath("/what-do-you-want-to-do/change")
+      setupRoutes.WhatDoYouWantToDoController.onSubmit(NormalMode).url mustBe fullPath("/what-do-you-want-to-do")
+      setupRoutes.WhatDoYouWantToDoController.onSubmit(CheckMode).url mustBe fullPath("/what-do-you-want-to-do/change")
+    }
+
     "Have the correct routes for the Tool Not Needed page" in {
       setupRoutes.ToolNotNeededController.onPageLoad().url mustBe fullPath("/tool-not-needed")
       setupRoutes.ToolNotNeededController.onSubmit().url mustBe fullPath("/tool-not-needed")

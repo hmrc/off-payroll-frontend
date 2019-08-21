@@ -1918,3 +1918,15 @@ hirer.ownershipRights.title = Are there any ownership rights relating to this wo
 hirer.ownershipRights.heading = Are there any ownership rights relating to this work?
 hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this work?
 hirer.ownershipRights.p1 = These rights include copyright, trademarks, patents and other intellectual property rights.
+
+###TODO: Need Welsh
+### What Do You Want To Do Page
+### ------------------------------
+whatDoYouWantToDo.error.required = You need to select an answer
+
+whatDoYouWantToDo.subheading = About you and the work
+whatDoYouWantToDo.title = What do you want to do?
+whatDoYouWantToDo.heading = What do you want to do?
+whatDoYouWantToDo.checkYourAnswersLabel = What do you want to do?
+whatDoYouWantToDo.makeNewDetermination = Make a new determination
+whatDoYouWantToDo.checkDetermination = Check a determination
