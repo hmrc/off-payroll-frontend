@@ -1820,13 +1820,13 @@ hirer.rightsOfWork.p1 = This does not include the option to buy the rights for a
 
 ### FirstContract Page
 ### ---------------------------------
-firstContract.error.required = You need to select an answer
-
+worker.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with this client
 worker.firstContract.title = Is the current contract the first in a series of contracts with this client?
 worker.firstContract.heading = Is the current contract the first in a series of contracts with this client?
 worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with this client?
 worker.firstContract.subheading = Worker’s contracts
 
+hirer.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with your organisation
 hirer.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?

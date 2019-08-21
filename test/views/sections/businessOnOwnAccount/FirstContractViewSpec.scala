@@ -31,7 +31,7 @@ class FirstContractViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.firstContract"
 
-  val form = new FirstContractFormProvider()()
+  val form = new FirstContractFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[FirstContractView]
 
