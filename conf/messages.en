@@ -1723,14 +1723,14 @@ hirer.multipleContracts.p1 = This includes working for your competitors.
 
 #### Transfer of Rights Page - BoOA
 #### ------------------------------
-worker.transferOfRights.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
+worker.transferOfRights.error.required = Select yes if your client has the option to buy the rights for a separate fee
 worker.transferOfRights.subheading = Worker’s contracts
 worker.transferOfRights.title = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.heading = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.checkYourAnswersLabel = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.p1 = If a requirement like this does not exist, you would keep all the rights.
 
-hirer.transferOfRights.error.required = Select yes if the worker is required to transfer all ownership rights of this work as part of the contract
+hirer.transferOfRights.error.required = Select yes if your organisation has the option to buy the rights for a separate fee
 hirer.transferOfRights.subheading = Worker’s contracts
 hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
