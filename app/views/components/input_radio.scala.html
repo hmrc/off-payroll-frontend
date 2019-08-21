@@ -42,7 +42,7 @@
             <span class="form-hint form-group">@{hint.get}</span>
         }
         @field.errors.map { error =>
-            <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+            <span class = "visually-hidden">Error:</span><span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
         }
 
         <div id="multiple-choice-options">
