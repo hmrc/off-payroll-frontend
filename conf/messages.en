@@ -1616,12 +1616,14 @@ worker.materials.p2 = This question is most likely to be relevant to the constru
 
 
 
-vehicle.error.required = You need to select an answer
+hirer.vehicle.error.required = Select yes if the worker will incur costs for a vehicle that your organisation will not pay for
 hirer.vehicle.title = Will the worker incur costs for a vehicle that your organisation will not pay for?
 hirer.vehicle.subheading = Worker’s financial risk
 hirer.vehicle.heading = Will the worker incur costs for a vehicle that your organisation will not pay for?
 hirer.vehicle.checkYourAnswersLabel = Will the worker incur costs for a vehicle that your organisation will not pay for?
 hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+
+worker.vehicle.error.required = Select yes if you will incur costs for a vehicle that your client will not pay for
 worker.vehicle.title = Will you incur costs for a vehicle that your client will not pay for?
 worker.vehicle.subheading = Worker’s financial risk
 worker.vehicle.heading = Will you incur costs for a vehicle that your client will not pay for?

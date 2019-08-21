@@ -39,7 +39,7 @@ class VehicleControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new VehicleFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[VehicleView]
 
