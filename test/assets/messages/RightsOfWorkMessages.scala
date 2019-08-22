@@ -19,6 +19,7 @@ package assets.messages
 object RightsOfWorkMessages extends BaseMessages {
 
   object Worker {
+    val error = "Select yes if you are required to transfer all ownership rights of this work as part of the contract"
     val title = "Are you required to transfer all ownership rights of this work as part of the contract?"
     val heading = "Are you required to transfer all ownership rights of this work as part of the contract?"
     val subheading = "Worker’s contracts"
@@ -26,6 +27,7 @@ object RightsOfWorkMessages extends BaseMessages {
   }
 
   object Hirer {
+    val error = "Select yes if the worker is required to transfer all ownership rights of this work as part of the contract"
     val title = "Is the worker required to transfer all ownership rights of this work as part of the contract?"
     val heading = "Is the worker required to transfer all ownership rights of this work as part of the contract?"
     val subheading = "Worker’s contracts"

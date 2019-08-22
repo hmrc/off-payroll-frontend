@@ -19,6 +19,7 @@ package assets.messages
 object MajorityOfWorkingTimeMessages extends BaseMessages {
 
   object Worker {
+    val error = "Select yes if the work will take up the majority of your available working time"
     val title = "Will this work take up the majority of your available working time?"
     val heading = "Will this work take up the majority of your available working time?"
     val subheading = "Worker’s contracts"
@@ -26,6 +27,7 @@ object MajorityOfWorkingTimeMessages extends BaseMessages {
   }
 
   object Hirer {
+    val error = "Select yes if the work will take up the majority of the worker’s available working time"
     val title = "Will this work take up the majority of the worker’s available working time?"
     val heading = "Will this work take up the majority of the worker’s available working time?"
     val subheading = "Worker’s contracts"

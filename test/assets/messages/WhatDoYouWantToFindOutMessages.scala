@@ -18,6 +18,7 @@ package assets.messages
 
 object WhatDoYouWantToFindOutMessages extends BaseMessages {
 
+    val error = "Select what you want to find out"
     val heading = "What do you want to find out?"
     val title = heading
     val subheading = "About you and the work"

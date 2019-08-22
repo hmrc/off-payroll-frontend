@@ -37,11 +37,13 @@ object ContractStartedMessages extends BaseMessages {
 object ContractStartedOptimisedMessages extends BaseMessages {
 
   object Worker {
+    val error = "Select yes if you have already started working for this client"
     val heading = "Have you already started working for this client?"
     val title = heading
   }
 
   object Hirer {
+    val error = "Select yes if the worker has already started working for your organisation"
     val heading = "Has the worker already started working for your organisation?"
     val title = heading
   }

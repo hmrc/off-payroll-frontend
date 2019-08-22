@@ -37,6 +37,7 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
+    val error = "Select yes if your client will decide the working hours"
     val heading = "Will your client decide the working hours?"
     val title = heading
     val yesClientDecides = "Yes"
@@ -46,6 +47,7 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
   }
 
   object OptimisedHirer {
+    val error = "Select yes if your organisation will decide the working hours"
     val heading = "Will your organisation decide the working hours?"
     val title = heading
     val yesClientDecides = "Yes"
