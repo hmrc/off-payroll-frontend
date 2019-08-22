@@ -39,7 +39,7 @@ class MajorityOfWorkingTimeControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new MajorityOfWorkingTimeFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MajorityOfWorkingTimeView]
 

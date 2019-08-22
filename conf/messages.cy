@@ -1864,14 +1864,14 @@ hirer.followOnContract.p1 = This does not include any holiday period between the
 ##TODO: Need Welsh
 ### MajorityOfWorkingTime Page
 ### ---------------------------------
-majorityOfWorkingTime.error.required = Mae angen i chi ddewis ateb
-
+worker.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of your available working time
 worker.majorityOfWorkingTime.title = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.heading = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.subheading = Worker’s contracts
 worker.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
 
+hirer.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of the worker’s available working time
 hirer.majorityOfWorkingTime.title = Will this work take up the majority of the worker’s available working time?
 hirer.majorityOfWorkingTime.heading = Will this work take up the majority of the worker’s available working time?
 hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of the worker’s available working time?

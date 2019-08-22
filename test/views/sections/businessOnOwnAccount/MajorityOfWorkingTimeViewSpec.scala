@@ -31,7 +31,7 @@ class MajorityOfWorkingTimeViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.majorityOfWorkingTime"
 
-  val form = new MajorityOfWorkingTimeFormProvider()()
+  val form = new MajorityOfWorkingTimeFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MajorityOfWorkingTimeView]
 
