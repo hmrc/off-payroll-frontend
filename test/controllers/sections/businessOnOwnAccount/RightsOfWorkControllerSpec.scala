@@ -39,7 +39,7 @@ class RightsOfWorkControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new RightsOfWorkFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[RightsOfWorkView]
 

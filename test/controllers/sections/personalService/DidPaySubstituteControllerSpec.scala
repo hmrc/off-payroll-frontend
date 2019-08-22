@@ -16,29 +16,17 @@
 
 package controllers.sections.personalService
 
-import akka.util.ByteString
-import connectors.FakeDataCacheConnector
 import config.featureSwitch.OptimisedFlow
-import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.DidPaySubstituteFormProvider
 import models.requests.DataRequest
-import models.{Answers, NormalMode, UserAnswers}
+import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
-import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, WouldWorkerPaySubstitutePage}
+import pages.sections.personalService.DidPaySubstitutePage
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
-import play.api.mvc.Results.Redirect
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.personalService.DidPaySubstituteView
 import views.html.subOptimised.sections.personalService.{DidPaySubstituteView => SubOpimisedDidPaySubstituteView}
@@ -46,7 +34,7 @@ import views.html.subOptimised.sections.personalService.{DidPaySubstituteView =>
 class DidPaySubstituteControllerSpec extends ControllerSpecBase {
 
   val formProvider = new DidPaySubstituteFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[DidPaySubstituteView]
   val subOptimisedView = injector.instanceOf[SubOpimisedDidPaySubstituteView]

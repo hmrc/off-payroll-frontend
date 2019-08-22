@@ -39,7 +39,7 @@ class EquipmentExpensesControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new EquipmentExpensesFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[EquipmentExpensesView]
 

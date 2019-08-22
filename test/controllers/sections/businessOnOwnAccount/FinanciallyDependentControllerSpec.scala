@@ -39,7 +39,7 @@ class FinanciallyDependentControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new FinanciallyDependentFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[FinanciallyDependentView]
 

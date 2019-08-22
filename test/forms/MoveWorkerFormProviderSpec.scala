@@ -16,18 +16,20 @@
 
 package forms
 
+import base.GuiceAppSpecBase
+import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
 import models.MoveWorker
 import play.api.data.FormError
 
-class MoveWorkerFormProviderSpec extends OptionFieldBehaviours {
+class MoveWorkerFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {
 
-  val form = new MoveWorkerFormProvider()()
+  val fieldName = "value"
+  val requiredKey = "moveWorker.error.required"
+
+  val form = new MoveWorkerFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   ".value" must {
-
-    val fieldName = "value"
-    val requiredKey = "moveWorker.error.required"
 
     behave like optionsField[MoveWorker](
       form,
@@ -36,10 +38,43 @@ class MoveWorkerFormProviderSpec extends OptionFieldBehaviours {
       invalidError = FormError(fieldName, "error.invalid")
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    "for the sub optimised flow" should {
+
+      disable(OptimisedFlow)
+      val form = new MoveWorkerFormProvider()()(fakeDataRequest, frontendAppConfig)
+
+      behave like mandatoryField(
+        form ,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
+    }
+
+    "for the optimised flow" should {
+
+      "if the user type is 'Worker'" must {
+
+        enable(OptimisedFlow)
+        val form = new MoveWorkerFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+        )
+      }
+
+      "if the user type is 'Hirer'" must {
+
+        enable(OptimisedFlow)
+        val form = new MoveWorkerFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+        )
+      }
+    }
   }
 }

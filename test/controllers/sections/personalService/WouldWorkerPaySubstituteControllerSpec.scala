@@ -40,7 +40,7 @@ import views.html.subOptimised.sections.personalService.{WouldWorkerPaySubstitut
 class WouldWorkerPaySubstituteControllerSpec extends ControllerSpecBase with MockDataCacheConnector {
 
   val formProvider = new WouldWorkerPaySubstituteFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[WouldWorkerPaySubstituteView]
   val subOptimisedView = injector.instanceOf[SubOptimisedWouldWorkerPaySubstituteView]

@@ -18,6 +18,8 @@ package assets.messages
 
 object OwnershipRightsMessages extends BaseMessages {
 
+  val error = "Select yes if there are any ownership rights relating to this work"
+
   object Worker {
     val subheading = "Worker’s contracts"
     val title = "Are there any ownership rights relating to this work?"

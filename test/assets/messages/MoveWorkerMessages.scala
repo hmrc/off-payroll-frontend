@@ -37,6 +37,7 @@ object MoveWorkerMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
+    val error = "Select yes if the task can be changed without your agreement"
     val heading = "Can the task be changed without your agreement?"
     val p1 = "This includes changing the project or base location."
     val title = heading
@@ -46,6 +47,7 @@ object MoveWorkerMessages extends BaseMessages {
   }
 
   object OptimisedHirer {
+    val error = "Select yes if the task can be changed without the worker’s agreement"
     val heading = "Could the worker’s task be changed without their agreement?"
     val title = heading
     val p1 = "This includes changing the project or base location."

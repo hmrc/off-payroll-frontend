@@ -16,18 +16,20 @@
 
 package forms
 
+import base.GuiceAppSpecBase
+import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
 import models.ScheduleOfWorkingHours
 import play.api.data.FormError
 
-class ScheduleOfWorkingHoursFormProviderSpec extends OptionFieldBehaviours {
+class ScheduleOfWorkingHoursFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {
 
-  val form = new ScheduleOfWorkingHoursFormProvider()()
+  val fieldName = "value"
+  val requiredKey = "scheduleOfWorkingHours.error.required"
+
+  val form = new ScheduleOfWorkingHoursFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   ".value" must {
-
-    val fieldName = "value"
-    val requiredKey = "scheduleOfWorkingHours.error.required"
 
     behave like optionsField[ScheduleOfWorkingHours](
       form,
@@ -36,10 +38,43 @@ class ScheduleOfWorkingHoursFormProviderSpec extends OptionFieldBehaviours {
       invalidError = FormError(fieldName, "error.invalid")
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    "for the sub optimised flow" should {
+
+      disable(OptimisedFlow)
+      val form = new ScheduleOfWorkingHoursFormProvider()()(fakeDataRequest, frontendAppConfig)
+
+      behave like mandatoryField(
+        form ,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
+    }
+
+    "for the optimised flow" should {
+
+      "if the user type is 'Worker'" must {
+
+        enable(OptimisedFlow)
+        val form = new ScheduleOfWorkingHoursFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"worker.optimised.$requiredKey")
+        )
+      }
+
+      "if the user type is 'Hirer'" must {
+
+        enable(OptimisedFlow)
+        val form = new ScheduleOfWorkingHoursFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"hirer.optimised.$requiredKey")
+        )
+      }
+    }
   }
 }

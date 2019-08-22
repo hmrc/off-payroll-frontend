@@ -31,7 +31,7 @@ class FinanciallyDependentViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.financiallyDependent"
 
-  val form = new FinanciallyDependentFormProvider()()
+  val form = new FinanciallyDependentFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[FinanciallyDependentView]
 

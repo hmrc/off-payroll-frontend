@@ -18,11 +18,11 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.AboutYouFormProvider
+import forms.WhoAreYouFormProvider
 import models.Answers._
-import models._
-import models.AboutYouAnswer.Worker
 import models.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.WhoAreYou.Worker
+import models._
 import models.requests.DataRequest
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
@@ -34,8 +34,8 @@ import views.html.sections.setup.WhoAreYouView
 
 class WhoAreYouControllerSpec extends ControllerSpecBase {
 
-  val formProvider = new AboutYouFormProvider()
-  val form = formProvider()
+  val formProvider = new WhoAreYouFormProvider()
+  val form = formProvider()(fakeDataRequest)
 
   val view = injector.instanceOf[WhoAreYouView]
 
@@ -44,7 +44,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       identify = FakeIdentifierAction,
       getData = dataRetrievalAction,
       requireData = new DataRequiredActionImpl(messagesControllerComponents),
-      aboutYouFormProvider = formProvider,
+      whoAreYouFormProvider = formProvider,
       controllerComponents = messagesControllerComponents,
       view = view,
       compareAnswerService = mockCompareAnswerService,
@@ -106,7 +106,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", Worker.toString))
-      val answers = userAnswers.set(WhoAreYouPage,0,Worker)
+      val answers = userAnswers.set(WhoAreYouPage, Worker)
       mockConstructAnswers(DataRequest(postRequest,"id",answers), Worker)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))

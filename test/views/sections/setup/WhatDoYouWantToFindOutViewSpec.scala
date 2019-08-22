@@ -18,12 +18,12 @@ package views.sections.setup
 
 import assets.messages.WhatDoYouWantToFindOutMessages
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import forms.{WhatDoYouWantToFindOutFormProvider, WorkerUsingIntermediaryFormProvider}
+import forms.WhatDoYouWantToFindOutFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.sections.setup.{WhatDoYouWantToFindOutView, WorkerUsingIntermediaryView}
+import views.html.sections.setup.WhatDoYouWantToFindOutView
 
 class WhatDoYouWantToFindOutViewSpec extends ViewBehaviours with FeatureSwitching {
 

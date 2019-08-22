@@ -51,10 +51,8 @@ class PutRightAtOwnCostController @Inject()(identify: IdentifierAction,
                                             implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
-  val form: Form[PutRightAtOwnCost] = formProvider()
-
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(PutRightAtOwnCostPage, form), mode))
+    Ok(view(fillForm(PutRightAtOwnCostPage, formProvider()), mode))
   }
 
   private def view(form: Form[PutRightAtOwnCost], mode: Mode)(implicit request: DataRequest[_]): HtmlFormat.Appendable = {
@@ -62,7 +60,7 @@ class PutRightAtOwnCostController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
+    formProvider().bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {

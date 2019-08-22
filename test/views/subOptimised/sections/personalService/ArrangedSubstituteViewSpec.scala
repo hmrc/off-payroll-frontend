@@ -17,13 +17,10 @@
 package views.subOptimised.sections.personalService
 
 import assets.messages.{ArrangedSubstituteMessages, SubHeadingMessages}
-import config.SessionKeys
 import forms.ArrangedSubstituteFormProvider
+import models.requests.DataRequest
 import models.{ArrangedSubstitute, NormalMode}
-import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form
-import play.api.libs.json.Json
-import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.subOptimised.sections.personalService.ArrangedSubstituteView
 
@@ -33,7 +30,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "arrangedSubstitute"
 
-  val form = new ArrangedSubstituteFormProvider()()
+  val form = new ArrangedSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ArrangedSubstituteView]
 
@@ -41,7 +38,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
   def createViewUsingForm = (form: Form[_]) => view(form, NormalMode)(fakeRequest, messages, frontendAppConfig)
 
-  def createViewWithRequest = (req: Request[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
+  def createViewWithRequest = (req: DataRequest[_]) => view(form, NormalMode)(req, messages, frontendAppConfig)
 
   "ArrangedSubstitute view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = true)
@@ -50,7 +47,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
     "If the user type is of Worker" should {
 
-      lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
+      lazy val document = asDocument(createViewWithRequest(workerFakeDataRequest))
 
       "have the correct title" in {
         document.title mustBe title(ArrangedSubstituteMessages.Worker.title, Some(SubHeadingMessages.SubOptimised.personalService))
@@ -82,7 +79,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
     "If the user type is of Hirer" should {
 
-      lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
+      lazy val document = asDocument(createViewWithRequest(hirerFakeDataRequest))
 
       "have the correct title" in {
         document.title mustBe title(ArrangedSubstituteMessages.Hirer.title, Some(SubHeadingMessages.SubOptimised.personalService))
@@ -114,7 +111,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
     "If the user type is of Agency" should {
 
-      lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
+      lazy val document = asDocument(createViewWithRequest(agencyFakeDataRequest))
 
       "have the correct title" in {
         document.title mustBe title(ArrangedSubstituteMessages.NonTailored.title, Some(SubHeadingMessages.SubOptimised.personalService))
@@ -148,7 +145,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
   "ArrangedSubstitute view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
-        val doc = asDocument(createViewUsingForm(form))
+        val doc = asDocument(createView())
         for (option <- ArrangedSubstitute.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }

@@ -104,10 +104,12 @@ hirer.contractStarted.heading =A yw’r gweithiwr wedi dechrau’r swydd benodol
 hirer.contractStarted.subheading = Ynglŷn â’r bobl berthnasol
 hirer.contractStarted.checkYourAnswersLabel =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
 
+worker.optimised.contractStarted.error.required = Select yes if you have already started working for this client
 worker.optimised.contractStarted.title = Have you already started working for this client?
 worker.optimised.contractStarted.heading = Have you already started working for this client?
 worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
 
+hirer.optimised.contractStarted.error.required = Select yes if the worker has already started working for your organisation
 hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
@@ -159,8 +161,10 @@ whoAreYou.personDoingWork = Worker
 whoAreYou.endClient = Hirer
 whoAreYou.placingAgency = Agency
 
-whoAreYou.error.required = You need to select an answer
-whoAreYou.error.invalid = You need to select an answer
+whoAreYou.ir35.error.required = Select if you are a worker, hirer or agency
+whoAreYou.ir35.error.invalid = Select if you are a worker, hirer or agency
+whoAreYou.paye.error.required = Select if you are a worker or hirer
+whoAreYou.paye.error.invalid = Select if you are a worker or hirer
 #########################
 
 ## What do you want
@@ -173,8 +177,8 @@ whatDoYouWantToFindOut.checkYourAnswersLabel = What do you want to find out?
 whatDoYouWantToFindOut.ir35 = If the off payroll working rules (IR35) apply to a contract
 whatDoYouWantToFindOut.paye = If some work is classed as employment or self-employment for tax purposes
 
-whatDoYouWantToFindOut.error.required = You need to select an answer
-whatDoYouWantToFindOut.error.invalid = You need to select an answer
+whatDoYouWantToFindOut.error.required = Select what you want to find out
+whatDoYouWantToFindOut.error.invalid = Select what you want to find out
 #########################
 
 ## Office Holder
@@ -213,6 +217,7 @@ hirer.officeHolder.bullet2 =caiff y swyddogaeth ei chreu gan statud, erthyglau c
 hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes neb yn ei chyflawni (er enghraifft, trysorydd clwb)
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
 
+worker.optimised.officeHolder.error.required = Select yes if you will be an Office Holder
 worker.optimised.officeHolder.title = Will you be an ‘Office Holder’?
 worker.optimised.officeHolder.subheading = Worker’s duties
 worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
@@ -221,6 +226,7 @@ worker.optimised.officeholder.p1 = This can include being a board member, treasu
 worker.optimised.officeholder.p2 = Read more about
 worker.optimised.officeholder.link = Office Holders (opens in a new window)
 
+hirer.optimised.officeHolder.error.required = Select yes if the worker will be an Office Holder
 hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
 hirer.optimised.officeHolder.subheading = Worker’s duties
 hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’?
@@ -352,6 +358,8 @@ hirer.arrangedSubstitute.notAgreedWithClient = Iawn - ond ni chytunodd y cleient
 hirer.arrangedSubstitute.noSubstitutionHappened = Na - nid yw hyn wedi digwydd
 
 ## TODO: Need Welsh
+worker.optimised.arrangedSubstitute.error.required = Select if you have ever sent a substitute to do your work
+worker.optimised.arrangedSubstitute.error.invalid = Select if you have ever sent a substitute to do your work
 worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do your work?
 worker.optimised.arrangedSubstitute.subheading = Substitutes and helpers
 worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do your work?
@@ -361,6 +369,8 @@ worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client d
 worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
 
 ## TODO: Need Welsh
+hirer.optimised.arrangedSubstitute.error.required = Select if the worker has ever sent a substitute to do their work
+hirer.optimised.arrangedSubstitute.error.invalid = Select if the worker has ever sent a substitute to do their work
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do their work?
 hirer.optimised.arrangedSubstitute.subheading = Substitutes and helpers
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do their work?
@@ -399,6 +409,7 @@ worker.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy�
 worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
 
 ##TODO: Need Welsh
+hirer.optimised.identifyToStakeholders.error.invalid = You need to select an answer
 hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.subheading = Worker’s involvement
 hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
@@ -408,6 +419,8 @@ hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independe
 hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
 hirer.optimised.identifyToStakeholders.wouldNotHappen = This would not happen
 
+##TODO: Need Welsh
+worker.optimised.identifyToStakeholders.error.invalid = Select how you would introduce yourself to your client’s consumers or suppliers
 worker.optimised.identifyToStakeholders.title = How would you introduce yourself to your client’s consumers or suppliers?
 worker.optimised.identifyToStakeholders.subheading = Worker’s involvement
 worker.optimised.identifyToStakeholders.heading = How would you introduce yourself to your client’s consumers or suppliers?
@@ -471,13 +484,15 @@ worker.lineManagerDuties.bullet4 =Penderfynu ar faint i dalu rhywun
 worker.lineManagerDuties.checkYourAnswersLabel =A yw’r gweithiwr yn gyfrifol am unrhyw un o’r dyletswyddau canlynol ar gyfer y cleient terfynol?
 
 ##TODO: Need Welsh
-
+hirer.optimised.lineManagerDuties.error.required = Select yes if the worker will have any management responsibilities for your organisation
 hirer.optimised.lineManagerDuties.title = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.subheading = Worker’s involvement
 hirer.optimised.lineManagerDuties.heading = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
 
+##TODO: Need Welsh
+worker.optimised.lineManagerDuties.error.required = Select yes if you will have any management responsibilities for your client
 worker.optimised.lineManagerDuties.title = Will you have any management responsibilities for your client?
 worker.optimised.lineManagerDuties.subheading = Worker’s involvement
 worker.optimised.lineManagerDuties.heading = Will you have any management responsibilities for your client?
@@ -522,12 +537,15 @@ worker.benefits.p1 =Nid yw’r rhain yn cynnwys buddiannau a ddarparwyd gan dryd
 worker.benefits.checkYourAnswersLabel =A oes gan y gweithiwr hawl i unrhyw un o’r buddiannau canlynol oddi wrth y cleient terfynol?
 
 ##TODO: Need Welsh
+worker.optimised.benefits.error.required = Select yes if your client will provide you with paid-for corporate benefits
 worker.optimised.benefits.title = Will your client provide you with paid-for corporate benefits?
 worker.optimised.benefits.subheading = Worker’s involvement
 worker.optimised.benefits.heading = Will your client provide you with paid-for corporate benefits?
 worker.optimised.benefits.checkYourAnswersLabel = Will your client provide you with paid-for corporate benefits?
 worker.optimised.benefits.p1 = This can include external gym memberships, health insurance or retail discounts.
 
+##TODO: Need Welsh
+hirer.optimised.benefits.error.required = Select yes if your organisation will provide the worker with paid-for corporate benefits
 hirer.optimised.benefits.title = Will you provide the worker with paid-for corporate benefits?
 hirer.optimised.benefits.subheading = Worker’s involvement
 hirer.optimised.benefits.heading = Will you provide the worker with paid-for corporate benefits?
@@ -569,6 +587,9 @@ hirer.putRightAtOwnCost.cannotBeCorrected =Na - ni fyddai’r gweithiwr yn gallu
 hirer.putRightAtOwnCost.noObligationToCorrect =Na - ni fyddai’n rhaid iddo roi pethau’n iawn
 hirer.putRightAtOwnCost.checkYourAnswersLabel =Os nad yw’r cleient terfynol yn fodlon gyda’r gwaith, a oes angen i’r gweithiwr rhoi pethau’n iawn ar ei gost ei hun?
 
+## TODO: Need Welsh
+worker.optimised.putRightAtOwnCost.error.required = Select if you would have to put your work right if your client was not happy with it
+worker.optimised.putRightAtOwnCost.error.invalid = Select if you would have to put your work right if your client was not happy with it
 worker.optimised.putRightAtOwnCost.title = If the client was not happy with your work, would you have to put it right?
 worker.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 worker.optimised.putRightAtOwnCost.heading = If the client was not happy with your work, would you have to put it right?
@@ -579,6 +600,9 @@ worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, you wo
 worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
 worker.optimised.putRightAtOwnCost.noObligationToCorrect = Na
 
+## TODO: Need Welsh
+hirer.optimised.putRightAtOwnCost.error.required = Select if the worker would have to put the work right if your organisation was not happy with it
+hirer.optimised.putRightAtOwnCost.error.invalid = Select if the worker would have to put the work right if your organisation was not happy with it
 hirer.optimised.putRightAtOwnCost.title = If your organisation was not happy with the work, would the worker have to put it right?
 hirer.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 hirer.optimised.putRightAtOwnCost.heading = If your organisation was not happy with the work, would the worker have to put it right?
@@ -624,7 +648,9 @@ hirer.howWorkerIsPaid.incomeCommission =Canran o’r gwerthiannau y mae’r gwei
 hirer.howWorkerIsPaid.incomeProfitOrLosses =Canran o elw neu gynilion y cleient terfynol
 hirer.howWorkerIsPaid.checkYourAnswersLabel =Beth yw’r prif fodd y mae’r gweithiwr yn cael ei dalu ar gyfer y swydd hon?
 
-## TODO newed wealsh
+## TODO Need Welsh
+worker.optimised.howWorkerIsPaid.error.required = Select how you will be paid for this work
+worker.optimised.howWorkerIsPaid.error.invalid = Select how you will be paid for this work
 worker.optimised.howWorkerIsPaid.title = How will you be paid for this work?
 worker.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 worker.optimised.howWorkerIsPaid.heading = How will you be paid for this work?
@@ -635,6 +661,8 @@ worker.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
 worker.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales you generate
 worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your client’s profits or savings
 
+hirer.optimised.howWorkerIsPaid.error.required = Select how the worker will be paid for this work
+hirer.optimised.howWorkerIsPaid.error.invalid = Select how the worker will be paid for this work
 hirer.optimised.howWorkerIsPaid.title = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
@@ -647,7 +675,7 @@ hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your orga
 #########################
 
 
-## How Work Is Done
+## Choose Where Work
 #########################
 chooseWhereWork.title = A all y gweithiwr ddewis ble y mae’n gweithio?
 chooseWhereWork.heading =A all y gweithiwr ddewis ble y mae’n gweithio?
@@ -677,6 +705,30 @@ hirer.chooseWhereWork.workerChooses = Iawn - y gweithiwr sy’n penderfynu
 hirer.chooseWhereWork.workerCannotChoose =Na - y cleient terfynol sy’n dewis
 hirer.chooseWhereWork.noLocationRequired =Na - y dasg sy’n pennu lleoliad y gwaith
 hirer.chooseWhereWork.workerAgreeWithOthers = Yn rhannol - rhaid i beth gwaith cael ei wneud mewn lleoliad a gytunwyd arno, a rhaid i beth ohono gael ei wneud lle bynnag y mae’r gweithiwr yn dewis
+
+##TODO: Need Welsh
+worker.optimised.chooseWhereWork.error.required = Select yes if your client will decide where you do the work
+worker.optimised.chooseWhereWork.error.invalid = Select yes if your client will decide where you do the work
+worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.subheading = Working arrangements
+worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
+worker.optimised.chooseWhereWork.workerCannotChoose = Iawn
+worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
+worker.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
+worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice
+
+##TODO: Need Welsh
+hirer.optimised.chooseWhereWork.error.required = Select yes if your organisation will decide where the worker does the work
+hirer.optimised.chooseWhereWork.error.invalid = Select yes if your organisation will decide where the worker does the work
+hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.subheading = Working arrangements
+hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
+hirer.optimised.chooseWhereWork.workerCannotChoose = Iawn
+hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
+hirer.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
+hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
 #########################
 
 
@@ -712,6 +764,8 @@ hirer.scheduleOfWorkingHours.workerAgreeSchedule = Yn rhannol - mae’r gweithiw
 hirer.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Ddim yn gymwys - nid oes angen amserlen cyn belled â bod y gweithiwr yn bodloni unrhyw ddyddiadau cau a gytunwyd arnynt
 
 ## TODO: Need Welsh
+worker.optimised.scheduleOfWorkingHours.error.required = Select yes if your client will decide the working hours
+worker.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your client will decide the working hours
 worker.optimised.scheduleOfWorkingHours.title = Will your client decide the working hours?
 worker.optimised.scheduleOfWorkingHours.subheading = Working arrangements
 worker.optimised.scheduleOfWorkingHours.heading = Will your client decide the working hours?
@@ -720,6 +774,18 @@ worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
 worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, you solely decide
 worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, you and your client agree
 worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
+
+## TODO: Need Welsh
+hirer.optimised.scheduleOfWorkingHours.error.required = Select yes if your organisation will decide the working hours
+hirer.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your organisation will decide the working hours
+hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.subheading = Working arrangements
+hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the working hours?
+hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
+hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
 #########################
 
 
@@ -758,6 +824,8 @@ hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures =Na - ni all y cleient 
 hirer.howWorkIsDone.workerAgreeWithOthers = Yn rhannol - mae’r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o’r gwaith sydd angen ei wneud
 
 ## TODO: Need Welsh
+hirer.optimised.howWorkIsDone.error.required = Select yes if your organisation will decide how the work is done
+hirer.optimised.howWorkIsDone.error.invalid = Select yes if your organisation will decide how the work is done
 hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
 hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
@@ -769,6 +837,8 @@ hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because
 hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
 
 ## TODO: Need Welsh
+worker.optimised.howWorkIsDone.error.required = Select if your client will decide how the work is done
+worker.optimised.howWorkIsDone.error.invalid = Select if your client will decide how the work is done
 worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
@@ -814,6 +884,8 @@ hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiw
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
 ## TODO: Need Welsh
+hirer.optimised.moveWorker.error.required = Select yes if the task can be changed without the worker’s agreement
+hirer.optimised.moveWorker.error.invalid = Select yes if the task can be changed without the worker’s agreement
 hirer.optimised.moveWorker.title = Could the worker’s task be changed without their agreement?
 hirer.optimised.moveWorker.subheading = Working arrangements
 hirer.optimised.moveWorker.heading = Could the worker’s task be changed without their agreement?
@@ -824,6 +896,8 @@ hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, they would have to 
 hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
 
 ## TODO: Need Welsh
+worker.optimised.moveWorker.error.required = Select yes if the task can be changed without your agreement
+worker.optimised.moveWorker.error.invalid = Select yes if the task can be changed without your agreement
 worker.optimised.moveWorker.title = Can the task be changed without your agreement?
 worker.optimised.moveWorker.subheading = Working arrangements
 worker.optimised.moveWorker.heading = Can the task be changed without your agreement?
@@ -866,12 +940,14 @@ hirer.neededToPayHelper.hint.bullet1 = gellir ystyried ymchwilydd a huriwyd i dd
 hirer.neededToPayHelper.hint.bullet2 = ni fyddai cwmni y mae’r darlithydd yn ei dalu i argraffu a rhwymo llyfrau ar gyfer y modiwl, yn cael ei ystyried fel bod yn gwneud llwyth sylweddol o’r gwaith
 
 ## TODO: Need Welsh
+worker.optimised.neededToPayHelper.error.required = Select yes if you paid another person to do a significant amount of this work
 worker.optimised.neededToPayHelper.title = Have you paid another person to do a significant amount of this work?
 worker.optimised.neededToPayHelper.subheading = Substitutes and helpers
 worker.optimised.neededToPayHelper.heading = Have you paid another person to do a significant amount of this work?
 worker.optimised.neededToPayHelper.checkYourAnswersLabel = Have you paid another person to do a significant amount of this work?
 
 ## TODO: Need Welsh
+hirer.optimised.neededToPayHelper.error.required = Select yes if the worker paid another person to do a significant amount of this work
 hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
 hirer.optimised.neededToPayHelper.subheading = Substitutes and helpers
 hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
@@ -901,6 +977,7 @@ hirer.wouldWorkerPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.wouldWorkerPaySubstitute.exclamation =Os byddai’r eilydd yn cael ei dalu gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
 
 ## TODO: Need Welsh
+worker.optimised.wouldWorkerPaySubstitute.error.required = Select yes if you would have to pay your substitute
 worker.optimised.wouldWorkerPaySubstitute.title = Would you have to pay your substitute?
 worker.optimised.wouldWorkerPaySubstitute.subheading = Substitutes and helpers
 worker.optimised.wouldWorkerPaySubstitute.heading = Would you have to pay your substitute?
@@ -908,6 +985,7 @@ worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would you have
 worker.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by you or your business.
 
 ## TODO: Need Welsh
+hirer.optimised.wouldWorkerPaySubstitute.error.required = Select yes if the worker would have to pay their substitute
 hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.subheading = Substitutes and helpers
 hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute?
@@ -962,6 +1040,7 @@ hirer.rejectSubstitute.yes =Iawn - mae gan y cleient terfynol yr hawl i wrthod e
 hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn eilydd a fyddai’n bodloni’r meini prawf hyn
 
 ## TODO: Welsh Needed
+worker.optimised.rejectSubstitute.error.required = Select yes if your client has the right to reject a substitute who met all their criteria
 worker.optimised.rejectSubstitute.title = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
 worker.optimised.rejectSubstitute.subheading = Substitutes and helpers
 worker.optimised.rejectSubstitute.heading = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
@@ -969,6 +1048,7 @@ worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent a substitu
 worker.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your client’s interviewing, vetting and security clearance procedures.
 
 ## TODO: Welsh Needed
+hirer.optimised.rejectSubstitute.error.required = Select yes if you have the right to reject a substitute who met all your criteria
 hirer.optimised.rejectSubstitute.title = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
 hirer.optimised.rejectSubstitute.subheading = Substitutes and helpers
 hirer.optimised.rejectSubstitute.heading = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
@@ -999,6 +1079,7 @@ hirer.didPaySubstitute.subheading = Ynglŷn ag eilyddion a chynorthwywyr
 hirer.didPaySubstitute.exclamation = Os talwyd yr eilydd gan asiantaeth, nid yw’n cyfrif fel dirprwyad.
 
 ## TODO: Welsh Needed
+worker.optimised.didPaySubstitute.error.required = Select yes if you paid your substitute
 worker.optimised.didPaySubstitute.title = Did you pay your substitute?
 worker.optimised.didPaySubstitute.subheading = Substitutes and helpers
 worker.optimised.didPaySubstitute.heading = Did you pay your substitute?
@@ -1006,6 +1087,7 @@ worker.optimised.didPaySubstitute.checkYourAnswersLabel = Did you pay your subst
 worker.optimised.didPaySubstitute.p1 = This includes payments made by you or your business.
 
 ## TODO: Welsh Needed
+hirer.optimised.didPaySubstitute.error.required = Select yes if the worker paid their substitute
 hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute?
 hirer.optimised.didPaySubstitute.subheading = Substitutes and helpers
 hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute?
@@ -1045,6 +1127,7 @@ result.declaration.bullet1 =darllen yr arweiniad ar gyfer pob cwestiwn
 result.declaration.bullet2 =adolygu’ch atebion
 result.declaration.bullet3 =rhoi atebion sy’n adlewyrchu arferion gwaith, gwirioneddol neu ddisgwyliedig, y swydd hon
 result.declaration.noLongerHold =Os bydd arferion gwaith y swydd hon yn newid, rydych yn derbyn na fydd y canlyniad hwn, o bosib, yn sefyll.
+# TODO: Needs New Translation
 result.declaration.error.required =Bydd angen i chi dicio’r blwch datganiad ar waelod y dudalen er mwyn lawrlwytho PDF
 
 # Early Exit, Office Holder Inside IR35
@@ -1236,13 +1319,15 @@ leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
 ##### TODO NEED WELSH FOR ####
-workerUsingIntermediary.error.required = Mae angen i chi ddewis ateb
-workerUsingIntermediary.error.invalid = Mae angen i chi ddewis ateb
+worker.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
+worker.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
+hirer.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
+hirer.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
@@ -1339,33 +1424,6 @@ toolNotNeeded.client.paye.title = You don’t need to determine if this work sho
 toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
 toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
 toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
-
-hirer.optimised.scheduleOfWorkingHours.title = Will your organisation decide the working hours?
-hirer.optimised.scheduleOfWorkingHours.subheading = Working arrangements
-hirer.optimised.scheduleOfWorkingHours.heading = Will your organisation decide the working hours?
-hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Will your organisation decide the working hours?
-hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
-hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
-
-worker.optimised.chooseWhereWork.title = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.subheading = Working arrangements
-worker.optimised.chooseWhereWork.heading = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.checkYourAnswersLabel = Will your client decide where you do the work?
-worker.optimised.chooseWhereWork.workerCannotChoose = Iawn
-worker.optimised.chooseWhereWork.workerChooses = No, you solely decide
-worker.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
-worker.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be your choice
-
-hirer.optimised.chooseWhereWork.title = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.subheading = Working arrangements
-hirer.optimised.chooseWhereWork.heading = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Will your organisation decide where the worker does the work?
-hirer.optimised.chooseWhereWork.workerCannotChoose = Iawn
-hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
-hirer.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
-hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
 
 
 #### New Optimised Result Pages ####
@@ -1580,13 +1638,15 @@ finishedChecking.downloadAnswers = Download your answers and result (PDF, under 
 
 
 ##TODO: Need Welsh
-materials.error.required = Mae angen i chi ddewis ateb
+hirer.materials.error.required = Select yes if the worker will incur costs for materials that your organisation will not pay for
 hirer.materials.title = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.subheading = Worker’s financial risk
 hirer.materials.heading = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.checkYourAnswersLabel = Will the worker incur costs for materials that your organisation will not pay for?
 hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
 hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
+
+worker.materials.error.required = Select yes if you will incur costs for materials that your client will not pay for
 worker.materials.title = Will you incur costs for materials that your client will not pay for?
 worker.materials.subheading = Worker’s financial risk
 worker.materials.heading = Will you incur costs for materials that your client will not pay for?
@@ -1596,12 +1656,14 @@ worker.materials.p2 = This question is most likely to be relevant to the constru
 
 
 ##TODO: Need Welsh
-vehicle.error.required = Mae angen i chi ddewis ateb
+hirer.vehicle.error.required = Select yes if the worker will incur costs for a vehicle that your organisation will not pay for
 hirer.vehicle.title = Will the worker incur costs for a vehicle that your organisation will not pay for?
 hirer.vehicle.subheading = Worker’s financial risk
 hirer.vehicle.heading = Will the worker incur costs for a vehicle that your organisation will not pay for?
 hirer.vehicle.checkYourAnswersLabel = Will the worker incur costs for a vehicle that your organisation will not pay for?
 hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+
+worker.vehicle.error.required = Select yes if you will incur costs for a vehicle that your client will not pay for
 worker.vehicle.title = Will you incur costs for a vehicle that your client will not pay for?
 worker.vehicle.subheading = Worker’s financial risk
 worker.vehicle.heading = Will you incur costs for a vehicle that your client will not pay for?
@@ -1610,12 +1672,14 @@ worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other
 
 
 ##TODO: Need Welsh
-otherExpenses.error.required = Mae angen i chi ddewis ateb
+hirer.otherExpenses.error.required = Select yes if the worker will incur any other costs that your organisation will not pay for
 hirer.otherExpenses.title = Will the worker incur any other costs that your organisation will not pay for?
 hirer.otherExpenses.subheading = Worker’s financial risk
 hirer.otherExpenses.heading = Will the worker incur any other costs that your organisation will not pay for?
 hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other costs that your organisation will not pay for?
 hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
+
+worker.otherExpenses.error.required = Select yes if you will incur any other costs that your client will not pay for
 worker.otherExpenses.title = Will you incur any other costs that your client will not pay for?
 worker.otherExpenses.subheading = Worker’s financial risk
 worker.otherExpenses.heading = Will you incur any other costs that your client will not pay for?
@@ -1623,12 +1687,14 @@ worker.otherExpenses.checkYourAnswersLabel = Will you incur any other costs that
 worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
 
 ##TODO: Need Welsh
-equipmentExpenses.error.required = Mae angen i chi ddewis ateb
+hirer.equipmentExpenses.error.required = Select yes if the worker will incur equipment costs that your organisation will not pay for
 hirer.equipmentExpenses.title = Will the worker incur equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.subheading = Worker’s financial risk
 hirer.equipmentExpenses.heading = Will the worker incur equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker incur equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+
+worker.equipmentExpenses.error.required = Select yes if you will incur equipment costs that your client will not pay for
 worker.equipmentExpenses.title = Will you incur equipment costs that your client will not pay for?
 worker.equipmentExpenses.subheading = Worker’s financial risk
 worker.equipmentExpenses.heading = Will you incur equipment costs that your client will not pay for?
@@ -1714,14 +1780,14 @@ resetAnswersWarning.error.required = Mae angen i chi ddewis ateb
 ##TODO: Need Welsh
 ### Multiple Contracts Page
 ### -----------------------
-multipleContracts.error.required = Mae angen i chi ddewis ateb
-
+worker.multipleContracts.error.required = Select yes if this contract stops you from doing similar work for other organisations
 worker.multipleContracts.subheading = Worker’s contracts
 worker.multipleContracts.title = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.heading = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.checkYourAnswersLabel = Does this contract stop you from doing similar work for other clients?
 worker.multipleContracts.p1 = This includes working for your client’s competitors.
 
+hirer.multipleContracts.error.required = Select yes if this contract stops the worker from doing similar work for other organisations
 hirer.multipleContracts.subheading = Worker’s contracts
 hirer.multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
 hirer.multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
@@ -1732,14 +1798,14 @@ hirer.multipleContracts.p1 = This includes working for your competitors.
 ##TODO: Need Welsh
 #### Transfer of Rights Page - BoOA
 #### ------------------------------
-transferOfRights.error.required = Mae angen i chi ddewis ateb
-
+worker.transferOfRights.error.required = Select yes if your client has the option to buy the rights for a separate fee
 worker.transferOfRights.subheading = Worker’s contracts
 worker.transferOfRights.title = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.heading = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.checkYourAnswersLabel = Does your client have the option to buy the rights for a separate fee?
 worker.transferOfRights.p1 = If a requirement like this does not exist, you would keep all the rights.
 
+hirer.transferOfRights.error.required = Select yes if your organisation has the option to buy the rights for a separate fee
 hirer.transferOfRights.subheading = Worker’s contracts
 hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
@@ -1750,13 +1816,14 @@ hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker 
 ##TODO: Need Welsh
 #### Permission to Work Page - BoOA
 #### ------------------------------
-permissionToWorkWithOthers.error.required = Mae angen i chi ddewis ateb
 
+worker.permissionToWorkWithOthers.error.required = Select yes if you are required to ask permission to work for other clients
 worker.permissionToWorkWithOthers.title = Are you required to ask permission to work for other clients?
 worker.permissionToWorkWithOthers.heading = Are you required to ask permission to work for other clients?
 worker.permissionToWorkWithOthers.checkYourAnswersLabel = Are you required to ask permission to work for other clients?
 worker.permissionToWorkWithOthers.subheading = Worker’s contracts
 
+hirer.permissionToWorkWithOthers.error.required = Select yes if the worker is required to ask permission to work for other organisations
 hirer.permissionToWorkWithOthers.title = Is the worker required to ask permission to work for other organisations?
 hirer.permissionToWorkWithOthers.heading = Is the worker required to ask permission to work for other organisations?
 hirer.permissionToWorkWithOthers.checkYourAnswersLabel = Is the worker required to ask permission to work for other organisations?
@@ -1766,13 +1833,13 @@ hirer.permissionToWorkWithOthers.subheading = Worker’s contracts
 ##TODO: Need Welsh
 #### Permission to Work Page - BoOA
 #### ------------------------------
-previousContract.error.required = Mae angen i chi ddewis ateb
-
+worker.previousContract.error.required = Select yes if you have had a previous contract with this client
 worker.previousContract.title = Have you had a previous contract with this client?
 worker.previousContract.heading = Have you had a previous contract with this client?
 worker.previousContract.checkYourAnswersLabel = Have you had a previous contract with this client?
 worker.previousContract.subheading = Worker’s contracts
 
+hirer.previousContract.error.required = Select yes if the worker has had a previous contract with your organisation
 hirer.previousContract.title = Has the worker had a previous contract with your organisation?
 hirer.previousContract.heading = Has the worker had a previous contract with your organisation?
 hirer.previousContract.checkYourAnswersLabel = Has the worker had a previous contract with your organisation?
@@ -1782,7 +1849,7 @@ hirer.previousContract.subheading = Worker’s contracts
 ##TODO: Need Welsh
 ### FollowOnContract Page
 ### ---------------------------------
-followOnContract.error.required = Mae angen i chi ddewis ateb
+followOnContract.error.required = Select yes if this contract will start immediately after the previous one ended
 
 worker.followOnContract.title = Will this contract start immediately after the previous one ended?
 worker.followOnContract.heading = Will this contract start immediately after the previous one ended?
@@ -1799,14 +1866,14 @@ hirer.followOnContract.p1 = This does not include any holiday period between the
 ##TODO: Need Welsh
 ### MajorityOfWorkingTime Page
 ### ---------------------------------
-majorityOfWorkingTime.error.required = Mae angen i chi ddewis ateb
-
+worker.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of your available working time
 worker.majorityOfWorkingTime.title = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.heading = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.subheading = Worker’s contracts
 worker.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
 
+hirer.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of the worker’s available working time
 hirer.majorityOfWorkingTime.title = Will this work take up the majority of the worker’s available working time?
 hirer.majorityOfWorkingTime.heading = Will this work take up the majority of the worker’s available working time?
 hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of the worker’s available working time?
@@ -1816,15 +1883,14 @@ hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time nec
 ##TODO: Need Welsh
 ### RightsOfWork Page
 ### ---------------------------------
-rightsOfWork.error.required = You need to select an answer
-rightsOfWork.error.invalid = You need to select an answer
-
+worker.rightsOfWork.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
 worker.rightsOfWork.title = Are you required to transfer all ownership rights of this work as part of the contract?
 worker.rightsOfWork.heading = Are you required to transfer all ownership rights of this work as part of the contract?
 worker.rightsOfWork.checkYourAnswersLabel = Are you required to transfer all ownership rights of this work as part of the contract?
 worker.rightsOfWork.subheading = Worker’s contracts
 worker.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
 
+hirer.rightsOfWork.error.required = Select yes if the worker is required to transfer all ownership rights of this work as part of the contract
 hirer.rightsOfWork.title = Is the worker required to transfer all ownership rights of this work as part of the contract?
 hirer.rightsOfWork.heading = Is the worker required to transfer all ownership rights of this work as part of the contract?
 hirer.rightsOfWork.checkYourAnswersLabel = Is the worker required to transfer all ownership rights of this work as part of the contract?
@@ -1833,13 +1899,13 @@ hirer.rightsOfWork.p1 = This does not include the option to buy the rights for a
 
 ### FirstContract Page
 ### ---------------------------------
-firstContract.error.required = You need to select an answer
-
+worker.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with this client
 worker.firstContract.title = Is the current contract the first in a series of contracts with this client?
 worker.firstContract.heading = Is the current contract the first in a series of contracts with this client?
 worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with this client?
 worker.firstContract.subheading = Worker’s contracts
 
+hirer.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with your organisation
 hirer.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
@@ -1847,7 +1913,7 @@ hirer.firstContract.subheading = Worker’s contracts
 
 ### ExtendContract Page
 ### ---------------------------------
-extendContract.error.required = You need to select an answer
+extendContract.error.required = Select yes if the current contract allows for it to be extended
 
 worker.extendContract.title = Does the current contract allow for it to be extended?
 worker.extendContract.heading = Does the current contract allow for it to be extended?
@@ -1862,14 +1928,14 @@ hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for
 ##TODO: Need Welsh
 #### Financially Dependent Page - BoOA
 #### ------------------------------
-financiallyDependent.error.required = You need to select an answer
-
+worker.financiallyDependent.error.required = Select yes is this contract will provide you with the majority of your income
 worker.financiallyDependent.subheading = Worker’s contracts
 worker.financiallyDependent.title = If you lost this contract, would you need to replace the income from it immediately?
 worker.financiallyDependent.heading = If you lost this contract, would you need to replace the income from it immediately?
 worker.financiallyDependent.checkYourAnswersLabel = If you lost this contract, would you need to replace the income from it immediately?
 worker.financiallyDependent.p1 = Regular income is earnings of a similar amount, paid with the same frequency and on an ongoing basis.
 
+hirer.financiallyDependent.error.required = Select yes if this contract will provide the worker with the majority of their income
 hirer.financiallyDependent.subheading = Worker’s contracts
 hirer.financiallyDependent.title = If the worker lost this contract, would they need to replace the income from it immediately?
 hirer.financiallyDependent.heading = If the worker lost this contract, would they need to replace the income from it immediately?
@@ -1889,13 +1955,13 @@ hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who w
 ### TODO: Need Welsh
 ### SimilarWorkOtherClients Page
 ### ---------------------------------
-similarWorkOtherClients.error.required = You need to select an answer
-
+worker.similarWorkOtherClients.error.required = Select yes if you have done smilar work for other engagers in the last 12 months
 worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?
 worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Worker’s contracts
 worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?
 
+hirer.similarWorkOtherClients.error.required = Select yes if the worker has done similar work for other engagers in the last 12 months
 hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?
 hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?
 hirer.similarWorkOtherClients.subheading = Worker’s contracts
@@ -1905,7 +1971,7 @@ hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done simila
 ###TODO: Need Welsh
 ### Financially Dependent Page - BoOA
 ### ------------------------------
-ownershipRights.error.required = You need to select an answer
+ownershipRights.error.required = Select yes if there are any ownership rights relating to this work
 
 worker.ownershipRights.subheading = Worker’s contracts
 worker.ownershipRights.title = Are there any ownership rights relating to this work?

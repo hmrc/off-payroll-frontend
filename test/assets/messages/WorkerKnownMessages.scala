@@ -19,6 +19,7 @@ package assets.messages
 object WorkerKnownMessages extends BaseMessages {
 
   object Hirer {
+    val error = "Select yes if you know who will be doing this work"
     val title = "Has your organisation identified who will be doing this work?"
     val heading = title
     val subheading = "Worker’s contracts"

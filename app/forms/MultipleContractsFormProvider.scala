@@ -16,15 +16,16 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
+import models.requests.DataRequest
 import play.api.data.Form
 
-class MultipleContractsFormProvider @Inject() extends Mappings {
+class MultipleContractsFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[Boolean] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean("multipleContracts.error.required")
+      "value" -> boolean(tailoredErrMsg("multipleContracts.error.required"))
     )
 }

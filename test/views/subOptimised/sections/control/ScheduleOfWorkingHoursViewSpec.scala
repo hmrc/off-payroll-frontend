@@ -33,7 +33,7 @@ class ScheduleOfWorkingHoursViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "scheduleOfWorkingHours"
 
-  val form = new ScheduleOfWorkingHoursFormProvider()()
+  val form = new ScheduleOfWorkingHoursFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ScheduleOfWorkingHoursView]
 

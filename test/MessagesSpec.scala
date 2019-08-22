@@ -54,11 +54,10 @@ class MessagesSpec extends SpecBase {
         expectedWelshMessages.length mustBe actualWelshMessages.length
       }
 
-      expectedWelshMessages.zip(actualWelshMessages).foreach {
-        case (expectedMsg, actualMsg) =>
-          s"expected message: '$expectedMsg' must equal actual message: '$actualMsg'" in {
-            expectedMsg mustBe actualMsg
-          }
+      expectedWelshMessages.foreach { expectedMsg =>
+        s"expected message: '$expectedMsg' must exist in actual messages" in {
+          actualWelshMessages.contains(expectedMsg) mustBe true
+        }
       }
     }
   }

@@ -34,7 +34,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "vehicle"
 
-  val form = new VehicleFormProvider()()
+  val form = new VehicleFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[VehicleView]
 

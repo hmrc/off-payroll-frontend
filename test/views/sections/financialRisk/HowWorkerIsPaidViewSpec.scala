@@ -39,7 +39,7 @@ class HowWorkerIsPaidViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.howWorkerIsPaid"
 
-  val form = new HowWorkerIsPaidFormProvider()()
+  val form = new HowWorkerIsPaidFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[HowWorkerIsPaidView]
 

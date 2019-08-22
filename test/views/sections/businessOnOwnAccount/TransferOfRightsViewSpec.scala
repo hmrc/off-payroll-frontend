@@ -31,7 +31,7 @@ class TransferOfRightsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.transferOfRights"
 
-  val form = new TransferOfRightsFormProvider()()
+  val form = new TransferOfRightsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[TransferOfRightsView]
 

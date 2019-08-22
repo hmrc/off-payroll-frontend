@@ -30,7 +30,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryAboutYou: Arbitrary[AboutYouAnswer] =
     Arbitrary {
-      Gen.oneOf(AboutYouAnswer.values())
+      Gen.oneOf(AboutYouAnswer.values)
     }
 
   implicit lazy val arbitrarySingleAnswerRowModel: Arbitrary[SingleAnswerRow] =

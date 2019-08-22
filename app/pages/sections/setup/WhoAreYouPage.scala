@@ -16,9 +16,9 @@
 
 package pages.sections.setup
 
-import models.AboutYouAnswer
+import models.WhoAreYou
 import pages.QuestionPage
 
-case object WhoAreYouPage extends QuestionPage[AboutYouAnswer] {
+case object WhoAreYouPage extends QuestionPage[WhoAreYou] {
   override def toString: String = "whoAreYou"
 }

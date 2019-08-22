@@ -16,16 +16,17 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import play.api.data.Form
 import models.ChooseWhereWork
+import models.requests.DataRequest
 
-class ChooseWhereWorkFormProvider @Inject() extends Mappings {
+class ChooseWhereWorkFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[ChooseWhereWork] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[ChooseWhereWork] =
     Form(
-      "value" -> enumerable[ChooseWhereWork]("chooseWhereWork.error.required")
+      "value" -> enumerable[ChooseWhereWork](tailoredErrMsgOptimised("chooseWhereWork.error.required"))
     )
 }

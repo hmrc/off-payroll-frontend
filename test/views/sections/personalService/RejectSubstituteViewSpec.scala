@@ -40,7 +40,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.rejectSubstitute"
 
-  val form = new RejectSubstituteFormProvider()(frontendAppConfig)()
+  val form = new RejectSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[RejectSubstituteView]
 

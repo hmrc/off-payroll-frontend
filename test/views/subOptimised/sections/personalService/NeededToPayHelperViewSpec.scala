@@ -34,7 +34,7 @@ class NeededToPayHelperViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "neededToPayHelper"
 
-  val form = new NeededToPayHelperFormProvider()()
+  val form = new NeededToPayHelperFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[NeededToPayHelperView]
 

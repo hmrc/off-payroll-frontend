@@ -39,7 +39,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.moveWorker"
 
-  val form = new MoveWorkerFormProvider()()
+  val form = new MoveWorkerFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[MoveWorkerView]
 

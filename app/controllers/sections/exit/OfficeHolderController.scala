@@ -23,6 +23,7 @@ import controllers.BaseNavigationController
 import controllers.actions._
 import forms.OfficeHolderFormProvider
 import javax.inject.Inject
+import models.requests.DataRequest
 import models.{CheckMode, Mode, NormalMode}
 import navigation.ExitNavigator
 import pages.sections.exit.OfficeHolderPage
@@ -50,17 +51,15 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
-  val form: Form[Boolean] = formProvider()
-
-  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
+  private def view(form: Form[Boolean], mode: Mode)(implicit request: DataRequest[_]): HtmlFormat.Appendable =
     if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(OfficeHolderPage, form), mode))
+    Ok(view(fillForm(OfficeHolderPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
+    formProvider().bindFromRequest().fold(
       formWithErrors =>
         Future.successful(BadRequest(view(formWithErrors, mode))),
       value => {

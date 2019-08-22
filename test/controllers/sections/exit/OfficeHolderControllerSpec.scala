@@ -40,7 +40,7 @@ import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOf
 class OfficeHolderControllerSpec extends ControllerSpecBase {
 
   val formProvider = new OfficeHolderFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[OfficeHolderView]
   val subOptimisedView = injector.instanceOf[SubOptimisedOfficeHolderView]

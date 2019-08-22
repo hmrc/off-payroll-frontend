@@ -20,6 +20,7 @@ object TransferOfRightsMessages extends BaseMessages {
 
 
   object Worker {
+    val error = "Select yes if your client has the option to buy the rights for a separate fee"
     val title = "Does your client have the option to buy the rights for a separate fee?"
     val heading = title
     val subheading = "Worker’s contracts"
@@ -27,6 +28,7 @@ object TransferOfRightsMessages extends BaseMessages {
   }
 
   object Hirer {
+    val error = "Select yes if your organisation has the option to buy the rights for a separate fee"
     val title = "Does the contract give your organisation the option to buy the rights for a separate fee?"
     val heading = title
     val subheading = "Worker’s contracts"

@@ -39,7 +39,7 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "worker.optimised.arrangedSubstitute"
 
-  val form = new ArrangedSubstituteFormProvider()()
+  val form = new ArrangedSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ArrangedSubstituteView]
 

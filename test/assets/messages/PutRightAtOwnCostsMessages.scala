@@ -19,6 +19,7 @@ package assets.messages
 object PutRightAtOwnCostsMessages extends BaseMessages {
 
   object WorkerOptimised {
+    val error = "Select if you would have to put your work right if your client was not happy with it"
     val title = "If the client was not happy with your work, would you have to put it right?"
     val heading = "If the client was not happy with your work, would you have to put it right?"
     val yesAdditionalCost = "Yes, unpaid and you would incur extra costs"
@@ -29,6 +30,7 @@ object PutRightAtOwnCostsMessages extends BaseMessages {
   }
 
   object HirerOptimised {
+    val error = "Select if the worker would have to put the work right if your organisation was not happy with it"
     val title = "If your organisation was not happy with the work, would the worker have to put it right?"
     val heading = "If your organisation was not happy with the work, would the worker have to put it right?"
     val yesAdditionalCost = "Yes, unpaid and they would incur extra costs"

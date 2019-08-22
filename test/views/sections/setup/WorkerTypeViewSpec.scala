@@ -34,7 +34,7 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
   val messageKeyPrefix = "workerUsingIntermediary"
 
-  val form = new WorkerUsingIntermediaryFormProvider()()
+  val form = new WorkerUsingIntermediaryFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[WorkerUsingIntermediaryView]
 

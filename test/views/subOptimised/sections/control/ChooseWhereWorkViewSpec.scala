@@ -33,7 +33,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "chooseWhereWork"
 
-  val form = new ChooseWhereWorkFormProvider()()
+  val form = new ChooseWhereWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ChooseWhereWorkView]
 

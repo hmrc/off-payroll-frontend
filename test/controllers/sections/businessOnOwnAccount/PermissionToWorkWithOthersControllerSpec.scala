@@ -39,7 +39,7 @@ class PermissionToWorkWithOthersControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new PermissionToWorkWithOthersFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[PermissionToWorkWithOthersView]
 

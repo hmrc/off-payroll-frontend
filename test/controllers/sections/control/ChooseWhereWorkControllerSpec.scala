@@ -41,7 +41,7 @@ import views.html.sections.control.ChooseWhereWorkView
 class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
 
   val formProvider = new ChooseWhereWorkFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[ChooseWhereWorkView]
   val subOptimisedView = injector.instanceOf[SubOptimisedChooseWhereWorkView]

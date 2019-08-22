@@ -16,16 +16,17 @@
 
 package forms
 
+import config.FrontendAppConfig
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import play.api.data.Form
 import models.ArrangedSubstitute
+import models.requests.DataRequest
 
-class ArrangedSubstituteFormProvider @Inject() extends Mappings {
+class ArrangedSubstituteFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[ArrangedSubstitute] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[ArrangedSubstitute] =
     Form(
-      "value" -> enumerable[ArrangedSubstitute]("arrangedSubstitute.error.required")
+      "value" -> enumerable[ArrangedSubstitute](tailoredErrMsgOptimised("arrangedSubstitute.error.required"))
     )
 }

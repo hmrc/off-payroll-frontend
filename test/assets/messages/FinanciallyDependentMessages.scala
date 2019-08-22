@@ -20,6 +20,7 @@ object FinanciallyDependentMessages extends BaseMessages {
 
 
   object Worker {
+    val error = "Select yes is this contract will provide you with the majority of your income"
     val title = "If you lost this contract, would you need to replace the income from it immediately?"
     val heading = title
     val subheading = "Worker’s contracts"
@@ -27,6 +28,7 @@ object FinanciallyDependentMessages extends BaseMessages {
   }
 
   object Hirer {
+    val error = "Select yes if this contract will provide the worker with the majority of their income"
     val title = "If the worker lost this contract, would they need to replace the income from it immediately?"
     val heading = title
     val subheading = "Worker’s contracts"

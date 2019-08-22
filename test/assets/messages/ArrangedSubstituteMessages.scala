@@ -21,6 +21,7 @@ object ArrangedSubstituteMessages extends BaseMessages {
   object Optimised {
 
     object Worker {
+      val error = "Select if you have ever sent a substitute to do your work"
       val title = "Have you ever sent a substitute to do your work?"
       val heading = title
       val yesClientAgreed = "Yes, your client accepted them"
@@ -29,6 +30,7 @@ object ArrangedSubstituteMessages extends BaseMessages {
     }
 
     object Hirer {
+      val error = "Select if the worker has ever sent a substitute to do their work"
       val title = "Has the worker ever sent a substitute to do their work?"
       val heading = title
       val yesClientAgreed = "Yes, you accepted them"

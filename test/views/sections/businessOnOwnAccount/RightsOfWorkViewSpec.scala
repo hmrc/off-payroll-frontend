@@ -38,7 +38,7 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "worker.rightsOfWork"
 
-  val form = new RightsOfWorkFormProvider()()
+  val form = new RightsOfWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[RightsOfWorkView]
 

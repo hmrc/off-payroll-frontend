@@ -34,7 +34,7 @@ class OtherExpensesViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "otherExpenses"
 
-  val form = new OtherExpensesFormProvider()()
+  val form = new OtherExpensesFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[OtherExpensesView]
 

@@ -36,7 +36,7 @@ import views.html.subOptimised.sections.partParcel.{LineManagerDutiesView => Sub
 class LineManagerDutiesControllerSpec extends ControllerSpecBase {
 
   val formProvider = new LineManagerDutiesFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[LineManagerDutiesView]
   val subOptimisedView = injector.instanceOf[SubOptimisedLineManagerDutiesView]

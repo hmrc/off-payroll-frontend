@@ -31,7 +31,7 @@ class PreviousContractViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.previousContract"
 
-  val form = new PreviousContractFormProvider()()
+  val form = new PreviousContractFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[PreviousContractView]
 

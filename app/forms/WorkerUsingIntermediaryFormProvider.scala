@@ -16,16 +16,16 @@
 
 package forms
 
+import config.FrontendAppConfig
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import javax.inject.Inject
-
-import forms.mappings.Mappings
+import models.requests.DataRequest
 import play.api.data.Form
-import models.WorkerType
 
-class WorkerUsingIntermediaryFormProvider @Inject() extends Mappings {
+class WorkerUsingIntermediaryFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[Boolean] =
+  def apply()(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean("workerUsingIntermediary.error.required")
+      "value" -> boolean(tailoredErrMsg("workerUsingIntermediary.error.required"))
     )
 }

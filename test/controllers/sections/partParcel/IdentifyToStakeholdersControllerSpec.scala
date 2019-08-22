@@ -47,7 +47,7 @@ import scala.concurrent.Future
 class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 
   val formProvider = new IdentifyToStakeholdersFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val optimisedView = injector.instanceOf[IdentifyToStakeholdersView]
   val subOptimisedView = injector.instanceOf[SubOptimisedIdentifyToStakeholdersView]

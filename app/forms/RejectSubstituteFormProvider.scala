@@ -17,15 +17,15 @@
 package forms
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import forms.mappings.{Mappings, OptimisedErrorHandling}
 import javax.inject.Inject
-import forms.mappings.Mappings
+import models.requests.DataRequest
 import play.api.data.Form
 
-class RejectSubstituteFormProvider @Inject()(implicit val appConfig: FrontendAppConfig) extends Mappings with FeatureSwitching {
+class RejectSubstituteFormProvider @Inject() extends Mappings with OptimisedErrorHandling {
 
-  def apply(): Form[Boolean] =
+  def apply()(implicit request: DataRequest[_], appConfig: FrontendAppConfig): Form[Boolean] =
     Form(
-      "value" -> boolean("rejectSubstitute.error.required")
+      "value" -> boolean(tailoredErrMsgOptimised("rejectSubstitute.error.required"))
     )
 }

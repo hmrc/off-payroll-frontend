@@ -16,15 +16,17 @@
 
 package forms
 
+import base.GuiceAppSpecBase
+import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
 import play.api.data.FormError
 
-class MajorityOfWorkingTimeFormProviderSpec extends BooleanFieldBehaviours {
+class MajorityOfWorkingTimeFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {
 
   val requiredKey = "majorityOfWorkingTime.error.required"
   val invalidKey = "error.required"
 
-  val form = new MajorityOfWorkingTimeFormProvider()()
+  val form = new MajorityOfWorkingTimeFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   ".value" must {
 
@@ -36,10 +38,43 @@ class MajorityOfWorkingTimeFormProviderSpec extends BooleanFieldBehaviours {
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    "for the sub optimised flow" should {
+
+      disable(OptimisedFlow)
+      val form = new MajorityOfWorkingTimeFormProvider()()(fakeDataRequest, frontendAppConfig)
+
+      behave like mandatoryField(
+        form ,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
+    }
+
+    "for the optimised flow" should {
+
+      "if the user type is 'Worker'" must {
+
+        enable(OptimisedFlow)
+        val form = new MajorityOfWorkingTimeFormProvider()()(workerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"worker.$requiredKey")
+        )
+      }
+
+      "if the user type is 'Hirer'" must {
+
+        enable(OptimisedFlow)
+        val form = new MajorityOfWorkingTimeFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
+
+        behave like mandatoryField(
+          form,
+          fieldName,
+          requiredError = FormError(fieldName, s"hirer.$requiredKey")
+        )
+      }
+    }
   }
 }

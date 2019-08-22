@@ -39,7 +39,7 @@ class ChooseWhereWorkViewSpec extends ViewBehaviours with FeatureSwitching {
 
   val messageKeyPrefix = "worker.optimised.chooseWhereWork"
 
-  val form = new ChooseWhereWorkFormProvider()()
+  val form = new ChooseWhereWorkFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[ChooseWhereWorkView]
 

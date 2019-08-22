@@ -16,12 +16,12 @@
 
 package models
 
-import uk.gov.hmrc.http.cache.client.CacheMap
+import config.featureSwitch.FeatureSwitching
 import pages._
 import play.api.libs.json._
-import models.Answers._
+import uk.gov.hmrc.http.cache.client.CacheMap
 
-case class UserAnswers(cacheMap: CacheMap) extends Enumerable.Implicits {
+case class UserAnswers(cacheMap: CacheMap) extends Enumerable.Implicits with FeatureSwitching {
 
   def get[A](page: QuestionPage[A])(implicit rds: Reads[A],ans: Reads[Answers[A]]): Option[Answers[A]] =
     cacheMap.getEntry[Answers[A]](page)

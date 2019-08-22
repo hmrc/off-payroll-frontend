@@ -19,6 +19,7 @@ package assets.messages
 object HowWorkerIsPaidMessages extends BaseMessages {
 
   object WorkerOptimised {
+    val error = "Select how you will be paid for this work"
     val heading = "How will you be paid for this work?"
     val title = heading
     val salary = "An hourly, daily or weekly rate"
@@ -29,6 +30,7 @@ object HowWorkerIsPaidMessages extends BaseMessages {
   }
 
   object HirerOptimised {
+    val error = "Select how the worker will be paid for this work"
     val heading = "How will the worker be paid for this work?"
     val title = heading
     val salary = "An hourly, daily or weekly rate"

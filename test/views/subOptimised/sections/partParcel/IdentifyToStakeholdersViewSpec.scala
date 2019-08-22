@@ -34,7 +34,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours with FeatureSwitchin
 
   val messageKeyPrefix = "identifyToStakeholders"
 
-  val form = new IdentifyToStakeholdersFormProvider()()
+  val form = new IdentifyToStakeholdersFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[IdentifyToStakeholdersView]
 

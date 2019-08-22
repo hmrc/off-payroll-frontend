@@ -27,14 +27,13 @@ object AboutYouAnswer {
   case object Client extends WithName("endClient") with AboutYouAnswer
   case object Agency extends WithName("placingAgency") with AboutYouAnswer
 
-  def values(showAgency: Boolean = true): Seq[AboutYouAnswer] = Seq(Worker, Client) ++ (if(showAgency) Seq(Agency) else Seq())
+  val values: Seq[AboutYouAnswer] = Seq(Worker, Client, Agency)
 
-  def options(showAgency: Boolean = true, optimisedFlow: Boolean = false): Seq[RadioOption] =
-    values(showAgency).map { value =>
-      if(optimisedFlow) RadioOption("whoAreYou", value.toString, Radio) else RadioOption("aboutYou", value.toString, Radio)
-    }
+  val options: Seq[RadioOption] = values.map { value =>
+    RadioOption("aboutYou", value.toString, Radio)
+  }
 
-  implicit val enumerable: Enumerable[AboutYouAnswer] = Enumerable(values().map(v => v.toString -> v): _*)
+  implicit val enumerable: Enumerable[AboutYouAnswer] = Enumerable(values.map(v => v.toString -> v): _*)
 
   implicit val writes: Writes[AboutYouAnswer] = Writes { model => Json.toJson(model.toString) }
 
