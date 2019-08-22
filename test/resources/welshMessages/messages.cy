@@ -675,7 +675,7 @@ hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your orga
 #########################
 
 
-## How Work Is Done
+## Choose Where Work
 #########################
 chooseWhereWork.title = A all y gweithiwr ddewis ble y mae’n gweithio?
 chooseWhereWork.heading =A all y gweithiwr ddewis ble y mae’n gweithio?
@@ -1811,6 +1811,23 @@ hirer.transferOfRights.title = Does the contract give your organisation the opti
 hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker would keep all the rights.
+
+
+##TODO: Need Welsh
+#### Permission to Work Page - BoOA
+#### ------------------------------
+
+worker.permissionToWorkWithOthers.error.required = Select yes if you are required to ask permission to work for other clients
+worker.permissionToWorkWithOthers.title = Are you required to ask permission to work for other clients?
+worker.permissionToWorkWithOthers.heading = Are you required to ask permission to work for other clients?
+worker.permissionToWorkWithOthers.checkYourAnswersLabel = Are you required to ask permission to work for other clients?
+worker.permissionToWorkWithOthers.subheading = Worker’s contracts
+
+hirer.permissionToWorkWithOthers.error.required = Select yes if the worker is required to ask permission to work for other organisations
+hirer.permissionToWorkWithOthers.title = Is the worker required to ask permission to work for other organisations?
+hirer.permissionToWorkWithOthers.heading = Is the worker required to ask permission to work for other organisations?
+hirer.permissionToWorkWithOthers.checkYourAnswersLabel = Is the worker required to ask permission to work for other organisations?
+hirer.permissionToWorkWithOthers.subheading = Worker’s contracts
 
 
 ##TODO: Need Welsh
