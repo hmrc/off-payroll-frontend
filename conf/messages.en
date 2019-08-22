@@ -172,8 +172,8 @@ whatDoYouWantToFindOut.checkYourAnswersLabel = What do you want to find out?
 whatDoYouWantToFindOut.ir35 = If the off payroll working rules (IR35) apply to a contract
 whatDoYouWantToFindOut.paye = If some work is classed as employment or self-employment for tax purposes
 
-whatDoYouWantToFindOut.error.required = You need to select an answer
-whatDoYouWantToFindOut.error.invalid = You need to select an answer
+whatDoYouWantToFindOut.error.required = Select what you want to find out
+whatDoYouWantToFindOut.error.invalid = Select what you want to find out
 #########################
 
 ## Office Holder
