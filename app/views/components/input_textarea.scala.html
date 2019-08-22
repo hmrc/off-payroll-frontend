@@ -39,7 +39,7 @@
                 <span class="form-hint">@hint</span>
             }
             @field.errors.map { error =>
-            <span class = "visually-hidden">Error:</span><span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
+            <span class = "visually-hidden">@messages("error.summary.prefix")</span> <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
             }
         </label>
 
