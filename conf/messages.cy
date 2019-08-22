@@ -409,7 +409,7 @@ worker.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy�
 worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
 
 ##TODO: Need Welsh
-hirer.optimised.identifyToStakeholders.error.invalid = You need to select an answer
+hirer.optimised.identifyToStakeholders.error.required = Select how the worker would introduce themselves to your external consumers or suppliers
 hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.subheading = Worker’s involvement
 hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
@@ -420,7 +420,7 @@ hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own 
 hirer.optimised.identifyToStakeholders.wouldNotHappen = This would not happen
 
 ##TODO: Need Welsh
-worker.optimised.identifyToStakeholders.error.invalid = Select how you would introduce yourself to your client’s consumers or suppliers
+worker.optimised.identifyToStakeholders.error.required = Select how you would introduce yourself to your client’s consumers or suppliers
 worker.optimised.identifyToStakeholders.title = How would you introduce yourself to your client’s consumers or suppliers?
 worker.optimised.identifyToStakeholders.subheading = Worker’s involvement
 worker.optimised.identifyToStakeholders.heading = How would you introduce yourself to your client’s consumers or suppliers?
