@@ -31,7 +31,7 @@ class SimilarWorkOtherClientsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "worker.similarWorkOtherClients"
 
-  val form = new SimilarWorkOtherClientsFormProvider()()
+  val form = new SimilarWorkOtherClientsFormProvider()()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[SimilarWorkOtherClientsView]
 

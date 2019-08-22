@@ -1936,13 +1936,13 @@ hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who w
 ### TODO: Need Welsh
 ### SimilarWorkOtherClients Page
 ### ---------------------------------
-similarWorkOtherClients.error.required = You need to select an answer
-
+worker.similarWorkOtherClients.error.required = Select yes if you have done smilar work for other engagers in the last 12 months
 worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?
 worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Worker’s contracts
 worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?
 
+hirer.similarWorkOtherClients.error.required = Select yes if the worker has done similar work for other engagers in the last 12 months
 hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?
 hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?
 hirer.similarWorkOtherClients.subheading = Worker’s contracts

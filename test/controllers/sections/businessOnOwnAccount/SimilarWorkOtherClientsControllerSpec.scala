@@ -39,7 +39,7 @@ class SimilarWorkOtherClientsControllerSpec extends ControllerSpecBase {
   }
 
   val formProvider = new SimilarWorkOtherClientsFormProvider()
-  val form = formProvider()
+  val form = formProvider()(fakeDataRequest, frontendAppConfig)
 
   val view = injector.instanceOf[SimilarWorkOtherClientsView]
 
