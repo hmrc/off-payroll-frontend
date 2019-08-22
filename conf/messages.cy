@@ -1648,8 +1648,8 @@ result.pdf.decisionVersion.p1 = This version number is used for HMRC internal pu
 
 
 ##TODO: Need Welsh
-personalServiceSectionChangeWarning.title = Please be advised that by changing your answers in this section, you may need to answer additional questions.
-personalServiceSectionChangeWarning.heading = Please be advised that by changing your answers in this section, you may need to answer additional questions.
+personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
+personalServiceSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
 
 hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
 hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract

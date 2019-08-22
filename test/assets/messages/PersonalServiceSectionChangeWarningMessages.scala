@@ -18,7 +18,7 @@ package assets.messages
 
 object PersonalServiceSectionChangeWarningMessages extends BaseMessages {
 
-  val title = "Please be advised that by changing your answers in this section, you may need to answer additional questions."
+  val title = "By changing your answers in this section, you may need to answer additional questions."
   val heading = title
 
 }
