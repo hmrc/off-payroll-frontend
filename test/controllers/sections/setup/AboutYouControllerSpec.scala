@@ -66,7 +66,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
       def viewAsString(form: Form[_] = aboutYouForm) = aboutYouview(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
-      val validData = Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values().head,0)))
+      val validData = Map(AboutYouPage.toString -> Json.toJson(Answers(AboutYouAnswer.values.head,0)))
 
       "return OK and the correct view for a GET" in {
 
@@ -80,11 +80,11 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
         val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 
-        contentAsString(result) mustBe viewAsString(aboutYouForm.fill(AboutYouAnswer.values().head))
+        contentAsString(result) mustBe viewAsString(aboutYouForm.fill(AboutYouAnswer.values.head))
       }
 
       "redirect to the next page when valid data is submitted" in {
-        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values().head.toString))
+        val postRequest = fakeRequest.withFormUrlEncodedBody(("value", AboutYouAnswer.values.head.toString))
 
         val answers = userAnswers.set(AboutYouPage,0,AboutYouAnswer.Worker)
         mockConstructAnswers(DataRequest(postRequest,"id",answers),AboutYouAnswer)(answers)
@@ -94,7 +94,7 @@ class AboutYouControllerSpec extends ControllerSpecBase {
 
         status(result) mustBe SEE_OTHER
         redirectLocation(result) mustBe Some(onwardRoute.url)
-        session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values().head))
+        session(result).getModel[UserType](SessionKeys.userType) mustBe Some(UserType(AboutYouAnswer.values.head))
       }
 
       "return a Bad Request and errors when invalid data is submitted" in {

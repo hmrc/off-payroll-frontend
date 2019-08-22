@@ -14,11 +14,22 @@
  * limitations under the License.
  */
 
-package pages.sections.setup
+package forms
 
+import forms.mappings.Mappings
+import javax.inject.Inject
+import models.WhatDoYouWantToFindOut.IR35
 import models.WhoAreYou
-import pages.QuestionPage
+import models.requests.DataRequest
+import pages.sections.setup.WhatDoYouWantToFindOutPage
+import play.api.data.Form
 
-case object WhoAreYouPage extends QuestionPage[WhoAreYou] {
-  override def toString: String = "whoAreYou"
+class WhoAreYouFormProvider @Inject() extends Mappings {
+
+  def apply()(implicit request: DataRequest[_]): Form[WhoAreYou] = {
+    val journey = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).getOrElse(IR35)
+    Form(
+      "value" -> enumerable[WhoAreYou](s"whoAreYou.$journey.error.required", "error.invalid")
+    )
+  }
 }

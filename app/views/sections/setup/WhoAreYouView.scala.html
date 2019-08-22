@@ -41,7 +41,7 @@
             field = form("value"),
             legend = components.heading("whoAreYou.heading", Some("whoAreYou.subheading"), asLegend = true),
             legendClass = Some("visually-hidden"),
-            inputs = AboutYouAnswer.options(showAgency, optimisedFlow = true)
+            inputs = WhoAreYou.options(showAgency)
         )
 
         @components.submit_button()

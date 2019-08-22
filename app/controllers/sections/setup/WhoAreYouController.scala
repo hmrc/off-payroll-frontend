@@ -21,7 +21,7 @@ import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.AboutYouFormProvider
+import forms.WhoAreYouFormProvider
 import javax.inject.Inject
 import models.WhatDoYouWantToFindOut.IR35
 import models._
@@ -38,7 +38,7 @@ import scala.concurrent.Future
 class WhoAreYouController @Inject()(identify: IdentifierAction,
                                     getData: DataRetrievalAction,
                                     requireData: DataRequiredAction,
-                                    aboutYouFormProvider: AboutYouFormProvider,
+                                    whoAreYouFormProvider: WhoAreYouFormProvider,
                                     controllerComponents: MessagesControllerComponents,
                                     view: WhoAreYouView,
                                     compareAnswerService: CompareAnswerService,
@@ -48,9 +48,7 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
                                     implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
   compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
 
-  val form: Form[AboutYouAnswer] = aboutYouFormProvider()
-
-  private def renderedView(mode: Mode, form: Form[AboutYouAnswer] = form)(implicit request: DataRequest[_]) = {
+  private def renderedView(mode: Mode, form: Form[WhoAreYou])(implicit request: DataRequest[_]) = {
     val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage) match {
       case Some(IR35) => true
       case _ => false
@@ -59,11 +57,11 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
   }
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(renderedView(mode))
+    Ok(renderedView(mode, whoAreYouFormProvider()))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    form.bindFromRequest().fold(
+    whoAreYouFormProvider().bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(renderedView(mode, formWithErrors))),
       value => redirect(mode, value, WhoAreYouPage)
     )

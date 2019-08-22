@@ -156,8 +156,10 @@ whoAreYou.personDoingWork = Worker
 whoAreYou.endClient = Hirer
 whoAreYou.placingAgency = Agency
 
-whoAreYou.error.required = You need to select an answer
-whoAreYou.error.invalid = You need to select an answer
+whoAreYou.ir35.error.required = Select if you are a worker, hirer or agency
+whoAreYou.ir35.error.invalid = Select if you are a worker, hirer or agency
+whoAreYou.paye.error.required = Select if you are a worker or hirer
+whoAreYou.paye.error.invalid = Select if you are a worker or hirer
 #########################
 
 ## What do you want
@@ -1703,9 +1705,9 @@ resetAnswersWarning.error.required = You need to select an answer
 personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
 personalServiceSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
 
-### Multiple Contracts Page
-### -----------------------
 
+### Multiple Contracts Page - BoOA
+### ------------------------------
 worker.multipleContracts.error.required = Select yes if this contract stops you from doing similar work for other organisations
 worker.multipleContracts.subheading = Worker’s contracts
 worker.multipleContracts.title = Does this contract stop you from doing similar work for other clients?
@@ -1738,10 +1740,8 @@ hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organ
 hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker would keep all the rights.
 
 
-
 #### Permission to Work Page - BoOA
 #### ------------------------------
-
 worker.permissionToWorkWithOthers.error.required = Select yes if you are required to ask permission to work for other clients
 worker.permissionToWorkWithOthers.title = Are you required to ask permission to work for other clients?
 worker.permissionToWorkWithOthers.heading = Are you required to ask permission to work for other clients?
@@ -1770,7 +1770,7 @@ hirer.previousContract.checkYourAnswersLabel = Has the worker had a previous con
 hirer.previousContract.subheading = Worker’s contracts
 
 
-### FollowOnContract Page
+### FollowOnContract Page - BoOA
 ### ---------------------------------
 followOnContract.error.required = Select yes if this contract will start immediately after the previous one ended
 
@@ -1786,9 +1786,9 @@ hirer.followOnContract.subheading = Worker’s contracts
 hirer.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?
 hirer.followOnContract.p1 = This does not include any holiday period between the two contracts.
 
-### MajorityOfWorkingTime Page
-### ---------------------------------
 
+### MajorityOfWorkingTime Page - BoOA
+### ---------------------------------
 worker.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of your available working time
 worker.majorityOfWorkingTime.title = Will this work take up the majority of your available working time?
 worker.majorityOfWorkingTime.heading = Will this work take up the majority of your available working time?
@@ -1803,7 +1803,8 @@ hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the m
 hirer.majorityOfWorkingTime.subheading = Worker’s contracts
 hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
 
-### RightsOfWork Page
+
+### RightsOfWork Page - BoOA
 ### ---------------------------------
 worker.rightsOfWork.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
 worker.rightsOfWork.title = Are you required to transfer all ownership rights of this work as part of the contract?
@@ -1819,7 +1820,8 @@ hirer.rightsOfWork.checkYourAnswersLabel = Is the worker required to transfer al
 hirer.rightsOfWork.subheading = Worker’s contracts
 hirer.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
 
-### FirstContract Page
+
+### FirstContract Page - BoOA
 ### ---------------------------------
 worker.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with this client
 worker.firstContract.title = Is the current contract the first in a series of contracts with this client?
@@ -1833,7 +1835,8 @@ hirer.firstContract.heading = Is the current contract the first in a series of c
 hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
 hirer.firstContract.subheading = Worker’s contracts
 
-### ExtendContract Page
+
+### ExtendContract Page - BoOA
 ### ---------------------------------
 extendContract.error.required = Select yes if the current contract allows for it to be extended
 
@@ -1846,6 +1849,7 @@ hirer.extendContract.title = Does the current contract allow for it to be extend
 hirer.extendContract.heading = Does the current contract allow for it to be extended?
 hirer.extendContract.subheading = Worker’s contracts
 hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+
 
 #### Financially Dependent Page - BoOA
 #### ------------------------------
@@ -1863,7 +1867,7 @@ hirer.financiallyDependent.heading = If the worker lost this contract, would the
 hirer.financiallyDependent.checkYourAnswersLabel = If the worker lost this contract, would they need to replace the income from it immediately?
 hirer.financiallyDependent.p1 = If the worker has separate earnings, their need to find other work may not be so urgent.
 
-### Worker Known Page
+### Worker Known Page - BoOA
 ### --------------------------------
 workerKnown.error.required = Select yes if you know who will be doing this work
 hirer.workerKnown.subheading = Worker’s contracts
@@ -1871,8 +1875,9 @@ hirer.workerKnown.heading = Has your organisation identified who will be doing t
 hirer.workerKnown.title = Has your organisation identified who will be doing this work?
 hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who will be doing this work?
 
-### SimilarWorkOtherClients Page
-### ---------------------------------
+
+### SimilarWorkOtherClients Page - BoOA
+### -----------------------------------
 worker.similarWorkOtherClients.error.required = Select yes if you have done smilar work for other engagers in the last 12 months
 worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?
 worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?
@@ -1885,9 +1890,9 @@ hirer.similarWorkOtherClients.heading = Has the worker done similar work for oth
 hirer.similarWorkOtherClients.subheading = Worker’s contracts
 hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done similar work for other engagers in the last 12 months?
 
-### Financially Dependent Page - BoOA
-### ------------------------------
 
+### Ownership Rights Page - BoOA
+### ----------------------------
 ownershipRights.error.required = Select yes if there are any ownership rights relating to this work
 
 worker.ownershipRights.subheading = Worker’s contracts

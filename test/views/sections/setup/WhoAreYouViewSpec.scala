@@ -16,14 +16,13 @@
 
 package views.sections.setup
 
-import assets.messages.{WhatDoYouWantToFindOutMessages, WhoAreYouMessages}
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import forms.WhatDoYouWantToFindOutFormProvider
+import assets.messages.WhoAreYouMessages
+import config.featureSwitch.FeatureSwitching
+import forms.WhoAreYouFormProvider
 import models.NormalMode
-import play.api.data.Form
-import play.api.mvc.{Call, Request}
+import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
-import views.html.sections.setup.{WhatDoYouWantToFindOutView, WhoAreYouView}
+import views.html.sections.setup.WhoAreYouView
 
 class WhoAreYouViewSpec extends ViewBehaviours with FeatureSwitching {
 
@@ -31,7 +30,7 @@ class WhoAreYouViewSpec extends ViewBehaviours with FeatureSwitching {
 
   val messageKeyPrefix = "whoAreYou"
 
-  val form = new WhatDoYouWantToFindOutFormProvider()()
+  val form = new WhoAreYouFormProvider()()(fakeDataRequest)
 
   val view = injector.instanceOf[WhoAreYouView]
 

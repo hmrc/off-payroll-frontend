@@ -18,7 +18,6 @@ package forms
 
 import forms.behaviours.OptionFieldBehaviours
 import models.AboutYouAnswer
-import models.AboutYouAnswer._
 import play.api.data.FormError
 
 class AboutYouFormProviderSpec extends OptionFieldBehaviours {
@@ -35,7 +34,7 @@ class AboutYouFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[AboutYouAnswer](
       form,
       fieldName,
-      validValues = AboutYouAnswer.values(),
+      validValues = AboutYouAnswer.values,
       invalidError = FormError(fieldName, invalidKey)
     )
 

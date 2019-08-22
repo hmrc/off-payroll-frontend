@@ -19,25 +19,23 @@ package models
 import play.api.libs.json._
 import viewmodels.{RadioOption, Radio}
 
-sealed trait AboutYouAnswer
+sealed trait WhoAreYou
 
-object AboutYouAnswer {
+object WhoAreYou {
 
-  case object Worker extends WithName("personDoingWork") with AboutYouAnswer
-  case object Client extends WithName("endClient") with AboutYouAnswer
-  case object Agency extends WithName("placingAgency") with AboutYouAnswer
+  case object Worker extends WithName("personDoingWork") with WhoAreYou
+  case object Client extends WithName("endClient") with WhoAreYou
+  case object Agency extends WithName("placingAgency") with WhoAreYou
 
-  val values: Seq[AboutYouAnswer] = Seq(Worker, Client, Agency)
+  def values(showAgency: Boolean = true): Seq[WhoAreYou] = Seq(Worker, Client) ++ (if(showAgency) Seq(Agency) else Seq())
 
-  val options: Seq[RadioOption] = values.map { value =>
-    RadioOption("aboutYou", value.toString, Radio)
-  }
+  def options(showAgency: Boolean = true): Seq[RadioOption] = values(showAgency).map { value => RadioOption("whoAreYou", value.toString, Radio) }
 
-  implicit val enumerable: Enumerable[AboutYouAnswer] = Enumerable(values.map(v => v.toString -> v): _*)
+  implicit val enumerable: Enumerable[WhoAreYou] = Enumerable(values().map(v => v.toString -> v): _*)
 
-  implicit val writes: Writes[AboutYouAnswer] = Writes { model => Json.toJson(model.toString) }
+  implicit val writes: Writes[WhoAreYou] = Writes { model => Json.toJson(model.toString) }
 
-  implicit val reads: Reads[AboutYouAnswer] = Reads {
+  implicit val reads: Reads[WhoAreYou] = Reads {
     case JsString(Worker.toString) => JsSuccess(Worker)
     case JsString(Client.toString) => JsSuccess(Client)
     case JsString(Agency.toString) => JsSuccess(Agency)

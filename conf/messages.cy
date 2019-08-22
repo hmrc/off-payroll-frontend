@@ -161,8 +161,10 @@ whoAreYou.personDoingWork = Worker
 whoAreYou.endClient = Hirer
 whoAreYou.placingAgency = Agency
 
-whoAreYou.error.required = You need to select an answer
-whoAreYou.error.invalid = You need to select an answer
+whoAreYou.ir35.error.required = Select if you are a worker, hirer or agency
+whoAreYou.ir35.error.invalid = Select if you are a worker, hirer or agency
+whoAreYou.paye.error.required = Select if you are a worker or hirer
+whoAreYou.paye.error.invalid = Select if you are a worker or hirer
 #########################
 
 ## What do you want
