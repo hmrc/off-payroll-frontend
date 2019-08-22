@@ -28,6 +28,10 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
         Messages("whatDoYouWantToFindOut.error.required") mustBe WhatDoYouWantToFindOutMessages.error
       }
 
+      "have the correct error messages for the WhatDoYouWantToDoPage" in {
+        Messages("whatDoYouWantToDo.error.required") mustBe WhatDoYouWantToDoMessages.error
+      }
+
       "have the correct error messages for the WhoAreYouPage" in {
         Messages("whoAreYou.ir35.error.required") mustBe WhoAreYouMessages.ir35Error
         Messages("whoAreYou.paye.error.required") mustBe WhoAreYouMessages.payeError

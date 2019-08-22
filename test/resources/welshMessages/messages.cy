@@ -1608,7 +1608,8 @@ worker.optimised.result.undetermined.paye.whyResult.p1 = We need more informatio
 worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
 worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
 
-downloadPDFCopy.error.required = Mae angen i chi ddewis ateb
+# TODO: Need Welsh
+downloadPDFCopy.error.required = Select yes to download this result
 
 addReferenceDetails.error.required = Mae angen i chi ddewis ateb
 addReferenceDetails.title = Do you want to add some reference details to this document?
@@ -1988,7 +1989,7 @@ hirer.ownershipRights.p1 = These rights include copyright, trademarks, patents a
 ###TODO: Need Welsh
 ### What Do You Want To Do Page
 ### ------------------------------
-whatDoYouWantToDo.error.required = You need to select an answer
+whatDoYouWantToDo.error.required = Select if you want to make a determination or check a determination
 
 whatDoYouWantToDo.subheading = About you and the work
 whatDoYouWantToDo.title = What do you want to do?
