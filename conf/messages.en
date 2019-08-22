@@ -1589,7 +1589,7 @@ worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = 
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
 ## ------------------
 
-downloadPDFCopy.error.required = You need to select an answer
+downloadPDFCopy.error.required = Select yes to download this result
 
 addReferenceDetails.error.required = Select yes if you want to add some reference details to this document
 addReferenceDetails.title = Do you want to add some reference details to this document?
@@ -1909,7 +1909,7 @@ hirer.ownershipRights.p1 = These rights include copyright, trademarks, patents a
 
 ### What Do You Want To Do Page
 ### ------------------------------
-whatDoYouWantToDo.error.required = You need to select an answer
+whatDoYouWantToDo.error.required = Select if you want to make a determination or check a determination
 
 whatDoYouWantToDo.subheading = About you and the work
 whatDoYouWantToDo.title = What do you want to do?

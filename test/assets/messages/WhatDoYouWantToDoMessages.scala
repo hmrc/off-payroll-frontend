@@ -18,7 +18,7 @@ package assets.messages
 
 object WhatDoYouWantToDoMessages extends BaseMessages {
 
-
+    val error = "Select if you want to make a determination or check a determination"
     val heading = "What do you want to do?"
     val title = heading
     val subheading = "About you and the work"
