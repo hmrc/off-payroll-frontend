@@ -24,6 +24,7 @@ error.summary.title = Mae problem wedi codi
 error.startAgain.title = Something went wrong
 error.startAgain.p =  Please try starting the tool again
 error.startAgain.button = Dechrau eto
+error.summaryPrefix = Gwall:
 
 timeout.text =  Gan fod y sesiwn hon wedi bod yn segur am dipyn, caiff eich atebion eu dileu mewn
 timeout.keep_alive =  Mynd yn eich blaen drwy’r twlsyn
