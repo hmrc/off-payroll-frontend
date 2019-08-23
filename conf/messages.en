@@ -1360,13 +1360,13 @@ checkYourAnswers.confirm.bullet1 = the information you have provided is correct,
 checkYourAnswers.confirm.bullet2 = it reflects the actual or expected working practices of this role
 checkYourAnswers.confirm.bullet3 = if this information changes, you accept your result may no longer hold
 
-checkYourAnswers.setup.header = Section 1: Who, what, when
-checkYourAnswers.exit.header = Section 2: Worker’s duties
-checkYourAnswers.personalService.header = Section 3: Substitutes and helpers
-checkYourAnswers.control.header = Section 4: Working arrangements
-checkYourAnswers.financialRisk.header = Section 5: Worker’s financial risk
-checkYourAnswers.partParcel.header = Section 6: Worker’s involvement
-checkYourAnswers.businessOnOwnAccount.header = Section 7: Worker’s contracts
+checkYourAnswers.setup.header = 1. About you and the work
+checkYourAnswers.exit.header = 2. Worker’s duties
+checkYourAnswers.personalService.header = 3. Substitutes and helpers
+checkYourAnswers.control.header = 4. Working arrangements
+checkYourAnswers.financialRisk.header = 5. Worker’s financial risk
+checkYourAnswers.partParcel.header = 6. Worker’s involvement
+checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 
 toolNotNeeded.client.ir35.title = You don’t need to determine if this work falls within the off-payroll rules (IR35)
 toolNotNeeded.client.ir35.heading = You don’t need to determine if this work falls within the off-payroll rules (IR35)
