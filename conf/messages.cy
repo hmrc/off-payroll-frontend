@@ -1300,12 +1300,9 @@ whichDescribesYou.error.required = Mae angen i chi ddewis ateb
 whichDescribesYou.error.invalid = Mae angen i chi ddewis ateb
 
 ##### TODO NEED WELSH FOR ####
-agencyAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-agencyAdvisory.p1 = It is the responsibility of the worker or the organisation the work is being done for.
-agencyAdvisory.p2 = However, if your agency is the fee-payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
-agencyAdvisory.subheading = What you should do next
-agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
+agencyAdvisory.title = Continue as the worker to check a determination
+agencyAdvisory.heading = Continue as the worker to check a determination
+agencyAdvisory.p1 = It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work.
 
 ##### TODO NEED WELSH FOR ####
 hirerAdvisory.title = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)

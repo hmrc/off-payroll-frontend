@@ -41,8 +41,7 @@ class AgencyAdvisoryControllerSpec extends ControllerSpecBase {
   )
 
   def viewAsString = view(
-    postAction = routes.AgencyAdvisoryController.onSubmit(),
-    finishAction = controllers.routes.ExitSurveyController.redirectToExitSurvey()
+    postAction = routes.AgencyAdvisoryController.onSubmit()
   )(fakeRequest, messages, frontendAppConfig).toString
 
   "AgencyAdvisory Controller" must {

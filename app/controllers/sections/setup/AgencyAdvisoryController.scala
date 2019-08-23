@@ -44,8 +44,7 @@ class AgencyAdvisoryController @Inject()(navigator: SetupNavigator,
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(
-      postAction = routes.AgencyAdvisoryController.onSubmit(),
-      finishAction = controllers.routes.ExitSurveyController.redirectToExitSurvey()
+      postAction = routes.AgencyAdvisoryController.onSubmit()
     ))
   }
 

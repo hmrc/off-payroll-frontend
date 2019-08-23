@@ -22,7 +22,7 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(postAction: Call, finishAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(title = titleNoForm("agencyAdvisory.title"),
 appConfig = appConfig,
@@ -36,14 +36,6 @@ bodyClasses = None) {
 
         <p>@messages("agencyAdvisory.p1")</p>
 
-        <p>@messages("agencyAdvisory.p2")</p>
-
-        <h2>@messages("agencyAdvisory.subheading")</h2>
-
-        <p>@messages("agencyAdvisory.p3")</p>
-
         @components.submit_button()
-
-        <a id="finish-link" href="@{finishAction.url}">@messages("site.finish")</a>
     }
 }
