@@ -32,7 +32,6 @@ class AgencyAdvisoryViewSpec extends ViewBehaviours {
   val view = injector.instanceOf[AgencyAdvisoryView]
 
   def continueCall = Call("POST", "/foo")
-  def finishCall = Call("GET", "/bar")
 
   def createView = () => view(continueCall)(fakeRequest, messages, frontendAppConfig)
 
@@ -40,7 +39,6 @@ class AgencyAdvisoryViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
-
     lazy val document = asDocument(createView())
 
     "have the correct title" in {
