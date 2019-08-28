@@ -282,3 +282,7 @@ GET        /what-do-you-want-to-do                      controllers.sections.set
 POST       /what-do-you-want-to-do                      controllers.sections.setup.WhatDoYouWantToDoController.onSubmit(mode: Mode = NormalMode)
 GET        /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onPageLoad(mode: Mode = CheckMode)
 POST       /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onSubmit(mode: Mode = CheckMode)
+
+GET        /intermediary                                controllers.sections.setup.IntermediaryController.onPageLoad()
+
+GET        /no-intermediary                             controllers.sections.setup.NoIntermediaryController.onPageLoad()

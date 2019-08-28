@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package assets.messages
+package pages.sections.setup
 
-object AgencyAdvisoryMessages extends BaseMessages {
+import pages.Page
 
-  val title = "Continue as the worker to check a determination"
-  val heading = title
-  val p1 = "It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work."
-
+case object IntermediaryPage extends Page {
+  override def toString: String = "intermediary"
 }

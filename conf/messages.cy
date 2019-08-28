@@ -1323,12 +1323,9 @@ whichDescribesYou.error.required = Mae angen i chi ddewis ateb
 whichDescribesYou.error.invalid = Mae angen i chi ddewis ateb
 
 ##### TODO NEED WELSH FOR ####
-agencyAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-agencyAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-agencyAdvisory.p1 = It is the responsibility of the worker or the organisation the work is being done for.
-agencyAdvisory.p2 = However, if your agency is the fee-payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes.
-agencyAdvisory.subheading = What you should do next
-agencyAdvisory.p3 = You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract.
+agencyAdvisory.title = Continue as the worker to check a determination
+agencyAdvisory.heading = Continue as the worker to check a determination
+agencyAdvisory.p1 = It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work.
 
 ##### TODO NEED WELSH FOR ####
 hirerAdvisory.title = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
@@ -2036,3 +2033,29 @@ whatDoYouWantToDo.heading = What do you want to do?
 whatDoYouWantToDo.checkYourAnswersLabel = What do you want to do?
 whatDoYouWantToDo.makeNewDetermination = Make a new determination
 whatDoYouWantToDo.checkDetermination = Check a determination
+
+###TODO: Need Welsh
+### Intermediary Result Page
+### -----------------------------
+intermediaryResult.title = Off-payroll working rules might apply to this work
+intermediaryResult.heading = Off-payroll working rules might apply to this work
+intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
+intermediaryResult.p2 = Then you told us that you are trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
+intermediaryResult.subheading = What you should do next
+intermediaryResult.p3 = If you are trading through an intermediary, you should find out if the off payroll working rules apply to this work.
+intermediaryResult.p4.text1 = Find out more about the
+intermediaryResult.p4.link1 = Off-payroll working rules (IR35)
+intermediaryResult.p4.text2 = , or
+intermediaryResult.p4.link2 = start again
+
+###TODO: Need Welsh
+### No Intermediary Result Page
+### -----------------------------
+noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
+noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
+noIntermediaryResult.p1 = You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work.
+noIntermediaryResult.subheading = What you should do next
+noIntermediaryResult.p2.text1 = Find out more about the
+noIntermediaryResult.p2.link1 = Off-payroll working rules (IR35)
+noIntermediaryResult.p2.text2 = , or
+noIntermediaryResult.p2.link2 = start again

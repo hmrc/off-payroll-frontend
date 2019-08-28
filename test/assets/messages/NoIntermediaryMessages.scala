@@ -16,10 +16,11 @@
 
 package assets.messages
 
-object AgencyAdvisoryMessages extends BaseMessages {
+object NoIntermediaryMessages extends BaseMessages {
 
-  val title = "Continue as the worker to check a determination"
-  val heading = title
-  val p1 = "It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work."
-
+  val title = "Off-payroll working rules (IR35) cannot apply"
+  val heading = "Off-payroll working rules (IR35) cannot apply"
+  val p1 = "You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work."
+  val subheading = "What you should do next"
+  val p2 ="Find out more about the Off-payroll working rules (IR35), or start again"
 }

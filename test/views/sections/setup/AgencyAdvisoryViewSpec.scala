@@ -32,15 +32,13 @@ class AgencyAdvisoryViewSpec extends ViewBehaviours {
   val view = injector.instanceOf[AgencyAdvisoryView]
 
   def continueCall = Call("POST", "/foo")
-  def finishCall = Call("GET", "/bar")
 
-  def createView = () => view(continueCall, finishCall)(fakeRequest, messages, frontendAppConfig)
+  def createView = () => view(continueCall)(fakeRequest, messages, frontendAppConfig)
 
   "AgencyAdvisory view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
-
     lazy val document = asDocument(createView())
 
     "have the correct title" in {
@@ -53,23 +51,6 @@ class AgencyAdvisoryViewSpec extends ViewBehaviours {
 
     "have the correct p1" in {
       document.select(Selectors.p(1)).text mustBe AgencyAdvisoryMessages.p1
-    }
-
-    "have the correct p2" in {
-      document.select(Selectors.p(2)).text mustBe AgencyAdvisoryMessages.p2
-    }
-
-    "have the correct subheading" in {
-      document.select(Selectors.h2(1)).text mustBe AgencyAdvisoryMessages.subheading
-    }
-
-    "have the correct p3" in {
-      document.select(Selectors.p(3)).text mustBe AgencyAdvisoryMessages.p3
-    }
-
-    "have a finish link" in {
-      document.select(Selectors.finish).text mustBe AgencyAdvisoryMessages.finish
-      document.select(Selectors.finish).attr("href") mustBe finishCall.url
     }
   }
 }
