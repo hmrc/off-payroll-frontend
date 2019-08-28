@@ -22,7 +22,7 @@
 
 @this(mainTemplate: templates.MainTemplate)
 
-@()(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(startAgain: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(title = titleNoForm("noIntermediaryResult.title"),
 appConfig = appConfig,
@@ -38,9 +38,8 @@ bodyClasses = None) {
 
     <p>
         @messages("noIntermediaryResult.p2.text1")
-        <a href="#">@messages("noIntermediaryResult.p2.link1")</a>
-        @messages("noIntermediaryResult.p2.text2")
-        <a href="@{routes.StartAgainController.redirectToDisclaimer().url}">@messages("noIntermediaryResult.p2.link2")</a>
+        <a id="understanding-off-payroll" href="@{appConfig.understandingOffPayrollUrl}">@messages("noIntermediaryResult.p2.link1")</a>@messages("noIntermediaryResult.p2.text2")
+        <a id="start-again" href="@{startAgain.url}">@messages("noIntermediaryResult.p2.link2")</a>
     </p>
 
 }

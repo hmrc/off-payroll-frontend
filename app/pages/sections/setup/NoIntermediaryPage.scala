@@ -19,5 +19,5 @@ package pages.sections.setup
 import pages.Page
 
 case object NoIntermediaryPage extends Page {
-  override def toString: String = "noIntermediaryPage"
+  override def toString: String = "noIntermediary"
 }

@@ -40,6 +40,6 @@ class NoIntermediaryController @Inject()(navigator: SetupNavigator,
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view())
+    Ok(view(controllers.routes.StartAgainController.redirectToDisclaimer()))
   }
 }

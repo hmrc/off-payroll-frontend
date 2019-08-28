@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package pages.sections.setup
+package assets.messages
 
-import pages.Page
+object NoIntermediaryMessages extends BaseMessages {
 
-case object IntermediaryPage extends Page {
-  override def toString: String = "intermediary"
+  val title = "Off-payroll working rules (IR35) cannot apply"
+  val heading = "Off-payroll working rules (IR35) cannot apply"
+  val p1 = "You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work."
+  val subheading = "What you should do next"
+  val p2 ="Find out more about the Off-payroll working rules (IR35), or start again"
 }

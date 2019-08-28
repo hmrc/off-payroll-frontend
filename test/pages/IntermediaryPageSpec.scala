@@ -14,10 +14,17 @@
  * limitations under the License.
  */
 
-package pages.sections.setup
+package pages
 
-import pages.Page
+import pages.behaviours.PageBehaviours
+import pages.sections.setup.IntermediaryPage
 
-case object IntermediaryPage extends Page {
-  override def toString: String = "intermediary"
+class IntermediaryPageSpec extends PageBehaviours {
+
+  "IntermediaryPage" should {
+
+    "have the correct name" in {
+      IntermediaryPage.toString mustBe "intermediary"
+    }
+  }
 }
