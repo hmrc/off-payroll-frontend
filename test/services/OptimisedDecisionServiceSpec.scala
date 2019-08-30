@@ -34,7 +34,7 @@ package services
 
 import base.{GuiceAppSpecBase, SpecBase}
 import config.SessionKeys
-import config.featureSwitch.{CallNewDecisionService, FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.mocks.MockErrorHandler
@@ -135,8 +135,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
       "every decision call is successful for the new decision service" in {
 
-        enable(CallNewDecisionService)
-
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
         mockDecideNew(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
@@ -149,8 +147,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
       }
 
       "every decision call is successful" in {
-
-        disable(CallNewDecisionService)
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
@@ -186,8 +182,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
       "an error is returned" in {
 
-        enable(CallNewDecisionService)
-
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
         mockDecideNew(Interview(userAnswers))(Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API")))
@@ -198,8 +192,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
       }
 
       "personal service decision call returns a Left" in {
-
-        disable(CallNewDecisionService)
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 

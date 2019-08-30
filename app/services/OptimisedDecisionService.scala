@@ -18,7 +18,7 @@ package services
 
 import cats.data.EitherT
 import cats.implicits._
-import config.featureSwitch.{CallNewDecisionService, FeatureSwitching}
+import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DecisionConnector
 import controllers.routes
@@ -68,24 +68,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   private[services] def collateDecisions(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
     val interview = Interview(request.userAnswers)
 
-    if(isEnabled(CallNewDecisionService)){
-
       decisionConnector.decideNew(interview).flatMap{
 
         case Right(decision) => logResult(decision, interview).map(_ => Right(decision))
         case Left(err) => Future.successful(Left(err))
       }
-    } else {
-      (for {
-        personalService <- EitherT(decisionConnector.decide(interview, Interview.writesPersonalService))
-        control <- EitherT(decisionConnector.decide(interview, Interview.writesControl))
-        financialRisk <- EitherT(decisionConnector.decide(interview, Interview.writesFinancialRisk))
-        wholeInterview <- EitherT(decisionConnector.decide(interview, Interview.writes))
-      } yield collatedDecisionResponse(personalService, control, financialRisk, wholeInterview)).value.flatMap {
-        case Right(collatedDecision) => logResult(collatedDecision, interview).map(_ => Right(collatedDecision))
-        case Left(err) => Future.successful(Left(err))
-      }
-    }
   }
 
   private def collatedDecisionResponse(personalService: DecisionResponse,

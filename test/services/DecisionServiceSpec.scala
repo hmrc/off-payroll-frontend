@@ -18,7 +18,7 @@ package services
 
 import base.{GuiceAppSpecBase, SpecBase}
 import config.SessionKeys
-import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import forms.DeclarationFormProvider
 import handlers.mocks.MockErrorHandler
@@ -771,7 +771,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
 
     "return a continue decision from the new decision service based on the interview" in {
 
-      enable(CallNewDecisionService)
       enable(OptimisedFlow)
 
       mockDecideNew(Interview(userAnswers))(Right(response))
@@ -784,7 +783,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
     }
     "return a continue decision based on the interview" in {
 
-      disable(CallNewDecisionService)
       disable(OptimisedFlow)
 
       mockDecide(Interview(userAnswers))(Right(response))

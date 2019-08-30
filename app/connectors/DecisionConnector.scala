@@ -134,7 +134,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
     Logger.debug(s"[DecisionConnector][decideNew] ${Json.toJson(decisionRequest)(writer)}")
 
-    httpClient.POST(s"$decideUrl/new", decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
+    httpClient.POST(s"$decideUrl", decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
   }
 
   def log(decisionRequest: Interview, decisionResponse: DecisionResponse)
