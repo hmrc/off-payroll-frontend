@@ -1729,8 +1729,8 @@ resetAnswersWarning.startAgain = Start again
 resetAnswersWarning.goBack = Take me back to my answers
 resetAnswersWarning.error.required = You need to select an answer
 
-personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
-personalServiceSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
+personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions
+personalServiceSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions
 
 
 ### Multiple Contracts Page - BoOA
