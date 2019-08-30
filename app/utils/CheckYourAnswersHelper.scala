@@ -317,7 +317,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$WorkerKnownPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(WorkerKnownPage).url)
       )
     }
 
@@ -327,7 +327,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$MultipleContractsPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MultipleContractsPage).url)
       )
     }
 
@@ -337,7 +337,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$PermissionToWorkWithOthersPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PermissionToWorkWithOthersPage).url)
       )
     }
 
@@ -347,7 +347,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$OwnershipRightsPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(OwnershipRightsPage).url)
       )
     }
 
@@ -357,7 +357,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$RightsOfWorkPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(RightsOfWorkPage).url)
       )
     }
 
@@ -367,7 +367,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$TransferOfRightsPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(TransferOfRightsPage).url)
       )
     }
 
@@ -377,7 +377,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$PreviousContractPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PreviousContractPage).url)
       )
     }
 
@@ -387,7 +387,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$FollowOnContractPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FollowOnContractPage).url)
       )
     }
 
@@ -397,7 +397,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$FirstContractPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FirstContractPage).url)
       )
     }
 
@@ -407,7 +407,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$ExtendContractPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(ExtendContractPage).url)
       )
     }
 
@@ -417,7 +417,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$MajorityOfWorkingTimePage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MajorityOfWorkingTimePage).url)
       )
     }
 
@@ -428,7 +428,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$FinanciallyDependentPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage).url)
       )
     }
 
@@ -438,7 +438,7 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
         tailorMsg(s"$SimilarWorkOtherClientsPage.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
-        changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+        changeUrl = Some(controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(SimilarWorkOtherClientsPage).url)
       )
     }
 }

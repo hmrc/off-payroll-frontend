@@ -282,3 +282,6 @@ GET        /what-do-you-want-to-do                      controllers.sections.set
 POST       /what-do-you-want-to-do                      controllers.sections.setup.WhatDoYouWantToDoController.onSubmit(mode: Mode = NormalMode)
 GET        /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onPageLoad(mode: Mode = CheckMode)
 POST       /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onSubmit(mode: Mode = CheckMode)
+
+GET        /business-on-own-account-section-change-warning     controllers.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(page: String)
+POST       /business-on-own-account-section-change-warning     controllers.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(page: String)
