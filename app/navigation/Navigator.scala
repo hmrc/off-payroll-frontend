@@ -16,22 +16,12 @@
 
 package navigation
 
-import models.WhichDescribesYouAnswer.{ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE}
 import models.{Mode, UserAnswers}
 import pages.Page
-import pages.sections.setup.WhichDescribesYouPage
 import play.api.mvc.Call
 
-abstract class Navigator {
+abstract class Navigator extends Lookup {
 
   def nextPage(page: Page, mode: Mode): UserAnswers => Call
-
-  val isWorker: UserAnswers => Boolean = _.getAnswer(WhichDescribesYouPage) match {
-    case Some(WorkerPAYE) => true
-    case Some(WorkerIR35) => true
-    case Some(ClientPAYE) => false
-    case Some(ClientIR35) => false
-    case _ => true
-  }
 
 }
