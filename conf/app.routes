@@ -285,3 +285,7 @@ POST       /what-do-you-want-to-do/change               controllers.sections.set
 
 GET        /business-on-own-account-section-change-warning     controllers.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(page: String)
 POST       /business-on-own-account-section-change-warning     controllers.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(page: String)
+
+GET        /intermediary                                controllers.sections.setup.IntermediaryController.onPageLoad()
+
+GET        /no-intermediary                             controllers.sections.setup.NoIntermediaryController.onPageLoad()

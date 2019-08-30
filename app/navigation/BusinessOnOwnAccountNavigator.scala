@@ -38,14 +38,6 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
       case _ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
     }
 
-  private def workerKnown(userAnswers: UserAnswers): Boolean =
-    (isWorker(userAnswers), userAnswers.getAnswer(WorkerKnownPage), userAnswers.getAnswer(ContractStartedPage)) match {
-      case (true, _, _) => true
-      case (_, Some(true), _) => true
-      case (_, _, Some(true)) => true
-      case _ => false
-    }
-
   private val routeMap:  Map[Page, UserAnswers => Call] = Map(
 
     WorkerKnownPage -> (_ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)),

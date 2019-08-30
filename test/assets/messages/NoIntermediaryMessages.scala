@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package assets.messages.results
+package assets.messages
 
-object UserAnswersMessages extends BaseResultMessages {
+object NoIntermediaryMessages extends BaseMessages {
 
-  val h2 = "What you told us"
-  val section1h3 = "1. About you and the work"
-  val section2h3 = "2. Worker’s duties"
-  val section3h3 = "3. Substitutes and helpers"
-  val section4h3 = "4. Working arrangements"
-  val section5h3 = "5. Worker’s financial risk"
-  val section6h3 = "6. Worker’s involvement"
-
+  val title = "Off-payroll working rules (IR35) cannot apply"
+  val heading = "Off-payroll working rules (IR35) cannot apply"
+  val p1 = "You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work."
+  val subheading = "What you should do next"
+  val p2 ="Find out more about the Off-payroll working rules (IR35), or start again"
 }

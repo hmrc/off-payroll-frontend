@@ -18,11 +18,8 @@ package assets.messages
 
 object AgencyAdvisoryMessages extends BaseMessages {
 
-  val title = "You don’t need to determine if the off-payroll rules (IR35) apply to this work"
+  val title = "Continue as the worker to check a determination"
   val heading = title
-  val p1 = "It is the responsibility of the worker or the organisation the work is being done for."
-  val p2 = "However, if your agency is the fee-payer, you may still be accountable for operating PAYE if the work is deemed employment for tax purposes."
-  val subheading = "What you should do next"
-  val p3 = "You can exit the tool now, or continue through it as if you are the worker. This will show you how aspects of the work, like its duties and arrangements, affect the result the tool gives to this contract."
+  val p1 = "It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work."
 
 }

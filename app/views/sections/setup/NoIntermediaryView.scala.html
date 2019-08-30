@@ -20,22 +20,26 @@
 @import views.ViewUtils._
 @import models.NormalMode
 
-@this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
+@this(mainTemplate: templates.MainTemplate)
 
-@(postAction: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(startAgain: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(title = titleNoForm("agencyAdvisory.title"),
+@mainTemplate(title = titleNoForm("noIntermediaryResult.title"),
 appConfig = appConfig,
 bodyClasses = None) {
 
     @components.back_link()(NormalMode)
 
-    @formWithCsrf(postAction, 'autoComplete -> "off") {
+    @components.heading("noIntermediaryResult.heading")
 
-        @components.heading("agencyAdvisory.heading")
+    <p>@messages("noIntermediaryResult.p1")</p>
 
-        <p>@messages("agencyAdvisory.p1")</p>
+    <h2>@messages("noIntermediaryResult.subheading")</h2>
 
-        @components.submit_button()
-    }
+    <p>
+        @messages("noIntermediaryResult.p2.text1")
+        <a id="understanding-off-payroll" href="@{appConfig.understandingOffPayrollUrl}">@messages("noIntermediaryResult.p2.link1")</a>@messages("noIntermediaryResult.p2.text2")
+        <a id="start-again" href="@{startAgain.url}">@messages("noIntermediaryResult.p2.link2")</a>
+    </p>
+
 }

@@ -22,20 +22,17 @@ import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import javax.inject.Inject
-import models.NormalMode
 import navigation.SetupNavigator
-import pages.sections.setup.AgencyAdvisoryPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import views.html.sections.setup.AgencyAdvisoryView
+import services.{CompareAnswerService, DecisionService}
+import views.html.sections.setup.NoIntermediaryView
 
-class AgencyAdvisoryController @Inject()(navigator: SetupNavigator,
+class NoIntermediaryController @Inject()(navigator: SetupNavigator,
                                          identify: IdentifierAction,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
                                          controllerComponents: MessagesControllerComponents,
-                                         view: AgencyAdvisoryView,
-                                         checkYourAnswersService: CheckYourAnswersService,
+                                         view: NoIntermediaryView,
                                          compareAnswerService: CompareAnswerService,
                                          dataCacheConnector: DataCacheConnector,
                                          decisionService: DecisionService,
@@ -43,12 +40,6 @@ class AgencyAdvisoryController @Inject()(navigator: SetupNavigator,
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(
-      postAction = routes.AgencyAdvisoryController.onSubmit()
-    ))
-  }
-
-  def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Redirect(navigator.nextPage(AgencyAdvisoryPage, NormalMode)(request.userAnswers))
+    Ok(view(controllers.routes.StartAgainController.redirectToDisclaimer()))
   }
 }
