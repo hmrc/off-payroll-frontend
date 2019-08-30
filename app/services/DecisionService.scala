@@ -84,12 +84,21 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
 
+    if(isEnabled(OptimisedFlow)){
+
       for {
         decisionServiceResult <- decisionConnector.decideNew(interview)
         _ <- logResult(decisionServiceResult,interview)
         redirect <- redirectResult(interview,continueResult,decisionServiceResult)
       } yield redirect
 
+    } else {
+      for {
+        decisionServiceResult <- decisionConnector.decide(interview)
+        _ <- logResult(decisionServiceResult,interview)
+        redirect <- redirectResult(interview,continueResult,decisionServiceResult)
+      } yield redirect
+    }
   }
 
   private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)

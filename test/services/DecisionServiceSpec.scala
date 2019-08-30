@@ -796,7 +796,7 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
     "return a continue decision based on the interview when control is empty" in {
       enable(OptimisedFlow)
 
-      mockDecide(Interview(userAnswers))(Right(riskResponse))
+      mockDecideNew(Interview(userAnswers))(Right(riskResponse))
       mockLog(Interview(userAnswers), riskResponse)(Right(true))
 
       val result = service.decide(userAnswers, onwardRoute)
@@ -807,7 +807,7 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
     "return a continue decision based on the interview when risk is empty optimised" in {
       enable(OptimisedFlow)
 
-      mockDecide(Interview(userAnswers))(Right(controlResponse))
+      mockDecideNew(Interview(userAnswers))(Right(controlResponse))
       mockLog(Interview(userAnswers), controlResponse)(Right(true))
 
       val result = service.decide(userAnswers, onwardRoute)
