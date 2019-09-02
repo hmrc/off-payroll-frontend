@@ -490,12 +490,17 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 //            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
 //              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
 //            )
-            mockDecideNew(Interview(userAnswers), Interview.writes)(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
+
+            mockDecideNew(Interview(userAnswers), Interview.writes)(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
+
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)
             ), ResultEnum.OUTSIDE_IR35))(Right(true))
+
 
             val expected: Html = AgentOutsideView(
               form = form,
@@ -519,16 +524,18 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(
-              Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-            )
-            mockDecideNew(Interview(userAnswers), Interview.writesControl)(
-              Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-            )
-            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
-              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-            )
-            mockDecideNew(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
+//            mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(
+//              Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
+//            )
+//            mockDecideNew(Interview(userAnswers), Interview.writesControl)(
+//              Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
+//            )
+//            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
+//              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
+//            )
+            mockDecideNew(Interview(userAnswers))(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
@@ -558,16 +565,18 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(
-              Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-            )
-            mockDecideNew(Interview(userAnswers), Interview.writesControl)(
-              Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-            )
-            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
-              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-            )
-            mockDecideNew(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.OUTSIDE_IR35)))
+//            mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(
+//              Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
+//            )
+//            mockDecideNew(Interview(userAnswers), Interview.writesControl)(
+//              Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
+//            )
+//            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
+//              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
+//            )
+            mockDecideNew(Interview(userAnswers))(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
