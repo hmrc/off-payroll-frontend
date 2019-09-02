@@ -32,7 +32,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
   val emptyUserAnswers = UserAnswers("id")
   val navigator = new BusinessOnOwnAccountNavigator
 
-  def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers) = navigator.nextPage(fromPage, NormalMode)(userAnswers)
+  def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers, mode: Mode = NormalMode) = navigator.nextPage(fromPage, mode)(userAnswers)
 
   "BusinessOnOwnAccountNavigator" must {
 
@@ -274,8 +274,15 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
       }
     }
 
-    "go from the SimilarWorkOtherClientsPage to the CheckYourAnswersPage" in {
-      nextPage(SimilarWorkOtherClientsPage) mustBe routes.CheckYourAnswersController.onPageLoad()
+    "go from the SimilarWorkOtherClientsPage" when {
+
+      "in normal mode to the CheckYourAnswersPage" in {
+        nextPage(SimilarWorkOtherClientsPage, mode = NormalMode) mustBe routes.CheckYourAnswersController.onPageLoad()
+      }
+
+      "in check mode to the CheckYourAnswersPage" in {
+        nextPage(SimilarWorkOtherClientsPage, mode = CheckMode) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount))
+      }
     }
   }
 }
