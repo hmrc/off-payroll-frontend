@@ -25,7 +25,7 @@ class BusinessOnOwnAccountSectionChangeWarningSpec extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "businessOnOwnAccountSectionSectionChangeWarning"
+  val messageKeyPrefix = "businessOnOwnAccountSectionChangeWarning"
 
   val view = injector.instanceOf[BusinessOnOwnAccountSectionChangeWarningView]
 

@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models._
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
+import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -90,7 +90,11 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
         //Financial Risk
         EquipmentExpensesPage,HowWorkerIsPaidPage,MaterialsPage,OtherExpensesPage,PutRightAtOwnCostPage,VehiclePage,CannotClaimAsExpensePage,
         //Part Parcel
-        BenefitsPage,IdentifyToStakeholdersPage,LineManagerDutiesPage,InteractWithStakeholdersPage
+        BenefitsPage,IdentifyToStakeholdersPage,LineManagerDutiesPage,InteractWithStakeholdersPage,
+        //Business On Own Account
+        WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
+        PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
+        SimilarWorkOtherClientsPage
         )
     ),
     AddReferenceDetailsPage -> (answers =>

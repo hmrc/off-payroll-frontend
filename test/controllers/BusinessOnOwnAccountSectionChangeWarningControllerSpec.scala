@@ -60,7 +60,7 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
     errorHandler = app.injector.instanceOf[ErrorHandler]
   )
 
-  val submitAction = routes.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(ArrangedSubstitutePage)
+  val submitAction = routes.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(ExtendContractPage)
 
   def viewAsString = view(submitAction)(fakeRequest, messages, frontendAppConfig).toString
 
