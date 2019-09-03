@@ -21,7 +21,7 @@ import models.WhichDescribesYouAnswer.{ClientIR35, ClientPAYE, WorkerIR35, Worke
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.setup.{ContractStartedPage, WhichDescribesYouPage}
 
-trait Lookup {
+trait NavigationHelper {
 
   val isWorker: UserAnswers => Boolean = _.getAnswer(WhichDescribesYouPage) match {
     case Some(WorkerPAYE) => true

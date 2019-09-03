@@ -20,7 +20,7 @@ import models.{Mode, UserAnswers}
 import pages.Page
 import play.api.mvc.Call
 
-abstract class Navigator extends Lookup {
+abstract class Navigator extends NavigationHelper {
 
   def nextPage(page: Page, mode: Mode): UserAnswers => Call
 

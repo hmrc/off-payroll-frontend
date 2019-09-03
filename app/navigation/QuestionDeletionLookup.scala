@@ -30,7 +30,7 @@ import pages.sections.setup._
 import pages.{RightsOfWorkPage, _}
 
 @Singleton
-class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) extends Lookup {
+class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) extends NavigationHelper {
 
   def getPagesToRemove(currentPage: QuestionPage[_]): UserAnswers => List[QuestionPage[_]] = {
     pagesToRemove.getOrElse(currentPage,_ => List.empty)
@@ -49,7 +49,7 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
       answers.getAnswer(IsWorkForPrivateSectorPage) match {
         case Some(false) => List(TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
         case _ => List.empty
-      }
+      }r
     }),
     TurnoverOverPage -> (_ => List(EmployeesOverPage, BalanceSheetOverPage)),
     EmployeesOverPage -> (_ => List(BalanceSheetOverPage)),
