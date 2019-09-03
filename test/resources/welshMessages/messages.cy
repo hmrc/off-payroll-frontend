@@ -5,6 +5,13 @@ common.standardPageNotFoundErrorMessageContent2=Os gwnaethoch deipio’r cyfeiri
 common.standardPageNotFoundErrorMessageContent3=Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi’i deipio’n gywir.
 common.standardPageNotFoundErrorMessageHeader=Heb ddod o hyd i’r dudalen
 
+newPageNotFoundErrorMessage.title = Page not found
+newPageNotFoundErrorMessage.heading = Page not found
+newPageNotFoundErrorMessage.p1 = You should
+newPageNotFoundErrorMessage.link = start
+newPageNotFoundErrorMessage.p2 = the Check Employment Status for Tax tool again.
+newPageNotFoundErrorMessage.p3 = If you do not want to check the employment status of some work, you can exit now.
+
 date.January = Ionawr
 date.February = Chwefror
 date.March = Mawrth
