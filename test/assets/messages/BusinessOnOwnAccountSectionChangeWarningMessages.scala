@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package navigation
+package assets.messages
 
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
+object BusinessOnOwnAccountSectionChangeWarningMessages extends BaseMessages {
 
-abstract class Navigator extends NavigationHelper {
-
-  def nextPage(page: Page, mode: Mode): UserAnswers => Call
+  val title = "By changing your answers in this section, you may need to answer additional questions."
+  val heading = title
 
 }

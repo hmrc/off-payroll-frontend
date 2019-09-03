@@ -16,26 +16,18 @@
 
 package navigation
 
-import base.{GuiceAppSpecBase, SpecBase}
-import config.featureSwitch.OptimisedFlow
-import controllers.routes
-import controllers.sections.control.{routes => controlRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
-import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
+import base.GuiceAppSpecBase
 import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.WhichDescribesYouAnswer.{Agency, ClientIR35, ClientPAYE, WorkerIR35, WorkerPAYE, writes}
+import models.WhichDescribesYouAnswer.{ClientPAYE, writes}
 import models._
 import pages._
+import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import play.api.libs.json.Writes
 
 class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
@@ -56,7 +48,11 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
           //Financial Risk
           EquipmentExpensesPage, HowWorkerIsPaidPage, MaterialsPage, OtherExpensesPage, PutRightAtOwnCostPage, VehiclePage, CannotClaimAsExpensePage,
           //Part Parcel
-          BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage, InteractWithStakeholdersPage
+          BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage, InteractWithStakeholdersPage,
+          //Business On Own Account
+          WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
+          PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
+          SimilarWorkOtherClientsPage
         )
       }
     }
@@ -220,6 +216,180 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
           val res = navigator.getPagesToRemove(WouldWorkerPaySubstitutePage)(
             userAnswers.set(WouldWorkerPaySubstitutePage,0,false))
+
+          res mustBe List.empty
+        }
+      }
+    }
+
+    "BoOA section" must {
+
+      "handle WorkerKnownPage" when {
+
+        "answer is false, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(WorkerKnownPage, false)
+            .set(ContractStartedPage, false)
+            .set(WhichDescribesYouPage, ClientPAYE)
+
+          val res = navigator.getPagesToRemove(WorkerKnownPage)(userAnswers)
+
+          res mustBe List(PreviousContractPage, SimilarWorkOtherClientsPage)
+        }
+
+        "answer is true, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(WorkerKnownPage, true)
+            .set(ContractStartedPage, false)
+            .set(WhichDescribesYouPage, ClientPAYE)
+
+          val res = navigator.getPagesToRemove(WorkerKnownPage)(userAnswers)
+
+          res mustBe List.empty
+        }
+      }
+
+      "handle MultipleContractsPage" when {
+
+        "answer is true, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(MultipleContractsPage, true)
+
+          val res = navigator.getPagesToRemove(MultipleContractsPage)(userAnswers)
+
+          res mustBe List(PermissionToWorkWithOthersPage)
+        }
+
+        "answer is false, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(MultipleContractsPage, false)
+
+
+          val res = navigator.getPagesToRemove(MultipleContractsPage)(userAnswers)
+
+          res mustBe List.empty
+        }
+      }
+
+      "handle OwnershipRightsPage" when {
+
+        "answer is false, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(OwnershipRightsPage, false)
+
+          val res = navigator.getPagesToRemove(OwnershipRightsPage)(userAnswers)
+
+          res mustBe List(RightsOfWorkPage, TransferOfRightsPage)
+        }
+
+        "answer is true, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(OwnershipRightsPage, true)
+
+
+          val res = navigator.getPagesToRemove(OwnershipRightsPage)(userAnswers)
+
+          res mustBe List.empty
+        }
+      }
+
+      "handle RightsOfWorkPage" when {
+
+        "answer is true, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(RightsOfWorkPage, true)
+
+          val res = navigator.getPagesToRemove(RightsOfWorkPage)(userAnswers)
+
+          res mustBe List(TransferOfRightsPage)
+        }
+
+        "answer is false, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(RightsOfWorkPage, false)
+
+
+          val res = navigator.getPagesToRemove(RightsOfWorkPage)(userAnswers)
+
+          res mustBe List.empty
+        }
+      }
+
+      "handle PreviousContractPage" when {
+
+        "answer is false, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(PreviousContractPage, false)
+
+          val res = navigator.getPagesToRemove(PreviousContractPage)(userAnswers)
+
+          res mustBe List(FollowOnContractPage)
+        }
+
+        "answer is true, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(PreviousContractPage, true)
+
+
+          val res = navigator.getPagesToRemove(PreviousContractPage)(userAnswers)
+
+          res mustBe List.empty
+        }
+      }
+
+      "handle FollowOnContractPage" when {
+
+        "answer is true, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(FollowOnContractPage, true)
+
+          val res = navigator.getPagesToRemove(FollowOnContractPage)(userAnswers)
+
+          res mustBe List(ExtendContractPage)
+        }
+
+        "answer is false, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(FollowOnContractPage, false)
+
+
+          val res = navigator.getPagesToRemove(FollowOnContractPage)(userAnswers)
+
+          res mustBe List.empty
+        }
+      }
+
+      "handle FirstContractPage" when {
+
+        "answer is true, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(FirstContractPage, true)
+
+          val res = navigator.getPagesToRemove(FirstContractPage)(userAnswers)
+
+          res mustBe List(ExtendContractPage)
+        }
+
+        "answer is false, return expected pages" in {
+
+          val userAnswers = UserAnswers("id")
+            .set(FirstContractPage, false)
+
+
+          val res = navigator.getPagesToRemove(FirstContractPage)(userAnswers)
 
           res mustBe List.empty
         }

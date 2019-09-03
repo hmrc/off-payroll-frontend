@@ -17,13 +17,13 @@
 package utils
 
 import _root_.models.UserType._
-import base.{GuiceAppSpecBase, SpecBase}
-import config.SessionKeys
+import base.GuiceAppSpecBase
+import controllers.routes
+import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import models.ArrangedSubstitute.YesClientAgreed
 import models.ChooseWhereWork.WorkerChooses
 import models.HowWorkIsDone.NoWorkerInputAllowed
@@ -39,7 +39,6 @@ import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.ContractStartedPage
-import play.api.libs.json.Json
 import viewmodels.AnswerRow
 
 class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
@@ -1352,7 +1351,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$WorkerKnownPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(WorkerKnownPage).url)
               ))
           }
         }
@@ -1366,7 +1365,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$WorkerKnownPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(WorkerKnownPage).url)
               ))
           }
         }
@@ -1381,7 +1380,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$WorkerKnownPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.WorkerKnownController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(WorkerKnownPage).url)
             ))
         }
       }
@@ -1410,7 +1409,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$MultipleContractsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MultipleContractsPage).url)
               ))
           }
         }
@@ -1424,7 +1423,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$MultipleContractsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MultipleContractsPage).url)
               ))
           }
         }
@@ -1439,7 +1438,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$MultipleContractsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.MultipleContractsController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MultipleContractsPage).url)
             ))
         }
       }
@@ -1468,7 +1467,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$PermissionToWorkWithOthersPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PermissionToWorkWithOthersPage).url)
               ))
           }
         }
@@ -1482,7 +1481,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$PermissionToWorkWithOthersPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PermissionToWorkWithOthersPage).url)
               ))
           }
         }
@@ -1497,7 +1496,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$PermissionToWorkWithOthersPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.PermissionToWorkWithOthersController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PermissionToWorkWithOthersPage).url)
             ))
         }
       }
@@ -1526,7 +1525,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$OwnershipRightsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(OwnershipRightsPage).url)
               ))
           }
         }
@@ -1540,7 +1539,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$OwnershipRightsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(OwnershipRightsPage).url)
               ))
           }
         }
@@ -1555,7 +1554,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$OwnershipRightsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.OwnershipRightsController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(OwnershipRightsPage).url)
             ))
         }
       }
@@ -1584,7 +1583,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$RightsOfWorkPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(RightsOfWorkPage).url)
               ))
           }
         }
@@ -1598,7 +1597,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$RightsOfWorkPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(RightsOfWorkPage).url)
               ))
           }
         }
@@ -1613,7 +1612,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$RightsOfWorkPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.RightsOfWorkController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(RightsOfWorkPage).url)
             ))
         }
       }
@@ -1642,7 +1641,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$TransferOfRightsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(TransferOfRightsPage).url)
               ))
           }
         }
@@ -1656,7 +1655,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$TransferOfRightsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(TransferOfRightsPage).url)
               ))
           }
         }
@@ -1671,7 +1670,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$TransferOfRightsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.TransferOfRightsController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(TransferOfRightsPage).url)
             ))
         }
       }
@@ -1700,7 +1699,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$PreviousContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PreviousContractPage).url)
               ))
           }
         }
@@ -1714,7 +1713,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$PreviousContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PreviousContractPage).url)
               ))
           }
         }
@@ -1729,7 +1728,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$PreviousContractPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.PreviousContractController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(PreviousContractPage).url)
             ))
         }
       }
@@ -1758,7 +1757,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$FollowOnContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FollowOnContractPage).url)
               ))
           }
         }
@@ -1772,7 +1771,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$FollowOnContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FollowOnContractPage).url)
               ))
           }
         }
@@ -1787,7 +1786,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$FollowOnContractPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.FollowOnContractController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FollowOnContractPage).url)
             ))
         }
       }
@@ -1816,7 +1815,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$FirstContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FirstContractPage).url)
               ))
           }
         }
@@ -1830,7 +1829,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$FirstContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FirstContractPage).url)
               ))
           }
         }
@@ -1845,7 +1844,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$FirstContractPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.FirstContractController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FirstContractPage).url)
             ))
         }
       }
@@ -1874,7 +1873,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$ExtendContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(ExtendContractPage).url)
               ))
           }
         }
@@ -1888,7 +1887,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$ExtendContractPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(ExtendContractPage).url)
               ))
           }
         }
@@ -1903,7 +1902,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$ExtendContractPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.ExtendContractController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(ExtendContractPage).url)
             ))
         }
       }
@@ -1932,7 +1931,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$MajorityOfWorkingTimePage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MajorityOfWorkingTimePage).url)
               ))
           }
         }
@@ -1946,7 +1945,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$MajorityOfWorkingTimePage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MajorityOfWorkingTimePage).url)
               ))
           }
         }
@@ -1961,7 +1960,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$MajorityOfWorkingTimePage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MajorityOfWorkingTimePage).url)
             ))
         }
       }
@@ -1990,7 +1989,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$FinanciallyDependentPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage).url)
               ))
           }
         }
@@ -2004,7 +2003,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$FinanciallyDependentPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage).url)
               ))
           }
         }
@@ -2019,7 +2018,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$FinanciallyDependentPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage).url)
             ))
         }
       }
@@ -2048,7 +2047,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Worker.$SimilarWorkOtherClientsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(SimilarWorkOtherClientsPage).url)
               ))
           }
         }
@@ -2062,7 +2061,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
                 label = s"$Hirer.$SimilarWorkOtherClientsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
-                changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(SimilarWorkOtherClientsPage).url)
               ))
           }
         }
@@ -2077,7 +2076,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               label = s"$Worker.$SimilarWorkOtherClientsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
-              changeUrl = Some(booaRoutes.SimilarWorkOtherClientsController.onPageLoad(CheckMode).url)
+              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(SimilarWorkOtherClientsPage).url)
             ))
         }
       }

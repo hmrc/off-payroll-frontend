@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-package navigation
+package pages
 
-import models.{Mode, UserAnswers}
-import pages.Page
-import play.api.mvc.Call
-
-abstract class Navigator extends NavigationHelper {
-
-  def nextPage(page: Page, mode: Mode): UserAnswers => Call
-
+case object BusinessOnOwnAccountSectionChangeWarningPage extends QuestionPage[Boolean] {
+  override def toString: String = "businessOnOwnAccountSectionChangeWarning"
 }

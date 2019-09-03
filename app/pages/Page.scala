@@ -16,6 +16,7 @@
 
 package pages
 
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control._
 import pages.sections.exit._
 import pages.sections.financialRisk._
@@ -70,6 +71,19 @@ object Page {
     CustomisePDFPage.toString -> CustomisePDFPage,
     ResultPage.toString -> ResultPage,
     Timestamp.toString -> Timestamp,
-    AddReferenceDetailsPage.toString -> AddReferenceDetailsPage
+    AddReferenceDetailsPage.toString -> AddReferenceDetailsPage,
+    ExtendContractPage.toString -> ExtendContractPage,
+    FinanciallyDependentPage.toString -> FinanciallyDependentPage,
+    FirstContractPage.toString -> FirstContractPage,
+    FollowOnContractPage.toString -> FollowOnContractPage,
+    MajorityOfWorkingTimePage.toString -> MajorityOfWorkingTimePage,
+    MultipleContractsPage.toString -> MultipleContractsPage,
+    OwnershipRightsPage.toString -> OwnershipRightsPage,
+    PermissionToWorkWithOthersPage.toString -> PermissionToWorkWithOthersPage,
+    PreviousContractPage.toString -> PreviousContractPage,
+    RightsOfWorkPage.toString -> RightsOfWorkPage,
+    SimilarWorkOtherClientsPage.toString -> SimilarWorkOtherClientsPage,
+    TransferOfRightsPage.toString -> TransferOfRightsPage,
+    WorkerKnownPage.toString -> WorkerKnownPage
   )
 }

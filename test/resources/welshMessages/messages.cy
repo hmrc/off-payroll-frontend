@@ -1745,6 +1745,9 @@ result.pdf.decisionVersion.p1 = This version number is used for HMRC internal pu
 personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions
 personalServiceSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions
 
+businessOnOwnAccountSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
+businessOnOwnAccountSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
+
 hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
 hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
 hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:

@@ -20,11 +20,11 @@ import config.FrontendAppConfig
 import config.featureSwitch.OptimisedFlow
 import connectors.DataCacheConnector
 import javax.inject.Inject
-import models._
+import models.{Section, _}
 import models.requests.DataRequest
 import navigation.Navigator
 import pages.sections.exit.OfficeHolderPage
-import pages.{PersonalServiceSectionChangeWarningPage, QuestionPage}
+import pages.{BusinessOnOwnAccountSectionChangeWarningPage, PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.libs.json.{Reads, Writes}
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
 import services.{CompareAnswerService, DecisionService}
@@ -49,34 +49,35 @@ abstract class BaseNavigationController @Inject()(mcc: MessagesControllerCompone
     // If this is the first redirect since the Personal Service warning page was displayed
     // And, it is in CheckMode. And, the Answer has not changed.
     // Then redirect back to CYA
-    val redirectToCYA =
-      request.userAnswers.get(PersonalServiceSectionChangeWarningPage).isDefined &&
-      mode == CheckMode &&
-      currentAnswer.contains(value)
+    val answerUnchanged = mode == CheckMode && currentAnswer.contains(value)
+
+    val personalWarning = request.userAnswers.get(PersonalServiceSectionChangeWarningPage).isDefined
+    val boOAWarning = request.userAnswers.get(BusinessOnOwnAccountSectionChangeWarningPage).isDefined
 
     //Remove the Personal Service warning page viewed flag from the request
-    val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage))
+    val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage).remove(BusinessOnOwnAccountSectionChangeWarningPage))
 
-    if(redirectToCYA) {
-      Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.personalService))))
-    } else {
-      val answers =
-        if(isEnabled(OptimisedFlow)) {
-          compareAnswerService.optimisedConstructAnswers(req,value,page)
-        } else {
-          compareAnswerService.constructAnswers(req,value,page)
-        }
-      dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
-        val call = navigator.nextPage(page, mode)(answers)
-        (callDecisionService, isEnabled(OptimisedFlow)) match {
-          //early exit office holder
-          case _ if page == OfficeHolderPage => decisionService.decide(answers, call)(hc, ec, req)
-          //don't call decision every time, only once at the end (opt flow)
-          case (true, true) => Future.successful(Redirect(call))
-          //if not calling decision, carry on
-          case (false, _) => Future.successful(Redirect(call))
-          //anything else calls decision
-          case _ => decisionService.decide(answers, call)(hc, ec, req)
+    val answers =
+      if (isEnabled(OptimisedFlow)) {
+        compareAnswerService.optimisedConstructAnswers(req, value, page)
+      } else {
+        compareAnswerService.constructAnswers(req, value, page)
+      }
+
+    dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
+      (answerUnchanged, personalWarning, boOAWarning) match {
+        case (true, true, _) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.personalService))))
+        case (true, _, true) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount))))
+        case _ => {
+
+          val call = navigator.nextPage(page, mode)(answers)
+          (callDecisionService, isEnabled(OptimisedFlow), page) match {
+            //early exit office holder
+            case (_, _, OfficeHolderPage) => decisionService.decide(answers, call)(hc, ec, req)
+            //don't call decision every time, only once at the end (opt flow)
+            case (true, false, _) => decisionService.decide(answers, call)(hc, ec, req)
+            case _ => Future.successful(Redirect(call))
+          }
         }
       }
     }

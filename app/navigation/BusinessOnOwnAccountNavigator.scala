@@ -38,82 +38,76 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
       case _ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
     }
 
-  private def workerKnown(userAnswers: UserAnswers): Boolean =
-    (isWorker(userAnswers), userAnswers.getAnswer(WorkerKnownPage), userAnswers.getAnswer(ContractStartedPage)) match {
-      case (true, _, _) => true
-      case (_, Some(true), _) => true
-      case (_, _, Some(true)) => true
-      case _ => false
-    }
+  private def routeMap(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
 
-  private val routeMap:  Map[Page, UserAnswers => Call] = Map(
-
-    WorkerKnownPage -> (_ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)),
+    WorkerKnownPage -> (_ => booaRoutes.MultipleContractsController.onPageLoad(mode)),
 
     MultipleContractsPage -> (answer =>
       answer.getAnswer(MultipleContractsPage) match {
-        case Some(false) => booaRoutes.PermissionToWorkWithOthersController.onPageLoad(NormalMode)
-        case _ => booaRoutes.OwnershipRightsController.onPageLoad(NormalMode)
+        case Some(false) => booaRoutes.PermissionToWorkWithOthersController.onPageLoad(mode)
+        case _ => booaRoutes.OwnershipRightsController.onPageLoad(mode)
       }
     ),
 
-    PermissionToWorkWithOthersPage -> (_ => booaRoutes.OwnershipRightsController.onPageLoad(NormalMode)),
+    PermissionToWorkWithOthersPage -> (_ => booaRoutes.OwnershipRightsController.onPageLoad(mode)),
 
     OwnershipRightsPage -> (answer =>
       (answer.getAnswer(OwnershipRightsPage), workerKnown(answer)) match {
-        case (Some(true), _) => booaRoutes.RightsOfWorkController.onPageLoad(NormalMode)
-        case (_, true) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
-        case _ => booaRoutes.FirstContractController.onPageLoad(NormalMode)
+        case (Some(true), _) => booaRoutes.RightsOfWorkController.onPageLoad(mode)
+        case (_, true) => booaRoutes.PreviousContractController.onPageLoad(mode)
+        case _ => booaRoutes.FirstContractController.onPageLoad(mode)
       }
     ),
 
     RightsOfWorkPage -> (answer =>
       (answer.getAnswer(RightsOfWorkPage), workerKnown(answer)) match {
-        case (Some(false), _) => booaRoutes.TransferOfRightsController.onPageLoad(NormalMode)
-        case (_, true) => booaRoutes.PreviousContractController.onPageLoad(NormalMode)
-        case _ => booaRoutes.FirstContractController.onPageLoad(NormalMode)
+        case (Some(false), _) => booaRoutes.TransferOfRightsController.onPageLoad(mode)
+        case (_, true) => booaRoutes.PreviousContractController.onPageLoad(mode)
+        case _ => booaRoutes.FirstContractController.onPageLoad(mode)
       }
     ),
 
-    TransferOfRightsPage -> (_ => booaRoutes.PreviousContractController.onPageLoad(NormalMode)),
+    TransferOfRightsPage -> (_ => booaRoutes.PreviousContractController.onPageLoad(mode)),
 
     PreviousContractPage -> (answer =>
       answer.getAnswer(PreviousContractPage) match {
-        case Some(true) => booaRoutes.FollowOnContractController.onPageLoad(NormalMode)
-        case _ => booaRoutes.FirstContractController.onPageLoad(NormalMode)
+        case Some(true) => booaRoutes.FollowOnContractController.onPageLoad(mode)
+        case _ => booaRoutes.FirstContractController.onPageLoad(mode)
       }
     ),
 
     FollowOnContractPage -> (answer =>
       answer.getAnswer(FollowOnContractPage) match {
-        case Some(false) => booaRoutes.ExtendContractController.onPageLoad(NormalMode)
-        case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(NormalMode)
+        case Some(false) => booaRoutes.ExtendContractController.onPageLoad(mode)
+        case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(mode)
       }
     ),
 
     FirstContractPage -> (answer =>
       answer.getAnswer(FirstContractPage) match {
-        case Some(false) => booaRoutes.ExtendContractController.onPageLoad(NormalMode)
-        case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(NormalMode)
+        case Some(false) => booaRoutes.ExtendContractController.onPageLoad(mode)
+        case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(mode)
       }
     ),
 
-    ExtendContractPage -> (_ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(NormalMode)),
+    ExtendContractPage -> (_ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(mode)),
 
-    MajorityOfWorkingTimePage -> (_ => booaRoutes.FinanciallyDependentController.onPageLoad(NormalMode)),
+    MajorityOfWorkingTimePage -> (_ => booaRoutes.FinanciallyDependentController.onPageLoad(mode)),
 
     FinanciallyDependentPage -> (answer =>
       workerKnown(answer) match {
-        case true => booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
-        case _ => routes.CheckYourAnswersController.onPageLoad()
+        case true => booaRoutes.SimilarWorkOtherClientsController.onPageLoad(mode)
+        case _ => routeToCheckYourAnswers
       }
     ),
 
-    SimilarWorkOtherClientsPage -> (_ => routes.CheckYourAnswersController.onPageLoad())
+    SimilarWorkOtherClientsPage -> (_ => routeToCheckYourAnswers)
   )
 
-  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
-    case NormalMode => routeMap.getOrElse(page, _ => IndexController.onPageLoad())
-    case CheckMode => _ => CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount))
+  private def routeToCheckYourAnswers(implicit mode: Mode): Call = mode match {
+    case NormalMode => CheckYourAnswersController.onPageLoad(None)
+    case CheckMode => CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount))
   }
+
+  override def nextPage(page: Page, mode: Mode): UserAnswers => Call = routeMap(mode).getOrElse(page, _ => IndexController.onPageLoad())
 }

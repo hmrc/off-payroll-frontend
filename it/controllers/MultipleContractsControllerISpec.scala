@@ -83,10 +83,10 @@ class MultipleContractsControllerISpec extends IntegrationSpecBase with CreateRe
 
     "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/multiple-contracts/change", selectedNo)
+      lazy val res = postSessionRequest("/multiple-contracts/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-        result.status shouldBe CONFLICT
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/permission-to-work-with-others/change")
       }
     }
   }

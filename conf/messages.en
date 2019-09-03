@@ -1732,6 +1732,9 @@ resetAnswersWarning.error.required = You need to select an answer
 personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions
 personalServiceSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions
 
+businessOnOwnAccountSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
+businessOnOwnAccountSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
+
 
 ### Multiple Contracts Page - BoOA
 ### ------------------------------
