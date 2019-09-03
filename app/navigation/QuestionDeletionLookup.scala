@@ -49,7 +49,7 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
       answers.getAnswer(IsWorkForPrivateSectorPage) match {
         case Some(false) => List(TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
         case _ => List.empty
-      }r
+      }
     }),
     TurnoverOverPage -> (_ => List(EmployeesOverPage, BalanceSheetOverPage)),
     EmployeesOverPage -> (_ => List(BalanceSheetOverPage)),
