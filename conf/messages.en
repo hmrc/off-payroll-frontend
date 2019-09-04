@@ -5,6 +5,13 @@ common.standardPageNotFoundErrorMessageContent2 = If you typed the web address
 common.standardPageNotFoundErrorMessageContent3 = Check the address and make sure you typed it correctly.
 common.standardPageNotFoundErrorMessageHeader = Page not found
 
+newPageNotFoundErrorMessage.title = Page not found
+newPageNotFoundErrorMessage.heading = Page not found
+newPageNotFoundErrorMessage.p1 = You should
+newPageNotFoundErrorMessage.link = start
+newPageNotFoundErrorMessage.p2 = the Check Employment Status for Tax tool again.
+newPageNotFoundErrorMessage.p3 = If you do not want to check the employment status of some work, you can exit now.
+
 date.January = January
 date.February = February
 date.March = March
