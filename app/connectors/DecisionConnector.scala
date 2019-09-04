@@ -26,7 +26,6 @@ import models.logging.LogInterview
 import play.api.Logger
 import play.api.libs.json.{Json, Writes}
 import play.mvc.Http.Status._
-import repositories.ParallelRunningRepository
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 import uk.gov.hmrc.play.bootstrap.http.HttpClient
@@ -38,9 +37,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
                                   servicesConfig: ServicesConfig,
                                   conf: FrontendAppConfig,
                                   dateTimeUtil: DateTimeUtil,
-                                  parallelRunningRepository: ParallelRunningRepository,
-                                  timestamp: Timestamp
-                                 ) extends FeatureSwitching {
+                                  timestamp: Timestamp) extends FeatureSwitching {
 
   lazy val baseUrl: String = servicesConfig.baseUrl("cest-decision")
   lazy val decideUrl = s"$baseUrl/cest-decision/decide"

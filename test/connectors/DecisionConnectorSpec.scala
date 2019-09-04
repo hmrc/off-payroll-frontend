@@ -36,7 +36,6 @@ import models._
 import models.logging.LogInterview
 import play.api.libs.json.Json
 import play.mvc.Http.Status
-import repositories.FakeParallelRunningRepository
 
 import scala.concurrent.Future
 
@@ -52,7 +51,7 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
     override def timestamp(time: Option[String]): String = s"01 January 2019, 00:00:00"
   }
 
-  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil, new FakeParallelRunningRepository, FakeTimestamp)
+  object TestDecisionConnector extends DecisionConnector(mockHttp, servicesConfig, frontendAppConfig, MockDateTimeUtil, FakeTimestamp)
 
   val emptyInterviewModel: Interview = Interview(
     "12345"

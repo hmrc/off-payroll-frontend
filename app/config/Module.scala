@@ -19,7 +19,6 @@ package config
 import com.google.inject.AbstractModule
 import connectors._
 import controllers.actions._
-import repositories.{ParallelRunningRepository, ParallelRunningRepositoryImpl}
 import services.{DecisionService, DecisionServiceImpl}
 
 class Module extends AbstractModule {
@@ -36,7 +35,5 @@ class Module extends AbstractModule {
     bind(classOf[DataCacheConnector]).to(classOf[MongoCacheConnector]).asEagerSingleton()
 
     bind(classOf[DecisionService]).to(classOf[DecisionServiceImpl]).asEagerSingleton()
-
-    bind(classOf[ParallelRunningRepository]).to(classOf[ParallelRunningRepositoryImpl]).asEagerSingleton()
   }
 }
