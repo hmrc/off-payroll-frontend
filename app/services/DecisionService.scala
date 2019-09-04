@@ -16,7 +16,7 @@
 
 package services
 
-import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.{DataCacheConnector, DecisionConnector}
 import controllers.routes
@@ -83,22 +83,11 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
   override def decide(userAnswers: UserAnswers, continueResult: Call)
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
-
-    if(isEnabled(CallNewDecisionService) && isEnabled(OptimisedFlow)){
-
-      for {
-        decisionServiceResult <- decisionConnector.decideNew(interview)
-        _ <- logResult(decisionServiceResult,interview)
-        redirect <- redirectResult(interview,continueResult,decisionServiceResult)
-      } yield redirect
-
-    } else {
-      for {
+     for {
         decisionServiceResult <- decisionConnector.decide(interview)
         _ <- logResult(decisionServiceResult,interview)
         redirect <- redirectResult(interview,continueResult,decisionServiceResult)
       } yield redirect
-    }
   }
 
   private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)

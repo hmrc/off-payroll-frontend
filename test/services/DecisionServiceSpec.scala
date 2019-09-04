@@ -18,7 +18,7 @@ package services
 
 import base.{GuiceAppSpecBase, SpecBase}
 import config.SessionKeys
-import config.featureSwitch.{CallNewDecisionService, FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import forms.DeclarationFormProvider
 import handlers.mocks.MockErrorHandler
@@ -769,23 +769,9 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
 
   "Calling the decide service" should {
 
-    "return a continue decision from the new decision service based on the interview" in {
+    "return a continue decision from the decision service based on the interview" in {
 
-      enable(CallNewDecisionService)
       enable(OptimisedFlow)
-
-      mockDecideNew(Interview(userAnswers))(Right(response))
-
-      val result = service.decide(userAnswers, onwardRoute)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
-
-    }
-    "return a continue decision based on the interview" in {
-
-      disable(CallNewDecisionService)
-      disable(OptimisedFlow)
 
       mockDecide(Interview(userAnswers))(Right(response))
 

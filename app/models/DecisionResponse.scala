@@ -42,6 +42,7 @@ object ExitEnum extends Enumeration with EnumFormats {
   val CONTINUE: ExitEnum.Value = Value("CONTINUE")
   val NOT_VALID_USE_CASE: ExitEnum.Value = Value("NotValidUseCase")
   val INSIDE_IR35: ExitEnum.Value = Value("INIR35")
+  val OUTSIDE_IR35: ExitEnum.Value = Value("OUTOFIR35")
   implicit val format: Format[ExitEnum.Value] = enumFormat(ExitEnum)
 }
 

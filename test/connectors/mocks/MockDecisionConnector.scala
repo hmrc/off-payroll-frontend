@@ -17,7 +17,7 @@
 package connectors.mocks
 
 import connectors.DecisionConnector
-import models.{DecisionResponse, ErrorResponse, Interview, NewInterview}
+import models.{DecisionResponse, ErrorResponse, Interview}
 import org.scalamock.scalatest.MockFactory
 import play.api.libs.json.Writes
 import uk.gov.hmrc.http.HeaderCarrier
@@ -28,14 +28,9 @@ trait MockDecisionConnector extends MockFactory {
 
   lazy val mockDecisionConnector = mock[DecisionConnector]
 
+
   def mockDecide(decisionRequest: Interview, writes: Writes[Interview] = Interview.writes)(response: Either[ErrorResponse, DecisionResponse]): Unit = {
     (mockDecisionConnector.decide(_: Interview, _: Writes[Interview])(_: HeaderCarrier, _: ExecutionContext))
-      .expects(decisionRequest, *,  *, *)
-      .returns(Future.successful(response))
-  }
-
-  def mockDecideNew(decisionRequest: Interview, writes: Writes[Interview] = NewInterview.writes)(response: Either[ErrorResponse, DecisionResponse]): Unit = {
-    (mockDecisionConnector.decideNew(_: Interview, _: Writes[Interview])(_: HeaderCarrier, _: ExecutionContext))
       .expects(decisionRequest, *,  *, *)
       .returns(Future.successful(response))
   }
