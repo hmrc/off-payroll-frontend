@@ -205,43 +205,6 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
       clientResponse mustBe response
     }
 
-
-    "return a decision based on the personal service section (writesPersonalService)" in {
-      val response = Right(DecisionResponse("1.0.0-beta", "12345",
-        Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
-        UNKNOWN
-      ))
-
-      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
-
-      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writes))
-      clientResponse mustBe response
-    }
-
-    "return a decision based on the control section (Interview.writesControl)"  in {
-      val response = Right(DecisionResponse("1.0.0-beta", "12345",
-        Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
-        UNKNOWN
-      ))
-
-      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
-
-      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writes))
-      clientResponse mustBe response
-    }
-
-    "return a decision based on the financial risk section (Interview.writesFinancialRisk)"  in {
-      val response = Right(DecisionResponse("1.0.0-beta", "12345",
-        Score(None, None, Some(HIGH),Some(LOW),Some(LOW),Some(LOW)),
-        UNKNOWN
-      ))
-
-      setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
-
-      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writes))
-      clientResponse mustBe response
-    }
-
     "return an error if a bad request is returned" in  {
       val fail = Left(ErrorResponse(400, "Unexpected Response returned from decision API"))
       setupMockHttpPost(TestDecisionConnector.decideUrl, emptyInterviewModel)(Future.successful(fail))

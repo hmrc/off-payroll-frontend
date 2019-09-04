@@ -150,9 +150,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-//        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
-//        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
-//        mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
         mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
         mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
@@ -165,11 +162,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
       "decision log returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-//        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-//        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-//        mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
         mockDecide(Interview(userAnswers))(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Left(ErrorResponse(500, "ma name Jeff")))
+        mockLog(Interview(userAnswers),DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35))(Left(ErrorResponse(500, "Err")))
 
         whenReady(service.collateDecisions) { res =>
           res.right.get.result mustBe ResultEnum.INSIDE_IR35
@@ -195,7 +189,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "Err")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -205,8 +199,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
       "control decision call returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-//        mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "Err")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -216,9 +209,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
       "financial risk decision call returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-//        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-//        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "Err")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -229,10 +220,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
       "whole decision call returns a Left" in {
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-//        mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-//        mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-//        mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
-        mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "ma name Jeff")))
+        mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "Err")))
 
         whenReady(service.collateDecisions) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -259,9 +247,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-//              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
@@ -284,9 +269,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
@@ -308,9 +290,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
@@ -335,9 +314,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-//              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
@@ -359,9 +335,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35))(Right(true))
 
@@ -383,9 +356,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//              mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//              mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.EMPLOYED))(Right(true))
 
@@ -410,9 +380,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-//            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//            mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
@@ -433,9 +400,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//            mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
@@ -456,9 +420,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//            mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//            mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//            mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
             mockLog(Interview(userAnswers), DecisionResponse("", "", Score(), ResultEnum.UNKNOWN))(Right(true))
 
@@ -481,15 +442,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-//            mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(
-//              Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
-//            mockDecideNew(Interview(userAnswers), Interview.writesControl)(
-//              Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
-//            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
-//              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
 
             mockDecide(Interview(userAnswers), Interview.writes)(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
@@ -524,15 +476,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//            mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(
-//              Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
-//            mockDecideNew(Interview(userAnswers), Interview.writesControl)(
-//              Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
-//            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
-//              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
@@ -565,15 +508,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-//            mockDecideNew(Interview(userAnswers), Interview.writesPersonalService)(
-//              Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
-//            mockDecideNew(Interview(userAnswers), Interview.writesControl)(
-//              Right(DecisionResponse("", "", Score(control = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
-//            mockDecideNew(Interview(userAnswers), Interview.writesFinancialRisk)(
-//              Right(DecisionResponse("", "", Score(financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35))
-//            )
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
@@ -605,9 +539,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
           implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-//          mockDecide(Interview(userAnswers), Interview.writesPersonalService)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//          mockDecide(Interview(userAnswers), Interview.writesControl)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
-//          mockDecide(Interview(userAnswers), Interview.writesFinancialRisk)(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
           mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
           mockInternalServerError(Html("Err"))
 
