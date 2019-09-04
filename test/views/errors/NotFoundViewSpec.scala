@@ -16,38 +16,50 @@
 
 package views.errors
 
-import assets.messages.AddDetailsMessages
+import assets.messages.{NotFoundMessages}
 import views.behaviours.ViewBehaviours
 import views.html.errors.FourOhFourView
 
-class FourOhFourViewSpec extends ViewBehaviours {
+class NotFoundViewSpec extends ViewBehaviours {
 
   val view = injector.instanceOf[FourOhFourView]
 
   object Selectors extends BaseCSSSelectors{
-    val link = "#value > p:nth-child(3) > a"
+    val link = "#content > article > p:nth-child(2) > a"
+    val p1 = "#content > article > p:nth-child(2)"
+    val p2 = "#content > article > p:nth-child(3)"
   }
 
   def createView = () => view(frontendAppConfig)(fakeRequest, messages)
 
   "FourOhFour view" must {
 
-    behave like normalPage(createView, "fourOhFour", hasSubheading = false)
+    behave like normalPage(createView, "newPageNotFoundErrorMessage", hasSubheading = false)
 
     lazy val document = asDocument(createView())
 
     "have the correct title" in {
-      document.title mustBe title(AddDetailsMessages.title)
+      document.title mustBe title(NotFoundMessages.title)
     }
 
     "have the correct heading" in {
-      document.title mustBe title(AddDetailsMessages.heading)
+      document.title mustBe title(NotFoundMessages.heading)
+    }
+
+    "have the correct p1" in {
+      document.select(Selectors.p1).text mustBe NotFoundMessages.p1
     }
 
 
     "have the correct start again href" in {
       document.select(Selectors.link).attr("href") mustBe "/check-employment-status-for-tax/redirect-to-disclaimer"
     }
+
+    "have the correct p2" in {
+      document.select(Selectors.p2).text mustBe NotFoundMessages.p2
+    }
+
+
   }
 
 

@@ -16,22 +16,24 @@
 
 package controllers.errors
 
-
-import config.FrontendAppConfig
-import javax.inject.{Inject, Singleton}
-import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import controllers.ControllerSpecBase
+import play.api.test.Helpers._
 import views.html.errors.FourOhFourView
 
+class NotFoundControllerSpec extends ControllerSpecBase {
 
-@Singleton
-class FourOhFourController @Inject()(val appConfig: FrontendAppConfig,
-                                       controllerComponents: MessagesControllerComponents,
-                                       view: FourOhFourView
-                                      ) extends FrontendController(controllerComponents) with I18nSupport {
+  val view = injector.instanceOf[FourOhFourView]
 
-  def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(view(appConfig))
+  "Not Found Controller" must {
+
+    lazy val result = new FourOhFourController(frontendAppConfig, messagesControllerComponents, view).onPageLoad()(fakeRequest)
+
+    "return 200 for a GET" in {
+      status(result) mustBe OK
+    }
+
+    "return the correct view for a GET" in {
+      contentAsString(result) mustBe view(frontendAppConfig)(fakeRequest, messages).toString
+    }
   }
 }

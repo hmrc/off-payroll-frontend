@@ -12,7 +12,7 @@ POST       /service-reset                               controllers.errors.Sessi
 
 GET        /unauthorised                                controllers.errors.UnauthorisedController.onPageLoad
 
-GET        /four-oh-four                                controllers.errors.FourOhFourController.onPageLoad
+GET        /not-found                                    controllers.errors.NotFoundController.onPageLoad
 
 GET        /exit-survey                                 controllers.ExitSurveyController.redirectToExitSurvey
 

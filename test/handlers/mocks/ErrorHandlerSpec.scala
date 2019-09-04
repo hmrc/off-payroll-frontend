@@ -20,12 +20,13 @@ import controllers.ControllerSpecBase
 import handlers.ErrorHandler
 import play.api.http.Status
 import play.api.test.Helpers._
+import views.html.errors.FourOhFourView
 import views.html.templates.ErrorTemplate
 
 class ErrorHandlerSpec extends ControllerSpecBase {
 
 
-  object TestErrorHandler extends ErrorHandler(frontendAppConfig, messagesApi, app.injector.instanceOf[ErrorTemplate])
+  object TestErrorHandler extends ErrorHandler(frontendAppConfig, messagesApi, app.injector.instanceOf[ErrorTemplate], app.injector.instanceOf[FourOhFourView])
 
   "ErrorHandler" must {
 
