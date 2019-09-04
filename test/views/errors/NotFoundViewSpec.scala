@@ -16,13 +16,13 @@
 
 package views.errors
 
-import assets.messages.{NotFoundMessages}
+import assets.messages.NotFoundMessages
 import views.behaviours.ViewBehaviours
-import views.html.errors.FourOhFourView
+import views.html.errors.NotFoundView
 
 class NotFoundViewSpec extends ViewBehaviours {
 
-  val view = injector.instanceOf[FourOhFourView]
+  val view = injector.instanceOf[NotFoundView]
 
   object Selectors extends BaseCSSSelectors{
     val link = "#content > article > p:nth-child(2) > a"
@@ -32,7 +32,7 @@ class NotFoundViewSpec extends ViewBehaviours {
 
   def createView = () => view(frontendAppConfig)(fakeRequest, messages)
 
-  "FourOhFour view" must {
+  "notfound view" must {
 
     behave like normalPage(createView, "newPageNotFoundErrorMessage", hasSubheading = false)
 
