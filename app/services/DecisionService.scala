@@ -84,7 +84,7 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
                      (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: DataRequest[_]): Future[Result] = {
     val interview = Interview(userAnswers)
      for {
-        decisionServiceResult <- decisionConnector.decideNew(interview)
+        decisionServiceResult <- decisionConnector.decide(interview)
         _ <- logResult(decisionServiceResult,interview)
         redirect <- redirectResult(interview,continueResult,decisionServiceResult)
       } yield redirect

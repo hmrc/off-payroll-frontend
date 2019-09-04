@@ -214,7 +214,7 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
 
       setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
 
-      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writesPersonalService))
+      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writes))
       clientResponse mustBe response
     }
 
@@ -226,7 +226,7 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
 
       setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
 
-      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writesControl))
+      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writes))
       clientResponse mustBe response
     }
 
@@ -238,7 +238,7 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
 
       setupMockHttpPost(TestDecisionConnector.decideUrl, interviewModel)(Future.successful(response))
 
-      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writesFinancialRisk))
+      val clientResponse = await(TestDecisionConnector.decide(interviewModel,Interview.writes))
       clientResponse mustBe response
     }
 

@@ -54,27 +54,6 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
       Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ${ex.getMessage}"))
   }
 
-  def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)
-            (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-
-    Logger.debug(s"[DecisionConnector][decide] url: $decideUrl")
-    Logger.debug(s"[DecisionConnector][decide] body: ${Json.toJson(decisionRequest)(writer)}")
-
-    val response = httpClient.POST(decideUrl, decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
-
-    implicit val appConf: FrontendAppConfig = conf
-    implicit val interview = decisionRequest
-
-    if (!isEnabled(OptimisedFlow)) {
-      for {
-        oldResponse <- response
-        newResponse <- decideNew(decisionRequest)
-      } yield calculateDifferences(oldResponse, newResponse)
-    }
-
-    response
-  }
-
   def calculateDifferences(oldResponse: Either[ErrorResponse, DecisionResponse],
                            newResponse: Either[ErrorResponse, DecisionResponse])
                           (implicit hc: HeaderCarrier, ec: ExecutionContext, decisionRequest: Interview): Future[ParallelRunningModel] = {
@@ -105,7 +84,7 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
               identicalResult: Boolean = false)(implicit decisionRequest: Interview): ParallelRunningModel = {
 
     val oldRequest = Json.toJson(decisionRequest)(Interview.writes)
-    val newRequest = Json.toJson(decisionRequest)(NewInterview.writes)
+    val newRequest = Json.toJson(decisionRequest)(Interview.writes)
 
     if (!identicalResult) {
       Logger.error("[DecisionConnector] The new decision result did not match the old decision result:\n\n" +
@@ -130,9 +109,9 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
     )
   }
 
-  def decideNew(decisionRequest: Interview, writer: Writes[Interview] = NewInterview.writes)
+  def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
-    Logger.debug(s"[DecisionConnector][decideNew] ${Json.toJson(decisionRequest)(writer)}")
+    Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(writer)}")
 
     httpClient.POST(s"$decideUrl", decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
   }

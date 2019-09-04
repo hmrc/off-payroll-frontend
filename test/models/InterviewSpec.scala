@@ -584,9 +584,9 @@ class InterviewSpec extends GuiceAppSpecBase {
 
     "serialise to JSON correctly" when {
 
-      "the maximum model is supplied with the new writes" in {
+      "the maximum model is supplied with the writes" in {
 
-        implicit val writes: Writes[Interview] = NewInterview.writes
+        implicit val writes: Writes[Interview] = Interview.writes
 
         val model = Interview(
           correlationId = "id",
@@ -667,92 +667,10 @@ class InterviewSpec extends GuiceAppSpecBase {
         actual mustBe expected
       }
 
-      "the maximum model is supplied" in {
 
-        val model = Interview(
-          correlationId = "id",
-          endUserRole = Some(UserType.Worker),
-          hasContractStarted = Some(true),
-          provideServices = Some(SoleTrader),
-          officeHolder = Some(false),
-          workerSentActualSubstitute = Some(YesClientAgreed),
-          workerPayActualSubstitute = Some(false),
-          possibleSubstituteRejection = Some(false),
-          possibleSubstituteWorkerPay = Some(true),
-          wouldWorkerPayHelper = Some(false),
-          engagerMovingWorker = Some(CanMoveWorkerWithPermission),
-          workerDecidingHowWorkIsDone = Some(WorkerFollowStrictEmployeeProcedures),
-          whenWorkHasToBeDone = Some(WorkerAgreeSchedule),
-          workerDecideWhere = Some(WorkerAgreeWithOthers),
-          workerProvidedMaterials = Some(false),
-          workerProvidedEquipment = Some(false),
-          workerUsedVehicle = Some(true),
-          workerHadOtherExpenses = Some(true),
-          expensesAreNotRelevantForRole = Some(false),
-          workerMainIncome = Some(Commission),
-          paidForSubstandardWork = Some(CannotBeCorrected),
-          workerReceivesBenefits = Some(false),
-          workerAsLineManager = Some(false),
-          contactWithEngagerCustomer = Some(false),
-          workerRepresentsEngagerBusiness = Some(WorkAsIndependent),
-          exclusiveContract = Some(AbleToProvideServices),
-          transferRights = Some(AbleToTransferRights),
-          multipleEngagements = Some(NoKnowledgeOfExternalActivity),
-          significantWorkingTime = Some(true),
-          seriesOfContracts = Some(ContractCouldBeExtended)
-        )
+      "the maximum model is supplied with writes" in {
 
-        val expected = Json.obj(
-          "version" -> "1.5.0-final",
-          "correlationID" -> "id",
-          "interview" -> Json.obj(
-            "setup" -> Json.obj(
-              "endUserRole" -> "personDoingWork",
-              "hasContractStarted" -> "Yes",
-              "provideServices" -> "soleTrader"
-            ),
-            "exit" -> Json.obj(
-              "officeHolder" -> "No"
-            ),
-            "personalService" -> Json.obj(
-              "workerSentActualSubstitute" -> "yesClientAgreed",
-              "workerPayActualSubstitute" -> "No",
-              "possibleSubstituteRejection" -> "wouldNotReject",
-              "possibleSubstituteWorkerPay" -> "Yes",
-              "wouldWorkerPayHelper" -> "No"
-            ),
-            "control" -> Json.obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
-            ),
-            "financialRisk" -> Json.obj(
-              "workerProvidedMaterials" -> "No",
-              "workerProvidedEquipment" -> "No",
-              "workerUsedVehicle" -> "Yes",
-              "workerHadOtherExpenses" -> "Yes",
-              "expensesAreNotRelevantForRole" -> "No",
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
-            ),
-            "partAndParcel" -> Json.obj(
-              "workerReceivesBenefits" -> "No",
-              "workerAsLineManager" -> "No",
-              "contactWithEngagerCustomer" -> "No",
-              "workerRepresentsEngagerBusiness" -> "workAsIndependent"
-            )
-          )
-        )
-
-        val actual = Json.toJson(model)
-
-        actual mustBe expected
-      }
-
-      "the maximum model is supplied with new writes" in {
-
-        implicit val writes: Writes[Interview] = NewInterview.writes
+        implicit val writes: Writes[Interview] = Interview.writes
 
         val model = Interview(
           correlationId = "id",
@@ -844,7 +762,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
       "the minimum model is supplied" in {
 
-        implicit val writes: Writes[Interview] = NewInterview.writes
+        implicit val writes: Writes[Interview] = Interview.writes
 
         val model = Interview("id")
 

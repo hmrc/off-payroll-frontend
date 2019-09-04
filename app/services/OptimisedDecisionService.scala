@@ -68,7 +68,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   private[services] def collateDecisions(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
     val interview = Interview(request.userAnswers)
 
-    decisionConnector.decideNew(interview).flatMap {
+    decisionConnector.decide(interview).flatMap {
 
       case Right(decision) => logResult(decision, interview).map(_ => Right(decision))
       case Left(err) => Future.successful(Left(err))
