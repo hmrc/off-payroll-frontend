@@ -40,8 +40,12 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
 
   private def routeMap(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
 
-    WorkerKnownPage -> (_ => booaRoutes.MultipleContractsController.onPageLoad(mode)),
-
+    WorkerKnownPage -> (answer =>
+      answer.getAnswer(WorkerKnownPage) match {
+        case Some(false) => routeToCheckYourAnswers
+        case _ => booaRoutes.MultipleContractsController.onPageLoad(mode)
+      }
+    ),
     MultipleContractsPage -> (answer =>
       answer.getAnswer(MultipleContractsPage) match {
         case Some(false) => booaRoutes.PermissionToWorkWithOthersController.onPageLoad(mode)

@@ -107,7 +107,10 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
     //BoOA Section
     WorkerKnownPage -> (
       answers => workerKnown(answers) match {
-        case false => List(PreviousContractPage, SimilarWorkOtherClientsPage)
+        case false => List(
+          MultipleContractsPage, OwnershipRightsPage, RightsOfWorkPage, PreviousContractPage,
+          FollowOnContractPage, FirstContractPage, SimilarWorkOtherClientsPage, ExtendContractPage,
+          FinanciallyDependentPage, MajorityOfWorkingTimePage, PermissionToWorkWithOthersPage, TransferOfRightsPage)
         case _ => List.empty
       }
     ),
