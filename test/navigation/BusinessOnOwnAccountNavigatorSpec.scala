@@ -36,15 +36,15 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
   "BusinessOnOwnAccountNavigator" must {
 
-    "go from the WorkerKnownPage to the MultipleContractsPage if workerKnown is not answered" in {
-      nextPage(WorkerKnownPage) mustBe booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
+    "go from the WorkerKnownPage to the WorkerKnownPage if workerKnown is not answered somehow" in {
+      nextPage(WorkerKnownPage) mustBe booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
     }
 
     "go from the WorkerKnownPage to the MultipleContractsPage if workerKnown is answered Yes" in {
       nextPage(WorkerKnownPage,userAnswers = emptyUserAnswers.set(WorkerKnownPage,true)) mustBe booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
     }
 
-    "go from the WorkerKnownPage to the CheckYourAnswersPage if workerKnown is answered No" in {
+    "go from the WorkerKnownPage to the CYA page if workerKnown is answered No" in {
       nextPage(WorkerKnownPage,userAnswers = emptyUserAnswers.set(WorkerKnownPage,false)) mustBe routes.CheckYourAnswersController.onPageLoad(None)
     }
 

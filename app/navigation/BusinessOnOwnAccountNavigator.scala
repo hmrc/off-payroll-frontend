@@ -43,7 +43,8 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
     WorkerKnownPage -> (answer =>
       answer.getAnswer(WorkerKnownPage) match {
         case Some(false) => routeToCheckYourAnswers
-        case _ => booaRoutes.MultipleContractsController.onPageLoad(mode)
+        case Some(true) => booaRoutes.MultipleContractsController.onPageLoad(mode)
+        case None => booaRoutes.WorkerKnownController.onPageLoad(mode)
       }
     ),
     MultipleContractsPage -> (answer =>
