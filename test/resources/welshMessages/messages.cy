@@ -1474,8 +1474,8 @@ optimised.result.download.p2 = HMRC will not keep a record of this result.
 ##TODO: Need Welsh
 worker.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
 worker.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
-worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are employed for tax purposes.
-worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are employed for tax purposes for this work.
+worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
 
 ##TODO: Need Welsh
 hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this job
