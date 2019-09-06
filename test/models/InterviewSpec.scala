@@ -22,18 +22,22 @@ import models.AboutYouAnswer.Worker
 import models.ArrangedSubstitute.YesClientAgreed
 import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
 import models.ChooseWhereWork.WorkerAgreeWithOthers
-import models.ExclusiveContract.AbleToProvideServices
+import models.ExclusiveContract.{AbleToProvideServices, UnableToProvideServices}
 import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
 import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
-import models.MultipleEngagements.NoKnowledgeOfExternalActivity
+import models.MultipleEngagements.{NoKnowledgeOfExternalActivity, OnlyContractForPeriod, ProvidedServicesToOtherEngagers}
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.SeriesOfContracts.ContractCouldBeExtended
-import models.TransferRights.AbleToTransferRights
+import models.SeriesOfContracts.{ContractCouldBeExtended, ContractIsPartOfASeries, StandAloneContract}
+import models.SignificantWorkingTime.{ConsumesSignificantAmount, MoneyButNotTime, NoSignificantAmount, TimeButNotMoney}
+import models.TransferRights.{AbleToTransferRights, NoRightsArise, RetainOwnershipRights, RightsTransferredToClient}
 import models.WorkerType.{LimitedCompany, SoleTrader}
+import models.ExclusiveContract._
 import models.requests.DataRequest
+import pages.{FollowOnContractPage, MajorityOfWorkingTimePage, MultipleContractsPage, PermissionToWorkWithOthersPage, PreviousContractPage, RightsOfWorkPage, SimilarWorkOtherClientsPage, TransferOfRightsPage}
+import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
@@ -504,6 +508,381 @@ class InterviewSpec extends GuiceAppSpecBase {
           actual mustBe expected
 
         }
+
+        "BoOA section" when {
+
+          "ExclusiveContract answer" when {
+
+            "MultipleContractsPage is answered yes" must {
+
+              "be UnableToProvideServices" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(MultipleContractsPage, 23, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  exclusiveContract = Some(UnableToProvideServices)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "MultipleContractsPage is false and PermissionToWorkWithOthersPage is true" must {
+
+              "be AbleToProvideServicesWithPermission" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(MultipleContractsPage, 23, false)
+                  .set(PermissionToWorkWithOthersPage, 24, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  exclusiveContract = Some(AbleToProvideServicesWithPermission)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "MultipleContractsPage is false and PermissionToWorkWithOthersPage is false" must {
+
+              "be AbleToProvideServices" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(MultipleContractsPage, 1, false)
+                  .set(PermissionToWorkWithOthersPage, 2, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  exclusiveContract = Some(AbleToProvideServices)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+          }
+
+          "TransferRights answer" when {
+
+            "OwnershipRightsPage is false" must {
+
+              "be NoRightsArise" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(OwnershipRightsPage, 1, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  transferRights = Some(NoRightsArise)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "OwnershipRightsPage is true and RightsOfWorkPage is true" must {
+
+              "be RightsTransferredToClient" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(OwnershipRightsPage, 1, true)
+                  .set(RightsOfWorkPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  transferRights = Some(RightsTransferredToClient)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "OwnershipRightsPage is true, RightsOfWorkPage is false and TransferOfRightsPage is false" must {
+
+              "be RetainOwnershipRights" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(OwnershipRightsPage, 1, true)
+                  .set(RightsOfWorkPage, 2, false)
+                  .set(TransferOfRightsPage, 2, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  transferRights = Some(RetainOwnershipRights)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "OwnershipRightsPage is true, RightsOfWorkPage is false and TransferOfRightsPage is true" must {
+
+              "be RetainOwnershipRights" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(OwnershipRightsPage, 1, true)
+                  .set(RightsOfWorkPage, 2, false)
+                  .set(TransferOfRightsPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  transferRights = Some(AbleToTransferRights)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+          }
+
+          "MultipleEngagements answer" when {
+
+            "SimilarWorkOtherClientsPage is true" must {
+
+              "be NoRightsArise" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(SimilarWorkOtherClientsPage, 1, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  multipleEngagements = Some(OnlyContractForPeriod)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "SimilarWorkOtherClientsPage is false" must {
+
+              "be NoRightsArise" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(SimilarWorkOtherClientsPage, 1, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  multipleEngagements = Some(ProvidedServicesToOtherEngagers)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+          }
+
+          "SignificantWorkingTime answer" when {
+
+            "MajorityOfWorkingTimePage is true and FinanciallyDependentPage is true" must {
+
+              "be ConsumesSignificantAmount" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(MajorityOfWorkingTimePage, 1, true)
+                  .set(FinanciallyDependentPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  significantWorkingTime = Some(ConsumesSignificantAmount)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "MajorityOfWorkingTimePage is false and FinanciallyDependentPage is false" must {
+
+              "be NoSignificantAmount" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(MajorityOfWorkingTimePage, 1, false)
+                  .set(FinanciallyDependentPage, 2, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  significantWorkingTime = Some(NoSignificantAmount)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "MajorityOfWorkingTimePage is true and FinanciallyDependentPage is false" must {
+
+              "be TimeButNotMoney" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(MajorityOfWorkingTimePage, 1, true)
+                  .set(FinanciallyDependentPage, 2, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  significantWorkingTime = Some(TimeButNotMoney)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "MajorityOfWorkingTimePage is false and FinanciallyDependentPage is true" must {
+
+              "be MoneyButNotTime" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(MajorityOfWorkingTimePage, 1, false)
+                  .set(FinanciallyDependentPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  significantWorkingTime = Some(MoneyButNotTime)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+          }
+
+          "SeriesOfContracts answer" when {
+
+            "PreviousContractPage is true and FollowOnContractPage is true" must {
+
+              "be ContractIsPartOfASeries" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(PreviousContractPage, 1, true)
+                  .set(FollowOnContractPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  seriesOfContracts = Some(ContractIsPartOfASeries)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "PreviousContractPage is false and FirstContractPage is true" must {
+
+              "be ContractCouldBeExtended" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(PreviousContractPage, 1, false)
+                  .set(FirstContractPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  seriesOfContracts = Some(ContractCouldBeExtended)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "PreviousContractPage is false, FirstContractPage is false and ExtendContractPage is false" must {
+
+              "be StandAloneContract" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(PreviousContractPage, 1, false)
+                  .set(FirstContractPage, 2, false)
+                  .set(ExtendContractPage, 2, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  seriesOfContracts = Some(StandAloneContract)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "PreviousContractPage is false, FirstContractPage is false and ExtendContractPage is true" must {
+
+              "be ContractIsPartOfASeries" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(PreviousContractPage, 1, false)
+                  .set(FirstContractPage, 2, false)
+                  .set(ExtendContractPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  seriesOfContracts = Some(ContractCouldBeExtended)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+          }
+        }
       }
 
       "OptimisedFlow is disabled" when {
@@ -701,7 +1080,7 @@ class InterviewSpec extends GuiceAppSpecBase {
           exclusiveContract = Some(AbleToProvideServices),
           transferRights = Some(AbleToTransferRights),
           multipleEngagements = Some(NoKnowledgeOfExternalActivity),
-          significantWorkingTime = Some(true),
+          significantWorkingTime = Some(ConsumesSignificantAmount),
           seriesOfContracts = Some(ContractCouldBeExtended)
         )
 
@@ -749,7 +1128,7 @@ class InterviewSpec extends GuiceAppSpecBase {
               "exclusiveContract" -> "ableToProvideServices",
               "transferRights" -> "ableToTransferRights",
               "multipleEngagements" -> "noKnowledgeOfExternalActivity",
-              "significantWorkingTime" -> true,
+              "significantWorkingTime" -> "consumesSignificantAmount",
               "seriesOfContracts" -> "contractCouldBeExtended"
             )
           )
