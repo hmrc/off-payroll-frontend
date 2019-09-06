@@ -19,16 +19,16 @@ package assets.messages
 object EquipmentExpensesMessages extends BaseMessages {
 
   object Hirer {
-    val error = "Select yes if the worker will incur equipment costs that your organisation will not pay for"
-    val title = "Will the worker incur equipment costs that your organisation will not pay for?"
+    val error = "Select yes if the worker will have equipment costs that your organisation will not pay for"
+    val title = "Will the worker have equipment costs that your organisation will not pay for?"
     val heading = title
-    val p1 = "This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones."
+    val p1 = "This can include heavy machinery or high-cost specialist equipment used for this work, but does not include laptops, tablets and phones."
   }
 
   object Worker {
-    val error = "Select yes if you will incur equipment costs that your client will not pay for"
-    val title = "Will you incur equipment costs that your client will not pay for?"
+    val error = "Select yes if you will have equipment costs that your client will not pay for"
+    val title = "Will you have equipment costs that your client will not pay for?"
     val heading = title
-    val p1 = "This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones."
+    val p1 = "This can include heavy machinery or high-cost specialist equipment used for this work, but does not include laptops, tablets and phones."
   }
 }

@@ -42,7 +42,7 @@ object HowWorkIsDoneMessages extends BaseMessages {
     val error = "Select if your client will decide how the work is done"
     val heading = "Will your client decide how the work is done?"
     val title = heading
-    val p1 = "This would be the case if your client directs you in the way the task should be completed by instructing, guiding or advising."
+    val p1 = "This can include your client instructing, guiding or advising the way the task should be completed."
     val yesClientDecides = "Yes"
     val noWorkerDecides = "No, you solely decide"
     val partly = "No, you and your client agree together"

@@ -870,7 +870,7 @@ agency.optimised.howWorkIsDone.error.invalid = Select if your client will decide
 worker.optimised.howWorkIsDone.title = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
-worker.optimised.howWorkIsDone.p1 = This would be the case if your client directs you in the way the task should be completed by instructing, guiding or advising.
+worker.optimised.howWorkIsDone.p1 = This can include your client instructing, guiding or advising the way the task should be completed.
 worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
@@ -1680,72 +1680,72 @@ finishedChecking.downloadAnswers = Download your answers and result (PDF, under 
 
 
 ##TODO: Need Welsh
-hirer.materials.error.required = Select yes if the worker will incur costs for materials that your organisation will not pay for
-hirer.materials.title = Will the worker incur costs for materials that your organisation will not pay for?
+hirer.materials.error.required = Select yes if the worker will have costs for materials that your organisation will not pay for
+hirer.materials.title = Will the worker have costs for materials that your organisation will not pay for?
 hirer.materials.subheading = Worker’s financial risk
-hirer.materials.heading = Will the worker incur costs for materials that your organisation will not pay for?
-hirer.materials.checkYourAnswersLabel = Will the worker incur costs for materials that your organisation will not pay for?
+hirer.materials.heading = Will the worker have costs for materials that your organisation will not pay for?
+hirer.materials.checkYourAnswersLabel = Will the worker have costs for materials that your organisation will not pay for?
 hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
 hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
 
-worker.materials.error.required = Select yes if you will incur costs for materials that your client will not pay for
-agency.materials.error.required = Select yes if you will incur costs for materials that your client will not pay for
-worker.materials.title = Will you incur costs for materials that your client will not pay for?
+worker.materials.error.required = Select yes if you will have costs for materials that your client will not pay for
+agency.materials.error.required = Select yes if you will have costs for materials that your client will not pay for
+worker.materials.title = Will you have costs for materials that your client will not pay for?
 worker.materials.subheading = Worker’s financial risk
-worker.materials.heading = Will you incur costs for materials that your client will not pay for?
-worker.materials.checkYourAnswersLabel = Will you incur costs for materials that your client will not pay for?
+worker.materials.heading = Will you have costs for materials that your client will not pay for?
+worker.materials.checkYourAnswersLabel = Will you have costs for materials that your client will not pay for?
 worker.materials.p1 = This can include items that form a lasting part of the work, or are left behind when you leave. Stationery is not included.
 worker.materials.p2 = This question is most likely to be relevant to the construction industry.
 
 
 ##TODO: Need Welsh
-hirer.vehicle.error.required = Select yes if the worker will incur costs for a vehicle that your organisation will not pay for
-hirer.vehicle.title = Will the worker incur costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.error.required = Select yes if the worker will have costs for a vehicle that your organisation will not pay for
+hirer.vehicle.title = Will the worker have costs for a vehicle that your organisation will not pay for?
 hirer.vehicle.subheading = Worker’s financial risk
-hirer.vehicle.heading = Will the worker incur costs for a vehicle that your organisation will not pay for?
-hirer.vehicle.checkYourAnswersLabel = Will the worker incur costs for a vehicle that your organisation will not pay for?
-hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+hirer.vehicle.heading = Will the worker have costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.checkYourAnswersLabel = Will the worker have costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs for this work, but does not include commuting costs.
 
-worker.vehicle.error.required = Select yes if you will incur costs for a vehicle that your client will not pay for
-agency.vehicle.error.required = Select yes if you will incur costs for a vehicle that your client will not pay for
-worker.vehicle.title = Will you incur costs for a vehicle that your client will not pay for?
+worker.vehicle.error.required = Select yes if you will have costs for a vehicle that your client will not pay for
+agency.vehicle.error.required = Select yes if you will have costs for a vehicle that your client will not pay for
+worker.vehicle.title = Will you have costs for a vehicle that your client will not pay for?
 worker.vehicle.subheading = Worker’s financial risk
-worker.vehicle.heading = Will you incur costs for a vehicle that your client will not pay for?
-worker.vehicle.checkYourAnswersLabel = Will you incur costs for a vehicle that your client will not pay for?
-worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs.
+worker.vehicle.heading = Will you have costs for a vehicle that your client will not pay for?
+worker.vehicle.checkYourAnswersLabel = Will you have costs for a vehicle that your client will not pay for?
+worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs for this work, but does not include commuting costs.
 
 
 ##TODO: Need Welsh
-hirer.otherExpenses.error.required = Select yes if the worker will incur any other costs that your organisation will not pay for
-hirer.otherExpenses.title = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.error.required = Select yes if the worker will have any other costs that your organisation will not pay for
+hirer.otherExpenses.title = Will the worker have any other costs that your organisation will not pay for?
 hirer.otherExpenses.subheading = Worker’s financial risk
-hirer.otherExpenses.heading = Will the worker incur any other costs that your organisation will not pay for?
-hirer.otherExpenses.checkYourAnswersLabel = Will the worker incur any other costs that your organisation will not pay for?
+hirer.otherExpenses.heading = Will the worker have any other costs that your organisation will not pay for?
+hirer.otherExpenses.checkYourAnswersLabel = Will the worker have any other costs that your organisation will not pay for?
 hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
 
-worker.otherExpenses.error.required = Select yes if you will incur any other costs that your client will not pay for
-agency.otherExpenses.error.required = Select yes if you will incur any other costs that your client will not pay for
-worker.otherExpenses.title = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.error.required = Select yes if you will have any other costs that your client will not pay for
+agency.otherExpenses.error.required = Select yes if you will have any other costs that your client will not pay for
+worker.otherExpenses.title = Will you have any other costs that your client will not pay for?
 worker.otherExpenses.subheading = Worker’s financial risk
-worker.otherExpenses.heading = Will you incur any other costs that your client will not pay for?
-worker.otherExpenses.checkYourAnswersLabel = Will you incur any other costs that your client will not pay for?
+worker.otherExpenses.heading = Will you have any other costs that your client will not pay for?
+worker.otherExpenses.checkYourAnswersLabel = Will you have any other costs that your client will not pay for?
 worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
 
 ##TODO: Need Welsh
-hirer.equipmentExpenses.error.required = Select yes if the worker will incur equipment costs that your organisation will not pay for
-hirer.equipmentExpenses.title = Will the worker incur equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.error.required = Select yes if the worker will have equipment costs that your organisation will not pay for
+hirer.equipmentExpenses.title = Will the worker have equipment costs that your organisation will not pay for?
 hirer.equipmentExpenses.subheading = Worker’s financial risk
-hirer.equipmentExpenses.heading = Will the worker incur equipment costs that your organisation will not pay for?
-hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker incur equipment costs that your organisation will not pay for?
-hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+hirer.equipmentExpenses.heading = Will the worker have equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker have equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment used for this work, but does not include laptops, tablets and phones.
 
-worker.equipmentExpenses.error.required = Select yes if you will incur equipment costs that your client will not pay for
-agency.equipmentExpenses.error.required = Select yes if you will incur equipment costs that your client will not pay for
-worker.equipmentExpenses.title = Will you incur equipment costs that your client will not pay for?
+worker.equipmentExpenses.error.required = Select yes if you will have equipment costs that your client will not pay for
+agency.equipmentExpenses.error.required = Select yes if you will have equipment costs that your client will not pay for
+worker.equipmentExpenses.title = Will you have equipment costs that your client will not pay for?
 worker.equipmentExpenses.subheading = Worker’s financial risk
-worker.equipmentExpenses.heading = Will you incur equipment costs that your client will not pay for?
-worker.equipmentExpenses.checkYourAnswersLabel = Will you incur equipment costs that your client will not pay for?
-worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment, but does not include laptops, tablets and phones.
+worker.equipmentExpenses.heading = Will you have equipment costs that your client will not pay for?
+worker.equipmentExpenses.checkYourAnswersLabel = Will you have equipment costs that your client will not pay for?
+worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment used for this work, but does not include laptops, tablets and phones.
 
 
 ##TODO: Need Welsh
@@ -1848,20 +1848,20 @@ hirer.multipleContracts.p1 = This includes working for your competitors.
 ##TODO: Need Welsh
 #### Transfer of Rights Page - BoOA
 #### ------------------------------
-worker.transferOfRights.error.required = Select yes if your client has the option to buy the rights for a separate fee
-agency.transferOfRights.error.required = Select yes if your client has the option to buy the rights for a separate fee
+worker.transferOfRights.error.required = Select yes if the contract gives your client the option to buy the rights for a separate fee
+agency.transferOfRights.error.required = Select yes if the contract gives your client the option to buy the rights for a separate fee
 worker.transferOfRights.subheading = Worker’s contracts
-worker.transferOfRights.title = Does your client have the option to buy the rights for a separate fee?
-worker.transferOfRights.heading = Does your client have the option to buy the rights for a separate fee?
-worker.transferOfRights.checkYourAnswersLabel = Does your client have the option to buy the rights for a separate fee?
-worker.transferOfRights.p1 = If a requirement like this does not exist, you would keep all the rights.
+worker.transferOfRights.title = Does the contract give your client the option to buy the rights for a separate fee?
+worker.transferOfRights.heading = Does the contract give your client the option to buy the rights for a separate fee?
+worker.transferOfRights.checkYourAnswersLabel = Does the contract give your client the option to buy the rights for a separate fee?
+worker.transferOfRights.p1 = If an option like this does not exist, you would keep all the rights relating to this work.
 
-hirer.transferOfRights.error.required = Select yes if your organisation has the option to buy the rights for a separate fee
+hirer.transferOfRights.error.required = Select yes if the contract gives your organisation the option to buy the rights for a separate fee
 hirer.transferOfRights.subheading = Worker’s contracts
 hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
 hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organisation the option to buy the rights for a separate fee?
-hirer.transferOfRights.p1 = If no such clause or requirement exists, the worker would keep all the rights.
+hirer.transferOfRights.p1 = If an option like this does not exist, the worker would keep all rights relating to this work.
 
 
 ##TODO: Need Welsh
@@ -1939,32 +1939,32 @@ hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time nec
 ### ---------------------------------
 worker.rightsOfWork.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
 agency.rightsOfWork.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
-worker.rightsOfWork.title = Are you required to transfer all ownership rights of this work as part of the contract?
-worker.rightsOfWork.heading = Are you required to transfer all ownership rights of this work as part of the contract?
-worker.rightsOfWork.checkYourAnswersLabel = Are you required to transfer all ownership rights of this work as part of the contract?
+worker.rightsOfWork.title = Does the contract state the rights to this work belong to your client?
+worker.rightsOfWork.heading = Does the contract state the rights to this work belong to your client?
+worker.rightsOfWork.checkYourAnswersLabel = Does the contract state the rights to this work belong to your client?
 worker.rightsOfWork.subheading = Worker’s contracts
 worker.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
 
-hirer.rightsOfWork.error.required = Select yes if the worker is required to transfer all ownership rights of this work as part of the contract
-hirer.rightsOfWork.title = Is the worker required to transfer all ownership rights of this work as part of the contract?
-hirer.rightsOfWork.heading = Is the worker required to transfer all ownership rights of this work as part of the contract?
-hirer.rightsOfWork.checkYourAnswersLabel = Is the worker required to transfer all ownership rights of this work as part of the contract?
+hirer.rightsOfWork.error.required = Select yes if the contract states that the rights to this work belong to your organisation
+hirer.rightsOfWork.title = Does the contract state the rights to this work belong to your organisation?
+hirer.rightsOfWork.heading = Does the contract state the rights to this work belong to your organisation?
+hirer.rightsOfWork.checkYourAnswersLabel = Does the contract state the rights to this work belong to your organisation?
 hirer.rightsOfWork.subheading = Worker’s contracts
 hirer.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
 
 ### FirstContract Page
 ### ---------------------------------
-worker.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with this client
-agency.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with this client
-worker.firstContract.title = Is the current contract the first in a series of contracts with this client?
-worker.firstContract.heading = Is the current contract the first in a series of contracts with this client?
-worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with this client?
+worker.firstContract.error.required = Select yes if the current contract is the first in a series of contracts agreed with this client
+agency.firstContract.error.required = Select yes if the current contract is the first in a series of contracts agreed with this client
+worker.firstContract.title = Is the current contract the first in a series of contracts agreed with this client?
+worker.firstContract.heading = Is the current contract the first in a series of contracts agreed with this client?
+worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts agreed with this client?
 worker.firstContract.subheading = Worker’s contracts
 
-hirer.firstContract.error.required = Select yes if the current contract is the first in a series of contracts with your organisation
-hirer.firstContract.title = Is the current contract the first in a series of contracts with your organisation?
-hirer.firstContract.heading = Is the current contract the first in a series of contracts with your organisation?
-hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts with your organisation?
+hirer.firstContract.error.required = Select yes if the current contract is the first in a series of contracts agreed with your organisation
+hirer.firstContract.title = Is the current contract the first in a series of contracts agreed with your organisation?
+hirer.firstContract.heading = Is the current contract the first in a series of contracts agreed with your organisation?
+hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts agreed with your organisation?
 hirer.firstContract.subheading = Worker’s contracts
 
 ### ExtendContract Page
@@ -2029,19 +2029,19 @@ hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done simila
 ###TODO: Need Welsh
 ### Financially Dependent Page - BoOA
 ### ------------------------------
-ownershipRights.error.required = Select yes if there are any ownership rights relating to this work
+ownershipRights.error.required = Select yes if there are any ownership rights relating to this contract
 
 worker.ownershipRights.subheading = Worker’s contracts
-worker.ownershipRights.title = Are there any ownership rights relating to this work?
-worker.ownershipRights.heading = Are there any ownership rights relating to this work?
-worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this work?
-worker.ownershipRights.p1 = These rights include copyright, trademarks, patents and other intellectual property rights.
+worker.ownershipRights.title = Are there any ownership rights relating to this contract?
+worker.ownershipRights.heading = Are there any ownership rights relating to this contract?
+worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
+worker.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
 
 hirer.ownershipRights.subheading = Worker’s contracts
-hirer.ownershipRights.title = Are there any ownership rights relating to this work?
-hirer.ownershipRights.heading = Are there any ownership rights relating to this work?
-hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this work?
-hirer.ownershipRights.p1 = These rights include copyright, trademarks, patents and other intellectual property rights.
+hirer.ownershipRights.title = Are there any ownership rights relating to this contract?
+hirer.ownershipRights.heading = Are there any ownership rights relating to this contract?
+hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
+hirer.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
 
 ###TODO: Need Welsh
 ### What Do You Want To Do Page

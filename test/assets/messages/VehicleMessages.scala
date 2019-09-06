@@ -19,16 +19,16 @@ package assets.messages
 object VehicleMessages extends BaseMessages {
 
   object Worker {
-    val error = "Select yes if you will incur costs for a vehicle that your client will not pay for"
-    val title = "Will you incur costs for a vehicle that your client will not pay for?"
-    val heading = "Will you incur costs for a vehicle that your client will not pay for?"
-    val p1 = "This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs."
+    val error = "Select yes if you will have costs for a vehicle that your client will not pay for"
+    val title = "Will you have costs for a vehicle that your client will not pay for?"
+    val heading = "Will you have costs for a vehicle that your client will not pay for?"
+    val p1 = "This can include purchasing, leasing, hiring, fuel and other running costs for this work, but does not include commuting costs."
   }
 
   object Hirer {
-    val error = "Select yes if the worker will incur costs for a vehicle that your organisation will not pay for"
-    val title = "Will the worker incur costs for a vehicle that your organisation will not pay for?"
-    val heading = "Will the worker incur costs for a vehicle that your organisation will not pay for?"
-    val p1 = "This can include purchasing, leasing, hiring, fuel and other running costs, but does not include commuting costs."
+    val error = "Select yes if the worker will have costs for a vehicle that your organisation will not pay for"
+    val title = "Will the worker have costs for a vehicle that your organisation will not pay for?"
+    val heading = "Will the worker have costs for a vehicle that your organisation will not pay for?"
+    val p1 = "This can include purchasing, leasing, hiring, fuel and other running costs for this work, but does not include commuting costs."
   }
 }

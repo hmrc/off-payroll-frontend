@@ -18,19 +18,19 @@ package assets.messages
 
 object OwnershipRightsMessages extends BaseMessages {
 
-  val error = "Select yes if there are any ownership rights relating to this work"
+  val error = "Select yes if there are any ownership rights relating to this contract"
 
   object Worker {
     val subheading = "Worker’s contracts"
-    val title = "Are there any ownership rights relating to this work?"
-    val heading = "Are there any ownership rights relating to this work?"
-    val p1 = "These rights include copyright, trademarks, patents and other intellectual property rights."
+    val title = "Are there any ownership rights relating to this contract?"
+    val heading = "Are there any ownership rights relating to this contract?"
+    val p1 = "These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights."
   }
 
   object Hirer {
     val subheading = "Worker’s contracts"
-    val title = "Are there any ownership rights relating to this work?"
-    val heading = "Are there any ownership rights relating to this work?"
-    val p1 = "These rights include copyright, trademarks, patents and other intellectual property rights."
+    val title = "Are there any ownership rights relating to this contract?"
+    val heading = "Are there any ownership rights relating to this contract?"
+    val p1 = "These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights."
   }
 }
