@@ -1458,10 +1458,13 @@ hirer.optimised.result.officeHolder.ir35.doNext.p3.link = responsibilities of th
 
 ## Office Holder Agent
 ## -------------------
-agent.optimised.result.officeHolder.title = Off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.officeHolder.whyResult.p1 = In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
-agent.optimised.result.officeHolder.doNext.p1 = If you are the fee-payer, you should tell your candidate that you will be operating PAYE on their earnings.
+agent.optimised.result.officeHolder.title = Off-payroll working rules (IR35) apply
+agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply
+agent.optimised.result.officeHolder.whyResult.p1 = You have completed the tool as if you are the worker.
+agent.optimised.result.officeHolder.whyResult.p2 = In the ‘Worker’s Duties’ section, you answered that they will act in an official position for your client. This means they are classed as employed for tax purposes for this work.
+agent.optimised.result.officeHolder.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
+agent.optimised.result.officeHolder.doNext.p2.preLink = If you need more guidance, you could also read Chapter 5 of the
+agent.optimised.result.officeHolder.doNext.p2.link = Employment Status Manual.
 ## ------------------
 
 ## Inside PAYE Hirer
