@@ -23,8 +23,8 @@ import models.IdentifyToStakeholders.WouldNotHappen
 import models.Interview.jsonObjNoNulls
 import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
-import pages.QuestionPage
-import pages.sections.businessOnOwnAccount.{ExclusiveContractPage, MultipleEngagementsPage, SeriesOfContractsPage, SignificantWorkingTimePage, TransferRightsPage}
+import pages.{FollowOnContractPage, MajorityOfWorkingTimePage, MultipleContractsPage, PermissionToWorkWithOthersPage, PreviousContractPage, QuestionPage, RightsOfWorkPage, SimilarWorkOtherClientsPage, TransferOfRightsPage}
+import pages.sections.businessOnOwnAccount.{ExclusiveContractPage, ExtendContractPage, FinanciallyDependentPage, FirstContractPage, MultipleEngagementsPage, OwnershipRightsPage, SeriesOfContractsPage, SignificantWorkingTimePage, TransferRightsPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{VehiclePage, _}
@@ -64,7 +64,7 @@ case class Interview(correlationId: String,
                      exclusiveContract: Option[ExclusiveContract] = None,
                      transferRights: Option[TransferRights] = None,
                      multipleEngagements: Option[MultipleEngagements] = None,
-                     significantWorkingTime: Option[Boolean] = None,
+                     significantWorkingTime: Option[SignificantWorkingTime] = None,
                      seriesOfContracts: Option[SeriesOfContracts] = None
                     )(implicit val appConfig: FrontendAppConfig){
 
@@ -179,6 +179,61 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
     val workerRepresentsEngagerBusiness = userAnswers.get(IdentifyToStakeholdersPage).fold[Option[IdentifyToStakeholders]](None)(
       x => if(x.answer == WouldNotHappen) None else Some(x.answer))
 
+    val multipleContract = userAnswers.getAnswer(MultipleContractsPage)
+    val permissionToWorkWithOthers = userAnswers.getAnswer(PermissionToWorkWithOthersPage)
+
+    val exclusiveContract: Option[ExclusiveContract] = (multipleContract, permissionToWorkWithOthers) match {
+      case (Some(true), _) => Some(ExclusiveContract.UnableToProvideServices)
+      case (_, Some(true)) => Some(ExclusiveContract.AbleToProvideServicesWithPermission)
+      case (_, Some(false)) => Some(ExclusiveContract.AbleToProvideServices)
+      case _ => None
+    }
+
+    val ownershipRights = userAnswers.getAnswer(OwnershipRightsPage)
+    val rightsOfWork = userAnswers.getAnswer(RightsOfWorkPage)
+    val transferOfRights = userAnswers.getAnswer(TransferOfRightsPage)
+
+    val transferRights: Option[TransferRights] = (ownershipRights, rightsOfWork, transferOfRights) match {
+      case (Some(false), _, _) => Some(TransferRights.NoRightsArise)
+      case (Some(true), Some(true), _) => Some(TransferRights.RightsTransferredToClient)
+      case (Some(true), Some(false), Some(false)) => Some(TransferRights.RetainOwnershipRights)
+      case (Some(true), Some(false), Some(true)) => Some(TransferRights.AbleToTransferRights)
+      case _ => None
+    }
+
+    val similarWorkOtherClients = userAnswers.getAnswer(SimilarWorkOtherClientsPage)
+
+    val multipleEngagements: Option[MultipleEngagements] = similarWorkOtherClients match {
+      case Some(true) => Some(MultipleEngagements.OnlyContractForPeriod)
+      case Some(false) => Some(MultipleEngagements.ProvidedServicesToOtherEngagers)
+      case _ => None
+    }
+
+
+    val majorityOfWorkingTime = userAnswers.getAnswer(MajorityOfWorkingTimePage)
+    val financiallyDependent = userAnswers.getAnswer(FinanciallyDependentPage)
+
+    val significantWorkingTime: Option[SignificantWorkingTime] = (majorityOfWorkingTime, financiallyDependent) match {
+      case (Some(true), Some(true)) => Some(SignificantWorkingTime.ConsumesSignificantAmount)
+      case (Some(false), Some(false)) => Some(SignificantWorkingTime.NoSignificantAmount)
+      case (Some(true), Some(false)) => Some(SignificantWorkingTime.TimeButNotMoney)
+      case (Some(false), Some(true)) => Some(SignificantWorkingTime.MoneyButNotTime)
+      case _ => None
+    }
+
+
+    val followOnContract = userAnswers.getAnswer(FollowOnContractPage)
+    val firstContract = userAnswers.getAnswer(FirstContractPage)
+    val extendContract = userAnswers.getAnswer(ExtendContractPage)
+
+    val seriesOfContracts: Option[SeriesOfContracts] = (followOnContract, firstContract, extendContract) match {
+      case (Some(true), _, _) => Some(SeriesOfContracts.ContractIsPartOfASeries)
+      case (_, Some(false), Some(false)) => Some(SeriesOfContracts.StandAloneContract)
+      case (_, Some(_), _) => Some(SeriesOfContracts.ContractCouldBeExtended)
+      case _ => None
+    }
+
+
     Interview(correlationId = userAnswers.cacheMap.id, endUserRole = request.userType,
       hasContractStarted = getAnswer[Boolean](ContractStartedPage),
       provideServices = getAnswer[WorkerType](WorkerTypePage),
@@ -204,11 +259,11 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
       workerAsLineManager = getAnswer[Boolean](LineManagerDutiesPage),
       contactWithEngagerCustomer = contactWithEngagerCustomer,
       workerRepresentsEngagerBusiness = workerRepresentsEngagerBusiness,
-      exclusiveContract = getAnswer[ExclusiveContract](ExclusiveContractPage),
-      transferRights = getAnswer[TransferRights](TransferRightsPage),
-      multipleEngagements = getAnswer[MultipleEngagements](MultipleEngagementsPage),
-      significantWorkingTime = getAnswer[Boolean](SignificantWorkingTimePage),
-      seriesOfContracts = getAnswer[SeriesOfContracts](SeriesOfContractsPage)
+      exclusiveContract = exclusiveContract,
+      transferRights = transferRights,
+      multipleEngagements = multipleEngagements,
+      significantWorkingTime = significantWorkingTime,
+      seriesOfContracts = seriesOfContracts
     )
   }
 
