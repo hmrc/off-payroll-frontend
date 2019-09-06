@@ -113,6 +113,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p1
+      document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.PAYE.doNext_p2
     }
   }
 }

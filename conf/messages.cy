@@ -1481,10 +1481,12 @@ worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Du
 worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
 
 ##TODO: Need Welsh
-hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this job
-hirer.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this job
-hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes.
-hirer.optimised.result.officeHolder.paye.doNext.p1 = Ensure that you operate PAYE on earnings from this job.
+hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
+hirer.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
+hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work.
+hirer.optimised.result.officeHolder.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
+hirer.optimised.result.officeHolder.paye.doNext.p2.preLink = If this worker is your first employee, you could read this guidance about
+hirer.optimised.result.officeHolder.paye.doNext.p2.link = PAYE and payroll for employers.
 ## ------------------
 
 ## Office Holder IR35

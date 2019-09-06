@@ -40,10 +40,11 @@ object OfficeHolderMessages extends BaseResultMessages {
 
   object Hirer {
     object PAYE {
-      val title = "Employed for tax purposes for this job"
-      val heading = "Employed for tax purposes for this job"
-      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes."
-      val doNext_p1 = "Ensure that you operate PAYE on earnings from this job."
+      val title = "Employed for tax purposes for this work"
+      val heading = "Employed for tax purposes for this work"
+      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work."
+      val doNext_p1 = "You need to operate PAYE on the worker’s earnings."
+      val doNext_p2 = "If this worker is your first employee, you could read this guidance about PAYE and payroll for employers."
     }
 
     object IR35 {
