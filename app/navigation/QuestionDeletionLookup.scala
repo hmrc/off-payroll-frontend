@@ -40,6 +40,10 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
 
   private val pagesToRemove: Map[QuestionPage[_], UserAnswers => List[QuestionPage[_]]] = Map(
     //Setup Section
+    WhichDescribesYouPage -> (answers => answers.getAnswer(WhichDescribesYouPage) match {
+      case Some(WhichDescribesYouAnswer.WorkerIR35)|Some(WhichDescribesYouAnswer.WorkerPAYE) => List(WorkerKnownPage)
+      case _ => List.empty
+    }),
     WorkerUsingIntermediaryPage -> (answers => answers.getAnswer(WorkerUsingIntermediaryPage) match {
       case Some(false) =>
         List(IsWorkForPrivateSectorPage, TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)

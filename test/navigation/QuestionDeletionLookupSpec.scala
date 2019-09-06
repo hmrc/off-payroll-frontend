@@ -58,6 +58,34 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
     }
 
     "Setup" must {
+
+      "handle WhichDescribesYouPage" when {
+
+        "answer is worker ir35, delete worker know question" in {
+
+          val res = navigator.getPagesToRemove(WhichDescribesYouPage)(
+            userAnswers.set(WhichDescribesYouPage, 0, WhichDescribesYouAnswer.WorkerIR35))
+
+          res mustBe List(WorkerKnownPage)
+        }
+
+        "answer is worker paye, delete worker know question" in {
+
+          val res = navigator.getPagesToRemove(WhichDescribesYouPage)(
+            userAnswers.set(WhichDescribesYouPage, 0, WhichDescribesYouAnswer.WorkerPAYE))
+
+          res mustBe List(WorkerKnownPage)
+        }
+
+        "answer is not worker, not delete worker know question" in {
+
+          val res = navigator.getPagesToRemove(WhichDescribesYouPage)(
+            userAnswers.set(WhichDescribesYouPage, 0, WhichDescribesYouAnswer.ClientIR35))
+
+          res mustBe List.empty
+        }
+      }
+
       "handle WorkerUsingIntermediaryPage" when {
 
         "answer is false, return expected pages" in {
