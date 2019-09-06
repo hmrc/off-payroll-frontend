@@ -25,7 +25,7 @@
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], isMakingDetermination: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -75,15 +75,28 @@
 
 @doNext = {
 
-    @if(isPrivateSector) {
-        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.private.doNext.p1"))</p>
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.private.doNext.p2"))</p>
-        }
+    @if(request.userType.contains(Hirer)) {
+        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p1"))</p>
+        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p2"))</p>
+        <p>
+            @messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p3.preLink"))
+            <a href="@{appConfig.feePayerResponsibilitiesUrl}">@messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p3.link"))</a>
+        </p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.public.doNext.p1"))</p>
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.public.doNext.p2"))</p>
+        @if(isMakingDetermination) {
+            <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.make.doNext.p1"))</p>
+        } else {
+            <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.check.doNext.p1"))</p>
+            <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.check.doNext.p2"))</p>
+            <p>
+                @messages("site.telephone") <span class="bold">@messages("site.telephone.number")</span>
+                <br>
+                @messages("site.email") <a href='mailto:@{messages("site.ir35email")}'>@messages("site.ir35email")</a>
+            </p>
+            <p>
+                @messages(tailorMsgOptimised("result.officeHolder.ir35.check.doNext.p3.preLink"))
+                <a href="@{appConfig.employmentStatusManualUrl}">@messages(tailorMsgOptimised("result.officeHolder.ir35.check.doNext.p3.link"))</a>
+            </p>
         }
     }
 }

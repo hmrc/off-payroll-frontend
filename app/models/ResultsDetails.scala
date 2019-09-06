@@ -21,7 +21,7 @@ import play.api.mvc.Call
 import viewmodels.AnswerSection
 
 case class ResultsDetails(officeHolderAnswer: Boolean,
-                          privateSector: Boolean,
+                          isMakingDetermination: Boolean,
                           usingIntermediary: Boolean,
                           userType: Option[UserType],
                           personalServiceOption: Option[WeightedAnswerEnum.Value] = None,

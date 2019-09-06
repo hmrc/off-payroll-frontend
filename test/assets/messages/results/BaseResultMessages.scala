@@ -25,6 +25,10 @@ trait BaseResultMessages extends BaseMessages {
   val downloadHeading = "Do you want to download this result?"
   val download_p1 = "You will get a document that shows today’s date and time of completion, your answers and the above result." +
     " You can also add details to the document to help reference it for your future use."
+  val telephone = "Telephone:"
+  val telephoneNumber = "0300 123 2326"
+  val email = "Email:"
+  val emailAddress = "ir35@hmrc.gov.uk"
 
 
 

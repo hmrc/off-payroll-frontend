@@ -272,7 +272,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
               mockLog(Interview(userAnswers), DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35))(Right(true))
 
-              val expected: Html = OfficeHolderIR35View(form, isPrivateSector = true)
+              val expected: Html = OfficeHolderIR35View(form, isMakingDetermination = true)
 
               val actual = await(service.determineResultView(Some(form)))
 
