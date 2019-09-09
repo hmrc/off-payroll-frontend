@@ -33,8 +33,6 @@ import models.UserType.Worker
 import models.WeightedAnswerEnum.{HIGH, LOW}
 import models.WorkerType.SoleTrader
 import models._
-import models.logging.LogInterview
-import play.api.libs.json.Json
 import play.mvc.Http.Status
 
 import scala.concurrent.Future
@@ -231,39 +229,6 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
       setupMockHttpPost(TestDecisionConnector.decideUrl, emptyInterviewModel)(Future.failed(new Exception("ohno")))
 
       val clientResponse = await(TestDecisionConnector.decide(emptyInterviewModel))
-      clientResponse mustBe Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ohno"))
-    }
-  }
-
-  "Calling the log API" should {
-    "return a 204" in {
-      val logResponse = Right(true)
-
-      val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
-
-      setupMockHttpPost(TestDecisionConnector.logUrl, LogInterview(interviewModel,decisionResponse,MockDateTimeUtil))(Future.successful(logResponse))
-
-      val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
-      clientResponse mustBe logResponse
-    }
-
-    "return an error a 500 is returned" in  {
-      val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
-
-      val fail = Left(ErrorResponse(500, "Unexpected Response returned from log API"))
-      setupMockHttpPost(TestDecisionConnector.logUrl, LogInterview(interviewModel,decisionResponse, MockDateTimeUtil))(Future.successful(fail))
-
-      val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
-      clientResponse mustBe fail
-
-    }
-
-    "handle and return an exception" in {
-      val decisionResponse = Json.parse(decisionResponseString).as[DecisionResponse]
-
-      setupMockHttpPost(TestDecisionConnector.logUrl, LogInterview(interviewModel,decisionResponse, MockDateTimeUtil))(Future.failed(new Exception("ohno")))
-
-      val clientResponse = await(TestDecisionConnector.log(interviewModel,decisionResponse))
       clientResponse mustBe Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API: ohno"))
     }
   }

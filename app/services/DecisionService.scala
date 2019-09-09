@@ -85,17 +85,8 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
     val interview = Interview(userAnswers)
      for {
         decisionServiceResult <- decisionConnector.decide(interview)
-        _ <- logResult(decisionServiceResult,interview)
         redirect <- redirectResult(interview,continueResult,decisionServiceResult)
       } yield redirect
-  }
-
-  private def logResult(decision: Either[ErrorResponse,DecisionResponse],interview: Interview)
-                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])= {
-    decision match {
-      case Right(response) if response.result != ResultEnum.NOT_MATCHED => decisionConnector.log(interview,response)
-      case _ => Future.successful(Left(ErrorResponse(NO_CONTENT,"No log needed")))
-    }
   }
 
   private def redirectResult(interview: Interview,continueResult: Call,decisionResponse: Either[ErrorResponse,DecisionResponse])

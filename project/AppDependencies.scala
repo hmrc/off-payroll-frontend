@@ -10,13 +10,11 @@ object AppDependencies {
     "uk.gov.hmrc" %% "govuk-template" % "5.37.0-play-26",
     "uk.gov.hmrc" %% "play-health" % "3.14.0-play-26",
     "uk.gov.hmrc" %% "play-ui" % "7.40.0-play-26",
-    "uk.gov.hmrc" %% "http-caching-client" % "8.4.0-play-26",
+    "uk.gov.hmrc" %% "http-caching-client" % "8.5.0-play-26",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "1.1.0-play-26",
-    "uk.gov.hmrc" %% "bootstrap-play-26" % "0.42.0",
+    "uk.gov.hmrc" %% "bootstrap-play-26" % "1.0.0",
     "uk.gov.hmrc" %% "play-whitelist-filter" % "3.1.0-play-26",
-    "ai.x" %% "play-json-extensions" % "0.30.1",
-    "com.typesafe.play" %% "play-json-joda" % "2.6.0",
-    "org.typelevel" %% "cats-core" % "2.0.0-M1"
+    "com.typesafe.play" %% "play-json-joda" % "2.6.0"
   )
 
   val test = Seq(

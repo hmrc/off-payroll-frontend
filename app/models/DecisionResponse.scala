@@ -58,9 +58,13 @@ object ResultEnum extends Enumeration with EnumFormats {
   implicit val format: Format[ResultEnum.Value] = enumFormat(ResultEnum)
 }
 
-case class Score(setup: Option[SetupEnum.Value] = None, exit: Option[ExitEnum.Value] = None, personalService: Option[WeightedAnswerEnum.Value] = None,
-                 control: Option[WeightedAnswerEnum.Value] = None, financialRisk: Option[WeightedAnswerEnum.Value] = None,
-                 partAndParcel: Option[WeightedAnswerEnum.Value] = None)
+case class Score(setup: Option[SetupEnum.Value] = None,
+                 exit: Option[ExitEnum.Value] = None,
+                 personalService: Option[WeightedAnswerEnum.Value] = None,
+                 control: Option[WeightedAnswerEnum.Value] = None,
+                 financialRisk: Option[WeightedAnswerEnum.Value] = None,
+                 partAndParcel: Option[WeightedAnswerEnum.Value] = None,
+                 businessOnOwnAccount: Option[WeightedAnswerEnum.Value] = None)
 
 object Score {
   implicit val formats: OFormat[Score] = Json.format[Score]

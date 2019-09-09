@@ -69,13 +69,9 @@ abstract class BaseNavigationController @Inject()(mcc: MessagesControllerCompone
         case (true, true, _) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.personalService))))
         case (true, _, true) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount))))
         case _ => {
-
           val call = navigator.nextPage(page, mode)(answers)
-          (callDecisionService, isEnabled(OptimisedFlow), page) match {
-            //early exit office holder
-            case (_, _, OfficeHolderPage) => decisionService.decide(answers, call)(hc, ec, req)
-            //don't call decision every time, only once at the end (opt flow)
-            case (true, false, _) => decisionService.decide(answers, call)(hc, ec, req)
+          (callDecisionService, isEnabled(OptimisedFlow)) match {
+            case (true, false) => decisionService.decide(answers, call)(hc, ec, req)
             case _ => Future.successful(Redirect(call))
           }
         }

@@ -34,11 +34,21 @@ import play.api.mvc.Call
 class ExitNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
   def officeHolderRouteMap(mode: Mode): Map[Page, UserAnswers => Call] = mode match {
-    case CheckMode => Map(OfficeHolderPage -> (_ => CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))))
-    case NormalMode => Map(OfficeHolderPage -> (answers => answers.get(ContractStartedPage) match {
-        case Some(Answers(true, _)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
-        case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
-        case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+    case CheckMode => Map(OfficeHolderPage -> (answers =>
+      if(answers.getAnswer(OfficeHolderPage).contains(true)) {
+        ResultController.onPageLoad()
+      } else {
+        CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))
+      }))
+    case NormalMode => Map(OfficeHolderPage -> (answers =>
+      if(answers.getAnswer(OfficeHolderPage).contains(true)) {
+        ResultController.onPageLoad()
+      } else {
+        answers.get(ContractStartedPage) match {
+          case Some(Answers(true, _)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
+          case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
+          case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        }
       })
     )
   }
