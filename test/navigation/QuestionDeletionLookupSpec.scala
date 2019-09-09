@@ -42,7 +42,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
           userAnswers.set(OfficeHolderPage, 0, false))
 
         res mustBe List(
-          ArrangedSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, RejectSubstitutePage, WouldWorkerPaySubstitutePage,
+          ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage,
           //Control
           ChooseWhereWorkPage, MoveWorkerPage, ScheduleOfWorkingHoursPage, HowWorkIsDonePage,
           //Financial Risk
@@ -150,7 +150,9 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
           val res = navigator.getPagesToRemove(ContractStartedPage)(userAnswers)
 
-          res mustBe List(ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage)
+          res mustBe List(ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
+            PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
+            SimilarWorkOtherClientsPage)
         }
       }
     }
@@ -258,20 +260,18 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
           val userAnswers = UserAnswers("id")
             .set(WorkerKnownPage, false)
-            .set(ContractStartedPage, false)
-            .set(WhichDescribesYouPage, ClientPAYE)
 
           val res = navigator.getPagesToRemove(WorkerKnownPage)(userAnswers)
 
-          res mustBe List(PreviousContractPage, SimilarWorkOtherClientsPage)
+          res mustBe List(MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
+            PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
+            SimilarWorkOtherClientsPage)
         }
 
         "answer is true, return expected pages" in {
 
           val userAnswers = UserAnswers("id")
             .set(WorkerKnownPage, true)
-            .set(ContractStartedPage, false)
-            .set(WhichDescribesYouPage, ClientPAYE)
 
           val res = navigator.getPagesToRemove(WorkerKnownPage)(userAnswers)
 
