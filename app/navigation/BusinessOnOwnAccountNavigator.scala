@@ -32,7 +32,7 @@ import play.api.mvc.Call
 @Singleton
 class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
-  def startPage(userAnswers: UserAnswers): Call = if(workerKnown(userAnswers)) {
+  def startPage(userAnswers: UserAnswers): Call = if(isWorker(userAnswers) || userAnswers.getAnswer(ContractStartedPage).contains(true)) {
     booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
   } else {
     booaRoutes.WorkerKnownController.onPageLoad(NormalMode)

@@ -100,7 +100,7 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
 
     //BoOA Section
     WorkerKnownPage -> (
-      answers => if(workerKnown(answers)) List.empty else List(
+      answers => if(answers.getAnswer(WorkerKnownPage).contains(true)) List.empty else List(
         MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
         PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
         SimilarWorkOtherClientsPage

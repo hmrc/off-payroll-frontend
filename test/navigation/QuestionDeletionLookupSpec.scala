@@ -232,8 +232,6 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
           val userAnswers = UserAnswers("id")
             .set(WorkerKnownPage, false)
-            .set(ContractStartedPage, false)
-            .set(WhichDescribesYouPage, ClientPAYE)
 
           val res = navigator.getPagesToRemove(WorkerKnownPage)(userAnswers)
 
@@ -246,8 +244,6 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
           val userAnswers = UserAnswers("id")
             .set(WorkerKnownPage, true)
-            .set(ContractStartedPage, false)
-            .set(WhichDescribesYouPage, ClientPAYE)
 
           val res = navigator.getPagesToRemove(WorkerKnownPage)(userAnswers)
 
