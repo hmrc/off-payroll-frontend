@@ -66,7 +66,10 @@ site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
+site.ir35emailLabel = Email
 site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
+site.ir35telephoneLabel = Telephone
+site.ir35telephone = 0300 123 2326
 site.employmentStatusManual = Canllaw Statws Cyflogaeth
 site.telephone = Telephone:
 site.telephone.number = 0300 123 2326
@@ -1535,11 +1538,13 @@ hirer.optimised.result.inside.paye.doNext.p1 = Ensure that you operate PAYE on e
 ## Undetermined PAYE Hirer
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.undetermined.paye.title = Unable to decide the employment status of this work for tax purposes
-hirer.optimised.result.undetermined.paye.heading = Unable to decide the employment status of this work for tax purposes
-hirer.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-hirer.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
-hirer.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
+hirer.optimised.result.undetermined.paye.title = Unable to make a determination
+hirer.optimised.result.undetermined.paye.heading = Unable to make a determination
+hirer.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work.
+hirer.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
+hirer.optimised.result.undetermined.paye.doNext.p1 = Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
+hirer.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
 
 ##TODO: Need Welsh
 worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
@@ -1552,13 +1557,16 @@ worker.optimised.result.inside.ir35.public.doNext.p1 = Download a copy of your r
 ## Undetermined IR35 Decision Worker
 ## -------------------
 ##TODO: Need Welsh
-worker.optimised.result.undetermined.ir35.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
-worker.optimised.result.undetermined.ir35.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
-worker.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
-worker.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
-worker.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the
-worker.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
-worker.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the
+worker.optimised.result.undetermined.ir35.title = Unable to make a determination
+worker.optimised.result.undetermined.ir35.heading = Unable to make a determination
+worker.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
+worker.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
+worker.optimised.result.undetermined.ir35.private.doNext.p1 = Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices.
+worker.optimised.result.undetermined.ir35.private.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
+worker.optimised.result.undetermined.ir35.private.doNext.p3 = You could also read Chapter 5 of the
+worker.optimised.result.undetermined.ir35.public.doNext.p1 = Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices.
+worker.optimised.result.undetermined.ir35.public.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
+worker.optimised.result.undetermined.ir35.public.doNext.p3 = You could also read Chapter 5 of the
 ## ------------------
 
 ## Outside IR35 Decision Worker
@@ -1605,11 +1613,12 @@ agent.optimised.result.inside.doNext.p1 = If you are the fee-payer, you should t
 ## Undetermined Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.undetermined.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.undetermined.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.undetermined.whyResult.p1 = We need more information to understand the working practices of this engagement.
-agent.optimised.result.undetermined.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
-agent.optimised.result.undetermined.doNext.p2 = You could also read through the
+agent.optimised.result.undetermined.title =  Unable to make a determination
+agent.optimised.result.undetermined.heading = Unable to make a determination
+agent.optimised.result.undetermined.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
+agent.optimised.result.undetermined.whyResult.p2 = We will need more information to check your employment status for tax.
+agent.optimised.result.undetermined.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
+agent.optimised.result.undetermined.doNext.p2 = If you need more guidance, you could also read Chapter 5 of the
 
 ## ------------------
 ## Hirer IR35
@@ -1624,13 +1633,16 @@ hirer.optimised.result.inside.ir35.public.doNext.p1 = If you are the fee-payer, 
 hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
 
 ##TODO: Need Welsh
-hirer.optimised.result.undetermined.ir35.title = Unable to determine if the off-payroll working rules (IR35) apply to this contract
-hirer.optimised.result.undetermined.ir35.heading = Unable to determine if the off-payroll working rules (IR35) apply to this contract
-hirer.optimised.result.undetermined.ir35.whyResult.p1 = We need more information to understand the working practices of this contract.
-hirer.optimised.result.undetermined.ir35.private.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
-hirer.optimised.result.undetermined.ir35.private.doNext.p2 = You could also read through the
-hirer.optimised.result.undetermined.ir35.public.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
-hirer.optimised.result.undetermined.ir35.public.doNext.p2 = You could also read through the
+hirer.optimised.result.undetermined.ir35.title = Unable to make a determination
+hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
+hirer.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
+hirer.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
+hirer.optimised.result.undetermined.ir35.private.doNext.p1 = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.ir35.private.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
+hirer.optimised.result.undetermined.ir35.private.doNext.p3 = You could also read Chapter 5 of the
+hirer.optimised.result.undetermined.ir35.public.doNext.p1 = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.ir35.public.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
+hirer.optimised.result.undetermined.ir35.public.doNext.p3 = You could also read Chapter 5 of the
 
 ## PAYE Worker
 ## ------------------
@@ -1643,11 +1655,13 @@ worker.optimised.result.inside.paye.doNext.p1 = Download a copy of your result a
 ## Undetermined PAYE Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.undetermined.paye.title = Unable to decide the employment status of this work for tax purposes
-worker.optimised.result.undetermined.paye.heading = Unable to decide the employment status of this work for tax purposes
-worker.optimised.result.undetermined.paye.whyResult.p1 = We need more information to understand the working practices of this engagement.
-worker.optimised.result.undetermined.paye.doNext.p1 = If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at
-worker.optimised.result.undetermined.paye.doNext.p2 = You could also read through the
+worker.optimised.result.undetermined.paye.title = Unable to make a determination
+worker.optimised.result.undetermined.paye.heading = Unable to make a determination
+worker.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
+worker.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
+worker.optimised.result.undetermined.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. Check your answers with them to make sure they reflect your actual or expected working practices.
+worker.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
+worker.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
 
 # TODO: Need Welsh
 downloadPDFCopy.error.required = Select yes to download this result

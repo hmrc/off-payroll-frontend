@@ -18,49 +18,65 @@ package assets.messages.results
 
 object UndeterminedDecisionMessages extends BaseResultMessages {
 
+  object Site {
+    val telephone = "Telephone: 0300 123 2326"
+    val email = "Email: ir35@hmrc.gov.uk"
+  }
+
   object WorkerIR35 {
-    val title = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
-    val heading = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
-    val whyResult = "We need more information to understand the working practices of this contract."
-    val doNextPrivateP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextPrivateP2 = "You could also read through the Employment Status Manual."
-    val doNextPublicP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextPublicP2 = "You could also read through the Employment Status Manual."
+    val title = "Unable to make a determination"
+    val heading = "Unable to make a determination"
+    val whyResult1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
+    val whyResult2 = "We will need more information to check your employment status for tax."
+    val doNextPrivateP1 = "Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices."
+    val doNextPrivateP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextPrivateP3 = "You could also read Chapter 5 of the Employment Status Manual."
+    val doNextPublicP1 = "Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices."
+    val doNextPublicP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextPublicP3 = "You could also read Chapter 5 of the Employment Status Manual."
   }
 
   object HirerPAYE {
-    val title = "Unable to decide the employment status of this work for tax purposes"
-    val heading = "Unable to decide the employment status of this work for tax purposes"
-    val whyResult = "We need more information to understand the working practices of this engagement."
-    val doNextP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextP2 = "You could also read through the Employment Status Manual."
+    val title = "Unable to make a determination"
+    val heading = "Unable to make a determination"
+    val whyResult1 = "We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work."
+    val whyResult2 = "We will need more information to check your employment status for tax."
+    val doNextP1 = "Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual."
   }
 
   object Agent {
-    val title = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
-    val heading = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
-    val whyResult_p1 = "We need more information to understand the working practices of this engagement."
-    val doNext_p1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNext_p2 = "You could also read through the Employment Status Manual."
+    val title = "Unable to make a determination"
+    val heading = "Unable to make a determination"
+    val whyResult_p1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
+    val whyResult_p2 = "We will need more information to check your employment status for tax."
+    val doNext_p1 = "If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct."
+    val doNext_p2 = "If you need more guidance, you could also read Chapter 5 of the Employment Status Manual."
   }
 
 
   object HirerIR35 {
-    val title = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
-    val heading = "Unable to determine if the off-payroll working rules (IR35) apply to this contract"
-    val whyResult = "We need more information to understand the working practices of this contract."
-    val doNextPrivateP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextPrivateP2 = "You could also read through the Employment Status Manual."
-    val doNextPublicP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextPublicP2 = "You could also read through the Employment Status Manual."
+    val title = "Unable to make a determination"
+    val heading = "Unable to make a determination"
+    val whyResult1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
+    val whyResult2 = "We will need more information to check your employment status for tax."
+    val doNextPrivateP1 = "You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextPrivateP2 = "If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextPrivateP3 = "You could also read Chapter 5 of the Employment Status Manual."
+    val doNextPublicP1 = "You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextPublicP2 = "If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextPublicP3 = "You could also read Chapter 5 of the Employment Status Manual."
   }
 
 
   object WorkerPAYE {
-    val title = "Unable to decide the employment status of this work for tax purposes"
-    val heading = "Unable to decide the employment status of this work for tax purposes"
-    val whyResult = "We need more information to understand the working practices of this engagement."
-    val doNextP1 = "If you need help, either call HMRC’s Employment Status and Intermediaries helpline, on: 0300 123 2326, or email us at ir35@hmrc.gov.uk."
-    val doNextP2 = "You could also read through the Employment Status Manual."
+    val title = "Unable to make a determination"
+    val heading = "Unable to make a determination"
+    val whyResult1 = "We cannot determine from your answers if you are employed or self-employed for tax purposes for this work."
+    val whyResult2 = "We will need more information to check your employment status for tax."
+    val doNextP1 = "Download a copy of this result and show it to the organisation hiring you. Check your answers with them to make sure they reflect your actual or expected working practices."
+    val doNextP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual."
   }
 }
