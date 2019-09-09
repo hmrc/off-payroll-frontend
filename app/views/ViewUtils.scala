@@ -53,8 +53,11 @@ object ViewUtils extends FeatureSwitching {
 
   def isWelshEnabled(implicit appConfig: FrontendAppConfig): Boolean = isEnabled(WelshLanguage)(appConfig)
 
-  def allOutReasons(outType: ResultType, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
-                   (implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
+  def allOutReasons(outType: ResultType,
+                    isSubstituteToDoWork: Boolean,
+                    isClientNotControlWork: Boolean,
+                    isIncurCostNoReclaim: Boolean,
+                    isBoOA: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
 
 
     val messageBase = {
@@ -68,15 +71,16 @@ object ViewUtils extends FeatureSwitching {
     Seq(
       if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWork") else None,
       if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWork") else None,
-      if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None
+      if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None,
+      if(isIncurCostNoReclaim) Some(s"$messageBase.booa") else None
     ).flatten
   }
 
-  def singleOutReason(outType: ResultType, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)
-                     (implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
-
-
-
+  def singleOutReason(outType: ResultType,
+                      isSubstituteToDoWork: Boolean,
+                      isClientNotControlWork: Boolean,
+                      isIncurCostNoReclaim: Boolean,
+                      isBoOA: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
       val messageBase = {
         outType match {
           case ResultType.Agent => "agent.optimised.result.outside.whyResult"
@@ -88,7 +92,8 @@ object ViewUtils extends FeatureSwitching {
       Seq(
         if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWorkOnlyReason") else None,
         if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWorkOnlyReason") else None,
-        if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaimOnlyReason") else None
+        if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaimOnlyReason") else None,
+        if(isBoOA) Some(s"$messageBase.booaOnlyReason") else None
       ).flatten.head
 
 
