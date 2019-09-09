@@ -27,6 +27,7 @@ case class ResultsDetails(officeHolderAnswer: Boolean,
                           personalServiceOption: Option[WeightedAnswerEnum.Value] = None,
                           controlOption: Option[WeightedAnswerEnum.Value] = None,
                           financialRiskOption: Option[WeightedAnswerEnum.Value] = None,
+                          boOAOption: Option[WeightedAnswerEnum.Value] = None,
                           form: Form[Boolean]) {
 
   def isAgent: Boolean = userType.contains(UserType.Agency)

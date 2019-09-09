@@ -34,42 +34,96 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean = false, pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
-    view(form, isPrivateSector, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
+  def createView(req: DataRequest[_],
+                 isMake: Boolean = false,
+                 isSubstituteToDoWork: Boolean = true,
+                 isClientNotControlWork: Boolean = true,
+                 isIncurCostNoReclaim: Boolean = true,
+                 isBoOA: Boolean = true,
+                 pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
+    view(form, isMake, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35OutsideView page" should {
 
     "If the UserType is Worker" should {
 
-      "If Private Sector" should {
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true))
+      "If making determination" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true))
 
-        workerPageChecks(isPrivateSector = true)
+        workerPageChecks(isMake = true)
         pdfPageChecks(isPdfView = false)
       }
 
-      "If Public Sector" should {
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest))
+      "If checking determination" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false))
 
-        workerPageChecks(isPrivateSector = false)
+        workerPageChecks(isMake = false)
         pdfPageChecks(isPdfView = false)
+      }
+
+      "only display one reason" when {
+
+        "only substituteToDoWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason1)
+        }
+
+        "only clientNotControlWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason2)
+        }
+
+        "only incurCostNoReclaim reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason3)
+        }
+
+        "only booa reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason4)
+        }
       }
     }
 
-    "If the UserType is Hirer" should {
+    "If the UserType is Hirer" when {
 
-      "If Private Sector" should {
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true))
+      "every reason is given" should {
 
-        hirerPageChecks(isPrivateSector = true)
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest))
+
+        hirerPageChecks
         pdfPageChecks(isPdfView = false)
       }
 
-      "If Public Sector" should {
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest))
+      "only display one reason" when {
 
-        hirerPageChecks(isPrivateSector = false)
-        pdfPageChecks(isPdfView = false)
+        "only substituteToDoWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason1)
+        }
+
+        "only clientNotControlWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason2)
+        }
+
+        "only incurCostNoReclaim reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason3)
+        }
+
+        "only booa reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason4)
+        }
       }
     }
   }
@@ -79,39 +133,29 @@ class IR35OutsideViewSpec extends ResultViewFixture {
     "If the UserType is Worker" should {
 
       "If Private Sector" should {
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = true)
+        workerPageChecks(isMake = true)
         pdfPageChecks(isPdfView = true)
       }
 
       "If Public Sector" should {
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = false)
+        workerPageChecks(isMake = false)
         pdfPageChecks(isPdfView = true)
       }
     }
 
     "If the UserType is Hirer" should {
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
-      "If Private Sector" should {
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
-
-        hirerPageChecks(isPrivateSector = true)
-        pdfPageChecks(isPdfView = true)
-      }
-
-      "If Public Sector" should {
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
-
-        hirerPageChecks(isPrivateSector = false)
-        pdfPageChecks(isPdfView = true)
-      }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = true)
     }
   }
 
-  def workerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
+  def workerPageChecks(isMake: Boolean)(implicit document: Document) = {
     "If the UserType is Worker" should {
 
       "Have the correct title" in {
@@ -131,21 +175,33 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
       }
 
-      if(isPrivateSector) {
+      if(isMake) {
         "Have the correct Do Next section which" in {
           document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.doNextPrivate
+          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.makeDoNextP1
         }
       } else {
         "Have the correct Do Next section which" in {
           document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.doNextPublic
+          document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP1
+          document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP2
+          document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP2
+          document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP3
         }
       }
     }
   }
 
-  def hirerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
+  def workerSingleReasonChecks(reasonMessage: String)(implicit document: Document) : Unit ={
+
+    "Have the correct Why Result section when all reasons are given" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe reasonMessage
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
+    }
+  }
+
+  def hirerPageChecks(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.HirerIR35.title)
@@ -164,19 +220,21 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
     }
 
-    if(isPrivateSector) {
-      "Have the correct Do Next section for the Private Sector" in {
-        document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivateP1
-        document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivateP2
-        document.select(Selectors.DoNext.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextPrivateP3
-      }
-    } else {
-      "Have the correct Do Next section for the Public Sector" in {
-        document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP1
-        document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextPublicP2
-      }
+    "Have the correct Do Next section for the Private Sector" in {
+      document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextP1
+      document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextP2
+      document.select(Selectors.DoNext.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextP3
     }
   }
+
+  def hirerSingleReasonChecks(reasonMessage: String)(implicit document: Document) = {
+
+    "Have the correct Why Result section when all reasons are given" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe reasonMessage
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
+    }
+  }
+
 }

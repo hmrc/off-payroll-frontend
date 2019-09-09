@@ -72,7 +72,7 @@ object ViewUtils extends FeatureSwitching {
       if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWork") else None,
       if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWork") else None,
       if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None,
-      if(isIncurCostNoReclaim) Some(s"$messageBase.booa") else None
+      if(isBoOA) Some(s"$messageBase.booa") else None
     ).flatten
   }
 

@@ -1567,18 +1567,23 @@ worker.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapte
 ## Outside IR35 Decision Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
-worker.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
+worker.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
+worker.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
 worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute to do this work
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = your business will incur a significant cost for this work, which cannot be reclaimed or re-charged
-worker.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
-worker.optimised.result.outside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They will need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
-worker.optimised.result.outside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to pay your business a gross amount for this work. You can also follow this guidance about your taxes.
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute to do this work.
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = you and your business will have costs for this work that your client will not pay for
+worker.optimised.result.outside.ir35.whyResult.booa = you are providing services as a business
+worker.optimised.result.outside.ir35.whyResult.p2 = This suggests you are engaged on a business to business basis.
+worker.optimised.result.outside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting tax and National Insurance.
+worker.optimised.result.outside.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
+worker.optimised.result.outside.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
+worker.optimised.result.outside.ir35.check.doNext.p3.text = You could also read Chapter 5 of the
+worker.optimised.result.outside.ir35.check.doNext.p3.link = Employment Status Manual.
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for
+worker.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business
 
 ## Outside PAYE Decision Worker
 ## ------------------
@@ -1774,19 +1779,19 @@ businessOnOwnAccountSectionChangeWarning.heading = By changing your answers in t
 hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
 hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
 hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
-hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute to do this work
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
-hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
-hirer.optimised.result.outside.ir35.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
-hirer.optimised.result.outside.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
-hirer.optimised.result.outside.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then you would need to pay the worker’s business gross, without deducting tax and National Insurance.
-hirer.optimised.result.outside.ir35.private.doNext.p3 = If the fee-payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.outside.ir35.public.doNext.p1 = If you are the fee-payer you need to pay the worker’s business gross, without deducting tax and National Insurance.
-hirer.optimised.result.outside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
+hirer.optimised.result.outside.ir35.whyResult.booa = the worker is providing services as a business
+hirer.optimised.result.outside.ir35.whyResult.p2 = This suggests the worker is engaged on a business to business basis.
+hirer.optimised.result.outside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to pay their earnings in full, without deducting tax and National Insurance.
+hirer.optimised.result.outside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
+hirer.optimised.result.outside.ir35.doNext.p3.text = You could also read more about the
+hirer.optimised.result.outside.ir35.doNext.p3.link = responsibilities of the fee-payer
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
-
+hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = the worker is providing services as a business
 ## ------------------
 ## Out Agent
 ## ------------------
