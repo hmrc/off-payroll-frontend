@@ -1657,12 +1657,11 @@ worker.optimised.result.inside.paye.doNext.p1 = Download a copy of your result a
 ##TODO: Need Welsh
 worker.optimised.result.undetermined.paye.title = Unable to make a determination
 worker.optimised.result.undetermined.paye.heading = Unable to make a determination
-worker.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
+worker.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if you are employed or self-employed for tax purposes for this work.
 worker.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
 worker.optimised.result.undetermined.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. Check your answers with them to make sure they reflect your actual or expected working practices.
 worker.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
 worker.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
-
 # TODO: Need Welsh
 downloadPDFCopy.error.required = Select yes to download this result
 
