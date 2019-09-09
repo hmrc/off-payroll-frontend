@@ -80,42 +80,17 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
         enable(OptimisedFlow)
         lazy val userAnswers = UserAnswers("id")
           .set(OwnershipRightsPage, true)
-          .set(WorkerKnownPage, true)
 
         nextPage(OwnershipRightsPage, userAnswers) mustBe booaRoutes.RightsOfWorkController.onPageLoad(NormalMode)
       }
 
-      "the WorkerKnown answer is true should go to the PreviousContractPage" in {
+      "the OwnershipRights answer is false should go to other PreviousContractController" in {
 
         enable(OptimisedFlow)
         lazy val userAnswers = UserAnswers("id")
           .set(OwnershipRightsPage, false)
-          .set(WorkerKnownPage, true)
 
         nextPage(OwnershipRightsPage, userAnswers) mustBe booaRoutes.PreviousContractController.onPageLoad(NormalMode)
-      }
-
-      "the ContractStarted answer is true should go to the PreviousContractPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(OwnershipRightsPage, false)
-          .set(ContractStartedPage, true)
-
-        nextPage(OwnershipRightsPage, userAnswers) mustBe booaRoutes.PreviousContractController.onPageLoad(NormalMode)
-      }
-
-      "the OwnershipRights and WorkerKnown answers are both false should go to the FirstContractPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(OwnershipRightsPage, false)
-          .set(WorkerKnownPage, false)
-          .set(ContractStartedPage, false)
-          .set(WhichDescribesYouPage, ClientPAYE)
-
-
-        nextPage(OwnershipRightsPage, userAnswers) mustBe booaRoutes.FirstContractController.onPageLoad(NormalMode)
       }
     }
 
@@ -126,41 +101,17 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
         enable(OptimisedFlow)
         lazy val userAnswers = UserAnswers("id")
           .set(RightsOfWorkPage, false)
-          .set(WorkerKnownPage, true)
 
         nextPage(RightsOfWorkPage, userAnswers) mustBe booaRoutes.TransferOfRightsController.onPageLoad(NormalMode)
       }
 
-      "the WorkerKnown answer is true should go to the PreviousContractPage" in {
+      "the RightsOfWork answer is true should go to the PreviousContractPage" in {
 
         enable(OptimisedFlow)
         lazy val userAnswers = UserAnswers("id")
           .set(RightsOfWorkPage, true)
-          .set(WorkerKnownPage, true)
 
         nextPage(RightsOfWorkPage, userAnswers) mustBe booaRoutes.PreviousContractController.onPageLoad(NormalMode)
-      }
-
-      "the ContractStarted answer is true should go to the PreviousContractPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(RightsOfWorkPage, true)
-          .set(ContractStartedPage, true)
-
-        nextPage(RightsOfWorkPage, userAnswers) mustBe booaRoutes.PreviousContractController.onPageLoad(NormalMode)
-      }
-
-      "the RightsOfWork answer is true and WorkerKnown answer is false should go to the FirstContractPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(RightsOfWorkPage, true)
-          .set(WorkerKnownPage, false)
-          .set(ContractStartedPage, false)
-          .set(WhichDescribesYouPage, ClientIR35)
-
-        nextPage(RightsOfWorkPage, userAnswers) mustBe booaRoutes.FirstContractController.onPageLoad(NormalMode)
       }
     }
 
@@ -239,47 +190,8 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
       nextPage(MajorityOfWorkingTimePage) mustBe booaRoutes.FinanciallyDependentController.onPageLoad(NormalMode)
     }
 
-    "go from the FinanciallyDependentPage" when {
-
-      "the WorkerKnown answer is true should go to the SimilarWorkOtherClientsPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(WorkerKnownPage, true)
-
-        nextPage(FinanciallyDependentPage, userAnswers) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
-      }
-
-      "the ContractStarted answer is true should go to the SimilarWorkOtherClientsPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(ContractStartedPage, true)
-
-        nextPage(FinanciallyDependentPage, userAnswers) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
-      }
-
-      "the user is a worker go to the CheckYourAnswersPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(WorkerKnownPage, false)
-          .set(ContractStartedPage, false)
-          .set(WhichDescribesYouPage, WorkerIR35)
-
-        nextPage(FinanciallyDependentPage, userAnswers) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
-      }
-
-      "the Worker is not known and the user is a Hirer should go to the CheckYourAnswersPage" in {
-
-        enable(OptimisedFlow)
-        lazy val userAnswers = UserAnswers("id")
-          .set(WorkerKnownPage, false)
-          .set(ContractStartedPage, false)
-          .set(WhichDescribesYouPage, ClientIR35)
-
-        nextPage(FinanciallyDependentPage, userAnswers) mustBe routes.CheckYourAnswersController.onPageLoad()
-      }
+    "go from the FinanciallyDependentPage to the SimilarWorkOtherClientsPage" in {
+      nextPage(FinanciallyDependentPage) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
     }
 
     "go from the SimilarWorkOtherClientsPage" when {
