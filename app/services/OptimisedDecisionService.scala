@@ -115,8 +115,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     collateDecisions.map {
       case Right(decision) => {
         val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
-        val isMakingDetermination = request.userAnswers.get(IsWorkForPrivateSectorPage).fold(false)(_.answer)
-//TODO: ADD BACK IN!!!        val isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination)
+        val isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination)
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
 
         implicit val resultsDetails: ResultsDetails = ResultsDetails(
