@@ -493,7 +493,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               form = form,
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
-              isIncurCostNoReclaim = true
+              isIncurCostNoReclaim = true,
+              isBoOA = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))

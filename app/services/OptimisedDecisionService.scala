@@ -131,7 +131,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case (true, _) =>
         outsideIR35(result.form, result.isMakingDetermination, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA) // IR35
       case _ =>
-        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
+        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA) // PAYE
     }
   }
 

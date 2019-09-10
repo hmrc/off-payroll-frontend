@@ -34,25 +34,90 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(form, true, true, true)(req, messages, frontendAppConfig, pdfDetails)
+  def createView(req: DataRequest[_],
+                 pdfDetails: PDFResultDetails = testNoPdfResultDetails,
+                 isSubstituteToDoWork: Boolean = true,
+                 isClientNotControlWork: Boolean = true,
+                 isIncurCostNoReclaim: Boolean = true,
+                 isBoOA: Boolean = true): Html =
+    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEOutsideView page" should {
 
     "If the UserType is Worker" should {
 
-      implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
+      "display all reasons when all reasons are given" should {
 
-      workerPageChecks
-      pdfPageChecks(isPdfView = false)
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
+
+        workerPageChecks
+        pdfPageChecks(isPdfView = false)
+      }
+
+      "only display one reason" when {
+
+        "only substituteToDoWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason1)
+        }
+
+        "only clientNotControlWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason2)
+        }
+
+        "only incurCostNoReclaim reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason3)
+        }
+
+        "only booa reason is given" should {
+
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
+          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason4)
+        }
+      }
     }
 
     "If the UserType is Hirer" should {
 
-      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
+      "display all reasons when all reasons are given" should {
 
-      hirerPageChecks
-      pdfPageChecks(isPdfView = false)
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
+
+        hirerPageChecks
+        pdfPageChecks(isPdfView = false)
+      }
+
+      "only display one reason" when {
+
+        "only substituteToDoWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason1)
+        }
+
+        "only clientNotControlWork reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason2)
+        }
+
+        "only incurCostNoReclaim reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason3)
+        }
+
+        "only booa reason is given" should {
+
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
+          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason4)
+        }
+      }
     }
   }
 
@@ -91,12 +156,22 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
       document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
       document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
+      document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB4
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
     }
 
     "Have the correct Do Next section which" in {
       document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.doNext
+      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.doNextP1
+    }
+  }
+
+  def workerSingleReasonChecks(reasonMessage: String)(implicit document: Document) : Unit ={
+
+    "Have the correct Why Result section when all reasons are given" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe reasonMessage
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
     }
   }
 
@@ -116,12 +191,22 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
       document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
       document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
+      document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB4
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
     }
 
     "Have the correct Do Next section which" in {
       document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerPAYE.doNext
+      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerPAYE.doNextP1
+    }
+  }
+
+  def hirerSingleReasonChecks(reasonMessage: String)(implicit document: Document) : Unit ={
+
+    "Have the correct Why Result section when all reasons are given" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe reasonMessage
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
     }
   }
 }
