@@ -785,7 +785,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
       enable(OptimisedFlow)
 
       mockDecide(Interview(userAnswers))(Right(riskResponse))
-      mockLog(Interview(userAnswers), riskResponse)(Right(true))
 
       val result = service.decide(userAnswers, onwardRoute)
 
@@ -796,7 +795,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
       enable(OptimisedFlow)
 
       mockDecide(Interview(userAnswers))(Right(controlResponse))
-      mockLog(Interview(userAnswers), controlResponse)(Right(true))
 
       val result = service.decide(userAnswers, onwardRoute)
 
@@ -808,7 +806,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
     "return a continue decision based on the interview when risk is empty" in {
 
       mockDecide(Interview(userAnswers))(Right(controlResponse))
-      mockLog(Interview(userAnswers), controlResponse)(Right(true))
 
       val result = service.decide(userAnswers, onwardRoute)
 
@@ -819,7 +816,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
     "return a decision based on the interview" in {
 
       mockDecide(Interview(userAnswers))(Right(exitResponse))
-      mockLog(Interview(userAnswers), exitResponse)(Right(true))
 
       val result = service.decide(userAnswers, onwardRoute)
 

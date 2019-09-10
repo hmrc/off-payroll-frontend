@@ -16,13 +16,10 @@
 
 package services
 
-import cats.data.EitherT
-import cats.implicits._
+import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import config.{FrontendAppConfig, SessionKeys}
 import connectors.DecisionConnector
-import controllers.routes
-import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
+import forms.DownloadPDFCopyFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
 import models.WhatDoYouWantToDo.MakeNewDetermination
@@ -32,10 +29,9 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup.{IsWorkForPrivateSectorPage, WhatDoYouWantToDoPage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.Logger
+import play.api.data.Form
 import play.api.i18n.Messages
-import play.api.mvc.{AnyContent, Call, Request}
-import play.mvc.Http.Status._
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
 import views.html.results.inside._
@@ -44,7 +40,7 @@ import views.html.results.outside._
 import views.html.results.undetermined._
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
 @Singleton
 class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
@@ -66,41 +62,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   lazy val defaultForm: Form[Boolean] = formProvider()
 
-  private[services] def collateDecisions(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] = {
-    val interview = Interview(request.userAnswers)
-
-    decisionConnector.decide(interview).flatMap {
-
-      case Right(decision) => logResult(decision, interview).map(_ => Right(decision))
-      case Left(err) => Future.successful(Left(err))
-    }
-  }
-
-  private def collatedDecisionResponse(personalService: DecisionResponse,
-                                       control: DecisionResponse,
-                                       financialRisk: DecisionResponse,
-                                       wholeInterview: DecisionResponse): DecisionResponse = {
-    DecisionResponse(
-      version = wholeInterview.version,
-      correlationID = wholeInterview.correlationID,
-      score = Score(
-        setup = wholeInterview.score.setup,
-        exit = wholeInterview.score.exit,
-        personalService = personalService.score.personalService,    // Score from isolated Personal Service call
-        control = control.score.control,                            // Score from isolated Control call
-        financialRisk = financialRisk.score.financialRisk,          // Score from isolated Financial Risk call
-        partAndParcel = wholeInterview.score.partAndParcel
-      ),
-      result = wholeInterview.result
-    )
-  }
-
-  private def logResult(decision: DecisionResponse, interview: Interview)
-                       (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]): Future[Either[ErrorResponse, Boolean]] =
-    decision match {
-      case response if response.result != ResultEnum.NOT_MATCHED => decisionConnector.log(interview, response)
-      case _ => Future.successful(Left(ErrorResponse(NO_CONTENT, "No log needed")))
-    }
+  private[services] def decide(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] =
+    decisionConnector.decide(Interview(request.userAnswers))
 
   def determineResultView(formWithErrors: Option[Form[Boolean]] = None,
                           answerSections: Seq[AnswerSection] = Seq(),
@@ -112,7 +75,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     val form = formWithErrors.getOrElse(defaultForm)
 
-    collateDecisions.map {
+    decide.map {
       case Right(decision) => {
         val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
         val isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination)

@@ -65,7 +65,7 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
       value => {
         val currentAnswer = request.userAnswers.getAnswer(OfficeHolderPage)
         val overrideMode = if(mode == CheckMode && !value && currentAnswer.contains(true)) NormalMode else mode
-        redirect[Boolean](overrideMode, value, OfficeHolderPage, callDecisionService = true)
+        redirect[Boolean](overrideMode, value, OfficeHolderPage)
       }
     )
   }

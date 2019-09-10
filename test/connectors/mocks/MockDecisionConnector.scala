@@ -28,16 +28,9 @@ trait MockDecisionConnector extends MockFactory {
 
   lazy val mockDecisionConnector = mock[DecisionConnector]
 
-
   def mockDecide(decisionRequest: Interview, writes: Writes[Interview] = Interview.writes)(response: Either[ErrorResponse, DecisionResponse]): Unit = {
     (mockDecisionConnector.decide(_: Interview, _: Writes[Interview])(_: HeaderCarrier, _: ExecutionContext))
       .expects(decisionRequest, *,  *, *)
-      .returns(Future.successful(response))
-  }
-
-  def mockLog(decisionRequest: Interview, decisionResponse: DecisionResponse)(response: Either[ErrorResponse, Boolean]): Unit ={
-    (mockDecisionConnector.log(_: Interview, _: DecisionResponse)(_: HeaderCarrier, _: ExecutionContext))
-      .expects(decisionRequest, decisionResponse, *, *)
       .returns(Future.successful(response))
   }
 }

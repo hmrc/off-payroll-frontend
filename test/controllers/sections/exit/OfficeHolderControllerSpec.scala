@@ -72,7 +72,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
       val validData = Map(OfficeHolderPage.toString -> Json.toJson(Answers(false, 0)))
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-      mockDecide(answers)(onwardRoute)
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
@@ -113,7 +112,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
         val answers = userAnswers.set(OfficeHolderPage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(answers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
@@ -130,7 +128,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
         val answers = userAnswers.set(OfficeHolderPage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(answers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "false"))
 
@@ -192,7 +189,6 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
         val answers = userAnswers.set(OfficeHolderPage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
-        mockDecide(answers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 

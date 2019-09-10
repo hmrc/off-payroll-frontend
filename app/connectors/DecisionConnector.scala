@@ -19,10 +19,8 @@ package connectors
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
 import connectors.httpParsers.DecisionHttpParser.DecisionReads
-import connectors.httpParsers.LogHttpParser.LogReads
 import javax.inject.Inject
 import models._
-import models.logging.LogInterview
 import play.api.Logger
 import play.api.libs.json.{Json, Writes}
 import play.mvc.Http.Status._
@@ -41,7 +39,6 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
 
   lazy val baseUrl: String = servicesConfig.baseUrl("cest-decision")
   lazy val decideUrl = s"$baseUrl/cest-decision/decide"
-  lazy val logUrl = s"$baseUrl/cest-decision/log"
 
   private[connectors] val handleUnexpectedError: PartialFunction[Throwable, Left[ErrorResponse, Nothing]] = {
     case ex: Exception => Logger.error("[DecisionConnector][handleUnexpectedError]", ex)
@@ -51,13 +48,6 @@ class DecisionConnector @Inject()(httpClient: HttpClient,
   def decide(decisionRequest: Interview, writer: Writes[Interview] = Interview.writes)
                (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, DecisionResponse]] = {
     Logger.debug(s"[DecisionConnector][decide] ${Json.toJson(decisionRequest)(writer)}")
-
     httpClient.POST(s"$decideUrl", decisionRequest)(writer, DecisionReads, hc, ec) recover handleUnexpectedError
-  }
-
-  def log(decisionRequest: Interview, decisionResponse: DecisionResponse)
-         (implicit hc: HeaderCarrier, ec: ExecutionContext): Future[Either[ErrorResponse, Boolean]] = {
-    Logger.debug(s"[DecisionConnector][log] ${Json.toJson(decisionRequest)}")
-    httpClient.POST(logUrl, LogInterview(decisionRequest, decisionResponse, dateTimeUtil))(LogInterview.writes, LogReads, hc, ec) recover handleUnexpectedError
   }
 }
