@@ -68,8 +68,13 @@
 
 @whyResult = {
     <p>@messages("agent.optimised.result.officeHolder.whyResult.p1")</p>
+    <p>@messages("agent.optimised.result.officeHolder.whyResult.p2")</p>
 }
 
 @doNext = {
     <p>@messages("agent.optimised.result.officeHolder.doNext.p1")</p>
+    <p>
+        @messages("agent.optimised.result.officeHolder.doNext.p2.preLink")
+        <a id="employmentStatusManualLink" href="@{appConfig.employmentStatusManualUrl}">@messages("agent.optimised.result.officeHolder.doNext.p2.link")</a>
+    </p>
 }

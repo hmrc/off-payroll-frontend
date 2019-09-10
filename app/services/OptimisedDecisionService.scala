@@ -25,10 +25,11 @@ import controllers.routes
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+import models.WhatDoYouWantToDo.MakeNewDetermination
 import models._
 import models.requests.DataRequest
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.setup.{IsWorkForPrivateSectorPage, WorkerUsingIntermediaryPage}
+import pages.sections.setup.{IsWorkForPrivateSectorPage, WhatDoYouWantToDoPage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.Logger
 import play.api.i18n.Messages
@@ -114,12 +115,12 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     collateDecisions.map {
       case Right(decision) => {
         val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
-        val privateSector = request.userAnswers.get(IsWorkForPrivateSectorPage).fold(false)(_.answer)
+        val isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination)
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
 
         implicit val resultsDetails: ResultsDetails = ResultsDetails(
           officeHolderAnswer = officeHolderAnswer,
-          privateSector = privateSector,
+          isMakingDetermination = isMakingDetermination,
           usingIntermediary = usingIntermediary,
           userType = request.userType,
           personalServiceOption = decision.score.personalService,
@@ -150,7 +151,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) => undeterminedAgency(result.form) // AGENT
-      case (true, _) => undeterminedIR35(result.form, result.privateSector) // IR35
+      case (true, _) => undeterminedIR35(result.form, result.isMakingDetermination) // IR35
       case _ => undeterminedPAYE(result.form) // PAYE
     }
   }
@@ -164,7 +165,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
       case (_, true) =>
         outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
       case (true, _) =>
-        outsideIR35(result.form, result.privateSector, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
+        outsideIR35(result.form, result.isMakingDetermination, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
       case _ =>
         outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
     }
@@ -176,14 +177,14 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   private def routeInsideIR35(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.userType) match {
       case (_, Some(UserType.Agency)) => insideAgent(result.form) // AGENT
-      case (true, _) => insideIR35(result.form, result.privateSector) // IR35
+      case (true, _) => insideIR35(result.form, result.isMakingDetermination) // IR35
       case _ => insidePAYE(result.form) // PAYE
     }
 
   private def routeInsideOfficeHolder(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html =
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) => officeAgency(result.form) // AGENT
-      case (true, _) => officeIR35(result.form, result.privateSector) // IR35
+      case (true, _) => officeIR35(result.form, result.isMakingDetermination) // IR35
       case _ => officePAYE(result.form) // PAYE
     }
 }

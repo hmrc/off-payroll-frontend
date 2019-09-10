@@ -34,45 +34,35 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean, pdfDetails: PDFResultDetails): Html =
-    view(form, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
+  def createView(req: DataRequest[_], isMakingDetermination: Boolean, pdfDetails: PDFResultDetails): Html =
+    view(form, isMakingDetermination)(req, messages, frontendAppConfig, pdfDetails)
 
   "The OfficeHolderIR35View page" should {
 
     "If the UserType is Worker" should {
 
-      "If is in the Private Sector" should {
+      "If the user is Making a Determination" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true, testNoPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = true, testNoPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = true)
+        workerPageChecks(isMakingDetermination = true)
         pdfPageChecks(isPdfView = false)
       }
 
-      "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = false, testNoPdfResultDetails))
+      "If the user is Checking a Determination" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = false, testNoPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = false)
+        workerPageChecks(isMakingDetermination = false)
         pdfPageChecks(isPdfView = false)
       }
     }
 
     "If the UserType is Hirer" should {
 
-      "If is in the Private Sector" should {
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = true, testNoPdfResultDetails))
 
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true, testNoPdfResultDetails))
-
-        hirerPageChecks(isPrivateSector = true)
-        pdfPageChecks(isPdfView = false)
-      }
-
-      "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = false, testNoPdfResultDetails))
-
-        hirerPageChecks(isPrivateSector = false)
-        pdfPageChecks(isPdfView = false)
-      }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = false)
     }
   }
 
@@ -80,42 +70,32 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
     "If the UserType is Worker" should {
 
-      "If is in the Private Sector" should {
+      "If the user is Making a Determination" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = true, testPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = true)
+        workerPageChecks(isMakingDetermination = true)
         pdfPageChecks(isPdfView = true)
       }
 
-      "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
+      "If the user is Checking a Determination" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = false, testPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = false)
+        workerPageChecks(isMakingDetermination = false)
         pdfPageChecks(isPdfView = true)
       }
     }
 
     "If the UserType is Hirer" should {
 
-      "If is in the Private Sector" should {
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = false, testPdfResultDetails))
 
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
-
-        hirerPageChecks(isPrivateSector = true)
-        pdfPageChecks(isPdfView = true)
-      }
-
-      "If is in the Public Sector" should {
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
-
-        hirerPageChecks(isPrivateSector = false)
-        pdfPageChecks(isPdfView = true)
-      }
+      hirerPageChecks
+      pdfPageChecks(isPdfView = true)
     }
   }
 
-  def workerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
+  def workerPageChecks(isMakingDetermination: Boolean)(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
@@ -130,20 +110,27 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.whyResult_p1
     }
 
-    if(isPrivateSector) {
+    if(isMakingDetermination) {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_private_p1
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_make_p1
       }
     } else {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_public_p1
+        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p1
+        document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p2
+        document.select(Selectors.DoNext.p(3)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p3
+        document.select(Selectors.DoNext.p(4)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p4
+      }
+
+      "Have a link to the Employment Status Manual" in {
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualUrl
       }
     }
   }
 
-  def hirerPageChecks(isPrivateSector: Boolean)(implicit document: Document) = {
+  def hirerPageChecks(implicit document: Document) = {
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
     }
@@ -157,18 +144,15 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.whyResult_p1
     }
 
-    if(isPrivateSector) {
-      "Have the correct Do Next section which" in {
-        document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p1
-        document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_private_p2
-      }
-    } else {
-      "Have the correct Do Next section which" in {
-        document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p1
-        document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_public_p2
-      }
+    "Have the correct Do Next section which" in {
+      document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p1
+      document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p2
+      document.select(Selectors.DoNext.p(3)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p3
+    }
+
+    "Have a link to the Responsibilities of the Fee Payer" in {
+      document.select("#feePayerResponsibilitiesLink").attr("href") mustBe frontendAppConfig.feePayerResponsibilitiesUrl
     }
   }
 }

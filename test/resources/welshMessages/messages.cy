@@ -68,6 +68,9 @@ site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
 site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
 site.employmentStatusManual = Canllaw Statws Cyflogaeth
+site.telephone = Telephone:
+site.telephone.number = 0300 123 2326
+site.email = Email:
 
 ## TODO NEED WELSH
 site.accordion.openAll = Open all
@@ -1474,42 +1477,50 @@ optimised.result.download.p2 = HMRC will not keep a record of this result.
 ##TODO: Need Welsh
 worker.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
 worker.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
-worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are employed for tax purposes.
-worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are employed for tax purposes for this work.
+worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
 
 ##TODO: Need Welsh
-hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this job
-hirer.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this job
-hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes.
-hirer.optimised.result.officeHolder.paye.doNext.p1 = Ensure that you operate PAYE on earnings from this job.
+hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
+hirer.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
+hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work.
+hirer.optimised.result.officeHolder.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
+hirer.optimised.result.officeHolder.paye.doNext.p2.preLink = If this worker is your first employee, you could read this guidance about
+hirer.optimised.result.officeHolder.paye.doNext.p2.link = PAYE and payroll for employers.
 ## ------------------
 
 ## Office Holder IR35
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply to this contract
-worker.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply to this contract
-worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are deemed employed for tax purposes.
-worker.optimised.result.officeHolder.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
-worker.optimised.result.officeHolder.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
+worker.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply
+worker.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
+worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are classed as employed for tax purposes for this work.
+worker.optimised.result.officeHolder.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.officeHolder.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
+worker.optimised.result.officeHolder.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
+worker.optimised.result.officeHolder.ir35.check.doNext.p3.preLink = You could also read Chapter 5 of the
+worker.optimised.result.officeHolder.ir35.check.doNext.p3.link = Employment Status Manual.
 
 ##TODO: Need Welsh
-hirer.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply to this contract
-hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply to this contract
-hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes.
-hirer.optimised.result.officeHolder.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
-hirer.optimised.result.officeHolder.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.officeHolder.ir35.public.doNext.p1 = If you are the fee-payer, you need to operate PAYE on earnings from this contract.
-hirer.optimised.result.officeHolder.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
+hirer.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply
+hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
+hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are classed as employed for tax purposes for this work.
+hirer.optimised.result.officeHolder.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings.
+hirer.optimised.result.officeHolder.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
+hirer.optimised.result.officeHolder.ir35.doNext.p3.preLink = You could also read more about the
+hirer.optimised.result.officeHolder.ir35.doNext.p3.link = responsibilities of the fee-payer.
 ## ------------------
 
 ## Office Holder Agent
 ## -------------------
 ##TODO: Need Welsh
-agent.optimised.result.officeHolder.title = Off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.officeHolder.whyResult.p1 = In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes.
-agent.optimised.result.officeHolder.doNext.p1 = If you are the fee-payer, you should tell your candidate that you will be operating PAYE on their earnings.
+agent.optimised.result.officeHolder.title = Off-payroll working rules (IR35) apply
+agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply
+agent.optimised.result.officeHolder.whyResult.p1 = You have completed the tool as if you are the worker.
+agent.optimised.result.officeHolder.whyResult.p2 = In the ‘Worker’s Duties’ section, you answered that they will act in an official position for your client. This means they are classed as employed for tax purposes for this work.
+agent.optimised.result.officeHolder.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
+agent.optimised.result.officeHolder.doNext.p2.preLink = If you need more guidance, you could also read Chapter 5 of the
+agent.optimised.result.officeHolder.doNext.p2.link = Employment Status Manual.
 ## ------------------
 
 ## Inside PAYE Hirer

@@ -64,11 +64,17 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe OfficeHolderMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe OfficeHolderMessages.Agent.whyResult_p1
+      document.select(Selectors.WhyResult.p(2)).text mustBe OfficeHolderMessages.Agent.whyResult_p2
     }
 
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Agent.doNext_p1
+      document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Agent.doNext_p2
+    }
+
+    "Have a link to the Employment Status Manual" in {
+      document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualUrl
     }
   }
 }

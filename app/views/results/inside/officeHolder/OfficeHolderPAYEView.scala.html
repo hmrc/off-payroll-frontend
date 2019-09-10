@@ -18,6 +18,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import results.sections.pdf
+@import models.UserType.Hirer
 @import models.requests.DataRequest
 
 @import controllers.routes._
@@ -72,5 +73,13 @@
 }
 
 @doNext = {
-    <p>@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p1"))</p>
+    @if(request.userType.contains(Hirer)) {
+        <p>@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p1"))</p>
+        <p>
+            @messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p2.preLink"))
+            <a id="payeForEmployersLink" href="@{appConfig.payeForEmployersUrl}">@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p2.link"))</a>
+        </p>
+    } else {
+        <p>@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p1"))</p>
+    }
 }
