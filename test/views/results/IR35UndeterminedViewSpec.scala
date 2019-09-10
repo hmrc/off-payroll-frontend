@@ -131,7 +131,8 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult1
+      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult2
     }
 
     if (isPrivateSector) {
@@ -139,12 +140,18 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP1
         document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP2
+        document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.telephone
+        document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.email
+        document.select(Selectors.DoNext.p(5)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPrivateP3
       }
     } else {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP1
         document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP2
+        document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.telephone
+        document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.email
+        document.select(Selectors.DoNext.p(5)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextPublicP3
       }
     }
   }
@@ -161,7 +168,8 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult1
+      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult2
     }
 
     if(isPrivateSector) {
@@ -169,12 +177,18 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP1
         document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP2
+        document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.telephone
+        document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.email
+        document.select(Selectors.DoNext.p(5)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPrivateP3
       }
     } else {
       "Have the correct Do Next section for the Public Sector" in {
         document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP1
         document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP2
+        document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.telephone
+        document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.email
+        document.select(Selectors.DoNext.p(5)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextPublicP3
       }
     }
   }
