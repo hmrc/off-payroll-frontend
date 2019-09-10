@@ -439,7 +439,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               substituteToDoWork = true,
               clientNotControlWork = true,
               incurCostNoReclaim = true,
-              isBoOA = false
+              isBoOA = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))

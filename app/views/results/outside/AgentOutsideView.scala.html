@@ -27,7 +27,7 @@
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean, isBoOA: Boolean = false)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean, isBoOA: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -72,9 +72,6 @@
 
 @whyResult = {
 
-
-
-
     @if(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA).length == 1){
         <p class="form-group">@messages(singleOutReason(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA))</p>
         } else {
@@ -87,4 +84,8 @@
 
 @doNext = {
     <p>@messages("agent.optimised.result.outside.doNext.p1")</p>
+    <p>
+        @messages("agent.optimised.result.outside.doNext.p2.text")
+        <a id="employmentStatusManualLink" href="@{appConfig.employmentStatusManualUrl}">@messages("agent.optimised.result.outside.doNext.p2.link")</a>
+    </p>
 }

@@ -132,14 +132,14 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
     "If the UserType is Worker" should {
 
-      "If Private Sector" should {
+      "If making a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPdfResultDetails))
 
         workerPageChecks(isMake = true)
         pdfPageChecks(isPdfView = true)
       }
 
-      "If Public Sector" should {
+      "If checking a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
         workerPageChecks(isMake = false)
@@ -172,6 +172,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB1
         document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB2
         document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB3
+        document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB4
         document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
       }
 
@@ -184,7 +185,6 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         "Have the correct Do Next section which" in {
           document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
           document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP1
-          document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP2
           document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP2
           document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP3
         }

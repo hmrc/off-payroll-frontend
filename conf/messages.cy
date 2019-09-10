@@ -1798,18 +1798,21 @@ hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = the worker is pro
 ## Out Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.outside.title = Off-payroll working rules (IR35) do not apply to this contract
-agent.optimised.result.outside.heading = Off-payroll working rules (IR35) do not apply to this contract
+agent.optimised.result.outside.title = Off-payroll working rules (IR35) do not apply
+agent.optimised.result.outside.heading = Off-payroll working rules (IR35) do not apply
 agent.optimised.result.outside.whyResult.p1 = Your answers told us:
-agent.optimised.result.outside.whyResult.substituteToDoWork = your candidate’s client has accepted, or would accept, a substitute to do this work
-agent.optimised.result.outside.whyResult.clientNotControlWork = your candidate’s client does not have control over this work
-agent.optimised.result.outside.whyResult.incurCostNoReclaim = your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged
-agent.optimised.result.outside.whyResult.p2 = This indicates the working arrangements for this contract are on a business to business basis.
-agent.optimised.result.outside.doNext.p1 = If you are the fee-payer you can pay the worker’s business gross, without deducting tax and National Insurance.
-agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us your candidate’s client has accepted, or would accept, a substitute to do this work.
-agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us your candidate’s client does not have control over this work.
-agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us your candidate’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
-
+agent.optimised.result.outside.whyResult.substituteToDoWork = the worker’s client has accepted, or would accept, a substitute
+agent.optimised.result.outside.whyResult.clientNotControlWork = the worker’s client does not have control over this work
+agent.optimised.result.outside.whyResult.incurCostNoReclaim = the worker’s business will incur a cost for this work that their client will not pay for
+agent.optimised.result.outside.whyResult.booa = the worker is providing services as a business
+agent.optimised.result.outside.whyResult.p2 = This suggests the worker is engaged on a business to business basis. This means they are classed as self-employed for tax purposes for this work.
+agent.optimised.result.outside.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
+agent.optimised.result.outside.doNext.p2.text = If you need more guidance, you could also read Chapter 5 of the
+agent.optimised.result.outside.doNext.p2.link = Employment Status Manual.
+agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
+agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
+agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a cost for this work that their client will not pay for.
+agent.optimised.result.outside.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business
 ##TODO: Need Welsh
 
 hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
@@ -1820,7 +1823,7 @@ hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not 
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
 hirer.optimised.result.outside.paye.whyResult.booa = the worker is providing services as a business
 hirer.optimised.result.outside.paye.whyResult.p2 = This suggests the worker is self-employed for tax purposes for this work.
-hirer.optimised.result.outside.paye.doNext.p1 = You need to pay the worker's earnings in full, without deducting tax or National Insurance.
+hirer.optimised.result.outside.paye.doNext.p1 = You need to pay the worker’s earnings in full, without deducting tax or National Insurance.
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.

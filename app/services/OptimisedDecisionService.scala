@@ -127,7 +127,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
-        outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
+        outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA) // AGENT
       case (true, _) =>
         outsideIR35(result.form, result.isMakingDetermination, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA) // IR35
       case _ =>
