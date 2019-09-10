@@ -33,24 +33,20 @@ import play.api.mvc.Call
 @Singleton
 class ExitNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
-  def officeHolderRouteMap(mode: Mode): Map[Page, UserAnswers => Call] = mode match {
-    case CheckMode => Map(OfficeHolderPage -> (answers =>
+  def officeHolderRouteMap(mode: Mode): Map[Page, UserAnswers => Call] = {
+    Map(OfficeHolderPage -> (answers =>
       if(answers.getAnswer(OfficeHolderPage).contains(true)) {
         ResultController.onPageLoad()
       } else {
-        CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))
-      }))
-    case NormalMode => Map(OfficeHolderPage -> (answers =>
-      if(answers.getAnswer(OfficeHolderPage).contains(true)) {
-        ResultController.onPageLoad()
-      } else {
-        answers.get(ContractStartedPage) match {
-          case Some(Answers(true, _)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
-          case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
-          case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+        mode match {
+          case CheckMode => CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))
+          case NormalMode => answers.get(ContractStartedPage) match {
+                case Some(Answers(true, _)) => personalServiceRoutes.ArrangedSubstituteController.onPageLoad(NormalMode)
+                case Some(_) => personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode)
+                case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+              }
         }
-      })
-    )
+      }))
   }
 
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = {
