@@ -23,15 +23,15 @@ sealed trait WhatDoYouWantToDo
 
 object WhatDoYouWantToDo {
 
-  case object makeNewDetermination extends WithName("makeNewDetermination") with WhatDoYouWantToDo
-  case object checkDetermination extends WithName("checkDetermination") with WhatDoYouWantToDo
+  case object MakeNewDetermination extends WithName("makeNewDetermination") with WhatDoYouWantToDo
+  case object CheckDetermination extends WithName("checkDetermination") with WhatDoYouWantToDo
 
 
-  val values: Seq[WhatDoYouWantToDo] = Seq(makeNewDetermination, checkDetermination)
+  val values: Seq[WhatDoYouWantToDo] = Seq(MakeNewDetermination, CheckDetermination)
 
   val options: Seq[RadioOption] = Seq(
-    RadioOption("whatDoYouWantToDo", makeNewDetermination.toString, Radio),
-    RadioOption("whatDoYouWantToDo", checkDetermination.toString, Radio)
+    RadioOption("whatDoYouWantToDo", MakeNewDetermination.toString, Radio),
+    RadioOption("whatDoYouWantToDo", CheckDetermination.toString, Radio)
   )
 
   implicit val enumerable: Enumerable[WhatDoYouWantToDo] = Enumerable(values.map(v => v.toString -> v): _*)
@@ -39,8 +39,8 @@ object WhatDoYouWantToDo {
   implicit val writes: Writes[WhatDoYouWantToDo] = Writes { model => Json.toJson(model.toString) }
 
   implicit val reads: Reads[WhatDoYouWantToDo] = Reads {
-    case JsString(makeNewDetermination.toString) => JsSuccess(makeNewDetermination)
-    case JsString(checkDetermination.toString) => JsSuccess(checkDetermination)
+    case JsString(MakeNewDetermination.toString) => JsSuccess(MakeNewDetermination)
+    case JsString(CheckDetermination.toString) => JsSuccess(CheckDetermination)
     case _                         => JsError("Unknown whatDoYouWantToDo")
   }
 }

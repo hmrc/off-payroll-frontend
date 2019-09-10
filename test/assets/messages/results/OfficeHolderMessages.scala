@@ -22,42 +22,47 @@ object OfficeHolderMessages extends BaseResultMessages {
     object PAYE {
       val title = "Employed for tax purposes for this work"
       val heading = "Employed for tax purposes for this work"
-      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are employed for tax purposes."
-      val doNext_p1 = "Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings."
+      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are employed for tax purposes for this work."
+      val doNext_p1 = "Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings."
     }
 
     object IR35 {
-      val title = "Off-payroll working rules (IR35) apply to this contract"
-      val heading = "Off-payroll working rules (IR35) apply to this contract"
-      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties for your client. Workers that perform these duties are deemed employed for tax purposes."
-      val doNext_private_p1 = "Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings."
-      val doNext_public_p1 = "Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings."
+      val title = "Off-payroll working rules (IR35) apply"
+      val heading = "Off-payroll working rules (IR35) apply"
+      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are classed as employed for tax purposes for this work."
+      val doNext_make_p1 = "Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings."
+      val doNext_check_p1 = "If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct."
+      val doNext_check_p2 = "If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline."
+      val doNext_check_p3 = s"$telephone $telephoneNumber $email $emailAddress"
+      val doNext_check_p4 = "You could also read Chapter 5 of the Employment Status Manual."
     }
   }
 
   object Hirer {
     object PAYE {
-      val title = "Employed for tax purposes for this job"
-      val heading = "Employed for tax purposes for this job"
-      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes."
-      val doNext_p1 = "Ensure that you operate PAYE on earnings from this job."
+      val title = "Employed for tax purposes for this work"
+      val heading = "Employed for tax purposes for this work"
+      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work."
+      val doNext_p1 = "You need to operate PAYE on the worker’s earnings."
+      val doNext_p2 = "If this worker is your first employee, you could read this guidance about PAYE and payroll for employers."
     }
 
     object IR35 {
-      val title = "Off-payroll working rules (IR35) apply to this contract"
-      val heading = "Off-payroll working rules (IR35) apply to this contract"
-      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties for you. Workers that perform these duties are classed as employed for tax purposes."
-      val doNext_private_p1 = "Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility."
-      val doNext_private_p2 = "From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them."
-      val doNext_public_p1 = "If you are the fee-payer, you need to operate PAYE on earnings from this contract."
-      val doNext_public_p2 = "If the fee-payer is someone else, you need to show them this determination."
+      val title = "Off-payroll working rules (IR35) apply"
+      val heading = "Off-payroll working rules (IR35) apply"
+      val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are classed as employed for tax purposes for this work."
+      val doNext_p1 = "If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings."
+      val doNext_p2 = "If someone else is responsible, you should download a copy of this result and show it to them."
+      val doNext_p3 = "You could also read more about the responsibilities of the fee-payer."
     }
   }
 
   object Agent {
-    val title = "Off-payroll working rules (IR35) apply to this contract"
-    val heading = "Off-payroll working rules (IR35) apply to this contract"
-    val whyResult_p1 = "In the ‘The worker’s duties’ section, you answered that your candidate will act in an official position for your client. Workers that perform office holder duties are classed as employed for tax purposes."
-    val doNext_p1 = "If you are the fee-payer, you should tell your candidate that you will be operating PAYE on their earnings."
+    val title = "Off-payroll working rules (IR35) apply"
+    val heading = "Off-payroll working rules (IR35) apply"
+    val whyResult_p1 = "You have completed the tool as if you are the worker."
+    val whyResult_p2 = "In the ‘Worker’s Duties’ section, you answered that they will act in an official position for your client. This means they are classed as employed for tax purposes for this work."
+    val doNext_p1 = "If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct."
+    val doNext_p2 = "If you need more guidance, you could also read Chapter 5 of the Employment Status Manual."
   }
 }

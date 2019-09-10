@@ -47,6 +47,7 @@ import models.IdentifyToStakeholders.WorkAsIndependent
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.WhatDoYouWantToDo.MakeNewDetermination
 import models.WhichDescribesYouAnswer._
 import models.WorkerType.SoleTrader
 import models._
@@ -259,13 +260,13 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               val userAnswers: UserAnswers = UserAnswers("id")
                 .set(WorkerUsingIntermediaryPage, 2, true)
                 .set(OfficeHolderPage, 3, true)
-                .set(IsWorkForPrivateSectorPage, answerNumber = 4, true)
+                .set(WhatDoYouWantToDoPage, answerNumber = 4, MakeNewDetermination)
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
 
-              val expected: Html = OfficeHolderIR35View(form, isPrivateSector = true)
+              val expected: Html = OfficeHolderIR35View(form, isMakingDetermination = true)
 
               val actual = await(service.determineResultView(Some(form)))
 
