@@ -189,6 +189,7 @@ class OfficeHolderControllerSpec extends ControllerSpecBase {
         val answers = userAnswers.set(OfficeHolderPage, 0, true)
 
         mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
+        mockDecide(answers)(onwardRoute)
 
         val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
