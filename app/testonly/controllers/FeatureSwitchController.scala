@@ -18,11 +18,11 @@ package testonly.controllers
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitch._
-import config.featureSwitch.{FeatureSwitch, FeatureSwitching}
+import config.featureSwitch.{BooleanFeatureSwitch, CustomValueFeatureSwitch, FeatureSwitch, FeatureSwitching}
 import javax.inject.Inject
+import play.api.Logger
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import play.twirl.api.Html
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import testonly.controllers.routes.FeatureSwitchController
 import testonly.views.html.feature_switch
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -35,26 +35,33 @@ class FeatureSwitchController @Inject()(controllerComponents: MessagesController
 
   extends FrontendController(controllerComponents) with FeatureSwitching with I18nSupport {
 
-  private def view(switchNames: Map[FeatureSwitch, Boolean])(implicit request: Request[_]): Html =
-    view(
-      switchNames,
-      FeatureSwitchController.submit()
-    )
 
   def show: Action[AnyContent] = Action { implicit req =>
-    val featureSwitches = ListMap(switches map (switch => switch -> isEnabled(switch)):_*)
-    Ok(view(featureSwitches))
+    val bfs: Map[BooleanFeatureSwitch, Boolean] = ListMap(booleanFeatureSwitches map (switch => switch -> isEnabled(switch)):_*)
+    val cfs: Map[CustomValueFeatureSwitch, Set[String]] = ListMap(customValueFeatureSwitch map (switch => switch -> switch.values):_*)
+    Ok(view(bfs, cfs, FeatureSwitchController.submit()))
   }
 
   def submit: Action[AnyContent] = Action { implicit req =>
-    val submittedData: Set[String] = req.body.asFormUrlEncoded match {
-      case None => Set.empty
-      case Some(data) => data.keySet
+    val submittedData: Map[String, Seq[String]] = req.body.asFormUrlEncoded match {
+      case None => Map()
+      case Some(data) => data
     }
 
-    val frontendFeatureSwitches = submittedData flatMap FeatureSwitch.get
+    val frontendFeatureSwitches: Map[FeatureSwitch, String] = submittedData.map(kv => FeatureSwitch.get(kv._1) -> kv._2.head).collect{
+      case (Some(k),v) => k -> v
+    }
 
-    switches.foreach(fs => if (frontendFeatureSwitches.contains(fs)) enable(fs) else disable(fs))
+    Logger.debug(s"[FeatureSwitchController][submit] frontendFeatureSwitches > ${frontendFeatureSwitches}")
+
+    val bfs: Map[BooleanFeatureSwitch, Boolean] = frontendFeatureSwitches.collect{case (a: BooleanFeatureSwitch,b) => a -> b.toBoolean}
+    val cfs: Map[CustomValueFeatureSwitch, String] = frontendFeatureSwitches.collect{case (a: CustomValueFeatureSwitch, b) => a -> b}
+
+    Logger.debug(s"[FeatureSwitchController][submit] booleanFeatureSwitches > ${bfs}")
+    Logger.debug(s"[FeatureSwitchController][submit] customValueFeatureSwitches > ${cfs}")
+
+    booleanFeatureSwitches.foreach(fs => if (bfs.exists(_._1 == fs)) enable(fs) else disable(fs))
+    cfs.foreach(fs => setValue(fs._1, fs._2))
 
     Redirect(FeatureSwitchController.show())
   }

@@ -16,29 +16,41 @@
 
 @import helper._
 @import config.FrontendAppConfig
-@import config.featureSwitch.FeatureSwitch
+@import config.featureSwitch._
 @import views.html.templates.MainTemplate
 
 @this(template: MainTemplate)
 
-@(switchNames: Map[FeatureSwitch, Boolean], action: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
+@(booleanSwitches: Map[BooleanFeatureSwitch, Boolean], customValueSwitches: Map[CustomValueFeatureSwitch, Set[String]], action: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@template(title = "Feature switch", appConfig) {
+@template(title = "Feature switch", appConfig, js = Some("feature-switch.js")) {
     <form method="@action.method" action="@action.url">
         @CSRF.formField
         <fieldset>
             <legend>
                 <h2 class="heading-medium">Which features would you like to have enabled?</h2>
             </legend>
-            <h3 class="heading-small">Frontend features</h3>
-            <div class="form-group">
-                @for(switch <- switchNames) {
-                <div class="multiple-choice">
-                    <input type="checkbox" id="@switch._1.name" name="@switch._1.name" value="true" @{if(switch._2){"Checked"}}>
-                    <label for="@switch._1.name">@switch._1.displayText</label>
+                <div class="form-group">
+                    @for(switch <- booleanSwitches) {
+                        <div class="multiple-choice">
+                            <input type="checkbox" id="@switch._1.name" name="@switch._1.name" value="true" @{if(switch._2){"Checked"}}>
+                            <label for="@switch._1.name">@switch._1.displayText</label>
+                        </div>
+                    }
                 </div>
-            }
-            </div>
+                <div class="form-group">
+                @for(switch <- customValueSwitches) {
+                        <h4>@switch._1.displayText</h4>
+                        <div class="panel-indent">
+                            @for(value <- switch._2) {
+                                <div class="multiple-choice">
+                                    <input type="radio" id="@{switch._1.name}-@{value}" name="@switch._1.name" value="@value" @{if(FeatureSwitching.getValue(switch._1) == value){"Checked"}}>
+                                    <label for="@{switch._1.name}-@{value}">@value</label>
+                                </div>
+                            }
+                        </div>
+                }
+                </div>
         </fieldset>
         <button type="submit">Update feature switches</button>
     </form>

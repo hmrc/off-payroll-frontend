@@ -19,6 +19,7 @@ package config
 import java.util.Base64
 
 import com.google.inject.{Inject, Singleton}
+import config.featureSwitch.{DecisionServiceVersionFeature, FeatureSwitching}
 import controllers.routes
 import play.api.Environment
 import play.api.i18n.Lang
@@ -65,7 +66,7 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
 
   lazy val mongoTtl: Int = servicesConfig.getInt("mongodb.timeToLiveInSeconds")
 
-  lazy val decisionVersion = servicesConfig.getString("decisionServiceVersion")
+  def decisionVersion = FeatureSwitching.getValue(DecisionServiceVersionFeature)(this)
 
   lazy val pdfGeneratorService = servicesConfig.baseUrl("pdf-generator-service")
 
