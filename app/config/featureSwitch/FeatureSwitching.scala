@@ -26,9 +26,14 @@ trait FeatureSwitching {
   def isEnabled(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): Boolean =
     sys.props.get(featureSwitch.name).fold(config.servicesConfig.getBoolean(featureSwitch.name))(_.toBoolean)
 
-  def enable(featureSwitch: FeatureSwitch): Unit =
-    sys.props += featureSwitch.name -> FEATURE_SWITCH_ON
+  def getValue(featureSwitch: FeatureSwitch)(implicit config: FrontendAppConfig): String =
+    sys.props.get(featureSwitch.name).fold(config.servicesConfig.getString(featureSwitch.name))(x => x)
 
-  def disable(featureSwitch: FeatureSwitch): Unit =
-    sys.props += featureSwitch.name -> FEATURE_SWITCH_OFF
+  def setValue(featureSwitch: FeatureSwitch, value: String) = sys.props += featureSwitch.name -> value
+
+  def enable(featureSwitch: FeatureSwitch): Unit = setValue(featureSwitch, FEATURE_SWITCH_ON)
+
+  def disable(featureSwitch: FeatureSwitch): Unit = setValue(featureSwitch, FEATURE_SWITCH_OFF)
 }
+
+object FeatureSwitching extends FeatureSwitching

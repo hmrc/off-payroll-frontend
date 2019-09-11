@@ -16,13 +16,16 @@
 
 package config.featureSwitch
 
-import FeatureSwitch.prefix
+import config.featureSwitch.FeatureSwitch.prefix
+import models.DecisionServiceVersion
 
 object FeatureSwitch {
 
   val prefix = "feature-switch"
 
-  val switches: Seq[FeatureSwitch] = Seq(OptimisedFlow, PrintPDF, WelshLanguage, BusinessOnOwnAccountJourney)
+  val switches: Seq[FeatureSwitch] = Seq(OptimisedFlow, PrintPDF, WelshLanguage, BusinessOnOwnAccountJourney, DecisionServiceVersionFeature)
+  val booleanFeatureSwitches: Seq[BooleanFeatureSwitch] = switches.collect{case a: BooleanFeatureSwitch => a}
+  val customValueFeatureSwitch: Seq[CustomValueFeatureSwitch] = switches.collect{case a: CustomValueFeatureSwitch => a}
 
   def apply(str: String): FeatureSwitch =
     switches find (_.name == str) match {
@@ -39,22 +42,33 @@ sealed trait FeatureSwitch {
   val displayText: String
 }
 
-case object PrintPDF extends FeatureSwitch {
+sealed trait BooleanFeatureSwitch extends FeatureSwitch
+sealed trait CustomValueFeatureSwitch extends FeatureSwitch {
+  val values: Set[String]
+}
+
+case object PrintPDF extends BooleanFeatureSwitch {
   override val name: String = s"$prefix.printPdfEnabled"
   override val displayText: String = "Enable the Printing of the PDF"
 }
 
-case object WelshLanguage extends FeatureSwitch {
+case object WelshLanguage extends BooleanFeatureSwitch {
   override val name: String = s"$prefix.welsh-translation"
   override val displayText: String = "Enable welsh translation"
 }
 
-case object OptimisedFlow extends FeatureSwitch {
+case object OptimisedFlow extends BooleanFeatureSwitch {
   override val name: String = s"$prefix.optimisedFlow"
   override val displayText: String = "Enable the new Optimised Flow (♫ A whole new flow ♪)"
 }
 
-case object BusinessOnOwnAccountJourney extends FeatureSwitch {
+case object BusinessOnOwnAccountJourney extends BooleanFeatureSwitch {
   override val name: String = s"$prefix.businessOnOwnAccount"
   override val displayText: String = "Enable the business on own account journey"
+}
+
+case object DecisionServiceVersionFeature extends CustomValueFeatureSwitch {
+  override val name: String = s"$prefix.decisionServiceVersion"
+  override val displayText: String = "Decision Service version:"
+  override val values: Set[String] = DecisionServiceVersion.values.map(_.toString)
 }
