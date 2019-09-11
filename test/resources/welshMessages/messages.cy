@@ -1545,11 +1545,14 @@ hirer.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, 
 hirer.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
 
 ##TODO: Need Welsh
-worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
-worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
-worker.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that you are providing a service to your client. This means you are deemed employed for tax purposes.
-worker.optimised.result.inside.ir35.private.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
-worker.optimised.result.inside.ir35.public.doNext.p1 = Download a copy of your result to give to the fee-payer. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply
+worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
+worker.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest you are providing a personal service to your client. This means you are classed as employed for tax purposes for this work.
+worker.optimised.result.inside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
+worker.optimised.result.inside.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
+worker.optimised.result.inside.ir35.check.doNext.p3.text = You could also read Chapter 5 of the
+worker.optimised.result.inside.ir35.check.doNext.p3.link = Employment Status Manual.
 ## ------------------
 
 ## Undetermined IR35 Decision Worker
@@ -1619,13 +1622,13 @@ agent.optimised.result.undetermined.doNext.p2 = If you need more guidance, you c
 ## Hirer IR35
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply to this contract
-hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply to this contract
-hirer.optimised.result.inside.ir35.whyResult.p1 = Your answers indicate that the worker is providing a service to your organisation. This means they are deemed employed for tax purposes.
-hirer.optimised.result.inside.ir35.private.doNext.p1 = Currently, you do not need to determine the employment status of this contract for tax purposes. It is the worker’s responsibility.
-hirer.optimised.result.inside.ir35.private.doNext.p2 = From April 2020, if you are the fee-payer then contracts like this will need to be operated within PAYE. If the fee-payer is someone else, then you would need to show this determination to them.
-hirer.optimised.result.inside.ir35.public.doNext.p1 = If you are the fee-payer, you need to operate PAYE on earnings from this contract.
-hirer.optimised.result.inside.ir35.public.doNext.p2 = If the fee-payer is someone else, you need to show them this determination.
+hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply
+hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
+hirer.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest the worker is providing a personal service to your organisation. This means they are classed as employed for tax purposes for this work.
+hirer.optimised.result.inside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings.
+hirer.optimised.result.inside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
+hirer.optimised.result.inside.ir35.doNext.p3.text = You could also read more about the
+hirer.optimised.result.inside.ir35.doNext.p3.link = responsibilities of the fee-payer.
 
 ##TODO: Need Welsh
 hirer.optimised.result.undetermined.ir35.title = Unable to make a determination

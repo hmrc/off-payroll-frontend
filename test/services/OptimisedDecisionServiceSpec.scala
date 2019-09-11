@@ -329,7 +329,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
 
-              val expected: Html = IR35InsideView(form, isPrivateSector = false)
+              val expected: Html = IR35InsideView(form, isMake = false)
 
               val actual = await(service.determineResultView(Some(form)))
 
