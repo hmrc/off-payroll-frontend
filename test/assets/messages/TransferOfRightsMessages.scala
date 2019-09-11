@@ -20,18 +20,18 @@ object TransferOfRightsMessages extends BaseMessages {
 
 
   object Worker {
-    val error = "Select yes if your client has the option to buy the rights for a separate fee"
-    val title = "Does your client have the option to buy the rights for a separate fee?"
+    val error = "Select yes if the contract gives your client the option to buy the rights for a separate fee"
+    val title = "Does the contract give your client the option to buy the rights for a separate fee?"
     val heading = title
     val subheading = "Worker’s contracts"
-    val p1 = "If a requirement like this does not exist, you would keep all the rights."
+    val p1 = "If an option like this does not exist, you would keep all the rights relating to this work."
   }
 
   object Hirer {
-    val error = "Select yes if your organisation has the option to buy the rights for a separate fee"
+    val error = "Select yes if the contract gives your organisation the option to buy the rights for a separate fee"
     val title = "Does the contract give your organisation the option to buy the rights for a separate fee?"
     val heading = title
     val subheading = "Worker’s contracts"
-    val p1 = "If no such clause or requirement exists, the worker would keep all the rights."
+    val p1 = "If an option like this does not exist, the worker would keep all rights relating to this work."
   }
 }
