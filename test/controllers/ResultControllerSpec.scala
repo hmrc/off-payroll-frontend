@@ -65,7 +65,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
     AnswerSection(Messages("result.partAndParcel.h2"), whyResult = Some(Html(messages("result.partParcel.summary"))), Seq(), section = Section.partAndParcel)
   )
 
-  val version = "1.5.0-final"
+  val version = frontendAppConfig.decisionVersion
 
   object TestResultController extends ResultController(
     FakeIdentifierAction,

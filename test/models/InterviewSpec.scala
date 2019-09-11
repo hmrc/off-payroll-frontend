@@ -996,7 +996,7 @@ class InterviewSpec extends GuiceAppSpecBase {
         )
 
         val expected = Json.obj(
-          "version" -> "1.5.0-final",
+          "version" -> frontendAppConfig.decisionVersion,
           "correlationID" -> "id",
           "interview" -> Json.obj(
             "setup" -> Json.obj(
@@ -1085,7 +1085,7 @@ class InterviewSpec extends GuiceAppSpecBase {
         )
 
         val expected = Json.obj(
-          "version" -> "1.5.0-final",
+          "version" -> frontendAppConfig.decisionVersion,
           "correlationID" -> "id",
           "interview" -> Json.obj(
             "setup" -> Json.obj(
@@ -1146,7 +1146,7 @@ class InterviewSpec extends GuiceAppSpecBase {
         val model = Interview("id")
 
         val expected = Json.obj(
-          "version" -> "1.5.0-final",
+          "version" -> frontendAppConfig.decisionVersion,
           "correlationID" -> "id",
           "interview" -> Json.obj(
             "setup" -> Json.obj(),
