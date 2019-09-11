@@ -1583,7 +1583,7 @@ worker.optimised.result.outside.ir35.check.doNext.p3.link = Employment Status Ma
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for
-worker.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business
+worker.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
 ## Outside PAYE Decision Worker
 ## ------------------
 ##TODO: Need Welsh
@@ -1776,8 +1776,8 @@ personalServiceSectionChangeWarning.heading = By changing your answers in this s
 businessOnOwnAccountSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
 businessOnOwnAccountSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
 
-hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply to this contract
-hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply to this contract
+hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
+hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
 hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
@@ -1791,7 +1791,7 @@ hirer.optimised.result.outside.ir35.doNext.p3.link = responsibilities of the fee
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
-hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = the worker is providing services as a business
+hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = the worker is providing services as a business.
 ## ------------------
 ## Out Agent
 ## ------------------
@@ -1810,7 +1810,7 @@ agent.optimised.result.outside.doNext.p2.link = Employment Status Manual.
 agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
 agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a cost for this work that their client will not pay for.
-agent.optimised.result.outside.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business
+agent.optimised.result.outside.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
 
 ##TODO: Need Welsh
 

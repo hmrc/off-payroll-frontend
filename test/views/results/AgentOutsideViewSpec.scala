@@ -114,6 +114,10 @@ class AgentOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.Agent.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.Agent.doNextP2
     }
+
+    "Have a link to the Employment Status Manual" in {
+      document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualChapter5Url
+    }
   }
 
   def singleReasonChecks(reasonMessage: String)(implicit document: Document) : Unit ={

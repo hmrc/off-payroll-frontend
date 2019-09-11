@@ -86,6 +86,6 @@
     <p>@messages("agent.optimised.result.outside.doNext.p1")</p>
     <p>
         @messages("agent.optimised.result.outside.doNext.p2.text")
-        <a id="employmentStatusManualLink" href="@{appConfig.employmentStatusManualUrl}">@messages("agent.optimised.result.outside.doNext.p2.link")</a>
+        @components.new_window_link("agent.optimised.result.outside.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
     </p>
 }
