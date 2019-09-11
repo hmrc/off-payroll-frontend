@@ -69,8 +69,13 @@
 
 @whyResult = {
     <p>@messages("agent.optimised.result.inside.whyResult.p1")</p>
+    <p>@messages("agent.optimised.result.inside.whyResult.p2")</p>
 }
 
 @doNext = {
     <p>@messages("agent.optimised.result.inside.doNext.p1")</p>
+    <p>
+        @messages("agent.optimised.result.inside.doNext.p2.text")
+        @components.new_window_link("agent.optimised.result.inside.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+    </p>
 }

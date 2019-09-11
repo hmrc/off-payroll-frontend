@@ -115,5 +115,9 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerPAYE.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerPAYE.doNextP2
     }
+
+    "Have a link to the Employment Status Manual" in {
+      document.select("#payeForEmployersLink").attr("href") mustBe frontendAppConfig.payeForEmployersUrl
+    }
   }
 }

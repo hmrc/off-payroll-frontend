@@ -21,6 +21,8 @@
 @import models.UserType.Hirer
 @import results.sections.pdf
 
+@import results.sections._
+
 @import controllers.routes._
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
@@ -75,11 +77,11 @@
 
 @doNext = {
     @if(request.userType.contains(Hirer)) {
-        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p1"))</p>
-        <p>@messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p2"))</p>
+        <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p1"))</p>
+        <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p2"))</p>
         <p>
-            @messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p3.preLink"))
-            <a id="feePayerResponsibilitiesLink" href="@{appConfig.feePayerResponsibilitiesUrl}">@messages(tailorMsgOptimised("result.officeHolder.ir35.doNext.p3.link"))</a>
+            @messages(tailorMsgOptimised("result.inside.ir35.doNext.p3.text"))
+            @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
         </p>
     } else {
         @if(isMake) {
@@ -87,14 +89,12 @@
         } else {
             <p>@messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p1"))</p>
             <p>@messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p2"))</p>
-            <p>
-                @messages("site.telephone") <span class="bold">@messages("site.telephone.number")</span>
-                <br>
-                @messages("site.email") <a id="emailLink" href='mailto:@{messages("site.ir35email")}'>@messages("site.ir35email")</a>
-            </p>
+
+            @contact_details()
+
             <p>
                 @messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p3.text"))
-                <a href="@{appConfig.employmentStatusManualUrl}">@messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p3.link"))</a>
+                @components.new_window_link(tailorMsgOptimised("result.inside.ir35.check.doNext.p3.link"), appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
             </p>
         }
     }

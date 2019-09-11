@@ -75,11 +75,14 @@
 }
 
 @doNext = {
-    <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.p1"))</p>
+
     @if(request.userType.contains(Hirer)) {
+        <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.p1"))</p>
         <p>
             @messages(tailorMsgOptimised("result.inside.paye.doNext.p2.text"))
-            <a id="feePayerResponsibilitiesLink" href="@{appConfig.feePayerResponsibilitiesUrl}">@messages(tailorMsgOptimised("result.inside.paye.doNext.p2.link"))</a>
+            @components.new_window_link(tailorMsgOptimised("result.inside.paye.doNext.p2.link"), appConfig.payeForEmployersUrl, Some("payeForEmployersLink")).
         </p>
+    } else {
+        <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.p1"))</p>
     }
 }

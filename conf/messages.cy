@@ -1603,10 +1603,13 @@ worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Yo
 ## Inside Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.inside.title = Off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.inside.heading = Off-payroll working rules (IR35) apply to this contract
-agent.optimised.result.inside.whyResult.p1 = The answers you have given tell us that your candidate’s client is directly hiring them. The working practices of this engagement mean that your candidate is classed as employed for tax purposes.
-agent.optimised.result.inside.doNext.p1 = If you are the fee-payer, you should tell your candidate that you will be operating PAYE for their earnings.
+agent.optimised.result.inside.title = Off-payroll working rules (IR35) apply
+agent.optimised.result.inside.heading = Off-payroll working rules (IR35) apply
+agent.optimised.result.inside.whyResult.p1 = You have completed this tool as if you are the worker.
+agent.optimised.result.inside.whyResult.p2 = The answers you have given tell us that the worker is providing a personal service to their client. This means they are classed as employed for tax purposes for this work.
+agent.optimised.result.inside.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
+agent.optimised.result.inside.doNext.p2.text = If you need more guidance, you could also read Chapter 5 of the
+agent.optimised.result.inside.doNext.p2.link = Employment Status Manual
 ## ------------------
 
 ## ------------------

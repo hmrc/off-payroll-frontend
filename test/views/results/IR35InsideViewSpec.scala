@@ -144,6 +144,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextP2
         document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerIR35.doNextP3
       }
+
+      "Have a link to the Employment Status Manual" in {
+        document.select("#feePayerResponsibilitiesLink").attr("href") mustBe frontendAppConfig.feePayerResponsibilitiesUrl
+      }
     }
   }
 
@@ -175,6 +179,11 @@ class IR35InsideViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP2
         document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP3
         document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP4
+        document.select(Selectors.DoNext.p(5)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP5
+      }
+
+      "Have a link to the Employment Status Manual" in {
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualChapter5Url
       }
     }
   }
