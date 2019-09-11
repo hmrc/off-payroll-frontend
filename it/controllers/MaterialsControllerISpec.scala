@@ -13,7 +13,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
       lazy val res = getSessionRequest("/material-expenses")
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will you incur costs for materials that your client will not pay for?")
+        result.body should include ("Will you have costs for materials that your client will not pay for?")
       }
     }
 
@@ -32,7 +32,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you incur costs for materials that your client will not pay for?")
+        result.body should include ("Will you have costs for materials that your client will not pay for?")
 
       }
     }
@@ -43,7 +43,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you incur any other costs that your client will not pay for?")
+        result.body should include ("Will you have any other costs that your client will not pay for?")
       }
     }
   }
@@ -56,7 +56,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you incur costs for materials that your client will not pay for?")
+        result.body should include ("Will you have costs for materials that your client will not pay for?")
       }
     }
 
@@ -75,7 +75,7 @@ class MaterialsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you incur costs for materials that your client will not pay for?")
+        result.body should include ("Will you have costs for materials that your client will not pay for?")
 
       }
     }

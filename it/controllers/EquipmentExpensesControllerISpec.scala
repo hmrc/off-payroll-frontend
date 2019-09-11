@@ -14,7 +14,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will you incur equipment costs that your client will not pay for?")
+        result.body should include ("Will you have equipment costs that your client will not pay for?")
       }
     }
 
@@ -33,7 +33,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you incur equipment costs that your client will not pay for?")
+        result.body should include ("Will you have equipment costs that your client will not pay for?")
 
       }
     }
@@ -44,7 +44,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you incur costs for a vehicle that your client will not pay for?")
+        result.body should include ("Will you have costs for a vehicle that your client will not pay for?")
       }
     }
   }
@@ -57,7 +57,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you incur equipment costs that your client will not pay for?")
+        result.body should include ("Will you have equipment costs that your client will not pay for?")
       }
     }
 
@@ -76,7 +76,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you incur equipment costs that your client will not pay for?")
+        result.body should include ("Will you have equipment costs that your client will not pay for?")
 
       }
     }

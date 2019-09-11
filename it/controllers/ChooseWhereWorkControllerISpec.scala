@@ -44,7 +44,7 @@ class ChooseWhereWorkControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you incur equipment costs that your client will not pay for?")
+        result.body should include ("Will you have equipment costs that your client will not pay for?")
       }
     }
   }
