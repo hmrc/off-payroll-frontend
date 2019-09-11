@@ -1470,10 +1470,12 @@ agent.optimised.result.officeHolder.doNext.p2.link = Employment Status Manual
 
 ## Inside PAYE Hirer
 ## ------------------
-hirer.optimised.result.inside.paye.title = Employed for tax purposes for this job
-hirer.optimised.result.inside.paye.heading = Employed for tax purposes for this job
-hirer.optimised.result.inside.paye.whyResult.p1 = The working arrangements of this job indicate that the worker is employed for tax purposes.
-hirer.optimised.result.inside.paye.doNext.p1 = Ensure that you operate PAYE on earnings from this job.
+hirer.optimised.result.inside.paye.title = Employed for tax purposes for this work
+hirer.optimised.result.inside.paye.heading = Employed for tax purposes for this work
+hirer.optimised.result.inside.paye.whyResult.p1 = The answers you have given suggest the worker is employed for tax purposes for this work.
+hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
+hirer.optimised.result.inside.paye.doNext.p2.text = If this worker is your first employee, you could read this guidance about
+hirer.optimised.result.inside.paye.doNext.p2.link = PAYE and payroll for employers
 ## ------------------
 
 ## Undetermined PAYE Hirer
@@ -1503,8 +1505,8 @@ hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = You
 ## ------------------
 worker.optimised.result.inside.paye.title = Employed for tax purposes for this work
 worker.optimised.result.inside.paye.heading = Employed for tax purposes for this work
-worker.optimised.result.inside.paye.whyResult.p1 = The working arrangements indicate that you are employed for tax purposes.
-worker.optimised.result.inside.paye.doNext.p1 = Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given suggest you are employed for tax purposes for this work.
+worker.optimised.result.inside.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
 ## ------------------
 
 ## Undetermined PAYE Worker

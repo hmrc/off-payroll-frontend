@@ -37,10 +37,11 @@ object InDecisionMessages extends BaseResultMessages {
   }
 
   object HirerPAYE {
-    val title = "Employed for tax purposes for this job"
-    val heading = "Employed for tax purposes for this job"
-    val whyResult = "The working arrangements of this job indicate that the worker is employed for tax purposes."
-    val doNext = "Ensure that you operate PAYE on earnings from this job."
+    val title = "Employed for tax purposes for this work"
+    val heading = "Employed for tax purposes for this work"
+    val whyResult = "The answers you have given suggest the worker is employed for tax purposes for this work."
+    val doNextP1 = "You need to operate PAYE on the worker’s earnings."
+    val doNextP2 = "If this worker is your first employee, you could read this guidance about PAYE and payroll for employers"
   }
 
   object HirerIR35 {
@@ -55,7 +56,7 @@ object InDecisionMessages extends BaseResultMessages {
   object WorkerPAYE {
     val title = "Employed for tax purposes for this work"
     val heading = "Employed for tax purposes for this work"
-    val whyResult = "The working arrangements indicate that you are employed for tax purposes."
-    val doNext = "Download a copy of your result and show it to the person hiring you. They need to operate PAYE on your earnings."
+    val whyResult = "The answers you have given suggest you are employed for tax purposes for this work."
+    val doNext = "Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings."
   }
 }

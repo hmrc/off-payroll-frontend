@@ -19,6 +19,8 @@
 @import views.ViewUtils._
 @import results.sections.pdf
 @import models.requests.DataRequest
+@import models.UserType.Hirer
+
 
 @import controllers.routes._
 
@@ -74,4 +76,10 @@
 
 @doNext = {
     <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.p1"))</p>
+    @if(request.userType.contains(Hirer)) {
+        <p>
+            @messages(tailorMsgOptimised("result.inside.paye.doNext.p2.text"))
+            <a id="feePayerResponsibilitiesLink" href="@{appConfig.feePayerResponsibilitiesUrl}">@messages(tailorMsgOptimised("result.inside.paye.doNext.p2.link"))</a>
+        </p>
+    }
 }
