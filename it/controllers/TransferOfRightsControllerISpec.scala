@@ -14,7 +14,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
+        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
       }
     }
 
@@ -33,7 +33,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
+        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
 
       }
     }
@@ -51,16 +51,15 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
   s"Post or Get to /transfer-of-rights/change" should {
 
-    //TODO - reinstate once navigation is in
-//    "Return a 200 on successful get and should be on relevant page" in {
-//
-//      lazy val res = getSessionRequest("/transfer-of-rights/change")
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
-//      }
-//
-//    }
+    "Return a 200 on successful get and should be on relevant page" in {
+
+      lazy val res = getSessionRequest("/transfer-of-rights/change")
+      whenReady(res) { result =>
+        result.status shouldBe OK
+        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
+      }
+
+    }
 
     "Return a 404 on a post to unused method" in {
 
@@ -77,7 +76,7 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does your client have the option to buy the rights for a separate fee?")
+        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee")
 
       }
     }
