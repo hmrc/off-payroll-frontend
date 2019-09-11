@@ -114,7 +114,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   private def routeUndetermined(implicit request: DataRequest[_], messages: Messages, result: ResultsDetails, pdfResultDetails: PDFResultDetails): Html = {
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) => undeterminedAgency(result.form) // AGENT
-      case (true, _) => undeterminedIR35(result.form, result.isMakingDetermination) // IR35
+      case (true, _) => undeterminedIR35(result.form) // IR35
       case _ => undeterminedPAYE(result.form) // PAYE
     }
   }

@@ -17,7 +17,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
-@import results.sections.pdf
+@import results.sections._
 @import models.requests.DataRequest
 
 @import controllers.routes._
@@ -69,32 +69,18 @@
 
 @whyResult = {
     <p>@messages(tailorMsgOptimised("result.undetermined.paye.whyResult.p1"))</p>
-
     <p>@messages(tailorMsgOptimised("result.undetermined.paye.whyResult.p2"))</p>
 }
 
 @doNext = {
 
-    <p>
-    @messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1"))
-    </p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1"))</p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p2"))</p>
 
-    <p>
-    @messages(tailorMsgOptimised("result.undetermined.paye.doNext.p2"))
-    </p>
-
-    <p>
-        @messages("site.ir35telephoneLabel"):
-        <span class="bold"> @messages("site.ir35telephone")</span>
-    </p>
-
-    <p>
-        @messages("site.ir35emailLabel"):
-        <a href="mailto:@{messages("site.ir35email")}">@messages("site.ir35email")</a>
-    </p>
+    @contact_details()
 
     <p>
         @messages(tailorMsgOptimised("result.undetermined.paye.doNext.p3"))
-        <a href="@{appConfig.employmentStatusManualUrl}">@messages("site.employmentStatusManual")</a>.
+        @components.new_window_link("site.employmentStatusManual", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
     </p>
 }

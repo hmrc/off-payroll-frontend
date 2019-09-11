@@ -48,5 +48,5 @@
 
 @pageContent = {
     <p>@messages(tailorMsgOptimised("officeholder.p1"))</p>
-        <p>@messages(tailorMsgOptimised("officeholder.p2")) <a href="@appConfig.officeHolderUrl" target="_blank">@messages(tailorMsgOptimised("officeholder.link"))</a>.</p>
+    <p>@messages(tailorMsgOptimised("officeholder.p2")) @components.new_window_link(tailorMsgOptimised("officeholder.link"), appConfig.officeHolderUrl).</p>
 }
