@@ -19,13 +19,13 @@
 @import views.ViewUtils._
 @import models.requests.DataRequest
 @import models.UserType.Hirer
-@import results.sections.pdf
+@import results.sections._
 
 @import controllers.routes._
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_])(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -70,56 +70,17 @@
 
 @whyResult = {
     <p>@messages(tailorMsgOptimised("result.undetermined.ir35.whyResult.p1"))</p>
-
     <p>@messages(tailorMsgOptimised("result.undetermined.ir35.whyResult.p2"))</p>
 }
 
 @doNext = {
-    @if(isPrivateSector) {
-        <p>
-            @messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p1"))
-        </p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p1"))</p>
+    <p>@messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p2"))</p>
 
-        <p>
-        @messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p2"))
-        </p>
+    @contact_details()
 
-        <p>
-            @messages("site.ir35telephoneLabel"):
-            <span class="bold"> @messages("site.ir35telephone")</span>
-        </p>
-        
-        <p>
-            @messages("site.ir35emailLabel"):
-            <a href="mailto:@{messages("site.ir35email")}">@messages("site.ir35email")</a>
-        </p>
-        
-        <p>
-            @messages(tailorMsgOptimised("result.undetermined.ir35.private.doNext.p3"))
-            <a href="@{appConfig.employmentStatusManualUrl}">@messages("site.employmentStatusManual")</a>.
-        </p>
-    } else {
-        <p>
-        @messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p1"))
-        </p>
-
-        <p>
-        @messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p2"))
-        </p>
-
-        <p>
-            @messages("site.ir35telephoneLabel"):
-            <span class="bold"> @messages("site.ir35telephone")</span>
-        </p>
-
-        <p>
-            @messages("site.ir35emailLabel"):
-            <a href="mailto:@{messages("site.ir35email")}">@messages("site.ir35email")</a>
-        </p>
-
-        <p>
-            @messages(tailorMsgOptimised("result.undetermined.ir35.public.doNext.p3"))
-            <a href="@{appConfig.employmentStatusManualUrl}">@messages("site.employmentStatusManual")</a>.
-        </p>
-    }
+    <p>
+        @messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p3"))
+        @components.new_window_link("site.employmentStatusManual", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+    </p>
 }

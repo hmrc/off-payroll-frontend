@@ -77,7 +77,7 @@
         <p>@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p1"))</p>
         <p>
             @messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p2.preLink"))
-            <a id="payeForEmployersLink" href="@{appConfig.payeForEmployersUrl}">@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p2.link"))</a>
+            @components.new_window_link(tailorMsgOptimised("result.officeHolder.paye.doNext.p2.link"), appConfig.payeForEmployersUrl, Some("payeForEmployersLink")).
         </p>
     } else {
         <p>@messages(tailorMsgOptimised("result.officeHolder.paye.doNext.p1"))</p>

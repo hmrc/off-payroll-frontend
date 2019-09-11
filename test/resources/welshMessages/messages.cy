@@ -66,14 +66,12 @@ site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
-site.ir35emailLabel = Email
 site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
-site.ir35telephoneLabel = Telephone
-site.ir35telephone = 0300 123 2326
 site.employmentStatusManual = Canllaw Statws Cyflogaeth
 site.telephone = Telephone:
 site.telephone.number = 0300 123 2326
 site.email = Email:
+site.opensInNewWindow = (opens in a new window)
 
 ## TODO NEED WELSH
 site.accordion.openAll = Open all
@@ -240,7 +238,7 @@ worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
 worker.optimised.officeHolder.checkYourAnswersLabel = Will you be an ‘Office Holder’?
 worker.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
 worker.optimised.officeholder.p2 = Read more about
-worker.optimised.officeholder.link = Office Holders (opens in a new window)
+worker.optimised.officeholder.link = Office Holders
 
 hirer.optimised.officeHolder.error.required = Select yes if the worker will be an Office Holder
 hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
@@ -249,7 +247,7 @@ hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’
 hirer.optimised.officeHolder.checkYourAnswersLabel = Will the worker be an ‘Office Holder’?
 hirer.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
 hirer.optimised.officeholder.p2 = Read more about
-hirer.optimised.officeholder.link = Office Holders (opens in a new window)
+hirer.optimised.officeholder.link = Office Holders
 #########################
 
 
@@ -1561,12 +1559,9 @@ worker.optimised.result.undetermined.ir35.title = Unable to make a determination
 worker.optimised.result.undetermined.ir35.heading = Unable to make a determination
 worker.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
 worker.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
-worker.optimised.result.undetermined.ir35.private.doNext.p1 = Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices.
-worker.optimised.result.undetermined.ir35.private.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.undetermined.ir35.private.doNext.p3 = You could also read Chapter 5 of the
-worker.optimised.result.undetermined.ir35.public.doNext.p1 = Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices.
-worker.optimised.result.undetermined.ir35.public.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.undetermined.ir35.public.doNext.p3 = You could also read Chapter 5 of the
+worker.optimised.result.undetermined.ir35.doNext.p1 = Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices.
+worker.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
+worker.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
 ## ------------------
 
 ## Outside IR35 Decision Worker
@@ -1637,12 +1632,9 @@ hirer.optimised.result.undetermined.ir35.title = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
 hirer.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
-hirer.optimised.result.undetermined.ir35.private.doNext.p1 = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
-hirer.optimised.result.undetermined.ir35.private.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
-hirer.optimised.result.undetermined.ir35.private.doNext.p3 = You could also read Chapter 5 of the
-hirer.optimised.result.undetermined.ir35.public.doNext.p1 = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
-hirer.optimised.result.undetermined.ir35.public.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
-hirer.optimised.result.undetermined.ir35.public.doNext.p3 = You could also read Chapter 5 of the
+hirer.optimised.result.undetermined.ir35.doNext.p1 = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
+hirer.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
 
 ## PAYE Worker
 ## ------------------

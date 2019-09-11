@@ -18,7 +18,7 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import controllers.routes._
-@import results.sections.pdf
+@import results.sections._
 @import models.requests.DataRequest
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
@@ -75,6 +75,6 @@
     <p>@messages("agent.optimised.result.officeHolder.doNext.p1")</p>
     <p>
         @messages("agent.optimised.result.officeHolder.doNext.p2.preLink")
-        <a id="employmentStatusManualLink" href="@{appConfig.employmentStatusManualUrl}">@messages("agent.optimised.result.officeHolder.doNext.p2.link")</a>
+        @components.new_window_link("agent.optimised.result.officeHolder.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
     </p>
 }

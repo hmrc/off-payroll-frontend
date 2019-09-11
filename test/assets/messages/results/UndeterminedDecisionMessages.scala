@@ -28,12 +28,9 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
     val whyResult2 = "We will need more information to check your employment status for tax."
-    val doNextPrivateP1 = "Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices."
-    val doNextPrivateP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
-    val doNextPrivateP3 = "You could also read Chapter 5 of the Employment Status Manual."
-    val doNextPublicP1 = "Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices."
-    val doNextPublicP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
-    val doNextPublicP3 = "You could also read Chapter 5 of the Employment Status Manual."
+    val doNextP1 = "Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices."
+    val doNextP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
 
   object HirerPAYE {
@@ -43,7 +40,7 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val whyResult2 = "We will need more information to check your employment status for tax."
     val doNextP1 = "Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
     val doNextP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
-    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual."
+    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
 
   object Agent {
@@ -52,7 +49,7 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val whyResult_p1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
     val whyResult_p2 = "We will need more information to check your employment status for tax."
     val doNext_p1 = "If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct."
-    val doNext_p2 = "If you need more guidance, you could also read Chapter 5 of the Employment Status Manual."
+    val doNext_p2 = "If you need more guidance, you could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
 
 
@@ -61,12 +58,9 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
     val whyResult2 = "We will need more information to check your employment status for tax."
-    val doNextPrivateP1 = "You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
-    val doNextPrivateP2 = "If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline."
-    val doNextPrivateP3 = "You could also read Chapter 5 of the Employment Status Manual."
-    val doNextPublicP1 = "You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
-    val doNextPublicP2 = "If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline."
-    val doNextPublicP3 = "You could also read Chapter 5 of the Employment Status Manual."
+    val doNextP1 = "You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextP2 = "If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline."
+    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
 
 
@@ -77,6 +71,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val whyResult2 = "We will need more information to check your employment status for tax."
     val doNextP1 = "Download a copy of this result and show it to the organisation hiring you. Check your answers with them to make sure they reflect your actual or expected working practices."
     val doNextP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
-    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual."
+    val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
 }

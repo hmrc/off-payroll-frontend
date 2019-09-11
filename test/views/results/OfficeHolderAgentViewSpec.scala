@@ -74,7 +74,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
     }
 
     "Have a link to the Employment Status Manual" in {
-      document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualUrl
+      document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualChapter5Url
     }
   }
 }
