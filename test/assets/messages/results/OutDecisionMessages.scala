@@ -34,9 +34,9 @@ object OutDecisionMessages extends BaseResultMessages {
     val checkDoNextP3 = s"$telephone $telephoneNumber"
     val checkDoNextP4 = s"$email $emailAddress"
     val checkDoNextP5 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
-    val whyResultReason1 = "Your answers told us your client has accepted, or would accept, a substitute"
-    val whyResultReason2 = "Your answers told us your client does not have control over this work"
-    val whyResultReason3 = "Your answers told us you and your business will have costs for this work that your client will not pay for"
+    val whyResultReason1 = "Your answers told us your client has accepted, or would accept, a substitute."
+    val whyResultReason2 = "Your answers told us your client does not have control over this work."
+    val whyResultReason3 = "Your answers told us you and your business will have costs for this work that your client will not pay for."
     val whyResultReason4 = "Your answers told us you are providing services as a business."
   }
 
