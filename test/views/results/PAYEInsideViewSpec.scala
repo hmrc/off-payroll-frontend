@@ -112,7 +112,12 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
-      document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerPAYE.doNext
+      document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerPAYE.doNextP1
+      document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerPAYE.doNextP2
+    }
+
+    "Have a link to the Employment Status Manual" in {
+      document.select("#payeForEmployersLink").attr("href") mustBe frontendAppConfig.payeForEmployersUrl
     }
   }
 }

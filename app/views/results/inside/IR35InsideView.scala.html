@@ -21,11 +21,13 @@
 @import models.UserType.Hirer
 @import results.sections.pdf
 
+@import results.sections._
+
 @import controllers.routes._
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], isPrivateSector: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], isMake: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -74,16 +76,26 @@
 }
 
 @doNext = {
-
-    @if(isPrivateSector) {
-        <p>@messages(tailorMsgOptimised("result.inside.ir35.private.doNext.p1"))</p>
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages(tailorMsgOptimised("result.inside.ir35.private.doNext.p2"))</p>
-        }
+    @if(request.userType.contains(Hirer)) {
+        <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p1"))</p>
+        <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p2"))</p>
+        <p>
+            @messages(tailorMsgOptimised("result.inside.ir35.doNext.p3.text"))
+            @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
+        </p>
     } else {
-        <p>@messages(tailorMsgOptimised("result.inside.ir35.public.doNext.p1"))</p>
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages(tailorMsgOptimised("result.inside.ir35.public.doNext.p2"))</p>
+        @if(isMake) {
+            <p>@messages(tailorMsgOptimised("result.inside.ir35.make.doNext.p1"))</p>
+        } else {
+            <p>@messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p1"))</p>
+            <p>@messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p2"))</p>
+
+            @contact_details()
+
+            <p>
+                @messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p3.text"))
+                @components.new_window_link(tailorMsgOptimised("result.inside.ir35.check.doNext.p3.link"), appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+            </p>
         }
     }
 }

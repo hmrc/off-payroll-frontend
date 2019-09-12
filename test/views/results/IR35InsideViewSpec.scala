@@ -121,7 +121,6 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
 
   def hirerPageChecks(isPrivateSector: Boolean)(implicit document: Document): Unit = {
-
     "If the UserType is Hirer" should {
 
       lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector))
@@ -136,24 +135,22 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
       "Have the correct Why Result section" in {
         document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerIR35.whyResult
+        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerIR35.whyResultP1
       }
 
-      if(isPrivateSector) {
-        "Have the correct Do Next section for the Private Sector" in {
-          document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP1
-          document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextPrivateP2
-        }
-      } else {
-        "Have the correct Do Next section for the Public Sector" in {
-          document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
-          document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextPublicP1
-          document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextPublicP2
-        }
+      "Have the correct Do Next section" in {
+        document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextP1
+        document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextP2
+        document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerIR35.doNextP3
+      }
+
+      "Have a link to the Employment Status Manual" in {
+        document.select("#feePayerResponsibilitiesLink").attr("href") mustBe frontendAppConfig.feePayerResponsibilitiesUrl
       }
     }
   }
+
 
   def workerPageChecks(isPrivateSector: Boolean)(implicit document: Document): Unit = {
 
@@ -167,18 +164,26 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerIR35.whyResult
+      document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerIR35.whyResultP1
     }
 
     if(isPrivateSector) {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.doNextPrivate
+        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.makeDoNextP1
       }
     } else {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.doNextPublic
+        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP1
+        document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP2
+        document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP3
+        document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP4
+        document.select(Selectors.DoNext.p(5)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP5
+      }
+
+      "Have a link to the Employment Status Manual" in {
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualChapter5Url
       }
     }
   }
