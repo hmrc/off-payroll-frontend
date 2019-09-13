@@ -22,21 +22,22 @@ import controllers.routes
 import controllers.routes._
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import javax.inject.{Inject, Singleton}
+import models.WhoAreYou.Client
 import models._
 import pages._
 import pages.sections.businessOnOwnAccount._
-import pages.sections.setup.ContractStartedPage
+import pages.sections.setup.{ContractStartedPage, WhoAreYouPage}
 import play.api.mvc.Call
 
 
 @Singleton
 class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
-  def startPage(userAnswers: UserAnswers): Call = if(isWorker(userAnswers) || userAnswers.getAnswer(ContractStartedPage).contains(true)) {
-    booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
-  } else {
-    booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
-  }
+  def startPage(userAnswers: UserAnswers): Call =
+    (userAnswers.getAnswer(WhoAreYouPage), userAnswers.getAnswer(ContractStartedPage).getOrElse(false)) match {
+      case (Some(Client), false) => booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
+      case _ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
+    }
 
   private def routeMap(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
 

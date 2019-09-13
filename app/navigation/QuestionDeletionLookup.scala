@@ -30,7 +30,7 @@ import pages.sections.setup._
 import pages.{RightsOfWorkPage, _}
 
 @Singleton
-class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) extends NavigationHelper {
+class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
 
   def getPagesToRemove(currentPage: QuestionPage[_]): UserAnswers => List[QuestionPage[_]] = {
     pagesToRemove.getOrElse(currentPage,_ => List.empty)

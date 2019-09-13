@@ -16,10 +16,8 @@
 
 package models
 
-import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import play.api.libs.json.{JsError, JsResult, JsString, JsSuccess, JsValue, Json, Reads, Writes}
-import viewmodels.{Radio, RadioOption}
+import config.featureSwitch.FeatureSwitching
+import play.api.libs.json.{JsValue, Json, Writes}
 
 sealed trait SignificantWorkingTime
 
@@ -39,15 +37,5 @@ object SignificantWorkingTime extends FeatureSwitching {
 
   implicit object SignificantWorkingTimeWrites extends Writes[SignificantWorkingTime] {
     def writes(significantWorkingTime: SignificantWorkingTime): JsValue = Json.toJson(significantWorkingTime.toString)
-  }
-
-  implicit object SignificantWorkingTimeReads extends Reads[SignificantWorkingTime] {
-    override def reads(json: JsValue): JsResult[SignificantWorkingTime] = json match {
-      case JsString(ConsumesSignificantAmount.toString) => JsSuccess(ConsumesSignificantAmount)
-      case JsString(NoSignificantAmount.toString) => JsSuccess(NoSignificantAmount)
-      case JsString(TimeButNotMoney.toString) => JsSuccess(TimeButNotMoney)
-      case JsString(MoneyButNotTime.toString) => JsSuccess(MoneyButNotTime)
-      case _                          => JsError("Unknown significantWorkingTime")
-    }
   }
 }

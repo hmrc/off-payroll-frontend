@@ -16,16 +16,14 @@
 
 package navigation
 
-import assets.messages.results.UndeterminedDecisionMessages.HirerIR35
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
-import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import controllers.routes
-import models.WhichDescribesYouAnswer.{ClientIR35, ClientPAYE, WorkerIR35}
+import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import models._
 import pages._
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
-import pages.sections.setup.{ContractStartedPage, WhichDescribesYouPage}
+import pages.sections.businessOnOwnAccount._
+import pages.sections.setup.WhoAreYouPage
 
 class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
@@ -35,6 +33,17 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
   def nextPage(fromPage: Page, userAnswers: UserAnswers = emptyUserAnswers, mode: Mode = NormalMode) = navigator.nextPage(fromPage, mode)(userAnswers)
 
   "BusinessOnOwnAccountNavigator" must {
+
+    "for the start page" should {
+
+      "redirect to the MultipleContracts page if user is Worker" in {
+        navigator.startPage(emptyUserAnswers.set(WhoAreYouPage, WhoAreYou.Worker)) mustBe booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
+      }
+
+      "redirect to the WorkerKnown page if user is Hirer" in {
+        navigator.startPage(emptyUserAnswers.set(WhoAreYouPage, WhoAreYou.Client)) mustBe booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
+      }
+    }
 
     "go from the WorkerKnownPage to the WorkerKnownPage if workerKnown is not answered somehow" in {
       nextPage(WorkerKnownPage) mustBe booaRoutes.WorkerKnownController.onPageLoad(NormalMode)
