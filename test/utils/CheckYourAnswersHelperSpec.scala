@@ -30,7 +30,7 @@ import models.HowWorkIsDone.NoWorkerInputAllowed
 import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
-import models.{CheckMode, Enumerable, UserAnswers, WhoAreYou}
+import models._
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
@@ -38,7 +38,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WhoAreYouPage}
+import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import viewmodels.AnswerRow
 
 class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
@@ -924,6 +924,33 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
 
 
   //SETUP
+
+  ".whatDoYouWantToFindOut" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).whatDoYouWantToFindOut mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is PAYE" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(WhatDoYouWantToFindOutPage, 1, WhatDoYouWantToFindOut.PAYE)
+          new CheckYourAnswersHelper(cacheMap).whatDoYouWantToFindOut(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$WhatDoYouWantToFindOutPage.checkYourAnswersLabel",
+              answer = s"whatDoYouWantToFindOut.paye",
+              answerIsMessageKey = true,
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+            ))
+        }
+      }
+    }
+  }
 
   ".whoAreYou" when {
 
