@@ -52,9 +52,9 @@ object OutDecisionMessages extends BaseResultMessages {
     val doNextP1 = "If your organisation is responsible for paying the worker, you need to pay their earnings in full, without deducting tax and National Insurance."
     val doNextP2 = "If someone else is responsible, you should download a copy of this result and show it to them."
     val doNextP3 = "You could also read more about the responsibilities of the fee-payer (opens in a new window)."
-    val whyResultReason1 = "Your answers told us you have accepted, or would accept, a substitute to do this work."
+    val whyResultReason1 = "Your answers told us you have accepted, or would accept, a substitute."
     val whyResultReason2 = "Your answers told us you do not have control over this work."
-    val whyResultReason3 = "Your answers told us the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged."
+    val whyResultReason3 = "Your answers told us the worker’s business will have costs for this work that your organisation will not pay for."
     val whyResultReason4 = "Your answers told us the worker is providing services as a business."
   }
 

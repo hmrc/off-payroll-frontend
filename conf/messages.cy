@@ -1790,10 +1790,10 @@ hirer.optimised.result.outside.ir35.doNext.p1 = If your organisation is responsi
 hirer.optimised.result.outside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
 hirer.optimised.result.outside.ir35.doNext.p3.text = You could also read more about the
 hirer.optimised.result.outside.ir35.doNext.p3.link = responsibilities of the fee-payer
-hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute to do this work.
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
-hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a significant cost for this work, which cannot be reclaimed or re-charged.
-hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = the worker is providing services as a business.
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
+hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
 ## ------------------
 ## Out Agent
 ## ------------------
