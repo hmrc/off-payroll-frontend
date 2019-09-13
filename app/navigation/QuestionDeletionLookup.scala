@@ -57,9 +57,10 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
       case (Some(WhoAreYou.Worker),Some(WhatDoYouWantToFindOut.PAYE)) => List(WhatDoYouWantToDoPage)
       case _ => List()
     }),
-
-
-
+    WhatDoYouWantToDoPage -> (answers => answers.getAnswer(WhatDoYouWantToDoPage) match {
+      case Some(WhatDoYouWantToDo.CheckDetermination) => List(WorkerUsingIntermediaryPage)
+      case _ => List()
+    }),
     ContractStartedPage -> (_ => personalService ++ businessOnOwnAccount),
 
     //Personal Service Section
