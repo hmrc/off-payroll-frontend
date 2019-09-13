@@ -30,7 +30,7 @@ import models.HowWorkIsDone.NoWorkerInputAllowed
 import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
-import models.{CheckMode, Enumerable, UserAnswers}
+import models.{CheckMode, Enumerable, UserAnswers, WhoAreYou}
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
@@ -38,7 +38,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.ContractStartedPage
+import pages.sections.setup.{ContractStartedPage, WhoAreYouPage}
 import viewmodels.AnswerRow
 
 class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
@@ -922,12 +922,12 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
     }
   }
 
-  ".turnoverOver" when {
+  ".whoAreYou" when {
 
     "there is no answer in the cacheMap" should {
 
       "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).turnoverOver mustBe None
+        new CheckYourAnswersHelper(UserAnswers("id")).whoAreYou mustBe None
       }
     }
 
@@ -938,24 +938,10 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
         "the user type is of Worker" should {
 
           "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(TurnoverOverPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).turnoverOver(messages, workerRequest, frontendAppConfig) mustBe
+            val cacheMap = UserAnswers("id").set(WhoAreYouPage, 1, WhoAreYou.Worker)
+            new CheckYourAnswersHelper(cacheMap).whoAreYou(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-
-        "the user type is of Hirer" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(TurnoverOverPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).turnoverOver(messages, hirerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Hirer.$TurnoverOverPage.checkYourAnswersLabel",
+                label = s"$WhoAreYouPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
                 changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)

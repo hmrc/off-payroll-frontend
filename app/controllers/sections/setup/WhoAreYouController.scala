@@ -16,21 +16,23 @@
 
 package controllers.sections.setup
 
-import config.FrontendAppConfig
+import javax.inject.Inject
+
 import config.featureSwitch.FeatureSwitching
+import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.WhoAreYouFormProvider
-import javax.inject.Inject
 import models.WhatDoYouWantToFindOut.IR35
-import models._
 import models.requests.DataRequest
+import models.{Mode, UserType, _}
 import navigation.SetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form
 import play.api.mvc._
 import services.{CompareAnswerService, DecisionService}
+import utils.SessionUtils._
 import views.html.sections.setup.WhoAreYouView
 
 import scala.concurrent.Future
@@ -63,7 +65,10 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     whoAreYouFormProvider().bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(renderedView(mode, formWithErrors))),
-      value => redirect(mode, value, WhoAreYouPage)
-    )
+      value => {
+        println("HHHHHHHHHHHHHHHHHH")
+        redirect(mode, value, WhoAreYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
+      }
+        )
   }
 }

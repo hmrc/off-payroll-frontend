@@ -49,23 +49,17 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) ex
   private val pagesToRemove: Map[QuestionPage[_], UserAnswers => List[QuestionPage[_]]] = Map(
 
     //Setup Section
-    WhichDescribesYouPage -> (answers => answers.getAnswer(WhichDescribesYouPage) match {
-      case Some(WhichDescribesYouAnswer.WorkerIR35)|Some(WhichDescribesYouAnswer.WorkerPAYE) => List(WorkerKnownPage)
-      case _ => List.empty
+
+    WhatDoYouWantToFindOutPage -> (_ => List(WhoAreYouPage, WorkerUsingIntermediaryPage, WhatDoYouWantToDoPage)),
+    WhoAreYouPage -> (answers => (answers.getAnswer(WhoAreYouPage),answers.getAnswer(WhatDoYouWantToFindOutPage)) match {
+      case (Some(WhoAreYou.Agency),_) => List(WhatDoYouWantToDoPage, WorkerUsingIntermediaryPage)
+      case (Some(WhoAreYou.Client),_) => List(WhatDoYouWantToDoPage)
+      case (Some(WhoAreYou.Worker),Some(WhatDoYouWantToFindOut.PAYE)) => List(WhatDoYouWantToDoPage)
+      case _ => List()
     }),
-    WorkerUsingIntermediaryPage -> (answers => answers.getAnswer(WorkerUsingIntermediaryPage) match {
-      case Some(false) =>
-        List(IsWorkForPrivateSectorPage, TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
-      case _ => List.empty
-    }),
-    IsWorkForPrivateSectorPage -> (answers => {
-      answers.getAnswer(IsWorkForPrivateSectorPage) match {
-        case Some(false) => List(TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
-        case _ => List.empty
-      }
-    }),
-    TurnoverOverPage -> (_ => List(EmployeesOverPage, BalanceSheetOverPage)),
-    EmployeesOverPage -> (_ => List(BalanceSheetOverPage)),
+
+
+
     ContractStartedPage -> (_ => personalService ++ businessOnOwnAccount),
 
     //Personal Service Section

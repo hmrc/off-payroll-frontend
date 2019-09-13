@@ -42,52 +42,34 @@ import play.api.mvc.Call
 @Singleton
 class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
 
-  private def isSmallBusiness(answers: UserAnswers): Boolean =
-    (answers.getAnswer(TurnoverOverPage), answers.getAnswer(EmployeesOverPage), answers.getAnswer(BalanceSheetOverPage)) match {
-      case (Some(false), Some(false), _) => true
-      case (_, Some(false), Some(false)) => true
-      case (Some(false), _, Some(false)) => true
-      case _ => false
-    }
-
-  private def businessSizeNextPage(answers: UserAnswers): Call = (isSmallBusiness(answers), isWorker(answers)) match {
-    case (true, false) => setupRoutes.ToolNotNeededController.onPageLoad()
-    case (_, false) => setupRoutes.HirerAdvisoryController.onPageLoad()
-    case (_, true) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-  }
-
   private val optimisedSetupRouteMap: Map[Page, UserAnswers => Call] = Map(
     //Initialisation Section
     IndexPage -> (_ => setupRoutes.AboutYourResultController.onPageLoad()),
 
     //Setup Section
-    AboutYourResultPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
-    WhichDescribesYouPage -> (answers => answers.getAnswer(WhichDescribesYouPage) match {
-      case Some(Agency) => setupRoutes.AgencyAdvisoryController.onPageLoad()
-      case _ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+    AboutYourResultPage -> (_ => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)),
+    WhatDoYouWantToFindOutPage -> (_ => setupRoutes.WhoAreYouController.onPageLoad(NormalMode)),
+    WhoAreYouPage -> (answers => (answers.getAnswer(WhatDoYouWantToFindOutPage), answers.getAnswer(WhoAreYouPage)) match {
+      case (Some(WhatDoYouWantToFindOut.PAYE),_) | (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Client)) => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+      case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Worker)) => setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
+      case (Some(WhatDoYouWantToFindOut.IR35),Some(WhoAreYou.Agency)) => setupRoutes.AgencyAdvisoryController.onPageLoad()
+      case (None,_) => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
+      case (_,_) => setupRoutes.WhoAreYouController.onPageLoad(NormalMode)
     }),
-    AgencyAdvisoryPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
-    WorkerUsingIntermediaryPage -> (answers => answers.getAnswer(WorkerUsingIntermediaryPage) match {
-      case Some(true) => setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
-      case _ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+    WhatDoYouWantToDoPage -> (answers => answers.getAnswer(WhatDoYouWantToDoPage) match {
+      case Some(WhatDoYouWantToDo.MakeNewDetermination) => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+      case Some(WhatDoYouWantToDo.CheckDetermination) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+      case None => setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
     }),
-    IsWorkForPrivateSectorPage -> (answers => {
-      (answers.getAnswer(IsWorkForPrivateSectorPage), isWorker(answers)) match {
-        case (Some(true), _) => setupRoutes.TurnoverOverController.onPageLoad(NormalMode)
-        case (Some(false), true) => setupRoutes.WorkerAdvisoryController.onPageLoad()
-        case (_, _) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-      }
+    AgencyAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
+    WorkerUsingIntermediaryPage -> (answers => (answers.getAnswer(WorkerUsingIntermediaryPage),answers.getAnswer(WhatDoYouWantToFindOutPage)) match {
+      case (Some(true),Some(WhatDoYouWantToFindOut.PAYE)) => setupRoutes.IntermediaryController.onPageLoad()
+      case (Some(false),Some(WhatDoYouWantToFindOut.PAYE)) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+      case (Some(true),Some(WhatDoYouWantToFindOut.IR35)) => setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+      case (Some(false),Some(WhatDoYouWantToFindOut.IR35)) => setupRoutes.NoIntermediaryController.onPageLoad()
+      case (_,None) => setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
+      case (None,_) => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
     }),
-    TurnoverOverPage -> (_ => setupRoutes.EmployeesOverController.onPageLoad(NormalMode)),
-    EmployeesOverPage -> (answers => {
-      (answers.getAnswer(TurnoverOverPage), answers.getAnswer(EmployeesOverPage)) match {
-        case (Some(a), Some(b)) if a == b => businessSizeNextPage(answers)
-        case _ => setupRoutes.BalanceSheetOverController.onPageLoad(NormalMode)
-      }
-    }),
-    BalanceSheetOverPage -> businessSizeNextPage,
-    WorkerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
-    HirerAdvisoryPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
     ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )
 

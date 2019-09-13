@@ -23,9 +23,9 @@ sealed trait WhoAreYou
 
 object WhoAreYou {
 
-  case object Worker extends WithName("personDoingWork") with WhoAreYou
-  case object Client extends WithName("endClient") with WhoAreYou
-  case object Agency extends WithName("placingAgency") with WhoAreYou
+  case object Worker extends WithName("personDoingWork") with WhoAreYou with UserType
+  case object Client extends WithName("endClient") with WhoAreYou with UserType
+  case object Agency extends WithName("placingAgency") with WhoAreYou with UserType
 
   def values(showAgency: Boolean = true): Seq[WhoAreYou] = Seq(Worker, Client) ++ (if(showAgency) Seq(Agency) else Seq())
 
