@@ -284,21 +284,11 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
     )
   }
 
-  def agencyAdvisory(implicit messages: Messages, request: Request[_],
-                appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(IsWorkForPrivateSectorPage) map { x =>
-    AnswerRow(
-      tailorMsg(s"$AgencyAdvisoryPage.checkYourAnswersLabel"),
-      if(x.answer) "agencyAdvisory.private" else "agencyAdvisory.public",
-      answerIsMessageKey = true,
-      changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-    )
-  }
-
   def workerUsingIntermediary(implicit messages: Messages, request: Request[_],
-                     appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(IsWorkForPrivateSectorPage) map { x =>
+                     appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(WorkerUsingIntermediaryPage) map { x =>
     AnswerRow(
       tailorMsg(s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel"),
-      if(x.answer) "workerUsingIntermediary.private" else "workerUsingIntermediary.public",
+      if(x.answer) "site.yes" else "site.no",
       answerIsMessageKey = true,
       changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
     )

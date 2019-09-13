@@ -30,6 +30,7 @@ import models.HowWorkIsDone.NoWorkerInputAllowed
 import models.HowWorkerIsPaid.Commission
 import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
+import models.WhatDoYouWantToDo.{CheckDetermination, MakeNewDetermination}
 import models._
 import pages._
 import pages.sections.businessOnOwnAccount._
@@ -38,7 +39,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{ContractStartedPage, WhatDoYouWantToFindOutPage, WhoAreYouPage}
+import pages.sections.setup._
 import viewmodels.AnswerRow
 
 class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {
@@ -112,78 +113,6 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
               answer = "site.no",
               answerIsMessageKey = true,
               changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url)
-            ))
-        }
-      }
-    }
-  }
-
-  ".contractStarted" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).contractStarted mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" when {
-
-      "the answer is yes" should {
-
-        "the user type is of Worker" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, workerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-
-        "the user type is of Hirer" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, hirerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-
-        "the user type is not set" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, fakeRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-      }
-
-      "the answer is no" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(ContractStartedPage, 1,false)
-          new CheckYourAnswersHelper(cacheMap).contractStarted mustBe
-            Some(AnswerRow(
-              label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
-              answer = "site.no",
-              answerIsMessageKey = true,
-              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
         }
       }
@@ -943,7 +872,62 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           new CheckYourAnswersHelper(cacheMap).whatDoYouWantToFindOut(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$WhatDoYouWantToFindOutPage.checkYourAnswersLabel",
-              answer = s"whatDoYouWantToFindOut.paye",
+              answer = s"$WhatDoYouWantToFindOutPage.${WhatDoYouWantToFindOut.PAYE}",
+              answerIsMessageKey = true,
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+            ))
+        }
+      }
+
+      "the answer is IR35" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(WhatDoYouWantToFindOutPage, 1, WhatDoYouWantToFindOut.IR35)
+          new CheckYourAnswersHelper(cacheMap).whatDoYouWantToFindOut(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$WhatDoYouWantToFindOutPage.checkYourAnswersLabel",
+              answer = s"$WhatDoYouWantToFindOutPage.${WhatDoYouWantToFindOut.IR35}",
+              answerIsMessageKey = true,
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".whatDoYouWantToDo" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).whatDoYouWantToDo mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is MakeNewDetermination" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(WhatDoYouWantToDoPage, 1, MakeNewDetermination)
+          new CheckYourAnswersHelper(cacheMap).whatDoYouWantToDo(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$WhatDoYouWantToDoPage.checkYourAnswersLabel",
+              answer = s"$WhatDoYouWantToDoPage.$MakeNewDetermination",
+              answerIsMessageKey = true,
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+            ))
+        }
+      }
+
+      "the answer is CheckDetermination" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(WhatDoYouWantToDoPage, 1, CheckDetermination)
+          new CheckYourAnswersHelper(cacheMap).whatDoYouWantToDo(messages, workerRequest, frontendAppConfig) mustBe
+            Some(AnswerRow(
+              label = s"$WhatDoYouWantToDoPage.checkYourAnswersLabel",
+              answer = s"$WhatDoYouWantToDoPage.$CheckDetermination",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
@@ -999,6 +983,150 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
             Some(AnswerRow(
               label = s"$WhoAreYouPage.checkYourAnswersLabel",
               answer = s"whoAreYou.placingAgency",
+              answerIsMessageKey = true,
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".contractStarted" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).contractStarted mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.optimised.$ContractStartedPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+              ))
+          }
+        }
+
+        "the user type is not set" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).contractStarted(messages, fakeRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(ContractStartedPage, 1,false)
+          new CheckYourAnswersHelper(cacheMap).contractStarted mustBe
+            Some(AnswerRow(
+              label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
+              answer = "site.no",
+              answerIsMessageKey = true,
+              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+            ))
+        }
+      }
+    }
+  }
+
+  ".workerUsingIntermediary" when {
+
+    "there is no answer in the cacheMap" should {
+
+      "Return None" in {
+        new CheckYourAnswersHelper(UserAnswers("id")).workerUsingIntermediary mustBe None
+      }
+    }
+
+    "there is an answer in the cacheMap" when {
+
+      "the answer is yes" should {
+
+        "the user type is of Worker" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(WorkerUsingIntermediaryPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).workerUsingIntermediary(messages, workerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Worker.$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+              ))
+          }
+        }
+
+        "the user type is of Hirer" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(WorkerUsingIntermediaryPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).workerUsingIntermediary(messages, hirerRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$Hirer.$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+              ))
+          }
+        }
+
+        "the user type is not set" should {
+
+          "Return correctly formatted answer row" in {
+            val cacheMap = UserAnswers("id").set(WorkerUsingIntermediaryPage, 1, true)
+            new CheckYourAnswersHelper(cacheMap).workerUsingIntermediary(messages, fakeRequest, frontendAppConfig) mustBe
+              Some(AnswerRow(
+                label = s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
+                answer = "site.yes",
+                answerIsMessageKey = true,
+                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+              ))
+          }
+        }
+      }
+
+      "the answer is no" should {
+
+        "Return correctly formatted answer row" in {
+          val cacheMap = UserAnswers("id").set(WorkerUsingIntermediaryPage, 1,false)
+          new CheckYourAnswersHelper(cacheMap).workerUsingIntermediary mustBe
+            Some(AnswerRow(
+              label = s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
+              answer = "site.no",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
