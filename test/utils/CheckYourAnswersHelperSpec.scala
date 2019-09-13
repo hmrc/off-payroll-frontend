@@ -940,7 +940,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
             new CheckYourAnswersHelper(cacheMap).whoAreYou(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$WhoAreYouPage.checkYourAnswersLabel",
-                answer = WhoAreYou.Worker.toString,
+                answer = s"whoAreYou.personDoingWork",
                 answerIsMessageKey = true,
                 changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
@@ -954,7 +954,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           new CheckYourAnswersHelper(cacheMap).whoAreYou(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$WhoAreYouPage.checkYourAnswersLabel",
-              answer = WhoAreYou.Client.toString,
+              answer = s"whoAreYou.endClient",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
@@ -968,7 +968,7 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           new CheckYourAnswersHelper(cacheMap).whoAreYou(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
               label = s"$WhoAreYouPage.checkYourAnswersLabel",
-              answer = WhoAreYou.Agency.toString,
+              answer = s"whoAreYou.placingAgency",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))

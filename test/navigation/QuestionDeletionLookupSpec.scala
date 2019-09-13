@@ -63,7 +63,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
         "answer is anything, return expected pages" in {
 
-          val res = navigator.getPagesToRemove(WhichDescribesYouPage)(
+          val res = navigator.getPagesToRemove(WhatDoYouWantToFindOutPage)(
             userAnswers.set(WhatDoYouWantToFindOutPage, 0, WhatDoYouWantToFindOut.IR35))
 
           res mustBe List(WhoAreYouPage,WorkerUsingIntermediaryPage,WhatDoYouWantToDoPage)
@@ -82,7 +82,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
         "answer is Client, return expected pages" in {
 
-          val res = navigator.getPagesToRemove(WorkerUsingIntermediaryPage)(
+          val res = navigator.getPagesToRemove(WhoAreYouPage)(
             userAnswers.set(WhoAreYouPage, 0, WhoAreYou.Client))
 
           res mustBe List(WhatDoYouWantToDoPage)
@@ -90,7 +90,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
         "answer is Worker and PAYE, return expected pages" in {
 
-          val res = navigator.getPagesToRemove(WorkerUsingIntermediaryPage)(
+          val res = navigator.getPagesToRemove(WhoAreYouPage)(
             userAnswers
               .set(WhoAreYouPage, 0, WhoAreYou.Worker)
               .set(WhatDoYouWantToFindOutPage,1,WhatDoYouWantToFindOut.PAYE)

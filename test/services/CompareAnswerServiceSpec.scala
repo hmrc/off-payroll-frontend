@@ -42,7 +42,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
-import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
+import pages.sections.setup._
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
 import services.mocks.MockCompareAnswerService
@@ -104,19 +104,19 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
     }
 
     "compare answer service (change new answer)" should {
-      "change an About You Answer if it's a new value" in {
+      "change a Who are you Answer if it's a new value" in {
 
 
         val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
+          .set(WhoAreYouPage, 0, WhoAreYou.Worker)
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), AboutYouAnswer.Agency, AboutYouPage)
+        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), WhoAreYou.Agency, WhoAreYouPage)
 
-        val result = answers.get(AboutYouPage).get
+        val result = answers.get(WhoAreYouPage).get
 
-        result.answer mustBe Agency
+        result.answer mustBe WhoAreYou.Agency
         result.answerNumber mustBe 0
       }
 
@@ -141,9 +141,9 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
 
 
         val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
-          .set(ContractStartedPage, 1, true)
-          .set(WorkerTypePage, 2, SoleTrader)
+          .set(WhoAreYouPage, 0, WhoAreYou.Worker)
+          .set(WhatDoYouWantToDoPage, 1, WhatDoYouWantToDo.CheckDetermination)
+          .set(ContractStartedPage, 2, true)
           .set(OfficeHolderPage, 3, false)
           .set(ArrangedSubstitutePage, 4, YesClientAgreed)
           .set(DidPaySubstitutePage, 5, false)
@@ -169,27 +169,27 @@ class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with Mo
         val result = answers.get(ContractStartedPage).get
 
         result.answer mustBe false
-        result.answerNumber mustBe 1
-        answers.size mustBe 2
+        result.answerNumber mustBe 2
+        answers.size mustBe 3
         answers.get(OfficeHolderPage) mustBe None
         answers.get(IdentifyToStakeholdersPage) mustBe None
       }
     }
 
     "compare answer service (change same answer)" should {
-      "not change an About You Answer if it's the same value" in {
+      "not change a Who are you Answer if it's the same value" in {
 
 
         val userAnswers: UserAnswers = UserAnswers("id")
-          .set(AboutYouPage, 0, Worker)
+          .set(WhoAreYouPage, 0, WhoAreYou.Worker)
 
         val request: FakeRequest[AnyContent] = fakeRequest.withFormUrlEncodedBody()
 
-        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), AboutYouAnswer.Worker, AboutYouPage)
+        val answers = service.constructAnswers(DataRequest(request, "id", userAnswers), WhoAreYou.Worker, WhoAreYouPage)
 
-        val result = answers.get(AboutYouPage).get
+        val result = answers.get(WhoAreYouPage).get
 
-        result.answer mustBe Worker
+        result.answer mustBe WhoAreYou.Worker
         result.answerNumber mustBe 0
       }
 
