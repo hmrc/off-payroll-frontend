@@ -66,7 +66,6 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
     whoAreYouFormProvider().bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(renderedView(mode, formWithErrors))),
       value => {
-        println("HHHHHHHHHHHHHHHHHH")
         redirect(mode, value, WhoAreYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
         )
