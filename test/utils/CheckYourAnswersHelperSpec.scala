@@ -933,8 +933,6 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
 
     "there is an answer in the cacheMap" when {
 
-      "the answer is yes" should {
-
         "the user type is of Worker" should {
 
           "Return correctly formatted answer row" in {
@@ -942,138 +940,35 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
             new CheckYourAnswersHelper(cacheMap).whoAreYou(messages, workerRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
                 label = s"$WhoAreYouPage.checkYourAnswersLabel",
-                answer = "site.yes",
+                answer = WhoAreYou.Worker.toString,
                 answerIsMessageKey = true,
                 changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
               ))
           }
-        }
       }
 
-      "the answer is no" should {
+      "the user type is of Hirer" should {
 
         "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(TurnoverOverPage, 1, false)
-          new CheckYourAnswersHelper(cacheMap).turnoverOver(messages, workerRequest, frontendAppConfig) mustBe
+          val cacheMap = UserAnswers("id").set(WhoAreYouPage, 1, WhoAreYou.Client)
+          new CheckYourAnswersHelper(cacheMap).whoAreYou(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$TurnoverOverPage.checkYourAnswersLabel",
-              answer = "site.no",
+              label = s"$WhoAreYouPage.checkYourAnswersLabel",
+              answer = WhoAreYou.Client.toString,
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
         }
       }
-    }
-  }
 
-  ".employeesOver" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).employeesOver mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" when {
-
-      "the answer is yes" should {
-
-        "the user type is of Worker" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(EmployeesOverPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).employeesOver(messages, workerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-
-        "the user type is of Hirer" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(EmployeesOverPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).employeesOver(messages, hirerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Hirer.$EmployeesOverPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-      }
-
-      "the answer is no" should {
+      "the user type is of Agent" should {
 
         "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(EmployeesOverPage, 1, false)
-          new CheckYourAnswersHelper(cacheMap).employeesOver(messages, workerRequest, frontendAppConfig) mustBe
+          val cacheMap = UserAnswers("id").set(WhoAreYouPage, 1, WhoAreYou.Agency)
+          new CheckYourAnswersHelper(cacheMap).whoAreYou(messages, workerRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"$Worker.$EmployeesOverPage.checkYourAnswersLabel",
-              answer = "site.no",
-              answerIsMessageKey = true,
-              changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-            ))
-        }
-      }
-    }
-  }
-
-  ".balanceSheetOver" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).balanceSheetOver mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" when {
-
-      "the answer is yes" should {
-
-        "the user type is of Worker" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(BalanceSheetOverPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).balanceSheetOver(messages, workerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-
-        "the user type is of Hirer" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(BalanceSheetOverPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).balanceSheetOver(messages, hirerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Hirer.$BalanceSheetOverPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-              ))
-          }
-        }
-      }
-
-      "the answer is no" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(BalanceSheetOverPage, 1, false)
-          new CheckYourAnswersHelper(cacheMap).balanceSheetOver(messages, workerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Worker.$BalanceSheetOverPage.checkYourAnswersLabel",
-              answer = "site.no",
+              label = s"$WhoAreYouPage.checkYourAnswersLabel",
+              answer = WhoAreYou.Agency.toString,
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
             ))
