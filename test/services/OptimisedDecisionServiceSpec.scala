@@ -430,9 +430,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
 
-            mockDecide(Interview(userAnswers), Interview.writes)(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+            mockDecide(Interview(userAnswers), Interview.writes)(Right(DecisionResponse("", "", Score(
+              personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+            ), ResultEnum.OUTSIDE_IR35)))
 
             val expected: Html = AgentOutsideView(
               form = form,
@@ -457,9 +460,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
+              personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+            ), ResultEnum.OUTSIDE_IR35)))
 
             val expected: Html = IR35OutsideView(
               form = form,
@@ -485,9 +491,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
+              personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35)), ResultEnum.OUTSIDE_IR35)))
+              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+              businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+            ), ResultEnum.OUTSIDE_IR35)))
 
             val expected: Html = PAYEOutsideView(
               form = form,
