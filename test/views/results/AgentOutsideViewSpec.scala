@@ -19,7 +19,7 @@ package views.results
 import assets.messages.results.OutDecisionMessages
 import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.UserAnswers
+import models.{PDFResultDetails, UserAnswers}
 import models.UserType.Agency
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
@@ -33,21 +33,56 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  "The OutAgentView page" should {
+  def createView(req: DataRequest[_],
+                 pdfDetails: PDFResultDetails = testNoPdfResultDetails,
+                 isSubstituteToDoWork: Boolean = true,
+                 isClientNotControlWork: Boolean = true,
+                 isIncurCostNoReclaim: Boolean = true,
+                 isBoOA: Boolean = true): Html = {
+    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA)(req, messages, frontendAppConfig, pdfDetails)
+  }
 
-    def createView(req: DataRequest[_]): Html = view(form, true, true, true)(req, messages, frontendAppConfig, testNoPdfResultDetails)
+  "The OutAgentView page" when {
 
-    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
+    "all reasona are given should display all reasons" should {
 
-    pageChecks
-    pdfPageChecks(isPdfView = false)
+      implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
+
+      pageChecks
+      pdfPageChecks(isPdfView = false)
+    }
+
+    "only display one reason" when {
+
+      "only substituteToDoWork reason is given" should {
+
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+        singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason1)
+      }
+
+      "only clientNotControlWork reason is given" should {
+
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+        singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason2)
+      }
+
+      "only incurCostNoReclaim reason is given" should {
+
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+        singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason3)
+      }
+
+      "only booa reason is given" should {
+
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
+        singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason4)
+      }
+    }
   }
 
   "The OutAgentView PDF/Print page" should {
 
-    def createView(req: DataRequest[_]): Html = view(form, true, true, true)(req, messages, frontendAppConfig, testPdfResultDetails)
-
-    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest, pdfDetails = testPdfResultDetails))
 
     pageChecks
     pdfPageChecks(isPdfView = true)
@@ -63,43 +98,34 @@ class AgentOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
     }
 
-    "Have the correct Why Result section for 2 reasons" in {
-      def createView2(req: DataRequest[_]) = view(form,true,true,false)(req, messages, frontendAppConfig,testPdfResultDetails)
+    "Have the correct Why Result section for 4 reasons" in {
 
-      lazy val document2 = asDocument(createView2(agencyFakeDataRequest))
-
-      document2.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
-      document2.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
-      document2.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
-      document2.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
-      document2.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
-    }
-
-    "Have the correct Why Result section for 3 reasons" in {
-
-      def createView3(req: DataRequest[_]) = view(form,true,true,true)(req, messages, frontendAppConfig,testPdfResultDetails)
-
-      lazy val document3 = asDocument(createView3(agencyFakeDataRequest))
-
-      document3.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
-      document3.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
-      document3.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
-      document3.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
-      document3.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
-      document3.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
-
-    }
-    "Have the correct Why Result section for 3 reasons for no details" in {
       document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.p1
-      document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.reason1
-      document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.reason2
-      document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.reason3
-      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.p2
+      document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.whyResultP1
+      document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.whyResultB1
+      document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.whyResultB2
+      document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.whyResultB3
+      document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.Agent.whyResultB4
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.whyResultP2
     }
+
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
-      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.Agent.doNext
+      document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.Agent.doNextP1
+      document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.Agent.doNextP2
+    }
+
+    "Have a link to the Employment Status Manual" in {
+      document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualChapter5Url
+    }
+  }
+
+  def singleReasonChecks(reasonMessage: String)(implicit document: Document) : Unit ={
+
+    "Have the correct Why Result section when all reasons are given" in {
+      document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe reasonMessage
+      document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.whyResultP2
     }
   }
 }

@@ -27,7 +27,7 @@
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean, isBoOA: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -72,14 +72,11 @@
 
 @whyResult = {
 
-
-
-
-    @if(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim).length == 1){
-        <p class="form-group">@messages(singleOutReason(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim))</p>
+    @if(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA).length == 1){
+        <p class="form-group">@messages(singleOutReason(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA))</p>
         } else {
          <p>@messages("agent.optimised.result.outside.whyResult.p1")</p>
-        @components.bulleted_list(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim))
+        @components.bulleted_list(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA))
         }
 
     <p>@messages("agent.optimised.result.outside.whyResult.p2")</p>
@@ -87,4 +84,8 @@
 
 @doNext = {
     <p>@messages("agent.optimised.result.outside.doNext.p1")</p>
+    <p>
+        @messages("agent.optimised.result.outside.doNext.p2.text")
+        @components.new_window_link("agent.optimised.result.outside.doNext.p2.link", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+    </p>
 }

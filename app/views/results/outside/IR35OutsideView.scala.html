@@ -21,12 +21,14 @@
 @import models.UserType.{Worker, Hirer}
 @import models.ResultType.IR35
 @import results.sections.pdf
+@import results.sections._
+
 
 @import controllers.routes._
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], isPrivateSector: Boolean, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], isMake: Boolean, isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean, isBoOA: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -72,11 +74,11 @@
 
 @whyResult = {
 
-        @if(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 1){
-        <p class="form-group">@messages(singleOutReason(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))</p>
+        @if(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim, isBoOA).length == 1){
+        <p class="form-group">@messages(singleOutReason(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim, isBoOA))</p>
         } else {
             <p>@messages(tailorMsgOptimised("result.outside.ir35.whyResult.p1"))</p>
-            @components.bulleted_list(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
+            @components.bulleted_list(allOutReasons(IR35, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim, isBoOA))
         }
 
     <p>@messages(tailorMsgOptimised("result.outside.ir35.whyResult.p2"))</p>
@@ -84,20 +86,26 @@
 
 @doNext = {
 
-    @if(isPrivateSector) {
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages("hirer.optimised.result.outside.ir35.private.doNext.p1")</p>
-            <p>@messages("hirer.optimised.result.outside.ir35.private.doNext.p2")</p>
-            <p>@messages("hirer.optimised.result.outside.ir35.private.doNext.p3")</p>
-        } else {
-            <p>@messages("worker.optimised.result.outside.ir35.private.doNext.p1")</p>
-        }
+    @if(request.userType.contains(Hirer)) {
+        <p>@messages(tailorMsgOptimised("result.outside.ir35.doNext.p1"))</p>
+        <p>@messages(tailorMsgOptimised("result.outside.ir35.doNext.p2"))</p>
+        <p>
+            @messages(tailorMsgOptimised("result.outside.ir35.doNext.p3.text"))
+            @components.new_window_link(tailorMsgOptimised("result.outside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
+        </p>
     } else {
-        @if(request.userType.contains(Hirer)) {
-            <p>@messages(tailorMsgOptimised("result.outside.ir35.public.doNext.p1"))</p>
-            <p>@messages(tailorMsgOptimised("result.outside.ir35.public.doNext.p2"))</p>
+        @if(isMake) {
+            <p>@messages(tailorMsgOptimised("result.outside.ir35.make.doNext.p1"))</p>
         } else {
-            <p>@messages(tailorMsgOptimised("result.outside.ir35.public.doNext.p1"))</p>
+            <p>@messages(tailorMsgOptimised("result.outside.ir35.check.doNext.p1"))</p>
+            <p>@messages(tailorMsgOptimised("result.outside.ir35.check.doNext.p2"))</p>
+
+            @contact_details()
+
+            <p>
+                @messages(tailorMsgOptimised("result.outside.ir35.check.doNext.p3.text"))
+                @components.new_window_link(tailorMsgOptimised("result.outside.ir35.check.doNext.p3.link"), appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+            </p>
         }
     }
 }

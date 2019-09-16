@@ -123,14 +123,15 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     val isSubstituteToDoWork: Boolean = result.personalServiceOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isClientNotControlWork: Boolean = result.controlOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
     val isIncurCostNoReclaim: Boolean = result.financialRiskOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
+    val isBoOA: Boolean = result.financialRiskOption.contains(WeightedAnswerEnum.OUTSIDE_IR35)
 
     (result.usingIntermediary, result.isAgent) match {
       case (_, true) =>
-        outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // AGENT
+        outsideAgent(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA) // AGENT
       case (true, _) =>
-        outsideIR35(result.form, result.isMakingDetermination, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // IR35
+        outsideIR35(result.form, result.isMakingDetermination, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA) // IR35
       case _ =>
-        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim) // PAYE
+        outsidePAYE(result.form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA) // PAYE
     }
   }
 

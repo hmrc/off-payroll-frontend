@@ -438,7 +438,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               form = form,
               substituteToDoWork = true,
               clientNotControlWork = true,
-              incurCostNoReclaim = true
+              incurCostNoReclaim = true,
+              isBoOA = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))
@@ -462,10 +463,11 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             val expected: Html = IR35OutsideView(
               form = form,
-              isPrivateSector = false,
+              isMake = false,
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
-              isIncurCostNoReclaim = true
+              isIncurCostNoReclaim = true,
+              isBoOA = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))
@@ -491,7 +493,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               form = form,
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
-              isIncurCostNoReclaim = true
+              isIncurCostNoReclaim = true,
+              isBoOA = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))
