@@ -2,7 +2,7 @@ package controllers
 
 import helpers.IntegrationSpecBase
 
-class WhatDoYouWantToDoControllerISpec extends IntegrationSpecBase {
+class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
   s"Post or Get to /who-are-you" should {
 
