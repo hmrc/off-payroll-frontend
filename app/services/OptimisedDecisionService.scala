@@ -22,11 +22,12 @@ import connectors.DecisionConnector
 import forms.DownloadPDFCopyFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
+import models.WhatDoYouWantToFindOut.IR35
 import models.WhatDoYouWantToDo.MakeNewDetermination
 import models._
 import models.requests.DataRequest
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.setup.{IsWorkForPrivateSectorPage, WhatDoYouWantToDoPage, WorkerUsingIntermediaryPage}
+import pages.sections.setup.{IsWorkForPrivateSectorPage, WhatDoYouWantToDoPage, WhatDoYouWantToFindOutPage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.Logger
 import play.api.data.Form
@@ -77,9 +78,12 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     decide.map {
       case Right(decision) => {
-        val usingIntermediary = request.userAnswers.get(WorkerUsingIntermediaryPage).fold(false)(_.answer)
+        val usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35)
         val isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination)
         val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
+
+        Logger.debug(s"[OptimisedDecisionService][determineResultView] WhatDoYouWantToFindOutPage: ${request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage)} \n\n")
+        Logger.debug(s"[OptimisedDecisionService][determineResultView] usingIntermediary: ${usingIntermediary} \n\n")
 
         implicit val resultsDetails: ResultsDetails = ResultsDetails(
           officeHolderAnswer = officeHolderAnswer,

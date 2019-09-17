@@ -112,12 +112,10 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
             section = Section.setup,
             headingKey = "checkYourAnswers.setup.header",
             rows = Seq(
-              CheckYourAnswersHelper.aboutYouOptimised.map(_ -> None),
-              CheckYourAnswersHelper.workerTypeOptimised.map(_ -> None),
-              CheckYourAnswersHelper.isWorkForPrivateSector.map(_ -> None),
-              CheckYourAnswersHelper.turnoverOver.map(_ -> None),
-              CheckYourAnswersHelper.employeesOver.map(_ -> None),
-              CheckYourAnswersHelper.balanceSheetOver.map(_ -> None),
+              CheckYourAnswersHelper.whatDoYouWantToFindOut.map(_ -> None),
+              CheckYourAnswersHelper.whoAreYou.map(_ -> None),
+              CheckYourAnswersHelper.whatDoYouWantToDo.map(_ -> None),
+              CheckYourAnswersHelper.workerUsingIntermediary.map(_ -> None),
               CheckYourAnswersHelper.contractStarted.map(_ -> None)
             ).flatten
           ),

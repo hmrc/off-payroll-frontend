@@ -39,13 +39,12 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
         section = Section.setup,
         headingKey = "checkYourAnswers.setup.header",
         rows = Seq(
-          checkYourAnswersHelper.aboutYouOptimised,
-          checkYourAnswersHelper.workerTypeOptimised,
-          checkYourAnswersHelper.isWorkForPrivateSector,
-          checkYourAnswersHelper.turnoverOver,
-          checkYourAnswersHelper.employeesOver,
-          checkYourAnswersHelper.balanceSheetOver,
+          checkYourAnswersHelper.whatDoYouWantToFindOut,
+          checkYourAnswersHelper.whoAreYou,
+          checkYourAnswersHelper.whatDoYouWantToDo,
+          checkYourAnswersHelper.workerUsingIntermediary,
           checkYourAnswersHelper.contractStarted
+
         ).flatten
       ),
       AnswerSection(

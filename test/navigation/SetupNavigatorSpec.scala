@@ -68,202 +68,219 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
         nextPage(IndexPage) mustBe setupRoutes.AboutYourResultController.onPageLoad()
       }
 
-      "go from the AboutYourResultPage to the WhichDescribesYouPage" in {
+
+      "go from the AboutYourResultPage to the WhatDoYouWantToFindOutPage" in {
 
         enable(OptimisedFlow)
-        nextPage(AboutYourResultPage) mustBe setupRoutes.AboutYouController.onPageLoad(NormalMode)
+        nextPage(AboutYourResultPage) mustBe setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
       }
 
-      "go from the WhichDescribesYouPage" when {
+      "go from the WhatDoYouWantToFindOutPage to the WhoAreYouPage" in {
 
-        "the user is not an agent go to the AgencyAdvisoryPage" in {
+        enable(OptimisedFlow)
+        nextPage(WhatDoYouWantToFindOutPage) mustBe setupRoutes.WhoAreYouController.onPageLoad(NormalMode)
+      }
+
+      "go from the WhoAreYouPage" when {
+
+        "WhatDoYouWantToFindOutPage answer is PAYE" should {
+
+          "to WorkerTypePage" in {
+
+            lazy val userAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+
+            enable(OptimisedFlow)
+            nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+          }
+        }
+
+        "WhatDoYouWantToFindOutPage answer is IR35" when {
+
+          "WhoAreYouPage answer is Client" should {
+
+            "to WorkerTypePage" in {
+
+              lazy val userAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+                .set(WhoAreYouPage, WhoAreYou.Client)
+
+              enable(OptimisedFlow)
+              nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+            }
+          }
+
+          "WhoAreYouPage answer is Worker" should {
+
+            "to WorkerTypePage" in {
+
+              lazy val userAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+                .set(WhoAreYouPage, WhoAreYou.Worker)
+
+              enable(OptimisedFlow)
+              nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
+            }
+          }
+
+          "WhoAreYouPage answer is Agency" should {
+
+            "to WorkerTypePage" in {
+
+              lazy val userAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+                .set(WhoAreYouPage, WhoAreYou.Agency)
+
+              enable(OptimisedFlow)
+              nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.AgencyAdvisoryController.onPageLoad()
+            }
+          }
+
+          "WhoAreYouPage answer is None" should {
+
+            "to WorkerTypePage" in {
+
+              lazy val userAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+
+              enable(OptimisedFlow)
+              nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WhoAreYouController.onPageLoad(NormalMode)
+            }
+          }
+        }
+
+        "WhatDoYouWantToFindOutPage answer is None to WhatDoYouWantToFindOutPage" in {
 
           enable(OptimisedFlow)
-          nextPage(WhichDescribesYouPage) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+          nextPage(WhoAreYouPage) mustBe setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
         }
       }
 
-      "go from the AgencyAdvisoryPage to the WorkerTypePage" in {
+      "go from the WhatDoYouWantToDoPage" when {
+
+        "WhatDoYouWantToDoPage answer is MakeNewDetermination" should {
+
+          "go to WorkerTypePage" in {
+
+            lazy val userAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToDoPage, WhatDoYouWantToDo.MakeNewDetermination)
+
+            enable(OptimisedFlow)
+            nextPage(WhatDoYouWantToDoPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+          }
+        }
+
+        "WhatDoYouWantToDoPage answer is CheckDetermination" should {
+
+          "go to the ContractStartedPage" in {
+
+            lazy val userAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToDoPage, WhatDoYouWantToDo.CheckDetermination)
+
+            enable(OptimisedFlow)
+            nextPage(WhatDoYouWantToDoPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+          }
+        }
+
+        "WhatDoYouWantToPage answer is None" should {
+
+          "go to the WhatDoYouWantToDoPage" in {
+
+            enable(OptimisedFlow)
+            nextPage(WhatDoYouWantToDoPage) mustBe setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
+          }
+        }
+      }
+
+      "go from the AgencyAdvisoryPage to the ContractStartedPage" in {
 
         enable(OptimisedFlow)
-        nextPage(AgencyAdvisoryPage) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
+        nextPage(AgencyAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       }
 
       "go from the WorkerUsingIntermediaryPage" when {
 
-        "the user is using an intermediary go to the IsWorkForPrivateSectorPage" in {
+        "WorkerUsingIntermediary is true" when {
 
-          enable(OptimisedFlow)
-          nextPage(WorkerUsingIntermediaryPage, setAnswers(WorkerUsingIntermediaryPage -> true)) mustBe
-            setupRoutes.IsWorkForPrivateSectorController.onPageLoad(NormalMode)
-        }
+          "WhatDoYouWantToFindOutPage answer is PAYE" should {
 
-        "the user is not using an intermediary go to the ContractStartedPage" in {
+            "go to the IntermediaryPage" in {
 
-          enable(OptimisedFlow)
-          nextPage(WorkerUsingIntermediaryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-        }
-      }
+              lazy val userAnswers = UserAnswers("id")
+                .set(WorkerUsingIntermediaryPage, true)
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
 
-      "go from the IsWorkForPrivateSectorPage" when {
+              enable(OptimisedFlow)
+              nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.IntermediaryController.onPageLoad()
+            }
+          }
 
-        "is work for private sector" should {
+          "WhatDoYouWantToFindOutPage answer is IR35" should {
 
-          "go to the Turnover Page" in {
+            "go to the ContractStartedPage" in {
 
-            lazy val userAnswers = UserAnswers("id").set(IsWorkForPrivateSectorPage, true)
+              lazy val userAnswers = UserAnswers("id")
+                .set(WorkerUsingIntermediaryPage, true)
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
 
-            enable(OptimisedFlow)
-            nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.TurnoverOverController.onPageLoad(NormalMode)
+              enable(OptimisedFlow)
+              nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+            }
+          }
+
+          "WhatDoYouWantToFindOutPage answer is None" should {
+
+            "go to the WhatDoYouWantToFindOutPage" in {
+
+              lazy val userAnswers = UserAnswers("id")
+                .set(WorkerUsingIntermediaryPage, true)
+
+              enable(OptimisedFlow)
+              nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
+            }
           }
         }
 
-        "is NOT work for private sector" should {
+        "WorkerUsingIntermediary is false" when {
 
-          "if User Type is 'Worker' go to the Worker Advisory Page" in {
+          "WhatDoYouWantToFindOutPage answer is PAYE" should {
+
+            "go to the ContractStartedPage" in {
+
+              lazy val userAnswers = UserAnswers("id")
+                .set(WorkerUsingIntermediaryPage, false)
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+
+              enable(OptimisedFlow)
+              nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+            }
+          }
+
+          "WhatDoYouWantToFindOutPage answer is IR35" should {
+
+            "go to the NoIntermediaryPage" in {
+
+              lazy val userAnswers = UserAnswers("id")
+                .set(WorkerUsingIntermediaryPage, false)
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+
+              enable(OptimisedFlow)
+              nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.NoIntermediaryController.onPageLoad()
+            }
+          }
+        }
+
+        "WorkerUsingIntermediary is None" should {
+
+          "go to the NoIntermediaryPage" in {
 
             lazy val userAnswers = UserAnswers("id")
-              .set(IsWorkForPrivateSectorPage, false)
-              .set(WhichDescribesYouPage, WorkerIR35)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
 
             enable(OptimisedFlow)
-            nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.WorkerAdvisoryController.onPageLoad()
-          }
-
-          "if User Type is NOT 'Worker' go to the Contract Started Page" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(IsWorkForPrivateSectorPage, false)
-              .set(WhichDescribesYouPage, ClientIR35)
-
-            enable(OptimisedFlow)
-            nextPage(IsWorkForPrivateSectorPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
+            nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
           }
         }
-      }
-
-      "go from the TurnoverOverPage to the EmployeesOverPage" in {
-        enable(OptimisedFlow)
-        nextPage(TurnoverOverPage) mustBe setupRoutes.EmployeesOverController.onPageLoad(NormalMode)
-      }
-
-      "go from the EmployeesOverPage" when {
-
-        "both turnover over and employees over answers are true and is a worker" must {
-
-          "go to Contract Started Page" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(WhichDescribesYouPage, WorkerIR35)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, true)
-
-            enable(OptimisedFlow)
-            nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-          }
-        }
-
-        "both turnover over and employees over answers are false and is a Hirer" must {
-
-          "go to Tool Not Needed Page" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(WhichDescribesYouPage, ClientIR35)
-              .set(TurnoverOverPage, false)
-              .set(EmployeesOverPage, false)
-
-            enable(OptimisedFlow)
-            nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
-          }
-        }
-
-        "both turnover over and employees over answers are true and is a Client" must {
-
-          "go Hirer Advisory Page" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(WhichDescribesYouPage, ClientIR35)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, true)
-
-            enable(OptimisedFlow)
-            nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
-          }
-        }
-
-        "both turnover over is true and employees over answers are false" must {
-
-          "go Balance Sheet Over" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(WhichDescribesYouPage, ClientIR35)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-
-            enable(OptimisedFlow)
-            nextPage(EmployeesOverPage, userAnswers) mustBe setupRoutes.BalanceSheetOverController.onPageLoad(NormalMode)
-          }
-        }
-      }
-
-      "go from the BalanceSheetOverPage" when {
-
-        "is medium/large business and UserType is worker" must {
-
-          "go to Contract Started Page" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(WhichDescribesYouPage, WorkerIR35)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
-
-            enable(OptimisedFlow)
-            nextPage(BalanceSheetOverPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-          }
-        }
-
-        "is medium/large business and UserType is Client" must {
-
-          "go Hirer Advisory Page" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(WhichDescribesYouPage, ClientIR35)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
-
-            enable(OptimisedFlow)
-            nextPage(BalanceSheetOverPage, userAnswers) mustBe setupRoutes.HirerAdvisoryController.onPageLoad()
-          }
-        }
-
-        "is small business and UserType is Hirer" must {
-
-          "go to Tool Not Needed Page" in {
-
-            lazy val userAnswers = UserAnswers("id")
-              .set(WhichDescribesYouPage, ClientIR35)
-              .set(TurnoverOverPage, false)
-              .set(EmployeesOverPage, true)
-              .set(BalanceSheetOverPage, false)
-
-            enable(OptimisedFlow)
-            nextPage(BalanceSheetOverPage, userAnswers) mustBe setupRoutes.ToolNotNeededController.onPageLoad()
-          }
-        }
-      }
-
-      "go from the WorkerAdvisoryPage to the ContractStartedPage" in {
-
-        enable(OptimisedFlow)
-        nextPage(WorkerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-      }
-
-      "go from the HirerAdvisoryPage to the ContractStartedPage" in {
-
-        enable(OptimisedFlow)
-        nextPage(HirerAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       }
 
       "go from the ContractStartedPage to the OfficeHolderPage" in {

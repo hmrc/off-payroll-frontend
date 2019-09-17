@@ -33,13 +33,10 @@ class CheckYourAnswersValidationService @Inject()(implicit val appConfig: Fronte
 
   private def mandatorySetupPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
     Set(
-      WhichDescribesYouPage,
-      WorkerUsingIntermediaryPage,
+      WhatDoYouWantToFindOutPage,
+      WhoAreYouPage,
       ContractStartedPage
-    ) ++
-      privateSectorPages ++
-      turnoverEmployeesPages ++
-      balanceSheetPages
+    )
   }
 
   private def mandatoryPersonalServicePages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {

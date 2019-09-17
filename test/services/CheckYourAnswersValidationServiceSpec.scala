@@ -50,82 +50,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
       "For the Setup Section" should {
 
         "return an error" when {
-
-          "WhichDescribesYou, WorkerType and Contract started are not answered" in {
-
-            lazy val userAnswers: UserAnswers = UserAnswers("id")
-
-            lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-            result.isLeft mustBe true
-            result.left.get must contain(WhichDescribesYouPage)
-            result.left.get must contain(WorkerUsingIntermediaryPage)
-            result.left.get must contain(ContractStartedPage)
-          }
-
-          "isWorkForPrivate sector is not answered when is using an intermediary" in {
-
-            lazy val userAnswers: UserAnswers = UserAnswers("id")
-              //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
-              .set(WorkerUsingIntermediaryPage, true)
-              .set(ContractStartedPage, false)
-
-            lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-            result.isLeft mustBe true
-            result.left.get must contain(IsWorkForPrivateSectorPage)
-          }
-
-          "turnoverOver and employeesOver are not answered when is working for Private Sector" in {
-
-            lazy val userAnswers: UserAnswers = UserAnswers("id")
-              //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
-              .set(WorkerUsingIntermediaryPage, true)
-              .set(ContractStartedPage, false)
-              .set(IsWorkForPrivateSectorPage, true)
-
-            lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-            result.isLeft mustBe true
-            result.left.get must contain(TurnoverOverPage)
-            result.left.get must contain(EmployeesOverPage)
-          }
-
-          "balanceSheetOver is not answered when turnoverOver is false and employees over is true" in {
-
-            lazy val userAnswers: UserAnswers = UserAnswers("id")
-              //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
-              .set(WorkerUsingIntermediaryPage, true)
-              .set(ContractStartedPage, false)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, false)
-              .set(EmployeesOverPage, true)
-
-            lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-            result.isLeft mustBe true
-            result.left.get must contain(BalanceSheetOverPage)
-          }
-
-          "balanceSheetOver is not answered when turnoverOver is true and employees over is false" in {
-
-            lazy val userAnswers: UserAnswers = UserAnswers("id")
-              //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
-              .set(WorkerUsingIntermediaryPage, true)
-              .set(ContractStartedPage, false)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-
-            lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-            result.isLeft mustBe true
-            result.left.get must contain(BalanceSheetOverPage)
-          }
+//SETUP TODO
         }
       }
 
@@ -137,7 +62,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, false)
               .set(IsWorkForPrivateSectorPage, true)
@@ -161,7 +86,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, false)
               .set(IsWorkForPrivateSectorPage, true)
@@ -181,7 +106,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, false)
               .set(IsWorkForPrivateSectorPage, true)
@@ -203,7 +128,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -223,7 +148,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -245,7 +170,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -268,7 +193,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -290,7 +215,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -312,7 +237,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -335,7 +260,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -358,7 +283,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -388,7 +313,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -422,7 +347,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -463,7 +388,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhichDescribesYouPage, WorkerPAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
               .set(IsWorkForPrivateSectorPage, true)
@@ -509,7 +434,8 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
           lazy val userAnswers: UserAnswers = UserAnswers("id")
             //Setup Section
-            .set(WhichDescribesYouPage, WorkerPAYE)
+            .set(WhoAreYouPage, WhoAreYou.Worker)
+            .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
             .set(WorkerUsingIntermediaryPage, false)
             .set(ContractStartedPage, true)
             //Early Exit
@@ -556,7 +482,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -598,7 +524,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -638,7 +564,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -678,7 +604,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -718,7 +644,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -756,7 +682,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -797,7 +723,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, false)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -835,7 +761,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, false)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -878,7 +804,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, true)
@@ -919,7 +845,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, true)
@@ -960,7 +886,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, true)
@@ -1002,7 +928,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
                   .set(IsWorkForPrivateSectorPage, true)
@@ -1047,7 +973,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, false)
                   .set(IsWorkForPrivateSectorPage, false)
@@ -1085,7 +1011,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhichDescribesYouPage, WorkerPAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, false)
                   .set(IsWorkForPrivateSectorPage, false)

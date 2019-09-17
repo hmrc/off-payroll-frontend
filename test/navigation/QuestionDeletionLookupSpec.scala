@@ -59,88 +59,72 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
 
     "Setup" must {
 
-      "handle WhichDescribesYouPage" when {
+      "handle WhatDoYouWantToFindOutPage" when {
 
-        "answer is worker ir35, delete worker know question" in {
+        "answer is anything, return expected pages" in {
 
-          val res = navigator.getPagesToRemove(WhichDescribesYouPage)(
-            userAnswers.set(WhichDescribesYouPage, 0, WhichDescribesYouAnswer.WorkerIR35))
+          val res = navigator.getPagesToRemove(WhatDoYouWantToFindOutPage)(
+            userAnswers.set(WhatDoYouWantToFindOutPage, 0, WhatDoYouWantToFindOut.IR35))
 
-          res mustBe List(WorkerKnownPage)
-        }
-
-        "answer is worker paye, delete worker know question" in {
-
-          val res = navigator.getPagesToRemove(WhichDescribesYouPage)(
-            userAnswers.set(WhichDescribesYouPage, 0, WhichDescribesYouAnswer.WorkerPAYE))
-
-          res mustBe List(WorkerKnownPage)
-        }
-
-        "answer is not worker, not delete worker know question" in {
-
-          val res = navigator.getPagesToRemove(WhichDescribesYouPage)(
-            userAnswers.set(WhichDescribesYouPage, 0, WhichDescribesYouAnswer.ClientIR35))
-
-          res mustBe List.empty
+          res mustBe List(WhoAreYouPage,WorkerUsingIntermediaryPage,WhatDoYouWantToDoPage)
         }
       }
 
-      "handle WorkerUsingIntermediaryPage" when {
+      "handle WhoAreYouPage" when {
 
-        "answer is false, return expected pages" in {
+        "answer is Agent, return expected pages" in {
+
+          val res = navigator.getPagesToRemove(WhoAreYouPage)(
+            userAnswers.set(WhoAreYouPage, 0, WhoAreYou.Agency))
+
+          res mustBe List(WhatDoYouWantToDoPage,WorkerUsingIntermediaryPage)
+        }
+
+        "answer is Client, return expected pages" in {
+
+          val res = navigator.getPagesToRemove(WhoAreYouPage)(
+            userAnswers.set(WhoAreYouPage, 0, WhoAreYou.Client))
+
+          res mustBe List(WhatDoYouWantToDoPage)
+        }
+
+        "answer is Worker and PAYE, return expected pages" in {
+
+          val res = navigator.getPagesToRemove(WhoAreYouPage)(
+            userAnswers
+              .set(WhoAreYouPage, 0, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage,1,WhatDoYouWantToFindOut.PAYE)
+          )
+
+          res mustBe List(WhatDoYouWantToDoPage)
+        }
+
+
+        "answer is anything else, return no pages" in {
 
           val res = navigator.getPagesToRemove(WorkerUsingIntermediaryPage)(
-            userAnswers.set(WorkerUsingIntermediaryPage, 0, false))
+            userAnswers.set(WhoAreYouPage, 0, WhoAreYou.Worker))
 
-          res mustBe List(IsWorkForPrivateSectorPage, TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
-        }
-
-        "answer is true, return expected pages" in {
-
-          val res = navigator.getPagesToRemove(WorkerUsingIntermediaryPage)(
-            userAnswers.set(WorkerUsingIntermediaryPage, 0, true))
-
-          res mustBe List.empty
+          res mustBe List()
         }
       }
 
-      "handle IsWorkForPrivateSectorPage" when {
+      "handle WhatDoYouWantToDoPage" when {
 
-        "answer is false, return expected pages" in {
+        "answer is Check, return expected pages" in {
 
-          val res = navigator.getPagesToRemove(IsWorkForPrivateSectorPage)(
-            userAnswers.set(IsWorkForPrivateSectorPage, 0, false))
+          val res = navigator.getPagesToRemove(WhatDoYouWantToDoPage)(
+            userAnswers.set(WhatDoYouWantToDoPage, 0, WhatDoYouWantToDo.CheckDetermination))
 
-          res mustBe List(TurnoverOverPage, EmployeesOverPage, BalanceSheetOverPage)
+          res mustBe List(WorkerUsingIntermediaryPage)
         }
 
-        "answer is true, return expected pages" in {
+        "answer is Make, return no pages" in {
 
-          val res = navigator.getPagesToRemove(IsWorkForPrivateSectorPage)(
-            userAnswers.set(IsWorkForPrivateSectorPage, 0, true))
+          val res = navigator.getPagesToRemove(WhatDoYouWantToDoPage)(
+            userAnswers.set(WhatDoYouWantToDoPage, 0, WhatDoYouWantToDo.MakeNewDetermination))
 
-          res mustBe List.empty
-        }
-      }
-
-      "handle TurnoverOverPage" when {
-
-        "return expected pages" in {
-
-          val res = navigator.getPagesToRemove(TurnoverOverPage)(userAnswers)
-
-          res mustBe List(EmployeesOverPage, BalanceSheetOverPage)
-        }
-      }
-
-      "handle EmployeesOverPage" when {
-
-        "return expected pages" in {
-
-          val res = navigator.getPagesToRemove(EmployeesOverPage)(userAnswers)
-
-          res mustBe List(BalanceSheetOverPage)
+          res mustBe List()
         }
       }
 

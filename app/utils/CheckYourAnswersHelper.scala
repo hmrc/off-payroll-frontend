@@ -23,7 +23,7 @@ import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
-import models.{CheckMode, Enumerable, UserAnswers}
+import models._
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -39,36 +39,6 @@ import views.ViewUtils._
 
 //noinspection ScalaStyle
 class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implicits {
-  
-  def turnoverOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(TurnoverOverPage) map { x =>
-      AnswerRow(
-        tailorMsg(s"$TurnoverOverPage.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true,
-        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-      )
-    }
-
-  def employeesOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(EmployeesOverPage) map { x =>
-      AnswerRow(
-        tailorMsg(s"$EmployeesOverPage.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true,
-        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-      )
-    }
-
-  def balanceSheetOver(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(BalanceSheetOverPage) map { x =>
-      AnswerRow(
-        tailorMsg(s"$BalanceSheetOverPage.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true,
-        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-      )
-    }
 
   def didPaySubstitute(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(DidPaySubstitutePage) map { x =>
@@ -270,16 +240,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       )
     }
 
-  def workerTypeOptimised(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    userAnswers.get(WorkerUsingIntermediaryPage) map { x =>
-      AnswerRow(
-        tailorMsg(s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel"),
-        if(x.answer) "site.yes" else "site.no",
-        answerIsMessageKey = true,
-        changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
-      )
-    }
-
   def contractStarted(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     userAnswers.get(ContractStartedPage) map { x =>
       AnswerRow(
@@ -290,20 +250,45 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
       )
     }
 
-  def aboutYouOptimised: Option[AnswerRow] = userAnswers.get(WhichDescribesYouPage) map { x =>
+  def whatDoYouWantToFindOut(implicit messages: Messages, request: Request[_],
+                             appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(WhatDoYouWantToFindOutPage) map { x =>
     AnswerRow(
-      s"$WhichDescribesYouPage.checkYourAnswersLabel",
-      s"$WhichDescribesYouPage.${x.answer}",
+      s"$WhatDoYouWantToFindOutPage.checkYourAnswersLabel",
+      if(x.answer == WhatDoYouWantToFindOut.IR35) "whatDoYouWantToFindOut.ir35" else "whatDoYouWantToFindOut.paye",
       answerIsMessageKey = true,
       changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
     )
   }
 
-  def isWorkForPrivateSector(implicit messages: Messages, request: Request[_],
-                             appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(IsWorkForPrivateSectorPage) map { x =>
+  def whatDoYouWantToDo(implicit messages: Messages, request: Request[_],
+                             appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(WhatDoYouWantToDoPage) map { x =>
     AnswerRow(
-      tailorMsg(s"$IsWorkForPrivateSectorPage.checkYourAnswersLabel"),
-      if(x.answer) "isWorkForPrivateSector.private" else "isWorkForPrivateSector.public",
+      s"$WhatDoYouWantToDoPage.checkYourAnswersLabel",
+      if(x.answer == WhatDoYouWantToDo.CheckDetermination) "whatDoYouWantToDo.checkDetermination" else "whatDoYouWantToDo.makeNewDetermination",
+      answerIsMessageKey = true,
+      changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+    )
+  }
+
+  def whoAreYou(implicit messages: Messages, request: Request[_],
+                             appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(WhoAreYouPage) map { x =>
+    AnswerRow(
+      s"$WhoAreYouPage.checkYourAnswersLabel",
+      x.answer match {
+        case WhoAreYou.Worker => "whoAreYou.personDoingWork"
+        case WhoAreYou.Client => "whoAreYou.endClient"
+        case WhoAreYou.Agency => "whoAreYou.placingAgency"
+      },
+      answerIsMessageKey = true,
+      changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
+    )
+  }
+
+  def workerUsingIntermediary(implicit messages: Messages, request: Request[_],
+                     appConfig: FrontendAppConfig): Option[AnswerRow] = userAnswers.get(WorkerUsingIntermediaryPage) map { x =>
+    AnswerRow(
+      tailorMsg(s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel"),
+      if(x.answer) "site.yes" else "site.no",
       answerIsMessageKey = true,
       changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url)
     )

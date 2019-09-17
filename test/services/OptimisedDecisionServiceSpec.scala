@@ -48,6 +48,7 @@ import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.CannotBeCorrected
 import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WhatDoYouWantToDo.MakeNewDetermination
+import models.WhatDoYouWantToFindOut.{IR35, PAYE}
 import models.WhichDescribesYouAnswer._
 import models.WorkerType.SoleTrader
 import models._
@@ -238,7 +239,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the OfficeHolderAgentView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WorkerUsingIntermediaryPage, 2, false)
+                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, true)
 
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
@@ -258,7 +259,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the OfficeHolderIR35View" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WorkerUsingIntermediaryPage, 2, true)
+                .set(WhatDoYouWantToFindOutPage, 2, IR35)
                 .set(OfficeHolderPage, 3, true)
                 .set(WhatDoYouWantToDoPage, answerNumber = 4, MakeNewDetermination)
 
@@ -279,7 +280,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the OfficeHolderPAYEView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WorkerUsingIntermediaryPage, 2, false)
+                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, true)
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
@@ -302,7 +303,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the AgentInsideView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WorkerUsingIntermediaryPage, 2, false)
+                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, false)
 
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
@@ -322,7 +323,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the IR35InsideView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WorkerUsingIntermediaryPage, 2, true)
+                .set(WhatDoYouWantToFindOutPage, 2, IR35)
                 .set(OfficeHolderPage, 3, false)
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
@@ -342,7 +343,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             "render the PAYEInsideView" in {
 
               val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WorkerUsingIntermediaryPage, 2, false)
+                .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, false)
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
@@ -366,7 +367,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the AgentUndeterminedView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WorkerUsingIntermediaryPage, 2, false)
+              .set(WhatDoYouWantToFindOutPage, 2, PAYE)
 
             implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
@@ -385,7 +386,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the IR35UndeterminedView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WorkerUsingIntermediaryPage, 2, true)
+              .set(WhatDoYouWantToFindOutPage, 2, IR35)
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
@@ -404,7 +405,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the OfficeHolderPAYEView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WorkerUsingIntermediaryPage, 2, false)
+              .set(WhatDoYouWantToFindOutPage, 2, PAYE)
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
@@ -456,7 +457,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the IR35OutsideView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WorkerUsingIntermediaryPage, 2, true)
+              .set(WhatDoYouWantToFindOutPage, 2, IR35)
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
@@ -487,7 +488,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
           "render the PAYEOutsideView" in {
 
             val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WorkerUsingIntermediaryPage, 2, false)
+              .set(WhatDoYouWantToFindOutPage, 2, PAYE)
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
