@@ -43,6 +43,7 @@ object Page {
     WhatDoYouWantToFindOutPage.toString -> WhatDoYouWantToFindOutPage,
     WhoAreYouPage.toString -> WhoAreYouPage,
     WhatDoYouWantToDoPage.toString -> WhatDoYouWantToDoPage,
+    WorkerTypePage.toString -> WorkerTypePage,
     ContractStartedPage.toString -> ContractStartedPage,
     WorkerUsingIntermediaryPage.toString -> WorkerUsingIntermediaryPage,
     OfficeHolderPage.toString -> OfficeHolderPage,
