@@ -20,4 +20,8 @@ trait TestData {
   val chooseWhenDoneValue = "value=workerDecideSchedule"
   val introduceValue = "value=workAsIndependent"
   val cannotClaimValue = "cannotClaimAsExpense[]=expensesAreNotRelevantForRole"
+  val whoAreYouValue = "value=personDoingWork"
+  val whatDoYouWantToDoValue = "value=makeNewDetermination"
+  val whatDoYouWantToFindOutValue = "value=ir35"
+  val workerTypeValue = "value=limitedCompany"
 }
