@@ -2022,7 +2022,7 @@ hirer.financiallyDependent.subheading = Worker’s contracts
 hirer.financiallyDependent.title = Will this contract provide the worker with the majority of their income?
 hirer.financiallyDependent.heading = Will this contract provide the worker with the majority of their income?
 hirer.financiallyDependent.checkYourAnswersLabel = Will this contract provide the worker with the majority of their income?
-hirer.financiallyDependent.p1 = If the worker has separate earnings, their need to find other work may not be so urgent.
+hirer.financiallyDependent.p1 = This is about comparing income from this work with the total income from any other work, over the same period.
 
 ###TODO: Need Welsh
 ### Worker Known Page
