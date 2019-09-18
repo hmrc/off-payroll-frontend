@@ -41,7 +41,7 @@ bodyClasses = None) {
 
     <p>
         @messages("intermediaryResult.p4.text1")
-        <a id="understanding-off-payroll" href="@{appConfig.understandingOffPayrollUrl}" target="_blank">@messages("intermediaryResult.p4.link1")</a>@messages("intermediaryResult.p4.text2")
+        @components.new_window_link("intermediaryResult.p4.link1", appConfig.understandingOffPayrollUrl, Some("understanding-off-payroll"))@messages("intermediaryResult.p4.text2")
         <a id="start-again" href="@{startAgain.url}">@messages("intermediaryResult.p4.link2")</a>
     </p>
 }
