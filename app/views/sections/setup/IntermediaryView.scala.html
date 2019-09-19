@@ -24,24 +24,24 @@
 
 @(startAgain: Call)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
-@mainTemplate(title = titleNoForm("intermediaryResult.title"),
+@mainTemplate(title = titleNoForm(tailorMsg("intermediaryResult.title")),
 appConfig = appConfig,
 bodyClasses = None) {
 
     @components.back_link()(NormalMode)
 
-    @components.heading("intermediaryResult.heading")
+    @components.heading(tailorMsg("intermediaryResult.heading"))
 
-    <p>@messages("intermediaryResult.p1")</p>
-    <p>@messages("intermediaryResult.p2")</p>
+    <p>@messages(tailorMsg("intermediaryResult.p1"))</p>
+    <p>@messages(tailorMsg("intermediaryResult.p2"))</p>
 
-    <h2>@messages("intermediaryResult.subheading")</h2>
+    <h2>@messages(tailorMsg("intermediaryResult.subheading"))</h2>
 
-    <p>@messages("intermediaryResult.p3")</p>
+    <p>@messages(tailorMsg("intermediaryResult.p3"))</p>
 
     <p>
-        @messages("intermediaryResult.p4.text1")
-        @components.new_window_link("intermediaryResult.p4.link1", appConfig.understandingOffPayrollUrl, Some("understanding-off-payroll"))@messages("intermediaryResult.p4.text2")
-        <a id="start-again" href="@{startAgain.url}">@messages("intermediaryResult.p4.link2")</a>
+        @messages(tailorMsg("intermediaryResult.p4.text1"))
+        @components.new_window_link(tailorMsg("intermediaryResult.p4.link1"), appConfig.understandingOffPayrollUrl, Some("understanding-off-payroll"))@messages(tailorMsg("intermediaryResult.p4.text2"))
+        <a id="start-again" href="@{startAgain.url}">@messages(tailorMsg("intermediaryResult.p4.link2"))</a>
     </p>
 }

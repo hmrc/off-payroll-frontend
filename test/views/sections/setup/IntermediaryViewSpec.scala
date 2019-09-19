@@ -17,7 +17,8 @@
 package views.sections.setup
 
 import assets.messages.IntermediaryMessages
-import play.api.mvc.Call
+import models.NormalMode
+import play.api.mvc.{Call, Request}
 import views.behaviours.ViewBehaviours
 import views.html.sections.setup.{IntermediaryView, WorkerAdvisoryView}
 
@@ -39,41 +40,83 @@ class IntermediaryViewSpec extends ViewBehaviours {
 
   def createView = () => view(controllers.routes.StartAgainController.redirectToDisclaimer())(fakeRequest, messages, frontendAppConfig)
 
+  def createViewWithRequest =
+    (req: Request[_]) => view(controllers.routes.StartAgainController.redirectToDisclaimer())(req, messages, frontendAppConfig)
+
+
   "intermediary view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
 
     behave like pageWithBackLink(createView)
 
-    lazy val document = asDocument(createView())
+    "For worker" should {
 
-    "have the correct title" in {
-      document.title mustBe title(IntermediaryMessages.title)
+      lazy val document = asDocument(createViewWithRequest(workerFakeDataRequest))
+
+      "have the correct title" in {
+        document.title mustBe title(IntermediaryMessages.Worker.title)
+      }
+
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe IntermediaryMessages.Worker.heading
+      }
+
+      "have the correct p1" in {
+        document.select(Selectors.p1).text mustBe IntermediaryMessages.Worker.p1
+      }
+
+      "have the correct p2" in {
+        document.select(Selectors.p2).text mustBe IntermediaryMessages.Worker.p2
+      }
+
+      "have the correct h2" in {
+        document.select(Selectors.h2(1)).text mustBe IntermediaryMessages.Worker.subheading
+      }
+
+      "have the correct p3" in {
+        document.select(Selectors.p3).text mustBe IntermediaryMessages.Worker.p3
+      }
+
+      "have the correct p4" in {
+        document.select(Selectors.p4).text mustBe IntermediaryMessages.Worker.p4
+        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
+        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+      }
     }
 
-    "have the correct heading" in {
-      document.select(Selectors.heading).text mustBe IntermediaryMessages.heading
-    }
+    "For Hirer" should {
 
-    "have the correct p1" in {
-      document.select(Selectors.p1).text mustBe IntermediaryMessages.p1
-    }
+      lazy val document = asDocument(createViewWithRequest(hirerFakeDataRequest))
 
-    "have the correct p2" in {
-      document.select(Selectors.p2).text mustBe IntermediaryMessages.p2
-    }
+      "have the correct title" in {
+        document.title mustBe title(IntermediaryMessages.Hirer.title)
+      }
 
-    "have the correct h2" in {
-      document.select(Selectors.h2(1)).text mustBe IntermediaryMessages.subheading
-    }
+      "have the correct heading" in {
+        document.select(Selectors.heading).text mustBe IntermediaryMessages.Hirer.heading
+      }
 
-    "have the correct p3" in {
-      document.select(Selectors.p3).text mustBe IntermediaryMessages.p3
-    }
+      "have the correct p1" in {
+        document.select(Selectors.p1).text mustBe IntermediaryMessages.Hirer.p1
+      }
 
-    "have the correct p4" in {
-      document.select(Selectors.p4).text mustBe IntermediaryMessages.p4
-      document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
-      document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+      "have the correct p2" in {
+        document.select(Selectors.p2).text mustBe IntermediaryMessages.Hirer.p2
+      }
+
+      "have the correct h2" in {
+        document.select(Selectors.h2(1)).text mustBe IntermediaryMessages.Hirer.subheading
+      }
+
+      "have the correct p3" in {
+        document.select(Selectors.p3).text mustBe IntermediaryMessages.Hirer.p3
+      }
+
+      "have the correct p4" in {
+        document.select(Selectors.p4).text mustBe IntermediaryMessages.Hirer.p4
+        document.select(Selectors.understandingOffPayroll).attr("href") mustBe frontendAppConfig.understandingOffPayrollUrl
+        document.select(Selectors.startAgain).attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+      }
     }
   }
 }
