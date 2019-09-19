@@ -2037,18 +2037,20 @@ hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who w
 ### TODO: Need Welsh
 ### SimilarWorkOtherClients Page
 ### ---------------------------------
-worker.similarWorkOtherClients.error.required = Select yes if you have done smilar work for other engagers in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done smilar work for other engagers in the last 12 months
-worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?
-worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?
+worker.similarWorkOtherClients.error.required = Select yes if you have done similar work for other engagers in the last 12 months
+agency.similarWorkOtherClients.error.required = Select yes if you have done similar work for other engagers in the last 12 months
+worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?
+worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Worker’s contracts
-worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?
+worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?
+worker.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
 
 hirer.similarWorkOtherClients.error.required = Select yes if the worker has done similar work for other engagers in the last 12 months
-hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?
-hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?
+hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?
+hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?
 hirer.similarWorkOtherClients.subheading = Worker’s contracts
-hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done similar work for other engagers in the last 12 months?
+hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?
+hirer.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
 
 
 ###TODO: Need Welsh

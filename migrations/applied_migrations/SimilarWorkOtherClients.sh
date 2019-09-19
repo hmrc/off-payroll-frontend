@@ -18,15 +18,15 @@ echo "### SimilarWorkOtherClients Page" >> ../conf/messages.en
 echo "### ---------------------------------" >> ../conf/messages.en
 echo "similarWorkOtherClients.error.required = You need to select an answer" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
-echo "worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?" >> ../conf/messages.en
-echo "worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?" >> ../conf/messages.en
+echo "worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?" >> ../conf/messages.en
+echo "worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?" >> ../conf/messages.en
 echo "worker.similarWorkOtherClients.subheading = Worker’s contracts" >> ../conf/messages.en
-echo "worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?" >> ../conf/messages.en
+echo "worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?" >> ../conf/messages.en
 echo "" >> ../conf/messages.en
-echo "hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?" >> ../conf/messages.en
-echo "hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?" >> ../conf/messages.en
+echo "hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?" >> ../conf/messages.en
+echo "hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?" >> ../conf/messages.en
 echo "hirer.similarWorkOtherClients.subheading = Worker’s contracts" >> ../conf/messages.en
-echo "hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done similar work for other engagers in the last 12 months?" >> ../conf/messages.en
+echo "hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?" >> ../conf/messages.en
 
 
 echo "Adding Welsh messages to conf.messages"
@@ -37,15 +37,15 @@ echo "### SimilarWorkOtherClients Page" >> ../conf/messages.cy
 echo "### ---------------------------------" >> ../conf/messages.cy
 echo "similarWorkOtherClients.error.required = You need to select an answer" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
-echo "worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?" >> ../conf/messages.cy
-echo "worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?" >> ../conf/messages.cy
+echo "worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?" >> ../conf/messages.cy
+echo "worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?" >> ../conf/messages.cy
 echo "worker.similarWorkOtherClients.subheading = Worker’s contracts" >> ../conf/messages.cy
-echo "worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?" >> ../conf/messages.cy
+echo "worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?" >> ../conf/messages.cy
 echo "" >> ../conf/messages.cy
-echo "hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?" >> ../conf/messages.cy
-echo "hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?" >> ../conf/messages.cy
+echo "hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?" >> ../conf/messages.cy
+echo "hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?" >> ../conf/messages.cy
 echo "hirer.similarWorkOtherClients.subheading = Worker’s contracts" >> ../conf/messages.cy
-echo "hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done similar work for other engagers in the last 12 months?" >> ../conf/messages.cy
+echo "hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?" >> ../conf/messages.cy
 
 
 echo "Adding Welsh messages to test.messages"
@@ -56,15 +56,15 @@ echo "### SimilarWorkOtherClients Page" >> ../test/resources/welshMessages/messa
 echo "### ---------------------------------" >> ../test/resources/welshMessages/messages.cy
 echo "similarWorkOtherClients.error.required = You need to select an answer" >> ../test/resources/welshMessages/messages.cy
 echo "" >> ../test/resources/welshMessages/messages.cy
-echo "worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
-echo "worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
+echo "worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
+echo "worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
 echo "worker.similarWorkOtherClients.subheading = Worker’s contracts" >> ../test/resources/welshMessages/messages.cy
-echo "worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
+echo "worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
 echo "" >> ../test/resources/welshMessages/messages.cy
-echo "hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
-echo "hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
+echo "hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
+echo "hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
 echo "hirer.similarWorkOtherClients.subheading = Worker’s contracts" >>../test/resources/welshMessages/messages.cy ../conf/messages.cy
-echo "hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done similar work for other engagers in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
+echo "hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?" >> ../test/resources/welshMessages/messages.cy
 
 echo "Adding to UserAnswersEntryGenerators"
 awk '/trait UserAnswersEntryGenerators/ {\

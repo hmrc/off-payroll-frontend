@@ -38,9 +38,15 @@
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading(tailorMsg("similarWorkOtherClients.heading"), Some(tailorMsg("similarWorkOtherClients.subheading")), asLegend = true),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(p1)
+
         )
 
         @components.submit_button()
     }
+}
+
+@p1 = {
+    <p>@messages(tailorMsg("similarWorkOtherClients.p1"))</p>
 }

@@ -61,6 +61,10 @@ class SimilarWorkOtherClientsViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe SimilarWorkOtherClientsMessages.Worker.heading
       }
 
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe SimilarWorkOtherClientsMessages.Worker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe SimilarWorkOtherClientsMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe SimilarWorkOtherClientsMessages.no
@@ -77,6 +81,10 @@ class SimilarWorkOtherClientsViewSpec extends YesNoViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe SimilarWorkOtherClientsMessages.Hirer.heading
+      }
+
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe SimilarWorkOtherClientsMessages.Hirer.p1
       }
 
       "have the correct radio option messages" in {
