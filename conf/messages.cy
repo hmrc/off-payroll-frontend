@@ -2083,25 +2083,45 @@ whatDoYouWantToDo.checkDetermination = Check a determination
 ###TODO: Need Welsh
 ### Intermediary Result Page
 ### -----------------------------
-intermediaryResult.title = Off-payroll working rules might apply to this work
-intermediaryResult.heading = Off-payroll working rules might apply to this work
-intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
-intermediaryResult.p2 = Then you told us that you are trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
-intermediaryResult.subheading = What you should do next
-intermediaryResult.p3 = If you are trading through an intermediary, you should find out if the off payroll working rules apply to this work.
-intermediaryResult.p4.text1 = Find out more about the
-intermediaryResult.p4.link1 = Off-payroll working rules (IR35)
-intermediaryResult.p4.text2 = , or
-intermediaryResult.p4.link2 = start again
+worker.intermediaryResult.title = Off-payroll working rules might apply to this work
+worker.intermediaryResult.heading = Off-payroll working rules might apply to this work
+worker.intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
+worker.intermediaryResult.p2 = Then you told us that you are trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
+worker.intermediaryResult.subheading = What you should do next
+worker.intermediaryResult.p3 = If you are trading through an intermediary, you should find out if the off payroll working rules apply to this work.
+worker.intermediaryResult.p4.text1 = Find out more about the
+worker.intermediaryResult.p4.link1 = Off-payroll working rules
+worker.intermediaryResult.p4.text2 = , or
+worker.intermediaryResult.p4.link2 = start again
+
+hirer.intermediaryResult.title = Off-payroll working rules might apply to this work
+hirer.intermediaryResult.heading = Off-payroll working rules might apply to this work
+hirer.intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
+hirer.intermediaryResult.p2 = Then you told us that the worker is trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
+hirer.intermediaryResult.subheading = What you should do next
+hirer.intermediaryResult.p3 = If the worker is trading through an intermediary, you should find out if the off payroll working rules apply to this work.
+hirer.intermediaryResult.p4.text1 = Find out more about the
+hirer.intermediaryResult.p4.link1 = Off-payroll working rules
+hirer.intermediaryResult.p4.text2 = , or
+hirer.intermediaryResult.p4.link2 = start again
 
 ###TODO: Need Welsh
 ### No Intermediary Result Page
 ### -----------------------------
-noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
-noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
-noIntermediaryResult.p1 = You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work.
-noIntermediaryResult.subheading = What you should do next
-noIntermediaryResult.p2.text1 = Find out more about the
-noIntermediaryResult.p2.link1 = Off-payroll working rules (IR35)
-noIntermediaryResult.p2.text2 = , or
-noIntermediaryResult.p2.link2 = start again
+worker.noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
+worker.noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
+worker.noIntermediaryResult.p1 = You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work.
+worker.noIntermediaryResult.subheading = What you should do next
+worker.noIntermediaryResult.p2.text1 = Find out more about the
+worker.noIntermediaryResult.p2.link1 = Off-payroll working rules
+worker.noIntermediaryResult.p2.text2 = , or
+worker.noIntermediaryResult.p2.link2 = start again
+
+hirer.noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
+hirer.noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
+hirer.noIntermediaryResult.p1 = You told us that the worker is not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work.
+hirer.noIntermediaryResult.subheading = What you should do next
+hirer.noIntermediaryResult.p2.text1 = Find out more about the
+hirer.noIntermediaryResult.p2.link1 = Off-payroll working rules
+hirer.noIntermediaryResult.p2.text2 = , or
+hirer.noIntermediaryResult.p2.link2 = start again
