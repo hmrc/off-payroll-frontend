@@ -21,16 +21,18 @@ object RejectSubstituteMessages extends BaseMessages {
 
     object Worker {
       val error = "Select yes if your client has the right to reject a substitute who met all their criteria"
-      val heading = "If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?"
+      val heading = "Does your client have the right to reject a substitute?"
       val title = heading
-      val p1 = "These criteria include the substitute being equally qualified, as well as meeting your client’s interviewing, vetting and security clearance procedures."
+      val p1 = "A substitute is someone you send in your place to do your role."
+      val p2 = "This can include rejecting a substitute even if they are equally qualified, and meet your client’s interviewing, vetting and security clearance procedures."
     }
 
     object Hirer {
       val error = "Select yes if you have the right to reject a substitute who met all your criteria"
-      val heading = "If the worker sent a substitute, who met all your criteria, do you have the right to reject them?"
+      val heading = "Do you have the right to reject a substitute?"
       val title = heading
-      val p1 = "These criteria include the substitute being equally qualified, as well as meeting your interviewing, vetting and security clearance procedures."
+      val p1 = "A substitute is someone the worker sends in their place to do their role."
+      val p2 = "This can include rejecting a substitute even if they are equally qualified, and meet your interviewing, vetting and security clearance procedures."
     }
   }
 

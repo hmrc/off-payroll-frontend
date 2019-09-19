@@ -1075,19 +1075,21 @@ hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn 
 ## TODO: Welsh Needed
 worker.optimised.rejectSubstitute.error.required = Select yes if your client has the right to reject a substitute who met all their criteria
 agency.optimised.rejectSubstitute.error.required = Select yes if your client has the right to reject a substitute who met all their criteria
-worker.optimised.rejectSubstitute.title = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.title = Does your client have the right to reject a substitute?
 worker.optimised.rejectSubstitute.subheading = Substitutes and helpers
-worker.optimised.rejectSubstitute.heading = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
-worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
-worker.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your client’s interviewing, vetting and security clearance procedures.
+worker.optimised.rejectSubstitute.heading = Does your client have the right to reject a substitute?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = Does your client have the right to reject a substitute?
+worker.optimised.rejectSubstitute.p1 = A substitute is someone you send in your place to do your role.
+worker.optimised.rejectSubstitute.p2 = This can include rejecting a substitute even if they are equally qualified, and meet your client’s interviewing, vetting and security clearance procedures.
 
 ## TODO: Welsh Needed
 hirer.optimised.rejectSubstitute.error.required = Select yes if you have the right to reject a substitute who met all your criteria
-hirer.optimised.rejectSubstitute.title = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
+hirer.optimised.rejectSubstitute.title = Do you have the right to reject a substitute?
 hirer.optimised.rejectSubstitute.subheading = Substitutes and helpers
-hirer.optimised.rejectSubstitute.heading = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
-hirer.optimised.rejectSubstitute.checkYourAnswersLabel = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
-hirer.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your interviewing, vetting and security clearance procedures.
+hirer.optimised.rejectSubstitute.heading = Do you have the right to reject a substitute?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Do you have the right to reject a substitute?
+hirer.optimised.rejectSubstitute.p1 = A substitute is someone the worker sends in their place to do their role.
+hirer.optimised.rejectSubstitute.p2 = This can include rejecting a substitute even if they are equally qualified, and meet your interviewing, vetting and security clearance procedures.
 #########################
 
 
