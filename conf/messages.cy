@@ -2090,7 +2090,7 @@ intermediaryResult.p2 = Then you told us that you are trading through a limited 
 intermediaryResult.subheading = What you should do next
 intermediaryResult.p3 = If you are trading through an intermediary, you should find out if the off payroll working rules apply to this work.
 intermediaryResult.p4.text1 = Find out more about the
-intermediaryResult.p4.link1 = Off-payroll working rules (IR35)
+intermediaryResult.p4.link1 = Off-payroll working rules
 intermediaryResult.p4.text2 = , or
 intermediaryResult.p4.link2 = start again
 
@@ -2102,6 +2102,6 @@ noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
 noIntermediaryResult.p1 = You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off payroll working rules are not relevant to this work.
 noIntermediaryResult.subheading = What you should do next
 noIntermediaryResult.p2.text1 = Find out more about the
-noIntermediaryResult.p2.link1 = Off-payroll working rules (IR35)
+noIntermediaryResult.p2.link1 = Off-payroll working rules
 noIntermediaryResult.p2.text2 = , or
 noIntermediaryResult.p2.link2 = start again
