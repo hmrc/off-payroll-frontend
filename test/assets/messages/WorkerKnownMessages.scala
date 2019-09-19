@@ -20,8 +20,10 @@ object WorkerKnownMessages extends BaseMessages {
 
   object Hirer {
     val error = "Select yes if you know who will be doing this work"
-    val title = "Has your organisation identified who will be doing this work?"
+    val title = "Does your organisation know who will be doing this work?"
     val heading = title
     val subheading = "Worker’s contracts"
+    val p1 = "You will need information about the worker to answer the next questions."
+    val p2 = "You will still get a result if you do not know who the worker is. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is."
   }
 }

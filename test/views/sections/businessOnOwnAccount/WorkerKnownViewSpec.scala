@@ -61,6 +61,11 @@ class WorkerKnownViewSpec extends YesNoViewBehaviours {
         document.select(Selectors.heading).text mustBe WorkerKnownMessages.Hirer.heading
       }
 
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe WorkerKnownMessages.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe WorkerKnownMessages.Hirer.p2
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe WorkerKnownMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WorkerKnownMessages.no

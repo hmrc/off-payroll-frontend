@@ -2032,9 +2032,11 @@ hirer.financiallyDependent.p1 = This is about comparing income from this work wi
 workerKnown.error.required = You need to select an answer
 
 hirer.workerKnown.subheading = Worker’s contracts
-hirer.workerKnown.heading = Has your organisation identified who will be doing this work?
-hirer.workerKnown.title = Has your organisation identified who will be doing this work?
-hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who will be doing this work?
+hirer.workerKnown.heading = Does your organisation know who will be doing this work?
+hirer.workerKnown.title = Does your organisation know who will be doing this work?
+hirer.workerKnown.checkYourAnswersLabel = Does your organisation know who will be doing this work?
+hirer.workerKnown.p1 = You will need information about the worker to answer the next questions.
+hirer.workerKnown.p2 = You will still get a result if you do not know who the worker is. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
 
 ### TODO: Need Welsh
 ### SimilarWorkOtherClients Page
