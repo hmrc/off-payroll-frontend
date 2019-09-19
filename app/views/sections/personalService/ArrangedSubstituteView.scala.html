@@ -40,9 +40,14 @@
             field = form("value"),
             legend = components.heading(tailorMsgOptimised("arrangedSubstitute.heading"), Some(tailorMsgOptimised("arrangedSubstitute.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
-            inputs = ArrangedSubstitute.options
+            inputs = ArrangedSubstitute.options,
+            otherContent = Some(content)
         )
 
         @components.submit_button()
     }
+}
+
+@content = {
+    <p>@messages(tailorMsg("optimised.arrangedSubstitute.p1"))</p>
 }

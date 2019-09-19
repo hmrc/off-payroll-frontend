@@ -369,23 +369,25 @@ worker.optimised.arrangedSubstitute.error.required = Select if you have ever sen
 agency.optimised.arrangedSubstitute.error.required = Select if you have ever sent a substitute to do your work
 worker.optimised.arrangedSubstitute.error.invalid = Select if you have ever sent a substitute to do your work
 agency.optimised.arrangedSubstitute.error.invalid = Select if you have ever sent a substitute to do your work
-worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do your work?
+worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do this work?
 worker.optimised.arrangedSubstitute.subheading = Substitutes and helpers
-worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do your work?
-worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent a substitute to do your work?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do this work?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent a substitute to do this work?
 worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted them
 worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept them
 worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
+worker.optimised.arrangedSubstitute.p1 = A substitute is someone you send in your place to do your role.
 
 hirer.optimised.arrangedSubstitute.error.required = Select if the worker has ever sent a substitute to do their work
 hirer.optimised.arrangedSubstitute.error.invalid = Select if the worker has ever sent a substitute to do their work
-hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do their work?
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do this work?
 hirer.optimised.arrangedSubstitute.subheading = Substitutes and helpers
-hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do their work?
-hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent a substitute to do their work?
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do this work?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent a substitute to do this work?
 hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted them
 hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but you did not accept them
 hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
+hirer.optimised.arrangedSubstitute.p1 = A substitute is someone the worker sends in their place to do their role.
 #########################
 
 ## Identify to stakeholders
