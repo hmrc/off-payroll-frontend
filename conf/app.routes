@@ -207,8 +207,8 @@ POST       /equipment-costs                             controllers.sections.fin
 GET        /equipment-costs/change                      controllers.sections.financialRisk.EquipmentExpensesController.onPageLoad(mode: Mode = CheckMode)
 POST       /equipment-costs/change                      controllers.sections.financialRisk.EquipmentExpensesController.onSubmit(mode: Mode = CheckMode)
 
-GET        /reset-answers-warning                       controllers.ResetAnswersWarningController.onPageLoad()
-POST       /reset-answers-warning                       controllers.ResetAnswersWarningController.onSubmit()
+GET        /change-about-you-and-the-work               controllers.ResetAnswersWarningController.onPageLoad()
+POST       /change-about-you-and-the-work               controllers.ResetAnswersWarningController.onSubmit()
 
 GET        /change-substitutes-and-helpers              controllers.PersonalServiceSectionChangeWarningController.onPageLoad(page: String)
 POST       /change-substitutes-and-helpers              controllers.PersonalServiceSectionChangeWarningController.onSubmit(page: String)
@@ -283,8 +283,8 @@ POST       /similar-work                                controllers.sections.bus
 GET        /similar-work/change                         controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onPageLoad(mode: Mode = CheckMode)
 POST       /similar-work/change                         controllers.sections.businessOnOwnAccount.SimilarWorkOtherClientsController.onSubmit(mode: Mode = CheckMode)
 
-GET        /business-on-own-account-section-change-warning     controllers.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(page: String)
-POST       /business-on-own-account-section-change-warning     controllers.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(page: String)
+GET        /change-workers-contracts                    controllers.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(page: String)
+POST       /change-workers-contracts                    controllers.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(page: String)
 
 GET        /worker-intermediary-eligibility-exit        controllers.sections.setup.IntermediaryController.onPageLoad()
 
