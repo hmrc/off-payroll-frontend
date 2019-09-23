@@ -32,10 +32,10 @@ POST       /what-do-you-want-to-do                      controllers.sections.set
 GET        /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onPageLoad(mode: Mode = CheckMode)
 POST       /what-do-you-want-to-do/change               controllers.sections.setup.WhatDoYouWantToDoController.onSubmit(mode: Mode = CheckMode)
 
-GET        /want-to-find-out                            controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = NormalMode)
-POST       /want-to-find-out                            controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = NormalMode)
-GET        /want-to-find-out/change                     controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = CheckMode)
-POST       /want-to-find-out/change                     controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = CheckMode)
+GET        /what-do-you-want-to-find-out                controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = NormalMode)
+POST       /what-do-you-want-to-find-out                controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = NormalMode)
+GET        /what-do-you-want-to-find-out/change         controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = CheckMode)
+POST       /what-do-you-want-to-find-out/change         controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = CheckMode)
 
 GET        /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onPageLoad
 POST       /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onSubmit
