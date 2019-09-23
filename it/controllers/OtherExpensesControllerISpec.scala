@@ -1,16 +1,14 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
-import play.api.libs.ws.WSCookie
+import helpers.IntegrationSpecBase
 
 class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /other-expenses" should {
+  s"Post or Get to /other-costs" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/other-expenses")
+      lazy val res = getSessionRequest("/other-costs")
 
       whenReady(res) { result =>
          result.status shouldBe OK
@@ -20,7 +18,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/other-expenses")
+      lazy val res = optionsRequest("/other-costs")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -29,7 +27,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/other-expenses", defaultValue)
+      lazy val res = postSessionRequest("/other-costs", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -40,7 +38,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/other-expenses", selectedNo)
+      lazy val res = postSessionRequest("/other-costs", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -49,11 +47,11 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
     }
   }
 
-  s"Post or Get to /other-expenses/change" should {
+  s"Post or Get to /other-costs/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/other-expenses/change")
+      lazy val res = getSessionRequest("/other-costs/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -63,7 +61,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/other-expenses/change")
+      lazy val res = optionsRequest("/other-costs/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -72,7 +70,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/other-expenses/change", defaultValue)
+      lazy val res = postSessionRequest("/other-costs/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -83,7 +81,7 @@ class OtherExpensesControllerISpec extends IntegrationSpecBase {
 
     "Return a 409 on Successful post as no other answers given" in {
 
-      lazy val res = postSessionRequest("/other-expenses/change", selectedNo)
+      lazy val res = postSessionRequest("/other-costs/change", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT

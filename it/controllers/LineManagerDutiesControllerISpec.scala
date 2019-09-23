@@ -1,16 +1,14 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
-import play.api.libs.ws.WSCookie
+import helpers.IntegrationSpecBase
 
 class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /manager-duties" should {
+  s"Post or Get to /manager-responsibilities" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/manager-duties")
+      lazy val res = getSessionRequest("/manager-responsibilities")
 
       whenReady(res) { result =>
          result.status shouldBe OK
@@ -20,7 +18,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/manager-duties")
+      lazy val res = optionsRequest("/manager-responsibilities")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -29,7 +27,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/manager-duties", defaultValue)
+      lazy val res = postSessionRequest("/manager-responsibilities", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -40,7 +38,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/manager-duties", selectedNo)
+      lazy val res = postSessionRequest("/manager-responsibilities", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -49,11 +47,11 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
     }
   }
 
-  s"Post or Get to /manager-duties/change" should {
+  s"Post or Get to /manager-responsibilities/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/manager-duties/change")
+      lazy val res = getSessionRequest("/manager-responsibilities/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -63,7 +61,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/manager-duties/change")
+      lazy val res = optionsRequest("/manager-responsibilities/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -72,7 +70,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/manager-duties/change", defaultValue)
+      lazy val res = postSessionRequest("/manager-responsibilities/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -83,7 +81,7 @@ class LineManagerDutiesControllerISpec extends IntegrationSpecBase {
 
     "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/manager-duties/change", selectedNo)
+      lazy val res = postSessionRequest("/manager-responsibilities/change", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT

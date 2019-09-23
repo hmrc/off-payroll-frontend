@@ -1,18 +1,17 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
+import helpers.IntegrationSpecBase
 import models._
 import play.api.http.Status
 import play.api.libs.json.Json
-import play.api.libs.ws.WSCookie
 
 class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /office-holder-duties" should {
+  s"Post or Get to /office-holder" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/office-holder-duties")
+      lazy val res = getSessionRequest("/office-holder")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -22,7 +21,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/office-holder-duties")
+      lazy val res = optionsRequest("/office-holder")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -31,7 +30,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/office-holder-duties", defaultValue)
+      lazy val res = postSessionRequest("/office-holder", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -54,7 +53,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
       stubPost("/cest-decision/decide", Status.OK, response.toString)
 
-      lazy val res = postSessionRequest("/office-holder-duties", selectedNo)
+      lazy val res = postSessionRequest("/office-holder", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -63,11 +62,11 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
     }
   }
 
-  s"Post or Get to /office-holder-duties/change" should {
+  s"Post or Get to /office-holder/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/office-holder-duties/change")
+      lazy val res = getSessionRequest("/office-holder/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -77,7 +76,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/office-holder-duties/change")
+      lazy val res = optionsRequest("/office-holder/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -86,7 +85,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/office-holder-duties/change", defaultValue)
+      lazy val res = postSessionRequest("/office-holder/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -109,7 +108,7 @@ class OfficeHolderControllerISpec extends IntegrationSpecBase {
 
       stubPost("/cest-decision/decide", Status.OK, response.toString)
 
-      lazy val res = postSessionRequest("/office-holder-duties/change", selectedNo)
+      lazy val res = postSessionRequest("/office-holder/change", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT
