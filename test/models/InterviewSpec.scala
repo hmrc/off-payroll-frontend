@@ -817,20 +817,21 @@ class InterviewSpec extends GuiceAppSpecBase {
               }
             }
 
-            "PreviousContractPage is false and FirstContractPage is true" must {
+            "PreviousContractPage is true and FollowOnContractPage is false and FirstInSeries is true" must {
 
-              "be ContractCouldBeExtended" in {
+              "be ContractIsPartOfASeries" in {
 
                 enable(OptimisedFlow)
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, false)
-                  .set(FirstContractPage, 2, true)
+                  .set(PreviousContractPage, 1, true)
+                  .set(FollowOnContractPage, 2, false)
+                  .set(FollowOnContractPage, 3, true)
 
                 val expected = Interview(
                   correlationId = "id",
                   endUserRole = Some(UserType.Worker),
-                  seriesOfContracts = Some(ContractCouldBeExtended)
+                  seriesOfContracts = Some(ContractIsPartOfASeries)
                 )
 
                 val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
@@ -838,16 +839,17 @@ class InterviewSpec extends GuiceAppSpecBase {
               }
             }
 
-            "PreviousContractPage is false, FirstContractPage is false and ExtendContractPage is false" must {
+            "PreviousContractPage is true, FollowOnContract is false and FirstContractPage is false and Extended is false" must {
 
               "be StandAloneContract" in {
 
                 enable(OptimisedFlow)
 
                 val userAnswers = UserAnswers("id")
-                  .set(PreviousContractPage, 1, false)
-                  .set(FirstContractPage, 2, false)
-                  .set(ExtendContractPage, 2, false)
+                  .set(PreviousContractPage, 1, true)
+                  .set(FollowOnContractPage, 2, false)
+                  .set(FirstContractPage, 3, false)
+                  .set(ExtendContractPage, 4, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -860,7 +862,30 @@ class InterviewSpec extends GuiceAppSpecBase {
               }
             }
 
-            "PreviousContractPage is false, FirstContractPage is false and ExtendContractPage is true" must {
+            "PreviousContractPage is true, FollowOnContract is false and FirstContractPage is false and Extended is true" must {
+
+              "be ContractCouldBeExtended" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(PreviousContractPage, 1, true)
+                  .set(FollowOnContractPage, 2, false)
+                  .set(FirstContractPage, 3, false)
+                  .set(ExtendContractPage, 4, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  seriesOfContracts = Some(ContractCouldBeExtended)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "PreviousContractPage is false, FirstContractPage is true" must {
 
               "be ContractIsPartOfASeries" in {
 
@@ -868,8 +893,51 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val userAnswers = UserAnswers("id")
                   .set(PreviousContractPage, 1, false)
+                  .set(FirstContractPage, 2, true)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  seriesOfContracts = Some(ContractIsPartOfASeries)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "PreviousContractPage is false, FirstContractPage is false and ExtendContract is false" must {
+
+              "be StandaloneContract" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(PreviousContractPage, 1, false)
                   .set(FirstContractPage, 2, false)
-                  .set(ExtendContractPage, 2, true)
+                  .set(ExtendContractPage, 3, false)
+
+                val expected = Interview(
+                  correlationId = "id",
+                  endUserRole = Some(UserType.Worker),
+                  seriesOfContracts = Some(StandAloneContract)
+                )
+
+                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
+                actual mustBe expected
+              }
+            }
+
+            "PreviousContractPage is false, FirstContractPage is false and ExtendContract is true" must {
+
+              "be StandaloneContract" in {
+
+                enable(OptimisedFlow)
+
+                val userAnswers = UserAnswers("id")
+                  .set(PreviousContractPage, 1, false)
+                  .set(FirstContractPage, 2, false)
+                  .set(ExtendContractPage, 3, true)
 
                 val expected = Interview(
                   correlationId = "id",
