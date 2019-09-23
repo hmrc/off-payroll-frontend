@@ -38,7 +38,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = components.heading(tailorMsg("workerUsingIntermediary.heading"), asLegend = true),
+            legend = components.heading(tailorMsg("workerUsingIntermediary.heading"), Some(tailorMsg("workerUsingIntermediary.subHeading")), asLegend = true),
             labelClass = Some("visually-hidden")
         )
 

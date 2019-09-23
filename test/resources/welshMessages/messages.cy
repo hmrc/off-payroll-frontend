@@ -120,11 +120,13 @@ worker.optimised.contractStarted.error.required = Select yes if you have already
 agency.optimised.contractStarted.error.required = Select yes if you have already started working for this client
 worker.optimised.contractStarted.title = Have you already started working for this client?
 worker.optimised.contractStarted.heading = Have you already started working for this client?
+worker.optimised.contractStarted.subHeading = About you and the work
 worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
 
 hirer.optimised.contractStarted.error.required = Select yes if the worker has already started working for your organisation
 hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.subHeading = About you and the work
 hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
 #########################
 
@@ -1361,6 +1363,7 @@ agency.workerUsingIntermediary.error.required = Select yes if you are trading th
 agency.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.subHeading = About you and the work
 worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
@@ -1368,6 +1371,7 @@ hirer.workerUsingIntermediary.error.required = Select yes if you are trading thr
 hirer.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.subHeading = About you and the work
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
@@ -1593,6 +1597,7 @@ worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Yo
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
 worker.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+
 ## Outside PAYE Decision Worker
 ## ------------------
 ##TODO: Need Welsh
@@ -1644,7 +1649,6 @@ hirer.optimised.result.inside.ir35.doNext.p1 = If your organisation is responsib
 hirer.optimised.result.inside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
 hirer.optimised.result.inside.ir35.doNext.p3.text = You could also read more about the
 hirer.optimised.result.inside.ir35.doNext.p3.link = responsibilities of the fee-payer.
-
 ##TODO: Need Welsh
 hirer.optimised.result.undetermined.ir35.title = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
@@ -1770,6 +1774,7 @@ worker.equipmentExpenses.heading = Will you have equipment costs that your clien
 worker.equipmentExpenses.checkYourAnswersLabel = Will you have equipment costs that your client will not pay for?
 worker.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment used for this work, but does not include laptops, tablets and phones.
 
+
 ##TODO: Need Welsh
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
 result.pdf.customisedBy = Name of the person that completed this check:
@@ -1823,7 +1828,6 @@ agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your ans
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
 agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will incur a cost for this work that their client will not pay for.
 agent.optimised.result.outside.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
-
 ##TODO: Need Welsh
 
 hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
