@@ -242,8 +242,8 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
 
   private def multipleEngagements()(implicit userAnswers: UserAnswers) =
     userAnswers.getAnswer(SimilarWorkOtherClientsPage) match {
-      case Some(true) => Some(MultipleEngagements.OnlyContractForPeriod)
-      case Some(false) => Some(MultipleEngagements.ProvidedServicesToOtherEngagers)
+      case Some(true) => Some(MultipleEngagements.ProvidedServicesToOtherEngagers)
+      case Some(false) => Some(MultipleEngagements.OnlyContractForPeriod)
       case _ => None
     }
 
