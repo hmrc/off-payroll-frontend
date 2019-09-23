@@ -151,13 +151,13 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
     "go from the FollowOnContractPage" when {
 
-      "the FollowOnContract answer is false should go to the ExtendContractPage" in {
+      "the FollowOnContract answer is false should go to the FirstContractPage" in {
 
         enable(OptimisedFlow)
         lazy val userAnswers = UserAnswers("id")
           .set(FollowOnContractPage, false)
 
-        nextPage(FollowOnContractPage, userAnswers) mustBe booaRoutes.ExtendContractController.onPageLoad(NormalMode)
+        nextPage(FollowOnContractPage, userAnswers) mustBe booaRoutes.FirstContractController.onPageLoad(NormalMode)
       }
 
       "the FollowOnContract answer is true should go to the MajorityOfWorkingTimePage" in {

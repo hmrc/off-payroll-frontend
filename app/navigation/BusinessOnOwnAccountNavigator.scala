@@ -82,7 +82,7 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
 
     FollowOnContractPage -> (answer =>
       answer.getAnswer(FollowOnContractPage) match {
-        case Some(false) => booaRoutes.ExtendContractController.onPageLoad(mode)
+        case Some(false) => booaRoutes.FirstContractController.onPageLoad(mode)
         case _ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(mode)
       }
     ),
