@@ -1,16 +1,14 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
-import play.api.libs.ws.WSCookie
+import helpers.IntegrationSpecBase
 
 class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /worker-paid-substitute" should {
+  s"Post or Get to /paid-substitute" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/worker-paid-substitute")
+      lazy val res = getSessionRequest("/paid-substitute")
 
       whenReady(res) { result =>
          result.status shouldBe OK
@@ -20,7 +18,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/worker-paid-substitute")
+      lazy val res = optionsRequest("/paid-substitute")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -29,7 +27,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/worker-paid-substitute", defaultValue)
+      lazy val res = postSessionRequest("/paid-substitute", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -40,7 +38,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-paid-substitute", selectedNo)
+      lazy val res = postSessionRequest("/paid-substitute", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -49,11 +47,11 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
     }
   }
 
-  s"Post or Get to /worker-paid-substitute/change" should {
+  s"Post or Get to /paid-substitute/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/worker-paid-substitute/change")
+      lazy val res = getSessionRequest("/paid-substitute/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -63,7 +61,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/worker-paid-substitute/change")
+      lazy val res = optionsRequest("/paid-substitute/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -72,7 +70,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/worker-paid-substitute/change", defaultValue)
+      lazy val res = postSessionRequest("/paid-substitute/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -83,7 +81,7 @@ class DidPaySubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-paid-substitute/change", selectedNo)
+      lazy val res = postSessionRequest("/paid-substitute/change", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK

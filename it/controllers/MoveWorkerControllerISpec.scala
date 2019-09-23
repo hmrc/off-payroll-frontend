@@ -1,16 +1,14 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
-import play.api.libs.ws.WSCookie
+import helpers.IntegrationSpecBase
 
 class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /decide-worker-task" should {
+  s"Post or Get to /worker-task-changed" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/decide-worker-task")
+      lazy val res = getSessionRequest("/worker-task-changed")
 
       whenReady(res) { result =>
          result.status shouldBe OK
@@ -20,7 +18,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/decide-worker-task")
+      lazy val res = optionsRequest("/worker-task-changed")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -29,7 +27,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/decide-worker-task", defaultValue)
+      lazy val res = postSessionRequest("/worker-task-changed", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -40,7 +38,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/decide-worker-task",taskChangeValue)
+      lazy val res = postSessionRequest("/worker-task-changed",taskChangeValue)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -49,11 +47,11 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
     }
   }
 
-  s"Post or Get to /decide-worker-task/change" should {
+  s"Post or Get to /worker-task-changed/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/decide-worker-task/change")
+      lazy val res = getSessionRequest("/worker-task-changed/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -63,7 +61,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/decide-worker-task/change")
+      lazy val res = optionsRequest("/worker-task-changed/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -72,7 +70,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/decide-worker-task/change", defaultValue)
+      lazy val res = postSessionRequest("/worker-task-changed/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -83,7 +81,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
     "Return a 409 on Successful post and move onto something went wrong" in {
 
-      lazy val res = postSessionRequest("/decide-worker-task/change",taskChangeValue)
+      lazy val res = postSessionRequest("/worker-task-changed/change",taskChangeValue)
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT

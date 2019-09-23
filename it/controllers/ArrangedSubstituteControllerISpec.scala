@@ -1,16 +1,14 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
-import play.api.libs.ws.WSCookie
+import helpers.IntegrationSpecBase
 
 class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /worker-sent-substitute" should {
+  s"Post or Get to /sent-substitute" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/worker-sent-substitute")
+      lazy val res = getSessionRequest("/sent-substitute")
       whenReady(res) { result =>
          result.status shouldBe OK
         result.body should include ("Have you ever sent a substitute to do your work?")
@@ -19,7 +17,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/worker-sent-substitute")
+      lazy val res = optionsRequest("/sent-substitute")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -28,7 +26,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/worker-sent-substitute", defaultValue)
+      lazy val res = postSessionRequest("/sent-substitute", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -39,7 +37,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-sent-substitute",arrangeSubValue)
+      lazy val res = postSessionRequest("/sent-substitute",arrangeSubValue)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -48,11 +46,11 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
     }
   }
 
-  s"Post or Get to /worker-sent-substitute/change" should {
+  s"Post or Get to /sent-substitute/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/worker-sent-substitute/change")
+      lazy val res = getSessionRequest("/sent-substitute/change")
       whenReady(res) { result =>
         result.status shouldBe OK
         result.body should include ("Have you ever sent a substitute to do your work?")
@@ -61,7 +59,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/worker-sent-substitute/change")
+      lazy val res = optionsRequest("/sent-substitute/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -70,7 +68,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/worker-sent-substitute/change", defaultValue)
+      lazy val res = postSessionRequest("/sent-substitute/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -81,7 +79,7 @@ class ArrangedSubstituteControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/worker-sent-substitute/change",arrangeSubValue)
+      lazy val res = postSessionRequest("/sent-substitute/change",arrangeSubValue)
 
       whenReady(res) { result =>
         result.status shouldBe OK

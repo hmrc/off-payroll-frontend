@@ -1,16 +1,14 @@
 package controllers
 
-import helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
-import play.api.http.Status
-import play.api.libs.ws.WSCookie
+import helpers.IntegrationSpecBase
 
 class BenefitsControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /benefits" should {
+  s"Post or Get to /corporate-benefits" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/benefits")
+      lazy val res = getSessionRequest("/corporate-benefits")
 
       whenReady(res) { result =>
          result.status shouldBe OK
@@ -20,7 +18,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/benefits")
+      lazy val res = optionsRequest("/corporate-benefits")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -29,7 +27,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/benefits", defaultValue)
+      lazy val res = postSessionRequest("/corporate-benefits", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -40,7 +38,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/benefits", selectedNo)
+      lazy val res = postSessionRequest("/corporate-benefits", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -49,11 +47,11 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
     }
   }
 
-  s"Post or Get to /benefits/change" should {
+  s"Post or Get to /corporate-benefits/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/benefits/change")
+      lazy val res = getSessionRequest("/corporate-benefits/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -63,7 +61,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/benefits/change")
+      lazy val res = optionsRequest("/corporate-benefits/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -72,7 +70,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/benefits/change", defaultValue)
+      lazy val res = postSessionRequest("/corporate-benefits/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -83,7 +81,7 @@ class BenefitsControllerISpec extends IntegrationSpecBase {
 
     "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/benefits/change", selectedNo)
+      lazy val res = postSessionRequest("/corporate-benefits/change", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe CONFLICT
