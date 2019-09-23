@@ -668,7 +668,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
             "SimilarWorkOtherClientsPage is true" must {
 
-              "be NoRightsArise" in {
+              "be ProvidedServicesToOtherEngagers" in {
 
                 enable(OptimisedFlow)
 
@@ -678,7 +678,7 @@ class InterviewSpec extends GuiceAppSpecBase {
                 val expected = Interview(
                   correlationId = "id",
                   endUserRole = Some(UserType.Worker),
-                  multipleEngagements = Some(OnlyContractForPeriod)
+                  multipleEngagements = Some(ProvidedServicesToOtherEngagers)
                 )
 
                 val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
@@ -688,7 +688,7 @@ class InterviewSpec extends GuiceAppSpecBase {
 
             "SimilarWorkOtherClientsPage is false" must {
 
-              "be NoRightsArise" in {
+              "be OnlyContractForPeriod" in {
 
                 enable(OptimisedFlow)
 
@@ -698,7 +698,7 @@ class InterviewSpec extends GuiceAppSpecBase {
                 val expected = Interview(
                   correlationId = "id",
                   endUserRole = Some(UserType.Worker),
-                  multipleEngagements = Some(ProvidedServicesToOtherEngagers)
+                  multipleEngagements = Some(OnlyContractForPeriod)
                 )
 
                 val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
