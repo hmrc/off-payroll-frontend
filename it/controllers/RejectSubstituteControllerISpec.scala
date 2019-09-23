@@ -12,7 +12,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?")
+        result.body should include ("Does your client have the right to reject a substitute?")
       }
     }
 
@@ -31,7 +31,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?")
+        result.body should include ("Does your client have the right to reject a substitute?")
 
       }
     }
@@ -55,7 +55,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?")
+        result.body should include ("Does your client have the right to reject a substitute?")
       }
     }
 
@@ -74,7 +74,7 @@ class RejectSubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?")
+        result.body should include ("Does your client have the right to reject a substitute?")
 
       }
     }

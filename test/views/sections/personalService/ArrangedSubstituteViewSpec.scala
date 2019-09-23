@@ -66,6 +66,10 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Worker.heading
       }
 
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientAgreed
         document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.yesClientNotAgreed
@@ -85,6 +89,10 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
         document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.heading
       }
 
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.p1
+      }
+
       "have the correct radio option messages" in {
         document.select(Selectors.multichoice(1)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.yesClientAgreed
         document.select(Selectors.multichoice(2)).text mustBe ArrangedSubstituteMessages.Optimised.Hirer.yesClientNotAgreed
@@ -102,6 +110,10 @@ class ArrangedSubstituteViewSpec extends ViewBehaviours {
 
       "have the correct heading" in {
         document.select(Selectors.heading).text mustBe ArrangedSubstituteMessages.Optimised.Worker.heading
+      }
+
+      "have the correct content" in {
+        document.select(Selectors.p(1)).text mustBe ArrangedSubstituteMessages.Optimised.Worker.p1
       }
 
       "have the correct radio option messages" in {

@@ -120,11 +120,13 @@ worker.optimised.contractStarted.error.required = Select yes if you have already
 agency.optimised.contractStarted.error.required = Select yes if you have already started working for this client
 worker.optimised.contractStarted.title = Have you already started working for this client?
 worker.optimised.contractStarted.heading = Have you already started working for this client?
+worker.optimised.contractStarted.subHeading = About you and the work
 worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
 
 hirer.optimised.contractStarted.error.required = Select yes if the worker has already started working for your organisation
 hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
 hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.subHeading = About you and the work
 hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
 #########################
 
@@ -376,24 +378,26 @@ worker.optimised.arrangedSubstitute.error.required = Select if you have ever sen
 agency.optimised.arrangedSubstitute.error.required = Select if you have ever sent a substitute to do your work
 worker.optimised.arrangedSubstitute.error.invalid = Select if you have ever sent a substitute to do your work
 agency.optimised.arrangedSubstitute.error.invalid = Select if you have ever sent a substitute to do your work
-worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do your work?
+worker.optimised.arrangedSubstitute.title = Have you ever sent a substitute to do this work?
 worker.optimised.arrangedSubstitute.subheading = Substitutes and helpers
-worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do your work?
-worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent a substitute to do your work?
+worker.optimised.arrangedSubstitute.heading = Have you ever sent a substitute to do this work?
+worker.optimised.arrangedSubstitute.checkYourAnswersLabel = Have you ever sent a substitute to do this work?
 worker.optimised.arrangedSubstitute.yesClientAgreed = Yes, your client accepted them
 worker.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but your client did not accept them
 worker.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
+worker.optimised.arrangedSubstitute.p1 = A substitute is someone you send in your place to do your role.
 
 ## TODO: Need Welsh
 hirer.optimised.arrangedSubstitute.error.required = Select if the worker has ever sent a substitute to do their work
 hirer.optimised.arrangedSubstitute.error.invalid = Select if the worker has ever sent a substitute to do their work
-hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do their work?
+hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do this work?
 hirer.optimised.arrangedSubstitute.subheading = Substitutes and helpers
-hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do their work?
-hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent a substitute to do their work?
+hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do this work?
+hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent a substitute to do this work?
 hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted them
 hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but you did not accept them
 hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
+hirer.optimised.arrangedSubstitute.p1 = A substitute is someone the worker sends in their place to do their role.
 #########################
 
 ## Identify to stakeholders
@@ -615,8 +619,8 @@ worker.optimised.putRightAtOwnCost.title = If the client was not happy with your
 worker.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 worker.optimised.putRightAtOwnCost.heading = If the client was not happy with your work, would you have to put it right?
 worker.optimised.putRightAtOwnCost.checkYourAnswersLabel = If the client was not happy with your work, would you have to put it right?
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and you would incur extra costs
-worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but your only cost would be lost opportunity to do other work
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and you would have extra costs that your client would not pay for
+worker.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but your only cost would be losing the opportunity to do other work
 worker.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, you would fix it in your usual hours at your usual rate or fee
 worker.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
 worker.optimised.putRightAtOwnCost.noObligationToCorrect = Na
@@ -628,8 +632,8 @@ hirer.optimised.putRightAtOwnCost.title = If your organisation was not happy wit
 hirer.optimised.putRightAtOwnCost.subheading = Worker’s financial risk
 hirer.optimised.putRightAtOwnCost.heading = If your organisation was not happy with the work, would the worker have to put it right?
 hirer.optimised.putRightAtOwnCost.checkYourAnswersLabel = If your organisation was not happy with the work, would the worker have to put it right?
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and they would incur extra costs
-hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but their only cost would be lost opportunity to do other work
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCharge = Yes, unpaid and they would have extra costs that your organisation would not pay for
+hirer.optimised.putRightAtOwnCost.outsideOfHoursNoCosts = Yes, unpaid but their only cost would be losing the opportunity to do other work
 hirer.optimised.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = Yes, they would fix it in their usual hours at their usual rate or fee
 hirer.optimised.putRightAtOwnCost.cannotBeCorrected = No, the work is time-specific or for a single event
 hirer.optimised.putRightAtOwnCost.noObligationToCorrect = Na
@@ -1075,19 +1079,21 @@ hirer.rejectSubstitute.no =Na - byddai’r cleient terfynol bob amser yn derbyn 
 ## TODO: Welsh Needed
 worker.optimised.rejectSubstitute.error.required = Select yes if your client has the right to reject a substitute who met all their criteria
 agency.optimised.rejectSubstitute.error.required = Select yes if your client has the right to reject a substitute who met all their criteria
-worker.optimised.rejectSubstitute.title = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
+worker.optimised.rejectSubstitute.title = Does your client have the right to reject a substitute?
 worker.optimised.rejectSubstitute.subheading = Substitutes and helpers
-worker.optimised.rejectSubstitute.heading = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
-worker.optimised.rejectSubstitute.checkYourAnswersLabel = If you sent a substitute, who met all your client’s criteria, does the client have the right to reject them?
-worker.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your client’s interviewing, vetting and security clearance procedures.
+worker.optimised.rejectSubstitute.heading = Does your client have the right to reject a substitute?
+worker.optimised.rejectSubstitute.checkYourAnswersLabel = Does your client have the right to reject a substitute?
+worker.optimised.rejectSubstitute.p1 = A substitute is someone you send in your place to do your role.
+worker.optimised.rejectSubstitute.p2 = This can include rejecting a substitute even if they are equally qualified, and meet your client’s interviewing, vetting and security clearance procedures.
 
 ## TODO: Welsh Needed
 hirer.optimised.rejectSubstitute.error.required = Select yes if you have the right to reject a substitute who met all your criteria
-hirer.optimised.rejectSubstitute.title = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
+hirer.optimised.rejectSubstitute.title = Do you have the right to reject a substitute?
 hirer.optimised.rejectSubstitute.subheading = Substitutes and helpers
-hirer.optimised.rejectSubstitute.heading = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
-hirer.optimised.rejectSubstitute.checkYourAnswersLabel = If the worker sent a substitute, who met all your criteria, do you have the right to reject them?
-hirer.optimised.rejectSubstitute.p1 = These criteria include the substitute being equally qualified, as well as meeting your interviewing, vetting and security clearance procedures.
+hirer.optimised.rejectSubstitute.heading = Do you have the right to reject a substitute?
+hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Do you have the right to reject a substitute?
+hirer.optimised.rejectSubstitute.p1 = A substitute is someone the worker sends in their place to do their role.
+hirer.optimised.rejectSubstitute.p2 = This can include rejecting a substitute even if they are equally qualified, and meet your interviewing, vetting and security clearance procedures.
 #########################
 
 
@@ -1357,6 +1363,7 @@ agency.workerUsingIntermediary.error.required = Select yes if you are trading th
 agency.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
 worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.subHeading = About you and the work
 worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
@@ -1364,6 +1371,7 @@ hirer.workerUsingIntermediary.error.required = Select yes if you are trading thr
 hirer.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
 hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
 hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.subHeading = About you and the work
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
 
 ##### TODO NEED WELSH FOR ####
@@ -2030,25 +2038,29 @@ hirer.financiallyDependent.p1 = This is about comparing income from this work wi
 workerKnown.error.required = You need to select an answer
 
 hirer.workerKnown.subheading = Worker’s contracts
-hirer.workerKnown.heading = Has your organisation identified who will be doing this work?
-hirer.workerKnown.title = Has your organisation identified who will be doing this work?
-hirer.workerKnown.checkYourAnswersLabel = Has your organisation identified who will be doing this work?
+hirer.workerKnown.heading = Does your organisation know who will be doing this work?
+hirer.workerKnown.title = Does your organisation know who will be doing this work?
+hirer.workerKnown.checkYourAnswersLabel = Does your organisation know who will be doing this work?
+hirer.workerKnown.p1 = You will need information about the worker to answer the next questions.
+hirer.workerKnown.p2 = You will still get a result if you do not know who the worker is. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
 
 ### TODO: Need Welsh
 ### SimilarWorkOtherClients Page
 ### ---------------------------------
-worker.similarWorkOtherClients.error.required = Select yes if you have done smilar work for other engagers in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done smilar work for other engagers in the last 12 months
-worker.similarWorkOtherClients.title = Have you done similar work for other clients in the last 12 months?
-worker.similarWorkOtherClients.heading = Have you done similar work for other clients in the last 12 months?
+worker.similarWorkOtherClients.error.required = Select yes if you have done similar work for other engagers in the last 12 months
+agency.similarWorkOtherClients.error.required = Select yes if you have done similar work for other engagers in the last 12 months
+worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?
+worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Worker’s contracts
-worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done similar work for other clients in the last 12 months?
+worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?
+worker.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
 
 hirer.similarWorkOtherClients.error.required = Select yes if the worker has done similar work for other engagers in the last 12 months
-hirer.similarWorkOtherClients.title = Has the worker done similar work for other engagers in the last 12 months?
-hirer.similarWorkOtherClients.heading = Has the worker done similar work for other engagers in the last 12 months?
+hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?
+hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?
 hirer.similarWorkOtherClients.subheading = Worker’s contracts
-hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done similar work for other engagers in the last 12 months?
+hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?
+hirer.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
 
 
 ###TODO: Need Welsh

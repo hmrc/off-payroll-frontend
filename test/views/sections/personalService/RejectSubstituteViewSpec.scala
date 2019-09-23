@@ -72,6 +72,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(2)).text mustBe RejectSubstituteMessages.Optimised.Worker.p2
       }
 
       "have the correct radio option messages" in {
@@ -94,6 +95,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe RejectSubstituteMessages.Optimised.Hirer.p2
       }
 
       "have the correct radio option messages" in {
@@ -116,6 +118,7 @@ class RejectSubstituteViewSpec extends YesNoViewBehaviours {
 
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe RejectSubstituteMessages.Optimised.Worker.p1
+        document.select(Selectors.p(2)).text mustBe RejectSubstituteMessages.Optimised.Worker.p2
       }
 
       "have the correct radio option messages" in {

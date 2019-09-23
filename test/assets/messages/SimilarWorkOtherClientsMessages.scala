@@ -19,16 +19,18 @@ package assets.messages
 object SimilarWorkOtherClientsMessages extends BaseMessages {
 
   object Worker {
-    val error = "Select yes if you have done smilar work for other engagers in the last 12 months"
-    val title = "Have you done similar work for other clients in the last 12 months?"
-    val heading = "Have you done similar work for other clients in the last 12 months?"
+    val error = "Select yes if you have done similar work for other engagers in the last 12 months"
+    val title = "Have you done any work for other clients in the last 12 months?"
+    val heading = "Have you done any work for other clients in the last 12 months?"
     val subheading = "Worker’s contracts"
+    val p1 = "This should include work that involves similar skills, ability, knowledge, or responsibilities."
   }
 
   object Hirer {
     val error = "Select yes if the worker has done similar work for other engagers in the last 12 months"
-    val title = "Has the worker done similar work for other engagers in the last 12 months?"
-    val heading = "Has the worker done similar work for other engagers in the last 12 months?"
+    val title = "Has the worker done any work for other clients in the last 12 months?"
+    val heading = "Has the worker done any work for other clients in the last 12 months?"
     val subheading = "Worker’s contracts"
+    val p1 = "This should include work that involves similar skills, ability, knowledge, or responsibilities."
   }
 }

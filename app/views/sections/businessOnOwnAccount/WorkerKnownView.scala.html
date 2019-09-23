@@ -38,9 +38,17 @@
         @components.input_yes_no(
             field = form("value"),
             legend = components.heading("hirer.workerKnown.heading", Some("hirer.workerKnown.subheading"), asLegend = true),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("visually-hidden"),
+            otherContent = Some(content)
+
         )
 
         @components.submit_button()
     }
 }
+
+@content = {
+    <p>@messages(tailorMsg("workerKnown.p1"))</p>
+    <p>@messages(tailorMsg("workerKnown.p2"))</p>
+}
+
