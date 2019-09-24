@@ -17,12 +17,22 @@
 @import views.ViewUtils._
 @import config.FrontendAppConfig
 
-@(question: String, answer: String, answerIsMessageKey: Boolean, panelIndent: Boolean = false, changeUrl: Option[String])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
+@(question: String,
+  answer: String,
+  answerIsMessageKey: Boolean,
+  panelIndent: Boolean = false,
+  changeUrl: Option[String],
+  changeLinkContext: Option[String])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig)
 
 <div>
     <dt class="cya-question">@messages(question)</dt>
     <dd class="cya-answer">@if(answerIsMessageKey){@messages(answer)} else {@answer}</dd>
     @changeUrl.map { url =>
-        <dd class="cya-change"><a href="@url">@messages("site.edit")</a></dd>
+        <dd class="cya-change">
+            <a href="@url">
+                @messages("site.edit")
+                <span class="visuallyhidden">@changeLinkContext.map { context => @messages(s"$context") }</span>
+            </a>
+        </dd>
     }
 </div>

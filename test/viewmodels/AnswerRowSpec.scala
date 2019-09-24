@@ -34,13 +34,14 @@ class AnswerRowSpec extends GuiceAppSpecBase with ModelGenerators {
         val gen = for {
           answers <- arbitrary[Seq[SingleAnswerRow]]
           url <- arbitrary[Option[String]]
-        } yield (answers, url)
+          changeContext <- arbitrary[Option[String]]
+        } yield (answers, url, changeContext)
 
-        forAll(gen) { case (answers, url) =>
+        forAll(gen) { case (answers, url, changeContext) =>
 
-          lazy val result = AnswerRow("label", answers, url)
+          lazy val result = AnswerRow("label", answers, url, changeContext)
 
-          result mustBe MultiAnswerRow("label", answers, url)
+          result mustBe MultiAnswerRow("label", answers, url, changeContext)
           result.answerHtml mustBe Html(s"<ul class='no-bullet-pdf'>${answers.foldLeft("")((o,x) => o + s"<li>${x.answer}</li>")}</ul>")
         }
       }
@@ -54,13 +55,14 @@ class AnswerRowSpec extends GuiceAppSpecBase with ModelGenerators {
           answer <- arbitrary[String]
           isMessageKey <- arbitrary[Boolean]
           url <- arbitrary[Option[String]]
-        } yield (answer, isMessageKey, url)
+          changeContext <- arbitrary[Option[String]]
+        } yield (answer, isMessageKey, url, changeContext)
 
-        forAll(gen) { case (answer, isMessageKey, url) =>
+        forAll(gen) { case (answer, isMessageKey, url, changeContext) =>
 
-          lazy val result = AnswerRow("label", answer, isMessageKey, url)
+          lazy val result = AnswerRow("label", answer, isMessageKey, url, changeContext)
 
-          result mustBe SingleAnswerRow("label", answer, isMessageKey, url)
+          result mustBe SingleAnswerRow("label", answer, isMessageKey, url, changeContext)
           result.answerHtml mustBe Html(answer)
         }
       }

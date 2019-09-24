@@ -40,7 +40,8 @@ trait ModelGenerators {
         answer <- arbitrary[String]
         isMessageKey <- arbitrary[Boolean]
         changeUrl <- arbitrary[Option[String]]
-      } yield SingleAnswerRow(label, answer, isMessageKey, changeUrl)
+        changeLinkContext <- arbitrary[Option[String]]
+      } yield SingleAnswerRow(label, answer, isMessageKey, changeUrl, changeLinkContext)
     }
 
   implicit lazy val arbitraryAdditionalPdfDetails: Arbitrary[AdditionalPdfDetails] =
