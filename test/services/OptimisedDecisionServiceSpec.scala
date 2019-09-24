@@ -54,6 +54,7 @@ import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
 import org.scalatest.concurrent.ScalaFutures
+import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
@@ -320,21 +321,46 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
           "User is NOT Agent and IS using an Intermediary" should {
 
-            "render the IR35InsideView" in {
+            "if the Worker is Known" should {
 
-              val userAnswers: UserAnswers = UserAnswers("id")
-                .set(WhatDoYouWantToFindOutPage, 2, IR35)
-                .set(OfficeHolderPage, 3, false)
+              "render the IR35InsideView" in {
 
-              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+                val userAnswers: UserAnswers = UserAnswers("id")
+                  .set(WhatDoYouWantToFindOutPage, 2, IR35)
+                  .set(WorkerKnownPage,1,true)
+                  .set(OfficeHolderPage, 3, false)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+                implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              val expected: Html = IR35InsideView(form, isMake = false)
+                mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
 
-              val actual = await(service.determineResultView(Some(form)))
+                val expected: Html = IR35InsideView(form, isMake = false, workerKnown = true)
 
-              actual mustBe Right(expected)
+                val actual = await(service.determineResultView(Some(form)))
+
+                actual mustBe Right(expected)
+              }
+            }
+
+            "if the Worker is NOT Known" should {
+
+              "render the IR35InsideView" in {
+
+                val userAnswers: UserAnswers = UserAnswers("id")
+                  .set(WhatDoYouWantToFindOutPage, 2, IR35)
+                  .set(WorkerKnownPage,1,false)
+                  .set(OfficeHolderPage, 3, false)
+
+                implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+
+                mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+
+                val expected: Html = IR35InsideView(form, isMake = false, workerKnown = false)
+
+                val actual = await(service.determineResultView(Some(form)))
+
+                actual mustBe Right(expected)
+              }
             }
           }
 
@@ -350,7 +376,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)))
 
-              val expected: Html = PAYEInsideView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+              val expected: Html = PAYEInsideView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
               val actual = await(service.determineResultView(Some(form)))
 
@@ -383,20 +409,44 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
         "User is NOT Agent and IS using an Intermediary" should {
 
-          "render the IR35UndeterminedView" in {
+          "if the worker is Known" should {
 
-            val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WhatDoYouWantToFindOutPage, 2, IR35)
+            "render the IR35UndeterminedView" in {
 
-            implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, 2, IR35)
+                .set(WorkerKnownPage,1,true)
 
-            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            val expected: Html = IR35UndeterminedView(form)
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
 
-            val actual = await(service.determineResultView(Some(form)))
+              val expected: Html = IR35UndeterminedView(form, workerKnown = true)
 
-            actual mustBe Right(expected)
+              val actual = await(service.determineResultView(Some(form)))
+
+              actual mustBe Right(expected)
+            }
+          }
+
+          "if the worker is NOT Known" should {
+
+            "render the IR35UndeterminedView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, 2, IR35)
+                .set(WorkerKnownPage,1,false)
+
+              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+
+              val expected: Html = IR35UndeterminedView(form, workerKnown = false)
+
+              val actual = await(service.determineResultView(Some(form)))
+
+              actual mustBe Right(expected)
+            }
           }
         }
 
@@ -411,7 +461,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
 
-            val expected: Html = PAYEUndeterminedView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+            val expected: Html = PAYEUndeterminedView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))
 
@@ -454,32 +504,70 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
         "User is NOT Agent and IS using an Intermediary" should {
 
-          "render the IR35OutsideView" in {
+          "when the Worker is Known" should {
 
-            val userAnswers: UserAnswers = UserAnswers("id")
-              .set(WhatDoYouWantToFindOutPage, 2, IR35)
+            "render the IR35OutsideView" in {
 
-            implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, 2, IR35)
+                .set(WorkerKnownPage,1, true)
 
-            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
-              personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-              control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-              financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-              businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-            ), ResultEnum.OUTSIDE_IR35)))
+              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            val expected: Html = IR35OutsideView(
-              form = form,
-              isMake = false,
-              isSubstituteToDoWork = true,
-              isClientNotControlWork = true,
-              isIncurCostNoReclaim = true,
-              isBoOA = true
-            )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
+                personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+              ), ResultEnum.OUTSIDE_IR35)))
 
-            val actual = await(service.determineResultView(Some(form)))
+              val expected: Html = IR35OutsideView(
+                form = form,
+                isMake = false,
+                isSubstituteToDoWork = true,
+                isClientNotControlWork = true,
+                isIncurCostNoReclaim = true,
+                isBoOA = true,
+                workerKnown = true
+              )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-            actual mustBe Right(expected)
+              val actual = await(service.determineResultView(Some(form)))
+
+              actual mustBe Right(expected)
+            }
+          }
+
+          "when the Worker is NOT Known" should {
+
+            "render the IR35OutsideView" in {
+
+              val userAnswers: UserAnswers = UserAnswers("id")
+                .set(WhatDoYouWantToFindOutPage, 2, IR35)
+                .set(WorkerKnownPage,1, false)
+
+              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+
+              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
+                personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+                businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+              ), ResultEnum.OUTSIDE_IR35)))
+
+              val expected: Html = IR35OutsideView(
+                form = form,
+                isMake = false,
+                isSubstituteToDoWork = true,
+                isClientNotControlWork = true,
+                isIncurCostNoReclaim = true,
+                isBoOA = true,
+                workerKnown = false
+              )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
+
+              val actual = await(service.determineResultView(Some(form)))
+
+              actual mustBe Right(expected)
+            }
           }
         }
 
@@ -504,7 +592,8 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
               isIncurCostNoReclaim = true,
-              isBoOA = true
+              isBoOA = true,
+              workerKnown = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))

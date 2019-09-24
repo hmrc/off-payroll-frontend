@@ -33,8 +33,8 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html =
-    view(form)(req, messages, frontendAppConfig, pdfDetails)
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails, workerKnown: Boolean = true): Html =
+    view(form, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEInsideView page" should {
 
@@ -48,10 +48,21 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Hirer" should {
 
-      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
+      "when the Worker is Known" should {
 
-      hirerPageChecks
-      pdfPageChecks(isPdfView = false)
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
+
+        hirerPageChecks()
+        pdfPageChecks(isPdfView = false)
+      }
+
+      "when the Worker is NOT Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails, workerKnown = false))
+
+        hirerPageChecks(workerKnown = false)
+        pdfPageChecks(isPdfView = false)
+      }
     }
   }
 
@@ -67,10 +78,21 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "The UserType is a Hirer" should {
 
-      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+      "when the Worker is Known" should {
 
-      hirerPageChecks
-      pdfPageChecks(isPdfView = true)
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+
+        hirerPageChecks()
+        pdfPageChecks(isPdfView = true)
+      }
+
+      "when the Worker is NOT Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails, workerKnown = false))
+
+        hirerPageChecks(workerKnown = false)
+        pdfPageChecks(isPdfView = true)
+      }
     }
   }
 
@@ -95,7 +117,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(implicit document: Document) = {
+  def hirerPageChecks(workerKnown: Boolean = true)(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(InDecisionMessages.HirerPAYE.title)
@@ -114,6 +136,9 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerPAYE.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerPAYE.doNextP2
+      if(!workerKnown) {
+        document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerPAYE.workerNotKnown
+      }
     }
 
     "Have a link to the Employment Status Manual" in {

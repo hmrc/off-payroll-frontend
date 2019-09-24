@@ -27,7 +27,7 @@
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], isMake: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], isMake: Boolean, workerKnown: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -83,6 +83,9 @@
             @messages(tailorMsgOptimised("result.inside.ir35.doNext.p3.text"))
             @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
         </p>
+        @if(!workerKnown) {
+            <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.workerNotKnown"))</p>
+        }
     } else {
         @if(isMake) {
             <p>@messages(tailorMsgOptimised("result.inside.ir35.make.doNext.p1"))</p>

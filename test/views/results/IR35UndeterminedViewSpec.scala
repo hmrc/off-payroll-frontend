@@ -35,7 +35,8 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails): Html = view(form)(req, messages, frontendAppConfig, pdfDetails)
+  def createView(req: DataRequest[_], pdfDetails: PDFResultDetails, workerKnown: Boolean = true): Html =
+    view(form, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35UndeterminedView page" should {
 
@@ -49,10 +50,21 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "If the UserType is Hirer" should {
 
-      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
+      "If the worker is Known" should {
 
-      hirerPageChecks
-      pdfPageChecks(isPdfView = false)
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
+
+        hirerPageChecks()
+        pdfPageChecks(isPdfView = false)
+      }
+
+      "If the worker is NOT Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails, workerKnown = false))
+
+        hirerPageChecks(workerKnown = false)
+        pdfPageChecks(isPdfView = false)
+      }
     }
   }
 
@@ -68,10 +80,21 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "If the UserType is Hirer" should {
 
-      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+      "If the Worker is Known" should {
 
-      hirerPageChecks
-      pdfPageChecks(isPdfView = true)
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+
+        hirerPageChecks()
+        pdfPageChecks(isPdfView = true)
+      }
+
+      "If the Worker is NOT Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails, workerKnown = false))
+
+        hirerPageChecks(workerKnown = false)
+        pdfPageChecks(isPdfView = true)
+      }
     }
   }
 
@@ -100,7 +123,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(implicit document: Document) = {
+  def hirerPageChecks(workerKnown: Boolean = true)(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(UndeterminedDecisionMessages.HirerIR35.title)
@@ -118,7 +141,11 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Do Next section for the Public Sector" in {
       document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
-      document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP1
+      if(workerKnown) {
+        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP1_WorkerKnown
+      } else {
+        document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP1_WorkerNotKnown
+      }
       document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP2
       document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.telephone
       document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.email
