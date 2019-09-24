@@ -34,10 +34,11 @@ case class CheckYourAnswersRow(question: String,
                                 answer: String,
                                 answerIsMessageKey: Boolean,
                                 panelIndent: Boolean = false,
-                                changeUrl: Option[String]) {
+                                changeUrl: Option[String],
+                                changeContextMsgKey: Option[String]) {
 
   def html(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig) =
-    views.html.components.checkYourAnswers.cya_row(question, answer, answerIsMessageKey, panelIndent, changeUrl)
+    views.html.components.checkYourAnswers.cya_row(question, answer, answerIsMessageKey, panelIndent, changeUrl, changeContextMsgKey)
 }
 
 object CheckYourAnswers {
@@ -60,7 +61,8 @@ object CheckYourAnswersSection {
           question = row.label,
           answer = row.answer,
           answerIsMessageKey = row.answerIsMessageKey,
-          changeUrl = row.changeUrl
+          changeUrl = row.changeUrl,
+          changeContextMsgKey = row.changeContextMsgKey
         )
       },
       section,

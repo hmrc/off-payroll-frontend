@@ -2143,3 +2143,81 @@ hirer.noIntermediaryResult.p2.text1 = Find out more about the
 hirer.noIntermediaryResult.p2.link1 = Off-payroll working rules
 hirer.noIntermediaryResult.p2.text2 = , or
 hirer.noIntermediaryResult.p2.link2 = start again
+
+
+###TODO: Need Welsh
+### CYA Change Link Context for Screen Readers and Other Accessible Software
+### ------------------------------------------------------------------------
+
+### All of these below are prefixed on the view with "Change"
+
+whatDoYouWantToFindOut.changeLinkContext = what you want to find out
+whoAreYou.changeLinkContext = who you are
+whatDoYouWantToDo.changeLinkContext = what you want to do
+worker.workerUsingIntermediary.changeLinkContext = if you are trading through a limited company, partnership or unincorporated body
+hirer.workerUsingIntermediary.changeLinkContext = if the worker is trading through a limited company, partnership or unincorporated body
+worker.optimised.contractStarted.changeLinkContext = if you have already started working for this client
+hirer.optimised.contractStarted.changeLinkContext = if the worker has already started working for your organisation
+worker.optimised.officeHolder.changeLinkContext = if you will be an ‘Office Holder’
+hirer.optimised.officeHolder.changeLinkContext = if the worker will be an ‘Office Holder’
+worker.optimised.arrangedSubstitute.changeLinkContext = if you have ever sent a substitute to do your work
+hirer.optimised.arrangedSubstitute.changeLinkContext = if the worker has ever sent a substitute to do their work
+worker.optimised.didPaySubstitute.changeLinkContext = if you had to pay your substitute
+hirer.optimised.didPaySubstitute.changeLinkContext = if the worker paid their substitute
+worker.optimised.rejectSubstitute.changeLinkContext = if your client has the right to reject a substitute
+hirer.optimised.rejectSubstitute.changeLinkContext = if you have the right to reject a substitute
+worker.optimised.wouldWorkerPaySubstitute.changeLinkContext = if you would have to pay your substitute
+hirer.optimised.wouldWorkerPaySubstitute.changeLinkContext = if the worker has to pay their substitute
+worker.optimised.neededToPayHelper.changeLinkContext = if you have paid another person to do a significant amount of this work
+hirer.optimised.neededToPayHelper.changeLinkContext = if the worker paid another person to do a significant amount of this work
+worker.optimised.moveWorker.changeLinkContext = if the task can be changed without your agreement
+hirer.optimised.moveWorker.changeLinkContext = if the worker’s task could be changed without their agreement
+worker.optimised.howWorkIsDone.changeLinkContext = if your client will decide how the work is done
+hirer.optimised.howWorkIsDone.changeLinkContext = if your organisation will decide how the work is done
+worker.optimised.scheduleOfWorkingHours.changeLinkContext = if your client will decide the working hours
+hirer.optimised.scheduleOfWorkingHours.changeLinkContext = if your organisation will decide the working hours
+worker.optimised.chooseWhereWork.changeLinkContext = if your client will decide where you do the work
+hirer.optimised.chooseWhereWork.changeLinkContext = if your organisation will decide where the worker does the work
+worker.equipmentExpenses.changeLinkContext = if you will have equipment costs that your client will not pay for
+hirer.equipmentExpenses.changeLinkContext = if the worker will have equipment costs that your organisation will not pay for
+worker.vehicle.changeLinkContext = if you will have costs for a vehicle that your client will not pay for
+hirer.vehicle.changeLinkContext = if the worker will have costs for a vehicle that your organisation will not pay for
+worker.materials.changeLinkContext = if you will have costs for materials that your client will not pay for
+hirer.materials.changeLinkContext = if the worker will have costs for materials that your organisation will not pay for
+worker.otherExpenses.changeLinkContext = if you will have any other costs that your client will not pay for
+hirer.otherExpenses.changeLinkContext = if the worker will have any other costs that your organisation will not pay for
+worker.optimised.howWorkerIsPaid.changeLinkContext = how you will be paid for this work
+hirer.optimised.howWorkerIsPaid.changeLinkContext = how the worker will be paid for this work
+worker.optimised.putRightAtOwnCost.changeLinkContext = if you would have to put the work right if your client was not happy with it
+hirer.optimised.putRightAtOwnCost.changeLinkContext = if the worker would have to put the work right if your organisation was not happy with it
+worker.optimised.benefits.changeLinkContext = if your client will provide you with paid-for corporate benefits
+hirer.optimised.benefits.changeLinkContext = if you will provide the worker with paid-for corporate benefits
+worker.optimised.lineManagerDuties.changeLinkContext = if you will have any management responsibilities for your client
+hirer.optimised.lineManagerDuties.changeLinkContext = if the worker will have any management responsibilities for your organisation
+worker.optimised.identifyToStakeholders.changeLinkContext = how you would introduce yourself to your client’s consumers or suppliers
+hirer.optimised.identifyToStakeholders.changeLinkContext = how the worker would introduce themselves to your consumers or suppliers
+hirer.workerKnown.changeLinkContext = if your organisation will know who will be doing this work
+worker.multipleContracts.changeLinkContext = if this contract will stop you from doing similar work for other clients
+hirer.multipleContracts.changeLinkContext = if the contract stops the worker from doing similar work for other organisations
+worker.permissionToWorkWithOthers.changeLinkContext = if you are required to ask permission to work for other clients
+hirer.permissionToWorkWithOthers.changeLinkContext = if the worker is required to ask permission to work for other organisations
+worker.ownershipRights.changeLinkContext = if there are any ownership rights relating to this contract
+hirer.ownershipRights.changeLinkContext = if there are any ownership rights relating to this contract
+worker.rightsOfWork.changeLinkContext = if the contract states the rights to this work belong to your client
+hirer.rightsOfWork.changeLinkContext = if the contract states the rights to this work belong to your organisation
+worker.transferOfRights.changeLinkContext = if the contract gives your client the option to buy the rights for a separate fee
+hirer.transferOfRights.changeLinkContext = if the contract gives your organisation the option to buy the rights for a separate fee
+worker.previousContract.changeLinkContext = if you have had a previous contract with this client
+hirer.previousContract.changeLinkContext = if the worker had a previous contract with your organisation
+worker.followOnContract.changeLinkContext = if this contract will start immediately after the previous one ended
+hirer.followOnContract.changeLinkContext = if this contract will start immediately after the previous one ended
+worker.firstContract.changeLinkContext = if the current contract the first in a series of contracts agreed with this client
+hirer.firstContract.changeLinkContext = if the current contract is the first in a series of contracts agreed with your organisation
+worker.extendContract.changeLinkContext = if the current contract allows for it to be extended
+hirer.extendContract.changeLinkContext = if the current contract allows for it to be extended
+worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of your available working time
+hirer.majorityOfWorkingTime.changeLinkContext = if this work will take up majority of the worker’s available working time
+worker.financiallyDependent.changeLinkContext = if this contract will provide you with the majority of your income
+hirer.financiallyDependent.changeLinkContext = if this contract will provide the worker with the majority of their income
+worker.similarWorkOtherClients.changeLinkContext = if you have done any work for other clients in the last 12 months
+hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any work for other clients in the last 12 months

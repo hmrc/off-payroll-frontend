@@ -30,11 +30,12 @@ sealed trait AnswerRow {
 case class SingleAnswerRow(label: String,
                            answer: String,
                            answerIsMessageKey: Boolean,
-                           changeUrl: Option[String]) extends AnswerRow with FeatureSwitching {
+                           changeUrl: Option[String],
+                           changeContextMsgKey: Option[String]) extends AnswerRow with FeatureSwitching {
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html =
     if(isEnabled(OptimisedFlow)) {
-      views.html.components.checkYourAnswers.cya_row(label, answer, answerIsMessageKey, panelIndent = false, changeUrl)
+      views.html.components.checkYourAnswers.cya_row(label, answer, answerIsMessageKey, panelIndent = false, changeUrl, changeContextMsgKey)
     } else {
       Html(if(answerIsMessageKey) messages(answer) else answer)
     }
@@ -42,7 +43,8 @@ case class SingleAnswerRow(label: String,
 
 case class MultiAnswerRow(label: String,
                           answers: Seq[SingleAnswerRow],
-                          changeUrl: Option[String]) extends AnswerRow with FeatureSwitching {
+                          changeUrl: Option[String],
+                          changeContextMsgKey: Option[String]) extends AnswerRow with FeatureSwitching {
 
   override def answerHtml(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Html = {
     val listItems = answers.foldLeft(""){
@@ -55,14 +57,14 @@ case class MultiAnswerRow(label: String,
 object AnswerRow {
 
   def apply(label: String, answer: String, answerIsMessageKey: Boolean) =
-    SingleAnswerRow(label, answer, answerIsMessageKey, None)
+    SingleAnswerRow(label, answer, answerIsMessageKey, None, None)
 
-  def apply(label: String, answer: String, answerIsMessageKey: Boolean, changeUrl: Option[String]) =
-    SingleAnswerRow(label, answer, answerIsMessageKey, changeUrl)
+  def apply(label: String, answer: String, answerIsMessageKey: Boolean, changeUrl: Option[String], changeContextMsgKey: Option[String]) =
+    SingleAnswerRow(label, answer, answerIsMessageKey, changeUrl, changeContextMsgKey)
 
-  def apply(label: String, answers: Seq[SingleAnswerRow], changeUrl: Option[String]) =
-    MultiAnswerRow(label, answers, changeUrl)
+  def apply(label: String, answers: Seq[SingleAnswerRow], changeUrl: Option[String], changeContextMsgKey: Option[String]) =
+    MultiAnswerRow(label, answers, changeUrl, changeContextMsgKey)
 
   def apply(label: String, answers: Seq[SingleAnswerRow]) =
-    MultiAnswerRow(label, answers, None)
+    MultiAnswerRow(label, answers, None, None)
 }
