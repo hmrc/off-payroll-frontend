@@ -25,7 +25,7 @@
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_])(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], workerKnown: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -74,7 +74,17 @@
 }
 
 @doNext = {
-    <p>@messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p1"))</p>
+
+    @if(request.userType.contains(Hirer)) {
+        @if(workerKnown) {
+            <p>@messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p1.workerKnown"))</p>
+        } else {
+            <p>@messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p1.workerNotKnown"))</p>
+        }
+    } else {
+        <p>@messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p1"))</p>
+    }
+
     <p>@messages(tailorMsgOptimised("result.undetermined.ir35.doNext.p2"))</p>
 
     @contact_details()

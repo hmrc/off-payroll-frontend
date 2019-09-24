@@ -19,12 +19,13 @@
 @import views.ViewUtils._
 @import results.sections._
 @import models.requests.DataRequest
+@import models.UserType.Hirer
 
 @import controllers.routes._
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_])(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], workerKnown: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
     if(pdfResultDetails.printMode) {
@@ -74,7 +75,16 @@
 
 @doNext = {
 
-    <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1"))</p>
+    @if(request.userType.contains(Hirer)) {
+        @if(workerKnown) {
+            <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1.workerKnown"))</p>
+        } else {
+            <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1.workerNotKnown"))</p>
+        }
+    } else {
+        <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1"))</p>
+    }
+
     <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p2"))</p>
 
     @contact_details()

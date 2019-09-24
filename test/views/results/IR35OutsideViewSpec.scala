@@ -40,8 +40,9 @@ class IR35OutsideViewSpec extends ResultViewFixture {
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true,
                  isBoOA: Boolean = true,
+                 workerKnown: Boolean = true,
                  pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
-    view(form, isMake, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA)(req, messages, frontendAppConfig, pdfDetails)
+    view(form, isMake, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35OutsideView page" should {
 
@@ -95,7 +96,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest))
 
-        hirerPageChecks
+        hirerPageChecks()
         pdfPageChecks(isPdfView = false)
       }
 
@@ -125,6 +126,12 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason4)
         }
       }
+
+      "if the Worker is NOT Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false))
+        hirerPageChecks(workerKnown = false)
+      }
     }
   }
 
@@ -150,7 +157,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
     "If the UserType is Hirer" should {
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
-      hirerPageChecks
+      hirerPageChecks()
       pdfPageChecks(isPdfView = true)
     }
   }
@@ -207,7 +214,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(implicit document: Document) = {
+  def hirerPageChecks(workerKnown: Boolean = true)(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.HirerIR35.title)
@@ -226,11 +233,14 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerIR35.whyResultP2
     }
 
-    "Have the correct Do Next section for the Private Sector" in {
+    "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextP2
       document.select(Selectors.DoNext.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextP3
+      if(!workerKnown) {
+        document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.HirerIR35.workerNotKnown
+      }
     }
 
     "Have a link to the Fee Payers responsibilities" in {

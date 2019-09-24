@@ -39,8 +39,9 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true,
-                 isBoOA: Boolean = true): Html =
-    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA)(req, messages, frontendAppConfig, pdfDetails)
+                 isBoOA: Boolean = true,
+                 workerKnown: Boolean = true): Html =
+    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEOutsideView page" should {
 
@@ -88,7 +89,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
 
-        hirerPageChecks
+        hirerPageChecks()
         pdfPageChecks(isPdfView = false)
       }
 
@@ -118,6 +119,12 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason4)
         }
       }
+
+      "if the Worker is NOT known" should {
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails, workerKnown = false))
+
+        hirerPageChecks(workerKnown = false)
+      }
     }
   }
 
@@ -135,7 +142,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
 
-      hirerPageChecks
+      hirerPageChecks()
       pdfPageChecks(isPdfView = true)
     }
   }
@@ -175,7 +182,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(implicit document: Document) = {
+  def hirerPageChecks(workerKnown: Boolean = true)(implicit document: Document) = {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
@@ -198,6 +205,9 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
     "Have the correct Do Next section which" in {
       document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerPAYE.doNextP1
+      if(!workerKnown) {
+        document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerPAYE.workerNotKnown
+      }
     }
   }
 

@@ -34,45 +34,48 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
   val form = new DeclarationFormProvider()()
 
-  def createView(req: DataRequest[_], isPrivateSector: Boolean = false, pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
-    view(form, isPrivateSector)(req, messages, frontendAppConfig, pdfDetails)
+  def createView(req: DataRequest[_],
+                 workerKnown: Boolean = true,
+                 isMakingNewDetermination: Boolean = false,
+                 pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
+    view(form, isMakingNewDetermination, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35InsideView page" should {
 
     "If the UserType is Worker" should {
 
-      "if working in the Public Sector" should {
+      "is Checking a Determination" should {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest))
 
-        workerPageChecks(isPrivateSector = false)
+        workerPageChecks(isMakingNewDetermination = false)
         pdfPageChecks(isPdfView = false)
       }
 
-      "if working in the Private Sector" should {
+      "is Making a New Determination" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingNewDetermination = true))
 
-        workerPageChecks(isPrivateSector = true)
+        workerPageChecks(isMakingNewDetermination = true)
         pdfPageChecks(isPdfView = false)
       }
     }
 
     "If the UserType is Hirer" should {
 
-      "if working in the Public Sector" should {
+      "if the Worker is Known" should {
 
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = true))
 
-        hirerPageChecks(isPrivateSector = false)
+        hirerPageChecks(workerKnown = true)
         pdfPageChecks(isPdfView = false)
       }
 
-      "if working in the Private Sector" should {
+      "if the Worker is NOT Known" should {
 
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false))
 
-        hirerPageChecks(isPrivateSector = true)
+        hirerPageChecks(workerKnown = false)
         pdfPageChecks(isPdfView = false)
       }
     }
@@ -82,77 +85,76 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
     "If the UserType is Worker" should {
 
-      "if working in the Public Sector" should {
+      "is Checking a Determination" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = false, testPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = false)
+        workerPageChecks(isMakingNewDetermination = false)
         pdfPageChecks(isPdfView = true)
       }
 
-      "if working in the Private Sector" should {
+      "is Making a New Determination" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = true, testPdfResultDetails))
 
-        workerPageChecks(isPrivateSector = true)
+        workerPageChecks(isMakingNewDetermination = true)
         pdfPageChecks(isPdfView = true)
       }
     }
 
     "If the UserType is Hirer" should {
 
-      "if working in the Public Sector" should {
+      "if the Worker is Known" should {
 
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = false, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = true, isMakingNewDetermination = true, testPdfResultDetails))
 
-        hirerPageChecks(isPrivateSector = false)
+        hirerPageChecks(workerKnown = true)
         pdfPageChecks(isPdfView = true)
       }
 
-      "if working in the Private Sector" should {
+      "if the Worker is Not Known" should {
 
-        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector = true, testPdfResultDetails))
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false, isMakingNewDetermination = true, testPdfResultDetails))
 
-        hirerPageChecks(isPrivateSector = true)
+        hirerPageChecks(workerKnown = false)
         pdfPageChecks(isPdfView = true)
       }
     }
   }
 
 
-  def hirerPageChecks(isPrivateSector: Boolean)(implicit document: Document): Unit = {
-    "If the UserType is Hirer" should {
+  def hirerPageChecks(workerKnown: Boolean)(implicit document: Document): Unit = {
 
-      lazy val document = asDocument(createView(hirerFakeDataRequest, isPrivateSector))
+    "Have the correct title" in {
+      document.title mustBe title(InDecisionMessages.HirerIR35.title)
+    }
 
-      "Have the correct title" in {
-        document.title mustBe title(InDecisionMessages.HirerIR35.title)
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
+    }
+
+    "Have the correct Why Result section" in {
+      document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
+      document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerIR35.whyResultP1
+    }
+
+    "Have the correct Do Next section" in {
+      document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
+      document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextP1
+      document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextP2
+      document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerIR35.doNextP3
+      if(!workerKnown) {
+        document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.HirerIR35.workerNotKnown
       }
+    }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
-      }
-
-      "Have the correct Why Result section" in {
-        document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
-        document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.HirerIR35.whyResultP1
-      }
-
-      "Have the correct Do Next section" in {
-        document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
-        document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextP1
-        document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextP2
-        document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerIR35.doNextP3
-      }
-
-      "Have a link to the Employment Status Manual" in {
-        document.select("#feePayerResponsibilitiesLink").attr("href") mustBe frontendAppConfig.feePayerResponsibilitiesUrl
-      }
+    "Have a link to the Employment Status Manual" in {
+      document.select("#feePayerResponsibilitiesLink").attr("href") mustBe frontendAppConfig.feePayerResponsibilitiesUrl
     }
   }
 
 
-  def workerPageChecks(isPrivateSector: Boolean)(implicit document: Document): Unit = {
+  def workerPageChecks(isMakingNewDetermination: Boolean)(implicit document: Document): Unit = {
 
     "Have the correct title" in {
       document.title mustBe title(InDecisionMessages.WorkerIR35.title)
@@ -167,7 +169,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerIR35.whyResultP1
     }
 
-    if(isPrivateSector) {
+    if(isMakingNewDetermination) {
       "Have the correct Do Next section which" in {
         document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
         document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.makeDoNextP1

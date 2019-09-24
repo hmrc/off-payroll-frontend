@@ -45,6 +45,7 @@ object InDecisionMessages extends BaseResultMessages {
     val whyResult = "The answers you have given suggest the worker is employed for tax purposes for this work."
     val doNextP1 = "You need to operate PAYE on the worker’s earnings."
     val doNextP2 = "If this worker is your first employee, you could read this guidance about PAYE and payroll for employers (opens in a new window)."
+    val workerNotKnown = "You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices."
   }
 
   object HirerIR35 {
@@ -54,6 +55,7 @@ object InDecisionMessages extends BaseResultMessages {
     val doNextP1 = "If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings."
     val doNextP2 = "If someone else is responsible, you should download a copy of this result and show it to them."
     val doNextP3 = "You could also read more about the responsibilities of the fee-payer (opens in a new window)."
+    val workerNotKnown = "You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices."
   }
 
   object WorkerPAYE {

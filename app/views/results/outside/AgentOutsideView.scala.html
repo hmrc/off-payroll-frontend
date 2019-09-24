@@ -73,11 +73,11 @@
 @whyResult = {
 
     @if(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA).length == 1){
-        <p class="form-group">@messages(singleOutReason(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA))</p>
-        } else {
-         <p>@messages("agent.optimised.result.outside.whyResult.p1")</p>
+        <p>@messages(singleOutReason(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA))</p>
+    } else {
+        <p>@messages("agent.optimised.result.outside.whyResult.p1")</p>
         @components.bulleted_list(allOutReasons(Agent, substituteToDoWork, clientNotControlWork,incurCostNoReclaim, isBoOA))
-        }
+    }
 
     <p>@messages("agent.optimised.result.outside.whyResult.p2")</p>
 }

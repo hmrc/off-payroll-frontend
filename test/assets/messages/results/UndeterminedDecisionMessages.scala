@@ -38,9 +38,11 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work."
     val whyResult2 = "We will need more information to check your employment status for tax."
-    val doNextP1 = "Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextP1_WorkerKnown = "Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextP1_WorkerNotKnown = "You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is."
     val doNextP2 = "If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline."
     val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
+    val workerNotKnown = "You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices."
   }
 
   object Agent {
@@ -58,7 +60,8 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
     val whyResult2 = "We will need more information to check your employment status for tax."
-    val doNextP1 = "You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextP1_WorkerKnown = "You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices."
+    val doNextP1_WorkerNotKnown = "You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is."
     val doNextP2 = "If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline."
     val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
