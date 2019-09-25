@@ -25,7 +25,9 @@ import models.IdentifyToStakeholders.WorkForEndClient
 import models.MoveWorker.CanMoveWorkerWithPermission
 import models.PutRightAtOwnCost.{AsPartOfUsualRateInWorkingHours, OutsideOfHoursNoCosts}
 import models.ScheduleOfWorkingHours.{ScheduleDecidedForWorker, WorkerDecideSchedule}
+import models.WhatDoYouWantToDo.MakeNewDetermination
 import models.WhichDescribesYouAnswer.WorkerPAYE
+import models.WhoAreYou.{Client, Worker}
 import models._
 import models.requests.DataRequest
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -34,7 +36,8 @@ import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import pages.{BalanceSheetOverPage, EmployeesOverPage, TurnoverOverPage}
+import pages._
+import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage}
 import utils.{CheckYourAnswersHelper, ResultPageHelper}
 import viewmodels.AnswerSection
 
@@ -50,7 +53,58 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
       "For the Setup Section" should {
 
         "return an error" when {
-//SETUP TODO
+
+          "WantToFindOut, WhoAreYou and ContractStarted are not supplied" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(WhatDoYouWantToFindOutPage)
+            result.left.get must contain(WhoAreYouPage)
+            result.left.get must contain(ContractStartedPage)
+          }
+
+          "User is Hirer and Intermediary is missed" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+              .set(WhoAreYouPage, Client)
+              .set(ContractStartedPage, true)
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(WorkerUsingIntermediaryPage)
+          }
+
+          "User is Worker and WantToDo is missing" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+              .set(WhoAreYouPage, Worker)
+              .set(ContractStartedPage, true)
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(WhatDoYouWantToDoPage)
+          }
+
+          "User is Worker and Making a new Determination; Intermediary is missing" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
+              .set(WhoAreYouPage, Worker)
+              .set(WhatDoYouWantToDoPage, MakeNewDetermination)
+              .set(ContractStartedPage, true)
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(WorkerUsingIntermediaryPage)
+          }
         }
       }
 
@@ -62,13 +116,11 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, false)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
+
 
             lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -86,13 +138,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, false)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
 
@@ -106,13 +155,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, false)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -128,13 +174,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
 
@@ -148,13 +191,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -170,13 +210,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -193,13 +230,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -215,13 +249,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -237,13 +268,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -260,13 +288,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -283,13 +308,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -313,13 +335,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -347,13 +366,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -388,13 +404,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
-              .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
               .set(WorkerUsingIntermediaryPage, true)
               .set(ContractStartedPage, true)
-              .set(IsWorkForPrivateSectorPage, true)
-              .set(TurnoverOverPage, true)
-              .set(EmployeesOverPage, false)
-              .set(BalanceSheetOverPage, true)
               //Early Exit
               .set(OfficeHolderPage, false)
               //Personal Service Section
@@ -421,6 +434,342 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
             result.left.get must contain(BenefitsPage)
             result.left.get must contain(LineManagerDutiesPage)
             result.left.get must contain(IdentifyToStakeholdersPage)
+          }
+        }
+      }
+
+      "For the Business On Own Account Section" should {
+
+        "return an error" when {
+
+          "the worker is known (User is Worker)" when {
+
+            "any mandatory question is missing" in {
+
+              lazy val userAnswers: UserAnswers = UserAnswers("id")
+                //Setup Section
+                .set(WhoAreYouPage, WhoAreYou.Worker)
+                .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                .set(WorkerUsingIntermediaryPage, true)
+                .set(ContractStartedPage, true)
+                //Early Exit
+                .set(OfficeHolderPage, false)
+                //Personal Service Section
+                .set(ArrangedSubstitutePage, No)
+                .set(RejectSubstitutePage, false)
+                .set(WouldWorkerPaySubstitutePage, false)
+                .set(NeededToPayHelperPage, true)
+                //Control Section
+                .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+                .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+                .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+                .set(ChooseWhereWorkPage, WorkerCannotChoose)
+                //Financial Risk Section
+                .set(MaterialsPage, false)
+                .set(VehiclePage, true)
+                .set(OtherExpensesPage, false)
+                .set(EquipmentExpensesPage, true)
+                .set(HowWorkerIsPaidPage, PieceRate)
+                .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+                //Business On Own Account
+
+              lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+              result.isLeft mustBe true
+              result.left.get must contain(MultipleContractsPage)
+              result.left.get must contain(OwnershipRightsPage)
+              result.left.get must contain(PreviousContractPage)
+              result.left.get must contain(MajorityOfWorkingTimePage)
+              result.left.get must contain(FinanciallyDependentPage)
+              result.left.get must contain(SimilarWorkOtherClientsPage)
+            }
+          }
+
+          "Permission to Work is missing when MultipleContracts is true" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              //Setup Section
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WorkerUsingIntermediaryPage, true)
+              .set(ContractStartedPage, true)
+              //Early Exit
+              .set(OfficeHolderPage, false)
+              //Personal Service Section
+              .set(ArrangedSubstitutePage, No)
+              .set(RejectSubstitutePage, false)
+              .set(WouldWorkerPaySubstitutePage, false)
+              .set(NeededToPayHelperPage, true)
+              //Control Section
+              .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+              .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+              .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+              .set(ChooseWhereWorkPage, WorkerCannotChoose)
+              //Financial Risk Section
+              .set(MaterialsPage, false)
+              .set(VehiclePage, true)
+              .set(OtherExpensesPage, false)
+              .set(EquipmentExpensesPage, true)
+              .set(HowWorkerIsPaidPage, PieceRate)
+              .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+              //Business On Own Account
+              .set(MultipleContractsPage, true)
+
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(PermissionToWorkWithOthersPage)
+          }
+
+          "RightsOfWork is missing when OwnershipRights is true" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              //Setup Section
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WorkerUsingIntermediaryPage, true)
+              .set(ContractStartedPage, true)
+              //Early Exit
+              .set(OfficeHolderPage, false)
+              //Personal Service Section
+              .set(ArrangedSubstitutePage, No)
+              .set(RejectSubstitutePage, false)
+              .set(WouldWorkerPaySubstitutePage, false)
+              .set(NeededToPayHelperPage, true)
+              //Control Section
+              .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+              .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+              .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+              .set(ChooseWhereWorkPage, WorkerCannotChoose)
+              //Financial Risk Section
+              .set(MaterialsPage, false)
+              .set(VehiclePage, true)
+              .set(OtherExpensesPage, false)
+              .set(EquipmentExpensesPage, true)
+              .set(HowWorkerIsPaidPage, PieceRate)
+              .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+              //Business On Own Account
+              .set(MultipleContractsPage, true)
+              .set(PermissionToWorkWithOthersPage, true)
+              .set(OwnershipRightsPage, true)
+
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(RightsOfWorkPage)
+          }
+
+          "TransferRights is missing when RightsOfWork is false" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              //Setup Section
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WorkerUsingIntermediaryPage, true)
+              .set(ContractStartedPage, true)
+              //Early Exit
+              .set(OfficeHolderPage, false)
+              //Personal Service Section
+              .set(ArrangedSubstitutePage, No)
+              .set(RejectSubstitutePage, false)
+              .set(WouldWorkerPaySubstitutePage, false)
+              .set(NeededToPayHelperPage, true)
+              //Control Section
+              .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+              .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+              .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+              .set(ChooseWhereWorkPage, WorkerCannotChoose)
+              //Financial Risk Section
+              .set(MaterialsPage, false)
+              .set(VehiclePage, true)
+              .set(OtherExpensesPage, false)
+              .set(EquipmentExpensesPage, true)
+              .set(HowWorkerIsPaidPage, PieceRate)
+              .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+              //Business On Own Account
+              .set(MultipleContractsPage, true)
+              .set(PermissionToWorkWithOthersPage, true)
+              .set(OwnershipRightsPage, true)
+              .set(RightsOfWorkPage, false)
+
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(TransferOfRightsPage)
+          }
+
+          "FirstContract is missing when PreviousContract is false" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              //Setup Section
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WorkerUsingIntermediaryPage, true)
+              .set(ContractStartedPage, true)
+              //Early Exit
+              .set(OfficeHolderPage, false)
+              //Personal Service Section
+              .set(ArrangedSubstitutePage, No)
+              .set(RejectSubstitutePage, false)
+              .set(WouldWorkerPaySubstitutePage, false)
+              .set(NeededToPayHelperPage, true)
+              //Control Section
+              .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+              .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+              .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+              .set(ChooseWhereWorkPage, WorkerCannotChoose)
+              //Financial Risk Section
+              .set(MaterialsPage, false)
+              .set(VehiclePage, true)
+              .set(OtherExpensesPage, false)
+              .set(EquipmentExpensesPage, true)
+              .set(HowWorkerIsPaidPage, PieceRate)
+              .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+              //Business On Own Account
+              .set(MultipleContractsPage, true)
+              .set(PermissionToWorkWithOthersPage, true)
+              .set(OwnershipRightsPage, true)
+              .set(RightsOfWorkPage, false)
+              .set(TransferOfRightsPage, true)
+              .set(PreviousContractPage, false)
+
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(FirstContractPage)
+          }
+
+          "FollowOnContract is missing when PreviousContract is true" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              //Setup Section
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WorkerUsingIntermediaryPage, true)
+              .set(ContractStartedPage, true)
+              //Early Exit
+              .set(OfficeHolderPage, false)
+              //Personal Service Section
+              .set(ArrangedSubstitutePage, No)
+              .set(RejectSubstitutePage, false)
+              .set(WouldWorkerPaySubstitutePage, false)
+              .set(NeededToPayHelperPage, true)
+              //Control Section
+              .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+              .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+              .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+              .set(ChooseWhereWorkPage, WorkerCannotChoose)
+              //Financial Risk Section
+              .set(MaterialsPage, false)
+              .set(VehiclePage, true)
+              .set(OtherExpensesPage, false)
+              .set(EquipmentExpensesPage, true)
+              .set(HowWorkerIsPaidPage, PieceRate)
+              .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+              //Business On Own Account
+              .set(MultipleContractsPage, true)
+              .set(PermissionToWorkWithOthersPage, true)
+              .set(OwnershipRightsPage, true)
+              .set(RightsOfWorkPage, false)
+              .set(TransferOfRightsPage, true)
+              .set(PreviousContractPage, true)
+
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(FollowOnContractPage)
+          }
+
+          "FirstContract is missing when PreviousContract is true and FollowOnContract is false" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              //Setup Section
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WorkerUsingIntermediaryPage, true)
+              .set(ContractStartedPage, true)
+              //Early Exit
+              .set(OfficeHolderPage, false)
+              //Personal Service Section
+              .set(ArrangedSubstitutePage, No)
+              .set(RejectSubstitutePage, false)
+              .set(WouldWorkerPaySubstitutePage, false)
+              .set(NeededToPayHelperPage, true)
+              //Control Section
+              .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+              .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+              .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+              .set(ChooseWhereWorkPage, WorkerCannotChoose)
+              //Financial Risk Section
+              .set(MaterialsPage, false)
+              .set(VehiclePage, true)
+              .set(OtherExpensesPage, false)
+              .set(EquipmentExpensesPage, true)
+              .set(HowWorkerIsPaidPage, PieceRate)
+              .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+              //Business On Own Account
+              .set(MultipleContractsPage, true)
+              .set(PermissionToWorkWithOthersPage, true)
+              .set(OwnershipRightsPage, true)
+              .set(RightsOfWorkPage, false)
+              .set(TransferOfRightsPage, true)
+              .set(PreviousContractPage, true)
+              .set(FollowOnContractPage, false)
+
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(FirstContractPage)
+          }
+
+          "ExtendContract is missing when FirstContract" in {
+
+            lazy val userAnswers: UserAnswers = UserAnswers("id")
+              //Setup Section
+              .set(WhoAreYouPage, WhoAreYou.Worker)
+              .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+              .set(WorkerUsingIntermediaryPage, true)
+              .set(ContractStartedPage, true)
+              //Early Exit
+              .set(OfficeHolderPage, false)
+              //Personal Service Section
+              .set(ArrangedSubstitutePage, No)
+              .set(RejectSubstitutePage, false)
+              .set(WouldWorkerPaySubstitutePage, false)
+              .set(NeededToPayHelperPage, true)
+              //Control Section
+              .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+              .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+              .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
+              .set(ChooseWhereWorkPage, WorkerCannotChoose)
+              //Financial Risk Section
+              .set(MaterialsPage, false)
+              .set(VehiclePage, true)
+              .set(OtherExpensesPage, false)
+              .set(EquipmentExpensesPage, true)
+              .set(HowWorkerIsPaidPage, PieceRate)
+              .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
+              //Business On Own Account
+              .set(MultipleContractsPage, true)
+              .set(PermissionToWorkWithOthersPage, true)
+              .set(OwnershipRightsPage, true)
+              .set(RightsOfWorkPage, false)
+              .set(TransferOfRightsPage, true)
+              .set(PreviousContractPage, true)
+              .set(FollowOnContractPage, false)
+              .set(FirstContractPage, false)
+
+
+            lazy val result = CheckYourAnswersService.isValid(userAnswers)
+
+            result.isLeft mustBe true
+            result.left.get must contain(ExtendContractPage)
           }
         }
       }
@@ -461,6 +810,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
             .set(BenefitsPage, true)
             .set(LineManagerDutiesPage, true)
             .set(IdentifyToStakeholdersPage, WorkForEndClient)
+            //Business On Own Account
+            .set(MultipleContractsPage, true)
+            .set(PermissionToWorkWithOthersPage, true)
+            .set(OwnershipRightsPage, true)
+            .set(RightsOfWorkPage, false)
+            .set(TransferOfRightsPage, true)
+            .set(PreviousContractPage, true)
+            .set(FollowOnContractPage, false)
+            .set(FirstContractPage, false)
+            .set(ExtendContractPage, true)
+            .set(MajorityOfWorkingTimePage, true)
+            .set(FinanciallyDependentPage, true)
+            .set(SimilarWorkOtherClientsPage, true)
 
           lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -482,10 +844,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -509,6 +871,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -524,10 +899,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -550,6 +925,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -564,10 +952,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -590,6 +978,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -604,10 +1005,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -630,6 +1031,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -644,10 +1058,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -669,6 +1083,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -682,10 +1109,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -707,6 +1134,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -723,10 +1163,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, false)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -748,6 +1188,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 
@@ -761,10 +1214,10 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
 
                 lazy val userAnswers: UserAnswers = UserAnswers("id")
                   //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
+                  .set(WhoAreYouPage, WhoAreYou.Worker)
+                  .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
                   .set(WorkerUsingIntermediaryPage, true)
                   .set(ContractStartedPage, false)
-                  .set(IsWorkForPrivateSectorPage, false)
                   //Early Exit
                   .set(OfficeHolderPage, false)
                   //Personal Service Section
@@ -785,256 +1238,19 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(BenefitsPage, true)
                   .set(LineManagerDutiesPage, true)
                   .set(IdentifyToStakeholdersPage, WorkForEndClient)
-
-                lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-                result mustBe Right(true)
-              }
-            }
-          }
-        }
-
-        "For a Private Sector journey" when {
-
-          "Contract has Started" when {
-
-            "Turnover Over £10.2m is false and Employees Over 50 is false" should {
-
-              "return Valid (Right(true))" in {
-
-                lazy val userAnswers: UserAnswers = UserAnswers("id")
-                  //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
-                  .set(WorkerUsingIntermediaryPage, true)
-                  .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, true)
-                  .set(TurnoverOverPage, false)
-                  .set(EmployeesOverPage, false)
-                  //Early Exit
-                  .set(OfficeHolderPage, false)
-                  //Personal Service Section
-                  .set(ArrangedSubstitutePage, No)
-                  .set(RejectSubstitutePage, false)
-                  .set(WouldWorkerPaySubstitutePage, true)
-                  //Control Section
-                  .set(MoveWorkerPage, CanMoveWorkerWithPermission)
-                  .set(HowWorkIsDonePage, NoWorkerInputAllowed)
-                  .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
-                  .set(ChooseWhereWorkPage, WorkerCannotChoose)
-                  //Financial Risk Section
-                  .set(MaterialsPage, false)
-                  .set(VehiclePage, true)
-                  .set(OtherExpensesPage, false)
-                  .set(EquipmentExpensesPage, true)
-                  .set(HowWorkerIsPaidPage, PieceRate)
-                  .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
-                  //Part and Parcel Section
-                  .set(BenefitsPage, true)
-                  .set(LineManagerDutiesPage, true)
-                  .set(IdentifyToStakeholdersPage, WorkForEndClient)
-
-                lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-                result mustBe Right(true)
-              }
-            }
-
-            "Turnover Over £10.2m is true and Employees Over 50 is true" should {
-
-              "return Valid (Right(true))" in {
-
-                lazy val userAnswers: UserAnswers = UserAnswers("id")
-                  //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
-                  .set(WorkerUsingIntermediaryPage, true)
-                  .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, true)
-                  .set(TurnoverOverPage, true)
-                  .set(EmployeesOverPage, true)
-                  //Early Exit
-                  .set(OfficeHolderPage, false)
-                  //Personal Service Section
-                  .set(ArrangedSubstitutePage, No)
-                  .set(RejectSubstitutePage, false)
-                  .set(WouldWorkerPaySubstitutePage, true)
-                  //Control Section
-                  .set(MoveWorkerPage, CanMoveWorkerWithPermission)
-                  .set(HowWorkIsDonePage, NoWorkerInputAllowed)
-                  .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
-                  .set(ChooseWhereWorkPage, WorkerCannotChoose)
-                  //Financial Risk Section
-                  .set(MaterialsPage, false)
-                  .set(VehiclePage, true)
-                  .set(OtherExpensesPage, false)
-                  .set(EquipmentExpensesPage, true)
-                  .set(HowWorkerIsPaidPage, PieceRate)
-                  .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
-                  //Part and Parcel Section
-                  .set(BenefitsPage, true)
-                  .set(LineManagerDutiesPage, true)
-                  .set(IdentifyToStakeholdersPage, WorkForEndClient)
-
-                lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-                result mustBe Right(true)
-              }
-            }
-
-            "Turnover Over £10.2m is true and Employees Over 50 is false" should {
-
-              "return Valid (Right(true))" in {
-
-                lazy val userAnswers: UserAnswers = UserAnswers("id")
-                  //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
-                  .set(WorkerUsingIntermediaryPage, true)
-                  .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, true)
-                  .set(TurnoverOverPage, true)
-                  .set(EmployeesOverPage, false)
-                  .set(BalanceSheetOverPage, true)
-                  //Early Exit
-                  .set(OfficeHolderPage, false)
-                  //Personal Service Section
-                  .set(ArrangedSubstitutePage, No)
-                  .set(RejectSubstitutePage, false)
-                  .set(WouldWorkerPaySubstitutePage, true)
-                  //Control Section
-                  .set(MoveWorkerPage, CanMoveWorkerWithPermission)
-                  .set(HowWorkIsDonePage, NoWorkerInputAllowed)
-                  .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
-                  .set(ChooseWhereWorkPage, WorkerCannotChoose)
-                  //Financial Risk Section
-                  .set(MaterialsPage, false)
-                  .set(VehiclePage, true)
-                  .set(OtherExpensesPage, false)
-                  .set(EquipmentExpensesPage, true)
-                  .set(HowWorkerIsPaidPage, PieceRate)
-                  .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
-                  //Part and Parcel Section
-                  .set(BenefitsPage, true)
-                  .set(LineManagerDutiesPage, true)
-                  .set(IdentifyToStakeholdersPage, WorkForEndClient)
-
-                lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-                result mustBe Right(true)
-              }
-            }
-
-            "Turnover Over £10.2m is false and Employees Over 50 is true" should {
-
-              "return Valid (Right(true))" in {
-
-                lazy val userAnswers: UserAnswers = UserAnswers("id")
-                  //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
-                  .set(WorkerUsingIntermediaryPage, true)
-                  .set(ContractStartedPage, true)
-                  .set(IsWorkForPrivateSectorPage, true)
-                  .set(TurnoverOverPage, false)
-                  .set(EmployeesOverPage, true)
-                  .set(BalanceSheetOverPage, true)
-                  //Early Exit
-                  .set(OfficeHolderPage, false)
-                  //Personal Service Section
-                  .set(ArrangedSubstitutePage, No)
-                  .set(RejectSubstitutePage, false)
-                  .set(WouldWorkerPaySubstitutePage, true)
-                  //Control Section
-                  .set(MoveWorkerPage, CanMoveWorkerWithPermission)
-                  .set(HowWorkIsDonePage, NoWorkerInputAllowed)
-                  .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
-                  .set(ChooseWhereWorkPage, WorkerCannotChoose)
-                  //Financial Risk Section
-                  .set(MaterialsPage, false)
-                  .set(VehiclePage, true)
-                  .set(OtherExpensesPage, false)
-                  .set(EquipmentExpensesPage, true)
-                  .set(HowWorkerIsPaidPage, PieceRate)
-                  .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
-                  //Part and Parcel Section
-                  .set(BenefitsPage, true)
-                  .set(LineManagerDutiesPage, true)
-                  .set(IdentifyToStakeholdersPage, WorkForEndClient)
-
-                lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-                result mustBe Right(true)
-              }
-            }
-          }
-
-          "Contract has NOT Started" when {
-
-            "The client would not reject a substitute" should {
-
-              "return Valid (Right(true))" in {
-
-                lazy val userAnswers: UserAnswers = UserAnswers("id")
-                  //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
-                  .set(WorkerUsingIntermediaryPage, true)
-                  .set(ContractStartedPage, false)
-                  .set(IsWorkForPrivateSectorPage, false)
-                  //Early Exit
-                  .set(OfficeHolderPage, false)
-                  //Personal Service Section
-                  .set(RejectSubstitutePage, false)
-                  .set(WouldWorkerPaySubstitutePage, true)
-                  //Control Section
-                  .set(MoveWorkerPage, CanMoveWorkerWithPermission)
-                  .set(HowWorkIsDonePage, NoWorkerInputAllowed)
-                  .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
-                  .set(ChooseWhereWorkPage, WorkerCannotChoose)
-                  //Financial Risk Section
-                  .set(MaterialsPage, false)
-                  .set(VehiclePage, true)
-                  .set(OtherExpensesPage, false)
-                  .set(EquipmentExpensesPage, true)
-                  .set(HowWorkerIsPaidPage, PieceRate)
-                  .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
-                  //Part and Parcel Section
-                  .set(BenefitsPage, true)
-                  .set(LineManagerDutiesPage, true)
-                  .set(IdentifyToStakeholdersPage, WorkForEndClient)
-
-                lazy val result = CheckYourAnswersService.isValid(userAnswers)
-
-                result mustBe Right(true)
-              }
-            }
-
-            "The client would reject a substitute" should {
-
-              "return Valid (Right(true))" in {
-
-                lazy val userAnswers: UserAnswers = UserAnswers("id")
-                  //Setup Section
-                  .set(WhoAreYouPage, WhoAreYou.Worker).set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
-                  .set(WorkerUsingIntermediaryPage, true)
-                  .set(ContractStartedPage, false)
-                  .set(IsWorkForPrivateSectorPage, false)
-                  //Early Exit
-                  .set(OfficeHolderPage, false)
-                  //Personal Service Section
-                  .set(RejectSubstitutePage, true)
-                  //Control Section
-                  .set(MoveWorkerPage, CanMoveWorkerWithPermission)
-                  .set(HowWorkIsDonePage, NoWorkerInputAllowed)
-                  .set(ScheduleOfWorkingHoursPage, WorkerDecideSchedule)
-                  .set(ChooseWhereWorkPage, WorkerCannotChoose)
-                  //Financial Risk Section
-                  .set(MaterialsPage, false)
-                  .set(VehiclePage, true)
-                  .set(OtherExpensesPage, false)
-                  .set(EquipmentExpensesPage, true)
-                  .set(HowWorkerIsPaidPage, PieceRate)
-                  .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
-                  //Part and Parcel Section
-                  .set(BenefitsPage, true)
-                  .set(LineManagerDutiesPage, true)
-                  .set(IdentifyToStakeholdersPage, WorkForEndClient)
+                  //Business On Own Account
+                  .set(MultipleContractsPage, true)
+                  .set(PermissionToWorkWithOthersPage, true)
+                  .set(OwnershipRightsPage, true)
+                  .set(RightsOfWorkPage, false)
+                  .set(TransferOfRightsPage, true)
+                  .set(PreviousContractPage, true)
+                  .set(FollowOnContractPage, false)
+                  .set(FirstContractPage, false)
+                  .set(ExtendContractPage, true)
+                  .set(MajorityOfWorkingTimePage, true)
+                  .set(FinanciallyDependentPage, true)
+                  .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
 

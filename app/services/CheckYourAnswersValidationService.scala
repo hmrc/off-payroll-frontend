@@ -16,38 +16,34 @@
 
 package services
 
-import javax.inject.Inject
 import config.FrontendAppConfig
+import javax.inject.Inject
 import models._
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FirstContractPage}
 import pages._
+import pages.sections.businessOnOwnAccount.{FinanciallyDependentPage, OwnershipRightsPage, WorkerKnownPage}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.setup._
 import play.api.Logger
-import utils.CheckYourAnswersValidationHelper
 
-class CheckYourAnswersValidationService @Inject()(implicit val appConfig: FrontendAppConfig) extends CheckYourAnswersValidationHelper {
+class CheckYourAnswersValidationService @Inject()(implicit val appConfig: FrontendAppConfig) extends CheckYourAnswersValidationServiceHelper {
 
-  private def mandatorySetupPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-    Set(
-      WhatDoYouWantToFindOutPage,
-      WhoAreYouPage,
-      ContractStartedPage
-    )
+  def isValid(implicit userAnswers: UserAnswers): Either[Set[QuestionPage[_]], Boolean] = {
+    lazy val invalidPages = mandatoryPages.map(page =>
+      (page, userAnswers.cacheMap.data.exists(_._1 == page.toString))
+    ).collect {
+      case (missingPage, false) => {
+        Logger.warn(s"[CheckYourAnswersValidationService][isValid] Missing Answers: $missingPage")
+        missingPage
+      }
+    }
+
+    if (invalidPages.nonEmpty) Left(invalidPages) else Right(true)
   }
 
-  private def mandatoryPersonalServicePages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
-      arrangedRejectedPages ++
-      didPayRejectedNeededPages ++
-      contractNeededPages ++
-      contractNeededWouldPages ++
-      neededPages
-  }
-
-  private def mandatoryPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
+  private def mandatoryPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] =
     mandatorySetupPages ++
       mandatoryPersonalServicePages ++
       Set(
@@ -73,21 +69,43 @@ class CheckYourAnswersValidationService @Inject()(implicit val appConfig: Fronte
         BenefitsPage,
         IdentifyToStakeholdersPage,
         LineManagerDutiesPage
+      ) ++ mandatoryBusinessOnOwnAccountPages
 
-        //TODO: Needs Updating with logic for BoOA - future Story
+  private def mandatorySetupPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] =
+    intermediaryPage ++
+      whatDoYouWantToDoPage ++
+      Set(
+        WhatDoYouWantToFindOutPage,
+        WhoAreYouPage,
+        ContractStartedPage
       )
-  }
 
-  def isValid(implicit userAnswers: UserAnswers): Either[Set[QuestionPage[_]], Boolean] = {
-    lazy val invalidPages = mandatoryPages.map(page =>
-      (page, userAnswers.cacheMap.data.exists(_._1 == page.toString))
-    ).collect {
-      case (missingPage, false) => {
-        Logger.warn(s"[CheckYourAnswersValidationService][isValid] Missing Answers: $missingPage")
-        missingPage
-      }
-    }
+  private def mandatoryPersonalServicePages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] =
+    arrangedRejectedPages ++
+      didPayRejectedNeededPages ++
+      contractNeededPages ++
+      contractNeededWouldPages ++
+      neededPages
 
-    if (invalidPages.nonEmpty) Left(invalidPages) else Right(true)
+  private def mandatoryBusinessOnOwnAccountPages(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
+    workerKnownPage ++
+      (if (userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x)) {
+        permissionToWorkWithOtherClientsPage ++
+          transferRightsPage ++
+          rightsOfWorkPage ++
+          firstContractPage ++
+          extendContractPage ++
+          followOnContractPage ++
+          Set(
+            MultipleContractsPage,
+            SimilarWorkOtherClientsPage,
+            OwnershipRightsPage,
+            PreviousContractPage,
+            MajorityOfWorkingTimePage,
+            FinanciallyDependentPage
+          )
+      } else {
+        Set()
+      })
   }
 }
