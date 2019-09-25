@@ -145,7 +145,7 @@ class MessagesSpec extends GuiceAppSpecBase {
       Messages("worker.extendContract.changeLinkContext") mustBe "if the current contract allows for it to be extended"
       Messages("hirer.extendContract.changeLinkContext") mustBe "if the current contract allows for it to be extended"
       Messages("worker.majorityOfWorkingTime.changeLinkContext") mustBe "if this work will take up the majority of your available working time"
-      Messages("hirer.majorityOfWorkingTime.changeLinkContext") mustBe "if this work will take up majority of the worker’s available working time"
+      Messages("hirer.majorityOfWorkingTime.changeLinkContext") mustBe "if this work will take up the majority of the worker’s available working time"
       Messages("worker.financiallyDependent.changeLinkContext") mustBe "if this contract will provide you with the majority of your income"
       Messages("hirer.financiallyDependent.changeLinkContext") mustBe "if this contract will provide the worker with the majority of their income"
       Messages("worker.similarWorkOtherClients.changeLinkContext") mustBe "if you have done any work for other clients in the last 12 months"
