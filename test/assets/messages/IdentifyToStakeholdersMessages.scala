@@ -29,7 +29,7 @@ object IdentifyToStakeholdersMessages extends BaseMessages {
       val wouldNotHappen = "This would not happen"
     }
     object Hirer {
-      val error = "Select how the worker would introduce themselves to your external consumers or suppliers"
+      val error = "Select how the worker would introduce themselves to your consumers or suppliers"
       val heading = "How would the worker introduce themselves to your consumers or suppliers?"
       val title = heading
       val workForEndClient = "They work for you"

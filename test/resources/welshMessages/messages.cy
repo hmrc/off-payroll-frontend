@@ -429,7 +429,7 @@ worker.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy�
 worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
 
 ##TODO: Need Welsh
-hirer.optimised.identifyToStakeholders.error.required = Select how the worker would introduce themselves to your external consumers or suppliers
+hirer.optimised.identifyToStakeholders.error.required = Select how the worker would introduce themselves to your consumers or suppliers
 hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.subheading = Worker’s involvement
 hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?

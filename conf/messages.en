@@ -420,7 +420,7 @@ worker.identifyToStakeholders.workAsIndependent = I am an independent worker act
 worker.identifyToStakeholders.workAsBusiness = I work for my own business
 worker.identifyToStakeholders.checkYourAnswersLabel = When you interact with the end client’s customers, clients, audience or users, how do you identify yourself?
 
-hirer.optimised.identifyToStakeholders.error.required = Select how the worker would introduce themselves to your external consumers or suppliers
+hirer.optimised.identifyToStakeholders.error.required = Select how the worker would introduce themselves to your consumers or suppliers
 hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.subheading = Worker’s involvement
 hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
