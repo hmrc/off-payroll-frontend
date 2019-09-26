@@ -485,7 +485,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
             }
           }
 
-          "Permission to Work is missing when MultipleContracts is true" in {
+          "Permission to Work is missing when MultipleContracts is false" in {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
@@ -513,7 +513,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
               .set(HowWorkerIsPaidPage, PieceRate)
               .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
               //Business On Own Account
-              .set(MultipleContractsPage, true)
+              .set(MultipleContractsPage, false)
 
 
             lazy val result = CheckYourAnswersService.isValid(userAnswers)

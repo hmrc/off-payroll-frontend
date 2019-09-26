@@ -96,7 +96,7 @@ trait CheckYourAnswersValidationServiceHelper {
 
   def permissionToWorkWithOtherClientsPage(implicit userAnswers: UserAnswers): Set[QuestionPage[_]] = {
     userAnswers.getAnswer(MultipleContractsPage) match {
-      case Some(true) => Set(PermissionToWorkWithOthersPage)
+      case Some(false) => Set(PermissionToWorkWithOthersPage)
       case _ => Set()
     }
   }
