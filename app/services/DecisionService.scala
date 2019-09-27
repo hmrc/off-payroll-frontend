@@ -101,17 +101,17 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   private def earlyExitRedirect(decisionResponse: DecisionResponse)
                                (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
-    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
-    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED, _) => redirectResultsPage(ResultEnum.EMPLOYED)
+    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35, _) => redirectResultsPage(ResultEnum.INSIDE_IR35)
     case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
   }
 
   private def finalResultRedirect(decisionResponse: DecisionResponse,continueResult: Call)
                                  (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
     decisionResponse match {
-      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED) => Redirect(continueResult)
-      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
-      case DecisionResponse(_, _, _, result) => redirectResultsPage(result)
+      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED, _) => Redirect(continueResult)
+      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35, _) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
+      case DecisionResponse(_, _, _, result, _) => redirectResultsPage(result)
       case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
   }
