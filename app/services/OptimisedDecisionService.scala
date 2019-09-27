@@ -22,20 +22,20 @@ import connectors.DecisionConnector
 import forms.DownloadPDFCopyFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
-import models.UserType.Worker
-import models.WhatDoYouWantToFindOut.IR35
 import models.WhatDoYouWantToDo.MakeNewDetermination
+import models.WhatDoYouWantToFindOut.IR35
 import models._
 import models.requests.DataRequest
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup._
-import play.api.data.Form
 import play.api.Logger
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+import utils.DateTimeUtil
 import viewmodels.AnswerSection
 import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
@@ -61,6 +61,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
                                          val outsideAgent: AgentOutsideView,
                                          val outsideIR35: IR35OutsideView,
                                          val outsidePAYE: PAYEOutsideView,
+                                         val auditConnector: AuditConnector,
                                          implicit val appConf: FrontendAppConfig) extends FeatureSwitching {
 
   lazy val defaultForm: Form[Boolean] = formProvider()
@@ -80,25 +81,17 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
     decide.map {
       case Right(decision) => {
-        val usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35)
-        val isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination)
-        val officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer)
-
-        val workerKnown: Boolean = request.userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x)
-
-        Logger.debug(s"[OptimisedDecisionService][determineResultView] WhatDoYouWantToFindOutPage: ${request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage)} \n\n")
-        Logger.debug(s"[OptimisedDecisionService][determineResultView] usingIntermediary: ${usingIntermediary} \n\n")
 
         implicit val resultsDetails: ResultsDetails = ResultsDetails(
-          officeHolderAnswer = officeHolderAnswer,
-          isMakingDetermination = isMakingDetermination,
-          usingIntermediary = usingIntermediary,
+          officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer),
+          isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination),
+          usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35),
           userType = request.userType,
           personalServiceOption = decision.score.personalService,
           controlOption = decision.score.control,
           financialRiskOption = decision.score.financialRisk,
           boOAOption = decision.score.businessOnOwnAccount,
-          workerKnown,
+          request.userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x),
           form = form
         )
 
@@ -108,6 +101,8 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
           timestamp,
           answerSections
         )
+
+        auditConnector.sendExplicitAudit("cestDecisionResult", Audit(request.userAnswers, decision))
 
         decision.result match {
           case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)

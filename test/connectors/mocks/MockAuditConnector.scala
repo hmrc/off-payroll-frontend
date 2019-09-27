@@ -14,13 +14,22 @@
  * limitations under the License.
  */
 
-package utils
+package connectors.mocks
 
-import play.api.libs.json.{JsNull, JsObject, Json}
+import org.scalamock.scalatest.MockFactory
+import play.api.libs.json.Writes
+import uk.gov.hmrc.http.HeaderCarrier
+import uk.gov.hmrc.play.audit.http.connector.AuditConnector
 
-trait JsonObjectSugar {
+import scala.concurrent.ExecutionContext
 
-  def jsonObjNoNulls(fields: (String, Json.JsValueWrapper)*): JsObject =
-    JsObject(Json.obj(fields:_*).fields.filterNot(_._2 == JsNull).filterNot(_._2 == Json.obj()))
+trait MockAuditConnector extends MockFactory {
 
+  lazy val mockAuditConnector = mock[AuditConnector]
+
+  def mockAuditEvent[T](auditModel: T): Unit = {
+    (mockAuditConnector.sendExplicitAudit(_: String, _: T)(_: HeaderCarrier, _: ExecutionContext, _: Writes[T]))
+      .expects(*, auditModel,  *, *, *)
+      .once()
+  }
 }
