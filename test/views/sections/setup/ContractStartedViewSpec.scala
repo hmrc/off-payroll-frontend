@@ -20,7 +20,7 @@ import assets.messages.ContractStartedOptimisedMessages
 import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.sections.setup.routes
-import forms.ContractStartedFormProvider
+import forms.sections.setup.ContractStartedFormProvider
 import models.NormalMode
 import models.UserType._
 import play.api.data.Form

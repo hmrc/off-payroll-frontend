@@ -17,7 +17,8 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
-import models.AboutYouAnswer
+import forms.sections.setup.AboutYouFormProvider
+import models.sections.setup.AboutYouAnswer
 import play.api.data.FormError
 
 class AboutYouFormProviderSpec extends OptionFieldBehaviours {

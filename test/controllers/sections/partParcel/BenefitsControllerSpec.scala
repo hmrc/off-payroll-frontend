@@ -19,15 +19,14 @@ package controllers.sections.partParcel
 import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.BenefitsFormProvider
+import forms.sections.partAndParcel.BenefitsFormProvider
 import models.requests.DataRequest
-import models.{Answers, IdentifyToStakeholders, NormalMode, UserAnswers}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage}
+import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json._
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.partParcel.BenefitsView
 import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimisedBenefitsView}

@@ -16,7 +16,7 @@
 
 package pages.sections.control
 
-import models.ChooseWhereWork
+import models.sections.control.ChooseWhereWork
 import pages.QuestionPage
 
 case object ChooseWhereWorkPage extends QuestionPage[ChooseWhereWork] {

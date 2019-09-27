@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.IdentifyToStakeholders
+import forms.sections.partAndParcel.IdentifyToStakeholdersFormProvider
+import models.sections.partAndParcel.IdentifyToStakeholders
 import play.api.data.FormError
 
 class IdentifyToStakeholdersFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

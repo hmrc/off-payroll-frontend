@@ -20,22 +20,11 @@ import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.routes._
 import controllers.sections.control.{routes => controlRoutes}
-import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import controllers.sections.partParcel.{routes => partParcelRoutes}
-import controllers.sections.personalService.{routes => personalServiceRoutes}
-import controllers.sections.setup.{routes => setupRoutes}
 import javax.inject.{Inject, Singleton}
-import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.WhichDescribesYouAnswer.{Agency, _}
 import models._
+import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
-import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
-import pages.sections.personalService._
-import pages.sections.setup._
-import pages.{CustomisePDFPage, _}
 import play.api.mvc.Call
 
 @Singleton

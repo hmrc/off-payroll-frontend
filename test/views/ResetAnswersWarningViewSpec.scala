@@ -18,7 +18,7 @@ package views
 
 import assets.messages.ResetAnswersMessages
 import config.featureSwitch.OptimisedFlow
-import controllers.sections.setup.routes
+import controllers.routes
 import forms.ResetAnswersWarningFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -52,7 +52,7 @@ class ResetAnswersWarningViewSpec extends YesNoViewBehaviours with ViewBehaviour
 
     behave like pageWithBackLink(createView)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.IsWorkForPrivateSectorController.onSubmit(NormalMode).url)
+    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ResetAnswersWarningController.onSubmit().url)
 
     "have the correct title" in {
 

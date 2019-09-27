@@ -17,26 +17,23 @@
 package controllers.sections.financialRisk
 
 import config.featureSwitch.OptimisedFlow
-import connectors.mocks.MockDataCacheConnector
-import controllers.actions._
 import controllers.ControllerSpecBase
-import forms.PutRightAtOwnCostFormProvider
+import controllers.actions._
+import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
 import models.Answers._
-import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
 import models.requests.DataRequest
+import models.sections.financialRisk.PutRightAtOwnCost
+import models.sections.financialRisk.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
 import pages.sections.financialRisk.PutRightAtOwnCostPage
-import pages.sections.partParcel.BenefitsPage
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.financialRisk.{PutRightAtOwnCostView => SubOptimisedPutRightAtOwnCostView}
 import views.html.sections.financialRisk.PutRightAtOwnCostView
+import views.html.subOptimised.sections.financialRisk.{PutRightAtOwnCostView => SubOptimisedPutRightAtOwnCostView}
 
 class PutRightAtOwnCostControllerSpec extends ControllerSpecBase {
 

@@ -19,10 +19,11 @@ package controllers.sections.setup
 import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
+import forms.sections.setup.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import models.Answers._
 import models._
 import models.requests.DataRequest
+import models.sections.setup.WorkerType
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form

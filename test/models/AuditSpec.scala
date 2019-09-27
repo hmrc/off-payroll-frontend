@@ -17,7 +17,12 @@
 package models
 
 import base.GuiceAppSpecBase
-import models.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
+import models.sections.financialRisk.{HowWorkerIsPaid, PutRightAtOwnCost}
+import models.sections.partAndParcel.IdentifyToStakeholders
+import models.sections.personalService.ArrangedSubstitute
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.{WhatDoYouWantToFindOut, WhoAreYou}
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -28,6 +33,7 @@ import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.libs.json.Json.JsValueWrapper
 import play.api.libs.json.{Json, Writes}
+
 import scala.language.implicitConversions
 
 class AuditSpec extends GuiceAppSpecBase {

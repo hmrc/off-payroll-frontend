@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.MoveWorker
+import forms.sections.control.MoveWorkerFormProvider
+import models.sections.control.MoveWorker
 import play.api.data.FormError
 
 class MoveWorkerFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

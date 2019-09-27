@@ -21,10 +21,11 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.HowWorkerIsPaidFormProvider
+import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
 import javax.inject.Inject
+import models.Mode
 import models.requests.DataRequest
-import models.{HowWorkerIsPaid, Mode}
+import models.sections.financialRisk.HowWorkerIsPaid
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form

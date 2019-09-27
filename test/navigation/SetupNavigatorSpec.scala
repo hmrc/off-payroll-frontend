@@ -20,8 +20,8 @@ import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
-import models.WhichDescribesYouAnswer.{ClientIR35, WorkerIR35, writes}
 import models._
+import models.sections.setup.{WhatDoYouWantToDo, WhatDoYouWantToFindOut, WhoAreYou}
 import pages._
 import pages.sections.setup._
 import play.api.libs.json.Writes

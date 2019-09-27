@@ -18,7 +18,7 @@ package views.sections.businessOnOwnAccount
 
 import assets.messages.MajorityOfWorkingTimeMessages
 import controllers.sections.businessOnOwnAccount.routes
-import forms.MajorityOfWorkingTimeFormProvider
+import forms.sections.businessOnOwnAccount.MajorityOfWorkingTimeFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

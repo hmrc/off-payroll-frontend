@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.LineManagerDutiesFormProvider
+import forms.sections.partAndParcel.LineManagerDutiesFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.PartAndParcelNavigator

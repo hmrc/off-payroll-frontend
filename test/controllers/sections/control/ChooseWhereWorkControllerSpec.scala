@@ -20,23 +20,20 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.ChooseWhereWorkFormProvider
+import forms.sections.control.ChooseWhereWorkFormProvider
 import models.Answers._
-import models.ChooseWhereWork.WorkerChooses
 import models._
 import models.requests.DataRequest
+import models.sections.control.ChooseWhereWork
+import models.sections.control.ChooseWhereWork.WorkerChooses
 import navigation.mocks.FakeNavigators.FakeControlNavigator
-import pages.ResultPage
-import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage}
+import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form
 import play.api.libs.json._
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeTimestamp
-import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 import views.html.sections.control.ChooseWhereWorkView
+import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 
 class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching{
 

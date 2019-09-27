@@ -16,21 +16,19 @@
 
 package controllers.sections.control
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.ScheduleOfWorkingHoursFormProvider
+import forms.sections.control.ScheduleOfWorkingHoursFormProvider
 import models.Answers._
 import models.requests.DataRequest
-import models.{Answers, HowWorkerIsPaid, NormalMode, ScheduleOfWorkingHours}
+import models.sections.control.ScheduleOfWorkingHours
+import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeControlNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
-import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.control.ScheduleOfWorkingHoursView

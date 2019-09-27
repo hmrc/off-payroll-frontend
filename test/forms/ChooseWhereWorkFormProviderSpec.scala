@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.ChooseWhereWork
+import forms.sections.control.ChooseWhereWorkFormProvider
+import models.sections.control.ChooseWhereWork
 import play.api.data.FormError
 
 class ChooseWhereWorkFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

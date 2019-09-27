@@ -16,7 +16,13 @@
 
 package generators
 
-import models.{WhatDoYouWantToFindOut, _}
+import models._
+import models.sections.businessOnOwnAccount.{ExclusiveContract, MultipleEngagements, SeriesOfContracts, TransferRights}
+import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
+import models.sections.financialRisk.{CannotClaimAsExpense, HowWorkerIsPaid, PutRightAtOwnCost}
+import models.sections.partAndParcel.IdentifyToStakeholders
+import models.sections.personalService.ArrangedSubstitute
+import models.sections.setup.{AboutYouAnswer, WhatDoYouWantToFindOut, WorkerType}
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.{Arbitrary, Gen}
 import viewmodels.SingleAnswerRow

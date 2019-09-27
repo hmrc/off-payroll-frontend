@@ -19,7 +19,7 @@ package views.subOptimised.sections.personalService
 import assets.messages.{SubHeadingMessages, WouldPaySubstituteMessages}
 import config.SessionKeys
 import controllers.sections.personalService.routes
-import forms.WouldWorkerPaySubstituteFormProvider
+import forms.sections.personalService.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

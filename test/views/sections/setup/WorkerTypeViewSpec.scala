@@ -19,7 +19,7 @@ package views.sections.setup
 import assets.messages.WorkerUsingIntermediaryMessages
 import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import forms.WorkerUsingIntermediaryFormProvider
+import forms.sections.setup.WorkerUsingIntermediaryFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

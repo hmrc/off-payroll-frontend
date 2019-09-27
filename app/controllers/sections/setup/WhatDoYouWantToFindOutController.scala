@@ -16,23 +16,20 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import config.{FrontendAppConfig, SessionKeys}
+import config.FrontendAppConfig
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.{WhatDoYouWantToFindOutFormProvider, WhichDescribesYouFormProvider}
-import models.requests.DataRequest
+import forms.sections.setup.WhatDoYouWantToFindOutFormProvider
+import javax.inject.Inject
 import models._
+import models.sections.setup.WhatDoYouWantToFindOut
 import navigation.SetupNavigator
-import pages.TurnoverOverPage
-import pages.sections.setup.{AboutYouPage, WhatDoYouWantToFindOutPage, WhichDescribesYouPage}
+import pages.sections.setup.WhatDoYouWantToFindOutPage
 import play.api.data.Form
 import play.api.mvc._
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
-import utils.SessionUtils._
 import views.html.sections.setup.WhatDoYouWantToFindOutView
 
 import scala.concurrent.Future

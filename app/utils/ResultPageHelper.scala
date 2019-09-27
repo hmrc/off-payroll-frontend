@@ -17,7 +17,7 @@
 package utils
 
 import config.FrontendAppConfig
-import models.{CannotClaimAsExpense, Enumerable, UserAnswers}
+import models.{Enumerable, UserAnswers}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}

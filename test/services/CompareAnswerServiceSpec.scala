@@ -16,26 +16,22 @@
 
 package services
 
-import base.{GuiceAppSpecBase, SpecBase}
-import connectors.DataCacheConnector
+import base.GuiceAppSpecBase
 import connectors.mocks.MockDataCacheConnector
-import models.AboutYouAnswer.{Agency, Worker}
-import models.ArrangedSubstitute.{No, YesClientAgreed}
-import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.WorkerAgreeWithOthers
-import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
-import navigation.QuestionDeletionLookup
+import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
+import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed}
+import models.sections.setup.AboutYouAnswer.Worker
+import models.sections.setup.{AboutYouAnswer, WhatDoYouWantToDo, WhoAreYou, WorkerType}
 import navigation.mocks.MockQuestionDeletionLookup
-import org.mockito.Matchers
-import org.mockito.Mockito.when
 import org.scalamock.scalatest.MockFactory
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
@@ -45,9 +41,6 @@ import pages.sections.personalService._
 import pages.sections.setup._
 import play.api.mvc.AnyContent
 import play.api.test.FakeRequest
-import services.mocks.MockCompareAnswerService
-
-import scala.concurrent.Future
 
 class CompareAnswerServiceSpec extends GuiceAppSpecBase with MockFactory with MockDataCacheConnector with MockQuestionDeletionLookup {
 

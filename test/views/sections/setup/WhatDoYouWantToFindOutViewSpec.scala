@@ -18,7 +18,7 @@ package views.sections.setup
 
 import assets.messages.WhatDoYouWantToFindOutMessages
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import forms.WhatDoYouWantToFindOutFormProvider
+import forms.sections.setup.WhatDoYouWantToFindOutFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

@@ -19,7 +19,7 @@ package views.results
 import assets.messages.results.OfficeHolderMessages
 import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.AboutYouAnswer.Worker
+import models.sections.setup.AboutYouAnswer.Worker
 import models.UserType.Hirer
 import models.requests.DataRequest
 import models.{PDFResultDetails, UserAnswers}

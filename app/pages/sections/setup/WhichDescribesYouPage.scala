@@ -16,7 +16,7 @@
 
 package pages.sections.setup
 
-import models.WhichDescribesYouAnswer
+import models.sections.setup.WhichDescribesYouAnswer
 import pages.QuestionPage
 
 case object WhichDescribesYouPage extends QuestionPage[WhichDescribesYouAnswer] {

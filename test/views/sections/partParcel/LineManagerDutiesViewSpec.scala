@@ -19,7 +19,7 @@ package views.sections.partParcel
 import assets.messages.{LineManagerDutiesMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import forms.LineManagerDutiesFormProvider
+import forms.sections.partAndParcel.LineManagerDutiesFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

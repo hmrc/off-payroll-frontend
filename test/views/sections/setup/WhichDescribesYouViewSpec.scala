@@ -17,12 +17,13 @@
 package views.sections.setup
 
 import controllers.sections.setup.routes
-import forms.WhichDescribesYouFormProvider
-import models.{NormalMode, WhichDescribesYouAnswer}
+import models.NormalMode
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
 import views.html.sections.setup.WhichDescribesYouView
 import assets.messages.WhichDescribesYouMessages
+import forms.sections.setup.WhichDescribesYouFormProvider
+import models.sections.setup.WhichDescribesYouAnswer
 
 
 class WhichDescribesYouViewSpec extends QuestionViewBehaviours[WhichDescribesYouAnswer] {

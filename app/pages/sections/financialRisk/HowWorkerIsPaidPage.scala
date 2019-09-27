@@ -16,7 +16,7 @@
 
 package pages.sections.financialRisk
 
-import models.HowWorkerIsPaid
+import models.sections.financialRisk.HowWorkerIsPaid
 import pages.QuestionPage
 
 case object HowWorkerIsPaidPage extends QuestionPage[HowWorkerIsPaid] {

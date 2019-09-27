@@ -16,32 +16,16 @@
 
 package controllers.sections.partParcel
 
-import akka.util.ByteString
-import connectors.FakeDataCacheConnector
-import controllers.ControllerSpecBase
-import forms.InteractWithStakeholdersFormProvider
-import models._
-import org.mockito.Matchers
-import org.mockito.Matchers.any
-import org.mockito.Mockito.when
-import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
-import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.InteractWithStakeholdersFormProvider
+import forms.sections.partAndParcel.InteractWithStakeholdersFormProvider
 import models.requests.DataRequest
-import models.{Answers, NormalMode, UserAnswers}
+import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
-import pages.sections.control.ScheduleOfWorkingHoursPage
+import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
-import play.api.mvc.Results.Redirect
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.partParcel.InteractWithStakeholdersView
 

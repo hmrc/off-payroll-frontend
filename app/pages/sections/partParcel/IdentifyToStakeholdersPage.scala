@@ -16,7 +16,7 @@
 
 package pages.sections.partParcel
 
-import models.IdentifyToStakeholders
+import models.sections.partAndParcel.IdentifyToStakeholders
 import pages.QuestionPage
 
 case object IdentifyToStakeholdersPage extends QuestionPage[IdentifyToStakeholders] {

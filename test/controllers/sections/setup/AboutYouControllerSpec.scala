@@ -20,9 +20,10 @@ import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
+import forms.sections.setup.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import models._
 import models.requests.DataRequest
+import models.sections.setup.{AboutYouAnswer, WhichDescribesYouAnswer}
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form

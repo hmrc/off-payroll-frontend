@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.RejectSubstituteFormProvider
+import forms.sections.personalService.RejectSubstituteFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.PersonalServiceNavigator

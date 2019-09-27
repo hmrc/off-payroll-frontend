@@ -17,13 +17,11 @@
 package views.sections.control
 
 import assets.messages.{ScheduleOfWorkingHoursMessages, SubHeadingMessages}
-import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import forms.ScheduleOfWorkingHoursFormProvider
-import models.{NormalMode, ScheduleOfWorkingHours}
-import models.UserType.{Agency, Hirer, Worker}
+import forms.sections.control.ScheduleOfWorkingHoursFormProvider
+import models.NormalMode
+import models.sections.control.ScheduleOfWorkingHours
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.control.ScheduleOfWorkingHoursView

@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.MaterialsFormProvider
+import forms.sections.financialRisk.MaterialsFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.FinancialRiskNavigator

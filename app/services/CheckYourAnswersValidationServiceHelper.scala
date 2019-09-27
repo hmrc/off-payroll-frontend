@@ -16,12 +16,13 @@
 
 package services
 
-import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.{UserAnswers, WhatDoYouWantToFindOut}
-import models.WhatDoYouWantToDo.MakeNewDetermination
-import models.WhoAreYou.{Client, Worker}
+import models.UserAnswers
+import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut
+import models.sections.setup.WhoAreYou.{Client, Worker}
 import pages._
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
+import pages.sections.businessOnOwnAccount._
 import pages.sections.personalService._
 import pages.sections.setup._
 

@@ -16,7 +16,7 @@
 
 package pages.sections.financialRisk
 
-import models.CannotClaimAsExpense
+import models.sections.financialRisk.CannotClaimAsExpense
 import pages.QuestionPage
 
 case object CannotClaimAsExpensePage extends QuestionPage[Seq[CannotClaimAsExpense]] {

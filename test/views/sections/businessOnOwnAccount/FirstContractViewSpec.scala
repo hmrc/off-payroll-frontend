@@ -18,7 +18,7 @@ package views.sections.businessOnOwnAccount
 
 import assets.messages.FirstContractMessages
 import controllers.sections.businessOnOwnAccount.routes
-import forms.FirstContractFormProvider
+import forms.sections.businessOnOwnAccount.FirstContractFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

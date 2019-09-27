@@ -19,16 +19,14 @@ package controllers.sections.partParcel
 import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.LineManagerDutiesFormProvider
+import forms.sections.partAndParcel.LineManagerDutiesFormProvider
 import models.requests.DataRequest
-import models.{Answers, ArrangedSubstitute, NormalMode, UserAnswers}
+import models.{Answers, NormalMode, UserAnswers}
 import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
 import pages.sections.partParcel.LineManagerDutiesPage
-import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.partParcel.LineManagerDutiesView
 import views.html.subOptimised.sections.partParcel.{LineManagerDutiesView => SubOptimisedLineManagerDutiesView}

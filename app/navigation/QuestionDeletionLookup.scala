@@ -18,16 +18,17 @@ package navigation
 
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
-import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models._
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
+import models.sections.personalService.ArrangedSubstitute._
+import models.sections.setup.{WhatDoYouWantToDo, WhatDoYouWantToFindOut, WhoAreYou}
+import pages._
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import pages.{RightsOfWorkPage, _}
 
 @Singleton
 class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {

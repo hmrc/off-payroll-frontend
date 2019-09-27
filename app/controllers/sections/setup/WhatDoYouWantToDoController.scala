@@ -21,9 +21,10 @@ import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.WhatDoYouWantToDoFormProvider
+import forms.sections.setup.WhatDoYouWantToDoFormProvider
 import javax.inject.Inject
 import models._
+import models.sections.setup.WhatDoYouWantToDo
 import navigation.SetupNavigator
 import pages.sections.setup.WhatDoYouWantToDoPage
 import play.api.data.Form

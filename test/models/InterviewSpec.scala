@@ -18,26 +18,24 @@ package models
 
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
-import models.AboutYouAnswer.Worker
-import models.ArrangedSubstitute.YesClientAgreed
-import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.WorkerAgreeWithOthers
-import models.ExclusiveContract.{AbleToProvideServices, UnableToProvideServices}
-import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.MultipleEngagements.{NoKnowledgeOfExternalActivity, OnlyContractForPeriod, ProvidedServicesToOtherEngagers}
-import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.SeriesOfContracts.{ContractCouldBeExtended, ContractIsPartOfASeries, StandAloneContract}
-import models.SignificantWorkingTime.{ConsumesSignificantAmount, MoneyButNotTime, NoSignificantAmount, TimeButNotMoney}
-import models.TransferRights.{AbleToTransferRights, NoRightsArise, RetainOwnershipRights, RightsTransferredToClient}
-import models.WorkerType.{LimitedCompany, SoleTrader}
-import models.ExclusiveContract._
 import models.requests.DataRequest
-import pages.{FollowOnContractPage, MajorityOfWorkingTimePage, MultipleContractsPage, PermissionToWorkWithOthersPage, PreviousContractPage, RightsOfWorkPage, SimilarWorkOtherClientsPage, TransferOfRightsPage}
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage}
+import models.sections.businessOnOwnAccount.ExclusiveContract.{AbleToProvideServices, UnableToProvideServices, _}
+import models.sections.businessOnOwnAccount.MultipleEngagements.{NoKnowledgeOfExternalActivity, OnlyContractForPeriod, ProvidedServicesToOtherEngagers}
+import models.sections.businessOnOwnAccount.SeriesOfContracts.{ContractCouldBeExtended, ContractIsPartOfASeries, StandAloneContract}
+import models.sections.businessOnOwnAccount.SignificantWorkingTime.{ConsumesSignificantAmount, MoneyButNotTime, NoSignificantAmount, TimeButNotMoney}
+import models.sections.businessOnOwnAccount.TransferRights.{AbleToTransferRights, NoRightsArise, RetainOwnershipRights, RightsTransferredToClient}
+import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
+import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.AboutYouAnswer.Worker
+import models.sections.setup.WorkerType.{LimitedCompany, SoleTrader}
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._

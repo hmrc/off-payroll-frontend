@@ -19,7 +19,7 @@ package views.subOptimised.sections.partParcel
 import assets.messages.{BenefitsMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.partParcel.routes
-import forms.BenefitsFormProvider
+import forms.sections.partAndParcel.BenefitsFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

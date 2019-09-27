@@ -16,7 +16,7 @@
 
 package pages.sections.setup
 
-import models.WhatDoYouWantToFindOut
+import models.sections.setup.WhatDoYouWantToFindOut
 import pages.QuestionPage
 
 case object WhatDoYouWantToFindOutPage extends QuestionPage[WhatDoYouWantToFindOut] {

@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.ScheduleOfWorkingHours
+import forms.sections.control.ScheduleOfWorkingHoursFormProvider
+import models.sections.control.ScheduleOfWorkingHours
 import play.api.data.FormError
 
 class ScheduleOfWorkingHoursFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

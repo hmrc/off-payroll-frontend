@@ -16,7 +16,7 @@
 
 package pages.sections.setup
 
-import models.WhoAreYou
+import models.sections.setup.WhoAreYou
 import pages.QuestionPage
 
 case object WhoAreYouPage extends QuestionPage[WhoAreYou] {

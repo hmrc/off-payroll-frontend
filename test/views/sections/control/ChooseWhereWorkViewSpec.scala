@@ -17,13 +17,11 @@
 package views.sections.control
 
 import assets.messages.{ChooseWhereWorkMessages, SubHeadingMessages}
-import config.SessionKeys
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import forms.ChooseWhereWorkFormProvider
-import models.UserType.{Agency, Hirer, Worker}
-import models.{ChooseWhereWork, NormalMode}
+import forms.sections.control.ChooseWhereWorkFormProvider
+import models.NormalMode
+import models.sections.control.ChooseWhereWork
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.control.ChooseWhereWorkView

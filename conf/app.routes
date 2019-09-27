@@ -50,11 +50,6 @@ POST       /workers-intermediary                        controllers.sections.set
 GET        /workers-intermediary/change                 controllers.sections.setup.WorkerTypeController.onPageLoad(mode: Mode = CheckMode)
 POST       /workers-intermediary/change                 controllers.sections.setup.WorkerTypeController.onSubmit(mode: Mode = CheckMode)
 
-GET        /sector-type                                 controllers.sections.setup.IsWorkForPrivateSectorController.onPageLoad(mode: Mode = NormalMode)
-POST       /sector-type                                 controllers.sections.setup.IsWorkForPrivateSectorController.onSubmit(mode: Mode = NormalMode)
-GET        /sector-type/change                          controllers.sections.setup.IsWorkForPrivateSectorController.onPageLoad(mode: Mode = CheckMode)
-POST       /sector-type/change                          controllers.sections.setup.IsWorkForPrivateSectorController.onSubmit(mode: Mode = CheckMode)
-
 GET        /office-holder                               controllers.sections.exit.OfficeHolderController.onPageLoad(mode: Mode = NormalMode)
 POST       /office-holder                               controllers.sections.exit.OfficeHolderController.onSubmit(mode: Mode = NormalMode)
 GET        /office-holder/change                        controllers.sections.exit.OfficeHolderController.onPageLoad(mode: Mode = CheckMode)
@@ -166,26 +161,6 @@ GET        /add-reference-details                       controllers.AddReference
 POST       /add-reference-details                       controllers.AddReferenceDetailsController.onSubmit()
 
 GET        /finished-checking                           controllers.FinishedCheckingController.onPageLoad()
-
-GET        /turnover-over                               controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = NormalMode)
-POST       /turnover-over                               controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = NormalMode)
-GET        /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = CheckMode)
-POST       /turnover-over/edit                          controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = CheckMode)
-
-GET        /private-sector-turnover                     controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = NormalMode)
-POST       /private-sector-turnover                     controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = NormalMode)
-GET        /private-sector-turnover/change              controllers.sections.setup.TurnoverOverController.onPageLoad(mode: Mode = CheckMode)
-POST       /private-sector-turnover/change              controllers.sections.setup.TurnoverOverController.onSubmit(mode: Mode = CheckMode)
-
-GET        /private-sector-balance-sheet                controllers.sections.setup.BalanceSheetOverController.onPageLoad(mode: Mode = NormalMode)
-POST       /private-sector-balance-sheet                controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = NormalMode)
-GET        /private-sector-balance-sheet/change         controllers.sections.setup.BalanceSheetOverController.onPageLoad(mode: Mode = CheckMode)
-POST       /private-sector-balance-sheet/change         controllers.sections.setup.BalanceSheetOverController.onSubmit(mode: Mode = CheckMode)
-
-GET        /private-sector-employees                    controllers.sections.setup.EmployeesOverController.onPageLoad(mode: Mode = NormalMode)
-POST       /private-sector-employees                    controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = NormalMode)
-GET        /private-sector-employees/change             controllers.sections.setup.EmployeesOverController.onPageLoad(mode: Mode = CheckMode)
-POST       /private-sector-employees/change             controllers.sections.setup.EmployeesOverController.onSubmit(mode: Mode = CheckMode)
 
 GET        /material-costs                              controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = NormalMode)
 POST       /material-costs                              controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = NormalMode)

@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.PutRightAtOwnCost
+import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
+import models.sections.financialRisk.PutRightAtOwnCost
 import play.api.data.FormError
 
 class PutRightAtOwnCostFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

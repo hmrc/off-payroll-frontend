@@ -19,7 +19,7 @@ package views.subOptimised.sections.personalService
 import assets.messages.{RejectSubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.personalService.routes
-import forms.RejectSubstituteFormProvider
+import forms.sections.personalService.RejectSubstituteFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

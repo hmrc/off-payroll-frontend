@@ -18,7 +18,7 @@ package views.sections.businessOnOwnAccount
 
 import assets.messages.WorkerKnownMessages
 import controllers.sections.businessOnOwnAccount.routes
-import forms.WorkerKnownFormProvider
+import forms.sections.businessOnOwnAccount.WorkerKnownFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

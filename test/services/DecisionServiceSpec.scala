@@ -22,20 +22,20 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import forms.DeclarationFormProvider
 import handlers.mocks.MockErrorHandler
-import models.AboutYouAnswer.Worker
-import models.ArrangedSubstitute.{No, YesClientAgreed}
-import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.WorkerAgreeWithOthers
-import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.CannotBeCorrected
+import models.sections.setup.AboutYouAnswer.Worker
+import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed}
+import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
+import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
 import models.ResultEnum._
-import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.WeightedAnswerEnum.{HIGH, LOW}
-import models.WhichDescribesYouAnswer.{ClientPAYE, WorkerPAYE}
-import models.WorkerType.{LimitedCompany, SoleTrader}
+import models.sections.setup.WhichDescribesYouAnswer.{ClientPAYE, WorkerPAYE}
+import models.sections.setup.WorkerType.{LimitedCompany, SoleTrader}
 import models._
 import models.requests.DataRequest
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -488,7 +488,6 @@ class DecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector wi
 
       val userAnswers: UserAnswers = UserAnswers("id")
         .set(WhichDescribesYouPage,0, ClientPAYE)
-        .set(IsWorkForPrivateSectorPage,1, false)
         .set(WorkerUsingIntermediaryPage,2, true)
         .set(OfficeHolderPage,3, true)
         .set(ArrangedSubstitutePage,4, YesClientAgreed)

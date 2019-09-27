@@ -17,13 +17,11 @@
 package views.sections.control
 
 import assets.messages.{MoveWorkerMessages, SubHeadingMessages}
-import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import forms.MoveWorkerFormProvider
-import models.{MoveWorker, NormalMode}
-import models.UserType.{Agency, Hirer, Worker}
+import forms.sections.control.MoveWorkerFormProvider
+import models.NormalMode
+import models.sections.control.MoveWorker
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.control.MoveWorkerView

@@ -20,7 +20,7 @@ import assets.messages.{DidPaySubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
-import forms.DidPaySubstituteFormProvider
+import forms.sections.personalService.DidPaySubstituteFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.NeededToPayHelperFormProvider
+import forms.sections.personalService.NeededToPayHelperFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.PersonalServiceNavigator

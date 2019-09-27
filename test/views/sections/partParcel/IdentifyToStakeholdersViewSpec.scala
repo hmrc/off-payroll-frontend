@@ -17,13 +17,11 @@
 package views.sections.partParcel
 
 import assets.messages.{IdentifyToStakeholdersMessages, SubHeadingMessages}
-import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import forms.IdentifyToStakeholdersFormProvider
-import models.UserType.{Agency, Hirer, Worker}
-import models.{IdentifyToStakeholders, NormalMode}
+import forms.sections.partAndParcel.IdentifyToStakeholdersFormProvider
+import models.NormalMode
+import models.sections.partAndParcel.IdentifyToStakeholders
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.partParcel.IdentifyToStakeholdersView

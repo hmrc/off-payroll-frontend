@@ -18,7 +18,7 @@ package views.sections.businessOnOwnAccount
 
 import assets.messages.RightsOfWorkMessages
 import config.featureSwitch.OptimisedFlow
-import forms.RightsOfWorkFormProvider
+import forms.sections.businessOnOwnAccount.RightsOfWorkFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

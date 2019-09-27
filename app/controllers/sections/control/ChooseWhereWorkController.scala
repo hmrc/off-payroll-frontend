@@ -21,9 +21,10 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.ChooseWhereWorkFormProvider
+import forms.sections.control.ChooseWhereWorkFormProvider
 import javax.inject.Inject
-import models.{ChooseWhereWork, Mode}
+import models.Mode
+import models.sections.control.ChooseWhereWork
 import navigation.ControlNavigator
 import pages.sections.control.ChooseWhereWorkPage
 import play.api.data.Form

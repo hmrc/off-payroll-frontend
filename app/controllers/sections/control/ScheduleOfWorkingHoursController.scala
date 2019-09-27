@@ -21,9 +21,10 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.ScheduleOfWorkingHoursFormProvider
+import forms.sections.control.ScheduleOfWorkingHoursFormProvider
 import javax.inject.Inject
-import models.{Mode, ScheduleOfWorkingHours}
+import models.Mode
+import models.sections.control.ScheduleOfWorkingHours
 import navigation.ControlNavigator
 import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.data.Form
