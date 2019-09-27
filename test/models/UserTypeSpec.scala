@@ -17,8 +17,8 @@
 package models
 
 import models.UserType._
+import models.sections.setup.{AboutYouAnswer, WhichDescribesYouAnswer}
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsError, JsString, Json}

@@ -17,16 +17,12 @@
 package views.sections.financialRisk
 
 import assets.messages.{PutRightAtOwnCostsMessages, SubHeadingMessages}
-import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import forms.PutRightAtOwnCostFormProvider
-import models.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
-import models.UserType.{Agency, Hirer, Worker}
-import models.{NormalMode, PutRightAtOwnCost}
+import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
+import models.NormalMode
+import models.sections.financialRisk.PutRightAtOwnCost
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
-import viewmodels.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.sections.financialRisk.PutRightAtOwnCostView
 

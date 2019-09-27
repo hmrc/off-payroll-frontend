@@ -16,7 +16,7 @@
 
 package pages.sections.control
 
-import models.MoveWorker
+import models.sections.control.MoveWorker
 import pages.QuestionPage
 
 case object MoveWorkerPage extends QuestionPage[MoveWorker] {

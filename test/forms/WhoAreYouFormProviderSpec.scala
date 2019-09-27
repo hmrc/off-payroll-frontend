@@ -18,8 +18,10 @@ package forms
 
 import base.GuiceAppSpecBase
 import forms.behaviours.OptionFieldBehaviours
-import models.WhatDoYouWantToFindOut.{IR35, PAYE}
-import models.{UserAnswers, WhoAreYou}
+import forms.sections.setup.WhoAreYouFormProvider
+import models.UserAnswers
+import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WhoAreYou
 import pages.sections.setup.WhatDoYouWantToFindOutPage
 import play.api.data.FormError
 

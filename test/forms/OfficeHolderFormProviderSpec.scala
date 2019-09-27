@@ -19,6 +19,7 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
+import forms.sections.exit.OfficeHolderFormProvider
 import play.api.data.FormError
 
 class OfficeHolderFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {

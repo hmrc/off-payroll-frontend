@@ -17,6 +17,11 @@
 package generators
 
 import models._
+import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
+import models.sections.financialRisk.{CannotClaimAsExpense, HowWorkerIsPaid, PutRightAtOwnCost}
+import models.sections.partAndParcel.IdentifyToStakeholders
+import models.sections.personalService.ArrangedSubstitute
+import models.sections.setup.WorkerType
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import pages._
@@ -173,30 +178,6 @@ trait UserAnswersEntryGenerators extends PageGenerators with ModelGenerators {
     Arbitrary {
       for {
         page  <- arbitrary[MaterialsPage.type]
-        value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
-  implicit lazy val arbitraryEmployeesOverUserAnswersEntry: Arbitrary[(EmployeesOverPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[EmployeesOverPage.type]
-        value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
-  implicit lazy val arbitraryBalanceSheetOverUserAnswersEntry: Arbitrary[(BalanceSheetOverPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[BalanceSheetOverPage.type]
-        value <- arbitrary[Boolean].map(Json.toJson(_))
-      } yield (page, value)
-    }
-
-  implicit lazy val arbitraryTurnoverOverControllerUserAnswersEntry: Arbitrary[(TurnoverOverPage.type, JsValue)] =
-    Arbitrary {
-      for {
-        page  <- arbitrary[TurnoverOverPage.type]
         value <- arbitrary[Boolean].map(Json.toJson(_))
       } yield (page, value)
     }

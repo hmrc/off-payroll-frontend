@@ -18,13 +18,18 @@ package models
 
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
-import models.CannotClaimAsExpense._
-import models.IdentifyToStakeholders.WouldNotHappen
-import models.Interview.jsonObjNoNulls
-import models.WorkerType.{LimitedCompany, SoleTrader}
 import models.requests.DataRequest
-import pages.{FollowOnContractPage, MajorityOfWorkingTimePage, MultipleContractsPage, PermissionToWorkWithOthersPage, PreviousContractPage, QuestionPage, RightsOfWorkPage, SimilarWorkOtherClientsPage, TransferOfRightsPage}
-import pages.sections.businessOnOwnAccount.{ExclusiveContractPage, ExtendContractPage, FinanciallyDependentPage, FirstContractPage, MultipleEngagementsPage, OwnershipRightsPage, SeriesOfContractsPage, SignificantWorkingTimePage, TransferRightsPage}
+import models.sections.businessOnOwnAccount._
+import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
+import models.sections.financialRisk.CannotClaimAsExpense.{ExpensesAreNotRelevantForRole, WorkerHadOtherExpenses, WorkerProvidedEquipment, WorkerProvidedMaterials, WorkerUsedVehicle}
+import models.sections.financialRisk.{HowWorkerIsPaid, PutRightAtOwnCost}
+import models.sections.partAndParcel.IdentifyToStakeholders
+import models.sections.partAndParcel.IdentifyToStakeholders.WouldNotHappen
+import models.sections.personalService.ArrangedSubstitute
+import models.sections.setup.WorkerType
+import models.sections.setup.WorkerType.{LimitedCompany, SoleTrader}
+import pages._
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{VehiclePage, _}

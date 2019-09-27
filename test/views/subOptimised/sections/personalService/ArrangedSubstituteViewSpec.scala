@@ -17,9 +17,10 @@
 package views.subOptimised.sections.personalService
 
 import assets.messages.{ArrangedSubstituteMessages, SubHeadingMessages}
-import forms.ArrangedSubstituteFormProvider
+import forms.sections.personalService.ArrangedSubstituteFormProvider
+import models.NormalMode
 import models.requests.DataRequest
-import models.{ArrangedSubstitute, NormalMode}
+import models.sections.personalService.ArrangedSubstitute
 import play.api.data.Form
 import views.behaviours.ViewBehaviours
 import views.html.subOptimised.sections.personalService.ArrangedSubstituteView

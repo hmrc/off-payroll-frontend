@@ -20,7 +20,7 @@ import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, FakeIdentifierAction, _}
-import forms.ExtendContractFormProvider
+import forms.sections.businessOnOwnAccount.ExtendContractFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeBusinessOnOwnAccountNavigator

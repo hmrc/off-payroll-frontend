@@ -17,24 +17,23 @@
 package utils
 
 import _root_.models.UserType._
-import base.{GuiceAppSpecBase, SpecBase}
-import config.SessionKeys
-import models.ArrangedSubstitute.YesClientAgreed
-import models.CannotClaimAsExpense.WorkerUsedVehicle
-import models.ChooseWhereWork.WorkerChooses
-import models.HowWorkIsDone.NoWorkerInputAllowed
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkForEndClient
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.WorkerType.LimitedCompany
-import models.{AboutYouAnswer, Enumerable, UserAnswers}
+import base.GuiceAppSpecBase
+import models.sections.control.ChooseWhereWork.WorkerChooses
+import models.sections.control.HowWorkIsDone.NoWorkerInputAllowed
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.financialRisk.CannotClaimAsExpense.WorkerUsedVehicle
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.AboutYouAnswer
+import models.sections.setup.WorkerType.LimitedCompany
+import models.{Enumerable, UserAnswers}
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage}
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup.{AboutYouPage, ContractStartedPage, WorkerTypePage}
-import play.api.libs.json.Json
 import viewmodels.AnswerRow
 
 class ResultPageHelperSpec extends GuiceAppSpecBase with Enumerable.Implicits {

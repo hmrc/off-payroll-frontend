@@ -19,7 +19,7 @@ package views.subOptimised.sections.partParcel
 import assets.messages.{InteractWithStakeholdersMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.partParcel.routes
-import forms.InteractWithStakeholdersFormProvider
+import forms.sections.partAndParcel.InteractWithStakeholdersFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

@@ -20,7 +20,7 @@ import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.CannotClaimAsExpenseFormProvider
+import forms.sections.financialRisk.CannotClaimAsExpenseFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.FinancialRiskNavigator

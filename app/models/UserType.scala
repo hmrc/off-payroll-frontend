@@ -16,6 +16,7 @@
 
 package models
 
+import models.sections.setup.{AboutYouAnswer, WhichDescribesYouAnswer, WhoAreYou}
 import play.api.libs.json._
 
 trait UserType

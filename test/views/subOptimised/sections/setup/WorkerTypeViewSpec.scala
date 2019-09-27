@@ -17,12 +17,10 @@
 package views.subOptimised.sections.setup
 
 import assets.messages.{HowProvideServicesMessages, SubHeadingMessages}
-import config.SessionKeys
-import forms.WorkerTypeFormProvider
-import models.UserType.{Agency, Hirer, Worker}
-import models.{NormalMode, WorkerType}
+import forms.sections.setup.WorkerTypeFormProvider
+import models.NormalMode
+import models.sections.setup.WorkerType
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.subOptimised.sections.setup.WorkerTypeView

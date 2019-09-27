@@ -18,8 +18,9 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import models.WhichDescribesYouAnswer.{ClientPAYE, WorkerIR35}
-import models.{UserAnswers, WhichDescribesYouAnswer}
+import models.UserAnswers
+import models.sections.setup.WhichDescribesYouAnswer
+import models.sections.setup.WhichDescribesYouAnswer.{ClientPAYE, WorkerIR35}
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.WhichDescribesYouPage
 import play.api.test.Helpers._

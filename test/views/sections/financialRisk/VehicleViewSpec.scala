@@ -19,7 +19,7 @@ package views.sections.financialRisk
 import assets.messages.{SubHeadingMessages, VehicleMessages}
 import config.SessionKeys
 import controllers.sections.financialRisk.routes
-import forms.VehicleFormProvider
+import forms.sections.financialRisk.VehicleFormProvider
 import models.NormalMode
 import models.UserType.{Hirer, Worker}
 import play.api.data.Form

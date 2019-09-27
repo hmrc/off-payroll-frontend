@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.ArrangedSubstitute
+import forms.sections.personalService.ArrangedSubstituteFormProvider
+import models.sections.personalService.ArrangedSubstitute
 import play.api.data.FormError
 
 class ArrangedSubstituteFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

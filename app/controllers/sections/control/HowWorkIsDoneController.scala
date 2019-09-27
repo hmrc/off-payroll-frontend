@@ -21,9 +21,10 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.HowWorkIsDoneFormProvider
+import forms.sections.control.HowWorkIsDoneFormProvider
 import javax.inject.Inject
-import models.{HowWorkIsDone, Mode}
+import models.Mode
+import models.sections.control.HowWorkIsDone
 import navigation.ControlNavigator
 import pages.sections.control.HowWorkIsDonePage
 import play.api.data.Form

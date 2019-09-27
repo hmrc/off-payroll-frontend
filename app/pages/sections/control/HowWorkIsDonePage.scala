@@ -16,7 +16,7 @@
 
 package pages.sections.control
 
-import models.HowWorkIsDone
+import models.sections.control.HowWorkIsDone
 import pages.QuestionPage
 
 case object HowWorkIsDonePage extends QuestionPage[HowWorkIsDone] {

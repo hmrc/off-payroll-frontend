@@ -22,10 +22,10 @@ import connectors.DecisionConnector
 import forms.DownloadPDFCopyFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
-import models.WhatDoYouWantToDo.MakeNewDetermination
-import models.WhatDoYouWantToFindOut.IR35
 import models._
 import models.requests.DataRequest
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut.IR35
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup._
@@ -35,7 +35,6 @@ import play.api.i18n.Messages
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import utils.DateTimeUtil
 import viewmodels.AnswerSection
 import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}

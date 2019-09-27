@@ -17,8 +17,9 @@
 package views.subOptimised.sections.setup
 
 import controllers.sections.setup.routes
-import forms.AboutYouFormProvider
-import models.{AboutYouAnswer, NormalMode}
+import forms.sections.setup.AboutYouFormProvider
+import models.NormalMode
+import models.sections.setup.AboutYouAnswer
 import play.api.data.Form
 import views.behaviours.QuestionViewBehaviours
 import views.html.subOptimised.sections.setup.AboutYouView

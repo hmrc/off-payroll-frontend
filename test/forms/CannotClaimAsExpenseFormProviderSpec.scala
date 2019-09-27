@@ -17,8 +17,9 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
-import models.CannotClaimAsExpense
-import models.CannotClaimAsExpense.{ExpensesAreNotRelevantForRole, WorkerProvidedEquipment, WorkerUsedVehicle}
+import forms.sections.financialRisk.CannotClaimAsExpenseFormProvider
+import models.sections.financialRisk.CannotClaimAsExpense.{ExpensesAreNotRelevantForRole, WorkerProvidedEquipment, WorkerUsedVehicle}
+import models.sections.financialRisk.CannotClaimAsExpense
 import play.api.data.FormError
 
 class CannotClaimAsExpenseFormProviderSpec extends OptionFieldBehaviours {

@@ -18,7 +18,7 @@ package views.sections.setup
 
 import assets.messages.WhoAreYouMessages
 import config.featureSwitch.FeatureSwitching
-import forms.WhoAreYouFormProvider
+import forms.sections.setup.WhoAreYouFormProvider
 import models.NormalMode
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours

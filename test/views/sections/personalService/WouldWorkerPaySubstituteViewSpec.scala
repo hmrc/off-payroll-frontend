@@ -19,7 +19,7 @@ package views.sections.personalService
 import assets.messages.{SubHeadingMessages, WouldPaySubstituteMessages}
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
-import forms.WouldWorkerPaySubstituteFormProvider
+import forms.sections.personalService.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

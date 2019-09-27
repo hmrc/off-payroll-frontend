@@ -16,7 +16,7 @@
 
 package pages.sections.financialRisk
 
-import models.PutRightAtOwnCost
+import models.sections.financialRisk.PutRightAtOwnCost
 import pages.QuestionPage
 
 case object PutRightAtOwnCostPage extends QuestionPage[PutRightAtOwnCost] {

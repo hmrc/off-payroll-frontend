@@ -16,6 +16,7 @@
 
 package models
 
+import models.sections.setup.AboutYouAnswer
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}

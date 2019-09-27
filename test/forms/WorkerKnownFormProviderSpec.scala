@@ -17,6 +17,7 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
+import forms.sections.businessOnOwnAccount.WorkerKnownFormProvider
 import play.api.data.FormError
 
 class WorkerKnownFormProviderSpec extends BooleanFieldBehaviours {

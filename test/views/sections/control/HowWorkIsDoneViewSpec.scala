@@ -17,13 +17,11 @@
 package views.sections.control
 
 import assets.messages.{HowWorkIsDoneMessages, SubHeadingMessages}
-import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import forms.HowWorkIsDoneFormProvider
-import models.{HowWorkIsDone, NormalMode}
-import models.UserType.{Agency, Hirer, Worker}
+import forms.sections.control.HowWorkIsDoneFormProvider
+import models.NormalMode
+import models.sections.control.HowWorkIsDone
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.control.HowWorkIsDoneView

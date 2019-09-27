@@ -18,10 +18,11 @@ package controllers.sections.setup
 
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.WhatDoYouWantToDoFormProvider
+import forms.sections.setup.WhatDoYouWantToDoFormProvider
 import models.Answers._
 import models._
 import models.requests.DataRequest
+import models.sections.setup.WhatDoYouWantToDo
 import navigation.mocks.FakeNavigators.FakeSetupNavigator
 import pages.sections.setup.WhatDoYouWantToDoPage
 import play.api.data.Form

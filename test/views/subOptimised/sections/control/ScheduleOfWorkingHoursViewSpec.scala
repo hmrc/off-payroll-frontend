@@ -18,9 +18,10 @@ package views.subOptimised.sections.control
 
 import assets.messages.{ScheduleOfWorkingHoursMessages, SubHeadingMessages}
 import config.SessionKeys
-import forms.ScheduleOfWorkingHoursFormProvider
-import models.{NormalMode, ScheduleOfWorkingHours}
+import forms.sections.control.ScheduleOfWorkingHoursFormProvider
+import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
+import models.sections.control.ScheduleOfWorkingHours
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request

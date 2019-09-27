@@ -20,11 +20,11 @@ import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
-import forms.TransferOfRightsFormProvider
+import forms.sections.businessOnOwnAccount.TransferOfRightsFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeBusinessOnOwnAccountNavigator
-import pages.TransferOfRightsPage
+import pages.sections.businessOnOwnAccount.TransferOfRightsPage
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.test.Helpers._

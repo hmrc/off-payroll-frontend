@@ -21,7 +21,7 @@ import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.actions._
 import javax.inject.Inject
-import models.{ArrangedSubstitute, CheckMode}
+import models.CheckMode
 import pages.{Page, PersonalServiceSectionChangeWarningPage}
 import pages.sections.personalService._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

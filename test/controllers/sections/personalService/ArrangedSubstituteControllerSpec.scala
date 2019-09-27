@@ -17,19 +17,18 @@
 package controllers.sections.personalService
 
 import config.featureSwitch.OptimisedFlow
-import connectors.FakeDataCacheConnector
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.ArrangedSubstituteFormProvider
+import forms.sections.personalService.ArrangedSubstituteFormProvider
 import models.Answers._
 import models.requests.DataRequest
-import models.{Answers, ArrangedSubstitute, NormalMode}
+import models.sections.personalService.ArrangedSubstitute
+import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
-import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage}
+import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form
 import play.api.libs.json._
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.personalService.ArrangedSubstituteView

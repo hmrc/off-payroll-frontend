@@ -16,17 +16,17 @@
 
 package controllers.sections.setup
 
-import javax.inject.Inject
-
 import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.WhoAreYouFormProvider
-import models.WhatDoYouWantToFindOut.IR35
+import forms.sections.setup.WhoAreYouFormProvider
+import javax.inject.Inject
 import models.requests.DataRequest
-import models.{Mode, UserType, _}
+import models.sections.setup.WhatDoYouWantToFindOut.IR35
+import models.sections.setup.WhoAreYou
+import models.{Mode, UserType}
 import navigation.SetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form

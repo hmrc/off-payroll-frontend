@@ -21,7 +21,7 @@ import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.InteractWithStakeholdersFormProvider
+import forms.sections.partAndParcel.InteractWithStakeholdersFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.PartAndParcelNavigator

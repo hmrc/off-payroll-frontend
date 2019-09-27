@@ -19,6 +19,7 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
+import forms.sections.personalService.NeededToPayHelperFormProvider
 import play.api.data.FormError
 
 class NeededToPayHelperFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {

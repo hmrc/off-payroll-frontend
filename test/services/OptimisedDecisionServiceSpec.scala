@@ -14,22 +14,6 @@
  * limitations under the License.
  */
 
-/*
- * Copyright 2019 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package services
 
 import base.{GuiceAppSpecBase, SpecBase}
@@ -38,19 +22,19 @@ import config.featureSwitch.FeatureSwitching
 import connectors.mocks.{MockAuditConnector, MockDataCacheConnector, MockDecisionConnector}
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.mocks.MockErrorHandler
-import models.ArrangedSubstitute.YesClientAgreed
-import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.WorkerAgreeWithOthers
-import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.WhatDoYouWantToDo.MakeNewDetermination
-import models.WhatDoYouWantToFindOut.{IR35, PAYE}
-import models.WhichDescribesYouAnswer._
-import models.WorkerType.SoleTrader
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
+import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WhichDescribesYouAnswer._
+import models.sections.setup.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
 import org.scalatest.concurrent.ScalaFutures

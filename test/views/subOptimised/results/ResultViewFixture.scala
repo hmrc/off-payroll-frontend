@@ -17,9 +17,9 @@
 package views.subOptimised.results
 
 import akka.http.scaladsl.model.HttpMethods
-import models.AboutYouAnswer.Worker
+import models.sections.setup.AboutYouAnswer.Worker
 import models.{AdditionalPdfDetails, Section}
-import models.CannotClaimAsExpense.WorkerUsedVehicle
+import models.sections.financialRisk.CannotClaimAsExpense.WorkerUsedVehicle
 import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.twirl.api.Html

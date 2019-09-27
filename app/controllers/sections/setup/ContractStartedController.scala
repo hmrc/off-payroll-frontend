@@ -21,12 +21,11 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.ContractStartedFormProvider
+import forms.sections.setup.ContractStartedFormProvider
 import javax.inject.Inject
 import models.Mode
 import models.requests.DataRequest
 import navigation.SetupNavigator
-import pages.BalanceSheetOverPage
 import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

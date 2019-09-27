@@ -18,7 +18,7 @@ package views.sections.businessOnOwnAccount
 
 import assets.messages.FinanciallyDependentMessages
 import controllers.sections.businessOnOwnAccount.routes
-import forms.FinanciallyDependentFormProvider
+import forms.sections.businessOnOwnAccount.FinanciallyDependentFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

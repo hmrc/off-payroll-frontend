@@ -20,7 +20,7 @@ import config.featureSwitch.OptimisedFlow
 import connectors.FakeDataCacheConnector
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
 import controllers.ControllerSpecBase
-import forms.VehicleFormProvider
+import forms.sections.financialRisk.VehicleFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator

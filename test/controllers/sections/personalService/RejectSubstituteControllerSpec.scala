@@ -20,7 +20,7 @@ import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.RejectSubstituteFormProvider
+import forms.sections.personalService.RejectSubstituteFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator

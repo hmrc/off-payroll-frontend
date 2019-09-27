@@ -21,10 +21,11 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
+import forms.sections.setup.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
 import javax.inject.Inject
+import models.Mode
 import models.requests.DataRequest
-import models.{Mode, UserAnswers, WorkerType}
+import models.sections.setup.WorkerType
 import navigation.SetupNavigator
 import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form

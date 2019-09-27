@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.HowWorkerIsPaid
+import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
+import models.sections.financialRisk.HowWorkerIsPaid
 import play.api.data.FormError
 
 class HowWorkerIsPaidFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

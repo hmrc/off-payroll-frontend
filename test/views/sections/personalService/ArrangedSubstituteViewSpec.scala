@@ -19,9 +19,9 @@ package views.sections.personalService
 import assets.messages.{ArrangedSubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
-import forms.ArrangedSubstituteFormProvider
+import forms.sections.personalService.ArrangedSubstituteFormProvider
 import models.UserType.{Agency, Hirer, Worker}
-import models.{ArrangedSubstitute, NormalMode}
+import models.NormalMode
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request

@@ -21,7 +21,7 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.OfficeHolderFormProvider
+import forms.sections.exit.OfficeHolderFormProvider
 import javax.inject.Inject
 import models.requests.DataRequest
 import models.{CheckMode, Mode, NormalMode}

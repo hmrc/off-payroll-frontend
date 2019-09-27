@@ -21,10 +21,11 @@ import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.{AboutYouFormProvider, WhichDescribesYouFormProvider}
+import forms.sections.setup.{AboutYouFormProvider, WhichDescribesYouFormProvider}
 import javax.inject.Inject
 import models.requests.DataRequest
-import models.{AboutYouAnswer, Mode, UserType, WhichDescribesYouAnswer}
+import models.sections.setup.{AboutYouAnswer, WhichDescribesYouAnswer}
+import models.{Mode, UserType}
 import navigation.SetupNavigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form

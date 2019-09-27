@@ -20,18 +20,18 @@ import _root_.utils.MockDateTimeUtil
 import base.{GuiceAppSpecBase, MockServicesConfig}
 import config.featureSwitch.OptimisedFlow
 import connectors.mocks.MockHttp
-import models.ArrangedSubstitute.YesClientAgreed
-import models.ChooseWhereWork.WorkerChooses
-import models.HowWorkIsDone.WorkerAgreeWithOthers
-import models.HowWorkerIsPaid.HourlyDailyOrWeekly
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.control.ChooseWhereWork.WorkerChooses
+import models.sections.control.HowWorkIsDone.WorkerAgreeWithOthers
+import models.sections.financialRisk.HowWorkerIsPaid.HourlyDailyOrWeekly
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.financialRisk.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
 import models.ResultEnum.{SELF_EMPLOYED, UNKNOWN}
-import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
 import models.UserType.Worker
 import models.WeightedAnswerEnum.{HIGH, LOW}
-import models.WorkerType.SoleTrader
+import models.sections.setup.WorkerType.SoleTrader
 import models._
 import play.mvc.Http.Status
 

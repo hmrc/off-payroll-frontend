@@ -17,7 +17,8 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
-import models.WhatDoYouWantToDo
+import forms.sections.setup.WhatDoYouWantToDoFormProvider
+import models.sections.setup.WhatDoYouWantToDo
 import play.api.data.FormError
 
 class WhatDoYouWantToDoFormProviderSpec extends OptionFieldBehaviours {
