@@ -24,7 +24,7 @@ object FinanciallyDependentMessages extends BaseMessages {
     val title = "Will this contract provide you with the majority of your income?"
     val heading = title
     val subheading = "Worker’s contracts"
-    val p1 = "Regular income is earnings of a similar amount, paid with the same frequency and on an ongoing basis."
+    val p1 = "This is about comparing income from this work with the total income from any other work, over the same period."
   }
 
   object Hirer {
