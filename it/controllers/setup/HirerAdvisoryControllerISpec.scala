@@ -4,89 +4,26 @@ import helpers.IntegrationSpecBase
 
 class HirerAdvisoryControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /work-started" should {
+  s"Post or Get to /hirer-advisory" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/work-started")
+      lazy val res = getSessionRequest("/hirer-advisory")
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you already started working for this client?")
+        result.body should include ("Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)")
       }
     }
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/work-started")
+      lazy val res = optionsRequest("/hirer-advisory")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
     }
-
-    "Return a 400 on unsuccessful post and stay on the same page" in {
-
-      lazy val res = postSessionRequest("/work-started", defaultValue)
-
-      whenReady(res) { result =>
-        result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started working for this client?")
-
-      }
-    }
-
-    "Return a 200 on Successful post and move onto next page" in {
-
-      lazy val res = postSessionRequest("/work-started", selectedNo)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you be an ‘Office Holder’?")
-      }
-    }
   }
 
-  s"Post or Get to /work-started/change" should {
-
-    "Return a 200 on successful get and should be on relevant page" in {
-
-      lazy val res = getSessionRequest("/work-started/change")
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Have you already started working for this client?")
-      }
-    }
-
-    "Return a 404 on a post to unused method" in {
-
-      lazy val res = optionsRequest("/work-started/change")
-
-      whenReady(res) { result =>
-        result.status shouldBe NOT_FOUND
-      }
-    }
-
-    "Return a 400 on unsuccessful post and stay on the same page" in {
-
-      lazy val res = postSessionRequest("/work-started/change", defaultValue)
-
-      whenReady(res) { result =>
-        result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you already started working for this client?")
-
-      }
-    }
-
-    "Return a 200 on Successful post and move onto next page" in {
-
-      lazy val res = postSessionRequest("/work-started/change", selectedNo)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("Will you be an ‘Office Holder’?")
-      }
-    }
-  }
 }

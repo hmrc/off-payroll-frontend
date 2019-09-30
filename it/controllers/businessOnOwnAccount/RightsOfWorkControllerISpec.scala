@@ -5,21 +5,21 @@ import play.api.http.Status
 
 class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
 
-  s"Post or Get to /contract-exclusivity" should {
+  s"Post or Get to /client-owns-rights" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/contract-exclusivity")
+      lazy val res = getSessionRequest("/client-owns-rights")
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        result.body should include ("Does the contract state the rights to this work belong to your client?")
       }
     }
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/contract-exclusivity")
+      lazy val res = optionsRequest("/client-owns-rights")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -28,41 +28,41 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity", defaultValue)
+      lazy val res = postSessionRequest("/client-owns-rights", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        result.body should include ("Does the contract state the rights to this work belong to your client?")
 
       }
     }
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity", selectedNo)
+      lazy val res = postSessionRequest("/client-owns-rights", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Are you required to ask permission to work for other clients?")
+        result.body should include ("Does the contract give your client the option to buy the rights for a separate fee?")
       }
     }
   }
 
-  s"Post or Get to /contract-exclusivity/change" should {
+  s"Post or Get to /client-owns-rights/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/contract-exclusivity/change")
+      lazy val res = getSessionRequest("/client-owns-rights/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        result.body should include ("Does the contract state the rights to this work belong to your client?")
       }
     }
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/contract-exclusivity/change")
+      lazy val res = optionsRequest("/client-owns-rights/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -71,21 +71,21 @@ class RightsOfWorkControllerISpec extends IntegrationSpecBase with CreateRequest
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity/change", defaultValue)
+      lazy val res = postSessionRequest("/client-owns-rights/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Does this contract stop you from doing similar work for other clients?")
+        result.body should include ("Does the contract state the rights to this work belong to your client?")
 
       }
     }
 
     "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/client-owns-rights/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/need-permission/change")
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/client-buys-rights/change")
       }
     }
   }

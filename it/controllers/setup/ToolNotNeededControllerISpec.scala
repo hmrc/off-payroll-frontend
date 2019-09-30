@@ -4,25 +4,27 @@ import helpers.IntegrationSpecBase
 
 class ToolNotNeededControllerISpec extends IntegrationSpecBase {
 
-  s"Get to /worker-intermediary-eligibility-exit" should {
+  s"Post or Get to /tool-not-needed" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/worker-intermediary-eligibility-exit")
+      lazy val res = getSessionRequest("/tool-not-needed")
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Off-payroll working rules might apply to this work")
+        result.body should include ("You don’t need to determine if this work should be classed as employed or self-employed for tax purposes")
       }
     }
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/worker-intermediary-eligibility-exit")
+      lazy val res = optionsRequest("/tool-not-needed")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
     }
+
   }
+
 }

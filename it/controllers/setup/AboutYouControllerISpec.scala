@@ -4,33 +4,68 @@ import helpers.IntegrationSpecBase
 
 class AboutYouControllerISpec extends IntegrationSpecBase {
 
+  s"Post or Get to /what-do-you-want-to-find-out" should {
 
-  s"Get /disclaimer" should {
+    "Return a 200 on successful get and should be on relevant page" in {
 
-    "Return a 200 on successful get" in {
-
-      lazy val res = getRequest("/disclaimer")
+      lazy val res = getSessionRequest("/what-do-you-want-to-find-out")
 
       whenReady(res) { result =>
         result.status shouldBe OK
+        result.body should include ("What do you want to find out?")
       }
     }
 
-    "Return a 404 on unsuccessful post" in {
+    "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/disclaimer")
+      lazy val res = optionsRequest("/what-do-you-want-to-find-out")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
       }
     }
 
-    "Return a 200 on unsuccessful post" in {
+    "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postRequest("/disclaimer", defaultValue)
+      lazy val res = postSessionRequest("/what-do-you-want-to-find-out", defaultValue)
+
+      whenReady(res) { result =>
+        result.status shouldBe BAD_REQUEST
+        result.body should include ("What do you want to find out?")
+
+      }
+    }
+  }
+
+  s"Post or Get to /what-do-you-want-to-find-out/change" should {
+
+    "Return a 200 on successful get and should be on relevant page" in {
+
+      lazy val res = getSessionRequest("/what-do-you-want-to-find-out/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
+        result.body should include ("What do you want to find out?")
+      }
+    }
+
+    "Return a 404 on a post to unused method" in {
+
+      lazy val res = optionsRequest("/what-do-you-want-to-find-out/change")
+
+      whenReady(res) { result =>
+        result.status shouldBe NOT_FOUND
+      }
+    }
+
+    "Return a 400 on unsuccessful post and stay on the same page" in {
+
+      lazy val res = postSessionRequest("/what-do-you-want-to-find-out/change", defaultValue)
+
+      whenReady(res) { result =>
+        result.status shouldBe BAD_REQUEST
+        result.body should include ("What do you want to find out?")
+
       }
     }
   }

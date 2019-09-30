@@ -4,21 +4,21 @@ import helpers.IntegrationSpecBase
 
 class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
-  s"Post or Get to /who-are-you" should {
+  s"Post or Get to /workers-intermediary" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/who-are-you")
+      lazy val res = getSessionRequest("/workers-intermediary")
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Who are you?")
+        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
       }
     }
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/who-are-you")
+      lazy val res = optionsRequest("/workers-intermediary")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -27,41 +27,31 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/who-are-you", defaultValue)
+      lazy val res = postSessionRequest("/workers-intermediary", workerTypeValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Who are you?")
+        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
 
-      }
-    }
-
-    "Return a 200 on Successful post and move onto next page" in {
-
-      lazy val res = postSessionRequest("/who-are-you",whoAreYouValue)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include ("What do you want to find out?")
       }
     }
   }
 
-  s"Post or Get to /who-are-you/change" should {
+  s"Post or Get to /workers-intermediary/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/who-are-you/change")
+      lazy val res = getSessionRequest("/workers-intermediary/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Who are you?")
+        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
       }
     }
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/who-are-you/change")
+      lazy val res = optionsRequest("/workers-intermediary/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -70,11 +60,11 @@ class WorkerTypeControllerISpec extends IntegrationSpecBase {
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/who-are-you/change", defaultValue)
+      lazy val res = postSessionRequest("/workers-intermediary/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Who are you?")
+        result.body should include ("Are you trading through a limited company, partnership or unincorporated body?")
 
       }
     }
