@@ -20,11 +20,11 @@ import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.PermissionToWorkWithOthersFormProvider
+import forms.sections.businessOnOwnAccount.PermissionToWorkWithOthersFormProvider
 import javax.inject.Inject
 import models.Mode
 import navigation.BusinessOnOwnAccountNavigator
-import pages.PermissionToWorkWithOthersPage
+import pages.sections.businessOnOwnAccount.PermissionToWorkWithOthersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CompareAnswerService, DecisionService}

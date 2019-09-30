@@ -19,20 +19,19 @@ package utils
 import _root_.models.UserType._
 import base.GuiceAppSpecBase
 import controllers.routes
-import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import models.ArrangedSubstitute.YesClientAgreed
-import models.ChooseWhereWork.WorkerChooses
-import models.HowWorkIsDone.NoWorkerInputAllowed
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkForEndClient
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.WhatDoYouWantToDo.{CheckDetermination, MakeNewDetermination}
 import models._
-import pages._
+import models.sections.control.ChooseWhereWork.WorkerChooses
+import models.sections.control.HowWorkIsDone.NoWorkerInputAllowed
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.setup.WhatDoYouWantToDo.{CheckDetermination, MakeNewDetermination}
+import models.sections.setup.{WhatDoYouWantToFindOut, WhoAreYou}
 import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage

@@ -17,22 +17,16 @@
 package controllers.sections.exit
 
 import config.featureSwitch.OptimisedFlow
-import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.OfficeHolderFormProvider
-import models.CannotClaimAsExpense.WorkerProvidedMaterials
+import forms.sections.exit.OfficeHolderFormProvider
 import models.requests.DataRequest
-import models.{Answers, CheckMode, NormalMode, UserAnswers}
+import models.{Answers, CheckMode, NormalMode}
 import navigation.mocks.FakeNavigators.FakeExitNavigator
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.exit.OfficeHolderView
 import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}

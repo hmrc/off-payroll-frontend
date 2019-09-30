@@ -17,11 +17,10 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.WhichDescribesYouAnswer.{ClientPAYE, writes}
 import models._
-import pages._
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage, WorkerKnownPage}
+import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
+import models.sections.setup.{WhatDoYouWantToDo, WhatDoYouWantToFindOut, WhoAreYou}
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._

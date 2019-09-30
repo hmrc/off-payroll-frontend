@@ -82,15 +82,6 @@ trait PageGenerators {
   implicit lazy val arbitraryMaterialsPage: Arbitrary[MaterialsPage.type] =
     Arbitrary(MaterialsPage)
 
-  implicit lazy val arbitraryEmployeesOverPage: Arbitrary[EmployeesOverPage.type] =
-    Arbitrary(EmployeesOverPage)
-
-  implicit lazy val arbitraryBalanceSheetOverPage: Arbitrary[BalanceSheetOverPage.type] =
-    Arbitrary(BalanceSheetOverPage)
-
-  implicit lazy val arbitraryTurnoverOverControllerPage: Arbitrary[TurnoverOverPage.type] =
-    Arbitrary(TurnoverOverPage)
-
   implicit lazy val arbitraryCustomisePDFPage: Arbitrary[CustomisePDFPage.type] =
     Arbitrary(CustomisePDFPage)
 

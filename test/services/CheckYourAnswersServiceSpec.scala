@@ -17,16 +17,16 @@
 package services
 
 import base.{GuiceAppSpecBase, SpecBase}
-import models.ArrangedSubstitute.YesClientAgreed
-import models.CannotClaimAsExpense.WorkerProvidedMaterials
-import models.ChooseWhereWork.WorkerChooses
-import models.HowWorkIsDone.NoWorkerInputAllowed
-import models.HowWorkerIsPaid.HourlyDailyOrWeekly
-import models.IdentifyToStakeholders.WorkForEndClient
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.OutsideOfHoursNoCosts
-import models.ScheduleOfWorkingHours.ScheduleDecidedForWorker
-import models.WhichDescribesYouAnswer.WorkerPAYE
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.financialRisk.CannotClaimAsExpense.WorkerProvidedMaterials
+import models.sections.control.ChooseWhereWork.WorkerChooses
+import models.sections.control.HowWorkIsDone.NoWorkerInputAllowed
+import models.sections.financialRisk.HowWorkerIsPaid.HourlyDailyOrWeekly
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.financialRisk.PutRightAtOwnCost.OutsideOfHoursNoCosts
+import models.sections.control.ScheduleOfWorkingHours.ScheduleDecidedForWorker
+import models.sections.setup.WhichDescribesYouAnswer.WorkerPAYE
 import models._
 import models.requests.DataRequest
 import pages.sections.businessOnOwnAccount._
@@ -50,52 +50,48 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
 
       lazy val userAnswers: UserAnswers = UserAnswers("id")
         //Setup Section
-        .set(WhichDescribesYouPage,0, WorkerPAYE)
-        .set(WorkerUsingIntermediaryPage,1, true)
-        .set(IsWorkForPrivateSectorPage,2, true)
-        .set(TurnoverOverPage, 3, true)
-        .set(EmployeesOverPage, 4, true)
-        .set(TurnoverOverPage, 5, true)
-        .set(ContractStartedPage, 6, true)
+        .set(WhichDescribesYouPage, WorkerPAYE)
+        .set(WorkerUsingIntermediaryPage, true)
+        .set(ContractStartedPage, true)
         //Exit Section
-        .set(OfficeHolderPage, 7, true)
+        .set(OfficeHolderPage, true)
         //Personal Service section
-        .set(ArrangedSubstitutePage, 8, YesClientAgreed)
-        .set(DidPaySubstitutePage, 9, true)
-        .set(RejectSubstitutePage, 10, true)
-        .set(WouldWorkerPaySubstitutePage, 11, true)
-        .set(NeededToPayHelperPage, 12, true)
+        .set(ArrangedSubstitutePage, YesClientAgreed)
+        .set(DidPaySubstitutePage, true)
+        .set(RejectSubstitutePage, true)
+        .set(WouldWorkerPaySubstitutePage, true)
+        .set(NeededToPayHelperPage, true)
         //Control section
-        .set(ChooseWhereWorkPage, 13, WorkerChooses)
-        .set(HowWorkIsDonePage, 14, NoWorkerInputAllowed)
-        .set(MoveWorkerPage, 15, CanMoveWorkerWithPermission)
-        .set(ScheduleOfWorkingHoursPage, 16, ScheduleDecidedForWorker)
+        .set(ChooseWhereWorkPage, WorkerChooses)
+        .set(HowWorkIsDonePage, NoWorkerInputAllowed)
+        .set(MoveWorkerPage, CanMoveWorkerWithPermission)
+        .set(ScheduleOfWorkingHoursPage, ScheduleDecidedForWorker)
         //Financial Risk section
-        .set(MaterialsPage, 17, true)
-        .set(VehiclePage, 18, true)
-        .set(EquipmentExpensesPage, 19, true)
-        .set(OtherExpensesPage, 20, true)
-        .set(HowWorkerIsPaidPage, 21, HourlyDailyOrWeekly)
-        .set(PutRightAtOwnCostPage, 22, OutsideOfHoursNoCosts)
+        .set(MaterialsPage, true)
+        .set(VehiclePage, true)
+        .set(EquipmentExpensesPage, true)
+        .set(OtherExpensesPage, true)
+        .set(HowWorkerIsPaidPage, HourlyDailyOrWeekly)
+        .set(PutRightAtOwnCostPage, OutsideOfHoursNoCosts)
         //Part and Parcel section
-        .set(BenefitsPage, 23, false)
-        .set(LineManagerDutiesPage, 24, false)
-        .set(InteractWithStakeholdersPage, 25, true)
-        .set(IdentifyToStakeholdersPage, 26, WorkForEndClient)
+        .set(BenefitsPage, false)
+        .set(LineManagerDutiesPage, false)
+        .set(InteractWithStakeholdersPage, true)
+        .set(IdentifyToStakeholdersPage, WorkForEndClient)
         //Business On Own Account Section
-        .set(WorkerKnownPage,27,true)
-        .set(MultipleContractsPage,28,true)
-        .set(PermissionToWorkWithOthersPage,29,true)
-        .set(OwnershipRightsPage,30,true)
-        .set(RightsOfWorkPage,31,true)
-        .set(TransferOfRightsPage,32,true)
-        .set(PreviousContractPage,33,true)
-        .set(FollowOnContractPage,34,true)
-        .set(FirstContractPage,35,true)
-        .set(ExtendContractPage,36,true)
-        .set(MajorityOfWorkingTimePage,37,true)
-        .set(FinanciallyDependentPage,38,true)
-        .set(SimilarWorkOtherClientsPage,39,true)
+        .set(WorkerKnownPage,true)
+        .set(MultipleContractsPage,true)
+        .set(PermissionToWorkWithOthersPage,true)
+        .set(OwnershipRightsPage,true)
+        .set(RightsOfWorkPage,true)
+        .set(TransferOfRightsPage,true)
+        .set(PreviousContractPage,true)
+        .set(FollowOnContractPage,true)
+        .set(FirstContractPage,true)
+        .set(ExtendContractPage,true)
+        .set(MajorityOfWorkingTimePage,true)
+        .set(FinanciallyDependentPage,true)
+        .set(SimilarWorkOtherClientsPage,true)
 
 
 

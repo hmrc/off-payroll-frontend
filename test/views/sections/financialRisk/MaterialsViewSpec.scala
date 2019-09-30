@@ -20,7 +20,7 @@ import assets.messages.{MaterialsMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.financialRisk.routes
-import forms.MaterialsFormProvider
+import forms.sections.financialRisk.MaterialsFormProvider
 import models.NormalMode
 import models.UserType.{Hirer, Worker}
 import play.api.data.Form

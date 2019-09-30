@@ -18,9 +18,10 @@ package views.subOptimised.sections.financialRisk
 
 import assets.messages.{CannotClaimAsExpenseMessages, SubHeadingMessages}
 import config.SessionKeys
-import forms.CannotClaimAsExpenseFormProvider
+import forms.sections.financialRisk.CannotClaimAsExpenseFormProvider
 import models.UserType.{Agency, Hirer, Worker}
-import models.{CannotClaimAsExpense, NormalMode}
+import models.NormalMode
+import models.sections.financialRisk.CannotClaimAsExpense
 import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.Request

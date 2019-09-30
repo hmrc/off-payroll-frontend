@@ -16,6 +16,7 @@
 
 package models
 
+import models.sections.partAndParcel.IdentifyToStakeholders
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalatest.prop.PropertyChecks

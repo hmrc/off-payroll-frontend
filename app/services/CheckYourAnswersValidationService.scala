@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import javax.inject.Inject
 import models._
 import pages._
-import pages.sections.businessOnOwnAccount.{FinanciallyDependentPage, OwnershipRightsPage, WorkerKnownPage}
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._

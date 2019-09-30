@@ -17,6 +17,7 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
+import forms.sections.partAndParcel.InteractWithStakeholdersFormProvider
 import play.api.data.FormError
 
 class InteractWithStakeholdersFormProviderSpec extends BooleanFieldBehaviours {

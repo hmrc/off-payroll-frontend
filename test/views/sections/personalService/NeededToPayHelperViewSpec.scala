@@ -20,7 +20,7 @@ import assets.messages.{NeededToPayHelperMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
-import forms.NeededToPayHelperFormProvider
+import forms.sections.personalService.NeededToPayHelperFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

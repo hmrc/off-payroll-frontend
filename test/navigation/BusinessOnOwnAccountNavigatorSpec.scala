@@ -21,6 +21,7 @@ import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import models._
+import models.sections.setup.WhoAreYou
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.setup.WhoAreYouPage

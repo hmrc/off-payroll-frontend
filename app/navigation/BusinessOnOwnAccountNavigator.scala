@@ -18,17 +18,15 @@ package navigation
 
 import config.FrontendAppConfig
 import config.featureSwitch.FeatureSwitching
-import controllers.routes
 import controllers.routes._
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import javax.inject.{Inject, Singleton}
-import models.WhoAreYou.Client
 import models._
+import models.sections.setup.WhoAreYou.Client
 import pages._
 import pages.sections.businessOnOwnAccount._
 import pages.sections.setup.{ContractStartedPage, WhoAreYouPage}
 import play.api.mvc.Call
-
 
 @Singleton
 class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navigator with FeatureSwitching {
@@ -39,6 +37,7 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
       case _ => booaRoutes.MultipleContractsController.onPageLoad(NormalMode)
     }
 
+  //noinspection ScalaStyle
   private def routeMap(implicit mode: Mode):  Map[Page, UserAnswers => Call] = Map(
 
     WorkerKnownPage -> (answer =>

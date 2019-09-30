@@ -17,33 +17,21 @@
 package controllers.sections.financialRisk
 
 import config.featureSwitch.OptimisedFlow
-import akka.util.ByteString
-import connectors.FakeDataCacheConnector
-import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.HowWorkerIsPaidFormProvider
+import forms.sections.financialRisk.HowWorkerIsPaidFormProvider
 import models.Answers._
-import models.CannotClaimAsExpense.WorkerProvidedMaterials
-import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
-import models.requests.DataRequest
 import models._
+import models.requests.DataRequest
+import models.sections.financialRisk.HowWorkerIsPaid
 import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
-import org.mockito.Matchers
-import org.mockito.Mockito.when
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, HowWorkerIsPaidPage, PutRightAtOwnCostPage}
-import pages.sections.personalService.DidPaySubstitutePage
+import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.financialRisk.HowWorkerIsPaidView
 import views.html.subOptimised.sections.financialRisk.{HowWorkerIsPaidView => SubOptimisedHowWorkerIsPaidView}
-
-import scala.concurrent.Future
 class HowWorkerIsPaidControllerSpec extends ControllerSpecBase {
 
   val formProvider = new HowWorkerIsPaidFormProvider()

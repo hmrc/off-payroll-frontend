@@ -19,7 +19,7 @@ package controllers.sections.setup
 import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.ContractStartedFormProvider
+import forms.sections.setup.ContractStartedFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeSetupNavigator

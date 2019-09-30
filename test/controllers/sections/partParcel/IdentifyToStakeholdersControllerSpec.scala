@@ -16,33 +16,24 @@
 
 package controllers.sections.partParcel
 
-import akka.util.ByteString
 import config.featureSwitch.OptimisedFlow
-import connectors.mocks.MockDataCacheConnector
-import controllers.actions._
 import controllers.ControllerSpecBase
-import forms.IdentifyToStakeholdersFormProvider
+import controllers.actions._
+import forms.sections.partAndParcel.IdentifyToStakeholdersFormProvider
 import models.Answers._
-import models.IdentifyToStakeholders.WorkForEndClient
 import models._
 import models.requests.DataRequest
+import models.sections.partAndParcel.IdentifyToStakeholders
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
 import navigation.mocks.FakeNavigators.FakePartAndParcelNavigator
-import org.mockito.Matchers
-import org.mockito.Mockito.when
-import pages.sections.partParcel.{IdentifyToStakeholdersPage, InteractWithStakeholdersPage}
-import pages.sections.personalService.WouldWorkerPaySubstitutePage
+import pages.sections.partParcel.IdentifyToStakeholdersPage
 import play.api.data.Form
-import play.api.http.HttpEntity
 import play.api.libs.json.Json
-import play.api.mvc.{Call, ResponseHeader, Result}
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.partParcel.IdentifyToStakeholdersView
 import views.html.subOptimised.sections.partParcel.{IdentifyToStakeholdersView => SubOptimisedIdentifyToStakeholdersView}
-
-import scala.concurrent.Future
 
 class IdentifyToStakeholdersControllerSpec extends ControllerSpecBase {
 

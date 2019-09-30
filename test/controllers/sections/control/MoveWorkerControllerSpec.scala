@@ -20,19 +20,19 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.mocks.MockDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.MoveWorkerFormProvider
+import forms.sections.control.MoveWorkerFormProvider
 import models.Answers._
 import models.requests.DataRequest
-import models.{Answers, MoveWorker, NormalMode, ScheduleOfWorkingHours}
+import models.sections.control.MoveWorker
+import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeControlNavigator
-import pages.sections.control.{MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages.sections.control.MoveWorkerPage
 import play.api.data.Form
 import play.api.libs.json._
-import play.api.mvc.Call
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 import views.html.sections.control.MoveWorkerView
+import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConnector with FeatureSwitching {
 

@@ -19,7 +19,8 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.OptionFieldBehaviours
-import models.HowWorkIsDone
+import forms.sections.control.HowWorkIsDoneFormProvider
+import models.sections.control.HowWorkIsDone
 import play.api.data.FormError
 
 class HowWorkIsDoneFormProviderSpec extends OptionFieldBehaviours with GuiceAppSpecBase {

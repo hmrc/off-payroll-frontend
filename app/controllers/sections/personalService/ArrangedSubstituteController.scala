@@ -21,9 +21,10 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.ArrangedSubstituteFormProvider
+import forms.sections.personalService.ArrangedSubstituteFormProvider
 import javax.inject.Inject
-import models.{ArrangedSubstitute, Mode}
+import models.Mode
+import models.sections.personalService.ArrangedSubstitute
 import navigation.PersonalServiceNavigator
 import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.data.Form

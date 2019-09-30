@@ -16,23 +16,19 @@
 
 package controllers.sections.financialRisk
 
-import connectors.mocks.MockDataCacheConnector
-import controllers.actions._
 import controllers.ControllerSpecBase
-import forms.CannotClaimAsExpenseFormProvider
+import controllers.actions._
+import forms.sections.financialRisk.CannotClaimAsExpenseFormProvider
 import models.Answers._
-import models.CannotClaimAsExpense.WorkerProvidedMaterials
-import models.PutRightAtOwnCost.OutsideOfHoursNoCharge
 import models._
 import models.requests.DataRequest
+import models.sections.financialRisk.CannotClaimAsExpense
+import models.sections.financialRisk.CannotClaimAsExpense.WorkerProvidedMaterials
 import navigation.mocks.FakeNavigators.FakeFinancialRiskNavigator
-import pages.sections.financialRisk.{CannotClaimAsExpensePage, PutRightAtOwnCostPage}
+import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.data.Form
 import play.api.libs.json.Json
-import play.api.mvc.Call
 import play.api.test.Helpers._
-import services.mocks.MockCompareAnswerService
-import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 

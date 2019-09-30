@@ -17,14 +17,11 @@
 package views.sections.setup
 
 import assets.messages.ToolNotNeededMessages
-import config.SessionKeys
-import models.UserType.Worker
-import models.{NormalMode, WhichDescribesYouAnswer}
-import models.WhichDescribesYouAnswer.{ClientIR35, ClientPAYE}
-import play.api.libs.json.Json
+import models.sections.setup.WhichDescribesYouAnswer
+import models.sections.setup.WhichDescribesYouAnswer.{ClientIR35, ClientPAYE}
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
 import views.html.sections.setup.ToolNotNeededView
-import play.api.mvc.Request
 
 class ToolNotNeededViewSpec extends ViewBehaviours {
 

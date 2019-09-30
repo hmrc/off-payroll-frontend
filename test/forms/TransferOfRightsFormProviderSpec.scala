@@ -19,6 +19,7 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
+import forms.sections.businessOnOwnAccount.TransferOfRightsFormProvider
 import play.api.data.FormError
 
 class TransferOfRightsFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {

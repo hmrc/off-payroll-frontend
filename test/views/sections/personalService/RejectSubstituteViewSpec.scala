@@ -20,7 +20,7 @@ import assets.messages.{RejectSubstituteMessages, SubHeadingMessages}
 import config.SessionKeys
 import config.featureSwitch.OptimisedFlow
 import controllers.sections.personalService.routes
-import forms.RejectSubstituteFormProvider
+import forms.sections.personalService.RejectSubstituteFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

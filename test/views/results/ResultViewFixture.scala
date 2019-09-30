@@ -19,9 +19,9 @@ package views.results
 import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results.{AdditionalPDFMessages, DecisionVersionMessages, InDecisionMessages, UserAnswersMessages}
 import config.featureSwitch.OptimisedFlow
-import models.AboutYouAnswer.Worker
+import models.sections.setup.AboutYouAnswer.Worker
 import models.{AdditionalPdfDetails, PDFResultDetails, Section}
-import models.CannotClaimAsExpense.WorkerUsedVehicle
+import models.sections.financialRisk.CannotClaimAsExpense.WorkerUsedVehicle
 import org.jsoup.nodes.Document
 import play.api.i18n.Messages
 import play.api.mvc.Call

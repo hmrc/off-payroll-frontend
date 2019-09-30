@@ -21,10 +21,11 @@ import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
-import forms.PutRightAtOwnCostFormProvider
+import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
 import javax.inject.Inject
+import models.Mode
 import models.requests.DataRequest
-import models.{Mode, PutRightAtOwnCost}
+import models.sections.financialRisk.PutRightAtOwnCost
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.data.Form

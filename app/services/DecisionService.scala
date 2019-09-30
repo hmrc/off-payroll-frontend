@@ -24,20 +24,17 @@ import forms.DeclarationFormProvider
 import handlers.ErrorHandler
 import javax.inject.{Inject, Singleton}
 import models.Answers._
-import models.ArrangedSubstitute.No
-import models.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
+import models.sections.personalService.ArrangedSubstitute.No
+import models.sections.setup.WorkerType.SoleTrader
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.personalService.ArrangedSubstitutePage
-import pages.sections.setup.WorkerUsingIntermediaryPage
-import pages.sections.setup.{ContractStartedPage, WorkerTypePage}
-import play.api.Logger
+import pages.sections.setup.{ContractStartedPage, WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Results._
 import play.api.mvc.{Call, Request, Result}
-import play.mvc.Http.Status._
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.http.HeaderCarrier
 import viewmodels.AnswerSection
@@ -101,17 +98,17 @@ class DecisionServiceImpl @Inject()(decisionConnector: DecisionConnector,
 
   private def earlyExitRedirect(decisionResponse: DecisionResponse)
                                (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_])  = decisionResponse match {
-    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED) => redirectResultsPage(ResultEnum.EMPLOYED)
-    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35) => redirectResultsPage(ResultEnum.INSIDE_IR35)
+    case DecisionResponse(_, _, _, ResultEnum.EMPLOYED, _) => redirectResultsPage(ResultEnum.EMPLOYED)
+    case DecisionResponse(_, _, _, ResultEnum.INSIDE_IR35, _) => redirectResultsPage(ResultEnum.INSIDE_IR35)
     case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
   }
 
   private def finalResultRedirect(decisionResponse: DecisionResponse,continueResult: Call)
                                  (implicit hc: HeaderCarrier, ec: ExecutionContext, rh: Request[_]) = {
     decisionResponse match {
-      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED) => Redirect(continueResult)
-      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
-      case DecisionResponse(_, _, _, result) => redirectResultsPage(result)
+      case DecisionResponse(_, _, _, ResultEnum.NOT_MATCHED, _) => Redirect(continueResult)
+      case DecisionResponse(_, _, score, ResultEnum.OUTSIDE_IR35, _) => redirectResultsPage(ResultEnum.OUTSIDE_IR35, score.control, score.financialRisk)
+      case DecisionResponse(_, _, _, result, _) => redirectResultsPage(result)
       case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
     }
   }

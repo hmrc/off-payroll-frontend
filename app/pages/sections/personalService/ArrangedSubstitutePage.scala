@@ -16,7 +16,7 @@
 
 package pages.sections.personalService
 
-import models.ArrangedSubstitute
+import models.sections.personalService.ArrangedSubstitute
 import pages.QuestionPage
 
 case object ArrangedSubstitutePage extends QuestionPage[ArrangedSubstitute] {

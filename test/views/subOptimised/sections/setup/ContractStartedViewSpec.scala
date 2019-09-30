@@ -19,7 +19,7 @@ package views.subOptimised.sections.setup
 import assets.messages.{ContractStartedMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.setup.routes
-import forms.ContractStartedFormProvider
+import forms.sections.setup.ContractStartedFormProvider
 import models.NormalMode
 import models.UserType._
 import play.api.data.Form

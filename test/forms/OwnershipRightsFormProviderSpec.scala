@@ -17,6 +17,7 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
+import forms.sections.businessOnOwnAccount.OwnershipRightsFormProvider
 import play.api.data.FormError
 
 class OwnershipRightsFormProviderSpec extends BooleanFieldBehaviours {

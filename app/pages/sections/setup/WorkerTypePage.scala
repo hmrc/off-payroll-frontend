@@ -16,7 +16,7 @@
 
 package pages.sections.setup
 
-import models.WorkerType
+import models.sections.setup.WorkerType
 import pages.QuestionPage
 
 case object WorkerTypePage extends QuestionPage[WorkerType] {

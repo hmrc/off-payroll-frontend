@@ -16,30 +16,26 @@
 
 package services
 
-import base.{GuiceAppSpecBase, SpecBase}
-import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
-import models.ChooseWhereWork.{WorkerCannotChoose, WorkerChooses}
-import models.HowWorkIsDone.NoWorkerInputAllowed
-import models.HowWorkerIsPaid.{HourlyDailyOrWeekly, PieceRate}
-import models.IdentifyToStakeholders.WorkForEndClient
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.{AsPartOfUsualRateInWorkingHours, OutsideOfHoursNoCosts}
-import models.ScheduleOfWorkingHours.{ScheduleDecidedForWorker, WorkerDecideSchedule}
-import models.WhatDoYouWantToDo.MakeNewDetermination
-import models.WhichDescribesYouAnswer.WorkerPAYE
-import models.WhoAreYou.{Client, Worker}
+import base.GuiceAppSpecBase
 import models._
-import models.requests.DataRequest
+import models.sections.control.ChooseWhereWork.WorkerCannotChoose
+import models.sections.control.HowWorkIsDone.NoWorkerInputAllowed
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.control.ScheduleOfWorkingHours.WorkerDecideSchedule
+import models.sections.financialRisk.HowWorkerIsPaid.PieceRate
+import models.sections.financialRisk.PutRightAtOwnCost.AsPartOfUsualRateInWorkingHours
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkForEndClient
+import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhoAreYou.{Client, Worker}
+import models.sections.setup.{WhatDoYouWantToFindOut, WhoAreYou}
+import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
-import pages._
-import pages.sections.businessOnOwnAccount.{ExtendContractPage, FinanciallyDependentPage, FirstContractPage, OwnershipRightsPage}
-import utils.{CheckYourAnswersHelper, ResultPageHelper}
-import viewmodels.AnswerSection
 
 //noinspection ScalaStyle
 class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
@@ -485,7 +481,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
             }
           }
 
-          "Permission to Work is missing when MultipleContracts is true" in {
+          "Permission to Work is missing when MultipleContracts is false" in {
 
             lazy val userAnswers: UserAnswers = UserAnswers("id")
               //Setup Section
@@ -513,7 +509,7 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
               .set(HowWorkerIsPaidPage, PieceRate)
               .set(PutRightAtOwnCostPage, AsPartOfUsualRateInWorkingHours)
               //Business On Own Account
-              .set(MultipleContractsPage, true)
+              .set(MultipleContractsPage, false)
 
 
             lazy val result = CheckYourAnswersService.isValid(userAnswers)

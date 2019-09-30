@@ -17,7 +17,8 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
-import models.WorkerType
+import forms.sections.setup.WorkerTypeFormProvider
+import models.sections.setup.WorkerType
 import play.api.data.FormError
 
 class WorkerTypeFormProviderSpec extends OptionFieldBehaviours {

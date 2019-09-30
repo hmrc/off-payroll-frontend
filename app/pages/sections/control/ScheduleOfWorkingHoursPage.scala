@@ -16,7 +16,7 @@
 
 package pages.sections.control
 
-import models.ScheduleOfWorkingHours
+import models.sections.control.ScheduleOfWorkingHours
 import pages.QuestionPage
 
 case object ScheduleOfWorkingHoursPage extends QuestionPage[ScheduleOfWorkingHours] {

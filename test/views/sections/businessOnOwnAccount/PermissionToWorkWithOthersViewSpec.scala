@@ -18,7 +18,7 @@ package views.sections.businessOnOwnAccount
 
 import assets.messages.PermissionToWorkWithOthersMessages
 import controllers.sections.businessOnOwnAccount.routes
-import forms.PermissionToWorkWithOthersFormProvider
+import forms.sections.businessOnOwnAccount.PermissionToWorkWithOthersFormProvider
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request

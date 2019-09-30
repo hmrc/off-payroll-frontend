@@ -22,8 +22,8 @@ import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import javax.inject.Inject
-import models.WhichDescribesYouAnswer
-import models.WhichDescribesYouAnswer.ClientPAYE
+import models.sections.setup.WhichDescribesYouAnswer
+import models.sections.setup.WhichDescribesYouAnswer.ClientPAYE
 import navigation.SetupNavigator
 import pages.sections.setup.WhichDescribesYouPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}

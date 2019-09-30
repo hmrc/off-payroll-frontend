@@ -1958,7 +1958,7 @@ worker.financiallyDependent.subheading = Worker’s contracts
 worker.financiallyDependent.title = Will this contract provide you with the majority of your income?
 worker.financiallyDependent.heading = Will this contract provide you with the majority of your income?
 worker.financiallyDependent.checkYourAnswersLabel = Will this contract provide you with the majority of your income?
-worker.financiallyDependent.p1 = Regular income is earnings of a similar amount, paid with the same frequency and on an ongoing basis.
+worker.financiallyDependent.p1 = This is about comparing income from this work with the total income from any other work, over the same period.
 
 hirer.financiallyDependent.error.required = Select yes if this contract will provide the worker with the majority of their income
 hirer.financiallyDependent.subheading = Worker’s contracts
@@ -1980,15 +1980,15 @@ hirer.workerKnown.p2 = You will still get a result if you do not know who the wo
 
 ### SimilarWorkOtherClients Page - BoOA
 ### -----------------------------------
-worker.similarWorkOtherClients.error.required = Select yes if you have done similar work for other engagers in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done similar work for other engagers in the last 12 months
+worker.similarWorkOtherClients.error.required = Select yes if you have done similar work for other clients in the last 12 months
+agency.similarWorkOtherClients.error.required = Select yes if you have done similar work for other clients in the last 12 months
 worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?
 worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Worker’s contracts
 worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?
 worker.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
 
-hirer.similarWorkOtherClients.error.required = Select yes if the worker has done similar work for other engagers in the last 12 months
+hirer.similarWorkOtherClients.error.required = Select yes if the worker has done similar work for other clients in the last 12 months
 hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?
 hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?
 hirer.similarWorkOtherClients.subheading = Worker’s contracts

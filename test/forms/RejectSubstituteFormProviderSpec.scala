@@ -19,6 +19,7 @@ package forms
 import base.GuiceAppSpecBase
 import config.featureSwitch.OptimisedFlow
 import forms.behaviours.BooleanFieldBehaviours
+import forms.sections.personalService.RejectSubstituteFormProvider
 import play.api.data.FormError
 
 class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with GuiceAppSpecBase {

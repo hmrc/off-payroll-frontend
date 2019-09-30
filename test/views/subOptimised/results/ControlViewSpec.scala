@@ -18,7 +18,7 @@ package views.subOptimised.results
 
 import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.AboutYouAnswer.Worker
+import models.sections.setup.AboutYouAnswer.Worker
 import models.UserAnswers
 import models.requests.DataRequest
 import pages.ResultPage

@@ -70,7 +70,7 @@ object Score {
   implicit val formats: OFormat[Score] = Json.format[Score]
 }
 
-case class DecisionResponse(version: String, correlationID: String, score: Score, result: ResultEnum.Value)
+case class DecisionResponse(version: String, correlationID: String, score: Score, result: ResultEnum.Value, resultWithoutBooa: Option[ResultEnum.Value] = None)
 
 object DecisionResponse {
   implicit val formats: OFormat[DecisionResponse] = Json.format[DecisionResponse]

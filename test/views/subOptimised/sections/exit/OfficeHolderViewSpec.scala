@@ -19,7 +19,7 @@ package views.subOptimised.sections.exit
 import assets.messages.{OfficeHolderMessages, SubHeadingMessages}
 import config.SessionKeys
 import controllers.sections.exit.routes
-import forms.OfficeHolderFormProvider
+import forms.sections.exit.OfficeHolderFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
 import play.api.data.Form

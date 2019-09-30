@@ -21,7 +21,7 @@ import config.featureSwitch.OptimisedFlow
 import controllers.routes
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
-import models.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
+import models.sections.personalService.ArrangedSubstitute.{No, YesClientAgreed, YesClientNotAgreed}
 import models._
 import pages._
 import pages.sections.personalService.{ArrangedSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, WouldWorkerPaySubstitutePage}

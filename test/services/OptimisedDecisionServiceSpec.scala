@@ -14,43 +14,27 @@
  * limitations under the License.
  */
 
-/*
- * Copyright 2019 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package services
 
 import base.{GuiceAppSpecBase, SpecBase}
 import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
-import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
+import connectors.mocks.{MockAuditConnector, MockDataCacheConnector, MockDecisionConnector}
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.mocks.MockErrorHandler
-import models.ArrangedSubstitute.YesClientAgreed
-import models.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
-import models.ChooseWhereWork.WorkerAgreeWithOthers
-import models.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
-import models.HowWorkerIsPaid.Commission
-import models.IdentifyToStakeholders.WorkAsIndependent
-import models.MoveWorker.CanMoveWorkerWithPermission
-import models.PutRightAtOwnCost.CannotBeCorrected
-import models.ScheduleOfWorkingHours.WorkerAgreeSchedule
-import models.WhatDoYouWantToDo.MakeNewDetermination
-import models.WhatDoYouWantToFindOut.{IR35, PAYE}
-import models.WhichDescribesYouAnswer._
-import models.WorkerType.SoleTrader
+import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
+import models.sections.financialRisk.CannotClaimAsExpense.{WorkerHadOtherExpenses, WorkerUsedVehicle}
+import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
+import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
+import models.sections.financialRisk.HowWorkerIsPaid.Commission
+import models.sections.partAndParcel.IdentifyToStakeholders.WorkAsIndependent
+import models.sections.control.MoveWorker.CanMoveWorkerWithPermission
+import models.sections.financialRisk.PutRightAtOwnCost.CannotBeCorrected
+import models.sections.control.ScheduleOfWorkingHours.WorkerAgreeSchedule
+import models.sections.setup.WhatDoYouWantToDo.MakeNewDetermination
+import models.sections.setup.WhatDoYouWantToFindOut.{IR35, PAYE}
+import models.sections.setup.WhichDescribesYouAnswer._
+import models.sections.setup.WorkerType.SoleTrader
 import models._
 import models.requests.DataRequest
 import org.scalatest.concurrent.ScalaFutures
@@ -73,7 +57,7 @@ import views.html.results.undetermined.{AgentUndeterminedView, IR35UndeterminedV
 import views.results.ResultViewFixture
 
 class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionConnector
-  with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures with ResultViewFixture {
+  with MockDataCacheConnector with MockErrorHandler with FeatureSwitching with ScalaFutures with ResultViewFixture with MockAuditConnector {
 
   val formProvider = new DownloadPDFCopyFormProvider()
   val form = formProvider()
@@ -107,6 +91,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
     AgentOutsideView,
     IR35OutsideView,
     PAYEOutsideView,
+    mockAuditConnector,
     frontendAppConfig
   )
 
@@ -141,6 +126,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
         mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+
 
         whenReady(service.decide) { res =>
           res.right.get.result mustBe ResultEnum.INSIDE_IR35
@@ -243,9 +229,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, true)
 
+              val decisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
+
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = OfficeHolderAgentView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -264,9 +253,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(OfficeHolderPage, 3, true)
                 .set(WhatDoYouWantToDoPage, answerNumber = 4, MakeNewDetermination)
 
+              val decisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
+
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = OfficeHolderIR35View(form, isMakingDetermination = true)
 
@@ -284,9 +276,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, true)
 
+              val decisionResponse = DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)
+
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(exit = Some(ExitEnum.INSIDE_IR35)), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = OfficeHolderPAYEView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -307,9 +302,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, false)
 
+              val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
+
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = AgentInsideView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -330,9 +328,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                   .set(WorkerKnownPage,1,true)
                   .set(OfficeHolderPage, 3, false)
 
+                val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
+
                 implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-                mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+                mockDecide(Interview(userAnswers))(Right(decisionResponse))
+                mockAuditEvent(Audit(userAnswers, decisionResponse))
 
                 val expected: Html = IR35InsideView(form, isMake = false, workerKnown = true)
 
@@ -351,9 +352,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                   .set(WorkerKnownPage,1,false)
                   .set(OfficeHolderPage, 3, false)
 
+                val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
+
                 implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-                mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+                mockDecide(Interview(userAnswers))(Right(decisionResponse))
+                mockAuditEvent(Audit(userAnswers, decisionResponse))
 
                 val expected: Html = IR35InsideView(form, isMake = false, workerKnown = false)
 
@@ -372,9 +376,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, PAYE)
                 .set(OfficeHolderPage, 3, false)
 
+              val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)
+
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.EMPLOYED)))
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = PAYEInsideView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -395,9 +402,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             val userAnswers: UserAnswers = UserAnswers("id")
               .set(WhatDoYouWantToFindOutPage, 2, PAYE)
 
+            val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
             implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+            mockDecide(Interview(userAnswers))(Right(decisionResponse))
+            mockAuditEvent(Audit(userAnswers, decisionResponse))
 
             val expected: Html = AgentUndeterminedView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -417,9 +427,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, IR35)
                 .set(WorkerKnownPage,1,true)
 
+              val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = IR35UndeterminedView(form, workerKnown = true)
 
@@ -437,9 +450,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, IR35)
                 .set(WorkerKnownPage,1,false)
 
+              val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = IR35UndeterminedView(form, workerKnown = false)
 
@@ -457,9 +473,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             val userAnswers: UserAnswers = UserAnswers("id")
               .set(WhatDoYouWantToFindOutPage, 2, PAYE)
 
+            val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)
+
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.UNKNOWN)))
+            mockDecide(Interview(userAnswers))(Right(decisionResponse))
+            mockAuditEvent(Audit(userAnswers, decisionResponse))
 
             val expected: Html = PAYEUndeterminedView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -478,15 +497,18 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             val userAnswers: UserAnswers = UserAnswers("id")
 
-            implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
-
-
-            mockDecide(Interview(userAnswers), Interview.writes)(Right(DecisionResponse("", "", Score(
+            val decisionResponse = DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-            ), ResultEnum.OUTSIDE_IR35)))
+            ), ResultEnum.OUTSIDE_IR35)
+
+            implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
+
+
+            mockDecide(Interview(userAnswers), Interview.writes)(Right(decisionResponse))
+            mockAuditEvent(Audit(userAnswers, decisionResponse))
 
             val expected: Html = AgentOutsideView(
               form = form,
@@ -512,14 +534,17 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, IR35)
                 .set(WorkerKnownPage,1, true)
 
-              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
-
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
+              val decisionResponse = DecisionResponse("", "", Score(
                 personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
                 control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
                 financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
                 businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-              ), ResultEnum.OUTSIDE_IR35)))
+              ), ResultEnum.OUTSIDE_IR35)
+
+              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = IR35OutsideView(
                 form = form,
@@ -545,14 +570,17 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 .set(WhatDoYouWantToFindOutPage, 2, IR35)
                 .set(WorkerKnownPage,1, false)
 
-              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
-
-              mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
+              val decisionResponse = DecisionResponse("", "", Score(
                 personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
                 control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
                 financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
                 businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-              ), ResultEnum.OUTSIDE_IR35)))
+              ), ResultEnum.OUTSIDE_IR35)
+
+              implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+
+              mockDecide(Interview(userAnswers))(Right(decisionResponse))
+              mockAuditEvent(Audit(userAnswers, decisionResponse))
 
               val expected: Html = IR35OutsideView(
                 form = form,
@@ -578,14 +606,17 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
             val userAnswers: UserAnswers = UserAnswers("id")
               .set(WhatDoYouWantToFindOutPage, 2, PAYE)
 
-            implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
-
-            mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(
+            val decisionResponse = DecisionResponse("", "", Score(
               personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
               businessOnOwnAccount = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-            ), ResultEnum.OUTSIDE_IR35)))
+            ), ResultEnum.OUTSIDE_IR35)
+
+            implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
+
+            mockDecide(Interview(userAnswers))(Right(decisionResponse))
+            mockAuditEvent(Audit(userAnswers, decisionResponse))
 
             val expected: Html = PAYEOutsideView(
               form = form,
@@ -608,10 +639,12 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
         "render the ErrorPage" in {
 
           val userAnswers: UserAnswers = UserAnswers("id")
+          val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)
 
           implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-          mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.NOT_MATCHED)))
+          mockDecide(Interview(userAnswers))(Right(decisionResponse))
+          mockAuditEvent(Audit(userAnswers, decisionResponse))
           mockInternalServerError(Html("Err"))
 
           await(service.determineResultView(Some(form))) mustBe Left(Html("Err"))

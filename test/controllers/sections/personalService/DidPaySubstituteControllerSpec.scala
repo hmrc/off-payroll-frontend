@@ -19,7 +19,7 @@ package controllers.sections.personalService
 import config.featureSwitch.OptimisedFlow
 import controllers.ControllerSpecBase
 import controllers.actions._
-import forms.DidPaySubstituteFormProvider
+import forms.sections.personalService.DidPaySubstituteFormProvider
 import models.requests.DataRequest
 import models.{Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakePersonalServiceNavigator
