@@ -1,0 +1,60 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(additionalPdfDetails: AdditionalPdfDetails)(implicit messages: Messages)
+
+<h2>@messages("site.letter.forYourRecords")</h2>
+
+<div class="grid-row letter" id="pdfDetails">
+
+    <div class="column-one-half form-group">
+
+        @additionalPdfDetails.completedBy.map { name =>
+            <p>
+                <strong class="bold">@messages("result.pdf.customisedBy")</strong>
+                <br>
+                @name
+            </p>
+        }
+
+        @additionalPdfDetails.client.map { client =>
+            <p>
+                <strong class="bold">@messages("result.pdf.client")</strong>
+                <br>
+                @client
+            </p>
+        }
+
+        @additionalPdfDetails.job.map { job =>
+            <p>
+                <strong class="bold">@messages("result.pdf.job")</strong>
+                <br>
+                @job
+            </p>
+        }
+    </div>
+
+    <div class="column-one-half form-group">
+        @additionalPdfDetails.reference.map { reference =>
+            <p>
+                <strong class="bold-small">@messages("result.pdf.reference")</strong>
+                <br>
+                @reference
+            </p>
+        }
+    </div>
+</div>
+

@@ -73,6 +73,21 @@ site.telephone.number = 0300 123 2326
 site.email = Email:
 site.opensInNewWindow = (yn agor mewn ffenestr newydd)
 
+## TODO: Need Welsh
+site.letter.h1 = Your determination and answers
+site.letter.forYourRecords = For your records
+site.letter.print = Print this document
+site.letter.pdf = Save as a PDF
+site.letter.copyOf.onceYouHave = Once you have a copy of your result you can
+site.letter.copyOf.exit = exit
+site.letter.copyOf.or = , or
+site.letter.copyOf.startAgain = start again
+site.letter.copyOf.otherWork = to check the employment status of some other work.
+site.letter.aboutThisResult = About this result
+site.letter.dateOfResult = Date of result:
+site.letter.version = Decision service version:
+site.letter.version.disclaimer = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+
 ## TODO NEED WELSH
 site.accordion.openAll = Open all
 site.accordion.closeAll = Close all

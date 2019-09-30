@@ -19,6 +19,7 @@
 @import views.ViewUtils._
 @import models.requests.DataRequest
 @import models.UserType.Hirer
+@import results.sections.letter._
 @import results.sections._
 
 @import controllers.routes._
@@ -28,44 +29,14 @@
 @(form: Form[_], isMakingDetermination: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
-    if(pdfResultDetails.printMode) {
-        printTemplate(title(form, tailorMsgOptimised("result.officeHolder.ir35.title")), appConfig = appConfig)(_)
-    } else {
-        mainTemplate(title(form, tailorMsgOptimised("result.officeHolder.ir35.title")), appConfig = appConfig)(_)
-    }
+    mainTemplate(title(form, tailorMsgOptimised("result.officeHolder.ir35.title")), appConfig = appConfig, articleLayout = false)(_)
 ){ template =>
 
     @template {
 
-        @components.error_summary(form.errors)
+        @print_and_save_result()
 
-        @pdfResultDetails.additionalPdfDetails.map { details =>
-            @pdf.additional_details(details, pdfResultDetails.timestamp)
-        }
-
-        @components.teal_result(
-            Html(messages(tailorMsgOptimised("result.officeHolder.ir35.heading"))),
-            "result.inside"
-        )
-
-        @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
-
-            @results.sections.why_result(whyResult)
-
-            @results.sections.do_next(doNext)
-
-            @if(pdfResultDetails.printMode) {
-
-                @pdf.answers(pdfResultDetails.answerSections)
-
-                @pdf.decision_version(appConfig.decisionVersion)
-
-            } else {
-
-                @results.sections.download(form)
-                @components.submit_button("site.continue")
-            }
-        }
+        @letter_layout(tailorMsgOptimised("result.officeHolder.ir35.title"), whyResult, doNext, pdfResultDetails.answerSections)
     }
 }
 
