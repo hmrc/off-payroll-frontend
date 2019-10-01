@@ -79,16 +79,15 @@ class TransferOfRightsControllerISpec extends IntegrationSpecBase {
       }
     }
 
-    //TODO - reinstate once navigation is in
-//    "Return a 200 on Successful post and move onto next page" in {
-//
-//      lazy val res = postSessionRequest("/client-buys-rights/change", selectedNo)
-//
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should include ("Disclaimer")
-//      }
-//
-//    }
+    "Return a 200 on Successful post and move onto next page" in {
+
+      lazy val res = postSessionRequest("/client-buys-rights/change", selectedNo)
+
+      whenReady(res) { result =>
+        result.status shouldBe OK
+        result.body should include ("Have you had a previous contract with this client?")
+      }
+
+    }
   }
 }

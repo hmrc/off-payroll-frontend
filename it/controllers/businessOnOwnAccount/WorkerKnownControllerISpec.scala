@@ -80,13 +80,13 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
       }
     }
 
-//    "Return a 409 on Successful post as answers not complete" in {
-//
-//      lazy val res = postSessionRequest("/worker-known/change", selectedNo, followRedirect = false)
-//
-//      whenReady(res) { result =>
-//        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/need-permission/change")
-//      }
-//    }
+    "Return a 409 on Successful post as answers not complete" in {
+
+      lazy val res = postSessionRequest("/worker-known/change", selectedNo, followRedirect = false)
+
+      whenReady(res) { result =>
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers?sectionToExpand=businessOnOwnAccount")
+      }
+    }
   }
 }

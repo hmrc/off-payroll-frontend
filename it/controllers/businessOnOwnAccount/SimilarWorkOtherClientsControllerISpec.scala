@@ -37,15 +37,14 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
       }
     }
 
-//    "Return a 200 on Successful post and move onto next page" in {
-//
-//      lazy val res = postSessionRequest("/similar-work", selectedNo, followRedirect = false)
-//
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should include ("Are you required to ask permission to work for other clients?")
-//      }
-//    }
+    "Return a 200 on Successful post and move onto next page" in {
+
+      lazy val res = postSessionRequest("/similar-work", selectedNo, followRedirect = false)
+
+      whenReady(res) { result =>
+          redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers")
+      }
+    }
   }
 
   s"Post or Get to /similar-work/change" should {
@@ -80,13 +79,13 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
       }
     }
 
-//    "Return a 409 on Successful post as answers not complete" in {
-//
-//      lazy val res = postSessionRequest("/similar-work/change", selectedNo, followRedirect = true)
-//
-//      whenReady(res) { result =>
-//        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/need-permission/change")
-//      }
-//    }
+    "Return a 409 on Successful post as answers not complete" in {
+
+      lazy val res = postSessionRequest("/similar-work/change", selectedNo, followRedirect = false)
+
+      whenReady(res) { result =>
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers?sectionToExpand=businessOnOwnAccount")
+      }
+    }
   }
 }
