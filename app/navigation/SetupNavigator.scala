@@ -16,12 +16,13 @@
 
 package navigation
 
+import javax.inject.{Inject, Singleton}
+
 import config.FrontendAppConfig
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.routes._
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
-import javax.inject.{Inject, Singleton}
 import models._
 import models.sections.setup.{WhatDoYouWantToDo, WhatDoYouWantToFindOut, WhoAreYou}
 import pages._
