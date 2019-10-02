@@ -63,6 +63,7 @@ site.finish = Finish
 site.exit = Exit
 site.confirm_continue =Cadarnhau a pharhau
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
+site.service_name.camel = Gwirio Statws Cyflogaeth ar Gyfer Treth
 site.home = Hafan
 site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
@@ -87,6 +88,7 @@ site.letter.aboutThisResult = About this result
 site.letter.dateOfResult = Date of result:
 site.letter.version = Decision service version:
 site.letter.version.disclaimer = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+site.letter.footer.page = Page {0} of {1}
 
 ## TODO NEED WELSH
 site.accordion.openAll = Open all

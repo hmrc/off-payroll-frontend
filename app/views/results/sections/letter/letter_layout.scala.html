@@ -14,16 +14,15 @@
  * limitations under the License.
  *@
 
-@import viewmodels.AnswerSection
-@import views.html.results.sections.pdf
+@import viewmodels._
 @import config.FrontendAppConfig
 
-@(resultMsgKey: String, whyResult: Html, doNext: Html, userAnswers: Seq[AnswerSection])(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(resultMsgKey: String, whyResult: Html, doNext: Html, userAnswers: LetterAnswerSections)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 <div class="grid-row">
     <div class="column-full">
 
-        <div class="print-document">
+        <div class="print-document page">
             <table>
 
                 @letter_header()
@@ -37,7 +36,7 @@
                                     @letter_additional_details(details)
                                 }
 
-                                @print_result(resultMsgKey)
+                                @letter_result(resultMsgKey)
 
                                 <div class="grid-row letter form-group">
                                     <div class="column-two-thirds form-group">
@@ -57,17 +56,16 @@
                                     }
 
                                 </div>
-
-                                <div class="grid-row letter">
-                                    <div class="column-full">
-                                        @pdf.answers(userAnswers)
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </td></tr></tbody>
+                <tfoot><tr><td>
+                    <p>Page 1 of @userAnswers.numberOfPages</p>
+                </td></tr></tfoot>
             </table>
         </div>
+
+        @letter_answer_pages(userAnswers)
     </div>
 </div>

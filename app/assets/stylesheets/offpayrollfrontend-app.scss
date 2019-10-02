@@ -1,20 +1,19 @@
 @import 'partials/_typography';
 @import 'partials/_accordion';
 
-@page {
-    size: A4 portrait;
-    margin: 0;
-}
-
 .print-document {
 
     border: 1px solid #6f777b;
     box-shadow: 6px 6px 0 0 #dee0e2;
     padding: 25px 50px;
-    width: 75%;
+    width: 210mm;
+    height: 297mm;
+    position: relative;
 
     table td {
         border: none;
+        padding: 0;
+        margin: 0;
     }
 
     h2, h3, h4 {
@@ -22,7 +21,10 @@
     }
 
     .print-header {
-        margin-bottom: 15px;
+
+        width: 210mm;
+        position: absolute;
+        top: 10mm;
 
         .column-one-third {
             border-left: #28A197 solid;
@@ -45,15 +47,9 @@
         }
     }
 
-    .print-footer {
-      position: fixed;
-      bottom: 0;
-      padding: 1em;
-    }
-
     .print-header, .header-space,
     .print-footer, .footer-space {
-      height: 150px;
+      height: 45mm;
     }
 }
 
@@ -61,7 +57,7 @@
     border: 2px solid #28a197;
     display: block;
     margin-bottom: 1em;
-    padding: 10px 20px;
+    padding: 5mm;
     width: 100%;
     background-color: #e1f3f1;
     text-align: center;
@@ -104,10 +100,6 @@
     .print-document {
         zoom: 75%;
     }
-    .print-header, .header-space,
-    .print-footer, .footer-space {
-      height: 100px;
-    }
     .column-one-half {
         width: 50%;
         float: left;
@@ -135,13 +127,47 @@
 
 @media print {
 
+    .column-one-half {
+        width: 50%;
+        float: left;
+    }
+    .column-one-third {
+        width: 33%;
+        float: left;
+    }
+    .column-two-thirds {
+        width: 66%;
+        float: left;
+    }
+
+    @page {
+        height: 297mm;
+        width: 210mm;
+    }
+
+    body {
+        width: auto;
+        height: auto;
+        margin: 0;
+   }
+   .print-document {
+           margin: 0;
+           border: none;
+           width: 210mm;
+           height: 297mm;
+           padding: 10mm;
+           box-shadow: none;
+      }
+
     #print-and-save-result {
         display: none;
     }
 
     .print-header {
         position: fixed;
-        top: 10;
+        top: 0;
+        margin-top: 10mm;
+        width: 210mm;
     }
 
     .centered-content {
@@ -160,23 +186,18 @@
         display: none;
     }
 
-    .print-document {
-        border: none;
-        box-shadow: none;
-        padding: 1em;
-        width: 95%;
-    }
-
     .report-error {
         display: none;
     }
 }
 
-thead {
-    display: table-header-group;
-}
 tfoot {
-    display: table-header-group;
+    position: absolute;
+    bottom: 10mm;
+}
+
+.page {
+    margin-bottom: 10mm;
 }
 
 #answer ul {
