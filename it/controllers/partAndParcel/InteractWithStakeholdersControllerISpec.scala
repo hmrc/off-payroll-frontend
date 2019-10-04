@@ -1,6 +1,5 @@
 package controllers.partAndParcel
 
-import config.featureSwitch.BusinessOnOwnAccountJourney
 import helpers.IntegrationSpecBase
 
 class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase {
@@ -34,16 +33,6 @@ class InteractWithStakeholdersControllerISpec extends IntegrationSpecBase {
         result.status shouldBe BAD_REQUEST
         result.body should include ("Do you interact with the end client’s customers, clients, audience or users?")
 
-      }
-    }
-
-    "Return a 409 on Successful post as no other answers recorded" in {
-
-      disable(BusinessOnOwnAccountJourney)
-      lazy val res = postSessionRequest("/external-interaction", selectedNo)
-
-      whenReady(res) { result =>
-        result.status shouldBe CONFLICT
       }
     }
   }

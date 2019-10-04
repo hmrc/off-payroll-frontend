@@ -23,7 +23,7 @@ object FeatureSwitch {
 
   val prefix = "feature-switch"
 
-  val switches: Seq[FeatureSwitch] = Seq(OptimisedFlow, PrintPDF, WelshLanguage, BusinessOnOwnAccountJourney, DecisionServiceVersionFeature)
+  val switches: Seq[FeatureSwitch] = Seq(OptimisedFlow, PrintPDF, WelshLanguage, DecisionServiceVersionFeature)
   val booleanFeatureSwitches: Seq[BooleanFeatureSwitch] = switches.collect{case a: BooleanFeatureSwitch => a}
   val customValueFeatureSwitch: Seq[CustomValueFeatureSwitch] = switches.collect{case a: CustomValueFeatureSwitch => a}
 
@@ -60,11 +60,6 @@ case object WelshLanguage extends BooleanFeatureSwitch {
 case object OptimisedFlow extends BooleanFeatureSwitch {
   override val name: String = s"$prefix.optimisedFlow"
   override val displayText: String = "Enable the new Optimised Flow (♫ A whole new flow ♪)"
-}
-
-case object BusinessOnOwnAccountJourney extends BooleanFeatureSwitch {
-  override val name: String = s"$prefix.businessOnOwnAccount"
-  override val displayText: String = "Enable the business on own account journey"
 }
 
 case object DecisionServiceVersionFeature extends CustomValueFeatureSwitch {

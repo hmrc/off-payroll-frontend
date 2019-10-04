@@ -16,11 +16,12 @@
 
 package navigation
 
+import javax.inject.{Inject, Singleton}
+
 import config.FrontendAppConfig
-import config.featureSwitch.{BusinessOnOwnAccountJourney, FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import controllers.routes._
 import controllers.sections.partParcel.{routes => partParcelRoutes}
-import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
@@ -46,10 +47,8 @@ class PartAndParcelNavigator @Inject()(businessOnOwnAccountNavigator: BusinessOn
     IdentifyToStakeholdersPage -> (answers => nextSection(answers))
   )
 
-  private def nextSection(userAnswers: UserAnswers) =
-    (isEnabled(OptimisedFlow), isEnabled(BusinessOnOwnAccountJourney)) match {
-      case (true, true) => businessOnOwnAccountNavigator.startPage(userAnswers)
-      case (true, _) => CheckYourAnswersController.onPageLoad()
+  private def nextSection(userAnswers: UserAnswers) = isEnabled(OptimisedFlow) match {
+      case true => businessOnOwnAccountNavigator.startPage(userAnswers)
       case _ => ResultController.onPageLoad()
     }
 
