@@ -861,10 +861,13 @@ hirer.optimised.howWorkIsDone.title = Will your organisation decide how the work
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
 hirer.optimised.howWorkIsDone.heading = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.p1 = This can include your organisation instructing, guiding or advising the way the task should be completed.
+hirer.optimised.howWorkIsDone.p2 = This is not relevant if it is highly skilled work. For example, an airline pilot.
+hirer.optimised.howWorkIsDone.p3.text = Read more examples of
+hirer.optimised.howWorkIsDone.p3.link = how the work is done
 hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
-hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Not relevant, it is highly skilled work
 hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
 
 ## TODO: Need Welsh
@@ -876,10 +879,13 @@ worker.optimised.howWorkIsDone.title = Will your client decide how the work is d
 worker.optimised.howWorkIsDone.subheading = Working arrangements
 worker.optimised.howWorkIsDone.heading = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.p1 = This can include your client instructing, guiding or advising the way the task should be completed.
+worker.optimised.howWorkIsDone.p2 = This is not relevant if it is highly skilled work. For example, an airline pilot.
+worker.optimised.howWorkIsDone.p3.text = Read more examples of
+worker.optimised.howWorkIsDone.p3.link = how the work is done
 worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
-worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Not relevant, it is highly skilled work
 worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, you and your client agree together
 #########################
 
