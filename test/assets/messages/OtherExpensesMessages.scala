@@ -22,13 +22,13 @@ object OtherExpensesMessages extends BaseMessages {
     val error = "Select yes if you will have any other costs that your client will not pay for"
     val title = "Will you have any other costs that your client will not pay for?"
     val heading = title
-    val p1 = "This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only."
+    val p1 = "This can include non-commuting travel or accommodation, external business premises, or accreditation for this work only."
   }
 
   object Hirer {
     val error = "Select yes if the worker will have any other costs that your organisation will not pay for"
     val title = "Will the worker have any other costs that your organisation will not pay for?"
     val heading = title
-    val p1 = "This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only."
+    val p1 = "This can include non-commuting travel or accommodation, external business premises, or accreditation for this work only."
   }
 }
