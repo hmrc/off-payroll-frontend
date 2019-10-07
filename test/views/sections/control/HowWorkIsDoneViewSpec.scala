@@ -66,6 +66,9 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
       "have the correct content" in {
         document.select(Selectors.p(1)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p1
+        document.select(Selectors.p(2)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p2
+        document.select(Selectors.p(3)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p3
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM0527Url
       }
 
       "have the correct radio option messages" in {
@@ -91,6 +94,9 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
       "have the correct content" in {
         document.select(Selectors.p(1)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.p1
+        document.select(Selectors.p(2)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.p2
+        document.select(Selectors.p(3)).text mustBe HowWorkIsDoneMessages.OptimisedHirer.p3
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM0527Url
       }
 
       "have the correct radio option messages" in {
@@ -116,6 +122,9 @@ class HowWorkIsDoneViewSpec extends ViewBehaviours {
 
       "have the correct content" in {
         document.select(Selectors.p(1)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p1
+        document.select(Selectors.p(2)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p2
+        document.select(Selectors.p(3)).text mustBe HowWorkIsDoneMessages.OptimisedWorker.p3
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM0527Url
       }
 
       "have the correct radio option messages" in {
