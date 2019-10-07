@@ -867,7 +867,7 @@ hirer.optimised.howWorkIsDone.p3.link = how the work is done
 hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Will your organisation decide how the work is done?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
-hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Not relevant, it is highly skilled work
 hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
 
 ## TODO: Need Welsh
@@ -885,7 +885,7 @@ worker.optimised.howWorkIsDone.p3.link = how the work is done
 worker.optimised.howWorkIsDone.checkYourAnswersLabel = Will your client decide how the work is done?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = No, you solely decide
-worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = No, because it is highly skilled work
+worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Not relevant, it is highly skilled work
 worker.optimised.howWorkIsDone.workerAgreeWithOthers = No, you and your client agree together
 #########################
 
