@@ -1,6 +1,5 @@
 package controllers.partAndParcel
 
-import config.featureSwitch.BusinessOnOwnAccountJourney
 import helpers.IntegrationSpecBase
 
 class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
@@ -34,17 +33,6 @@ class IdentifyToStakeholdersControllerISpec extends IntegrationSpecBase {
         result.status shouldBe BAD_REQUEST
         result.body should include ("How would you introduce yourself to your client’s consumers or suppliers?")
 
-      }
-    }
-
-    "Return a 409 on Successful post and go to the something went wrong page" in {
-
-      disable(BusinessOnOwnAccountJourney)
-      lazy val res = postSessionRequest("/introduce-worker",introduceValue)
-
-      whenReady(res) { result =>
-        result.status shouldBe CONFLICT
-        result.body should include ("Something went wrong")
       }
     }
   }
