@@ -1749,7 +1749,7 @@ hirer.otherExpenses.title = Will the worker have any other costs that your organ
 hirer.otherExpenses.subheading = Worker’s financial risk
 hirer.otherExpenses.heading = Will the worker have any other costs that your organisation will not pay for?
 hirer.otherExpenses.checkYourAnswersLabel = Will the worker have any other costs that your organisation will not pay for?
-hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
+hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, or accreditation for this work only.
 
 worker.otherExpenses.error.required = Select yes if you will have any other costs that your client will not pay for
 agency.otherExpenses.error.required = Select yes if you will have any other costs that your client will not pay for
@@ -1757,7 +1757,7 @@ worker.otherExpenses.title = Will you have any other costs that your client will
 worker.otherExpenses.subheading = Worker’s financial risk
 worker.otherExpenses.heading = Will you have any other costs that your client will not pay for?
 worker.otherExpenses.checkYourAnswersLabel = Will you have any other costs that your client will not pay for?
-worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, insurance or accreditation for this work only.
+worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, or accreditation for this work only.
 
 
 hirer.equipmentExpenses.error.required = Select yes if the worker will have equipment costs that your organisation will not pay for
