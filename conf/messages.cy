@@ -116,18 +116,18 @@ hirer.contractStarted.heading =A yw’r gweithiwr wedi dechrau’r swydd benodol
 hirer.contractStarted.subheading = Ynglŷn â’r bobl berthnasol
 hirer.contractStarted.checkYourAnswersLabel =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
 
-worker.optimised.contractStarted.error.required = Select yes if you have already started working for this client
-agency.optimised.contractStarted.error.required = Select yes if you have already started working for this client
-worker.optimised.contractStarted.title = Have you already started working for this client?
-worker.optimised.contractStarted.heading = Have you already started working for this client?
-worker.optimised.contractStarted.subHeading = About you and the work
-worker.optimised.contractStarted.checkYourAnswersLabel = Have you already started working for this client?
+worker.optimised.contractStarted.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi dechrau gweithio i’r cleient hwn
+agency.optimised.contractStarted.error.required = Dewiswch ‘Iawn’ os ydych eisoes wedi dechrau gweithio i’r cleient hwn
+worker.optimised.contractStarted.title = A ydych eisoes wedi dechrau gweithio i’r cleient hwn?
+worker.optimised.contractStarted.heading = A ydych eisoes wedi dechrau gweithio i’r cleient hwn?
+worker.optimised.contractStarted.subHeading = Amdanoch chi a’r gwaith
+worker.optimised.contractStarted.checkYourAnswersLabel = A ydych eisoes wedi dechrau gweithio i’r cleient hwn?
 
-hirer.optimised.contractStarted.error.required = Select yes if the worker has already started working for your organisation
-hirer.optimised.contractStarted.title = Has the worker already started working for your organisation?
-hirer.optimised.contractStarted.heading = Has the worker already started working for your organisation?
-hirer.optimised.contractStarted.subHeading = About you and the work
-hirer.optimised.contractStarted.checkYourAnswersLabel = Has the worker already started working for your organisation?
+hirer.optimised.contractStarted.error.required = Dewiswch ‘Iawn’ os yw’r gweithiwr eisoes wedi dechrau gweithio i’r cleient hwn
+hirer.optimised.contractStarted.title = A yw’r gweithiwr eisoes wedi dechrau gweithio i’r cleient hwn?
+hirer.optimised.contractStarted.heading = A yw’r gweithiwr eisoes wedi dechrau gweithio i’r cleient hwn?
+hirer.optimised.contractStarted.subHeading = Amdanoch chi a’r gwaith
+hirer.optimised.contractStarted.checkYourAnswersLabel = A yw’r gweithiwr eisoes wedi dechrau gweithio i’r cleient hwn?
 #########################
 
 
@@ -185,15 +185,15 @@ whoAreYou.paye.error.invalid = Select if you are a worker or hirer
 ## What do you want
 #########################
 
-whatDoYouWantToFindOut.title =  What do you want to find out?
-whatDoYouWantToFindOut.heading =  What do you want to find out?
-whatDoYouWantToFindOut.subheading = About you and the work
-whatDoYouWantToFindOut.checkYourAnswersLabel = What do you want to find out?
-whatDoYouWantToFindOut.ir35 = If the off-payroll working rules (IR35) apply to a contract
-whatDoYouWantToFindOut.paye = If some work is classed as employment or self-employment for tax purposes
+whatDoYouWantToFindOut.title =  Beth yr hoffech gael gwybod?
+whatDoYouWantToFindOut.heading =  Beth yr hoffech gael gwybod?
+whatDoYouWantToFindOut.subheading = Amdanoch chi a’r gwaith
+whatDoYouWantToFindOut.checkYourAnswersLabel = Beth yr hoffech gael gwybod?
+whatDoYouWantToFindOut.ir35 = P’un a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract
+whatDoYouWantToFindOut.paye = P’un a yw rhywfaint o waith yn cael ei ystyried fel cyflogaeth neu hunangyflogaeth at ddibenion treth
 
-whatDoYouWantToFindOut.error.required = Select what you want to find out
-whatDoYouWantToFindOut.error.invalid = Select what you want to find out
+whatDoYouWantToFindOut.error.required = Dewiswch yr hyn yr hoffech gael gwybod
+whatDoYouWantToFindOut.error.invalid = Dewiswch yr hyn yr hoffech gael gwybod
 #########################
 
 ## Office Holder
@@ -1345,10 +1345,9 @@ whichDescribesYou.agency = If a contract your agency is recruiting for is within
 whichDescribesYou.error.required = Mae angen i chi ddewis ateb
 whichDescribesYou.error.invalid = Mae angen i chi ddewis ateb
 
-##### TODO NEED WELSH FOR ####
-agencyAdvisory.title = Continue as the worker to check a determination
-agencyAdvisory.heading = Continue as the worker to check a determination
-agencyAdvisory.p1 = It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work.
+agencyAdvisory.title = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
+agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
+agencyAdvisory.p1 = Cyfrifoldeb y cleient neu’r gweithiwr yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith.
 
 ##### TODO NEED WELSH FOR ####
 hirerAdvisory.title = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
@@ -1362,23 +1361,21 @@ hirerAdvisory.p3 = You can exit the tool now. Or continue through it, to see how
 leave.title = You have now left the tool
 leave.heading = You have now left the tool
 
-##### TODO NEED WELSH FOR ####
-worker.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
-worker.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
-agency.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
-agency.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
-worker.workerUsingIntermediary.title = Are you trading through a limited company, partnership or unincorporated body?
-worker.workerUsingIntermediary.heading = Are you trading through a limited company, partnership or unincorporated body?
-worker.workerUsingIntermediary.subHeading = About you and the work
-worker.workerUsingIntermediary.checkYourAnswersLabel = Are you trading through a limited company, partnership or unincorporated body?
+worker.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+worker.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+agency.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+agency.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+worker.workerUsingIntermediary.title = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+worker.workerUsingIntermediary.heading = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+worker.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
+worker.workerUsingIntermediary.checkYourAnswersLabel = A ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
 
-##### TODO NEED WELSH FOR ####
-hirer.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
-hirer.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
-hirer.workerUsingIntermediary.title = Is the worker trading through a limited company, partnership or unincorporated body?
-hirer.workerUsingIntermediary.heading = Is the worker trading through a limited company, partnership or unincorporated body?
-hirer.workerUsingIntermediary.subHeading = About you and the work
-hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
+hirer.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+hirer.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
+hirer.workerUsingIntermediary.title = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+hirer.workerUsingIntermediary.heading = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
+hirer.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
+hirer.workerUsingIntermediary.checkYourAnswersLabel = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
 
 ##### TODO NEED WELSH FOR ####
 
@@ -2092,59 +2089,68 @@ hirer.ownershipRights.heading = Are there any ownership rights relating to this 
 hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
 hirer.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
 
-###TODO: Need Welsh
 ### What Do You Want To Do Page
 ### ------------------------------
-whatDoYouWantToDo.error.required = Select if you want to make a determination or check a determination
+whatDoYouWantToDo.error.required = Dewiswch a ydych am wneud penderfyniad neu wirio penderfyniad
+whatDoYouWantToDo.subheading = Amdanoch chi a’r gwaith
 
-whatDoYouWantToDo.subheading = About you and the work
+###TODO: title/heading needs welsh
 whatDoYouWantToDo.title = What do you want to do?
 whatDoYouWantToDo.heading = What do you want to do?
 whatDoYouWantToDo.checkYourAnswersLabel = What do you want to do?
-whatDoYouWantToDo.makeNewDetermination = Make a new determination
-whatDoYouWantToDo.checkDetermination = Check a determination
+whatDoYouWantToDo.makeNewDetermination = Gwneud penderfyniad newydd
+whatDoYouWantToDo.checkDetermination = Gwirio penderfyniad
 
-###TODO: Need Welsh
 ### Intermediary Result Page
 ### -----------------------------
-worker.intermediaryResult.title = Off-payroll working rules might apply to this work
-worker.intermediaryResult.heading = Off-payroll working rules might apply to this work
-worker.intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
-worker.intermediaryResult.p2 = Then you told us that you are trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
-worker.intermediaryResult.subheading = What you should do next
-worker.intermediaryResult.p3 = If you are trading through an intermediary, you should find out if the off-payroll working rules apply to this work.
+worker.intermediaryResult.title = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
+worker.intermediaryResult.heading = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
+worker.intermediaryResult.p1 = Rhoesoch wybod i ni yr hoffech gael gwybod a yw’r gwaith hwn yn cael ei ystyried yn gyflogedig neu’n hunangyflogedig at ddibenion treth.
+worker.intermediaryResult.p2 = Yna, rhoesoch wybod i ni eich bod yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig, a elwir yn gyfryngwr. Mae hyn yn golygu y gallai’r rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol i’r gwaith hwn.
+worker.intermediaryResult.subheading = Beth y dylech ei wneud nesaf
+worker.intermediaryResult.p3 = Os ydych yn masnachu drwy gyfryngwr, dylech fynd ati i gael gwybod a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+
+###TODO: Welsh needs to be split out
 worker.intermediaryResult.p4.text1 = Find out more about the
 worker.intermediaryResult.p4.link1 = Off-payroll working rules
 worker.intermediaryResult.p4.text2 = , or
 worker.intermediaryResult.p4.link2 = start again
 
-hirer.intermediaryResult.title = Off-payroll working rules might apply to this work
-hirer.intermediaryResult.heading = Off-payroll working rules might apply to this work
-hirer.intermediaryResult.p1 = You told us that you would like to find out if this work is classed as employment or self-employment for tax purposes.
-hirer.intermediaryResult.p2 = Then you told us that the worker is trading through a limited company, partnership or unincorporated body, known as an intermediary. This means that the off-payroll working rules (IR35) could apply to this work.
-hirer.intermediaryResult.subheading = What you should do next
-hirer.intermediaryResult.p3 = If the worker is trading through an intermediary, you should find out if the off-payroll working rules apply to this work.
+
+hirer.intermediaryResult.title = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
+hirer.intermediaryResult.heading = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
+hirer.intermediaryResult.p1 = Rhoesoch wybod i ni yr hoffech gael gwybod a yw’r gwaith hwn yn cael ei ystyried yn gyflogedig neu’n hunangyflogedig at ddibenion treth.
+hirer.intermediaryResult.p2 = Yna, rhoesoch wybod i ni fod y gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig, a elwir yn gyfryngwr. Mae hyn yn golygu y gallai’r rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol i’r gwaith hwn.
+hirer.intermediaryResult.subheading = Beth y dylech ei wneud nesaf
+hirer.intermediaryResult.p3 = Os yw’r gweithiwr yn masnachu drwy gyfryngwr, dylech fynd ati i gael gwybod a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+
+###TODO: Welsh needs to be split out
 hirer.intermediaryResult.p4.text1 = Find out more about the
 hirer.intermediaryResult.p4.link1 = Off-payroll working rules
 hirer.intermediaryResult.p4.text2 = , or
 hirer.intermediaryResult.p4.link2 = start again
 
-###TODO: Need Welsh
+
 ### No Intermediary Result Page
 ### -----------------------------
-worker.noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
-worker.noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
-worker.noIntermediaryResult.p1 = You told us that you are not trading through a limited company, partnership or unincorporated body. This means the off-payroll working rules are not relevant to this work.
-worker.noIntermediaryResult.subheading = What you should do next
+worker.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
+worker.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
+worker.noIntermediaryResult.p1 = Rhoesoch wybod i ni nad ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+worker.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
+
+###TODO: Welsh needs to be split out
 worker.noIntermediaryResult.p2.text1 = Find out more about the
 worker.noIntermediaryResult.p2.link1 = Off-payroll working rules
 worker.noIntermediaryResult.p2.text2 = , or
 worker.noIntermediaryResult.p2.link2 = start again
 
-hirer.noIntermediaryResult.title = Off-payroll working rules (IR35) cannot apply
-hirer.noIntermediaryResult.heading = Off-payroll working rules (IR35) cannot apply
-hirer.noIntermediaryResult.p1 = You told us that the worker is not trading through a limited company, partnership or unincorporated body. This means the off-payroll working rules are not relevant to this work.
-hirer.noIntermediaryResult.subheading = What you should do next
+
+hirer.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
+hirer.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
+hirer.noIntermediaryResult.p1 = Rydych wedi rhoi gwybod i ni nad yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+hirer.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
+
+###TODO: Welsh needs to be split out
 hirer.noIntermediaryResult.p2.text1 = Find out more about the
 hirer.noIntermediaryResult.p2.link1 = Off-payroll working rules
 hirer.noIntermediaryResult.p2.text2 = , or
