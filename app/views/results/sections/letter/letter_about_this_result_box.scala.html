@@ -21,11 +21,11 @@
 
 <div class="column-one-third">
     <div class="about-this-result-box">
-        <div class="about-this-result">
+        <div id="aboutThisResult" class="about-this-result">
             <div class="date-of-result">
                 <h2>@messages("site.letter.aboutThisResult")</h2>
                 <span class="bold">@messages("site.letter.dateOfResult")</span><br>
-                @monthToMessages(timestamp) (UTC)
+                <span id="timestamp">@monthToMessages(timestamp) (UTC)</span>
             </div>
             <div class="decision-service-version">
                 <p>

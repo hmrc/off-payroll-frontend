@@ -16,15 +16,11 @@
 
 package views.results
 
-import assets.messages.results.OfficeHolderMessages
-import config.SessionKeys
+import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
-import models.sections.setup.AboutYouAnswer.Worker
-import models.{PDFResultDetails, UserAnswers}
-import models.UserType.Hirer
+import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
 import play.twirl.api.Html
 import views.html.results.inside.officeHolder.OfficeHolderPAYEView
 

@@ -88,7 +88,7 @@ site.letter.aboutThisResult = About this result
 site.letter.dateOfResult = Date of result:
 site.letter.version = Decision service version:
 site.letter.version.disclaimer = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
-site.letter.footer.page = Page {0} of {1}
+site.letter.footer = Page {0} of {1}
 
 ## TODO NEED WELSH
 site.accordion.openAll = Open all
@@ -1496,9 +1496,13 @@ toolNotNeeded.client.paye.p2 = This is because you told us they will trade throu
 ##TODO: Need Welsh
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What you should do next
-optimised.result.download.h2 = Do you want to download this result?
-optimised.result.download.p1 = You will get a document that shows today’s date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
-optimised.result.download.p2 = HMRC will not keep a record of this result.
+optimised.result.download.p1 = You should keep a copy of this result for your records.
+optimised.result.download.getCopy = Get a copy of this result
+optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
+optimised.result.download.p2.exitLink = exit
+optimised.result.download.p2.preStartAgain = now, or
+optimised.result.download.p2.startAgainLink = start again
+optimised.result.download.p2.postStartAgain = to check the employment status of some other work.
 
 
 ## Office Holder PAYE
@@ -1706,7 +1710,7 @@ downloadPDFCopy.error.required = Select yes to download this result
 addReferenceDetails.error.required = Mae angen i chi ddewis ateb
 addReferenceDetails.title = Do you want to add some reference details to this document?
 addReferenceDetails.heading = Do you want to add some reference details to this document?
-addReferenceDetails.yourRecordsOnly = This is for your records only, HMRC will not keep these details.
+addReferenceDetails.yourRecordsOnly = You will get a document that shows today’s date and time of completion, your answers and your result. This is for your records only, HMRC will not keep these details.
 addReferenceDetails.example = For example, contract information, job title or hiring department.
 
 addDetails.title =Add details

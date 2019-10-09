@@ -44,7 +44,19 @@ trait ResultViewFixture extends ViewBehaviours {
     private def h3(sectionId: String, i: Int) = s"$sectionId h3:nth-of-type($i)"
     object AdditionalPDF {
       val id = "#pdfDetails"
-      val timestamp = s"$id h2"
+      val customisedBy = "#customisedBy"
+      val client = "#clientName"
+      val jobTitle = "#jobTitle"
+      val reference = "#referenceDetails"
+    }
+    object Result {
+      val id = "#result"
+    }
+    object AboutThisResult {
+      val id = "#aboutThisResult"
+      val timestamp = s"$id #timestamp"
+      val decisionServiceVersionP1= s"$id .decision-service-version p:nth-of-type(1)"
+      val decisionServiceVersionP2 = s"$id .decision-service-version p:nth-of-type(2)"
       val p = (i: Int) => Selectors.p(i, id)
     }
     object WhyResult {
@@ -62,15 +74,15 @@ trait ResultViewFixture extends ViewBehaviours {
     object WhatYouToldUs {
       val id = "#userAnswers"
       val h2 = Selectors.h2(id)
-      val h3 = (i: Int) => Selectors.h3(id, i)
+      val setupSection = s"#${Section.setup}-heading"
+      val earlyExitSection = s"#${Section.earlyExit}-heading"
+      val personalServiceSection = s"#${Section.personalService}-heading"
+      val controlSection = s"#${Section.control}-heading"
+      val financialRiskSection = s"#${Section.financialRisk}-heading"
+      val partAndParcelSection = s"#${Section.partAndParcel}-heading"
     }
     object Download {
       val id = "#download"
-      val h2 = Selectors.h2(id)
-      val p = (i: Int) => Selectors.p(i, id)
-    }
-    object DecisionVersion {
-      val id = "#decisionVersion"
       val h2 = Selectors.h2(id)
       val p = (i: Int) => Selectors.p(i, id)
     }
@@ -89,7 +101,7 @@ trait ResultViewFixture extends ViewBehaviours {
 
   val testAdditionalPdfDetails = AdditionalPdfDetails(Some(testName), Some(testClient), Some(testJobTitle), Some(testReference), Some(fileName))
   implicit val testNoPdfResultDetails = PDFResultDetails()
-  lazy val testPdfResultDetails = PDFResultDetails(printMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
+  lazy val testPdfResultDetails = PDFResultDetails(printMode = true, letterMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 
   val answers = Seq(
     AnswerSection(Messages("checkYourAnswers.setup.header"), whyResult = None,
@@ -160,12 +172,10 @@ trait ResultViewFixture extends ViewBehaviours {
       checkAdditionalPdfDetailsPresent
       checkUserAnswersPresent
       checkDecisionServiceVersionPresent
-      checkDownloadSectionNotPresent
     } else {
       checkAdditionalPdfDetailsNotPresent
       checkUserAnswersNotPresent
       checkDecisionServiceVersionNotPresent
-      checkDownloadSectionPresent
     }
   }
 
@@ -180,23 +190,23 @@ trait ResultViewFixture extends ViewBehaviours {
     "Have a section which includes additional Information to supplement the PDF which" should {
 
       "have the correct timestamp" in {
-        document.select(Selectors.AdditionalPDF.timestamp).text mustBe AdditionalPDFMessages.timestamp(timestamp)
+        document.select(Selectors.AboutThisResult.timestamp).text mustBe AdditionalPDFMessages.timestamp(timestamp)
       }
 
       "have the correct completedBy" in {
-        document.select(Selectors.AdditionalPDF.p(1)).text mustBe AdditionalPDFMessages.completedBy(testName)
+        document.select(Selectors.AdditionalPDF.customisedBy).text mustBe AdditionalPDFMessages.completedBy(testName)
       }
 
       "have the correct client" in {
-        document.select(Selectors.AdditionalPDF.p(2)).text mustBe AdditionalPDFMessages.client(testClient)
+        document.select(Selectors.AdditionalPDF.client).text mustBe AdditionalPDFMessages.client(testClient)
       }
 
       "have the correct job title" in {
-        document.select(Selectors.AdditionalPDF.p(3)).text mustBe AdditionalPDFMessages.jobTitle(testJobTitle)
+        document.select(Selectors.AdditionalPDF.jobTitle).text mustBe AdditionalPDFMessages.jobTitle(testJobTitle)
       }
 
       "have the correct reference" in {
-        document.select(Selectors.AdditionalPDF.p(4)).text mustBe AdditionalPDFMessages.reference(testReference)
+        document.select(Selectors.AdditionalPDF.reference).text mustBe AdditionalPDFMessages.reference(testReference)
       }
     }
   }
@@ -206,48 +216,48 @@ trait ResultViewFixture extends ViewBehaviours {
     "Include a section containing the users answers" should {
 
       "have the correct heading" in {
-        document.select(Selectors.WhatYouToldUs.h2).text mustBe UserAnswersMessages.h2
+        document.select(Selectors.WhatYouToldUs.h2).first.text mustBe UserAnswersMessages.h2
       }
 
       "have a section for the first set of answers that" should {
 
         "have the correct heading" in {
-          document.select(Selectors.WhatYouToldUs.h3(1)).text mustBe UserAnswersMessages.section1h3
+          document.select(Selectors.WhatYouToldUs.setupSection).text mustBe UserAnswersMessages.section1h3
         }
       }
 
       "have a section for the second set of answers that" should {
 
         "have the correct heading" in {
-          document.select(Selectors.WhatYouToldUs.h3(2)).text mustBe UserAnswersMessages.section2h3
+          document.select(Selectors.WhatYouToldUs.earlyExitSection).text mustBe UserAnswersMessages.section2h3
         }
       }
 
       "have a section for the third set of answers that" should {
 
         "have the correct heading" in {
-          document.select(Selectors.WhatYouToldUs.h3(3)).text mustBe UserAnswersMessages.section3h3
+          document.select(Selectors.WhatYouToldUs.personalServiceSection).text mustBe UserAnswersMessages.section3h3
         }
       }
 
       "have a section for the fourth set of answers that" should {
 
         "have the correct heading" in {
-          document.select(Selectors.WhatYouToldUs.h3(4)).text mustBe UserAnswersMessages.section4h3
+          document.select(Selectors.WhatYouToldUs.controlSection).text mustBe UserAnswersMessages.section4h3
         }
       }
 
       "have a section for the fifth set of answers that" should {
 
         "have the correct heading" in {
-          document.select(Selectors.WhatYouToldUs.h3(5)).text mustBe UserAnswersMessages.section5h3
+          document.select(Selectors.WhatYouToldUs.financialRiskSection).text mustBe UserAnswersMessages.section5h3
         }
       }
 
       "have a section for the sixth set of answers that" should {
 
         "have the correct heading" in {
-          document.select(Selectors.WhatYouToldUs.h3(6)).text mustBe UserAnswersMessages.section6h3
+          document.select(Selectors.WhatYouToldUs.partAndParcelSection).text mustBe UserAnswersMessages.section6h3
         }
       }
     }
@@ -260,36 +270,22 @@ trait ResultViewFixture extends ViewBehaviours {
     }
   }
 
-
-  def checkDownloadSectionPresent(implicit document: Document) = {
-    "Have the correct Download section" in {
-      document.select(Selectors.Download.h2).text mustBe InDecisionMessages.downloadHeading
-      document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.download_p1
-    }
-  }
-
-  def checkDownloadSectionNotPresent(implicit document: Document) = {
-    "Not include a Download Download section" in {
-      document.select(Selectors.Download.id).hasText mustBe false
-    }
-  }
-
   def checkDecisionServiceVersionPresent(implicit document: Document) = {
     "Include a section for the Decision Service Version that" should {
 
       "have the correct h2" in {
-        document.select(Selectors.DecisionVersion.h2).text mustBe DecisionVersionMessages.h2(frontendAppConfig.decisionVersion)
+        document.select(Selectors.AboutThisResult.decisionServiceVersionP1).text mustBe DecisionVersionMessages.p1(frontendAppConfig.decisionVersion)
       }
 
       "have the correct p1" in {
-        document.select(Selectors.DecisionVersion.p(1)).text mustBe DecisionVersionMessages.p1
+        document.select(Selectors.AboutThisResult.decisionServiceVersionP2).text mustBe DecisionVersionMessages.p2
       }
     }
   }
 
   def checkDecisionServiceVersionNotPresent(implicit document: Document) = {
     "NOT include a section for the Decision Service Version that" in {
-        document.select(Selectors.DecisionVersion.id).hasText mustBe false
+        document.select(Selectors.AboutThisResult.id).hasText mustBe false
     }
   }
 }

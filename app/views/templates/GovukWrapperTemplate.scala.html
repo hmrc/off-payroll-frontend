@@ -52,6 +52,7 @@ languageSelection: LanguageSelection)
   serviceInfoContent: Html = Html(""),
   scriptElem: Option[Html] = None,
   js: Option[String] = None,
+  css: Option[String] = None,
   showSignout: Boolean = true)(implicit request: Request[_], messages: Messages)
 
 @headContent = {
@@ -60,6 +61,9 @@ languageSelection: LanguageSelection)
       headScripts = None)
     <meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/offpayrollfrontend-app.css")' />
+    @css.map { x =>
+        <link rel="stylesheet" href='@routes.Assets.versioned(s"stylesheets/$x.css")' />
+    }
 }
 
 @headerNavLinks = {

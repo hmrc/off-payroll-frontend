@@ -69,6 +69,8 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   def decisionVersion = FeatureSwitching.getValue(DecisionServiceVersionFeature)(this)
 
   lazy val pdfGeneratorService = servicesConfig.baseUrl("pdf-generator-service")
+  lazy val assetsFrontendUrl = servicesConfig.getString("assets.url")
+  lazy val assetsFrontendVersion = servicesConfig.getString("assets.version")
 
   lazy val timeoutPeriod: Int = servicesConfig.getInt("timeout.period")
   lazy val timeoutCountdown: Int = servicesConfig.getInt("timeout.countdown")

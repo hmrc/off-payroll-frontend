@@ -29,6 +29,7 @@
   scriptElem: Option[Html] = None,
   articleLayout: Boolean = true,
   js: Option[String] = None,
+  css: Option[String] = None,
   showSignout: Boolean = true)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
 @import uk.gov.hmrc.play.views.html.layouts
@@ -61,5 +62,6 @@
                serviceInfoContent = serviceInfoContent,
                scriptElem = scriptElem,
                js = js,
+               css = css,
                showSignout = showSignout
 )

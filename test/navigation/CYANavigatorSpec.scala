@@ -56,7 +56,7 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
           lazy val userAnswers = UserAnswers("id")
             .set(ResultPage, false)
 
-          nextPage(ResultPage, userAnswers) mustBe routes.FinishedCheckingController.onPageLoad()
+          nextPage(ResultPage, userAnswers) mustBe routes.PrintPreviewController.onPageLoad()
         }
       }
 
@@ -84,14 +84,14 @@ class CYANavigatorSpec extends GuiceAppSpecBase {
         lazy val userAnswers = UserAnswers("id")
           .set(AddReferenceDetailsPage, false)
 
-        nextPage(AddReferenceDetailsPage, userAnswers) mustBe routes.FinishedCheckingController.onPageLoad()
+        nextPage(AddReferenceDetailsPage, userAnswers) mustBe routes.PrintPreviewController.onPageLoad()
       }
     }
 
     "go from the CustomisePDFPage to the FinishedCheckingPage" in {
 
       enable(OptimisedFlow)
-      nextPage(CustomisePDFPage) mustBe routes.FinishedCheckingController.onPageLoad()
+      nextPage(CustomisePDFPage) mustBe routes.PrintPreviewController.onPageLoad()
     }
   }
 }

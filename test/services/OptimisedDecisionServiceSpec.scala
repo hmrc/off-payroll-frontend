@@ -117,37 +117,18 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
     .set(InteractWithStakeholdersPage,18, false)
     .set(IdentifyToStakeholdersPage, 19,WorkAsIndependent)
 
-  "collateDecisions" should {
+  "decide" should {
 
     "give a valid result" when {
 
-      "every decision call is successful for the new decision service" in {
+      "decision call is successful for decision service" in {
 
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
-        mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
+        val decisionResponse = DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)
 
-
-        whenReady(service.decide) { res =>
-          res.right.get.result mustBe ResultEnum.INSIDE_IR35
-        }
-      }
-
-      "every decision call is successful" in {
-
-        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-        mockDecide(Interview(userAnswers))(Right(DecisionResponse("", "", Score(), ResultEnum.INSIDE_IR35)))
-
-        whenReady(service.decide) { res =>
-          res.right.get.result mustBe ResultEnum.INSIDE_IR35
-        }
-      }
-
-      "decision log returns a Left" in {
-        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-        mockDecide(Interview(userAnswers))(Right(DecisionResponse("","",Score(),ResultEnum.INSIDE_IR35)))
+        mockDecide(Interview(userAnswers))(Right(decisionResponse))
+        mockAuditEvent("cestDecisionResult", Audit(userAnswers, decisionResponse))
 
         whenReady(service.decide) { res =>
           res.right.get.result mustBe ResultEnum.INSIDE_IR35
@@ -163,48 +144,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
         implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
 
         mockDecide(Interview(userAnswers))(Left(ErrorResponse(INTERNAL_SERVER_ERROR, s"HTTP exception returned from decision API")))
-
-        whenReady(service.decide) { res =>
-          res.left.get mustBe an[ErrorResponse]
-        }
-      }
-
-      "personal service decision call returns a Left" in {
-
-        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "Err")))
-
-        whenReady(service.decide) { res =>
-          res.left.get mustBe an[ErrorResponse]
-        }
-      }
-
-      "control decision call returns a Left" in {
-        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "Err")))
-
-        whenReady(service.decide) { res =>
-          res.left.get mustBe an[ErrorResponse]
-        }
-      }
-
-      "financial risk decision call returns a Left" in {
-        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(500, "Err")))
-
-        whenReady(service.decide) { res =>
-          res.left.get mustBe an[ErrorResponse]
-        }
-      }
-
-
-      "whole decision call returns a Left" in {
-        implicit val dataRequest: DataRequest[AnyContent] = DataRequest(fakeRequest, "", userAnswers)
-
-        mockDecide(Interview(userAnswers))(Left(ErrorResponse(500, "Err")))
 
         whenReady(service.decide) { res =>
           res.left.get mustBe an[ErrorResponse]
@@ -233,12 +172,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = OfficeHolderAgentView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -257,12 +193,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = OfficeHolderIR35View(form, isMakingDetermination = true)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -280,12 +213,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = OfficeHolderPAYEView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -306,12 +236,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = AgentInsideView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -332,12 +259,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
                 implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-                mockDecide(Interview(userAnswers))(Right(decisionResponse))
-                mockAuditEvent(Audit(userAnswers, decisionResponse))
-
                 val expected: Html = IR35InsideView(form, isMake = false, workerKnown = true)
 
-                val actual = await(service.determineResultView(Some(form)))
+                val actual = service.determineResultView(decisionResponse, Some(form))
 
                 actual mustBe Right(expected)
               }
@@ -356,12 +280,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
                 implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-                mockDecide(Interview(userAnswers))(Right(decisionResponse))
-                mockAuditEvent(Audit(userAnswers, decisionResponse))
-
                 val expected: Html = IR35InsideView(form, isMake = false, workerKnown = false)
 
-                val actual = await(service.determineResultView(Some(form)))
+                val actual = service.determineResultView(decisionResponse, Some(form))
 
                 actual mustBe Right(expected)
               }
@@ -380,12 +301,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = PAYEInsideView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -406,12 +324,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecide(Interview(userAnswers))(Right(decisionResponse))
-            mockAuditEvent(Audit(userAnswers, decisionResponse))
-
             val expected: Html = AgentUndeterminedView(form)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-            val actual = await(service.determineResultView(Some(form)))
+            val actual = service.determineResultView(decisionResponse, Some(form))
 
             actual mustBe Right(expected)
           }
@@ -431,12 +346,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = IR35UndeterminedView(form, workerKnown = true)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -454,12 +366,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = IR35UndeterminedView(form, workerKnown = false)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -477,12 +386,9 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecide(Interview(userAnswers))(Right(decisionResponse))
-            mockAuditEvent(Audit(userAnswers, decisionResponse))
-
             val expected: Html = PAYEUndeterminedView(form, workerKnown = true)(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-            val actual = await(service.determineResultView(Some(form)))
+            val actual = service.determineResultView(decisionResponse, Some(form))
 
             actual mustBe Right(expected)
           }
@@ -506,10 +412,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-
-            mockDecide(Interview(userAnswers), Interview.writes)(Right(decisionResponse))
-            mockAuditEvent(Audit(userAnswers, decisionResponse))
-
             val expected: Html = AgentOutsideView(
               form = form,
               substituteToDoWork = true,
@@ -518,7 +420,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               isBoOA = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-            val actual = await(service.determineResultView(Some(form)))
+            val actual = service.determineResultView(decisionResponse, Some(form))
 
             actual mustBe Right(expected)
           }
@@ -543,9 +445,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = IR35OutsideView(
                 form = form,
                 isMake = false,
@@ -556,7 +455,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 workerKnown = true
               )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -579,9 +478,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
               implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-              mockDecide(Interview(userAnswers))(Right(decisionResponse))
-              mockAuditEvent(Audit(userAnswers, decisionResponse))
-
               val expected: Html = IR35OutsideView(
                 form = form,
                 isMake = false,
@@ -592,7 +488,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 workerKnown = false
               )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-              val actual = await(service.determineResultView(Some(form)))
+              val actual = service.determineResultView(decisionResponse, Some(form))
 
               actual mustBe Right(expected)
             }
@@ -615,9 +511,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
             implicit val dataRequest = workerFakeDataRequestWithAnswers(userAnswers)
 
-            mockDecide(Interview(userAnswers))(Right(decisionResponse))
-            mockAuditEvent(Audit(userAnswers, decisionResponse))
-
             val expected: Html = PAYEOutsideView(
               form = form,
               isSubstituteToDoWork = true,
@@ -627,7 +520,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               workerKnown = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
-            val actual = await(service.determineResultView(Some(form)))
+            val actual = service.determineResultView(decisionResponse, Some(form))
 
             actual mustBe Right(expected)
           }
@@ -643,27 +536,10 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
 
           implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
 
-          mockDecide(Interview(userAnswers))(Right(decisionResponse))
-          mockAuditEvent(Audit(userAnswers, decisionResponse))
           mockInternalServerError(Html("Err"))
 
-          await(service.determineResultView(Some(form))) mustBe Left(Html("Err"))
+          service.determineResultView(decisionResponse, Some(form)) mustBe Left(Html("Err"))
         }
-      }
-    }
-
-    "collate decisions is unsuccessful" should {
-
-      "render the ErrorPage" in {
-
-        val userAnswers: UserAnswers = UserAnswers("id")
-
-        implicit val dataRequest = agencyFakeDataRequestWithAnswers(userAnswers)
-
-        mockDecide(Interview(userAnswers), Interview.writes)(Left(ErrorResponse(Status.INTERNAL_SERVER_ERROR, "Oh noes")))
-        mockInternalServerError(Html("Err"))
-
-        await(service.determineResultView(Some(form))) mustBe Left(Html("Err"))
       }
     }
   }

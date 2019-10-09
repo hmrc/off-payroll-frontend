@@ -35,6 +35,7 @@ case class ResultsDetails(officeHolderAnswer: Boolean,
 }
 
 case class PDFResultDetails(printMode: Boolean = false,
+                            letterMode: Boolean = false,
                             additionalPdfDetails: Option[AdditionalPdfDetails] = None,
                             timestamp: Option[String] = None,
                             answerSections: Seq[AnswerSection] = Seq())

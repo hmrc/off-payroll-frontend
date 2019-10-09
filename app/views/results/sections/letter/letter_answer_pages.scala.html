@@ -41,9 +41,7 @@
             </div>
         </td></tr></tbody>
 
-        <tfoot><tr><td>
-            <p>@messages("site.letter.footer.page", pageNumber + 2, letterAnswerPages.numberOfPages)</p>
-        </td></tr></tfoot>
+        @letter_footer(pageNumber + 2, letterAnswerPages.numberOfPages)
 
     </table>
 </div>

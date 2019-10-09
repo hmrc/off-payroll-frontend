@@ -20,7 +20,8 @@
 @import results.sections.pdf
 @import models.UserType.Hirer
 @import models.requests.DataRequest
-
+@import results.sections.letter._
+@import viewmodels.LetterAnswerSections
 @import controllers.routes._
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
@@ -31,38 +32,42 @@
     if(pdfResultDetails.printMode) {
         printTemplate(title(form, tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig)(_)
     } else {
-        mainTemplate(title(form, tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig)(_)
+        if(pdfResultDetails.letterMode) {
+            mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
+        } else {
+            mainTemplate(title(form, tailorMsgOptimised("result.officeHolder.paye.title")), appConfig = appConfig)(_)
+        }
     }
 ){ template =>
 
     @template {
 
-        @components.error_summary(form.errors)
+        @if(pdfResultDetails.letterMode) {
 
-        @pdfResultDetails.additionalPdfDetails.map { details =>
-            @pdf.additional_details(details, pdfResultDetails.timestamp)
-        }
+            @if(!pdfResultDetails.printMode) {
+                @print_and_save_result()
+            }
 
-        @components.teal_result(
-            Html(messages(tailorMsgOptimised("result.officeHolder.paye.heading"))),
-            "result.inside"
-        )
+            @letter_layout(tailorMsgOptimised("result.officeHolder.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
 
-        @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
+        } else {
 
-            @results.sections.why_result(whyResult)
+            @pdfResultDetails.additionalPdfDetails.map { details =>
+                @pdf.additional_details(details, pdfResultDetails.timestamp)
+            }
 
-            @results.sections.do_next(doNext)
+            @components.teal_result(
+                Html(messages(tailorMsgOptimised("result.officeHolder.paye.heading"))),
+                "result.inside"
+            )
 
-            @if(pdfResultDetails.printMode) {
+            @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
 
-                @pdf.answers(pdfResultDetails.answerSections)
-                @pdf.decision_version(appConfig.decisionVersion)
+                @results.sections.why_result(whyResult)
 
-            } else {
+                @results.sections.do_next(doNext)
 
                 @results.sections.download(form)
-                @components.submit_button("site.continue")
             }
         }
     }
