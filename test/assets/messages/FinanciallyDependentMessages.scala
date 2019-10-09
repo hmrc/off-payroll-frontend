@@ -20,7 +20,7 @@ object FinanciallyDependentMessages extends BaseMessages {
 
 
   object Worker {
-    val error = "Select yes is this contract will provide you with the majority of your income"
+    val error = "Select yes if this contract will provide you with the majority of your income"
     val title = "Will this contract provide you with the majority of your income?"
     val heading = title
     val subheading = "Worker’s contracts"

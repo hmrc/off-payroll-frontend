@@ -1797,8 +1797,8 @@ result.pdf.decisionVersion.p1 = This version number is used for HMRC internal pu
 personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions
 personalServiceSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions
 
-businessOnOwnAccountSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
-businessOnOwnAccountSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
+businessOnOwnAccountSectionChangeWarning.title = Drwy newid eich atebion yn yr adran hon, efallai y bydd angen i chi ateb cwestiynau ychwanegol.
+businessOnOwnAccountSectionChangeWarning.heading = Drwy newid eich atebion yn yr adran hon, efallai y bydd angen i chi ateb cwestiynau ychwanegol.
 
 hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
 hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
@@ -1868,226 +1868,215 @@ resetAnswersWarning.goBack = Take me back to my answers
 resetAnswersWarning.error.required = Mae angen i chi ddewis ateb
 
 
-##TODO: Need Welsh
 ### Multiple Contracts Page
 ### -----------------------
-worker.multipleContracts.error.required = Select yes if this contract stops you from doing similar work for other organisations
-agency.multipleContracts.error.required = Select yes if this contract stops you from doing similar work for other organisations
-worker.multipleContracts.subheading = Worker’s contracts
-worker.multipleContracts.title = Does this contract stop you from doing similar work for other clients?
-worker.multipleContracts.heading = Does this contract stop you from doing similar work for other clients?
-worker.multipleContracts.checkYourAnswersLabel = Does this contract stop you from doing similar work for other clients?
-worker.multipleContracts.p1 = This includes working for your client’s competitors.
+worker.multipleContracts.error.required = Dewiswch ‘Iawn’ os yw’r contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
+agency.multipleContracts.error.required = Dewiswch ‘Iawn’ os yw’r contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
+worker.multipleContracts.subheading = Contractau’r gweithiwr
+worker.multipleContracts.title = A yw’r contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
+worker.multipleContracts.heading = A yw’r contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
+worker.multipleContracts.checkYourAnswersLabel = A yw’r contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
+worker.multipleContracts.p1 = Mae hyn yn cynnwys gweithio i gystadleuwyr eich cleient.
 
-hirer.multipleContracts.error.required = Select yes if this contract stops the worker from doing similar work for other organisations
-hirer.multipleContracts.subheading = Worker’s contracts
-hirer.multipleContracts.title = Does this contract stop the worker from doing similar work for other organisations?
-hirer.multipleContracts.heading = Does this contract stop the worker from doing similar work for other organisations?
-hirer.multipleContracts.checkYourAnswersLabel = Does this contract stop the worker from doing similar work for other organisations?
-hirer.multipleContracts.p1 = This includes working for your competitors.
+hirer.multipleContracts.error.required = Dewiswch ‘Iawn’ os yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
+hirer.multipleContracts.subheading = Contractau’r gweithiwr
+hirer.multipleContracts.title = A yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
+hirer.multipleContracts.heading = A yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
+hirer.multipleContracts.checkYourAnswersLabel = A yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
+hirer.multipleContracts.p1 = Mae hyn yn cynnwys gweithio i’ch cystadleuwyr.
 
 
-##TODO: Need Welsh
 #### Transfer of Rights Page - BoOA
 #### ------------------------------
-worker.transferOfRights.error.required = Select yes if the contract gives your client the option to buy the rights for a separate fee
-agency.transferOfRights.error.required = Select yes if the contract gives your client the option to buy the rights for a separate fee
-worker.transferOfRights.subheading = Worker’s contracts
-worker.transferOfRights.title = Does the contract give your client the option to buy the rights for a separate fee?
-worker.transferOfRights.heading = Does the contract give your client the option to buy the rights for a separate fee?
-worker.transferOfRights.checkYourAnswersLabel = Does the contract give your client the option to buy the rights for a separate fee?
-worker.transferOfRights.p1 = If an option like this does not exist, you would keep all the rights relating to this work.
+worker.transferOfRights.error.required = Dewiswch ‘Iawn’ os yw’r contract yn rhoi’r opsiwn i’ch cleient brynu’r hawliau am ffi ar wahân
+agency.transferOfRights.error.required = Dewiswch ‘Iawn’ os yw’r contract yn rhoi’r opsiwn i’ch cleient brynu’r hawliau am ffi ar wahân
+worker.transferOfRights.subheading = Contractau’r gweithiwr
+worker.transferOfRights.title = A yw’r contract yn rhoi’r opsiwn i’ch cleient brynu’r hawliau am ffi ar wahân?
+worker.transferOfRights.heading = A yw’r contract yn rhoi’r opsiwn i’ch cleient brynu’r hawliau am ffi ar wahân?
+worker.transferOfRights.checkYourAnswersLabel = A yw’r contract yn rhoi’r opsiwn i’ch cleient brynu’r hawliau am ffi ar wahân?
+worker.transferOfRights.p1 = Os nad yw opsiwn fel hwn yn bodoli, byddech yn cadw’r holl hawliau sy’n gysylltiedig â’r gwaith hwn.
 
-hirer.transferOfRights.error.required = Select yes if the contract gives your organisation the option to buy the rights for a separate fee
-hirer.transferOfRights.subheading = Worker’s contracts
-hirer.transferOfRights.title = Does the contract give your organisation the option to buy the rights for a separate fee?
-hirer.transferOfRights.heading = Does the contract give your organisation the option to buy the rights for a separate fee?
-hirer.transferOfRights.checkYourAnswersLabel = Does the contract give your organisation the option to buy the rights for a separate fee?
-hirer.transferOfRights.p1 = If an option like this does not exist, the worker would keep all rights relating to this work.
+hirer.transferOfRights.error.required = Dewiswch ‘Iawn’ os yw’r contract yn rhoi’r opsiwn i’ch sefydliad brynu’r hawliau am ffi ar wahân
+hirer.transferOfRights.subheading = Contractau’r gweithiwr
+hirer.transferOfRights.title = A yw’r contract yn rhoi’r opsiwn i’ch sefydliad brynu’r hawliau am ffi ar wahân?
+hirer.transferOfRights.heading = A yw’r contract yn rhoi’r opsiwn i’ch sefydliad brynu’r hawliau am ffi ar wahân?
+hirer.transferOfRights.checkYourAnswersLabel = A yw’r contract yn rhoi’r opsiwn i’ch sefydliad brynu’r hawliau am ffi ar wahân?
+hirer.transferOfRights.p1 = Os nad yw opsiwn fel hwn yn bodoli, byddai’r gweithiwr yn cadw’r holl hawliau sy’n gysylltiedig â’r gwaith hwn.
 
 
-##TODO: Need Welsh
 #### Permission to Work Page - BoOA
 #### ------------------------------
+worker.permissionToWorkWithOthers.error.required = Dewiswch ‘Iawn’ os oes rhaid i chi ofyn am ganiatâd i weithio i gleientiaid eraill
+agency.permissionToWorkWithOthers.error.required = Dewiswch ‘Iawn’ os oes rhaid i chi ofyn am ganiatâd i weithio i gleientiaid eraill
+worker.permissionToWorkWithOthers.title = A oes rhaid i chi ofyn am ganiatâd i weithio i gleientiaid eraill?
+worker.permissionToWorkWithOthers.heading = A oes rhaid i chi ofyn am ganiatâd i weithio i gleientiaid eraill?
+worker.permissionToWorkWithOthers.checkYourAnswersLabel = A oes rhaid i chi ofyn am ganiatâd i weithio i gleientiaid eraill?
+worker.permissionToWorkWithOthers.subheading = Contractau’r gweithiwr
 
-worker.permissionToWorkWithOthers.error.required = Select yes if you are required to ask permission to work for other clients
-agency.permissionToWorkWithOthers.error.required = Select yes if you are required to ask permission to work for other clients
-worker.permissionToWorkWithOthers.title = Are you required to ask permission to work for other clients?
-worker.permissionToWorkWithOthers.heading = Are you required to ask permission to work for other clients?
-worker.permissionToWorkWithOthers.checkYourAnswersLabel = Are you required to ask permission to work for other clients?
-worker.permissionToWorkWithOthers.subheading = Worker’s contracts
-
-hirer.permissionToWorkWithOthers.error.required = Select yes if the worker is required to ask permission to work for other organisations
-hirer.permissionToWorkWithOthers.title = Is the worker required to ask permission to work for other organisations?
-hirer.permissionToWorkWithOthers.heading = Is the worker required to ask permission to work for other organisations?
-hirer.permissionToWorkWithOthers.checkYourAnswersLabel = Is the worker required to ask permission to work for other organisations?
-hirer.permissionToWorkWithOthers.subheading = Worker’s contracts
+hirer.permissionToWorkWithOthers.error.required = Dewiswch ‘Iawn’ os oes rhaid i’r gweithiwr ofyn am ganiatâd i weithio i gleientiaid eraill
+hirer.permissionToWorkWithOthers.title = A oes rhaid i’r gweithiwr ofyn am ganiatâd i weithio i gleientiaid eraill?
+hirer.permissionToWorkWithOthers.heading = A oes rhaid i’r gweithiwr ofyn am ganiatâd i weithio i gleientiaid eraill?
+hirer.permissionToWorkWithOthers.checkYourAnswersLabel = A oes rhaid i’r gweithiwr ofyn am ganiatâd i weithio i gleientiaid eraill?
+hirer.permissionToWorkWithOthers.subheading = Contractau’r gweithiwr
 
 
-##TODO: Need Welsh
 #### Permission to Work Page - BoOA
 #### ------------------------------
-worker.previousContract.error.required = Select yes if you have had a previous contract with this client
-agency.previousContract.error.required = Select yes if you have had a previous contract with this client
-worker.previousContract.title = Have you had a previous contract with this client?
-worker.previousContract.heading = Have you had a previous contract with this client?
-worker.previousContract.checkYourAnswersLabel = Have you had a previous contract with this client?
-worker.previousContract.subheading = Worker’s contracts
+worker.previousContract.error.required = Dewiswch ‘Iawn’ os ydych wedi cael contract blaenorol gyda’r cleient hwn
+agency.previousContract.error.required = Dewiswch ‘Iawn’ os ydych wedi cael contract blaenorol gyda’r cleient hwn
+worker.previousContract.title = A ydych wedi cael contract blaenorol gyda’r cleient hwn?
+worker.previousContract.heading = A ydych wedi cael contract blaenorol gyda’r cleient hwn?
+worker.previousContract.checkYourAnswersLabel = A ydych wedi cael contract blaenorol gyda’r cleient hwn?
+worker.previousContract.subheading = Contractau’r gweithiwr
 
-hirer.previousContract.error.required = Select yes if the worker has had a previous contract with your organisation
-hirer.previousContract.title = Has the worker had a previous contract with your organisation?
-hirer.previousContract.heading = Has the worker had a previous contract with your organisation?
-hirer.previousContract.checkYourAnswersLabel = Has the worker had a previous contract with your organisation?
-hirer.previousContract.subheading = Worker’s contracts
+hirer.previousContract.error.required = Dewiswch ‘Iawn’ os yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad
+hirer.previousContract.title = A yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad?
+hirer.previousContract.heading = A yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad?
+hirer.previousContract.checkYourAnswersLabel = A yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad?
+hirer.previousContract.subheading = Contractau’r gweithiwr
 
 
-##TODO: Need Welsh
 ### FollowOnContract Page
 ### ---------------------------------
-followOnContract.error.required = Select yes if this contract will start immediately after the previous one ended
+followOnContract.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben
 
-worker.followOnContract.title = Will this contract start immediately after the previous one ended?
-worker.followOnContract.heading = Will this contract start immediately after the previous one ended?
-worker.followOnContract.subheading = Worker’s contracts
-worker.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?
-worker.followOnContract.p1 = This does not include any holiday period between the two contracts.
+worker.followOnContract.title = A fydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben?
+worker.followOnContract.heading = A fydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben?
+worker.followOnContract.subheading = Contractau’r gweithiwr
+worker.followOnContract.checkYourAnswersLabel = A fydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben?
+worker.followOnContract.p1 = Nid yw hyn yn cynnwys unrhyw gyfnod o wyliau rhwng y ddau gontract.
 
-hirer.followOnContract.title = Will this contract start immediately after the previous one ended?
-hirer.followOnContract.heading = Will this contract start immediately after the previous one ended?
-hirer.followOnContract.subheading = Worker’s contracts
-hirer.followOnContract.checkYourAnswersLabel = Will this contract start immediately after the previous one ended?
-hirer.followOnContract.p1 = This does not include any holiday period between the two contracts.
+hirer.followOnContract.title = A fydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben?
+hirer.followOnContract.heading = A fydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben?
+hirer.followOnContract.subheading = Contractau’r gweithiwr
+hirer.followOnContract.checkYourAnswersLabel = A fydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben?
+hirer.followOnContract.p1 = Nid yw hyn yn cynnwys unrhyw gyfnod o wyliau rhwng y ddau gontract.
 
-##TODO: Need Welsh
 ### MajorityOfWorkingTime Page
 ### ---------------------------------
-worker.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of your available working time
-agency.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of your available working time
-worker.majorityOfWorkingTime.title = Will this work take up the majority of your available working time?
-worker.majorityOfWorkingTime.heading = Will this work take up the majority of your available working time?
-worker.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of your available working time?
-worker.majorityOfWorkingTime.subheading = Worker’s contracts
-worker.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
+worker.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
+agency.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
+worker.majorityOfWorkingTime.title = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
+worker.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
+worker.majorityOfWorkingTime.checkYourAnswersLabel = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael?
+worker.majorityOfWorkingTime.subheading = Contractau’r gweithiwr
+worker.majorityOfWorkingTime.p1 = Mae hyn yn cynnwys gwaith paratoi neu unrhyw amser arall angenrheidiol i gyflawni’r gwaith, hyd yn oed os na chyfeirir ato yn y contract.
 
-hirer.majorityOfWorkingTime.error.required = Select yes if the work will take up the majority of the worker’s available working time
-hirer.majorityOfWorkingTime.title = Will this work take up the majority of the worker’s available working time?
-hirer.majorityOfWorkingTime.heading = Will this work take up the majority of the worker’s available working time?
-hirer.majorityOfWorkingTime.checkYourAnswersLabel = Will this work take up the majority of the worker’s available working time?
-hirer.majorityOfWorkingTime.subheading = Worker’s contracts
-hirer.majorityOfWorkingTime.p1 = This includes preparation or any other time necessary to deliver the work, even if it is not referred to in the contract.
+hirer.majorityOfWorkingTime.error.required = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr
+hirer.majorityOfWorkingTime.title = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr?
+hirer.majorityOfWorkingTime.heading = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr?
+hirer.majorityOfWorkingTime.checkYourAnswersLabel = A fydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr?
+hirer.majorityOfWorkingTime.subheading = Contractau’r gweithiwr
+hirer.majorityOfWorkingTime.p1 = Dewiswch ‘Iawn’ os bydd y gwaith yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr.
 
-##TODO: Need Welsh
 ### RightsOfWork Page
 ### ---------------------------------
-worker.rightsOfWork.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
-agency.rightsOfWork.error.required = Select yes if you are required to transfer all ownership rights of this work as part of the contract
-worker.rightsOfWork.title = Does the contract state the rights to this work belong to your client?
-worker.rightsOfWork.heading = Does the contract state the rights to this work belong to your client?
-worker.rightsOfWork.checkYourAnswersLabel = Does the contract state the rights to this work belong to your client?
-worker.rightsOfWork.subheading = Worker’s contracts
-worker.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
+worker.rightsOfWork.error.required = Dewiswch ‘Iawn’ os yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch cleient
+agency.rightsOfWork.error.required = Dewiswch ‘Iawn’ os yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch cleient
+worker.rightsOfWork.title = A yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch cleient?
+worker.rightsOfWork.heading = A yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch cleient?
+worker.rightsOfWork.checkYourAnswersLabel = A yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch cleient?
+worker.rightsOfWork.subheading = Contractau’r gweithiwr
+worker.rightsOfWork.p1 = Nid yw hyn yn cynnwys yr opsiwn i brynu’r hawliau am ffi ar wahân.
 
-hirer.rightsOfWork.error.required = Select yes if the contract states that the rights to this work belong to your organisation
-hirer.rightsOfWork.title = Does the contract state the rights to this work belong to your organisation?
-hirer.rightsOfWork.heading = Does the contract state the rights to this work belong to your organisation?
-hirer.rightsOfWork.checkYourAnswersLabel = Does the contract state the rights to this work belong to your organisation?
-hirer.rightsOfWork.subheading = Worker’s contracts
-hirer.rightsOfWork.p1 = This does not include the option to buy the rights for a separate fee.
+hirer.rightsOfWork.error.required = Dewiswch ‘Iawn’ os yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch sefydliad
+hirer.rightsOfWork.title = A yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch sefydliad?
+hirer.rightsOfWork.heading = A yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch sefydliad?
+hirer.rightsOfWork.checkYourAnswersLabel = A yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch sefydliad?
+hirer.rightsOfWork.subheading = Contractau’r gweithiwr
+hirer.rightsOfWork.p1 = Nid yw hyn yn cynnwys yr opsiwn i brynu’r hawliau am ffi ar wahân.
 
 ### FirstContract Page
 ### ---------------------------------
-worker.firstContract.error.required = Select yes if the current contract is the first in a series of contracts agreed with this client
-agency.firstContract.error.required = Select yes if the current contract is the first in a series of contracts agreed with this client
-worker.firstContract.title = Is the current contract the first in a series of contracts agreed with this client?
-worker.firstContract.heading = Is the current contract the first in a series of contracts agreed with this client?
-worker.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts agreed with this client?
-worker.firstContract.subheading = Worker’s contracts
+worker.firstContract.error.required = Dewiswch ‘Iawn’ os mai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’r cleient hwn
+agency.firstContract.error.required = Dewiswch ‘Iawn’ os mai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’r cleient hwn
+worker.firstContract.title = Ai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’r cleient hwn?
+worker.firstContract.heading = Ai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’r cleient hwn?
+worker.firstContract.checkYourAnswersLabel = Ai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’r cleient hwn?
+worker.firstContract.subheading = Contractau’r gweithiwr
 
-hirer.firstContract.error.required = Select yes if the current contract is the first in a series of contracts agreed with your organisation
-hirer.firstContract.title = Is the current contract the first in a series of contracts agreed with your organisation?
-hirer.firstContract.heading = Is the current contract the first in a series of contracts agreed with your organisation?
-hirer.firstContract.checkYourAnswersLabel = Is the current contract the first in a series of contracts agreed with your organisation?
-hirer.firstContract.subheading = Worker’s contracts
+hirer.firstContract.error.required = Dewiswch ‘Iawn’ os mai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’ch sefydliad
+hirer.firstContract.title = Ai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’ch sefydliad?
+hirer.firstContract.heading = Ai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’ch sefydliad?
+hirer.firstContract.checkYourAnswersLabel = Ai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’ch sefydliad?
+hirer.firstContract.subheading = Contractau’r gweithiwr
 
 ### ExtendContract Page
 ### ---------------------------------
-extendContract.error.required = Select yes if the current contract allows for it to be extended
+extendContract.error.required = Dewiswch ‘Iawn’ os yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn
 
-worker.extendContract.title = Does the current contract allow for it to be extended?
-worker.extendContract.heading = Does the current contract allow for it to be extended?
-worker.extendContract.subheading = Worker’s contracts
-worker.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+worker.extendContract.title = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
+worker.extendContract.heading = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
+worker.extendContract.subheading = Contractau’r gweithiwr
+worker.extendContract.checkYourAnswersLabel = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
 
-hirer.extendContract.title = Does the current contract allow for it to be extended?
-hirer.extendContract.heading = Does the current contract allow for it to be extended?
-hirer.extendContract.subheading = Worker’s contracts
-hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for it to be extended?
+hirer.extendContract.title = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
+hirer.extendContract.heading = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
+hirer.extendContract.subheading = Contractau’r gweithiwr
+hirer.extendContract.checkYourAnswersLabel = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
 
-##TODO: Need Welsh
 #### Financially Dependent Page - BoOA
 #### ------------------------------
-worker.financiallyDependent.error.required = Select yes is this contract will provide you with the majority of your income
-agency.financiallyDependent.error.required = Select yes is this contract will provide you with the majority of your income
-worker.financiallyDependent.subheading = Worker’s contracts
-worker.financiallyDependent.title = Will this contract provide you with the majority of your income?
-worker.financiallyDependent.heading = Will this contract provide you with the majority of your income?
-worker.financiallyDependent.checkYourAnswersLabel = Will this contract provide you with the majority of your income?
-worker.financiallyDependent.p1 = This is about comparing income from this work with the total income from any other work, over the same period.
+worker.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi
+agency.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi
+worker.financiallyDependent.subheading = Contractau’r gweithiwr
+worker.financiallyDependent.title = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
+worker.financiallyDependent.heading = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
+worker.financiallyDependent.checkYourAnswersLabel = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
+worker.financiallyDependent.p1 = Ystyr incwm arferol yw enillion o swm tebyg, a delir gyda’r un amledd ac ar sail barhaus.
 
-hirer.financiallyDependent.error.required = Select yes if this contract will provide the worker with the majority of their income
-hirer.financiallyDependent.subheading = Worker’s contracts
-hirer.financiallyDependent.title = Will this contract provide the worker with the majority of their income?
-hirer.financiallyDependent.heading = Will this contract provide the worker with the majority of their income?
-hirer.financiallyDependent.checkYourAnswersLabel = Will this contract provide the worker with the majority of their income?
-hirer.financiallyDependent.p1 = This is about comparing income from this work with the total income from any other work, over the same period.
+hirer.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr
+hirer.financiallyDependent.subheading = Contractau’r gweithiwr
+hirer.financiallyDependent.title = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
+hirer.financiallyDependent.heading = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
+hirer.financiallyDependent.checkYourAnswersLabel = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
+hirer.financiallyDependent.p1 = Mae hyn yn ymwneud â chymharu incwm o’r gwaith hwn â chyfanswm yr incwm o unrhyw waith arall, dros yr un cyfnod.
 
 ###TODO: Need Welsh
 ### Worker Known Page
 ### --------------------------------
 workerKnown.error.required = You need to select an answer
 
-hirer.workerKnown.subheading = Worker’s contracts
+hirer.workerKnown.subheading = Contractau’r gweithiwr
 hirer.workerKnown.heading = Does your organisation know who will be doing this work?
 hirer.workerKnown.title = Does your organisation know who will be doing this work?
 hirer.workerKnown.checkYourAnswersLabel = Does your organisation know who will be doing this work?
 hirer.workerKnown.p1 = You will need information about the worker to answer the next questions.
 hirer.workerKnown.p2 = You will still get a result if you do not know who the worker is. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
 
-### TODO: Need Welsh
 ### SimilarWorkOtherClients Page
 ### ---------------------------------
-worker.similarWorkOtherClients.error.required = Select yes if you have done similar work for other clients in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done similar work for other clients in the last 12 months
-worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?
-worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?
-worker.similarWorkOtherClients.subheading = Worker’s contracts
-worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?
-worker.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
+worker.similarWorkOtherClients.error.required = Dewiswch ‘Iawn’ os ydych wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
+agency.similarWorkOtherClients.error.required = Dewiswch ‘Iawn’ os ydych wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
+worker.similarWorkOtherClients.title = A ydych wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+worker.similarWorkOtherClients.heading = A ydych wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+worker.similarWorkOtherClients.subheading = Contractau’r gweithiwr
+worker.similarWorkOtherClients.checkYourAnswersLabel = A ydych wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+worker.similarWorkOtherClients.p1 = Dylai hyn gynnwys gwaith sy’n cynnwys sgiliau, gallu, gwybodaeth neu gyfrifoldebau tebyg.
 
-hirer.similarWorkOtherClients.error.required = Select yes if the worker has done similar work for other clients in the last 12 months
-hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?
-hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?
-hirer.similarWorkOtherClients.subheading = Worker’s contracts
-hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?
-hirer.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
+hirer.similarWorkOtherClients.error.required = Dewiswch ‘Iawn’ os yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf
+hirer.similarWorkOtherClients.title = A yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
+hirer.similarWorkOtherClients.heading = A yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
+hirer.similarWorkOtherClients.subheading = Contractau’r gweithiwr
+hirer.similarWorkOtherClients.checkYourAnswersLabel = A yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
+hirer.similarWorkOtherClients.p1 = Dylai hyn gynnwys gwaith sy’n cynnwys sgiliau, gallu, gwybodaeth neu gyfrifoldebau tebyg.
 
 
-###TODO: Need Welsh
 ### Financially Dependent Page - BoOA
 ### ------------------------------
-ownershipRights.error.required = Select yes if there are any ownership rights relating to this contract
+ownershipRights.error.required = Dewiswch ‘Iawn’ os oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn
 
-worker.ownershipRights.subheading = Worker’s contracts
-worker.ownershipRights.title = Are there any ownership rights relating to this contract?
-worker.ownershipRights.heading = Are there any ownership rights relating to this contract?
-worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-worker.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
+worker.ownershipRights.subheading = Contractau’r gweithiwr
+worker.ownershipRights.title = A oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn?
+worker.ownershipRights.heading = A oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn?
+worker.ownershipRights.checkYourAnswersLabel = A oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn?
+worker.ownershipRights.p1 = Mae’r mathau hyn o hawliau i’w gweld fel arfer ar gontractau’r cyfryngau, y celfyddydau a’r diwydiant creadigol. Mae hyn yn cynnwys hawlfraint, nodau masnach, patentau, hawliau eiddo deallusol a hawliau delwedd.
 
-hirer.ownershipRights.subheading = Worker’s contracts
-hirer.ownershipRights.title = Are there any ownership rights relating to this contract?
-hirer.ownershipRights.heading = Are there any ownership rights relating to this contract?
-hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-hirer.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
+hirer.ownershipRights.subheading = Contractau’r gweithiwr
+hirer.ownershipRights.title = A oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn?
+hirer.ownershipRights.heading = A oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn?
+hirer.ownershipRights.checkYourAnswersLabel = A oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn?
+hirer.ownershipRights.p1 = Mae’r mathau hyn o hawliau i’w gweld fel arfer ar gontractau’r cyfryngau, y celfyddydau a’r diwydiant creadigol. Mae hyn yn cynnwys hawlfraint, nodau masnach, patentau, hawliau eiddo deallusol a hawliau delwedd.
 
 ### What Do You Want To Do Page
 ### ------------------------------
