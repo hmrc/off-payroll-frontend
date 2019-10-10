@@ -71,7 +71,7 @@ site.employmentStatusManual = Canllaw Statws Cyflogaeth
 site.telephone = Telephone:
 site.telephone.number = 0300 123 2326
 site.email = Email:
-site.opensInNewWindow = (opens in a new window)
+site.opensInNewWindow = (yn agor mewn ffenestr newydd)
 
 ## TODO NEED WELSH
 site.accordion.openAll = Open all
@@ -2110,11 +2110,10 @@ worker.intermediaryResult.p2 = Yna, rhoesoch wybod i ni eich bod yn masnachu drw
 worker.intermediaryResult.subheading = Beth y dylech ei wneud nesaf
 worker.intermediaryResult.p3 = Os ydych yn masnachu drwy gyfryngwr, dylech fynd ati i gael gwybod a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
 
-###TODO: Welsh needs to be split out
-worker.intermediaryResult.p4.text1 = Find out more about the
-worker.intermediaryResult.p4.link1 = Off-payroll working rules
-worker.intermediaryResult.p4.text2 = , or
-worker.intermediaryResult.p4.link2 = start again
+worker.intermediaryResult.p4.text1 = Dysgwch ragor am y
+worker.intermediaryResult.p4.link1 = Orheolau gweithio oddi ar y gyflogres
+worker.intermediaryResult.p4.text2 = , neu
+worker.intermediaryResult.p4.link2 = dechreuwch eto
 
 
 hirer.intermediaryResult.title = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
@@ -2124,11 +2123,10 @@ hirer.intermediaryResult.p2 = Yna, rhoesoch wybod i ni fod y gweithiwr yn masnac
 hirer.intermediaryResult.subheading = Beth y dylech ei wneud nesaf
 hirer.intermediaryResult.p3 = Os yw’r gweithiwr yn masnachu drwy gyfryngwr, dylech fynd ati i gael gwybod a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
 
-###TODO: Welsh needs to be split out
-hirer.intermediaryResult.p4.text1 = Find out more about the
-hirer.intermediaryResult.p4.link1 = Off-payroll working rules
-hirer.intermediaryResult.p4.text2 = , or
-hirer.intermediaryResult.p4.link2 = start again
+hirer.intermediaryResult.p4.text1 = Dysgwch ragor am y
+hirer.intermediaryResult.p4.link1 = rheolau gweithio oddi ar y gyflogres
+hirer.intermediaryResult.p4.text2 = , neu
+hirer.intermediaryResult.p4.link2 = dechreuwch eto
 
 
 ### No Intermediary Result Page
@@ -2138,11 +2136,10 @@ worker.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogre
 worker.noIntermediaryResult.p1 = Rhoesoch wybod i ni nad ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
 worker.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
 
-###TODO: Welsh needs to be split out
-worker.noIntermediaryResult.p2.text1 = Find out more about the
-worker.noIntermediaryResult.p2.link1 = Off-payroll working rules
-worker.noIntermediaryResult.p2.text2 = , or
-worker.noIntermediaryResult.p2.link2 = start again
+worker.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
+worker.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
+worker.noIntermediaryResult.p2.text2 = , neu
+worker.noIntermediaryResult.p2.link2 = dechreuwch eto
 
 
 hirer.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
@@ -2150,11 +2147,10 @@ hirer.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres
 hirer.noIntermediaryResult.p1 = Rydych wedi rhoi gwybod i ni nad yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
 hirer.noIntermediaryResult.subheading = Beth y dylech ei wneud nesaf
 
-###TODO: Welsh needs to be split out
-hirer.noIntermediaryResult.p2.text1 = Find out more about the
-hirer.noIntermediaryResult.p2.link1 = Off-payroll working rules
-hirer.noIntermediaryResult.p2.text2 = , or
-hirer.noIntermediaryResult.p2.link2 = start again
+hirer.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
+hirer.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
+hirer.noIntermediaryResult.p2.text2 = , neu
+hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
 
 
 ###TODO: Need Welsh
