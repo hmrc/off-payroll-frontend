@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(msgKey: String)(implicit messages: Messages)
+package assets.messages.results
 
-<div class="print-document__information-box">
-    <span id="result" class="bold-medium">
-        @messages(msgKey)
-    </span>
-</div>
+object PrintAndSaveMessages extends BaseResultMessages {
 
+  val heading = "Your determination and answers"
+  val printLink = "Print this document"
+  val savePdfLink = "Save as a PDF"
+  val exitLink = "exit"
+  val startAgainLink = "start again"
+  val p2 = "Once you have a copy of your result you can exit, or start again to check the employment status of some other work."
+}

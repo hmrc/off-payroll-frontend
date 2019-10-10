@@ -17,7 +17,7 @@
 package views.results
 
 import akka.http.scaladsl.model.HttpMethods
-import assets.messages.results.{AdditionalPDFMessages, DecisionVersionMessages, InDecisionMessages, UserAnswersMessages}
+import assets.messages.results._
 import config.featureSwitch.OptimisedFlow
 import models.sections.setup.AboutYouAnswer.Worker
 import models.{AdditionalPdfDetails, PDFResultDetails, Section}
@@ -41,7 +41,16 @@ trait ResultViewFixture extends ViewBehaviours {
     override val subheading = "p.font-large"
     private def p(i: Int, sectionId: String) = s"$sectionId p:nth-of-type($i)"
     private def h2(sectionId: String) = s"$sectionId h2"
-    private def h3(sectionId: String, i: Int) = s"$sectionId h3:nth-of-type($i)"
+
+    object PrintAndSave {
+      val id = "#printAndSave"
+      val h1 = "h1"
+      val printLink = "#printLink"
+      val saveAsPdf = "#saveAsPdf"
+      val exit = "#exitLink"
+      val startAgain = "#startAgainLink"
+      val p = (i: Int) => Selectors.p(i, id)
+    }
     object AdditionalPDF {
       val id = "#pdfDetails"
       val customisedBy = "#customisedBy"
@@ -102,6 +111,7 @@ trait ResultViewFixture extends ViewBehaviours {
   val testAdditionalPdfDetails = AdditionalPdfDetails(Some(testName), Some(testClient), Some(testJobTitle), Some(testReference), Some(fileName))
   implicit val testNoPdfResultDetails = PDFResultDetails()
   lazy val testPdfResultDetails = PDFResultDetails(printMode = true, letterMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
+  lazy val testPrintPreviewResultDetails = PDFResultDetails(printMode = false, letterMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 
   val answers = Seq(
     AnswerSection(Messages("checkYourAnswers.setup.header"), whyResult = None,
@@ -176,6 +186,47 @@ trait ResultViewFixture extends ViewBehaviours {
       checkAdditionalPdfDetailsNotPresent
       checkUserAnswersNotPresent
       checkDecisionServiceVersionNotPresent
+    }
+  }
+
+  def letterPrintPreviewPageChecks(implicit document: Document): Unit = {
+    checkPrintAndSaveSectionPresent
+  }
+
+  def checkPrintAndSaveSectionPresent(implicit document: Document): Unit = {
+    "Has a section with the Print and Save as PDF options present which" should {
+
+      "have the correct heading" in {
+        document.select(Selectors.PrintAndSave.h1).text mustBe PrintAndSaveMessages.heading
+      }
+
+      "have the print link" in {
+        val element = document.select(Selectors.PrintAndSave.printLink)
+        element.text mustBe PrintAndSaveMessages.printLink
+        element.attr("onClick") mustBe "window.print()"
+      }
+
+      "have the save as PDF link" in {
+        val element = document.select(Selectors.PrintAndSave.saveAsPdf)
+        element.text mustBe PrintAndSaveMessages.savePdfLink
+        element.attr("href") mustBe controllers.routes.PDFController.downloadPDF().url
+      }
+
+      "have the exit link" in {
+        val element = document.select(Selectors.PrintAndSave.exit)
+        element.text mustBe PrintAndSaveMessages.exitLink
+        element.attr("href") mustBe controllers.routes.ExitSurveyController.redirectToExitSurvey().url
+      }
+
+      "have the start again link" in {
+        val element = document.select(Selectors.PrintAndSave.startAgain)
+        element.text mustBe PrintAndSaveMessages.startAgainLink
+        element.attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+      }
+
+      "have the correct p2" in {
+        document.select(Selectors.PrintAndSave.p(2)).text mustBe PrintAndSaveMessages.p2
+      }
     }
   }
 
@@ -285,7 +336,7 @@ trait ResultViewFixture extends ViewBehaviours {
 
   def checkDecisionServiceVersionNotPresent(implicit document: Document) = {
     "NOT include a section for the Decision Service Version that" in {
-        document.select(Selectors.AboutThisResult.id).hasText mustBe false
+      document.select(Selectors.AboutThisResult.id).hasText mustBe false
     }
   }
 }

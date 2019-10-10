@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.InDecisionMessages
+import assets.messages.results.{InDecisionMessages, PrintPreviewMessages}
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.UserAnswers
@@ -37,7 +37,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
-    pageChecks
+    pageChecks(isPrintPreviewView = false)
     pdfPageChecks(isPdfView = false)
   }
 
@@ -47,17 +47,41 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
 
-    pageChecks
+    pageChecks(isPrintPreviewView = false)
     pdfPageChecks(isPdfView = true)
   }
 
-  def pageChecks(implicit document: Document) = {
-    "Have the correct title" in {
-      document.title mustBe title(InDecisionMessages.Agent.title)
-    }
+  "The InsideAgentView Letter Print Preview page" should {
 
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
+    def createPrintView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPrintPreviewResultDetails)
+
+    implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
+
+    pageChecks(isPrintPreviewView = true)
+    pdfPageChecks(isPdfView = true)
+    letterPrintPreviewPageChecks
+  }
+
+  def pageChecks(isPrintPreviewView: Boolean)(implicit document: Document) = {
+
+    if(isPrintPreviewView) {
+
+      "Have the correct title" in {
+        document.title mustBe title(PrintPreviewMessages.title)
+      }
+
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+      }
+    } else {
+
+      "Have the correct title" in {
+        document.title mustBe title(InDecisionMessages.Agent.title)
+      }
+
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
+      }
     }
 
     "Have the correct Why Result section" in {
