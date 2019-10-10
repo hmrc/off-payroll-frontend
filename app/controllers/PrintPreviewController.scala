@@ -26,6 +26,7 @@ import pages.{CustomisePDFPage, Timestamp}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, EncryptionService, OptimisedDecisionService}
 import utils.SessionUtils._
+import viewmodels.ResultPrintPreview
 import views.html.FinishedCheckingView
 
 class PrintPreviewController @Inject()(identify: IdentifierAction,
@@ -50,7 +51,7 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
       case Some(decision) =>
         optimisedDecisionService.determineResultView(
           decision = decision,
-          letterMode = true,
+          resultMode = ResultPrintPreview,
           answerSections = checkYourAnswersService.sections,
           additionalPdfDetails = Some(pdfDetails),
           timestamp = Some(timestamp)

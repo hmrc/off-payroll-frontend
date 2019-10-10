@@ -35,6 +35,7 @@ import play.twirl.api.{Html, HtmlFormat}
 import services._
 import utils.SessionUtils._
 import utils.UserAnswersUtils
+import viewmodels.ResultPDF
 import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.Future
@@ -128,8 +129,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       decision,
       None,
       checkYourAnswersService.sections,
-      printMode = true,
-      letterMode = true,
+      ResultPDF,
       additionalPdfDetails = Some(additionalPdfDetails),
       timestamp = Some(timestamp)
     ) match {

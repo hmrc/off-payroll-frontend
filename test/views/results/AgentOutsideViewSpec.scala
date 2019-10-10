@@ -17,13 +17,10 @@
 package views.results
 
 import assets.messages.results.OutDecisionMessages
-import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.{PDFResultDetails, UserAnswers}
-import models.UserType.Agency
+import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
 import play.twirl.api.Html
 import views.html.results.outside.AgentOutsideView
 

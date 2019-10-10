@@ -35,7 +35,7 @@ import play.api.i18n.Messages
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import viewmodels.AnswerSection
+import viewmodels.{AnswerSection, Result, ResultMode}
 import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.outside._
@@ -76,8 +76,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
   def determineResultView(decision: DecisionResponse,
                           formWithErrors: Option[Form[Boolean]] = None,
                           answerSections: Seq[AnswerSection] = Seq(),
-                          printMode: Boolean = false,
-                          letterMode: Boolean = false,
+                          resultMode: ResultMode = Result,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None,
                           timestamp: Option[String] = None,
                           decisionVersion: Option[String] = None)
@@ -99,8 +98,7 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     )
 
     implicit val pdfResultDetails: PDFResultDetails = PDFResultDetails(
-      printMode,
-      letterMode,
+      resultMode,
       additionalPdfDetails,
       timestamp,
       answerSections
