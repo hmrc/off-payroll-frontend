@@ -74,6 +74,10 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.WorkerIR35.heading
+      }
+
       workerPageChecks
       pdfPageChecks(isPdfView = true)
     }
@@ -83,6 +87,10 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       "If the Worker is Known" should {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
+        }
 
         hirerPageChecks()
         pdfPageChecks(isPdfView = true)
@@ -101,10 +109,6 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
   def workerPageChecks(implicit document: Document) = {
     "Have the correct title" in {
       document.title mustBe title(UndeterminedDecisionMessages.WorkerIR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerIR35.heading
     }
 
     "Have the correct Why Result section" in {
@@ -127,10 +131,6 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(UndeterminedDecisionMessages.HirerIR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
     }
 
     "Have the correct Why Result section" in {

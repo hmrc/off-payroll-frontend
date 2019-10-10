@@ -37,7 +37,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
-    pageChecks(isPrintPreviewView = false)
+    pageChecks(isPrintPreviewView = false, isPDF = false)
     pdfPageChecks(isPdfView = false)
   }
 
@@ -47,7 +47,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
 
-    pageChecks(isPrintPreviewView = false)
+    pageChecks(isPrintPreviewView = false, isPDF = true)
     pdfPageChecks(isPdfView = true)
   }
 
@@ -57,12 +57,11 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
 
-    pageChecks(isPrintPreviewView = true)
-    pdfPageChecks(isPdfView = true)
+    pageChecks(isPrintPreviewView = true, isPDF = false)
     letterPrintPreviewPageChecks
   }
 
-  def pageChecks(isPrintPreviewView: Boolean)(implicit document: Document) = {
+  def pageChecks(isPrintPreviewView: Boolean, isPDF: Boolean)(implicit document: Document) = {
 
     if(isPrintPreviewView) {
 
@@ -79,8 +78,16 @@ class AgentInsideViewSpec extends ResultViewFixture {
         document.title mustBe title(InDecisionMessages.Agent.title)
       }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
+      if(isPDF) {
+
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.Agent.heading
+        }
+      } else {
+
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
+        }
       }
     }
 

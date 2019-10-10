@@ -42,6 +42,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
+      }
+
       workerPageChecks
       pdfPageChecks(isPdfView = false)
     }
@@ -52,6 +56,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
 
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
+        }
+
         hirerPageChecks()
         pdfPageChecks(isPdfView = false)
       }
@@ -59,6 +67,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       "when the Worker is NOT Known" should {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails, workerKnown = false))
+
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
+        }
 
         hirerPageChecks(workerKnown = false)
         pdfPageChecks(isPdfView = false)
@@ -72,6 +84,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.WorkerPAYE.heading
+      }
+
       workerPageChecks
       pdfPageChecks(isPdfView = true)
     }
@@ -81,6 +97,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       "when the Worker is Known" should {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.HirerPAYE.heading
+        }
 
         hirerPageChecks()
         pdfPageChecks(isPdfView = true)
@@ -102,10 +122,6 @@ class PAYEInsideViewSpec extends ResultViewFixture {
       document.title mustBe title(InDecisionMessages.WorkerPAYE.title)
     }
 
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerPAYE.whyResult
@@ -121,10 +137,6 @@ class PAYEInsideViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(InDecisionMessages.HirerPAYE.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
     }
 
     "Have the correct Why Result section" in {

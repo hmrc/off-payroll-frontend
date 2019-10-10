@@ -33,7 +33,7 @@
         printTemplate(title(form, "agent.optimised.result.inside.title"), appConfig = appConfig)(_)
     } else {
         if(pdfResultDetails.letterMode) {
-            mainTemplate(title(form, "agent.optimised.result.inside.title"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
+            mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
         } else {
             mainTemplate(title(form, "agent.optimised.result.inside.title"), appConfig = appConfig)(_)
         }

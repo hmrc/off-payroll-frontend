@@ -51,12 +51,20 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       "If making determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true))
 
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
+        }
+
         workerPageChecks(isMake = true)
         pdfPageChecks(isPdfView = false)
       }
 
       "If checking determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false))
+
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
+        }
 
         workerPageChecks(isMake = false)
         pdfPageChecks(isPdfView = false)
@@ -96,6 +104,10 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest))
 
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerIR35.heading
+        }
+
         hirerPageChecks()
         pdfPageChecks(isPdfView = false)
       }
@@ -130,6 +142,11 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       "if the Worker is NOT Known" should {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false))
+
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
+        }
+
         hirerPageChecks(workerKnown = false)
       }
     }
@@ -142,12 +159,20 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       "If making a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPdfResultDetails))
 
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.WorkerIR35.heading
+        }
+
         workerPageChecks(isMake = true)
         pdfPageChecks(isPdfView = true)
       }
 
       "If checking a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
+
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.WorkerIR35.heading
+        }
 
         workerPageChecks(isMake = false)
         pdfPageChecks(isPdfView = true)
@@ -156,6 +181,10 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
     "If the UserType is Hirer" should {
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
+
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.HirerIR35.heading
+      }
 
       hirerPageChecks()
       pdfPageChecks(isPdfView = true)
@@ -167,10 +196,6 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
       "Have the correct title" in {
         document.title mustBe title(OutDecisionMessages.WorkerIR35.title)
-      }
-
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
       }
 
       "Have the correct Why Result section" in {
@@ -218,10 +243,6 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.HirerIR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerIR35.heading
     }
 
     "Have the correct Why Result section when all reasons are given" in {

@@ -39,6 +39,10 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest, testNoPdfResultDetails))
 
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Agent.heading
+    }
+
     pageChecks
     pdfPageChecks(isPdfView = false)
   }
@@ -46,6 +50,10 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
   "The OfficeHolderAgentView PDF/Print page" should {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest, testPdfResultDetails))
+
+    "Have the correct heading" in {
+      document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Agent.heading
+    }
 
     pageChecks
     pdfPageChecks(isPdfView = true)
@@ -55,10 +63,6 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Agent.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Agent.heading
     }
 
     "Have the correct Why Result section" in {

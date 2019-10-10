@@ -61,6 +61,10 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = true, testNoPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+      }
+
       hirerPageChecks
       pdfPageChecks(isPdfView = false)
     }
@@ -74,12 +78,20 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = true, testPdfResultDetails))
 
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.IR35.heading
+        }
+
         workerPageChecks(isMakingDetermination = true)
         pdfPageChecks(isPdfView = true)
       }
 
       "If the user is Checking a Determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = false, testPdfResultDetails))
+
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.IR35.heading
+        }
 
         workerPageChecks(isMakingDetermination = false)
         pdfPageChecks(isPdfView = true)
@@ -90,6 +102,10 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = false, testPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+      }
+
       hirerPageChecks
       pdfPageChecks(isPdfView = true)
     }
@@ -99,10 +115,6 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
     }
 
     "Have the correct Why Result section" in {
@@ -134,10 +146,6 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
   def hirerPageChecks(implicit document: Document) = {
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
     }
 
     "Have the correct Why Result section" in {

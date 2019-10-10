@@ -39,6 +39,10 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
+      }
+
       workerPageChecks
       pdfPageChecks(isPdfView = false)
     }
@@ -46,6 +50,10 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
     "If the UserType is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
+
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
+      }
 
       hirerPageChecks
       pdfPageChecks(isPdfView = false)
@@ -58,6 +66,10 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
+      }
+
       workerPageChecks
       pdfPageChecks(isPdfView = true)
     }
@@ -65,6 +77,10 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
     "If the UserType is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
+      }
 
       hirerPageChecks
       pdfPageChecks(isPdfView = true)
@@ -75,10 +91,6 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
     }
 
     "Have the correct Why Result section" in {
@@ -95,10 +107,6 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
   def hirerPageChecks(implicit document: Document) = {
     "Have the correct title" in {
       document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
     }
 
     "Have the correct Why Result section" in {

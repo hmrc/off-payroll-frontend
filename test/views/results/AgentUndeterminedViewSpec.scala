@@ -38,6 +38,10 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
+    "Have the correct heading" in {
+      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
+    }
+
     pageChecks
     pdfPageChecks(isPdfView = false)
   }
@@ -48,6 +52,10 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
+    "Have the correct heading" in {
+      document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.Agent.heading
+    }
+
     pageChecks
     pdfPageChecks(isPdfView = true)
   }
@@ -55,10 +63,6 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
   def pageChecks(implicit document: Document) = {
     "Have the correct title" in {
       document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
     }
 
     "Have the correct Why Result section" in {

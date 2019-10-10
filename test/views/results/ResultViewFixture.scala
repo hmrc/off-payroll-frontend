@@ -46,10 +46,11 @@ trait ResultViewFixture extends ViewBehaviours {
       val id = "#printAndSave"
       val h1 = "h1"
       val printLink = "#printLink"
-      val saveAsPdf = "#saveAsPdf"
+      val saveAsPdf = "#saveAsPdfLink"
       val exit = "#exitLink"
       val startAgain = "#startAgainLink"
       val p = (i: Int) => Selectors.p(i, id)
+      val printHeading = "span[id=result]"
     }
     object AdditionalPDF {
       val id = "#pdfDetails"
@@ -203,7 +204,7 @@ trait ResultViewFixture extends ViewBehaviours {
       "have the print link" in {
         val element = document.select(Selectors.PrintAndSave.printLink)
         element.text mustBe PrintAndSaveMessages.printLink
-        element.attr("onClick") mustBe "window.print()"
+        element.attr("onClick") mustBe "window.print();"
       }
 
       "have the save as PDF link" in {

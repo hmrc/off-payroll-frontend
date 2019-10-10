@@ -51,6 +51,10 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerPAYE.heading
+        }
+
         workerPageChecks
         pdfPageChecks(isPdfView = false)
       }
@@ -134,6 +138,10 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.WorkerPAYE.heading
+      }
+
       workerPageChecks
       pdfPageChecks(isPdfView = true)
     }
@@ -141,6 +149,10 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
     "If the UserType is Hirer" should {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
+
+      "Have the correct heading" in {
+        document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.HirerPAYE.heading
+      }
 
       hirerPageChecks()
       pdfPageChecks(isPdfView = true)
@@ -151,10 +163,6 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.WorkerPAYE.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerPAYE.heading
     }
 
     "Have the correct Why Result section when all reasons are given" in {
@@ -186,10 +194,6 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerPAYE.heading
     }
 
     "Have the correct Why Result section when all reasons are given" in {

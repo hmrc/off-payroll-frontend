@@ -44,9 +44,13 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
   "The OutAgentView page" when {
 
-    "all reasona are given should display all reasons" should {
+    "all reasons are given should display all reasons" should {
 
       implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
+
+      "Have the correct heading" in {
+        document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
+      }
 
       pageChecks
       pdfPageChecks(isPdfView = false)
@@ -84,6 +88,10 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest, pdfDetails = testPdfResultDetails))
 
+    "Have the correct heading" in {
+      document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.Agent.heading
+    }
+
     pageChecks
     pdfPageChecks(isPdfView = true)
   }
@@ -92,10 +100,6 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(OutDecisionMessages.Agent.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
     }
 
     "Have the correct Why Result section for 4 reasons" in {

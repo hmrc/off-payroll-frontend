@@ -48,6 +48,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest))
 
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
+        }
+
         workerPageChecks(isMakingNewDetermination = false)
         pdfPageChecks(isPdfView = false)
       }
@@ -55,6 +59,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
       "is Making a New Determination" should {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingNewDetermination = true))
+
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
+        }
 
         workerPageChecks(isMakingNewDetermination = true)
         pdfPageChecks(isPdfView = false)
@@ -67,6 +75,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = true))
 
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
+        }
+
         hirerPageChecks(workerKnown = true)
         pdfPageChecks(isPdfView = false)
       }
@@ -74,6 +86,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
       "if the Worker is NOT Known" should {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false))
+
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
+        }
 
         hirerPageChecks(workerKnown = false)
         pdfPageChecks(isPdfView = false)
@@ -89,6 +105,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = false, testPdfResultDetails))
 
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.WorkerIR35.heading
+        }
+
         workerPageChecks(isMakingNewDetermination = false)
         pdfPageChecks(isPdfView = true)
       }
@@ -96,6 +116,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
       "is Making a New Determination" should {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = true, testPdfResultDetails))
+
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.WorkerIR35.heading
+        }
 
         workerPageChecks(isMakingNewDetermination = true)
         pdfPageChecks(isPdfView = true)
@@ -108,6 +132,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = true, isMakingNewDetermination = true, testPdfResultDetails))
 
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.HirerIR35.heading
+        }
+
         hirerPageChecks(workerKnown = true)
         pdfPageChecks(isPdfView = true)
       }
@@ -115,6 +143,11 @@ class IR35InsideViewSpec extends ResultViewFixture {
       "if the Worker is Not Known" should {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false, isMakingNewDetermination = true, testPdfResultDetails))
+
+
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.HirerIR35.heading
+        }
 
         hirerPageChecks(workerKnown = false)
         pdfPageChecks(isPdfView = true)
@@ -127,10 +160,6 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
     "Have the correct title" in {
       document.title mustBe title(InDecisionMessages.HirerIR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
     }
 
     "Have the correct Why Result section" in {
@@ -159,11 +188,6 @@ class IR35InsideViewSpec extends ResultViewFixture {
     "Have the correct title" in {
       document.title mustBe title(InDecisionMessages.WorkerIR35.title)
     }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
-    }
-
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe InDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe InDecisionMessages.WorkerIR35.whyResultP1
