@@ -27,7 +27,7 @@ import play.api.i18n.Messages
 import play.api.mvc.Call
 import play.twirl.api.Html
 import utils.FakeTimestamp
-import viewmodels.{AnswerRow, AnswerSection}
+import viewmodels.{AnswerRow, AnswerSection, ResultPDF, ResultPrintPreview}
 import views.behaviours.ViewBehaviours
 
 trait ResultViewFixture extends ViewBehaviours {
@@ -111,8 +111,8 @@ trait ResultViewFixture extends ViewBehaviours {
 
   val testAdditionalPdfDetails = AdditionalPdfDetails(Some(testName), Some(testClient), Some(testJobTitle), Some(testReference), Some(fileName))
   implicit val testNoPdfResultDetails = PDFResultDetails()
-  lazy val testPdfResultDetails = PDFResultDetails(printMode = true, letterMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
-  lazy val testPrintPreviewResultDetails = PDFResultDetails(printMode = false, letterMode = true, Some(testAdditionalPdfDetails), Some(timestamp), answers)
+  lazy val testPdfResultDetails = PDFResultDetails(resultMode = ResultPDF, Some(testAdditionalPdfDetails), Some(timestamp), answers)
+  lazy val testPrintPreviewResultDetails = PDFResultDetails(resultMode = ResultPrintPreview, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 
   val answers = Seq(
     AnswerSection(Messages("checkYourAnswers.setup.header"), whyResult = None,

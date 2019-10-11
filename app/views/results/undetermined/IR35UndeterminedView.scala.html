@@ -22,52 +22,46 @@
 @import results.sections._
 @import controllers.routes._
 @import results.sections.letter._
-@import viewmodels.LetterAnswerSections
+@import viewmodels.{LetterAnswerSections, Result, ResultMode, ResultPDF, ResultPrintPreview}
+
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
 @(form: Form[_], workerKnown: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
-    if(pdfResultDetails.printMode) {
-        printTemplate(title(form, tailorMsgOptimised("result.undetermined.ir35.title")), appConfig = appConfig)(_)
-    } else {
-        if(pdfResultDetails.letterMode) {
-            mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        } else {
-            mainTemplate(title(form, tailorMsgOptimised("result.undetermined.ir35.title")), appConfig = appConfig)(_)
-        }
+
+    pdfResultDetails.resultMode match {
+        case Result => mainTemplate(title(form, tailorMsgOptimised("result.undetermined.ir35.title")), appConfig = appConfig)(_)
+        case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
+        case ResultPDF => printTemplate(title(form, tailorMsgOptimised("result.undetermined.ir35.title")), appConfig = appConfig)(_)
     }
 ){ template =>
 
     @template {
+        @pdfResultDetails.resultMode match {
+            case Result => {
+                @pdfResultDetails.additionalPdfDetails.map { details =>
+                    @pdf.additional_details(details, pdfResultDetails.timestamp)
+                }
 
-        @if(pdfResultDetails.letterMode) {
+                @components.teal_result(
+                    Html(messages(tailorMsgOptimised("result.undetermined.ir35.heading"))),
+                    "result.undetermined"
+                )
 
-            @if(!pdfResultDetails.printMode) {
+                @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
+                    @results.sections.why_result(whyResult)
+                    @results.sections.do_next(doNext)
+                    @results.sections.download(form)
+                }
+            }
+            case ResultPrintPreview => {
                 @print_and_save_result()
+                @letter_layout(tailorMsgOptimised("result.undetermined.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
-
-            @letter_layout(tailorMsgOptimised("result.undetermined.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
-
-        } else {
-
-            @pdfResultDetails.additionalPdfDetails.map { details =>
-                @pdf.additional_details(details, pdfResultDetails.timestamp)
-            }
-
-            @components.teal_result(
-                Html(messages(tailorMsgOptimised("result.undetermined.ir35.heading"))),
-                "result.undetermined"
-            )
-
-            @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
-
-                @results.sections.why_result(whyResult)
-
-                @results.sections.do_next(doNext)
-
-                @results.sections.download(form)
+            case ResultPDF => {
+                @letter_layout(tailorMsgOptimised("result.undetermined.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
