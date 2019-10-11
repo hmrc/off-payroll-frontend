@@ -707,8 +707,8 @@ hirer.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-hirer.optimised.howWorkerIsPaid.incomeFixed = A fixed price for a specific project
-hirer.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
+hirer.optimised.howWorkerIsPaid.incomeFixed = A fixed price for the project
+hirer.optimised.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
 hirer.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker generates
 hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your organisation’s profits or savings
 #########################
