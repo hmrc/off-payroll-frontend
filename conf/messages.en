@@ -2031,13 +2031,13 @@ worker.ownershipRights.subheading = Worker’s contracts
 worker.ownershipRights.title = Are there any ownership rights relating to this contract?
 worker.ownershipRights.heading = Are there any ownership rights relating to this contract?
 worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-worker.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
+worker.ownershipRights.p1 = This includes copyright, trademarks, patents, all intellectual property and image rights.
 
 hirer.ownershipRights.subheading = Worker’s contracts
 hirer.ownershipRights.title = Are there any ownership rights relating to this contract?
 hirer.ownershipRights.heading = Are there any ownership rights relating to this contract?
 hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-hirer.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
+hirer.ownershipRights.p1 = This includes copyright, trademarks, patents, all intellectual property and image rights.
 
 ### What Do You Want To Do Page
 ### ------------------------------
