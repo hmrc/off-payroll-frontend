@@ -68,9 +68,9 @@ site.hmrc = Cyllid a Thollau EM
 site.govuk = GOV.UK
 site.ir35email = gwasanaeth.cymraeg@hmrc.gov.uk
 site.employmentStatusManual = Canllaw Statws Cyflogaeth
-site.telephone = Telephone:
-site.telephone.number = 0300 123 2326
-site.email = Email:
+site.telephone = Ffôn:
+site.telephone.number = 0300 200 1900
+site.email = E-bost:
 site.opensInNewWindow = (yn agor mewn ffenestr newydd)
 
 ## TODO NEED WELSH
@@ -1354,7 +1354,7 @@ hirerAdvisory.title = Until April 2020, you do not need to determine if this wor
 hirerAdvisory.heading = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
 hirerAdvisory.p1 = It is the worker’s responsibility.
 hirerAdvisory.p2 = After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer.
-hirerAdvisory.subheading = What you should do next
+hirerAdvisory.subheading = Beth y dylech ei wneud nesaf
 hirerAdvisory.p3 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 ##### TODO NEED WELSH FOR ####
@@ -1397,7 +1397,7 @@ hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is your org
 workerAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 workerAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
 workerAdvisory.p1 = Because you told us this work is for a public sector body, they are responsible for determining its employment status for tax purposes.
-workerAdvisory.subheading = What you should do next
+workerAdvisory.subheading = Beth y dylech ei wneud nesaf
 workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
 
 ##### TODO NEED WELSH FOR ####
@@ -1476,128 +1476,126 @@ toolNotNeeded.client.paye.p2 = This is because you told us they will trade throu
 
 ## Common Result Messages
 ## ----------------------
-##TODO: Need Welsh
-optimised.result.whyResult.h2 = Why you are getting this result
-optimised.result.doNext.h2 = What you should do next
-optimised.result.download.h2 = Do you want to download this result?
-optimised.result.download.p1 = You will get a document that shows today’s date and time of completion, your answers and the above result. You can also add details to the document to help reference it for your future use.
-optimised.result.download.p2 = HMRC will not keep a record of this result.
+optimised.result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
+optimised.result.doNext.h2 = Beth y dylech ei wneud nesaf
+optimised.result.download.h2 = A ydych am lawrlwytho’r canlyniad hwn?
+optimised.result.download.p1 = Cewch ddogfen sy’n dangos dyddiad heddiw a’r amser cwblhau, ynghyd â’ch atebion a’r canlyniad uchod. Gallwch hefyd ychwanegu manylion at y ddogfen i helpu i gyfeirio ati ar gyfer eich defnydd yn y dyfodol.
+optimised.result.download.p2 = Ni fydd CThEM yn cadw cofnod o’r canlyniad hwn.
 
 
 ## Office Holder PAYE
 ## ------------------
-##TODO: Need Welsh
-worker.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
-worker.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
-worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are employed for tax purposes for this work.
-worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.officeHolder.paye.title = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
+worker.optimised.result.officeHolder.paye.heading = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
+worker.optimised.result.officeHolder.paye.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y byddwch yn cyflawni dyletswyddau deiliad swydd. Golyga hyn eich bod yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+worker.optimised.result.officeHolder.paye.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
 
 ##TODO: Need Welsh
-hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
-hirer.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
+hirer.optimised.result.officeHolder.paye.title = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
+hirer.optimised.result.officeHolder.paye.heading = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
 hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work.
-hirer.optimised.result.officeHolder.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
-hirer.optimised.result.officeHolder.paye.doNext.p2.preLink = If this worker is your first employee, you could read this guidance about
-hirer.optimised.result.officeHolder.paye.doNext.p2.link = PAYE and payroll for employers.
+hirer.optimised.result.officeHolder.paye.doNext.p1 = Mae angen i chi weithredu TWE ar enillion y gweithiwr.
+hirer.optimised.result.officeHolder.paye.doNext.p2.preLink = Os mai’r gweithiwr hwn yw’ch cyflogai cyntaf, gallech ddarllen yr arweiniad hwn am
+hirer.optimised.result.officeHolder.paye.doNext.p2.link = TWE a’r gyflogres ar gyfer cyflogwyr.
 ## ------------------
 
 ## Office Holder IR35
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply
-worker.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
-worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are classed as employed for tax purposes for this work.
-worker.optimised.result.officeHolder.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
-worker.optimised.result.officeHolder.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
-worker.optimised.result.officeHolder.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.officeHolder.ir35.check.doNext.p3.preLink = You could also read Chapter 5 of the
-worker.optimised.result.officeHolder.ir35.check.doNext.p3.link = Employment Status Manual.
+worker.optimised.result.officeHolder.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y byddwch yn cyflawni dyletswyddau deiliad swydd. Golyga hyn y cewch eich trin fel petaech yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+worker.optimised.result.officeHolder.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
+worker.optimised.result.officeHolder.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+worker.optimised.result.officeHolder.ir35.check.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallwch gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
+worker.optimised.result.officeHolder.ir35.check.doNext.p3.preLink = Gallech hefyd ddarllen pennod 5 o’r
+worker.optimised.result.officeHolder.ir35.check.doNext.p3.link = Canllaw Statws Cyflogaeth.
 
 ##TODO: Need Welsh
-hirer.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply
-hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
-hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are classed as employed for tax purposes for this work.
-hirer.optimised.result.officeHolder.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings.
-hirer.optimised.result.officeHolder.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
-hirer.optimised.result.officeHolder.ir35.doNext.p3.preLink = You could also read more about the
-hirer.optimised.result.officeHolder.ir35.doNext.p3.link = responsibilities of the fee-payer.
+hirer.optimised.result.officeHolder.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y bydd y gweithiwr yn cyflawni dyletswyddau deiliad swydd. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+hirer.optimised.result.officeHolder.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion.
+hirer.optimised.result.officeHolder.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
+hirer.optimised.result.officeHolder.ir35.doNext.p3.preLink = Gallech hefyd ddarllen rhagor am
+hirer.optimised.result.officeHolder.ir35.doNext.p3.link = gyfrifoldebau’r talwr ffioedd.
 ## ------------------
 
 ## Office Holder Agent
 ## -------------------
 ##TODO: Need Welsh
-agent.optimised.result.officeHolder.title = Off-payroll working rules (IR35) apply
-agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply
-agent.optimised.result.officeHolder.whyResult.p1 = You have completed the tool as if you are the worker.
-agent.optimised.result.officeHolder.whyResult.p2 = In the ‘Worker’s Duties’ section, you answered that they will act in an official position for your client. This means they are classed as employed for tax purposes for this work.
-agent.optimised.result.officeHolder.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
-agent.optimised.result.officeHolder.doNext.p2.preLink = If you need more guidance, you could also read Chapter 5 of the
-agent.optimised.result.officeHolder.doNext.p2.link = Employment Status Manual.
+agent.optimised.result.officeHolder.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.officeHolder.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.officeHolder.whyResult.p1 = Rydych wedi cwblhau’r twlsyn fel pe bai chi yw’r gweithiwr.
+agent.optimised.result.officeHolder.whyResult.p2 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y bydd yn gweithredu mewn swyddogaeth swyddogol ar gyfer eich cleient. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+agent.optimised.result.officeHolder.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+agent.optimised.result.officeHolder.doNext.p2.preLink = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
+agent.optimised.result.officeHolder.doNext.p2.link = Canllaw Statws Cyflogaeth.
 ## ------------------
 
 ## Inside PAYE Hirer
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.paye.title = Employed for tax purposes for this work
-hirer.optimised.result.inside.paye.heading = Employed for tax purposes for this work
+hirer.optimised.result.inside.paye.title = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
+hirer.optimised.result.inside.paye.heading = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
 hirer.optimised.result.inside.paye.whyResult.p1 = The answers you have given suggest the worker is employed for tax purposes for this work.
-hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
-hirer.optimised.result.inside.paye.doNext.p2.text = If this worker is your first employee, you could read this guidance about
-hirer.optimised.result.inside.paye.doNext.p2.link = PAYE and payroll for employers
+hirer.optimised.result.inside.paye.doNext.p1 = Mae angen i chi weithredu TWE ar enillion y gweithiwr.
+hirer.optimised.result.inside.paye.doNext.p2.text = Os mai’r gweithiwr hwn yw’ch cyflogai cyntaf, gallech ddarllen yr arweiniad hwn am
+hirer.optimised.result.inside.paye.doNext.p2.link = TWE a’r gyflogres ar gyfer cyflogwyr
 hirer.optimised.result.inside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
 ## ------------------
 
 ## Undetermined PAYE Hirer
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.undetermined.paye.title = Unable to make a determination
-hirer.optimised.result.undetermined.paye.heading = Unable to make a determination
-hirer.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work.
-hirer.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
-hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.paye.title = Methu gwneud penderfyniad
+hirer.optimised.result.undetermined.paye.heading = Methu gwneud penderfyniad
+hirer.optimised.result.undetermined.paye.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r gweithiwr yn gyflogedig neu’n hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+hirer.optimised.result.undetermined.paye.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
+hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r gweithiwr. Gwiriwch eich atebion gydag ef i sicrhau eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig.
 hirer.optimised.result.undetermined.paye.doNext.p1.workerNotKnown = You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
-hirer.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-hirer.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
+hirer.optimised.result.undetermined.paye.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
+hirer.optimised.result.undetermined.paye.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 
 ##TODO: Need Welsh
-worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply
-worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
-worker.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest you are providing a personal service to your client. This means you are classed as employed for tax purposes for this work.
-worker.optimised.result.inside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
-worker.optimised.result.inside.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
-worker.optimised.result.inside.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.inside.ir35.check.doNext.p3.text = You could also read Chapter 5 of the
-worker.optimised.result.inside.ir35.check.doNext.p3.link = Employment Status Manual.
+worker.optimised.result.inside.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.inside.ir35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu eich bod yn cynnig gwasanaeth personol i’ch cleient. Golyga hyn y cewch eich trin fel petaech yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+worker.optimised.result.inside.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
+worker.optimised.result.inside.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+worker.optimised.result.inside.ir35.check.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallwch gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
+worker.optimised.result.inside.ir35.check.doNext.p3.text = Gallech hefyd ddarllen pennod 5 o’r
+worker.optimised.result.inside.ir35.check.doNext.p3.link = Canllaw Statws Cyflogaeth.
 ## ------------------
 
 ## Undetermined IR35 Decision Worker
 ## -------------------
 ##TODO: Need Welsh
-worker.optimised.result.undetermined.ir35.title = Unable to make a determination
-worker.optimised.result.undetermined.ir35.heading = Unable to make a determination
-worker.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
-worker.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
-worker.optimised.result.undetermined.ir35.doNext.p1 = Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices.
-worker.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
+worker.optimised.result.undetermined.ir35.title = Methu gwneud penderfyniad
+worker.optimised.result.undetermined.ir35.heading = Methu gwneud penderfyniad
+worker.optimised.result.undetermined.ir35.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+worker.optimised.result.undetermined.ir35.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
+worker.optimised.result.undetermined.ir35.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Gwiriwch eich atebion gydag ef i sicrhau eu bod yn adlewyrchu’ch arferion gwaith gwirioneddol neu ddisgwyliedig.
+worker.optimised.result.undetermined.ir35.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
+worker.optimised.result.undetermined.ir35.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 ## ------------------
 
 ## Outside IR35 Decision Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
-worker.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
-worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = you and your business will have costs for this work that your client will not pay for
+worker.optimised.result.outside.ir35.title = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.outside.ir35.heading = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.outside.ir35.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = mae’ch cleient wedi derbyn, neu byddai’n derbyn, eilydd
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = nid oes gan eich cleient reolaeth dros y gwaith hwn
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = byddwch chi a’ch busnes yn wynebu cost am y gwaith hwn na fydd eich cleient yn talu amdani
 worker.optimised.result.outside.ir35.whyResult.booa = you are providing services as a business
-worker.optimised.result.outside.ir35.whyResult.p2 = This suggests you are working on a business to business basis.
-worker.optimised.result.outside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting tax and National Insurance.
-worker.optimised.result.outside.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
-worker.optimised.result.outside.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.outside.ir35.check.doNext.p3.text = You could also read Chapter 5 of the
-worker.optimised.result.outside.ir35.check.doNext.p3.link = Employment Status Manual.
+worker.optimised.result.outside.ir35.whyResult.p2 = Mae hyn yn awgrymu eich bod yn gweithio ar sail busnes i fusnes.
+worker.optimised.result.outside.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad dalu’ch enillion yn llawn, heb ddidynnu treth ac Yswiriant Gwladol.
+worker.optimised.result.outside.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+worker.optimised.result.outside.ir35.check.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallwch gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
+worker.optimised.result.outside.ir35.check.doNext.p3.text = Gallech hefyd ddarllen pennod 5 o’r
+worker.optimised.result.outside.ir35.check.doNext.p3.link = Canllaw Statws Cyflogaeth.
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
@@ -1606,15 +1604,15 @@ worker.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers tol
 ## Outside PAYE Decision Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
-worker.optimised.result.outside.paye.heading = Self-employed for tax purposes for this work
-worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
-worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
-worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
-worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = you and your business will have costs for this work that your client will not pay for
+worker.optimised.result.outside.paye.title = Hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn
+worker.optimised.result.outside.paye.heading = Hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn
+worker.optimised.result.outside.paye.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
+worker.optimised.result.outside.paye.whyResult.substituteToDoWork = mae’ch cleient wedi derbyn, neu byddai’n derbyn, eilydd
+worker.optimised.result.outside.paye.whyResult.clientNotControlWork = nid oes gan eich cleient reolaeth dros y gwaith hwn
+worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = byddwch chi a’ch busnes yn wynebu cost am y gwaith hwn na fydd eich cleient yn talu amdani
 worker.optimised.result.outside.paye.whyResult.booa = you are providing services as a business
-worker.optimised.result.outside.paye.whyResult.p2 = This means you are self-employed for tax purposes for this work.
-worker.optimised.result.outside.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting tax and National Insurance.
+worker.optimised.result.outside.paye.whyResult.p2 = Golyga hyn eich bod yn hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+worker.optimised.result.outside.paye.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad dalu’ch enillion yn llawn, heb ddidynnu treth ac Yswiriant Gwladol.
 worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
@@ -1623,66 +1621,66 @@ worker.optimised.result.outside.paye.whyResult.booaOnlyReason = Your answers tol
 ## Inside Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.inside.title = Off-payroll working rules (IR35) apply
-agent.optimised.result.inside.heading = Off-payroll working rules (IR35) apply
-agent.optimised.result.inside.whyResult.p1 = You have completed this tool as if you are the worker.
-agent.optimised.result.inside.whyResult.p2 = The answers you have given tell us that the worker is providing a personal service to their client. This means they are classed as employed for tax purposes for this work.
-agent.optimised.result.inside.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
-agent.optimised.result.inside.doNext.p2.text = If you need more guidance, you could also read Chapter 5 of the
-agent.optimised.result.inside.doNext.p2.link = Employment Status Manual
+agent.optimised.result.inside.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.inside.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.inside.whyResult.p1 = Rydych wedi cwblhau’r twlsyn fel pe bai chi yw’r gweithiwr.
+agent.optimised.result.inside.whyResult.p2 = Mae’r atebion a roddwyd gennych yn dweud wrthym fod y gweithiwr yn darparu gwasanaeth personol i’w gleient. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+agent.optimised.result.inside.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+agent.optimised.result.inside.doNext.p2.text = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
+agent.optimised.result.inside.doNext.p2.link = Canllaw Statws Cyflogaeth
 ## ------------------
 
 ## ------------------
 ## Undetermined Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.undetermined.title =  Unable to make a determination
-agent.optimised.result.undetermined.heading = Unable to make a determination
-agent.optimised.result.undetermined.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
-agent.optimised.result.undetermined.whyResult.p2 = We will need more information to check your employment status for tax.
-agent.optimised.result.undetermined.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
-agent.optimised.result.undetermined.doNext.p2 = If you need more guidance, you could also read Chapter 5 of the
+agent.optimised.result.undetermined.title =  Methu gwneud penderfyniad
+agent.optimised.result.undetermined.heading = Methu gwneud penderfyniad
+agent.optimised.result.undetermined.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+agent.optimised.result.undetermined.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
+agent.optimised.result.undetermined.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+agent.optimised.result.undetermined.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
 
 ## ------------------
 ## Hirer IR35
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply
-hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
-hirer.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest the worker is providing a personal service to your organisation. This means they are classed as employed for tax purposes for this work.
-hirer.optimised.result.inside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings.
-hirer.optimised.result.inside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
-hirer.optimised.result.inside.ir35.doNext.p3.text = You could also read more about the
-hirer.optimised.result.inside.ir35.doNext.p3.link = responsibilities of the fee-payer.
+hirer.optimised.result.inside.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.inside.ir35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn darparu gwasanaeth personol i’ch sefydliad. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+hirer.optimised.result.inside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion.
+hirer.optimised.result.inside.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
+hirer.optimised.result.inside.ir35.doNext.p3.text = Gallech hefyd ddarllen rhagor am
+hirer.optimised.result.inside.ir35.doNext.p3.link = gyfrifoldebau’r talwr ffioedd.
 hirer.optimised.result.inside.ir35.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
 ##TODO: Need Welsh
-hirer.optimised.result.undetermined.ir35.title = Unable to make a determination
-hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
-hirer.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
-hirer.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
-hirer.optimised.result.undetermined.ir35.doNext.p1.workerKnown = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.ir35.title = Methu gwneud penderfyniad
+hirer.optimised.result.undetermined.ir35.heading = Methu gwneud penderfyniad
+hirer.optimised.result.undetermined.ir35.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
+hirer.optimised.result.undetermined.ir35.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
+hirer.optimised.result.undetermined.ir35.doNext.p1.workerKnown = Dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos i’r gweithiwr. Gwiriwch eich atebion gydag ef i sicrhau eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig.
 hirer.optimised.result.undetermined.ir35.doNext.p1.workerNotKnown = You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
-hirer.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
-hirer.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
+hirer.optimised.result.undetermined.ir35.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
+hirer.optimised.result.undetermined.ir35.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 
 ## PAYE Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.inside.paye.title = Employed for tax purposes for this work
-worker.optimised.result.inside.paye.heading = Employed for tax purposes for this work
-worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given suggest you are employed for tax purposes for this work.
-worker.optimised.result.inside.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.paye.title = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
+worker.optimised.result.inside.paye.heading = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
+worker.optimised.result.inside.paye.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu eich bod yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+worker.optimised.result.inside.paye.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
 
 ## Undetermined PAYE Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.undetermined.paye.title = Unable to make a determination
-worker.optimised.result.undetermined.paye.heading = Unable to make a determination
-worker.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if you are employed or self-employed for tax purposes for this work.
-worker.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
-worker.optimised.result.undetermined.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. Check your answers with them to make sure they reflect your actual or expected working practices.
-worker.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
+worker.optimised.result.undetermined.paye.title = Methu gwneud penderfyniad
+worker.optimised.result.undetermined.paye.heading = Methu gwneud penderfyniad
+worker.optimised.result.undetermined.paye.whyResult.p1 = Ni allwn benderfynu o’ch atebion a ydych yn gyflogedig neu’n hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+worker.optimised.result.undetermined.paye.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
+worker.optimised.result.undetermined.paye.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Gwiriwch eich atebion gyda’r sefydliad i sicrhau eu bod yn adlewyrchu’ch arferion gwaith gwirioneddol neu ddisgwyliedig.
+worker.optimised.result.undetermined.paye.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
+worker.optimised.result.undetermined.paye.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 # TODO: Need Welsh
 downloadPDFCopy.error.required = Select yes to download this result
 
@@ -1800,18 +1798,18 @@ personalServiceSectionChangeWarning.heading = By changing your answers in this s
 businessOnOwnAccountSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions.
 businessOnOwnAccountSectionChangeWarning.heading = By changing your answers in this section, you may need to answer additional questions.
 
-hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
-hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
-hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
-hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
-hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
-hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
+hirer.optimised.result.outside.ir35.title = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.outside.ir35.heading = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.outside.ir35.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = rydych wedi derbyn, neu byddech yn derbyn, eilydd
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = nid oes gennych reolaeth dros y gwaith hwn
+hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd eich sefydliad yn talu amdani
 hirer.optimised.result.outside.ir35.whyResult.booa = the worker is providing services as a business
-hirer.optimised.result.outside.ir35.whyResult.p2 = This suggests the worker is working on a business to business basis.
-hirer.optimised.result.outside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to pay their earnings in full, without deducting tax and National Insurance.
-hirer.optimised.result.outside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
-hirer.optimised.result.outside.ir35.doNext.p3.text = You could also read more about the
-hirer.optimised.result.outside.ir35.doNext.p3.link = responsibilities of the fee-payer
+hirer.optimised.result.outside.ir35.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
+hirer.optimised.result.outside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi dalu ei enillion yn llawn heb ddidynnu treth ac Yswiriant Gwladol.
+hirer.optimised.result.outside.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
+hirer.optimised.result.outside.ir35.doNext.p3.text = Gallech hefyd ddarllen rhagor am
+hirer.optimised.result.outside.ir35.doNext.p3.link = gyfrifoldebau’r talwr ffioedd
 hirer.optimised.result.outside.ir35.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
@@ -1821,32 +1819,32 @@ hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told
 ## Out Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.outside.title = Off-payroll working rules (IR35) do not apply
-agent.optimised.result.outside.heading = Off-payroll working rules (IR35) do not apply
-agent.optimised.result.outside.whyResult.p1 = Your answers told us:
-agent.optimised.result.outside.whyResult.substituteToDoWork = the worker’s client has accepted, or would accept, a substitute
-agent.optimised.result.outside.whyResult.clientNotControlWork = the worker’s client does not have control over this work
-agent.optimised.result.outside.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that their client will not pay for
+agent.optimised.result.outside.title = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.outside.heading = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.outside.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
+agent.optimised.result.outside.whyResult.substituteToDoWork = mae cleient y gweithiwr wedi derbyn, neu byddai’n derbyn, eilydd
+agent.optimised.result.outside.whyResult.clientNotControlWork = nid oes gan gleient y gweithiwr reolaeth dros y gwaith hwn
+agent.optimised.result.outside.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd ei gleient yn talu amdani
 agent.optimised.result.outside.whyResult.booa = the worker is providing services as a business
-agent.optimised.result.outside.whyResult.p2 = This suggests the worker is working on a business to business basis.
-agent.optimised.result.outside.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
-agent.optimised.result.outside.doNext.p2.text = If you need more guidance, you could also read Chapter 5 of the
-agent.optimised.result.outside.doNext.p2.link = Employment Status Manual.
+agent.optimised.result.outside.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
+agent.optimised.result.outside.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
+agent.optimised.result.outside.doNext.p2.text = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
+agent.optimised.result.outside.doNext.p2.link = Canllaw Statws Cyflogaeth.
 agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
 agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that their client will not pay for.
 agent.optimised.result.outside.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
 ##TODO: Need Welsh
 
-hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
-hirer.optimised.result.outside.paye.heading = Self-employed for tax purposes for this work
-hirer.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
-hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
-hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not have control over this work
-hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
+hirer.optimised.result.outside.paye.title = Hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn
+hirer.optimised.result.outside.paye.heading = Hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn
+hirer.optimised.result.outside.paye.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = rydych wedi derbyn, neu byddech yn derbyn, eilydd
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = nid oes gennych reolaeth dros y gwaith hwn
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd eich sefydliad yn talu amdani
 hirer.optimised.result.outside.paye.whyResult.booa = the worker is providing services as a business
-hirer.optimised.result.outside.paye.whyResult.p2 = This means the worker is self-employed for tax purposes for this work.
-hirer.optimised.result.outside.paye.doNext.p1 = You need to pay the worker’s earnings in full, without deducting tax or National Insurance.
+hirer.optimised.result.outside.paye.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
+hirer.optimised.result.outside.paye.doNext.p1 = Mae angen i chi dalu enillion y gweithiwr yn llawn, heb ddidynnu treth nac Yswiriant Gwladol.
 hirer.optimised.result.outside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
