@@ -19,15 +19,12 @@ package views.results
 import akka.http.scaladsl.model.HttpMethods
 import assets.messages.results._
 import config.featureSwitch.OptimisedFlow
-import models.sections.setup.AboutYouAnswer.Worker
 import models.{AdditionalPdfDetails, PDFResultDetails, Section}
-import models.sections.financialRisk.CannotClaimAsExpense.WorkerUsedVehicle
 import org.jsoup.nodes.Document
 import play.api.i18n.Messages
 import play.api.mvc.Call
-import play.twirl.api.Html
 import utils.FakeTimestamp
-import viewmodels.{AnswerRow, AnswerSection, ResultPDF, ResultPrintPreview}
+import viewmodels._
 import views.behaviours.ViewBehaviours
 
 trait ResultViewFixture extends ViewBehaviours {
@@ -110,7 +107,7 @@ trait ResultViewFixture extends ViewBehaviours {
   val testReference = "Boiler man"
 
   val testAdditionalPdfDetails = AdditionalPdfDetails(Some(testName), Some(testClient), Some(testJobTitle), Some(testReference), Some(fileName))
-  implicit val testNoPdfResultDetails = PDFResultDetails()
+  implicit val testNoPdfResultDetails = PDFResultDetails(Result)
   lazy val testPdfResultDetails = PDFResultDetails(resultMode = ResultPDF, Some(testAdditionalPdfDetails), Some(timestamp), answers)
   lazy val testPrintPreviewResultDetails = PDFResultDetails(resultMode = ResultPrintPreview, Some(testAdditionalPdfDetails), Some(timestamp), answers)
 

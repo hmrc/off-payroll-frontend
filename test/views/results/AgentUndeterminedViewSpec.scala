@@ -16,14 +16,11 @@
 
 package views.results
 
-import assets.messages.results.UndeterminedDecisionMessages
-import config.SessionKeys
+import assets.messages.results.{PrintPreviewMessages, UndeterminedDecisionMessages}
 import forms.DeclarationFormProvider
-import models.UserAnswers
-import models.UserType.Agency
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.undetermined.AgentUndeterminedView
 
 class AgentUndeterminedViewSpec extends ResultViewFixture {
@@ -38,11 +35,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
-    }
-
-    pageChecks
+    pageChecks(Result)
     pdfPageChecks(isPdfView = false)
   }
 
@@ -52,17 +45,44 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
-    "Have the correct heading" in {
-      document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.Agent.heading
-    }
-
-    pageChecks
+    pageChecks(ResultPDF)
     pdfPageChecks(isPdfView = true)
   }
 
-  def pageChecks(implicit document: Document) = {
-    "Have the correct title" in {
-      document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
+  "The AgentUndeterminedView PrintPreview page" should {
+
+    def createView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPrintPreviewResultDetails)
+
+    implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
+
+    pageChecks(ResultPrintPreview)
+    letterPrintPreviewPageChecks
+  }
+
+  def pageChecks(resultMode: ResultMode)(implicit document: Document) = {
+
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.Agent.heading
+        }
     }
 
     "Have the correct Why Result section" in {

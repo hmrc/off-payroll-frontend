@@ -31,7 +31,7 @@
 
     pdfResultDetails.resultMode match {
         case Result => mainTemplate(title(form, "agent.optimised.result.officeHolder.title"), appConfig = appConfig)(_)
-        case ResultPrintPreview => mainTemplate(title(form, "agent.optimised.result.officeHolder.title"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
+        case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
         case ResultPDF => printTemplate(title(form, "agent.optimised.result.officeHolder.title"), appConfig = appConfig)(_)
     }
 ) { template =>

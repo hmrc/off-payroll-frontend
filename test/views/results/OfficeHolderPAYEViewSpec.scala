@@ -22,6 +22,7 @@ import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.inside.officeHolder.OfficeHolderPAYEView
 
 class OfficeHolderPAYEViewSpec extends ResultViewFixture {
@@ -39,11 +40,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
-      }
-
-      workerPageChecks
+      workerPageChecks(Result)
       pdfPageChecks(isPdfView = false)
     }
 
@@ -51,11 +48,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
-      }
-
-      hirerPageChecks
+      hirerPageChecks(Result)
       pdfPageChecks(isPdfView = false)
     }
   }
@@ -66,11 +59,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
-      }
-
-      workerPageChecks
+      workerPageChecks(ResultPDF)
       pdfPageChecks(isPdfView = true)
     }
 
@@ -78,19 +67,54 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
-      }
-
-      hirerPageChecks
+      hirerPageChecks(ResultPDF)
       pdfPageChecks(isPdfView = true)
     }
   }
 
-  def workerPageChecks(implicit document: Document) = {
+  "The OfficeHolderPAYEView PrintPreview page" should {
 
-    "Have the correct title" in {
-      document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
+    "If the UserType is Worker" should {
+
+      implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPrintPreviewResultDetails))
+
+      workerPageChecks(ResultPrintPreview)
+      pdfPageChecks(isPdfView = true)
+    }
+
+    "If the UserType is Hirer" should {
+
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPrintPreviewResultDetails))
+
+      hirerPageChecks(ResultPrintPreview)
+      pdfPageChecks(isPdfView = true)
+    }
+  }
+
+  def workerPageChecks(resultMode: ResultMode)(implicit document: Document) = {
+
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
+        }
     }
 
     "Have the correct Why Result section" in {
@@ -104,9 +128,30 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(implicit document: Document) = {
-    "Have the correct title" in {
-      document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
+  def hirerPageChecks(resultMode: ResultMode)(implicit document: Document) = {
+
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
+        }
     }
 
     "Have the correct Why Result section" in {

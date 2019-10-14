@@ -16,12 +16,13 @@
 
 package views.results
 
-import assets.messages.results.OutDecisionMessages
+import assets.messages.results.{OutDecisionMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.outside.AgentOutsideView
 
 class AgentOutsideViewSpec extends ResultViewFixture {
@@ -45,13 +46,26 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
-      }
-
-      pageChecks
+      pageChecks(Result)
       pdfPageChecks(isPdfView = false)
     }
+
+    "The OutAgentView PDF/Print page" should {
+
+      implicit lazy val document = asDocument(createView(agencyFakeDataRequest, pdfDetails = testPdfResultDetails))
+
+      pageChecks(ResultPDF)
+      pdfPageChecks(isPdfView = true)
+    }
+
+    "The OutAgentView PrintPreview page" should {
+
+      implicit lazy val document = asDocument(createView(agencyFakeDataRequest, pdfDetails = testPrintPreviewResultDetails))
+
+      pageChecks(ResultPrintPreview)
+      letterPrintPreviewPageChecks
+    }
+
 
     "only display one reason" when {
 
@@ -81,24 +95,32 @@ class AgentOutsideViewSpec extends ResultViewFixture {
     }
   }
 
-  "The OutAgentView PDF/Print page" should {
 
-    implicit lazy val document = asDocument(createView(agencyFakeDataRequest, pdfDetails = testPdfResultDetails))
+  def pageChecks(resultMode: ResultMode)(implicit document: Document) = {
 
-    "Have the correct heading" in {
-      document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.Agent.heading
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(OutDecisionMessages.Agent.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(OutDecisionMessages.Agent.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.Agent.heading
+        }
     }
-
-    pageChecks
-    pdfPageChecks(isPdfView = true)
-  }
-
-  def pageChecks(implicit document: Document) = {
-
-    "Have the correct title" in {
-      document.title mustBe title(OutDecisionMessages.Agent.title)
-    }
-
     "Have the correct Why Result section for 4 reasons" in {
 
       document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading

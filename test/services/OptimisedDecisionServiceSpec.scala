@@ -17,6 +17,7 @@
 package services
 
 import base.{GuiceAppSpecBase, SpecBase}
+import viewmodels.{AnswerSection, ResultMode}
 import config.SessionKeys
 import config.featureSwitch.FeatureSwitching
 import connectors.mocks.{MockAuditConnector, MockDataCacheConnector, MockDecisionConnector}

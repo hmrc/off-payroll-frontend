@@ -16,12 +16,13 @@
 
 package views.results
 
-import assets.messages.results.UndeterminedDecisionMessages
+import assets.messages.results.{PrintPreviewMessages, UndeterminedDecisionMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.undetermined.PAYEUndeterminedView
 
 class PAYEUndeterminedViewSpec extends ResultViewFixture {
@@ -39,11 +40,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testNoPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
-      }
-
-      workerPageChecks
+      workerPageChecks(Result)
       pdfPageChecks(isPdfView = false)
     }
 
@@ -53,11 +50,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails))
 
-        "Have the correct heading" in {
-          document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
-        }
-
-        hirerPageChecks()
+        hirerPageChecks(Result)
         pdfPageChecks(isPdfView = false)
       }
 
@@ -65,11 +58,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails, workerKnown = false))
 
-        "Have the correct heading" in {
-          document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
-        }
-
-        hirerPageChecks(workerKnown = false)
+        hirerPageChecks(Result, workerKnown = false)
         pdfPageChecks(isPdfView = false)
       }
     }
@@ -81,11 +70,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
-      "Have the correct heading" in {
-        document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
-      }
-
-      workerPageChecks
+      workerPageChecks(ResultPDF)
       pdfPageChecks(isPdfView = true)
     }
 
@@ -95,11 +80,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails))
 
-        "Have the correct heading" in {
-          document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
-        }
-
-        hirerPageChecks()
+        hirerPageChecks(ResultPDF)
         pdfPageChecks(isPdfView = true)
       }
 
@@ -107,20 +88,66 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPdfResultDetails, workerKnown = false))
 
-        "Have the correct heading" in {
-          document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
-        }
-
-        hirerPageChecks(workerKnown = false)
+        hirerPageChecks(ResultPDF, workerKnown = false)
         pdfPageChecks(isPdfView = true)
       }
     }
   }
 
-  def workerPageChecks(implicit document: Document) = {
+  "The PAYEUndeterminedView PrintPreview page" should {
 
-    "Have the correct title" in {
-      document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+    "The UserType is a Worker" should {
+
+      implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPrintPreviewResultDetails))
+
+      workerPageChecks(ResultPrintPreview)
+      pdfPageChecks(isPdfView = true)
+    }
+
+    "The UserType is a Hirer" should {
+
+      "when the Worker is Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPrintPreviewResultDetails))
+
+        hirerPageChecks(ResultPrintPreview)
+        pdfPageChecks(isPdfView = true)
+      }
+
+      "when the Worker is NOT known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testPrintPreviewResultDetails, workerKnown = false))
+
+        hirerPageChecks(ResultPrintPreview, workerKnown = false)
+        pdfPageChecks(isPdfView = true)
+      }
+    }
+  }
+
+  def workerPageChecks(resultMode: ResultMode)(implicit document: Document) = {
+
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
+        }
     }
 
     "Have the correct Why Result section" in {
@@ -136,10 +163,30 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(workerKnown: Boolean = true)(implicit document: Document) = {
+  def hirerPageChecks(resultMode: ResultMode, workerKnown: Boolean = true)(implicit document: Document) = {
 
-    "Have the correct title" in {
-      document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
+        }
     }
 
     "Have the correct Why Result section" in {
