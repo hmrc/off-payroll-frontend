@@ -1491,8 +1491,8 @@ hirer.optimised.result.officeHolder.paye.doNext.p2.link = TWE a’r gyflogres ar
 ## Office Holder IR35
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.officeHolder.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-worker.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.officeHolder.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+worker.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 worker.optimised.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y byddwch yn cyflawni dyletswyddau deiliad swydd. Golyga hyn y cewch eich trin fel petaech yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 worker.optimised.result.officeHolder.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
 worker.optimised.result.officeHolder.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
@@ -1501,8 +1501,8 @@ worker.optimised.result.officeHolder.ir35.check.doNext.p3.preLink = Gallech hefy
 worker.optimised.result.officeHolder.ir35.check.doNext.p3.link = Canllaw Statws Cyflogaeth.
 
 ##TODO: Need Welsh
-hirer.optimised.result.officeHolder.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-hirer.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.officeHolder.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+hirer.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.optimised.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y bydd y gweithiwr yn cyflawni dyletswyddau deiliad swydd. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.officeHolder.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion.
 hirer.optimised.result.officeHolder.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
@@ -1513,8 +1513,8 @@ hirer.optimised.result.officeHolder.ir35.doNext.p3.link = gyfrifoldebau’r talw
 ## Office Holder Agent
 ## -------------------
 ##TODO: Need Welsh
-agent.optimised.result.officeHolder.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-agent.optimised.result.officeHolder.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.officeHolder.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+agent.optimised.result.officeHolder.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 agent.optimised.result.officeHolder.whyResult.p1 = Rydych wedi cwblhau’r twlsyn fel pe bai chi yw’r gweithiwr.
 agent.optimised.result.officeHolder.whyResult.p2 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y bydd yn gweithredu mewn swyddogaeth swyddogol ar gyfer eich cleient. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 agent.optimised.result.officeHolder.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
@@ -1547,8 +1547,8 @@ hirer.optimised.result.undetermined.paye.doNext.p2 = Os oes angen rhagor o arwei
 hirer.optimised.result.undetermined.paye.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 
 ##TODO: Need Welsh
-worker.optimised.result.inside.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-worker.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.inside.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+worker.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 worker.optimised.result.inside.ir35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu eich bod yn cynnig gwasanaeth personol i’ch cleient. Golyga hyn y cewch eich trin fel petaech yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 worker.optimised.result.inside.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
 worker.optimised.result.inside.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
@@ -1572,8 +1572,8 @@ worker.optimised.result.undetermined.ir35.doNext.p3 = Gallech hefyd ddarllen pen
 ## Outside IR35 Decision Worker
 ## ------------------
 ##TODO: Need Welsh
-worker.optimised.result.outside.ir35.title = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-worker.optimised.result.outside.ir35.heading = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+worker.optimised.result.outside.ir35.title = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+worker.optimised.result.outside.ir35.heading = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 worker.optimised.result.outside.ir35.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = mae’ch cleient wedi derbyn, neu byddai’n derbyn, eilydd
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = nid oes gan eich cleient reolaeth dros y gwaith hwn
@@ -1610,8 +1610,8 @@ worker.optimised.result.outside.paye.whyResult.booaOnlyReason = Your answers tol
 ## Inside Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.inside.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-agent.optimised.result.inside.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.inside.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+agent.optimised.result.inside.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 agent.optimised.result.inside.whyResult.p1 = Rydych wedi cwblhau’r twlsyn fel pe bai chi yw’r gweithiwr.
 agent.optimised.result.inside.whyResult.p2 = Mae’r atebion a roddwyd gennych yn dweud wrthym fod y gweithiwr yn darparu gwasanaeth personol i’w gleient. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 agent.optimised.result.inside.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
@@ -1634,8 +1634,8 @@ agent.optimised.result.undetermined.doNext.p2 = Os oes angen rhagor o arweiniad 
 ## Hirer IR35
 ## ------------------
 ##TODO: Need Welsh
-hirer.optimised.result.inside.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-hirer.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.inside.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+hirer.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.optimised.result.inside.ir35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn darparu gwasanaeth personol i’ch sefydliad. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.inside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion.
 hirer.optimised.result.inside.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
@@ -1787,8 +1787,8 @@ personalServiceSectionChangeWarning.heading = By changing your answers in this s
 businessOnOwnAccountSectionChangeWarning.title = Drwy newid eich atebion yn yr adran hon, efallai y bydd angen i chi ateb cwestiynau ychwanegol.
 businessOnOwnAccountSectionChangeWarning.heading = Drwy newid eich atebion yn yr adran hon, efallai y bydd angen i chi ateb cwestiynau ychwanegol.
 
-hirer.optimised.result.outside.ir35.title = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-hirer.optimised.result.outside.ir35.heading = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+hirer.optimised.result.outside.ir35.title = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+hirer.optimised.result.outside.ir35.heading = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.optimised.result.outside.ir35.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = rydych wedi derbyn, neu byddech yn derbyn, eilydd
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = nid oes gennych reolaeth dros y gwaith hwn
@@ -1808,8 +1808,8 @@ hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told
 ## Out Agent
 ## ------------------
 ##TODO: Need Welsh
-agent.optimised.result.outside.title = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
-agent.optimised.result.outside.heading = Nid yw rheolau gweithio oddi ar y gyflogres (I35) yn berthnasol
+agent.optimised.result.outside.title = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
+agent.optimised.result.outside.heading = Nid yw rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 agent.optimised.result.outside.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
 agent.optimised.result.outside.whyResult.substituteToDoWork = mae cleient y gweithiwr wedi derbyn, neu byddai’n derbyn, eilydd
 agent.optimised.result.outside.whyResult.clientNotControlWork = nid oes gan gleient y gweithiwr reolaeth dros y gwaith hwn
