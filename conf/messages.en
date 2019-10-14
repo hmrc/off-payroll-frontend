@@ -1958,8 +1958,8 @@ hirer.extendContract.checkYourAnswersLabel = Does the current contract allow for
 
 #### Financially Dependent Page - BoOA
 #### ------------------------------
-worker.financiallyDependent.error.required = Select yes is this contract will provide you with the majority of your income
-agency.financiallyDependent.error.required = Select yes is this contract will provide you with the majority of your income
+worker.financiallyDependent.error.required = Select yes if this contract will provide you with the majority of your income
+agency.financiallyDependent.error.required = Select yes if this contract will provide you with the majority of your income
 worker.financiallyDependent.subheading = Worker’s contracts
 worker.financiallyDependent.title = Will this contract provide you with the majority of your income?
 worker.financiallyDependent.heading = Will this contract provide you with the majority of your income?
