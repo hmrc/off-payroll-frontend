@@ -41,10 +41,6 @@ timeout.minute = minute
 timeout.minutes = minutes
 timeout.minutes.two = minutes
 
-session.deleted.title = You have closed this session. For your security, we have deleted your answers.
-session.deleted.heading = You have closed this session. For your security, we have deleted your answers.
-session.deleted.start_again = Start again
-
 session.expired.title = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
 session.expired.heading = This session has been closed as it was inactive for more than 15 minutes. For your security, we have deleted your answers.
 session.expired.start_again = Start again
@@ -59,7 +55,6 @@ site.no = No
 site.yes = Yes
 site.continue = Continue
 site.accept_continue = Accept and continue
-site.finish = Finish
 site.exit = Exit
 site.confirm_continue = Confirm for result
 site.service_name = Check employment status for tax
@@ -286,11 +281,6 @@ cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including signifi
 cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
 cannotClaimAsExpense.error.required = You need to select an answer
 cannotClaimAsExpense.error.invalid = You need to select an answer
-cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
-cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
-cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
-cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
-cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 worker.cannotClaimAsExpense.title = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
 worker.cannotClaimAsExpense.heading = What do you have to provide for this engagement that you cannot claim as an expense from the end client or an agency?
@@ -308,11 +298,6 @@ worker.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heav
 worker.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
 worker.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of your home
 worker.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
-worker.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
-worker.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
-worker.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
-worker.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
-worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 hirer.cannotClaimAsExpense.title = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
 hirer.cannotClaimAsExpense.heading = What does the worker have to provide for this engagement that they cannot claim as an expense from your organisation or an agency?
@@ -330,11 +315,6 @@ hirer.cannotClaimAsExpense.workerProvidedEquipment = Equipment - including heavy
 hirer.cannotClaimAsExpense.workerUsedVehicle = Vehicle - including purchase, fuel and all running costs (used for work tasks, not commuting)
 hirer.cannotClaimAsExpense.workerHadOtherExpenses = Other expenses - including significant travel or accommodation costs (for work, not commuting) or paying for a business premises outside of the worker’s home
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole = Not relevant
-hirer.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
-hirer.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
-hirer.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
-hirer.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
-hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 #########################
 
 ## Arranged Substitute
@@ -1330,16 +1310,6 @@ agencyAdvisory.title = Continue as the worker to check a determination
 agencyAdvisory.heading = Continue as the worker to check a determination
 agencyAdvisory.p1 = It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work.
 
-hirerAdvisory.title = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
-hirerAdvisory.heading = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
-hirerAdvisory.p1 = It is the worker’s responsibility.
-hirerAdvisory.p2 = After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer.
-hirerAdvisory.subheading = What you should do next
-hirerAdvisory.p3 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
-
-leave.title = You have now left the tool
-leave.heading = You have now left the tool
-
 
 worker.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
 worker.workerUsingIntermediary.error.invalid = Select yes if you are trading through a limited company, partnership or unincorporated body
@@ -1357,63 +1327,6 @@ hirer.workerUsingIntermediary.heading = Is the worker trading through a limited 
 hirer.workerUsingIntermediary.subHeading = About you and the work
 hirer.workerUsingIntermediary.checkYourAnswersLabel = Is the worker trading through a limited company, partnership or unincorporated body?
 
-isWorkForPrivateSector.error.required = You need to select an answer
-isWorkForPrivateSector.error.invalid = You need to select an answer
-
-isWorkForPrivateSector.private = Private sector
-isWorkForPrivateSector.public = Public sector
-
-worker.isWorkForPrivateSector.title = In which sector is the client you will be doing the work for?
-worker.isWorkForPrivateSector.heading = In which sector is the client you will be doing the work for?
-worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is the client you will be doing the work for?
-
-hirer.isWorkForPrivateSector.title = In which sector is your organisation?
-hirer.isWorkForPrivateSector.heading = In which sector is your organisation?
-hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is your organisation?
-
-workerAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-workerAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-workerAdvisory.p1 = Because you told us this work is for a public sector body, they are responsible for determining its employment status for tax purposes.
-workerAdvisory.subheading = What you should do next
-workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
-
-hirer.businessSize.title = How large is your organisation? Tick all that apply
-hirer.businessSize.heading = How large is your organisation? Tick all that apply
-hirer.businessSize.checkYourAnswersLabel = Does your organisation have more than:
-worker.businessSize.title = How large is this organisation? Tick all that apply
-worker.businessSize.heading = How large is this organisation? Tick all that apply
-worker.businessSize.checkYourAnswersLabel = Does this client have more than:
-businessSize.turnover = More than £10.2 million annual turnover.
-businessSize.balanceSheet = More than £5.1 million on their balance sheet.
-businessSize.employees = More than 50 employees.
-businessSize.noneOfAbove = None of the above.
-businessSize.error.required = You need to select an answer
-businessSize.error.invalid = You need to select an answer
-
-hirer.turnoverOver.title = Does your organisation have an annual turnover of more than £10.2 million?
-hirer.turnoverOver.heading = Does your organisation have an annual turnover of more than £10.2 million?
-hirer.turnoverOver.checkYourAnswersLabel = Does your organisation have an annual turnover of more than £10.2 million?
-worker.turnoverOver.title = Does this organisation have an annual turnover of more than £10.2 million?
-worker.turnoverOver.heading = Does this organisation have an annual turnover of more than £10.2 million?
-worker.turnoverOver.checkYourAnswersLabel = Does this organisation have an annual turnover of more than £10.2 million?
-turnoverOver.error.required = You need to select an answer
-
-hirer.balanceSheetOver.title = Does your organisation have more than £5.1 million on its balance sheet?
-hirer.balanceSheetOver.heading = Does your organisation have more than £5.1 million on its balance sheet?
-hirer.balanceSheetOver.checkYourAnswersLabel = Does your organisation have more than £5.1 million on its balance sheet?
-worker.balanceSheetOver.title = Does this organisation have more than £5.1 million on its balance sheet?
-worker.balanceSheetOver.heading = Does this organisation have more than £5.1 million on its balance sheet?
-worker.balanceSheetOver.checkYourAnswersLabel = Does this organisation have more than £5.1 million on its balance sheet?
-balanceSheetOver.error.required = You need to select an answer
-
-hirer.employeesOver.title = Does your organisation employ more than 50 people?
-hirer.employeesOver.heading = Does your organisation employ more than 50 people?
-hirer.employeesOver.checkYourAnswersLabel = Does your organisation employ more than 50 people?
-worker.employeesOver.title = Does this organisation employ more than 50 people?
-worker.employeesOver.heading = Does this organisation employ more than 50 people?
-worker.employeesOver.checkYourAnswersLabel = Does this organisation employ more than 50 people?
-employeesOver.error.required = You need to select an answer
-
 checkYourAnswers.title = Review your answers in each section below
 checkYourAnswers.heading = Review your answers in each section below
 checkYourAnswers.confirm.h2 = Declaration
@@ -1430,15 +1343,6 @@ checkYourAnswers.control.header = 4. Working arrangements
 checkYourAnswers.financialRisk.header = 5. Worker’s financial risk
 checkYourAnswers.partParcel.header = 6. Worker’s involvement
 checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
-
-toolNotNeeded.client.ir35.title = You don’t need to determine if this work falls within the off-payroll rules (IR35)
-toolNotNeeded.client.ir35.heading = You don’t need to determine if this work falls within the off-payroll rules (IR35)
-toolNotNeeded.client.ir35.p1 = It is the worker’s responsibility.
-toolNotNeeded.client.ir35.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body. And because they’re responsible for determining the employment status for tax purposes of work for smaller private sector organisations.
-toolNotNeeded.client.paye.title = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
-toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
-toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
-toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
 
 #### New Optimised Result Pages ####
 #----------------------------------#

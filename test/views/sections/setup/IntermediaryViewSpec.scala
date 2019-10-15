@@ -17,10 +17,9 @@
 package views.sections.setup
 
 import assets.messages.IntermediaryMessages
-import models.NormalMode
-import play.api.mvc.{Call, Request}
+import play.api.mvc.Request
 import views.behaviours.ViewBehaviours
-import views.html.sections.setup.{IntermediaryView, WorkerAdvisoryView}
+import views.html.sections.setup.IntermediaryView
 
 class IntermediaryViewSpec extends ViewBehaviours {
 

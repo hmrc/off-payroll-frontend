@@ -31,6 +31,7 @@ class MessagesSpec extends GuiceAppSpecBase {
 
   lazy val expectedWelshMessages = sanitize(Source.fromFile(expectedWelshFileName).getLines)
   lazy val actualWelshMessages = sanitize(Source.fromFile(welshFileName).getLines)
+  lazy val actualEnglishMessages = sanitize(Source.fromFile(englishFileName).getLines)
 
   lazy val englishKeys = sanitize(Source.fromFile(englishFileName).getLines map getKey)
   lazy val welshKeys = actualWelshMessages map getKey
@@ -157,6 +158,12 @@ class MessagesSpec extends GuiceAppSpecBase {
 
     "contain the same keys" in {
       assert(englishKeys.diff(welshKeys).isEmpty)
+
+      actualWelshMessages.foreach { message =>
+        if(actualEnglishMessages.contains(message)) {
+          print(s"$message\n")
+        }
+      }
     }
   }
 }

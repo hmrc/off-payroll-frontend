@@ -20,7 +20,6 @@ import connectors.DataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.IdentifierAction
 import play.api.test.Helpers._
-import views.html.SessionDeletedView
 import views.html.errors.SessionExpiredView
 
 class SessionExpiredControllerSpec extends ControllerSpecBase {
@@ -28,14 +27,12 @@ class SessionExpiredControllerSpec extends ControllerSpecBase {
   val identify = injector.instanceOf[IdentifierAction]
   val dataCacheConnector = injector.instanceOf[DataCacheConnector]
   val expiredView = injector.instanceOf[SessionExpiredView]
-  val deletedView = injector.instanceOf[SessionDeletedView]
 
   val controller = new SessionExpiredController(
     frontendAppConfig,
     identify,
     messagesControllerComponents,
     expiredView,
-    deletedView,
     dataCacheConnector)
 
   "SessionExpiredController.onPageLoad" must {

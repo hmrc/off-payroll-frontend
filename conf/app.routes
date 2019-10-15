@@ -37,9 +37,6 @@ POST       /what-do-you-want-to-find-out                controllers.sections.set
 GET        /what-do-you-want-to-find-out/change         controllers.sections.setup.WhatDoYouWantToFindOutController.onPageLoad(mode: Mode = CheckMode)
 POST       /what-do-you-want-to-find-out/change         controllers.sections.setup.WhatDoYouWantToFindOutController.onSubmit(mode: Mode = CheckMode)
 
-GET        /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onPageLoad
-POST       /tool-not-needed                             controllers.sections.setup.ToolNotNeededController.onSubmit
-
 GET        /work-started                                controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = NormalMode)
 POST       /work-started                                controllers.sections.setup.ContractStartedController.onSubmit(mode: Mode = NormalMode)
 GET        /work-started/change                         controllers.sections.setup.ContractStartedController.onPageLoad(mode: Mode = CheckMode)
@@ -147,12 +144,6 @@ GET        /download-pdf                                controllers.PDFControlle
 
 GET        /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onSubmit()
-
-GET        /worker-advisory                             controllers.sections.setup.WorkerAdvisoryController.onPageLoad()
-POST       /worker-advisory                             controllers.sections.setup.WorkerAdvisoryController.onSubmit()
-
-GET        /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onPageLoad()
-POST       /hirer-advisory                              controllers.sections.setup.HirerAdvisoryController.onSubmit()
 
 GET        /review-answers                              controllers.CheckYourAnswersController.onPageLoad(sectionToExpand: Option[models.Section.SectionEnum] ?= None)
 POST       /review-answers                              controllers.CheckYourAnswersController.onSubmit()
