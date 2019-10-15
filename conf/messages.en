@@ -1512,14 +1512,13 @@ hirer.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not have control over this work
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
-hirer.optimised.result.outside.paye.whyResult.booa = the worker is providing services as a business
 hirer.optimised.result.outside.paye.whyResult.p2 = This means the worker is self-employed for tax purposes for this work.
 hirer.optimised.result.outside.paye.doNext.p1 = You need to pay the worker’s earnings in full, without deducting tax or National Insurance.
 hirer.optimised.result.outside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
-hirer.optimised.result.outside.paye.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+hirer.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
 ## ------------------
 
 ## Inside PAYE Worker
@@ -1572,7 +1571,6 @@ worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = you and your business will have costs for this work that your client will not pay for
-worker.optimised.result.outside.ir35.whyResult.booa = you are providing services as a business
 worker.optimised.result.outside.ir35.whyResult.p2 = This suggests you are working on a business to business basis.
 worker.optimised.result.outside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting tax and National Insurance.
 worker.optimised.result.outside.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
@@ -1582,7 +1580,8 @@ worker.optimised.result.outside.ir35.check.doNext.p3.link = Employment Status Ma
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
-worker.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us you are providing services as a business.
+worker.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
+
 
 ## Inside Agent
 ## ------------------
@@ -1613,7 +1612,6 @@ agent.optimised.result.outside.whyResult.p1 = Your answers told us:
 agent.optimised.result.outside.whyResult.substituteToDoWork = the worker’s client has accepted, or would accept, a substitute
 agent.optimised.result.outside.whyResult.clientNotControlWork = the worker’s client does not have control over this work
 agent.optimised.result.outside.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that their client will not pay for
-agent.optimised.result.outside.whyResult.booa = the worker is providing services as a business
 agent.optimised.result.outside.whyResult.p2 = This suggests the worker is working on a business to business basis.
 agent.optimised.result.outside.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
 agent.optimised.result.outside.doNext.p2.text = If you need more guidance, you could also read Chapter 5 of the
@@ -1621,7 +1619,7 @@ agent.optimised.result.outside.doNext.p2.link = Employment Status Manual
 agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
 agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that their client will not pay for.
-agent.optimised.result.outside.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+agent.optimised.result.outside.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
 
 ## ------------------
 ## Hirer IR35
@@ -1650,7 +1648,6 @@ hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
-hirer.optimised.result.outside.ir35.whyResult.booa = the worker is providing services as a business
 hirer.optimised.result.outside.ir35.whyResult.p2 = This suggests the worker is working on a business to business basis.
 hirer.optimised.result.outside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to pay their earnings in full, without deducting tax and National Insurance.
 hirer.optimised.result.outside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
@@ -1660,7 +1657,8 @@ hirer.optimised.result.outside.ir35.doNext.workerNotKnown = You should use this 
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
-hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+hirer.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
+
 ## ------------------
 
 ## Outside PAYE Worker
@@ -1671,13 +1669,12 @@ worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
 worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = you and your business will have costs for this work that your client will not pay for
-worker.optimised.result.outside.paye.whyResult.booa = you are providing services as a business
 worker.optimised.result.outside.paye.whyResult.p2 = This means you are self-employed for tax purposes for this work.
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting tax and National Insurance.
 worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
-worker.optimised.result.outside.paye.whyResult.booaOnlyReason = Your answers told us you are providing services as a business.
+worker.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
 ## ------------------
 
 downloadPDFCopy.error.required = Select yes to download this result

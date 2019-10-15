@@ -38,6 +38,8 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultReason2 = "Your answers told us your client does not have control over this work."
     val whyResultReason3 = "Your answers told us you and your business will have costs for this work that your client will not pay for."
     val whyResultReason4 = "Your answers told us you are providing services as a business."
+    val businessReasons = "The answers you have given suggest you are working on a business to business basis."
+
   }
 
   object HirerIR35 {
@@ -57,6 +59,8 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultReason2 = "Your answers told us you do not have control over this work."
     val whyResultReason3 = "Your answers told us the worker’s business will have costs for this work that your organisation will not pay for."
     val whyResultReason4 = "Your answers told us the worker is providing services as a business."
+    val businessReasons = "The answers you have given suggest the worker is working on a business to business basis."
+
   }
 
   object WorkerPAYE {
@@ -73,6 +77,7 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultReason2 = "Your answers told us your client does not have control over this work."
     val whyResultReason3 = "Your answers told us you and your business will have costs for this work that your client will not pay for."
     val whyResultReason4 = "Your answers told us you are providing services as a business."
+    val businessReasons = "The answers you have given suggest you are working on a business to business basis."
   }
 
   object HirerPAYE {
@@ -90,6 +95,7 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultReason2 = "Your answers told us you do not have control over this work."
     val whyResultReason3 = "Your answers told us the worker’s business will have costs for this work that your organisation will not pay for."
     val whyResultReason4 = "Your answers told us the worker is providing services as a business."
+    val businessReasons = "The answers you have given suggest the worker is working on a business to business basis."
   }
 
   object Agent {
@@ -107,5 +113,7 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResulReason2 = "Your answers told us the worker’s client does not have control over this work."
     val whyResulReason3 = "Your answers told us the worker’s business will have costs for this work that their client will not pay for."
     val whyResulReason4 = "Your answers told us the worker is providing services as a business."
+    val businessReasons = "The answers you have given suggest the worker is working on a business to business basis."
+
   }
 }

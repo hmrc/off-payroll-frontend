@@ -514,8 +514,7 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               form = form,
               substituteToDoWork = true,
               clientNotControlWork = true,
-              incurCostNoReclaim = true,
-              isBoOA = true
+              incurCostNoReclaim = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
             val actual = await(service.determineResultView(Some(form)))
@@ -552,7 +551,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 isSubstituteToDoWork = true,
                 isClientNotControlWork = true,
                 isIncurCostNoReclaim = true,
-                isBoOA = true,
                 workerKnown = true
               )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -588,7 +586,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
                 isSubstituteToDoWork = true,
                 isClientNotControlWork = true,
                 isIncurCostNoReclaim = true,
-                isBoOA = true,
                 workerKnown = false
               )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 
@@ -623,7 +620,6 @@ class OptimisedDecisionServiceSpec extends GuiceAppSpecBase with MockDecisionCon
               isSubstituteToDoWork = true,
               isClientNotControlWork = true,
               isIncurCostNoReclaim = true,
-              isBoOA = true,
               workerKnown = true
             )(dataRequest, messages, frontendAppConfig, testNoPdfResultDetails)
 

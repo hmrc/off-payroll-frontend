@@ -39,10 +39,9 @@ class IR35OutsideViewSpec extends ResultViewFixture {
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true,
-                 isBoOA: Boolean = true,
                  workerKnown: Boolean = true,
                  pdfDetails: PDFResultDetails = testNoPdfResultDetails): Html =
-    view(form, isMake, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
+    view(form, isMake, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
 
   "The IR35OutsideView page" should {
 
@@ -66,26 +65,30 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
         "only substituteToDoWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false))
           workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason1)
         }
 
         "only clientNotControlWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false))
           workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason2)
         }
 
         "only incurCostNoReclaim reason is given" should {
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false))
           workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason3)
         }
+      }
 
-        "only booa reason is given" should {
+      "if no other reason is given " should {
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
-          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerIR35.whyResultReason4)
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
+
+        "should display business to business reason" in {
+          document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+          document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerIR35.businessReasons
         }
       }
     }
@@ -104,26 +107,20 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
         "only substituteToDoWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false))
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason1)
         }
 
         "only clientNotControlWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false))
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason2)
         }
 
         "only incurCostNoReclaim reason is given" should {
 
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false))
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason3)
-        }
-
-        "only booa reason is given" should {
-
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
-          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerIR35.whyResultReason4)
         }
       }
 
@@ -131,6 +128,16 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false))
         hirerPageChecks(workerKnown = false)
+      }
+
+      "if no other reason is given " should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
+
+        "should display business to business reason" in {
+          document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+          document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerIR35.businessReasons
+        }
       }
     }
   }
@@ -179,7 +186,6 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB1
         document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB2
         document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB3
-        document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.WorkerIR35.whyResultB4
         document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerIR35.whyResultP2
       }
 

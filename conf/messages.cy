@@ -1578,7 +1578,6 @@ worker.optimised.result.outside.ir35.whyResult.p1 = Yn ôl eich atebion, mae’r
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = mae’ch cleient wedi derbyn, neu byddai’n derbyn, eilydd
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = nid oes gan eich cleient reolaeth dros y gwaith hwn
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = byddwch chi a’ch busnes yn wynebu cost am y gwaith hwn na fydd eich cleient yn talu amdani
-worker.optimised.result.outside.ir35.whyResult.booa = you are providing services as a business
 worker.optimised.result.outside.ir35.whyResult.p2 = Mae hyn yn awgrymu eich bod yn gweithio ar sail busnes i fusnes.
 worker.optimised.result.outside.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad dalu’ch enillion yn llawn, heb ddidynnu treth ac Yswiriant Gwladol.
 worker.optimised.result.outside.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
@@ -1588,7 +1587,8 @@ worker.optimised.result.outside.ir35.check.doNext.p3.link = Canllaw Statws Cyflo
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
-worker.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+worker.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
+
 
 ## Outside PAYE Decision Worker
 ## ------------------
@@ -1599,13 +1599,12 @@ worker.optimised.result.outside.paye.whyResult.p1 = Yn ôl eich atebion, mae’r
 worker.optimised.result.outside.paye.whyResult.substituteToDoWork = mae’ch cleient wedi derbyn, neu byddai’n derbyn, eilydd
 worker.optimised.result.outside.paye.whyResult.clientNotControlWork = nid oes gan eich cleient reolaeth dros y gwaith hwn
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = byddwch chi a’ch busnes yn wynebu cost am y gwaith hwn na fydd eich cleient yn talu amdani
-worker.optimised.result.outside.paye.whyResult.booa = you are providing services as a business
 worker.optimised.result.outside.paye.whyResult.p2 = Golyga hyn eich bod yn hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 worker.optimised.result.outside.paye.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad dalu’ch enillion yn llawn, heb ddidynnu treth ac Yswiriant Gwladol.
 worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
-worker.optimised.result.outside.paye.whyResult.booaOnlyReason = Your answers told us you are providing services as a business.
+worker.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
 
 ## Inside Agent
 ## ------------------
@@ -1793,7 +1792,6 @@ hirer.optimised.result.outside.ir35.whyResult.p1 = Yn ôl eich atebion, mae’r 
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = rydych wedi derbyn, neu byddech yn derbyn, eilydd
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = nid oes gennych reolaeth dros y gwaith hwn
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd eich sefydliad yn talu amdani
-hirer.optimised.result.outside.ir35.whyResult.booa = the worker is providing services as a business
 hirer.optimised.result.outside.ir35.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 hirer.optimised.result.outside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi dalu ei enillion yn llawn heb ddidynnu treth ac Yswiriant Gwladol.
 hirer.optimised.result.outside.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
@@ -1803,7 +1801,8 @@ hirer.optimised.result.outside.ir35.doNext.workerNotKnown = You should use this 
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
-hirer.optimised.result.outside.ir35.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+hirer.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
+
 ## ------------------
 ## Out Agent
 ## ------------------
@@ -1814,7 +1813,6 @@ agent.optimised.result.outside.whyResult.p1 = Yn ôl eich atebion, mae’r canly
 agent.optimised.result.outside.whyResult.substituteToDoWork = mae cleient y gweithiwr wedi derbyn, neu byddai’n derbyn, eilydd
 agent.optimised.result.outside.whyResult.clientNotControlWork = nid oes gan gleient y gweithiwr reolaeth dros y gwaith hwn
 agent.optimised.result.outside.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd ei gleient yn talu amdani
-agent.optimised.result.outside.whyResult.booa = the worker is providing services as a business
 agent.optimised.result.outside.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 agent.optimised.result.outside.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
 agent.optimised.result.outside.doNext.p2.text = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
@@ -1822,7 +1820,8 @@ agent.optimised.result.outside.doNext.p2.link = Canllaw Statws Cyflogaeth.
 agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
 agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that their client will not pay for.
-agent.optimised.result.outside.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+agent.optimised.result.outside.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
+
 ##TODO: Need Welsh
 
 hirer.optimised.result.outside.paye.title = Hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn
@@ -1831,14 +1830,13 @@ hirer.optimised.result.outside.paye.whyResult.p1 = Yn ôl eich atebion, mae’r 
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = rydych wedi derbyn, neu byddech yn derbyn, eilydd
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = nid oes gennych reolaeth dros y gwaith hwn
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd eich sefydliad yn talu amdani
-hirer.optimised.result.outside.paye.whyResult.booa = the worker is providing services as a business
 hirer.optimised.result.outside.paye.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.outside.paye.doNext.p1 = Mae angen i chi dalu enillion y gweithiwr yn llawn, heb ddidynnu treth nac Yswiriant Gwladol.
 hirer.optimised.result.outside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
-hirer.optimised.result.outside.paye.whyResult.booaOnlyReason = Your answers told us the worker is providing services as a business.
+hirer.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
 
 pdfDetails.fileName.error.maxLength = The file name must be {0} characters or less
 pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
