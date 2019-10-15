@@ -158,12 +158,6 @@ class MessagesSpec extends GuiceAppSpecBase {
 
     "contain the same keys" in {
       assert(englishKeys.diff(welshKeys).isEmpty)
-
-      actualWelshMessages.foreach { message =>
-        if(actualEnglishMessages.contains(message)) {
-          print(s"$message\n")
-        }
-      }
     }
   }
 }
