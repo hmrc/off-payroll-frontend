@@ -34,8 +34,8 @@
     }
 
     @renderSection(answers: AnswerSection) = {
-        <h3 class="section-heading">@messages(answers.headingKey)</h3>
-        <div class="form-group">
+        <h3 id="@{answers.section}-heading" class="section-heading">@messages(answers.headingKey)</h3>
+        <div id="@{answers.section}" class="form-group">
         @for(answer <- answers.rows) {
             @{
                 answer._1 match {

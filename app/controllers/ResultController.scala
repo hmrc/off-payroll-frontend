@@ -16,20 +16,22 @@
 
 package controllers
 
-import config.FrontendAppConfig
+import config.{FrontendAppConfig, SessionKeys}
 import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
+import handlers.ErrorHandler
 import javax.inject.Inject
 import models.requests.DataRequest
-import models.{NormalMode, Timestamp, UserAnswers}
+import models.{DecisionResponse, NormalMode, Timestamp, UserAnswers}
 import navigation.CYANavigator
 import pages.{ResultPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, DecisionService, OptimisedDecisionService}
 import utils.UserAnswersUtils
+import utils.SessionUtils._
 
 import scala.concurrent.Future
 
@@ -46,6 +48,7 @@ class ResultController @Inject()(identify: IdentifierAction,
                                  compareAnswerService: CompareAnswerService,
                                  optimisedDecisionService: OptimisedDecisionService,
                                  checkYourAnswersService: CheckYourAnswersService,
+                                 errorHandler: ErrorHandler,
                                  implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching with UserAnswersUtils {
 
@@ -64,9 +67,13 @@ class ResultController @Inject()(identify: IdentifierAction,
 
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
       if(isEnabled(OptimisedFlow)){
-        optimisedDecisionService.determineResultView().map {
-          case Right(result) => Ok(result)
-          case Left(err) => InternalServerError(err)
+        optimisedDecisionService.decide.map {
+          case Right(decision) =>
+            optimisedDecisionService.determineResultView(decision) match {
+              case Right(result) => Ok(result).addingToSession(SessionKeys.decisionResponse -> decision)
+              case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+            }
+          case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
         }
       } else {
         Future.successful(Ok(decisionService.determineResultView(answers)))
@@ -75,19 +82,8 @@ class ResultController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if(isEnabled(OptimisedFlow)){
-      resultFormPDF.bindFromRequest().fold(
-        formWithErrors => {
-
-          optimisedDecisionService.determineResultView(Some(formWithErrors)).map {
-            case Right(result) => BadRequest(result)
-            case Left(err) => InternalServerError(err)
-          }
-        },
-        answer => {
-          redirect[Boolean](NormalMode, answer, ResultPage, callDecisionService = false)
-        }
-      )
+    if(isEnabled(OptimisedFlow)) {
+      redirect[Boolean](NormalMode, true, ResultPage, callDecisionService = false)
     } else {
       Future.successful(resultForm.bindFromRequest().fold(
         formWithErrors => {

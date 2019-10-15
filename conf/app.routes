@@ -160,7 +160,7 @@ POST       /review-answers                              controllers.CheckYourAns
 GET        /add-reference-details                       controllers.AddReferenceDetailsController.onPageLoad()
 POST       /add-reference-details                       controllers.AddReferenceDetailsController.onSubmit()
 
-GET        /finished-checking                           controllers.FinishedCheckingController.onPageLoad()
+GET        /print-preview                               controllers.PrintPreviewController.onPageLoad()
 
 GET        /material-costs                              controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = NormalMode)
 POST       /material-costs                              controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = NormalMode)

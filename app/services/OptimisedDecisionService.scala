@@ -35,7 +35,7 @@ import play.api.i18n.Messages
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.audit.http.connector.AuditConnector
-import viewmodels.AnswerSection
+import viewmodels.{AnswerSection, Result, ResultMode}
 import views.html.results.inside._
 import views.html.results.inside.officeHolder.{OfficeHolderAgentView, OfficeHolderIR35View, OfficeHolderPAYEView}
 import views.html.results.outside._
@@ -65,53 +65,51 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
 
   lazy val defaultForm: Form[Boolean] = formProvider()
 
-  private[services] def decide(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] =
-    decisionConnector.decide(Interview(request.userAnswers))
+  def decide(implicit request: DataRequest[_], hc: HeaderCarrier): Future[Either[ErrorResponse, DecisionResponse]] =
+    decisionConnector.decide(Interview(request.userAnswers)).map {
+      case decision@Right(response) =>
+        auditConnector.sendExplicitAudit("cestDecisionResult", Audit(request.userAnswers, response))
+        decision
+      case left@Left(_) => left
+    }
 
-  def determineResultView(formWithErrors: Option[Form[Boolean]] = None,
+  def determineResultView(decision: DecisionResponse,
+                          formWithErrors: Option[Form[Boolean]] = None,
                           answerSections: Seq[AnswerSection] = Seq(),
-                          printMode: Boolean = false,
+                          resultMode: ResultMode = Result,
                           additionalPdfDetails: Option[AdditionalPdfDetails] = None,
                           timestamp: Option[String] = None,
                           decisionVersion: Option[String] = None)
-                         (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Future[Either[Html, Html]] = {
+                         (implicit request: DataRequest[_], hc: HeaderCarrier, messages: Messages): Either[Html, Html] = {
 
     val form = formWithErrors.getOrElse(defaultForm)
 
-    decide.map {
-      case Right(decision) => {
+    implicit val resultsDetails: ResultsDetails = ResultsDetails(
+      officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer),
+      isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination),
+      usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35),
+      userType = request.userType,
+      personalServiceOption = decision.score.personalService,
+      controlOption = decision.score.control,
+      financialRiskOption = decision.score.financialRisk,
+      boOAOption = decision.score.businessOnOwnAccount,
+      request.userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x),
+      form = form
+    )
 
-        implicit val resultsDetails: ResultsDetails = ResultsDetails(
-          officeHolderAnswer = request.userAnswers.get(OfficeHolderPage).fold(false)(_.answer),
-          isMakingDetermination = request.userAnswers.get(WhatDoYouWantToDoPage).fold(false)(_.answer == MakeNewDetermination),
-          usingIntermediary = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage).contains(IR35),
-          userType = request.userType,
-          personalServiceOption = decision.score.personalService,
-          controlOption = decision.score.control,
-          financialRiskOption = decision.score.financialRisk,
-          boOAOption = decision.score.businessOnOwnAccount,
-          request.userAnswers.getAnswer(WorkerKnownPage).fold(true)(x => x),
-          form = form
-        )
+    implicit val pdfResultDetails: PDFResultDetails = PDFResultDetails(
+      resultMode,
+      additionalPdfDetails,
+      timestamp,
+      answerSections
+    )
 
-        implicit val pdfResultDetails: PDFResultDetails = PDFResultDetails(
-          printMode,
-          additionalPdfDetails,
-          timestamp,
-          answerSections
-        )
-
-        auditConnector.sendExplicitAudit("cestDecisionResult", Audit(request.userAnswers, decision))
-
-        decision.result match {
-          case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
-          case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
-          case ResultEnum.UNKNOWN => Right(routeUndetermined)
-          case ResultEnum.NOT_MATCHED => Logger.error("[OptimisedDecisionService][determineResultView]: NOT MATCHED final decision")
-            Left(errorHandler.internalServerErrorTemplate)
-        }
-      }
-      case Left(_) => Left(errorHandler.internalServerErrorTemplate)
+    decision.result match {
+      case ResultEnum.INSIDE_IR35 | ResultEnum.EMPLOYED => Right(routeInside)
+      case ResultEnum.OUTSIDE_IR35 | ResultEnum.SELF_EMPLOYED => Right(routeOutside)
+      case ResultEnum.UNKNOWN => Right(routeUndetermined)
+      case ResultEnum.NOT_MATCHED => Logger.error("[OptimisedDecisionService][determineResultView]: NOT MATCHED final decision")
+        Left(errorHandler.internalServerErrorTemplate)
     }
   }
 

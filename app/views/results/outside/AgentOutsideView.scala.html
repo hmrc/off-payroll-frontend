@@ -18,7 +18,8 @@
 @import uk.gov.hmrc.play.views.html.helpers.FormWithCSRF
 @import views.ViewUtils._
 @import models.ResultType.Agent
-
+@import results.sections.letter._
+@import viewmodels.{LetterAnswerSections, Result, ResultMode, ResultPDF, ResultPrintPreview}
 @import controllers.routes._
 @import results.sections.pdf
 @import models.requests.DataRequest
@@ -30,41 +31,38 @@
 @(form: Form[_],substituteToDoWork: Boolean,clientNotControlWork: Boolean,incurCostNoReclaim: Boolean, isBoOA: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
-    if(pdfResultDetails.printMode) {
-        printTemplate(title(form, "agent.optimised.result.outside.title"), appConfig = appConfig)(_)
-    } else {
-        mainTemplate(title(form, "agent.optimised.result.outside.title"), appConfig = appConfig)(_)
+
+    pdfResultDetails.resultMode match {
+        case Result => mainTemplate(title(form, "agent.optimised.result.outside.title"), appConfig = appConfig)(_)
+        case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
+        case ResultPDF => printTemplate(title(form, "agent.optimised.result.outside.title"), appConfig = appConfig)(_)
     }
 ){ template =>
 
     @template {
+        @pdfResultDetails.resultMode match {
+            case Result => {
+                @pdfResultDetails.additionalPdfDetails.map { details =>
+                    @pdf.additional_details(details, pdfResultDetails.timestamp)
+                }
 
-        @components.error_summary(form.errors)
+                @components.teal_result(
+                    Html(messages("agent.optimised.result.outside.heading")),
+                    "result.outside"
+                )
 
-        @pdfResultDetails.additionalPdfDetails.map { details =>
-            @pdf.additional_details(details, pdfResultDetails.timestamp)
-        }
-
-        @components.teal_result(
-            Html(messages("agent.optimised.result.outside.heading")),
-            "result.outside"
-        )
-
-        @formWithCsrf(ResultController.onSubmit(), 'autoComplete -> "off") {
-
-            @results.sections.why_result(whyResult)
-
-            @results.sections.do_next(doNext)
-
-            @if(pdfResultDetails.printMode) {
-
-                @pdf.answers(pdfResultDetails.answerSections)
-                @pdf.decision_version(appConfig.decisionVersion)
-
-            } else {
-
-                @results.sections.download(form)
-                @components.submit_button("site.continue")
+                @formWithCsrf(ResultController.onSubmit(), 'autoComplete -> "off") {
+                    @results.sections.why_result(whyResult)
+                    @results.sections.do_next(doNext)
+                    @results.sections.download(form)
+                }
+            }
+            case ResultPrintPreview => {
+                @print_and_save_result()
+                @letter_layout("agent.optimised.result.outside.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+            }
+            case ResultPDF => {
+                @letter_layout("agent.optimised.result.outside.heading", whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }

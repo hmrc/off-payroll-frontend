@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,15 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package connectors.mocks
+@(page: Int, pages: Int)(implicit messages: Messages)
 
-import org.scalamock.scalatest.MockFactory
-import play.api.libs.json.Writes
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+<tfoot>
+    <tr>
+        <td>
+            <p>@messages("site.letter.footer", page, pages)</p>
+        </td>
+    </tr>
+</tfoot>
 
-import scala.concurrent.ExecutionContext
-
-trait MockAuditConnector extends MockFactory {
-
-  lazy val mockAuditConnector = mock[AuditConnector]
-
-  def mockAuditEvent[T](name: String, auditModel: T): Unit = {
-    (mockAuditConnector.sendExplicitAudit(_: String, _: T)(_: HeaderCarrier, _: ExecutionContext, _: Writes[T]))
-      .expects(name, auditModel,  *, *, *)
-      .once()
-  }
-}

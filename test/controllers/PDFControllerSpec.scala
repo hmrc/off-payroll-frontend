@@ -17,13 +17,14 @@
 package controllers
 
 import akka.util.ByteString
+import config.SessionKeys
 import config.featureSwitch.{OptimisedFlow, PrintPDF}
 import connectors.httpParsers.PDFGeneratorHttpParser
 import connectors.httpParsers.PDFGeneratorHttpParser.{BadRequest, SuccessfulPDF}
 import controllers.actions._
 import forms.CustomisePDFFormProvider
+import models._
 import models.requests.DataRequest
-import models.{AdditionalPdfDetails, Answers, NormalMode}
 import navigation.mocks.FakeNavigators.FakeCYANavigator
 import pages.{CustomisePDFPage, ResultPage, Timestamp}
 import play.api.data.Form
@@ -105,7 +106,10 @@ class PDFControllerSpec extends ControllerSpecBase {
     "download the pdf" in {
       enable(OptimisedFlow)
 
-      mockDetermineResultView()(Right(Html("Html")))
+      val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
+      val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
+
+      mockDetermineResultView(decisionResponse)(Right(Html("Html")))
 
       val validData = Map(
         CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer"), reference = Some("filenames,,,,,,")), 0)),
@@ -121,7 +125,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       mockGeneratePdf(response)
       mockCheckYourAnswers(Seq())
 
-      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+      val result = controller(getRelevantData).downloadPDF()(request)
 
       status(result) mustBe OK
 
@@ -131,7 +135,10 @@ class PDFControllerSpec extends ControllerSpecBase {
     "download the pdf and default the filename if it's not ascii" in {
       enable(OptimisedFlow)
 
-      mockDetermineResultView()(Right(Html("Html")))
+      val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
+      val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
+
+      mockDetermineResultView(decisionResponse)(Right(Html("Html")))
 
       val validData = Map(
         CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer"), reference =  Some("€€€€€###¢¢¢€€#¢,,,,,,,,")), 0)),
@@ -147,17 +154,21 @@ class PDFControllerSpec extends ControllerSpecBase {
       mockGeneratePdf(response)
       mockCheckYourAnswers(Seq())
 
-      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+      val result = controller(getRelevantData).downloadPDF()(request)
 
       status(result) mustBe OK
 
       contentAsString(result) mustBe "PDF"
 
     }
+
     "handle errors from the pdf" in {
       enable(OptimisedFlow)
 
-      mockDetermineResultView()(Left(Html("Html")))
+      val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
+      val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
+
+      mockDetermineResultView(decisionResponse)(Left(Html("Html")))
 
       val validData = Map(
         CustomisePDFPage.toString -> Json.toJson(Answers(AdditionalPdfDetails(Some("answer")), 0)),
@@ -172,19 +183,19 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       mockCheckYourAnswers(Seq())
 
-      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+      val result = controller(getRelevantData).downloadPDF()(request)
 
       status(result) mustBe INTERNAL_SERVER_ERROR
-
-      contentAsString(result) must include("Sorry we are experiencing technical problems")
-      contentAsString(result) must include("Please try again in few moments")
-      contentAsString(result) must not include "What do you want to find out?"
+      contentAsString(result) mustBe errorHandler.internalServerErrorTemplate.toString
     }
 
     "download the pdf when no data is entered" in {
       enable(OptimisedFlow)
 
-      mockDetermineResultView()(Right(Html("Html")))
+      val decisionResponse = DecisionResponse("","",Score(),ResultEnum.OUTSIDE_IR35)
+      val request = fakeRequest.withSession(SessionKeys.decisionResponse -> Json.toJson(decisionResponse).toString)
+
+      mockDetermineResultView(decisionResponse)(Right(Html("Html")))
 
       val validData = Map(
         Timestamp.toString -> Json.toJson(Answers(FakeTimestamp.timestamp(), 1))
@@ -197,7 +208,7 @@ class PDFControllerSpec extends ControllerSpecBase {
       mockGeneratePdf(response)
       mockCheckYourAnswers(Seq())
 
-      val result = controller(getRelevantData).downloadPDF()(fakeRequest)
+      val result = controller(getRelevantData).downloadPDF()(request)
 
       status(result) mustBe OK
 

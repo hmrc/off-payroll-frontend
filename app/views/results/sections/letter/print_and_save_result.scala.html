@@ -1,0 +1,38 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@()(implicit messages: Messages)
+
+<div class="full-width" id="print-and-save-result">
+  <h1 class="heading-xlarge">@messages("site.letter.h1")</h1>
+
+   <div class="grid-row">
+    <div id="printAndSave" class="column-full">
+      <p id="download">
+        <a id="printLink" href="#" onclick="window.print();">@messages("site.letter.print")</a>
+        &nbsp; &nbsp;
+        <a id="saveAsPdfLink" href="@controllers.routes.PDFController.downloadPDF().url">@messages("site.letter.pdf")</a>
+      </p>
+      <p>
+          @messages("site.letter.copyOf.onceYouHave")
+          <a id="exitLink" href="@routes.ExitSurveyController.redirectToExitSurvey">@messages("site.letter.copyOf.exit")</a>@messages("site.letter.copyOf.or")
+          <a id="startAgainLink" href="@routes.StartAgainController.redirectToDisclaimer().url">@messages("site.letter.copyOf.startAgain")</a>
+          @messages("site.letter.copyOf.otherWork")
+      </p>
+    </div>
+  </div>
+</div>
+

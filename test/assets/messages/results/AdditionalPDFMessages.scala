@@ -18,7 +18,7 @@ package assets.messages.results
 
 object AdditionalPDFMessages extends BaseResultMessages {
 
-  val timestamp = (time: String) => s"Date of result: $time (UTC)"
+  val timestamp = (time: String) => s"$time (UTC)"
   val completedBy = (name: String) => s"Name of the person that completed this check: $name"
   val client = (name: String) => s"End client’s name: $name"
   val jobTitle = (title: String) => s"Engagement job title: $title"

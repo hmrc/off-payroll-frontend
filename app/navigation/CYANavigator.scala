@@ -33,7 +33,7 @@ class CYANavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navi
       if(isEnabled(OptimisedFlow)) {
         answer.get(ResultPage) match {
           case Some(Answers(true, _)) => AddReferenceDetailsController.onPageLoad()
-          case _ => FinishedCheckingController.onPageLoad()
+          case _ => PrintPreviewController.onPageLoad()
         }
       } else {
         PDFController.onPageLoad(NormalMode)
@@ -43,10 +43,10 @@ class CYANavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Navi
       answer =>
         answer.get(AddReferenceDetailsPage) match {
           case Some(Answers(true, _)) => PDFController.onPageLoad(NormalMode)
-          case _ => FinishedCheckingController.onPageLoad()
+          case _ => PrintPreviewController.onPageLoad()
         }
     },
-    CustomisePDFPage -> (_ => FinishedCheckingController.onPageLoad())
+    CustomisePDFPage -> (_ => PrintPreviewController.onPageLoad())
   )
 
   override def nextPage(page: Page, mode: Mode = NormalMode): UserAnswers => Call = routeMap.getOrElse(page, _ => IndexController.onPageLoad())

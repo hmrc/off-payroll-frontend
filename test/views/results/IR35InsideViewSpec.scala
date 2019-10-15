@@ -16,16 +16,13 @@
 
 package views.results
 
-import assets.messages.results.InDecisionMessages
-import config.SessionKeys
+import assets.messages.results.{InDecisionMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
-import models.sections.setup.AboutYouAnswer.Worker
-import models.{PDFResultDetails, UserAnswers}
-import models.UserType.Hirer
+import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.inside.IR35InsideView
 
 class IR35InsideViewSpec extends ResultViewFixture {
@@ -48,7 +45,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest))
 
-        workerPageChecks(isMakingNewDetermination = false)
+        workerPageChecks(Result, isMakingNewDetermination = false)
         pdfPageChecks(isPdfView = false)
       }
 
@@ -56,7 +53,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingNewDetermination = true))
 
-        workerPageChecks(isMakingNewDetermination = true)
+        workerPageChecks(Result, isMakingNewDetermination = true)
         pdfPageChecks(isPdfView = false)
       }
     }
@@ -67,7 +64,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = true))
 
-        hirerPageChecks(workerKnown = true)
+        hirerPageChecks(Result, workerKnown = true)
         pdfPageChecks(isPdfView = false)
       }
 
@@ -75,8 +72,49 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false))
 
-        hirerPageChecks(workerKnown = false)
+        hirerPageChecks(Result, workerKnown = false)
         pdfPageChecks(isPdfView = false)
+      }
+    }
+  }
+
+  "The IR35InsideView PrintPreview page" should {
+
+    "If the UserType is Worker" should {
+
+      "is Checking a Determination" should {
+
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, pdfDetails = testPrintPreviewResultDetails))
+
+        workerPageChecks(ResultPrintPreview, isMakingNewDetermination = false)
+        letterPrintPreviewPageChecks
+      }
+
+      "is Making a New Determination" should {
+
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingNewDetermination = true, pdfDetails = testPrintPreviewResultDetails))
+
+        workerPageChecks(ResultPrintPreview, isMakingNewDetermination = true)
+        letterPrintPreviewPageChecks
+      }
+    }
+
+    "If the UserType is Hirer" should {
+
+      "if the Worker is Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = true, pdfDetails = testPrintPreviewResultDetails))
+
+        hirerPageChecks(ResultPrintPreview, workerKnown = true)
+        letterPrintPreviewPageChecks
+      }
+
+      "if the Worker is NOT Known" should {
+
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false, pdfDetails = testPrintPreviewResultDetails))
+
+        hirerPageChecks(ResultPrintPreview, workerKnown = false)
+        letterPrintPreviewPageChecks
       }
     }
   }
@@ -89,7 +127,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = false, testPdfResultDetails))
 
-        workerPageChecks(isMakingNewDetermination = false)
+        workerPageChecks(ResultPDF, isMakingNewDetermination = false)
         pdfPageChecks(isPdfView = true)
       }
 
@@ -97,7 +135,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = true, testPdfResultDetails))
 
-        workerPageChecks(isMakingNewDetermination = true)
+        workerPageChecks(ResultPDF, isMakingNewDetermination = true)
         pdfPageChecks(isPdfView = true)
       }
     }
@@ -108,7 +146,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = true, isMakingNewDetermination = true, testPdfResultDetails))
 
-        hirerPageChecks(workerKnown = true)
+        hirerPageChecks(ResultPDF, workerKnown = true)
         pdfPageChecks(isPdfView = true)
       }
 
@@ -116,21 +154,37 @@ class IR35InsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false, isMakingNewDetermination = true, testPdfResultDetails))
 
-        hirerPageChecks(workerKnown = false)
+        hirerPageChecks(ResultPDF, workerKnown = false)
         pdfPageChecks(isPdfView = true)
       }
     }
   }
 
 
-  def hirerPageChecks(workerKnown: Boolean)(implicit document: Document): Unit = {
+  def hirerPageChecks(resultMode: ResultMode, workerKnown: Boolean)(implicit document: Document): Unit = {
 
-    "Have the correct title" in {
-      document.title mustBe title(InDecisionMessages.HirerIR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(InDecisionMessages.HirerIR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(InDecisionMessages.HirerIR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.HirerIR35.heading
+        }
     }
 
     "Have the correct Why Result section" in {
@@ -154,14 +208,30 @@ class IR35InsideViewSpec extends ResultViewFixture {
   }
 
 
-  def workerPageChecks(isMakingNewDetermination: Boolean)(implicit document: Document): Unit = {
+  def workerPageChecks(resultMode: ResultMode, isMakingNewDetermination: Boolean)(implicit document: Document): Unit = {
 
-    "Have the correct title" in {
-      document.title mustBe title(InDecisionMessages.WorkerIR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.WorkerIR35.heading
+        }
     }
 
     "Have the correct Why Result section" in {

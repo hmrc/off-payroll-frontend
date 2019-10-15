@@ -16,16 +16,13 @@
 
 package views.results
 
-import assets.messages.results.OfficeHolderMessages
-import config.SessionKeys
+import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
-import models.sections.setup.AboutYouAnswer.Worker
-import models.UserType.Hirer
+import models.PDFResultDetails
 import models.requests.DataRequest
-import models.{PDFResultDetails, UserAnswers}
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
 import play.twirl.api.Html
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.inside.officeHolder.OfficeHolderIR35View
 
 class OfficeHolderIR35ViewSpec extends ResultViewFixture {
@@ -45,14 +42,15 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = true, testNoPdfResultDetails))
 
-        workerPageChecks(isMakingDetermination = true)
+        workerPageChecks(Result, isMakingDetermination = true)
         pdfPageChecks(isPdfView = false)
       }
 
       "If the user is Checking a Determination" should {
+
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = false, testNoPdfResultDetails))
 
-        workerPageChecks(isMakingDetermination = false)
+        workerPageChecks(Result, isMakingDetermination = false)
         pdfPageChecks(isPdfView = false)
       }
     }
@@ -61,7 +59,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = true, testNoPdfResultDetails))
 
-      hirerPageChecks
+      hirerPageChecks(Result)
       pdfPageChecks(isPdfView = false)
     }
   }
@@ -74,14 +72,14 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = true, testPdfResultDetails))
 
-        workerPageChecks(isMakingDetermination = true)
+        workerPageChecks(ResultPDF, isMakingDetermination = true)
         pdfPageChecks(isPdfView = true)
       }
 
       "If the user is Checking a Determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = false, testPdfResultDetails))
 
-        workerPageChecks(isMakingDetermination = false)
+        workerPageChecks(ResultPDF, isMakingDetermination = false)
         pdfPageChecks(isPdfView = true)
       }
     }
@@ -90,19 +88,64 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
 
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = false, testPdfResultDetails))
 
-      hirerPageChecks
+      hirerPageChecks(ResultPDF)
       pdfPageChecks(isPdfView = true)
     }
   }
 
-  def workerPageChecks(isMakingDetermination: Boolean)(implicit document: Document) = {
+  "The OfficeHolderIR35View PrintPreview page" should {
 
-    "Have the correct title" in {
-      document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+    "If the UserType is Worker" should {
+
+      "If the user is Making a Determination" should {
+
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = true, testPrintPreviewResultDetails))
+
+        workerPageChecks(ResultPrintPreview, isMakingDetermination = true)
+        letterPrintPreviewPageChecks
+      }
+
+      "If the user is Checking a Determination" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMakingDetermination = false, testPrintPreviewResultDetails))
+
+        workerPageChecks(ResultPrintPreview, isMakingDetermination = false)
+        letterPrintPreviewPageChecks
+      }
     }
 
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
+    "If the UserType is Hirer" should {
+
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMakingDetermination = false, testPrintPreviewResultDetails))
+
+      hirerPageChecks(ResultPrintPreview)
+      letterPrintPreviewPageChecks
+    }
+  }
+
+  def workerPageChecks(resultMode: ResultMode, isMakingDetermination: Boolean)(implicit document: Document) = {
+
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.IR35.heading
+        }
     }
 
     "Have the correct Why Result section" in {
@@ -131,13 +174,30 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(implicit document: Document) = {
-    "Have the correct title" in {
-      document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
-    }
+  def hirerPageChecks(resultMode: ResultMode)(implicit document: Document) = {
 
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+        }
     }
 
     "Have the correct Why Result section" in {

@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package connectors.mocks
+package assets.messages.results
 
-import org.scalamock.scalatest.MockFactory
-import play.api.libs.json.Writes
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.audit.http.connector.AuditConnector
+object PrintAndSaveMessages extends BaseResultMessages {
 
-import scala.concurrent.ExecutionContext
-
-trait MockAuditConnector extends MockFactory {
-
-  lazy val mockAuditConnector = mock[AuditConnector]
-
-  def mockAuditEvent[T](name: String, auditModel: T): Unit = {
-    (mockAuditConnector.sendExplicitAudit(_: String, _: T)(_: HeaderCarrier, _: ExecutionContext, _: Writes[T]))
-      .expects(name, auditModel,  *, *, *)
-      .once()
-  }
+  val heading = "Your determination and answers"
+  val printLink = "Print this document"
+  val savePdfLink = "Save as a PDF"
+  val exitLink = "exit"
+  val startAgainLink = "start again"
+  val p2 = "Once you have a copy of your result you can exit, or start again to check the employment status of some other work."
 }

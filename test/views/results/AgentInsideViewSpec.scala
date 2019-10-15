@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.InDecisionMessages
+import assets.messages.results.{InDecisionMessages, PrintPreviewMessages}
 import config.SessionKeys
 import forms.DeclarationFormProvider
 import models.UserAnswers
@@ -24,6 +24,7 @@ import models.UserType.Agency
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
 import play.api.libs.json.Json
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.inside.AgentInsideView
 
 class AgentInsideViewSpec extends ResultViewFixture {
@@ -37,7 +38,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
-    pageChecks
+    pageChecks(resultMode = Result)
     pdfPageChecks(isPdfView = false)
   }
 
@@ -47,17 +48,44 @@ class AgentInsideViewSpec extends ResultViewFixture {
 
     implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
 
-    pageChecks
+    pageChecks(resultMode = ResultPDF)
     pdfPageChecks(isPdfView = true)
   }
 
-  def pageChecks(implicit document: Document) = {
-    "Have the correct title" in {
-      document.title mustBe title(InDecisionMessages.Agent.title)
-    }
+  "The InsideAgentView Letter Print Preview page" should {
 
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
+    def createPrintView(req: DataRequest[_]) = view(form)(req, messages, frontendAppConfig, testPrintPreviewResultDetails)
+
+    implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
+
+    pageChecks(resultMode = ResultPrintPreview)
+    letterPrintPreviewPageChecks
+  }
+
+  def pageChecks(resultMode: ResultMode)(implicit document: Document) = {
+
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(InDecisionMessages.Agent.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(InDecisionMessages.Agent.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.Agent.heading
+        }
     }
 
     "Have the correct Why Result section" in {

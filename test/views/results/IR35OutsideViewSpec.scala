@@ -16,16 +16,13 @@
 
 package views.results
 
-import assets.messages.results.OutDecisionMessages
-import config.SessionKeys
+import assets.messages.results.{OutDecisionMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
-import models.sections.setup.AboutYouAnswer.Worker
-import models.UserType.Hirer
+import models.PDFResultDetails
 import models.requests.DataRequest
-import models.{PDFResultDetails, UserAnswers}
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
 import play.twirl.api.Html
+import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.outside.IR35OutsideView
 
 class IR35OutsideViewSpec extends ResultViewFixture {
@@ -51,14 +48,18 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       "If making determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true))
 
-        workerPageChecks(isMake = true)
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
+        }
+
+        workerPageChecks(Result, isMake = true)
         pdfPageChecks(isPdfView = false)
       }
 
       "If checking determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false))
 
-        workerPageChecks(isMake = false)
+        workerPageChecks(Result, isMake = false)
         pdfPageChecks(isPdfView = false)
       }
 
@@ -96,7 +97,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest))
 
-        hirerPageChecks()
+        hirerPageChecks(Result)
         pdfPageChecks(isPdfView = false)
       }
 
@@ -130,7 +131,8 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       "if the Worker is NOT Known" should {
 
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, workerKnown = false))
-        hirerPageChecks(workerKnown = false)
+
+        hirerPageChecks(Result, workerKnown = false)
       }
     }
   }
@@ -142,14 +144,14 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       "If making a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPdfResultDetails))
 
-        workerPageChecks(isMake = true)
+        workerPageChecks(ResultPDF, isMake = true)
         pdfPageChecks(isPdfView = true)
       }
 
       "If checking a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
-        workerPageChecks(isMake = false)
+        workerPageChecks(ResultPDF, isMake = false)
         pdfPageChecks(isPdfView = true)
       }
     }
@@ -157,20 +159,64 @@ class IR35OutsideViewSpec extends ResultViewFixture {
     "If the UserType is Hirer" should {
       implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
-      hirerPageChecks()
+      hirerPageChecks(ResultPDF)
       pdfPageChecks(isPdfView = true)
     }
   }
 
-  def workerPageChecks(isMake: Boolean)(implicit document: Document) = {
+  "The IR35OutsideView PrintPreview page" should {
+
     "If the UserType is Worker" should {
 
-      "Have the correct title" in {
-        document.title mustBe title(OutDecisionMessages.WorkerIR35.title)
+      "If making a determination" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPrintPreviewResultDetails))
+
+        workerPageChecks(ResultPrintPreview, isMake = true)
+        letterPrintPreviewPageChecks
       }
 
-      "Have the correct heading" in {
-        document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
+      "If checking a determination" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false, pdfDetails = testPrintPreviewResultDetails))
+
+        workerPageChecks(ResultPrintPreview, isMake = false)
+        letterPrintPreviewPageChecks
+      }
+    }
+
+    "If the UserType is Hirer" should {
+      implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isMake = false, pdfDetails = testPrintPreviewResultDetails))
+
+      hirerPageChecks(ResultPrintPreview)
+      letterPrintPreviewPageChecks
+    }
+  }
+
+  def workerPageChecks(resultMode: ResultMode, isMake: Boolean)(implicit document: Document) = {
+
+    "If the UserType is Worker" should {
+
+      resultMode match {
+        case Result =>
+          "Have the correct title" in {
+            document.title mustBe title(OutDecisionMessages.WorkerIR35.title)
+          }
+          "Have the correct heading" in {
+            document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
+          }
+        case ResultPrintPreview =>
+          "Have the correct title" in {
+            document.title mustBe title(PrintPreviewMessages.title)
+          }
+          "Have the correct heading" in {
+            document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+          }
+        case ResultPDF =>
+          "Have the correct title" in {
+            document.title mustBe title(OutDecisionMessages.WorkerIR35.title)
+          }
+          "Have the correct heading" in {
+            document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.WorkerIR35.heading
+          }
       }
 
       "Have the correct Why Result section" in {
@@ -214,14 +260,30 @@ class IR35OutsideViewSpec extends ResultViewFixture {
     }
   }
 
-  def hirerPageChecks(workerKnown: Boolean = true)(implicit document: Document) = {
+  def hirerPageChecks(resultMode: ResultMode, workerKnown: Boolean = true)(implicit document: Document) = {
 
-    "Have the correct title" in {
-      document.title mustBe title(OutDecisionMessages.HirerIR35.title)
-    }
-
-    "Have the correct heading" in {
-      document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerIR35.heading
+    resultMode match {
+      case Result =>
+        "Have the correct title" in {
+          document.title mustBe title(OutDecisionMessages.HirerIR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerIR35.heading
+        }
+      case ResultPrintPreview =>
+        "Have the correct title" in {
+          document.title mustBe title(PrintPreviewMessages.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.heading).text mustBe PrintPreviewMessages.heading
+        }
+      case ResultPDF =>
+        "Have the correct title" in {
+          document.title mustBe title(OutDecisionMessages.HirerIR35.title)
+        }
+        "Have the correct heading" in {
+          document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.HirerIR35.heading
+        }
     }
 
     "Have the correct Why Result section when all reasons are given" in {
