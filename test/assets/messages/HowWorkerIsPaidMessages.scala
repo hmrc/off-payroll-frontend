@@ -44,8 +44,8 @@ object HowWorkerIsPaidMessages extends BaseMessages {
     val heading = "What is the main way you are paid for this engagement?"
     val title = heading
     val salary = "An hourly, daily or weekly rate"
-    val fixed = "A fixed price for a specific piece of work"
-    val proRata = "An amount based on how much work is completed"
+    val fixed = "A fixed price for the project"
+    val proRata = "A fixed amount for each piece of work completed"
     val commision = "A percentage of the sales you make"
     val profits = "A percentage of the end client’s profits or savings"
   }
@@ -54,8 +54,8 @@ object HowWorkerIsPaidMessages extends BaseMessages {
     val heading = "What is the main way the worker is paid for this engagement?"
     val title = heading
     val salary = "An hourly, daily or weekly rate"
-    val fixed = "A fixed price for a specific piece of work"
-    val proRata = "An amount based on how much work is completed"
+    val fixed = "A fixed price for the project"
+    val proRata = "A fixed amount for each piece of work completed"
     val commision = "A percentage of the sales the worker makes"
     val profits = "A percentage of your profits or savings"
   }
@@ -64,8 +64,8 @@ object HowWorkerIsPaidMessages extends BaseMessages {
     val heading = "What is the main way the worker is paid for this engagement?"
     val title = heading
     val salary = "An hourly, daily or weekly rate"
-    val fixed = "A fixed price for a specific piece of work"
-    val proRata = "An amount based on how much work is completed"
+    val fixed = "A fixed price for the project"
+    val proRata = "A fixed amount for each piece of work completed"
     val commision = "A percentage of the sales the worker makes"
     val profits = "A percentage of the end client’s profits or savings"
   }
