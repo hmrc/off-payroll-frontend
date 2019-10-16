@@ -18,20 +18,18 @@ package controllers.errors
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.actions.{DataRetrievalAction, IdentifierAction}
+import controllers.actions.IdentifierAction
 import javax.inject.{Inject, Singleton}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.errors.SessionExpiredView
-import views.html.SessionDeletedView
 
 @Singleton
 class SessionExpiredController @Inject()(val appConfig: FrontendAppConfig,
                                          identify: IdentifierAction,
                                          controllerComponents: MessagesControllerComponents,
                                          expiredView: SessionExpiredView,
-                                         deletedView: SessionDeletedView,
                                          dataCacheConnector: DataCacheConnector
                                         ) extends FrontendController(controllerComponents) with I18nSupport {
 

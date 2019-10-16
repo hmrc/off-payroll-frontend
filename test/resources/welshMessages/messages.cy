@@ -41,10 +41,6 @@ timeout.minute = munud
 timeout.minutes = munud
 timeout.minutes.two = funud
 
-session.deleted.title =  You have closed this session. For your security, we have deleted your answers.
-session.deleted.heading = You have closed this session. For your security, we have deleted your answers.
-session.deleted.start_again = Dechrau eto
-
 session.expired.title = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur am fwy na 15 munud. Er eich diogelwch, rydym wedi dileu’ch atebion.
 session.expired.heading = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur am fwy na 15 munud. Er eich diogelwch, rydym wedi dileu’ch atebion.
 session.expired.start_again =Dechrau eto
@@ -59,7 +55,6 @@ site.no = Na
 site.yes = Iawn
 site.continue = Yn eich blaen
 site.accept_continue = Accept and continue
-site.finish = Finish
 site.exit = Exit
 site.confirm_continue =Cadarnhau a pharhau
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
@@ -276,8 +271,7 @@ cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyf
 cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.checkYourAnswersLabel =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 cannotClaimAsExpense.checkYourAnswersLabel.optimised = Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
-#TODO: Need Welsh
-cannotClaimAsExpense.subheading = About the worker’s financial risk
+cannotClaimAsExpense.subheading = Ynglŷn â risg ariannol y gweithiwr
 cannotClaimAsExpense.p1 =Dyma restr o bethau:
 cannotClaimAsExpense.bullet1 =y mae’n rhaid i’r gweithiwr eu darparu er mwyn cyflawni’r swydd benodol hon
 cannotClaimAsExpense.bullet2 =nad ydynt yn cael eu darparu gan y cleient terfynol
@@ -291,11 +285,6 @@ cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costa
 cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
 cannotClaimAsExpense.error.required = Mae angen i chi ddewis ateb
 cannotClaimAsExpense.error.invalid = Mae angen i chi ddewis ateb
-cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
-cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
-cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
-cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
-cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 
 worker.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 worker.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
@@ -313,12 +302,6 @@ worker.cannotClaimAsExpense.workerProvidedEquipment =Offer - yn cynnwys peiriann
 worker.cannotClaimAsExpense.workerUsedVehicle =Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 worker.cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 worker.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
-## TODO: Need Welsh
-worker.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
-worker.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
-worker.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
-worker.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
-worker.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Ddim yn berthnasol
 
 hirer.cannotClaimAsExpense.title =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
 hirer.cannotClaimAsExpense.heading =Beth sy’n rhaid i’r gweithiwr ei ddarparu ar gyfer y swydd hon na allai’i hawlio fel traul oddi wrth y cleient terfynol neu asiantaeth?
@@ -336,12 +319,6 @@ hirer.cannotClaimAsExpense.workerProvidedEquipment =Offer - yn cynnwys peirianna
 hirer.cannotClaimAsExpense.workerUsedVehicle =Cerbydau - yn gynnwys costau prynu, costau tanwydd a holl gostau rhedeg (a ddefnyddir ar gyfer tasgau gwaith, nid ar gyfer cymudo)
 hirer.cannotClaimAsExpense.workerHadOtherExpenses =Treuliau eraill - gan gynnwys costau teithio neu gostau llety sylweddol (ar gyfer gwaith, nid ar gyfer cymudo), neu i dalu am safleoedd busnes sydd y tu allan i gartref y gweithiwr
 hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole =Ddim yn berthnasol
-## TODO: Welsh needed
-hirer.cannotClaimAsExpense.workerProvidedMaterials.checkYourAnswers = Materials
-hirer.cannotClaimAsExpense.workerProvidedEquipment.checkYourAnswers = Equipment
-hirer.cannotClaimAsExpense.workerUsedVehicle.checkYourAnswers = Vehicle
-hirer.cannotClaimAsExpense.workerHadOtherExpenses.checkYourAnswers = Other expenses
-hirer.cannotClaimAsExpense.expensesAreNotRelevantForRole.checkYourAnswers = Not relevant
 #########################
 
 ## Arranged Substitute
@@ -1355,18 +1332,6 @@ agencyAdvisory.title = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.p1 = Cyfrifoldeb y cleient neu’r gweithiwr yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith.
 
-##### TODO NEED WELSH FOR ####
-hirerAdvisory.title = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
-hirerAdvisory.heading = Until April 2020, you do not need to determine if this work falls within the off-payroll working rules (IR35)
-hirerAdvisory.p1 = It is the worker’s responsibility.
-hirerAdvisory.p2 = After April 2020, proposed legislation will come into effect that changes this. Medium and large private sector organisations will be responsible for determining the employment status for tax purposes of contracts they offer.
-hirerAdvisory.subheading = Beth y dylech ei wneud nesaf
-hirerAdvisory.p3 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
-
-##### TODO NEED WELSH FOR ####
-leave.title = You have now left the tool
-leave.heading = You have now left the tool
-
 worker.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
 worker.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
 agency.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
@@ -1382,70 +1347,6 @@ hirer.workerUsingIntermediary.title = A yw’r gweithiwr yn masnachu drwy gwmni 
 hirer.workerUsingIntermediary.heading = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
 hirer.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
 hirer.workerUsingIntermediary.checkYourAnswersLabel = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
-
-##### TODO NEED WELSH FOR ####
-
-isWorkForPrivateSector.private = Private sector
-isWorkForPrivateSector.public = Public sector
-isWorkForPrivateSector.error.required = Mae angen i chi ddewis ateb
-isWorkForPrivateSector.error.invalid = Mae angen i chi ddewis ateb
-
-worker.isWorkForPrivateSector.title = In which sector is the client you will be doing the work for?
-worker.isWorkForPrivateSector.heading = In which sector is the client you will be doing the work for?
-worker.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is the client you will be doing the work for?
-
-##### TODO NEED WELSH FOR ####
-hirer.isWorkForPrivateSector.title = In which sector is your organisation?
-hirer.isWorkForPrivateSector.heading = In which sector is your organisation?
-hirer.isWorkForPrivateSector.checkYourAnswersLabel = In which sector is your organisation?
-
-##### TODO NEED WELSH FOR ####
-workerAdvisory.title = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-workerAdvisory.heading = You don’t need to determine if the off-payroll rules (IR35) apply to this work
-workerAdvisory.p1 = Because you told us this work is for a public sector body, they are responsible for determining its employment status for tax purposes.
-workerAdvisory.subheading = Beth y dylech ei wneud nesaf
-workerAdvisory.p2 = You can exit the tool now. Or continue through it, to see how aspects of the work, like its duties and arrangements, affect the result given.
-
-##### TODO NEED WELSH FOR ####
-hirer.businessSize.title = How large is your organisation? Tick all that apply
-hirer.businessSize.heading = How large is your organisation? Tick all that apply
-hirer.businessSize.checkYourAnswersLabel = Does your organisation have more than:
-worker.businessSize.title = How large is this organisation? Tick all that apply
-worker.businessSize.heading = How large is this organisation? Tick all that apply
-worker.businessSize.checkYourAnswersLabel = Does this client have more than:
-businessSize.turnover = More than £10.2 million annual turnover.
-businessSize.balanceSheet = More than £5.1 million on their balance sheet.
-businessSize.employees = More than 50 employees.
-businessSize.noneOfAbove = None of the above.
-businessSize.error.required = Select an option
-businessSize.error.invalid = Select a valid option
-
-##### TODO NEED WELSH FOR ####
-hirer.turnoverOver.title = Does your organisation have an annual turnover of more than £10.2 million?
-hirer.turnoverOver.heading = Does your organisation have an annual turnover of more than £10.2 million?
-hirer.turnoverOver.checkYourAnswersLabel = Does your organisation have an annual turnover of more than £10.2 million?
-worker.turnoverOver.title = Does this organisation have an annual turnover of more than £10.2 million?
-worker.turnoverOver.heading = Does this organisation have an annual turnover of more than £10.2 million?
-worker.turnoverOver.checkYourAnswersLabel = Does this organisation have an annual turnover of more than £10.2 million?
-turnoverOver.error.required = Mae angen i chi ddewis ateb
-
-##### TODO NEED WELSH FOR ####
-hirer.balanceSheetOver.title = Does your organisation have more than £5.1 million on its balance sheet?
-hirer.balanceSheetOver.heading = Does your organisation have more than £5.1 million on its balance sheet?
-hirer.balanceSheetOver.checkYourAnswersLabel = Does your organisation have more than £5.1 million on its balance sheet?
-worker.balanceSheetOver.title = Does this organisation have more than £5.1 million on its balance sheet?
-worker.balanceSheetOver.heading = Does this organisation have more than £5.1 million on its balance sheet?
-worker.balanceSheetOver.checkYourAnswersLabel = Does this organisation have more than £5.1 million on its balance sheet?
-balanceSheetOver.error.required = Mae angen i chi ddewis ateb
-
-##### TODO NEED WELSH FOR ####
-hirer.employeesOver.title = Does your organisation employ more than 50 people?
-hirer.employeesOver.heading = Does your organisation employ more than 50 people?
-hirer.employeesOver.checkYourAnswersLabel = Does your organisation employ more than 50 people?
-worker.employeesOver.title = Does this organisation employ more than 50 people?
-worker.employeesOver.heading = Does this organisation employ more than 50 people?
-worker.employeesOver.checkYourAnswersLabel = this your organisation employ more than 50 people?
-employeesOver.error.required = Mae angen i chi ddewis ateb
 
 ##### TODO NEED WELSH FOR ####
 checkYourAnswers.title = Review your answers in each section below
@@ -1464,17 +1365,6 @@ checkYourAnswers.control.header = 4. Working arrangements
 checkYourAnswers.financialRisk.header = 5. Worker’s financial risk
 checkYourAnswers.partParcel.header = 6. Worker’s involvement
 checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
-
-
-##### TODO NEED WELSH FOR ####
-toolNotNeeded.client.ir35.title = You don’t need to determine if this work falls within the off-payroll rules (IR35)
-toolNotNeeded.client.ir35.heading = You don’t need to determine if this work falls within the off-payroll rules (IR35)
-toolNotNeeded.client.ir35.p1 = It is the worker’s responsibility.
-toolNotNeeded.client.ir35.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body. And because they’re responsible for determining the employment status for tax purposes of work for smaller private sector organisations.
-toolNotNeeded.client.paye.title = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
-toolNotNeeded.client.paye.heading = You don’t need to determine if this work should be classed as employed or self-employed for tax purposes
-toolNotNeeded.client.paye.p1 = It is the worker’s responsibility.
-toolNotNeeded.client.paye.p2 = This is because you told us they will trade through a limited company, partnership or unincorporated body.
 
 
 #### New Optimised Result Pages ####

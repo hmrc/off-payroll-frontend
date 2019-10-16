@@ -31,6 +31,7 @@ class MessagesSpec extends GuiceAppSpecBase {
 
   lazy val expectedWelshMessages = sanitize(Source.fromFile(expectedWelshFileName).getLines)
   lazy val actualWelshMessages = sanitize(Source.fromFile(welshFileName).getLines)
+  lazy val actualEnglishMessages = sanitize(Source.fromFile(englishFileName).getLines)
 
   lazy val englishKeys = sanitize(Source.fromFile(englishFileName).getLines map getKey)
   lazy val welshKeys = actualWelshMessages map getKey

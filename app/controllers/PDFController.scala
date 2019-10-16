@@ -39,7 +39,6 @@ import viewmodels.ResultPDF
 import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.Future
-import scala.io.{BufferedSource, Source}
 
 class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               navigator: CYANavigator,

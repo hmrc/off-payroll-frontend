@@ -40,11 +40,6 @@ class RoutesSpec extends SpecBase {
       setupRoutes.AgencyAdvisoryController.onSubmit().url mustBe fullPath("/agency-not-responsible")
     }
 
-    "Have the correct routes for the Hirer Advisory page" in {
-      setupRoutes.HirerAdvisoryController.onPageLoad().url mustBe fullPath("/hirer-advisory")
-      setupRoutes.HirerAdvisoryController.onSubmit().url mustBe fullPath("/hirer-advisory")
-    }
-
     "Have the correct routes for the About You page" in {
       setupRoutes.AboutYouController.onPageLoad(NormalMode).url mustBe fullPath("/reason-for-using-tool")
       setupRoutes.AboutYouController.onPageLoad(CheckMode).url mustBe fullPath("/reason-for-using-tool/change")
@@ -71,11 +66,6 @@ class RoutesSpec extends SpecBase {
       setupRoutes.WhatDoYouWantToDoController.onPageLoad(CheckMode).url mustBe fullPath("/what-do-you-want-to-do/change")
       setupRoutes.WhatDoYouWantToDoController.onSubmit(NormalMode).url mustBe fullPath("/what-do-you-want-to-do")
       setupRoutes.WhatDoYouWantToDoController.onSubmit(CheckMode).url mustBe fullPath("/what-do-you-want-to-do/change")
-    }
-
-    "Have the correct routes for the Tool Not Needed page" in {
-      setupRoutes.ToolNotNeededController.onPageLoad().url mustBe fullPath("/tool-not-needed")
-      setupRoutes.ToolNotNeededController.onSubmit().url mustBe fullPath("/tool-not-needed")
     }
 
     "Have the correct routes for the Office Holder page" in {
