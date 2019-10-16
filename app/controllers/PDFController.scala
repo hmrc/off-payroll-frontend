@@ -34,12 +34,11 @@ import play.core.utils.AsciiSet
 import play.twirl.api.{Html, HtmlFormat}
 import services._
 import utils.SessionUtils._
-import utils.UserAnswersUtils
+import utils.{SourceUtil, UserAnswersUtils}
 import viewmodels.ResultPDF
 import views.html.{AddDetailsView, CustomisePDFView}
 
 import scala.concurrent.Future
-import scala.io.Source
 
 class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               navigator: CYANavigator,
@@ -58,6 +57,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               compareAnswerService: CompareAnswerService,
                               checkYourAnswersService: CheckYourAnswersService,
                               encryption: EncryptionService,
+                              source: SourceUtil,
                               implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
   controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
 
@@ -141,9 +141,9 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
 
     val css = if(isEnabled(OptimisedFlow)) {
-      Source.fromURL(controllers.routes.Assets.versioned("stylesheets/optimised_print_pdf.css").absoluteURL).mkString
+      source.fromURL(controllers.routes.Assets.versioned("stylesheets/optimised_print_pdf.css").absoluteURL).mkString
     } else {
-      Source.fromURL(controllers.routes.Assets.versioned("stylesheets/print_pdf.css").absoluteURL).mkString
+      source.fromURL(controllers.routes.Assets.versioned("stylesheets/print_pdf.css").absoluteURL).mkString
     }
 
     val printHtml = Html(view.toString

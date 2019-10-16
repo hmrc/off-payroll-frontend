@@ -33,7 +33,7 @@ import play.api.test.Helpers._
 import play.twirl.api.Html
 import services.DecisionService
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeTimestamp
+import utils.{FakeTimestamp, MockSourceUtil}
 import views.html.{AddDetailsView, CustomisePDFView}
 
 class PDFControllerSpec extends ControllerSpecBase {
@@ -72,6 +72,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     mockCompareAnswerService,
     mockCheckYourAnswersService,
     mockEncryptionService,
+    MockSourceUtil,
     frontendAppConfig
   )
 
@@ -93,6 +94,7 @@ class PDFControllerSpec extends ControllerSpecBase {
     mockCompareAnswerService,
     mockCheckYourAnswersService,
     mockEncryptionService,
+    MockSourceUtil,
     frontendAppConfig
   )
 
