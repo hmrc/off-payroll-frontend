@@ -110,7 +110,6 @@ class CheckYourAnswersService @Inject()(implicit val appConfig: FrontendAppConfi
           checkYourAnswersHelper.firstContract,
           checkYourAnswersHelper.extendContract,
           checkYourAnswersHelper.majorityOfWorkingTime,
-          checkYourAnswersHelper.financiallyDependent,
           checkYourAnswersHelper.similarWorkOtherClients
         ).flatten
       )

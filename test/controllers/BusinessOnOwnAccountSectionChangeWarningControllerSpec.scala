@@ -82,16 +82,6 @@ class BusinessOnOwnAccountSectionChangeWarningControllerSpec extends ControllerS
       redirectLocation(result) mustBe Some(businessOnOwnAccountRoutes.ExtendContractController.onPageLoad(CheckMode).url)
     }
 
-    "redirect to the FinanciallyDependent page if that was the selected page to change" in {
-
-      val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)
-      mockSave(answers.cacheMap)(answers.cacheMap)
-
-      val result = controller().onSubmit(FinanciallyDependentPage)(fakeRequest)
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(businessOnOwnAccountRoutes.FinanciallyDependentController.onPageLoad(CheckMode).url)
-    }
-
     "redirect to the FirstContract page if that was the selected page to change" in {
 
       val answers = userAnswers.set(BusinessOnOwnAccountSectionChangeWarningPage, 0, true)

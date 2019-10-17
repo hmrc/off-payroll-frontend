@@ -26,11 +26,9 @@ object SignificantWorkingTime extends FeatureSwitching {
 
   case object ConsumesSignificantAmount extends WithName("consumesSignificantAmount") with SignificantWorkingTime
   case object NoSignificantAmount extends WithName("noSignificantAmount") with SignificantWorkingTime
-  case object TimeButNotMoney extends WithName("timeButNotMoney") with SignificantWorkingTime
-  case object MoneyButNotTime extends WithName("moneyButNotTime") with SignificantWorkingTime
 
   val values: Seq[SignificantWorkingTime] = Seq(
-    ConsumesSignificantAmount, NoSignificantAmount, TimeButNotMoney, MoneyButNotTime
+    ConsumesSignificantAmount, NoSignificantAmount
   )
 
   implicit val enumerable: Enumerable[SignificantWorkingTime] =

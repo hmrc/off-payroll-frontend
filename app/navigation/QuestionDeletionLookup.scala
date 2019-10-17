@@ -40,8 +40,7 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
   private val personalService: List[QuestionPage[_]] = List(ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage)
   private val businessOnOwnAccount: List[QuestionPage[_]] = List(
     WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
-    PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
-    SimilarWorkOtherClientsPage
+    PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage
   )
   private val control: List[QuestionPage[_]] = List(ChooseWhereWorkPage,MoveWorkerPage,ScheduleOfWorkingHoursPage,HowWorkIsDonePage)
   private val financialRisk: List[QuestionPage[_]] = List(EquipmentExpensesPage,HowWorkerIsPaidPage,MaterialsPage,OtherExpensesPage,PutRightAtOwnCostPage,VehiclePage,CannotClaimAsExpensePage)
@@ -102,8 +101,7 @@ class QuestionDeletionLookup @Inject()(implicit appConfig: FrontendAppConfig) {
     WorkerKnownPage -> (
       answers => if(answers.getAnswer(WorkerKnownPage).contains(true)) List.empty else List(
         MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
-        PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
-        SimilarWorkOtherClientsPage
+        PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage
       )),
     MultipleContractsPage -> (
       answers => answers.getAnswer(MultipleContractsPage) match {

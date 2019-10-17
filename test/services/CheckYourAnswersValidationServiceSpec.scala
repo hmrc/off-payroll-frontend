@@ -476,7 +476,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
               result.left.get must contain(OwnershipRightsPage)
               result.left.get must contain(PreviousContractPage)
               result.left.get must contain(MajorityOfWorkingTimePage)
-              result.left.get must contain(FinanciallyDependentPage)
               result.left.get must contain(SimilarWorkOtherClientsPage)
             }
           }
@@ -817,7 +816,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
             .set(FirstContractPage, false)
             .set(ExtendContractPage, true)
             .set(MajorityOfWorkingTimePage, true)
-            .set(FinanciallyDependentPage, true)
             .set(SimilarWorkOtherClientsPage, true)
 
           lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -878,7 +876,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -932,7 +929,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -985,7 +981,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -1038,7 +1033,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -1090,7 +1084,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -1141,7 +1134,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -1195,7 +1187,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)
@@ -1245,7 +1236,6 @@ class CheckYourAnswersValidationServiceSpec extends GuiceAppSpecBase {
                   .set(FirstContractPage, false)
                   .set(ExtendContractPage, true)
                   .set(MajorityOfWorkingTimePage, true)
-                  .set(FinanciallyDependentPage, true)
                   .set(SimilarWorkOtherClientsPage, true)
 
                 lazy val result = CheckYourAnswersService.isValid(userAnswers)

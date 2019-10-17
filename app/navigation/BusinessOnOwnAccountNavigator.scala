@@ -95,9 +95,7 @@ class BusinessOnOwnAccountNavigator @Inject()(implicit appConfig: FrontendAppCon
 
     ExtendContractPage -> (_ => booaRoutes.MajorityOfWorkingTimeController.onPageLoad(mode)),
 
-    MajorityOfWorkingTimePage -> (_ => booaRoutes.FinanciallyDependentController.onPageLoad(mode)),
-
-    FinanciallyDependentPage -> (_ => booaRoutes.SimilarWorkOtherClientsController.onPageLoad(mode)),
+    MajorityOfWorkingTimePage -> (_ => booaRoutes.SimilarWorkOtherClientsController.onPageLoad(mode)),
 
     SimilarWorkOtherClientsPage -> (_ => routeToCheckYourAnswers)
   )

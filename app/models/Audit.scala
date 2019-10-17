@@ -86,8 +86,7 @@ object Audit extends JsonObjectSugar {
           answerFor(TransferOfRightsPage),
           answerFor(RightsOfWorkPage),
           answerFor(SimilarWorkOtherClientsPage),
-          answerFor(MajorityOfWorkingTimePage),
-          answerFor(FinanciallyDependentPage)
+          answerFor(MajorityOfWorkingTimePage)
         )
       ),
       "result" -> jsonObjNoNulls(

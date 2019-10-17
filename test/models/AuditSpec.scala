@@ -87,7 +87,6 @@ class AuditSpec extends GuiceAppSpecBase {
           .set(RightsOfWorkPage, false)
           .set(TransferOfRightsPage, true)
           .set(MajorityOfWorkingTimePage, false)
-          .set(FinanciallyDependentPage, true)
           .set(SimilarWorkOtherClientsPage, false)
           .set(ExtendContractPage, true)
           .set(PreviousContractPage, false)
@@ -162,7 +161,6 @@ class AuditSpec extends GuiceAppSpecBase {
               RightsOfWorkPage -> false,
               TransferOfRightsPage -> true,
               MajorityOfWorkingTimePage -> false,
-              FinanciallyDependentPage -> true,
               SimilarWorkOtherClientsPage -> false,
               ExtendContractPage -> true,
               PreviousContractPage -> false

@@ -217,11 +217,6 @@ class ErrorMessagesSpec extends GuiceAppSpecBase {
         Messages("hirer.majorityOfWorkingTime.error.required") mustBe MajorityOfWorkingTimeMessages.Hirer.error
       }
 
-      "have the correct error messages for the FinanciallyDependentPage" in {
-        Messages("worker.financiallyDependent.error.required") mustBe FinanciallyDependentMessages.Worker.error
-        Messages("hirer.financiallyDependent.error.required") mustBe FinanciallyDependentMessages.Hirer.error
-      }
-
       "have the correct error messages for the SimilarWorkOtherClientsPage" in {
         Messages("worker.similarWorkOtherClients.error.required") mustBe SimilarWorkOtherClientsMessages.Worker.error
         Messages("hirer.similarWorkOtherClients.error.required") mustBe SimilarWorkOtherClientsMessages.Hirer.error

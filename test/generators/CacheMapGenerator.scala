@@ -37,7 +37,6 @@ trait CacheMapGenerator {
     arbitrary[(OwnershipRightsPage.type, JsValue)] ::
     arbitrary[(WorkerKnownPage.type, JsValue)] ::
     arbitrary[(RightsOfWorkPage.type, JsValue)] ::
-    arbitrary[(FinanciallyDependentPage.type, JsValue)] ::
     arbitrary[(ExtendContractPage.type, JsValue)] ::
     arbitrary[(MajorityOfWorkingTimePage.type, JsValue)] ::
     arbitrary[(FollowOnContractPage.type, JsValue)] ::

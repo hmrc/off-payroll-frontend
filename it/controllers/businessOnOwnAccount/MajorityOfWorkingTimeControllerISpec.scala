@@ -43,7 +43,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will this contract provide you with the majority of your income?")
+        result.body should include ("Have you done any work for other clients in the last 12 months?")
       }
     }
   }
@@ -85,7 +85,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
       lazy val res = postSessionRequest("/majority-of-working-time/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/majority-of-income/change")
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/similar-work/change")
       }
     }
   }

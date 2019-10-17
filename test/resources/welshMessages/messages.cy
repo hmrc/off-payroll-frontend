@@ -45,7 +45,6 @@ session.expired.title = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur a
 session.expired.heading = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur am fwy na 15 munud. Er eich diogelwch, rydym wedi dileu’ch atebion.
 session.expired.start_again =Dechrau eto
 
-
 site.back = Yn ôl
 
 site.edit =   Change
@@ -109,7 +108,6 @@ aboutYou.none = Dim un o’r uchod
 aboutYou.error.required = Mae angen i chi ddewis ateb
 aboutYou.error.invalid = Mae angen i chi ddewis ateb
 
-
 ## Contract Started Page Questions
 #########################
 contractStarted.title =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
@@ -141,8 +139,6 @@ hirer.optimised.contractStarted.heading = A yw’r gweithiwr eisoes wedi dechrau
 hirer.optimised.contractStarted.subHeading = Amdanoch chi a’r gwaith
 hirer.optimised.contractStarted.checkYourAnswersLabel = A yw’r gweithiwr eisoes wedi dechrau gweithio i’r cleient hwn?
 #########################
-
-
 
 ## Way that the worker provides services page (Worker Type)
 #########################
@@ -1914,23 +1910,6 @@ hirer.extendContract.heading = A yw’r contract presennol yn rhoi darpariaeth s
 hirer.extendContract.subheading = Contractau’r gweithiwr
 hirer.extendContract.checkYourAnswersLabel = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
 
-#### Financially Dependent Page - BoOA
-#### ------------------------------
-worker.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi
-agency.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi
-worker.financiallyDependent.subheading = Contractau’r gweithiwr
-worker.financiallyDependent.title = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
-worker.financiallyDependent.heading = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
-worker.financiallyDependent.checkYourAnswersLabel = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
-worker.financiallyDependent.p1 = Ystyr incwm arferol yw enillion o swm tebyg, a delir gyda’r un amledd ac ar sail barhaus.
-
-hirer.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr
-hirer.financiallyDependent.subheading = Contractau’r gweithiwr
-hirer.financiallyDependent.title = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
-hirer.financiallyDependent.heading = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
-hirer.financiallyDependent.checkYourAnswersLabel = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
-hirer.financiallyDependent.p1 = Mae hyn yn ymwneud â chymharu incwm o’r gwaith hwn â chyfanswm yr incwm o unrhyw waith arall, dros yr un cyfnod.
-
 ###TODO: Need Welsh
 ### Worker Known Page
 ### --------------------------------
@@ -1960,9 +1939,8 @@ hirer.similarWorkOtherClients.subheading = Contractau’r gweithiwr
 hirer.similarWorkOtherClients.checkYourAnswersLabel = A yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
 hirer.similarWorkOtherClients.p1 = Dylai hyn gynnwys gwaith sy’n cynnwys sgiliau, gallu, gwybodaeth neu gyfrifoldebau tebyg.
 
-
-### Financially Dependent Page - BoOA
-### ------------------------------
+### Ownership Rights Page - BoOA
+### ----------------------------
 ownershipRights.error.required = Dewiswch ‘Iawn’ os oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn
 
 worker.ownershipRights.subheading = Contractau’r gweithiwr
@@ -2113,7 +2091,5 @@ worker.extendContract.changeLinkContext = if the current contract allows for it 
 hirer.extendContract.changeLinkContext = if the current contract allows for it to be extended
 worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of your available working time
 hirer.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of the worker’s available working time
-worker.financiallyDependent.changeLinkContext = if this contract will provide you with the majority of your income
-hirer.financiallyDependent.changeLinkContext = if this contract will provide the worker with the majority of their income
 worker.similarWorkOtherClients.changeLinkContext = if you have done any work for other clients in the last 12 months
 hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any work for other clients in the last 12 months

@@ -90,7 +90,6 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
         .set(FirstContractPage,true)
         .set(ExtendContractPage,true)
         .set(MajorityOfWorkingTimePage,true)
-        .set(FinanciallyDependentPage,true)
         .set(SimilarWorkOtherClientsPage,true)
 
 
@@ -177,7 +176,6 @@ class CheckYourAnswersServiceSpec extends GuiceAppSpecBase {
               CheckYourAnswersHelper.firstContract.map(_ -> None),
               CheckYourAnswersHelper.extendContract.map(_ -> None),
               CheckYourAnswersHelper.majorityOfWorkingTime.map(_ -> None),
-              CheckYourAnswersHelper.financiallyDependent.map(_ -> None),
               CheckYourAnswersHelper.similarWorkOtherClients.map(_ -> None)
             ).flatten
           )

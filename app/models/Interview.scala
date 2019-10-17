@@ -212,7 +212,7 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
       exclusiveContract = exclusiveContract(),
       transferRights = transferRights(),
       multipleEngagements = multipleEngagements(),
-      significantWorkingTime = significantWorkingTime(),
+      significantWorkingTime = significantWorkingTime,
       seriesOfContracts = seriesOfContracts()
     )
   }
@@ -253,11 +253,9 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
     }
 
   private def significantWorkingTime()(implicit userAnswers: UserAnswers) =
-    (userAnswers.getAnswer(MajorityOfWorkingTimePage), userAnswers.getAnswer(FinanciallyDependentPage)) match {
-      case (Some(true), Some(true)) => Some(SignificantWorkingTime.ConsumesSignificantAmount)
-      case (Some(false), Some(false)) => Some(SignificantWorkingTime.NoSignificantAmount)
-      case (Some(true), Some(false)) => Some(SignificantWorkingTime.TimeButNotMoney)
-      case (Some(false), Some(true)) => Some(SignificantWorkingTime.MoneyButNotTime)
+    userAnswers.getAnswer(MajorityOfWorkingTimePage) match {
+      case Some(true) => Some(SignificantWorkingTime.ConsumesSignificantAmount)
+      case Some(false) => Some(SignificantWorkingTime.NoSignificantAmount)
       case _ => None
     }
 
