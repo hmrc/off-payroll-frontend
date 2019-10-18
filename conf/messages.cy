@@ -1914,23 +1914,6 @@ hirer.extendContract.heading = A yw’r contract presennol yn rhoi darpariaeth s
 hirer.extendContract.subheading = Contractau’r gweithiwr
 hirer.extendContract.checkYourAnswersLabel = A yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
 
-#### Financially Dependent Page - BoOA
-#### ------------------------------
-worker.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi
-agency.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi
-worker.financiallyDependent.subheading = Contractau’r gweithiwr
-worker.financiallyDependent.title = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
-worker.financiallyDependent.heading = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
-worker.financiallyDependent.checkYourAnswersLabel = A fydd y contract hwn yn rhoi’r rhan fwyaf o’ch incwm i chi?
-worker.financiallyDependent.p1 = Ystyr incwm arferol yw enillion o swm tebyg, a delir gyda’r un amledd ac ar sail barhaus.
-
-hirer.financiallyDependent.error.required = Dewiswch ‘Iawn’ os bydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr
-hirer.financiallyDependent.subheading = Contractau’r gweithiwr
-hirer.financiallyDependent.title = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
-hirer.financiallyDependent.heading = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
-hirer.financiallyDependent.checkYourAnswersLabel = A fydd y contract hwn yn rhoi’r rhan fwyaf o’i incwm i’r gweithiwr?
-hirer.financiallyDependent.p1 = Mae hyn yn ymwneud â chymharu incwm o’r gwaith hwn â chyfanswm yr incwm o unrhyw waith arall, dros yr un cyfnod.
-
 ###TODO: Need Welsh
 ### Worker Known Page
 ### --------------------------------
@@ -2112,7 +2095,5 @@ worker.extendContract.changeLinkContext = if the current contract allows for it 
 hirer.extendContract.changeLinkContext = if the current contract allows for it to be extended
 worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of your available working time
 hirer.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of the worker’s available working time
-worker.financiallyDependent.changeLinkContext = if this contract will provide you with the majority of your income
-hirer.financiallyDependent.changeLinkContext = if this contract will provide the worker with the majority of their income
 worker.similarWorkOtherClients.changeLinkContext = if you have done any work for other clients in the last 12 months
 hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any work for other clients in the last 12 months

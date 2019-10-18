@@ -101,8 +101,7 @@ class CheckYourAnswersValidationService @Inject()(implicit val appConfig: Fronte
             SimilarWorkOtherClientsPage,
             OwnershipRightsPage,
             PreviousContractPage,
-            MajorityOfWorkingTimePage,
-            FinanciallyDependentPage
+            MajorityOfWorkingTimePage
           )
       } else {
         Set()

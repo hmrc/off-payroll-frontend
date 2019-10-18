@@ -40,9 +40,6 @@ trait PageGenerators {
   implicit lazy val arbitraryWorkerKnownPage: Arbitrary[WorkerKnownPage.type] =
     Arbitrary(WorkerKnownPage)
 
-  implicit lazy val arbitraryFinanciallyDependentPage: Arbitrary[FinanciallyDependentPage.type] =
-    Arbitrary(FinanciallyDependentPage)
-
   implicit lazy val arbitraryRightsOfWorkPage: Arbitrary[RightsOfWorkPage.type] =
     Arbitrary(RightsOfWorkPage)
 

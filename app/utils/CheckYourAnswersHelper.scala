@@ -208,9 +208,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
   def majorityOfWorkingTime(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     yesNoRowTailored(MajorityOfWorkingTimePage, controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(MajorityOfWorkingTimePage))
 
-  def financiallyDependent(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailored(FinanciallyDependentPage, controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage))
-
   def similarWorkOtherClients(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     yesNoRowTailored(SimilarWorkOtherClientsPage, controllers.routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(SimilarWorkOtherClientsPage))
 }

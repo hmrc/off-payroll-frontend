@@ -50,8 +50,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
           BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage, InteractWithStakeholdersPage,
           //Business On Own Account
           WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
-          PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
-          SimilarWorkOtherClientsPage
+          PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage
         )
       }
     }
@@ -134,8 +133,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
           val res = navigator.getPagesToRemove(ContractStartedPage)(userAnswers)
 
           res mustBe List(ArrangedSubstitutePage, WouldWorkerPaySubstitutePage, RejectSubstitutePage, DidPaySubstitutePage, NeededToPayHelperPage, WorkerKnownPage, MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
-            PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
-            SimilarWorkOtherClientsPage)
+            PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage)
         }
       }
     }
@@ -247,8 +245,7 @@ class QuestionDeletionLookupSpec extends GuiceAppSpecBase {
           val res = navigator.getPagesToRemove(WorkerKnownPage)(userAnswers)
 
           res mustBe List(MultipleContractsPage, PermissionToWorkWithOthersPage, OwnershipRightsPage, RightsOfWorkPage, TransferOfRightsPage,
-            PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, FinanciallyDependentPage,
-            SimilarWorkOtherClientsPage)
+            PreviousContractPage, FollowOnContractPage, FirstContractPage, ExtendContractPage, MajorityOfWorkingTimePage, SimilarWorkOtherClientsPage)
         }
 
         "answer is true, return expected pages" in {

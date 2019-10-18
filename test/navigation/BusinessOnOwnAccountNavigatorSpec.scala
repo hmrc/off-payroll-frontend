@@ -196,12 +196,8 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
       nextPage(ExtendContractPage) mustBe booaRoutes.MajorityOfWorkingTimeController.onPageLoad(NormalMode)
     }
 
-    "go from the MajorityOfWorkingTimePage to the FinanciallyDependentPage" in {
-      nextPage(MajorityOfWorkingTimePage) mustBe booaRoutes.FinanciallyDependentController.onPageLoad(NormalMode)
-    }
-
-    "go from the FinanciallyDependentPage to the SimilarWorkOtherClientsPage" in {
-      nextPage(FinanciallyDependentPage) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
+    "go from the MajorityOfWorkingTimePage to the SimilarWorkOtherClientsPage" in {
+      nextPage(MajorityOfWorkingTimePage) mustBe booaRoutes.SimilarWorkOtherClientsController.onPageLoad(NormalMode)
     }
 
     "go from the SimilarWorkOtherClientsPage" when {

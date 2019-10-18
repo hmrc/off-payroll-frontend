@@ -1865,67 +1865,6 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
     }
   }
 
-  ".financiallyDependent" when {
-
-    "there is no answer in the cacheMap" should {
-
-      "Return None" in {
-        new CheckYourAnswersHelper(UserAnswers("id")).financiallyDependent mustBe None
-      }
-    }
-
-    "there is an answer in the cacheMap" when {
-
-      "the answer is yes" should {
-
-        "the user type is of Worker" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(FinanciallyDependentPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).financiallyDependent(messages, workerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Worker.$FinanciallyDependentPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage).url),
-                changeContextMsgKey = Some(s"$Worker.$FinanciallyDependentPage.changeLinkContext")
-              ))
-          }
-        }
-
-        "the user type is of Hirer" should {
-
-          "Return correctly formatted answer row" in {
-            val cacheMap = UserAnswers("id").set(FinanciallyDependentPage, 1, true)
-            new CheckYourAnswersHelper(cacheMap).financiallyDependent(messages, hirerRequest, frontendAppConfig) mustBe
-              Some(AnswerRow(
-                label = s"$Hirer.$FinanciallyDependentPage.checkYourAnswersLabel",
-                answer = "site.yes",
-                answerIsMessageKey = true,
-                changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage).url),
-                changeContextMsgKey = Some(s"$Hirer.$FinanciallyDependentPage.changeLinkContext")
-              ))
-          }
-        }
-      }
-
-      "the answer is no" should {
-
-        "Return correctly formatted answer row" in {
-          val cacheMap = UserAnswers("id").set(FinanciallyDependentPage, 1, false)
-          new CheckYourAnswersHelper(cacheMap).financiallyDependent(messages, workerRequest, frontendAppConfig) mustBe
-            Some(AnswerRow(
-              label = s"$Worker.$FinanciallyDependentPage.checkYourAnswersLabel",
-              answer = "site.no",
-              answerIsMessageKey = true,
-              changeUrl = Some(routes.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(FinanciallyDependentPage).url),
-              changeContextMsgKey = Some(s"$Worker.$FinanciallyDependentPage.changeLinkContext")
-            ))
-        }
-      }
-    }
-  }
-
   ".similarWorkOtherClients" when {
 
     "there is no answer in the cacheMap" should {

@@ -22,7 +22,7 @@ import models.requests.DataRequest
 import models.sections.businessOnOwnAccount.ExclusiveContract.{AbleToProvideServices, UnableToProvideServices, _}
 import models.sections.businessOnOwnAccount.MultipleEngagements.{NoKnowledgeOfExternalActivity, OnlyContractForPeriod, ProvidedServicesToOtherEngagers}
 import models.sections.businessOnOwnAccount.SeriesOfContracts.{ContractCouldBeExtended, ContractIsPartOfASeries, StandAloneContract}
-import models.sections.businessOnOwnAccount.SignificantWorkingTime.{ConsumesSignificantAmount, MoneyButNotTime, NoSignificantAmount, TimeButNotMoney}
+import models.sections.businessOnOwnAccount.SignificantWorkingTime.{ConsumesSignificantAmount, NoSignificantAmount}
 import models.sections.businessOnOwnAccount.TransferRights.{AbleToTransferRights, NoRightsArise, RetainOwnershipRights, RightsTransferredToClient}
 import models.sections.control.ChooseWhereWork.WorkerAgreeWithOthers
 import models.sections.control.HowWorkIsDone.WorkerFollowStrictEmployeeProcedures
@@ -715,7 +715,6 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val userAnswers = UserAnswers("id")
                   .set(MajorityOfWorkingTimePage, 1, true)
-                  .set(FinanciallyDependentPage, 2, true)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -736,7 +735,6 @@ class InterviewSpec extends GuiceAppSpecBase {
 
                 val userAnswers = UserAnswers("id")
                   .set(MajorityOfWorkingTimePage, 1, false)
-                  .set(FinanciallyDependentPage, 2, false)
 
                 val expected = Interview(
                   correlationId = "id",
@@ -748,49 +746,8 @@ class InterviewSpec extends GuiceAppSpecBase {
                 actual mustBe expected
               }
             }
-
-            "MajorityOfWorkingTimePage is true and FinanciallyDependentPage is false" must {
-
-              "be TimeButNotMoney" in {
-
-                enable(OptimisedFlow)
-
-                val userAnswers = UserAnswers("id")
-                  .set(MajorityOfWorkingTimePage, 1, true)
-                  .set(FinanciallyDependentPage, 2, false)
-
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  significantWorkingTime = Some(TimeButNotMoney)
-                )
-
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
-            }
-
-            "MajorityOfWorkingTimePage is false and FinanciallyDependentPage is true" must {
-
-              "be MoneyButNotTime" in {
-
-                enable(OptimisedFlow)
-
-                val userAnswers = UserAnswers("id")
-                  .set(MajorityOfWorkingTimePage, 1, false)
-                  .set(FinanciallyDependentPage, 2, true)
-
-                val expected = Interview(
-                  correlationId = "id",
-                  endUserRole = Some(UserType.Worker),
-                  significantWorkingTime = Some(MoneyButNotTime)
-                )
-
-                val actual = Interview(userAnswers)(frontendAppConfig, workerFakeDataRequest)
-                actual mustBe expected
-              }
-            }
           }
+        }
 
           "SeriesOfContracts answer" when {
 
@@ -949,7 +906,6 @@ class InterviewSpec extends GuiceAppSpecBase {
             }
           }
         }
-      }
 
       "OptimisedFlow is disabled" when {
 

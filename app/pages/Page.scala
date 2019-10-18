@@ -72,7 +72,6 @@ object Page {
     Timestamp.toString -> Timestamp,
     AddReferenceDetailsPage.toString -> AddReferenceDetailsPage,
     ExtendContractPage.toString -> ExtendContractPage,
-    FinanciallyDependentPage.toString -> FinanciallyDependentPage,
     FirstContractPage.toString -> FirstContractPage,
     FollowOnContractPage.toString -> FollowOnContractPage,
     MajorityOfWorkingTimePage.toString -> MajorityOfWorkingTimePage,

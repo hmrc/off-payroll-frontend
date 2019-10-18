@@ -54,7 +54,6 @@ class BusinessOnOwnAccountSectionChangeWarningController @Inject()(identify: Ide
     dataCacheConnector.save(userAnswers.cacheMap).map { _ =>
       Page(page) match {
         case ExtendContractPage => Redirect(businessOnOwnAccountRoutes.ExtendContractController.onPageLoad(CheckMode))
-        case FinanciallyDependentPage => Redirect(businessOnOwnAccountRoutes.FinanciallyDependentController.onPageLoad(CheckMode))
         case FirstContractPage => Redirect(businessOnOwnAccountRoutes.FirstContractController.onPageLoad(CheckMode))
         case FollowOnContractPage => Redirect(businessOnOwnAccountRoutes.FollowOnContractController.onPageLoad(CheckMode))
         case MajorityOfWorkingTimePage => Redirect(businessOnOwnAccountRoutes.MajorityOfWorkingTimeController.onPageLoad(CheckMode))
