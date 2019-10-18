@@ -627,8 +627,8 @@ howWorkerIsPaid.heading = What is the main way the worker is paid for this engag
 howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.subheading = About the worker’s financial risk
 howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
-howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+howWorkerIsPaid.incomeFixed = A fixed price for the project
+howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
 howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
 howWorkerIsPaid.error.required = You need to select an answer
@@ -639,8 +639,8 @@ worker.howWorkerIsPaid.heading = What is the main way you are paid for this enga
 worker.howWorkerIsPaid.checkYourAnswersLabel = What is the main way you are paid for this engagement?
 worker.howWorkerIsPaid.subheading = About the worker’s financial risk
 worker.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-worker.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
-worker.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+worker.howWorkerIsPaid.incomeFixed = A fixed price for the project
+worker.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
 worker.howWorkerIsPaid.incomeCommission = A percentage of the sales you make
 worker.howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
 
@@ -649,8 +649,8 @@ hirer.howWorkerIsPaid.heading = What is the main way the worker is paid for this
 hirer.howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 hirer.howWorkerIsPaid.subheading = About the worker’s financial risk
 hirer.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-hirer.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
-hirer.howWorkerIsPaid.incomePieceRate = An amount based on how much work is completed
+hirer.howWorkerIsPaid.incomeFixed = A fixed price for the project
+hirer.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
 hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
 
@@ -663,8 +663,8 @@ worker.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 worker.optimised.howWorkerIsPaid.heading = How will you be paid for this work?
 worker.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will you be paid for this work?
 worker.optimised.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-worker.optimised.howWorkerIsPaid.incomeFixed = A fixed price for a specific project
-worker.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
+worker.optimised.howWorkerIsPaid.incomeFixed = A fixed price for the project
+worker.optimised.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
 worker.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales you generate
 worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your client’s profits or savings
 
@@ -675,8 +675,8 @@ hirer.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
 hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-hirer.optimised.howWorkerIsPaid.incomeFixed = A fixed price for a specific project
-hirer.optimised.howWorkerIsPaid.incomePieceRate = The amount of work completed
+hirer.optimised.howWorkerIsPaid.incomeFixed = A fixed price for the project
+hirer.optimised.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
 hirer.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker generates
 hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your organisation’s profits or savings
 #########################
@@ -1935,13 +1935,13 @@ worker.ownershipRights.subheading = Worker’s contracts
 worker.ownershipRights.title = Are there any ownership rights relating to this contract?
 worker.ownershipRights.heading = Are there any ownership rights relating to this contract?
 worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-worker.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
+worker.ownershipRights.p1 = This includes copyright, trademarks, patents, all intellectual property and image rights.
 
 hirer.ownershipRights.subheading = Worker’s contracts
 hirer.ownershipRights.title = Are there any ownership rights relating to this contract?
 hirer.ownershipRights.heading = Are there any ownership rights relating to this contract?
 hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-hirer.ownershipRights.p1 = These types of rights are usually found on media, arts and creative industry contracts. This includes copyright, trademarks, patents, all intellectual property and image rights.
+hirer.ownershipRights.p1 = This includes copyright, trademarks, patents, all intellectual property and image rights.
 
 ### What Do You Want To Do Page
 ### ------------------------------
