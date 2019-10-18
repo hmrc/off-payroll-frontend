@@ -2070,9 +2070,8 @@ hirer.similarWorkOtherClients.subheading = Contractau’r gweithiwr
 hirer.similarWorkOtherClients.checkYourAnswersLabel = A yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
 hirer.similarWorkOtherClients.p1 = Dylai hyn gynnwys gwaith sy’n cynnwys sgiliau, gallu, gwybodaeth neu gyfrifoldebau tebyg.
 
-
-### Financially Dependent Page - BoOA
-### ------------------------------
+### Ownership Rights Page - BoOA
+### ----------------------------
 ownershipRights.error.required = Dewiswch ‘Iawn’ os oes unrhyw hawliau perchenogaeth yn gysylltiedig â’r contract hwn
 
 worker.ownershipRights.subheading = Contractau’r gweithiwr
