@@ -627,8 +627,8 @@ howWorkerIsPaid.heading = What is the main way the worker is paid for this engag
 howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 howWorkerIsPaid.subheading = About the worker’s financial risk
 howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-howWorkerIsPaid.incomeFixed = A fixed price for the project
-howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
+howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+howWorkerIsPaid.incomePieceRate = The amount of work completed
 howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
 howWorkerIsPaid.error.required = You need to select an answer
@@ -639,8 +639,8 @@ worker.howWorkerIsPaid.heading = What is the main way you are paid for this enga
 worker.howWorkerIsPaid.checkYourAnswersLabel = What is the main way you are paid for this engagement?
 worker.howWorkerIsPaid.subheading = About the worker’s financial risk
 worker.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-worker.howWorkerIsPaid.incomeFixed = A fixed price for the project
-worker.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
+worker.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+worker.howWorkerIsPaid.incomePieceRate = The amount of work completed
 worker.howWorkerIsPaid.incomeCommission = A percentage of the sales you make
 worker.howWorkerIsPaid.incomeProfitOrLosses = A percentage of the end client’s profits or savings
 
@@ -649,8 +649,8 @@ hirer.howWorkerIsPaid.heading = What is the main way the worker is paid for this
 hirer.howWorkerIsPaid.checkYourAnswersLabel = What is the main way the worker is paid for this engagement?
 hirer.howWorkerIsPaid.subheading = About the worker’s financial risk
 hirer.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-hirer.howWorkerIsPaid.incomeFixed = A fixed price for the project
-hirer.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
+hirer.howWorkerIsPaid.incomeFixed = A fixed price for a specific piece of work
+hirer.howWorkerIsPaid.incomePieceRate = The amount of work completed
 hirer.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker makes
 hirer.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your profits or savings
 
@@ -1925,8 +1925,6 @@ hirer.similarWorkOtherClients.subheading = Worker’s contracts
 hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?
 hirer.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
 
-
-
 ### Ownership Rights Page - BoOA
 ### ----------------------------
 ownershipRights.error.required = Select yes if there are any ownership rights relating to this contract
@@ -1935,13 +1933,13 @@ worker.ownershipRights.subheading = Worker’s contracts
 worker.ownershipRights.title = Are there any ownership rights relating to this contract?
 worker.ownershipRights.heading = Are there any ownership rights relating to this contract?
 worker.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-worker.ownershipRights.p1 = This includes copyright, trademarks, patents, all intellectual property and image rights.
+worker.ownershipRights.p1 = These types of rights are usually found in media, arts and creative industry contracts. This includes all intellectual property rights, copyright, trademarks, patents, and image rights.
 
 hirer.ownershipRights.subheading = Worker’s contracts
 hirer.ownershipRights.title = Are there any ownership rights relating to this contract?
 hirer.ownershipRights.heading = Are there any ownership rights relating to this contract?
 hirer.ownershipRights.checkYourAnswersLabel = Are there any ownership rights relating to this contract?
-hirer.ownershipRights.p1 = This includes copyright, trademarks, patents, all intellectual property and image rights.
+hirer.ownershipRights.p1 = These types of rights are usually found in media, arts and creative industry contracts. This includes all intellectual property rights, copyright, trademarks, patents, and image rights.
 
 ### What Do You Want To Do Page
 ### ------------------------------

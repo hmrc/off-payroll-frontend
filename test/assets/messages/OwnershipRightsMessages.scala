@@ -24,13 +24,13 @@ object OwnershipRightsMessages extends BaseMessages {
     val subheading = "Worker’s contracts"
     val title = "Are there any ownership rights relating to this contract?"
     val heading = "Are there any ownership rights relating to this contract?"
-    val p1 = "This includes copyright, trademarks, patents, all intellectual property and image rights."
+    val p1 = "These types of rights are usually found in media, arts and creative industry contracts. This includes all intellectual property rights, copyright, trademarks, patents, and image rights."
   }
 
   object Hirer {
     val subheading = "Worker’s contracts"
     val title = "Are there any ownership rights relating to this contract?"
     val heading = "Are there any ownership rights relating to this contract?"
-    val p1 = "This includes copyright, trademarks, patents, all intellectual property and image rights."
+    val p1 = "These types of rights are usually found in media, arts and creative industry contracts. This includes all intellectual property rights, copyright, trademarks, patents, and image rights."
   }
 }
