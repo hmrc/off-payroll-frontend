@@ -56,8 +56,7 @@ object ViewUtils extends FeatureSwitching {
   def allOutReasons(outType: ResultType,
                     isSubstituteToDoWork: Boolean,
                     isClientNotControlWork: Boolean,
-                    isIncurCostNoReclaim: Boolean,
-                    isBoOA: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
+                    isIncurCostNoReclaim: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig): Seq[String] = {
 
 
     val messageBase = {
@@ -71,16 +70,14 @@ object ViewUtils extends FeatureSwitching {
     Seq(
       if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWork") else None,
       if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWork") else None,
-      if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None,
-      if(isBoOA) Some(s"$messageBase.booa") else None
+      if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaim") else None
     ).flatten
   }
 
   def singleOutReason(outType: ResultType,
                       isSubstituteToDoWork: Boolean,
                       isClientNotControlWork: Boolean,
-                      isIncurCostNoReclaim: Boolean,
-                      isBoOA: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
+                      isIncurCostNoReclaim: Boolean)(implicit request: Request[_], appConfig: FrontendAppConfig, messages: Messages): String = {
       val messageBase = {
         outType match {
           case ResultType.Agent => "agent.optimised.result.outside.whyResult"
@@ -92,8 +89,7 @@ object ViewUtils extends FeatureSwitching {
       Seq(
         if(isSubstituteToDoWork) Some(s"$messageBase.substituteToDoWorkOnlyReason") else None,
         if(isClientNotControlWork) Some(s"$messageBase.clientNotControlWorkOnlyReason") else None,
-        if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaimOnlyReason") else None,
-        if(isBoOA) Some(s"$messageBase.booaOnlyReason") else None
+        if(isIncurCostNoReclaim) Some(s"$messageBase.incurCostNoReclaimOnlyReason") else None
       ).flatten.head
 
 

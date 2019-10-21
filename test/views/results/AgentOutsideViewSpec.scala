@@ -35,9 +35,8 @@ class AgentOutsideViewSpec extends ResultViewFixture {
                  pdfDetails: PDFResultDetails = testNoPdfResultDetails,
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
-                 isIncurCostNoReclaim: Boolean = true,
-                 isBoOA: Boolean = true): Html = {
-    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA)(req, messages, frontendAppConfig, pdfDetails)
+                 isIncurCostNoReclaim: Boolean = true): Html = {
+    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim)(req, messages, frontendAppConfig, pdfDetails)
   }
 
   "The OutAgentView page" when {
@@ -71,26 +70,29 @@ class AgentOutsideViewSpec extends ResultViewFixture {
 
       "only substituteToDoWork reason is given" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false))
         singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason1)
       }
 
       "only clientNotControlWork reason is given" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false))
         singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason2)
       }
 
       "only incurCostNoReclaim reason is given" should {
 
-        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false))
         singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason3)
       }
-
-      "only booa reason is given" should {
+      "if no other reason is given " should {
 
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
-        singleReasonChecks(reasonMessage = OutDecisionMessages.Agent.whyResulReason4)
+
+        "should display business to business reason" in {
+          document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+          document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.Agent.businessReasons
+        }
       }
     }
   }
@@ -128,7 +130,6 @@ class AgentOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.Agent.whyResultB1
       document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.Agent.whyResultB2
       document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.Agent.whyResultB3
-      document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.Agent.whyResultB4
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.Agent.whyResultP2
     }
 

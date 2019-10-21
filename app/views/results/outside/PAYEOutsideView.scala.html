@@ -28,7 +28,7 @@
 
 @this(mainTemplate: templates.MainTemplate, printTemplate: templates.PrintTemplate, formWithCsrf: FormWithCSRF)
 
-@(form: Form[_], isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean, isBoOA: Boolean, workerKnown: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
+@(form: Form[_], isSubstituteToDoWork: Boolean, isClientNotControlWork: Boolean, isIncurCostNoReclaim: Boolean, workerKnown: Boolean)(implicit request: DataRequest[_], messages: Messages, appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
 @defining(
 
@@ -70,11 +70,13 @@
 
 @whyResult = {
 
-    @if(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim, isBoOA).length == 1){
-        <p>@messages(singleOutReason(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim, isBoOA))</p>
+    @if(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 0){
+        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.businessToBusiness"))</p>
+    } else if(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 1){
+        <p>@messages(singleOutReason(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))</p>
     } else {
         <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1"))</p>
-        @components.bulleted_list(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim, isBoOA))
+        @components.bulleted_list(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
     }
 
     <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>

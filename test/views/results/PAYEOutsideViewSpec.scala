@@ -40,9 +40,8 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
                  isSubstituteToDoWork: Boolean = true,
                  isClientNotControlWork: Boolean = true,
                  isIncurCostNoReclaim: Boolean = true,
-                 isBoOA: Boolean = true,
                  workerKnown: Boolean = true): Html =
-    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, isBoOA, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
+    view(form, isSubstituteToDoWork, isClientNotControlWork, isIncurCostNoReclaim, workerKnown)(req, messages, frontendAppConfig, pdfDetails)
 
   "The PAYEOutsideView page" should {
 
@@ -60,26 +59,29 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
         "only substituteToDoWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false))
           workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason1)
         }
 
         "only clientNotControlWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false))
           workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason2)
         }
 
         "only incurCostNoReclaim reason is given" should {
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false))
           workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason3)
         }
+      }
 
-        "only booa reason is given" should {
+      "when no other reasons are given" should {
+        implicit lazy val document = asDocument(createView(workerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isSubstituteToDoWork = false))
 
-          implicit lazy val document = asDocument(createView(workerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
-          workerSingleReasonChecks(reasonMessage = OutDecisionMessages.WorkerPAYE.whyResultReason4)
+        "only display business to business reason" in {
+          document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+          document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.WorkerPAYE.businessReasons
         }
       }
     }
@@ -98,26 +100,20 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
 
         "only substituteToDoWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false))
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason1)
         }
 
         "only clientNotControlWork reason is given" should {
 
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isIncurCostNoReclaim = false))
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason2)
         }
 
         "only incurCostNoReclaim reason is given" should {
 
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isBoOA = false))
+          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false))
           hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason3)
-        }
-
-        "only booa reason is given" should {
-
-          implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isSubstituteToDoWork = false, isClientNotControlWork = false, isIncurCostNoReclaim = false))
-          hirerSingleReasonChecks(reasonMessage = OutDecisionMessages.HirerPAYE.whyResultReason4)
         }
       }
 
@@ -125,6 +121,15 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
         implicit lazy val document = asDocument(createView(hirerFakeDataRequest, testNoPdfResultDetails, workerKnown = false))
 
         hirerPageChecks(Result, workerKnown = false)
+      }
+
+      "when no other reasons are given" should {
+        implicit lazy val document = asDocument(createView(hirerFakeDataRequest, isClientNotControlWork = false, isIncurCostNoReclaim = false, isSubstituteToDoWork = false))
+
+        "only display business to business reason" in {
+          document.select(Selectors.WhyResult.h2).text mustBe OutDecisionMessages.whyResultHeading
+          document.select(Selectors.WhyResult.p(1)).text mustBe OutDecisionMessages.HirerPAYE.businessReasons
+        }
       }
     }
   }
@@ -199,7 +204,6 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB1
       document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB2
       document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB3
-      document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultB4
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.WorkerPAYE.whyResultP2
     }
 
@@ -250,7 +254,6 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.WhyResult.bullet(1)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB1
       document.select(Selectors.WhyResult.bullet(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB2
       document.select(Selectors.WhyResult.bullet(3)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB3
-      document.select(Selectors.WhyResult.bullet(4)).text mustBe OutDecisionMessages.HirerPAYE.whyResultB4
       document.select(Selectors.WhyResult.p(2)).text mustBe OutDecisionMessages.HirerPAYE.whyResultP2
     }
 
