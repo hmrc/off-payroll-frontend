@@ -45,9 +45,10 @@ session.expired.title = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur a
 session.expired.heading = Mae’r sesiwn hon wedi dod i ben am iddi fod yn segur am fwy na 15 munud. Er eich diogelwch, rydym wedi dileu’ch atebion.
 session.expired.start_again =Dechrau eto
 
+
 site.back = Yn ôl
 
-site.edit =   Change
+site.edit = Newidiwch
 site.warning = Warning:
 
 site.no = Na
@@ -108,6 +109,7 @@ aboutYou.none = Dim un o’r uchod
 aboutYou.error.required = Mae angen i chi ddewis ateb
 aboutYou.error.invalid = Mae angen i chi ddewis ateb
 
+
 ## Contract Started Page Questions
 #########################
 contractStarted.title =A yw’r gweithiwr wedi dechrau’r swydd benodol hon ar gyfer y cleient terfynol?
@@ -139,6 +141,8 @@ hirer.optimised.contractStarted.heading = A yw’r gweithiwr eisoes wedi dechrau
 hirer.optimised.contractStarted.subHeading = Amdanoch chi a’r gwaith
 hirer.optimised.contractStarted.checkYourAnswersLabel = A yw’r gweithiwr eisoes wedi dechrau gweithio i’r cleient hwn?
 #########################
+
+
 
 ## Way that the worker provides services page (Worker Type)
 #########################
@@ -1368,11 +1372,11 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 
 ## Common Result Messages
 ## ----------------------
+##TODO: Need Welsh
 optimised.result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
 optimised.result.doNext.h2 = Beth y dylech ei wneud nesaf
 optimised.result.download.p1 = You should keep a copy of this result for your records.
 optimised.result.download.getCopy = Get a copy of this result
-## TODO: NEED WELSH
 optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
 optimised.result.download.p2.exitLink = exit
 optimised.result.download.p2.preStartAgain = now, or
@@ -2019,77 +2023,76 @@ hirer.noIntermediaryResult.p2.text2 = , neu
 hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
 
 
-###TODO: Need Welsh
 ### CYA Change Link Context for Screen Readers and Other Accessible Software
 ### ------------------------------------------------------------------------
 
 ### All of these below are prefixed on the view with "Change"
 
-whatDoYouWantToFindOut.changeLinkContext = what you want to find out
-whoAreYou.changeLinkContext = who you are
+whatDoYouWantToFindOut.changeLinkContext = yr hyn yr hoffech ei wneud
+whoAreYou.changeLinkContext = pwy ydych
 whatDoYouWantToDo.changeLinkContext = what you want to do
 worker.workerUsingIntermediary.changeLinkContext = if you are trading through a limited company, partnership or unincorporated body
-hirer.workerUsingIntermediary.changeLinkContext = if the worker is trading through a limited company, partnership or unincorporated body
+hirer.workerUsingIntermediary.changeLinkContext = os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
 worker.optimised.contractStarted.changeLinkContext = if you have already started working for this client
-hirer.optimised.contractStarted.changeLinkContext = if the worker has already started working for your organisation
+hirer.optimised.contractStarted.changeLinkContext = os yw’r gweithiwr eisoes wedi dechrau gweithio i’ch sefydliad
 worker.optimised.officeHolder.changeLinkContext = if you will be an ‘Office Holder’
-hirer.optimised.officeHolder.changeLinkContext = if the worker will be an ‘Office Holder’
+hirer.optimised.officeHolder.changeLinkContext = os bydd y gweithiwr yn  ‘Ddeiliad Swydd’
 worker.optimised.arrangedSubstitute.changeLinkContext = if you have ever sent a substitute to do your work
-hirer.optimised.arrangedSubstitute.changeLinkContext = if the worker has ever sent a substitute to do their work
+hirer.optimised.arrangedSubstitute.changeLinkContext = os yw’r gweithiwr erioed wedi anfon eilydd i wneud ei waith
 worker.optimised.didPaySubstitute.changeLinkContext = if you had to pay your substitute
-hirer.optimised.didPaySubstitute.changeLinkContext = if the worker paid their substitute
+hirer.optimised.didPaySubstitute.changeLinkContext = os talodd y gweithiwr ei eilydd
 worker.optimised.rejectSubstitute.changeLinkContext = if your client has the right to reject a substitute
-hirer.optimised.rejectSubstitute.changeLinkContext = if you have the right to reject a substitute
+hirer.optimised.rejectSubstitute.changeLinkContext = os oes gennych yr hawl i wrthod eilydd?
 worker.optimised.wouldWorkerPaySubstitute.changeLinkContext = if you would have to pay your substitute
-hirer.optimised.wouldWorkerPaySubstitute.changeLinkContext = if the worker has to pay their substitute
+hirer.optimised.wouldWorkerPaySubstitute.changeLinkContext = os oes rhaid i’r gweithiwr dalu ei eilydd?
 worker.optimised.neededToPayHelper.changeLinkContext = if you have paid another person to do a significant amount of this work
-hirer.optimised.neededToPayHelper.changeLinkContext = if the worker paid another person to do a significant amount of this work
+hirer.optimised.neededToPayHelper.changeLinkContext = os yw’r gweithiwr wedi talu person arall i wneud cryn dipyn o’r gwaith hwn
 worker.optimised.moveWorker.changeLinkContext = if the task can be changed without your agreement
-hirer.optimised.moveWorker.changeLinkContext = if the worker’s task could be changed without their agreement
+hirer.optimised.moveWorker.changeLinkContext = os gellid newid tasg y gweithiwr heb ei gytundeb
 worker.optimised.howWorkIsDone.changeLinkContext = if your client will decide how the work is done
-hirer.optimised.howWorkIsDone.changeLinkContext = if your organisation will decide how the work is done
+hirer.optimised.howWorkIsDone.changeLinkContext = os bydd eich sefydliad yn penderfynu sut y gwneir y gwaith
 worker.optimised.scheduleOfWorkingHours.changeLinkContext = if your client will decide the working hours
-hirer.optimised.scheduleOfWorkingHours.changeLinkContext = if your organisation will decide the working hours
+hirer.optimised.scheduleOfWorkingHours.changeLinkContext = os bydd eich sefydliad yn penderfynu’r oriau gwaith
 worker.optimised.chooseWhereWork.changeLinkContext = if your client will decide where you do the work
-hirer.optimised.chooseWhereWork.changeLinkContext = if your organisation will decide where the worker does the work
+hirer.optimised.chooseWhereWork.changeLinkContext = os bydd eich sefydliad yn penderfynu ble mae’r gweithiwr yn gwneud y gwaith
 worker.equipmentExpenses.changeLinkContext = if you will have equipment costs that your client will not pay for
-hirer.equipmentExpenses.changeLinkContext = if the worker will have equipment costs that your organisation will not pay for
+hirer.equipmentExpenses.changeLinkContext = os bydd gan y gweithiwr unrhyw gostau ar gyfer offer na fydd eich sefydliad yn talu amdanynt
 worker.vehicle.changeLinkContext = if you will have costs for a vehicle that your client will not pay for
-hirer.vehicle.changeLinkContext = if the worker will have costs for a vehicle that your organisation will not pay for
+hirer.vehicle.changeLinkContext = os bydd gan y gweithiwr unrhyw gostau ar gyfer cerbyd na fydd eich sefydliad yn talu amdanynt
 worker.materials.changeLinkContext = if you will have costs for materials that your client will not pay for
-hirer.materials.changeLinkContext = if the worker will have costs for materials that your organisation will not pay for
+hirer.materials.changeLinkContext = os bydd gan y gweithiwr unrhyw gostau ar gyfer deunyddiau na fydd eich sefydliad yn talu amdanynt
 worker.otherExpenses.changeLinkContext = if you will have any other costs that your client will not pay for
-hirer.otherExpenses.changeLinkContext = if the worker will have any other costs that your organisation will not pay for
+hirer.otherExpenses.changeLinkContext = os bydd gan y gweithiwr unrhyw gostau eraill na fydd eich sefydliad yn talu amdanynt
 worker.optimised.howWorkerIsPaid.changeLinkContext = how you will be paid for this work
-hirer.optimised.howWorkerIsPaid.changeLinkContext = how the worker will be paid for this work
+hirer.optimised.howWorkerIsPaid.changeLinkContext = sut y caiff y gweithiwr ei dalu am y gwaith hwn
 worker.optimised.putRightAtOwnCost.changeLinkContext = if you would have to put the work right if your client was not happy with it
-hirer.optimised.putRightAtOwnCost.changeLinkContext = if the worker would have to put the work right if your organisation was not happy with it
+hirer.optimised.putRightAtOwnCost.changeLinkContext = os byddai’n rhaid i’r gweithiwr unioni’r gwaith os nad oedd eich sefydliad yn hapus ag ef
 worker.optimised.benefits.changeLinkContext = if your client will provide you with paid-for corporate benefits
-hirer.optimised.benefits.changeLinkContext = if you will provide the worker with paid-for corporate benefits
+hirer.optimised.benefits.changeLinkContext = os byddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr
 worker.optimised.lineManagerDuties.changeLinkContext = if you will have any management responsibilities for your client
-hirer.optimised.lineManagerDuties.changeLinkContext = if the worker will have any management responsibilities for your organisation
+hirer.optimised.lineManagerDuties.changeLinkContext = os bydd gan y gweithiwr unrhyw gyfrifoldebau rheoli ar gyfer eich sefydliad
 worker.optimised.identifyToStakeholders.changeLinkContext = how you would introduce yourself to your client’s consumers or suppliers
-hirer.optimised.identifyToStakeholders.changeLinkContext = how the worker would introduce themselves to your consumers or suppliers
-hirer.workerKnown.changeLinkContext = if your organisation will know who will be doing this work
+hirer.optimised.identifyToStakeholders.changeLinkContext = sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu gyflenwyr
+hirer.workerKnown.changeLinkContext = os bydd eich sefydliad yn gwybod pwy fydd yn gwneud y gwaith hwn
 worker.multipleContracts.changeLinkContext = if this contract will stop you from doing similar work for other clients
-hirer.multipleContracts.changeLinkContext = if the contract stops the worker from doing similar work for other organisations
+hirer.multipleContracts.changeLinkContext = os yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
 worker.permissionToWorkWithOthers.changeLinkContext = if you are required to ask permission to work for other clients
-hirer.permissionToWorkWithOthers.changeLinkContext = if the worker is required to ask permission to work for other organisations
-worker.ownershipRights.changeLinkContext = if there are any ownership rights relating to this contract
-hirer.ownershipRights.changeLinkContext = if there are any ownership rights relating to this contract
+hirer.permissionToWorkWithOthers.changeLinkContext = os oes rhaid i’r gweithiwr ofyn am ganiatâd i weithio i sefydliadau eraill
+worker.ownershipRights.changeLinkContext = os oes unrhyw hawliau perchnogaeth yn gysylltiedig â’r contract hwn
+hirer.ownershipRights.changeLinkContext = os oes unrhyw hawliau perchnogaeth yn gysylltiedig â’r contract hwn
 worker.rightsOfWork.changeLinkContext = if the contract states the rights to this work belong to your client
-hirer.rightsOfWork.changeLinkContext = if the contract states the rights to this work belong to your organisation
+hirer.rightsOfWork.changeLinkContext = os yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch sefydliad
 worker.transferOfRights.changeLinkContext = if the contract gives your client the option to buy the rights for a separate fee
-hirer.transferOfRights.changeLinkContext = if the contract gives your organisation the option to buy the rights for a separate fee
+hirer.transferOfRights.changeLinkContext = os yw’r contract yn rhoi’r opsiwn i’ch sefydliad brynu’r hawliau am ffi ar wahân
 worker.previousContract.changeLinkContext = if you have had a previous contract with this client
-hirer.previousContract.changeLinkContext = if the worker had a previous contract with your organisation
+hirer.previousContract.changeLinkContext = os yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad
 worker.followOnContract.changeLinkContext = if this contract will start immediately after the previous one ended
 hirer.followOnContract.changeLinkContext = if this contract will start immediately after the previous one ended
 worker.firstContract.changeLinkContext = if the current contract the first in a series of contracts agreed with this client
-hirer.firstContract.changeLinkContext = if the current contract is the first in a series of contracts agreed with your organisation
+hirer.firstContract.changeLinkContext = os mai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’ch sefydliad
 worker.extendContract.changeLinkContext = if the current contract allows for it to be extended
-hirer.extendContract.changeLinkContext = if the current contract allows for it to be extended
+hirer.extendContract.changeLinkContext = os yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
 worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of your available working time
-hirer.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of the worker’s available working time
+hirer.majorityOfWorkingTime.changeLinkContext = os bydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr
 worker.similarWorkOtherClients.changeLinkContext = if you have done any work for other clients in the last 12 months
-hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any work for other clients in the last 12 months
+hirer.similarWorkOtherClients.changeLinkContext = os yw’r gweithiwr wedi gwneud unrhyw waith ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
