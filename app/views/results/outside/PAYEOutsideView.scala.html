@@ -74,12 +74,12 @@
         <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.businessToBusiness"))</p>
     } else if(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim).length == 1){
         <p>@messages(singleOutReason(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))</p>
+        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
     } else {
         <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p1"))</p>
         @components.bulleted_list(allOutReasons(PAYE, isSubstituteToDoWork,isClientNotControlWork,isIncurCostNoReclaim))
+        <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
     }
-
-    <p>@messages(tailorMsgOptimised("result.outside.paye.whyResult.p2"))</p>
 }
 
 @doNext = {
