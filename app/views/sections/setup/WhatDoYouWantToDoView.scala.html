@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-  title = title(form, tailorMsg("whatDoYouWantToDo.title")),
+  title = title(form, "whatDoYouWantToDo.title"),
   appConfig = appConfig,
   bodyClasses = None) {
 
