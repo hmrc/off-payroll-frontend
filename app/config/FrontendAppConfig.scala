@@ -53,6 +53,8 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   private def requestUri(implicit request: Request[_]) = ContinueUrl(host + request.uri).encodedUrl
   def feedbackUrl(implicit request: Request[_]): String =
     s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier&backUrl=$requestUri"
+  def reportAccessibilityIssueUrl(problemPageUri: String)(implicit request: Request[_]): String =
+    s"$contactHost/contact/accessibility-unauthenticated?service=${contactFormServiceIdentifier}&userAction=${ContinueUrl(host + problemPageUri).encodedUrl}"
 
   lazy val loginUrl = servicesConfig.getString("urls.login")
   lazy val loginContinueUrl = servicesConfig.getString("urls.loginContinue")

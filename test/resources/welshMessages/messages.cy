@@ -2094,3 +2094,14 @@ worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the m
 hirer.majorityOfWorkingTime.changeLinkContext = os bydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr
 worker.similarWorkOtherClients.changeLinkContext = if you have done any work for other clients in the last 12 months
 hirer.similarWorkOtherClients.changeLinkContext = os yw’r gweithiwr wedi gwneud unrhyw waith ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
+
+
+
+
+## TODO: Need Welsh Translation
+## Accessibility Statement
+## =======================
+accessibilityStatement.heading = Accessibility Statement Heading
+accessibilityStatement.title = Accessibility Statement Title
+accessibilityStatement.p1 = Placeholder Accessibility Statement
+accessibilityStatement.reportProblem = Report an Accessibility Problem
