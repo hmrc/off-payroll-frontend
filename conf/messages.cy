@@ -1579,10 +1579,10 @@ worker.optimised.result.undetermined.paye.doNext.p2 = Os oes angen rhagor o arwe
 worker.optimised.result.undetermined.paye.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 # TODO: Need Welsh
 downloadPDFCopy.error.required = Select yes to download this result
-
+# TODO: need Welsh, correct addReferenceDetails.error translation
 addReferenceDetails.error.required = Mae angen i chi ddewis ateb
-addReferenceDetails.title = Do you want to add some reference details to this document?
-addReferenceDetails.heading = Do you want to add some reference details to this document?
+addReferenceDetails.title = Do you want to add some details to this document?
+addReferenceDetails.heading = Do you want to add some details to this document?
 addReferenceDetails.yourRecordsOnly = You will get a document that shows today’s date and time of completion, your answers and your result. This is for your records only, HMRC will not keep these details.
 addReferenceDetails.example = For example, contract information, job title or hiring department.
 
@@ -1591,7 +1591,7 @@ addDetails.heading =Add details
 addDetails.name=Your name
 addDetails.client=Name of end client issuing the contract and/or agency
 addDetails.job=Contract or role title
-addDetails.reference=Other reference details
+addDetails.reference=Other information
 addDetails.charLimit =180 characters maximum
 addDetails.fileName = File name
 addDetails.optional = optional
