@@ -14,11 +14,15 @@
  * limitations under the License.
  *@
 
-@(form: Form[_])(implicit messages: Messages)
+@import models.requests.DataRequest
+@import models.UserType.Hirer
 
+@(form: Form[_])(implicit messages: Messages, request: DataRequest[_])
 <div id="download">
 
- <p>@messages("optimised.result.download.p1")</p>
+ @if(request.userType.contains(Hirer)){
+  <p>@messages("optimised.result.download.p1")</p>
+ }
 
  <button class="form-group">@messages("optimised.result.download.getCopy")</button>
 

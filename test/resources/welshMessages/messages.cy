@@ -1366,7 +1366,6 @@ checkYourAnswers.financialRisk.header = 5. Worker’s financial risk
 checkYourAnswers.partParcel.header = 6. Worker’s involvement
 checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 
-
 #### New Optimised Result Pages ####
 #----------------------------------#
 
@@ -1375,14 +1374,13 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 ##TODO: Need Welsh
 optimised.result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
 optimised.result.doNext.h2 = Beth y dylech ei wneud nesaf
-optimised.result.download.p1 = You should keep a copy of this result for your records.
+optimised.result.download.p1 = It is important that you keep a copy of this determination for your records.
 optimised.result.download.getCopy = Get a copy of this result
 optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
 optimised.result.download.p2.exitLink = exit
 optimised.result.download.p2.preStartAgain = now, or
 optimised.result.download.p2.startAgainLink = start again
 optimised.result.download.p2.postStartAgain = to check the employment status of some other work.
-
 
 ## Office Holder PAYE
 ## ------------------
@@ -1416,10 +1414,9 @@ worker.optimised.result.officeHolder.ir35.check.doNext.p3.link = Canllaw Statws 
 hirer.optimised.result.officeHolder.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.optimised.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y bydd y gweithiwr yn cyflawni dyletswyddau deiliad swydd. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
-hirer.optimised.result.officeHolder.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion.
-hirer.optimised.result.officeHolder.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
-hirer.optimised.result.officeHolder.ir35.doNext.p3.preLink = Gallech hefyd ddarllen rhagor am
-hirer.optimised.result.officeHolder.ir35.doNext.p3.link = gyfrifoldebau’r talwr ffioedd.
+hirer.optimised.result.officeHolder.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion. Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
+hirer.optimised.result.officeHolder.ir35.doNext.p2.preLink = Gallech hefyd ddarllen rhagor am
+hirer.optimised.result.officeHolder.ir35.doNext.p2.link = gyfrifoldebau’r talwr ffioedd.
 ## ------------------
 
 ## Office Holder Agent
@@ -1443,7 +1440,7 @@ hirer.optimised.result.inside.paye.whyResult.p1 = The answers you have given sug
 hirer.optimised.result.inside.paye.doNext.p1 = Mae angen i chi weithredu TWE ar enillion y gweithiwr.
 hirer.optimised.result.inside.paye.doNext.p2.text = Os mai’r gweithiwr hwn yw’ch cyflogai cyntaf, gallech ddarllen yr arweiniad hwn am
 hirer.optimised.result.inside.paye.doNext.p2.link = TWE a’r gyflogres ar gyfer cyflogwyr
-hirer.optimised.result.inside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.inside.paye.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 ## ------------------
 
 ## Undetermined PAYE Hirer
@@ -1454,7 +1451,7 @@ hirer.optimised.result.undetermined.paye.heading = Methu gwneud penderfyniad
 hirer.optimised.result.undetermined.paye.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r gweithiwr yn gyflogedig neu’n hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.undetermined.paye.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
 hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r gweithiwr. Gwiriwch eich atebion gydag ef i sicrhau eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig.
-hirer.optimised.result.undetermined.paye.doNext.p1.workerNotKnown = You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
+hirer.optimised.result.undetermined.paye.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.undetermined.paye.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 hirer.optimised.result.undetermined.paye.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 
@@ -1500,7 +1497,6 @@ worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Yo
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you and your business will have costs for this work that your client will not pay for.
 worker.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
-
 
 ## Outside PAYE Decision Worker
 ## ------------------
@@ -1548,18 +1544,18 @@ agent.optimised.result.undetermined.doNext.p2 = Os oes angen rhagor o arweiniad 
 hirer.optimised.result.inside.ir35.title = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 hirer.optimised.result.inside.ir35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn darparu gwasanaeth personol i’ch sefydliad. Golyga hyn ei fod yn cael ei ystyried yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
-hirer.optimised.result.inside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion.
-hirer.optimised.result.inside.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
-hirer.optimised.result.inside.ir35.doNext.p3.text = Gallech hefyd ddarllen rhagor am
-hirer.optimised.result.inside.ir35.doNext.p3.link = gyfrifoldebau’r talwr ffioedd.
-hirer.optimised.result.inside.ir35.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.inside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi weithredu TWE ar ei enillion. Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
+hirer.optimised.result.inside.ir35.doNext.p2.text = Gallech hefyd ddarllen rhagor am
+hirer.optimised.result.inside.ir35.doNext.p2.link = gyfrifoldebau’r talwr ffioedd.
+hirer.optimised.result.inside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
+
 ##TODO: Need Welsh
 hirer.optimised.result.undetermined.ir35.title = Methu gwneud penderfyniad
 hirer.optimised.result.undetermined.ir35.heading = Methu gwneud penderfyniad
 hirer.optimised.result.undetermined.ir35.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
 hirer.optimised.result.undetermined.ir35.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
 hirer.optimised.result.undetermined.ir35.doNext.p1.workerKnown = Dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos i’r gweithiwr. Gwiriwch eich atebion gydag ef i sicrhau eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig.
-hirer.optimised.result.undetermined.ir35.doNext.p1.workerNotKnown = You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
+hirer.optimised.result.undetermined.ir35.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.undetermined.ir35.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, cysylltwch â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 hirer.optimised.result.undetermined.ir35.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
 
@@ -1610,7 +1606,6 @@ finishedChecking.p1.link2 = start again
 finishedChecking.p1.afterLink2 = to check the employment status of some other work.
 finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
 
-
 ##TODO: Need Welsh
 hirer.materials.error.required = Select yes if the worker will have costs for materials that your organisation will not pay for
 hirer.materials.title = Will the worker have costs for materials that your organisation will not pay for?
@@ -1629,7 +1624,6 @@ worker.materials.checkYourAnswersLabel = A fydd unrhyw gostau ar gyfer deunyddia
 worker.materials.p1 = Gall hyn gynnwys eitemau sy’n rhan barhaol o’r gwaith, neu sy’n cael eu gadael ar ôl pan fyddwch yn gadael. Nid yw deunydd ysgrifennu wedi’i gynnwys.
 worker.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i’r diwydiant adeiladu
 
-
 ##TODO: Need Welsh
 hirer.vehicle.error.required = Select yes if the worker will have costs for a vehicle that your organisation will not pay for
 hirer.vehicle.title = Will the worker have costs for a vehicle that your organisation will not pay for?
@@ -1645,7 +1639,6 @@ worker.vehicle.subheading = Risg ariannol y gweithiwr
 worker.vehicle.heading = A fydd unrhyw gostau eraill ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.vehicle.checkYourAnswersLabel = A fydd unrhyw gostau eraill ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.vehicle.p1 = Gall hyn gynnwys prynu, prydlesu, hurio, costau tanwydd a chostau rhedeg eraill, ond nid yw’n cynnwys costau cymudo.
-
 
 ##TODO: Need Welsh
 hirer.otherExpenses.error.required = Select yes if the worker will have any other costs that your organisation will not pay for
@@ -1679,7 +1672,6 @@ worker.equipmentExpenses.heading = A fydd unrhyw gostau ar gyfer offer yn cael e
 worker.equipmentExpenses.checkYourAnswersLabel = A fydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenigol sydd â chost uchel, ond nid yw’n cynnwys gliniaduron, llechi a ffonau
 
-
 ##TODO: Need Welsh
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
 result.pdf.customisedBy = Name of the person that completed this check:
@@ -1689,7 +1681,6 @@ result.pdf.reference = Reference:
 result.pdf.whatYouToldUs = What you told us
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
-
 
 ##TODO: Need Welsh
 personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions
@@ -1705,11 +1696,10 @@ hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = rydych wedi d
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = nid oes gennych reolaeth dros y gwaith hwn
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd eich sefydliad yn talu amdani
 hirer.optimised.result.outside.ir35.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
-hirer.optimised.result.outside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi dalu ei enillion yn llawn heb ddidynnu treth ac Yswiriant Gwladol.
-hirer.optimised.result.outside.ir35.doNext.p2 = Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
-hirer.optimised.result.outside.ir35.doNext.p3.text = Gallech hefyd ddarllen rhagor am
-hirer.optimised.result.outside.ir35.doNext.p3.link = gyfrifoldebau’r talwr ffioedd
-hirer.optimised.result.outside.ir35.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.outside.ir35.doNext.p1 = Os yw’ch sefydliad yn gyfrifol am dalu’r gweithiwr, mae angen i chi dalu ei enillion yn llawn heb ddidynnu treth ac Yswiriant Gwladol. Os yw rhywun arall yn gyfrifol, dylech lawrlwytho copi o’r canlyniad hwn a’i ddangos iddo.
+hirer.optimised.result.outside.ir35.doNext.p2.text = Gallech hefyd ddarllen rhagor am
+hirer.optimised.result.outside.ir35.doNext.p2.link = gyfrifoldebau’r talwr ffioedd
+hirer.optimised.result.outside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
@@ -1744,7 +1734,7 @@ hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = nid oes gen
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd eich sefydliad yn talu amdani
 hirer.optimised.result.outside.paye.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.outside.paye.doNext.p1 = Mae angen i chi dalu enillion y gweithiwr yn llawn, heb ddidynnu treth nac Yswiriant Gwladol.
-hirer.optimised.result.outside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.outside.paye.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
@@ -1764,7 +1754,6 @@ resetAnswersWarning.startAgain = Dechrau eto
 resetAnswersWarning.goBack = Take me back to my answers
 resetAnswersWarning.error.required = Mae angen i chi ddewis ateb
 
-
 ### Multiple Contracts Page
 ### -----------------------
 worker.multipleContracts.error.required = Dewiswch ‘Iawn’ os yw’r contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
@@ -1781,7 +1770,6 @@ hirer.multipleContracts.title = A yw’r contract hwn yn atal y gweithiwr rhag g
 hirer.multipleContracts.heading = A yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
 hirer.multipleContracts.checkYourAnswersLabel = A yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill?
 hirer.multipleContracts.p1 = Mae hyn yn cynnwys gweithio i’ch cystadleuwyr.
-
 
 #### Transfer of Rights Page - BoOA
 #### ------------------------------
@@ -1800,7 +1788,6 @@ hirer.transferOfRights.heading = A yw’r contract yn rhoi’r opsiwn i’ch sef
 hirer.transferOfRights.checkYourAnswersLabel = A yw’r contract yn rhoi’r opsiwn i’ch sefydliad brynu’r hawliau am ffi ar wahân?
 hirer.transferOfRights.p1 = Os nad yw opsiwn fel hwn yn bodoli, byddai’r gweithiwr yn cadw’r holl hawliau sy’n gysylltiedig â’r gwaith hwn.
 
-
 #### Permission to Work Page - BoOA
 #### ------------------------------
 worker.permissionToWorkWithOthers.error.required = Dewiswch ‘Iawn’ os oes rhaid i chi ofyn am ganiatâd i weithio i gleientiaid eraill
@@ -1816,7 +1803,6 @@ hirer.permissionToWorkWithOthers.heading = A oes rhaid i’r gweithiwr ofyn am g
 hirer.permissionToWorkWithOthers.checkYourAnswersLabel = A oes rhaid i’r gweithiwr ofyn am ganiatâd i weithio i gleientiaid eraill?
 hirer.permissionToWorkWithOthers.subheading = Contractau’r gweithiwr
 
-
 #### Permission to Work Page - BoOA
 #### ------------------------------
 worker.previousContract.error.required = Dewiswch ‘Iawn’ os ydych wedi cael contract blaenorol gyda’r cleient hwn
@@ -1831,7 +1817,6 @@ hirer.previousContract.title = A yw’r gweithiwr wedi cael contract blaenorol g
 hirer.previousContract.heading = A yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad?
 hirer.previousContract.checkYourAnswersLabel = A yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad?
 hirer.previousContract.subheading = Contractau’r gweithiwr
-
 
 ### FollowOnContract Page
 ### ---------------------------------
@@ -1983,7 +1968,6 @@ worker.intermediaryResult.p4.link1 = Orheolau gweithio oddi ar y gyflogres
 worker.intermediaryResult.p4.text2 = , neu
 worker.intermediaryResult.p4.link2 = dechreuwch eto
 
-
 hirer.intermediaryResult.title = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
 hirer.intermediaryResult.heading = Efallai y bydd rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn
 hirer.intermediaryResult.p1 = Rhoesoch wybod i ni yr hoffech gael gwybod a yw’r gwaith hwn yn cael ei ystyried yn gyflogedig neu’n hunangyflogedig at ddibenion treth.
@@ -1995,7 +1979,6 @@ hirer.intermediaryResult.p4.text1 = Dysgwch ragor am y
 hirer.intermediaryResult.p4.link1 = rheolau gweithio oddi ar y gyflogres
 hirer.intermediaryResult.p4.text2 = , neu
 hirer.intermediaryResult.p4.link2 = dechreuwch eto
-
 
 ### No Intermediary Result Page
 ### -----------------------------
@@ -2009,7 +1992,6 @@ worker.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
 worker.noIntermediaryResult.p2.text2 = , neu
 worker.noIntermediaryResult.p2.link2 = dechreuwch eto
 
-
 hirer.noIntermediaryResult.title = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
 hirer.noIntermediaryResult.heading = Ni all rheolau gweithio oddi ar y gyflogres (IR35) fod yn berthnasol
 hirer.noIntermediaryResult.p1 = Rydych wedi rhoi gwybod i ni nad yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth na chorff anghorfforedig. Mae hyn yn golygu nad yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
@@ -2019,7 +2001,6 @@ hirer.noIntermediaryResult.p2.text1 = Dysgwch ragor am y
 hirer.noIntermediaryResult.p2.link1 = rheolau gweithio oddi ar y gyflogres
 hirer.noIntermediaryResult.p2.text2 = , neu
 hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
-
 
 ### CYA Change Link Context for Screen Readers and Other Accessible Software
 ### ------------------------------------------------------------------------

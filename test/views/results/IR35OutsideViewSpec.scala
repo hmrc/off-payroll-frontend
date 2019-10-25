@@ -246,8 +246,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP1
           document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP2
           document.select(Selectors.DoNext.p(3)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP3
-          document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP4
-          document.select(Selectors.DoNext.p(5)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP5
+          document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.WorkerIR35.checkDoNextP5
         }
 
         "Have a link to the Employment Status Manual" in {
@@ -305,9 +304,8 @@ class IR35OutsideViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.h2).text mustBe OutDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OutDecisionMessages.HirerIR35.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe OutDecisionMessages.HirerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text mustBe OutDecisionMessages.HirerIR35.doNextP3
       if(!workerKnown) {
-        document.select(Selectors.DoNext.p(4)).text mustBe OutDecisionMessages.HirerIR35.workerNotKnown
+        document.select(Selectors.DoNext.p(3)).text mustBe OutDecisionMessages.HirerIR35.workerNotKnown
       }
     }
 

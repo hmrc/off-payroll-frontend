@@ -1351,7 +1351,7 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 ## ----------------------
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What you should do next
-optimised.result.download.p1 = You should keep a copy of this result for your records.
+optimised.result.download.p1 = It is important that you keep a copy of this determination for your records.
 optimised.result.download.getCopy = Get a copy of this result
 optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
 optimised.result.download.p2.exitLink = exit
@@ -1389,10 +1389,9 @@ worker.optimised.result.officeHolder.ir35.check.doNext.p3.link = Employment Stat
 hirer.optimised.result.officeHolder.ir35.title = Off-payroll working rules (IR35) apply
 hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
 hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are classed as employed for tax purposes for this work.
-hirer.optimised.result.officeHolder.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings.
-hirer.optimised.result.officeHolder.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
-hirer.optimised.result.officeHolder.ir35.doNext.p3.preLink = You could also read more about the
-hirer.optimised.result.officeHolder.ir35.doNext.p3.link = responsibilities of the fee-payer
+hirer.optimised.result.officeHolder.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings. If someone else is responsible, you should download a copy of this result and show it to them.
+hirer.optimised.result.officeHolder.ir35.doNext.p2.preLink = You could also read more about the
+hirer.optimised.result.officeHolder.ir35.doNext.p2.link = responsibilities of the fee-payer
 ## ------------------
 
 ## Office Holder Agent
@@ -1414,7 +1413,7 @@ hirer.optimised.result.inside.paye.whyResult.p1 = The answers you have given sug
 hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
 hirer.optimised.result.inside.paye.doNext.p2.text = If this worker is your first employee, you could read this guidance about
 hirer.optimised.result.inside.paye.doNext.p2.link = PAYE and payroll for employers
-hirer.optimised.result.inside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.inside.paye.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 ## ------------------
 
 ## Undetermined PAYE Hirer
@@ -1424,7 +1423,7 @@ hirer.optimised.result.undetermined.paye.heading = Unable to make a determinatio
 hirer.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work.
 hirer.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
 hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
-hirer.optimised.result.undetermined.paye.doNext.p1.workerNotKnown = You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
+hirer.optimised.result.undetermined.paye.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
 hirer.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
 
@@ -1438,7 +1437,7 @@ hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not 
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
 hirer.optimised.result.outside.paye.whyResult.p2 = This means the worker is self-employed for tax purposes for this work.
 hirer.optimised.result.outside.paye.doNext.p1 = You need to pay the worker’s earnings in full, without deducting tax or National Insurance.
-hirer.optimised.result.outside.paye.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.outside.paye.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
@@ -1551,18 +1550,17 @@ agent.optimised.result.outside.whyResult.businessToBusiness = The answers you ha
 hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply
 hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
 hirer.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest the worker is providing a personal service to your organisation. This means they are classed as employed for tax purposes for this work.
-hirer.optimised.result.inside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings.
-hirer.optimised.result.inside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
-hirer.optimised.result.inside.ir35.doNext.p3.text = You could also read more about the
-hirer.optimised.result.inside.ir35.doNext.p3.link = responsibilities of the fee-payer
-hirer.optimised.result.inside.ir35.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.inside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings. If someone else is responsible, you should download a copy of this result and show it to them.
+hirer.optimised.result.inside.ir35.doNext.p2.text = You could also read more about the
+hirer.optimised.result.inside.ir35.doNext.p2.link = responsibilities of the fee-payer
+hirer.optimised.result.inside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 
 hirer.optimised.result.undetermined.ir35.title = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
 hirer.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
 hirer.optimised.result.undetermined.ir35.doNext.p1.workerKnown = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
-hirer.optimised.result.undetermined.ir35.doNext.p1.workerNotKnown = You told us your organisation does not know who will be doing this work. To make sure this result reflects the actual or expected working practices, you should use this tool again when you know who the worker is.
+hirer.optimised.result.undetermined.ir35.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
 hirer.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
 
@@ -1573,11 +1571,10 @@ hirer.optimised.result.outside.ir35.whyResult.substituteToDoWork = you have acce
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWork = you do not have control over this work
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that your organisation will not pay for
 hirer.optimised.result.outside.ir35.whyResult.p2 = This suggests the worker is working on a business to business basis.
-hirer.optimised.result.outside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to pay their earnings in full, without deducting tax and National Insurance.
-hirer.optimised.result.outside.ir35.doNext.p2 = If someone else is responsible, you should download a copy of this result and show it to them.
-hirer.optimised.result.outside.ir35.doNext.p3.text = You could also read more about the
-hirer.optimised.result.outside.ir35.doNext.p3.link = responsibilities of the fee-payer
-hirer.optimised.result.outside.ir35.doNext.workerNotKnown = You should use this tool again when you know who the worker is to make sure this result reflects the actual or expected working practices.
+hirer.optimised.result.outside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to pay their earnings in full, without deducting tax and National Insurance. If someone else is responsible, you should download a copy of this result and show it to them.
+hirer.optimised.result.outside.ir35.doNext.p2.text = You could also read more about the
+hirer.optimised.result.outside.ir35.doNext.p2.link = responsibilities of the fee-payer
+hirer.optimised.result.outside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.

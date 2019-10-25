@@ -162,9 +162,8 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP1
       document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.telephone
-      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.email
-      document.select(Selectors.DoNext.p(5)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP3
+      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP3
     }
   }
 
@@ -208,9 +207,8 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP1_WorkerNotKnown
       }
       document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.telephone
-      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.email
-      document.select(Selectors.DoNext.p(5)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP3
+      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP3
     }
   }
 }
