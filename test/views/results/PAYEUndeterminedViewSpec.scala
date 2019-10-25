@@ -203,9 +203,8 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP1_WorkerNotKnown
       }
       document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
-      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.Site.telephone
-      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.email
-      document.select(Selectors.DoNext.p(5)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
+      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP3
     }
   }
 }

@@ -164,8 +164,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p1
         document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p2
         document.select(Selectors.DoNext.p(3)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p3
-        document.select(Selectors.DoNext.p(4)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p4
-        document.select(Selectors.DoNext.p(5)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p5
+        document.select(Selectors.DoNext.p(4)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p5
       }
 
       "Have a link to the Employment Status Manual" in {
@@ -209,7 +208,6 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p1
       document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p2
-      document.select(Selectors.DoNext.p(3)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p3
     }
 
     "Have a link to the Responsibilities of the Fee Payer" in {
