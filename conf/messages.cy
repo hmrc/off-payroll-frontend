@@ -1608,11 +1608,11 @@ finishedChecking.downloadAnswers = Download your answers and result (PDF, under 
 
 ##TODO: Need Welsh
 hirer.materials.error.required = Select yes if the worker will have costs for materials that your organisation will not pay for
-hirer.materials.title = Will the worker have costs for materials that your organisation will not pay for?
+hirer.materials.title = Will the worker have to buy materials before your organisation pays them?
 hirer.materials.subheading = Worker’s financial risk
-hirer.materials.heading = Will the worker have costs for materials that your organisation will not pay for?
-hirer.materials.checkYourAnswersLabel = Will the worker have costs for materials that your organisation will not pay for?
-hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. Stationery is not included.
+hirer.materials.heading = Will the worker have to buy materials before your organisation pays them?
+hirer.materials.checkYourAnswersLabel = Will the worker have to buy materials before your organisation pays them?
+hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. This does not include items like stationery.
 hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
 
 worker.materials.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer deunyddiau yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
@@ -1626,11 +1626,11 @@ worker.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol 
 
 ##TODO: Need Welsh
 hirer.vehicle.error.required = Select yes if the worker will have costs for a vehicle that your organisation will not pay for
-hirer.vehicle.title = Will the worker have costs for a vehicle that your organisation will not pay for?
+hirer.vehicle.title = Will the worker have to fund any vehicle costs before your organisation pays them?
 hirer.vehicle.subheading = Worker’s financial risk
-hirer.vehicle.heading = Will the worker have costs for a vehicle that your organisation will not pay for?
-hirer.vehicle.checkYourAnswersLabel = Will the worker have costs for a vehicle that your organisation will not pay for?
-hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs for this work, but does not include commuting costs.
+hirer.vehicle.heading = Will the worker have to fund any vehicle costs before your organisation pays them?
+hirer.vehicle.checkYourAnswersLabel = Will the worker have to fund any vehicle costs before your organisation pays them?
+hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs for this work. This does not include commuting or personal vehicle costs.
 
 worker.vehicle.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.vehicle.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
@@ -1642,11 +1642,11 @@ worker.vehicle.p1 = Gall hyn gynnwys prynu, prydlesu, hurio, costau tanwydd a ch
 
 ##TODO: Need Welsh
 hirer.otherExpenses.error.required = Select yes if the worker will have any other costs that your organisation will not pay for
-hirer.otherExpenses.title = Will the worker have any other costs that your organisation will not pay for?
+hirer.otherExpenses.title = Will the worker have to fund any other costs before your organisation pays them?
 hirer.otherExpenses.subheading = Worker’s financial risk
-hirer.otherExpenses.heading = Will the worker have any other costs that your organisation will not pay for?
-hirer.otherExpenses.checkYourAnswersLabel = Will the worker have any other costs that your organisation will not pay for?
-hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, external business premises, or accreditation for this work only.
+hirer.otherExpenses.heading = Will the worker have to fund any other costs before your organisation pays them?
+hirer.otherExpenses.checkYourAnswersLabel = Will the worker have to fund any other costs before your organisation pays them?
+hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, or external business premises for this work only.
 
 worker.otherExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.otherExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
@@ -1658,12 +1658,14 @@ worker.otherExpenses.p1 = Gall hyn gynnwys llety neu deithio nad yw'n ymwneud â
 
 ##TODO: Need Welsh
 hirer.equipmentExpenses.error.required = Select yes if the worker will have equipment costs that your organisation will not pay for
-hirer.equipmentExpenses.title = Will the worker have equipment costs that your organisation will not pay for?
+hirer.equipmentExpenses.title = Will the worker have to buy equipment before your organisation pays them?
 hirer.equipmentExpenses.subheading = Worker’s financial risk
-hirer.equipmentExpenses.heading = Will the worker have equipment costs that your organisation will not pay for?
-hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker have equipment costs that your organisation will not pay for?
-hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment used for this work, but does not include laptops, tablets and phones.
+hirer.equipmentExpenses.heading = Will the worker have to buy equipment before your organisation pays them?
+hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker have to buy equipment before your organisation pays them?
+hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment used for this work. This does not include laptops, tablets and phones.
+hirer.equipmentExpenses.p2 = Vehicle costs are covered in the next question.
 
+##TODO: Need Welsh
 worker.equipmentExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.equipmentExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 worker.equipmentExpenses.title = A fydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
@@ -1671,6 +1673,7 @@ worker.equipmentExpenses.subheading = Risg ariannol y gweithiwr
 worker.equipmentExpenses.heading = A fydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.equipmentExpenses.checkYourAnswersLabel = A fydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenigol sydd â chost uchel, ond nid yw’n cynnwys gliniaduron, llechi a ffonau
+worker.equipmentExpenses.p2 = Vehicle costs are covered in the next question.
 
 ##TODO: Need Welsh
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
