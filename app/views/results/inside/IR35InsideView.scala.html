@@ -77,10 +77,9 @@
 @doNext = {
     @if(request.userType.contains(Hirer)) {
         <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p1"))</p>
-        <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p2"))</p>
         <p>
-            @messages(tailorMsgOptimised("result.inside.ir35.doNext.p3.text"))
-            @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
+            @messages(tailorMsgOptimised("result.inside.ir35.doNext.p2.text"))
+            @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p2.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
         </p>
         @if(!workerKnown) {
             <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.workerNotKnown"))</p>

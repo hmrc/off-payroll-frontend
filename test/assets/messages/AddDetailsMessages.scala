@@ -25,7 +25,7 @@ object AddDetailsMessages extends BaseMessages {
   val name = "Your name"
   val clientName = "Name of end client issuing the contract and/or agency"
   val role = "Contract or role title"
-  val reference = "Other reference details"
+  val reference = "Other information"
   val optional = "optional"
 
 }
