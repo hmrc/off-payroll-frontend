@@ -17,10 +17,10 @@
 @import models.requests.DataRequest
 @import models.UserType.Hirer
 
-@(form: Form[_])(implicit messages: Messages, request: DataRequest[_])
+@(form: Form[_], isMake: Boolean = true)(implicit messages: Messages, request: DataRequest[_])
 <div id="download">
 
- @if(request.userType.contains(Hirer)){
+ @if(isMake){
   <p>@messages("optimised.result.download.p1")</p>
  }
 

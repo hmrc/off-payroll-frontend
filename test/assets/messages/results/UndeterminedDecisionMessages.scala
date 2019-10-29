@@ -53,7 +53,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val doNext_p2 = "If you need more guidance, you could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
 
-
   object HirerIR35 {
     val title = "Unable to make a determination"
     val heading = "Unable to make a determination"
@@ -63,8 +62,8 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val doNextP1_WorkerNotKnown = "Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination."
     val doNextP2 = "If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline."
     val doNextP3 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
-  }
 
+  }
 
   object WorkerPAYE {
     val title = "Unable to make a determination"

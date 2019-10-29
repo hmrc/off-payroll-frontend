@@ -45,6 +45,7 @@ object OfficeHolderMessages extends BaseResultMessages {
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work."
       val doNext_p1 = "You need to operate PAYE on the worker’s earnings."
       val doNext_p2 = "If this worker is your first employee, you could read this guidance about PAYE and payroll for employers (opens in a new window)."
+
     }
 
     object IR35 {
