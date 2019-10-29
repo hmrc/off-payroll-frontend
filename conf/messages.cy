@@ -1330,7 +1330,8 @@ whichDescribesYou.error.invalid = Mae angen i chi ddewis ateb
 
 agencyAdvisory.title = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
-agencyAdvisory.p1 = Cyfrifoldeb y cleient neu’r gweithiwr yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith.
+##### TODO need welsh
+agencyAdvisory.p1 = It is the not the agency’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work. You can continue as if you are the worker to check a determination.
 
 worker.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
 worker.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig

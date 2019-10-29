@@ -1308,7 +1308,7 @@ whichDescribesYou.error.invalid = Select what you want to find out
 
 agencyAdvisory.title = Continue as the worker to check a determination
 agencyAdvisory.heading = Continue as the worker to check a determination
-agencyAdvisory.p1 = It is the client or worker’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work.
+agencyAdvisory.p1 = It is the not the agency’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work. You can continue as if you are the worker to check a determination.
 
 
 worker.workerUsingIntermediary.error.required = Select yes if you are trading through a limited company, partnership or unincorporated body
