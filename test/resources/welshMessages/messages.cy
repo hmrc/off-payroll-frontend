@@ -70,7 +70,7 @@ site.email = E-bost:
 site.opensInNewWindow = (yn agor mewn ffenestr newydd)
 
 ## TODO: Need Welsh
-site.letter.h1 = Your determination and answers
+site.letter.h1 = Keep a copy of your determination
 site.letter.forYourRecords = For your records
 site.letter.print = Print this document
 site.letter.pdf = Save as a PDF
@@ -82,7 +82,7 @@ site.letter.copyOf.otherWork = to check the employment status of some other work
 site.letter.aboutThisResult = About this result
 site.letter.dateOfResult = Date of result:
 site.letter.version = Decision service version:
-site.letter.version.disclaimer = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+site.letter.version.disclaimer = HMRC will stand by this result as long as it reflects the actual or expected working practices. If these working practices change, you should use this tool again.
 site.letter.footer = Page {0} of {1}
 
 ## TODO NEED WELSH
@@ -1688,7 +1688,7 @@ result.pdf.job = Engagement job title:
 result.pdf.reference = Reference:
 result.pdf.whatYouToldUs = What you told us
 result.pdf.decisionVersion = Decision service version: {0}
-result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+result.pdf.decisionVersion.p1 = HMRC will stand by this result as long as it reflects the actual or expected working practices. If these working practices change, you should use this tool again.
 
 ##TODO: Need Welsh
 personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions

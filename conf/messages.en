@@ -71,7 +71,7 @@ site.telephone.number = 0300 123 2326
 site.email = Email:
 site.opensInNewWindow = (opens in a new window)
 
-site.letter.h1 = Your determination and answers
+site.letter.h1 = Keep a copy of your determination
 site.letter.forYourRecords = For your records
 site.letter.print = Print this document
 site.letter.pdf = Save as a PDF
@@ -83,7 +83,7 @@ site.letter.copyOf.otherWork = to check the employment status of some other work
 site.letter.aboutThisResult = About this result
 site.letter.dateOfResult = Date of result:
 site.letter.version = Decision service version:
-site.letter.version.disclaimer = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+site.letter.version.disclaimer = HMRC will stand by this result as long as it reflects the actual or expected working practices. If these working practices change, you should use this tool again. 
 site.letter.footer = Page {0} of {1}
 
 feedback.before = This is a new service - your
@@ -1702,13 +1702,13 @@ pdfDetails.job.error.maxLength = The contract or role title must be {0} characte
 pdfDetails.reference.error.maxLength = The reference must be {0} characters or less
 
 result.pdf.time = Date of result: {0} (UTC)
-result.pdf.customisedBy = Name of the person that completed this check:
-result.pdf.client = End client’s name:
-result.pdf.job = Engagement job title:
-result.pdf.reference = Reference:
+result.pdf.customisedBy = Your name
+result.pdf.client = Your organisation’s name
+result.pdf.job = Contract or role title
+result.pdf.reference = Other information
 result.pdf.whatYouToldUs = What you told us
 result.pdf.decisionVersion = Decision service version: {0}
-result.pdf.decisionVersion.p1 = This version number is used for HMRC internal purposes only. HMRC will stand by your result unless working practices have changed, in which case you should use this service again to reflect those changes
+result.pdf.decisionVersion.p1 = HMRC will stand by this result as long as it reflects the actual or expected working practices. If these working practices change, you should use this tool again.
 
 resetAnswersWarning.title = To change an answer in this section, you will need to restart the tool. This will delete your answers.
 resetAnswersWarning.heading = To change an answer in this section, you will need to restart the tool. This will delete your answers.

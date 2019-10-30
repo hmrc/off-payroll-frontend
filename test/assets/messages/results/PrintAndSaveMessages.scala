@@ -18,7 +18,7 @@ package assets.messages.results
 
 object PrintAndSaveMessages extends BaseResultMessages {
 
-  val heading = "Your determination and answers"
+  val heading = "Keep a copy of your determination"
   val printLink = "Print this document"
   val savePdfLink = "Save as a PDF"
   val exitLink = "exit"
