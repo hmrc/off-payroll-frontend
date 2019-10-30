@@ -1702,10 +1702,10 @@ pdfDetails.job.error.maxLength = The contract or role title must be {0} characte
 pdfDetails.reference.error.maxLength = The reference must be {0} characters or less
 
 result.pdf.time = Date of result: {0} (UTC)
-result.pdf.customisedBy = Name of the person that completed this check:
-result.pdf.client = End client’s name:
-result.pdf.job = Engagement job title:
-result.pdf.reference = Reference:
+result.pdf.customisedBy = Your name
+result.pdf.client = Your organisation’s name
+result.pdf.job = Contract or role title
+result.pdf.reference = Other information
 result.pdf.whatYouToldUs = What you told us
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = HMRC will stand by this result as long as it reflects the actual or expected working practices. If these working practices change, you should use this tool again.
