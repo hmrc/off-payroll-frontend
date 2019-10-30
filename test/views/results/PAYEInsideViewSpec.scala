@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{InDecisionMessages, PrintPreviewMessages}
+import assets.messages.results.{InDecisionMessages, OfficeHolderMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
@@ -134,6 +134,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
         }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
+        }
       case ResultPrintPreview =>
         "Have the correct title" in {
           document.title mustBe title(PrintPreviewMessages.title)
@@ -170,6 +174,10 @@ class PAYEInsideViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {

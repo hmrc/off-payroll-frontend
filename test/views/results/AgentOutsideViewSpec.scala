@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{OutDecisionMessages, PrintPreviewMessages}
+import assets.messages.results.{OutDecisionMessages, PrintPreviewMessages, UndeterminedDecisionMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
@@ -107,6 +107,9 @@ class AgentOutsideViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.Agent.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {

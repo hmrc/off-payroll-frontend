@@ -134,6 +134,10 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
         }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
+        }
       case ResultPrintPreview =>
         "Have the correct title" in {
           document.title mustBe title(PrintPreviewMessages.title)
@@ -174,6 +178,10 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {

@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{OutDecisionMessages, PrintPreviewMessages}
+import assets.messages.results.{InDecisionMessages, OutDecisionMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
@@ -210,6 +210,13 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           "Have the correct heading" in {
             document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerIR35.heading
           }
+          "Have the correct Download section" in {
+          if(isMake){
+            document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsg
+            document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
+          } else {
+            document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadExitMsg}
+          }
         case ResultPrintPreview =>
           "Have the correct title" in {
             document.title mustBe title(PrintPreviewMessages.title)
@@ -274,6 +281,10 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerIR35.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {

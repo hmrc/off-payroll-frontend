@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages}
+import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages, UndeterminedDecisionMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
@@ -66,6 +66,9 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Agent.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {

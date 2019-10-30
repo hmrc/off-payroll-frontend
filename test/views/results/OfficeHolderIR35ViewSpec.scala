@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages}
+import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages, UndeterminedDecisionMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
@@ -132,6 +132,14 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
         }
+        "Have the correct Download section" in {
+          if(isMakingDetermination){
+            document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsg
+            document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
+          } else {
+            document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadExitMsg
+          }
+        }
       case ResultPrintPreview =>
         "Have the correct title" in {
           document.title mustBe title(PrintPreviewMessages.title)
@@ -182,6 +190,10 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {

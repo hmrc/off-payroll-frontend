@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{PrintPreviewMessages, UndeterminedDecisionMessages}
+import assets.messages.results.{InDecisionMessages, PrintPreviewMessages, UndeterminedDecisionMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest
@@ -136,6 +136,10 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerIR35.heading
         }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
+        }
       case ResultPrintPreview =>
         "Have the correct title" in {
           document.title mustBe title(PrintPreviewMessages.title)
@@ -176,6 +180,10 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {

@@ -18,13 +18,14 @@
 @import models.UserType.Hirer
 
 @(form: Form[_], isMake: Boolean = true)(implicit messages: Messages, request: DataRequest[_])
+
 <div id="download">
 
- @if(isMake){
+ @if(isMake || request.userType.contains(Hirer)){
   <p>@messages("optimised.result.download.p1")</p>
- }
+  }
 
- <button class="form-group">@messages("optimised.result.download.getCopy")</button>
+ <button class="form-group" id ="getCopy-button">@messages("optimised.result.download.getCopy")</button>
 
  <p>
   @messages("optimised.result.download.p2.preExit")
