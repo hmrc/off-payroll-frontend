@@ -20,8 +20,11 @@
 
 @defining(s"${request.userType}.$result") { id =>
 
+    <!-- Force Welsh Language toggle to not float within Teal Result heading -->
+    <div class="form-group"></div>
+
     <div class="govuk-box-highlight" id="@id">
-        <h1 class="bold-xlarge">@message</h1>
+        <h1 class="heading-xlarge">@message</h1>
         @subMessage.map { msg =>
             <p class="font-large">@msg</p>
         }
