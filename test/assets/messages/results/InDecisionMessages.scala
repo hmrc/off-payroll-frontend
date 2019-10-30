@@ -25,6 +25,7 @@ object InDecisionMessages extends BaseResultMessages {
     val whyResultP2 = "The answers you have given tell us that the worker is providing a personal service to their client. This means they are classed as employed for tax purposes for this work."
     val doNextP1 = "If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct."
     val doNextP2 = "If you need more guidance, you could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
+
   }
 
   object WorkerIR35 {
@@ -35,7 +36,7 @@ object InDecisionMessages extends BaseResultMessages {
     val checkDoNextP1 = "If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct."
     val checkDoNextP2 = "If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline."
     val checkDoNextP3 = s"$telephone $telephoneNumber $email $emailAddress"
-    val checkDoNextP5 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
+    val checkDoNextP4 = "You could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
   }
 
   object HirerPAYE {

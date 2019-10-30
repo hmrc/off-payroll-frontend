@@ -171,6 +171,10 @@ class IR35InsideViewSpec extends ResultViewFixture {
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
         }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
+        }
       case ResultPrintPreview =>
         "Have the correct title" in {
           document.title mustBe title(PrintPreviewMessages.title)
@@ -217,6 +221,14 @@ class IR35InsideViewSpec extends ResultViewFixture {
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
         }
+        "Have the correct Download section" in {
+          if(isMakingNewDetermination){
+            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsg
+            document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
+          } else {
+            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
+          }
+        }
       case ResultPrintPreview =>
         "Have the correct title" in {
           document.title mustBe title(PrintPreviewMessages.title)
@@ -249,7 +261,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP1
         document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP2
         document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP3
-        document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP5
+        document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP4
       }
 
       "Have a link to the Employment Status Manual" in {

@@ -69,6 +69,9 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
         }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
+        }
       case ResultPrintPreview =>
         "Have the correct title" in {
           document.title mustBe title(PrintPreviewMessages.title)

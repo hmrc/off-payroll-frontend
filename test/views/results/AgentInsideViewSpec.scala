@@ -17,13 +17,9 @@
 package views.results
 
 import assets.messages.results.{InDecisionMessages, PrintPreviewMessages}
-import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.UserAnswers
-import models.UserType.Agency
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
 import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.inside.AgentInsideView
 
@@ -71,6 +67,9 @@ class AgentInsideViewSpec extends ResultViewFixture {
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
