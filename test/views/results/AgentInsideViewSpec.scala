@@ -16,14 +16,10 @@
 
 package views.results
 
-import assets.messages.results.{InDecisionMessages, PrintPreviewMessages, UndeterminedDecisionMessages}
-import config.SessionKeys
+import assets.messages.results.{InDecisionMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
-import models.UserAnswers
-import models.UserType.Agency
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
 import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.inside.AgentInsideView
 

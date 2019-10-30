@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages, UndeterminedDecisionMessages}
+import assets.messages.results.{OfficeHolderMessages, PrintPreviewMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest

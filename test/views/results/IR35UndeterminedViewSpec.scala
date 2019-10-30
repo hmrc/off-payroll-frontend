@@ -16,7 +16,7 @@
 
 package views.results
 
-import assets.messages.results.{InDecisionMessages, PrintPreviewMessages, UndeterminedDecisionMessages}
+import assets.messages.results.{PrintPreviewMessages, UndeterminedDecisionMessages}
 import forms.DeclarationFormProvider
 import models.PDFResultDetails
 import models.requests.DataRequest

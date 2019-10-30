@@ -17,15 +17,11 @@
 package views.results
 
 import assets.messages.results.{OutDecisionMessages, PrintPreviewMessages}
-import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.sections.setup.AboutYouAnswer.Worker
-import models.{PDFResultDetails, UserAnswers}
-import models.UserType.Hirer
+import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.outside.PAYEOutsideView
 
