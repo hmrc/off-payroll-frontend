@@ -1626,7 +1626,7 @@ finishedChecking.p1.link2 = start again
 finishedChecking.p1.afterLink2 = to check the employment status of some other work.
 finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
 
-hirer.materials.error.required = Select yes if the worker will have costs for materials that your organisation will not pay for
+hirer.materials.error.required = Select yes if the worker will have to buy materials before your organisation pays them
 hirer.materials.title = Will the worker have to buy materials before your organisation pays them?
 hirer.materials.subheading = Worker’s financial risk
 hirer.materials.heading = Will the worker have to buy materials before your organisation pays them?
@@ -1634,8 +1634,8 @@ hirer.materials.checkYourAnswersLabel = Will the worker have to buy materials be
 hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. This does not include items like stationery.
 hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
 
-worker.materials.error.required = Select yes if you will have costs for materials that your client will not pay for
-agency.materials.error.required = Select yes if you will have costs for materials that your client will not pay for
+worker.materials.error.required = Select yes if you will have to buy materials before your client pays you
+agency.materials.error.required = Select yes if you will have to buy materials before your client pays you
 worker.materials.title = Will you have to buy materials before your client pays you?
 worker.materials.subheading = Worker’s financial risk
 worker.materials.heading = Will you have to buy materials before your client pays you?
@@ -1645,15 +1645,15 @@ worker.materials.p2 = This question is most likely to be relevant to the constru
 
 
 
-hirer.vehicle.error.required = Select yes if the worker will have costs for a vehicle that your organisation will not pay for
+hirer.vehicle.error.required = Select yes if the worker will have to fund any vehicle costs before your organisation pays them
 hirer.vehicle.title = Will the worker have to fund any vehicle costs before your organisation pays them?
 hirer.vehicle.subheading = Worker’s financial risk
 hirer.vehicle.heading = Will the worker have to fund any vehicle costs before your organisation pays them?
 hirer.vehicle.checkYourAnswersLabel = Will the worker have to fund any vehicle costs before your organisation pays them?
 hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs for this work. This does not include commuting or personal vehicle costs.
 
-worker.vehicle.error.required = Select yes if you will have costs for a vehicle that your client will not pay for
-agency.vehicle.error.required = Select yes if you will have costs for a vehicle that your client will not pay for
+worker.vehicle.error.required = Select yes if you will have to fund any vehicle costs before your client pays you
+agency.vehicle.error.required = Select yes if you will have to fund any vehicle costs before your client pays you
 worker.vehicle.title = Will you have to fund any vehicle costs before your client pays you?
 worker.vehicle.subheading = Worker’s financial risk
 worker.vehicle.heading = Will you have to fund any vehicle costs before your client pays you?
@@ -1662,15 +1662,15 @@ worker.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other
 
 
 
-hirer.otherExpenses.error.required = Select yes if the worker will have any other costs that your organisation will not pay for
+hirer.otherExpenses.error.required = Select yes if the worker will have to fund any other costs before your organisation pays them
 hirer.otherExpenses.title = Will the worker have to fund any other costs before your organisation pays them?
 hirer.otherExpenses.subheading = Worker’s financial risk
 hirer.otherExpenses.heading = Will the worker have to fund any other costs before your organisation pays them?
 hirer.otherExpenses.checkYourAnswersLabel = Will the worker have to fund any other costs before your organisation pays them?
 hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, or external business premises for this work only.
 
-worker.otherExpenses.error.required = Select yes if you will have any other costs that your client will not pay for
-agency.otherExpenses.error.required = Select yes if you will have any other costs that your client will not pay for
+worker.otherExpenses.error.required = Select yes if you will have to fund any other costs before your client pays you
+agency.otherExpenses.error.required = Select yes if you will have to fund any other costs before your client pays you
 worker.otherExpenses.title = Will you have to fund any other costs before your client pays you?
 worker.otherExpenses.subheading = Worker’s financial risk
 worker.otherExpenses.heading = Will you have to fund any other costs before your client pays you?
@@ -1678,7 +1678,7 @@ worker.otherExpenses.checkYourAnswersLabel = Will you have to fund any other cos
 worker.otherExpenses.p1 = This can include non-commuting travel or accommodation, or external business premises for this work only.
 
 
-hirer.equipmentExpenses.error.required = Select yes if the worker will have equipment costs that your organisation will not pay for
+hirer.equipmentExpenses.error.required = Select yes if the worker will have to buy equipment before your organisation pays them
 hirer.equipmentExpenses.title = Will the worker have to buy equipment before your organisation pays them?
 hirer.equipmentExpenses.subheading = Worker’s financial risk
 hirer.equipmentExpenses.heading = Will the worker have to buy equipment before your organisation pays them?
@@ -1686,8 +1686,8 @@ hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker have to buy equi
 hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment used for this work. This does not include laptops, tablets and phones.
 hirer.equipmentExpenses.p2 = Vehicle costs are covered in the next question.
 
-worker.equipmentExpenses.error.required = Select yes if you will have equipment costs that your client will not pay for
-agency.equipmentExpenses.error.required = Select yes if you will have equipment costs that your client will not pay for
+worker.equipmentExpenses.error.required = Select yes if you will have to buy equipment before your client pays you
+agency.equipmentExpenses.error.required = Select yes if you will have to buy equipment before your client pays you
 worker.equipmentExpenses.title = Will you have to buy equipment before your client pays you?
 worker.equipmentExpenses.subheading = Worker’s financial risk
 worker.equipmentExpenses.heading = Will you have to buy equipment before your client pays you?
