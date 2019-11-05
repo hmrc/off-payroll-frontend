@@ -1534,14 +1534,14 @@ agent.optimised.result.outside.heading = Off-payroll working rules (IR35) do not
 agent.optimised.result.outside.whyResult.p1 = Your answers told us:
 agent.optimised.result.outside.whyResult.substituteToDoWork = the worker’s client has accepted, or would accept, a substitute
 agent.optimised.result.outside.whyResult.clientNotControlWork = the worker’s client does not have control over this work
-agent.optimised.result.outside.whyResult.incurCostNoReclaim = the worker’s business will have costs for this work that their client will not pay for
+agent.optimised.result.outside.whyResult.incurCostNoReclaim = the worker or their business will have to fund costs before their client pays them
 agent.optimised.result.outside.whyResult.p2 = This suggests the worker is working on a business to business basis.
 agent.optimised.result.outside.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
 agent.optimised.result.outside.doNext.p2.text = If you need more guidance, you could also read Chapter 5 of the
 agent.optimised.result.outside.doNext.p2.link = Employment Status Manual
 agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
-agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that their client will not pay for.
+agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker or their business will have to fund costs before their client pays them.
 agent.optimised.result.outside.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
 
 ## ------------------

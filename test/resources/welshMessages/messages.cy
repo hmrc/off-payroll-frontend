@@ -1723,14 +1723,14 @@ agent.optimised.result.outside.heading = Nid yw rheolau gweithio oddi ar y gyflo
 agent.optimised.result.outside.whyResult.p1 = Yn ôl eich atebion, mae’r canlynol yn wir:
 agent.optimised.result.outside.whyResult.substituteToDoWork = mae cleient y gweithiwr wedi derbyn, neu byddai’n derbyn, eilydd
 agent.optimised.result.outside.whyResult.clientNotControlWork = nid oes gan gleient y gweithiwr reolaeth dros y gwaith hwn
-agent.optimised.result.outside.whyResult.incurCostNoReclaim = bydd busnes y gweithiwr yn wynebu cost am y gwaith hwn na fydd ei gleient yn talu amdani
+agent.optimised.result.outside.whyResult.incurCostNoReclaim = the worker or their business will have to fund costs before their client pays them
 agent.optimised.result.outside.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 agent.optimised.result.outside.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
 agent.optimised.result.outside.doNext.p2.text = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
 agent.optimised.result.outside.doNext.p2.link = Canllaw Statws Cyflogaeth.
 agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
-agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that their client will not pay for.
+agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker or their business will have to fund costs before their client pays them.
 agent.optimised.result.outside.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
 
 ##TODO: Need Welsh
