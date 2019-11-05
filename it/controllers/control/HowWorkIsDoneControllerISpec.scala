@@ -12,7 +12,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will your client decide how the work is done?")
+        result.body should include ("Does your client have the right to decide how the work is done?")
       }
     }
 
@@ -31,7 +31,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will your client decide how the work is done?")
+        result.body should include ("Does your client have the right to decide how the work is done?")
 
       }
     }
@@ -42,7 +42,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will your client decide the working hours?")
+        result.body should include ("Does your client have the right to decide your working hours?")
       }
     }
   }
@@ -55,7 +55,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will your client decide how the work is done?")
+        result.body should include ("Does your client have the right to decide how the work is done?")
       }
     }
 
@@ -74,7 +74,7 @@ class HowWorkIsDoneControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will your client decide how the work is done?")
+        result.body should include ("Does your client have the right to decide how the work is done?")
 
       }
     }

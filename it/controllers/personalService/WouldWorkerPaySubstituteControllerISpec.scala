@@ -42,7 +42,7 @@ class WouldWorkerPaySubstituteControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Can the task be changed without your agreement?")
+        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
       }
     }
   }
