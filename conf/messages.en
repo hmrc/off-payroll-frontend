@@ -1434,14 +1434,12 @@ hirer.optimised.result.outside.paye.heading = Self-employed for tax purposes for
 hirer.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWork = you do not have control over this work
-#TODO update Welsh messages
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = the worker or their business will have to fund costs before you pay them
 hirer.optimised.result.outside.paye.whyResult.p2 = This means the worker is self-employed for tax purposes for this work.
 hirer.optimised.result.outside.paye.doNext.p1 = You need to pay the worker’s earnings in full, without deducting tax or National Insurance.
 hirer.optimised.result.outside.paye.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
 hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
-#TODO
 hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker or their business will have to fund costs before you pay them.
 hirer.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
 ## ------------------
@@ -1495,8 +1493,6 @@ worker.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) 
 worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWork = your client does not have control over this work
-
-#TODO change relevant in Welsh
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaim = you or your business will have to fund costs before your client pays you
 worker.optimised.result.outside.ir35.whyResult.p2 = This suggests you are working on a business to business basis.
 worker.optimised.result.outside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting tax and National Insurance.
@@ -1506,8 +1502,6 @@ worker.optimised.result.outside.ir35.check.doNext.p3.text = You could also read 
 worker.optimised.result.outside.ir35.check.doNext.p3.link = Employment Status Manual
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
-
-#TODO does this need updating?
 worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you or your business will have to fund costs before your client pays you.
 worker.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
 
@@ -1560,7 +1554,6 @@ hirer.optimised.result.inside.ir35.doNext.p1 = If your organisation is responsib
 hirer.optimised.result.inside.ir35.doNext.p2.text = You could also read more about the
 hirer.optimised.result.inside.ir35.doNext.p2.link = responsibilities of the fee-payer
 hirer.optimised.result.inside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
-
 hirer.optimised.result.undetermined.ir35.title = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
@@ -1569,7 +1562,6 @@ hirer.optimised.result.undetermined.ir35.doNext.p1.workerKnown = You should down
 hirer.optimised.result.undetermined.ir35.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 hirer.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
 hirer.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
-
 hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
 hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
 hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
@@ -1595,15 +1587,11 @@ worker.optimised.result.outside.paye.heading = Self-employed for tax purposes fo
 worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
 worker.optimised.result.outside.paye.whyResult.clientNotControlWork = your client does not have control over this work
-
-#TODO change relevant in Welsh
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = you or your business will have to fund costs before your client pays you
 worker.optimised.result.outside.paye.whyResult.p2 = This means you are self-employed for tax purposes for this work.
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting tax and National Insurance.
 worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
 worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
-
-#TODO do this need updating?
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you or your business will have to fund costs before your client pays you.
 worker.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
 ## ------------------
