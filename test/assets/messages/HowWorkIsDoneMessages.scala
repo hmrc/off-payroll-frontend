@@ -39,8 +39,8 @@ object HowWorkIsDoneMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val error = "Select if your client will decide how the work is done"
-    val heading = "Will your client decide how the work is done?"
+    val error = "Select yes if your client has the right to decide how the work is done"
+    val heading = "Does your client have the right to decide how the work is done?"
     val title = heading
     val p1 = "This can include your client instructing, guiding or advising the way the task should be completed."
     val p2 = "This is not relevant if it is highly skilled work. For example, an airline pilot."
@@ -52,8 +52,8 @@ object HowWorkIsDoneMessages extends BaseMessages {
   }
 
   object OptimisedHirer {
-    val error = "Select yes if your organisation will decide how the work is done"
-    val heading = "Will your organisation decide how the work is done?"
+    val error = "Select yes if your organisation has the right to decide how the work is done"
+    val heading = "Does your organisation have the right to decide how the work is done?"
     val title = heading
     val p1 = "This can include your organisation instructing, guiding or advising the way the task should be completed."
     val p2 = "This is not relevant if it is highly skilled work. For example, an airline pilot."

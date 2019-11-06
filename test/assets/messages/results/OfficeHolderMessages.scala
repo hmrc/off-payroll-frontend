@@ -27,7 +27,7 @@ object OfficeHolderMessages extends BaseResultMessages {
     }
 
     object IR35 {
-      val title = "Off-payroll working rules (IR35) apply"
+      val title = "Result"
       val heading = "Off-payroll working rules (IR35) apply"
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are classed as employed for tax purposes for this work."
       val doNext_make_p1 = "Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings."
@@ -49,7 +49,7 @@ object OfficeHolderMessages extends BaseResultMessages {
     }
 
     object IR35 {
-      val title = "Off-payroll working rules (IR35) apply"
+      val title = "Result"
       val heading = "Off-payroll working rules (IR35) apply"
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are classed as employed for tax purposes for this work."
       val doNext_p1 = "If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings. If someone else is responsible, you should download a copy of this result and show it to them."
@@ -58,7 +58,7 @@ object OfficeHolderMessages extends BaseResultMessages {
   }
 
   object Agent {
-    val title = "Off-payroll working rules (IR35) apply"
+    val title = "Result"
     val heading = "Off-payroll working rules (IR35) apply"
     val whyResult_p1 = "You have completed the tool as if you are the worker."
     val whyResult_p2 = "In the ‘Worker’s Duties’ section, you answered that they will act in an official position for your client. This means they are classed as employed for tax purposes for this work."

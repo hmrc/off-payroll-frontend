@@ -37,8 +37,8 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val error = "Select yes if your client will decide the working hours"
-    val heading = "Will your client decide the working hours?"
+    val error = "Select yes if your client has the right to decide your working hours"
+    val heading = "Does your client have the right to decide your working hours?"
     val title = heading
     val yesClientDecides = "Yes"
     val noWorkerDecides = "No, you solely decide"
@@ -47,8 +47,8 @@ object ScheduleOfWorkingHoursMessages extends BaseMessages {
   }
 
   object OptimisedHirer {
-    val error = "Select yes if your organisation will decide the working hours"
-    val heading = "Will your organisation decide the working hours?"
+    val error = "Select yes if your organisation has the right to decide the worker’s working hours"
+    val heading = "Does your organisation have the right to decide the worker’s working hours?"
     val title = heading
     val yesClientDecides = "Yes"
     val noWorkerDecides = "No, the worker solely decides"

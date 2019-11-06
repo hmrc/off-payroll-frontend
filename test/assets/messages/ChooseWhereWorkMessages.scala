@@ -46,8 +46,8 @@ object ChooseWhereWorkMessages extends BaseMessages {
   }
 
   object OptimisedWorker {
-    val error = "Select yes if your client will decide where you do the work"
-    val heading = "Will your client decide where you do the work?"
+    val error = "Select yes if your client has the right to decide where you do the work"
+    val heading = "Does your client have the right to decide where you do the work?"
     val title = heading
     val clientDecides = "Yes"
     val workerDecides = "No, you solely decide"
@@ -56,8 +56,8 @@ object ChooseWhereWorkMessages extends BaseMessages {
   }
 
   object OptimisedHirer {
-    val error = "Select yes if your organisation will decide where the worker does the work"
-    val heading = "Will your organisation decide where the worker does the work?"
+    val error = "Select yes if your organisation has the right to decide where the worker does the work"
+    val heading = "Does your organisation have the right to decide where the worker does the work?"
     val title = heading
     val clientDecides = "Yes"
     val workerDecides = "No, the worker decides"

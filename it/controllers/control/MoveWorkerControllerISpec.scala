@@ -12,7 +12,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Can the task be changed without your agreement?")
+        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
       }
     }
 
@@ -31,7 +31,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Can the task be changed without your agreement?")
+        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
 
       }
     }
@@ -42,7 +42,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will your client decide how the work is done?")
+        result.body should include ("Does your client have the right to decide how the work is done? ")
       }
     }
   }
@@ -55,7 +55,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Can the task be changed without your agreement?")
+        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
       }
     }
 
@@ -74,7 +74,7 @@ class MoveWorkerControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Can the task be changed without your agreement?")
+        result.body should include ("Does your client have the right to move you from the task you originally agreed to do?")
 
       }
     }

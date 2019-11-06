@@ -20,7 +20,7 @@ object RejectSubstituteMessages extends BaseMessages {
   object Optimised {
 
     object Worker {
-      val error = "Select yes if your client has the right to reject a substitute who met all their criteria"
+      val error = "Select yes if your client has the right to reject a substitute"
       val heading = "Does your client have the right to reject a substitute?"
       val title = heading
       val p1 = "A substitute is someone you send in your place to do your role."
@@ -28,7 +28,7 @@ object RejectSubstituteMessages extends BaseMessages {
     }
 
     object Hirer {
-      val error = "Select yes if you have the right to reject a substitute who met all your criteria"
+      val error = "Select yes if you have the right to reject a substitute"
       val heading = "Do you have the right to reject a substitute?"
       val title = heading
       val p1 = "A substitute is someone the worker sends in their place to do their role."
