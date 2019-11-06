@@ -5,11 +5,11 @@ import play.api.http.Status
 
 class ExtendContractControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
 
-  s"Post or Get to /contract-exclusivity" should {
+  s"Post or Get to /no-similar-work" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/contract-exclusivity")
+      lazy val res = getSessionRequest("/no-similar-work")
 
       whenReady(res) { result =>
          result.status shouldBe OK
@@ -19,7 +19,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/contract-exclusivity")
+      lazy val res = optionsRequest("/no-similar-work")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -28,7 +28,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity", defaultValue)
+      lazy val res = postSessionRequest("/no-similar-work", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -39,7 +39,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity", selectedNo)
+      lazy val res = postSessionRequest("/no-similar-work", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -48,11 +48,11 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
     }
   }
 
-  s"Post or Get to /contract-exclusivity/change" should {
+  s"Post or Get to /no-similar-work/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/contract-exclusivity/change")
+      lazy val res = getSessionRequest("/no-similar-work/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -62,7 +62,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/contract-exclusivity/change")
+      lazy val res = optionsRequest("/no-similar-work/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -71,7 +71,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity/change", defaultValue)
+      lazy val res = postSessionRequest("/no-similar-work/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -82,7 +82,7 @@ class ExtendContractControllerISpec extends IntegrationSpecBase with CreateReque
 
     "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/contract-exclusivity/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/no-similar-work/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
         redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/need-permission/change")

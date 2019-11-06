@@ -5,11 +5,11 @@ import play.api.http.Status
 
 class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData{
 
-  s"Post or Get to /contract-starts-after-previous-one" should {
+  s"Post or Get to /contract-series" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/contract-starts-after-previous-one")
+      lazy val res = getSessionRequest("/contract-series")
 
       whenReady(res) { result =>
          result.status shouldBe OK
@@ -19,7 +19,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/contract-starts-after-previous-one")
+      lazy val res = optionsRequest("/contract-series")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -28,7 +28,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/contract-starts-after-previous-one", defaultValue)
+      lazy val res = postSessionRequest("/contract-series", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -39,7 +39,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 200 on Successful post and move onto next page" in {
 
-      lazy val res = postSessionRequest("/contract-starts-after-previous-one", selectedNo)
+      lazy val res = postSessionRequest("/contract-series", selectedNo)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -48,11 +48,11 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
     }
   }
 
-  s"Post or Get to /contract-starts-after-previous-one/change" should {
+  s"Post or Get to /contract-series/change" should {
 
     "Return a 200 on successful get and should be on relevant page" in {
 
-      lazy val res = getSessionRequest("/contract-starts-after-previous-one/change")
+      lazy val res = getSessionRequest("/contract-series/change")
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -62,7 +62,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 404 on a post to unused method" in {
 
-      lazy val res = optionsRequest("/contract-starts-after-previous-one/change")
+      lazy val res = optionsRequest("/contract-series/change")
 
       whenReady(res) { result =>
         result.status shouldBe NOT_FOUND
@@ -71,7 +71,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 400 on unsuccessful post and stay on the same page" in {
 
-      lazy val res = postSessionRequest("/contract-starts-after-previous-one/change", defaultValue)
+      lazy val res = postSessionRequest("/contract-series/change", defaultValue)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -82,7 +82,7 @@ class FollowOnContractControllerISpec extends IntegrationSpecBase with CreateReq
 
     "Return a 409 on Successful post as answers not complete" in {
 
-      lazy val res = postSessionRequest("/contract-starts-after-previous-one/change", selectedNo, followRedirect = false)
+      lazy val res = postSessionRequest("/contract-series/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
         redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/first-contract-in-series/change")

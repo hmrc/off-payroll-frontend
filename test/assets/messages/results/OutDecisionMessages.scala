@@ -19,8 +19,6 @@ package assets.messages.results
 object OutDecisionMessages extends BaseResultMessages {
 
   object WorkerIR35 {
-
-    val title = "Off-payroll working rules (IR35) do not apply"
     val heading = "Off-payroll working rules (IR35) do not apply"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "your client has accepted, or would accept, a substitute"
@@ -38,13 +36,10 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultReason3 = "Your answers told us you or your business will have to fund costs before your client pays you."
     val whyResultReason4 = "Your answers told us you are providing services as a business."
     val businessReasons = "The answers you have given suggest you are working on a business to business basis."
-
   }
 
   object HirerIR35 {
-    val title = "Off-payroll working rules (IR35) do not apply"
     val heading = "Off-payroll working rules (IR35) do not apply"
-
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "you have accepted, or would accept, a substitute"
     val whyResultB2 = "you do not have control over this work"
@@ -59,11 +54,9 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResultReason3 = "Your answers told us the worker or their business will have to fund costs before you pay them."
     val whyResultReason4 = "Your answers told us the worker is providing services as a business."
     val businessReasons = "The answers you have given suggest the worker is working on a business to business basis."
-
   }
 
   object WorkerPAYE {
-    val title = "Self-employed for tax purposes for this work"
     val heading = "Self-employed for tax purposes for this work"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "your client has accepted, or would accept, a substitute"
@@ -80,7 +73,6 @@ object OutDecisionMessages extends BaseResultMessages {
   }
 
   object HirerPAYE {
-    val title = "Self-employed for tax purposes for this work"
     val heading = "Self-employed for tax purposes for this work"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "you have accepted, or would accept, a substitute"
@@ -98,7 +90,6 @@ object OutDecisionMessages extends BaseResultMessages {
   }
 
   object Agent {
-    val title = "Off-payroll working rules (IR35) do not apply"
     val heading = "Off-payroll working rules (IR35) do not apply"
     val whyResultP1 = "Your answers told us:"
     val whyResultB1 = "the worker’s client has accepted, or would accept, a substitute"
@@ -113,6 +104,5 @@ object OutDecisionMessages extends BaseResultMessages {
     val whyResulReason3 = "Your answers told us the worker or their business will have to fund costs before their client pays them."
     val whyResulReason4 = "Your answers told us the worker is providing services as a business."
     val businessReasons = "The answers you have given suggest the worker is working on a business to business basis."
-
   }
 }

@@ -62,7 +62,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Agent.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Agent.heading
@@ -79,7 +79,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Agent.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Agent.heading

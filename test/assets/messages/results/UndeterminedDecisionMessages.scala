@@ -23,7 +23,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
   }
 
   object WorkerIR35 {
-    val title = "Unable to make a determination"
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
     val whyResult2 = "We will need more information to check your employment status for tax."
@@ -33,7 +32,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
   }
 
   object HirerPAYE {
-    val title = "Unable to make a determination"
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work."
     val whyResult2 = "We will need more information to check your employment status for tax."
@@ -45,7 +43,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
   }
 
   object Agent {
-    val title = "Unable to make a determination"
     val heading = "Unable to make a determination"
     val whyResult_p1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
     val whyResult_p2 = "We will need more information to check your employment status for tax."
@@ -54,7 +51,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
   }
 
   object HirerIR35 {
-    val title = "Unable to make a determination"
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
     val whyResult2 = "We will need more information to check your employment status for tax."
@@ -66,7 +62,6 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
   }
 
   object WorkerPAYE {
-    val title = "Unable to make a determination"
     val heading = "Unable to make a determination"
     val whyResult1 = "We cannot determine from your answers if you are employed or self-employed for tax purposes for this work."
     val whyResult2 = "We will need more information to check your employment status for tax."

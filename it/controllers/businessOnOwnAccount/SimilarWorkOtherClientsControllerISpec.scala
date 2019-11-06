@@ -42,7 +42,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
       lazy val res = postSessionRequest("/similar-work", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-          redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers")
+          redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers")
       }
     }
   }
@@ -84,7 +84,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
       lazy val res = postSessionRequest("/similar-work/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers?sectionToExpand=businessOnOwnAccount")
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers?sectionToExpand=businessOnOwnAccount")
       }
     }
   }

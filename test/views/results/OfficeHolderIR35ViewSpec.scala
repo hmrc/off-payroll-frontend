@@ -127,7 +127,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
@@ -149,7 +149,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.IR35.heading
@@ -186,7 +186,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
@@ -204,7 +204,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.IR35.heading

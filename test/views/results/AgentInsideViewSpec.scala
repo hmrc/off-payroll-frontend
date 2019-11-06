@@ -63,7 +63,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.Agent.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.Agent.heading
@@ -80,7 +80,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.Agent.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.Agent.heading

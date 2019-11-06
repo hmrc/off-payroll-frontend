@@ -166,7 +166,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.HirerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
@@ -184,7 +184,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.HirerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.HirerIR35.heading
@@ -216,7 +216,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
@@ -238,7 +238,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.WorkerIR35.heading

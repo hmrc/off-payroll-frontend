@@ -85,7 +85,7 @@ class WorkerKnownControllerISpec extends IntegrationSpecBase with CreateRequestH
       lazy val res = postSessionRequest("/worker-known/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers?sectionToExpand=businessOnOwnAccount")
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers?sectionToExpand=businessOnOwnAccount")
       }
     }
   }

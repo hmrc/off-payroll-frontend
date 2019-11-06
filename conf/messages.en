@@ -1349,6 +1349,7 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
 
 ## Common Result Messages
 ## ----------------------
+optimised.result.title = Result
 optimised.result.whyResult.h2 = Why you are getting this result
 optimised.result.doNext.h2 = What you should do next
 optimised.result.download.p1 = It is important that you keep a copy of this determination for your records.
@@ -1362,12 +1363,10 @@ optimised.result.download.p2.postStartAgain = to check the employment status of 
 
 ## Office Holder PAYE
 ## ------------------
-worker.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
 worker.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
 worker.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are employed for tax purposes for this work.
 worker.optimised.result.officeHolder.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
 
-hirer.optimised.result.officeHolder.paye.title = Employed for tax purposes for this work
 hirer.optimised.result.officeHolder.paye.heading = Employed for tax purposes for this work
 hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work.
 hirer.optimised.result.officeHolder.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
@@ -1377,7 +1376,6 @@ hirer.optimised.result.officeHolder.paye.doNext.p2.link = PAYE and payroll for e
 
 ## Office Holder IR35
 ## ------------------
-worker.optimised.result.officeHolder.ir35.title = Result
 worker.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
 worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are classed as employed for tax purposes for this work.
 worker.optimised.result.officeHolder.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
@@ -1386,7 +1384,6 @@ worker.optimised.result.officeHolder.ir35.check.doNext.p2 = If you need more gui
 worker.optimised.result.officeHolder.ir35.check.doNext.p3.preLink = You could also read Chapter 5 of the
 worker.optimised.result.officeHolder.ir35.check.doNext.p3.link = Employment Status Manual
 
-hirer.optimised.result.officeHolder.ir35.title = Result
 hirer.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
 hirer.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are classed as employed for tax purposes for this work.
 hirer.optimised.result.officeHolder.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings. If someone else is responsible, you should download a copy of this result and show it to them.
@@ -1396,7 +1393,6 @@ hirer.optimised.result.officeHolder.ir35.doNext.p2.link = responsibilities of th
 
 ## Office Holder Agent
 ## -------------------
-agent.optimised.result.officeHolder.title = Result
 agent.optimised.result.officeHolder.heading = Off-payroll working rules (IR35) apply
 agent.optimised.result.officeHolder.whyResult.p1 = You have completed the tool as if you are the worker.
 agent.optimised.result.officeHolder.whyResult.p2 = In the ‘Worker’s Duties’ section, you answered that they will act in an official position for your client. This means they are classed as employed for tax purposes for this work.
@@ -1407,7 +1403,6 @@ agent.optimised.result.officeHolder.doNext.p2.link = Employment Status Manual
 
 ## Inside PAYE Hirer
 ## ------------------
-hirer.optimised.result.inside.paye.title = Employed for tax purposes for this work
 hirer.optimised.result.inside.paye.heading = Employed for tax purposes for this work
 hirer.optimised.result.inside.paye.whyResult.p1 = The answers you have given suggest the worker is employed for tax purposes for this work.
 hirer.optimised.result.inside.paye.doNext.p1 = You need to operate PAYE on the worker’s earnings.
@@ -1418,7 +1413,6 @@ hirer.optimised.result.inside.paye.doNext.workerNotKnown = Once your organisatio
 
 ## Undetermined PAYE Hirer
 ## ------------------
-hirer.optimised.result.undetermined.paye.title = Unable to make a determination
 hirer.optimised.result.undetermined.paye.heading = Unable to make a determination
 hirer.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work.
 hirer.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
@@ -1429,7 +1423,6 @@ hirer.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter
 
 ## Outside PAYE Hirer
 ## ------------------
-hirer.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
 hirer.optimised.result.outside.paye.heading = Self-employed for tax purposes for this work
 hirer.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 hirer.optimised.result.outside.paye.whyResult.substituteToDoWork = you have accepted, or would accept, a substitute
@@ -1446,7 +1439,6 @@ hirer.optimised.result.outside.paye.whyResult.businessToBusiness = The answers y
 
 ## Inside PAYE Worker
 ## ------------------
-worker.optimised.result.inside.paye.title = Employed for tax purposes for this work
 worker.optimised.result.inside.paye.heading = Employed for tax purposes for this work
 worker.optimised.result.inside.paye.whyResult.p1 = The answers you have given suggest you are employed for tax purposes for this work.
 worker.optimised.result.inside.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
@@ -1454,7 +1446,6 @@ worker.optimised.result.inside.paye.doNext.p1 = Download a copy of this result a
 
 ## Undetermined PAYE Worker
 ## ------------------
-worker.optimised.result.undetermined.paye.title = Unable to make a determination
 worker.optimised.result.undetermined.paye.heading = Unable to make a determination
 worker.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if you are employed or self-employed for tax purposes for this work.
 worker.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
@@ -1466,7 +1457,6 @@ worker.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapte
 
 ## In IR35 Decision Worker
 ## -------------------
-worker.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply
 worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
 worker.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest you are providing a personal service to your client. This means you are classed as employed for tax purposes for this work.
 worker.optimised.result.inside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
@@ -1478,7 +1468,6 @@ worker.optimised.result.inside.ir35.check.doNext.p3.link = Employment Status Man
 
 ## Undetermined IR35 Decision Worker
 ## -------------------
-worker.optimised.result.undetermined.ir35.title = Unable to make a determination
 worker.optimised.result.undetermined.ir35.heading = Unable to make a determination
 worker.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
 worker.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
@@ -1488,7 +1477,6 @@ worker.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapte
 
 ## Outside IR35 Decision Worker
 ## ------------------
-worker.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
 worker.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
 worker.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.ir35.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute
@@ -1508,7 +1496,6 @@ worker.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers 
 
 ## Inside Agent
 ## ------------------
-agent.optimised.result.inside.title = Off-payroll working rules (IR35) apply
 agent.optimised.result.inside.heading = Off-payroll working rules (IR35) apply
 agent.optimised.result.inside.whyResult.p1 = You have completed this tool as if you are the worker.
 agent.optimised.result.inside.whyResult.p2 = The answers you have given tell us that the worker is providing a personal service to their client. This means they are classed as employed for tax purposes for this work.
@@ -1519,7 +1506,6 @@ agent.optimised.result.inside.doNext.p2.link = Employment Status Manual
 
 ## Undetermined Agent
 ## ------------------
-agent.optimised.result.undetermined.title = Unable to make a determination
 agent.optimised.result.undetermined.heading = Unable to make a determination
 agent.optimised.result.undetermined.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
 agent.optimised.result.undetermined.whyResult.p2 = We will need more information to check your employment status for tax.
@@ -1529,7 +1515,6 @@ agent.optimised.result.undetermined.doNext.p2 = If you need more guidance, you c
 ## ------------------
 ## Out Agent
 ## ------------------
-agent.optimised.result.outside.title = Off-payroll working rules (IR35) do not apply
 agent.optimised.result.outside.heading = Off-payroll working rules (IR35) do not apply
 agent.optimised.result.outside.whyResult.p1 = Your answers told us:
 agent.optimised.result.outside.whyResult.substituteToDoWork = the worker’s client has accepted, or would accept, a substitute
@@ -1547,14 +1532,13 @@ agent.optimised.result.outside.whyResult.businessToBusiness = The answers you ha
 ## ------------------
 ## Hirer IR35
 ## ------------------
-hirer.optimised.result.inside.ir35.title = Off-payroll working rules (IR35) apply
 hirer.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
 hirer.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest the worker is providing a personal service to your organisation. This means they are classed as employed for tax purposes for this work.
 hirer.optimised.result.inside.ir35.doNext.p1 = If your organisation is responsible for paying the worker, you need to operate PAYE on their earnings. If someone else is responsible, you should download a copy of this result and show it to them.
 hirer.optimised.result.inside.ir35.doNext.p2.text = You could also read more about the
 hirer.optimised.result.inside.ir35.doNext.p2.link = responsibilities of the fee-payer
 hirer.optimised.result.inside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
-hirer.optimised.result.undetermined.ir35.title = Unable to make a determination
+
 hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
 hirer.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
 hirer.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
@@ -1582,7 +1566,6 @@ hirer.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers y
 
 ## Outside PAYE Worker
 ## ------------------
-worker.optimised.result.outside.paye.title = Self-employed for tax purposes for this work
 worker.optimised.result.outside.paye.heading = Self-employed for tax purposes for this work
 worker.optimised.result.outside.paye.whyResult.p1 = Your answers told us:
 worker.optimised.result.outside.paye.whyResult.substituteToDoWork = your client has accepted, or would accept, a substitute

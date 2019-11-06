@@ -18,6 +18,6 @@ package assets.messages.results
 
 object PrintPreviewMessages extends BaseResultMessages {
 
-  val title = "Keep a copy of your determination"
+  override val title = "Keep a copy of your determination"
   val heading = "Keep a copy of your determination"
 }
