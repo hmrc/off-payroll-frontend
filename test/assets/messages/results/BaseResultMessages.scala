@@ -20,6 +20,7 @@ import assets.messages.BaseMessages
 
 trait BaseResultMessages extends BaseMessages {
 
+  val title = "Result"
   val whyResultHeading = "Why you are getting this result"
   val doNextHeading = "What you should do next"
   val downloadHeading = "Do you want to download this result?"

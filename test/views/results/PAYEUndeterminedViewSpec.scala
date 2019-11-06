@@ -129,7 +129,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
@@ -147,7 +147,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
@@ -174,7 +174,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
@@ -192,7 +192,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading

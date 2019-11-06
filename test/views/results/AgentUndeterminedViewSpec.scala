@@ -64,7 +64,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
@@ -81,7 +81,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.Agent.heading

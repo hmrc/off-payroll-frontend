@@ -173,7 +173,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerPAYE.heading
@@ -191,7 +191,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.WorkerPAYE.heading
@@ -227,7 +227,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerPAYE.heading
@@ -245,7 +245,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.HirerPAYE.heading

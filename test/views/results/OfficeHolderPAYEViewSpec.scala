@@ -96,7 +96,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
@@ -114,7 +114,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Worker.PAYE.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.PAYE.heading
@@ -137,7 +137,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
@@ -155,7 +155,7 @@ class OfficeHolderPAYEViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Hirer.PAYE.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.PAYE.heading
