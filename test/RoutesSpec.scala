@@ -193,10 +193,10 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Customise Result page" in {
-      PDFController.onPageLoad(NormalMode).url mustBe fullPath("/add-some-details")
-      PDFController.onPageLoad(CheckMode).url mustBe fullPath("/add-some-details/change")
-      PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-some-details")
-      PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-some-details/change")
+      PDFController.onPageLoad(NormalMode).url mustBe fullPath("/add-details")
+      PDFController.onPageLoad(CheckMode).url mustBe fullPath("/add-details/change")
+      PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-details")
+      PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details/change")
     }
 
     "Have the correct routes for the Check Your Answers page" in {

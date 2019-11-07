@@ -135,10 +135,10 @@ POST       /introduce-worker/change                     controllers.sections.par
 GET        /determination                               controllers.ResultController.onPageLoad()
 POST       /determination                               controllers.ResultController.onSubmit()
 
-GET        /add-some-details                            controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-some-details                            controllers.PDFController.onSubmit(mode: Mode = NormalMode)
-GET        /add-some-details/change                     controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-some-details/change                     controllers.PDFController.onSubmit(mode: Mode = CheckMode)
+GET        /add-details                            controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-details                            controllers.PDFController.onSubmit(mode: Mode = NormalMode)
+GET        /add-details/change                     controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-details/change                     controllers.PDFController.onSubmit(mode: Mode = CheckMode)
 
 GET        /download-pdf                                controllers.PDFController.downloadPDF()
 
@@ -148,8 +148,8 @@ POST       /agency-not-responsible                      controllers.sections.set
 GET        /review-your-answers                         controllers.CheckYourAnswersController.onPageLoad(sectionToExpand: Option[models.Section.SectionEnum] ?= None)
 POST       /review-your-answers                         controllers.CheckYourAnswersController.onSubmit()
 
-GET        /add-details                                 controllers.AddReferenceDetailsController.onPageLoad()
-POST       /add-details                                 controllers.AddReferenceDetailsController.onSubmit()
+GET        /add-some-details                                 controllers.AddReferenceDetailsController.onPageLoad()
+POST       /add-some-details                                 controllers.AddReferenceDetailsController.onSubmit()
 
 GET        /your-determination-and-answers              controllers.PrintPreviewController.onPageLoad()
 
