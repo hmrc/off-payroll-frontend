@@ -1073,7 +1073,7 @@ worker.optimised.rejectSubstitute.title = Os anfonoch eilydd a oedd yn bodloni h
 worker.optimised.rejectSubstitute.subheading = Eilyddion a chynorthwywyr
 worker.optimised.rejectSubstitute.heading = Os anfonoch eilydd a oedd yn bodloni holl feini prawf eich cleient, a oes gan y cleient yr hawl i’w wrthod?
 worker.optimised.rejectSubstitute.checkYourAnswersLabel = Os anfonoch eilydd a oedd yn bodloni holl feini prawf eich cleient, a oes gan y cleient yr hawl i’w wrthod?
-worker.optimised.rejectSubstitute.p1 = Mae’r meini prawf hyn yn cynnwys bod gan yr eilydd gymwysterau cydradd, yn ogystal â’i fod yn bodloni gweithdrefnau’ch cleient o ran cyfweld, fetio a chliriadau diogelwch.
+worker.optimised.rejectSubstitute.p1 = A substitute is someone you send in your place to do your role.
 worker.optimised.rejectSubstitute.p2 = This can include rejecting a substitute even if they are equally qualified, and meet your client’s interviewing, vetting and security clearance procedures.
 
 ## TODO: Welsh Needed
@@ -1643,7 +1643,7 @@ worker.otherExpenses.title = A fydd unrhyw gostau eraill yn cael eu codi arnoch 
 worker.otherExpenses.subheading = Risg ariannol y gweithiwr
 worker.otherExpenses.heading = A fydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.otherExpenses.checkYourAnswersLabel = A fydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
-worker.otherExpenses.p1 = Gall hyn gynnwys llety neu deithio nad yw'n ymwneud â chymudo, safleoedd busnes allanol, yswiriant neu achrediad ar gyfer y gwaith hwn yn unig
+worker.otherExpenses.p1 = Gall hyn gynnwys llety neu deithio nad yw'n ymwneud â chymudo, safleoedd busnes allanol, ar gyfer y gwaith hwn yn unig
 
 ##TODO: Need Welsh
 hirer.equipmentExpenses.error.required = Select yes if the worker will have equipment costs that your organisation will not pay for
