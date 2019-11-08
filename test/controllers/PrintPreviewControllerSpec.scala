@@ -54,10 +54,10 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
 
         "Return OK (200)" in {
 
-          val result = testPrintPreviewController().onPageLoad()(request)
-
           mockDetermineResultView(decisionResponse)(Right(Html("Success")))
           mockCheckYourAnswers(Seq())
+
+          val result = testPrintPreviewController().onPageLoad()(request)
 
           status(result) mustBe OK
         }
