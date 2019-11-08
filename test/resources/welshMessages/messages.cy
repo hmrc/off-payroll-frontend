@@ -1606,7 +1606,7 @@ hirer.materials.subheading = Worker’s financial risk
 hirer.materials.heading = Will the worker have to buy materials before your organisation pays them?
 hirer.materials.checkYourAnswersLabel = Will the worker have to buy materials before your organisation pays them?
 hirer.materials.p1 = Gall hyn gynnwys eitemau sy’n rhan barhaol o’r gwaith, neu sy’n cael eu gadael ar ôl pan fyddwch yn gadael. Nid yw deunydd ysgrifennu wedi’i gynnwys.
-hirer.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i’r diwydiant adeiladu
+hirer.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i’r diwydiant adeiladu.
 
 worker.materials.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer deunyddiau yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.materials.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer deunyddiau yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
@@ -1615,7 +1615,7 @@ worker.materials.subheading = Risg ariannol y gweithiwr
 worker.materials.heading = A fydd unrhyw gostau ar gyfer deunyddiau’n cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.materials.checkYourAnswersLabel = A fydd unrhyw gostau ar gyfer deunyddiau’n cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.materials.p1 = Gall hyn gynnwys eitemau sy’n rhan barhaol o’r gwaith, neu sy’n cael eu gadael ar ôl pan fyddwch yn gadael. Nid yw deunydd ysgrifennu wedi’i gynnwys.
-worker.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i’r diwydiant adeiladu
+worker.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i’r diwydiant adeiladu.
 
 ##TODO: Need Welsh
 hirer.vehicle.error.required = Select yes if the worker will have costs for a vehicle that your organisation will not pay for
