@@ -1643,7 +1643,7 @@ worker.otherExpenses.title = A fydd unrhyw gostau eraill yn cael eu codi arnoch 
 worker.otherExpenses.subheading = Risg ariannol y gweithiwr
 worker.otherExpenses.heading = A fydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.otherExpenses.checkYourAnswersLabel = A fydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
-worker.otherExpenses.p1 = Gall hyn gynnwys llety neu deithio nad yw'n ymwneud â chymudo, safleoedd busnes allanol, ar gyfer y gwaith hwn yn unig
+worker.otherExpenses.p1 = Gall hyn gynnwys llety neu deithio nad yw'n ymwneud â chymudo, safleoedd busnes allanol, ar gyfer y gwaith hwn yn unig.
 
 ##TODO: Need Welsh
 hirer.equipmentExpenses.error.required = Select yes if the worker will have equipment costs that your organisation will not pay for
