@@ -77,7 +77,7 @@ site.letter.pdf = Save as a PDF
 site.letter.copyOf.onceYouHave = Once you have a copy of your result you can
 site.letter.copyOf.exit = exit
 site.letter.copyOf.or = , or
-site.letter.copyOf.startAgain = start again
+site.letter.copyOf.startAgain = Dechrau eto
 site.letter.copyOf.otherWork = to check the employment status of some other work.
 site.letter.aboutThisResult = About this result
 site.letter.dateOfResult = Date of result:
@@ -385,7 +385,7 @@ worker.optimised.arrangedSubstitute.p1 = A substitute is someone you send in you
 hirer.optimised.arrangedSubstitute.error.required = Select if the worker has ever sent a substitute to do their work
 hirer.optimised.arrangedSubstitute.error.invalid = Select if the worker has ever sent a substitute to do their work
 hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do this work?
-hirer.optimised.arrangedSubstitute.subheading = Substitutes and helpers
+hirer.optimised.arrangedSubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do this work?
 hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent a substitute to do this work?
 hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted them
@@ -425,13 +425,13 @@ worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes e
 ##TODO: Need Welsh
 hirer.optimised.identifyToStakeholders.error.required = Select how the worker would introduce themselves to your consumers or suppliers
 hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
-hirer.optimised.identifyToStakeholders.subheading = Worker’s involvement
+hirer.optimised.identifyToStakeholders.subheading = Cyfraniad y gweithiwr
 hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.checkYourAnswersLabel = How would the worker introduce themselves to your consumers or suppliers?
 hirer.optimised.identifyToStakeholders.workForEndClient = They work for you
 hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independent worker acting on your behalf
 hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
-hirer.optimised.identifyToStakeholders.wouldNotHappen = This would not happen
+hirer.optimised.identifyToStakeholders.wouldNotHappen = Ni fyddai hyn yn digwydd
 
 worker.optimised.identifyToStakeholders.error.required = Dewiswch sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
 agency.optimised.identifyToStakeholders.error.required = Dewiswch sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
@@ -503,7 +503,7 @@ hirer.optimised.lineManagerDuties.title = Will the worker have any management re
 hirer.optimised.lineManagerDuties.subheading = Worker’s involvement
 hirer.optimised.lineManagerDuties.heading = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any management responsibilities for your organisation?
-hirer.optimised.lineManagerDuties.p1 = This can include deciding how much to pay someone, hiring or dismissing workers, and delivering appraisals.
+hirer.optimised.lineManagerDuties.p1 = Gall hyn gynnwys penderfynu faint i dalu rhywun, cyflogi neu ddiswyddo gweithwyr, a darparu gwerthusiadau.
 
 worker.optimised.lineManagerDuties.error.required = Dewiswch os bydd gennych unrhyw gyfrifoldebau rheoli ar gyfer eich cleient
 agency.optimised.lineManagerDuties.error.required = Dewiswch os bydd gennych unrhyw gyfrifoldebau rheoli ar gyfer eich cleient
@@ -564,7 +564,7 @@ hirer.optimised.benefits.title = Will you provide the worker with paid-for corpo
 hirer.optimised.benefits.subheading = Worker’s involvement
 hirer.optimised.benefits.heading = Will you provide the worker with paid-for corporate benefits?
 hirer.optimised.benefits.checkYourAnswersLabel = Will you provide the worker with paid-for corporate benefits?
-hirer.optimised.benefits.p1 = This can include external gym memberships, health insurance or retail discounts.
+hirer.optimised.benefits.p1 = Gall hyn gynnwys aelodaeth â champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
 #########################
 
 ## Put Right at Workers Own Cost
@@ -680,12 +680,12 @@ worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = Canran o’ch cleient, e
 hirer.optimised.howWorkerIsPaid.error.required = Select how the worker will be paid for this work
 hirer.optimised.howWorkerIsPaid.error.invalid = Select how the worker will be paid for this work
 hirer.optimised.howWorkerIsPaid.title = How will the worker be paid for this work?
-hirer.optimised.howWorkerIsPaid.subheading = Worker’s financial risk
+hirer.optimised.howWorkerIsPaid.subheading = Risg ariannol y gweithiwr
 hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be paid for this work?
-hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = An hourly, daily or weekly rate
-hirer.optimised.howWorkerIsPaid.incomeFixed = A fixed price for the project
-hirer.optimised.howWorkerIsPaid.incomePieceRate = A fixed amount for each piece of work completed
+hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = Cyfradd yn ôl yr awr, cyfradd ddyddiol neu gyfradd wythnosol
+hirer.optimised.howWorkerIsPaid.incomeFixed = Cyfradd yn ôl yr awr, cyfradd ddyddiol neu gyfradd wythnosol Pris sefydlog ar gyfer prosiect penodol
+hirer.optimised.howWorkerIsPaid.incomePieceRate = Swm y gwaith a gwblhawyd
 hirer.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker generates
 hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your organisation’s profits or savings
 #########################
@@ -739,12 +739,12 @@ worker.optimised.chooseWhereWork.workerAgreeWithOthers = Na, rhaid gwneud peth o
 hirer.optimised.chooseWhereWork.error.required = Select yes if your organisation has the right to decide where the worker does the work
 hirer.optimised.chooseWhereWork.error.invalid = Select yes if your organisation has the right to decide where the worker does the work
 hirer.optimised.chooseWhereWork.title = Does your organisation have the right to decide where the worker does the work?
-hirer.optimised.chooseWhereWork.subheading = Working arrangements
+hirer.optimised.chooseWhereWork.subheading = Trefniadau gweithio
 hirer.optimised.chooseWhereWork.heading = Does your organisation have the right to decide where the worker does the work?
 hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Does your organisation have the right to decide where the worker does the work?
 hirer.optimised.chooseWhereWork.workerCannotChoose = Iawn
 hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
-hirer.optimised.chooseWhereWork.noLocationRequired = No, the task sets the location
+hirer.optimised.chooseWhereWork.noLocationRequired = Na, y dasg sy’n pennu’r lleoliad
 hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
 #########################
 
@@ -854,7 +854,7 @@ hirer.optimised.howWorkIsDone.p3.link = how the work is done
 hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Does your organisation have the right to decide how the work is done?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
-hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Not relevant, it is highly skilled work
+hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Na, oherwydd ei fod yn waith tra medrus
 hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
 
 ## TODO: welsh needed for new english content
@@ -1359,13 +1359,13 @@ checkYourAnswers.confirm.bullet1 = the information you have provided is correct,
 checkYourAnswers.confirm.bullet2 = it reflects the actual or expected working practices of this role
 checkYourAnswers.confirm.bullet3 = if this information changes, you accept your result may no longer hold
 
-checkYourAnswers.setup.header = 1. About you and the work
+checkYourAnswers.setup.header = 1. Amdanoch chi a’r gwaith
 checkYourAnswers.exit.header = 2. Worker’s duties
-checkYourAnswers.personalService.header = 3. Substitutes and helpers
-checkYourAnswers.control.header = 4. Working arrangements
-checkYourAnswers.financialRisk.header = 5. Worker’s financial risk
-checkYourAnswers.partParcel.header = 6. Worker’s involvement
-checkYourAnswers.businessOnOwnAccount.header = 7. Worker’s contracts
+checkYourAnswers.personalService.header = 3. Eilyddion a chynorthwywyr
+checkYourAnswers.control.header = 4. Trefniadau gweithio
+checkYourAnswers.financialRisk.header = 5. Risg ariannol y gweithiwr
+checkYourAnswers.partParcel.header = 6. Cyfraniad y gweithiwr
+checkYourAnswers.businessOnOwnAccount.header = 7. Contractau’r gweithiw
 
 #### New Optimised Result Pages ####
 #----------------------------------#
@@ -1601,8 +1601,8 @@ hirer.materials.title = Will you have to buy materials before your client pays y
 hirer.materials.subheading = Worker’s financial risk
 hirer.materials.heading = Will the worker have to buy materials before your organisation pays them?
 hirer.materials.checkYourAnswersLabel = Will the worker have to buy materials before your organisation pays them?
-hirer.materials.p1 = This can include items that form a lasting part of the work, or are left behind when the worker leaves. This does not include items like stationery.
-hirer.materials.p2 = This question is most likely to be relevant to the construction industry.
+hirer.materials.p1 = Gall hyn gynnwys eitemau sy’n rhan barhaol o’r gwaith, neu sy’n cael eu gadael ar ôl pan fyddwch yn gadael. Nid yw deunydd ysgrifennu wedi’i gynnwys.
+hirer.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i’r diwydiant adeiladu
 
 worker.materials.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer deunyddiau yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.materials.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer deunyddiau yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
