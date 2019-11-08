@@ -67,6 +67,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedWorker.p1
         document.select(Selectors.p(2)).text mustBe MoveWorkerMessages.OptimisedWorker.p2
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM0527Url
       }
 
       "have the correct radio option messages" in {
@@ -91,6 +92,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedHirer.p1
         document.select(Selectors.p(2)).text mustBe MoveWorkerMessages.OptimisedHirer.p2
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM0527Url
       }
 
       "have the correct radio option messages" in {
@@ -115,6 +117,7 @@ class MoveWorkerViewSpec extends ViewBehaviours {
       "have the correct p1" in {
         document.select(Selectors.p(1)).text mustBe MoveWorkerMessages.OptimisedWorker.p1
         document.select(Selectors.p(2)).text mustBe MoveWorkerMessages.OptimisedWorker.p2
+        document.select("#employmentStatusManualLink").attr("href") mustBe frontendAppConfig.employmentStatusManualESM0527Url
       }
 
       "have the correct radio option messages" in {
