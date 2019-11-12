@@ -77,7 +77,7 @@ site.letter.pdf = Save as a PDF
 site.letter.copyOf.onceYouHave = Once you have a copy of your result you can
 site.letter.copyOf.exit = exit
 site.letter.copyOf.or = , or
-site.letter.copyOf.startAgain = Dechrau eto
+site.letter.copyOf.startAgain = dechrau eto
 site.letter.copyOf.otherWork = to check the employment status of some other work.
 site.letter.aboutThisResult = About this result
 site.letter.dateOfResult = Date of result:
@@ -684,7 +684,7 @@ hirer.optimised.howWorkerIsPaid.subheading = Risg ariannol y gweithiwr
 hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be paid for this work?
 hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = Cyfradd yn ôl yr awr, cyfradd ddyddiol neu gyfradd wythnosol
-hirer.optimised.howWorkerIsPaid.incomeFixed = Cyfradd yn ôl yr awr, cyfradd ddyddiol neu gyfradd wythnosol Pris sefydlog ar gyfer prosiect penodol
+hirer.optimised.howWorkerIsPaid.incomeFixed = Pris sefydlog ar gyfer prosiect penodol
 hirer.optimised.howWorkerIsPaid.incomePieceRate = Swm y gwaith a gwblhawyd
 hirer.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker generates
 hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your organisation’s profits or savings
@@ -980,7 +980,7 @@ worker.optimised.neededToPayHelper.checkYourAnswersLabel = A ydych wedi talu per
 ## TODO: Need Welsh
 hirer.optimised.neededToPayHelper.error.required = Select yes if the worker paid another person to do a significant amount of this work
 hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
-hirer.optimised.neededToPayHelper.subheading = Substitutes and helpers
+hirer.optimised.neededToPayHelper.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
 hirer.optimised.neededToPayHelper.checkYourAnswersLabel = Has the worker paid another person to do a significant amount of this work?
 #########################
@@ -1018,7 +1018,7 @@ worker.optimised.wouldWorkerPaySubstitute.hint = Byddai hyn yn cynnwys taliadau 
 ## TODO: Need Welsh
 hirer.optimised.wouldWorkerPaySubstitute.error.required = Select yes if the worker would have to pay their substitute
 hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute?
-hirer.optimised.wouldWorkerPaySubstitute.subheading = Substitutes and helpers
+hirer.optimised.wouldWorkerPaySubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by the worker or their business.
@@ -1083,7 +1083,7 @@ worker.optimised.rejectSubstitute.p2 = This can include rejecting a substitute e
 ## TODO: Welsh Needed
 hirer.optimised.rejectSubstitute.error.required = Select yes if you have the right to reject a substitute
 hirer.optimised.rejectSubstitute.title = Do you have the right to reject a substitute?
-hirer.optimised.rejectSubstitute.subheading = Substitutes and helpers
+hirer.optimised.rejectSubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.rejectSubstitute.heading = Do you have the right to reject a substitute?
 hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Do you have the right to reject a substitute?
 hirer.optimised.rejectSubstitute.p1 = A substitute is someone the worker sends in their place to do their role.
@@ -1123,7 +1123,7 @@ worker.optimised.didPaySubstitute.p1 = Mae hyn yn cynnwys taliadau gennych chi n
 ## TODO: Welsh Needed
 hirer.optimised.didPaySubstitute.error.required = Select yes if the worker paid their substitute
 hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute?
-hirer.optimised.didPaySubstitute.subheading = Substitutes and helpers
+hirer.optimised.didPaySubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute?
 hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute?
 hirer.optimised.didPaySubstitute.p1 = This includes payments made by the worker or their business.
@@ -1369,7 +1369,7 @@ checkYourAnswers.personalService.header = 3. Eilyddion a chynorthwywyr
 checkYourAnswers.control.header = 4. Trefniadau gweithio
 checkYourAnswers.financialRisk.header = 5. Risg ariannol y gweithiwr
 checkYourAnswers.partParcel.header = 6. Cyfraniad y gweithiwr
-checkYourAnswers.businessOnOwnAccount.header = 7. Contractau’r gweithiw
+checkYourAnswers.businessOnOwnAccount.header = 7. Contractau’r gweithiwr
 
 #### New Optimised Result Pages ####
 #----------------------------------#
@@ -1385,7 +1385,7 @@ optimised.result.download.getCopy = Get a copy of this result
 optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
 optimised.result.download.p2.exitLink = exit
 optimised.result.download.p2.preStartAgain = now, or
-optimised.result.download.p2.startAgainLink = start again
+optimised.result.download.p2.startAgainLink = dechrau eto
 optimised.result.download.p2.postStartAgain = to check the employment status of some other work.
 
 ## Office Holder PAYE
@@ -1595,7 +1595,7 @@ finishedChecking.heading = You have finished checking this work
 finishedChecking.p1.beforeLink1 = You can now
 finishedChecking.p1.link1 = exit
 finishedChecking.p1.beforeLink2 = , or
-finishedChecking.p1.link2 = start again
+finishedChecking.p1.link2 = dechrau eto
 finishedChecking.p1.afterLink2 = to check the employment status of some other work.
 finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
 
