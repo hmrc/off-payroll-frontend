@@ -1906,20 +1906,22 @@ hirer.workerKnown.p2 = You should use this tool again if the worker disagrees wi
 ## TODO: Welsh Needed
 ### SimilarWorkOtherClients Page
 ### ---------------------------------
-worker.similarWorkOtherClients.error.required = Select yes if you have done any work for other clients in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done any work for other clients in the last 12 months
-worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?
-worker.similarWorkOtherClients.heading = A ydych wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+worker.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
+agency.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
+worker.similarWorkOtherClients.title = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
+worker.similarWorkOtherClients.heading = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Contractau’r gweithiwr
-worker.similarWorkOtherClients.checkYourAnswersLabel = A ydych wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
-worker.similarWorkOtherClients.p1 = Dylai hyn gynnwys gwaith sy’n cynnwys sgiliau, gallu, gwybodaeth neu gyfrifoldebau tebyg.
+worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
+worker.similarWorkOtherClients.p1 = This only refers to work requiring similar skills, responsibilities, knowledge, or ability.
+worker.similarWorkOtherClients.p2 = Self-employed work is when it is your responsibility to pay Income Tax and National Insurance contributions on your earnings.
 
-hirer.similarWorkOtherClients.error.required = Select yes if the worker has done any work for other clients in the last 12 months
-hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?
-hirer.similarWorkOtherClients.heading = A yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
+hirer.similarWorkOtherClients.error.required = Select yes if the worker has done any self-employed work of a similar nature for other clients in the last 12 months
+hirer.similarWorkOtherClients.title = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
+hirer.similarWorkOtherClients.heading = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
 hirer.similarWorkOtherClients.subheading = Contractau’r gweithiwr
-hirer.similarWorkOtherClients.checkYourAnswersLabel = A yw’r gweithiwr wedi gwneud gwaith tebyg ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
-hirer.similarWorkOtherClients.p1 = Dylai hyn gynnwys gwaith sy’n cynnwys sgiliau, gallu, gwybodaeth neu gyfrifoldebau tebyg.
+hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
+hirer.similarWorkOtherClients.p1 = This only refers to work requiring similar skills, responsibilities, knowledge, or ability.
+hirer.similarWorkOtherClients.p2 = Self-employed work is when it is the worker’s responsibility to pay Income Tax and National Insurance contributions on their earnings.
 
 ### Ownership Rights Page - BoOA
 ### ----------------------------
@@ -2068,5 +2070,5 @@ worker.extendContract.changeLinkContext = if the current contract allows for it 
 hirer.extendContract.changeLinkContext = os yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
 worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of your available working time
 hirer.majorityOfWorkingTime.changeLinkContext = os bydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr
-worker.similarWorkOtherClients.changeLinkContext = if you have done any work for other clients in the last 12 months
-hirer.similarWorkOtherClients.changeLinkContext = os yw’r gweithiwr wedi gwneud unrhyw waith ar gyfer cleientiaid eraill yn y 12 mis diwethaf?
+worker.similarWorkOtherClients.changeLinkContext = if you have done any self-employed work of a similar nature for other clients in the last 12 months
+hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any self-employed work of a similar nature for other clients in the last 12 months

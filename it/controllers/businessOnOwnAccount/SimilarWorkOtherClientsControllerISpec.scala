@@ -13,7 +13,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
 
@@ -32,7 +32,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
 
       }
     }
@@ -55,7 +55,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
 
@@ -74,7 +74,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
 
       }
     }
