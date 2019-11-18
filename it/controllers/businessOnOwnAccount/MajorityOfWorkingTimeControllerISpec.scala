@@ -43,7 +43,7 @@ class MajorityOfWorkingTimeControllerISpec extends IntegrationSpecBase with Crea
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
   }

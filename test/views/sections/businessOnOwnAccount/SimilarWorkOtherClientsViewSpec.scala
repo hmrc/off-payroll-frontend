@@ -63,6 +63,8 @@ class SimilarWorkOtherClientsViewSpec extends YesNoViewBehaviours {
 
       "have the correct content" in {
         document.select(Selectors.p(1)).text mustBe SimilarWorkOtherClientsMessages.Worker.p1
+        document.select(Selectors.p(2)).text mustBe SimilarWorkOtherClientsMessages.Worker.p2
+
       }
 
       "have the correct radio option messages" in {
@@ -85,6 +87,8 @@ class SimilarWorkOtherClientsViewSpec extends YesNoViewBehaviours {
 
       "have the correct content" in {
         document.select(Selectors.p(1)).text mustBe SimilarWorkOtherClientsMessages.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe SimilarWorkOtherClientsMessages.Hirer.p2
+
       }
 
       "have the correct radio option messages" in {

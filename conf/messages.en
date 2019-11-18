@@ -1873,20 +1873,22 @@ hirer.workerKnown.p2 = You should use this tool again if the worker disagrees wi
 
 ### SimilarWorkOtherClients Page - BoOA
 ### -----------------------------------
-worker.similarWorkOtherClients.error.required = Select yes if you have done any work for other clients in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done any work for other clients in the last 12 months
-worker.similarWorkOtherClients.title = Have you done any work for other clients in the last 12 months?
-worker.similarWorkOtherClients.heading = Have you done any work for other clients in the last 12 months?
+worker.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
+agency.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
+worker.similarWorkOtherClients.title = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
+worker.similarWorkOtherClients.heading = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Worker’s contracts
-worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any work for other clients in the last 12 months?
-worker.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
+worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
+worker.similarWorkOtherClients.p1 = This only refers to work requiring similar skills, responsibilities, knowledge, or ability.
+worker.similarWorkOtherClients.p2 = Self-employed work is when it is your responsibility to pay Income Tax and National Insurance contributions on your earnings.
 
-hirer.similarWorkOtherClients.error.required = Select yes if the worker has done any work for other clients in the last 12 months
-hirer.similarWorkOtherClients.title = Has the worker done any work for other clients in the last 12 months?
-hirer.similarWorkOtherClients.heading = Has the worker done any work for other clients in the last 12 months?
+hirer.similarWorkOtherClients.error.required = Select yes if the worker has done any self-employed work of a similar nature for other clients in the last 12 months
+hirer.similarWorkOtherClients.title = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
+hirer.similarWorkOtherClients.heading = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
 hirer.similarWorkOtherClients.subheading = Worker’s contracts
-hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any work for other clients in the last 12 months?
-hirer.similarWorkOtherClients.p1 = This should include work that involves similar skills, ability, knowledge, or responsibilities.
+hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
+hirer.similarWorkOtherClients.p1 = This only refers to work requiring similar skills, responsibilities, knowledge, or ability.
+hirer.similarWorkOtherClients.p2 = Self-employed work is when it is the worker’s responsibility to pay Income Tax and National Insurance contributions on their earnings.
 
 ### Ownership Rights Page - BoOA
 ### ----------------------------
@@ -2031,5 +2033,5 @@ worker.extendContract.changeLinkContext = if the current contract allows for it 
 hirer.extendContract.changeLinkContext = if the current contract allows for it to be extended
 worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of your available working time
 hirer.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of the worker’s available working time
-worker.similarWorkOtherClients.changeLinkContext = if you have done any work for other clients in the last 12 months
-hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any work for other clients in the last 12 months
+worker.similarWorkOtherClients.changeLinkContext = if you have done any self-employed work of a similar nature for other clients in the last 12 months
+hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any self-employed work of a similar nature for other clients in the last 12 months
