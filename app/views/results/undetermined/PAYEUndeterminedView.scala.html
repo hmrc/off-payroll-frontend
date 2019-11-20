@@ -72,7 +72,6 @@
 
 @whyResult = {
     <p>@messages(tailorMsgOptimised("result.undetermined.paye.whyResult.p1"))</p>
-    <p>@messages(tailorMsgOptimised("result.undetermined.paye.whyResult.p2"))</p>
 }
 
 @doNext = {
@@ -87,12 +86,13 @@
         <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p1"))</p>
     }
 
-    <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p2"))</p>
+    <p>
+        @messages(tailorMsgOptimised("result.undetermined.paye.doNext.p2.preLink"))
+        @components.new_window_link("site.employmentStatusManual", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+        @messages(tailorMsgOptimised("result.undetermined.paye.doNext.p2.postLink"))
+    </p>
+
+    <p>@messages(tailorMsgOptimised("result.undetermined.paye.doNext.p3"))</p>
 
     @contact_details()
-
-    <p>
-        @messages(tailorMsgOptimised("result.undetermined.paye.doNext.p3"))
-        @components.new_window_link("site.employmentStatusManual", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
-    </p>
 }

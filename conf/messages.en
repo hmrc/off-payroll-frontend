@@ -1418,12 +1418,12 @@ hirer.optimised.result.inside.paye.doNext.workerNotKnown = Once your organisatio
 ## Undetermined PAYE Hirer
 ## ------------------
 hirer.optimised.result.undetermined.paye.heading = Unable to make a determination
-hirer.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if the worker is employed or self-employed for tax purposes for this work.
-hirer.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
-hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.paye.whyResult.p1 = It is not clear from your answers if the worker is employed or self-employed for tax purposes for this work.
+hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Firstly, you should download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices. If the worker gives you any new information, you should use this tool again.
 hirer.optimised.result.undetermined.paye.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
-hirer.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-hirer.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the
+hirer.optimised.result.undetermined.paye.doNext.p2.preLink = You could also read guidance in the
+hirer.optimised.result.undetermined.paye.doNext.p2.postLink = This will provide you with more information about determining the employment status of a worker for tax purposes.
+hirer.optimised.result.undetermined.paye.doNext.p3 = If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline.
 
 ## Outside PAYE Hirer
 ## ------------------
@@ -1451,11 +1451,11 @@ worker.optimised.result.inside.paye.doNext.p1 = Download a copy of this result a
 ## Undetermined PAYE Worker
 ## ------------------
 worker.optimised.result.undetermined.paye.heading = Unable to make a determination
-worker.optimised.result.undetermined.paye.whyResult.p1 = We cannot determine from your answers if you are employed or self-employed for tax purposes for this work.
-worker.optimised.result.undetermined.paye.whyResult.p2 = We will need more information to check your employment status for tax.
-worker.optimised.result.undetermined.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. Check your answers with them to make sure they reflect your actual or expected working practices.
-worker.optimised.result.undetermined.paye.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.undetermined.paye.doNext.p3 = You could also read Chapter 5 of the 
+worker.optimised.result.undetermined.paye.whyResult.p1 = It is not clear from your answers if you are employed or self-employed for tax purposes for this work.
+worker.optimised.result.undetermined.paye.doNext.p1 = Firstly, you should download a copy of this result and show it to your client. Check your answers with them to make sure they reflect the actual or expected working practices.
+worker.optimised.result.undetermined.paye.doNext.p2.preLink = You could also read guidance in the
+worker.optimised.result.undetermined.paye.doNext.p2.postLink = This will provide you with more information about determining your employment status for tax purposes.
+worker.optimised.result.undetermined.paye.doNext.p3 = If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline.
 ## ------------------
 
 
@@ -1473,11 +1473,11 @@ worker.optimised.result.inside.ir35.check.doNext.p3.link = Employment Status Man
 ## Undetermined IR35 Decision Worker
 ## -------------------
 worker.optimised.result.undetermined.ir35.heading = Unable to make a determination
-worker.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
-worker.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
-worker.optimised.result.undetermined.ir35.doNext.p1 = Download a copy of this result and show it to your client. Check your answers with them to make sure they reflect your actual or expected working practices.
-worker.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, you should contact HMRC’s Employment Status and Intermediaries helpline.
-worker.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
+worker.optimised.result.undetermined.ir35.whyResult.p1 = It is not clear from your answers if the off-payroll working rules apply to this work.
+worker.optimised.result.undetermined.ir35.doNext.p1 = Firstly, you should download a copy of this result and show it to your client. Check your answers with them to make sure they reflect the actual or expected working practices.
+worker.optimised.result.undetermined.ir35.doNext.p2.preLink = You could also read guidance in the
+worker.optimised.result.undetermined.ir35.doNext.p2.postLink = This will provide you with more information about determining your employment status for tax purposes.
+worker.optimised.result.undetermined.ir35.doNext.p3 = If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline.
 
 ## Outside IR35 Decision Worker
 ## ------------------
@@ -1511,10 +1511,10 @@ agent.optimised.result.inside.doNext.p2.link = Employment Status Manual
 ## Undetermined Agent
 ## ------------------
 agent.optimised.result.undetermined.heading = Unable to make a determination
-agent.optimised.result.undetermined.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
-agent.optimised.result.undetermined.whyResult.p2 = We will need more information to check your employment status for tax.
-agent.optimised.result.undetermined.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
-agent.optimised.result.undetermined.doNext.p2 = If you need more guidance, you could also read Chapter 5 of the
+agent.optimised.result.undetermined.whyResult.p1 = It is not clear from your answers if the off-payroll working rules apply to this work.
+agent.optimised.result.undetermined.doNext.p1 = Firstly, if this result is different from the one you are checking, you should download a copy of this result and show it to the worker’s client. Check your answers with them to make sure they are correct.
+agent.optimised.result.undetermined.doNext.p2.preLink = You could also read guidance in the
+agent.optimised.result.undetermined.doNext.p2.postLink = This will provide you with more information about determining the employment status of a worker for tax purposes.
 
 ## ------------------
 ## Out Agent
@@ -1544,12 +1544,13 @@ hirer.optimised.result.inside.ir35.doNext.p2.link = responsibilities of the fee-
 hirer.optimised.result.inside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
 
 hirer.optimised.result.undetermined.ir35.heading = Unable to make a determination
-hirer.optimised.result.undetermined.ir35.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
-hirer.optimised.result.undetermined.ir35.whyResult.p2 = We will need more information to check your employment status for tax.
-hirer.optimised.result.undetermined.ir35.doNext.p1.workerKnown = You should download a copy of this result to show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices.
+hirer.optimised.result.undetermined.ir35.whyResult.p1 = It is not clear from your answers if the off-payroll working rules apply to this work.
+hirer.optimised.result.undetermined.ir35.doNext.p1.workerKnown = Firstly, you should download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices. If the worker gives you any new information, you should use this tool again.
 hirer.optimised.result.undetermined.ir35.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
-hirer.optimised.result.undetermined.ir35.doNext.p2 = If you need more guidance, contact HMRC’s Employment Status and Intermediaries helpline.
-hirer.optimised.result.undetermined.ir35.doNext.p3 = You could also read Chapter 5 of the
+hirer.optimised.result.undetermined.ir35.doNext.p2.preLink = You could also read guidance in the
+hirer.optimised.result.undetermined.ir35.doNext.p2.postLink = This will provide you with more information about determining the employment status of a worker for tax purposes.
+hirer.optimised.result.undetermined.ir35.doNext.p3 = If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline.
+
 hirer.optimised.result.outside.ir35.title = Off-payroll working rules (IR35) do not apply
 hirer.optimised.result.outside.ir35.heading = Off-payroll working rules (IR35) do not apply
 hirer.optimised.result.outside.ir35.whyResult.p1 = Your answers told us:
