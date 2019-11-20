@@ -41,10 +41,9 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
 
   object Agent {
     val heading = "Unable to make a determination"
-    val whyResult_p1 = "We cannot determine from your answers if the off-payroll working rules apply to this work."
-    val whyResult_p2 = "We will need more information to check your employment status for tax."
-    val doNext_p1 = "If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct."
-    val doNext_p2 = "If you need more guidance, you could also read Chapter 5 of the Employment Status Manual (opens in a new window)."
+    val whyResult_p1 = "It is not clear from your answers if the off-payroll working rules apply to this work."
+    val doNext_p1 = "Firstly, if this result is different from the one you are checking, you should download a copy of this result and show it to the worker’s client. Check your answers with them to make sure they are correct."
+    val doNext_p2 = "You could also read guidance in the Employment Status Manual (opens in a new window). This will provide you with more information about determining the employment status of a worker for tax purposes."
   }
 
   object HirerIR35 {

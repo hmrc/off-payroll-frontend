@@ -68,13 +68,13 @@
 
 @whyResult = {
     <p>@messages("agent.optimised.result.undetermined.whyResult.p1")</p>
-    <p>@messages("agent.optimised.result.undetermined.whyResult.p2")</p>
 }
 
 @doNext = {
     <p>@messages("agent.optimised.result.undetermined.doNext.p1")</p>
     <p>
-        @messages("agent.optimised.result.undetermined.doNext.p2")
+        @messages("agent.optimised.result.undetermined.doNext.p2.preLink")
         @components.new_window_link("site.employmentStatusManual", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+        @messages("agent.optimised.result.undetermined.doNext.p2.postLink")
     </p>
 }

@@ -1511,10 +1511,10 @@ agent.optimised.result.inside.doNext.p2.link = Employment Status Manual
 ## Undetermined Agent
 ## ------------------
 agent.optimised.result.undetermined.heading = Unable to make a determination
-agent.optimised.result.undetermined.whyResult.p1 = We cannot determine from your answers if the off-payroll working rules apply to this work.
-agent.optimised.result.undetermined.whyResult.p2 = We will need more information to check your employment status for tax.
-agent.optimised.result.undetermined.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your worker’s client. You should check your answers with them to make sure they are correct.
-agent.optimised.result.undetermined.doNext.p2 = If you need more guidance, you could also read Chapter 5 of the
+agent.optimised.result.undetermined.whyResult.p1 = It is not clear from your answers if the off-payroll working rules apply to this work.
+agent.optimised.result.undetermined.doNext.p1 = Firstly, if this result is different from the one you are checking, you should download a copy of this result and show it to the worker’s client. Check your answers with them to make sure they are correct.
+agent.optimised.result.undetermined.doNext.p2.preLink = You could also read guidance in the
+agent.optimised.result.undetermined.doNext.p2.postLink = This will provide you with more information about determining the employment status of a worker for tax purposes.
 
 ## ------------------
 ## Out Agent

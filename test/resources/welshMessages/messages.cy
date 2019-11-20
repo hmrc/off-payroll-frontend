@@ -1528,10 +1528,10 @@ agent.optimised.result.inside.doNext.p2.link = Canllaw Statws Cyflogaeth
 ## ------------------
 ##TODO: Need Welsh
 agent.optimised.result.undetermined.heading = Methu gwneud penderfyniad
-agent.optimised.result.undetermined.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r rheolau gweithio oddi ar y gyflogres yn berthnasol i’r gwaith hwn.
-agent.optimised.result.undetermined.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
-agent.optimised.result.undetermined.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
-agent.optimised.result.undetermined.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
+agent.optimised.result.undetermined.whyResult.p1 = It is not clear from your answers if the off-payroll working rules apply to this work.
+agent.optimised.result.undetermined.doNext.p1 = Firstly, if this result is different from the one you are checking, you should download a copy of this result and show it to the worker’s client. Check your answers with them to make sure they are correct.
+agent.optimised.result.undetermined.doNext.p2.preLink = You could also read guidance in the
+agent.optimised.result.undetermined.doNext.p2.postLink = This will provide you with more information about determining the employment status of a worker for tax purposes.
 
 ## ------------------
 ## Hirer IR35
