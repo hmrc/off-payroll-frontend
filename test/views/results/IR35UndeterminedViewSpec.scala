@@ -158,16 +158,15 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult1
-      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult2
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.whyResult
     }
 
     "Have the correct Do Next section which" in {
       document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP1
       document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
-      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP3
+      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.WorkerIR35.doNextP3
+      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
     }
   }
 
@@ -203,8 +202,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult1
-      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult2
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.whyResult
     }
 
     "Have the correct Do Next section for the Public Sector" in {
@@ -215,8 +213,8 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerIR35.doNextP1_WorkerNotKnown
       }
       document.select(Selectors.DoNext.p(2)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
-      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP3
+      document.select(Selectors.DoNext.p(3)).text() mustBe UndeterminedDecisionMessages.HirerIR35.doNextP3
+      document.select(Selectors.DoNext.p(4)).text() mustBe UndeterminedDecisionMessages.Site.contactDetails
     }
   }
 }
