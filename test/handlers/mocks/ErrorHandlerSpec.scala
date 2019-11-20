@@ -54,11 +54,22 @@ class ErrorHandlerSpec extends ControllerSpecBase {
         }
       }
 
-      "Error Status is anything else" should {
+      "Error Status is 403" should {
 
         "Render the ISE error" in {
 
           val result = TestErrorHandler.onClientError(fakeRequest, Status.FORBIDDEN, "Forbidden")
+
+          status(result) mustBe Status.FORBIDDEN
+          assert(await(bodyOf(result)).contains(messages("common.standardErrorMessageHeader")))
+        }
+      }
+
+      "Error Status is anything else" should {
+
+        "Render the ISE error" in {
+
+          val result = TestErrorHandler.onClientError(fakeRequest, Status.UNPROCESSABLE_ENTITY, "Unprocessable Entity")
 
           status(result) mustBe Status.INTERNAL_SERVER_ERROR
           assert(await(bodyOf(result)).contains(messages("common.standardErrorMessageHeader")))
