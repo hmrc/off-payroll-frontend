@@ -1449,12 +1449,12 @@ hirer.optimised.result.inside.paye.doNext.workerNotKnown = Once your organisatio
 ## ------------------
 ##TODO: Need Welsh
 hirer.optimised.result.undetermined.paye.heading = Methu gwneud penderfyniad
-hirer.optimised.result.undetermined.paye.whyResult.p1 = Ni allwn benderfynu o’ch atebion a yw’r gweithiwr yn gyflogedig neu’n hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
-hirer.optimised.result.undetermined.paye.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
-hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r gweithiwr. Gwiriwch eich atebion gydag ef i sicrhau eu bod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig.
+hirer.optimised.result.undetermined.paye.whyResult.p1 = It is not clear from your answers if the worker is employed or self-employed for tax purposes for this work.
+hirer.optimised.result.undetermined.paye.doNext.p1.workerKnown = Firstly, you should download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices. If the worker gives you any new information, you should use this tool again.
 hirer.optimised.result.undetermined.paye.doNext.p1.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
-hirer.optimised.result.undetermined.paye.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
-hirer.optimised.result.undetermined.paye.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
+hirer.optimised.result.undetermined.paye.doNext.p2.preLink = You could also read guidance in the
+hirer.optimised.result.undetermined.paye.doNext.p2.postLink = This will provide you with more information about determining the employment status of a worker for tax purposes.
+hirer.optimised.result.undetermined.paye.doNext.p3 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 
 ##TODO: Need Welsh
 worker.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
@@ -1564,11 +1564,11 @@ worker.optimised.result.inside.paye.doNext.p1 = Lawrlwythwch gopi o’r canlynia
 ## ------------------
 ##TODO: Need Welsh
 worker.optimised.result.undetermined.paye.heading = Methu gwneud penderfyniad
-worker.optimised.result.undetermined.paye.whyResult.p1 = Ni allwn benderfynu o’ch atebion a ydych yn gyflogedig neu’n hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
-worker.optimised.result.undetermined.paye.whyResult.p2 = Bydd angen rhagor o wybodaeth arnom i wirio’ch statws cyflogaeth ar gyfer treth.
-worker.optimised.result.undetermined.paye.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Gwiriwch eich atebion gyda’r sefydliad i sicrhau eu bod yn adlewyrchu’ch arferion gwaith gwirioneddol neu ddisgwyliedig.
-worker.optimised.result.undetermined.paye.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, dylech gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
-worker.optimised.result.undetermined.paye.doNext.p3 = Gallech hefyd ddarllen pennod 5 o’r
+worker.optimised.result.undetermined.paye.whyResult.p1 = It is not clear from your answers if you are employed or self-employed for tax purposes for this work.
+worker.optimised.result.undetermined.paye.doNext.p1 = Firstly, you should download a copy of this result and show it to your client. Check your answers with them to make sure they reflect the actual or expected working practices.
+worker.optimised.result.undetermined.paye.doNext.p2.preLink = You could also read guidance in the
+worker.optimised.result.undetermined.paye.doNext.p2.postLink = This will provide you with more information about determining your employment status for tax purposes.
+worker.optimised.result.undetermined.paye.doNext.p3 = If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline.
 
 # TODO: Need Welsh
 downloadPDFCopy.error.required = Select yes to download this result

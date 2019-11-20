@@ -156,16 +156,15 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult1
-      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult2
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult
     }
 
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP2
-      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
-      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
     }
   }
 
@@ -201,8 +200,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult1
-      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult2
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult
     }
 
     "Have the correct Do Next section" in {
@@ -213,8 +211,8 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP1_WorkerNotKnown
       }
       document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
-      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
-      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
     }
   }
 }
