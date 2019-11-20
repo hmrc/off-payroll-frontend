@@ -50,9 +50,9 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val whitelistExcludedPaths: Seq[Call] = whitelistConfig("whitelist.excludedPaths").map(path => Call("GET", path))
   lazy val shutterPage: String = servicesConfig.getString("whitelist.shutter-page-url")
 
-  private def requestUri(implicit request: Request[_]) = ContinueUrl(host + request.uri).encodedUrl
+  private def requestPath(implicit request: Request[_]) = ContinueUrl(host + request.path).encodedUrl
   def feedbackUrl(implicit request: Request[_]): String =
-    s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier&backUrl=$requestUri"
+    s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier&backUrl=$requestPath"
 
   lazy val loginUrl = servicesConfig.getString("urls.login")
   lazy val loginContinueUrl = servicesConfig.getString("urls.loginContinue")
