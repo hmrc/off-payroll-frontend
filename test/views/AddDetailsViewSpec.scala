@@ -42,9 +42,11 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
 
   val view = injector.instanceOf[AddDetailsView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[AdditionalPdfDetails]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createHirerView = () => view(form, NormalMode)(hirerFakeRequest, messages,frontendAppConfig)
+
+  def createViewUsingForm = (form: Form[AdditionalPdfDetails]) => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
 
   "AddDetails view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
@@ -86,6 +88,12 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
 
     "have the correct fifth label" in {
       document.select(Selectors.label(7)).text mustBe AddDetailsMessages.reference
+    }
+
+    lazy val documentHirer = asDocument(createHirerView())
+
+    "have the correct third label for the Hirer" in {
+      documentHirer.select(Selectors.label(5)).text mustBe AddDetailsMessages.orgName
     }
   }
 }

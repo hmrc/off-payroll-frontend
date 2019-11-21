@@ -22,7 +22,7 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages,appConfig: FrontendAppConfig)
 
 @mainTemplate(
     title = title(form, "addDetails.title"),
@@ -36,7 +36,6 @@
         @components.error_summary(form.errors)
 
         @components.heading("addDetails.heading")
-
 
         @components.input_text(
             field = form("fileName"),
@@ -53,7 +52,7 @@
 
         @components.input_text(
             field = form("client"),
-            label = messages("addDetails.client"),
+            label = messages(tailorMsg("addDetails.client")),
             inputClass = Some("form-control-3-4")
         )
 
@@ -73,8 +72,4 @@
 
         @components.submit_button()
     }
-}
-
-@optionalFields = {
-    <p>@messages("addDetails.optional.all")</p>
 }

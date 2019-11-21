@@ -99,7 +99,7 @@ class PDFControllerSpec extends ControllerSpecBase {
   )
 
   def viewAsString(form: Form[_] = form) = customisePdfView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
-  def optViewAsString(form: Form[_] = form) = addDetailsView(frontendAppConfig, form, NormalMode)(fakeRequest, messages).toString
+  def optViewAsString(form: Form[_] = form) = addDetailsView(form, NormalMode)(fakeRequest, messages,frontendAppConfig).toString
 
   val testAnswer = "answer"
 

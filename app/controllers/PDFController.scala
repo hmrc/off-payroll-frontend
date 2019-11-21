@@ -66,7 +66,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   def form: Form[AdditionalPdfDetails] = formProvider()
 
   private def view(form: Form[AdditionalPdfDetails], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if (isEnabled(OptimisedFlow)) addDetailsView(appConfig, form, mode) else customisePdfView(appConfig, form, mode)
+    if (isEnabled(OptimisedFlow)) addDetailsView(form, mode) else customisePdfView(appConfig, form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
