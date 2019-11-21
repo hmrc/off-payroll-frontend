@@ -74,11 +74,15 @@ site.opensInNewWindow = (opens in a new window)
 site.letter.h1 = Keep a copy of your determination
 site.letter.forYourRecords = For your records
 site.letter.print = Print this document
+site.letter.print.aria = Print a copy of your determination
 site.letter.pdf = Save as a PDF
+site.letter.pdf.aria = Save a copy of your determination as a PDF
 site.letter.copyOf.onceYouHave = Once you have a copy of your result you can
 site.letter.copyOf.exit = exit
+site.letter.copyOf.exit.aria = Exit the check employment status for tax tool
 site.letter.copyOf.or = , or
 site.letter.copyOf.startAgain = start again
+site.letter.copyOf.startAgain.aria = Start the check employment status for tax tool again
 site.letter.copyOf.otherWork = to check the employment status of some other work.
 site.letter.aboutThisResult = About this result
 site.letter.dateOfResult = Date of result:
@@ -1361,8 +1365,10 @@ optimised.result.download.p1.undetermined = It is important that you keep a copy
 optimised.result.download.getCopy = Get a copy of this result
 optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
 optimised.result.download.p2.exitLink = exit
+optimised.result.download.p2.exitLink.aria = Exit the check employment status for tax tool
 optimised.result.download.p2.preStartAgain = now, or
 optimised.result.download.p2.startAgainLink = start again
+optimised.result.download.p2.startAgainLink.aria = Start the check employment status for tax tool again
 optimised.result.download.p2.postStartAgain = to check the employment status of some other work.
 
 
