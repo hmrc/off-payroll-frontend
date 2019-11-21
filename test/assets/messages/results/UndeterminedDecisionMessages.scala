@@ -34,7 +34,7 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to make a determination"
     val whyResult = "It is not clear from your answers if the worker is employed or self-employed for tax purposes for this work."
     val doNextP1_WorkerKnown = "Firstly, you should download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices. If the worker gives you any new information, you should use this tool again."
-    val doNextP1_WorkerNotKnown = "Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination."
+    val doNextP1_WorkerNotKnown = "Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your result."
     val doNextP2 = "You could also read guidance in the Employment Status Manual (opens in a new window). This will provide you with more information about determining the employment status of a worker for tax purposes."
     val doNextP3 = "If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline."
   }
@@ -50,7 +50,7 @@ object UndeterminedDecisionMessages extends BaseResultMessages {
     val heading = "Unable to make a determination"
     val whyResult = "It is not clear from your answers if the off-payroll working rules apply to this work."
     val doNextP1_WorkerKnown = "Firstly, you should download a copy of this result and show it to the worker. Check your answers with them to make sure they reflect the actual or expected working practices. If the worker gives you any new information, you should use this tool again."
-    val doNextP1_WorkerNotKnown = "Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination."
+    val doNextP1_WorkerNotKnown = "Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your result."
     val doNextP2 = "You could also read guidance in the Employment Status Manual (opens in a new window). This will provide you with more information about determining the employment status of a worker for tax purposes."
     val doNextP3 = "If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline."
 

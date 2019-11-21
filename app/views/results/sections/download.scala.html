@@ -17,12 +17,15 @@
 @import models.requests.DataRequest
 @import models.UserType.Hirer
 
-@(form: Form[_], isMake: Boolean = true)(implicit messages: Messages, request: DataRequest[_])
+@(form: Form[_], isMake: Boolean = true, isUndetermined: Boolean = false)(implicit messages: Messages, request: DataRequest[_])
 
 <div id="download">
-
- @if(isMake || request.userType.contains(Hirer)){
-  <p>@messages("optimised.result.download.p1")</p>
+  @if(isMake || request.userType.contains(Hirer)){
+    @if(isUndetermined){
+      <p>@messages("optimised.result.download.p1.undetermined")</p>
+    } else {
+      <p>@messages("optimised.result.download.p1.determined")</p>
+    }
   }
 
  <button class="button form-group" id ="getCopy-button">@messages("optimised.result.download.getCopy")</button>

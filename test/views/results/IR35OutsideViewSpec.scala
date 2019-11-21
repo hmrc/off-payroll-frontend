@@ -212,7 +212,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           }
           "Have the correct Download section" in {
           if(isMake){
-            document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsg
+            document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsgDetermined
             document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
           } else {
             document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadExitMsg}
@@ -283,7 +283,7 @@ class IR35OutsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsgDetermined
           document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
