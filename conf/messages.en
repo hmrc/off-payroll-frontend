@@ -1364,8 +1364,10 @@ optimised.result.download.p1 = It is important that you keep a copy of this dete
 optimised.result.download.getCopy = Get a copy of this result
 optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
 optimised.result.download.p2.exitLink = exit
+optimised.result.download.p2.exitLink.aria = Exit the check employment status for tax tool
 optimised.result.download.p2.preStartAgain = now, or
 optimised.result.download.p2.startAgainLink = start again
+optimised.result.download.p2.startAgainLink.aria = Start the check employment status for tax tool again
 optimised.result.download.p2.postStartAgain = to check the employment status of some other work.
 
 
