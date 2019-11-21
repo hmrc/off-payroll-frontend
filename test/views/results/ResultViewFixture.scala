@@ -202,24 +202,28 @@ trait ResultViewFixture extends ViewBehaviours {
         val element = document.select(Selectors.PrintAndSave.printLink)
         element.text mustBe PrintAndSaveMessages.printLink
         element.attr("onClick") mustBe "window.print();"
+        element.attr("aria-label") mustBe PrintAndSaveMessages.printLinkAria
       }
 
       "have the save as PDF link" in {
         val element = document.select(Selectors.PrintAndSave.saveAsPdf)
         element.text mustBe PrintAndSaveMessages.savePdfLink
         element.attr("href") mustBe controllers.routes.PDFController.downloadPDF().url
+        element.attr("aria-label") mustBe PrintAndSaveMessages.savePdfLinkAria
       }
 
       "have the exit link" in {
         val element = document.select(Selectors.PrintAndSave.exit)
         element.text mustBe PrintAndSaveMessages.exitLink
         element.attr("href") mustBe controllers.routes.ExitSurveyController.redirectToExitSurvey().url
+        element.attr("aria-label") mustBe PrintAndSaveMessages.exitLinkAria
       }
 
       "have the start again link" in {
         val element = document.select(Selectors.PrintAndSave.startAgain)
         element.text mustBe PrintAndSaveMessages.startAgainLink
         element.attr("href") mustBe controllers.routes.StartAgainController.redirectToDisclaimer().url
+        element.attr("aria-label") mustBe PrintAndSaveMessages.startAgainLinkAria
       }
 
       "have the correct p2" in {
