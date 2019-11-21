@@ -20,12 +20,10 @@ object AddDetailsMessages extends BaseMessages {
 
   val heading = "Add details"
   val title = heading
-  val fileName = "File name"
-  val allOptional = "These details are optional"
-  val name = "Your name"
-  val clientName = "Name of end client issuing the contract and/or agency"
-  val role = "Contract or role title"
-  val reference = "Other information"
-  val optional = "optional"
+  val fileName = "File name (optional)"
+  val name = "Your name (optional)"
+  val clientName = "Client’s name (optional)"
+  val role = "Contract or role title (optional)"
+  val reference = "Other information (optional)"
 
 }

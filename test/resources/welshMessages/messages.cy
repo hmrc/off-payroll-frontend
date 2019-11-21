@@ -1581,14 +1581,12 @@ addReferenceDetails.example = For example, contract information, job title or hi
 
 addDetails.title = Add details
 addDetails.heading = Add details
-addDetails.name=Your name
-addDetails.client=Name of end client issuing the contract and/or agency
-addDetails.job=Contract or role title
-addDetails.reference=Other information
-addDetails.charLimit =180 characters maximum
-addDetails.fileName = File name
-addDetails.optional = optional
-addDetails.optional.all = These details are optional
+addDetails.name = Your name (optional)
+addDetails.client = Client’s name (optional)
+addDetails.job = Contract or role title (optional)
+addDetails.reference = Other information (optional)
+addDetails.charLimit = 180 characters maximum
+addDetails.fileName = File name (optional)
 
 finishedChecking.title = You have finished checking this work
 finishedChecking.heading = You have finished checking this work
