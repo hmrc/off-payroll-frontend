@@ -172,7 +172,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
           document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
@@ -223,7 +223,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         }
         "Have the correct Download section" in {
           if(isMakingNewDetermination){
-            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsg
+            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
             document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
           } else {
             document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg

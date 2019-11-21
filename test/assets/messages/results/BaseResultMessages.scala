@@ -28,6 +28,7 @@ trait BaseResultMessages extends BaseMessages {
   val telephoneNumber = "0300 123 2326"
   val email = "Email:"
   val emailAddress = "ir35@hmrc.gov.uk"
-  val downloadMsg = "It is important that you keep a copy of this determination for your records."
+  val downloadMsgDetermined = "It is important that you keep a copy of this determination for your records."
+  val downloadMsgUndetermined = "It is important that you keep a copy of this result for your records."
   val downloadExitMsg = "If you do not want to download a copy of your result, you can exit now, or start again to check the employment status of some other work."
 }

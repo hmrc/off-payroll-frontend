@@ -137,7 +137,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
           document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
@@ -181,7 +181,7 @@ class IR35UndeterminedViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerIR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsg
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
           document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>

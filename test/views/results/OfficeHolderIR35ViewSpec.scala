@@ -134,7 +134,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         }
         "Have the correct Download section" in {
           if(isMakingDetermination){
-            document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsg
+            document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgDetermined
             document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
           } else {
             document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadExitMsg
@@ -192,7 +192,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
         }
         "Have the correct Download section" in {
-          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsg
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgDetermined
           document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
