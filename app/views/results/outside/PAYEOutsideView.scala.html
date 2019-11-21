@@ -84,7 +84,7 @@
 
 @doNext = {
     <p>@messages(tailorMsgOptimised("result.outside.paye.doNext.p1"))</p>
-    @if(!workerKnown) {
+    @if(request.userType.contains(Hirer) && !workerKnown) {
         <p>@messages(tailorMsgOptimised("result.outside.paye.doNext.workerNotKnown"))</p>
     }
 }
