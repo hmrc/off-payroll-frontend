@@ -1596,7 +1596,6 @@ addDetails.reference = Gwybodaeth arall (dewisol)
 addDetails.charLimit = Uchafswm o 180 o gymeriadau
 addDetails.fileName = Enw’r ffeil (dewisol)
 
-
 finishedChecking.title = Rydych wedi gorffen gwirio’r gwaith hwn
 finishedChecking.heading = Rydych wedi gorffen gwirio’r gwaith hwn
 finishedChecking.p1.beforeLink1 = Gallwch nawr
@@ -1911,25 +1910,23 @@ hirer.workerKnown.checkYourAnswersLabel = Does your organisation know who will b
 hirer.workerKnown.p1 = Os nad ydych yn gwybod pwy yw’r gweithiwr, ni fydd angen i chi ateb unrhyw gwestiynau pellach. Byddwch yn dal i gael penderfyniad y bydd CThEM yn glynu wrtho.
 hirer.workerKnown.p2 = You should use this tool again if the worker disagrees with the determination. You would then be asked additional questions about the worker.
 
-## TODO: Welsh Needed
 ### SimilarWorkOtherClients Page
 ### ---------------------------------
-worker.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
-worker.similarWorkOtherClients.title = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
-worker.similarWorkOtherClients.heading = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
+worker.similarWorkOtherClients.error.required = Dewiswch ‘Iawn’ os ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
+worker.similarWorkOtherClients.title = A ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+worker.similarWorkOtherClients.heading = A ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
 worker.similarWorkOtherClients.subheading = Contractau’r gweithiwr
-worker.similarWorkOtherClients.checkYourAnswersLabel = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
-worker.similarWorkOtherClients.p1 = This only refers to work requiring similar skills, responsibilities, knowledge, or ability.
-worker.similarWorkOtherClients.p2 = Self-employed work is when it is your responsibility to pay Income Tax and National Insurance contributions on your earnings.
+worker.similarWorkOtherClients.checkYourAnswersLabel = A ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+worker.similarWorkOtherClients.p1 = Mae hyn ond yn cyfeirio at waith sy’n gofyn am sgiliau, cyfrifoldebau, gwybodaeth neu allu tebyg.
+worker.similarWorkOtherClients.p2 = Gwaith hunangyflogedig yw pan mai’ch cyfrifoldeb chi yw talu Treth Incwm a chyfraniadau Yswiriant Gwladol ar eich enillion.
 
-hirer.similarWorkOtherClients.error.required = Select yes if the worker has done any self-employed work of a similar nature for other clients in the last 12 months
-hirer.similarWorkOtherClients.title = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
-hirer.similarWorkOtherClients.heading = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
+hirer.similarWorkOtherClients.error.required = Dewiswch ‘Iawn’ os yw’r gweithiwr wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
+hirer.similarWorkOtherClients.title = A yw’r gweithiwr wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+hirer.similarWorkOtherClients.heading = A yw’r gweithiwr wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
 hirer.similarWorkOtherClients.subheading = Contractau’r gweithiwr
-hirer.similarWorkOtherClients.checkYourAnswersLabel = Has the worker done any self-employed work of a similar nature for other clients in the last 12 months?
-hirer.similarWorkOtherClients.p1 = This only refers to work requiring similar skills, responsibilities, knowledge, or ability.
-hirer.similarWorkOtherClients.p2 = Self-employed work is when it is the worker’s responsibility to pay Income Tax and National Insurance contributions on their earnings.
+hirer.similarWorkOtherClients.checkYourAnswersLabel = A yw’r gweithiwr wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
+hirer.similarWorkOtherClients.p1 = Mae hyn ond yn cyfeirio at waith sy’n gofyn am sgiliau, cyfrifoldebau, gwybodaeth neu allu tebyg.
+hirer.similarWorkOtherClients.p2 = Gwaith hunangyflogedig yw pan mai cyfrifoldeb y gweithiwr yw talu Treth Incwm a chyfraniadau Yswiriant Gwladol ar ei enillion.
 
 ### Ownership Rights Page - BoOA
 ### ----------------------------
