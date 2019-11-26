@@ -1285,10 +1285,10 @@ customisePDF.job.error.length = Job title must be 100 characters or less
 customisePDF.reference.error.length = Reference must be 100 characters or less
 
 #Result summary text
-result.substitutesAndHelpers.summary=We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client has not or would not agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they are being engaged on a personal service basis.
-result.workArrangements.summary=We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
-result.financialRisk.summary=We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who do not risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
-result.partParcel.summary=We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
+result.substitutesAndHelpers.summary = We ask these questions to find out if the worker is being engaged as a business or on a personal service basis. If the end client has not or would not agree to the worker’s business arranging for a paid substitute to work instead of them, it suggests that they are being engaged on a personal service basis.
+result.workArrangements.summary = We ask these questions to find out how much right of control the end client has over what the worker does during this engagement. If the end client has a right of control, this would suggest the working practices are similar to those of an employee.
+result.financialRisk.summary = We ask these questions to identify the level of financial risk the worker must take during this engagement. Workers who do not risk their own money by, for example, buying assets, or paying for overheads and materials are more likely to be employed for tax purposes.
+result.partParcel.summary = We ask these questions to find out how integrated the worker is into the end client’s organisation. Workers who receive benefits, have line management responsibilities for other people and represent themselves as working for the end client are more likely to be employed for tax purposes.
 
 
 
