@@ -14,7 +14,9 @@
  * limitations under the License.
  *@
 
-@(additionalPdfDetails: AdditionalPdfDetails)(implicit messages: Messages)
+@import config.FrontendAppConfig
+@import views.ViewUtils._
+@(additionalPdfDetails: AdditionalPdfDetails)(implicit messages: Messages,appConfig: FrontendAppConfig,request: Request[_])
 
 <h2>@messages("site.letter.forYourRecords")</h2>
 
@@ -32,7 +34,7 @@
 
         @additionalPdfDetails.client.map { client =>
             <p id="clientName">
-                <strong class="bold">@messages("result.pdf.client")</strong>
+                <strong class="bold">@messages(tailorMsg("result.pdf.client"))</strong>
                 <br>
                 @client
             </p>
