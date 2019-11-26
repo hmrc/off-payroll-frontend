@@ -28,10 +28,15 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
     enable(OptimisedFlow)
   }
 
-  object Selectors extends BaseCSSSelectors {
+  class PageSelectors(section: String = "#content") extends BaseCSSSelectors {
     val reportProblem = "#reportAccessibilityIssue"
-    override val p: Int => String = i => s"#content p:nth-of-type($i)"
+    override val p: Int => String = i => s"$section p:nth-of-type($i)"
+    override val h2: Int => String = i => s"$section h2:nth-of-type($i)"
+    override val bullet: Int => String = i => s"$section ul li:nth-of-type($i)"
   }
+
+  object Selectors extends PageSelectors
+  object UsingThisServiceSelectors extends PageSelectors("#usingService")
 
   val messageKeyPrefix = "accessibilityStatement"
 
@@ -71,6 +76,39 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
       val p3 = document.select(Selectors.p(3))
       p3.text must include(AccessibilityStatementMessages.p3)
       p3.select("a").attr("href") mustBe frontendAppConfig.govUkStartPageUrl
+    }
+
+    "have a Using this Service section" which {
+
+      "have the correct first h2" in {
+        document.select(UsingThisServiceSelectors.h2(1)).text must include(AccessibilityStatementMessages.UsingService.h2)
+      }
+
+      "have the correct p1" in {
+        document.select(UsingThisServiceSelectors.p(1)).text must include(AccessibilityStatementMessages.UsingService.p1)
+      }
+
+      "have the correct p2" in {
+        document.select(UsingThisServiceSelectors.p(2)).text must include(AccessibilityStatementMessages.UsingService.p2)
+      }
+
+      "have the correct set of bullet points" in {
+        document.select(UsingThisServiceSelectors.bullet(1)).text must include(AccessibilityStatementMessages.UsingService.bullet1)
+        document.select(UsingThisServiceSelectors.bullet(2)).text must include(AccessibilityStatementMessages.UsingService.bullet2)
+        document.select(UsingThisServiceSelectors.bullet(3)).text must include(AccessibilityStatementMessages.UsingService.bullet3)
+        document.select(UsingThisServiceSelectors.bullet(4)).text must include(AccessibilityStatementMessages.UsingService.bullet4)
+        document.select(UsingThisServiceSelectors.bullet(5)).text must include(AccessibilityStatementMessages.UsingService.bullet5)
+      }
+
+      "have the correct p3" in {
+        document.select(UsingThisServiceSelectors.p(3)).text must include(AccessibilityStatementMessages.UsingService.p3)
+      }
+
+      "have the correct p4" in {
+        val p4 = document.select(Selectors.p(4))
+        p4.text must include(AccessibilityStatementMessages.UsingService.p4)
+        p4.select("a").attr("href") mustBe frontendAppConfig.abilityNetUrl
+      }
     }
 
     "have the correct Report a Problem link which" should {

@@ -47,5 +47,28 @@
         <a href='@appConfig.govUkStartPageUrl'>@messages("accessibilityStatement.p3.link")</a>.
     </p>
 
+    <div id="usingService">
+        <h2>@messages("accessibilityStatement.usingService.h2")</h2>
+
+        <p>@messages("accessibilityStatement.usingService.p1")</p>
+
+        <p>@messages("accessibilityStatement.usingService.p2")</p>
+
+        @components.bulleted_list(Seq(
+            "accessibilityStatement.usingService.bullet1",
+            "accessibilityStatement.usingService.bullet2",
+            "accessibilityStatement.usingService.bullet3",
+            "accessibilityStatement.usingService.bullet4",
+            "accessibilityStatement.usingService.bullet5"
+        ))
+
+        <p>@messages("accessibilityStatement.usingService.p3")</p>
+
+        <p>
+            <a href='@appConfig.abilityNetUrl'>@messages("accessibilityStatement.usingService.p4.link")</a>
+            @messages("accessibilityStatement.usingService.p4.postLink")
+        </p>
+    </div>
+
     @new_window_link("accessibilityStatement.reportProblem", appConfig.reportAccessibilityIssueUrl(problemPageUri), Some("reportAccessibilityIssue"))
 }
