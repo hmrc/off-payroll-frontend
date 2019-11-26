@@ -5,12 +5,12 @@ common.standardPageNotFoundErrorMessageContent2=Os gwnaethoch deipio’r cyfeiri
 common.standardPageNotFoundErrorMessageContent3=Gwiriwch y cyfeiriad a gwnewch yn siŵr eich bod wedi’i deipio’n gywir.
 common.standardPageNotFoundErrorMessageHeader=Heb ddod o hyd i’r dudalen
 
-newPageNotFoundErrorMessage.title = Page not found
+newPageNotFoundErrorMessage.title =  Heb ddod o hyd i’r dudalen
 newPageNotFoundErrorMessage.heading = Page not found
-newPageNotFoundErrorMessage.p1 = You should
-newPageNotFoundErrorMessage.link = start
-newPageNotFoundErrorMessage.p2 = the Check Employment Status for Tax tool again.
-newPageNotFoundErrorMessage.p3 = If you do not want to check the employment status of some work, you can exit now.
+newPageNotFoundErrorMessage.p1 =  Dylech
+newPageNotFoundErrorMessage.link = dechrau
+newPageNotFoundErrorMessage.p2 = y twlsyn Gwirio Statws Cyflogaeth ar gyfer Treth eto.
+newPageNotFoundErrorMessage.p3 =  Os nad ydych am wirio statws cyflogaeth rhywfaint o waith, gallwch adael nawr.
 
 date.January = Ionawr
 date.February = Chwefror
@@ -28,8 +28,8 @@ date.December = Rhagfyr
 error.browser.title.prefix =  Gwall:
 error.required = Mae angen i chi ddewis ateb
 error.summary.title = Mae problem wedi codi
-error.startAgain.title = Something went wrong
-error.startAgain.p =  Please try starting the tool again
+error.startAgain.title = Aeth rhywbeth o’i le
+error.startAgain.p =  Rhowch gynnig arall ar gychwyn y twlsyn
 error.startAgain.button = Dechrau eto
 error.summary.prefix = Gwall:
 
@@ -49,13 +49,13 @@ session.expired.start_again =Dechrau eto
 site.back = Yn ôl
 
 site.edit = Newidiwch
-site.warning = Warning:
+site.warning =  Rhybudd:
 
 site.no = Na
 site.yes = Iawn
 site.continue = Yn eich blaen
-site.accept_continue = Accept and continue
-site.exit = Exit
+site.accept_continue = Derbyn ac yn eich blaen
+site.exit = Gadael
 site.confirm_continue =Cadarnhau a pharhau
 site.service_name = Gwirio statws cyflogaeth ar gyfer treth
 site.service_name.camel = Gwirio Statws Cyflogaeth ar Gyfer Treth
@@ -70,28 +70,28 @@ site.email = E-bost:
 site.opensInNewWindow = (yn agor mewn ffenestr newydd)
 
 ## TODO: Need Welsh
-site.letter.h1 = Keep a copy of your determination
-site.letter.forYourRecords = For your records
-site.letter.print = Print this document
+site.letter.h1 = Cadwch gopi o’ch penderfyniad
+site.letter.forYourRecords = Ar gyfer eich cofnodion
+site.letter.print =  Argraffu’r ddogfen hon
 site.letter.print.aria = Print a copy of your determination
-site.letter.pdf = Save as a PDF
+site.letter.pdf = Cadw fel PDF
 site.letter.pdf.aria = Save a copy of your determination as a PDF
-site.letter.copyOf.onceYouHave = Once you have a copy of your result you can
+site.letter.copyOf.onceYouHave =  Ar ôl i chi gael copi o’ch canlyniad gallwch
 site.letter.copyOf.exit = exit
 site.letter.copyOf.exit.aria = Exit the check employment status for tax tool
-site.letter.copyOf.or = , or
+site.letter.copyOf.or = , neu
 site.letter.copyOf.startAgain = dechrau eto
 site.letter.copyOf.startAgain.aria = Start the check employment status for tax tool again
-site.letter.copyOf.otherWork = to check the employment status of some other work.
-site.letter.aboutThisResult = About this result
-site.letter.dateOfResult = Date of result:
-site.letter.version = Decision service version:
-site.letter.version.disclaimer = HMRC will stand by this result as long as it reflects the actual or expected working practices. If these working practices change, you should use this tool again.
-site.letter.footer = Page {0} of {1}
+site.letter.copyOf.otherWork =  i wirio statws cyflogaeth rhyw waith arall.
+site.letter.aboutThisResult = Ynglŷn â’r canlyniad hwn
+site.letter.dateOfResult = Dyddiad y canlyniad:
+site.letter.version = Gwasanaeth Penderfynu, fersiwn:
+site.letter.version.disclaimer = Bydd CThEM yn glynu wrth eich canlyniad oni bai bod arferion gwaith wedi newid ac, os ydynt wedi newid, dylech ddefnyddio’r gwasanaeth hwn eto i adlewyrchu’r newidiadau hynny.
+site.letter.footer =  Tudalen {0} o {1}
 
 ## TODO NEED WELSH
-site.accordion.openAll = Open all
-site.accordion.closeAll = Close all
+site.accordion.openAll =  Agor pob un
+site.accordion.closeAll = Cau pob un
 
 feedback.before = Mae hwn yn wasanaeth newydd - bydd eich
 feedback.link = adborth
@@ -186,16 +186,16 @@ hirer.workerType.checkYourAnswersLabel = Sut mae’r gweithiwr yn darparu’i wa
 
 whoAreYou.title =  Who are you?
 whoAreYou.heading =  Who are you?
-whoAreYou.subheading = About you and the work
-whoAreYou.checkYourAnswersLabel = Who are you?
-whoAreYou.personDoingWork = Worker
-whoAreYou.endClient = Hirer
-whoAreYou.placingAgency = Agency
+whoAreYou.subheading = Amdanoch chi a’r gwaith
+whoAreYou.checkYourAnswersLabel =  Pwy ydych chi?
+whoAreYou.personDoingWork =  Gweithiwr
+whoAreYou.endClient = Huriwr
+whoAreYou.placingAgency = Asiantaeth
 
-whoAreYou.ir35.error.required = Select if you are a worker, hirer or agency
-whoAreYou.ir35.error.invalid = Select if you are a worker, hirer or agency
-whoAreYou.paye.error.required = Select if you are a worker or hirer
-whoAreYou.paye.error.invalid = Select if you are a worker or hirer
+whoAreYou.ir35.error.required =  Dewiswch os ydych yn weithiwr, yn huriwr neu’n asiantaeth
+whoAreYou.ir35.error.invalid =  Dewiswch os ydych yn weithiwr, yn huriwr neu’n asiantaeth
+whoAreYou.paye.error.required = Dewiswch os ydych yn weithiwr neu’n huriwr
+whoAreYou.paye.error.invalid = Dewiswch os ydych yn weithiwr neu’n huriwr
 #########################
 
 ## What do you want
@@ -248,18 +248,18 @@ hirer.officeHolder.bullet2 =caiff y swyddogaeth ei chreu gan statud, erthyglau c
 hirer.officeHolder.bullet3 =mae’r swyddogaeth yn bodoli hyd yn oed os nad oes neb yn ei chyflawni (er enghraifft, trysorydd clwb)
 hirer.officeHolder.exclamation =Gofynnwch i reolwyr y cleient terfynol ynghylch eu strwythur cyfundrefnol os nad ydych yn sicr a yw’r rhain yn ddilys.
 
-worker.optimised.officeHolder.error.required = Select yes if you will be an Office Holder
-agency.optimised.officeHolder.error.required = Select yes if you will be an Office Holder
-worker.optimised.officeHolder.title = Will you be an ‘Office Holder’?
-worker.optimised.officeHolder.subheading = Worker’s duties
+worker.optimised.officeHolder.error.required =  Dewiswch ‘Iawn’ os byddwch yn Ddeiliad Swydd
+agency.optimised.officeHolder.error.required =  Dewiswch ‘Iawn’ os byddwch yn Ddeiliad Swydd
+worker.optimised.officeHolder.title =  A fyddwch yn ‘Ddeiliad Swydd’?
+worker.optimised.officeHolder.subheading =  Dyletswyddau’r gweithiwr
 worker.optimised.officeHolder.heading = Will you be an ‘Office Holder’?
 worker.optimised.officeHolder.checkYourAnswersLabel = Will you be an ‘Office Holder’?
-worker.optimised.officeholder.p1 = This can include being a board member, treasurer, trustee, company secretary or company director.
-worker.optimised.officeholder.p2 = Read more about
-worker.optimised.officeholder.link = Office Holders
+worker.optimised.officeholder.p1 = Gall hyn gynnwys bod yn aelod o’r bwrdd, trysorydd, ymddiriedolwr, ysgrifennydd cwmni neu gyfarwyddwr cwmni.
+worker.optimised.officeholder.p2 = Darllenwch ragor am
+worker.optimised.officeholder.link =  Deiliaid Swydd
 
-hirer.optimised.officeHolder.error.required = Select yes if the worker will be an Office Holder
-hirer.optimised.officeHolder.title = Will the worker be an ‘Office Holder’?
+hirer.optimised.officeHolder.error.required = Dewiswch ‘Iawn’ os bydd y gweithiwr yn Ddeiliad Swydd
+hirer.optimised.officeHolder.title =  A fydd y gweithiwr yn ‘Ddeiliad Swydd’?
 hirer.optimised.officeHolder.subheading = Worker’s duties
 hirer.optimised.officeHolder.heading = Will the worker be an ‘Office Holder’?
 hirer.optimised.officeHolder.checkYourAnswersLabel = Will the worker be an ‘Office Holder’?
@@ -383,19 +383,19 @@ worker.optimised.arrangedSubstitute.yesClientAgreed = Iawn, gwnaeth eich cleient
 worker.optimised.arrangedSubstitute.notAgreedWithClient = Iawn, ond ni wnaeth eich cleient ei dderbyn
 worker.optimised.arrangedSubstitute.noSubstitutionHappened = Na, nid yw hynny wedi digwydd
 ## TODO: Need Welsh
-worker.optimised.arrangedSubstitute.p1 = A substitute is someone you send in your place to do your role.
+worker.optimised.arrangedSubstitute.p1 = Eilydd yw rhywun yr ydych yn ei anfon yn eich lle i ymgymryd â’ch rôl.
 
 ## TODO: Need Welsh
-hirer.optimised.arrangedSubstitute.error.required = Select if the worker has ever sent a substitute to do their work
-hirer.optimised.arrangedSubstitute.error.invalid = Select if the worker has ever sent a substitute to do their work
-hirer.optimised.arrangedSubstitute.title = Has the worker ever sent a substitute to do this work?
+hirer.optimised.arrangedSubstitute.error.required = Dewiswch os yw’r gweithiwr erioed wedi anfon eilydd i wneud ei waith
+hirer.optimised.arrangedSubstitute.error.invalid = Dewiswch os yw’r gweithiwr erioed wedi anfon eilydd i wneud ei waith
+hirer.optimised.arrangedSubstitute.title = A yw’r gweithiwr erioed wedi anfon eilydd i wneud y gwaith hwn?
 hirer.optimised.arrangedSubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.arrangedSubstitute.heading = Has the worker ever sent a substitute to do this work?
 hirer.optimised.arrangedSubstitute.checkYourAnswersLabel = Has the worker ever sent a substitute to do this work?
-hirer.optimised.arrangedSubstitute.yesClientAgreed = Yes, you accepted them
-hirer.optimised.arrangedSubstitute.notAgreedWithClient = Yes, but you did not accept them
-hirer.optimised.arrangedSubstitute.noSubstitutionHappened = No, it has not happened
-hirer.optimised.arrangedSubstitute.p1 = A substitute is someone the worker sends in their place to do their role.
+hirer.optimised.arrangedSubstitute.yesClientAgreed =  Iawn, gwnaethoch ei dderbyn
+hirer.optimised.arrangedSubstitute.notAgreedWithClient =  Iawn, ond ni wnaethoch ei dderbyn
+hirer.optimised.arrangedSubstitute.noSubstitutionHappened =  Na, nid yw hynny wedi digwydd
+hirer.optimised.arrangedSubstitute.p1 = Eilydd yw rhywun y mae’r gweithiwr yn ei anfon yn ei le i ymgymryd â’i rôl.
 #########################
 
 ## Identify to stakeholders
@@ -427,14 +427,14 @@ worker.identifyToStakeholders.workAsIndependent =Mae’n weithiwr annibynnol sy�
 worker.identifyToStakeholders.workAsBusiness =Mae’n gweithio ar gyfer busnes ei hun
 
 ##TODO: Need Welsh
-hirer.optimised.identifyToStakeholders.error.required = Select how the worker would introduce themselves to your consumers or suppliers
-hirer.optimised.identifyToStakeholders.title = How would the worker introduce themselves to your consumers or suppliers?
+hirer.optimised.identifyToStakeholders.error.required = Dewiswch sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu’ch cyflenwyr
+hirer.optimised.identifyToStakeholders.title = Sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu’ch cyflenwyr?
 hirer.optimised.identifyToStakeholders.subheading = Cyfraniad y gweithiwr
-hirer.optimised.identifyToStakeholders.heading = How would the worker introduce themselves to your consumers or suppliers?
-hirer.optimised.identifyToStakeholders.checkYourAnswersLabel = How would the worker introduce themselves to your consumers or suppliers?
-hirer.optimised.identifyToStakeholders.workForEndClient = They work for you
-hirer.optimised.identifyToStakeholders.workAsIndependent = They are an independent worker acting on your behalf
-hirer.optimised.identifyToStakeholders.workAsBusiness = They work for their own business
+hirer.optimised.identifyToStakeholders.heading = Sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu’ch cyflenwyr?
+hirer.optimised.identifyToStakeholders.checkYourAnswersLabel = Sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu’ch cyflenwyr?
+hirer.optimised.identifyToStakeholders.workForEndClient = Mae’n gweithio i chi
+hirer.optimised.identifyToStakeholders.workAsIndependent = Mae’n weithiwr annibynnol sy’n gweithredu ar eich rhan
+hirer.optimised.identifyToStakeholders.workAsBusiness = Mae’n gweithio ar gyfer ei fusnes ei hun
 hirer.optimised.identifyToStakeholders.wouldNotHappen = Ni fyddai hyn yn digwydd
 
 worker.optimised.identifyToStakeholders.error.required = Dewiswch sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
@@ -458,16 +458,16 @@ interactWithStakeholders.hint =Mae’r rhain yn bobl sy’n defnyddio, neu sy’
 interactWithStakeholders.checkYourAnswersLabel =A yw’r gweithiwr yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
 interactWithStakeholders.error.required = Mae angen i chi ddewis ateb
 
-hirer.interactWithStakeholders.title = Does the worker interact with your customers, clients, audience or users?
-hirer.interactWithStakeholders.heading = Does the worker interact with your customers, clients, audience or users?
-hirer.interactWithStakeholders.subheading = About the worker’s integration into the organisation
-hirer.interactWithStakeholders.hint = These are people who use or are affected by the service provided by your organisation. This would not include the worker’s colleagues or other employees.
-hirer.interactWithStakeholders.checkYourAnswersLabel = Does the worker interact with your customers, clients, audience or users
+hirer.interactWithStakeholders.title = A yw’r gweithiwr yn rhyngweithio â’ch cwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr?
+hirer.interactWithStakeholders.heading = A yw’r gweithiwr yn rhyngweithio â’ch cwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr?
+hirer.interactWithStakeholders.subheading = Ynglŷn ag integreiddiad y gweithiwr i’r sefydliad
+hirer.interactWithStakeholders.hint = Mae’r rhain yn bobl sy’n defnyddio’r gwasanaeth a ddarperir gan eich sefydliad, neu’n bobl y mae’r gwasanaeth hwnnw’n effeithio arnynt. Ni fyddai hyn yn cynnwys cydweithwyr y gweithiwr na chyflogeion eraill.
+hirer.interactWithStakeholders.checkYourAnswersLabel = A yw’r gweithiwr yn rhyngweithio â’ch cwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr
 
-worker.interactWithStakeholders.title = Do you interact with the end client’s customers, clients, audience or users?
-worker.interactWithStakeholders.heading = Do you interact with the end client’s customers, clients, audience or users?
+worker.interactWithStakeholders.title = A ydych yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
+worker.interactWithStakeholders.heading = A ydych yn rhyngweithio â chwsmeriaid, cleientiaid, cynulleidfa neu ddefnyddwyr y cleient terfynol?
 worker.interactWithStakeholders.subheading = About the worker’s integration into the organisation
-worker.interactWithStakeholders.hint = These are people who use or are affected by the service provided by the public body, corporation or business. This would not include your colleagues or other employees.
+worker.interactWithStakeholders.hint = Mae’r rhain yn bobl sy’n defnyddio’r gwasanaeth a ddarperir gan y corff cyhoeddus, y gorfforaeth neu’r busnes, neu’n bobl y mae’r gwasanaeth hwnnw’n effeithio arnynt. Ni fyddai hyn yn cynnwys eich cydweithwyr na chyflogeion eraill.
 worker.interactWithStakeholders.checkYourAnswersLabel = Do you interact with the end client’s customers, clients, audience or users?
 #########################
 
@@ -502,8 +502,8 @@ worker.lineManagerDuties.bullet4 =Penderfynu ar faint i dalu rhywun
 worker.lineManagerDuties.checkYourAnswersLabel =A yw’r gweithiwr yn gyfrifol am unrhyw un o’r dyletswyddau canlynol ar gyfer y cleient terfynol?
 
 ##TODO: Need Welsh
-hirer.optimised.lineManagerDuties.error.required = Select yes if the worker will have any management responsibilities for your organisation
-hirer.optimised.lineManagerDuties.title = Will the worker have any management responsibilities for your organisation?
+hirer.optimised.lineManagerDuties.error.required = Dewiswch ‘Iawn’ os bydd gan y gweithiwr unrhyw gyfrifoldebau rheoli ar gyfer eich sefydliad
+hirer.optimised.lineManagerDuties.title =  A fydd gan y gweithiwr unrhyw gyfrifoldebau rheoli ar gyfer eich sefydliad?
 hirer.optimised.lineManagerDuties.subheading = Worker’s involvement
 hirer.optimised.lineManagerDuties.heading = Will the worker have any management responsibilities for your organisation?
 hirer.optimised.lineManagerDuties.checkYourAnswersLabel = Will the worker have any management responsibilities for your organisation?
@@ -563,8 +563,8 @@ worker.optimised.benefits.checkYourAnswersLabel = A fydd eich cleient yn rhoi bu
 worker.optimised.benefits.p1 = Gall hyn gynnwys aelodaeth â champfa allanol, yswiriant iechyd neu ostyngiadau manwerthu.
 
 ##TODO: Need Welsh
-hirer.optimised.benefits.error.required = Select yes if your organisation will provide the worker with paid-for corporate benefits
-hirer.optimised.benefits.title = Will you provide the worker with paid-for corporate benefits?
+hirer.optimised.benefits.error.required = Dewiswch ‘Iawn’ os bydd eich sefydliad yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr
+hirer.optimised.benefits.title =  A fyddwch yn darparu buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr?
 hirer.optimised.benefits.subheading = Worker’s involvement
 hirer.optimised.benefits.heading = Will you provide the worker with paid-for corporate benefits?
 hirer.optimised.benefits.checkYourAnswersLabel = Will you provide the worker with paid-for corporate benefits?
@@ -681,17 +681,17 @@ worker.optimised.howWorkerIsPaid.incomeCommission = Canran o’r gwerthiannau ry
 worker.optimised.howWorkerIsPaid.incomeProfitOrLosses = Canran o’ch cleient, elw neu gynilion
 
 ## TODO Need Welsh
-hirer.optimised.howWorkerIsPaid.error.required = Select how the worker will be paid for this work
-hirer.optimised.howWorkerIsPaid.error.invalid = Select how the worker will be paid for this work
-hirer.optimised.howWorkerIsPaid.title = How will the worker be paid for this work?
+hirer.optimised.howWorkerIsPaid.error.required = Dewiswch sut y caiff y gweithiwr ei dalu am y gwaith hwn
+hirer.optimised.howWorkerIsPaid.error.invalid = Dewiswch sut y caiff y gweithiwr ei dalu am y gwaith hwn
+hirer.optimised.howWorkerIsPaid.title = Sut y caiff y gweithiwr ei dalu am y gwaith hwn?
 hirer.optimised.howWorkerIsPaid.subheading = Risg ariannol y gweithiwr
-hirer.optimised.howWorkerIsPaid.heading = How will the worker be paid for this work?
-hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = How will the worker be paid for this work?
+hirer.optimised.howWorkerIsPaid.heading = Sut y caiff y gweithiwr ei dalu am y gwaith hwn?
+hirer.optimised.howWorkerIsPaid.checkYourAnswersLabel = Sut y caiff y gweithiwr ei dalu am y gwaith hwn?
 hirer.optimised.howWorkerIsPaid.incomeCalendarPeriods = Cyfradd yn ôl yr awr, cyfradd ddyddiol neu gyfradd wythnosol
 hirer.optimised.howWorkerIsPaid.incomeFixed = Pris sefydlog ar gyfer prosiect penodol
 hirer.optimised.howWorkerIsPaid.incomePieceRate = Swm y gwaith a gwblhawyd
-hirer.optimised.howWorkerIsPaid.incomeCommission = A percentage of the sales the worker generates
-hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = A percentage of your organisation’s profits or savings
+hirer.optimised.howWorkerIsPaid.incomeCommission = Canran o’r gwerthiannau y mae’r gweithiwr yn eu cynhyrchu
+hirer.optimised.howWorkerIsPaid.incomeProfitOrLosses = Canran o elw neu gynilion eich sefydliad
 #########################
 
 
@@ -742,14 +742,14 @@ worker.optimised.chooseWhereWork.workerAgreeWithOthers = Na, rhaid gwneud peth o
 ##TODO: Need Welsh
 hirer.optimised.chooseWhereWork.error.required = Select yes if your organisation has the right to decide where the worker does the work
 hirer.optimised.chooseWhereWork.error.invalid = Select yes if your organisation has the right to decide where the worker does the work
-hirer.optimised.chooseWhereWork.title = Does your organisation have the right to decide where the worker does the work?
+hirer.optimised.chooseWhereWork.title =  A oes gan eich sefydliad yr hawl i benderfynu ble mae’r gweithiwr yn gwneud y gwaith?
 hirer.optimised.chooseWhereWork.subheading = Trefniadau gweithio
 hirer.optimised.chooseWhereWork.heading = Does your organisation have the right to decide where the worker does the work?
 hirer.optimised.chooseWhereWork.checkYourAnswersLabel = Does your organisation have the right to decide where the worker does the work?
 hirer.optimised.chooseWhereWork.workerCannotChoose = Iawn
-hirer.optimised.chooseWhereWork.workerChooses = No, the worker decides
+hirer.optimised.chooseWhereWork.workerChooses =  Na, y gweithiwr sy’n penderfynu
 hirer.optimised.chooseWhereWork.noLocationRequired = Na, y dasg sy’n pennu’r lleoliad
-hirer.optimised.chooseWhereWork.workerAgreeWithOthers = No, some work has to be done in an agreed location and some can be the worker’s choice
+hirer.optimised.chooseWhereWork.workerAgreeWithOthers =  Na, mae’n rhaid gwneud peth gwaith mewn lleoliad y cytunwyd arno a gall y gweithiwr ddewis ble i wneud peth ohono
 #########################
 
 
@@ -788,26 +788,26 @@ worker.optimised.scheduleOfWorkingHours.error.required = Select yes if your clie
 agency.optimised.scheduleOfWorkingHours.error.required = Select yes if your client has the right to decide your working hours
 worker.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your client has the right to decide your working hours
 agency.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your client has the right to decide your working hours
-worker.optimised.scheduleOfWorkingHours.title = Does your client have the right to decide your working hours?
+worker.optimised.scheduleOfWorkingHours.title = A oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith?
 worker.optimised.scheduleOfWorkingHours.subheading = Trefniadau gweithio
-worker.optimised.scheduleOfWorkingHours.heading = Does your client have the right to decide your working hours?
-worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Does your client have the right to decide your working hours?
+worker.optimised.scheduleOfWorkingHours.heading = A oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith?
+worker.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = A oes gan eich cleient yr hawl i benderfynu ar eich oriau gwaith?
 worker.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
 worker.optimised.scheduleOfWorkingHours.workerDecideSchedule = Na, chi yn unig sy’n penderfynu
 worker.optimised.scheduleOfWorkingHours.workerAgreeSchedule = Na, byddwch chi â’ch cleient yn cytuno
 worker.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = Na, mae’r gwaith yn seiliedig ar ddyddiadau cau y cytunir arnynt
 
 ## TODO: Need Welsh
-hirer.optimised.scheduleOfWorkingHours.error.required = Select yes if your organisation has the right to decide the worker’s working hours
-hirer.optimised.scheduleOfWorkingHours.error.invalid = Select yes if your organisation has the right to decide the worker’s working hours
-hirer.optimised.scheduleOfWorkingHours.title = Does your organisation have the right to decide the worker’s working hours?
+hirer.optimised.scheduleOfWorkingHours.error.required = Dewiswch ‘Iawn’ os bydd gan eich sefydliad yr hawl i benderfynu oriau gwaith y gweithiwr
+hirer.optimised.scheduleOfWorkingHours.error.invalid = Dewiswch ‘Iawn’ os bydd gan eich sefydliad yr hawl i benderfynu oriau gwaith y gweithiwr
+hirer.optimised.scheduleOfWorkingHours.title =  A oes gan eich sefydliad yr hawl i benderfynu ar oriau gwaith y gweithiwr?
 hirer.optimised.scheduleOfWorkingHours.subheading = Working arrangements
 hirer.optimised.scheduleOfWorkingHours.heading = Does your organisation have the right to decide the worker’s working hours?
 hirer.optimised.scheduleOfWorkingHours.checkYourAnswersLabel = Does your organisation have the right to decide the worker’s working hours?
 hirer.optimised.scheduleOfWorkingHours.scheduleDecidedForWorker = Iawn
-hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule = No, the worker solely decides
-hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule = No, your organisation and the worker agree
-hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines = No, the work is based on agreed deadlines
+hirer.optimised.scheduleOfWorkingHours.workerDecideSchedule =  Na, y gweithiwr yn unig sy’n penderfynu
+hirer.optimised.scheduleOfWorkingHours.workerAgreeSchedule =  Na, mae’ch sefydliad a’r gweithiwr yn cytuno
+hirer.optimised.scheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines =  Na, mae’r gwaith yn seiliedig ar ddyddiadau cau y cytunir arnynt
 #########################
 
 
@@ -846,34 +846,34 @@ hirer.howWorkIsDone.workerFollowStrictEmployeeProcedures =Na - ni all y cleient 
 hirer.howWorkIsDone.workerAgreeWithOthers = Yn rhannol - mae’r gweithiwr a phobl eraill a gyflogir neu a huriwyd gan y cleient terfynol, yn cytuno ar faint o’r gwaith sydd angen ei wneud
 
 ## TODO: Need Welsh
-hirer.optimised.howWorkIsDone.error.required = Select yes if your organisation has the right to decide how the work is done
-hirer.optimised.howWorkIsDone.error.invalid = Select yes if your organisation has the right to decide how the work is done
-hirer.optimised.howWorkIsDone.title = Does your organisation have the right to decide how the work is done?
+hirer.optimised.howWorkIsDone.error.required = Dewiswch ‘Iawn’ os oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith
+hirer.optimised.howWorkIsDone.error.invalid = Dewiswch ‘Iawn’ os oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith
+hirer.optimised.howWorkIsDone.title =  A fydd eich sefydliad yn penderfynu sut y gwneir y gwaith?
 hirer.optimised.howWorkIsDone.subheading = Working arrangements
-hirer.optimised.howWorkIsDone.heading = Does your organisation have the right to decide how the work is done?
-hirer.optimised.howWorkIsDone.p1 = This can include your organisation instructing, guiding or advising the way the task should be completed.
-hirer.optimised.howWorkIsDone.p2 = This is not relevant if it is highly skilled work. For example, an airline pilot.
-hirer.optimised.howWorkIsDone.p3.text = Read more examples of
-hirer.optimised.howWorkIsDone.p3.link = how the work is done
-hirer.optimised.howWorkIsDone.checkYourAnswersLabel = Does your organisation have the right to decide how the work is done?
+hirer.optimised.howWorkIsDone.heading = A oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith?
+hirer.optimised.howWorkIsDone.p1 =  Gall hyn gynnwys eich sefydliad yn cyfarwyddo, yn arwain neu’n rhoi cyngor ynghylch y ffordd y dylai’r dasg gael ei chwblhau.
+hirer.optimised.howWorkIsDone.p2 =  Nid yw hyn yn berthnasol os yw’n waith tra medrus. Er enghraifft, peilot cwmni hedfan.
+hirer.optimised.howWorkIsDone.p3.text = Darllenwch ragor o enghreifftiau am
+hirer.optimised.howWorkIsDone.p3.link = sut y gwneir y gwaith
+hirer.optimised.howWorkIsDone.checkYourAnswersLabel = A oes gan eich sefydliad yr hawl i benderfynu sut y gwneir y gwaith?
 hirer.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 hirer.optimised.howWorkIsDone.workerDecidesWithoutInput = No, the worker solely decides
 hirer.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Na, oherwydd ei fod yn waith tra medrus
-hirer.optimised.howWorkIsDone.workerAgreeWithOthers = No, your organisation and the worker agree together
+hirer.optimised.howWorkIsDone.workerAgreeWithOthers =  Na, mae’ch sefydliad a’r gweithiwr yn cytuno ar y cyd
 
 ## TODO: welsh needed for new english content
 worker.optimised.howWorkIsDone.error.required = Select yes if your client has the right to decide how the work is done
 agency.optimised.howWorkIsDone.error.required = Select yes if your client has the right to decide how the work is done
 worker.optimised.howWorkIsDone.error.invalid = Select yes if your client has the right to decide how the work is done
 agency.optimised.howWorkIsDone.error.invalid = Select yes if your client has the right to decide how the work is done
-worker.optimised.howWorkIsDone.title = Does your client have the right to decide how the work is done?
+worker.optimised.howWorkIsDone.title = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
 worker.optimised.howWorkIsDone.subheading = Trefniadau gweithio
-worker.optimised.howWorkIsDone.heading = Does your client have the right to decide how the work is done?
+worker.optimised.howWorkIsDone.heading = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
 worker.optimised.howWorkIsDone.p1 = Byddai hyn yn wir os bydd eich cleient yn dweud wrthych sut y dylid cwblhau’r dasg drwy gyfarwyddo, arwain neu gynghori.
 worker.optimised.howWorkIsDone.p2 = This is not relevant if it is highly skilled work. For example, an airline pilot.
 worker.optimised.howWorkIsDone.p3.text = Read more examples of
 worker.optimised.howWorkIsDone.p3.link = how the work is done
-worker.optimised.howWorkIsDone.checkYourAnswersLabel = Does your client have the right to decide how the work is done?
+worker.optimised.howWorkIsDone.checkYourAnswersLabel = A oes gan eich cleient yr hawl i benderfynu sut y gwneir y gwaith?
 worker.optimised.howWorkIsDone.noWorkerInputAllowed = Iawn
 worker.optimised.howWorkIsDone.workerDecidesWithoutInput = Na, chi yn unig sy’n penderfynu
 worker.optimised.howWorkIsDone.workerFollowStrictEmployeeProcedures = Na, oherwydd ei fod yn waith tra medrus
@@ -914,30 +914,30 @@ hirer.moveWorker.canMoveWorkerWithoutPermission = Iawn - heb gytundeb y gweithiw
 hirer.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na - byddai’n rhaid trefnu hynny o dan gontract newydd neu gytundeb ffurfiol
 
 ## TODO: Need Welsh
-hirer.optimised.moveWorker.error.required = Select yes if your organisation has the right to move the worker from the task they originally agreed to do
-hirer.optimised.moveWorker.error.invalid = Select yes if your organisation has the right to move the worker from the task they originally agreed to do
-hirer.optimised.moveWorker.title = Does your organisation have the right to move the worker from the task they originally agreed to do?
+hirer.optimised.moveWorker.error.required =  Dewiswch ‘Iawn’ os oes gan eich sefydliad yr hawl i symud y gweithiwr o’r dasg y cytunodd i’w gwneud yn wreiddiol
+hirer.optimised.moveWorker.error.invalid =  Dewiswch ‘Iawn’ os oes gan eich sefydliad yr hawl i symud y gweithiwr o’r dasg y cytunodd i’w gwneud yn wreiddiol
+hirer.optimised.moveWorker.title = A oes gan eich sefydliad yr hawl i symud y gweithiwr o’r dasg y cytunodd i’w gwneud yn wreiddiol?
 hirer.optimised.moveWorker.subheading = Working arrangements
-hirer.optimised.moveWorker.heading = Does your organisation have the right to move the worker from the task they originally agreed to do?
-hirer.optimised.moveWorker.checkYourAnswersLabel = Does your organisation have the right to move the worker from the task they originally agreed to do?
-hirer.optimised.moveWorker.p1 = A worker taken on for general tasks, rather than one specific task, might be moved as and when priorities change. The client may not need the worker’s permission to move them.
-hirer.optimised.moveWorker.p2 = Read more examples about the client’s control over
-hirer.optimised.moveWorker.p2.link = what the worker does
+hirer.optimised.moveWorker.heading = A oes gan eich sefydliad yr hawl i symud y gweithiwr o’r dasg y cytunodd i’w gwneud yn wreiddiol?
+hirer.optimised.moveWorker.checkYourAnswersLabel = A oes gan eich sefydliad yr hawl i symud y gweithiwr o’r dasg y cytunodd i’w gwneud yn wreiddiol?
+hirer.optimised.moveWorker.p1 = Gallai gweithiwr a gyflogir ar gyfer tasgau cyffredinol, yn hytrach nag un dasg benodol, gael ei symud wrth i flaenoriaethau newid. Efallai na fydd angen caniatâd y gweithiwr ar y cleient i’w symud.
+hirer.optimised.moveWorker.p2 = Darllenwch fwy o enghreifftiau am reolaeth y cleient dros
+hirer.optimised.moveWorker.p2.link = yr hyn y mae’r gweithiwr yn ei wneud
 hirer.optimised.moveWorker.canMoveWorkerWithoutPermission = Iawn
-hirer.optimised.moveWorker.canMoveWorkerWithPermission = No, they would have to agree
-hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = No, that would require a new contract or formal working arrangement
+hirer.optimised.moveWorker.canMoveWorkerWithPermission =  Na, byddai’n rhaid iddo gytuno
+hirer.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement =  Na, byddai hynny’n gofyn am gontract newydd neu drefniant gweithio ffurfiol
 
 worker.optimised.moveWorker.error.required = Select yes if your client has the right to move you from the task you originally agreed to do
 agency.optimised.moveWorker.error.required = Select yes if your client has the right to move you from the task you originally agreed to do
 worker.optimised.moveWorker.error.invalid = Select yes if your client has the right to move you from the task you originally agreed to do
 agency.optimised.moveWorker.error.invalid = Select yes if your client has the right to move you from the task you originally agreed to do
-worker.optimised.moveWorker.title = Does your client have the right to move you from the task you originally agreed to do?
+worker.optimised.moveWorker.title = A oes gan eich cleient yr hawl i’ch symud o’r dasg y gwnaethoch gytuno i’w gwneud yn wreiddiol?
 worker.optimised.moveWorker.subheading = Trefniadau gweithio
-worker.optimised.moveWorker.heading = Does your client have the right to move you from the task you originally agreed to do?
-worker.optimised.moveWorker.checkYourAnswersLabel = Does your client have the right to move you from the task you originally agreed to do?
-worker.optimised.moveWorker.p1 = A worker taken on for general tasks, rather than one specific task, might be moved as and when priorities change. The client may not need the worker’s permission to move them.
-worker.optimised.moveWorker.p2 = Read more examples about the client’s control over
-worker.optimised.moveWorker.p2.link = what the worker does
+worker.optimised.moveWorker.heading = A oes gan eich cleient yr hawl i’ch symud o’r dasg y gwnaethoch gytuno i’w gwneud yn wreiddiol?
+worker.optimised.moveWorker.checkYourAnswersLabel = A oes gan eich cleient yr hawl i’ch symud o’r dasg y gwnaethoch gytuno i’w gwneud yn wreiddiol?
+worker.optimised.moveWorker.p1 = Gallai gweithiwr a gyflogir ar gyfer tasgau cyffredinol, yn hytrach nag un dasg benodol, gael ei symud wrth i flaenoriaethau newid. Efallai na fydd angen caniatâd y gweithiwr ar y cleient i’w symud.
+worker.optimised.moveWorker.p2 = Darllenwch fwy o enghreifftiau am reolaeth y cleient dros
+worker.optimised.moveWorker.p2.link = yr hyn y mae’r gweithiwr yn ei wneud
 worker.optimised.moveWorker.canMoveWorkerWithoutPermission = Iawn
 worker.optimised.moveWorker.canMoveWorkerWithPermission = Na, byddai’n rhaid i chi gytuno
 worker.optimised.moveWorker.cannotMoveWorkerWithoutNewAgreement = Na, byddai hynny’n gofyn am gontract newydd neu drefniant gweithio ffurfiol
@@ -982,8 +982,8 @@ worker.optimised.neededToPayHelper.heading = A ydych wedi talu person arall i wn
 worker.optimised.neededToPayHelper.checkYourAnswersLabel = A ydych wedi talu person arall i wneud cryn dipyn o’r gwaith hwn?
 
 ## TODO: Need Welsh
-hirer.optimised.neededToPayHelper.error.required = Select yes if the worker paid another person to do a significant amount of this work
-hirer.optimised.neededToPayHelper.title = Has the worker paid another person to do a significant amount of this work?
+hirer.optimised.neededToPayHelper.error.required = Dewiswch ‘Iawn’ os talodd y gweithiwr berson arall i wneud cryn dipyn o’r gwaith hwn
+hirer.optimised.neededToPayHelper.title = A yw’r gweithiwr wedi talu person arall i wneud cryn dipyn o’r gwaith hwn?
 hirer.optimised.neededToPayHelper.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.neededToPayHelper.heading = Has the worker paid another person to do a significant amount of this work?
 hirer.optimised.neededToPayHelper.checkYourAnswersLabel = Has the worker paid another person to do a significant amount of this work?
@@ -1020,12 +1020,12 @@ worker.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = A fyddai’n r
 worker.optimised.wouldWorkerPaySubstitute.hint = Byddai hyn yn cynnwys taliadau a wneir gennych chi neu’ch busnes
 
 ## TODO: Need Welsh
-hirer.optimised.wouldWorkerPaySubstitute.error.required = Select yes if the worker would have to pay their substitute
-hirer.optimised.wouldWorkerPaySubstitute.title = Would the worker have to pay their substitute?
+hirer.optimised.wouldWorkerPaySubstitute.error.required = Dewiswch ‘Iawn’ os byddai’n rhaid i’r gweithiwr dalu ei eilydd
+hirer.optimised.wouldWorkerPaySubstitute.title =  A fyddai’n rhaid i’r gweithiwr dalu ei eilydd?
 hirer.optimised.wouldWorkerPaySubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.wouldWorkerPaySubstitute.heading = Would the worker have to pay their substitute?
 hirer.optimised.wouldWorkerPaySubstitute.checkYourAnswersLabel = Would the worker have to pay their substitute?
-hirer.optimised.wouldWorkerPaySubstitute.hint = This would include payments made by the worker or their business.
+hirer.optimised.wouldWorkerPaySubstitute.hint =  Byddai hyn yn cynnwys taliadau a wnaed gan y gweithiwr neu ei fusnes.
 #########################
 
 
@@ -1082,16 +1082,16 @@ worker.optimised.rejectSubstitute.subheading = Eilyddion a chynorthwywyr
 worker.optimised.rejectSubstitute.heading = Os anfonoch eilydd a oedd yn bodloni holl feini prawf eich cleient, a oes gan y cleient yr hawl i’w wrthod?
 worker.optimised.rejectSubstitute.checkYourAnswersLabel = Os anfonoch eilydd a oedd yn bodloni holl feini prawf eich cleient, a oes gan y cleient yr hawl i’w wrthod?
 worker.optimised.rejectSubstitute.p1 = A substitute is someone you send in your place to do your role.
-worker.optimised.rejectSubstitute.p2 = This can include rejecting a substitute even if they are equally qualified, and meet your client’s interviewing, vetting and security clearance procedures.
+worker.optimised.rejectSubstitute.p2 =  Gall hyn gynnwys gwrthod eilydd hyd yn oed os oes ganddo gymwysterau cydradd, a’i fod yn bodloni gweithdrefnau’ch cleient o ran cyfweld, fetio a chliriadau diogelwch.
 
 ## TODO: Welsh Needed
-hirer.optimised.rejectSubstitute.error.required = Select yes if you have the right to reject a substitute
-hirer.optimised.rejectSubstitute.title = Do you have the right to reject a substitute?
+hirer.optimised.rejectSubstitute.error.required = Dewiswch ‘Iawn’ os oes gennych yr hawl i wrthod eilydd
+hirer.optimised.rejectSubstitute.title = A oes gennych yr hawl i wrthod eilydd?
 hirer.optimised.rejectSubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.rejectSubstitute.heading = Do you have the right to reject a substitute?
 hirer.optimised.rejectSubstitute.checkYourAnswersLabel = Do you have the right to reject a substitute?
 hirer.optimised.rejectSubstitute.p1 = A substitute is someone the worker sends in their place to do their role.
-hirer.optimised.rejectSubstitute.p2 = This can include rejecting a substitute even if they are equally qualified, and meet your interviewing, vetting and security clearance procedures.
+hirer.optimised.rejectSubstitute.p2 = Gall hyn gynnwys gwrthod eilydd hyd yn oed os oes ganddo gymwysterau cydradd, a’i fod yn bodloni’ch gweithdrefnau o ran cyfweld, fetio a chliriadau diogelwch.
 #########################
 
 
@@ -1125,12 +1125,12 @@ worker.optimised.didPaySubstitute.checkYourAnswersLabel = A wnaethoch dalu eich 
 worker.optimised.didPaySubstitute.p1 = Mae hyn yn cynnwys taliadau gennych chi neu’ch busnes.
 
 ## TODO: Welsh Needed
-hirer.optimised.didPaySubstitute.error.required = Select yes if the worker paid their substitute
-hirer.optimised.didPaySubstitute.title = Did the worker pay their substitute?
+hirer.optimised.didPaySubstitute.error.required = Dewiswch ‘Iawn’ os talodd y gweithiwr ei eilydd
+hirer.optimised.didPaySubstitute.title =  A wnaeth y gweithiwr dalu ei eilydd?
 hirer.optimised.didPaySubstitute.subheading = Eilyddion a chynorthwywyr
 hirer.optimised.didPaySubstitute.heading = Did the worker pay their substitute?
 hirer.optimised.didPaySubstitute.checkYourAnswersLabel = Did the worker pay their substitute?
-hirer.optimised.didPaySubstitute.p1 = This includes payments made by the worker or their business.
+hirer.optimised.didPaySubstitute.p1 =  Mae hyn yn cynnwys taliadau a wneir gan y gweithiwr neu ei fusnes.
 #########################
 
 
@@ -1317,18 +1317,18 @@ result.partParcel.summary=Rydym yn gofyn y cwestiynau hyn er mwyn cael gwybod i 
 # -------------------------------------------------------#
 
 ##### TODO NEED WELSH FOR ####
-aboutYourResult.title = Disclaimer
+aboutYourResult.title =  Ymwadiad
 aboutYourResult.heading = Disclaimer
-aboutYourResult.p1 = HMRC will stand by the result you get from this tool.
-aboutYourResult.p2 = This would not be the case if the information you have provided was checked and found to be inaccurate.
-aboutYourResult.p3 = HMRC will also not stand by results achieved through contrived arrangements, designed to get a particular outcome from the service. This would be treated as evidence of deliberate non-compliance, which can attract higher associated penalties.
+aboutYourResult.p1 = Bydd CThEM yn glynu wrth y canlyniad a gewch o’r twlsyn hwn.
+aboutYourResult.p2 =  Ni fyddai hyn yn wir os cafodd yr wybodaeth a ddarparwyd gennych ei gwirio a chanfuwyd ei bod yn anghywir.
+aboutYourResult.p3 = Hefyd, ni fydd CThEM yn glynu wrth ganlyniadau a gyflawnir drwy drefniadau ffug sydd wedi’u cynllunio i sicrhau canlyniad penodol o’r gwasanaeth. Byddai hyn yn cael ei drin fel tystiolaeth o ddiffyg cydymffurfio bwriadol, sy’n gallu dwyn cosbau cysylltiedig uwch.
 
 
 ##### TODO NEED WELSH FOR ####
-whichDescribesYou.title = What do you want to find out?
+whichDescribesYou.title =  Beth yr hoffech gael gwybod?
 whichDescribesYou.heading = What do you want to find out?
 whichDescribesYou.checkYourAnswersLabel = What do you want to find out?
-whichDescribesYou.worker.paye = If you are employed or self-employed for tax purposes
+whichDescribesYou.worker.paye =  Os ydych yn gyflogedig neu’n hunangyflogedig at ddibenion treth
 whichDescribesYou.client.paye = If a job you’re hiring for is classed as employed or self-employed for tax purposes
 whichDescribesYou.worker.ir35 = If a contract you’re working on, or could be working on, is within the off-payroll working rules (IR35)
 whichDescribesYou.client.ir35 = If a contract your organisation is offering is within the off-payroll working rules (IR35)
@@ -1339,7 +1339,7 @@ whichDescribesYou.error.invalid = Mae angen i chi ddewis ateb
 agencyAdvisory.title = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 agencyAdvisory.heading = Mynd yn eich blaen fel y gweithiwr i wirio penderfyniad
 ##### TODO need welsh
-agencyAdvisory.p1 = It is the not the agency’s responsibility to determine if the off-payroll working rules (IR35) apply to a contract or other period of work. You can continue as if you are the worker to check a determination.
+agencyAdvisory.p1 = Nid cyfrifoldeb yr asiantaeth yw penderfynu a yw’r rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol i gontract neu gyfnod arall o waith. Gallwch fynd yn eich blaen fel pe bai chi yw’r gweithiwr i wirio penderfyniad.
 
 worker.workerUsingIntermediary.error.required = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
 worker.workerUsingIntermediary.error.invalid = Dewiswch ‘Iawn’ os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
@@ -1358,17 +1358,17 @@ hirer.workerUsingIntermediary.subHeading = Amdanoch chi a’r gwaith
 hirer.workerUsingIntermediary.checkYourAnswersLabel = A yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig?
 
 ##### TODO NEED WELSH FOR ####
-checkYourAnswers.title = Review your answers in each section below
+checkYourAnswers.title = Adolygwch eich atebion ym mhob adran isod
 checkYourAnswers.heading = Review your answers in each section below
-checkYourAnswers.confirm.h2 = Declaration
-checkYourAnswers.confirm.p1 = By submitting your answers, you are confirming the following:
+checkYourAnswers.confirm.h2 = Datganiad
+checkYourAnswers.confirm.p1 = Drwy gyflwyno’ch atebion, rydych yn cadarnhau’r canlynol:
 
-checkYourAnswers.confirm.bullet1 = the information you have provided is correct, to the best of your knowledge
-checkYourAnswers.confirm.bullet2 = it reflects the actual or expected working practices of this role
-checkYourAnswers.confirm.bullet3 = if this information changes, you accept your result may no longer hold
+checkYourAnswers.confirm.bullet1 = mae’r wybodaeth rydych wedi’i rhoi yn wir, hyd eithaf eich gwybodaeth
+checkYourAnswers.confirm.bullet2 =  mae’n adlewyrchu arferion gwaith gwirioneddol neu ddisgwyliedig y rôl hon
+checkYourAnswers.confirm.bullet3 =  os bydd yr wybodaeth hon yn newid, rydych yn derbyn na fydd eich canlyniad, o bosibl, yn sefyll mwyach
 
 checkYourAnswers.setup.header = 1. Amdanoch chi a’r gwaith
-checkYourAnswers.exit.header = 2. Worker’s duties
+checkYourAnswers.exit.header = 2. Dyletswyddau’r gweithiwr
 checkYourAnswers.personalService.header = 3. Eilyddion a chynorthwywyr
 checkYourAnswers.control.header = 4. Trefniadau gweithio
 checkYourAnswers.financialRisk.header = 5. Risg ariannol y gweithiwr
@@ -1384,13 +1384,13 @@ checkYourAnswers.businessOnOwnAccount.header = 7. Contractau’r gweithiwr
 optimised.result.title = Result
 optimised.result.whyResult.h2 = Pam yr ydych yn cael y canlyniad hwn
 optimised.result.doNext.h2 = Beth y dylech ei wneud nesaf
-optimised.result.download.p1.determined = It is important that you keep a copy of this determination for your records.
+optimised.result.download.p1.determined = Mae’n bwysig eich bod yn cadw copi o’r penderfyniad hwn ar gyfer eich cofnodion.
 optimised.result.download.p1.undetermined = It is important that you keep a copy of this result for your records.
-optimised.result.download.getCopy = Get a copy of this result
+optimised.result.download.getCopy = Cael copi o’r canlyniad hwn
 optimised.result.download.p2.preExit = If you do not want to download a copy of your result, you can
 optimised.result.download.p2.exitLink = exit
 optimised.result.download.p2.exitLink.aria = Exit the check employment status for tax tool
-optimised.result.download.p2.preStartAgain = now, or
+optimised.result.download.p2.preStartAgain =  nawr, neu
 optimised.result.download.p2.startAgainLink = dechrau eto
 optimised.result.download.p2.startAgainLink.aria = Start the check employment status for tax tool again
 optimised.result.download.p2.postStartAgain = to check the employment status of some other work.
@@ -1404,7 +1404,7 @@ worker.optimised.result.officeHolder.paye.doNext.p1 = Lawrlwythwch gopi o’r ca
 
 ##TODO: Need Welsh
 hirer.optimised.result.officeHolder.paye.heading = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
-hirer.optimised.result.officeHolder.paye.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that the worker will perform office holder duties. This means they are employed for tax purposes for this work.
+hirer.optimised.result.officeHolder.paye.whyResult.p1 =  Yn yr adran ‘Dyletswyddau’r Gweithiwr’, ateboch y bydd y gweithiwr yn cyflawni dyletswyddau deiliad swydd. Golyga hyn ei fod yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.officeHolder.paye.doNext.p1 = Mae angen i chi weithredu TWE ar enillion y gweithiwr.
 hirer.optimised.result.officeHolder.paye.doNext.p2.preLink = Os mai’r gweithiwr hwn yw’ch cyflogai cyntaf, gallech ddarllen yr arweiniad hwn am
 hirer.optimised.result.officeHolder.paye.doNext.p2.link = TWE a’r gyflogres ar gyfer cyflogwyr.
@@ -1445,7 +1445,7 @@ agent.optimised.result.officeHolder.doNext.p2.link = Canllaw Statws Cyflogaeth.
 ## ------------------
 ##TODO: Need Welsh
 hirer.optimised.result.inside.paye.heading = Cyflogedig at ddibenion treth ar gyfer y gwaith hwn
-hirer.optimised.result.inside.paye.whyResult.p1 = The answers you have given suggest the worker is employed for tax purposes for this work.
+hirer.optimised.result.inside.paye.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.inside.paye.doNext.p1 = Mae angen i chi weithredu TWE ar enillion y gweithiwr.
 hirer.optimised.result.inside.paye.doNext.p2.text = Os mai’r gweithiwr hwn yw’ch cyflogai cyntaf, gallech ddarllen yr arweiniad hwn am
 hirer.optimised.result.inside.paye.doNext.p2.link = TWE a’r gyflogres ar gyfer cyflogwyr
@@ -1499,10 +1499,10 @@ worker.optimised.result.outside.ir35.check.doNext.p1 = Os yw’r canlyniad hwn y
 worker.optimised.result.outside.ir35.check.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallwch gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 worker.optimised.result.outside.ir35.check.doNext.p3.text = Gallech hefyd ddarllen pennod 5 o’r
 worker.optimised.result.outside.ir35.check.doNext.p3.link = Canllaw Statws Cyflogaeth.
-worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
-worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
-worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you or your business will have to fund costs before your client pays you.
-worker.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
+worker.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Yn ôl eich atebion, mae’ch cleient wedi derbyn, neu byddai’n derbyn, eilydd.
+worker.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Yn ôl eich atebion, nid oes gan eich cleient reolaeth dros y gwaith hwn.
+worker.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason =  Yn ôl eich atebion, bydd gennych chi a’ch busnes gostau am y gwaith hwn na fydd eich cleient yn talu amdanynt.
+worker.optimised.result.outside.ir35.whyResult.businessToBusiness = Mae’r atebion a roddwyd gennych yn awgrymu eich bod yn gweithio ar sail busnes i fusnes.
 
 ## Outside PAYE Decision Worker
 ## ------------------
@@ -1578,36 +1578,37 @@ worker.optimised.result.undetermined.paye.doNext.p2.postLink = This will provide
 worker.optimised.result.undetermined.paye.doNext.p3 = If you need more help on how to answer the questions within the tool, you can contact HMRC’s Employment Status and Intermediaries helpline.
 
 # TODO: Need Welsh
-downloadPDFCopy.error.required = Select yes to download this result
+downloadPDFCopy.error.required = Dewiswch ‘Iawn’ i lawrlwytho’r canlyniad hwn
 # TODO: need Welsh, correct addReferenceDetails.error translation
 addReferenceDetails.error.required = Mae angen i chi ddewis ateb
-addReferenceDetails.title = Do you want to add some details to this document?
-addReferenceDetails.heading = Do you want to add some details to this document?
-addReferenceDetails.yourRecordsOnly = You will get a document that shows today’s date and time of completion, your answers and your result. This is for your records only, HMRC will not keep these details.
-addReferenceDetails.example = For example, contract information, job title or hiring department.
+addReferenceDetails.title = A ydych am ychwanegu rhywfaint o fanylion at y ddogfen hon?
+addReferenceDetails.heading = A ydych am ychwanegu rhywfaint o fanylion at y ddogfen hon?
+addReferenceDetails.yourRecordsOnly =  Cewch ddogfen sy’n dangos dyddiad heddiw a’r amser cwblhau, ynghyd â’ch atebion a’ch canlyniad. Mae hyn ar gyfer eich cofnodion yn unig, ni fydd CThEM yn cadw’r manylion hyn.
+addReferenceDetails.example = Er enghraifft, gwybodaeth am y contract, teitl y swydd neu’r adran sy’n hurio.
 
-addDetails.title = Add details
-addDetails.heading = Add details
-addDetails.name = Your name (optional)
+addDetails.title = Ychwanegu manylion
+addDetails.heading = Ychwanegu manylion
+addDetails.name = Eich enw (optional)
 worker.addDetails.client = Client’s name (optional)
 hirer.addDetails.client = Your organisation’s name (optional)
-addDetails.job = Contract or role title (optional)
-addDetails.reference = Other information (optional)
-addDetails.charLimit = 180 characters maximum
-addDetails.fileName = File name (optional)
+addDetails.job = Contract neu deitl y swydd (optional)
+addDetails.reference = Gwybodaeth arall (optional)
+addDetails.charLimit = Uchafswm o 180 o gymeriadau
+addDetails.fileName = Enw’r ffeil
 
-finishedChecking.title = You have finished checking this work
-finishedChecking.heading = You have finished checking this work
-finishedChecking.p1.beforeLink1 = You can now
+
+finishedChecking.title =  Rydych wedi gorffen gwirio’r gwaith hwn
+finishedChecking.heading =  Rydych wedi gorffen gwirio’r gwaith hwn
+finishedChecking.p1.beforeLink1 =  Gallwch nawr
 finishedChecking.p1.link1 = exit
 finishedChecking.p1.beforeLink2 = , or
 finishedChecking.p1.link2 = dechrau eto
 finishedChecking.p1.afterLink2 = to check the employment status of some other work.
-finishedChecking.downloadAnswers = Download your answers and result (PDF, under {0}kb)
+finishedChecking.downloadAnswers = Lawrlwythwch eich atebion a’ch canlyniad (PDF, o dan {0}kb)
 
 ##TODO: Need Welsh
-hirer.materials.error.required = Select yes if the worker will have costs for materials that your organisation will not pay for
-hirer.materials.title = Will you have to buy materials before your client pays you?
+hirer.materials.error.required = Dewiswch ‘Iawn’ os bydd yn rhaid i’r gweithiwr brynu deunyddiau cyn i’ch sefydliad ei dalu
+hirer.materials.title =  A fydd yn rhaid i’r gweithiwr brynu deunyddiau cyn i’ch sefydliad ei dalu?
 hirer.materials.subheading = Worker’s financial risk
 hirer.materials.heading = Will the worker have to buy materials before your organisation pays them?
 hirer.materials.checkYourAnswersLabel = Will the worker have to buy materials before your organisation pays them?
@@ -1624,28 +1625,28 @@ worker.materials.p1 = Gall hyn gynnwys eitemau sy’n rhan barhaol o’r gwaith,
 worker.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i’r diwydiant adeiladu.
 
 ##TODO: Need Welsh
-hirer.vehicle.error.required = Select yes if the worker will have costs for a vehicle that your organisation will not pay for
-hirer.vehicle.title = Will the worker have to fund any vehicle costs before your organisation pays them?
+hirer.vehicle.error.required = Dewiswch ‘Iawn’ os bydd yn rhaid i’r gweithiwr ariannu unrhyw gostau cerbyd cyn i’ch sefydliad ei dalu
+hirer.vehicle.title = A fydd yn rhaid i’r gweithiwr ariannu unrhyw gostau cerbyd cyn i’ch sefydliad ei dalu?
 hirer.vehicle.subheading = Worker’s financial risk
 hirer.vehicle.heading = Will the worker have to fund any vehicle costs before your organisation pays them?
 hirer.vehicle.checkYourAnswersLabel = Will the worker have to fund any vehicle costs before your organisation pays them?
-hirer.vehicle.p1 = This can include purchasing, leasing, hiring, fuel and other running costs for this work. This does not include commuting or personal vehicle costs.
+hirer.vehicle.p1 =  Gall hyn gynnwys prynu, prydlesu, hurio, costau tanwydd a chostau rhedeg eraill ar gyfer y gwaith hwn, ond nid yw’n cynnwys costau cymudo.
 
 worker.vehicle.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.vehicle.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
-worker.vehicle.title = Will you have to fund any vehicle costs before your client pays you?
+worker.vehicle.title = A fydd yn rhaid i chi ariannu unrhyw gostau cerbyd cyn i’ch cleient eich talu?
 worker.vehicle.subheading = Risg ariannol y gweithiwr
 worker.vehicle.heading = A fydd unrhyw gostau eraill ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.vehicle.checkYourAnswersLabel = A fydd unrhyw gostau eraill ar gyfer cerbyd yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.vehicle.p1 = Gall hyn gynnwys prynu, prydlesu, hurio, costau tanwydd a chostau rhedeg eraill, ond nid yw’n cynnwys costau cymudo.
 
 ##TODO: Need Welsh
-hirer.otherExpenses.error.required = Select yes if the worker will have any other costs that your organisation will not pay for
-hirer.otherExpenses.title = Will the worker have to fund any other costs before your organisation pays them?
+hirer.otherExpenses.error.required = Dewiswch ‘Iawn’ os bydd gan y gweithiwr unrhyw gostau eraill na fydd eich sefydliad yn talu amdanynt
+hirer.otherExpenses.title =  A fydd yn rhaid i’r gweithiwr ariannu unrhyw gostau eraill cyn i’ch sefydliad ei dalu?
 hirer.otherExpenses.subheading = Worker’s financial risk
 hirer.otherExpenses.heading = Will the worker have to fund any other costs before your organisation pays them?
 hirer.otherExpenses.checkYourAnswersLabel = Will the worker have to fund any other costs before your organisation pays them?
-hirer.otherExpenses.p1 = This can include non-commuting travel or accommodation, or external business premises for this work only.
+hirer.otherExpenses.p1 = Gall hyn gynnwys llety neu deithio nad yw’n ymwneud â chymudo, safleoedd busnes allanol neu achrediad ar gyfer y gwaith hwn yn unig.
 
 worker.otherExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.otherExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau eraill yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
@@ -1656,33 +1657,33 @@ worker.otherExpenses.checkYourAnswersLabel = A fydd unrhyw gostau eraill yn cael
 worker.otherExpenses.p1 = Gall hyn gynnwys llety neu deithio nad yw'n ymwneud â chymudo, safleoedd busnes allanol, ar gyfer y gwaith hwn yn unig.
 
 ##TODO: Need Welsh
-hirer.equipmentExpenses.error.required = Select yes if the worker will have equipment costs that your organisation will not pay for
-hirer.equipmentExpenses.title = Will the worker have to buy equipment before your organisation pays them?
+hirer.equipmentExpenses.error.required = Dewiswch ‘Iawn’ os bydd yn rhaid i’r gweithiwr brynu offer cyn i’ch sefydliad ei dalu
+hirer.equipmentExpenses.title =  A fydd yn rhaid i’r gweithiwr brynu offer cyn i’ch sefydliad ei dalu?
 hirer.equipmentExpenses.subheading = Worker’s financial risk
 hirer.equipmentExpenses.heading = Will the worker have to buy equipment before your organisation pays them?
 hirer.equipmentExpenses.checkYourAnswersLabel = Will the worker have to buy equipment before your organisation pays them?
-hirer.equipmentExpenses.p1 = This can include heavy machinery or high-cost specialist equipment used for this work. This does not include laptops, tablets and phones.
-hirer.equipmentExpenses.p2 = Vehicle costs are covered in the next question.
+hirer.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenigol sydd â chost uchel a ddefnyddir ar gyfer y gwaith hwn. Nid yw hyn yn cynnwys gliniaduron, llechi na ffonau.
+hirer.equipmentExpenses.p2 = Ymdrinnir â chostau cerbyd yn y cwestiwn nesaf.
 
 ##TODO: Need Welsh
 worker.equipmentExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.equipmentExpenses.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
-worker.equipmentExpenses.title = Will you have to buy equipment before your client pays you?
+worker.equipmentExpenses.title = A fydd yn rhaid i chi brynu offer cyn i’ch cleient eich talu?
 worker.equipmentExpenses.subheading = Risg ariannol y gweithiwr
 worker.equipmentExpenses.heading = A fydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.equipmentExpenses.checkYourAnswersLabel = A fydd unrhyw gostau ar gyfer offer yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenigol sydd â chost uchel, ond nid yw’n cynnwys gliniaduron, llechi a ffonau
-worker.equipmentExpenses.p2 = Vehicle costs are covered in the next question.
+worker.equipmentExpenses.p2 = Ymdrinnir â chostau cerbyd yn y cwestiwn nesaf.
 
 ##TODO: Need Welsh
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
-result.pdf.customisedBy = Name of the person that completed this check:
-result.pdf.client = End client’s name:
-result.pdf.job = Engagement job title:
-result.pdf.reference = Reference:
-result.pdf.whatYouToldUs = What you told us
+result.pdf.customisedBy =  Enw’r person a gwblhaodd y gwiriad hwn:
+result.pdf.client = Enw’r cleient terfynol:
+result.pdf.job = Teitl y swydd:
+result.pdf.reference =  Cyfeirnod:
+result.pdf.whatYouToldUs =  Yr hyn a roesoch wybod i ni amdano
 result.pdf.decisionVersion = Decision service version: {0}
-result.pdf.decisionVersion.p1 = HMRC will stand by this result as long as it reflects the actual or expected working practices. If these working practices change, you should use this tool again.
+result.pdf.decisionVersion.p1 = Bydd CThEM yn glynu wrth y canlyniad hwn cyn belled â’i fod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig. Os bydd yr arferion gwaith hyn yn newid, dylech ddefnyddio’r twlsyn hwn eto.
 
 ##TODO: Need Welsh
 personalServiceSectionChangeWarning.title = By changing your answers in this section, you may need to answer additional questions
@@ -1721,9 +1722,9 @@ agent.optimised.result.outside.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr
 agent.optimised.result.outside.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i gleient eich gweithiwr. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
 agent.optimised.result.outside.doNext.p2.text = Os oes angen rhagor o arweiniad arnoch, gallech hefyd ddarllen pennod 5 o’r
 agent.optimised.result.outside.doNext.p2.link = Canllaw Statws Cyflogaeth.
-agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Your answers told us the worker’s client has accepted, or would accept, a substitute.
-agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Your answers told us the worker’s client does not have control over this work.
-agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker or their business will have to fund costs before their client pays them.
+agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason =  Yn ôl eich atebion, mae cleient y gweithiwr wedi derbyn, neu byddai’n derbyn, eilydd.
+agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason =  Yn ôl eich atebion, nid oes gan gleient y gweithiwr reolaeth dros y gwaith hwn.
+agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason =  Yn ôl eich atebion, bydd gan fusnes y gweithiwr gostau am y gwaith hwn na fydd ei gleient yn talu amdanynt.
 agent.optimised.result.outside.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
 
 ##TODO: Need Welsh
@@ -1736,23 +1737,23 @@ hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaim = bydd busnes y
 hirer.optimised.result.outside.paye.whyResult.p2 = Mae hyn yn awgrymu bod y gweithiwr yn hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 hirer.optimised.result.outside.paye.doNext.p1 = You need to pay the worker’s earnings in full, without deducting Income Tax and National Insurance contributions.
 hirer.optimised.result.outside.paye.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
-hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
-hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
-hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker’s business will have costs for this work that your organisation will not pay for.
-hirer.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
+hirer.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Yn ôl eich atebion, rydych wedi derbyn, neu byddech yn derbyn, eilydd.
+hirer.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Yn ôl eich atebion, nid oes gennych reolaeth dros y gwaith hwn.
+hirer.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason =  Yn ôl eich atebion, bydd gan fusnes y gweithiwr gostau am y gwaith hwn na fydd eich sefydliad yn talu amdanynt.
+hirer.optimised.result.outside.paye.whyResult.businessToBusiness = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 
-pdfDetails.fileName.error.maxLength = The file name must be {0} characters or less
-pdfDetails.completedBy.error.maxLength = The name must be {0} characters or less
-pdfDetails.client.error.maxLength = The client name must be {0} characters or less
-pdfDetails.job.error.maxLength = The contract or role title must be {0} characters or less
-pdfDetails.reference.error.maxLength = The reference must be {0} characters or less
+pdfDetails.fileName.error.maxLength = Mae’n rhaid i enw’r ffeil fod yn {0} o gymeriadau neu lai
+pdfDetails.completedBy.error.maxLength = Mae’n rhaid i’r enw fod yn {0} o gymeriadau neu lai
+pdfDetails.client.error.maxLength = Mae’n rhaid i enw’r cleient fod yn {0} o gymeriadau neu lai
+pdfDetails.job.error.maxLength = Mae’n rhaid i’r contract neu deitl y swydd fod yn {0} o gymeriadau neu lai
+pdfDetails.reference.error.maxLength = Mae’n rhaid i’r cyfeirnod fod yn {0} o gymeriadau neu lai
 
 ##TODO: Need Welsh
-resetAnswersWarning.title = To change an answer in this section, you will need to restart the tool. This will delete your answers.
+resetAnswersWarning.title =  I newid ateb yn yr adran hon, bydd yn rhaid i chi ailgychwyn y twlsyn. Bydd hyn yn dileu’ch atebion.
 resetAnswersWarning.heading = To change an answer in this section, you will need to restart the tool. This will delete your answers.
-resetAnswersWarning.hint = The answers given in this section influence the questions you are asked and the result.
+resetAnswersWarning.hint =  Mae’r atebion a roddir yn yr adran hon yn dylanwadu ar y cwestiynau a ofynnir i chi a’r canlyniad.
 resetAnswersWarning.startAgain = Dechrau eto
-resetAnswersWarning.goBack = Take me back to my answers
+resetAnswersWarning.goBack = Ewch â fi yn ôl i’m hatebion
 resetAnswersWarning.error.required = Mae angen i chi ddewis ateb
 
 ### Multiple Contracts Page
@@ -1904,10 +1905,10 @@ hirer.extendContract.checkYourAnswersLabel = A yw’r contract presennol yn rhoi
 workerKnown.error.required = You need to select an answer
 
 hirer.workerKnown.subheading = Contractau’r gweithiwr
-hirer.workerKnown.heading = Does your organisation know who will be doing this work?
+hirer.workerKnown.heading = A yw’ch sefydliad yn gwybod pwy fydd yn gwneud y gwaith hwn?
 hirer.workerKnown.title = Does your organisation know who will be doing this work?
 hirer.workerKnown.checkYourAnswersLabel = Does your organisation know who will be doing this work?
-hirer.workerKnown.p1 = If you do not know who the worker is, you will not need to answer any more questions. You will still get a determination that HMRC will stand by.
+hirer.workerKnown.p1 = Os nad ydych yn gwybod pwy yw’r gweithiwr, ni fydd angen i chi ateb unrhyw gwestiynau pellach. Byddwch yn dal i gael penderfyniad y bydd CThEM yn glynu wrtho.
 hirer.workerKnown.p2 = You should use this tool again if the worker disagrees with the determination. You would then be asked additional questions about the worker.
 
 ## TODO: Welsh Needed
@@ -1952,7 +1953,7 @@ whatDoYouWantToDo.error.required = Dewiswch a ydych am wneud penderfyniad neu wi
 whatDoYouWantToDo.subheading = Amdanoch chi a’r gwaith
 
 ###TODO: title/heading needs welsh
-whatDoYouWantToDo.title = What do you want to do?
+whatDoYouWantToDo.title =  Beth ydych am ei wneud?
 whatDoYouWantToDo.heading = What do you want to do?
 whatDoYouWantToDo.checkYourAnswersLabel = What do you want to do?
 whatDoYouWantToDo.makeNewDetermination = Gwneud penderfyniad newydd
@@ -2013,69 +2014,69 @@ hirer.noIntermediaryResult.p2.link2 = dechreuwch eto
 
 whatDoYouWantToFindOut.changeLinkContext = yr hyn yr hoffech ei wneud
 whoAreYou.changeLinkContext = pwy ydych
-whatDoYouWantToDo.changeLinkContext = what you want to do
-worker.workerUsingIntermediary.changeLinkContext = if you are trading through a limited company, partnership or unincorporated body
+whatDoYouWantToDo.changeLinkContext =  yr hyn yr hoffech ei wneud
+worker.workerUsingIntermediary.changeLinkContext =  os ydych yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
 hirer.workerUsingIntermediary.changeLinkContext = os yw’r gweithiwr yn masnachu drwy gwmni cyfyngedig, partneriaeth neu gorff anghorfforedig
-worker.optimised.contractStarted.changeLinkContext = if you have already started working for this client
+worker.optimised.contractStarted.changeLinkContext =  os ydych eisoes wedi dechrau gweithio i’r cleient hwn
 hirer.optimised.contractStarted.changeLinkContext = os yw’r gweithiwr eisoes wedi dechrau gweithio i’ch sefydliad
-worker.optimised.officeHolder.changeLinkContext = if you will be an ‘Office Holder’
+worker.optimised.officeHolder.changeLinkContext =  os byddwch yn ‘Ddeiliad Swydd’
 hirer.optimised.officeHolder.changeLinkContext = os bydd y gweithiwr yn  ‘Ddeiliad Swydd’
-worker.optimised.arrangedSubstitute.changeLinkContext = if you have ever sent a substitute to do your work
+worker.optimised.arrangedSubstitute.changeLinkContext =  os ydych erioed wedi anfon eilydd i wneud eich gwaith
 hirer.optimised.arrangedSubstitute.changeLinkContext = os yw’r gweithiwr erioed wedi anfon eilydd i wneud ei waith
-worker.optimised.didPaySubstitute.changeLinkContext = if you had to pay your substitute
+worker.optimised.didPaySubstitute.changeLinkContext =  os bu’n rhaid i chi dalu’ch eilydd
 hirer.optimised.didPaySubstitute.changeLinkContext = os talodd y gweithiwr ei eilydd
-worker.optimised.rejectSubstitute.changeLinkContext = if your client has the right to reject a substitute
+worker.optimised.rejectSubstitute.changeLinkContext =  os oes gan eich cleient yr hawl i wrthod eilydd
 hirer.optimised.rejectSubstitute.changeLinkContext = os oes gennych yr hawl i wrthod eilydd?
-worker.optimised.wouldWorkerPaySubstitute.changeLinkContext = if you would have to pay your substitute
+worker.optimised.wouldWorkerPaySubstitute.changeLinkContext =  os byddai’n rhaid i chi dalu’ch eilydd
 hirer.optimised.wouldWorkerPaySubstitute.changeLinkContext = os oes rhaid i’r gweithiwr dalu ei eilydd?
-worker.optimised.neededToPayHelper.changeLinkContext = if you have paid another person to do a significant amount of this work
+worker.optimised.neededToPayHelper.changeLinkContext =  os ydych wedi talu person arall i wneud cryn dipyn o’r gwaith hwn
 hirer.optimised.neededToPayHelper.changeLinkContext = os yw’r gweithiwr wedi talu person arall i wneud cryn dipyn o’r gwaith hwn
-worker.optimised.moveWorker.changeLinkContext = if your client has the right to move you from the task you originally agreed to do
+worker.optimised.moveWorker.changeLinkContext = os gellir newid y dasg heb eich cytundeb
 hirer.optimised.moveWorker.changeLinkContext = if your organisation has the right to move the worker from the task they originally agreed to do
-worker.optimised.howWorkIsDone.changeLinkContext = if your client has the right to decide how the work is done
+worker.optimised.howWorkIsDone.changeLinkContext =  os bydd eich cleient yn penderfynu sut y gwneir y gwaith
 hirer.optimised.howWorkIsDone.changeLinkContext = if your organisation has the right to decide how the work is done
-worker.optimised.scheduleOfWorkingHours.changeLinkContext = if your client has the right to decide your working hours
+worker.optimised.scheduleOfWorkingHours.changeLinkContext =  os bydd eich cleient yn penderfynu’r oriau gwaith
 hirer.optimised.scheduleOfWorkingHours.changeLinkContext = if your organisation has the right to decide the worker's working hours
-worker.optimised.chooseWhereWork.changeLinkContext = if your client has the right to decide where you do the work
+worker.optimised.chooseWhereWork.changeLinkContext =  os bydd eich cleient yn penderfynu ble rydych yn gwneud y gwaith
 hirer.optimised.chooseWhereWork.changeLinkContext = if your organisation has the right to decide where the worker does the work
-worker.equipmentExpenses.changeLinkContext = if you will have to buy equipment before your client pays you
+worker.equipmentExpenses.changeLinkContext =  os bydd gennych gostau ar gyfer offer na fydd eich cleient yn talu amdanynt
 hirer.equipmentExpenses.changeLinkContext = if the worker will have to buy equipment before your organisation pays them
-worker.vehicle.changeLinkContext = if you will have to fund any vehicle costs before your client pays you
+worker.vehicle.changeLinkContext =  os bydd gennych gostau ar gyfer cerbyd na fydd eich cleient yn talu amdanynt
 hirer.vehicle.changeLinkContext = if the worker will have to fund any vehicle costs before your organisation pays them
-worker.materials.changeLinkContext = if you will have to buy materials before your client pays you
+worker.materials.changeLinkContext =  os bydd gennych gostau ar gyfer deunyddiau na fydd eich cleient yn talu amdanynt
 hirer.materials.changeLinkContext = if the worker will have to buy materials before your organisation pays them
-worker.otherExpenses.changeLinkContext = if you will have to fund any other costs before your client pays you
+worker.otherExpenses.changeLinkContext =  os bydd gennych unrhyw gostau eraill na fydd eich cleient yn talu amdanynt
 hirer.otherExpenses.changeLinkContext = if the worker will have to fund any other costs before your organisation pays them
-worker.optimised.howWorkerIsPaid.changeLinkContext = how you will be paid for this work
+worker.optimised.howWorkerIsPaid.changeLinkContext = sut y cewch eich talu am y gwaith hwn
 hirer.optimised.howWorkerIsPaid.changeLinkContext = sut y caiff y gweithiwr ei dalu am y gwaith hwn
-worker.optimised.putRightAtOwnCost.changeLinkContext = if you would have to put the work right if your client was not happy with it
+worker.optimised.putRightAtOwnCost.changeLinkContext =  os byddai’n rhaid i chi unioni’r gwaith os nad oedd eich cleient yn hapus ag ef
 hirer.optimised.putRightAtOwnCost.changeLinkContext = os byddai’n rhaid i’r gweithiwr unioni’r gwaith os nad oedd eich sefydliad yn hapus ag ef
-worker.optimised.benefits.changeLinkContext = if your client will provide you with paid-for corporate benefits
+worker.optimised.benefits.changeLinkContext =  os bydd eich cleient yn rhoi buddiannau corfforaethol sydd wedi’u talu i chi
 hirer.optimised.benefits.changeLinkContext = os byddwch yn rhoi buddiannau corfforaethol sydd wedi’u talu i’r gweithiwr
-worker.optimised.lineManagerDuties.changeLinkContext = if you will have any management responsibilities for your client
+worker.optimised.lineManagerDuties.changeLinkContext =  os bydd gennych unrhyw gyfrifoldebau rheoli ar gyfer eich cleient
 hirer.optimised.lineManagerDuties.changeLinkContext = os bydd gan y gweithiwr unrhyw gyfrifoldebau rheoli ar gyfer eich sefydliad
-worker.optimised.identifyToStakeholders.changeLinkContext = how you would introduce yourself to your client’s consumers or suppliers
+worker.optimised.identifyToStakeholders.changeLinkContext = sut y byddech yn cyflwyno’ch hun i ddefnyddwyr neu gyflenwyr eich cleient
 hirer.optimised.identifyToStakeholders.changeLinkContext = sut y byddai’r gweithiwr yn cyflwyno’i hun i’ch defnyddwyr neu gyflenwyr
 hirer.workerKnown.changeLinkContext = if you know who will do this work
-worker.multipleContracts.changeLinkContext = if this contract stops you from doing similar work for other clients
+worker.multipleContracts.changeLinkContext =  os bydd y contract hwn yn eich atal rhag gwneud gwaith tebyg ar gyfer cleientiaid eraill
 hirer.multipleContracts.changeLinkContext = os yw’r contract hwn yn atal y gweithiwr rhag gwneud gwaith tebyg ar gyfer sefydliadau eraill
-worker.permissionToWorkWithOthers.changeLinkContext = if you are required to ask permission to work for other clients
+worker.permissionToWorkWithOthers.changeLinkContext =  os oes rhaid i chi ofyn am ganiatâd i weithio i gleientiaid eraill
 hirer.permissionToWorkWithOthers.changeLinkContext = os oes rhaid i’r gweithiwr ofyn am ganiatâd i weithio i sefydliadau eraill
 worker.ownershipRights.changeLinkContext = os oes unrhyw hawliau perchnogaeth yn gysylltiedig â’r contract hwn
 hirer.ownershipRights.changeLinkContext = os oes unrhyw hawliau perchnogaeth yn gysylltiedig â’r contract hwn
-worker.rightsOfWork.changeLinkContext = if the contract states the rights to this work belong to your client
+worker.rightsOfWork.changeLinkContext = os yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch cleient
 hirer.rightsOfWork.changeLinkContext = os yw’r contract yn datgan bod yr hawliau i’r gwaith hwn yn perthyn i’ch sefydliad
-worker.transferOfRights.changeLinkContext = if the contract gives your client the option to buy the rights for a separate fee
+worker.transferOfRights.changeLinkContext = os yw’r contract yn rhoi’r opsiwn i’ch cleient brynu’r hawliau am ffi ar wahân
 hirer.transferOfRights.changeLinkContext = os yw’r contract yn rhoi’r opsiwn i’ch sefydliad brynu’r hawliau am ffi ar wahân
-worker.previousContract.changeLinkContext = if you have had a previous contract with this client
+worker.previousContract.changeLinkContext =  os ydych wedi cael contract blaenorol gyda’r cleient hwn
 hirer.previousContract.changeLinkContext = os yw’r gweithiwr wedi cael contract blaenorol gyda’ch sefydliad
-worker.followOnContract.changeLinkContext = if this contract will start immediately after the previous one ended
+worker.followOnContract.changeLinkContext =  os bydd y contract hwn yn dechrau’n syth ar ôl i’r un blaenorol ddod i ben
 hirer.followOnContract.changeLinkContext = if this contract will start immediately after the previous one ended
-worker.firstContract.changeLinkContext = if the current contract the first in a series of contracts agreed with this client
+worker.firstContract.changeLinkContext = os mai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’r cleient hwn
 hirer.firstContract.changeLinkContext = os mai’r contract presennol yw’r cyntaf mewn cyfres o gontractau y cytunwyd arnynt â’ch sefydliad
-worker.extendContract.changeLinkContext = if the current contract allows for it to be extended
+worker.extendContract.changeLinkContext = os yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn
 hirer.extendContract.changeLinkContext = os yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
-worker.majorityOfWorkingTime.changeLinkContext = if this work will take up the majority of your available working time
+worker.majorityOfWorkingTime.changeLinkContext =  os bydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
 hirer.majorityOfWorkingTime.changeLinkContext = os bydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr
-worker.similarWorkOtherClients.changeLinkContext = if you have done any self-employed work of a similar nature for other clients in the last 12 months
+worker.similarWorkOtherClients.changeLinkContext = os ydych wedi gwneud unrhyw waith ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
 hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any self-employed work of a similar nature for other clients in the last 12 months
