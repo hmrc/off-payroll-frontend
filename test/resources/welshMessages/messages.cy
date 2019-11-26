@@ -68,6 +68,7 @@ site.telephone = Ffôn:
 site.telephone.number = 0300 200 1900
 site.email = E-bost:
 site.opensInNewWindow = (yn agor mewn ffenestr newydd)
+site.opensInNewWindowOrTab = (opens in a new window or tab)
 
 ## TODO: Need Welsh
 site.letter.h1 = Keep a copy of your determination
@@ -2107,3 +2108,6 @@ accessibilityStatement.howAccessible.p1.preLink = This service is fully complian
 accessibilityStatement.howAccessible.p1.link = Web Content Accessibility Guidelines version 2.1 AA standard
 accessibilityStatement.howAccessible.p2 = There are no known accessibility issues within this service.
 accessibilityStatement.reportProblem = Report an Accessibility Problem
+accessibilityStatement.reportProblems.h2 = Reporting accessibility problems with this service
+accessibilityStatement.reportProblems.p1.preLink = We are always looking to improve the accessibility of this service. If you find any problems that are not listed on this page or think we are not meeting accessibility requirements, report the
+accessibilityStatement.reportProblems.p1.link = accessibility problem

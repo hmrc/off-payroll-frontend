@@ -38,6 +38,7 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
   object Selectors extends PageSelectors
   object UsingThisServiceSelectors extends PageSelectors("#usingService")
   object HowAccessibleSelectors extends PageSelectors("#howAccessible")
+  object ReportProblemsSelectors extends PageSelectors("#reportProblems")
 
   val messageKeyPrefix = "accessibilityStatement"
 
@@ -79,9 +80,9 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
       p3.select("a").attr("href") mustBe frontendAppConfig.govUkStartPageUrl
     }
 
-    "have a Using this Service section" which {
+    "have a Using this Service section which" should {
 
-      "have the correct first h2" in {
+      "have the correct h2" in {
         document.select(UsingThisServiceSelectors.h2(1)).text must include(AccessibilityStatementMessages.UsingService.h2)
       }
 
@@ -112,9 +113,9 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
       }
     }
 
-    "have a How Accessible section" which {
+    "have a How Accessible section which" should {
 
-      "have the correct first h2" in {
+      "have the correct h2" in {
         document.select(HowAccessibleSelectors.h2(1)).text must include(AccessibilityStatementMessages.HowAccessible.h2)
       }
 
@@ -129,16 +130,16 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
       }
     }
 
-    "have the correct Report a Problem link which" should {
+    "have a Report a Problem section which" should {
 
-      lazy val reportIssueLink = document.select(Selectors.reportProblem)
-
-      "Have the correct text" in {
-        reportIssueLink.text mustBe AccessibilityStatementMessages.reportIssue
+      "have the correct h2" in {
+        document.select(ReportProblemsSelectors.h2(1)).text must include(AccessibilityStatementMessages.ReportProblems.h2)
       }
 
-      "Have the correct href" in {
-        reportIssueLink.attr("href") mustBe frontendAppConfig.reportAccessibilityIssueUrl(dummyPageWithIssue)
+      "have the correct p1" in {
+        val p1 = document.select(ReportProblemsSelectors.p(1))
+        p1.text must include(AccessibilityStatementMessages.ReportProblems.p1)
+        p1.select("a").attr("href") mustBe frontendAppConfig.reportAccessibilityIssueUrl(dummyPageWithIssue)
       }
     }
   }

@@ -48,6 +48,11 @@ object AccessibilityStatementMessages extends BaseMessages {
     val p2 = "There are no known accessibility issues within this service."
   }
 
+  object ReportProblems {
+    val h2 = "Reporting accessibility problems with this service"
+    val p1 = "We are always looking to improve the accessibility of this service. If you find any problems that are not listed on this page or think we are not meeting accessibility requirements, report the accessibility problem (opens in a new window or tab)"
+  }
+
   val reportIssue = "Report an Accessibility Problem (opens in a new window)"
 
 }

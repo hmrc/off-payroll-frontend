@@ -82,6 +82,14 @@
         <p>@messages("accessibilityStatement.howAccessible.p2")</p>
     </div>
 
+    <div id="reportProblems">
 
-    @new_window_link("accessibilityStatement.reportProblem", appConfig.reportAccessibilityIssueUrl(problemPageUri), Some("reportAccessibilityIssue"))
+        <h2>@messages("accessibilityStatement.reportProblems.h2")</h2>
+
+        <p>
+            @messages("accessibilityStatement.reportProblems.p1.preLink")
+            @new_window_or_tab_link("accessibilityStatement.reportProblems.p1.link", appConfig.reportAccessibilityIssueUrl(problemPageUri), Some("reportAccessibilityIssue"))
+        </p>
+
+    </div>
 }
