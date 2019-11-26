@@ -2087,12 +2087,14 @@ hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any sel
 ## =======================
 accessibilityStatement.heading = Accessibility statement for Check Employment Status for Tax
 accessibilityStatement.title = Accessibility statement for Check Employment Status for Tax
+
 accessibilityStatement.p1 = This accessibility statement explains how accessible this service is, what to do if you have difficulty using it, and how to report accessibility problems with the service.
 accessibilityStatement.p2.preLink = This service is part of the wider GOV.UK website. There is a separate
 accessibilityStatement.p2.link = accessibility statement
 accessibilityStatement.p2.postLink = for the main GOV.UK website.
 accessibilityStatement.p3.preLink = This page only contains information about the Check Employment Status for Tax service, available at
 accessibilityStatement.p3.link = https://www.gov.uk/guidance/check-employment-status-for-tax
+
 accessibilityStatement.usingService.h2 = Using this service
 accessibilityStatement.usingService.p1 = The Check Employment Status for Tax service allows users to check their employment status for tax purposes.
 accessibilityStatement.usingService.p2 = This service is run by HM Revenue and Customs (HMRC). We want as many people as possible to be able to use this service. This means you should be able to:
@@ -2104,10 +2106,30 @@ accessibilityStatement.usingService.bullet5 = listen to the service using a scre
 accessibilityStatement.usingService.p3 = We have also made the text in the service as simple as possible to understand.
 accessibilityStatement.usingService.p4.link = AbilityNet
 accessibilityStatement.usingService.p4.postLink = has advice on making your device easier to use if you have a disability.
+
 accessibilityStatement.howAccessible.h2 = How accessible this service is
 accessibilityStatement.howAccessible.p1.preLink = This service is fully compliant with the
 accessibilityStatement.howAccessible.p1.link = Web Content Accessibility Guidelines version 2.1 AA standard
 accessibilityStatement.howAccessible.p2 = There are no known accessibility issues within this service.
+
 accessibilityStatement.reportProblems.h2 = Reporting accessibility problems with this service
 accessibilityStatement.reportProblems.p1.preLink = We are always looking to improve the accessibility of this service. If you find any problems that are not listed on this page or think we are not meeting accessibility requirements, report the
 accessibilityStatement.reportProblems.p1.link = accessibility problem
+
+accessibilityStatement.notHappy.h2 = What to do if you are not happy with how we respond to your complaint
+accessibilityStatement.notHappy.p1.preLink1 = The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you are not happy with how we respond to your complaint,
+accessibilityStatement.notHappy.p1.link1 = contact the Equality Advisory and Support Service
+accessibilityStatement.notHappy.p1.preLink2 = (EASS), or the
+accessibilityStatement.notHappy.p1.link2 = Equality Commission for Northern Ireland
+accessibilityStatement.notHappy.p1.postLink2 = (ECNI) if you live in Northern Ireland.
+
+accessibilityStatement.contactUs.h2 = Contacting us by phone or getting a visit from us in person
+accessibilityStatement.contactUs.p1 = We provide a text relay service if you are deaf, hearing impaired or have a speech impediment.
+accessibilityStatement.contactUs.p2 = We can provide a British Sign Language (BSL) interpreter, or you can arrange a visit from an HMRC advisor to help you complete the service.
+accessibilityStatement.contactUs.p3.preLink = Find out how to
+accessibilityStatement.contactUs.p3.link = contact us
+
+accessibilityStatement.technicalReference.h2 = Technical information about this service’s accessibility
+accessibilityStatement.technicalReference.p1 = HMRC is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+accessibilityStatement.technicalReference.p2.preLink = This service is fully compliant with the
+accessibilityStatement.technicalReference.p2.link = Web Content Accessibility Guidelines version 2.1 AA standard

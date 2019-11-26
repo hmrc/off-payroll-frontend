@@ -53,6 +53,24 @@ object AccessibilityStatementMessages extends BaseMessages {
     val p1 = "We are always looking to improve the accessibility of this service. If you find any problems that are not listed on this page or think we are not meeting accessibility requirements, report the accessibility problem (opens in a new window or tab)"
   }
 
+  object NotHappy {
+    val h2 = "What to do if you are not happy with how we respond to your complaint"
+    val p1 = "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you are not happy with how we respond to your complaint, contact the Equality Advisory and Support Service (EASS), or the Equality Commission for Northern Ireland (ECNI) if you live in Northern Ireland."
+  }
+
+  object ContactUs {
+    val h2 = "Contacting us by phone or getting a visit from us in person"
+    val p1 = "We provide a text relay service if you are deaf, hearing impaired or have a speech impediment."
+    val p2 = "We can provide a British Sign Language (BSL) interpreter, or you can arrange a visit from an HMRC advisor to help you complete the service."
+    val p3 = "Find out how to contact us."
+  }
+
+  object TechnicalInformation {
+    val h2 = "Technical information about this service’s accessibility"
+    val p1 = "HMRC is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
+    val p2 = "This service is fully compliant with the Web Content Accessibility Guidelines version 2.1 AA standard."
+  }
+
   val reportIssue = "Report an Accessibility Problem (opens in a new window)"
 
 }

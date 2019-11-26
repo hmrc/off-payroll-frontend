@@ -88,5 +88,8 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val govukAccessibilityStatementUrl = servicesConfig.getString("urls.govukAccessibilityStatement")
   lazy val abilityNetUrl = servicesConfig.getString("urls.abilityNet")
   lazy val wcagUrl = servicesConfig.getString("urls.wcag")
+  lazy val eassUrl = servicesConfig.getString("urls.eass")
+  lazy val ecniUrl = servicesConfig.getString("urls.ecni")
+  lazy val hmrcAdditionalNeedsUrl = servicesConfig.getString("urls.hmrcAdditionalNeeds")
 
 }

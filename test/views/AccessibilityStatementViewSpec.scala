@@ -39,6 +39,9 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
   object UsingThisServiceSelectors extends PageSelectors("#usingService")
   object HowAccessibleSelectors extends PageSelectors("#howAccessible")
   object ReportProblemsSelectors extends PageSelectors("#reportProblems")
+  object NotHappySelectors extends PageSelectors("#notHappy")
+  object ContactUsSelectors extends PageSelectors("#contactUs")
+  object TechnicalReferenceSelectors extends PageSelectors("#technicalReference")
 
   val messageKeyPrefix = "accessibilityStatement"
 
@@ -140,6 +143,56 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
         val p1 = document.select(ReportProblemsSelectors.p(1))
         p1.text must include(AccessibilityStatementMessages.ReportProblems.p1)
         p1.select("a").attr("href") mustBe frontendAppConfig.reportAccessibilityIssueUrl(dummyPageWithIssue)
+      }
+    }
+
+    "have a Not Happy section which" should {
+
+      "have the correct h2" in {
+        document.select(NotHappySelectors.h2(1)).text must include(AccessibilityStatementMessages.NotHappy.h2)
+      }
+
+      "have the correct p1" in {
+        val p1 = document.select(NotHappySelectors.p(1))
+        p1.text must include(AccessibilityStatementMessages.NotHappy.p1)
+        p1.select("a").first.attr("href") mustBe frontendAppConfig.eassUrl
+        p1.select("a").last.attr("href") mustBe frontendAppConfig.ecniUrl
+      }
+    }
+
+    "have a Contact Us section which" should {
+
+      "have the correct h2" in {
+        document.select(ContactUsSelectors.h2(1)).text must include(AccessibilityStatementMessages.ContactUs.h2)
+      }
+
+      "have the correct p1" in {
+        document.select(ContactUsSelectors.p(1)).text must include(AccessibilityStatementMessages.ContactUs.p1)
+      }
+
+      "have the correct p2" in {
+        document.select(ContactUsSelectors.p(2)).text must include(AccessibilityStatementMessages.ContactUs.p2)
+      }
+
+      "have the correct p3" in {
+        document.select(ContactUsSelectors.p(3)).text must include(AccessibilityStatementMessages.ContactUs.p3)
+      }
+    }
+
+    "have a Technical Information section which" should {
+
+      "have the correct h2" in {
+        document.select(TechnicalReferenceSelectors.h2(1)).text must include(AccessibilityStatementMessages.TechnicalInformation.h2)
+      }
+
+      "have the correct p1" in {
+        document.select(TechnicalReferenceSelectors.p(1)).text must include(AccessibilityStatementMessages.TechnicalInformation.p1)
+      }
+
+      "have the correct p2" in {
+        val p1 = document.select(TechnicalReferenceSelectors.p(2))
+        p1.text must include(AccessibilityStatementMessages.TechnicalInformation.p2)
+        p1.select("a").attr("href") mustBe frontendAppConfig.hmrcAdditionalNeedsUrl
       }
     }
   }
