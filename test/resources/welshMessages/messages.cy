@@ -2075,5 +2075,5 @@ worker.extendContract.changeLinkContext = os yw’r contract presennol yn rhoi d
 hirer.extendContract.changeLinkContext = os yw’r contract presennol yn rhoi darpariaeth sy’n caniatáu iddo gael ei ymestyn?
 worker.majorityOfWorkingTime.changeLinkContext = os bydd y gwaith hwn yn cymryd y rhan fwyaf o’ch amser gwaith sydd ar gael
 hirer.majorityOfWorkingTime.changeLinkContext = os bydd y gwaith hwn yn cymryd y rhan fwyaf o’r amser gwaith sydd ar gael i’r gweithiwr
-worker.similarWorkOtherClients.changeLinkContext = os ydych wedi gwneud unrhyw waith ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
-hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any self-employed work of a similar nature for other clients in the last 12 months
+worker.similarWorkOtherClients.changeLinkContext = os ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
+hirer.similarWorkOtherClients.changeLinkContext = os yw’r gweithiwr wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
