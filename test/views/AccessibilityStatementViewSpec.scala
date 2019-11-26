@@ -42,6 +42,7 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
   object NotHappySelectors extends PageSelectors("#notHappy")
   object ContactUsSelectors extends PageSelectors("#contactUs")
   object TechnicalReferenceSelectors extends PageSelectors("#technicalReference")
+  object HowTestedSelectors extends PageSelectors("#howTested")
 
   val messageKeyPrefix = "accessibilityStatement"
 
@@ -193,6 +194,27 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
         val p1 = document.select(TechnicalReferenceSelectors.p(2))
         p1.text must include(AccessibilityStatementMessages.TechnicalInformation.p2)
         p1.select("a").attr("href") mustBe frontendAppConfig.hmrcAdditionalNeedsUrl
+      }
+    }
+
+    "have a How we tested this service section which" should {
+
+      "have the correct h2" in {
+        document.select(HowTestedSelectors.h2(1)).text must include(AccessibilityStatementMessages.HowTested.h2)
+      }
+
+      "have the correct p1" in {
+        document.select(HowTestedSelectors.p(1)).text must include(AccessibilityStatementMessages.HowTested.p1(frontendAppConfig.lastDacTestDate))
+      }
+
+      "have the correct p2" in {
+        val p1 = document.select(HowTestedSelectors.p(2))
+        p1.text must include(AccessibilityStatementMessages.HowTested.p2)
+        p1.select("a").attr("href") mustBe frontendAppConfig.dacUrl
+      }
+
+      "have the correct p3" in {
+        document.select(HowTestedSelectors.p(3)).text must include(AccessibilityStatementMessages.HowTested.p3(frontendAppConfig.accessibilityStatementLastUpdatedDate))
       }
     }
   }

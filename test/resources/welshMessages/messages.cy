@@ -2132,3 +2132,10 @@ accessibilityStatement.technicalReference.h2 = Technical information about this 
 accessibilityStatement.technicalReference.p1 = HMRC is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
 accessibilityStatement.technicalReference.p2.preLink = This service is fully compliant with the
 accessibilityStatement.technicalReference.p2.link = Web Content Accessibility Guidelines version 2.1 AA standard
+
+accessibilityStatement.howTested.h2 = How we tested this service
+accessibilityStatement.howTested.p1 = The service was last tested on {0} and was checked for compliance with WCAG 2.1 AA.
+accessibilityStatement.howTested.p2.preLink = The service was built using parts that were tested by the
+accessibilityStatement.howTested.p2.link = Digital Accessibility Centre
+accessibilityStatement.howTested.p2.postLink = The full service was tested by HMRC and included disabled users.
+accessibilityStatement.howTested.p3 = This page was prepared on 25 November 2019. It was last updated on {0}.

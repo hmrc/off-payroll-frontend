@@ -134,4 +134,20 @@
         </p>
 
     </div>
+
+    <div id="howTested">
+
+        <h2>@messages("accessibilityStatement.howTested.h2")</h2>
+
+        <p>@messages("accessibilityStatement.howTested.p1", appConfig.lastDacTestDate)</p>
+
+        <p>
+            @messages("accessibilityStatement.howTested.p2.preLink")
+            <a href="@appConfig.dacUrl">@messages("accessibilityStatement.howTested.p2.link")</a>.
+            @messages("accessibilityStatement.howTested.p2.postLink")
+        </p>
+
+        <p>@messages("accessibilityStatement.howTested.p3", appConfig.accessibilityStatementLastUpdatedDate)</p>
+
+    </div>
 }

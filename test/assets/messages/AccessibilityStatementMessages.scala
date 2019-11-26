@@ -71,6 +71,13 @@ object AccessibilityStatementMessages extends BaseMessages {
     val p2 = "This service is fully compliant with the Web Content Accessibility Guidelines version 2.1 AA standard."
   }
 
+  object HowTested {
+    val h2 = "How we tested this service"
+    val p1: String => String = date => s"The service was last tested on $date and was checked for compliance with WCAG 2.1 AA."
+    val p2 = "The service was built using parts that were tested by the Digital Accessibility Centre. The full service was tested by HMRC and included disabled users."
+    val p3: String => String = date =>  s"This page was prepared on 25 November 2019. It was last updated on $date."
+  }
+
   val reportIssue = "Report an Accessibility Problem (opens in a new window)"
 
 }
