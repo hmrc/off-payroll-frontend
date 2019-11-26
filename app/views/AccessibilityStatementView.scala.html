@@ -70,5 +70,18 @@
         </p>
     </div>
 
+    <div id="howAccessible">
+
+        <h2>@messages("accessibilityStatement.howAccessible.h2")</h2>
+
+        <p>
+            @messages("accessibilityStatement.howAccessible.p1.preLink")
+            <a href='@appConfig.wcagUrl'>@messages("accessibilityStatement.howAccessible.p1.link")</a>.
+        </p>
+
+        <p>@messages("accessibilityStatement.howAccessible.p2")</p>
+    </div>
+
+
     @new_window_link("accessibilityStatement.reportProblem", appConfig.reportAccessibilityIssueUrl(problemPageUri), Some("reportAccessibilityIssue"))
 }

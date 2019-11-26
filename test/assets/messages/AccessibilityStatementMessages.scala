@@ -41,6 +41,13 @@ object AccessibilityStatementMessages extends BaseMessages {
     val p4 = "AbilityNet has advice on making your device easier to use if you have a disability."
   }
 
+  object HowAccessible {
+    val h2 = "How accessible this service is"
+
+    val p1 = "This service is fully compliant with the Web Content Accessibility Guidelines version 2.1 AA standard."
+    val p2 = "There are no known accessibility issues within this service."
+  }
+
   val reportIssue = "Report an Accessibility Problem (opens in a new window)"
 
 }

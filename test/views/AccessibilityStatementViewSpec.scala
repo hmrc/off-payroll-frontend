@@ -37,6 +37,7 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
 
   object Selectors extends PageSelectors
   object UsingThisServiceSelectors extends PageSelectors("#usingService")
+  object HowAccessibleSelectors extends PageSelectors("#howAccessible")
 
   val messageKeyPrefix = "accessibilityStatement"
 
@@ -108,6 +109,23 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
         val p4 = document.select(Selectors.p(4))
         p4.text must include(AccessibilityStatementMessages.UsingService.p4)
         p4.select("a").attr("href") mustBe frontendAppConfig.abilityNetUrl
+      }
+    }
+
+    "have a How Accessible section" which {
+
+      "have the correct first h2" in {
+        document.select(HowAccessibleSelectors.h2(1)).text must include(AccessibilityStatementMessages.HowAccessible.h2)
+      }
+
+      "have the correct p1" in {
+        val p1 = document.select(HowAccessibleSelectors.p(1))
+        p1.text must include(AccessibilityStatementMessages.HowAccessible.p1)
+        p1.select("a").attr("href") mustBe frontendAppConfig.wcagUrl
+      }
+
+      "have the correct p2" in {
+        document.select(HowAccessibleSelectors.p(2)).text must include(AccessibilityStatementMessages.HowAccessible.p2)
       }
     }
 
