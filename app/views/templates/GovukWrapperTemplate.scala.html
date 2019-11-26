@@ -37,7 +37,7 @@ mainContent: MainContent,
 sidebar: Sidebar,
 article: Article,
 reportAProblemLink: ReportAProblemLink,
-footerLinks: FooterLinks,
+footer_links: FooterLinks,
 hmrcGovUkTemplate: GovUkTemplate,
 languageSelection: LanguageSelection)
 
@@ -113,7 +113,9 @@ languageSelection: LanguageSelection)
 }
 
 @footerTop = {}
-@footerLinksContent = {}
+@footerLinks = {
+    @footer_links(accessibilityFooterUrl = Some(controllers.routes.AccessibilityStatementController.onPageLoad(request.uri).url))
+}
 
 @phaseBanner = {
     <div class="beta-banner">
@@ -163,4 +165,4 @@ languageSelection: LanguageSelection)
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks()), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)

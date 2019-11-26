@@ -250,3 +250,5 @@ POST       /change-workers-contracts                    controllers.BusinessOnOw
 GET        /worker-intermediary-exit                    controllers.sections.setup.IntermediaryController.onPageLoad()
 
 GET        /worker-no-intermediary-exit                 controllers.sections.setup.NoIntermediaryController.onPageLoad()
+
+GET        /accessibility-statement                     controllers.AccessibilityStatementController.onPageLoad(problemPageUri: String)

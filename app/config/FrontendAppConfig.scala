@@ -53,6 +53,8 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   private def requestPath(implicit request: Request[_]) = ContinueUrl(host + request.path).encodedUrl
   def feedbackUrl(implicit request: Request[_]): String =
     s"$contactHost/contact/beta-feedback-unauthenticated?service=$contactFormServiceIdentifier&backUrl=$requestPath"
+  def reportAccessibilityIssueUrl(problemPageUri: String)(implicit request: Request[_]): String =
+    s"$contactHost/contact/accessibility-unauthenticated?service=${contactFormServiceIdentifier}&userAction=${ContinueUrl(host + problemPageUri).encodedUrl}"
 
   lazy val loginUrl = servicesConfig.getString("urls.login")
   lazy val loginContinueUrl = servicesConfig.getString("urls.loginContinue")
@@ -83,5 +85,15 @@ class FrontendAppConfig @Inject() (environment: Environment, val servicesConfig:
   lazy val understandingOffPayrollUrl = servicesConfig.getString("urls.understandingOffPayroll")
   lazy val feePayerResponsibilitiesUrl = servicesConfig.getString("urls.feePayerResponsibilities")
   lazy val payeForEmployersUrl = servicesConfig.getString("urls.payeForEmployers")
+  lazy val govukAccessibilityStatementUrl = servicesConfig.getString("urls.govukAccessibilityStatement")
+  lazy val abilityNetUrl = servicesConfig.getString("urls.abilityNet")
+  lazy val wcagUrl = servicesConfig.getString("urls.wcag")
+  lazy val eassUrl = servicesConfig.getString("urls.eass")
+  lazy val ecniUrl = servicesConfig.getString("urls.ecni")
+  lazy val hmrcAdditionalNeedsUrl = servicesConfig.getString("urls.hmrcAdditionalNeeds")
+  lazy val dacUrl = servicesConfig.getString("urls.dac")
+
+  lazy val accessibilityStatementLastUpdatedDate = servicesConfig.getString("accessibilityStatementLastUpdatedDate")
+  lazy val lastDacTestDate = servicesConfig.getString("lastDacTestDate")
 
 }
