@@ -12,7 +12,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Will you have equipment costs that your client will not pay for?")
+        result.body should include ("Will you have to buy equipment before your client pays you?")
       }
     }
 
@@ -31,7 +31,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have equipment costs that your client will not pay for?")
+        result.body should include ("Will you have to buy equipment before your client pays you?")
 
       }
     }
@@ -42,7 +42,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have costs for a vehicle that your client will not pay for?")
+        result.body should include ("Will you have to fund any vehicle costs before your client pays you?")
       }
     }
   }
@@ -55,7 +55,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Will you have equipment costs that your client will not pay for?")
+        result.body should include ("Will you have to buy equipment before your client pays you?")
       }
     }
 
@@ -74,7 +74,7 @@ class EquipmentExpensesControllerISpec extends IntegrationSpecBase {
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Will you have equipment costs that your client will not pay for?")
+        result.body should include ("Will you have to buy equipment before your client pays you?")
 
       }
     }

@@ -16,7 +16,7 @@
 
 package views
 
-import assets.messages.{AddReferenceDetailsMessages,BaseMessages}
+import assets.messages.{AddReferenceDetailsMessages}
 import config.featureSwitch.OptimisedFlow
 import forms.AddReferenceDetailsFormProvider
 import play.api.data.Form

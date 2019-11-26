@@ -166,10 +166,14 @@ class IR35InsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.HirerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerIR35.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -180,7 +184,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.HirerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.HirerIR35.heading
@@ -196,9 +200,8 @@ class IR35InsideViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.h2).text mustBe InDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe InDecisionMessages.HirerIR35.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.HirerIR35.doNextP2
-      document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerIR35.doNextP3
       if(!workerKnown) {
-        document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.HirerIR35.workerNotKnown
+        document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.HirerIR35.workerNotKnown
       }
     }
 
@@ -213,10 +216,18 @@ class IR35InsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerIR35.heading
+        }
+        "Have the correct Download section" in {
+          if(isMakingNewDetermination){
+            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
+            document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
+          } else {
+            document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadExitMsg
+          }
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -227,7 +238,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.WorkerIR35.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.WorkerIR35.heading
@@ -251,7 +262,6 @@ class IR35InsideViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(2)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP2
         document.select(Selectors.DoNext.p(3)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP3
         document.select(Selectors.DoNext.p(4)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP4
-        document.select(Selectors.DoNext.p(5)).text mustBe InDecisionMessages.WorkerIR35.checkDoNextP5
       }
 
       "Have a link to the Employment Status Manual" in {

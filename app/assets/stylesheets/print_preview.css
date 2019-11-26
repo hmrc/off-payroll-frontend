@@ -99,45 +99,81 @@ ul li {
     float: left;
 }
 
+.print-pages {
+    -webkit-transform-origin:  top left;
+    -moz-transform-origin:  top left;
+    -ms-transform-origin:  top left;
+    -o-transform-origin:  top left;
+    transform-origin:  top left;
+}
+
 @media screen and (max-width: 1100px) {
-    .print-document {
-        zoom: 90%;
+    .print-pages {
+        -webkit-transform: scale(0.9);
+        -moz-transform:    scale(0.9);
+        -ms-transform:     scale(0.9);
+        -o-transform:      scale(0.9);
+        transform:         scale(0.9);
     }
 }
 
 @media screen and (max-width: 1000px) {
-    .print-document {
-        zoom: 80%;
+    .print-pages {
+        -webkit-transform: scale(0.8);
+        -moz-transform:    scale(0.8);
+        -ms-transform:     scale(0.8);
+        -o-transform:      scale(0.8);
+        transform:         scale(0.8);
     }
 }
 
 @media screen and (max-width: 900px) {
-    .print-document {
-        zoom: 70%;
+    .print-pages {
+        -webkit-transform: scale(0.7);
+        -moz-transform:    scale(0.7);
+        -ms-transform:     scale(0.7);
+        -o-transform:      scale(0.7);
+        transform:         scale(0.7);
     }
 }
 
 @media screen and (max-width: 800px) {
-    .print-document {
-        zoom: 60%;
+    .print-pages {
+        -webkit-transform: scale(0.6);
+        -moz-transform:    scale(0.6);
+        -ms-transform:     scale(0.6);
+        -o-transform:      scale(0.6);
+        transform:         scale(0.6);
     }
 }
 
 @media screen and (max-width: 700px) {
-    .print-document {
-        zoom: 50%;
+    .print-pages {
+        -webkit-transform: scale(0.5);
+        -moz-transform:    scale(0.5);
+        -ms-transform:     scale(0.5);
+        -o-transform:      scale(0.5);
+        transform:         scale(0.5);
     }
 }
 
 @media screen and (max-width: 600px) {
-    .print-document {
-        zoom: 40%;
+    .print-pages {
+        -webkit-transform: scale(0.4);
+        -moz-transform:    scale(0.4);
+        -ms-transform:     scale(0.4);
+        -o-transform:      scale(0.4);
+        transform:         scale(0.4);
     }
 }
 
 @media screen and (max-width: 500px) {
-    .print-document {
-        zoom: 30%;
+    .print-pages {
+        -webkit-transform: scale(0.3);
+        -moz-transform:    scale(0.3);
+        -ms-transform:     scale(0.3);
+        -o-transform:      scale(0.3);
+        transform:         scale(0.3);
     }
 }
 

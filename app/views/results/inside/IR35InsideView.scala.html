@@ -34,9 +34,9 @@
 @defining(
 
     pdfResultDetails.resultMode match {
-        case Result => mainTemplate(title(form, tailorMsgOptimised("result.inside.ir35.title")), appConfig = appConfig)(_)
+        case Result => mainTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
         case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        case ResultPDF => printTemplate(title(form, tailorMsgOptimised("result.inside.ir35.title")), appConfig = appConfig)(_)
+        case ResultPDF => printTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
     }
 ){ template =>
 
@@ -56,7 +56,7 @@
                 @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
                     @results.sections.why_result(whyResult)
                     @results.sections.do_next(doNext)
-                    @results.sections.download(form)
+                    @results.sections.download(form, isMake)
                 }
             }
             case ResultPrintPreview => {
@@ -77,10 +77,9 @@
 @doNext = {
     @if(request.userType.contains(Hirer)) {
         <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p1"))</p>
-        <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p2"))</p>
         <p>
-            @messages(tailorMsgOptimised("result.inside.ir35.doNext.p3.text"))
-            @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p3.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
+            @messages(tailorMsgOptimised("result.inside.ir35.doNext.p2.text"))
+            @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p2.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
         </p>
         @if(!workerKnown) {
             <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.workerNotKnown"))</p>

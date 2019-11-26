@@ -42,9 +42,11 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
 
   val view = injector.instanceOf[AddDetailsView]
 
-  def createView = () => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createView = () => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
 
-  def createViewUsingForm = (form: Form[AdditionalPdfDetails]) => view(frontendAppConfig, form, NormalMode)(fakeRequest, messages)
+  def createHirerView = () => view(form, NormalMode)(hirerFakeRequest, messages,frontendAppConfig)
+
+  def createViewUsingForm = (form: Form[AdditionalPdfDetails]) => view(form, NormalMode)(fakeRequest, messages,frontendAppConfig)
 
   "AddDetails view" must {
     behave like normalPage(createView, messageKeyPrefix, hasSubheading = false)
@@ -68,28 +70,30 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
       document.title mustBe title(AddDetailsMessages.heading)
     }
 
-    "have a panel indent to indicate that all fields are optional" in {
-      document.select(Selectors.panel).text mustBe AddDetailsMessages.allOptional
-    }
-
     "have the correct first label" in {
-      document.select(Selectors.label(4)).text mustBe AddDetailsMessages.fileName + " " + AddDetailsMessages.optional
+      document.select(Selectors.label(3)).text mustBe AddDetailsMessages.fileName
     }
 
     "have the correct second label" in {
-      document.select(Selectors.label(5)).text mustBe AddDetailsMessages.name + " " + AddDetailsMessages.optional
+      document.select(Selectors.label(4)).text mustBe AddDetailsMessages.name
     }
 
     "have the correct third label" in {
-      document.select(Selectors.label(6)).text mustBe AddDetailsMessages.clientName + " " + AddDetailsMessages.optional
+      document.select(Selectors.label(5)).text mustBe AddDetailsMessages.clientName
     }
 
     "have the correct fourth label" in {
-      document.select(Selectors.label(7)).text mustBe AddDetailsMessages.role + " " + AddDetailsMessages.optional
+      document.select(Selectors.label(6)).text mustBe AddDetailsMessages.role
     }
 
     "have the correct fifth label" in {
-      document.select(Selectors.label(8)).text mustBe AddDetailsMessages.reference + " " + AddDetailsMessages.optional
+      document.select(Selectors.label(7)).text mustBe AddDetailsMessages.reference
+    }
+
+    lazy val documentHirer = asDocument(createHirerView())
+
+    "have the correct third label for the Hirer" in {
+      documentHirer.select(Selectors.label(5)).text mustBe AddDetailsMessages.orgName
     }
   }
 }

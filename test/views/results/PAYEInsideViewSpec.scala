@@ -129,10 +129,14 @@ class PAYEInsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.WorkerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -143,7 +147,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.WorkerPAYE.heading
@@ -166,10 +170,14 @@ class PAYEInsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe InDecisionMessages.HirerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe InDecisionMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(2)).text mustBe InDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -180,7 +188,7 @@ class PAYEInsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(InDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(InDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe InDecisionMessages.HirerPAYE.heading

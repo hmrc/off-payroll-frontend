@@ -30,9 +30,9 @@
 
 @defining(
     pdfResultDetails.resultMode match {
-        case Result => mainTemplate(title(form, "agent.optimised.result.undetermined.title"), appConfig = appConfig)(_)
+        case Result => mainTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
         case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        case ResultPDF => printTemplate(title(form, "agent.optimised.result.undetermined.title"), appConfig = appConfig)(_)
+        case ResultPDF => printTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
     }
 ){ template =>
 
@@ -52,7 +52,7 @@
                 @formWithCsrf(ResultController.onSubmit(), 'autoComplete -> "off") {
                     @results.sections.why_result(whyResult)
                     @results.sections.do_next(doNext)
-                    @results.sections.download(form)
+                    @results.sections.download(form = form, isMake = false, isUndetermined = true)
                 }
             }
             case ResultPrintPreview => {
@@ -68,13 +68,13 @@
 
 @whyResult = {
     <p>@messages("agent.optimised.result.undetermined.whyResult.p1")</p>
-    <p>@messages("agent.optimised.result.undetermined.whyResult.p2")</p>
 }
 
 @doNext = {
     <p>@messages("agent.optimised.result.undetermined.doNext.p1")</p>
     <p>
-        @messages("agent.optimised.result.undetermined.doNext.p2")
+        @messages("agent.optimised.result.undetermined.doNext.p2.preLink")
         @components.new_window_link("site.employmentStatusManual", appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+        @messages("agent.optimised.result.undetermined.doNext.p2.postLink")
     </p>
 }

@@ -64,10 +64,13 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.Agent.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -78,7 +81,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.Agent.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.Agent.heading
@@ -88,7 +91,6 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
       document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.Agent.whyResult_p1
-      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.Agent.whyResult_p2
     }
 
     "Have the correct Do Next section" in {

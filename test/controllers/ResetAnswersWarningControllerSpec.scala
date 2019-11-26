@@ -56,7 +56,7 @@ class ResetAnswersWarningControllerSpec extends ControllerSpecBase {
     "redirect back to CYA when passed false" in {
       val result = controller().onSubmit(fakeRequest.withFormUrlEncodedBody(("value", "false")))
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some("/check-employment-status-for-tax/review-answers")
+      redirectLocation(result) mustBe Some("/check-employment-status-for-tax/review-your-answers")
     }
   }
 }

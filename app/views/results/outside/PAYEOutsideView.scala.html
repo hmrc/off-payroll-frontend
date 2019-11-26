@@ -33,9 +33,9 @@
 @defining(
 
     pdfResultDetails.resultMode match {
-        case Result => mainTemplate(title(form, tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
+        case Result => mainTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
         case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        case ResultPDF => printTemplate(title(form, tailorMsgOptimised("result.outside.paye.title")), appConfig = appConfig)(_)
+        case ResultPDF => printTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
     }
 
 ){ template =>
@@ -84,7 +84,7 @@
 
 @doNext = {
     <p>@messages(tailorMsgOptimised("result.outside.paye.doNext.p1"))</p>
-    @if(!workerKnown) {
-        <p>@messages(tailorMsgOptimised("result.outside.ir35.doNext.workerNotKnown"))</p>
+    @if(request.userType.contains(Hirer) && !workerKnown) {
+        <p>@messages(tailorMsgOptimised("result.outside.paye.doNext.workerNotKnown"))</p>
     }
 }

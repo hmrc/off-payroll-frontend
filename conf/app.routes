@@ -62,10 +62,10 @@ POST       /paid-substitute                             controllers.sections.per
 GET        /paid-substitute/change                      controllers.sections.personalService.DidPaySubstituteController.onPageLoad(mode: Mode = CheckMode)
 POST       /paid-substitute/change                      controllers.sections.personalService.DidPaySubstituteController.onSubmit(mode: Mode = CheckMode)
 
-GET        /could-send-substitute                       controllers.sections.personalService.RejectSubstituteController.onPageLoad(mode: Mode = NormalMode)
-POST       /could-send-substitute                       controllers.sections.personalService.RejectSubstituteController.onSubmit(mode: Mode = NormalMode)
-GET        /could-send-substitute/change                controllers.sections.personalService.RejectSubstituteController.onPageLoad(mode: Mode = CheckMode)
-POST       /could-send-substitute/change                controllers.sections.personalService.RejectSubstituteController.onSubmit(mode: Mode = CheckMode)
+GET        /right-to-reject-substitute                  controllers.sections.personalService.RejectSubstituteController.onPageLoad(mode: Mode = NormalMode)
+POST       /right-to-reject-substitute                  controllers.sections.personalService.RejectSubstituteController.onSubmit(mode: Mode = NormalMode)
+GET        /right-to-reject-substitute/change           controllers.sections.personalService.RejectSubstituteController.onPageLoad(mode: Mode = CheckMode)
+POST       /right-to-reject-substitute/change           controllers.sections.personalService.RejectSubstituteController.onSubmit(mode: Mode = CheckMode)
 
 GET        /would-pay-substitute                        controllers.sections.personalService.WouldWorkerPaySubstituteController.onPageLoad(mode: Mode = NormalMode)
 POST       /would-pay-substitute                        controllers.sections.personalService.WouldWorkerPaySubstituteController.onSubmit(mode: Mode = NormalMode)
@@ -77,10 +77,10 @@ POST       /paid-helper                                 controllers.sections.per
 GET        /paid-helper/change                          controllers.sections.personalService.NeededToPayHelperController.onPageLoad(mode: Mode = CheckMode)
 POST       /paid-helper/change                          controllers.sections.personalService.NeededToPayHelperController.onSubmit(mode: Mode = CheckMode)
 
-GET        /worker-task-changed                         controllers.sections.control.MoveWorkerController.onPageLoad(mode: Mode = NormalMode)
-POST       /worker-task-changed                         controllers.sections.control.MoveWorkerController.onSubmit(mode: Mode = NormalMode)
-GET        /worker-task-changed/change                  controllers.sections.control.MoveWorkerController.onPageLoad(mode: Mode = CheckMode)
-POST       /worker-task-changed/change                  controllers.sections.control.MoveWorkerController.onSubmit(mode: Mode = CheckMode)
+GET        /worker-move-task                            controllers.sections.control.MoveWorkerController.onPageLoad(mode: Mode = NormalMode)
+POST       /worker-move-task                            controllers.sections.control.MoveWorkerController.onSubmit(mode: Mode = NormalMode)
+GET        /worker-move-task/change                     controllers.sections.control.MoveWorkerController.onPageLoad(mode: Mode = CheckMode)
+POST       /worker-move-task/change                     controllers.sections.control.MoveWorkerController.onSubmit(mode: Mode = CheckMode)
 
 GET        /decide-how-work-is-done                     controllers.sections.control.HowWorkIsDoneController.onPageLoad(mode: Mode = NormalMode)
 POST       /decide-how-work-is-done                     controllers.sections.control.HowWorkIsDoneController.onSubmit(mode: Mode = NormalMode)
@@ -117,10 +117,10 @@ POST       /corporate-benefits                          controllers.sections.par
 GET        /corporate-benefits/change                   controllers.sections.partParcel.BenefitsController.onPageLoad(mode: Mode = CheckMode)
 POST       /corporate-benefits/change                   controllers.sections.partParcel.BenefitsController.onSubmit(mode: Mode = CheckMode)
 
-GET        /manager-responsibilities                    controllers.sections.partParcel.LineManagerDutiesController.onPageLoad(mode: Mode = NormalMode)
-POST       /manager-responsibilities                    controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = NormalMode)
-GET        /manager-responsibilities/change             controllers.sections.partParcel.LineManagerDutiesController.onPageLoad(mode: Mode = CheckMode)
-POST       /manager-responsibilities/change             controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = CheckMode)
+GET        /management-responsibilities                  controllers.sections.partParcel.LineManagerDutiesController.onPageLoad(mode: Mode = NormalMode)
+POST       /management-responsibilities                  controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = NormalMode)
+GET        /management-responsibilities/change           controllers.sections.partParcel.LineManagerDutiesController.onPageLoad(mode: Mode = CheckMode)
+POST       /management-responsibilities/change           controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = CheckMode)
 
 GET        /external-interaction                        controllers.sections.partParcel.InteractWithStakeholdersController.onPageLoad(mode: Mode = NormalMode)
 POST       /external-interaction                        controllers.sections.partParcel.InteractWithStakeholdersController.onSubmit(mode: Mode = NormalMode)
@@ -132,26 +132,26 @@ POST       /introduce-worker                            controllers.sections.par
 GET        /introduce-worker/change                     controllers.sections.partParcel.IdentifyToStakeholdersController.onPageLoad(mode: Mode = CheckMode)
 POST       /introduce-worker/change                     controllers.sections.partParcel.IdentifyToStakeholdersController.onSubmit(mode: Mode = CheckMode)
 
-GET        /result                                      controllers.ResultController.onPageLoad()
-POST       /result                                      controllers.ResultController.onSubmit()
+GET        /determination                               controllers.ResultController.onPageLoad()
+POST       /determination                               controllers.ResultController.onSubmit()
 
-GET        /add-details-to-document                     controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
-POST       /add-details-to-document                     controllers.PDFController.onSubmit(mode: Mode = NormalMode)
-GET        /add-details-to-document/change              controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
-POST       /add-details-to-document/change              controllers.PDFController.onSubmit(mode: Mode = CheckMode)
+GET        /add-details                            controllers.PDFController.onPageLoad(mode: Mode = NormalMode)
+POST       /add-details                            controllers.PDFController.onSubmit(mode: Mode = NormalMode)
+GET        /add-details/change                     controllers.PDFController.onPageLoad(mode: Mode = CheckMode)
+POST       /add-details/change                     controllers.PDFController.onSubmit(mode: Mode = CheckMode)
 
 GET        /download-pdf                                controllers.PDFController.downloadPDF()
 
 GET        /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onPageLoad()
 POST       /agency-not-responsible                      controllers.sections.setup.AgencyAdvisoryController.onSubmit()
 
-GET        /review-answers                              controllers.CheckYourAnswersController.onPageLoad(sectionToExpand: Option[models.Section.SectionEnum] ?= None)
-POST       /review-answers                              controllers.CheckYourAnswersController.onSubmit()
+GET        /review-your-answers                         controllers.CheckYourAnswersController.onPageLoad(sectionToExpand: Option[models.Section.SectionEnum] ?= None)
+POST       /review-your-answers                         controllers.CheckYourAnswersController.onSubmit()
 
-GET        /add-reference-details                       controllers.AddReferenceDetailsController.onPageLoad()
-POST       /add-reference-details                       controllers.AddReferenceDetailsController.onSubmit()
+GET        /add-some-details                                 controllers.AddReferenceDetailsController.onPageLoad()
+POST       /add-some-details                                 controllers.AddReferenceDetailsController.onSubmit()
 
-GET        /print-preview                               controllers.PrintPreviewController.onPageLoad()
+GET        /your-determination-and-answers              controllers.PrintPreviewController.onPageLoad()
 
 GET        /material-costs                              controllers.sections.financialRisk.MaterialsController.onPageLoad(mode: Mode = NormalMode)
 POST       /material-costs                              controllers.sections.financialRisk.MaterialsController.onSubmit(mode: Mode = NormalMode)
@@ -184,10 +184,10 @@ GET        /start-again                                 controllers.StartAgainCo
 GET        /redirect-to-disclaimer                      controllers.StartAgainController.redirectToDisclaimer
 GET        /something-went-wrong                        controllers.StartAgainController.somethingWentWrong
 
-GET        /contract-exclusivity                        controllers.sections.businessOnOwnAccount.MultipleContractsController.onPageLoad(mode: Mode = NormalMode)
-POST       /contract-exclusivity                        controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = NormalMode)
-GET        /contract-exclusivity/change                 controllers.sections.businessOnOwnAccount.MultipleContractsController.onPageLoad(mode: Mode = CheckMode)
-POST       /contract-exclusivity/change                 controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = CheckMode)
+GET        /no-similar-work                             controllers.sections.businessOnOwnAccount.MultipleContractsController.onPageLoad(mode: Mode = NormalMode)
+POST       /no-similar-work                             controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = NormalMode)
+GET        /no-similar-work/change                      controllers.sections.businessOnOwnAccount.MultipleContractsController.onPageLoad(mode: Mode = CheckMode)
+POST       /no-similar-work/change                      controllers.sections.businessOnOwnAccount.MultipleContractsController.onSubmit(mode: Mode = CheckMode)
 
 GET        /client-buys-rights                          controllers.sections.businessOnOwnAccount.TransferOfRightsController.onPageLoad(mode: Mode = NormalMode)
 POST       /client-buys-rights                          controllers.sections.businessOnOwnAccount.TransferOfRightsController.onSubmit(mode: Mode = NormalMode)
@@ -204,10 +204,10 @@ POST       /previous-contract                           controllers.sections.bus
 GET        /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onPageLoad(mode: Mode = CheckMode)
 POST       /previous-contract/change                    controllers.sections.businessOnOwnAccount.PreviousContractController.onSubmit(mode: Mode = CheckMode)
 
-GET        /contract-starts-after-previous-one          controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = NormalMode)
-POST       /contract-starts-after-previous-one          controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = NormalMode)
-GET        /contract-starts-after-previous-one/change   controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = CheckMode)
-POST       /contract-starts-after-previous-one/change   controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = CheckMode)
+GET        /contract-series                             controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = NormalMode)
+POST       /contract-series                             controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = NormalMode)
+GET        /contract-series/change                      controllers.sections.businessOnOwnAccount.FollowOnContractController.onPageLoad(mode: Mode = CheckMode)
+POST       /contract-series/change                      controllers.sections.businessOnOwnAccount.FollowOnContractController.onSubmit(mode: Mode = CheckMode)
 
 GET        /majority-of-working-time                    controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onPageLoad(mode: Mode = NormalMode)
 POST       /majority-of-working-time                    controllers.sections.businessOnOwnAccount.MajorityOfWorkingTimeController.onSubmit(mode: Mode = NormalMode)
@@ -247,8 +247,8 @@ POST       /similar-work/change                         controllers.sections.bus
 GET        /change-workers-contracts                    controllers.BusinessOnOwnAccountSectionChangeWarningController.onPageLoad(page: String)
 POST       /change-workers-contracts                    controllers.BusinessOnOwnAccountSectionChangeWarningController.onSubmit(page: String)
 
-GET        /worker-intermediary-eligibility-exit        controllers.sections.setup.IntermediaryController.onPageLoad()
+GET        /worker-intermediary-exit                    controllers.sections.setup.IntermediaryController.onPageLoad()
 
-GET        /worker-no-intermediary-eligibility-exit     controllers.sections.setup.NoIntermediaryController.onPageLoad()
+GET        /worker-no-intermediary-exit                 controllers.sections.setup.NoIntermediaryController.onPageLoad()
 
 GET        /accessibility-statement                     controllers.AccessibilityStatementController.onPageLoad(problemPageUri: String)

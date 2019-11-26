@@ -49,4 +49,7 @@
 }
 @content = {
     <p>@messages(tailorMsgOptimised("moveWorker.p1"))</p>
+    <p> @messages(tailorMsgOptimised("moveWorker.p2"))
+        @components.new_window_link(tailorMsgOptimised("moveWorker.p2.link"), appConfig.employmentStatusManualESM0527Url, Some("employmentStatusManualLink")).
+    </p>
 }

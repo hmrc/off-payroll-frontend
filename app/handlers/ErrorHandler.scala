@@ -22,7 +22,7 @@ import javax.inject.{Inject, Singleton}
 
 import play.api.Logger
 import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.Results.{BadRequest, InternalServerError, NotFound}
+import play.api.mvc.Results._
 import play.api.mvc.{Request, RequestHeader, Result, Results}
 import play.mvc.Http.Status.{BAD_REQUEST, INTERNAL_SERVER_ERROR, NOT_FOUND}
 import play.twirl.api.Html
@@ -46,6 +46,7 @@ class ErrorHandler @Inject()(appConfig: FrontendAppConfig,
     statusCode match {
       case play.mvc.Http.Status.BAD_REQUEST => Future.successful(BadRequest(badRequestTemplate(request)))
       case play.mvc.Http.Status.NOT_FOUND   => Future.successful(NotFound(notFoundTemplate(request)))
+      case play.mvc.Http.Status.FORBIDDEN   => Future.successful(Forbidden(internalServerErrorTemplate(request)))
       case _                                =>
         Logger.error(s"[ErrorHandler][onClientError] Status $statusCode with message: $message")
         Future.successful(InternalServerError(internalServerErrorTemplate(request)))

@@ -90,10 +90,10 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Reject Substitute page" in {
-      personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/could-send-substitute")
-      personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/could-send-substitute/change")
-      personalServiceRoutes.RejectSubstituteController.onSubmit(NormalMode).url mustBe fullPath("/could-send-substitute")
-      personalServiceRoutes.RejectSubstituteController.onSubmit(CheckMode).url mustBe fullPath("/could-send-substitute/change")
+      personalServiceRoutes.RejectSubstituteController.onPageLoad(NormalMode).url mustBe fullPath("/right-to-reject-substitute")
+      personalServiceRoutes.RejectSubstituteController.onPageLoad(CheckMode).url mustBe fullPath("/right-to-reject-substitute/change")
+      personalServiceRoutes.RejectSubstituteController.onSubmit(NormalMode).url mustBe fullPath("/right-to-reject-substitute")
+      personalServiceRoutes.RejectSubstituteController.onSubmit(CheckMode).url mustBe fullPath("/right-to-reject-substitute/change")
     }
 
     "Have the correct routes for the Would Pay Substitute page" in {
@@ -111,10 +111,10 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Move Worker page" in {
-      controlRoutes.MoveWorkerController.onPageLoad(NormalMode).url mustBe fullPath("/worker-task-changed")
-      controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url mustBe fullPath("/worker-task-changed/change")
-      controlRoutes.MoveWorkerController.onSubmit(NormalMode).url mustBe fullPath("/worker-task-changed")
-      controlRoutes.MoveWorkerController.onSubmit(CheckMode).url mustBe fullPath("/worker-task-changed/change")
+      controlRoutes.MoveWorkerController.onPageLoad(NormalMode).url mustBe fullPath("/worker-move-task")
+      controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url mustBe fullPath("/worker-move-task/change")
+      controlRoutes.MoveWorkerController.onSubmit(NormalMode).url mustBe fullPath("/worker-move-task")
+      controlRoutes.MoveWorkerController.onSubmit(CheckMode).url mustBe fullPath("/worker-move-task/change")
     }
 
     "Have the correct routes for the How Work is Done page" in {
@@ -167,10 +167,10 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Line Manager Duties page" in {
-      partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode).url mustBe fullPath("/manager-responsibilities")
-      partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url mustBe fullPath("/manager-responsibilities/change")
-      partParcelRoutes.LineManagerDutiesController.onSubmit(NormalMode).url mustBe fullPath("/manager-responsibilities")
-      partParcelRoutes.LineManagerDutiesController.onSubmit(CheckMode).url mustBe fullPath("/manager-responsibilities/change")
+      partParcelRoutes.LineManagerDutiesController.onPageLoad(NormalMode).url mustBe fullPath("/management-responsibilities")
+      partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url mustBe fullPath("/management-responsibilities/change")
+      partParcelRoutes.LineManagerDutiesController.onSubmit(NormalMode).url mustBe fullPath("/management-responsibilities")
+      partParcelRoutes.LineManagerDutiesController.onSubmit(CheckMode).url mustBe fullPath("/management-responsibilities/change")
     }
 
     "Have the correct routes for the Interact With Stakeholders page" in {
@@ -188,21 +188,21 @@ class RoutesSpec extends SpecBase {
     }
 
     "Have the correct routes for the Result page" in {
-      ResultController.onPageLoad().url mustBe fullPath("/result")
-      ResultController.onSubmit().url mustBe fullPath("/result")
+      ResultController.onPageLoad().url mustBe fullPath("/determination")
+      ResultController.onSubmit().url mustBe fullPath("/determination")
     }
 
     "Have the correct routes for the Customise Result page" in {
-      PDFController.onPageLoad(NormalMode).url mustBe fullPath("/add-details-to-document")
-      PDFController.onPageLoad(CheckMode).url mustBe fullPath("/add-details-to-document/change")
-      PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-details-to-document")
-      PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details-to-document/change")
+      PDFController.onPageLoad(NormalMode).url mustBe fullPath("/add-details")
+      PDFController.onPageLoad(CheckMode).url mustBe fullPath("/add-details/change")
+      PDFController.onSubmit(NormalMode).url mustBe fullPath("/add-details")
+      PDFController.onSubmit(CheckMode).url mustBe fullPath("/add-details/change")
     }
 
     "Have the correct routes for the Check Your Answers page" in {
-      CheckYourAnswersController.onPageLoad().url mustBe fullPath("/review-answers")
-      CheckYourAnswersController.onPageLoad(Some(Section.personalService)).url mustBe fullPath("/review-answers?sectionToExpand=personalService")
-      CheckYourAnswersController.onSubmit().url mustBe fullPath("/review-answers")
+      CheckYourAnswersController.onPageLoad().url mustBe fullPath("/review-your-answers")
+      CheckYourAnswersController.onPageLoad(Some(Section.personalService)).url mustBe fullPath("/review-your-answers?sectionToExpand=personalService")
+      CheckYourAnswersController.onSubmit().url mustBe fullPath("/review-your-answers")
     }
 
     "Have the correct routes for the ExitSurvey" in {

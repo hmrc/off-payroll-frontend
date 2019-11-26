@@ -17,15 +17,11 @@
 package views.results
 
 import assets.messages.results.{OutDecisionMessages, PrintPreviewMessages}
-import config.SessionKeys
 import forms.DeclarationFormProvider
-import models.sections.setup.AboutYouAnswer.Worker
-import models.{PDFResultDetails, UserAnswers}
-import models.UserType.Hirer
+import models.PDFResultDetails
 import models.requests.DataRequest
 import org.jsoup.nodes.Document
-import play.api.libs.json.Json
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import viewmodels.{Result, ResultMode, ResultPDF, ResultPrintPreview}
 import views.html.results.outside.PAYEOutsideView
 
@@ -177,10 +173,14 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.WorkerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -191,7 +191,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.WorkerPAYE.heading
@@ -227,10 +227,14 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OutDecisionMessages.HirerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe OutDecisionMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(2)).text mustBe OutDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -241,7 +245,7 @@ class PAYEOutsideViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OutDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(OutDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OutDecisionMessages.HirerPAYE.heading

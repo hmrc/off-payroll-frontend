@@ -13,7 +13,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
          result.status shouldBe OK
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
 
@@ -32,7 +32,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
 
       }
     }
@@ -42,7 +42,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
       lazy val res = postSessionRequest("/similar-work", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-          redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers")
+          redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers")
       }
     }
   }
@@ -55,7 +55,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
       }
     }
 
@@ -74,7 +74,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
-        result.body should include ("Have you done any work for other clients in the last 12 months?")
+        result.body should include ("Have you done any self-employed work of a similar nature for other clients in the last 12 months?")
 
       }
     }
@@ -84,7 +84,7 @@ class SimilarWorkOtherClientsControllerISpec extends IntegrationSpecBase with Cr
       lazy val res = postSessionRequest("/similar-work/change", selectedNo, followRedirect = false)
 
       whenReady(res) { result =>
-        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-answers?sectionToExpand=businessOnOwnAccount")
+        redirectLocation(result) shouldBe Some("/check-employment-status-for-tax/review-your-answers?sectionToExpand=businessOnOwnAccount")
       }
     }
   }

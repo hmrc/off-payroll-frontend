@@ -129,10 +129,14 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
+          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -143,7 +147,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.WorkerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.WorkerPAYE.heading
@@ -152,14 +156,15 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult1
-      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult2
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.whyResult
     }
 
     "Have the correct Do Next section" in {
       document.select(Selectors.DoNext.h2).text mustBe UndeterminedDecisionMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP1
       document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP2
+      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.WorkerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
     }
   }
 
@@ -168,10 +173,14 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe UndeterminedDecisionMessages.downloadMsgUndetermined
+          document.select(Selectors.Download.p(2)).text mustBe UndeterminedDecisionMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -182,7 +191,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(UndeterminedDecisionMessages.HirerPAYE.title)
+          document.title mustBe title(UndeterminedDecisionMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe UndeterminedDecisionMessages.HirerPAYE.heading
@@ -191,8 +200,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
 
     "Have the correct Why Result section" in {
       document.select(Selectors.WhyResult.h2).text mustBe UndeterminedDecisionMessages.whyResultHeading
-      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult1
-      document.select(Selectors.WhyResult.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult2
+      document.select(Selectors.WhyResult.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.whyResult
     }
 
     "Have the correct Do Next section" in {
@@ -203,9 +211,8 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP1_WorkerNotKnown
       }
       document.select(Selectors.DoNext.p(2)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP2
-      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.Site.telephone
-      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.email
-      document.select(Selectors.DoNext.p(5)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(3)).text mustBe UndeterminedDecisionMessages.HirerPAYE.doNextP3
+      document.select(Selectors.DoNext.p(4)).text mustBe UndeterminedDecisionMessages.Site.contactDetails
     }
   }
 }

@@ -19,56 +19,58 @@
 
 @(resultMsgKey: String, whyResult: Html, doNext: Html, userAnswers: LetterAnswerSections)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig, pdfResultDetails: PDFResultDetails)
 
-<div class="print-document page">
-    <table>
+<div class="print-pages">
+    <div class="print-document page">
+        <table>
 
-        @letter_header()
+            @letter_header()
 
-        <tbody>
-            <tr>
-                <td>
-                    <div class="content">
-                        <div class="grid-row main-content">
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="content">
+                            <div class="grid-row main-content">
 
-                            <div class="column-full">
-                                @pdfResultDetails.additionalPdfDetails.map { details =>
-                                    @letter_additional_details(details)
-                                }
-                            </div>
-
-                            <div id="result" class="column-full">
-                                @letter_result(resultMsgKey)
-                            </div>
-
-                            <div class="column-full">
-
-                                <div class="grid-row letter form-group">
-                                    <div class="column-two-thirds form-group">
-
-                                        <div class="form-group">
-                                            @results.sections.why_result(whyResult)
-                                        </div>
-
-                                        <div class="form-group">
-                                            @results.sections.do_next(doNext)
-                                        </div>
-                                    </div>
-
-
-                                    @pdfResultDetails.timestamp.map { timestamp =>
-                                        @letter_about_this_result_box(timestamp)
+                                <div class="column-full">
+                                    @pdfResultDetails.additionalPdfDetails.map { details =>
+                                        @letter_additional_details(details)
                                     }
+                                </div>
 
+                                <div id="result" class="column-full">
+                                    @letter_result(resultMsgKey)
+                                </div>
+
+                                <div class="column-full">
+
+                                    <div class="grid-row letter form-group">
+                                        <div class="column-two-thirds form-group">
+
+                                            <div class="form-group">
+                                                @results.sections.why_result(whyResult)
+                                            </div>
+
+                                            <div class="form-group">
+                                                @results.sections.do_next(doNext)
+                                            </div>
+                                        </div>
+
+
+                                        @pdfResultDetails.timestamp.map { timestamp =>
+                                            @letter_about_this_result_box(timestamp)
+                                        }
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
+                    </td>
+                </tr>
+            </tbody>
 
-        @letter_footer(1, userAnswers.numberOfPages)
-    </table>
+            @letter_footer(1, userAnswers.numberOfPages)
+        </table>
+    </div>
+
+    @letter_answer_pages(userAnswers)
 </div>
-
-@letter_answer_pages(userAnswers)

@@ -54,10 +54,10 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
 
         "Return OK (200)" in {
 
-          val result = testPrintPreviewController().onPageLoad()(request)
-
           mockDetermineResultView(decisionResponse)(Right(Html("Success")))
           mockCheckYourAnswers(Seq())
+
+          val result = testPrintPreviewController().onPageLoad()(request)
 
           status(result) mustBe OK
         }
@@ -67,10 +67,10 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
 
         "Return ISE (500)" in {
 
-          val result = testPrintPreviewController().onPageLoad()(request)
-
           mockDetermineResultView(decisionResponse)(Left(Html("Err")))
           mockCheckYourAnswers(Seq())
+
+          val result = testPrintPreviewController().onPageLoad()(request)
 
           status(result) mustBe INTERNAL_SERVER_ERROR
           contentAsString(result) mustBe errorHandler.internalServerErrorTemplate.toString

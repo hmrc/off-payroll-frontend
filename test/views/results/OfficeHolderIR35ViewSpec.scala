@@ -127,10 +127,18 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Worker.IR35.heading
+        }
+        "Have the correct Download section" in {
+          if(isMakingDetermination){
+            document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgDetermined
+            document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
+          } else {
+            document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadExitMsg
+          }
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -141,7 +149,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Worker.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Worker.IR35.heading
@@ -164,8 +172,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p1
         document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p2
         document.select(Selectors.DoNext.p(3)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p3
-        document.select(Selectors.DoNext.p(4)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p4
-        document.select(Selectors.DoNext.p(5)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p5
+        document.select(Selectors.DoNext.p(4)).text mustBe OfficeHolderMessages.Worker.IR35.doNext_check_p5
       }
 
       "Have a link to the Employment Status Manual" in {
@@ -179,10 +186,14 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
     resultMode match {
       case Result =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.heading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
+        }
+        "Have the correct Download section" in {
+          document.select(Selectors.Download.p(1)).text mustBe OfficeHolderMessages.downloadMsgDetermined
+          document.select(Selectors.Download.p(2)).text mustBe OfficeHolderMessages.downloadExitMsg
         }
       case ResultPrintPreview =>
         "Have the correct title" in {
@@ -193,7 +204,7 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
         }
       case ResultPDF =>
         "Have the correct title" in {
-          document.title mustBe title(OfficeHolderMessages.Hirer.IR35.title)
+          document.title mustBe title(OfficeHolderMessages.title)
         }
         "Have the correct heading" in {
           document.select(Selectors.PrintAndSave.printHeading).text mustBe OfficeHolderMessages.Hirer.IR35.heading
@@ -209,7 +220,6 @@ class OfficeHolderIR35ViewSpec extends ResultViewFixture {
       document.select(Selectors.DoNext.h2).text mustBe OfficeHolderMessages.doNextHeading
       document.select(Selectors.DoNext.p(1)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p1
       document.select(Selectors.DoNext.p(2)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p2
-      document.select(Selectors.DoNext.p(3)).text mustBe OfficeHolderMessages.Hirer.IR35.doNext_p3
     }
 
     "Have a link to the Responsibilities of the Fee Payer" in {

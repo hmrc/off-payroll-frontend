@@ -30,9 +30,9 @@
 
 @defining(
     pdfResultDetails.resultMode match {
-        case Result => mainTemplate(title(form, "agent.optimised.result.inside.title"), appConfig = appConfig)(_)
+        case Result => mainTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
         case ResultPrintPreview => mainTemplate(title(form, "site.letter.h1"), appConfig = appConfig, css = Some("print_preview"), articleLayout = false)(_)
-        case ResultPDF => printTemplate(title(form, "agent.optimised.result.inside.title"), appConfig = appConfig)(_)
+        case ResultPDF => printTemplate(title(form, "optimised.result.title"), appConfig = appConfig)(_)
     }
 ){ template =>
 
@@ -53,7 +53,7 @@
                 @formWithCsrf(ResultController.onSubmit, 'autoComplete -> "off") {
                     @results.sections.why_result(whyResult)
                     @results.sections.do_next(doNext)
-                    @results.sections.download(form)
+                    @results.sections.download(form, false)
                 }
             }
             case ResultPrintPreview => {

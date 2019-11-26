@@ -69,6 +69,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
 
       "have the correct text" in {
         document.select(Selectors.p(1)).text mustBe EquipmentExpensesMessages.Worker.p1
+        document.select(Selectors.p(2)).text mustBe EquipmentExpensesMessages.Worker.p2
       }
 
       "have the correct radio option messages" in {
@@ -91,6 +92,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
 
       "have the correct text" in {
         document.select(Selectors.p(1)).text mustBe EquipmentExpensesMessages.Hirer.p1
+        document.select(Selectors.p(2)).text mustBe EquipmentExpensesMessages.Hirer.p2
       }
 
       "have the correct radio option messages" in {

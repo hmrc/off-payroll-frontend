@@ -22,7 +22,7 @@
 
 @this(formWithCsrf: FormWithCSRF, mainTemplate: templates.MainTemplate)
 
-@(appConfig: FrontendAppConfig, form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages,appConfig: FrontendAppConfig)
 
 @mainTemplate(
     title = title(form, "addDetails.title"),
@@ -37,41 +37,34 @@
 
         @components.heading("addDetails.heading")
 
-        @components.panel_indent(optionalFields)
-
         @components.input_text(
             field = form("fileName"),
             label = messages("addDetails.fileName"),
-            contextualLabelPostfix = Some(messages("addDetails.optional")),
             inputClass = Some("form-control-3-4")
         )
 
         @components.input_text(
             field = form("completedBy"),
             label = messages("addDetails.name"),
-            contextualLabelPostfix = Some(messages("addDetails.optional")),
             inputClass = Some("form-control-3-4"),
             autocomplete = Some("name")
         )
 
         @components.input_text(
             field = form("client"),
-            label = messages("addDetails.client"),
-            contextualLabelPostfix = Some(messages("addDetails.optional")),
+            label = messages(tailorMsg("addDetails.client")),
             inputClass = Some("form-control-3-4")
         )
 
         @components.input_text(
             field = form("job"),
             label = messages("addDetails.job"),
-            contextualLabelPostfix = Some(messages("addDetails.optional")),
             inputClass = Some("form-control-3-4")
         )
 
         @components.input_textarea(
             field = form("reference"),
             label = messages("addDetails.reference"),
-            contextualLabelPostfix = Some(messages("addDetails.optional")),
             hint = Some(messages("addDetails.charLimit")),
             bold = false,
             hintBelow = true
@@ -79,8 +72,4 @@
 
         @components.submit_button()
     }
-}
-
-@optionalFields = {
-    <p>@messages("addDetails.optional.all")</p>
 }
