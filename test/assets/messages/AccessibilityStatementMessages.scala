@@ -18,9 +18,11 @@ package assets.messages
 
 object AccessibilityStatementMessages extends BaseMessages {
 
-  val heading = "Accessibility Statement Heading"
-  val title = "Accessibility Statement Title"
-  val p1 = "Placeholder Accessibility Statement"
+  val heading = "Accessibility statement for Check Employment Status for Tax"
+  val title = "Accessibility statement for Check Employment Status for Tax"
+  val p1 = "This accessibility statement explains how accessible this service is, what to do if you have difficulty using it, and how to report accessibility problems with the service."
+  val p2 = "This service is part of the wider GOV.UK website. There is a separate accessibility statement for the main GOV.UK website."
+  val p3 = "This page only contains information about the Check Employment Status for Tax service, available at https://www.gov.uk/guidance/check-employment-status-for-tax."
   val reportIssue = "Report an Accessibility Problem (opens in a new window)"
 
 }

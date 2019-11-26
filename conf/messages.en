@@ -2049,7 +2049,12 @@ hirer.similarWorkOtherClients.changeLinkContext = if the worker has done any sel
 
 ## Accessibility Statement
 ## =======================
-accessibilityStatement.heading = Accessibility Statement Heading
-accessibilityStatement.title = Accessibility Statement Title
-accessibilityStatement.p1 = Placeholder Accessibility Statement
+accessibilityStatement.heading = Accessibility statement for Check Employment Status for Tax
+accessibilityStatement.title = Accessibility statement for Check Employment Status for Tax
+accessibilityStatement.p1 = This accessibility statement explains how accessible this service is, what to do if you have difficulty using it, and how to report accessibility problems with the service.
+accessibilityStatement.p2.preLink = This service is part of the wider GOV.UK website. There is a separate
+accessibilityStatement.p2.link = accessibility statement
+accessibilityStatement.p2.postLink = for the main GOV.UK website.
+accessibilityStatement.p3.preLink = This page only contains information about the Check Employment Status for Tax service, available at
+accessibilityStatement.p3.link = https://www.gov.uk/guidance/check-employment-status-for-tax
 accessibilityStatement.reportProblem = Report an Accessibility Problem

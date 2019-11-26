@@ -36,5 +36,16 @@
 
     <p>@messages("accessibilityStatement.p1")</p>
 
+    <p>
+        @messages("accessibilityStatement.p2.preLink")
+        <a href="@appConfig.govukAccessibilityStatementUrl">@messages("accessibilityStatement.p2.link")</a>
+        @messages("accessibilityStatement.p2.postLink")
+    </p>
+
+    <p>
+        @messages("accessibilityStatement.p3.preLink")
+        <a href='@appConfig.govUkStartPageUrl'>@messages("accessibilityStatement.p3.link")</a>.
+    </p>
+
     @new_window_link("accessibilityStatement.reportProblem", appConfig.reportAccessibilityIssueUrl(problemPageUri), Some("reportAccessibilityIssue"))
 }

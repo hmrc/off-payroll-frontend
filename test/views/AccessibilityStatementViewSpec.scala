@@ -61,6 +61,18 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
       document.select(Selectors.p(1)).text must include(AccessibilityStatementMessages.p1)
     }
 
+    "have the correct p2" in {
+      val p2 = document.select(Selectors.p(2))
+      p2.text must include(AccessibilityStatementMessages.p2)
+      p2.select("a").attr("href") mustBe frontendAppConfig.govukAccessibilityStatementUrl
+    }
+
+    "have the correct p3" in {
+      val p3 = document.select(Selectors.p(3))
+      p3.text must include(AccessibilityStatementMessages.p3)
+      p3.select("a").attr("href") mustBe frontendAppConfig.govUkStartPageUrl
+    }
+
     "have the correct Report a Problem link which" should {
 
       lazy val reportIssueLink = document.select(Selectors.reportProblem)
