@@ -1921,7 +1921,6 @@ hirer.workerKnown.p2 = You should use this tool again if the worker disagrees wi
 ### ---------------------------------
 
 worker.similarWorkOtherClients.error.required = Dewiswch ‘Iawn’ os ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
-agency.similarWorkOtherClients.error.required = Dewiswch ‘Iawn’ os ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf
 worker.similarWorkOtherClients.title = A ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
 worker.similarWorkOtherClients.heading = A ydych wedi gwneud unrhyw waith hunangyflogedig o natur debyg ar gyfer cleientiaid eraill yn ystod y 12 mis diwethaf?
 worker.similarWorkOtherClients.subheading = Contractau’r gweithiwr
