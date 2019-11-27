@@ -1884,7 +1884,6 @@ hirer.workerKnown.p2 = You should use this tool again if the worker disagrees wi
 ### SimilarWorkOtherClients Page - BoOA
 ### -----------------------------------
 worker.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
-agency.similarWorkOtherClients.error.required = Select yes if you have done any self-employed work of a similar nature for other clients in the last 12 months
 worker.similarWorkOtherClients.title = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
 worker.similarWorkOtherClients.heading = Have you done any self-employed work of a similar nature for other clients in the last 12 months?
 worker.similarWorkOtherClients.subheading = Worker’s contracts
