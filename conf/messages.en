@@ -95,8 +95,6 @@ feedback.before = This is a new service - your
 feedback.link = feedback
 feedback.after = will help us to improve it.
 
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
 
 aboutYou.title = Which of these describes you best?
 aboutYou.heading = Which of these describes you best?
