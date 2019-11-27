@@ -25,7 +25,7 @@ import models.CheckMode
 import pages.{Page, PersonalServiceSectionChangeWarningPage}
 import pages.sections.personalService._
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.PersonalServiceSectionChangeWarningView
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import handlers.ErrorHandler
@@ -39,7 +39,8 @@ class PersonalServiceSectionChangeWarningController @Inject()(identify: Identifi
                                                               compareAnswerService: CompareAnswerService,
                                                               dataCacheConnector: DataCacheConnector,
                                                               errorHandler: ErrorHandler,
-                                                              implicit val appConfig: FrontendAppConfig) extends BaseController(controllerComponents) with FeatureSwitching {
+                                                              implicit val appConfig: FrontendAppConfig)
+  extends BaseController(controllerComponents) with FeatureSwitching {
 
   def onPageLoad(page: String): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.PersonalServiceSectionChangeWarningController.onSubmit(page)))

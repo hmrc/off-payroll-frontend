@@ -27,7 +27,7 @@ import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.PermissionToWorkWithOthersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.sections.businessOnOwnAccount.PermissionToWorkWithOthersView
 
 import scala.concurrent.Future
@@ -40,10 +40,9 @@ class PermissionToWorkWithOthersController @Inject()(dataCacheConnector: DataCac
                                                      formProvider: PermissionToWorkWithOthersFormProvider,
                                                      controllerComponents: MessagesControllerComponents,
                                                      compareAnswerService: CompareAnswerService,
-                                                     decisionService: DecisionService,
                                                      view: PermissionToWorkWithOthersView,
-                                                     implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                                     implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(PermissionToWorkWithOthersPage, formProvider()), mode))

@@ -27,7 +27,7 @@ import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.RightsOfWorkPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.sections.businessOnOwnAccount.RightsOfWorkView
 
 import scala.concurrent.Future
@@ -40,10 +40,9 @@ class RightsOfWorkController @Inject()(dataCacheConnector: DataCacheConnector,
                                        formProvider: RightsOfWorkFormProvider,
                                        controllerComponents: MessagesControllerComponents,
                                        compareAnswerService: CompareAnswerService,
-                                       decisionService: DecisionService,
                                        view: RightsOfWorkView,
-                                       implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                       implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(RightsOfWorkPage, formProvider()), mode))

@@ -16,21 +16,19 @@
 
 package controllers.sections.control
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.control.ChooseWhereWorkFormProvider
-import javax.inject.Inject
 import models.Mode
-import models.sections.control.ChooseWhereWork
 import navigation.ControlNavigator
 import pages.sections.control.ChooseWhereWorkPage
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, _}
-import play.twirl.api.HtmlFormat
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.control.ChooseWhereWorkView
 import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 
@@ -42,26 +40,21 @@ class ChooseWhereWorkController @Inject()(identify: IdentifierAction,
                                           formProvider: ChooseWhereWorkFormProvider,
                                           controllerComponents: MessagesControllerComponents,
                                           optimisedView: ChooseWhereWorkView,
-                                          subOptimisedView: SubOptimisedChooseWhereWorkView,
                                           checkYourAnswersService: CheckYourAnswersService,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
-                                          decisionService: DecisionService,
                                           navigator: ControlNavigator,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
-
-  private def view(form: Form[ChooseWhereWork], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+                                          implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ChooseWhereWorkPage, formProvider()), mode))
+    Ok(optimisedView(fillForm(ChooseWhereWorkPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
         redirect(mode,value,ChooseWhereWorkPage,callDecisionService = true)
       }

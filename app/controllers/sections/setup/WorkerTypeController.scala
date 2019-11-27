@@ -16,13 +16,14 @@
 
 package controllers.sections.setup
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.setup.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
-import javax.inject.Inject
 import models.Mode
 import models.requests.DataRequest
 import models.sections.setup.WorkerType
@@ -31,7 +32,7 @@ import pages.sections.setup.{WorkerTypePage, WorkerUsingIntermediaryPage}
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import play.twirl.api.Html
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.setup.WorkerUsingIntermediaryView
 import views.html.subOptimised.sections.setup.WorkerTypeView
 
@@ -48,10 +49,8 @@ class WorkerTypeController @Inject()(identify: IdentifierAction,
                                      checkYourAnswersService: CheckYourAnswersService,
                                      compareAnswerService: CompareAnswerService,
                                      dataCacheConnector: DataCacheConnector,
-                                     decisionService: DecisionService,
                                      navigator: SetupNavigator,
-                                     implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                     implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   val workerTypeForm: Form[WorkerType] = workerTypeFormProvider()
   def workerUsingIntermediaryForm(implicit request: DataRequest[_]): Form[Boolean] = newFormProvider()
@@ -61,14 +60,12 @@ class WorkerTypeController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if (isEnabled(OptimisedFlow)) submitWorkerUsingIntermediary(mode) else submitWorkerType(mode)
+    submitWorkerUsingIntermediary(mode)
   }
 
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]): Html = if (isEnabled(OptimisedFlow)) {
+  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]): Html = {
     workerUsingIntermediaryView(request.userAnswers.get(WorkerUsingIntermediaryPage).fold(workerUsingIntermediaryForm)
     (answerModel => workerUsingIntermediaryForm.fill(answerModel.answer)), mode)
-  } else {
-    workerTypeView(request.userAnswers.get(WorkerTypePage).fold(workerTypeForm)(answerModel => workerTypeForm.fill(answerModel.answer)), mode)
   }
 
   private[controllers] def submitWorkerType(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =

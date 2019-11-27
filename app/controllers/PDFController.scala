@@ -49,7 +49,6 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
                               addDetailsView: AddDetailsView,
-                              decisionService: DecisionService,
                               optimisedDecisionService: OptimisedDecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
@@ -58,10 +57,10 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               checkYourAnswersService: CheckYourAnswersService,
                               encryption: EncryptionService,
                               source: SourceUtil,
-                              implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService)
+                              implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator)
 
-  with FeatureSwitching with UserAnswersUtils {
+    with FeatureSwitching with UserAnswersUtils {
 
   def form: Form[AdditionalPdfDetails] = formProvider()
 
@@ -76,28 +75,15 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
+    form.bindFromRequest().fold(
+      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      additionalData => {
 
-    if (isEnabled(OptimisedFlow)) {
+        val encryptedDetails = encryption.encryptDetails(additionalData)
 
-      form.bindFromRequest().fold(
-        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-        additionalData => {
-
-          val encryptedDetails = encryption.encryptDetails(additionalData)
-
-          redirect[AdditionalPdfDetails](NormalMode, encryptedDetails, CustomisePDFPage)
-        }
-      )
-
-    } else {
-      form.bindFromRequest().fold(
-        formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
-        additionalData => {
-          val timestamp = time.timestamp(request.userAnswers.get(Timestamp).map(_.answer))
-          printResult(additionalData, timestamp)
-        }
-      )
-    }
+        redirect[AdditionalPdfDetails](NormalMode, encryptedDetails, CustomisePDFPage)
+      }
+    )
   }
 
   def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
@@ -110,17 +96,6 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       case Some(decision) => optimisedPrintResult(decision, pdfDetails, timestamp)
       case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
-
-  }
-
-  private def printResult(additionalPdfDetails: AdditionalPdfDetails, timestamp: String)(implicit request: DataRequest[_]): Future[Result] = {
-    val html = decisionService.determineResultView(
-      answers,
-      printMode = true,
-      additionalPdfDetails = Some(additionalPdfDetails),
-      timestamp = Some(timestamp)
-    )
-    generatePdf(html, additionalPdfDetails.reference)
   }
 
   private def optimisedPrintResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
@@ -145,7 +120,6 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
     } else {
       source.fromURL(controllers.routes.Assets.versioned("stylesheets/print_pdf.css").absoluteURL).mkString
     }
-
     val printHtml = Html(view.toString
       .replace("<head>", s"<head><style>$css</style>")
     )
@@ -160,14 +134,11 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
           } catch {
             case _: Throwable => None
           }
-
           val default = "result"
           val validFileName = if (ascii.isDefined && ascii.get.mkString.nonEmpty) fileName.getOrElse(default) else default
-
           Ok(result.pdf.toArray)
             .as("application/pdf")
             .withHeaders("Content-Disposition" -> s"attachment; filename=$validFileName.pdf")
-
         case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
       }
     } else {

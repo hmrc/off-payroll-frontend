@@ -24,7 +24,7 @@ import controllers.actions._
 import javax.inject.Inject
 import navigation.SetupNavigator
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.sections.setup.NoIntermediaryView
 
 class NoIntermediaryController @Inject()(navigator: SetupNavigator,
@@ -35,9 +35,8 @@ class NoIntermediaryController @Inject()(navigator: SetupNavigator,
                                          view: NoIntermediaryView,
                                          compareAnswerService: CompareAnswerService,
                                          dataCacheConnector: DataCacheConnector,
-                                         decisionService: DecisionService,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                         implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(controllers.routes.StartAgainController.redirectToDisclaimer()))

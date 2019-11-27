@@ -27,7 +27,7 @@ import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.EquipmentExpensesPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.sections.financialRisk.EquipmentExpensesView
 
 import scala.concurrent.Future
@@ -41,9 +41,8 @@ class EquipmentExpensesController @Inject()(dataCacheConnector: DataCacheConnect
                                             controllerComponents: MessagesControllerComponents,
                                             view: EquipmentExpensesView,
                                             compareAnswerService: CompareAnswerService,
-                                            decisionService: DecisionService,
-                                            implicit val appConfig: FrontendAppConfig
-                                           ) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                            implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(EquipmentExpensesPage, formProvider()), mode))

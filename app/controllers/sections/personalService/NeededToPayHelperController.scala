@@ -16,20 +16,19 @@
 
 package controllers.sections.personalService
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.personalService.NeededToPayHelperFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.PersonalServiceNavigator
 import pages.sections.personalService.NeededToPayHelperPage
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import play.twirl.api.HtmlFormat
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.personalService.NeededToPayHelperView
 import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
 
@@ -40,27 +39,22 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
                                             requireData: DataRequiredAction,
                                             formProvider: NeededToPayHelperFormProvider,
                                             optimisedView: NeededToPayHelperView,
-                                            subOptimisedView: SubOptimisedNeededToPayHelperView,
                                             controllerComponents: MessagesControllerComponents,
                                             checkYourAnswersService: CheckYourAnswersService,
                                             compareAnswerService: CompareAnswerService,
                                             dataCacheConnector: DataCacheConnector,
-                                            decisionService: DecisionService,
                                             navigator: PersonalServiceNavigator,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
-
-  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+                                            implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(NeededToPayHelperPage, formProvider()), mode))
+    Ok(optimisedView(fillForm(NeededToPayHelperPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
         redirect(mode,value, NeededToPayHelperPage, callDecisionService = true)
       }

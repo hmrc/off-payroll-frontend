@@ -16,21 +16,19 @@
 
 package controllers.sections.partParcel
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.partAndParcel.IdentifyToStakeholdersFormProvider
-import javax.inject.Inject
 import models.Mode
-import models.sections.partAndParcel.IdentifyToStakeholders
 import navigation.PartAndParcelNavigator
 import pages.sections.partParcel.IdentifyToStakeholdersPage
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import play.twirl.api.HtmlFormat
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.partParcel.IdentifyToStakeholdersView
 import views.html.subOptimised.sections.partParcel.{IdentifyToStakeholdersView => SubOptimisedIdentifyToStakeholdersView}
 
@@ -42,26 +40,21 @@ class IdentifyToStakeholdersController @Inject()(identify: IdentifierAction,
                                                  formProvider: IdentifyToStakeholdersFormProvider,
                                                  controllerComponents: MessagesControllerComponents,
                                                  optimisedView: IdentifyToStakeholdersView,
-                                                 subOptimisedView: SubOptimisedIdentifyToStakeholdersView,
                                                  checkYourAnswersService: CheckYourAnswersService,
                                                  compareAnswerService: CompareAnswerService,
                                                  dataCacheConnector: DataCacheConnector,
-                                                 decisionService: DecisionService,
                                                  navigator: PartAndParcelNavigator,
-                                                 implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
-
-  private def view(form: Form[IdentifyToStakeholders], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+                                                 implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(IdentifyToStakeholdersPage, formProvider()), mode))
+    Ok(optimisedView(fillForm(IdentifyToStakeholdersPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
         redirect(mode,value, IdentifyToStakeholdersPage, callDecisionService = true)
       }

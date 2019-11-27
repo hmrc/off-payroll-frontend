@@ -26,7 +26,7 @@ import models.Mode
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.CannotClaimAsExpensePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.subOptimised.sections.financialRisk.CannotClaimAsExpenseView
 
 import scala.concurrent.Future
@@ -40,10 +40,9 @@ class CannotClaimAsExpenseController @Inject()(identify: IdentifierAction,
                                                checkYourAnswersService: CheckYourAnswersService,
                                                compareAnswerService: CompareAnswerService,
                                                dataCacheConnector: DataCacheConnector,
-                                               decisionService: DecisionService,
                                                navigator: FinancialRiskNavigator,
-                                               implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                               implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   val form = formProvider()
 

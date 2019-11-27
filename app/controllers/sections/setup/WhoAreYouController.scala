@@ -31,7 +31,7 @@ import navigation.SetupNavigator
 import pages.sections.setup.{WhatDoYouWantToFindOutPage, WhoAreYouPage}
 import play.api.data.Form
 import play.api.mvc._
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import utils.SessionUtils._
 import views.html.sections.setup.WhoAreYouView
 
@@ -45,10 +45,9 @@ class WhoAreYouController @Inject()(identify: IdentifierAction,
                                     view: WhoAreYouView,
                                     compareAnswerService: CompareAnswerService,
                                     dataCacheConnector: DataCacheConnector,
-                                    decisionService: DecisionService,
                                     navigator: SetupNavigator,
-                                    implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
-  compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
+                                    implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents, compareAnswerService, dataCacheConnector, navigator) with FeatureSwitching {
 
   private def renderedView(mode: Mode, form: Form[WhoAreYou])(implicit request: DataRequest[_]) = {
     val showAgency = request.userAnswers.getAnswer(WhatDoYouWantToFindOutPage) match {

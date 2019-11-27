@@ -16,18 +16,18 @@
 
 package controllers.sections.financialRisk
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.financialRisk.MaterialsFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.FinancialRiskNavigator
 import pages.sections.financialRisk.MaterialsPage
-import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.financialRisk.MaterialsView
 
 import scala.concurrent.Future
@@ -42,9 +42,8 @@ class MaterialsController @Inject()(dataCacheConnector: DataCacheConnector,
                                     view: MaterialsView,
                                     checkYourAnswersService: CheckYourAnswersService,
                                     compareAnswerService: CompareAnswerService,
-                                    decisionService: DecisionService,
-                                    implicit val appConfig: FrontendAppConfig
-                                   ) extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                    implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(fillForm(MaterialsPage, formProvider()), mode))

@@ -27,7 +27,7 @@ import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.WorkerKnownPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.sections.businessOnOwnAccount.WorkerKnownView
 
 import scala.concurrent.Future
@@ -40,10 +40,9 @@ class WorkerKnownController @Inject()(dataCacheConnector: DataCacheConnector,
                                       formProvider: WorkerKnownFormProvider,
                                       controllerComponents: MessagesControllerComponents,
                                       compareAnswerService: CompareAnswerService,
-                                      decisionService: DecisionService,
                                       view: WorkerKnownView,
-                                      implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                      implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   val form: Form[Boolean] = formProvider()
 

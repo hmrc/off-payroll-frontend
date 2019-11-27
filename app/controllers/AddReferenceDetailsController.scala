@@ -27,7 +27,7 @@ import navigation.CYANavigator
 import pages.AddReferenceDetailsPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.AddReferenceDetailsView
 
 import scala.concurrent.Future
@@ -41,9 +41,8 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
                                               navigator: CYANavigator,
                                               dataCacheConnector: DataCacheConnector,
                                               compareAnswerService: CompareAnswerService,
-                                              decisionService: DecisionService,
                                               implicit val appConfig: FrontendAppConfig)
-  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 

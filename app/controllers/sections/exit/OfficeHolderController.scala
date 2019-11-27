@@ -16,21 +16,19 @@
 
 package controllers.sections.exit
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.exit.OfficeHolderFormProvider
-import javax.inject.Inject
-import models.requests.DataRequest
 import models.{CheckMode, Mode, NormalMode}
 import navigation.ExitNavigator
 import pages.sections.exit.OfficeHolderPage
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import play.twirl.api.HtmlFormat
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.exit.OfficeHolderView
 import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
@@ -42,26 +40,21 @@ class OfficeHolderController @Inject()(identify: IdentifierAction,
                                        formProvider: OfficeHolderFormProvider,
                                        controllerComponents: MessagesControllerComponents,
                                        optimisedView: OfficeHolderView,
-                                       subOptimisedView: SubOptimisedOfficeHolderView,
                                        checkYourAnswersService: CheckYourAnswersService,
                                        compareAnswerService: CompareAnswerService,
                                        dataCacheConnector: DataCacheConnector,
-                                       decisionService: DecisionService,
                                        navigator: ExitNavigator,
-                                       implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
-
-  private def view(form: Form[Boolean], mode: Mode)(implicit request: DataRequest[_]): HtmlFormat.Appendable =
-    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
+                                       implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(OfficeHolderPage, formProvider()), mode))
+    Ok(optimisedView(fillForm(OfficeHolderPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
         val currentAnswer = request.userAnswers.getAnswer(OfficeHolderPage)
         val overrideMode = if(mode == CheckMode && !value && currentAnswer.contains(true)) NormalMode else mode

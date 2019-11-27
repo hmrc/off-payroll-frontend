@@ -27,23 +27,22 @@ import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.FollowOnContractPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.sections.businessOnOwnAccount.FollowOnContractView
 
 import scala.concurrent.Future
 
 class FollowOnContractController @Inject()(dataCacheConnector: DataCacheConnector,
-                                         navigator: BusinessOnOwnAccountNavigator,
-                                         identify: IdentifierAction,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: FollowOnContractFormProvider,
-                                         controllerComponents: MessagesControllerComponents,
-                                         compareAnswerService: CompareAnswerService,
-                                         decisionService: DecisionService,
-                                         view: FollowOnContractView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                           navigator: BusinessOnOwnAccountNavigator,
+                                           identify: IdentifierAction,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           formProvider: FollowOnContractFormProvider,
+                                           controllerComponents: MessagesControllerComponents,
+                                           compareAnswerService: CompareAnswerService,
+                                           view: FollowOnContractView,
+                                           implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   val form: Form[Boolean] = formProvider()
 

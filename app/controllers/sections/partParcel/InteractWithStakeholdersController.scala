@@ -28,7 +28,7 @@ import navigation.PartAndParcelNavigator
 import pages.sections.partParcel.InteractWithStakeholdersPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.subOptimised.sections.partParcel.InteractWithStakeholdersView
 
 import scala.concurrent.Future
@@ -42,10 +42,9 @@ class InteractWithStakeholdersController @Inject()(identify: IdentifierAction,
                                                    checkYourAnswersService: CheckYourAnswersService,
                                                    compareAnswerService: CompareAnswerService,
                                                    dataCacheConnector: DataCacheConnector,
-                                                   decisionService: DecisionService,
                                                    navigator: PartAndParcelNavigator,
-                                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                                   implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   val form: Form[Boolean] = formProvider()
 

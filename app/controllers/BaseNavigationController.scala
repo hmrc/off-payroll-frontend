@@ -27,12 +27,12 @@ import pages.sections.exit.OfficeHolderPage
 import pages.{BusinessOnOwnAccountSectionChangeWarningPage, PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.libs.json.{Reads, Writes}
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 
 import scala.concurrent.Future
 
 abstract class BaseNavigationController @Inject()(mcc: MessagesControllerComponents, compareAnswerService: CompareAnswerService,
-                                                  dataCacheConnector: DataCacheConnector, navigator: Navigator, decisionService: DecisionService)
+                                                  dataCacheConnector: DataCacheConnector, navigator: Navigator)
                                                  (implicit frontendAppConfig: FrontendAppConfig) extends BaseController(mcc) {
 
   def redirect[T](mode: Mode,

@@ -16,13 +16,14 @@
 
 package controllers.sections.setup
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import javax.inject.Inject
+
+import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.setup.{AboutYouFormProvider, WhichDescribesYouFormProvider}
-import javax.inject.Inject
 import models.requests.DataRequest
 import models.sections.setup.{AboutYouAnswer, WhichDescribesYouAnswer}
 import models.{Mode, UserType}
@@ -30,7 +31,7 @@ import navigation.SetupNavigator
 import pages.sections.setup.{AboutYouPage, WhichDescribesYouPage}
 import play.api.data.Form
 import play.api.mvc._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
 import views.html.subOptimised.sections.setup.AboutYouView
@@ -48,10 +49,9 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    checkYourAnswersService: CheckYourAnswersService,
                                    compareAnswerService: CompareAnswerService,
                                    dataCacheConnector: DataCacheConnector,
-                                   decisionService: DecisionService,
                                    navigator: SetupNavigator,
-                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
-  compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
+                                   implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents, compareAnswerService, dataCacheConnector, navigator) with FeatureSwitching {
 
   val form: Form[AboutYouAnswer] = aboutYouFormProvider()
   val whichDescribedForm: Form[WhichDescribesYouAnswer] = whichDescribesYouFormProvider()
@@ -61,15 +61,12 @@ class AboutYouController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    if (isEnabled(OptimisedFlow)) submitWhichDescribesYou(mode) else submitAboutYou(mode)
+    submitWhichDescribesYou(mode)
   }
 
-  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]) = if (isEnabled(OptimisedFlow)) {
+  private[controllers] def view(mode: Mode)(implicit request: DataRequest[_]) = {
     whichDescribesYouView(request.userAnswers.get(WhichDescribesYouPage)
       .fold(whichDescribedForm)(answerModel => whichDescribedForm.fill(answerModel.answer)), mode)
-  } else {
-    aboutYouView(request.userAnswers.get(AboutYouPage)
-      .fold(form)(answerModel => form.fill(answerModel.answer)), mode)
   }
 
   private[controllers] def submitWhichDescribesYou(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =

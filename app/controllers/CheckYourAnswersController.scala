@@ -26,7 +26,7 @@ import models._
 import navigation.CYANavigator
 import pages.CheckYourAnswersPage
 import play.api.mvc._
-import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CheckYourAnswersValidationService, CompareAnswerService}
 import views.html.CheckYourAnswersView
 
 class CheckYourAnswersController @Inject()(navigator: CYANavigator,
@@ -39,10 +39,9 @@ class CheckYourAnswersController @Inject()(navigator: CYANavigator,
                                            checkYourAnswersValidationService: CheckYourAnswersValidationService,
                                            compareAnswerService: CompareAnswerService,
                                            dataCacheConnector: DataCacheConnector,
-                                           decisionService: DecisionService,
                                            errorHandler: ErrorHandler,
-                                           implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                           implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   def onPageLoad(sectionToExpand: Option[SectionEnum] = None): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     checkYourAnswersValidationService.isValid(request.userAnswers) match {

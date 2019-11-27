@@ -27,7 +27,7 @@ import navigation.BusinessOnOwnAccountNavigator
 import pages.sections.businessOnOwnAccount.ExtendContractPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CompareAnswerService, DecisionService}
+import services.{CompareAnswerService}
 import views.html.sections.businessOnOwnAccount.ExtendContractView
 
 import scala.concurrent.Future
@@ -40,10 +40,9 @@ class ExtendContractController @Inject()(dataCacheConnector: DataCacheConnector,
                                          formProvider: ExtendContractFormProvider,
                                          controllerComponents: MessagesControllerComponents,
                                          compareAnswerService: CompareAnswerService,
-                                         decisionService: DecisionService,
                                          view: ExtendContractView,
-                                         implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) {
+                                         implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) {
 
   val form: Form[Boolean] = formProvider()
 

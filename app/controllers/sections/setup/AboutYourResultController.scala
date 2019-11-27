@@ -26,7 +26,7 @@ import models.NormalMode
 import navigation.SetupNavigator
 import pages.sections.setup.AboutYourResultPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.setup.AboutYourResultView
 
 class AboutYourResultController @Inject()(navigator: SetupNavigator,
@@ -38,9 +38,8 @@ class AboutYourResultController @Inject()(navigator: SetupNavigator,
                                           checkYourAnswersService: CheckYourAnswersService,
                                           compareAnswerService: CompareAnswerService,
                                           dataCacheConnector: DataCacheConnector,
-                                          decisionService: DecisionService,
-                                          implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                          implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
     Ok(view(routes.AboutYourResultController.onSubmit()))

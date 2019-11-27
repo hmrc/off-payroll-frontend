@@ -16,20 +16,19 @@
 
 package controllers.sections.partParcel
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.partAndParcel.BenefitsFormProvider
-import javax.inject.Inject
 import models.Mode
 import navigation.PartAndParcelNavigator
 import pages.sections.partParcel.BenefitsPage
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import play.twirl.api.HtmlFormat
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.partParcel.BenefitsView
 import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimisedBenefitsView}
 
@@ -41,26 +40,22 @@ class BenefitsController @Inject()(identify: IdentifierAction,
                                    formProvider: BenefitsFormProvider,
                                    controllerComponents: MessagesControllerComponents,
                                    optimisedView: BenefitsView,
-                                   subOptimisedView: SubOptimisedBenefitsView,
                                    checkYourAnswersService: CheckYourAnswersService,
                                    compareAnswerService: CompareAnswerService,
                                    dataCacheConnector: DataCacheConnector,
-                                   decisionService: DecisionService,
                                    navigator: PartAndParcelNavigator,
-                                   implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                   implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
-  private def view(form: Form[Boolean], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(BenefitsPage, formProvider()), mode))
+    Ok(optimisedView(fillForm(BenefitsPage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
       formWithErrors =>
-        Future.successful(BadRequest(view(formWithErrors, mode))),
+        Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
         redirect(mode,value,BenefitsPage,callDecisionService = true)
       }

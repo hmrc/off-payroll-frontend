@@ -16,21 +16,19 @@
 
 package controllers.sections.personalService
 
+import javax.inject.Inject
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import connectors.DataCacheConnector
 import controllers.BaseNavigationController
 import controllers.actions._
 import forms.sections.personalService.ArrangedSubstituteFormProvider
-import javax.inject.Inject
 import models.Mode
-import models.sections.personalService.ArrangedSubstitute
 import navigation.PersonalServiceNavigator
 import pages.sections.personalService.ArrangedSubstitutePage
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Request}
-import play.twirl.api.HtmlFormat
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.personalService.ArrangedSubstituteView
 import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView => SubOptimisedArrangedSubstituteView}
 
@@ -42,25 +40,21 @@ class ArrangedSubstituteController @Inject()(identify: IdentifierAction,
                                              formProvider: ArrangedSubstituteFormProvider,
                                              controllerComponents: MessagesControllerComponents,
                                              optimisedView: ArrangedSubstituteView,
-                                             subOptimisedView: SubOptimisedArrangedSubstituteView,
                                              checkYourAnswersService: CheckYourAnswersService,
                                              compareAnswerService: CompareAnswerService,
                                              dataCacheConnector: DataCacheConnector,
-                                             decisionService: DecisionService,
                                              navigator: PersonalServiceNavigator,
-                                             implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(
-  controllerComponents,compareAnswerService,dataCacheConnector,navigator,decisionService) with FeatureSwitching {
+                                             implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching {
 
-  private def view(form: Form[ArrangedSubstitute], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if(isEnabled(OptimisedFlow)) optimisedView(form, mode) else subOptimisedView(form, mode)
 
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
-    Ok(view(fillForm(ArrangedSubstitutePage, formProvider()), mode))
+    Ok(optimisedView(fillForm(ArrangedSubstitutePage, formProvider()), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     formProvider().bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => redirect(mode,value,ArrangedSubstitutePage)
     )
   }

@@ -29,7 +29,7 @@ import navigation.SetupNavigator
 import pages.sections.setup.WhatDoYouWantToDoPage
 import play.api.data.Form
 import play.api.mvc._
-import services.{CheckYourAnswersService, CompareAnswerService, DecisionService}
+import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.setup.WhatDoYouWantToDoView
 
 import scala.concurrent.Future
@@ -43,10 +43,9 @@ class WhatDoYouWantToDoController @Inject()(identify: IdentifierAction,
                                             checkYourAnswersService: CheckYourAnswersService,
                                             compareAnswerService: CompareAnswerService,
                                             dataCacheConnector: DataCacheConnector,
-                                            decisionService: DecisionService,
                                             navigator: SetupNavigator,
-                                            implicit val appConfig: FrontendAppConfig) extends BaseNavigationController(controllerComponents,
-  compareAnswerService, dataCacheConnector, navigator, decisionService) with FeatureSwitching {
+                                            implicit val appConfig: FrontendAppConfig)
+  extends BaseNavigationController(controllerComponents, compareAnswerService, dataCacheConnector, navigator) with FeatureSwitching {
 
   val form: Form[WhatDoYouWantToDo] = WhatDoYouWantToDoFormProvider()
 
