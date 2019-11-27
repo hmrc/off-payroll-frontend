@@ -99,10 +99,6 @@ feedback.link = adborth
 feedback.after = yn ein helpu i’w wella.
 
 
-##TODO remove?
-unauthorised.title = You can’t access this service with this account
-unauthorised.heading = You can’t access this service with this account
-
 aboutYou.title = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.heading = Pa un o’r canlynol sy’n eich disgrifio orau?
 aboutYou.subheading = Ynglŷn â’r bobl berthnasol
