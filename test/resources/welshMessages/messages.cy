@@ -1677,6 +1677,8 @@ worker.equipmentExpenses.p2 = Ymdrinnir â chostau cerbyd yn y cwestiwn nesaf.
 
 ##TODO: Need Welsh
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
+worker.result.pdf.client = Client’s name
+hirer.result.pdf.client = Your organisation’s name
 result.pdf.customisedBy = Enw’r person a gwblhaodd y gwiriad hwn:
 result.pdf.client = Enw’r cleient terfynol:
 result.pdf.job = Teitl y swydd:

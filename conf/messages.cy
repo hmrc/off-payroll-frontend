@@ -1682,6 +1682,8 @@ result.pdf.client = Enw’r cleient terfynol:
 result.pdf.job = Teitl y swydd:
 result.pdf.reference = Cyfeirnod:
 result.pdf.whatYouToldUs = Yr hyn a roesoch wybod i ni amdano
+worker.result.pdf.client = Client’s name
+hirer.result.pdf.client = Your organisation’s name
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = Bydd CThEM yn glynu wrth y canlyniad hwn cyn belled â’i fod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig. Os bydd yr arferion gwaith hyn yn newid, dylech ddefnyddio’r twlsyn hwn eto.
 

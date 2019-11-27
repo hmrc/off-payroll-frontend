@@ -45,7 +45,7 @@ class AgentInsideViewSpec extends ResultViewFixture {
     implicit lazy val document = asDocument(createPrintView(agencyFakeDataRequest))
 
     pageChecks(resultMode = ResultPDF)
-    pdfPageChecks(isPdfView = true)
+    pdfPageChecks(isPdfView = true, isHirer = false)
   }
 
   "The InsideAgentView Letter Print Preview page" should {
