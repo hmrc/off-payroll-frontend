@@ -59,9 +59,9 @@ class PrintPreviewController @Inject()(identify: IdentifierAction,
 
         match {
           case Right(result) => Ok(result)
-          case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+          case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
         }
-      case _ => InternalServerError(errorHandler.internalServerErrorTemplate)
+      case _ => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
     }
   }
 }

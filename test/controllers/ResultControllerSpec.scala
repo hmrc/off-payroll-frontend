@@ -119,7 +119,7 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
       "If an error response is returned from the Optimised Decision Service determine decide method" should {
 
-        "return ISE and the HTML returned from the Decision Service" in {
+        "redirect to the something went wrong page" in {
 
           enable(OptimisedFlow)
 
@@ -133,14 +133,14 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
           val result = TestResultController.onPageLoad(dataRequest)
 
-          status(result) mustBe INTERNAL_SERVER_ERROR
-          contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(dataRequest).toString
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
         }
       }
 
       "If an error response is returned from the Optimised Decision Service determine result view method" should {
 
-        "return ISE and the HTML returned from the Decision Service" in {
+        "redirect to the something went wrong page" in {
 
           enable(OptimisedFlow)
 
@@ -156,8 +156,8 @@ class ResultControllerSpec extends ControllerSpecBase with MockOptimisedDecision
 
           val result = TestResultController.onPageLoad(dataRequest)
 
-          status(result) mustBe INTERNAL_SERVER_ERROR
-          contentAsString(result) mustBe errorHandler.internalServerErrorTemplate(dataRequest).toString
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
         }
       }
 
