@@ -31,6 +31,7 @@ import pages.sections.exit.OfficeHolderPage
 import pages.sections.setup._
 import play.api.Logger
 import play.api.data.Form
+import play.api.http.Status
 import play.api.i18n.Messages
 import play.twirl.api.Html
 import uk.gov.hmrc.http.HeaderCarrier
@@ -69,7 +70,11 @@ class OptimisedDecisionService @Inject()(decisionConnector: DecisionConnector,
     decisionConnector.decide(Interview(request.userAnswers)).map {
       case decision@Right(response) =>
         auditConnector.sendExplicitAudit("cestDecisionResult", Audit(request.userAnswers, response))
-        decision
+        if(response.result == ResultEnum.NOT_MATCHED) {
+          Left(ErrorResponse(Status.UNPROCESSABLE_ENTITY, "NOT_MATCHED response returned from the Decision Service"))
+        } else {
+          decision
+        }
       case left@Left(_) => left
     }
 

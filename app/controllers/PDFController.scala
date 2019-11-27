@@ -108,7 +108,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
     decisionResponse match {
       case Some(decision) => optimisedPrintResult(decision, pdfDetails, timestamp)
-      case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+      case _ => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
     }
 
   }
@@ -134,7 +134,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       timestamp = Some(timestamp)
     ) match {
       case Right(html) => generatePdf(html, additionalPdfDetails.fileName)
-      case Left(_) => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
+      case Left(_) => Future.successful(Redirect(controllers.routes.StartAgainController.somethingWentWrong()))
     }
   }
 

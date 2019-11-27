@@ -71,9 +71,9 @@ class ResultController @Inject()(identify: IdentifierAction,
           case Right(decision) =>
             optimisedDecisionService.determineResultView(decision) match {
               case Right(result) => Ok(result).addingToSession(SessionKeys.decisionResponse -> decision)
-              case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+              case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
             }
-          case Left(_) => InternalServerError(errorHandler.internalServerErrorTemplate)
+          case Left(_) => Redirect(controllers.routes.StartAgainController.somethingWentWrong())
         }
       } else {
         Future.successful(Ok(decisionService.determineResultView(answers)))

@@ -72,8 +72,8 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
 
           val result = testPrintPreviewController().onPageLoad()(request)
 
-          status(result) mustBe INTERNAL_SERVER_ERROR
-          contentAsString(result) mustBe errorHandler.internalServerErrorTemplate.toString
+          status(result) mustBe SEE_OTHER
+          redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
         }
       }
     }
@@ -84,8 +84,8 @@ class PrintPreviewControllerSpec extends ControllerSpecBase {
 
         val result = testPrintPreviewController().onPageLoad()(fakeRequest)
 
-        status(result) mustBe INTERNAL_SERVER_ERROR
-        contentAsString(result) mustBe errorHandler.internalServerErrorTemplate.toString
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
       }
     }
   }
