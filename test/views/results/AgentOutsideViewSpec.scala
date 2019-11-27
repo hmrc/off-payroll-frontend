@@ -54,7 +54,7 @@ class AgentOutsideViewSpec extends ResultViewFixture {
       implicit lazy val document = asDocument(createView(agencyFakeDataRequest, pdfDetails = testPdfResultDetails))
 
       pageChecks(ResultPDF)
-      pdfPageChecks(isPdfView = true)
+      pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
     "The OutAgentView PrintPreview page" should {

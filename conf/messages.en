@@ -1697,6 +1697,7 @@ pdfDetails.reference.error.maxLength = The reference must be {0} characters or l
 
 result.pdf.time = Date of result: {0} (UTC)
 result.pdf.customisedBy = Your name
+result.pdf.client = Client’s name
 worker.result.pdf.client = Client’s name
 hirer.result.pdf.client = Your organisation’s name
 result.pdf.job = Contract or role title

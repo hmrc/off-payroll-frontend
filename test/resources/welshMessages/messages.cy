@@ -1677,6 +1677,7 @@ worker.equipmentExpenses.p2 = Vehicle costs are covered in the next question.
 ##TODO: Need Welsh
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
 result.pdf.customisedBy = Name of the person that completed this check:
+result.pdf.client = Client’s name
 worker.result.pdf.client = Client’s name
 hirer.result.pdf.client = Your organisation’s name
 result.pdf.job = Engagement job title:

@@ -152,14 +152,14 @@ class IR35OutsideViewSpec extends ResultViewFixture {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = true, pdfDetails = testPdfResultDetails))
 
         workerPageChecks(ResultPDF, isMake = true)
-        pdfPageChecks(isPdfView = true)
+        pdfPageChecks(isPdfView = true, isHirer = false)
       }
 
       "If checking a determination" should {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, isMake = false, pdfDetails = testPdfResultDetails))
 
         workerPageChecks(ResultPDF, isMake = false)
-        pdfPageChecks(isPdfView = true)
+        pdfPageChecks(isPdfView = true, isHirer = false)
       }
     }
 
