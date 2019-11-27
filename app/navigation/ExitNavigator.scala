@@ -16,18 +16,17 @@
 
 package navigation
 
+import javax.inject.{Inject, Singleton}
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
-import javax.inject.{Inject, Singleton}
 import models._
-import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
+import pages._
 import pages.sections.exit.OfficeHolderPage
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.setup._
-import pages.{CustomisePDFPage, _}
 import play.api.mvc.Call
 
 @Singleton

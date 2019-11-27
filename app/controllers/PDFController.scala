@@ -16,14 +16,15 @@
 
 package controllers
 
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow, PrintPDF}
+import javax.inject.Inject
+
+import config.featureSwitch.{FeatureSwitching, PrintPDF}
 import config.{FrontendAppConfig, SessionKeys}
 import connectors.DataCacheConnector
 import connectors.httpParsers.PDFGeneratorHttpParser.SuccessfulPDF
 import controllers.actions._
 import forms.CustomisePDFFormProvider
 import handlers.ErrorHandler
-import javax.inject.Inject
 import models._
 import models.requests.DataRequest
 import navigation.CYANavigator
@@ -31,7 +32,7 @@ import pages.{CustomisePDFPage, Timestamp}
 import play.api.data.Form
 import play.api.mvc._
 import play.core.utils.AsciiSet
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import services._
 import utils.SessionUtils._
 import utils.{SourceUtil, UserAnswersUtils}
@@ -48,7 +49,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
                               formProvider: CustomisePDFFormProvider,
                               controllerComponents: MessagesControllerComponents,
                               customisePdfView: CustomisePDFView,
-                              addDetailsView: AddDetailsView,
+                              optimisedView: AddDetailsView,
                               optimisedDecisionService: OptimisedDecisionService,
                               pdfService: PDFService,
                               errorHandler: ErrorHandler,
@@ -64,19 +65,16 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   def form: Form[AdditionalPdfDetails] = formProvider()
 
-  private def view(form: Form[AdditionalPdfDetails], mode: Mode)(implicit request: Request[_]): HtmlFormat.Appendable =
-    if (isEnabled(OptimisedFlow)) addDetailsView(form, mode) else customisePdfView(appConfig, form, mode)
-
   def onPageLoad(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData) { implicit request =>
 
     val decryptedForm = request.userAnswers.get(CustomisePDFPage).fold(AdditionalPdfDetails())(x => encryption.decryptDetails(x.answer))
 
-    Ok(view(form.fill(decryptedForm), mode))
+    Ok(optimisedView(form.fill(decryptedForm), mode))
   }
 
   def onSubmit(mode: Mode): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
     form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(view(formWithErrors, mode))),
+      formWithErrors => Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       additionalData => {
 
         val encryptedDetails = encryption.encryptDetails(additionalData)
@@ -85,7 +83,6 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       }
     )
   }
-
   def downloadPDF(): Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
 
     val decisionResponse = request.session.getModel[DecisionResponse](SessionKeys.decisionResponse)
@@ -97,7 +94,6 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
       case _ => Future.successful(InternalServerError(errorHandler.internalServerErrorTemplate))
     }
   }
-
   private def optimisedPrintResult(decision: DecisionResponse, additionalPdfDetails: AdditionalPdfDetails, timestamp: String)
                                   (implicit request: DataRequest[_]): Future[Result] = {
     optimisedDecisionService.determineResultView(
@@ -115,11 +111,7 @@ class PDFController @Inject()(dataCacheConnector: DataCacheConnector,
 
   private def generatePdf(view: Html, reference: Option[String])(implicit request: DataRequest[_]): Future[Result] = {
 
-    val css = if(isEnabled(OptimisedFlow)) {
-      source.fromURL(controllers.routes.Assets.versioned("stylesheets/optimised_print_pdf.css").absoluteURL).mkString
-    } else {
-      source.fromURL(controllers.routes.Assets.versioned("stylesheets/print_pdf.css").absoluteURL).mkString
-    }
+    val css = source.fromURL(controllers.routes.Assets.versioned("stylesheets/optimised_print_pdf.css").absoluteURL).mkString
     val printHtml = Html(view.toString
       .replace("<head>", s"<head><style>$css</style>")
     )

@@ -17,7 +17,7 @@
 package models
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import models.requests.DataRequest
 import models.sections.businessOnOwnAccount._
 import models.sections.control.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
@@ -157,10 +157,7 @@ object Interview extends JsonObjectSugar with FeatureSwitching {
     )
   }
 
-  def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = {
-
-    if(isEnabled(OptimisedFlow)) optimisedApply(userAnswers) else subOptimisedApply(userAnswers)
-  }
+  def apply(userAnswers: UserAnswers)(implicit appConfig: FrontendAppConfig, request: DataRequest[_]): Interview = optimisedApply(userAnswers)
 
   private def getAnswer[A](page: QuestionPage[A])(implicit userAnswers: UserAnswers, rds: Reads[A]): Option[A] ={
     userAnswers.get(page).fold(None: Option[A]) { answer => Some(answer.answer) }

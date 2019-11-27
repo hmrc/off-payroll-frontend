@@ -16,24 +16,21 @@
 
 package controllers
 
+import javax.inject.Inject
+
+import config.featureSwitch.FeatureSwitching
 import config.{FrontendAppConfig, SessionKeys}
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.{DeclarationFormProvider, DownloadPDFCopyFormProvider}
 import handlers.ErrorHandler
-import javax.inject.Inject
-import models.requests.DataRequest
-import models.{DecisionResponse, NormalMode, Timestamp, UserAnswers}
+import models.{NormalMode, Timestamp}
 import navigation.CYANavigator
 import pages.{ResultPage, Timestamp}
-import play.api.data.Form
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService, OptimisedDecisionService}
-import utils.UserAnswersUtils
 import utils.SessionUtils._
-
-import scala.concurrent.Future
+import utils.UserAnswersUtils
 
 class ResultController @Inject()(identify: IdentifierAction,
                                  getData: DataRetrievalAction,
@@ -52,11 +49,8 @@ class ResultController @Inject()(identify: IdentifierAction,
   extends BaseNavigationController(controllerComponents,compareAnswerService,dataCacheConnector,navigator) with FeatureSwitching with UserAnswersUtils {
 
   def onPageLoad: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    val timestamp = if(isEnabled(OptimisedFlow)) {
-      compareAnswerService.optimisedConstructAnswers(request,time.timestamp(),Timestamp)
-    } else {
-      compareAnswerService.constructAnswers(request,time.timestamp(),Timestamp)
-    }
+    val timestamp = compareAnswerService.optimisedConstructAnswers(request,time.timestamp(),Timestamp)
+
     dataCacheConnector.save(timestamp.cacheMap).flatMap { _ =>
       optimisedDecisionService.decide.map {
         case Right(decision) =>

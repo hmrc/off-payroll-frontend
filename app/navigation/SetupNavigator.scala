@@ -19,7 +19,7 @@ package navigation
 import javax.inject.{Inject, Singleton}
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
@@ -64,19 +64,7 @@ class SetupNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends Na
     ContractStartedPage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
   )
 
-  private val setupRouteMap: Map[Page, UserAnswers => Call] = Map(
-
-    //Initialisation Section
-    IndexPage -> (_ => setupRoutes.AboutYouController.onPageLoad(NormalMode)),
-
-    //Setup Section
-    AboutYouPage -> (_ => setupRoutes.ContractStartedController.onPageLoad(NormalMode)),
-    ContractStartedPage -> (_ => setupRoutes.WorkerTypeController.onPageLoad(NormalMode)),
-    WorkerTypePage -> (_ => exitRoutes.OfficeHolderController.onPageLoad(NormalMode))
-  )
-
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = {
-    val routing = if (isEnabled(OptimisedFlow)) optimisedSetupRouteMap else setupRouteMap
-    routing.getOrElse(page, _ => IndexController.onPageLoad())
+    optimisedSetupRouteMap.getOrElse(page, _ => IndexController.onPageLoad())
   }
 }

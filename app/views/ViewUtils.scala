@@ -16,10 +16,10 @@
 
 package views
 
+import config.featureSwitch.{FeatureSwitching, WelshLanguage}
 import config.{FrontendAppConfig, SessionKeys}
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow, WelshLanguage}
-import models.{ResultType, UserType}
 import models.UserType._
+import models.{ResultType, UserType}
 import play.api.data.Form
 import play.api.i18n.Messages
 import play.api.mvc.Request
@@ -38,10 +38,9 @@ object ViewUtils extends FeatureSwitching {
 
   def tailorMsg(msgKey: String, optimisedContent: Boolean = false)(implicit request: Request[_], appConfig: FrontendAppConfig): String = {
 
-    val userType = (isEnabled(OptimisedFlow), request.session.getModel[UserType](SessionKeys.userType)) match {
-      case (true, Some(Agency)) | (true, None) => s"${Worker.toString}."
-      case (false, Some(Agency)) | (_, None) => ""
-      case (_, Some(user)) => s"${user.toString}."
+    val userType = request.session.getModel[UserType](SessionKeys.userType) match {
+      case Some(Agency) | None => s"${Worker.toString}."
+      case Some(user) => s"${user.toString}."
     }
     val optimised = if (optimisedContent) "optimised." else ""
 

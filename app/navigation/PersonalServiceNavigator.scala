@@ -16,12 +16,13 @@
 
 package navigation
 
+import javax.inject.{Inject, Singleton}
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.personalService.{routes => personalServiceRoutes}
-import javax.inject.{Inject, Singleton}
 import models._
 import models.sections.personalService.ArrangedSubstitute.{YesClientAgreed, YesClientNotAgreed}
 import pages._
@@ -53,7 +54,7 @@ class PersonalServiceNavigator @Inject()(implicit appConfig: FrontendAppConfig) 
       }),
     WouldWorkerPaySubstitutePage -> (answers =>
       (answers.getAnswer(ContractStartedPage), answers.getAnswer(WouldWorkerPaySubstitutePage)) match {
-        case (Some(true), x) if !isEnabled(OptimisedFlow) || x.contains(false) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
+        case (Some(true), x) if x.contains(false) => personalServiceRoutes.NeededToPayHelperController.onPageLoad(mode)
         case _ => routeToNextSection
       }),
     NeededToPayHelperPage -> (_ => routeToNextSection)

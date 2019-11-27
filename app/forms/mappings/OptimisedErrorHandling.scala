@@ -17,18 +17,14 @@
 package forms.mappings
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import models.UserType.Worker
 import models.requests.DataRequest
 
 trait OptimisedErrorHandling extends FeatureSwitching {
 
   def tailoredErrMsg(key: String, optimisedPrefix: Boolean = false)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
-    if(isEnabled(OptimisedFlow)) {
       s"${request.userType.getOrElse(Worker)}${if(optimisedPrefix) ".optimised" else ""}.$key"
-    } else {
-      key
-    }
 
   def tailoredErrMsgOptimised(key: String)(implicit request: DataRequest[_], frontendAppConfig: FrontendAppConfig): String =
     tailoredErrMsg(key, optimisedPrefix = true)

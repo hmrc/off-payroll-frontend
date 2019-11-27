@@ -16,18 +16,17 @@
 
 package controllers
 
-import config.FrontendAppConfig
-import config.featureSwitch.OptimisedFlow
-import connectors.DataCacheConnector
 import javax.inject.Inject
-import models.{Section, _}
+
+import config.FrontendAppConfig
+import connectors.DataCacheConnector
 import models.requests.DataRequest
+import models.{Section, _}
 import navigation.Navigator
-import pages.sections.exit.OfficeHolderPage
 import pages.{BusinessOnOwnAccountSectionChangeWarningPage, PersonalServiceSectionChangeWarningPage, QuestionPage}
 import play.api.libs.json.{Reads, Writes}
 import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
-import services.{CompareAnswerService}
+import services.CompareAnswerService
 
 import scala.concurrent.Future
 
@@ -57,24 +56,13 @@ abstract class BaseNavigationController @Inject()(mcc: MessagesControllerCompone
     //Remove the Personal Service warning page viewed flag from the request
     val req = DataRequest(request.request, request.internalId ,request.userAnswers.remove(PersonalServiceSectionChangeWarningPage).remove(BusinessOnOwnAccountSectionChangeWarningPage))
 
-    val answers =
-      if (isEnabled(OptimisedFlow)) {
-        compareAnswerService.optimisedConstructAnswers(req, value, page)
-      } else {
-        compareAnswerService.constructAnswers(req, value, page)
-      }
+    val answers = compareAnswerService.optimisedConstructAnswers(req, value, page)
 
     dataCacheConnector.save(answers.cacheMap).flatMap { _ =>
       (answerUnchanged, personalWarning, boOAWarning) match {
         case (true, true, _) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.personalService))))
         case (true, _, true) => Future.successful(Redirect(routes.CheckYourAnswersController.onPageLoad(Some(Section.businessOnOwnAccount))))
-        case _ => {
-          val call = navigator.nextPage(page, mode)(answers)
-          (callDecisionService, isEnabled(OptimisedFlow)) match {
-            case (true, false) => decisionService.decide(answers, call)(hc, ec, req)
-            case _ => Future.successful(Redirect(call))
-          }
-        }
+        case _ => Future.successful(Redirect(navigator.nextPage(page, mode)(answers)))
       }
     }
   }

@@ -17,7 +17,7 @@
 package models.sections.financialRisk
 
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import models.{Enumerable, WithName}
 import play.api.libs.json._
 import viewmodels.{Radio, RadioOption}
@@ -42,8 +42,7 @@ object PutRightAtOwnCost extends FeatureSwitching {
       option = value.toString,
       optionType = Radio,
       hasTailoredMsgs = true,
-      dividerPrefix = false,
-      hasOptimisedMsgs = isEnabled(OptimisedFlow)
+      dividerPrefix = false
     )
   }
   implicit val enumerable: Enumerable[PutRightAtOwnCost] =

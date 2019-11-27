@@ -16,12 +16,13 @@
 
 package navigation
 
+import javax.inject.{Inject, Singleton}
+
 import config.FrontendAppConfig
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import controllers.routes._
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => financialRiskRoutes}
-import javax.inject.{Inject, Singleton}
 import models._
 import pages._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage, ScheduleOfWorkingHoursPage}
@@ -34,13 +35,7 @@ class ControlNavigator @Inject()(implicit appConfig: FrontendAppConfig) extends 
     MoveWorkerPage -> (_ => controlRoutes.HowWorkIsDoneController.onPageLoad(NormalMode)),
     HowWorkIsDonePage -> (_ => controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)),
     ScheduleOfWorkingHoursPage -> (_ => controlRoutes.ChooseWhereWorkController.onPageLoad(NormalMode)),
-    ChooseWhereWorkPage -> (_ => {
-      if(isEnabled(OptimisedFlow)) {
-        financialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode)
-      } else {
-        financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode)
-      }
-    })
+    ChooseWhereWorkPage -> (_ => financialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode))
   )
 
   override def nextPage(page: Page, mode: Mode): UserAnswers => Call = mode match {
