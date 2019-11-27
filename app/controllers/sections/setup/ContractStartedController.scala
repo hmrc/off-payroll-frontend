@@ -31,7 +31,6 @@ import pages.sections.setup.ContractStartedPage
 import play.api.data.Form
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
-import views.html.subOptimised.sections.setup.ContractStartedView
 
 import scala.concurrent.Future
 
@@ -40,7 +39,6 @@ class ContractStartedController @Inject()(identify: IdentifierAction,
                                           requireData: DataRequiredAction,
                                           formProvider: ContractStartedFormProvider,
                                           controllerComponents: MessagesControllerComponents,
-                                          view: ContractStartedView,
                                           optimisedView: views.html.sections.setup.ContractStartedView,
                                           checkYourAnswersService: CheckYourAnswersService,
                                           compareAnswerService: CompareAnswerService,

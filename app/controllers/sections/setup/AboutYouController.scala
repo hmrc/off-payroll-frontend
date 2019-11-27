@@ -34,7 +34,6 @@ import play.api.mvc._
 import services.{CheckYourAnswersService, CompareAnswerService}
 import utils.SessionUtils._
 import views.html.sections.setup.WhichDescribesYouView
-import views.html.subOptimised.sections.setup.AboutYouView
 
 import scala.concurrent.Future
 
@@ -44,7 +43,6 @@ class AboutYouController @Inject()(identify: IdentifierAction,
                                    aboutYouFormProvider: AboutYouFormProvider,
                                    whichDescribesYouFormProvider: WhichDescribesYouFormProvider,
                                    controllerComponents: MessagesControllerComponents,
-                                   aboutYouView: AboutYouView,
                                    whichDescribesYouView: WhichDescribesYouView,
                                    checkYourAnswersService: CheckYourAnswersService,
                                    compareAnswerService: CompareAnswerService,

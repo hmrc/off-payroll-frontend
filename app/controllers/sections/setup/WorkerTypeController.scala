@@ -34,7 +34,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import play.twirl.api.Html
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.setup.WorkerUsingIntermediaryView
-import views.html.subOptimised.sections.setup.WorkerTypeView
 
 import scala.concurrent.Future
 
@@ -44,7 +43,6 @@ class WorkerTypeController @Inject()(identify: IdentifierAction,
                                      workerTypeFormProvider: WorkerTypeFormProvider,
                                      newFormProvider: WorkerUsingIntermediaryFormProvider,
                                      controllerComponents: MessagesControllerComponents,
-                                     workerTypeView: WorkerTypeView,
                                      workerUsingIntermediaryView: WorkerUsingIntermediaryView,
                                      checkYourAnswersService: CheckYourAnswersService,
                                      compareAnswerService: CompareAnswerService,

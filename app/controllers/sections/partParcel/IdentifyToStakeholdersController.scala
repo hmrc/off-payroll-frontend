@@ -30,7 +30,6 @@ import pages.sections.partParcel.IdentifyToStakeholdersPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.partParcel.IdentifyToStakeholdersView
-import views.html.subOptimised.sections.partParcel.{IdentifyToStakeholdersView => SubOptimisedIdentifyToStakeholdersView}
 
 import scala.concurrent.Future
 

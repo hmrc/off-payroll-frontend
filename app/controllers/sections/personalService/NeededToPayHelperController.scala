@@ -30,7 +30,6 @@ import pages.sections.personalService.NeededToPayHelperPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.personalService.NeededToPayHelperView
-import views.html.subOptimised.sections.personalService.{NeededToPayHelperView => SubOptimisedNeededToPayHelperView}
 
 import scala.concurrent.Future
 

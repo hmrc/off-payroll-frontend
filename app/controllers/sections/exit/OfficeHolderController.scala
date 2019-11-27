@@ -30,7 +30,6 @@ import pages.sections.exit.OfficeHolderPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.exit.OfficeHolderView
-import views.html.subOptimised.sections.exit.{OfficeHolderView => SubOptimisedOfficeHolderView}
 
 import scala.concurrent.Future
 

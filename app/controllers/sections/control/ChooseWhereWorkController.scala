@@ -30,7 +30,6 @@ import pages.sections.control.ChooseWhereWorkPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.control.ChooseWhereWorkView
-import views.html.subOptimised.sections.control.{ChooseWhereWorkView => SubOptimisedChooseWhereWorkView}
 
 import scala.concurrent.Future
 

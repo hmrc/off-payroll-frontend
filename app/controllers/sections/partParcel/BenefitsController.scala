@@ -30,7 +30,6 @@ import pages.sections.partParcel.BenefitsPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.partParcel.BenefitsView
-import views.html.subOptimised.sections.partParcel.{BenefitsView => SubOptimisedBenefitsView}
 
 import scala.concurrent.Future
 

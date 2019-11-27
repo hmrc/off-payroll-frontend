@@ -30,7 +30,6 @@ import pages.sections.control.MoveWorkerPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.control.MoveWorkerView
-import views.html.subOptimised.sections.control.{MoveWorkerView => SubOptimisedMoveWorkerView}
 
 import scala.concurrent.Future
 

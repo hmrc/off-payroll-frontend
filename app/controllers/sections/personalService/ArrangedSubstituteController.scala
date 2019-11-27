@@ -30,7 +30,6 @@ import pages.sections.personalService.ArrangedSubstitutePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.personalService.ArrangedSubstituteView
-import views.html.subOptimised.sections.personalService.{ArrangedSubstituteView => SubOptimisedArrangedSubstituteView}
 
 import scala.concurrent.Future
 

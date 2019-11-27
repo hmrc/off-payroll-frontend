@@ -30,7 +30,6 @@ import pages.sections.control.HowWorkIsDonePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.control.HowWorkIsDoneView
-import views.html.subOptimised.sections.control.{HowWorkIsDoneView => SubOptimisedHowWorkIsDoneView}
 
 import scala.concurrent.Future
 

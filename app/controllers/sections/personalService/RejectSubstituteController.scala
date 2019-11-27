@@ -30,7 +30,6 @@ import pages.sections.personalService.RejectSubstitutePage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.personalService.RejectSubstituteView
-import views.html.subOptimised.sections.personalService.{RejectSubstituteView => SubOptimisedRejectSubstituteView}
 
 import scala.concurrent.Future
 

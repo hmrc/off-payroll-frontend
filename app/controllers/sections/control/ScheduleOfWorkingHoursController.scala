@@ -30,7 +30,6 @@ import pages.sections.control.ScheduleOfWorkingHoursPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.control.ScheduleOfWorkingHoursView
-import views.html.subOptimised.sections.control.{ScheduleOfWorkingHoursView => SubOptimisedScheduleOfWorkingHoursView}
 
 import scala.concurrent.Future
 

@@ -30,7 +30,6 @@ import pages.sections.partParcel.LineManagerDutiesPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.partParcel.LineManagerDutiesView
-import views.html.subOptimised.sections.partParcel.{LineManagerDutiesView => SubOptimisedLineManagerDutiesView}
 
 import scala.concurrent.Future
 

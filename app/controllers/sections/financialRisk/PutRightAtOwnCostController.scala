@@ -30,7 +30,6 @@ import pages.sections.financialRisk.PutRightAtOwnCostPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.financialRisk.PutRightAtOwnCostView
-import views.html.subOptimised.sections.financialRisk.{PutRightAtOwnCostView => SubOptimisedPutRightAtOwnCostView}
 
 import scala.concurrent.Future
 

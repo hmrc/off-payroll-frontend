@@ -30,7 +30,6 @@ import pages.sections.financialRisk.HowWorkerIsPaidPage
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import services.{CheckYourAnswersService, CompareAnswerService}
 import views.html.sections.financialRisk.HowWorkerIsPaidView
-import views.html.subOptimised.sections.financialRisk.{HowWorkerIsPaidView => SubOptimisedHowWorkerIsPaidView}
 
 import scala.concurrent.Future
 
