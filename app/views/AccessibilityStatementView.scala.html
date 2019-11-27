@@ -38,7 +38,7 @@
 
     <p>
         @messages("accessibilityStatement.p2.preLink")
-        <a href="@appConfig.govukAccessibilityStatementUrl">@messages("accessibilityStatement.p2.link")</a>
+        @new_window_or_tab_link("accessibilityStatement.p2.link", appConfig.govukAccessibilityStatementUrl)
         @messages("accessibilityStatement.p2.postLink")
     </p>
 
@@ -65,7 +65,7 @@
         <p>@messages("accessibilityStatement.usingService.p3")</p>
 
         <p>
-            <a href='@appConfig.abilityNetUrl'>@messages("accessibilityStatement.usingService.p4.link")</a>
+            @new_window_or_tab_link("accessibilityStatement.usingService.p4.link", appConfig.abilityNetUrl)
             @messages("accessibilityStatement.usingService.p4.postLink")
         </p>
     </div>
@@ -76,7 +76,7 @@
 
         <p>
             @messages("accessibilityStatement.howAccessible.p1.preLink")
-            <a href='@appConfig.wcagUrl'>@messages("accessibilityStatement.howAccessible.p1.link")</a>.
+            @new_window_or_tab_link("accessibilityStatement.howAccessible.p1.link", appConfig.wcagUrl).
         </p>
 
         <p>@messages("accessibilityStatement.howAccessible.p2")</p>
@@ -88,7 +88,7 @@
 
         <p>
             @messages("accessibilityStatement.reportProblems.p1.preLink")
-            @new_window_or_tab_link("accessibilityStatement.reportProblems.p1.link", appConfig.reportAccessibilityIssueUrl(problemPageUri), Some("reportAccessibilityIssue"))
+            @new_window_or_tab_link("accessibilityStatement.reportProblems.p1.link", appConfig.reportAccessibilityIssueUrl(problemPageUri), Some("reportAccessibilityIssue")).
         </p>
 
     </div>
@@ -99,9 +99,9 @@
 
         <p>
             @messages("accessibilityStatement.notHappy.p1.preLink1")
-            <a href='@appConfig.eassUrl'>@messages("accessibilityStatement.notHappy.p1.link1")</a>
+            @new_window_or_tab_link("accessibilityStatement.notHappy.p1.link1", appConfig.eassUrl)
             @messages("accessibilityStatement.notHappy.p1.preLink2")
-            <a href='@appConfig.ecniUrl'>@messages("accessibilityStatement.notHappy.p1.link2")</a>
+            @new_window_or_tab_link("accessibilityStatement.notHappy.p1.link2", appConfig.ecniUrl)
             @messages("accessibilityStatement.notHappy.p1.postLink2")
         </p>
 
@@ -117,7 +117,7 @@
 
         <p>
             @messages("accessibilityStatement.contactUs.p3.preLink")
-            <a href="@appConfig.hmrcAdditionalNeedsUrl">@messages("accessibilityStatement.contactUs.p3.link")</a>.
+            @new_window_or_tab_link("accessibilityStatement.contactUs.p3.link", appConfig.hmrcAdditionalNeedsUrl).
         </p>
 
     </div>
@@ -130,7 +130,7 @@
 
         <p>
             @messages("accessibilityStatement.technicalReference.p2.preLink")
-            <a href="@appConfig.hmrcAdditionalNeedsUrl">@messages("accessibilityStatement.technicalReference.p2.link")</a>.
+            @new_window_or_tab_link("accessibilityStatement.technicalReference.p2.link", appConfig.hmrcAdditionalNeedsUrl).
         </p>
 
     </div>
@@ -143,7 +143,7 @@
 
         <p>
             @messages("accessibilityStatement.howTested.p2.preLink")
-            <a href="@appConfig.dacUrl">@messages("accessibilityStatement.howTested.p2.link")</a>.
+            @new_window_or_tab_link("accessibilityStatement.howTested.p2.link", appConfig.dacUrl).
             @messages("accessibilityStatement.howTested.p2.postLink")
         </p>
 
