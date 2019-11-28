@@ -97,11 +97,6 @@ POST       /decide-where-work-is-done                   controllers.sections.con
 GET        /decide-where-work-is-done/change            controllers.sections.control.ChooseWhereWorkController.onPageLoad(mode: Mode = CheckMode)
 POST       /decide-where-work-is-done/change            controllers.sections.control.ChooseWhereWorkController.onSubmit(mode: Mode = CheckMode)
 
-GET        /worker-cannot-claim                         controllers.sections.financialRisk.CannotClaimAsExpenseController.onPageLoad(mode: Mode = NormalMode)
-POST       /worker-cannot-claim                         controllers.sections.financialRisk.CannotClaimAsExpenseController.onSubmit(mode: Mode = NormalMode)
-GET        /worker-cannot-claim/change                  controllers.sections.financialRisk.CannotClaimAsExpenseController.onPageLoad(mode: Mode = CheckMode)
-POST       /worker-cannot-claim/change                  controllers.sections.financialRisk.CannotClaimAsExpenseController.onSubmit(mode: Mode = CheckMode)
-
 GET        /how-worker-is-paid                          controllers.sections.financialRisk.HowWorkerIsPaidController.onPageLoad(mode: Mode = NormalMode)
 POST       /how-worker-is-paid                          controllers.sections.financialRisk.HowWorkerIsPaidController.onSubmit(mode: Mode = NormalMode)
 GET        /how-worker-is-paid/change                   controllers.sections.financialRisk.HowWorkerIsPaidController.onPageLoad(mode: Mode = CheckMode)
@@ -121,11 +116,6 @@ GET        /management-responsibilities                  controllers.sections.pa
 POST       /management-responsibilities                  controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = NormalMode)
 GET        /management-responsibilities/change           controllers.sections.partParcel.LineManagerDutiesController.onPageLoad(mode: Mode = CheckMode)
 POST       /management-responsibilities/change           controllers.sections.partParcel.LineManagerDutiesController.onSubmit(mode: Mode = CheckMode)
-
-GET        /external-interaction                        controllers.sections.partParcel.InteractWithStakeholdersController.onPageLoad(mode: Mode = NormalMode)
-POST       /external-interaction                        controllers.sections.partParcel.InteractWithStakeholdersController.onSubmit(mode: Mode = NormalMode)
-GET        /external-interaction/change                 controllers.sections.partParcel.InteractWithStakeholdersController.onPageLoad(mode: Mode = CheckMode)
-POST       /external-interaction/change                 controllers.sections.partParcel.InteractWithStakeholdersController.onSubmit(mode: Mode = CheckMode)
 
 GET        /introduce-worker                            controllers.sections.partParcel.IdentifyToStakeholdersController.onPageLoad(mode: Mode = NormalMode)
 POST       /introduce-worker                            controllers.sections.partParcel.IdentifyToStakeholdersController.onSubmit(mode: Mode = NormalMode)

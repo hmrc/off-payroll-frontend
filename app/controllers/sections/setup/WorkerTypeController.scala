@@ -66,12 +66,6 @@ class WorkerTypeController @Inject()(identify: IdentifierAction,
     (answerModel => workerUsingIntermediaryForm.fill(answerModel.answer)), mode)
   }
 
-  private[controllers] def submitWorkerType(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
-    workerTypeForm.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(workerTypeView(formWithErrors, mode))),
-      value => redirect(mode,value,WorkerTypePage)
-    )
-
   private[controllers] def submitWorkerUsingIntermediary(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
     workerUsingIntermediaryForm.bindFromRequest().fold(
       formWithErrors => Future.successful(BadRequest(workerUsingIntermediaryView(formWithErrors, mode))),

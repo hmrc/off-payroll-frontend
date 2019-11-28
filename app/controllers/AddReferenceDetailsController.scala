@@ -55,7 +55,7 @@ class AddReferenceDetailsController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(addReferenceDetails(formWithErrors))),
       value => {
-        redirect[Boolean](NormalMode,value, AddReferenceDetailsPage, callDecisionService = false)
+        redirect[Boolean](NormalMode,value, AddReferenceDetailsPage)
       }
     )
   }

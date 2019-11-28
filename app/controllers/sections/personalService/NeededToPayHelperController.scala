@@ -55,7 +55,7 @@ class NeededToPayHelperController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
-        redirect(mode,value, NeededToPayHelperPage, callDecisionService = true)
+        redirect(mode,value, NeededToPayHelperPage)
       }
     )
   }

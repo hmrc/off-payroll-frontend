@@ -74,12 +74,4 @@ class AboutYouController @Inject()(identify: IdentifierAction,
         redirect(mode, value, WhichDescribesYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
       }
     )
-
-  private[controllers] def submitAboutYou(mode: Mode)(implicit request: DataRequest[AnyContent]): Future[Result] =
-    form.bindFromRequest().fold(
-      formWithErrors => Future.successful(BadRequest(aboutYouView(formWithErrors, mode))),
-      value => {
-        redirect(mode, value, AboutYouPage).map(result => result.addingToSession(SessionKeys.userType -> UserType(value)))
-      }
-    )
 }

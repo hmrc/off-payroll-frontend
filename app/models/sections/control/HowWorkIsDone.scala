@@ -29,26 +29,14 @@ object HowWorkIsDone {
   case object WorkerFollowStrictEmployeeProcedures extends WithName("workerFollowStrictEmployeeProcedures") with HowWorkIsDone
   case object WorkerAgreeWithOthers extends WithName("workerAgreeWithOthers") with HowWorkIsDone
 
-  def values(optimised: Boolean = false): Seq[HowWorkIsDone] =
-    if(optimised) {
-      Seq(NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerAgreeWithOthers, WorkerFollowStrictEmployeeProcedures)
-    }else{
-      Seq(NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerFollowStrictEmployeeProcedures, WorkerAgreeWithOthers)
+  def values: Seq[HowWorkIsDone] = Seq(NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerAgreeWithOthers, WorkerFollowStrictEmployeeProcedures)
 
-    }
-
-  def options(optimised: Boolean = false): Seq[RadioOption] = values(optimised).map {
-    value =>
-
-      if(optimised){
-        RadioOption("optimised.howWorkIsDone", value.toString, Radio, hasTailoredMsgs = true)
-      } else {
-        RadioOption("howWorkIsDone", value.toString, Radio, hasTailoredMsgs = true)
-      }
+  def options: Seq[RadioOption] = values.map {
+    value => RadioOption("optimised.howWorkIsDone", value.toString, Radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[HowWorkIsDone] =
-    Enumerable(values().map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v): _*)
 
   implicit object HowWorkIsDoneWrites extends Writes[HowWorkIsDone] {
     def writes(howWorkIsDone: HowWorkIsDone) = Json.toJson(howWorkIsDone.toString)

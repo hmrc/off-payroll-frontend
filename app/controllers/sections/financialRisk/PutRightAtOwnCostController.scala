@@ -55,7 +55,7 @@ class PutRightAtOwnCostController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
-        redirect(mode,value, PutRightAtOwnCostPage, callDecisionService = true)
+        redirect(mode,value, PutRightAtOwnCostPage)
       }
     )
   }

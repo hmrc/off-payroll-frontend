@@ -36,8 +36,7 @@ abstract class BaseNavigationController @Inject()(mcc: MessagesControllerCompone
 
   def redirect[T](mode: Mode,
                   value: T,
-                  page: QuestionPage[T],
-                  callDecisionService: Boolean = false)(implicit request: DataRequest[AnyContent],
+                  page: QuestionPage[T])(implicit request: DataRequest[AnyContent],
                                                         reads: Reads[T],
                                                         writes: Writes[T],
                                                         aWrites: Writes[Answers[T]],

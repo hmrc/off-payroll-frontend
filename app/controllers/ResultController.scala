@@ -64,6 +64,6 @@ class ResultController @Inject()(identify: IdentifierAction,
   }
 
   def onSubmit: Action[AnyContent] = (identify andThen getData andThen requireData).async { implicit request =>
-    redirect[Boolean](NormalMode, true, ResultPage, callDecisionService = false)
+    redirect[Boolean](NormalMode, true, ResultPage)
   }
 }

@@ -55,7 +55,7 @@ class LineManagerDutiesController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
-        redirect(mode,value, LineManagerDutiesPage, callDecisionService = true)
+        redirect(mode,value, LineManagerDutiesPage)
       }
     )
   }

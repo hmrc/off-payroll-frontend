@@ -56,7 +56,7 @@ class BenefitsController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
-        redirect(mode,value,BenefitsPage,callDecisionService = true)
+        redirect(mode,value,BenefitsPage)
       }
     )
   }

@@ -133,9 +133,6 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
   def lineManagerDuties(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     yesNoRowTailoredOptimised(LineManagerDutiesPage, partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode))
 
-  def interactWithStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
-    yesNoRowTailoredOptimised(InteractWithStakeholdersPage, partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode))
-
   def identifyToStakeholders(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig): Option[AnswerRow] =
     answerRowTailored(IdentifyToStakeholdersPage, partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode))
 

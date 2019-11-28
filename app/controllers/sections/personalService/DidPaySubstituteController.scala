@@ -55,7 +55,7 @@ class DidPaySubstituteController @Inject()(identify: IdentifierAction,
       formWithErrors =>
         Future.successful(BadRequest(optimisedView(formWithErrors, mode))),
       value => {
-        redirect(mode,value,DidPaySubstitutePage,callDecisionService = true)
+        redirect(mode,value,DidPaySubstitutePage)
       }
     )
   }
