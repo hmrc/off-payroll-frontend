@@ -1388,7 +1388,7 @@ hirer.optimised.result.officeHolder.paye.doNext.p2.link = PAYE and payroll for e
 ## ------------------
 worker.optimised.result.officeHolder.ir35.heading = Off-payroll working rules (IR35) apply
 worker.optimised.result.officeHolder.ir35.whyResult.p1 = In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are classed as employed for tax purposes for this work.
-worker.optimised.result.officeHolder.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.officeHolder.ir35.make.doNext.p1 = You told us you are providing your services through an intermediary, such as a limited company, partnership, or unincorporated body. Your intermediary needs to operate PAYE on your earnings.
 worker.optimised.result.officeHolder.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
 worker.optimised.result.officeHolder.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
 worker.optimised.result.officeHolder.ir35.check.doNext.p3.preLink = You could also read Chapter 5 of the
@@ -1469,7 +1469,7 @@ worker.optimised.result.undetermined.paye.doNext.p3 = If you need more help on h
 ## -------------------
 worker.optimised.result.inside.ir35.heading = Off-payroll working rules (IR35) apply
 worker.optimised.result.inside.ir35.whyResult.p1 = The answers you have given suggest you are providing a personal service to your client. This means you are classed as employed for tax purposes for this work.
-worker.optimised.result.inside.ir35.make.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings.
+worker.optimised.result.inside.ir35.make.doNext.p1 = You told us you are providing your services through an intermediary, such as a limited company, partnership, or unincorporated body. Your intermediary needs to operate PAYE on your earnings.
 worker.optimised.result.inside.ir35.check.doNext.p1 = If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct.
 worker.optimised.result.inside.ir35.check.doNext.p2 = If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline.
 worker.optimised.result.inside.ir35.check.doNext.p3.text = You could also read Chapter 5 of the

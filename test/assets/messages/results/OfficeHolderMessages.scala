@@ -28,7 +28,7 @@ object OfficeHolderMessages extends BaseResultMessages {
     object IR35 {
       val heading = "Off-payroll working rules (IR35) apply"
       val whyResult_p1 = "In the ‘Worker’s Duties’ section, you answered that you will perform office holder duties. This means you are classed as employed for tax purposes for this work."
-      val doNext_make_p1 = "Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings."
+      val doNext_make_p1 = "You told us you are providing your services through an intermediary, such as a limited company, partnership, or unincorporated body. Your intermediary needs to operate PAYE on your earnings."
       val doNext_check_p1 = "If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct."
       val doNext_check_p2 = "If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline."
       val doNext_check_p3 = s"$telephone $telephoneNumber $email $emailAddress"
