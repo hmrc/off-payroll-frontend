@@ -1393,7 +1393,7 @@ hirer.optimised.result.officeHolder.paye.doNext.p2.link = TWE a’r gyflogres ar
 ## ------------------
 worker.optimised.result.officeHolder.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 worker.optimised.result.officeHolder.ir35.whyResult.p1 = Yn yr adran ‘Dyletswyddau’r gweithiwr’, ateboch y byddwch yn cyflawni dyletswyddau deiliad swydd. Golyga hyn y cewch eich trin fel petaech yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
-worker.optimised.result.officeHolder.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
+worker.optimised.result.officeHolder.ir35.make.doNext.p1 = You told us you are providing your services through an intermediary, such as a limited company, partnership, or unincorporated body. Your intermediary needs to operate PAYE on your earnings.
 worker.optimised.result.officeHolder.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
 worker.optimised.result.officeHolder.ir35.check.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallwch gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 worker.optimised.result.officeHolder.ir35.check.doNext.p3.preLink = Gallech hefyd ddarllen pennod 5 o’r
@@ -1439,7 +1439,7 @@ hirer.optimised.result.undetermined.paye.doNext.p3 = Os oes angen rhagor o arwei
 
 worker.optimised.result.inside.ir35.heading = Mae rheolau gweithio oddi ar y gyflogres (IR35) yn berthnasol
 worker.optimised.result.inside.ir35.whyResult.p1 = Mae’r atebion a roddwyd gennych yn awgrymu eich bod yn cynnig gwasanaeth personol i’ch cleient. Golyga hyn y cewch eich trin fel petaech yn gyflogedig at ddibenion treth ar gyfer y gwaith hwn.
-worker.optimised.result.inside.ir35.make.doNext.p1 = Lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’r sefydliad sy’n eich cyflogi. Mae angen i’r sefydliad weithredu TWE ar eich enillion.
+worker.optimised.result.inside.ir35.make.doNext.p1 = You told us you are providing your services through an intermediary, such as a limited company, partnership, or unincorporated body. Your intermediary needs to operate PAYE on your earnings.
 worker.optimised.result.inside.ir35.check.doNext.p1 = Os yw’r canlyniad hwn yn wahanol i’r un rydych yn ei wirio, lawrlwythwch gopi o’r canlyniad hwn a’i ddangos i’ch cleient. Dylech wirio’ch atebion gydag ef i wneud yn siŵr eu bod yn gywir.
 worker.optimised.result.inside.ir35.check.doNext.p2 = Os oes angen rhagor o arweiniad arnoch, gallwch gysylltu â Gwasanaeth Cwsmeriaid Cymraeg CThEM.
 worker.optimised.result.inside.ir35.check.doNext.p3.text = Gallech hefyd ddarllen pennod 5 o’r
