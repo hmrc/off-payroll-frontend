@@ -29,11 +29,11 @@ object MoveWorker {
   case object CannotMoveWorkerWithoutNewAgreement extends WithName("cannotMoveWorkerWithoutNewAgreement") with MoveWorker
 
   def values: Seq[MoveWorker] =
-     Seq(CanMoveWorkerWithoutPermission, CanMoveWorkerWithPermission, CannotMoveWorkerWithoutNewAgreement)
+     Seq(CanMoveWorkerWithPermission, CanMoveWorkerWithoutPermission, CannotMoveWorkerWithoutNewAgreement)
 
   def options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("optimised.moveWorker", value.toString, Radio, hasTailoredMsgs = true)
+      RadioOption("moveWorker", value.toString, Radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[MoveWorker] =

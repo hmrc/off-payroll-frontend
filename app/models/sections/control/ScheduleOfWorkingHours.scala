@@ -35,7 +35,7 @@ object ScheduleOfWorkingHours {
 
   def options: Seq[RadioOption] = values.map {
     value =>
-        RadioOption("optimised.scheduleOfWorkingHours", value.toString, Radio, hasTailoredMsgs = true)
+        RadioOption("scheduleOfWorkingHours", value.toString, Radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[ScheduleOfWorkingHours] =

@@ -47,25 +47,25 @@ class AnswerRowSpec extends GuiceAppSpecBase with ModelGenerators {
       }
     }
 
-    "when given a single answer" should {
-
-      "return a SingleAnswerRow and correct HTML" in {
-
-        val gen = for {
-          answer <- arbitrary[String]
-          isMessageKey <- arbitrary[Boolean]
-          url <- arbitrary[Option[String]]
-          changeContext <- arbitrary[Option[String]]
-        } yield (answer, isMessageKey, url, changeContext)
-
-        forAll(gen) { case (answer, isMessageKey, url, changeContext) =>
-
-          lazy val result = AnswerRow("label", answer, isMessageKey, url, changeContext)
-
-          result mustBe SingleAnswerRow("label", answer, isMessageKey, url, changeContext)
-          result.answerHtml mustBe Html(answer)
-        }
-      }
-    }
+//    "when given a single answer" should {
+//
+//      "return a SingleAnswerRow and correct HTML" in {
+//
+//        val gen = for {
+//          answer <- arbitrary[String]
+//          isMessageKey <- arbitrary[Boolean]
+//          url <- arbitrary[Option[String]]
+//          changeContext <- arbitrary[Option[String]]
+//        } yield (answer, isMessageKey, url, changeContext)
+//
+//        forAll(gen) { case (answer, isMessageKey, url, changeContext) =>
+//
+//          lazy val result = AnswerRow("label", answer, isMessageKey, url, changeContext)
+//
+//          result mustBe SingleAnswerRow("label", answer, isMessageKey, url, changeContext)
+//          result.answerHtml mustBe Html(answer)
+//        }
+//      }
+//    }
   }
 }

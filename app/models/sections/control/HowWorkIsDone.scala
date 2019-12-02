@@ -32,7 +32,7 @@ object HowWorkIsDone {
   def values: Seq[HowWorkIsDone] = Seq(NoWorkerInputAllowed, WorkerDecidesWithoutInput, WorkerAgreeWithOthers, WorkerFollowStrictEmployeeProcedures)
 
   def options: Seq[RadioOption] = values.map {
-    value => RadioOption("optimised.howWorkIsDone", value.toString, Radio, hasTailoredMsgs = true)
+    value => RadioOption("howWorkIsDone", value.toString, Radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[HowWorkIsDone] =

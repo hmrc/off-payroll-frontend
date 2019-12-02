@@ -34,7 +34,7 @@ object ChooseWhereWork {
 
   def options: Seq[RadioOption] = values.map {
     value =>
-      RadioOption("optimised.chooseWhereWork", value.toString, Radio, hasTailoredMsgs = true)
+      RadioOption("chooseWhereWork", value.toString, Radio, hasTailoredMsgs = true)
   }
 
   implicit val enumerable: Enumerable[ChooseWhereWork] =

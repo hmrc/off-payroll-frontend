@@ -33,7 +33,7 @@ class IntermediaryViewSpec extends ViewBehaviours {
     val understandingOffPayroll = "#understanding-off-payroll"
   }
 
-  val messageKeyPrefix = "worker.optimised.intermediaryResult"
+  val messageKeyPrefix = "worker.intermediaryResult"
 
   val view = injector.instanceOf[IntermediaryView]
 

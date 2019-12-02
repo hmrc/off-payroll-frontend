@@ -564,6 +564,38 @@ hirer.optimised.benefits.p1 = This can include external gym memberships, health 
 
 ## Put Right at Workers Own Cost
 #########################
+putRightAtOwnCost.title = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.heading = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, does the worker need to put it right at their own cost?
+putRightAtOwnCost.subheading = About the worker’s financial risk
+putRightAtOwnCost.outsideOfHoursNoCharge = Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to put it right without an additional charge, but would not incur any costs
+putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
+putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
+putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
+putRightAtOwnCost.error.required = You need to select an answer
+putRightAtOwnCost.error.invalid = You need to select an answer
+
+worker.putRightAtOwnCost.title = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.heading = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.checkYourAnswersLabel = If the end client is not satisfied with the work, do you need to put it right at your own cost?
+worker.putRightAtOwnCost.subheading = About the worker’s financial risk
+worker.putRightAtOwnCost.outsideOfHoursNoCharge = Yes - I would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+worker.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - I would have to put it right without an additional charge, but would not incur any costs
+worker.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - I would put it right in my usual hours at the usual rate of pay, or for an additional fee
+worker.putRightAtOwnCost.cannotBeCorrected = No - I would not be able to put it right because the work is time-specific or for a single event
+worker.putRightAtOwnCost.noObligationToCorrect = No - I would not need to put it right
+
+hirer.putRightAtOwnCost.title = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.heading = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.checkYourAnswersLabel = If you are not satisfied with the work, does the worker need to put it right at their own cost?
+hirer.putRightAtOwnCost.subheading = About the worker’s financial risk
+hirer.putRightAtOwnCost.outsideOfHoursNoCharge = Yes - the worker would have to put it right without an additional charge, and would incur significant additional expenses or material costs
+hirer.putRightAtOwnCost.outsideOfHoursNoCosts = Yes - the worker would have to put it right without an additional charge, but would not incur any costs
+hirer.putRightAtOwnCost.asPartOfUsualRateInWorkingHours = No - the worker would put it right in their usual hours at the usual rate of pay, or for an additional fee
+hirer.putRightAtOwnCost.cannotBeCorrected = No - the worker would not be able to put it right because the work is time-specific or for a single event
+hirer.putRightAtOwnCost.noObligationToCorrect = No - they would not need to put it right
+
 
 worker.optimised.putRightAtOwnCost.error.required = Select if you would have to put your work right if your client was not happy with it
 agency.optimised.putRightAtOwnCost.error.required = Select if you would have to put your work right if your client was not happy with it

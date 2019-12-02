@@ -84,10 +84,10 @@ class MoveWorkerControllerSpec extends ControllerSpecBase with MockDataCacheConn
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", MoveWorker.options.head.value))
 
-      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val answers = userAnswers.set(MoveWorkerPage,0,MoveWorker.CanMoveWorkerWithPermission)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),MoveWorker)(answers)
+      mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)
 
