@@ -48,7 +48,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
       view = view,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-      decisionService = mockDecisionService,
+
       navigator = FakeSetupNavigator,
       appConfig = frontendAppConfig
     )
@@ -106,8 +106,7 @@ class WhoAreYouControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", Worker.toString))
       val answers = userAnswers.set(WhoAreYouPage, Worker)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers), Worker)(answers)
-
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers), Worker)(answers)
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
       val result = controller().onSubmit(NormalMode)(postRequest)

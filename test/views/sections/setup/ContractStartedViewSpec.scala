@@ -18,7 +18,7 @@ package views.sections.setup
 
 import assets.messages.ContractStartedOptimisedMessages
 import config.SessionKeys
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import controllers.sections.setup.routes
 import forms.sections.setup.ContractStartedFormProvider
 import models.NormalMode
@@ -58,17 +58,17 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        enable(OptimisedFlow)
+
         document.title mustBe title(ContractStartedOptimisedMessages.Worker.title)
       }
 
       "have the correct heading" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.heading).text mustBe ContractStartedOptimisedMessages.Worker.heading
       }
 
       "have the correct radio option messages" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.multichoice(1)).text mustBe ContractStartedOptimisedMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe ContractStartedOptimisedMessages.no
       }
@@ -79,17 +79,17 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        enable(OptimisedFlow)
+
         document.title mustBe title(ContractStartedOptimisedMessages.Hirer.title)
       }
 
       "have the correct heading" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.heading).text mustBe ContractStartedOptimisedMessages.Hirer.heading
       }
 
       "have the correct radio option messages" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.multichoice(1)).text mustBe ContractStartedOptimisedMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe ContractStartedOptimisedMessages.no
       }
@@ -100,17 +100,17 @@ class ContractStartedViewSpec extends YesNoViewBehaviours with FeatureSwitching{
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        enable(OptimisedFlow)
+
         document.title mustBe title(ContractStartedOptimisedMessages.NonTailored.title)
       }
 
       "have the correct heading" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.heading).text mustBe ContractStartedOptimisedMessages.NonTailored.heading
       }
 
       "have the correct radio option messages" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.multichoice(1)).text mustBe ContractStartedOptimisedMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe ContractStartedOptimisedMessages.no
       }

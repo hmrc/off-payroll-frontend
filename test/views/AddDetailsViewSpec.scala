@@ -18,7 +18,7 @@ package views
 
 import assets.messages.AddDetailsMessages
 import controllers.routes
-import config.featureSwitch.OptimisedFlow
+
 import forms.CustomisePDFFormProvider
 import models.{AdditionalPdfDetails, NormalMode}
 import play.api.data.Form
@@ -29,7 +29,7 @@ class AddDetailsViewSpec extends QuestionViewBehaviours[AdditionalPdfDetails] {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object Selectors extends BaseCSSSelectors{

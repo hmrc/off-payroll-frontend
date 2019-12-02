@@ -18,7 +18,7 @@ package views.sections.financialRisk
 
 import assets.messages.{MaterialsMessages, SubHeadingMessages}
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
+
 import controllers.sections.financialRisk.routes
 import forms.sections.financialRisk.MaterialsFormProvider
 import models.NormalMode
@@ -32,11 +32,6 @@ import views.html.sections.financialRisk.MaterialsView
 class MaterialsViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   val messageKeyPrefix = "worker.materials"
 

@@ -30,7 +30,7 @@ class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCh
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(IdentifyToStakeholders.values(true))
+      val gen = Gen.oneOf(IdentifyToStakeholders.values)
 
       forAll(gen) {
         identifyToStakeholders =>
@@ -41,7 +41,7 @@ class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCh
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!IdentifyToStakeholders.values(true).map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!IdentifyToStakeholders.values.map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
@@ -52,7 +52,7 @@ class IdentifyToStakeholdersSpec extends WordSpec with MustMatchers with ScalaCh
 
     "serialise" in {
 
-      val gen = Gen.oneOf(IdentifyToStakeholders.values(true))
+      val gen = Gen.oneOf(IdentifyToStakeholders.values)
 
       forAll(gen) {
         identifyToStakeholders =>

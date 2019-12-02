@@ -49,7 +49,7 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
       checkYourAnswersService = mockCheckYourAnswersService,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-      decisionService = mockDecisionService,
+
       navigator = FakeSetupNavigator,
       appConfig = frontendAppConfig
     )
@@ -78,7 +78,7 @@ class WhatDoYouWantToFindOutControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WhatDoYouWantToFindOut.options.head.value))
       val answers = userAnswers.set(WhatDoYouWantToFindOutPage,0,WhatDoYouWantToFindOut.IR35)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),WhatDoYouWantToFindOut)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),WhatDoYouWantToFindOut)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 

@@ -29,7 +29,7 @@ class MoveWorkerSpec extends WordSpec with MustMatchers with ScalaCheckPropertyC
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(MoveWorker.values())
+      val gen = Gen.oneOf(MoveWorker.values)
 
       forAll(gen) {
         moveWorker =>
@@ -40,7 +40,7 @@ class MoveWorkerSpec extends WordSpec with MustMatchers with ScalaCheckPropertyC
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!MoveWorker.values().map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!MoveWorker.values.map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
@@ -51,7 +51,7 @@ class MoveWorkerSpec extends WordSpec with MustMatchers with ScalaCheckPropertyC
 
     "serialise" in {
 
-      val gen = Gen.oneOf(MoveWorker.values())
+      val gen = Gen.oneOf(MoveWorker.values)
 
       forAll(gen) {
         moveWorker =>

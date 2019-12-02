@@ -30,7 +30,7 @@ class HowWorkIsDoneSpec extends WordSpec with MustMatchers with ScalaCheckProper
 
     "deserialise valid values" in {
 
-      val gen = Gen.oneOf(HowWorkIsDone.values())
+      val gen = Gen.oneOf(HowWorkIsDone.values)
 
       forAll(gen) {
         howWorkIsDone =>
@@ -41,7 +41,7 @@ class HowWorkIsDoneSpec extends WordSpec with MustMatchers with ScalaCheckProper
 
     "fail to deserialise invalid values" in {
 
-      val gen = arbitrary[String] suchThat (!HowWorkIsDone.values().map(_.toString).contains(_))
+      val gen = arbitrary[String] suchThat (!HowWorkIsDone.values.map(_.toString).contains(_))
 
       forAll(gen) {
         invalidValue =>
@@ -52,7 +52,7 @@ class HowWorkIsDoneSpec extends WordSpec with MustMatchers with ScalaCheckProper
 
     "serialise" in {
 
-      val gen = Gen.oneOf(HowWorkIsDone.values())
+      val gen = Gen.oneOf(HowWorkIsDone.values)
 
       forAll(gen) {
         howWorkIsDone =>

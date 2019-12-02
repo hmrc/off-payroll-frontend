@@ -17,7 +17,7 @@
 package forms
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import forms.behaviours.StringFieldBehaviours
 import models.AdditionalPdfDetails
 import play.api.data.FormError
@@ -28,7 +28,6 @@ class CustomisePDFFormProviderSpec extends GuiceAppSpecBase with StringFieldBeha
   val maxLength = 100
   val maxLengthRef = 180
 
-  disable(OptimisedFlow)
   val form = new CustomisePDFFormProvider()()
 
   val optFields = Seq("completedBy", "client", "job")
@@ -52,7 +51,7 @@ class CustomisePDFFormProviderSpec extends GuiceAppSpecBase with StringFieldBeha
     }
   }
 
-  enable(OptimisedFlow)
+
   val optForm = new CustomisePDFFormProvider()()
 
   override def beforeEach(): Unit = {

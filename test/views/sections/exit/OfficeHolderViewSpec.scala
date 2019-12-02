@@ -18,7 +18,7 @@ package views.sections.exit
 
 import assets.messages.{OfficeHolderMessages, SubHeadingMessages}
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
+
 import controllers.sections.exit.routes
 import forms.sections.exit.OfficeHolderFormProvider
 import models.NormalMode
@@ -30,11 +30,6 @@ import views.behaviours.YesNoViewBehaviours
 import views.html.sections.exit.OfficeHolderView
 
 class OfficeHolderViewSpec extends YesNoViewBehaviours {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   object Selectors extends BaseCSSSelectors{
     val link = "#value > p:nth-child(3) > a"

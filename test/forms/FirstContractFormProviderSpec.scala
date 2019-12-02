@@ -17,7 +17,7 @@
 package forms
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import forms.behaviours.BooleanFieldBehaviours
 import forms.sections.businessOnOwnAccount.FirstContractFormProvider
 import play.api.data.FormError
@@ -39,23 +39,11 @@ class FirstContractFormProviderSpec extends BooleanFieldBehaviours with GuiceApp
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    "for the sub optimised flow" should {
-
-      disable(OptimisedFlow)
-      val form = new FirstContractFormProvider()()(fakeDataRequest, frontendAppConfig)
-
-      behave like mandatoryField(
-        form ,
-        fieldName,
-        requiredError = FormError(fieldName, requiredKey)
-      )
-    }
-
     "for the optimised flow" should {
 
       "if the user type is 'Worker'" must {
 
-        enable(OptimisedFlow)
+
         val form = new FirstContractFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
@@ -67,7 +55,7 @@ class FirstContractFormProviderSpec extends BooleanFieldBehaviours with GuiceApp
 
       "if the user type is 'Hirer'" must {
 
-        enable(OptimisedFlow)
+
         val form = new FirstContractFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(

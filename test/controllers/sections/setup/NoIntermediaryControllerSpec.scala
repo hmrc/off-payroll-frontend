@@ -35,7 +35,7 @@ class NoIntermediaryControllerSpec extends ControllerSpecBase {
     appConfig = frontendAppConfig,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
+
     navigator = FakeSetupNavigator
   )
 

@@ -36,7 +36,7 @@ class AgencyAdvisoryControllerSpec extends ControllerSpecBase {
     checkYourAnswersService = mockCheckYourAnswersService,
     compareAnswerService = mockCompareAnswerService,
     dataCacheConnector = mockDataCacheConnector,
-    decisionService = mockDecisionService,
+
     navigator = FakeSetupNavigator
   )
 

@@ -17,7 +17,7 @@
 package base
 
 import config.SessionKeys
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import models.UserAnswers
 import models.UserType.{Agency, Hirer, Worker}
 import models.requests.DataRequest
@@ -34,11 +34,6 @@ import scala.language.implicitConversions
 
 
 trait SpecBase extends PlaySpec with BeforeAndAfterEach with MaterializerSupport with FeatureSwitching {
-
-  override def beforeEach(): Unit = {
-    disable(OptimisedFlow)
-    super.beforeEach()
-  }
 
   def title(heading: String, section: Option[String] = None)(implicit messages: Messages) =
     s"$heading - ${section.fold("")(_ + " - ")}${messages("site.service_name")} - ${messages("site.govuk")}"

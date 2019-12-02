@@ -14,10 +14,10 @@
  * limitations under the License.
  *@
 
-@import _root_.views.ViewUtils._
-@import config.FrontendAppConfig
-@import play.twirl.api.Html
 @import viewmodels.RadioOption
+@import config.FrontendAppConfig
+@import _root_.views.ViewUtils._
+@import play.twirl.api.Html
 
 @(
         field: Field,
@@ -52,7 +52,7 @@
 
                 <label class="block-label selection-button-radio" for="@{input.id}">
                     @if(input.hasTailoredMsgs) {
-                        @messages(tailorMsg(input.messageKey))
+                        @messages(tailorMsg(input.messageKey, input.hasOptimisedMsgs))
                     } else {
                         @messages(input.messageKey)
                     }

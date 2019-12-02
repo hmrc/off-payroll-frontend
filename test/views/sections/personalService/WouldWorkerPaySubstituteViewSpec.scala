@@ -17,7 +17,7 @@
 package views.sections.personalService
 
 import assets.messages.{SubHeadingMessages, WouldPaySubstituteMessages}
-import config.featureSwitch.OptimisedFlow
+
 import controllers.sections.personalService.routes
 import forms.sections.personalService.WouldWorkerPaySubstituteFormProvider
 import models.NormalMode
@@ -27,11 +27,6 @@ import views.behaviours.YesNoViewBehaviours
 import views.html.sections.personalService.WouldWorkerPaySubstituteView
 
 class WouldWorkerPaySubstituteViewSpec extends YesNoViewBehaviours {
-
-  override def beforeEach = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   object Selectors extends BaseCSSSelectors
 

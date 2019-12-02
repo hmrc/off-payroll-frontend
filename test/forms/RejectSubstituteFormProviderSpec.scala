@@ -17,7 +17,7 @@
 package forms
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import forms.behaviours.BooleanFieldBehaviours
 import forms.sections.personalService.RejectSubstituteFormProvider
 import play.api.data.FormError
@@ -38,23 +38,11 @@ class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with Guice
       invalidError = FormError(fieldName, invalidKey)
     )
 
-    "for the sub optimised flow" should {
-
-      disable(OptimisedFlow)
-      val form = new RejectSubstituteFormProvider()()(fakeDataRequest, frontendAppConfig)
-
-      behave like mandatoryField(
-        form ,
-        fieldName,
-        requiredError = FormError(fieldName, requiredKey)
-      )
-    }
-
     "for the optimised flow" should {
 
       "if the user type is 'Worker'" must {
 
-        enable(OptimisedFlow)
+
         val form = new RejectSubstituteFormProvider()()(workerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(
@@ -66,7 +54,7 @@ class RejectSubstituteFormProviderSpec extends BooleanFieldBehaviours with Guice
 
       "if the user type is 'Hirer'" must {
 
-        enable(OptimisedFlow)
+
         val form = new RejectSubstituteFormProvider()()(hirerFakeDataRequest, frontendAppConfig)
 
         behave like mandatoryField(

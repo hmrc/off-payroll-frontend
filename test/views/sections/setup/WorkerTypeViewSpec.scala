@@ -18,7 +18,7 @@ package views.sections.setup
 
 import assets.messages.WorkerUsingIntermediaryMessages
 import config.SessionKeys
-import config.featureSwitch.{FeatureSwitching, OptimisedFlow}
+import config.featureSwitch.FeatureSwitching
 import forms.sections.setup.WorkerUsingIntermediaryFormProvider
 import models.NormalMode
 import models.UserType.{Agency, Hirer, Worker}
@@ -55,17 +55,17 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(workerFakeRequest))
 
       "have the correct title" in {
-        enable(OptimisedFlow)
+
         document.title mustBe title(WorkerUsingIntermediaryMessages.Worker.title)
       }
 
       "have the correct heading" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Worker.heading
       }
 
       "have the correct radio option messages" in {
-        enable(OptimisedFlow)
+
         document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WorkerUsingIntermediaryMessages.no
       }
@@ -76,19 +76,19 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(hirerFakeRequest))
 
       "have the correct title" in {
-        enable(OptimisedFlow)
+
 
         document.title mustBe title(WorkerUsingIntermediaryMessages.Hirer.title)
       }
 
       "have the correct heading" in {
-        enable(OptimisedFlow)
+
 
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.Hirer.heading
       }
 
       "have the correct radio option messages" in {
-        enable(OptimisedFlow)
+
 
         document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WorkerUsingIntermediaryMessages.no
@@ -100,18 +100,18 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
       lazy val document = asDocument(createViewWithRequest(agencyFakeRequest))
 
       "have the correct title" in {
-        enable(OptimisedFlow)
+
         document.title mustBe title(WorkerUsingIntermediaryMessages.NonTailored.title)
       }
 
       "have the correct heading" in {
-        enable(OptimisedFlow)
+
 
         document.select(Selectors.heading).text mustBe WorkerUsingIntermediaryMessages.NonTailored.heading
       }
 
       "have the correct radio option messages" in {
-        enable(OptimisedFlow)
+
 
         document.select(Selectors.multichoice(1)).text mustBe WorkerUsingIntermediaryMessages.yes
         document.select(Selectors.multichoice(2)).text mustBe WorkerUsingIntermediaryMessages.no
@@ -122,7 +122,7 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
   "WorkerType view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
-        enable(OptimisedFlow)
+
         val doc = asDocument(createViewUsingForm(form))
         assertContainsRadioButton(doc, "value-yes", "value", "true", false)
         assertContainsRadioButton(doc, "value-no", "value", "false", false)
@@ -131,7 +131,7 @@ class WorkerTypeViewSpec extends ViewBehaviours with FeatureSwitching {
 
     s"rendered with a value of 'true'" must {
       s"have the 'true' radio button selected" in {
-        enable(OptimisedFlow)
+
         val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"true"))))
         assertContainsRadioButton(doc, "value-yes", "value", "true", true)
         assertContainsRadioButton(doc, "value-no", "value", "false", false)

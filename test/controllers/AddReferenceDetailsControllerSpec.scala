@@ -45,7 +45,7 @@ class AddReferenceDetailsControllerSpec extends ControllerSpecBase {
     navigator = FakeCYANavigator,
     dataCacheConnector = mockDataCacheConnector,
     compareAnswerService = mockCompareAnswerService,
-    decisionService = mockDecisionService,
+
     appConfig = frontendAppConfig
   )
 

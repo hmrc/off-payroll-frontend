@@ -138,13 +138,6 @@ class RoutesSpec extends SpecBase {
       controlRoutes.ChooseWhereWorkController.onSubmit(CheckMode).url mustBe fullPath("/decide-where-work-is-done/change")
     }
 
-    "Have the correct routes for the Cannot Claim as Expense page" in {
-      financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode).url mustBe fullPath("/worker-cannot-claim")
-      financialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(CheckMode).url mustBe fullPath("/worker-cannot-claim/change")
-      financialRiskRoutes.CannotClaimAsExpenseController.onSubmit(NormalMode).url mustBe fullPath("/worker-cannot-claim")
-      financialRiskRoutes.CannotClaimAsExpenseController.onSubmit(CheckMode).url mustBe fullPath("/worker-cannot-claim/change")
-    }
-
     "Have the correct routes for the How Worker is Paid page" in {
       financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(NormalMode).url mustBe fullPath("/how-worker-is-paid")
       financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url mustBe fullPath("/how-worker-is-paid/change")
@@ -171,13 +164,6 @@ class RoutesSpec extends SpecBase {
       partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url mustBe fullPath("/management-responsibilities/change")
       partParcelRoutes.LineManagerDutiesController.onSubmit(NormalMode).url mustBe fullPath("/management-responsibilities")
       partParcelRoutes.LineManagerDutiesController.onSubmit(CheckMode).url mustBe fullPath("/management-responsibilities/change")
-    }
-
-    "Have the correct routes for the Interact With Stakeholders page" in {
-      partParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode).url mustBe fullPath("/external-interaction")
-      partParcelRoutes.InteractWithStakeholdersController.onPageLoad(CheckMode).url mustBe fullPath("/external-interaction/change")
-      partParcelRoutes.InteractWithStakeholdersController.onSubmit(NormalMode).url mustBe fullPath("/external-interaction")
-      partParcelRoutes.InteractWithStakeholdersController.onSubmit(CheckMode).url mustBe fullPath("/external-interaction/change")
     }
 
     "Have the correct routes for the Identify to Stakeholders page" in {

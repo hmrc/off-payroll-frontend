@@ -17,7 +17,7 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import controllers.sections.exit.{routes => exitRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
 import models._
@@ -37,47 +37,24 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
 
   "SetupNavigator" when {
 
-    "OptimisedFlow is disabled" must {
-
-      "go from the IndexPage to the AboutYouPage" in {
-        disable(OptimisedFlow)
-        nextPage(IndexPage) mustBe setupRoutes.AboutYouController.onPageLoad(NormalMode)
-      }
-
-      "go from the AboutYouPage to the ContractStartedPage" in {
-        disable(OptimisedFlow)
-        nextPage(AboutYouPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
-      }
-
-      "go from the ContractStartedPage to the WorkerTypePage" in {
-        disable(OptimisedFlow)
-        nextPage(ContractStartedPage) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
-      }
-
-      "go from the WorkerTypePage to the OfficeHolderPage" in {
-        disable(OptimisedFlow)
-        nextPage(WorkerTypePage) mustBe exitRoutes.OfficeHolderController.onPageLoad(NormalMode)
-      }
-    }
-
     "OptimisedFlow is enabled" must {
 
       "go from the IndexPage to the AboutYourResultPage" in {
 
-        enable(OptimisedFlow)
+
         nextPage(IndexPage) mustBe setupRoutes.AboutYourResultController.onPageLoad()
       }
 
 
       "go from the AboutYourResultPage to the WhatDoYouWantToFindOutPage" in {
 
-        enable(OptimisedFlow)
+
         nextPage(AboutYourResultPage) mustBe setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
       }
 
       "go from the WhatDoYouWantToFindOutPage to the WhoAreYouPage" in {
 
-        enable(OptimisedFlow)
+
         nextPage(WhatDoYouWantToFindOutPage) mustBe setupRoutes.WhoAreYouController.onPageLoad(NormalMode)
       }
 
@@ -90,7 +67,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
             lazy val userAnswers = UserAnswers("id")
               .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
 
-            enable(OptimisedFlow)
+
             nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
           }
         }
@@ -105,7 +82,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
                 .set(WhoAreYouPage, WhoAreYou.Client)
 
-              enable(OptimisedFlow)
+
               nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
             }
           }
@@ -118,7 +95,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
                 .set(WhoAreYouPage, WhoAreYou.Worker)
 
-              enable(OptimisedFlow)
+
               nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
             }
           }
@@ -131,7 +108,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
                 .set(WhoAreYouPage, WhoAreYou.Agency)
 
-              enable(OptimisedFlow)
+
               nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.AgencyAdvisoryController.onPageLoad()
             }
           }
@@ -143,7 +120,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
               lazy val userAnswers = UserAnswers("id")
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
 
-              enable(OptimisedFlow)
+
               nextPage(WhoAreYouPage, userAnswers) mustBe setupRoutes.WhoAreYouController.onPageLoad(NormalMode)
             }
           }
@@ -151,7 +128,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
 
         "WhatDoYouWantToFindOutPage answer is None to WhatDoYouWantToFindOutPage" in {
 
-          enable(OptimisedFlow)
+
           nextPage(WhoAreYouPage) mustBe setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
         }
       }
@@ -165,7 +142,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
             lazy val userAnswers = UserAnswers("id")
               .set(WhatDoYouWantToDoPage, WhatDoYouWantToDo.MakeNewDetermination)
 
-            enable(OptimisedFlow)
+
             nextPage(WhatDoYouWantToDoPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
           }
         }
@@ -177,7 +154,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
             lazy val userAnswers = UserAnswers("id")
               .set(WhatDoYouWantToDoPage, WhatDoYouWantToDo.CheckDetermination)
 
-            enable(OptimisedFlow)
+
             nextPage(WhatDoYouWantToDoPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
           }
         }
@@ -186,7 +163,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
 
           "go to the WhatDoYouWantToDoPage" in {
 
-            enable(OptimisedFlow)
+
             nextPage(WhatDoYouWantToDoPage) mustBe setupRoutes.WhatDoYouWantToDoController.onPageLoad(NormalMode)
           }
         }
@@ -194,7 +171,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
 
       "go from the AgencyAdvisoryPage to the ContractStartedPage" in {
 
-        enable(OptimisedFlow)
+
         nextPage(AgencyAdvisoryPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       }
 
@@ -210,7 +187,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WorkerUsingIntermediaryPage, true)
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
 
-              enable(OptimisedFlow)
+
               nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.IntermediaryController.onPageLoad()
             }
           }
@@ -223,7 +200,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WorkerUsingIntermediaryPage, true)
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
 
-              enable(OptimisedFlow)
+
               nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
             }
           }
@@ -235,7 +212,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
               lazy val userAnswers = UserAnswers("id")
                 .set(WorkerUsingIntermediaryPage, true)
 
-              enable(OptimisedFlow)
+
               nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.WhatDoYouWantToFindOutController.onPageLoad(NormalMode)
             }
           }
@@ -251,7 +228,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WorkerUsingIntermediaryPage, false)
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.PAYE)
 
-              enable(OptimisedFlow)
+
               nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
             }
           }
@@ -264,7 +241,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
                 .set(WorkerUsingIntermediaryPage, false)
                 .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
 
-              enable(OptimisedFlow)
+
               nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.NoIntermediaryController.onPageLoad()
             }
           }
@@ -277,7 +254,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
             lazy val userAnswers = UserAnswers("id")
               .set(WhatDoYouWantToFindOutPage, WhatDoYouWantToFindOut.IR35)
 
-            enable(OptimisedFlow)
+
             nextPage(WorkerUsingIntermediaryPage, userAnswers) mustBe setupRoutes.WorkerTypeController.onPageLoad(NormalMode)
           }
         }
@@ -285,7 +262,7 @@ class SetupNavigatorSpec extends GuiceAppSpecBase {
 
       "go from the ContractStartedPage to the OfficeHolderPage" in {
 
-        enable(OptimisedFlow)
+
         nextPage(ContractStartedPage) mustBe exitRoutes.OfficeHolderController.onPageLoad(NormalMode)
       }
     }

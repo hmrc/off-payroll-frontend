@@ -17,7 +17,7 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import controllers.routes
 import controllers.sections.personalService.{routes => personalServiceRoutes}
 import controllers.sections.setup.{routes => setupRoutes}
@@ -37,7 +37,7 @@ class ExitNavigatorSpec extends GuiceAppSpecBase {
 
     "go from the OfficeHolderPage to the CheckYourAnswersController if in CheckMode" in {
 
-      enable(OptimisedFlow)
+
       nextPage(OfficeHolderPage, mode = CheckMode) mustBe routes.CheckYourAnswersController.onPageLoad(Some(Section.earlyExit))
     }
 
@@ -45,7 +45,7 @@ class ExitNavigatorSpec extends GuiceAppSpecBase {
 
       "ContractStartedPage answer is true to the ScheduleOfWorkingHoursPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(ContractStartedPage, true)
 
@@ -54,7 +54,7 @@ class ExitNavigatorSpec extends GuiceAppSpecBase {
 
       "ContractStartedPage answer is false to the ChooseWhereWorkPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(ContractStartedPage, false)
 
@@ -63,7 +63,7 @@ class ExitNavigatorSpec extends GuiceAppSpecBase {
 
       "ContractStartedPage answer is empty to the ChooseWhereWorkPage" in {
 
-        enable(OptimisedFlow)
+
         nextPage(OfficeHolderPage) mustBe setupRoutes.ContractStartedController.onPageLoad(NormalMode)
       }
     }

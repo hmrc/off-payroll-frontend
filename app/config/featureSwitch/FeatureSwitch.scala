@@ -23,7 +23,7 @@ object FeatureSwitch {
 
   val prefix = "feature-switch"
 
-  val switches: Seq[FeatureSwitch] = Seq(PrintPDF, WelshLanguage)
+  val switches: Seq[FeatureSwitch] = Seq(PrintPDF, WelshLanguage, DecisionServiceVersionFeature)
   val booleanFeatureSwitches: Seq[BooleanFeatureSwitch] = switches.collect{case a: BooleanFeatureSwitch => a}
   val customValueFeatureSwitch: Seq[CustomValueFeatureSwitch] = switches.collect{case a: CustomValueFeatureSwitch => a}
 

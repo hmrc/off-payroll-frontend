@@ -18,7 +18,7 @@ package connectors
 
 import _root_.utils.MockDateTimeUtil
 import base.{GuiceAppSpecBase, MockServicesConfig}
-import config.featureSwitch.OptimisedFlow
+
 import connectors.mocks.MockHttp
 import models.sections.personalService.ArrangedSubstitute.YesClientAgreed
 import models.sections.control.ChooseWhereWork.WorkerChooses
@@ -42,7 +42,7 @@ class DecisionConnectorSpec extends GuiceAppSpecBase with MockHttp with MockServ
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object FakeTimestamp extends Timestamp {

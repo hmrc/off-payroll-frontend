@@ -18,7 +18,7 @@ package views.sections.partParcel
 
 import assets.messages.{BenefitsMessages, SubHeadingMessages}
 import config.SessionKeys
-import config.featureSwitch.OptimisedFlow
+
 import controllers.sections.partParcel.routes
 import forms.sections.partAndParcel.BenefitsFormProvider
 import models.NormalMode
@@ -30,11 +30,6 @@ import views.behaviours.YesNoViewBehaviours
 import views.html.sections.partParcel.BenefitsView
 
 class BenefitsViewSpec extends YesNoViewBehaviours {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   object Selectors extends BaseCSSSelectors
 

@@ -17,7 +17,7 @@
 package views
 
 import assets.messages.FinishedCheckingMessages
-import config.featureSwitch.OptimisedFlow
+
 import models.NormalMode
 import play.api.data.Form
 import play.api.mvc.Request
@@ -28,7 +28,7 @@ class FinishedCheckingViewSpec extends ViewBehaviours {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object Selectors extends BaseCSSSelectors{

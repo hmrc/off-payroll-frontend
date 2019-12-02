@@ -17,7 +17,7 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import controllers.routes
 import controllers.sections.businessOnOwnAccount.{routes => booaRoutes}
 import models._
@@ -62,7 +62,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the MultipleContracts answer is false should go to the PermissionToWorkWithOthersPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(MultipleContractsPage, false)
 
@@ -71,7 +71,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the MultipleContracts answer is true should go to the OwnershipRightsPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(MultipleContractsPage, true)
 
@@ -87,7 +87,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the OwnershipRights answer is true should go to the RightsOfWorkPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(OwnershipRightsPage, true)
 
@@ -96,7 +96,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the OwnershipRights answer is false should go to other PreviousContractController" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(OwnershipRightsPage, false)
 
@@ -108,7 +108,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the RightsOfWork answer is false should go to the TransferOfRightsPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(RightsOfWorkPage, false)
 
@@ -117,7 +117,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the RightsOfWork answer is true should go to the PreviousContractPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(RightsOfWorkPage, true)
 
@@ -133,7 +133,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the PreviousContract answer is true should go to the FollowOnContractPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(PreviousContractPage, true)
 
@@ -142,7 +142,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the PreviousContract answer is false should go to the FirstContractPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(PreviousContractPage, false)
 
@@ -154,7 +154,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the FollowOnContract answer is false should go to the FirstContractPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(FollowOnContractPage, false)
 
@@ -163,7 +163,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the FollowOnContract answer is true should go to the MajorityOfWorkingTimePage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(FollowOnContractPage, true)
 
@@ -175,7 +175,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the FirstContract answer is false should go to the ExtendContractPage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(FirstContractPage, false)
 
@@ -184,7 +184,7 @@ class BusinessOnOwnAccountNavigatorSpec extends GuiceAppSpecBase {
 
       "the FirstContract answer is true should go to the MajorityOfWorkingTimePage" in {
 
-        enable(OptimisedFlow)
+
         lazy val userAnswers = UserAnswers("id")
           .set(FirstContractPage, true)
 

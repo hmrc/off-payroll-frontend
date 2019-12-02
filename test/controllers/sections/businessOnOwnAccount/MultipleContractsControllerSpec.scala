@@ -16,7 +16,7 @@
 
 package controllers.sections.businessOnOwnAccount
 
-import config.featureSwitch.OptimisedFlow
+
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
@@ -35,7 +35,7 @@ class MultipleContractsControllerSpec extends ControllerSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   val formProvider = new MultipleContractsFormProvider()
@@ -53,7 +53,7 @@ class MultipleContractsControllerSpec extends ControllerSpecBase {
     controllerComponents = messagesControllerComponents,
     view = view,
     compareAnswerService = mockCompareAnswerService,
-    decisionService = mockDecisionService,
+
     appConfig = frontendAppConfig
   )
 

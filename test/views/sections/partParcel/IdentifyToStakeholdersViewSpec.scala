@@ -17,7 +17,7 @@
 package views.sections.partParcel
 
 import assets.messages.{IdentifyToStakeholdersMessages, SubHeadingMessages}
-import config.featureSwitch.OptimisedFlow
+
 import forms.sections.partAndParcel.IdentifyToStakeholdersFormProvider
 import models.NormalMode
 import models.sections.partAndParcel.IdentifyToStakeholders
@@ -27,11 +27,6 @@ import views.behaviours.ViewBehaviours
 import views.html.sections.partParcel.IdentifyToStakeholdersView
 
 class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   object Selectors extends BaseCSSSelectors
 
@@ -123,7 +118,7 @@ class IdentifyToStakeholdersViewSpec extends ViewBehaviours {
       }
     }
 
-    enable(OptimisedFlow)
+
     for(option <- IdentifyToStakeholders.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {

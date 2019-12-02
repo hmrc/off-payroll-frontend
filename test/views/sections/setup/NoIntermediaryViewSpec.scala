@@ -31,7 +31,7 @@ class NoIntermediaryViewSpec extends ViewBehaviours {
     val understandingOffPayroll = "#understanding-off-payroll"
   }
 
-  val messageKeyPrefix = "noIntermediaryResult"
+  val messageKeyPrefix = "worker.optimised.noIntermediaryResult"
 
   val view = injector.instanceOf[NoIntermediaryView]
 

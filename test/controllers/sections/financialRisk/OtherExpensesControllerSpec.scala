@@ -16,7 +16,7 @@
 
 package controllers.sections.financialRisk
 
-import config.featureSwitch.OptimisedFlow
+
 import connectors.FakeDataCacheConnector
 import controllers.ControllerSpecBase
 import controllers.actions.{FakeDontGetDataDataRetrievalAction, FakeGeneralDataRetrievalAction, _}
@@ -35,7 +35,7 @@ class OtherExpensesControllerSpec extends ControllerSpecBase {
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   val formProvider = new OtherExpensesFormProvider()
@@ -53,8 +53,7 @@ class OtherExpensesControllerSpec extends ControllerSpecBase {
     formProvider = formProvider,
     controllerComponents = messagesControllerComponents,
     view = view,
-    compareAnswerService = mockCompareAnswerService,
-    decisionService = mockDecisionService
+    compareAnswerService = mockCompareAnswerService
   )
 
   def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString

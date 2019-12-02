@@ -17,7 +17,7 @@
 package views.sections.control
 
 import assets.messages.{MoveWorkerMessages, SubHeadingMessages}
-import config.featureSwitch.OptimisedFlow
+
 import forms.sections.control.MoveWorkerFormProvider
 import models.NormalMode
 import models.sections.control.MoveWorker
@@ -27,11 +27,6 @@ import views.behaviours.ViewBehaviours
 import views.html.sections.control.MoveWorkerView
 
 class MoveWorkerViewSpec extends ViewBehaviours {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   object Selectors extends BaseCSSSelectors
 
@@ -132,19 +127,19 @@ class MoveWorkerViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- MoveWorker.options(true)) {
+        for (option <- MoveWorker.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
       }
     }
 
-    for(option <- MoveWorker.options(true)) {
+    for(option <- MoveWorker.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
-          for(unselectedOption <- MoveWorker.options(true).filterNot(o => o == option)) {
+          for(unselectedOption <- MoveWorker.options.filterNot(o => o == option)) {
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
           }
         }

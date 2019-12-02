@@ -23,17 +23,15 @@ import akka.util.ByteString
 import base.GuiceAppSpecBase
 import connectors.mocks.{MockDataCacheConnector, MockDecisionConnector}
 import handlers.mocks.MockErrorHandler
-import models.{Mode, UserAnswers}
-import navigation._
+import models.UserAnswers
 import org.jsoup.Jsoup
-import pages.Page
 import play.api.mvc.{Call, Result}
 import services.mocks._
 import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.Future
 
-trait ControllerSpecBase extends GuiceAppSpecBase with MockDecisionService with MockCompareAnswerService with MockCheckYourAnswersService
+trait ControllerSpecBase extends GuiceAppSpecBase with MockCompareAnswerService with MockCheckYourAnswersService
   with MockDataCacheConnector with MockPDFService with MockOptimisedDecisionService with MockDecisionConnector with MockErrorHandler with MockEncryptionService {
 
   val onwardRoute = Call("POST", "/foo")

@@ -17,7 +17,7 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import controllers.routes
 import controllers.sections.businessOnOwnAccount.{routes => booa}
 import controllers.sections.partParcel.{routes => partAndParcelRoutes}
@@ -42,13 +42,8 @@ class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
     "go from the LineManagerDutiesPage" when {
 
       "the OptimisedFlow is enabled should go to the IdentifyToStakeholdersPage" in {
-        enable(OptimisedFlow)
-        nextPage(LineManagerDutiesPage) mustBe partAndParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
-      }
 
-      "the OptimisedFlow is disabled should go to the IdentifyToStakeholdersPage" in {
-        disable(OptimisedFlow)
-        nextPage(LineManagerDutiesPage) mustBe partAndParcelRoutes.InteractWithStakeholdersController.onPageLoad(NormalMode)
+        nextPage(LineManagerDutiesPage) mustBe partAndParcelRoutes.IdentifyToStakeholdersController.onPageLoad(NormalMode)
       }
     }
 
@@ -60,26 +55,16 @@ class PartAndParcelNavigatorSpec extends GuiceAppSpecBase {
       }
 
       "if InteractWithStakeholders is false AND OptimisedFlow is enabled go to the MultipleContractsPage" in {
-        enable(OptimisedFlow)
-        nextPage(InteractWithStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
-      }
 
-      "if InteractWithStakeholders is false AND OptimisedFlow is disabled go to the IdentifyToStakeholdersPage" in {
-        disable(OptimisedFlow)
-        nextPage(InteractWithStakeholdersPage) mustBe routes.ResultController.onPageLoad()
+        nextPage(InteractWithStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
       }
     }
 
     "go from the IdentifyToStakeholdersPage" when {
 
       "if OptimisedFlow and BusinessOnOwnAccountJourney are enabled go to the MultipleContractsPage" in {
-        enable(OptimisedFlow)
-        nextPage(IdentifyToStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
-      }
 
-      "if OptimisedFlow is disabled go to the ResultPage" in {
-        disable(OptimisedFlow)
-        nextPage(IdentifyToStakeholdersPage) mustBe routes.ResultController.onPageLoad()
+        nextPage(IdentifyToStakeholdersPage) mustBe booa.MultipleContractsController.onPageLoad(NormalMode)
       }
     }
   }

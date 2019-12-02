@@ -17,7 +17,7 @@
 package navigation
 
 import base.GuiceAppSpecBase
-import config.featureSwitch.OptimisedFlow
+
 import controllers.sections.control.{routes => controlRoutes}
 import controllers.sections.financialRisk.{routes => finacialRiskRoutes}
 import models._
@@ -34,30 +34,25 @@ class ControlNavigatorSpec extends GuiceAppSpecBase {
   "ControlNavigator" when {
 
     "go from the MoveWorkerPage to the HowWorkIsDonePage" in {
-      enable(OptimisedFlow)
+
       nextPage(MoveWorkerPage) mustBe controlRoutes.HowWorkIsDoneController.onPageLoad(NormalMode)
     }
 
     "go from the HowWorkIsDonePage to the ScheduleOfWorkingHoursPage" in {
-      enable(OptimisedFlow)
+
       nextPage(HowWorkIsDonePage) mustBe controlRoutes.ScheduleOfWorkingHoursController.onPageLoad(NormalMode)
     }
 
     "go from the ScheduleOfWorkingHoursPage to the ChooseWhereWorkPage" in {
-      enable(OptimisedFlow)
+
       nextPage(ScheduleOfWorkingHoursPage) mustBe controlRoutes.ChooseWhereWorkController.onPageLoad(NormalMode)
     }
 
     "go from the ChooseWhereWorkPage" when {
 
       "The optimised flow is enabled go to the EquipmentExpensesPage" in {
-        enable(OptimisedFlow)
-        nextPage(ChooseWhereWorkPage) mustBe finacialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode)
-      }
 
-      "The optimised flow is disabled go to the CannotClaimAsExpensePage" in {
-        disable(OptimisedFlow)
-        nextPage(ChooseWhereWorkPage) mustBe finacialRiskRoutes.CannotClaimAsExpenseController.onPageLoad(NormalMode)
+        nextPage(ChooseWhereWorkPage) mustBe finacialRiskRoutes.EquipmentExpensesController.onPageLoad(NormalMode)
       }
     }
   }

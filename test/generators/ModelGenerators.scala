@@ -62,12 +62,12 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryMoveWorker: Arbitrary[MoveWorker] =
     Arbitrary {
-      Gen.oneOf(MoveWorker.values())
+      Gen.oneOf(MoveWorker.values)
     }
 
   implicit lazy val arbitraryHowWorkIsDone: Arbitrary[HowWorkIsDone] =
     Arbitrary {
-      Gen.oneOf(HowWorkIsDone.values())
+      Gen.oneOf(HowWorkIsDone.values)
     }
 
   implicit lazy val arbitraryScheduleOfWorkingHours: Arbitrary[ScheduleOfWorkingHours] =
@@ -77,7 +77,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryChooseWhereWork: Arbitrary[ChooseWhereWork] =
     Arbitrary {
-      Gen.oneOf(ChooseWhereWork.values())
+      Gen.oneOf(ChooseWhereWork.values)
     }
 
   implicit lazy val arbitraryHowWorkerIsPaid: Arbitrary[HowWorkerIsPaid] =
@@ -92,7 +92,7 @@ trait ModelGenerators {
 
   implicit lazy val arbitraryIdentifyToStakeholders: Arbitrary[IdentifyToStakeholders] =
     Arbitrary {
-      Gen.oneOf(IdentifyToStakeholders.values())
+      Gen.oneOf(IdentifyToStakeholders.values)
     }
 
   implicit lazy val arbitraryArrangedSubstitute: Arbitrary[ArrangedSubstitute] =

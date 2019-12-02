@@ -17,7 +17,7 @@
 package views
 
 import assets.messages.ResetAnswersMessages
-import config.featureSwitch.OptimisedFlow
+
 import controllers.routes
 import forms.ResetAnswersWarningFormProvider
 import models.NormalMode
@@ -29,7 +29,7 @@ class ResetAnswersWarningViewSpec extends YesNoViewBehaviours with ViewBehaviour
 
   override def beforeEach(): Unit = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object Selectors extends BaseCSSSelectors

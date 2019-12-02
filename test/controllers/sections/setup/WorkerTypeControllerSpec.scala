@@ -16,7 +16,7 @@
 
 package controllers.sections.setup
 
-import config.featureSwitch.OptimisedFlow
+
 import controllers.ControllerSpecBase
 import controllers.actions._
 import forms.sections.setup.{WorkerTypeFormProvider, WorkerUsingIntermediaryFormProvider}
@@ -31,7 +31,6 @@ import play.api.libs.json.Json
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import views.html.sections.setup.WorkerUsingIntermediaryView
-import views.html.subOptimised.sections.setup.WorkerTypeView
 
 class WorkerTypeControllerSpec extends ControllerSpecBase {
 
@@ -40,7 +39,6 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
   val form = formProvider()
   val formInt = formProviderInt()(fakeDataRequest, frontendAppConfig)
 
-  val view = injector.instanceOf[WorkerTypeView]
   val viewInt = injector.instanceOf[WorkerUsingIntermediaryView]
 
   def controller(dataRetrievalAction: DataRetrievalAction = FakeEmptyCacheMapDataRetrievalAction) =
@@ -51,17 +49,15 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
       formProvider,
       formProviderInt,
       messagesControllerComponents,
-      view,
       viewInt,
       checkYourAnswersService = mockCheckYourAnswersService,
       compareAnswerService = mockCompareAnswerService,
       dataCacheConnector = mockDataCacheConnector,
-      decisionService = mockDecisionService,
+
       navigator = FakeSetupNavigator,
       frontendAppConfig
     )
 
-  def viewAsString(form: Form[_] = form) = view(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
   def viewAsStringInt(form: Form[_] = formInt) = viewInt(form, NormalMode)(fakeRequest, messages, frontendAppConfig).toString
 
   val validData = Map(WorkerTypePage.toString -> Json.toJson(Answers(WorkerType.values.head,0)))
@@ -69,33 +65,18 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
 
   "WorkerType Controller" must {
 
-    "return OK and the correct view for a GET" in {
-
-      val result = controller().onPageLoad(NormalMode)(fakeRequest)
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
-    }
-
     "return OK and the correct view for a GET in the optimised view" in {
 
-      enable(OptimisedFlow)
+
       val result = controller().onPageLoad(NormalMode)(fakeRequest)
 
       status(result) mustBe OK
       contentAsString(result) mustBe viewAsStringInt()
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
-
-      val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
-
-      contentAsString(result) mustBe viewAsString(form.fill(WorkerType.values.head))
-    }
-
     "populate the view correctly on a GET when the question has previously been answered for the optimised flow" in {
 
-      enable(OptimisedFlow)
+
       val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validDataInt)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
@@ -106,7 +87,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
     "redirect to the next page when valid data is submitted" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", WorkerType.options.head.value))
       val answers = userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany)
-      mockConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
+      mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
 
       mockSave(CacheMap(cacheMapId, validData))(CacheMap(cacheMapId, validData))
 
@@ -118,7 +99,7 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
 
     "redirect to the next page when valid data is submitted for the optimised flow" in {
 
-      enable(OptimisedFlow)
+
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val answers = userAnswers.set(WorkerTypePage,0,WorkerType.LimitedCompany)
       mockOptimisedConstructAnswers(DataRequest(postRequest,"id",answers),WorkerType)(answers)
@@ -131,18 +112,8 @@ class WorkerTypeControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(onwardRoute.url)
     }
 
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
-
-      val result = controller().onSubmit(NormalMode)(postRequest)
-
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
-
     "return a Bad Request and errors when invalid data is submitted for the optimised flow" in {
-      enable(OptimisedFlow)
+
 
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
       val boundForm = formInt.bind(Map("value" -> "invalid value"))

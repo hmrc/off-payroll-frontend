@@ -17,7 +17,7 @@
 package views.sections.businessOnOwnAccount
 
 import assets.messages.RightsOfWorkMessages
-import config.featureSwitch.OptimisedFlow
+
 import forms.sections.businessOnOwnAccount.RightsOfWorkFormProvider
 import models.NormalMode
 import play.api.data.Form
@@ -31,7 +31,7 @@ class RightsOfWorkViewSpec extends ViewBehaviours {
 
   override def beforeEach = {
     super.beforeEach()
-    enable(OptimisedFlow)
+
   }
 
   object Selectors extends BaseCSSSelectors

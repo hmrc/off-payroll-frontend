@@ -17,7 +17,6 @@
 package views.sections.financialRisk
 
 import assets.messages.{PutRightAtOwnCostsMessages, SubHeadingMessages}
-import config.featureSwitch.OptimisedFlow
 import forms.sections.financialRisk.PutRightAtOwnCostFormProvider
 import models.NormalMode
 import models.sections.financialRisk.PutRightAtOwnCost
@@ -27,11 +26,6 @@ import views.behaviours.ViewBehaviours
 import views.html.sections.financialRisk.PutRightAtOwnCostView
 
 class PutRightAtOwnCostViewSpec extends ViewBehaviours {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   object Selectors extends BaseCSSSelectors
 
@@ -106,7 +100,7 @@ class PutRightAtOwnCostViewSpec extends ViewBehaviours {
       }
     }
 
-    enable(OptimisedFlow)
+
     for(option <- PutRightAtOwnCost.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {

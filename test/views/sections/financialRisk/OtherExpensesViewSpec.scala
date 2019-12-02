@@ -32,7 +32,7 @@ class OtherExpensesViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "otherExpenses"
+  val messageKeyPrefix = "worker.otherExpenses"
 
   val form = new OtherExpensesFormProvider()()(fakeDataRequest, frontendAppConfig)
 
