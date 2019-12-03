@@ -1639,13 +1639,13 @@ worker.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenig
 worker.equipmentExpenses.p2 = Ymdrinnir â chostau cerbyd yn y cwestiwn nesaf.
 
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
+worker.result.pdf.client = Client’s name
+hirer.result.pdf.client = Your organisation’s name
 result.pdf.customisedBy = Enw’r person a gwblhaodd y gwiriad hwn:
 result.pdf.client = Enw’r cleient terfynol:
 result.pdf.job = Teitl y swydd:
 result.pdf.reference = Cyfeirnod:
 result.pdf.whatYouToldUs = Yr hyn a roesoch wybod i ni amdano
-worker.result.pdf.client = Client’s name
-hirer.result.pdf.client = Your organisation’s name
 result.pdf.decisionVersion = Decision service version: {0}
 result.pdf.decisionVersion.p1 = Bydd CThEM yn glynu wrth y canlyniad hwn cyn belled â’i fod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig. Os bydd yr arferion gwaith hyn yn newid, dylech ddefnyddio’r twlsyn hwn eto.
 
