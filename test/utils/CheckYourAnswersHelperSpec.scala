@@ -36,7 +36,7 @@ import pages.sections.businessOnOwnAccount._
 import pages.sections.control.{ChooseWhereWorkPage, HowWorkIsDonePage, MoveWorkerPage}
 import pages.sections.exit.OfficeHolderPage
 import pages.sections.financialRisk._
-import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, InteractWithStakeholdersPage, LineManagerDutiesPage}
+import pages.sections.partParcel.{BenefitsPage, IdentifyToStakeholdersPage, LineManagerDutiesPage}
 import pages.sections.personalService._
 import pages.sections.setup._
 import viewmodels.AnswerRow
@@ -95,11 +95,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
             val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
               Some(AnswerRow(
-                label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
+                label = s"$Worker.optimised.$OfficeHolderPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
                 changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url),
-                changeContextMsgKey = Some(s"optimised.$OfficeHolderPage.changeLinkContext")
+                changeContextMsgKey = Some(s"$Worker.optimised.$OfficeHolderPage.changeLinkContext")
               ))
           }
         }
@@ -111,11 +111,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(OfficeHolderPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).officeHolder mustBe
             Some(AnswerRow(
-              label = s"optimised.$OfficeHolderPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$OfficeHolderPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
               changeUrl = Some(exitRoutes.OfficeHolderController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$OfficeHolderPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$OfficeHolderPage.changeLinkContext")
             ))
         }
       }
@@ -169,11 +169,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(ArrangedSubstitutePage, 1, YesClientAgreed)
           new CheckYourAnswersHelper(cacheMap).arrangedSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
-              answer = s"optimised.$ArrangedSubstitutePage.$YesClientAgreed",
+              label = s"$Worker.optimised.$ArrangedSubstitutePage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$ArrangedSubstitutePage.$YesClientAgreed",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(ArrangedSubstitutePage).url),
-              changeContextMsgKey = Some(s"optimised.$ArrangedSubstitutePage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$ArrangedSubstitutePage.changeLinkContext")
             ))
         }
       }
@@ -229,11 +229,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
             val cacheMap = UserAnswers("id").set(BenefitsPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).benefits mustBe
               Some(AnswerRow(
-                label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
+                label = s"$Worker.optimised.$BenefitsPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
                 changeUrl = Some(partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url),
-                changeContextMsgKey = Some(s"optimised.$BenefitsPage.changeLinkContext")
+                changeContextMsgKey = Some(s"$Worker.optimised.$BenefitsPage.changeLinkContext")
               ))
           }
         }
@@ -245,11 +245,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(BenefitsPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).benefits mustBe
             Some(AnswerRow(
-              label = s"optimised.$BenefitsPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$BenefitsPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
               changeUrl = Some(partParcelRoutes.BenefitsController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$BenefitsPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$BenefitsPage.changeLinkContext")
             ))
         }
       }
@@ -303,11 +303,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(ChooseWhereWorkPage, 1, WorkerChooses)
           new CheckYourAnswersHelper(cacheMap).chooseWhereWork(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
-              answer = s"optimised.$ChooseWhereWorkPage.$WorkerChooses",
+              label = s"$Worker.optimised.$ChooseWhereWorkPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$ChooseWhereWorkPage.$WorkerChooses",
               answerIsMessageKey = true,
               changeUrl = Some(controlRoutes.ChooseWhereWorkController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$ChooseWhereWorkPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$ChooseWhereWorkPage.changeLinkContext")
             ))
         }
       }
@@ -361,11 +361,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(DidPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).didPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$DidPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(DidPaySubstitutePage).url),
-              changeContextMsgKey = Some(s"optimised.$DidPaySubstitutePage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$DidPaySubstitutePage.changeLinkContext")
             ))
         }
       }
@@ -419,11 +419,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(HowWorkerIsPaidPage, 1, Commission)
           new CheckYourAnswersHelper(cacheMap).howWorkerIsPaid(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
-              answer = s"optimised.$HowWorkerIsPaidPage.$Commission",
+              label = s"$Worker.optimised.$HowWorkerIsPaidPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$HowWorkerIsPaidPage.$Commission",
               answerIsMessageKey = true,
               changeUrl = Some(financialRiskRoutes.HowWorkerIsPaidController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$HowWorkerIsPaidPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$HowWorkerIsPaidPage.changeLinkContext")
             ))
         }
       }
@@ -477,11 +477,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(HowWorkIsDonePage, 1, NoWorkerInputAllowed)
           new CheckYourAnswersHelper(cacheMap).howWorkIsDone(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
-              answer = s"optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
+              label = s"$Worker.optimised.$HowWorkIsDonePage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$HowWorkIsDonePage.$NoWorkerInputAllowed",
               answerIsMessageKey = true,
               changeUrl = Some(controlRoutes.HowWorkIsDoneController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$HowWorkIsDonePage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$HowWorkIsDonePage.changeLinkContext")
             ))
         }
       }
@@ -535,11 +535,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(IdentifyToStakeholdersPage, 1, WorkForEndClient)
           new CheckYourAnswersHelper(cacheMap).identifyToStakeholders(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
-              answer = s"optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
+              label = s"$Worker.optimised.$IdentifyToStakeholdersPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$IdentifyToStakeholdersPage.$WorkForEndClient",
               answerIsMessageKey = true,
               changeUrl = Some(partParcelRoutes.IdentifyToStakeholdersController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$IdentifyToStakeholdersPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$IdentifyToStakeholdersPage.changeLinkContext")
             ))
         }
       }
@@ -593,11 +593,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(LineManagerDutiesPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).lineManagerDuties(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$LineManagerDutiesPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
               changeUrl = Some(partParcelRoutes.LineManagerDutiesController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$LineManagerDutiesPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$LineManagerDutiesPage.changeLinkContext")
             ))
         }
       }
@@ -651,11 +651,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(MoveWorkerPage, 1, CanMoveWorkerWithPermission)
           new CheckYourAnswersHelper(cacheMap).moveWorker(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$MoveWorkerPage.checkYourAnswersLabel",
-              answer = s"optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
+              label = s"$Worker.optimised.$MoveWorkerPage.checkYourAnswersLabel",
+              answer = s"$Worker.optimised.$MoveWorkerPage.$CanMoveWorkerWithPermission",
               answerIsMessageKey = true,
               changeUrl = Some(controlRoutes.MoveWorkerController.onPageLoad(CheckMode).url),
-              changeContextMsgKey = Some(s"optimised.$MoveWorkerPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$MoveWorkerPage.changeLinkContext")
             ))
         }
       }
@@ -709,11 +709,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(NeededToPayHelperPage, 1, true)
           new CheckYourAnswersHelper(cacheMap).neededToPayHelper(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$NeededToPayHelperPage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(NeededToPayHelperPage).url),
-              changeContextMsgKey = Some(s"optimised.$NeededToPayHelperPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$NeededToPayHelperPage.changeLinkContext")
             ))
         }
       }
@@ -767,11 +767,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(RejectSubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).rejectSubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$RejectSubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$RejectSubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(RejectSubstitutePage).url),
-              changeContextMsgKey = Some(s"optimised.$RejectSubstitutePage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$RejectSubstitutePage.changeLinkContext")
             ))
         }
       }
@@ -825,11 +825,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(WouldWorkerPaySubstitutePage, 1, true)
           new CheckYourAnswersHelper(cacheMap).wouldWorkerPaySubstitute(messages, fakeRequest, frontendAppConfig) mustBe
             Some(AnswerRow(
-              label = s"optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$WouldWorkerPaySubstitutePage.checkYourAnswersLabel",
               answer = "site.yes",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.PersonalServiceSectionChangeWarningController.onPageLoad(WouldWorkerPaySubstitutePage).url),
-              changeContextMsgKey = Some(s"optimised.$WouldWorkerPaySubstitutePage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$WouldWorkerPaySubstitutePage.changeLinkContext")
             ))
         }
       }
@@ -1032,11 +1032,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
             val cacheMap = UserAnswers("id").set(ContractStartedPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).contractStarted(messages, fakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
+                label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
                 changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url),
-                changeContextMsgKey = Some(s"optimised.$ContractStartedPage.changeLinkContext")
+                changeContextMsgKey = Some(s"$Worker.optimised.$ContractStartedPage.changeLinkContext")
               ))
           }
         }
@@ -1048,11 +1048,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(ContractStartedPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).contractStarted mustBe
             Some(AnswerRow(
-              label = s"optimised.$ContractStartedPage.checkYourAnswersLabel",
+              label = s"$Worker.optimised.$ContractStartedPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url),
-              changeContextMsgKey = Some(s"optimised.$ContractStartedPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.optimised.$ContractStartedPage.changeLinkContext")
             ))
         }
       }
@@ -1108,11 +1108,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
             val cacheMap = UserAnswers("id").set(WorkerUsingIntermediaryPage, 1, true)
             new CheckYourAnswersHelper(cacheMap).workerUsingIntermediary(messages, fakeRequest, frontendAppConfig) mustBe
               Some(AnswerRow(
-                label = s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
+                label = s"$Worker.$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
                 answer = "site.yes",
                 answerIsMessageKey = true,
                 changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url),
-                changeContextMsgKey = Some(s"$WorkerUsingIntermediaryPage.changeLinkContext")
+                changeContextMsgKey = Some(s"$Worker.$WorkerUsingIntermediaryPage.changeLinkContext")
               ))
           }
         }
@@ -1124,11 +1124,11 @@ class CheckYourAnswersHelperSpec extends GuiceAppSpecBase with Enumerable.Implic
           val cacheMap = UserAnswers("id").set(WorkerUsingIntermediaryPage, 1,false)
           new CheckYourAnswersHelper(cacheMap).workerUsingIntermediary mustBe
             Some(AnswerRow(
-              label = s"$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
+              label = s"$Worker.$WorkerUsingIntermediaryPage.checkYourAnswersLabel",
               answer = "site.no",
               answerIsMessageKey = true,
               changeUrl = Some(controllers.routes.ResetAnswersWarningController.onPageLoad().url),
-              changeContextMsgKey = Some(s"$WorkerUsingIntermediaryPage.changeLinkContext")
+              changeContextMsgKey = Some(s"$Worker.$WorkerUsingIntermediaryPage.changeLinkContext")
             ))
         }
       }

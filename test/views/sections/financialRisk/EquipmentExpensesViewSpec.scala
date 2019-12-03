@@ -32,7 +32,7 @@ class EquipmentExpensesViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "equipmentExpenses"
+  val messageKeyPrefix = "worker.equipmentExpenses"
 
   val form = new EquipmentExpensesFormProvider()()(fakeDataRequest, frontendAppConfig)
 

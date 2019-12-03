@@ -32,7 +32,7 @@ class VehicleViewSpec extends YesNoViewBehaviours {
 
   object Selectors extends BaseCSSSelectors
 
-  val messageKeyPrefix = "vehicle"
+  val messageKeyPrefix = "worker.vehicle"
 
   val form = new VehicleFormProvider()()(fakeDataRequest, frontendAppConfig)
 

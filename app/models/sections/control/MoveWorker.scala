@@ -29,7 +29,7 @@ object MoveWorker {
   case object CannotMoveWorkerWithoutNewAgreement extends WithName("cannotMoveWorkerWithoutNewAgreement") with MoveWorker
 
   def values: Seq[MoveWorker] =
-     Seq(CanMoveWorkerWithPermission, CanMoveWorkerWithoutPermission, CannotMoveWorkerWithoutNewAgreement)
+     Seq(CanMoveWorkerWithoutPermission, CanMoveWorkerWithPermission, CannotMoveWorkerWithoutNewAgreement)
 
   def options: Seq[RadioOption] = values.map {
     value =>
