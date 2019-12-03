@@ -1486,10 +1486,10 @@ worker.optimised.result.outside.paye.whyResult.clientNotControlWork = nid oes ga
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaim = you or your business will have to fund costs before your client pays you
 worker.optimised.result.outside.paye.whyResult.p2 = Golyga hyn eich bod yn hunangyflogedig at ddibenion treth ar gyfer y gwaith hwn.
 worker.optimised.result.outside.paye.doNext.p1 = Download a copy of this result and show it to the organisation hiring you. They need to pay your earnings in full, without deducting Income Tax and National Insurance contributions.
-worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Your answers told us your client has accepted, or would accept, a substitute.
-worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Your answers told us your client does not have control over this work.
+worker.optimised.result.outside.paye.whyResult.substituteToDoWorkOnlyReason = Yn ôl eich atebion, mae’ch cleient wedi derbyn, neu byddai’n derbyn, eilydd.
+worker.optimised.result.outside.paye.whyResult.clientNotControlWorkOnlyReason = Yn ôl eich atebion, nid oes gan eich cleient reolaeth dros y gwaith hwn.
 worker.optimised.result.outside.paye.whyResult.incurCostNoReclaimOnlyReason = Your answers told us you or your business will have to fund costs before your client pays you.
-worker.optimised.result.outside.paye.whyResult.businessToBusiness = The answers you have given suggest you are working on a business to business basis.
+worker.optimised.result.outside.paye.whyResult.businessToBusiness = Mae’r atebion a roddwyd gennych yn awgrymu eich bod yn gweithio ar sail busnes i fusnes.
 
 ## Inside Agent
 ## ------------------
@@ -1558,7 +1558,7 @@ addReferenceDetails.example = Er enghraifft, gwybodaeth am y contract, teitl y s
 addDetails.title = Ychwanegu manylion
 addDetails.heading = Ychwanegu manylion
 addDetails.name = Eich enw (dewisol)
-worker.addDetails.client = Client’s name (dewisol)
+worker.addDetails.client =  Enw’r cleient (dewisol)
 hirer.addDetails.client = Your organisation’s name (dewisol)
 addDetails.job = Contract neu deitl y swydd (dewisol)
 addDetails.reference = Gwybodaeth arall (dewisol)
@@ -1569,7 +1569,7 @@ finishedChecking.title = Rydych wedi gorffen gwirio’r gwaith hwn
 finishedChecking.heading = Rydych wedi gorffen gwirio’r gwaith hwn
 finishedChecking.p1.beforeLink1 = Gallwch nawr
 finishedChecking.p1.link1 = gadael
-finishedChecking.p1.beforeLink2 = , or
+finishedChecking.p1.beforeLink2 = , neu
 finishedChecking.p1.link2 = dechrau eto
 finishedChecking.p1.afterLink2 = i wirio statws cyflogaeth rhyw waith arall.
 finishedChecking.downloadAnswers = Lawrlwythwch eich atebion a’ch canlyniad (PDF, o dan {0}kb)
@@ -1584,7 +1584,7 @@ hirer.materials.p2 = Mae’r cwestiwn hwn yn fwyaf tebygol o fod yn berthnasol i
 
 worker.materials.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer deunyddiau yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
 agency.materials.error.required = Dewiswch ‘Iawn’ os bydd unrhyw gostau ar gyfer deunyddiau yn cael eu codi arnoch na fydd eich cleient yn talu amdanynt
-worker.materials.title = Will the worker have to buy materials before your organisation pays them?
+worker.materials.title =  A fydd yn rhaid i’r gweithiwr brynu deunyddiau cyn i’ch sefydliad ei dalu?
 worker.materials.subheading = Risg ariannol y gweithiwr
 worker.materials.heading = A fydd unrhyw gostau ar gyfer deunyddiau’n cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
 worker.materials.checkYourAnswersLabel = A fydd unrhyw gostau ar gyfer deunyddiau’n cael eu codi arnoch na fydd eich cleient yn talu amdanynt?
@@ -1639,14 +1639,14 @@ worker.equipmentExpenses.p1 = Gall hyn gynnwys peiriannau trwm neu offer arbenig
 worker.equipmentExpenses.p2 = Ymdrinnir â chostau cerbyd yn y cwestiwn nesaf.
 
 result.pdf.time = Dyddiad y canlyniad: {0} (UTC)
-worker.result.pdf.client = Client’s name
-hirer.result.pdf.client = Your organisation’s name
 result.pdf.customisedBy = Enw’r person a gwblhaodd y gwiriad hwn:
 result.pdf.client = Enw’r cleient terfynol:
 result.pdf.job = Teitl y swydd:
 result.pdf.reference = Cyfeirnod:
 result.pdf.whatYouToldUs = Yr hyn a roesoch wybod i ni amdano
-result.pdf.decisionVersion = Decision service version: {0}
+worker.result.pdf.client = Enw’r cleient
+hirer.result.pdf.client = Your organisation’s name
+result.pdf.decisionVersion =  Gwasanaeth Penderfynu, fersiwn: {0}
 result.pdf.decisionVersion.p1 = Bydd CThEM yn glynu wrth y canlyniad hwn cyn belled â’i fod yn adlewyrchu’r arferion gwaith gwirioneddol neu ddisgwyliedig. Os bydd yr arferion gwaith hyn yn newid, dylech ddefnyddio’r twlsyn hwn eto.
 
 ##TODO: Need Welsh
@@ -1668,10 +1668,10 @@ hirer.optimised.result.outside.ir35.doNext.p2 = If someone else is responsible, 
 hirer.optimised.result.outside.ir35.doNext.p3.text = Gallech hefyd ddarllen rhagor am
 hirer.optimised.result.outside.ir35.doNext.p3.link = gyfrifoldebau’r talwr ffioedd
 hirer.optimised.result.outside.ir35.doNext.workerNotKnown = Once your organisation knows who the worker is, you may get more information about their working practices. Then you can use this tool again to check if this information will change your determination.
-hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason = Your answers told us you have accepted, or would accept, a substitute.
-hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason = Your answers told us you do not have control over this work.
+hirer.optimised.result.outside.ir35.whyResult.substituteToDoWorkOnlyReason =  Yn ôl eich atebion, rydych wedi derbyn, neu byddech yn derbyn, eilydd.
+hirer.optimised.result.outside.ir35.whyResult.clientNotControlWorkOnlyReason =  Yn ôl eich atebion, nid oes gennych reolaeth dros y gwaith hwn.
 hirer.optimised.result.outside.ir35.whyResult.incurCostNoReclaimOnlyReason = Your answers told us the worker or their business will have to fund costs before you pay them.
-hirer.optimised.result.outside.ir35.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
+hirer.optimised.result.outside.ir35.whyResult.businessToBusiness = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 
 ## ------------------
 ## Out Agent
@@ -1689,7 +1689,7 @@ agent.optimised.result.outside.doNext.p2.link = Canllaw Statws Cyflogaeth.
 agent.optimised.result.outside.whyResult.substituteToDoWorkOnlyReason = Yn ôl eich atebion, mae cleient y gweithiwr wedi derbyn, neu byddai’n derbyn, eilydd.
 agent.optimised.result.outside.whyResult.clientNotControlWorkOnlyReason = Yn ôl eich atebion, nid oes gan gleient y gweithiwr reolaeth dros y gwaith hwn.
 agent.optimised.result.outside.whyResult.incurCostNoReclaimOnlyReason = Yn ôl eich atebion, bydd gan fusnes y gweithiwr gostau am y gwaith hwn na fydd ei gleient yn talu amdanynt.
-agent.optimised.result.outside.whyResult.businessToBusiness = The answers you have given suggest the worker is working on a business to business basis.
+agent.optimised.result.outside.whyResult.businessToBusiness = Mae’r atebion a roddwyd gennych yn awgrymu bod y gweithiwr yn gweithio ar sail busnes i fusnes.
 
 ##TODO: Need Welsh
 
