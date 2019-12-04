@@ -73,7 +73,7 @@ class ChooseWhereWorkControllerSpec extends ControllerSpecBase with MockDataCach
     "populate the view correctly on a GET when the question has previously been answered for optimised view" in {
 
 
-      val getRelevantData = new FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val getRelevantData = FakeGeneralDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad(NormalMode)(fakeRequest)
 

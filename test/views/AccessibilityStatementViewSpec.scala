@@ -17,16 +17,10 @@
 package views
 
 import assets.messages.AccessibilityStatementMessages
-import config.featureSwitch.OptimisedFlow
 import views.behaviours.ViewBehaviours
 import views.html.AccessibilityStatementView
 
 class AccessibilityStatementViewSpec extends ViewBehaviours {
-
-  override def beforeEach(): Unit = {
-    super.beforeEach()
-    enable(OptimisedFlow)
-  }
 
   class PageSelectors(section: String = "#content") extends BaseCSSSelectors {
     val reportProblem = "#reportAccessibilityIssue"

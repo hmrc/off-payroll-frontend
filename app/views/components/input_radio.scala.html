@@ -50,13 +50,7 @@
             <div class="multiple-choice">
                 <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="check-employment-status-for-tax:click:@{input.id}"} />
 
-                <label class="block-label selection-button-radio" for="@{input.id}">
-                    @if(input.hasTailoredMsgs) {
-                        @messages(tailorMsg(input.messageKey, input.hasOptimisedMsgs))
-                    } else {
-                        @messages(input.messageKey)
-                    }
-                </label>
+                <label class="block-label selection-button-radio" for="@{input.id}">@messages(tailorMsg(input.messageKey))</label>
             </div>
         }
         </div>
