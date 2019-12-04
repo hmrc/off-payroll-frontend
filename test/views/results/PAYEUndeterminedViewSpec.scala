@@ -71,7 +71,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPdfResultDetails))
 
       workerPageChecks(ResultPDF)
-      pdfPageChecks(isPdfView = true)
+      pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
     "The UserType is a Hirer" should {
@@ -101,7 +101,7 @@ class PAYEUndeterminedViewSpec extends ResultViewFixture {
       implicit lazy val document = asDocument(createView(workerFakeDataRequest, testPrintPreviewResultDetails))
 
       workerPageChecks(ResultPrintPreview)
-      pdfPageChecks(isPdfView = true)
+      pdfPageChecks(isPdfView = true, isHirer = false)
     }
 
     "The UserType is a Hirer" should {

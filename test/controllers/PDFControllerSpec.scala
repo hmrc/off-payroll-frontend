@@ -183,8 +183,8 @@ class PDFControllerSpec extends ControllerSpecBase {
 
       val result = controller(getRelevantData).downloadPDF()(request)
 
-      status(result) mustBe INTERNAL_SERVER_ERROR
-      contentAsString(result) mustBe errorHandler.internalServerErrorTemplate.toString
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(controllers.routes.StartAgainController.somethingWentWrong().url)
     }
 
     "download the pdf when no data is entered" in {

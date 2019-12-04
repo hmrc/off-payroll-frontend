@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("moveWorker.title"), Some(tailorMsgOptimised("chooseWhereWork.subheading"))),
+    title = title(form, tailorMsg("moveWorker.title"), Some(tailorMsg("chooseWhereWork.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("moveWorker.heading"), Some(tailorMsgOptimised("chooseWhereWork.subheading")), asLegend = true),
+            legend = components.heading(tailorMsg("moveWorker.heading"), Some(tailorMsg("chooseWhereWork.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             otherContent = Some(content),
             inputs = MoveWorker.options
@@ -48,8 +48,8 @@
     }
 }
 @content = {
-    <p>@messages(tailorMsgOptimised("moveWorker.p1"))</p>
-    <p> @messages(tailorMsgOptimised("moveWorker.p2"))
-        @components.new_window_link(tailorMsgOptimised("moveWorker.p2.link"), appConfig.employmentStatusManualESM0527Url, Some("employmentStatusManualLink")).
+    <p>@messages(tailorMsg("moveWorker.p1"))</p>
+    <p> @messages(tailorMsg("moveWorker.p2"))
+        @components.new_window_link(tailorMsg("moveWorker.p2.link"), appConfig.employmentStatusManualESM0527Url, Some("employmentStatusManualLink")).
     </p>
 }

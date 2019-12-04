@@ -36,7 +36,9 @@ trait ResultViewFixture extends ViewBehaviours {
 
   object Selectors extends BaseCSSSelectors {
     override val subheading = "p.font-large"
+
     private def p(i: Int, sectionId: String) = s"$sectionId p:nth-of-type($i)"
+
     private def h2(sectionId: String) = s"$sectionId h2"
 
     object PrintAndSave {
@@ -49,6 +51,7 @@ trait ResultViewFixture extends ViewBehaviours {
       val p = (i: Int) => Selectors.p(i, id)
       val printHeading = "span[id=result]"
     }
+
     object AdditionalPDF {
       val id = "#pdfDetails"
       val customisedBy = "#customisedBy"
@@ -56,16 +59,19 @@ trait ResultViewFixture extends ViewBehaviours {
       val jobTitle = "#jobTitle"
       val reference = "#referenceDetails"
     }
+
     object Result {
       val id = "#result"
     }
+
     object AboutThisResult {
       val id = "#aboutThisResult"
       val timestamp = s"$id #timestamp"
-      val decisionServiceVersionP1= s"$id .decision-service-version p:nth-of-type(1)"
+      val decisionServiceVersionP1 = s"$id .decision-service-version p:nth-of-type(1)"
       val decisionServiceVersionP2 = s"$id .decision-service-version p:nth-of-type(2)"
       val p = (i: Int) => Selectors.p(i, id)
     }
+
     object WhyResult {
       val id = "#whyResult"
       val h2 = Selectors.h2(id)
@@ -73,11 +79,13 @@ trait ResultViewFixture extends ViewBehaviours {
       val p = (i: Int) => Selectors.p(i, id)
 
     }
+
     object DoNext {
       val id = "#doNext"
       val h2 = Selectors.h2(id)
       val p = (i: Int) => Selectors.p(i, id)
     }
+
     object WhatYouToldUs {
       val id = "#userAnswers"
       val h2 = Selectors.h2(id)
@@ -88,11 +96,13 @@ trait ResultViewFixture extends ViewBehaviours {
       val financialRiskSection = s"#${Section.financialRisk}-heading"
       val partAndParcelSection = s"#${Section.partAndParcel}-heading"
     }
+
     object Download {
       val id = "#download"
       val h2 = Selectors.h2(id)
       val p = (i: Int) => Selectors.p(i, id)
     }
+
   }
 
   val postAction = Call(HttpMethods.POST.value, "/")
@@ -128,7 +138,7 @@ trait ResultViewFixture extends ViewBehaviours {
           label = "Q2",
           answer = "A2",
           answerIsMessageKey = true
-        ),None)
+        ), None)
       ),
       section = Section.earlyExit
     ),
@@ -138,7 +148,7 @@ trait ResultViewFixture extends ViewBehaviours {
           label = "Q3",
           answer = "A3",
           answerIsMessageKey = true
-        ),None)
+        ), None)
       ),
       section = Section.personalService
     ),
@@ -148,7 +158,7 @@ trait ResultViewFixture extends ViewBehaviours {
           label = "Q4",
           answer = "A4",
           answerIsMessageKey = true
-        ),None)
+        ), None)
       ),
       section = Section.control
     ),
@@ -175,9 +185,9 @@ trait ResultViewFixture extends ViewBehaviours {
   )
 
 
-  def pdfPageChecks(isPdfView: Boolean)(implicit document: Document): Unit = {
+  def pdfPageChecks(isPdfView: Boolean, isHirer:Boolean = true)(implicit document: Document): Unit = {
     if (isPdfView) {
-      checkAdditionalPdfDetailsPresent
+      checkAdditionalPdfDetailsPresent(isHirer)
       checkUserAnswersPresent
       checkDecisionServiceVersionPresent
     } else {
@@ -239,7 +249,7 @@ trait ResultViewFixture extends ViewBehaviours {
     }
   }
 
-  def checkAdditionalPdfDetailsPresent(implicit document: Document) = {
+  def checkAdditionalPdfDetailsPresent(isHirer: Boolean)(implicit document: Document) = {
     "Have a section which includes additional Information to supplement the PDF which" should {
 
       "have the correct timestamp" in {
@@ -250,10 +260,15 @@ trait ResultViewFixture extends ViewBehaviours {
         document.select(Selectors.AdditionalPDF.customisedBy).text mustBe AdditionalPDFMessages.completedBy(testName)
       }
 
-      "have the correct client" in {
-        document.select(Selectors.AdditionalPDF.client).text mustBe AdditionalPDFMessages.client(testClient)
+      if(isHirer){
+        "have the correct organisation" in {
+          document.select(Selectors.AdditionalPDF.client).text mustBe AdditionalPDFMessages.client(testClient)
+        }
+      } else {
+        "have the correct client" in {
+          document.select(Selectors.AdditionalPDF.client).text mustBe AdditionalPDFMessages.worker(testClient)
+        }
       }
-
       "have the correct job title" in {
         document.select(Selectors.AdditionalPDF.jobTitle).text mustBe AdditionalPDFMessages.jobTitle(testJobTitle)
       }

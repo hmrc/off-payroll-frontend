@@ -128,7 +128,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = false, testPdfResultDetails))
 
         workerPageChecks(ResultPDF, isMakingNewDetermination = false)
-        pdfPageChecks(isPdfView = true)
+        pdfPageChecks(isPdfView = true, isHirer = false)
       }
 
       "is Making a New Determination" should {
@@ -136,7 +136,7 @@ class IR35InsideViewSpec extends ResultViewFixture {
         implicit lazy val document = asDocument(createView(workerFakeDataRequest, workerKnown = true, isMakingNewDetermination = true, testPdfResultDetails))
 
         workerPageChecks(ResultPDF, isMakingNewDetermination = true)
-        pdfPageChecks(isPdfView = true)
+        pdfPageChecks(isPdfView = true, isHirer = false)
       }
     }
 

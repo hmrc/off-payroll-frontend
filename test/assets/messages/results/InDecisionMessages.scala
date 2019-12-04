@@ -30,7 +30,7 @@ object InDecisionMessages extends BaseResultMessages {
   object WorkerIR35 {
     val heading = "Off-payroll working rules (IR35) apply"
     val whyResultP1 = "The answers you have given suggest you are providing a personal service to your client. This means you are classed as employed for tax purposes for this work."
-    val makeDoNextP1 = "Download a copy of this result and show it to the organisation hiring you. They need to operate PAYE on your earnings."
+    val makeDoNextP1 = "You told us you are providing your services through an intermediary, such as a limited company, partnership, or unincorporated body. Your intermediary needs to operate PAYE on your earnings."
     val checkDoNextP1 = "If this result is different from the one you are checking, download a copy of this result and show it to your client. You should check your answers with them to make sure they are correct."
     val checkDoNextP2 = "If you need more guidance, you can contact HMRC’s Employment Status and Intermediaries helpline."
     val checkDoNextP3 = s"$telephone $telephoneNumber $email $emailAddress"

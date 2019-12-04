@@ -46,7 +46,7 @@ class OfficeHolderAgentViewSpec extends ResultViewFixture {
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest, testPdfResultDetails))
 
     pageChecks(ResultPDF)
-    pdfPageChecks(isPdfView = true)
+    pdfPageChecks(isPdfView = true, isHirer = false)
   }
 
   "The OfficeHolderAgentView PrintPreview page" should {

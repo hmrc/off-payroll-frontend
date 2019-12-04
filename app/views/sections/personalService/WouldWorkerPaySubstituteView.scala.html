@@ -25,7 +25,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("wouldWorkerPaySubstitute.title"), Some(tailorMsgOptimised("wouldWorkerPaySubstitute.subheading"))),
+    title = title(form, tailorMsg("wouldWorkerPaySubstitute.title"), Some(tailorMsg("wouldWorkerPaySubstitute.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -37,7 +37,7 @@
 
         @components.input_yes_no(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("wouldWorkerPaySubstitute.heading"), Some(tailorMsgOptimised("wouldWorkerPaySubstitute.subheading")), asLegend = true),
+            legend = components.heading(tailorMsg("wouldWorkerPaySubstitute.heading"), Some(tailorMsg("wouldWorkerPaySubstitute.subheading")), asLegend = true),
             labelClass = Some("visually-hidden"),
             otherContent = Some(p1)
         )
@@ -47,5 +47,5 @@
 }
 
 @p1 = {
-    <p>@messages(tailorMsgOptimised("wouldWorkerPaySubstitute.hint"))</p>
+    <p>@messages(tailorMsg("wouldWorkerPaySubstitute.hint"))</p>
 }

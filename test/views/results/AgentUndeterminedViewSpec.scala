@@ -46,7 +46,7 @@ class AgentUndeterminedViewSpec extends ResultViewFixture {
     implicit lazy val document = asDocument(createView(agencyFakeDataRequest))
 
     pageChecks(ResultPDF)
-    pdfPageChecks(isPdfView = true)
+    pdfPageChecks(isPdfView = true, isHirer = false)
   }
 
   "The AgentUndeterminedView PrintPreview page" should {

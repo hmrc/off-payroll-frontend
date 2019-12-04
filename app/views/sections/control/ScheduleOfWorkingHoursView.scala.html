@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("scheduleOfWorkingHours.title"), Some(tailorMsgOptimised("scheduleOfWorkingHours.subheading"))),
+    title = title(form, tailorMsg("scheduleOfWorkingHours.title"), Some(tailorMsg("scheduleOfWorkingHours.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("scheduleOfWorkingHours.heading"), Some(tailorMsgOptimised("scheduleOfWorkingHours.subheading")), asLegend = true),
+            legend = components.heading(tailorMsg("scheduleOfWorkingHours.heading"), Some(tailorMsg("scheduleOfWorkingHours.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = ScheduleOfWorkingHours.options
         )

@@ -26,7 +26,7 @@
 @(form: Form[_], mode: Mode)(implicit request: Request[_], messages: Messages, appConfig: FrontendAppConfig)
 
 @mainTemplate(
-    title = title(form, tailorMsgOptimised("arrangedSubstitute.title"), Some(tailorMsgOptimised("arrangedSubstitute.subheading"))),
+    title = title(form, tailorMsg("arrangedSubstitute.title"), Some(tailorMsg("arrangedSubstitute.subheading"))),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -38,7 +38,7 @@
 
         @components.input_radio(
             field = form("value"),
-            legend = components.heading(tailorMsgOptimised("arrangedSubstitute.heading"), Some(tailorMsgOptimised("arrangedSubstitute.subheading")), asLegend = true),
+            legend = components.heading(tailorMsg("arrangedSubstitute.heading"), Some(tailorMsg("arrangedSubstitute.subheading")), asLegend = true),
             legendClass = Some("visually-hidden"),
             inputs = ArrangedSubstitute.options,
             otherContent = Some(content)

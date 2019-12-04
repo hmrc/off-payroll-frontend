@@ -49,7 +49,7 @@
                 }
 
                 @components.teal_result(
-                    Html(messages(tailorMsgOptimised("result.inside.ir35.heading"))),
+                    Html(messages(tailorMsg("result.inside.ir35.heading"))),
                     "result.inside"
                 )
 
@@ -61,41 +61,41 @@
             }
             case ResultPrintPreview => {
                 @print_and_save_result()
-                @letter_layout(tailorMsgOptimised("result.inside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.inside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
             case ResultPDF => {
-                @letter_layout(tailorMsgOptimised("result.inside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.inside.ir35.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.inside.ir35.whyResult.p1"))</p>
+    <p>@messages(tailorMsg("result.inside.ir35.whyResult.p1"))</p>
 }
 
 @doNext = {
     @if(request.userType.contains(Hirer)) {
-        <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.p1"))</p>
+        <p>@messages(tailorMsg("result.inside.ir35.doNext.p1"))</p>
         <p>
-            @messages(tailorMsgOptimised("result.inside.ir35.doNext.p2.text"))
-            @components.new_window_link(tailorMsgOptimised("result.inside.ir35.doNext.p2.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
+            @messages(tailorMsg("result.inside.ir35.doNext.p2.text"))
+            @components.new_window_link(tailorMsg("result.inside.ir35.doNext.p2.link"), appConfig.feePayerResponsibilitiesUrl, Some("feePayerResponsibilitiesLink")).
         </p>
         @if(!workerKnown) {
-            <p>@messages(tailorMsgOptimised("result.inside.ir35.doNext.workerNotKnown"))</p>
+            <p>@messages(tailorMsg("result.inside.ir35.doNext.workerNotKnown"))</p>
         }
     } else {
         @if(isMake) {
-            <p>@messages(tailorMsgOptimised("result.inside.ir35.make.doNext.p1"))</p>
+            <p>@messages(tailorMsg("result.inside.ir35.make.doNext.p1"))</p>
         } else {
-            <p>@messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p1"))</p>
-            <p>@messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p2"))</p>
+            <p>@messages(tailorMsg("result.inside.ir35.check.doNext.p1"))</p>
+            <p>@messages(tailorMsg("result.inside.ir35.check.doNext.p2"))</p>
 
             @contact_details()
 
             <p>
-                @messages(tailorMsgOptimised("result.inside.ir35.check.doNext.p3.text"))
-                @components.new_window_link(tailorMsgOptimised("result.inside.ir35.check.doNext.p3.link"), appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
+                @messages(tailorMsg("result.inside.ir35.check.doNext.p3.text"))
+                @components.new_window_link(tailorMsg("result.inside.ir35.check.doNext.p3.link"), appConfig.employmentStatusManualChapter5Url, Some("employmentStatusManualLink")).
             </p>
         }
     }

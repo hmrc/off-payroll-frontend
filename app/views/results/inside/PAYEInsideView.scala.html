@@ -47,7 +47,7 @@
                 }
 
                 @components.teal_result(
-                    Html(messages(tailorMsgOptimised("result.inside.paye.heading"))),
+                    Html(messages(tailorMsg("result.inside.paye.heading"))),
                     "result.inside"
                 )
 
@@ -59,31 +59,31 @@
             }
             case ResultPrintPreview => {
                 @print_and_save_result()
-                @letter_layout(tailorMsgOptimised("result.inside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.inside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
             case ResultPDF => {
-                @letter_layout(tailorMsgOptimised("result.inside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
+                @letter_layout(tailorMsg("result.inside.paye.heading"), whyResult, doNext, LetterAnswerSections(pdfResultDetails.answerSections))
             }
         }
     }
 }
 
 @whyResult = {
-    <p>@messages(tailorMsgOptimised("result.inside.paye.whyResult.p1"))</p>
+    <p>@messages(tailorMsg("result.inside.paye.whyResult.p1"))</p>
 }
 
 @doNext = {
 
     @if(request.userType.contains(Hirer)) {
-        <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.p1"))</p>
+        <p>@messages(tailorMsg("result.inside.paye.doNext.p1"))</p>
         <p>
-            @messages(tailorMsgOptimised("result.inside.paye.doNext.p2.text"))
-            @components.new_window_link(tailorMsgOptimised("result.inside.paye.doNext.p2.link"), appConfig.payeForEmployersUrl, Some("payeForEmployersLink")).
+            @messages(tailorMsg("result.inside.paye.doNext.p2.text"))
+            @components.new_window_link(tailorMsg("result.inside.paye.doNext.p2.link"), appConfig.payeForEmployersUrl, Some("payeForEmployersLink")).
         </p>
         @if(!workerKnown) {
-            <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.workerNotKnown"))</p>
+            <p>@messages(tailorMsg("result.inside.paye.doNext.workerNotKnown"))</p>
         }
     } else {
-        <p>@messages(tailorMsgOptimised("result.inside.paye.doNext.p1"))</p>
+        <p>@messages(tailorMsg("result.inside.paye.doNext.p1"))</p>
     }
 }

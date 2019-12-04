@@ -43,11 +43,11 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
   private def yesNoRowTailoredOptimised(page: QuestionPage[Boolean], changeRoute: Call)(implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig) =
     userAnswers.get(page) map { x =>
       AnswerRow(
-        tailorMsgOptimised(s"$page.checkYourAnswersLabel"),
+        tailorMsg(s"$page.checkYourAnswersLabel"),
         if(x.answer) "site.yes" else "site.no",
         answerIsMessageKey = true,
         Some(changeRoute.url),
-        changeContextMsgKey = Some(tailorMsgOptimised(s"$page.changeLinkContext"))
+        changeContextMsgKey = Some(tailorMsg(s"$page.changeLinkContext"))
       )
     }
 
@@ -89,11 +89,11 @@ class CheckYourAnswersHelper(userAnswers: UserAnswers) extends Enumerable.Implic
                                (implicit messages: Messages, request: Request[_], appConfig: FrontendAppConfig, reads: Reads[A], writes: Writes[A]) =
     userAnswers.get(page) map { x =>
       AnswerRow(
-        tailorMsgOptimised(s"$page.checkYourAnswersLabel"),
-        tailorMsgOptimised(s"$page.${x.answer}"),
+        tailorMsg(s"$page.checkYourAnswersLabel"),
+        tailorMsg(s"$page.${x.answer}"),
         answerIsMessageKey = true,
         Some(changeRoute.url),
-        changeContextMsgKey = Some(tailorMsgOptimised(s"$page.changeLinkContext"))
+        changeContextMsgKey = Some(tailorMsg(s"$page.changeLinkContext"))
       )
     }
 
